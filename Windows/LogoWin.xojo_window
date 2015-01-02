@@ -447,7 +447,7 @@ End
 			InStream = logofile.OpenAsTextFile
 			OutStream = outfile.createTextFile 'make the file to store the stuff in
 			while not InStream.EOF
-			aLine=InStream.readLine 
+			aLine=InStream.readLine
 			if left(aLine,1)=">" then
 			OutStream.writeLine aline
 			else
@@ -615,7 +615,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub ChangeView(View As  string)
+		Protected Sub ChangeView(View As string)
 		  select case View
 		    
 		  case "Logo"
@@ -992,10 +992,10 @@ End
 		      
 		      f=vv.root.child(basename+".logodata") 'Logo data
 		      InStream = f.OpenAsTextFile
-		      Weblogo_out=inStream.ReadAll                        
+		      Weblogo_out=inStream.ReadAll
 		      inStream.close
 		      
-		      'Extract values from ProfileSettings 
+		      'Extract values from ProfileSettings
 		      'and fill in the variables / configure settings windows accordingly:
 		      dim OptionsNo,n as integer
 		      dim theOption, switchName as string
@@ -1617,7 +1617,7 @@ End
 		    nhmmerSettingsWin.ShowModalWithin(self)
 		    'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
 		    if nhmmerOptions <> "" then
-		      nhmmer 
+		      nhmmer
 		    end if
 		  Case "HmmGenTool"
 		    HmmGenOptions=""

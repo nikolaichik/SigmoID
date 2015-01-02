@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+   <key>CFBundleExecutable</key>
+   <string>SigmoID.debug</string>
+   <key>CFBundleName</key>
+   <string>SigmoID.debug</string>
+   <key>CFBundleIdentifier</key>
+   <string>com.ptushkinsoft.sigmoid</string>
+   <key>CFBundleInfoDictionaryVersion</key>
+   <string>6.0</string>
+   <key>CFBundleVersion</key>
+   <string>1.0.0.0.3</string>
+   <key>CFBundleDevelopmentRegion</key>
+   <string>ru</string>
+   <key>CFBundlePackageType</key>
+   <string>APPL</string>
+   <key>CFBundleSignature</key>
+   <string></string>
+   <key>CFBundleGetInfoString</key>
+   <string>1.0.0 development release</string>
+   <key>CFBundleShortVersionString</key>
+   <string>1.0.0 dr</string>
+   <key>CFBundleIconFile</key>
+   <string>SigmoID.debug.icns</string>
+   <key>LSMinimumSystemVersion</key>
+   <string>10.7</string>
+   <key>CFBundleDocumentTypes</key>
+   <array>      <dict>
+         <key>CFBundleTypeName</key>
+         <string>SigmoidFile</string>
+         <key>CFBundleTypeIconFile</key>
+         <string>Sig_file.icns</string>
+         <key>CFBundleTypeOSTypes</key>
+         <array>
+            <string>BINA</string>
+         </array>
+         <key>CFBundleTypeExtensions</key>
+         <array>
+            <string>sig</string>
+         </array>
+         <key>CFBundleTypeRole</key>
+         <string>Editor</string>
+      </dict>
+      <dict>
+         <key>CFBundleTypeName</key>
+         <string>Text</string>
+         <key>CFBundleTypeIconFile</key>
+         <string>Text.icns</string>
+         <key>CFBundleTypeOSTypes</key>
+         <array>
+            <string>TEXT</string>
+         </array>
+         <key>CFBundleTypeExtensions</key>
+         <array>
+            <string>text</string>
+            <string>txt</string>
+            <string>gb</string>
+            <string>gbk</string>
+            <string>emb</string>
+            <string>fas</string>
+         </array>
+         <key>CFBundleTypeRole</key>
+         <string>None</string>
+      </dict>
+      <dict>
+         <key>CFBundleTypeName</key>
+         <string>All Files</string>
+         <key>CFBundleTypeIconFile</key>
+         <string>AllFiles.icns</string>
+         <key>CFBundleTypeOSTypes</key>
+         <array>
+            <string>****</string>
+         </array>
+         <key>CFBundleTypeExtensions</key>
+         <array>
+            <string>*</string>
+         </array>
+         <key>CFBundleTypeRole</key>
+         <string>None</string>
+      </dict>
+      <dict>
+         <key>CFBundleTypeName</key>
+         <string>Folder</string>
+         <key>CFBundleTypeIconFile</key>
+         <string>Folder.icns</string>
+         <key>CFBundleTypeOSTypes</key>
+         <array>
+            <string>fold</string>
+         </array>
+         <key>CFBundleTypeExtensions</key>
+         <array>
+         </array>
+         <key>CFBundleTypeRole</key>
+         <string>None</string>
+      </dict>
+      <dict>
+         <key>CFBundleTypeName</key>
+         <string>Sigmoid Prefs</string>
+         <key>CFBundleTypeIconFile</key>
+         <string>Sig_Prefs.icns</string>
+         <key>CFBundleTypeOSTypes</key>
+         <array>
+            <string>SgPr</string>
+         </array>
+         <key>CFBundleTypeExtensions</key>
+         <array>
+            <string>plist</string>
+            <string>ini</string>
+         </array>
+         <key>CFBundleTypeRole</key>
+         <string>None</string>
+      </dict>   </array>
+</dict>
+</plist>
