@@ -203,6 +203,7 @@ End
 		  end if
 		  
 		  ViewLogo.enabled=false
+		  
 		  if SigFileOpened then
 		    ViewAlignmentInfo.enabled=true
 		    ViewHmmerSettings.enabled=true
@@ -879,7 +880,7 @@ End
 		    me.refresh 'needed if logo of the same size is drawn and to remove selection
 		    
 		    WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
-		    Palindromic=false
+		    'Palindromic=false
 		    ChangeView("Logo")
 		  else
 		    WriteToSTDOUT (EndofLine+"Could not load alignment from "+LogoFile.shellpath+EndofLine)
@@ -1018,6 +1019,7 @@ End
 		      
 		      'HmmGen options
 		      HmmGenSettingsWin.PalindromicBox.value=False
+		      palindromic=false                           'enable the "Palindromise" function
 		      HmmGenSettingsWin.IntergenicBox.value=False
 		      HmmGenSettingsWin.AddQualifierBox.value=False
 		      HmmGenSettingsWin.NextLocusBox.value=True
@@ -1031,6 +1033,7 @@ End
 		          HmmGenSettingsWin.lengthField.text=NthField(theOption," ",2)
 		        case "-p"
 		          HmmGenSettingsWin.PalindromicBox.value=true
+		          palindromic=true
 		        case "-i"
 		          HmmGenSettingsWin.IntergenicBox.value=true
 		        case "-n"
@@ -1052,7 +1055,7 @@ End
 		      nhmmerSettingsWin.MaskingBox.HelpTag="Positions selected in the logo above will be masked according to the algorithm chosen."
 		      nhmmerSettingsWin.CutoffBox.HelpTag="Use score tresholds stored in the profile. Disabled as you are not using calibrated profile."
 		      nhmmerSettingsWin.ThresholdsBox.HelpTag="Thresholds to use with uncalibrated profile."
-		      
+		      palindromic=false
 		      
 		      LogoFile=tmpfile
 		    end if
@@ -1061,8 +1064,6 @@ End
 		    tis=logofile.OpenAsTextFile
 		    sequences=tis.ReadAll
 		    tis.Close
-		    toolbar11.Item(3).Enabled=true
-		    
 		    
 		    toolbar11.Item(1).Enabled=true
 		    
@@ -1083,6 +1084,12 @@ End
 		    'toolbar11.Item(1).Enabled=true
 		    toolbar11.Item(2).Enabled=false 'new alignment, no nhmmer output yet
 		  end if
+		  
+		  if Palindromic then
+		    toolbar11.Item(3).Enabled=false
+		  else
+		    toolbar11.Item(3).Enabled=true
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -1244,6 +1251,7 @@ End
 		    instream.Close
 		    DrawLogo
 		    palindromic=true
+		    toolbar11.Item(3).Enabled=false
 		  End If
 		End Sub
 	#tag EndMethod
@@ -1431,8 +1439,8 @@ End
 		Protected PalindromeLogoFile As folderitem
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected Palindromic As boolean
+	#tag Property, Flags = &h0
+		Palindromic As boolean = false
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -1665,7 +1673,11 @@ End
 		    #endif
 		    
 		  else
-		    toolbar11.Item(3).Enabled=false
+		    if Palindromic then
+		      toolbar11.Item(3).Enabled=false
+		    else
+		      toolbar11.Item(3).Enabled=true
+		    End If
 		    
 		  End If
 		  

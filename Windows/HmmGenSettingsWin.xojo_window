@@ -670,6 +670,21 @@ End
 		End Function
 	#tag EndEvent
 #tag EndEvents
+#tag Events PalindromicBox
+	#tag Event
+		Sub Action()
+		  if me.value then
+		    LogoWin.palindromic=true
+		    LogoWin.toolbar11.Item(3).Enabled=true
+		  else
+		    LogoWin.palindromic=false
+		    LogoWin.toolbar11.Item(3).Enabled=false
+		  end if
+		  
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events LengthField
 	#tag Event
 		Sub TextChange()
