@@ -1,0 +1,52 @@
+#tag FileTypeSet
+	#tag FileType
+		CodeName=Sig_file
+		DocIcon=Sigmoid.xojo_resources;&h0
+		Extension=.sig
+		Flags=&h5
+		MacCreator=SgId
+		MacType=BINA
+		Name=SigmoidFile
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Text
+		DocIcon=Sigmoid.xojo_resources;&hC
+		Extension=.text;.txt;.gb;.gbk;.emb;.fas
+		Flags=&h2
+		MacCreator=????
+		MacType=TEXT
+		Name=Text
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=AllFiles
+		DocIcon=Sigmoid.xojo_resources;&h57F8
+		Extension=.*
+		Flags=&h2
+		MacCreator=????
+		MacType=????
+		Name=All Files
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Folder
+		DocIcon=Sigmoid.xojo_resources;&hAFE4
+		Extension=
+		Flags=&h2
+		MacCreator=MACS
+		MacType=fold
+		Name=Folder
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Sig_Prefs
+		DocIcon=Sigmoid.xojo_resources;&hAFF0
+		Extension=.plist;.ini
+		Flags=&h2
+		MacCreator=SgId
+		MacType=SgPr
+		Name=Sigmoid Prefs
+	#tag EndFileType
+
+#tag EndFileTypeSet
