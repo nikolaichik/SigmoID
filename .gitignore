@@ -1,4 +1,14 @@
-/Users/Home/GitHub/SigmoID/SigmoID.debug.app
-/Users/Home/GitHub/SigmoID/Builds - Sigmoid.xojo_project
-*.xojo_uistate
+<<<<<<< HEAD
+=======
+# Xojo (formerly REALbasic and Real Studio)
 
+Builds*
+*.debug
+*.debug.app
+Debug*.exe
+Debug*/Debug*.exe
+Debug*/Debug*\ Libs
+*.rbuistate
+*.obsolete
+*.xojo_uistate
+>>>>>>> FETCH_HEAD
