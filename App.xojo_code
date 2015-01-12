@@ -96,7 +96,7 @@ Inherits Application
 			// User cancelled
 			End If
 			
-			 
+			
 			Return True
 			
 		End Function
@@ -122,7 +122,7 @@ Inherits Application
 		  'TF.hmm - calibrated hmm profile
 		  'TF.logodata - data from weblogo in case it's not installed
 		  
-		  'if weblogo i present, .logodata isn't required when creating .sig file 
+		  'if weblogo i present, .logodata isn't required when creating .sig file
 		  
 		  'put nhmmer options required for calibration into the .options file?
 		  'Options for Model-specific Score Thresholding
@@ -232,7 +232,7 @@ Inherits Application
 		                  outstream.Write(weblogo_out)
 		                  outstream.Close
 		                else
-		                  msgbox "Can't write converted file." 
+		                  msgbox "Can't write converted file."
 		                  return
 		                end if
 		              else
@@ -256,7 +256,7 @@ Inherits Application
 		                aLine=InStream.readLine
 		                if left(aLine,1)=">" then                    'seq title
 		                  aline=ReplaceAll(aline," ","_")             'hmmbuild doesn't like spaces
-		                  aline=aline+xtra                            'equalise lengths 
+		                  aline=aline+xtra                            'equalise lengths
 		                  block=mid(aline,1,20)+" "
 		                else
 		                  outstream.writeline block+aline
@@ -296,7 +296,7 @@ Inherits Application
 		        return
 		      end if
 		      
-		    end if  
+		    end if
 		  else
 		    msgbox "No .options file found in the chosen folder. Can't proceed without it"
 		  end if

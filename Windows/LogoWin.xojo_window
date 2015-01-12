@@ -211,6 +211,7 @@ End
 		    ViewLogo.enabled=true
 		    ViewSequences.enabled=true
 		    FileExtendBindingSites.enabled=true
+		    FileSaveLogo.enabled=true
 		  else
 		    ViewAlignmentInfo.enabled=false
 		    ViewHmmerSettings.enabled=false
@@ -221,8 +222,10 @@ End
 		      FileExtendBindingSites.enabled=true
 		      if WebLogoAvailable then
 		        ViewLogo.enabled=true
+		        FileSaveLogo.enabled=true
 		      else
 		        ViewLogo.enabled=false
+		        FileSaveLogo.enabled=false
 		      end if
 		    end if
 		    
@@ -468,6 +471,15 @@ End
 			else
 			msgbox "You need to have single selection range in the logo for this function to work."
 			end if
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileSaveLogo() As Boolean Handles FileSaveLogo.Action
+			
+			SaveLogo
 			Return True
 			
 		End Function
@@ -1309,6 +1321,40 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SaveLogo()
+		  Dim f As FolderItem
+		  Dim dlg as New SaveAsDialog
+		  
+		  If LogoPic <> Nil Then
+		    // Get a temporary file to save the image to
+		    If Picture.IsExportFormatSupported(Picture.FormatPNG) Then
+		      dlg.InitialDirectory=SpecialFolder.Documents
+		      'dlg.promptText="Prompt Text"
+		      dlg.SuggestedFileName="Logo.Png"
+		      dlg.Title="Save Logo"
+		      'dlg.Filter=FileTypes1.Text  //defined as a file type in FileTypes1 file type set
+		      f=dlg.ShowModal()
+		      If f <> Nil then
+		        LogoPic.Save(f, Picture.SaveAsPNG)
+		      Else
+		        //user canceled
+		      End if
+		      
+		    else
+		      msgbox "Looks like the PNG image format isn't supported by your computer, therefore the logo could not be saved."
+		    End If
+		    
+		  End If
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:SaveLogo")
+		    
+		    
+		    
+		    
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub WriteToSTDOUT(txt as string)
 		  STDOUT.text=STDOUT.text+txt
 		  STDOUT.ScrollPosition=STDOUT.LineNumAtCharPos(len(STDOUT.text))
@@ -1995,6 +2041,12 @@ End
 		Group="Behavior"
 		Type="string"
 		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Palindromic"
+		Group="Behavior"
+		InitialValue="false"
+		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Placement"

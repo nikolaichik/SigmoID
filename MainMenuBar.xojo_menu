@@ -41,6 +41,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem FileSaveLogo
+         SpecialMenu = 0
+         Text = "Save Logo..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem FileMakeSigFile
          SpecialMenu = 0
          Text = "Make Sig File..."
