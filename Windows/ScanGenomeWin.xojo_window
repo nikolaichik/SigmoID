@@ -311,7 +311,7 @@ End
 		  f=Resources_f.child("Profiles")
 		  m=f.Count
 		  Sigcount=0
-		  dim GenomeScanOut as new FolderItem 
+		  dim GenomeScanOut as new FolderItem
 		  GenomeScanOut = SpecialFolder.Temporary.child("GenomeScanOut")
 		  time= Microseconds
 		  HmmGenSettingsWin.EvalueField.text="300"        'workaround for bitscore threshold not available
@@ -352,6 +352,7 @@ End
 		    sec=(Microseconds-Time)/1000000
 		    if sec>60 then
 		      min=sec/60
+		      sec=sec-min*60
 		      timestring= str(min)+" minutes "+str(sec)+" seconds "
 		    else
 		      timestring= str(sec)+" seconds "
@@ -501,6 +502,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"
@@ -580,6 +582,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Placement"
@@ -614,6 +617,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"
