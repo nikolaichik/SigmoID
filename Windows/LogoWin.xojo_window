@@ -998,6 +998,21 @@ End
 		      ProfileSettings=inStream.ReadAll
 		      inStream.close
 		      
+		      'read profile calibration values
+		      dim aline As string
+		      InStream = f.OpenAsTextFile
+		      while not InStream.EOF
+		        aLine=InStream.readLine
+		        if left(aLine,7)="#=GF GA" then
+		          nhmmerSettingsWin.GAvalue.text="("+trim(NthField(aline," ",3))+")"
+		        elseif left(aLine,7)="#=GF NC" then
+		          nhmmerSettingsWin.NCvalue.text="("+trim(NthField(aline," ",3))+")"
+		        elseif left(aLine,7)="#=GF TC" then
+		          nhmmerSettingsWin.TCvalue.text="("+trim(NthField(aline," ",3))+")"
+		        end if
+		      wend
+		      inStream.close
+		      
 		      f=vv.root.child(basename+".hmm")      'Hmm profile
 		      InStream = f.OpenAsTextFile
 		      HmmProfile=inStream.ReadAll
@@ -1660,6 +1675,9 @@ End
 		      else
 		        nhmmerSettingsWin.MaskingBox.Enabled=False
 		        nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. To enable, drag/shift-drag over undesired positions in the logo"
+		        'show cutoff values:
+		        
+		        
 		      end if
 		    end if
 		    if GenomeFile<>Nil then
@@ -1945,6 +1963,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"
@@ -2029,6 +2048,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="nhmmerOptions"
@@ -2081,6 +2101,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

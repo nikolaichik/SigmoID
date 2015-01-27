@@ -25,7 +25,7 @@ Begin Window nhmmerSettingsWin
    Resizeable      =   True
    Title           =   "nhmmer Settings"
    Visible         =   False
-   Width           =   526
+   Width           =   566
    Begin TextField OptionsField
       AcceptTabs      =   False
       Alignment       =   0
@@ -66,7 +66,7 @@ Begin Window nhmmerSettingsWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   214
+      Width           =   254
    End
    Begin Label Label1
       AutoDeactivate  =   True
@@ -90,7 +90,6 @@ Begin Window nhmmerSettingsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "More options:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -125,7 +124,6 @@ Begin Window nhmmerSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -178,7 +176,7 @@ Begin Window nhmmerSettingsWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   321
+      Width           =   361
    End
    Begin PushButton RunButton
       AutoDeactivate  =   True
@@ -193,7 +191,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   426
+      Left            =   466
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -224,7 +222,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   334
+      Left            =   374
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -252,7 +250,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   176
+      Left            =   216
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -279,7 +277,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "MaskingBox"
          Italic          =   False
-         Left            =   184
+         Left            =   224
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -308,7 +306,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "MaskingBox"
          Italic          =   False
-         Left            =   184
+         Left            =   224
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -337,7 +335,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "MaskingBox"
          Italic          =   False
-         Left            =   184
+         Left            =   224
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -366,7 +364,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "MaskingBox"
          Italic          =   False
-         Left            =   184
+         Left            =   224
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -403,7 +401,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "MaskingBox"
          Italic          =   False
-         Left            =   420
+         Left            =   460
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -455,7 +453,7 @@ Begin Window nhmmerSettingsWin
       Top             =   14
       Underline       =   False
       Visible         =   True
-      Width           =   144
+      Width           =   184
       Begin RadioButton gaButton
          AutoDeactivate  =   True
          Bold            =   False
@@ -466,7 +464,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "CutoffBox"
          Italic          =   False
-         Left            =   29
+         Left            =   31
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -479,7 +477,7 @@ Begin Window nhmmerSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   42
+         Top             =   71
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -495,7 +493,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "CutoffBox"
          Italic          =   False
-         Left            =   29
+         Left            =   31
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -508,11 +506,113 @@ Begin Window nhmmerSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   71
+         Top             =   101
          Underline       =   False
          Value           =   False
          Visible         =   True
          Width           =   93
+      End
+      Begin Label GAvalue
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "CutoffBox"
+         Italic          =   False
+         Left            =   136
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         Text            =   ""
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   71
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   48
+      End
+      Begin Label NCvalue
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "CutoffBox"
+         Italic          =   False
+         Left            =   136
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         Text            =   ""
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   101
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   48
+      End
+      Begin Label TCvalue
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "CutoffBox"
+         Italic          =   False
+         Left            =   136
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   5
+         TabPanelIndex   =   0
+         Text            =   ""
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   41
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   48
       End
       Begin RadioButton tcButton
          AutoDeactivate  =   True
@@ -524,20 +624,20 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "CutoffBox"
          Italic          =   False
-         Left            =   29
+         Left            =   31
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   2
+         TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   103
+         Top             =   41
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -621,7 +721,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   426
+      Left            =   466
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -821,7 +921,7 @@ End
 		  
 		  PNO=""
 		  
-		  if MaxCheck.value then 
+		  if MaxCheck.value then
 		    PNO=PNO+" --max"                     '--max
 		  end if
 		  if NOT null2Check.value then
@@ -1019,6 +1119,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"
@@ -1098,6 +1199,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Placement"
@@ -1127,6 +1229,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"
