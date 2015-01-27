@@ -12,7 +12,7 @@ def createParser():
              usage = '\n%(prog)s <report_file>  <input_file> <output_file> [options]',
              description = '''This script allows to add features to a genbank file according to nhmmer results.
     Requires Biopython 1.64 (or newer)''',
-             epilog = '''(c) Aliaksandr Damienikan, 2014.'''
+             epilog = '''(c) Aliaksandr Damienikan, 2014-2015.'''
             )
     parser.add_argument('report_file',
                         help='''path to nhmmer report file produced with -tblout option.''')
@@ -52,7 +52,12 @@ def createParser():
                         const=True,
                         default=False,
                         help='''don't add features inside CDS''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.2 (December 7, 2014)')
+    parser.add_argument('-d', '--duplicate',
+                        action='store_const',
+                        const=True,
+                        default=False,
+                        help='''no duplicate features with the same location and the same protein_bind qualifier value''')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.3 (January 27, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -89,13 +94,19 @@ except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
 
-print '\nHmmGen 1.2 (December 7, 2014)'
+print '\nHmmGen 1.3 (January 15, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
     print sys.argv[arg],
 
 def naming_strand_minus(record, prog2, start_pos, score, qualifier, strnd, e_value, i, palindromic):
+    cds_loc_end = record.features.index(record.features[-1])
+    try:
+        while record.features[cds_loc_end].type != 'CDS' and cds_loc_end > 0:
+            cds_loc_end -= 1
+    except:
+        pass
     cds_loc_minus = i
     try:
         while record.features[cds_loc_minus].type != 'CDS' and cds_loc_minus > 0:
@@ -106,12 +117,6 @@ def naming_strand_minus(record, prog2, start_pos, score, qualifier, strnd, e_val
     try:
         while record.features[cds_loc_plus].type != 'CDS' and cds_loc_plus < len(record.features):
             cds_loc_plus += 1
-    except:
-        pass
-    cds_loc_end = record.features.index(record.features[-1])
-    try:
-        while record.features[cds_loc_end].type != 'CDS' and cds_loc_end > 0:
-            cds_loc_end -= 1
     except:
         pass
     if record.features[cds_loc_minus].location.strand == strnd and start_pos < record.features[-1].location.start and \
@@ -209,12 +214,6 @@ def naming_strand_plus(record, prog2, end_pos, score, qualifier, strnd, e_value,
         while record.features[cds_loc_minus].type != 'CDS' and cds_loc_minus < len(record.features) and \
                 start_pos < record.features[cds_loc_minus].location.end:
             cds_loc_minus -= 1
-    except:
-        pass
-    cds_loc_end = record.features.index(record.features[-1])
-    try:
-        while record.features[cds_loc_end].type != 'CDS' and cds_loc_end > 0:
-            cds_loc_end -= 1
     except:
         pass
     if record.features[cds_loc_plus].location.strand == strnd and start_pos < record.features[-1].location.start and \
@@ -509,29 +508,37 @@ def nhmm_prog(path_to_file, e):
     return
 
 def sorting_output_features(lst):
-    e_value_list = []
+    bit_score_list = []
     for feature in lst:
         for key in feature.qualifiers.keys():
             if key == 'note':
                 temp = feature.qualifiers[key]
                 temp = temp.split(' ')
-                e_value_list.append(float(temp[-1]))
-    return e_value_list
+                bit_score_list.append(float(temp[-3]))
+    return bit_score_list
 
-def output(e_list, output_features):
-    for val in e_list:
+def score_parser(feature):
+    for key in feature.qualifiers.keys():
+        if key == 'note':
+            temp = feature.qualifiers[key]
+            temp = temp.split(' ')
+            bit_score = float(temp[-3])
+            break
+    return bit_score
+
+def output(score_list, output_features):
+    for val in score_list:
         for feature in output_features:
-            if val == feature_evalue(feature):
+            if val == feature_score(feature):
                 print feature
                 output_features = [f for f in output_features if f != feature]
 
-def feature_evalue(feature):
+def feature_score(feature):
     for key in feature.qualifiers.keys():
         if key == 'note' and type(feature.qualifiers[key]) != []:
             temp = feature.qualifiers[key]
             temp = temp.split(' ')
-            return float(temp[-1])
-
+            return float(temp[-3])
 file_path = enter.report_file
 qualifier = {'CHECK':'CHECKED!'}
 qualifiers_function(enter.qual, qualifier)
@@ -546,12 +553,6 @@ records = SeqIO.parse(input_handle, 'genbank')
 for record in records:
     print '\n' + "-"*50 + "\nCONTIG: " +  record.id
     print '\n   FEATURES ADDED: \n'
-    cds_loc_end = record.features.index(record.features[-1])
-    try:
-        while record.features[cds_loc_end].type != 'CDS' and cds_loc_end > 0:
-            cds_loc_end -= 1
-    except:
-        pass
     cds_loc_start = record.features.index(record.features[0])
     try:
         while record.features[cds_loc_start].type != 'CDS' and cds_loc_start < len(record.features):
@@ -559,6 +560,12 @@ for record in records:
     except:
         pass
     for allign in allign_list:
+        cds_loc_end = record.features.index(record.features[-1])
+        try:
+            while record.features[cds_loc_end].type != 'CDS' and cds_loc_end > 0:
+                cds_loc_end -= 1
+        except:
+            pass
         from Bio import SeqFeature
         if allign[2] == +1:
             start = int(allign[0])
@@ -571,14 +578,16 @@ for record in records:
             version = allign[6]
             hmm_from = allign[7]
             hmm_to = allign[8]
+            hmm_diff = hmm_to - hmm_from
             ali_from = allign[9]
             ali_to = allign[10]
+            ali_diff = ali_to - ali_from
             if enter.length != False:
-                if hmm_to < enter.max_length and feature_length <= enter.max_length:
+                if hmm_to < enter.max_length:
                     end = (enter.max_length-hmm_to)+ali_to
                 else:
                     end = ali_to
-                if hmm_from > 1 and feature_length <= enter.max_length:
+                if hmm_from > 1:
 
                     start = ali_from-(hmm_from-1)
                 else:
@@ -594,14 +603,16 @@ for record in records:
             version = allign[6]
             hmm_from = allign[7]
             hmm_to = allign[8]
+            hmm_diff = hmm_to - hmm_from
             ali_from = allign[10]
             ali_to = allign[9]
+            ali_diff = ali_to - ali_from
             if enter.length != False:
-                if hmm_from > 1 and feature_length <= enter.max_length:
+                if hmm_from > 1:
                     end = (hmm_from-1)+ali_to
                 else:
                     end = ali_to
-                if hmm_to < enter.max_length and feature_length <= enter.max_length:
+                if hmm_to < enter.max_length:
                     start = ali_from-(enter.max_length-hmm_to)
                 else:
                     start = ali_from
@@ -618,7 +629,7 @@ for record in records:
 
         if enter.palindromic == False and \
                         enter.length != False and \
-                        enter.min_length <= feature_length <= enter.max_length and \
+                        (hmm_diff - ali_diff == 0 or hmm_diff - ali_diff == 1 or hmm_diff - ali_diff == (-1)) and \
                         (record.id == locus or record.id == version):
             for i in range(len(record.features)-1):
                 cds_loc1 = i
@@ -660,7 +671,7 @@ for record in records:
                         break
         elif enter.palindromic == True and \
                         enter.length != False and \
-                        enter.min_length <= feature_length <= enter.max_length and \
+                        (hmm_diff - ali_diff == 0 or hmm_diff - ali_diff == 1 or hmm_diff - ali_diff == (-1)) and \
                         (record.id == locus or record.id == version):
             for i in range(len(record.features)-1):
                 cds_loc1 = i
@@ -702,6 +713,18 @@ for record in records:
                         break
     if enter.palindromic is True:
         for i in range(len(record.features)-1):
+            cds_end = record.features.index(record.features[-1])
+            try:
+                while record.features[cds_loc_end].type != 'CDS' and cds_loc_end > 0:
+                    cds_end -= 1
+            except:
+                pass
+            cds_loc_start = record.features.index(record.features[0])
+            try:
+                while record.features[cds_loc_start].type != 'CDS' and cds_loc_start < len(record.features):
+                    cds_loc_start += 1
+            except:
+                pass
             if i < len(record.features) and any(key=='CHECK' for key in record.features[i].qualifiers.keys()):
                 cds_loc1 = i
                 cds_loc2 = i+1
@@ -719,11 +742,9 @@ for record in records:
                                       record.features[i].location.end == record.features[i+1].location.end) and \
                                       any(key == 'palindromic_check' for key in record.features[i].qualifiers.keys()) and \
                         any(key == 'palindromic_check' for key in record.features[i+1].qualifiers.keys()):
-
-
                     left_distance = record.features[i].location.start - record.features[cds_loc1].location.end
                     right_distance = record.features[cds_loc2].location.start - record.features[i].location.end
-                    if record.features[i].location.start < record.features[cds_loc_end].location.start and \
+                    if record.features[i].location.start < record.features[cds_end].location.start and \
                         record.features[i].location.start > record.features[cds_loc_start].location.start:
                         if left_distance > right_distance and record.features[i].strand == (+1):
                             #print record.features[i+1]
@@ -739,17 +760,32 @@ for record in records:
                             del record.features[i+1]
             except:
                 pass
+    if enter.duplicate is True:
+        for i in xrange(len(record.features)):
+            if i < len(record.features) and any(key == 'CHECK' for key in record.features[i].qualifiers.keys()) is True:
+                next_feature_number = i+1
+                while any(key == 'CHECK' for key in record.features[next_feature_number].qualifiers.keys()) is False and \
+                    next_feature_number < len(record.features)-1:
+                    next_feature_number += 1
+                    print next_feature_number
+                if record.features[i].location.end > record.features[next_feature_number].location.start:
+                    if score_parser(record.features[i]) > score_parser(record.features[next_feature_number]):
+                        del record.features[next_feature_number]
+                    elif score_parser(record.features[i]) < score_parser(record.features[next_feature_number]):
+                        del record.features[i]
+                    else:
+                        pass
+
     output_features = []
     for feature in record.features:
         if any(key == 'palindromic_check' for key in feature.qualifiers.keys()):
-            print feature
             del feature.qualifiers['palindromic_check']
         if any(key == 'CHECK' for key in feature.qualifiers.keys()):
             del feature.qualifiers['CHECK']
             output_features.append(feature)
-    e_list = sorting_output_features(output_features)
-    e_list.sort()
-    output(e_list, output_features)
+    score_list = sorting_output_features(output_features)
+    score_list.sort()
+    output(score_list, output_features)
 
 
     print '\n' + "-"*50
