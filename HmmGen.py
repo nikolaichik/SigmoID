@@ -5,6 +5,7 @@ import argparse
 import time
 from Bio.SeqFeature import FeatureLocation
 
+
 def createParser():
 
     parser = argparse.ArgumentParser(
@@ -57,7 +58,7 @@ def createParser():
                         const=True,
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.3 (January 27, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.0 (February 14, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -94,353 +95,11 @@ except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
 
-print '\nHmmGen 1.3 (January 15, 2015)'
+print '\nHmmGen 1.3 (February 14, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
     print sys.argv[arg],
-
-def naming_strand_minus(record, prog2, start_pos, score, qualifier, strnd, e_value, i, palindromic):
-    cds_loc_end = record.features.index(record.features[-1])
-    try:
-        while record.features[cds_loc_end].type != 'CDS' and cds_loc_end > 0:
-            cds_loc_end -= 1
-    except:
-        pass
-    cds_loc_minus = i
-    try:
-        while record.features[cds_loc_minus].type != 'CDS' and cds_loc_minus > 0:
-            cds_loc_minus -= 1
-    except:
-        pass
-        cds_loc_plus = i+1
-    try:
-        while record.features[cds_loc_plus].type != 'CDS' and cds_loc_plus < len(record.features):
-            cds_loc_plus += 1
-    except:
-        pass
-    if record.features[cds_loc_minus].location.strand == strnd and start_pos < record.features[-1].location.start and \
-            start_pos > record.features[1].location.start:
-        try:
-            if (palindromic is True and \
-                    record.features[cds_loc_plus].location.strand == record.features[cds_loc_minus].location.strand) or \
-                    palindromic is False:
-                ind_qual = {'gene':record.features[cds_loc_minus].qualifiers['gene']}
-                ind_qual['locus_tag'] = record.features[cds_loc_minus].qualifiers['locus_tag']
-            if palindromic is True:
-                ind_qual['palindromic_check'] = 'CHECKED'
-            ind_qual['note'] = str('%s score %s E-value %s' % (prog2.replace('\n', ''), score, e_value))
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-        except:
-            try:
-                if (palindromic is True and \
-                        record.features[cds_loc_plus].location.strand == record.features[cds_loc_minus].location.strand) or \
-                        palindromic is False:
-                    ind_qual = {'locus_tag':record.features[cds_loc_minus].qualifiers['locus_tag']}
-                if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-                ind_qual['note'] = str('%s score %s E-value %s' % (prog2.replace('\n', ''), score, e_value))
-                my_feature = SeqFeature(location=feature_location,
-                                        type=feature_type,
-                                        strand=strnd,
-                                        qualifiers=dict(qualifier.items() + ind_qual.items()))
-                record.features.insert(i+1, my_feature)
-            except:
-                ind_qual={'note':str('%s score %s E-value %s' % (prog2.replace('\n', ''), score,  e_value))}
-                if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-                my_feature = SeqFeature(location=feature_location,
-                                        type=feature_type,
-                                        strand=strnd,
-                                        qualifiers=dict(qualifier.items() + ind_qual.items()))
-                record.features.insert(i+1, my_feature)
-    elif start_pos >= record.features[-1].location.start and strnd == record.features[cds_loc_end].strand:
-        try:
-            ind_qual = {'gene':record.features[cds_loc_end].qualifiers['gene']}
-            ind_qual['locus_tag'] = record.features[cds_loc_end].qualifiers['locus_tag']
-            if palindromic is True:
-                ind_qual['palindromic_check'] = 'CHECKED'
-            ind_qual['note'] = str('%s score %s E-value %s' % (prog2.replace('\n', ''), score, e_value))
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-        except:
-            try:
-                ind_qual = {'locus_tag':record.features[cds_loc_end].qualifiers['locus_tag']}
-                if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-                ind_qual['note'] = str('%s score %s E-value %s' % (prog2.replace('\n', ''), score, e_value))
-                my_feature = SeqFeature(location=feature_location,
-                                        type=feature_type,
-                                        strand=strnd,
-                                        qualifiers=dict(qualifier.items() + ind_qual.items()))
-                record.features.insert(i+1, my_feature)
-            except:
-                ind_qual={'note':str('%s score %s E-value %s' % (prog2.replace('\n', ''), score,  e_value))}
-                if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-                my_feature = SeqFeature(location=feature_location,
-                                        type=feature_type,
-                                        strand=strnd,
-                                        qualifiers=dict(qualifier.items() + ind_qual.items()))
-                record.features.insert(i+1, my_feature)
-    elif start_pos <= record.features[1].location.start:
-        ind_qual={'note':str('%s score %s E-value %s' % (prog2.replace('\n', ''), score,  e_value))}
-        if palindromic is True:
-            ind_qual['palindromic_check'] = 'CHECKED'
-        my_feature = SeqFeature(location=feature_location,
-                                type=feature_type,
-                                strand=strnd,
-                                qualifiers=dict(qualifier.items() + ind_qual.items()))
-        record.features.insert(i+1, my_feature)
-    return
-
-def naming_strand_plus(record, prog2, end_pos, score, qualifier, strnd, e_value, i, palindromic, cds_loc_start):
-    cds_loc_plus = i+1
-    try:
-        while record.features[cds_loc_plus].type != 'CDS' and cds_loc_plus < len(record.features) and \
-                record.features[cds_loc_plus].location.start < end_pos:
-            cds_loc_plus += 1
-    except:
-        pass
-    cds_loc_minus = i
-    try:
-        while record.features[cds_loc_minus].type != 'CDS' and cds_loc_minus < len(record.features) and \
-                start_pos < record.features[cds_loc_minus].location.end:
-            cds_loc_minus -= 1
-    except:
-        pass
-    if record.features[cds_loc_plus].location.strand == strnd and start_pos < record.features[-1].location.start and \
-            start_pos > record.features[0].location.start:
-        try:
-            if (palindromic is True and \
-                    record.features[cds_loc_plus].location.strand == record.features[cds_loc_minus].location.strand) or \
-                    palindromic is False:
-                ind_qual = {'gene':record.features[cds_loc_plus].qualifiers['gene']}
-                ind_qual['locus_tag'] = record.features[cds_loc_plus].qualifiers['locus_tag']
-            if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-            ind_qual['note'] = str('%s score %s E-value %s' % (prog2.replace('\n', ''), score, e_value))
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-        except:
-            try:
-                if (palindromic is True and \
-                        record.features[cds_loc_plus].location.strand == record.features[cds_loc_minus].location.strand) or \
-                        palindromic is False:
-                    ind_qual = {'locus_tag':record.features[cds_loc_plus].qualifiers['locus_tag']}
-                if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-                ind_qual['note'] = str('%s score %s E-value %s' % (prog2.replace('\n', ''), score, e_value))
-                my_feature = SeqFeature(location=feature_location,
-                                        type=feature_type,
-                                        strand=strnd,
-                                        qualifiers=dict(qualifier.items() + ind_qual.items()))
-                record.features.insert(i+1, my_feature)
-            except:
-                ind_qual={'note':str('%s score %s E-value %s' % (prog2.replace('\n', ''), score,  e_value))}
-                if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-                my_feature = SeqFeature(location=feature_location,
-                                        type=feature_type,
-                                        strand=strnd,
-                                        qualifiers=dict(qualifier.items() + ind_qual.items()))
-                record.features.insert(i+1, my_feature)
-    elif start_pos > record.features[-1].location.start:
-        try:
-            ind_qual={'note':str('%s score %s E-value %s' % (prog2.replace('\n', ''), score,  e_value))}
-            if palindromic is True:
-                ind_qual['palindromic_check'] = 'CHECKED'
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-        except:
-            pass
-    elif start_pos <= record.features[1].location.start and strnd == record.features[cds_loc_start].strand:
-        try:
-            ind_qual = {'gene':record.features[cds_loc_start].qualifiers['gene']}
-            ind_qual['locus_tag'] = record.features[cds_loc_start].qualifiers['locus_tag']
-            if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-            ind_qual['note'] = str('%s score %s E-value %s' % (prog2.replace('\n', ''), score, e_value))
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-        except:
-            try:
-                ind_qual = {'locus_tag':record.features[cds_loc_start].qualifiers['locus_tag']}
-                if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-                ind_qual['note'] = str('%s score %s E-value %s' % (prog2.replace('\n', ''), score, e_value))
-                my_feature = SeqFeature(location=feature_location,
-                                        type=feature_type,
-                                        strand=strnd,
-                                        qualifiers=dict(qualifier.items() + ind_qual.items()))
-                record.features.insert(i+1, my_feature)
-            except:
-                ind_qual={'note':str('%s score %s E-value %s' % (prog2.replace('\n', ''), score,  e_value))}
-                if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-                my_feature = SeqFeature(location=feature_location,
-                                        type=feature_type,
-                                        strand=strnd,
-                                        qualifiers=dict(qualifier.items() + ind_qual.items()))
-                record.features.insert(i+1, my_feature)
-
-    return
-
-
-def no_naming(record, prog2, prog5, score, qualifier, strnd, e_value, cds_loc1, cds_loc2, palindromic, start_pos, cds_loc_start):
-    cds_loc_end = record.features.index(record.features[-1])
-    try:
-        while record.features[cds_loc_end].type != 'CDS' and cds_loc_end > 0:
-            cds_loc_end -= 1
-    except:
-        pass
-    if strnd == -1:
-        if start_pos > record.features[0].location.start and start_pos < record.features[-1].location.start and \
-                        record.features[cds_loc1].strand == -1:
-            ind_qual={'note':str('%s %s score %s E-value %s' % (prog2.replace('\n', ''), prog5, score,  e_value))}
-            if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-        elif start_pos > record.features[-1].location.start and record.features[cds_loc_end].strand == strnd:
-            ind_qual={'note':str('%s %s score %s E-value %s' % (prog2.replace('\n', ''), prog5, score,  e_value))}
-            if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-        elif start_pos <= record.features[1].location.start:
-            ind_qual={'note':str('%s %s score %s E-value %s' % (prog2.replace('\n', ''), prog5, score,  e_value))}
-            if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-    elif strnd == +1:
-        if start_pos > record.features[0].location.start and start_pos < record.features[-1].location.start and \
-                        record.features[cds_loc2].strand == +1:
-            ind_qual={'note':str('%s %s score %s E-value %s' % (prog2.replace('\n', ''), prog5, score,  e_value))}
-            if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-        elif start_pos > record.features[-1].location.start:
-            ind_qual={'note':str('%s %s score %s E-value %s' % (prog2.replace('\n', ''), prog5, score,  e_value))}
-            if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-        elif start_pos <= record.features[1].location.start and strnd == record.features[cds_loc_start].strand:
-            ind_qual={'note':str('%s %s score %s E-value %s' % (prog2.replace('\n', ''), prog5, score,  e_value))}
-            if palindromic is True:
-                    ind_qual['palindromic_check'] = 'CHECKED'
-            my_feature = SeqFeature(location=feature_location,
-                                    type=feature_type,
-                                    strand=strnd,
-                                    qualifiers=dict(qualifier.items() + ind_qual.items()))
-            record.features.insert(i+1, my_feature)
-    return
-
-def naming(record, prog2, end_pos, score, qualifier, strnd, e_value, i, palindromic, start_pos, cds_loc_start):
-    if strnd == -1:
-        naming_strand_minus(record, prog2, start_pos, score, qualifier, strnd, e_value, i, palindromic)
-    elif strnd == +1:
-        naming_strand_plus(record, prog2, end_pos, score, qualifier, strnd, e_value, i, palindromic, cds_loc_start)
-    return
-
-def insert(name, record, prog2, prog5, score, qualifier, strnd, e_value, max_eval, cds_loc1, cds_loc2, i,
-           start_pos, end_pos, palindromic, cds_loc_end, cds_loc_start):
-    if record.features[cds_loc1].location.end < start_pos < record.features[cds_loc2].location.start and \
-                            record.features[cds_loc1].location.end < end_pos < record.features[cds_loc2].location.start and \
-            ((e_value <= max_eval and max_eval != False) or max_eval == False):
-        if name is False:
-            naming(record, prog2, prog5, score, qualifier, strnd, e_value, i, palindromic, start_pos, cds_loc_start)
-            return True
-        else:
-            no_naming(record, prog2, prog5, score, qualifier, strnd, e_value, cds_loc1, cds_loc2, palindromic, start_pos, cds_loc_start)
-            return True
-    elif i == 0 and end_pos < record.features[cds_loc_start].location.start and \
-            ((e_value <= max_eval and max_eval != False) or max_eval == False):
-        if name is False:
-            naming(record, prog2, prog5, score, qualifier, strnd, e_value, i, palindromic, start_pos, cds_loc_start)
-            return True
-        else:
-            no_naming(record, prog2, prog5, score, qualifier, strnd, e_value, cds_loc1, cds_loc2, palindromic, start_pos, cds_loc_start)
-            return True
-    elif i == len(record.features)-3 and start_pos > record.features[cds_loc_end].location.end and \
-            ((e_value <= max_eval and max_eval != False) or max_eval == False):
-        if name is False:
-            naming(record, prog2, prog5, score, qualifier, strnd, e_value, i, palindromic, start_pos, cds_loc_start)
-            return True
-        else:
-            no_naming(record, prog2, prog5, score, qualifier, strnd, e_value, cds_loc1, cds_loc2, palindromic, start_pos, cds_loc_start)
-            return True
-
-    return
-
-def no_insert(name, record, prog2, prog5, score, qualifier, strnd, e_value, max_eval, cds_loc1, cds_loc2, i, start, palindromic, cds_loc_start):
-    if record.features[i].location.start < start -1 < record.features[i+1].location.start and \
-            ((e_value <= max_eval and max_eval != False) or max_eval == False):
-        if name is False:
-            naming(record, prog2, prog5, score, qualifier, strnd, e_value, i, palindromic, start_pos, cds_loc_start)
-            return True
-        else:
-            no_naming(record, prog2, prog5, score, qualifier, strnd, e_value, cds_loc1, cds_loc2, palindromic, start_pos, cds_loc_start)
-            return True
-    elif record.features[i-1].location.start <= start_pos <= record.features[i].location.start and \
-                    ((e_value <= max_eval and max_eval != False) or max_eval == False):
-        if name is False:
-            naming(record, prog2, prog5, score, qualifier, strnd, e_value, i, palindromic, start_pos, cds_loc_start)
-            return True
-        else:
-            no_naming(record, prog2, prog5, score, qualifier, strnd, e_value, cds_loc1, cds_loc2, palindromic, start_pos, cds_loc_start)
-            return True
-    elif i == 0 and start_pos < record.features[0].location.start and \
-            ((e_value <= max_eval and max_eval != False) or max_eval == False):
-        if name is False:
-            naming(record, prog2, prog5, score, qualifier, strnd, e_value, i, palindromic, start_pos, cds_loc_start)
-            return True
-        else:
-            no_naming(record, prog2, prog5, score, qualifier, strnd, e_value, cds_loc1, cds_loc2, palindromic, start_pos, cds_loc_start)
-            return True
-    elif i == len(record.features)-2 and start_pos > record.features[-1].location.start and \
-            ((e_value <= max_eval and max_eval != False) or max_eval == False):
-        if name is False:
-            naming(record, prog2, prog5, score, qualifier, strnd, e_value, i, palindromic, start_pos, cds_loc_start)
-            return True
-        else:
-            no_naming(record, prog2, prog5, score, qualifier, strnd, e_value, cds_loc1, cds_loc2, palindromic, start_pos, cds_loc_start)
-            return True
-    return
 
 def qualifiers_function(qualifiers, var):
     qual_var = []
@@ -456,9 +115,6 @@ def qualifiers_function(qualifiers, var):
                 value_list.append(qual_var[i][1])
                 var[qual_var[n][0]] = value_list
     return var
-
-def eval_function(lst, e):
-    e = lst
 
 def nhmm_parser(path_to_file, x):
     try:
@@ -539,6 +195,7 @@ def feature_score(feature):
             temp = feature.qualifiers[key]
             temp = temp.split(' ')
             return float(temp[-3])
+
 file_path = enter.report_file
 qualifier = {'CHECK':'CHECKED!'}
 qualifiers_function(enter.qual, qualifier)
@@ -617,157 +274,163 @@ for record in records:
                 else:
                     start = ali_from
 
-
-
         start_pos = SeqFeature.ExactPosition(start-1)
         end_pos = SeqFeature.ExactPosition(end)
-
         feature_location = FeatureLocation(start_pos, end_pos)
         feature_type = enter.feature
         from Bio.SeqFeature import SeqFeature
-        my_feature = SeqFeature(location=feature_location, type=feature_type, strand=strnd, qualifiers=qualifier)
+        note_qualifier={}
+        note_qualifier['note'] = str('%s score %s E-value %s' % (prog[2].replace('\n', ''), score, e_value))
+        my_feature = SeqFeature(location=feature_location, type=feature_type, strand=strnd,
+                                qualifiers=dict(qualifier.items()+note_qualifier.items()))
 
-        if enter.palindromic == False and \
-                        enter.length != False and \
-                        (hmm_diff - ali_diff == 0 or hmm_diff - ali_diff == 1 or hmm_diff - ali_diff == (-1)) and \
-                        (record.id == locus or record.id == version):
-            for i in range(len(record.features)-1):
-                cds_loc1 = i
-                cds_loc2 = i+1
-                try:
-                    while record.features[cds_loc1].type != 'CDS' and cds_loc1 > 0:
-                        cds_loc1 -= 1
-                    while record.features[cds_loc1].type != 'CDS' and cds_loc2 < len(record.features)-1:
-                        cds_loc2 += 1
-                except:
-                    pass
-                if enter.insert is True:
-                    if insert(enter.name, record, prog[2], prog[5], score, qualifier, strnd, e_value, max_eval,
-                              cds_loc1, cds_loc2, i, start_pos, end_pos, enter.palindromic, cds_loc_end, cds_loc_start):
-                        break
-                elif enter.insert is False:
-                    if no_insert(enter.name, record, prog[2], prog[5], score, qualifier, strnd, e_value, max_eval,
-                                 cds_loc1, cds_loc2, i, start, enter.palindromic, cds_loc_start):
-                        break
-        elif enter.palindromic == False and enter.length == False and \
-                        (record.id == locus or record.id == version):
-            for i in range(len(record.features)-1):
-                cds_loc1 = i
-                cds_loc2 = i+1
-                try:
-                    while record.features[cds_loc1].type != 'CDS' and cds_loc1 > 0:
-                        cds_loc1 -= 1
-                    while record.features[cds_loc1].type != 'CDS' and cds_loc2 < len(record.features)-1:
-                        cds_loc2 += 1
-                except:
-                    pass
-                if enter.insert is True:
-                    if insert(enter.name, record, prog[2], prog[5], score, qualifier, strnd, e_value, max_eval,
-                              cds_loc1, cds_loc2, i, start_pos, end_pos, enter.palindromic, cds_loc_end, cds_loc_start):
-                        break
-                elif enter.insert is False:
-                    if no_insert(enter.name, record, prog[2], prog[5], score, qualifier, strnd, e_value, max_eval,
-                                 cds_loc1, cds_loc2, i, start, enter.palindromic, cds_loc_start):
-                        break
-        elif enter.palindromic == True and \
-                        enter.length != False and \
-                        (hmm_diff - ali_diff == 0 or hmm_diff - ali_diff == 1 or hmm_diff - ali_diff == (-1)) and \
-                        (record.id == locus or record.id == version):
-            for i in range(len(record.features)-1):
-                cds_loc1 = i
-                cds_loc2 = i+1
-                try:
-                    while record.features[cds_loc1].type != 'CDS' and cds_loc1 > 0:
-                        cds_loc1 -= 1
-                    while record.features[cds_loc1].type != 'CDS' and cds_loc2 < len(record.features)-1:
-                        cds_loc2 += 1
-                except:
-                    pass
-                if enter.insert is True:
-                    if insert(enter.name, record, prog[2], prog[5], score, qualifier, strnd, e_value, max_eval,
-                              cds_loc1, cds_loc2, i, start_pos, end_pos, enter.palindromic, cds_loc_end, cds_loc_start):
-                        break
-                elif enter.insert is False:
-                    if no_insert(enter.name, record, prog[2], prog[5], score, qualifier, strnd, e_value, max_eval,
-                                 cds_loc1, cds_loc2, i, start, enter.palindromic, cds_loc_start):
-                        break
-        elif enter.palindromic == True and enter.length == False and \
-                        (record.id == locus or record.id == version):
-            for i in range(len(record.features)-1):
-                cds_loc1 = i
-                cds_loc2 = i+1
-                try:
-                    while record.features[cds_loc1].type != 'CDS' and cds_loc1 > 0:
-                        cds_loc1 -= 1
-                    while record.features[cds_loc1].type != 'CDS' and cds_loc2 < len(record.features)-1:
-                        cds_loc2 += 1
-                except:
-                    pass
-                if enter.insert is True:
-                    if insert(enter.name, record, prog[2], prog[5], score, qualifier, strnd, e_value, max_eval,
-                              cds_loc1, cds_loc2, i, start_pos, end_pos, enter.palindromic, cds_loc_end, cds_loc_start):
-                        break
-                elif enter.insert is False:
-                    if no_insert(enter.name, record, prog[2], prog[5], score, qualifier, strnd, e_value, max_eval,
-                                 cds_loc1, cds_loc2, i, start, enter.palindromic, cds_loc_start):
-                        break
-    if enter.palindromic is True:
         for i in range(len(record.features)-1):
-            cds_end = record.features.index(record.features[-1])
-            try:
-                while record.features[cds_loc_end].type != 'CDS' and cds_loc_end > 0:
-                    cds_end -= 1
-            except:
-                pass
-            cds_loc_start = record.features.index(record.features[0])
-            try:
-                while record.features[cds_loc_start].type != 'CDS' and cds_loc_start < len(record.features):
-                    cds_loc_start += 1
-            except:
-                pass
-            if i < len(record.features) and any(key=='CHECK' for key in record.features[i].qualifiers.keys()):
-                cds_loc1 = i
-                cds_loc2 = i+1
+            if record.features[i].location.start < my_feature.location.start < record.features[i+1].location.start and \
+                    (e_value <= enter.eval or enter.eval == False):
+                record.features.insert(i+1, my_feature)
+                break
+            elif i == 0 and record.features[i].location.start > my_feature.location.start and \
+                    (e_value <= enter.eval or enter.eval == False):
+                record.features.insert(i, my_feature)
+                break
+            elif i == len(record.features)-1 and record.features[i].location.start < my_feature.location.start and \
+                    (e_value <= enter.eval or enter.eval == False):
+                record.features.insert(i+1, my_feature)
+                break
+
+
+    if enter.insert == True:
+        CDS_list, hit_list = [], []
+        for i in xrange(len(record.features)):
+            if record.features[i].type == 'CDS':
+                CDS_list.append(record.features[i])
+            elif record.features[i].qualifiers.has_key('CHECK'):
+                hit_list.append(record.features[i])
+
+        for i in reversed(xrange(len(hit_list))):
+            i = len(hit_list)-1-i
+            for n in xrange(len(CDS_list)-1):
+                if (CDS_list[n].location.start < hit_list[i].location.start < CDS_list[n].location.end or \
+                       CDS_list[n].location.start < hit_list[i].location.end < CDS_list[n].location.end) or \
+                        (CDS_list[n].location.start < hit_list[i].location.start < CDS_list[n+1].location.start and \
+                        ((hit_list[i].strand == int('-1') and CDS_list[n].strand == +1) or \
+                                 (hit_list[i].strand == int('+1') and CDS_list[n+1].strand == -1))):
+                    hit_list.pop(i)
+                    break
+
+        for i in reversed(xrange(len(record.features))):
+            if record.features[i].qualifiers.has_key('CHECK'):
+                if any(record.features[i] == hit for hit in hit_list) == False:
+                    record.features.pop(i)
+
+
+    if enter.name == False:
+        for i in xrange(len(record.features)):
+            if record.features[i].qualifiers.has_key('CHECK'):
+                individual_qualifiers = {}
+                hit = record.features[i]
+                for n in xrange(i, -1, -1):
+                    if record.features[n].type == 'CDS' and \
+                        record.features[n].location.end < hit.location.start and \
+                        record.features[n].strand == hit.strand:
+                        cds_down = record.features[n]
+                        break
+
+                for n in xrange(i, len(record.features)):
+                    if record.features[n].type == 'CDS' and \
+                        record.features[n].location.start > hit.location.end and \
+                        record.features[n].strand == hit.strand:
+                        cds_up = record.features[n]
+                        break
+
+                if (enter.palindromic is True and \
+                    cds_up.location.strand == cds_down.location.strand) or \
+                    enter.palindromic is False:
+                    if hit.strand == int('-1'):
+                        try:
+                            individual_qualifiers['gene'] = cds_down.qualifiers['gene']
+                        except:
+                            pass
+                        try:
+                            individual_qualifiers['locus_tag'] = cds_down.qualifiers['locus_tag']
+                        except:
+                            pass
+
+                        individual_qualifiers.update(hit.qualifiers)
+                        new_feature = SeqFeature(location=hit.location, type=hit.type, strand=hit.strand, qualifiers=individual_qualifiers)
+                        record.features.pop(i)
+                        record.features.insert(i, new_feature)
+                    elif hit.strand == int('+1'):
+                        try:
+                            individual_qualifiers['gene'] = cds_up.qualifiers['gene']
+                        except:
+                            pass
+                        try:
+                            individual_qualifiers['locus_tag'] = cds_up.qualifiers['locus_tag']
+                        except:
+                            pass
+
+                        individual_qualifiers.update(hit.qualifiers)
+                        new_feature = SeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
+                                                 qualifiers=individual_qualifiers)
+                        record.features.pop(i)
+                        record.features.insert(i, new_feature)
+
+
+    if enter.palindromic is True:
+        CDS_list = []
+        for feature in record.features:
+            if feature.type == 'CDS':
+                CDS_list.append(feature)
+        first_cds = CDS_list[0]
+        last_cds = CDS_list[-1]
+
+        for i in reversed(xrange(len(record.features))):
+            i = len(record.features)-1-i
+            if record.features[i].qualifiers.has_key('CHECK') and i < len(record.features):
+                hit = record.features[i]
+                for n in xrange(i, -1, -1):
+                    if record.features[n].type == 'CDS' and \
+                        record.features[n].location.end < hit.location.start and \
+                        record.features[n].strand == hit.strand:
+                        cds_down = record.features[n]
+                        break
+                for n in xrange(i, len(record.features)):
+                    if record.features[n].type == 'CDS' and \
+                        record.features[n].location.start > hit.location.end and \
+                        record.features[n].strand == hit.strand:
+                        cds_up = record.features[n]
+                        break
+
                 try:
-                    while record.features[cds_loc1].type != 'CDS' and cds_loc1 > 0 and \
-                                    record.features[cds_loc1].location.end > record.features[i].location.start:
-                        cds_loc1 -= 1
-                    while record.features[cds_loc2].type != 'CDS' and cds_loc2 < len(record.features)-1 and \
-                            record.features[cds_loc2].location.start < record.features[i].location.end:
-                        cds_loc2 += 1
+                    if (hit.location.start == record.features[i+1].location.start and \
+                            hit.location.end == record.features[i+1].location.end) and \
+                            record.features[i+1].qualifiers.has_key('CHECK'):
+                        left_distance = hit.location.start - cds_down.location.end
+                        right_distance = cds_up.location.start - hit.location.end
+                        if hit.location.start < last_cds.location.start and \
+                            hit.location.start > first_cds.location.start:
+                            if left_distance > right_distance and hit.strand == (+1):
+                                del record.features[i+1]
+                            elif left_distance > right_distance and hit.strand == (-1):
+                                del record.features[i]
+                            elif left_distance < right_distance and hit.strand == (+1):
+                                del record.features[i]
+                            elif left_distance < right_distance and hit.strand == (-1):
+                                del record.features[i+1]
                 except:
                     pass
-            try:
-                if (record.features[i].location.start == record.features[i+1].location.start and \
-                                      record.features[i].location.end == record.features[i+1].location.end) and \
-                                      any(key == 'palindromic_check' for key in record.features[i].qualifiers.keys()) and \
-                        any(key == 'palindromic_check' for key in record.features[i+1].qualifiers.keys()):
-                    left_distance = record.features[i].location.start - record.features[cds_loc1].location.end
-                    right_distance = record.features[cds_loc2].location.start - record.features[i].location.end
-                    if record.features[i].location.start < record.features[cds_end].location.start and \
-                        record.features[i].location.start > record.features[cds_loc_start].location.start:
-                        if left_distance > right_distance and record.features[i].strand == (+1):
-                            #print record.features[i+1]
-                            del record.features[i+1]
-                        elif left_distance > right_distance and record.features[i].strand == (-1):
-                            #print record.features[i]
-                            del record.features[i]
-                        elif left_distance < right_distance and record.features[i].strand == (+1):
-                            #print record.features[i]
-                            del record.features[i]
-                        elif left_distance < right_distance and record.features[i].strand == (-1):
-                            #print record.features[i+1]
-                            del record.features[i+1]
-            except:
-                pass
+
+
     if enter.duplicate is True:
-        for i in xrange(len(record.features)):
-            if i < len(record.features) and any(key == 'CHECK' for key in record.features[i].qualifiers.keys()) is True:
+        for i in reversed(xrange(len(record.features))):
+            i = len(record.features)-1-i
+            if record.features[i].qualifiers.has_key('CHECK') is True:
                 next_feature_number = i+1
-                while any(key == 'CHECK' for key in record.features[next_feature_number].qualifiers.keys()) is False and \
-                    next_feature_number < len(record.features)-1:
+                prev_feature_number = i-1
+                while next_feature_number < len(record.features)-1 and (record.features[next_feature_number].qualifiers.has_key('CHECK') is False or \
+                        record.features[next_feature_number].strand != record.features[i].strand):
                     next_feature_number += 1
-                    print next_feature_number
                 if record.features[i].location.end > record.features[next_feature_number].location.start:
                     if score_parser(record.features[i]) > score_parser(record.features[next_feature_number]):
                         del record.features[next_feature_number]
@@ -776,11 +439,10 @@ for record in records:
                     else:
                         pass
 
+
     output_features = []
     for feature in record.features:
-        if any(key == 'palindromic_check' for key in feature.qualifiers.keys()):
-            del feature.qualifiers['palindromic_check']
-        if any(key == 'CHECK' for key in feature.qualifiers.keys()):
+        if feature.qualifiers.has_key('CHECK'):
             del feature.qualifiers['CHECK']
             output_features.append(feature)
     score_list = sorting_output_features(output_features)
