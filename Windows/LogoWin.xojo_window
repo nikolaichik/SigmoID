@@ -889,6 +889,7 @@ End
 		    redim selarray2(0)
 		    lastX=0
 		    masked=false
+		    LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
 		    me.refresh 'needed if logo of the same size is drawn and to remove selection
 		    
 		    WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
