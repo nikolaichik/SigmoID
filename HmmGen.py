@@ -95,7 +95,7 @@ except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
 
-print '\nHmmGen 1.3 (February 14, 2015)'
+print '\nHmmGen 2.0 (February 14, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
