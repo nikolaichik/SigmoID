@@ -48,6 +48,7 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Acceptable match lengths:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -186,6 +187,7 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Threshold nhmmer E value:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -252,6 +254,7 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Feature to add:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -571,9 +574,11 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ReadOptions()
-		  dim opt as string
+		  dim opt as string 
 		  
-		  opt="-E "+str(EvalueField.text)
+		  opt="-d " 'remove duplicates of the same site at the same position (happen when two or more profiles are used for the same TF and rarely with palindromic sites)
+		  
+		  opt=opt+"-E "+str(EvalueField.text)
 		  if IntergenicBox.value then
 		    opt=opt+" -i"
 		  end if
@@ -799,6 +804,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"
@@ -878,6 +884,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Placement"
@@ -907,6 +914,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

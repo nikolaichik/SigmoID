@@ -909,30 +909,36 @@ End
 		    dim cli as string
 		    Dim sh As Shell
 		    
-		    'usage: HmmGen <report_file> <input_file> [options] <type> <output_file>
+		    'usage:
+		    'HmmGen <report_file>  <input_file> <output_file> [options]
 		    '
-		    'This script allows to add your alignments from nhmmer to Genbank file!
+		    'This script allows to add features to a genbank file according to nhmmer
+		    'results. Requires Biopython 1.64 (or newer)
 		    '
 		    'positional arguments:
-		    'report_file           path to -tblout nhmmer report file
-		    'input_file            path to input Genbank file
-		    'type                  type of your features (e.g. promoter, gene etc.)
-		    'output_file           path to output Genbank file
+		    'report_file           path to nhmmer report file produced with -tblout
+		    'option.
+		    'input_file            path to input Genbank file.
+		    'output_file           path to output Genbank file.
 		    '
 		    'optional arguments:
 		    '-h, --help            show this help message and exit
-		    '-L <integer>, --lenght <integer>
-		    'sets maximum allowed lenth of alignment.
-		    '-q <{'key':'value'}>, --qual <{'key':'value'}>
-		    'sets general qualifiers for alignments.
-		    '-n, --name            doesn't create qualifiers according to it's neighbor
-		    'features.
+		    '-L <integer> or <integer>:<integer>, --length <integer> or <integer>:<integer>
+		    'maximal and minimal allowed length of profile to
+		    'genome alignment.
+		    '-q [<key#"value"> [<key#"value"> ...]], --qual [<key#"value"> [<key#"value"> ...]]
+		    'add this qualifier to each annotated feature.
+		    '-p, --palindromic     filter palindromic sites.
+		    '-n, --name            don't pick 'locus_tag' and 'gene' qualifiers from the
+		    'next CDS feature.
 		    '-E <float or integer>, --eval <float or integer>
-		    'sets treshold of E-Value
-		    '-i, --insert          insert your feature only if it hits between two
-		    'neighboring features from <input_file.gbk>
-		    
-		    '/Users/Home/fliA_3_2.tbl /Users/Home/3-2rez8/Pca32_10182014.gbf -i -E100 -L 27  -q{"sigma-factor":"fliA"} promoter /Users/Home/3-2rez8/Pca32_with_fliA.gb
+		    'threshold E-Value.
+		    '-i, --insert          don't add features inside CDS
+		    '-d, --duplicate       no duplicate features with the same location and the
+		    'same protein_bind qualifier value
+		    '-v, --version         show program's version number and exit
+		    '-f <"feature key">, --feature <"feature key">
+		    'feature key to add (promoter, protein_bind etc.)
 		    
 		    
 		    
