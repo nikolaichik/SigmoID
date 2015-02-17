@@ -285,22 +285,24 @@ for record in records:
         my_feature = SeqFeature(location=feature_location, type=feature_type, strand=strnd,
                                 qualifiers=dict(qualifier.items()+note_qualifier.items()))
 
-        for i in reversed(xrange(len(record.features))):
-            if record.features[i].location.start < my_feature.location.start:
-                for c in xrange(len(CDS_list)-1):
-                    if CDS_list[c].location.start < my_feature.location.start < CDS_list[c+1].location.start and \
-                            e_value <= enter.eval:
-                        record.features.insert(i+1, my_feature)
-                        break
-                    elif i == 0 and record.features[i].location.start > my_feature.location.start and \
-                            e_value <= enter.eval:
-                        record.features.insert(i, my_feature)
-                        break
-                    elif i == len(record.features)-1 and record.features[i].location.start < my_feature.location.start and \
-                            e_value <= enter.eval:
-                        record.features.insert(i+1, my_feature)
-                        break
-                break
+        if hmm_diff - ali_diff == 0 or hmm_diff - ali_diff == 1 or hmm_diff - ali_diff == (-1):
+            for i in reversed(xrange(len(record.features))):
+                if record.features[i].location.start < my_feature.location.start:
+                    for c in xrange(len(CDS_list)-1):
+                        if CDS_list[c].location.start < my_feature.location.start < CDS_list[c+1].location.start and \
+                                e_value <= enter.eval:
+                            record.features.insert(i+1, my_feature)
+                            break
+                        elif i == 0 and record.features[i].location.start > my_feature.location.start and \
+                                e_value <= enter.eval:
+                            record.features.insert(i, my_feature)
+                            break
+                        elif i == len(record.features)-1 and record.features[i].location.start < my_feature.location.start and \
+                                e_value <= enter.eval:
+                            record.features.insert(i+1, my_feature)
+                            break
+                    break
+
 
     if enter.insert == True:
         hit_list = []
@@ -382,7 +384,7 @@ for record in records:
     if enter.palindromic is True:
         first_cds = CDS_list[0]
         last_cds = CDS_list[-1]
-        for i in reversed(xrange(len(record.features))):
+        for i in reversed(xrange(1, len(record.features))):
             i = len(record.features)-1-i
             if record.features[i].qualifiers.has_key('CHECK') and i < len(record.features):
                 hit = record.features[i]
