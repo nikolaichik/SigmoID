@@ -46,9 +46,14 @@ def createParser():
                         help='''don\'t pick \'locus_tag\' and \'gene\' qualifiers from the next CDS feature.''')
     parser.add_argument('-E', '--eval',
                         default=False,
-                        type=int,
+                        type=float,
                         metavar='<float or integer>',
                         help='''threshold E-Value.''')
+    parser.add_argument('-S', '--score',
+                        default=False,
+                        type=float,
+                        metavar='<float or integer>',
+                        help='''threshold Bit Score.''')
     parser.add_argument('-i', '--insert',
                         action='store_const',
                         const=True,
@@ -60,7 +65,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.1 (February 17, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.2 (February 22, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -80,7 +85,6 @@ if enter.length != False:
     else:
         enter.min_length = int(enter.length[0])
         enter.max_length = int(enter.length[1])
-
 try:
     from Bio import SeqIO
 except ImportError:
@@ -97,7 +101,7 @@ except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
 
-print '\nHmmGen 2.1 (February 17, 2015)'
+print '\nHmmGen 2.2 (February 22, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -274,7 +278,6 @@ for record in records:
                     start = ali_from-(enter.max_length-hmm_to)
                 else:
                     start = ali_from
-
         start_pos = SeqFeature.ExactPosition(start-1)
         end_pos = SeqFeature.ExactPosition(end)
         feature_location = FeatureLocation(start_pos, end_pos)
@@ -284,29 +287,25 @@ for record in records:
         note_qualifier['note'] = str('%s score %s E-value %s' % (prog[2].replace('\n', ''), score, e_value))
         my_feature = SeqFeature(location=feature_location, type=feature_type, strand=strnd,
                                 qualifiers=dict(qualifier.items()+note_qualifier.items()))
-
-        if hmm_diff - ali_diff == 0 or hmm_diff - ali_diff == 1 or hmm_diff - ali_diff == (-1):
+        if (hmm_diff - ali_diff == 0 or hmm_diff - ali_diff == 1 or hmm_diff - ali_diff == (-1)) and \
+            (score >= enter.score or enter.score == False):
             for i in reversed(xrange(len(record.features))):
-                if record.features[i].location.start < my_feature.location.start:
+                if record.features[i].location.start < my_feature.location.start and \
+                        (enter.eval == False or e_value <= enter.eval or enter.score != False):
                     for c in xrange(len(CDS_list)-1):
-                        if CDS_list[c].location.start < my_feature.location.start < CDS_list[c+1].location.start and \
-                                e_value <= enter.eval:
+                        if CDS_list[c].location.start < my_feature.location.start < CDS_list[c+1].location.start:
                             record.features.insert(i+1, my_feature)
                             break
-                        elif i == 0 and record.features[i].location.start > my_feature.location.start and \
-                                e_value <= enter.eval:
-                            record.features.insert(i, my_feature)
+                        elif i == 0 and record.features[i].location.start > my_feature.location.start:
+                            record.features.insert(i+1, my_feature)
                             break
-                        elif i == len(record.features)-1 and record.features[i].location.start < my_feature.location.start and \
-                                e_value <= enter.eval:
+                        elif i == len(record.features)-1 and record.features[i].location.start < my_feature.location.start:
                             record.features.insert(i+1, my_feature)
                             break
                     break
 
-
     if enter.insert == True:
         hit_list = []
-
         for i in xrange(len(record.features)):
             if record.features[i].type == 'CDS':
                 CDS_list.append(record.features[i])
@@ -381,9 +380,35 @@ for record in records:
                         record.features.pop(i)
                         record.features.insert(i, new_feature)
 
+                elif enter.palindromic == True and cds_up.location.strand != cds_down.location.strand:
+                    if hit.strand == int('-1'):
+                        try:
+                            individual_qualifiers['cds_down_gene'] = cds_down.qualifiers['gene']
+                        except:
+                            pass
+                        try:
+                            individual_qualifiers['cds_down_locus_tag'] = cds_down.qualifiers['locus_tag']
+                        except:
+                            pass
+                        try:
+                            individual_qualifiers['cds_up_gene'] = cds_up.qualifiers['gene']
+                        except:
+                            pass
+                        try:
+                            individual_qualifiers['cds_up_locus_tag'] = cds_up.qualifiers['locus_tag']
+                        except:
+                            pass
+                        individual_qualifiers.update(hit.qualifiers)
+                        new_feature = SeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
+                                                 qualifiers=individual_qualifiers)
+                        record.features.pop(i)
+                        record.features.insert(i, new_feature)
+
+
     if enter.palindromic is True:
         first_cds = CDS_list[0]
         last_cds = CDS_list[-1]
+        print len(record.features)
         for i in reversed(xrange(1, len(record.features))):
             i = len(record.features)-1-i
             if record.features[i].qualifiers.has_key('CHECK') and i < len(record.features):
@@ -412,21 +437,22 @@ for record in records:
                             del record.features[i+1]
 
     if enter.duplicate is True:
+        hit_list = []
+        for feature in record.features:
+            if feature.qualifiers.has_key('CHECK'):
+                hit_list.append(feature)
         for i in reversed(xrange(len(record.features))):
             i = len(record.features)-1-i
-            if record.features[i].qualifiers.has_key('CHECK') is True:
-                next_feature_number = i+1
-                prev_feature_number = i-1
-                while next_feature_number < len(record.features)-1 and \
-                        (record.features[next_feature_number].qualifiers.has_key('CHECK') is False or \
-                        record.features[next_feature_number].strand != record.features[i].strand):
-                    next_feature_number += 1
-                if record.features[i].location.end > record.features[next_feature_number].location.start:
-                    if score_parser(record.features[i]) > score_parser(record.features[next_feature_number]):
-                        del record.features[next_feature_number]
-                    elif score_parser(record.features[i]) < score_parser(record.features[next_feature_number]):
-                        del record.features[i]
-                    else:
+            if record.features[i].qualifiers.has_key('CHECK'):
+                for hit in hit_list:
+                    try:
+                        if hit.qualifiers['locus_tag'] == record.features[i].qualifiers['locus_tag'] and \
+                            hit.strand == record.features[i].strand and \
+                            -2 <= hit.location.start - record.features[i].location.start <= 2:
+                            if  score_parser(hit) > score_parser(record.features[i]):
+                                del record.features[i]
+                                break
+                    except:
                         pass
 
     output_features = []
@@ -437,6 +463,15 @@ for record in records:
     score_list = sorting_output_features(output_features)
     score_list.sort()
     output(score_list, output_features)
+    for feature in record.features:
+        if feature.qualifiers.has_key('cds_down_locus_tag'):
+            del feature.qualifiers['cds_down_locus_tag']
+        if feature.qualifiers.has_key('cds_up_locus_tag'):
+            del feature.qualifiers['cds_up_locus_tag']
+        if feature.qualifiers.has_key('cds_down_gene'):
+            del feature.qualifiers['cds_down_gene']
+        if feature.qualifiers.has_key('cds_up_gene'):
+            del feature.qualifiers['cds_up_gene']
     print '\n' + "-"*50
     SeqIO.write(record, output_handle, 'genbank')
 
