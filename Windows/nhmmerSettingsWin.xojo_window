@@ -742,7 +742,7 @@ Begin Window nhmmerSettingsWin
    Begin GroupBox ThresholdsBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Thresholds"
+      Caption         =   "Threshold"
       Enabled         =   False
       Height          =   93
       HelpTag         =   "Thresholds to use with uncalibrated profile"
@@ -776,7 +776,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   27
+         Left            =   28
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -789,9 +789,9 @@ Begin Window nhmmerSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   171
+         Top             =   205
          Underline       =   False
-         Value           =   True
+         Value           =   False
          Visible         =   True
          Width           =   85
       End
@@ -805,7 +805,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   27
+         Left            =   28
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -818,9 +818,9 @@ Begin Window nhmmerSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   203
+         Top             =   172
          Underline       =   False
-         Value           =   False
+         Value           =   True
          Visible         =   True
          Width           =   85
       End
@@ -842,7 +842,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   115
+         Left            =   116
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -856,12 +856,12 @@ Begin Window nhmmerSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "10"
+         Text            =   "100"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   170
+         Top             =   204
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -885,7 +885,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   115
+         Left            =   116
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -904,7 +904,7 @@ Begin Window nhmmerSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   201
+         Top             =   170
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True

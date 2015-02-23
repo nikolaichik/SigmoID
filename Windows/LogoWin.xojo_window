@@ -1019,6 +1019,9 @@ End
 		        end if
 		      wend
 		      inStream.close
+		      HmmGenSettingsWin.EvalueField.enabled=false
+		      HmmGenSettingsWin.EvalueButton.enabled=false
+		      
 		      
 		      f=vv.root.child(basename+".hmm")      'Hmm profile
 		      InStream = f.OpenAsTextFile
@@ -1044,13 +1047,18 @@ End
 		        select case switchName
 		        case "--cut_ga"
 		          nhmmerSettingsWin.gaButton.Value=true
+		          HmmGenSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.GAvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
+		          nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.GAvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
 		        case "--cut_nc"
 		          nhmmerSettingsWin.ncButton.Value=true
+		          HmmGenSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.NCvalue.text,2,len(nhmmerSettingsWin.NCvalue.text)-2)
+		          nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.NCvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
 		        case "--cut_tc"
 		          nhmmerSettingsWin.tcButton.Value=true
+		          HmmGenSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.TCvalue.text,2,len(nhmmerSettingsWin.TCvalue.text)-2)
+		          nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.TCvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
 		        end select
 		      next
-		      
 		      'HmmGen options
 		      HmmGenSettingsWin.PalindromicBox.value=False
 		      palindromic=false                           'enable the "Palindromise" function
@@ -1083,6 +1091,8 @@ End
 		      next
 		    else
 		      SigFileOpened=false
+		      HmmGenSettingsWin.EvalueField.enabled=true
+		      HmmGenSettingsWin.EvalueButton.enabled=true
 		      nhmmerSettingsWin.MaskingBox.enabled=true
 		      nhmmerSettingsWin.CutoffBox.enabled=false
 		      nhmmerSettingsWin.ThresholdsBox.enabled=true

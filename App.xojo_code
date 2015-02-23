@@ -242,6 +242,8 @@ Inherits Application
 		              
 		              'make sure each seq has its rev-compl copy for palindromic sites:
 		              
+		              'palindrome handling not done yet, palindromize manually!
+		              
 		              'convert alignment to Stockholm format:
 		              dim outstream As TextOutputStream
 		              outstream = TextOutputStream.Create(stock)

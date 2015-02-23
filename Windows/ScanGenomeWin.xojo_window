@@ -312,7 +312,7 @@ End
 		  dim GenomeScanOut as new FolderItem
 		  GenomeScanOut = SpecialFolder.Temporary.child("GenomeScanOut")
 		  time= Microseconds
-		  HmmGenSettingsWin.EvalueField.text="300"        'workaround for bitscore threshold not available
+		  'HmmGenSettingsWin.EvalueField.text="300"        'workaround for bitscore threshold not available
 		  Dim f2 as FolderItem=GetSaveFolderItem("????","hmm_out.gbk")
 		  If f2 <> nil then
 		    for n=1 to m
