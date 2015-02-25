@@ -1,4 +1,5 @@
 
+
 import sys
 import ast
 import argparse
@@ -7,7 +8,7 @@ from Bio.SeqFeature import FeatureLocation
 
 
 def createParser():
-    
+
     parser = argparse.ArgumentParser(
              prog = 'HmmGen',
              usage = '\n%(prog)s <report_file>  <input_file> <output_file> [options]',
@@ -64,7 +65,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.3 (February 23, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.4 (February 25, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -100,7 +101,7 @@ except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
 
-print '\nHmmGen 2.3 (February 23, 2015)'
+print '\nHmmGen 2.4 (February 25, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -316,6 +317,7 @@ for record in records:
                 CDS_list.append(record.features[i])
             elif record.features[i].qualifiers.has_key('CHECK'):
                 hit_list.append(record.features[i])
+
         for i in reversed(xrange(len(hit_list))):
             i = len(hit_list)-1-i
             for n in xrange(len(CDS_list)-1):
@@ -326,10 +328,12 @@ for record in records:
                          (hit_list[i].strand == int('+1') and CDS_list[n+1].strand == -1))):
                     hit_list.pop(i)
                     break
+
         for i in reversed(xrange(len(record.features))):
             if record.features[i].qualifiers.has_key('CHECK') and \
                     any(record.features[i] == hit for hit in hit_list) == False:
                 record.features.pop(i)
+
 
     if enter.name == False:
         for i in xrange(len(record.features)):
@@ -362,6 +366,7 @@ for record in records:
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
                         record.features.insert(i, new_feature)
+
                     elif hit.strand == int('+1'):
                         try:
                             individual_qualifiers['gene'] = cds_up.qualifiers['gene']
@@ -377,6 +382,7 @@ for record in records:
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
                         record.features.insert(i, new_feature)
+
                 elif enter.palindromic == True and cds_up.location.strand != cds_down.location.strand:
                     if hit.strand == int('-1'):
                         try:
@@ -400,6 +406,7 @@ for record in records:
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
                         record.features.insert(i, new_feature)
+
 
     if enter.palindromic is True:
         first_cds = CDS_list[0]
@@ -436,16 +443,19 @@ for record in records:
             i = len(record.features)-1-i
             if (record.features[i].type == 'promoter' or record.features[i].type == 'protein_bind') and \
                     record.features[i].type == record.features[i+1].type:
-                if (record.features[i].qualifiers.has_key('promoter') and record.features[i+1].qualifiers.has_key('promoter') and
-                record.features[i].qualifiers['promoter'] == record.features[i].qualifiers['promoter']) or \
-                    (record.features[i].qualifiers.has_key('bound_moiety') and record.features[i+1].qualifiers.has_key('bound_moiety') and
-                    record.features[i].qualifiers['bound_moiety'] == record.features[i].qualifiers['bound_moiety']) and \
-                    record.features[i].strand == record.features[i+1].strand and \
-                     record.features[i+1].location.start - record.features[i].location.start <= 2:
-                    if  score_parser(record.features[i]) > score_parser(record.features[i+1]):
-                        del record.features[i+1]
-                    else:
-                        del record.features[i]
+                if record.features[i].qualifiers.has_key('bound_moiety') and record.features[i+1].qualifiers.has_key('bound_moiety'):
+                    bound_moiety_one =  record.features[i].qualifiers['bound_moiety']
+                    bound_moiety_two =  record.features[i+1].qualifiers['bound_moiety']
+                    if bound_moiety_one == bound_moiety_two and \
+                         record.features[i].strand == record.features[i+1].strand and \
+                         0 <= record.features[i+1].location.start - record.features[i].location.start <= 2:
+                        if  score_parser(record.features[i]) > score_parser(record.features[i+1]):
+                            del record.features[i+1]
+                        elif score_parser(record.features[i]) < score_parser(record.features[i+1]):
+                            del record.features[i]
+
+
+
     output_features = []
     for feature in record.features:
         if feature.qualifiers.has_key('CHECK'):
@@ -465,11 +475,10 @@ for record in records:
             del feature.qualifiers['cds_up_gene']
     print '\n' + "-"*50
     SeqIO.write(record, output_handle, 'genbank')
-
+    print 'Features added:', len(output_features)
 output_handle.close()
 input_handle.close()
 print 'CPU time: ', time.clock()
 print '\n' + "="*50
-
 
 
