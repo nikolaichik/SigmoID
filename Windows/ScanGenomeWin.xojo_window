@@ -323,6 +323,7 @@ End
 		          if SigArray(k).Value=true AND f.Item(n).DisplayName=SigArray(k).Caption then
 		            'Scan the genome!
 		            LogoWin.LoadAlignment f.Item(n)
+		            app.DoEvents  'otherwise logo picture isn't updated
 		            nhmmerSettingsWin.GenomeField.text=LogoWin.GenomeFile.ShellPath
 		            nhmmerSettingsWin.ReadOptions
 		            LogoWin.nhmmer
