@@ -299,7 +299,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ScanGenome()
-		  dim k,l,m,n,SigCount as integer
+		  dim k,l,m,n,SigCount,HitCount as integer
 		  dim time as double
 		  dim f as folderitem
 		  dim infileName as string
@@ -329,6 +329,7 @@ End
 		            LogoWin.nhmmer
 		            HmmGenSettingsWin.ReadOptions
 		            LogoWin.HmmGen(GenomeScanOut)
+		            HitCount=HitCount+LogoWin.LastHitNo
 		            dim tmpfile as folderitem
 		            tmpfile=SpecialFolder.Temporary.child("GenomeScanIn")
 		            if tmpfile.Exists then
@@ -359,7 +360,8 @@ End
 		    
 		    
 		    logowin.WriteToSTDOUT(EndOfLine+EndOfLine+timestring+"spent scanning "+infileName+" with "+str(SigCount)+" profiles.")
-		    logowin.WriteToSTDOUT(EndOfLine+"Results written to "+f2.ShellPath)
+		    logowin.WriteToSTDOUT(EndOfLine+str(HitCount)+" sites added to feature table.")
+		    logowin.WriteToSTDOUT(EndOfLine+"Modified GenBank file written to "+f2.ShellPath)
 		    Logowin.ScanningGenome=false
 		    
 		  End If

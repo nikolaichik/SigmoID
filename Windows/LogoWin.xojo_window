@@ -954,6 +954,12 @@ End
 		      sh.TimeOut=-1
 		      sh.execute cli
 		      If sh.errorCode=0 then
+		        'store hit number for genome scan:
+		        dim LastHitStr as string
+		        LastHitStr=NthField(Sh.Result,"Features added:",3)
+		        LastHitStr=NthField(LastHitStr,"CPU time:",1)
+		        LastHitNo=Val(LastHitStr)
+		        
 		        WriteToSTDOUT (EndofLine+Sh.Result)
 		        if NOT ScanningGenome then
 		          WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
@@ -1471,6 +1477,10 @@ End
 
 	#tag Property, Flags = &h1
 		Protected Info As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		LastHitNo As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
