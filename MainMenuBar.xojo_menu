@@ -220,6 +220,23 @@ Begin Menu MainMenuBar
          Visible = True
       End
    End
+   Begin MenuItem GenomeMenu
+      SpecialMenu = 0
+      Text = "Genome"
+      Index = -2147483648
+      AutoEnable = True
+      Visible = True
+      Begin MenuItem GenomeGoto
+         SpecialMenu = 0
+         Text = "Go to..."
+         Index = -2147483648
+         ShortcutKey = "G"
+         Shortcut = "Cmd+G"
+         MenuModifier = True
+         AutoEnable = True
+         Visible = True
+      End
+   End
    Begin MenuItem HelpMenu
       SpecialMenu = 0
       Text = "Help"

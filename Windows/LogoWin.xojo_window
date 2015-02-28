@@ -964,6 +964,49 @@ End
 		        if NOT ScanningGenome then
 		          WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
 		        end if
+		        
+		        'display the hits in the browser:
+		        if HmmGenSettingsWin.GenomeBrowserCheckBox.value then
+		          redim GenomeWin.HmmHits(0)
+		          redim GenomeWin.HmmHitDescriptions(0)
+		          
+		          dim m,n as integer
+		          dim currentHit,HitInfo as string
+		          m=CountFields(sh.result,"location: [")
+		          for n=2 to m
+		            currentHit=nthfield(sh.result,"location: [",n)
+		            GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
+		            HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
+		            HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
+		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),cLineEnd,1)
+		            genomeWin.HmmHitDescriptions.append HitInfo
+		          next
+		        end if
+		        
+		        if Ubound(genomeWin.HmmHits)>0 then
+		          WriteToSTDOUT (EndofLine+"Loading the GenBank file (this may take a while)...")
+		          
+		          'Load the Seq:
+		          GenomeWin.opengenbankfile(outFile)
+		          
+		          'Set the genome map scrollbar:
+		          GenomeWin.HScrollBarCodeLock=true
+		          GenomeWin.HScrollBar.Maximum=LenB(GenomeWin.Genome.sequence)
+		          GenomeWin.HScrollBar.Minimum=1
+		          GenomeWin.HScrollBar.PageStep=GenomeWin.DisplayInterval*3/4
+		          GenomeWin.HScrollBar.LineStep=GenomeWin.DisplayInterval/10
+		          GenomeWin.HScrollBarCodeLock=false
+		          
+		          'Display the hit:
+		          genomeWin.CurrentHit=1
+		          Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
+		          s0.Enabled=false 'first hit: there's no previous one
+		          Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
+		          s1.Title="1/"+str(UBound(genomeWin.HmmHits))
+		          
+		          genomeWin.ShowHit
+		          
+		        end if
 		      else
 		        WriteToSTDOUT (EndofLine+"HmmGen error Code: "+Str(sh.errorCode)+EndofLine)
 		        WriteToSTDOUT (EndofLine+Sh.Result)
@@ -1991,6 +2034,11 @@ End
 		Group="ID"
 		Type="String"
 		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LastHitNo"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"

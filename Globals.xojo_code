@@ -1,6 +1,160 @@
 #tag Module
 Protected Module Globals
 	#tag Method, Flags = &h0
+		Function CleanUp(Ge As string) As string
+		  
+		  #pragma disableBackgroundTasks
+		  #pragma DisableBoundsChecking
+		  #pragma NilObjectChecking False
+		  #pragma StackOverflowChecking False
+		  
+		  ge=ReplaceAll(Ge," ","")
+		  ge=ReplaceAll(Ge,"1","")
+		  ge=ReplaceAll(Ge,"2","")
+		  ge=ReplaceAll(Ge,"3","")
+		  ge=ReplaceAll(Ge,"4","")
+		  ge=ReplaceAll(Ge,"5","")
+		  ge=ReplaceAll(Ge,"6","")
+		  ge=ReplaceAll(Ge,"7","")
+		  ge=ReplaceAll(Ge,"8","")
+		  ge=ReplaceAll(Ge,"9","")
+		  ge=ReplaceAll(Ge,"0","")
+		  ge=ReplaceAll(Ge,cLineEnd,"")
+		  
+		  return Uppercase(Ge)
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"CleanUp")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function DrawRuler(width as integer, baseY as integer, bp as integer) As Group2D
+		  'Routine to draw  the ruler on linear maps
+		  
+		  'mapwidth, 20, me.seq.length
+		  
+		  dim Ruler as New Group2D
+		  dim n,x,m as integer
+		  dim pixperbp as double
+		  'dim p as new picture (1,1,32)
+		  
+		  pixPerbp=width/bp
+		  
+		  'draw seqline:
+		  dim rect as New RectShape
+		  rect.width=width
+		  rect.height=2
+		  rect.border=0
+		  'rect.fillcolor=RGB(24,96,90)
+		  rect.x=rect.width/2 'adjust for central coordinate
+		  rect.y=BaseY+rect.height/2
+		  Ruler.Append(rect)
+		  
+		  'drawticks across the line:
+		  '100bp ticks:
+		  n=bp/100
+		  'find start:
+		  dim  startCoordinate as integer = ((GenomeDelta\100)+1)*100-GenomeDelta
+		  'Example:
+		  'GenomeDelta=2291576
+		  '                                     2291576               2291576
+		  'dim  startCoordinate as integer = ((GenomeDelta\100)+1)*100-GenomeDelta
+		  '                                             22915
+		  '                                                 2291600
+		  'startCoordinate= 24
+		  
+		  x=startCoordinate*pixPerbp  'shift left according to actual position
+		  for m=0 to n
+		    rect=New RectShape
+		    rect.width=1
+		    rect.height=2
+		    rect.border=0
+		    'rect.fillcolor=RGB(24,96,90)
+		    'rect.x=x+rect.width/2+100*m*pixPerbp
+		    rect.x=x+100*m*pixPerbp
+		    
+		    'rect.y=BaseY-1+rect.height/2
+		    rect.y=BaseY-1
+		    Ruler.Append(rect)
+		  next
+		  '500bp tick:
+		  startCoordinate = ((GenomeDelta\500)+1)*500-GenomeDelta
+		  x=startCoordinate*pixPerbp
+		  n=bp/500
+		  for m=0 to n 
+		    rect=New RectShape
+		    rect.width=1
+		    rect.height=3
+		    rect.border=0
+		    'rect.fillcolor=RGB(24,96,90)
+		    'rect.x=x+rect.width/2+500*m*pixPerbp
+		    rect.x=x+500*m*pixPerbp
+		    
+		    rect.y=BaseY-2'+rect.height/2
+		    Ruler.Append(rect)
+		  next
+		  '1kb tick:
+		  startCoordinate = ((GenomeDelta\1000)+1)*1000-GenomeDelta
+		  x=startCoordinate*pixPerbp
+		  n=bp/1000
+		  for m=0 to n
+		    'pic.graphics.fillrect x+100*m*pixPerbp,97,1,9
+		    rect=New RectShape
+		    rect.width=1
+		    rect.height=5
+		    rect.border=0
+		    'rect.fillcolor=RGB(24,96,90)
+		    'rect.x=x+rect.width/2+1000*m*pixPerbp
+		    rect.x=x+1000*m*pixPerbp
+		    
+		    rect.y=BaseY-4'+rect.height/2
+		    Ruler.Append(rect)
+		    
+		    'add coordinate text
+		    dim s as New StringShape
+		    s.Text=str(GenomeDelta+startCoordinate+1000*m)
+		    s.TextFont=FixedFont
+		    s.TextSize=9
+		    's.rotation=1.5*3.1415926
+		    s.x=rect.x'-(p.Graphics.StringWidth(s.text)/2)
+		    s.y=baseY-8
+		    Ruler.Append(s)
+		    
+		    
+		  next
+		  
+		  ' add text labels:
+		  
+		  'dim s as New StringShape
+		  's.Text="1"
+		  's.TextFont=FixedFont
+		  's.Bold=True
+		  's.fillcolor=RGB(24,96,90)
+		  's.rotation=1.5*3.1415926
+		  's.x=20
+		  's.y=baseY
+		  'Ruler.Append(s)
+		  '
+		  's=New StringShape
+		  's.Text=str(bp)
+		  's.TextFont=FixedFont
+		  's.Bold=True
+		  's.fillcolor=RGB(24,96,90)
+		  's.rotation=1.5*3.1415926
+		  's.X=50+width
+		  's.y=baseY
+		  'Ruler.Append(s)
+		  
+		  return ruler
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ExceptionHandler(err as RuntimeException, meth as string)
 		  'all exceptions are (partially) handled here
 		  
@@ -74,6 +228,38 @@ Protected Module Globals
 		  
 		  msgBox kErr1+str(ErrNo)+kIn+"'"+meth+"'"+kErr2
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function HaveRedundancies(gen As string) As Boolean
+		  'this is slow -
+		  'can use memoryblocks instead of strings -
+		  'chrB(memoryblock.byte) is faster than midB(gene,n,1),
+		  'and I may not even need to use chrB()
+		  dim n,last,GeneLength as integer
+		  dim ch,gene as string
+		  
+		  '#pragma disableBackgroundTasks
+		  '#pragma disableBoundsChecking
+		  
+		  'remove spaces, numerals and convert all to upper case
+		  gene=UpperCase(gen)
+		  'gene2=""
+		  ''t=ticks
+		  GeneLength=lenB(gene)
+		  last=1
+		  'find first illegal, write up to it, skip, find next and so on...
+		  for n=1 to GeneLength
+		    'set ch to character n of gene
+		    ch=midB(gene,n,1)
+		    if instrB("ACTG",ch)=0 then
+		      return true
+		    end
+		  next
+		  return false
+		  Exception err
+		    ExceptionHandler(err,"HaveRedundancies")
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -206,6 +392,152 @@ Protected Module Globals
 		  
 		  'Exception err
 		  'ExceptionHandler(err,"MethodsAndGlobals:RevCompl")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SimplePattern(Pattern as string) As string
+		  
+		  'routine to get all possible seqs for a redundant site
+		  
+		  dim actualSites(0) as string
+		  dim chars2add(4) as string
+		  dim l,m,n,ub,charNumber2add as integer
+		  dim char,pat, simplepat as string
+		  
+		  '#pragma disableBackgroundTasks
+		  
+		  actualSites.append ""   //necessary because of that 0 element
+		  
+		  'a pattern could have any of the following legible DNA codes:
+		  'R = G or A
+		  'Y = C or T
+		  'M = A or C
+		  'K = G or T
+		  'S = G or C
+		  'W = A or T
+		  'B = not A (C or G or T)
+		  'D = not C (A or G or T)
+		  'H = not G (A or C or T)
+		  'V = not T (A or C or G)
+		  'N = A or C or G or T
+		  'X = A or C or G or T
+		  'inosine is for the use in PCR
+		  'I  = A or C or G or T
+		  
+		  
+		  pat=pattern
+		  for n=1 to lenB(pat)
+		    char=midB(pat,n,1)
+		    
+		    'get all possible characters for the selected pattern position
+		    select case char
+		    case "A"
+		      Chars2add(1)="A"
+		      charNumber2add=1
+		    case "C"
+		      Chars2add(1)="C"
+		      charNumber2add=1
+		    case "G"
+		      Chars2add(1)="G"
+		      charNumber2add=1
+		    case "T"
+		      Chars2add(1)="T"
+		      charNumber2add=1
+		    case "R"
+		      Chars2add(1)="G"
+		      Chars2add(2)="A"
+		      charNumber2add=2
+		    case "Y"
+		      Chars2add(1)="C"
+		      Chars2add(2)="T"
+		      charNumber2add=2
+		    case "M"
+		      Chars2add(1)="A"
+		      Chars2add(2)="C"
+		      charNumber2add=2
+		    case "K"
+		      Chars2add(1)="G"
+		      Chars2add(2)="T"
+		      charNumber2add=2
+		    case "S"
+		      Chars2add(1)="G"
+		      Chars2add(2)="C"
+		      charNumber2add=2
+		    case "W"
+		      Chars2add(1)="A"
+		      Chars2add(2)="T"
+		      charNumber2add=2
+		    case "B"
+		      Chars2add(1)="C"
+		      Chars2add(2)="G"
+		      Chars2add(3)="T"
+		      charNumber2add=3
+		    case "D"
+		      Chars2add(1)="A"
+		      Chars2add(2)="G"
+		      Chars2add(3)="T"
+		      charNumber2add=3
+		    case "H"
+		      Chars2add(1)="A"
+		      Chars2add(2)="C"
+		      Chars2add(3)="T"
+		      charNumber2add=3
+		    case "V"
+		      Chars2add(1)="A"
+		      Chars2add(2)="C"
+		      Chars2add(3)="G"
+		      charNumber2add=3
+		    case "N"
+		      Chars2add(1)="C"
+		      Chars2add(2)="G"
+		      Chars2add(3)="T"
+		      Chars2add(4)="A"
+		      charNumber2add=4
+		    case "X"
+		      Chars2add(1)="C"
+		      Chars2add(2)="G"
+		      Chars2add(3)="T"
+		      Chars2add(4)="A"
+		      charNumber2add=4
+		    case "I"
+		      Chars2add(1)="C"
+		      Chars2add(2)="G"
+		      Chars2add(3)="T"
+		      Chars2add(4)="A"
+		      charNumber2add=4
+		    else
+		      msgbox "An illegal character was found. Please check your sequence!"
+		      simplepat="kuku"
+		      return simplepat
+		    end
+		    
+		    'extend the list of all possible sites
+		    'first appending longer sites to the end of array
+		    'then remove the shorter ones
+		    ub=ubound(actualsites)
+		    for m=1 to ub
+		      for l=1 to charNumber2add
+		        actualSites.Append actualSites(m)+Chars2add(l)
+		      next
+		    next
+		    for m=ub downto 1
+		      ActualSites.remove m
+		    next
+		  next
+		  
+		  'now convert the array into a string to be returned
+		  simplepat=""
+		  for n=1 to ubound(actualsites)-1
+		    simplepat=simplepat+actualsites(n)+","
+		    m=n
+		  next
+		  
+		  simplepat=simplepat+actualsites(m+1) //adding the last one without a comma
+		  
+		  return simplepat   'comma separated list completely representing the pattern sequence
+		  Exception err
+		    ExceptionHandler(err,"SimplePattern")
 		End Function
 	#tag EndMethod
 
@@ -355,11 +687,47 @@ Protected Module Globals
 
 
 	#tag Property, Flags = &h0
+		cLineEnd As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CR As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		FixedFont As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		GenomeDelta As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		hmmBuildPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		LF As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		LineEnd As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		nhmmerVersion As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ORFMinLength As Integer = 50
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ORFStarts As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ProportionalFont As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -393,6 +761,21 @@ Protected Module Globals
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="cLineEnd"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CR"
+			Group="Behavior"
+			Type="string"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="FixedFont"
+			Group="Behavior"
+			Type="string"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="hmmBuildPath"
 			Group="Behavior"
 			Type="string"
@@ -413,6 +796,16 @@ Protected Module Globals
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="LF"
+			Group="Behavior"
+			Type="string"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LineEnd"
+			Group="Behavior"
+			Type="string"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
@@ -423,6 +816,22 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ORFMinLength"
+			Group="Behavior"
+			InitialValue="50"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ORFStarts"
+			Group="Behavior"
+			Type="string"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ProportionalFont"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
