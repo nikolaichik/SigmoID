@@ -971,16 +971,26 @@ End
 		          redim GenomeWin.HmmHitDescriptions(0)
 		          
 		          dim m,n as integer
-		          dim currentHit,HitInfo as string
+		          dim currentHit,HitInfo, hits2sort(0) as string
+		          
+		          'sort the hits according to genome position:
 		          m=CountFields(sh.result,"location: [")
 		          for n=2 to m
-		            currentHit=nthfield(sh.result,"location: [",n)
+		            hits2sort.append nthfield(sh.result,"location: [",n)
+		          next
+		          hits2sort.Sort
+		          
+		          'add sorted hits and their info into genome browser arrays
+		          for n=1 to ubound(hits2sort)
+		            currentHit=hits2sort(n)
 		            GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
 		            HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
 		            HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
 		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),cLineEnd,1)
 		            genomeWin.HmmHitDescriptions.append HitInfo
 		          next
+		          
+		          
 		        end if
 		        
 		        if Ubound(genomeWin.HmmHits)>0 then
@@ -1003,8 +1013,11 @@ End
 		          s0.Enabled=false 'first hit: there's no previous one
 		          Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
 		          s1.Title="1/"+str(UBound(genomeWin.HmmHits))
+		          Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
+		          s2.enabled=true
 		          
 		          genomeWin.ShowHit
+		          WriteToSTDOUT (EndofLine+"Hits are being shown in a separate window.")
 		          
 		        end if
 		      else

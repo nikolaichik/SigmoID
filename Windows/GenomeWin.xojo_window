@@ -55,8 +55,7 @@ Begin Window GenomeWin
       Width           =   30
    End
    Begin Timer Timer1
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -66,10 +65,9 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   25
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
-   Begin StaticText SelRange
+   Begin Label SelRange
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -91,7 +89,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Untitled"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -226,8 +223,7 @@ Begin Window GenomeWin
       Width           =   765
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -237,12 +233,10 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   467
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
    Begin Timer EditorTimer
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   40
@@ -252,8 +246,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
