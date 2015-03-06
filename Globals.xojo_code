@@ -84,7 +84,7 @@ Protected Module Globals
 		  startCoordinate = ((GenomeDelta\500)+1)*500-GenomeDelta
 		  x=startCoordinate*pixPerbp
 		  n=bp/500
-		  for m=0 to n 
+		  for m=0 to n
 		    rect=New RectShape
 		    rect.width=1
 		    rect.height=3
@@ -764,16 +764,24 @@ Protected Module Globals
 			Name="cLineEnd"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CR"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FixedFont"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="GenomeDelta"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="hmmBuildPath"
@@ -799,11 +807,13 @@ Protected Module Globals
 			Name="LF"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LineEnd"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
@@ -827,11 +837,13 @@ Protected Module Globals
 			Name="ORFStarts"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ProportionalFont"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

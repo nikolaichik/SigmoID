@@ -965,20 +965,41 @@ End
 		          WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
 		        end if
 		        
+		        dim ms,t1 as double
+		        ms=microseconds
+		        
 		        'display the hits in the browser:
 		        if HmmGenSettingsWin.GenomeBrowserCheckBox.value then
+		          
+		          
 		          redim GenomeWin.HmmHits(0)
 		          redim GenomeWin.HmmHitDescriptions(0)
 		          
-		          dim m,n as integer
-		          dim currentHit,HitInfo, hits2sort(0) as string
+		          dim m,n,o,colonPos as integer
+		          dim currentHit,HitInfo, hits2sort(0),hitloc as string
 		          
 		          'sort the hits according to genome position:
 		          m=CountFields(sh.result,"location: [")
 		          for n=2 to m
-		            hits2sort.append nthfield(sh.result,"location: [",n)
+		            currentHit=nthfield(sh.result,"location: [",n)
+		            colonPos=instrb(currenthit,":")
+		            hitloc=nthfield(currentHit,":",1)
+		            if lenb(hitLoc)<8 then 'assuming genome length is less than 100Mb
+		              for o=0 to 8-lenb(hitLoc)
+		                hitloc="0"+hitloc
+		              next
+		            end if
+		            hitloc=hitloc+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
+		            hits2sort.append hitloc'+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
+		            'nthfield(sh.result,"location: [",n)
 		          next
 		          hits2sort.Sort
+		          m=ubound(hits2sort)
+		          for n=1 to m
+		            while left(hits2sort(n),1)="0" 
+		              hits2sort(n)=right(hits2sort(n),lenb(hits2sort(n))-1)
+		            wend
+		          next
 		          
 		          'add sorted hits and their info into genome browser arrays
 		          for n=1 to ubound(hits2sort)
@@ -990,15 +1011,23 @@ End
 		            genomeWin.HmmHitDescriptions.append HitInfo
 		          next
 		          
-		          
+		          'initialise array to select/deselect hits:
+		          redim genomeWin.HmmHitChecked(ubound(hits2sort))
+		          for n=1 to ubound(hits2sort)
+		            genomeWin.HmmHitChecked(n)=true
+		          next
+		          genomeWin.AnyHitDeselected=false
 		        end if
 		        
+		        T1=microseconds-ms
+		        WriteToSTDOUT (EndofLine+"Processing hits before opening .gb file took "+str(t1/1000000)+" seconds")
 		        if Ubound(genomeWin.HmmHits)>0 then
 		          WriteToSTDOUT (EndofLine+"Loading the GenBank file (this may take a while)...")
 		          
 		          'Load the Seq:
 		          GenomeWin.opengenbankfile(outFile)
 		          
+		          ms=microseconds
 		          'Set the genome map scrollbar:
 		          GenomeWin.HScrollBarCodeLock=true
 		          GenomeWin.HScrollBar.Maximum=LenB(GenomeWin.Genome.sequence)
@@ -1017,6 +1046,9 @@ End
 		          s2.enabled=true
 		          
 		          genomeWin.ShowHit
+		          T1=microseconds-ms
+		          WriteToSTDOUT (EndofLine+"Showing first hit took "+str(t1/1000000)+" seconds")
+		          
 		          WriteToSTDOUT (EndofLine+"Hits are being shown in a separate window.")
 		          
 		        end if

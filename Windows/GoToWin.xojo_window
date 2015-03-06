@@ -155,7 +155,7 @@ End
 		  dim n as integer
 		  n=val(GoToField.text)
 		  if n>0 then
-		    Parent.ExtractFragment(n-5000,n+5000)
+		    Parent.ExtractFragment(n-Genomewin.DisplayInterval/2,n+Genomewin.DisplayInterval/2)
 		    hide
 		  end if
 		End Sub

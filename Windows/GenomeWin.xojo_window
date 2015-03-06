@@ -390,6 +390,13 @@ End
 
 	#tag Event
 		Function CancelClose(appQuitting as Boolean) As Boolean
+		  if anyHitDeselected then
+		    'ask for saving modified Genbank File
+		    
+		  end if
+		  
+		  
+		  
 		  ''If ContentsChanged then
 		  ''if not SaveNone then
 		  ''SaveChanges.question.text=kSaveChanges+me.title+"?"
@@ -1075,25 +1082,28 @@ End
 		  next
 		  
 		  'row distribution is buggy: disabled for original release
+		  dim CF,CM as GBFeature
 		  
 		  for n=1 to u
-		    if seq.Features(n).Visible then
+		    'if seq.Features(n).Visible then
+		    'if w.seq.Features(n).type="promoter" AND w.seq.Features(n).length<35 then
+		    'else
+		    CF=seq.Features(n)
+		    for m=1 to n-1
+		      'if seq.Features(m).Visible then
 		      'if w.seq.Features(n).type="promoter" AND w.seq.Features(n).length<35 then
 		      'else
-		      for m=1 to n
-		        if seq.Features(m).Visible then
-		          'if w.seq.Features(n).type="promoter" AND w.seq.Features(n).length<35 then
-		          'else
-		          if seq.Features(n).start+seq.Features(n).length>seq.Features(m).start AND seq.Features(n).start< seq.Features(m).start+seq.Features(m).length then
-		            seq.FtRow(m)=seq.FtRow(m)+1
-		          elseif seq.Features(n).start< seq.Features(m).start+seq.Features(m).length AND seq.Features(n).start>seq.Features(m).start  then
-		            seq.FtRow(m)=seq.FtRow(m)+1
-		          end
-		          'end
-		        end
-		      Next
+		      CM=seq.Features(m)
+		      if CF.start+CF.length>CM.start AND CF.start< CM.start+CM.length then
+		        seq.FtRow(m)=seq.FtRow(m)+1
+		      elseif CF.start<CM.start+CM.length AND CF.start>CM.start  then
+		        seq.FtRow(m)=seq.FtRow(m)+1
+		      end
 		      'end
-		    end
+		      'end
+		    Next
+		    'end
+		    'end
 		  Next
 		  
 		  seq.Circular=false
@@ -1425,12 +1435,13 @@ End
 		  dim exitParsing as boolean
 		  dim w, toClose as GenomeWin
 		  dim NewFeature as GBFeature
+		  dim ms,tm as double
 		  
 		  
 		  
 		  w=self
 		  
-		  
+		  ms=Microseconds
 		  'genome browser should be wide
 		  if Screen(0).width>1280 then
 		    w.Width=1280
@@ -1503,6 +1514,10 @@ End
 		    currentFeature=""
 		    w.Genome.features(0)=new GBfeature(w.Genome.baselineY)   'this will store map title/sequence size
 		    
+		    tm=microseconds-ms
+		    LogoWin.WriteToSTDOUT (EndofLine+"Preliminary feature cleanup took "+str(tm/1000000)+" seconds")
+		    ms=Microseconds
+		    features=ConvertEncoding(features,Encodings.ASCII)
 		    for n=1 to m'+1
 		      currentFeature=Nthfield(features,Separator,n)
 		      's0=Nthfield(features,cLineEnd,n) 'get one line
@@ -1519,41 +1534,21 @@ End
 		      name=rtrim(leftb(cf1,16))      'feature name
 		      
 		      if lenb(name)>0 then  'to skip first "feature" which is sort of dummy
-		        'redim w.Genome.features(ftcount)  'make room for new feature
-		        'w.Genome.features(ftcount)=
 		        NewFeature=new GBfeature(w.Genome.baselineY)
-		        'NewFeature.type=name
-		        
-		        'check if the feature should be displayed on the map:
-		        'additional check is needed to see if there are any Genes and CDS with the same coords
-		        'as it is now, a gene may be missed if no CDS is annotated
-		        
-		        'Should I show all features at first?
-		        
-		        
-		        //show everything!
-		        'if instrB("CDS,gene,promoter,RBS,sig_peptide,terminator",name)>0 then
-		        'NewFeature.Visible=true
-		        'if instrB("CDS,gene",name)>0 then
-		        'NewFeature.NameVisible=true
-		        'end
-		        'else
-		        'NewFeature.Visible=false
-		        'end
-		        'NewFeature.Visible=true 'true by default
-		        
-		        'add truncation (detect <> signs)!!!!
-		        
 		        NewFeature.featureText=currentFeature
 		        'now check the direction and coorginates:
-		        if midb(cf1,17,10)="complement" then
+		        'if midb(cf1,17,10)="complement" then
+		        if InStrB(17,cf1,"complement")>0 then
 		          NewFeature.complement=true
+		          'gene            complement(2659..4155)
 		          coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
+		          'coord=NthField(cf1,"(",2)
 		          NewFeature.start=val(nthField(coord,"..",2))
 		          NewFeature.finish=val(nthField(coord,"..",1))
 		        else
-		          NewFeature.complement=false
+		          'NewFeature.complement=false false is the default
 		          coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
+		          'coord=midb(cf1,17)
 		          NewFeature.start=val(nthField(coord,"..",1))
 		          NewFeature.finish=val(nthField(coord,"..",2))
 		        end if
@@ -1563,8 +1558,16 @@ End
 		      
 		    next 'n
 		    
+		    tm=microseconds-ms
+		    LogoWin.WriteToSTDOUT (EndofLine+"Feature processing took "+str(tm/1000000)+" seconds")
+		    ms=Microseconds
+		    
 		    s=rightb(s,len(s)-instrb(s,"ORIGIN")-7) 'put the actual sequence into the "s" variable
 		    w.Genome.sequence=CleanUp(s)
+		    
+		    tm=microseconds-ms
+		    LogoWin.WriteToSTDOUT (EndofLine+"Genome cleanup took "+str(tm/1000000)+" seconds")
+		    ms=Microseconds
 		    
 		  else
 		    msgbox kInvalidGenbankFile
@@ -1574,14 +1577,6 @@ End
 		  // ----------------------------------------------------------------------
 		  // Now extract the required portion of genome and populate the Seq object
 		  // ----------------------------------------------------------------------
-		  '
-		  ' the FragmentStart is the beginning, the length is set to 10000
-		  't=Microseconds-t
-		  'msgbox "time to parse while genome: "+str(t/1000000)+" sec."
-		  't=Microseconds
-		  'w.ExtractFragment(1000,5000)
-		  't=Microseconds-t
-		  'msgbox "time to extract the first fragment: "+str(t/1000000)+" sec."
 		  
 		  'switch to the graphic:
 		  'w.mapCanvas.Invalidate
@@ -1599,6 +1594,8 @@ End
 		  'GoToWin.Parent=w
 		  'GoToWin.ShowModalWithin(w)
 		  
+		  tm=microseconds-ms
+		  LogoWin.WriteToSTDOUT (EndofLine+"Finishing took "+str(tm/1000000)+" seconds")
 		  
 		  Exception err
 		    ExceptionHandler(err,"OpenGenBankFile")
@@ -2086,6 +2083,10 @@ End
 
 
 	#tag Property, Flags = &h0
+		AnyHitDeselected As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		AnyNameClicked As boolean
 	#tag EndProperty
 
@@ -2207,6 +2208,10 @@ End
 
 	#tag Property, Flags = &h0
 		GraphExists As boolean = false
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		HmmHitChecked(0) As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3147,7 +3152,19 @@ End
 		  next
 		  if PointedFeature>0 then
 		    'for CDS, translation has to be removed from tooltip
-		    ToolTip.Show( seq.Features(PointedFeature).FeatureText, X, Y+me.top, True)
+		    dim trC as integer
+		    dim ftL,ftR,ttip as string
+		    
+		    trC=InStr(seq.Features(PointedFeature).FeatureText,"/translation=")
+		    ftL=left(seq.Features(PointedFeature).FeatureText,trC)
+		    ftR=mid(seq.Features(PointedFeature).FeatureText,trC+15)
+		    trC=instr(ftR,"/")
+		    if trC>0 then
+		      ttip=ftL+right(ftR,len(ftR)-trC)
+		    else
+		      ttip=ftL
+		    end if
+		    ToolTip.Show(ttip, X, Y+me.top, True)
 		  else
 		    ToolTip.hide
 		  end if
@@ -3480,6 +3497,23 @@ End
 		  s1.Title=str(CurrentHit)+"/"+str(ubound(HmmHits))
 		  
 		  ShowHit
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events FeatureBox
+	#tag Event
+		Sub Action()
+		  dim n as integer
+		  
+		  HmmHitChecked(currentHit)=me.value
+		  
+		  AnyHitDeselected=false
+		  for n=1 to ubound(HmmHitChecked)
+		    if not HmmHitChecked(currentHit) then
+		      AnyHitDeselected=true
+		      exit
+		    end if
+		  next
 		End Sub
 	#tag EndEvent
 #tag EndEvents
