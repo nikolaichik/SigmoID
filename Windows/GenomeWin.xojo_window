@@ -1078,25 +1078,37 @@ End
 		  'first assume all features will fit in one row:
 		  m=ubound(seq.Features)
 		  for n=1 to m
-		    seq.FtRow.append 0
+		    seq.FtRow.append 1
 		  next
 		  
 		  'row distribution is buggy: disabled for original release
 		  dim CF,CM as GBFeature
 		  
+		  
+		  'spread overlapping features across rows:
 		  for n=1 to u
 		    'if seq.Features(n).Visible then
 		    'if w.seq.Features(n).type="promoter" AND w.seq.Features(n).length<35 then
 		    'else
 		    CF=seq.Features(n)
+		    
 		    for m=1 to n-1
 		      'if seq.Features(m).Visible then
 		      'if w.seq.Features(n).type="promoter" AND w.seq.Features(n).length<35 then
 		      'else
 		      CM=seq.Features(m)
-		      if CF.start+CF.length>CM.start AND CF.start< CM.start+CM.length then
+		      'if CF.finish>CM.start AND CF.start< CM.finish then
+		      'seq.FtRow(m)=seq.FtRow(m)+1
+		      'elseif CF.start<CM.finish AND CF.start>CM.start  then
+		      'seq.FtRow(m)=seq.FtRow(m)+1
+		      'end
+		      if CF.finish>=CM.start AND CF.start<=CM.start then
 		        seq.FtRow(m)=seq.FtRow(m)+1
-		      elseif CF.start<CM.start+CM.length AND CF.start>CM.start  then
+		      elseif CF.start<=CM.finish AND CF.start>=CM.start  then
+		        seq.FtRow(m)=seq.FtRow(m)+1
+		      elseif CF.start>=CM.finish AND CF.finish<=CM.finish  then
+		        seq.FtRow(m)=seq.FtRow(m)+1
+		      elseif CF.start<=CM.start AND CF.finish>=CM.finish  then
 		        seq.FtRow(m)=seq.FtRow(m)+1
 		      end
 		      'end
