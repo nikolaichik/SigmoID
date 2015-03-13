@@ -10,6 +10,9 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "Open..."
          Index = -2147483648
+         ShortcutKey = "O"
+         Shortcut = "Cmd+O"
+         MenuModifier = True
          AutoEnable = True
          Visible = True
       End

@@ -141,6 +141,7 @@ Module=YNmods;Classes/CustomEditField/YNmods.xojo_code;&h2FA81DD2;&h2C03CFF4;fal
 Class=cSeqObject;Classes/cSeqObject.xojo_code;&hC36CDFC4;&h47302C04;false
 Class=GBFeature;Classes/GBFeature.xojo_code;&hB7296908;&h47302C04;false
 Class=gCode;Classes/gCode.xojo_code;&h7DA8FFFF;&h47302C04;false
+Module=TextMapParams;TextMapParams.xojo_code;&h537AAFFF;&h0;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1

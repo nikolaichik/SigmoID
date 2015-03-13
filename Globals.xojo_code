@@ -31,6 +31,36 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Complement(seq as string) As String
+		  'memory blocks are up to 80 times faster than strings here!!! :
+		  dim n,l,count as integer
+		  dim in1,out as memoryBlock
+		  l=lenB(seq)
+		  in1=new MemoryBlock(l+1)
+		  out=new MemoryBlock(l+2)
+		  in1.pString(0)=seq    'Shouldn't there be a CString here?
+		  
+		  'setting endiannes here is probably unnecessary, but...
+		  '#if targetWin32
+		  'in1.littleEndian=true
+		  'out.littleEndian=true
+		  '#endif
+		  
+		  count=1
+		  for n=1 to l
+		    out.byte(count)=RevCompArr(in1.byte(n))
+		    count=count+1
+		  next
+		  
+		  out.byte(count)=0     ' ending with 0 to get CString
+		  return out.cstring(1)
+		  
+		  Exception err
+		    ExceptionHandler(err,"MethodsAndGlobals:RevCompl")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DrawRuler(width as integer, baseY as integer, bp as integer) As Group2D
 		  'Routine to draw  the ruler on linear maps
 		  
@@ -231,6 +261,75 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub GeneticCodesInit()
+		  'this routine fills in all the translation tables for all versions of genetic codes, as well as starts and stops.
+		  
+		  'dim CodonList As String ="AGA,AGG,CGA,CGC,CGG,CGT,CTA,CTC,CTG,CTT,TTA,TTG,AGC,AGT,TCA,TCC,TCG,TCT,GGA,GGC,GGG,GGT,GCA,GCC,GCG,GCT,CCA,CCC,CCG,CCT,ACA,ACC,ACG,ACT,GTA,GTC,GTG,GTT,ATA,ATC,ATT,CAA,CAG,AAC,AAT,AAA,AAG,CAC,CAT,TTC,TTT,GAA,GAG,GAC,GAT,TGC,TGT,TAC,TAT,TGG,ATG,TAA,TAG,TGA"
+		  'dim aaList As String ="XRRRRRRLLLLLLSSSSSSGGGGAAAAPPPPTTTTVVVVIIIQQNNKKHHFFEEDDCCYYWM***"
+		  'me.gCodes(1)=new gCode(CodonList,aaList)
+		  
+		  dim f As FolderItem
+		  Dim stream as TextInputStream
+		  dim line As String
+		  dim CodeNo,n,m as integer
+		  dim starts,stops,base1,base2,base3,Codons,codon,AAs,CodeName as string
+		  
+		  'f = getFolderItem("SQ Libs")
+		  f=SpecialFolder.ApplicationData.Child("SQ")
+		  f = f.child("Genetic.codes")
+		  if f.exists AND f<>NIL then
+		    stream = f.OpenAsTextFile
+		    
+		    while not stream.EOF
+		      line=stream.readLine
+		      if leftb(line,14)=">transl_table=" then   'one code type definition starts
+		        CodeNo=Val(midb(line,15,2))
+		        CodeName=trim(Right(line,lenb(line)-16))
+		        line=stream.readLine
+		        AAs=trim(NthField(line,"=",2))
+		        line=stream.readLine
+		        starts=trim(NthField(line,"=",2))
+		        line=stream.readLine
+		        Base1=trim(NthField(line,"=",2))
+		        line=stream.readLine
+		        Base2=trim(NthField(line,"=",2))
+		        line=stream.readLine
+		        Base3=trim(NthField(line,"=",2))
+		        Codons=""
+		        stops=""
+		        for n=1 to 64
+		          codon=midb(base1,n,1)+midb(base2,n,1)+midb(base3,n,1)+","
+		          Codons=codons+codon
+		          if midb(AAs,n,1)="*" then 'stop-codon
+		            stops=stops+codon
+		          end
+		        next
+		        
+		        gCodes(CodeNo)=new gCode(Codons,AAs)
+		        m=CountFields(starts,",")
+		        for n=1 to m
+		          gCodes(CodeNo).Starts.append NthField(starts,",",n)
+		        next
+		        m=CountFields(stops,",")-1
+		        for n=1 to m
+		          gCodes(CodeNo).Stops.append NthField(stops,",",n)
+		        next
+		        
+		        gCodes(CodeNo).Name=CodeName
+		      end
+		    wend
+		    stream.close                     'close enzyme file
+		    
+		  else
+		    msgbox "No file with genetic codes found. Translation will be unavailable!"
+		    
+		  end
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function HaveRedundancies(gen As string) As Boolean
 		  'this is slow -
 		  'can use memoryblocks instead of strings -
@@ -359,6 +458,35 @@ Protected Module Globals
 		  
 		  
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Reverse(seq as string) As String
+		  'memory blocks are up to 80 times faster than strings here!!! :
+		  dim n,l,count as integer
+		  dim in1,out as memoryBlock
+		  l=lenB(seq)
+		  in1=new MemoryBlock(l+1)
+		  out=new MemoryBlock(l+2)
+		  in1.pString(0)=seq    'Shouldn't there be a CString here?
+		  
+		  'setting endiannes here is probably unnecessary, but...
+		  '#if targetWin32
+		  'in1.littleEndian=true
+		  'out.littleEndian=true
+		  '#endif
+		  
+		  count=1
+		  for n=l downto 1
+		    out.byte(count)=in1.byte(n)
+		    count=count+1
+		  next
+		  out.byte(count)=0     ' ending with 0 to get CString
+		  return out.cstring(1)
+		  
+		  Exception err
+		    ExceptionHandler(err,"MethodsAndGlobals:RevCompl")
 		End Function
 	#tag EndMethod
 
@@ -542,6 +670,122 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Translate3(Gene As string, code as integer) As string
+		  dim  m,n,GeneLength,aa0,up  as integer
+		  dim protein,codon,codons,aa1st as string
+		  dim gC as gCode
+		  gc=gCodes(code)
+		  
+		  protein=""
+		  GeneLength=lenB(Gene)
+		  for n=1 to (GeneLength - 2) step 3
+		    'the readable code:
+		    'codon=midB(gene,n,3)
+		    'CodonNo=((instr(CodonList,codon))-1)/4
+		    'protein=protein+aa(codonNo)
+		    'faster code:
+		    codon=midB(Gene,n,3)
+		    aa0=instr(gc.CodonList,codon)
+		    
+		    
+		    if aa0>0 then
+		      protein=protein+gc.aa3(((aa0)+3)/4)
+		    else
+		      'if instr doesn't find a codon in the list, it will return 0
+		      'and  aa(0) is X - so it will work for all codons with redundancies-
+		      'but also happily translate into Xes any crap
+		      if haveRedundancies(codon)=true then
+		        codons=SimplePattern(codon)
+		        up=countfields(codons,",")
+		        aa1st=gc.aa3((instr(gc.CodonList,nthfield(codons,",",1))+3)/4)
+		        for m=2 to up
+		          if aa1st<>gc.aa3((instr(gc.CodonList,nthfield(codons,",",m))+3)/4) then
+		            aa1st="X"  'redundant codon translates to more than 1 amino acid
+		            exit
+		          end
+		        next
+		        protein=protein+aa1st
+		        
+		      else
+		        'some crap is probably  being translated, nevertheless...
+		        protein=protein+"X"
+		      end
+		      
+		      
+		      
+		    end
+		  next
+		  return protein
+		  'Exception err
+		  'ExceptionHandler(err,"MethodsAndGlobals:Translate")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TranslateFrame(Sequence as string, frame as integer, code as integer) As string
+		  dim p As String
+		  dim gl, t as Integer
+		  
+		  
+		  gl=lenb(Sequence) 'GeneLength
+		  p=""
+		  
+		  if frame >3 then
+		    'opposite strand -
+		    'determine the number of spaces in front of the translation:
+		    t=gl/3
+		    t=gl-t*3
+		    select case t
+		    case 0
+		      select case frame
+		      case 4
+		        p=""
+		      case 5
+		        p="  "
+		      case 6
+		        p=" "
+		      end
+		    case 1
+		      select case frame
+		      case 4
+		        p=" "
+		      case 5
+		        p=""
+		      case 6
+		        p="  "
+		      end
+		    case 2
+		      select case frame
+		      case 4
+		        p="  "
+		      case 5
+		        p=" "
+		      case 6
+		        p=""
+		      end
+		    end
+		    
+		  end
+		  select case frame
+		  case 1
+		    p=Translate3(Sequence, code)
+		  case 2
+		    p=" "+Translate3(rightb(Sequence,gl-1), code)
+		  case 3
+		    p="  "+Translate3(rightb(Sequence,gl-2), code)
+		  case 4
+		    p=p+reverse(Translate3(ReverseComplement(Sequence), code))
+		  case 5
+		    p=p+reverse(Translate3(rightb(ReverseComplement(Sequence),gl-1), code))
+		  case 6
+		    p=p+reverse(Translate3(rightb(ReverseComplement(Sequence),gl-2), code))
+		  end select
+		  return p
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Weblogo(f as folderitem) As string
 		  'Usage: weblogo [options]  < sequence_data.fa > sequence_logo.eps
 		  '
@@ -696,6 +940,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		FixedFont As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		gCodes(30) As gCode
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
