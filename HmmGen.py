@@ -5,6 +5,28 @@ import ast
 import argparse
 import time
 from Bio.SeqFeature import FeatureLocation
+from Bio.SeqFeature import SeqFeature
+
+
+class MySeqFeature(SeqFeature):
+
+     def __str__(self):
+        out = "type: %s\n" % self.type
+        if self.strand == 1:
+            out += "location: [%s:%s](%s)\n" % (self.location.start+1, self.location.end, '+')
+        if self.strand == -1:
+            out += "location: [%s:%s](%s)\n" % (self.location.start+1, self.location.end, '-')
+        if self.id and self.id != "<unknown id>":
+            out += "id: %s\n" % self.id
+        out += "qualifiers:\n"
+        for qual_key in sorted(self.qualifiers):
+            out += " Key: %s, Value: %s\n" % (qual_key,
+                                                    self.qualifiers[qual_key])
+        if len(self._sub_features) != 0:
+            out += "Sub-Features\n"
+            for sub_feature in self._sub_features:
+                out += "%s\n" % sub_feature
+        return out
 
 
 def createParser():
@@ -65,7 +87,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.4 (February 25, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.5 (March 15, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -101,7 +123,7 @@ except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
 
-print '\nHmmGen 2.4 (February 25, 2015)'
+print '\nHmmGen 2.5 (March 15, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -220,7 +242,7 @@ nhmm_parser(file_path, allign_list)
 nhmm_prog(file_path, prog)
 prog[2] = prog[2].replace('\r', '')
 records = SeqIO.parse(input_handle, 'genbank')
-
+total = 0
 for record in records:
     print '\n' + "-"*50 + "\nCONTIG: " +  record.id
     print '\n   FEATURES ADDED: \n'
@@ -291,7 +313,7 @@ for record in records:
         from Bio.SeqFeature import SeqFeature
         note_qualifier = dict()
         note_qualifier['note'] = str('%s score %s E-value %s' % (prog[2].replace('\n', ''), score, e_value))
-        my_feature = SeqFeature(location=feature_location, type=feature_type, strand=strnd,
+        my_feature = MySeqFeature(location=feature_location, type=feature_type, strand=strnd,
                                 qualifiers=dict(qualifier.items()+note_qualifier.items()))
         if (hmm_diff - ali_diff == 0 or hmm_diff - ali_diff == 1 or hmm_diff - ali_diff == (-1)) and \
             (score >= enter.score or enter.score == False):
@@ -362,7 +384,7 @@ for record in records:
                         except:
                             pass
                         individual_qualifiers.update(hit.qualifiers)
-                        new_feature = SeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
+                        new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
                         record.features.insert(i, new_feature)
@@ -378,7 +400,7 @@ for record in records:
                             pass
 
                         individual_qualifiers.update(hit.qualifiers)
-                        new_feature = SeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
+                        new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
                         record.features.insert(i, new_feature)
@@ -402,7 +424,29 @@ for record in records:
                         except:
                             pass
                         individual_qualifiers.update(hit.qualifiers)
-                        new_feature = SeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
+                        new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
+                                                 qualifiers=individual_qualifiers)
+                        record.features.pop(i)
+                        record.features.insert(i, new_feature)
+                    if hit.strand == int('+1'):
+                        try:
+                            individual_qualifiers['cds_up_gene'] = cds_down.qualifiers['gene']
+                        except:
+                            pass
+                        try:
+                            individual_qualifiers['cds_up_locus_tag'] = cds_down.qualifiers['locus_tag']
+                        except:
+                            pass
+                        try:
+                            individual_qualifiers['cds_down_gene'] = cds_up.qualifiers['gene']
+                        except:
+                            pass
+                        try:
+                            individual_qualifiers['cds_down_locus_tag'] = cds_up.qualifiers['locus_tag']
+                        except:
+                            pass
+                        individual_qualifiers.update(hit.qualifiers)
+                        new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
                         record.features.insert(i, new_feature)
@@ -473,11 +517,14 @@ for record in records:
             del feature.qualifiers['cds_down_gene']
         if feature.qualifiers.has_key('cds_up_gene'):
             del feature.qualifiers['cds_up_gene']
+    print '\nFeatures added:', len(output_features)
     print '\n' + "-"*50
     SeqIO.write(record, output_handle, 'genbank')
-    print 'Features added:', len(output_features)
+
+    total += int(len(output_features))
 output_handle.close()
 input_handle.close()
+print 'Total features: ', total
 print 'CPU time: ', time.clock()
 print '\n' + "="*50
 
