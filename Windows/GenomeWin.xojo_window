@@ -877,7 +877,7 @@ End
 		    FragmentEnd=lenb(Genome.sequence)
 		    FragmentStart=FragmentEnd-DisplayInterval
 		  end if
-		  
+		  'GBrowseShift=FragmentStart
 		  
 		  'first clone the  fragment features:
 		  FragmentFeature=new GBFeature(Genome.baselineY)
@@ -1029,6 +1029,7 @@ End
 		      FragmentRight=seq.features(n).Finish
 		    end if
 		  next
+		  GBrowseShift=FragmentLeft
 		  
 		  seq.Sequence=midb(genome.Sequence,FragmentLeft,FragmentRight-FragmentLeft+1)
 		  
@@ -1870,11 +1871,11 @@ End
 		  'determine the distance of the left edge of displayed fragment from start:
 		  
 		  if instr(HmmHitDescriptions(CurrentHit),"(+)")>0 then
-		    FeatureLeft=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))
-		    FeatureRight=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))
+		    FeatureLeft=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))-GBrowseShift
+		    FeatureRight=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-GBrowseShift+1
 		  else
-		    FeatureRight=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))
-		    FeatureLeft=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))
+		    FeatureRight=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))-GBrowseShift
+		    FeatureLeft=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-GBrowseShift+1
 		  end if
 		  
 		  
@@ -1905,17 +1906,17 @@ End
 		  'get the sequence to display:
 		  charsPerLine=TMdisplay.width/TMCharWidth
 		  if HighlightFrom=Highlightto then 'don't highlight anything
-		    SeqStart=HighlightFrom-charsPerLine/2
+		    SeqStart=HighlightFrom-charsPerLine/2+GBrowseShift
 		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
 		    HLtop=false
 		    HLbottom=false
 		  elseif HighlightFrom<Highlightto then 'highlight site on top strand
 		    HLtop=true
-		    SeqStart=(Highlightto+HighlightFrom)/2-charsPerLine/2
+		    SeqStart=(Highlightto+HighlightFrom)/2-charsPerLine/2+GBrowseShift
 		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
 		  else 'highlight site on bottom strand
 		    HLbottom=true
-		    SeqStart=(Highlightto+HighlightFrom)/2-charsPerLine/2
+		    SeqStart=(Highlightto+HighlightFrom)/2-charsPerLine/2+GBrowseShift
 		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
 		  end if
 		  
@@ -1962,7 +1963,7 @@ End
 		  CurrentY=CurrentY+TMLineHeight
 		  if HLtop then 'draw highlight rect:
 		    TextMapPic.Graphics.ForeColor=HighlightColour
-		    TextMapPic.Graphics.FillRect((HighlightFrom-SeqStart)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightTo-HighlightFrom)*TMCharWidth,TMLineHeight)
+		    TextMapPic.Graphics.FillRect((HighlightFrom-SeqStart+GBrowseShift)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightTo-HighlightFrom)*TMCharWidth,TMLineHeight)
 		    TextMapPic.Graphics.ForeColor=&c00000000
 		  end if
 		  TextMapPic.Graphics.DrawString(Sequence,0,CurrentY)
@@ -1981,7 +1982,7 @@ End
 		  CurrentY=CurrentY+TMLineHeight
 		  if HLbottom then 'draw highlight rect:
 		    TextMapPic.Graphics.ForeColor=HighlightColour
-		    TextMapPic.Graphics.FillRect((HighlightTo-SeqStart)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightFrom-HighlightTo)*TMCharWidth,TMLineHeight)
+		    TextMapPic.Graphics.FillRect((HighlightTo-SeqStart+GBrowseShift)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightFrom-HighlightTo)*TMCharWidth,TMLineHeight)
 		    TextMapPic.Graphics.ForeColor=&c00000000
 		  end if
 		  TextMapPic.Graphics.DrawString(revseq,0,CurrentY)
@@ -2142,7 +2143,7 @@ End
 		  
 		  
 		  if FeatureLeft>0 then
-		    SelRange.text=str(FeatureLeft)+"-"+str(FeatureRight)+":"+str(FeatureRight-FeatureLeft)
+		    SelRange.text=str(FeatureLeft+GBrowseShift)+"-"+str(FeatureRight+GBrowseShift)+":"+str(abs(FeatureRight-FeatureLeft))
 		  else
 		    
 		    SelRange.text=""
@@ -2318,6 +2319,10 @@ End
 
 	#tag Property, Flags = &h0
 		GBOpened As boolean = false
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		GBrowseShift As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -2742,35 +2747,12 @@ End
 		        
 		        selFeatureNo=n/2'+1 'correction for feature names
 		        
-		        'make sure there are no hidden features, otherwise use the code below!
-		        
-		        'Now correct for the hidden features:
-		        'for m=1 to featureCount
-		        'if m>selFeatureNo then
-		        'exit
-		        'end
-		        'if seq.Features(m).Visible=false then
-		        'selFeatureNo=selFeatureNo+1
-		        'end
-		        'next
-		        
 		        if selFeatureNo>featureCount then selFeatureNo=featureCount  'correction for the complete site (unnecessary?)
 		        
 		        'deselect other things here
 		        topObj=DeselectNames( p)
-		        'DeselectShapes(p)
+		        DeselectShapes(p)
 		        AnyObjectClicked=true
-		        'highlight sel feature range:
-		        'if seq.Circular then
-		        'If Seq.Features(selFeatureNo).complement then
-		        'editor.SelStart=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length
-		        'editor.SelLength=Seq.Features(selFeatureNo).length
-		        'else
-		        'editor.SelStart=Seq.Features(selFeatureNo).start
-		        'editor.SelLength=Seq.Features(selFeatureNo).length
-		        'end
-		        
-		        
 		        
 		        'Select Sequence in the TextMap pane:
 		        HighlightColour=Seq.Features(selFeatureNo).linShape.Colour
@@ -2798,46 +2780,14 @@ End
 		  
 		  'Clear previous selection:
 		  if AnyObjectClicked=false then
-		    
 		    NewFeature=true
-		    if RE1="" then
-		      if NOT IsContextualClick then
-		        EditorLock=false
-		        SelectingREfragment=false
-		        seq.SelLength=0
-		        ////Editor.SelLength=0
-		      end
-		    end
+		    seq.SelLength=0
+		    
 		    RetValue=True 'to trigger MouseDrag
 		    
+		    topobj=DeselectNames(p)
 		    
-		    'if NOT AnyNameClicked then
-		    'topobj=DeselectNames(p)
-		    'RE1=""
-		    'end
-		    'if  NOT SelectingREfragment then
-		    'if seq.circular then
-		    'if NOT IsContextualClick then
-		    'if SelNameNo>0 AND p.Objects.Item(SelNameNo) isa REname then 'set selection to the cut site
-		    'lastangle=getAngle(REname(p.Objects.Item(SelNameNo)).baseX,REname(p.Objects.Item(SelNameNo)).baseY)
-		    'else 'set selection to the click position
-		    'lastangle=getAngle(X,Y) 'will be used in mousedrag
-		    'end
-		    'ArcShape(p.Objects.Item(0)).startAngle=lastangle
-		    ''clear selection:
-		    '
-		    'ArcShape(p.Objects.Item(0)).arcangle=0
-		    'rx=seq.centerX-seq.size-seq.size-seq.radius
-		    'ry=seq.centerY-seq.size-seq.size-seq.radius
-		    'rw=seq.radius+seq.size+seq.size+seq.radius+seq.size+seq.size
-		    ''updateMapCanvas
-		    'end
-		    'else
 		    RectShape(p.Objects.Item(0)).width=0
-		    
-		    
-		    'end
-		    'end
 		    
 		    for n=1 to p.Objects.Count-1
 		      if p.Objects.Item(n) IsA cClickableShape then
