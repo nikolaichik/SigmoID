@@ -171,12 +171,12 @@ Begin Window GenomeWin
       LockTop         =   True
       MacControlStyle =   0
       Scope           =   0
-      Segments        =   "Prev.\n\nFalse\r\n\nFalse\rNext\n\nFalse"
+      Segments        =   "Prev.\n\nFalse\r         \n\nFalse\rNext\n\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
       Top             =   7
       Visible         =   True
-      Width           =   132
+      Width           =   157
    End
    Begin CheckBox FeatureBox
       AutoDeactivate  =   True
@@ -190,7 +190,7 @@ Begin Window GenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   151
+      Left            =   174
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -208,7 +208,7 @@ Begin Window GenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   547
+      Width           =   524
    End
    Begin ScrollBar HScrollBar
       AcceptFocus     =   True
@@ -504,7 +504,7 @@ End
 		  
 		  TextMapPic=new picture(Screen(0).Width,me.Height)
 		  TextMapPic.Graphics.TextSize=12
-		  TextMapPic.Graphics.TextFont=FixedFont 
+		  TextMapPic.Graphics.TextFont=FixedFont
 		  TMLineHeight=TextMapPic.Graphics.StringHeight("Ay",TextMapPic.width)
 		  TMCharWidth=TextMapPic.Graphics.StringWidth("A")
 		  
@@ -660,20 +660,7 @@ End
 		    
 		  #endif
 		  
-		  
-		  
-		  
-		  ////editor.Opening=false
-		  
-		  
-		  
-		  ''Show the first hit with the surrounding region:
-		  'if Ubound(HmmHits)>0 then
-		  'ExtractFragment(HmmHits(1)-DisplayInterval/2,HmmHits(1)+DisplayInterval/2)
-		  'FeatureBox.Caption=HmmHitDescriptions(1)
-		  'else
-		  'ExtractFragment(1,DisplayInterval)
-		  'end if
+		  HighlightColour=HighlightColor 'set to default until features are read
 		End Sub
 	#tag EndEvent
 
@@ -1761,13 +1748,10 @@ End
 		        end
 		      next
 		    end
-		    if ORFMap1<>nil then
-		      DeselectShapes(ORFmap1) 'restore colour to selected frames (if any)
-		    end if
 		  end
 		  UpdateSelRange
 		  
-		  EnableMenuItems 'to properly enable menus
+		  'EnableMenuItems 'to properly enable menus
 		  
 		  
 		  
@@ -1899,6 +1883,8 @@ End
 		  'Editor.Sellength=FeatureLength
 		  
 		  genomeWin.TextMap(FeatureLeft,FeatureRight)
+		  UpdateMapCanvas
+		  UpdateMapCanvasSelection
 		  genomeWin.Show
 		End Sub
 	#tag EndMethod
@@ -1975,7 +1961,7 @@ End
 		  'seq and ruler:
 		  CurrentY=CurrentY+TMLineHeight
 		  if HLtop then 'draw highlight rect:
-		    TextMapPic.Graphics.ForeColor=&c66CCFF00
+		    TextMapPic.Graphics.ForeColor=HighlightColour
 		    TextMapPic.Graphics.FillRect((HighlightFrom-SeqStart)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightTo-HighlightFrom)*TMCharWidth,TMLineHeight)
 		    TextMapPic.Graphics.ForeColor=&c00000000
 		  end if
@@ -1994,7 +1980,7 @@ End
 		  TextMapPic.Graphics.DrawString(numberingline,0,CurrentY)
 		  CurrentY=CurrentY+TMLineHeight
 		  if HLbottom then 'draw highlight rect:
-		    TextMapPic.Graphics.ForeColor=&c66CCFF00
+		    TextMapPic.Graphics.ForeColor=HighlightColour
 		    TextMapPic.Graphics.FillRect((HighlightTo-SeqStart)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightFrom-HighlightTo)*TMCharWidth,TMLineHeight)
 		    TextMapPic.Graphics.ForeColor=&c00000000
 		  end if
@@ -2108,32 +2094,23 @@ End
 
 	#tag Method, Flags = &h0
 		Sub UpdateMapCanvasSelection()
-		  'dim p as picture
-		  ''dim startangle,Arcangle as Double
-		  '
-		  '
-		  '
-		  'p=seq.map
-		  '
-		  'if p<>nil then
-		  ''if seq.circular then
-		  ''arcshape(p.Objects.Item(0)).startangle=(Editor.SelStart/seq.bpPerRad)-halfPi
-		  ''arcshape(p.Objects.Item(0)).Arcangle=Editor.SelLength/seq.bpPerRad
-		  '''startangle=arcshape(p.Objects.Item(0)).startangle
-		  ''else
-		  'RectShape(p.Objects.Item(0)).width=Editor.Sellength/seq.bpPerPixel
-		  'p.Objects.Item(0).x=(LmapDx+(Editor.SelStart+Editor.Sellength/2)/seq.bpPerPixel)*seq.map.Objects.Scale
-		  ''end
-		  'end
-		  '
-		  '
-		  'if MapCanvas.Visible then
-		  'updateMapCanvas
-		  'end if
-		  '
-		  '
-		  '
-		  'app.doevents  'workaround for not showing selectiun when shift-selecting an RE fragment
+		  dim p as picture
+		  
+		  p=seq.map
+		  dim rs as rectshape
+		  
+		  if p<>nil then
+		    RectShape(p.Objects.Item(0)).width=(FeatureLeft-FeatureRight)/seq.bpPerPixel
+		    p.Objects.Item(0).x=((FeatureLeft+FeatureRight)/2)/seq.bpPerPixel'*seq.map.Objects.Scale
+		    rs=RectShape(p.Objects.Item(0))
+		  end
+		  
+		  
+		  if MapCanvas.Visible then
+		    updateMapCanvas
+		  end if
+		  
+		  UpdateSelRange
 		End Sub
 	#tag EndMethod
 
@@ -2159,7 +2136,18 @@ End
 		  'SelRange.text=str(editor.selStart+GenomeDelta)+"("+str(n)+")"
 		  'end
 		  'end if
-		  '
+		  
+		  dim n as integer
+		  n=Genome.length
+		  
+		  
+		  if FeatureLeft>0 then
+		    SelRange.text=str(FeatureLeft)+"-"+str(FeatureRight)+":"+str(FeatureRight-FeatureLeft)
+		  else
+		    
+		    SelRange.text=""
+		    
+		  end if
 		  
 		End Sub
 	#tag EndMethod
@@ -2194,13 +2182,14 @@ End
 
 	#tag Note, Name = 2 do
 		[draft done] Navigation toolbar
-		- truncate feature name length
+		- correct display of central segment in the navigator (accommodate varying text length)
+		+ truncate feature name length
 		- Reading genome in a thread in parallel with profile scan to speed things up (won't help much, as all threads run on the same core)
 		- Highlight a feature on demand
 		- Memorise selection when scrolling genome
-		- Sort hits before showing 'em
+		-+ Sort hits before showing 'em (sorting done incorrectly
 		- Removing deselected features upon request
-		- Proper sequence display with reading frames
+		+- Proper sequence display with reading frames
 		- Editing features
 		- BLASTing frames/genes/raw sequence?
 		
@@ -2341,6 +2330,10 @@ End
 
 	#tag Property, Flags = &h0
 		GraphExists As boolean = false
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		HighlightColour As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -2779,24 +2772,18 @@ End
 		        
 		        
 		        
-		        'Select Sequence in the text window:
-		        
+		        'Select Sequence in the TextMap pane:
+		        HighlightColour=Seq.Features(selFeatureNo).linShape.Colour
 		        if Seq.Features(selFeatureNo).complement  then
-		          ////Editor.SelStart=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length
-		          ////Editor.Sellength=Seq.Features(selFeatureNo).length
-		          'bases.text=str(Seq.Features(selFeatureNo).length)+"("+str(Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length)+"-"+str(Seq.Features(selFeatureNo).start)+")"
+		          FeatureLeft=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length
+		          FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length
+		          TextMap(FeatureRight,FeatureLeft)
 		        else
-		          ////Editor.SelStart=Seq.Features(selFeatureNo).start
-		          ////Editor.Sellength=Seq.Features(selFeatureNo).length
-		          'bases.text=str(Seq.Features(selFeatureNo).length)+"("+str(Seq.Features(selFeatureNo).start)+"-"+str(Seq.Features(selFeatureNo).start+Seq.Features(selFeatureNo).length)+")"
+		          FeatureLeft=Seq.Features(selFeatureNo).start
+		          FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length
+		          TextMap(FeatureLeft,FeatureRight)
 		        end
-		        #if TargetMacOS then
-		          'this is a workaround as the selchanged event doesn't fire on Tiger PPC!
-		          SelChange
-		        #endif
-		        'me.graphics.DrawPicture Seq.Map,0,0
-		        EditorLock=true
-		        EditorLock=false
+		        
 		        'UpdateSelRange
 		        'cClickableShape(p.Objects.Item(n)).fillColor=&c00000000
 		        cClickableShape(p.Objects.Item(n)).toggleSelection 'Change selected feature colour
@@ -2806,28 +2793,6 @@ End
 		        cClickableShape(p.Objects.Item(n)).selected=false
 		        cClickableShape(p.Objects.Item(n)).fillColor=cClickableShape(p.Objects.Item(n)).Colour
 		      end
-		      
-		      'elseif  p.Objects.Item(n) IsA cName then 'name of a feature or enzyme clicked
-		      'if cName(p.Objects.Item(n)).contains(X,Y) AND NOT SelectingREfragment then
-		      '
-		      ''if RE1="" or NOT keyboard.AlternateMenuShortCutKey then
-		      ''if  NOT keyboard.AlternateMenuShortCutKey then' remove selection if shift isn't pressed
-		      '
-		      ''ideally, selection should remain for the first enzyme only
-		      ''when clicking several RE without releasing shift
-		      ''currently it is removed for all enz except the last
-		      'topObj=DeselectNames(p)
-		      ''end
-		      '
-		      'retvalue=true
-		      ''select just clicked thing:
-		      'cName(p.Objects.Item(n)).toggleSelection
-		      'p.Objects.Append cName(p.Objects.Item(n)).selrect
-		      'SelNameNo=n
-		      'AnyNameClicked=true
-		      '
-		      'exit
-		      'end
 		    end
 		  next
 		  
@@ -2846,34 +2811,33 @@ End
 		    RetValue=True 'to trigger MouseDrag
 		    
 		    
-		    if NOT AnyNameClicked then
-		      topobj=DeselectNames(p)
-		      RE1=""
-		    end
-		    if  NOT SelectingREfragment then
-		      'if seq.circular then
-		      'if NOT IsContextualClick then
-		      'if SelNameNo>0 AND p.Objects.Item(SelNameNo) isa REname then 'set selection to the cut site
-		      'lastangle=getAngle(REname(p.Objects.Item(SelNameNo)).baseX,REname(p.Objects.Item(SelNameNo)).baseY)
-		      'else 'set selection to the click position
-		      'lastangle=getAngle(X,Y) 'will be used in mousedrag
-		      'end
-		      'ArcShape(p.Objects.Item(0)).startAngle=lastangle
-		      ''clear selection:
-		      '
-		      'ArcShape(p.Objects.Item(0)).arcangle=0
-		      'rx=seq.centerX-seq.size-seq.size-seq.radius
-		      'ry=seq.centerY-seq.size-seq.size-seq.radius
-		      'rw=seq.radius+seq.size+seq.size+seq.radius+seq.size+seq.size
-		      ''updateMapCanvas
-		      'end
-		      'else
-		      RectShape(p.Objects.Item(0)).width=0
-		      updateMapCanvas
-		      'UpdateMapCanvasSelection
-		      
-		      'end
-		    end
+		    'if NOT AnyNameClicked then
+		    'topobj=DeselectNames(p)
+		    'RE1=""
+		    'end
+		    'if  NOT SelectingREfragment then
+		    'if seq.circular then
+		    'if NOT IsContextualClick then
+		    'if SelNameNo>0 AND p.Objects.Item(SelNameNo) isa REname then 'set selection to the cut site
+		    'lastangle=getAngle(REname(p.Objects.Item(SelNameNo)).baseX,REname(p.Objects.Item(SelNameNo)).baseY)
+		    'else 'set selection to the click position
+		    'lastangle=getAngle(X,Y) 'will be used in mousedrag
+		    'end
+		    'ArcShape(p.Objects.Item(0)).startAngle=lastangle
+		    ''clear selection:
+		    '
+		    'ArcShape(p.Objects.Item(0)).arcangle=0
+		    'rx=seq.centerX-seq.size-seq.size-seq.radius
+		    'ry=seq.centerY-seq.size-seq.size-seq.radius
+		    'rw=seq.radius+seq.size+seq.size+seq.radius+seq.size+seq.size
+		    ''updateMapCanvas
+		    'end
+		    'else
+		    RectShape(p.Objects.Item(0)).width=0
+		    
+		    
+		    'end
+		    'end
 		    
 		    for n=1 to p.Objects.Count-1
 		      if p.Objects.Item(n) IsA cClickableShape then
@@ -2889,7 +2853,8 @@ End
 		  
 		  
 		  me.boo=RetValue
-		  
+		  updateMapCanvas
+		  UpdateMapCanvasSelection
 		  
 		  'updateMapCanvas
 		  'refresh
@@ -3131,7 +3096,7 @@ End
 		  end
 		  'SelectingREfragment=false
 		  updateMapCanvas
-		  UpdateSelRange
+		  'UpdateSelRange
 		  EditorLock=false
 		  Exception err
 		    ExceptionHandler(err,"SeqWin:MapCanvas:MouseUp")
@@ -3355,30 +3320,34 @@ End
 		  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
 		  Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
 		  
-		  If itemIndex = 0 Then
-		    'show previous hit
-		    CurrentHit=CurrentHit-1
-		  Elseif itemIndex = 2 then
-		    'show next hit
-		    CurrentHit=CurrentHit+1
-		  End If
-		  
-		  
-		  if currentHit=1 then
-		    s0.Enabled=false
+		  if CurrentHit > 0 then
+		    If itemIndex = 0 Then
+		      'show previous hit
+		      CurrentHit=CurrentHit-1
+		    Elseif itemIndex = 2 then
+		      'show next hit
+		      CurrentHit=CurrentHit+1
+		    End If
+		    
+		    
+		    if currentHit=1 then
+		      s0.Enabled=false
+		    else
+		      s0.Enabled=true
+		    end if
+		    
+		    if currentHit=ubound(GenomeWin.HmmHits) then
+		      s2.Enabled=false
+		    else
+		      s2.Enabled=true
+		    end if
+		    
+		    s1.Title=str(CurrentHit)+"/"+str(ubound(HmmHits))
+		    
+		    ShowHit
 		  else
-		    s0.Enabled=true
+		    beep
 		  end if
-		  
-		  if currentHit=ubound(GenomeWin.HmmHits) then
-		    s2.Enabled=false
-		  else
-		    s2.Enabled=true
-		  end if
-		  
-		  s1.Title=str(CurrentHit)+"/"+str(ubound(HmmHits))
-		  
-		  ShowHit
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -3602,6 +3571,16 @@ End
 		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="FeatureLeft"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FeatureRight"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="FindMode"
 		Group="Behavior"
 		InitialValue="0"
@@ -3688,6 +3667,12 @@ End
 		Group="Position"
 		InitialValue="400"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HighlightColour"
+		Group="Behavior"
+		InitialValue="&c000000"
+		Type="Color"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="HScrollBarCodeLock"
@@ -4103,11 +4088,26 @@ End
 		Type="integer"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="TextMapPic"
+		Group="Behavior"
+		Type="Picture"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Title"
 		Visible=true
 		Group="Appearance"
 		InitialValue="Untitled"
 		Type="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TMCharWidth"
+		Group="Behavior"
+		Type="Double"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TMLineHeight"
+		Group="Behavior"
+		Type="Double"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ToolTipX"

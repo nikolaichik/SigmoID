@@ -1804,7 +1804,11 @@ End
 		      nhmmerSettingsWin.GenomeField.text=GenomeFile.ShellPath
 		      nhmmerSettingsWin.RunButton.Enabled=true
 		    else
-		      nhmmerSettingsWin.RunButton.Enabled=false
+		      #if Debugbuild
+		        GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
+		      #else
+		        nhmmerSettingsWin.RunButton.Enabled=false
+		      #endif
 		    end if
 		    nhmmerSettingsWin.ShowModalWithin(self)
 		    'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
