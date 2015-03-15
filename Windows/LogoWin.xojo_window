@@ -996,7 +996,7 @@ End
 		          hits2sort.Sort
 		          m=ubound(hits2sort)
 		          for n=1 to m
-		            while left(hits2sort(n),1)="0" 
+		            while left(hits2sort(n),1)="0"
 		              hits2sort(n)=right(hits2sort(n),lenb(hits2sort(n))-1)
 		            wend
 		          next
@@ -1020,7 +1020,10 @@ End
 		        end if
 		        
 		        T1=microseconds-ms
-		        WriteToSTDOUT (EndofLine+"Processing hits before opening .gb file took "+str(t1/1000000)+" seconds")
+		        #if DebugBuild
+		          WriteToSTDOUT (EndofLine+"Processing hits before opening .gb file took "+str(t1/1000000)+" seconds")
+		        #endif
+		        
 		        if Ubound(genomeWin.HmmHits)>0 then
 		          WriteToSTDOUT (EndofLine+"Loading the GenBank file (this may take a while)...")
 		          
@@ -1047,7 +1050,9 @@ End
 		          
 		          genomeWin.ShowHit
 		          T1=microseconds-ms
-		          WriteToSTDOUT (EndofLine+"Showing first hit took "+str(t1/1000000)+" seconds")
+		          #if DebugBuild
+		            WriteToSTDOUT (EndofLine+"Showing first hit took "+str(t1/1000000)+" seconds")
+		          #endif
 		          
 		          WriteToSTDOUT (EndofLine+"Hits are being shown in a separate window.")
 		          

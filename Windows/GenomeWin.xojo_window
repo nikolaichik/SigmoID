@@ -9,7 +9,7 @@ Begin Window GenomeWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   674
+   Height          =   460
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -79,9 +79,9 @@ Begin Window GenomeWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   3
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
       Multiline       =   False
@@ -95,7 +95,7 @@ Begin Window GenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   653
+      Top             =   439
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -111,7 +111,7 @@ Begin Window GenomeWin
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
-      Height          =   293
+      Height          =   240
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -131,96 +131,6 @@ Begin Window GenomeWin
       UseFocusRing    =   True
       Visible         =   True
       Width           =   767
-   End
-   Begin CustomEditField Editor
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoCloseBrackets=   False
-      AutocompleteAppliesStandardCase=   False
-      AutoDeactivate  =   True
-      AutoIndentNewLines=   False
-      BackColor       =   &cFFFFFF00
-      Backdrop        =   0
-      Border          =   True
-      BorderColor     =   &c88888800
-      BracketHighlightColor=   &cFFFF0000
-      CaretColor      =   &c00000000
-      CaretLine       =   0
-      CaretPos        =   0
-      cefSelLength    =   0
-      cefSelStart     =   0
-      CharsInLine     =   100
-      CharWidth       =   0.0
-      Circular        =   False
-      ClearHighlightedRangesOnTextChange=   False
-      currcaretpos    =   0
-      DirtyLinesColor =   &cFF999900
-      DisplayDirtyLines=   False
-      DisplayInvisibleCharacters=   True
-      DisplayLineNumbers=   True
-      DisplayRightMarginMarker=   False
-      DoubleBuffer    =   False
-      EnableAutocomplete=   False
-      Enabled         =   True
-      EnableLineFoldings=   False
-      EraseBackground =   True
-      GutterBackgroundColor=   &cEEEEEE00
-      GutterSeparationLineColor=   &c88888800
-      GutterWidth     =   0
-      hasFocus        =   False
-      HeaderHeight    =   0
-      Height          =   311
-      HelpTag         =   ""
-      HighlightBlocksOnMouseOverGutter=   False
-      HighlightMatchingBrackets=   False
-      HighlightMatchingBracketsMode=   0
-      ignoreRepaint   =   False
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   -492
-      leftMarginOffset=   4
-      LineNumbersColor=   &c88888800
-      LineNumbersTextFont=   "System"
-      LineNumbersTextSize=   9
-      LineNumOffset   =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      MaxVisibleLines =   0
-      Multiline       =   True
-      NeedsRedrawing  =   False
-      Opening         =   True
-      ReadOnly        =   False
-      RightMarginAtPixel=   0
-      RightScrollMargin=   0
-      RulerPic        =   0
-      Scope           =   0
-      ScrollPosition  =   0
-      ScrollPositionX =   0
-      SelLength       =   0
-      SelLength2      =   0
-      Selstart        =   0
-      SelText         =   ""
-      Stats           =   ""
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TabWidth        =   0
-      Text            =   ""
-      TextColor       =   &c00000000
-      TextFont        =   ""
-      TextHeight      =   0
-      TextLength      =   0
-      TextSelectionColor=   &c00000000
-      TextSize        =   0
-      ThickInsertionPoint=   True
-      Top             =   343
-      Transparent     =   True
-      UseFocusRing    =   False
-      Visible         =   True
-      Width           =   473
    End
    Begin Timer ToolTipTimer
       Height          =   32
@@ -308,7 +218,7 @@ Begin Window GenomeWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   0
+      Left            =   3
       LineStep        =   1
       LiveScroll      =   False
       LockBottom      =   True
@@ -323,7 +233,7 @@ Begin Window GenomeWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   330
+      Top             =   277
       Value           =   0
       Visible         =   True
       Width           =   765
@@ -356,7 +266,7 @@ Begin Window GenomeWin
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
-      Height          =   311
+      Height          =   147
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -370,7 +280,7 @@ Begin Window GenomeWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   343
+      Top             =   293
       Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
@@ -586,13 +496,20 @@ End
 
 	#tag Event
 		Sub Open()
-		  '#if TargetCarbon then
-		  'remove the border under the title bar to get fake "Unified" look with UltraToolbar:
-		  'RemoveTitleBarSeparator(self)
-		  'me.MyToolBar.bgcolor=GetTitleBarColor
-		  'me.MyToolBar.invalidate
-		  '#endif
-		  Editor.opening=true
+		  'Get the default fonts:
+		  dim ff as string
+		  ff=SetDefaultFonts(true)
+		  FixedFont=NthField(ff,";",1)
+		  ProportionalFont=NthField(ff,";",2)
+		  
+		  TextMapPic=new picture(Screen(0).Width,me.Height)
+		  TextMapPic.Graphics.TextSize=12
+		  TextMapPic.Graphics.TextFont=FixedFont 
+		  TMLineHeight=TextMapPic.Graphics.StringHeight("Ay",TextMapPic.width)
+		  TMCharWidth=TextMapPic.Graphics.StringWidth("A")
+		  
+		  
+		  
 		  Seq=New cSeqObject
 		  Genome=New cSeqObject
 		  
@@ -648,8 +565,7 @@ End
 		  'setup the tabs
 		  'default is just the sequence tab:
 		  
-		  Editor.panelIndex=0
-		  Editor.visible=true
+		  //Editor.visible=true
 		  
 		  'TabPanel1.Append kGraphicMap
 		  'UpdateMapCanvasBG
@@ -661,8 +577,8 @@ End
 		  
 		  SelColor=HighlightColor 'RGB(191,204,242) 'mac oldfashioned blue
 		  
-		  Editor.TextFont=FixedFont
-		  Editor.TextSize=12
+		  'Editor.TextFont=FixedFont
+		  'Editor.TextSize=12
 		  
 		  SelRange.TextFont=FixedFont
 		  SelRange.TextSize=12
@@ -675,10 +591,10 @@ End
 		  me.graphics.TextSize=12
 		  TextHeight=me.graphics.textheight
 		  
-		  Editor.SetFocus 'necessary on Win32 only - othervise the focus goes to the scrollbar
-		  #if debugBuild then
-		    Editor.text="AGAAGGCGACGCCGGCGTCTACTCCTGCTTTTATTGAGCAGTTCATCCTCGTCTGGAGGCGGGGGTGCAGCCGCGGCTCCACCCCCGCCTACAACCACGACTGTAGTCGTGGTTATAATCATTCAACAGAACAATAAAAAGCACCATTTCTTTGAAGAGGACGATTGCTGTTACTATTGGATGTAATAGTGA"
-		  #endif
+		  'Editor.SetFocus 'necessary on Win32 only - othervise the focus goes to the scrollbar
+		  '#if debugBuild then
+		  'Editor.text="AGAAGGCGACGCCGGCGTCTACTCCTGCTTTTATTGAGCAGTTCATCCTCGTCTGGAGGCGGGGGTGCAGCCGCGGCTCCACCCCCGCCTACAACCACGACTGTAGTCGTGGTTATAATCATTCAACAGAACAATAAAAAGCACCATTTCTTTGAAGAGGACGATTGCTGTTACTATTGGATGTAATAGTGA"
+		  '#endif
 		  
 		  
 		  
@@ -700,7 +616,7 @@ End
 		  
 		  
 		  UpdateSelRange
-		  editor.SetFocus
+		  ////editor.SetFocus
 		  me.opening=false
 		  
 		  
@@ -709,13 +625,13 @@ End
 		  '#endif
 		  
 		  'set CustomEditField (Editor)
-		  Editor.EnableAutocomplete=false
-		  Editor.DisplayLineNumbers=true
-		  Editor.TextFont=TMFont
+		  'Editor.EnableAutocomplete=false
+		  'Editor.DisplayLineNumbers=true
+		  'Editor.TextFont=TMFont
 		  'FixedFont
-		  Editor.TextSize=12      'wrong line wrap without setting size
-		  Editor.LineNumbersTextFont=TMFont'FixedFont
-		  Editor.LineNumbersTextSize=12
+		  'Editor.TextSize=12      'wrong line wrap without setting size
+		  'Editor.LineNumbersTextFont=TMFont'FixedFont
+		  'Editor.LineNumbersTextSize=12
 		  'editor.LineNumOffset=50
 		  'if usesOverlayScrollbars then
 		  'Editor.width=self.width
@@ -747,7 +663,7 @@ End
 		  
 		  
 		  
-		  editor.Opening=false
+		  ////editor.Opening=false
 		  
 		  
 		  
@@ -1167,9 +1083,8 @@ End
 		  'display the actual sequence:
 		  'just a test with 100 bp in the middle of the seq:
 		  
-		  dim TheSeq as string
-		  theSeq=midb(seq.sequence,lenB(seq.sequence)/2-50,100)
-		  TextMap(TheSeq)
+		  dim FragmentCent as integer = (FragmentStart+FragmentEnd)/2
+		  TextMap(FragmentCent,FragmentCent)
 		  refresh
 		End Sub
 	#tag EndMethod
@@ -1413,7 +1328,7 @@ End
 		      end if
 		      length=seq.Features(n).length
 		      withColor=rgb((255+2*seq.Features(n).linshape.Colour.red)/3,(255+2*seq.Features(n).linshape.Colour.green)/3,(255+2*seq.Features(n).linshape.Colour.blue)/3)
-		      Editor.HighlightCharacterRange(offset,length,withcolor,true)
+		      ////Editor.HighlightCharacterRange(offset,length,withcolor,true)
 		    end if
 		  next
 		End Sub
@@ -1439,7 +1354,7 @@ End
 		      f2 = v.Root.Child("text2.txt")
 		      If  f2<> nil then
 		        St=f2.OpenAsTextFile
-		        Editor.Text=st.readall
+		        ////Editor.Text=st.readall
 		        St.Close
 		      end
 		    End If
@@ -1497,7 +1412,10 @@ End
 		  
 		  w=self
 		  
-		  ms=Microseconds
+		  #if DebugBuild
+		    ms=Microseconds
+		  #endif
+		  
 		  'genome browser should be wide
 		  if Screen(0).width>1280 then
 		    w.Width=1280
@@ -1571,9 +1489,12 @@ End
 		    currentFeature=""
 		    w.Genome.features(0)=new GBfeature(w.Genome.baselineY)   'this will store map title/sequence size
 		    
-		    tm=microseconds-ms
-		    LogoWin.WriteToSTDOUT (EndofLine+"Preliminary feature cleanup took "+str(tm/1000000)+" seconds")
-		    ms=Microseconds
+		    #if DebugBuild
+		      tm=microseconds-ms
+		      LogoWin.WriteToSTDOUT (EndofLine+"Preliminary feature cleanup took "+str(tm/1000000)+" seconds")
+		      ms=Microseconds
+		    #endif
+		    
 		    features=ConvertEncoding(features,Encodings.ASCII)
 		    for n=1 to m'+1
 		      currentFeature=Nthfield(features,Separator,n)
@@ -1615,16 +1536,20 @@ End
 		      
 		    next 'n
 		    
-		    tm=microseconds-ms
-		    LogoWin.WriteToSTDOUT (EndofLine+"Feature processing took "+str(tm/1000000)+" seconds")
-		    ms=Microseconds
+		    #if DebugBuild
+		      tm=microseconds-ms
+		      LogoWin.WriteToSTDOUT (EndofLine+"Feature processing took "+str(tm/1000000)+" seconds")
+		      ms=Microseconds
+		    #endif
 		    
 		    s=rightb(s,len(s)-instrb(s,"ORIGIN")-7) 'put the actual sequence into the "s" variable
 		    w.Genome.sequence=CleanUp(s)
 		    
-		    tm=microseconds-ms
-		    LogoWin.WriteToSTDOUT (EndofLine+"Genome cleanup took "+str(tm/1000000)+" seconds")
-		    ms=Microseconds
+		    #if DebugBuild
+		      tm=microseconds-ms
+		      LogoWin.WriteToSTDOUT (EndofLine+"Genome cleanup took "+str(tm/1000000)+" seconds")
+		      ms=Microseconds
+		    #endif
 		    
 		  else
 		    msgbox kInvalidGenbankFile
@@ -1650,9 +1575,10 @@ End
 		  '
 		  'GoToWin.Parent=w
 		  'GoToWin.ShowModalWithin(w)
-		  
-		  tm=microseconds-ms
-		  LogoWin.WriteToSTDOUT (EndofLine+"Finishing took "+str(tm/1000000)+" seconds")
+		  #if DebugBuild
+		    tm=microseconds-ms
+		    LogoWin.WriteToSTDOUT (EndofLine+"Finishing took "+str(tm/1000000)+" seconds")
+		  #endif
 		  
 		  Exception err
 		    ExceptionHandler(err,"OpenGenBankFile")
@@ -1660,47 +1586,47 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ORF(Start as integer) As String
-		  
-		  dim l,l2,m,n,q,r,minProtLen,begin,ORFlen as integer
-		  dim startC as string
-		  minProtLen=ORFMinLength/3
-		  begin=seq.length
-		  m=seq.length
-		  l=start
-		  do
-		    r=countfields(ORFStarts,",")
-		    l2=l
-		    for n=1 to r
-		      startC=nthField(ORFStarts,",",n)
-		      l=instrB(l2,editor.text,startC)
-		      if l>0 then
-		        for q=l+3 to m step 3
-		          if instrB("TAA,TAG,TGA",midB(editor.text,q,3))>0 then  'instr couple % slower here
-		            if q-l>minProtLen then
-		              if (l-1)<begin then
-		                begin=l-1
-		                ORFLen=(q-l)+3
-		              end
-		            else
-		              l=l+1
-		            end
-		            exit
-		          end
-		        next
-		      end
-		    next
-		    if begin<m then
-		      exit
-		    elseif q>=m-minProtLen then
-		      exit
-		    end
-		  loop
-		  
-		  return str(begin)+"-"+str(ORFlen)
-		  
-		  Exception err
-		    ExceptionHandler(err,"SeqWin:ORF")
+		Function ORF_disabled(Start as integer) As String
+		  '
+		  'dim l,l2,m,n,q,r,minProtLen,begin,ORFlen as integer
+		  'dim startC as string
+		  'minProtLen=ORFMinLength/3
+		  'begin=seq.length
+		  'm=seq.length
+		  'l=start
+		  'do
+		  'r=countfields(ORFStarts,",")
+		  'l2=l
+		  'for n=1 to r
+		  'startC=nthField(ORFStarts,",",n)
+		  'l=instrB(l2,editor.text,startC)
+		  'if l>0 then
+		  'for q=l+3 to m step 3
+		  'if instrB("TAA,TAG,TGA",midB(editor.text,q,3))>0 then  'instr couple % slower here
+		  'if q-l>minProtLen then
+		  'if (l-1)<begin then
+		  'begin=l-1
+		  'ORFLen=(q-l)+3
+		  'end
+		  'else
+		  'l=l+1
+		  'end
+		  'exit
+		  'end
+		  'next
+		  'end
+		  'next
+		  'if begin<m then
+		  'exit
+		  'elseif q>=m-minProtLen then
+		  'exit
+		  'end
+		  'loop
+		  '
+		  'return str(begin)+"-"+str(ORFlen)
+		  '
+		  'Exception err
+		  'ExceptionHandler(err,"SeqWin:ORF")
 		End Function
 	#tag EndMethod
 
@@ -1718,15 +1644,6 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RedoEdit()
-		  Oldseq=Editor.text
-		  Editor.text=Redoseq
-		  RedoSeq=""
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub SaveFile(FileName as string, DisplaySaveDialog As Boolean)
 		  'this only saves nonredundant seqs as compressed files
 		  'which may not always be desirable
@@ -1738,7 +1655,7 @@ End
 		  dim fn as string
 		  dim k,m as integer
 		  
-		  RedundanciesPresent=HaveRedundancies(Editor.text)
+		  ////RedundanciesPresent=HaveRedundancies(Editor.text)
 		  seq.Redundant=RedundanciesPresent
 		  If Document = Nil or DisplaySaveDialog then 'get the folderItem to save to
 		    if rightb(FileName,3)=".sq" then
@@ -1786,20 +1703,20 @@ End
 		  
 		  p=Seq.Map
 		  
-		  if editor.ScrollPosition<>Currentscrollposition then
-		    CurrentScrollPosition=Editor.ScrollPosition
-		  end
+		  ////if editor.ScrollPosition<>Currentscrollposition then
+		  ////CurrentScrollPosition=Editor.ScrollPosition
+		  ////end
 		  
 		  if  NOT Editorlock then
 		    
 		    
 		    
-		    if editor.selLength>0 then
-		      
-		      if seq.map<>nil then
-		        UpdateMapCanvasSelection
-		      end
+		    ////if editor.selLength>0 then
+		    
+		    if seq.map<>nil then
+		      UpdateMapCanvasSelection
 		    end
+		    ////end
 		    
 		    
 		    'clear highlight of the selected features:
@@ -1827,8 +1744,8 @@ End
 
 	#tag Method, Flags = &h0
 		Sub SelectAll()
-		  Editor.SelStart=0
-		  Editor.SelLength=seq.length
+		  'Editor.SelStart=0
+		  'Editor.SelLength=seq.length
 		End Sub
 	#tag EndMethod
 
@@ -1940,8 +1857,8 @@ End
 		  FeatureLength=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-FeatureLeft
 		  
 		  'select the hit feature in the bottom pane:
-		  Editor.SelStart=FeatureLeft-GenomeDelta
-		  Editor.Sellength=FeatureLength
+		  'Editor.SelStart=FeatureLeft-GenomeDelta
+		  'Editor.Sellength=FeatureLength
 		  
 		  
 		  genomeWin.Show
@@ -1949,47 +1866,36 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub TextMap(Seq2draw As string)
+		Sub TextMap(HighlightFrom As integer, HighlightTo As integer)
 		  dim  charsPerLine,  posInLine,lnl,cl,fullSize,halfSize As Integer
-		  dim lineNum, j, k, l,m,n,tens, numb,numblen, arrScanEnd as integer
+		  dim lineNum, j, k, l,m,n,tens, numb,numblen, arrScanEnd, CurrentY, SeqStart as integer
 		  dim blocktoAdd,formattedSeq, rulerUnit,rulerLine, numberingLine,currNumb, spacer, revseq as string
-		  dim sequence, REline, RElines(0), rl,nl, spaces(9), frames(0), frameLabels(0) as string
-		  dim havecuts,empty As boolean
+		  dim sequence, REline, RElines(0), rl,nl, spaces(9), string2draw as string
+		  dim HLtop,HLbottom,empty As boolean
 		  dim REblock as MemoryBlock
 		  dim bar as string
 		  dim oldscroll as Double
 		  dim ts as String
 		  dim textmap as string
 		  
-		  'get the current textmap scroll position to approximately restore it later:
-		  'oldscroll=ef.ScrollPosition/ef.LineNumAtCharPos(len(ef.text))'topmost visible line/last line
-		  '
-		  'EF.TextFont=TMFont
-		  'EF.text=DefineEncoding ("",Encodings.UTF8)
-		  'fullSize=TMFontSize
-		  'halfSize=ceil(fullSize/2)
-		  'EF.TextSize=fullsize
-		  'EF.text=""
-		  
-		  
-		  // the actual formatting code:
-		  'fill the arrays with coordinates and names:
-		  
-		  
-		  sequence=Seq2draw
+		  'get the sequence to display:
+		  charsPerLine=TMdisplay.width/TMCharWidth
+		  if HighlightFrom=Highlightto then 'don't highlight anything
+		    SeqStart=HighlightFrom-charsPerLine/2
+		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
+		  elseif HighlightFrom<Highlightto then 'highlight site on top strand
+		    HLtop=true
+		    SeqStart=(Highlightto+HighlightFrom)/2-charsPerLine/2
+		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
+		  else 'highlight site on bottom strand
+		    HLbottom=true
+		    SeqStart=(Highlightto+HighlightFrom)/2-charsPerLine/2
+		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
+		  end if
 		  
 		  revseq=Complement(Sequence)
 		  
-		  TextMap=""
-		  
-		  
-		  'check if the seq isn't too large?
-		  'as max  digits that fit per line is 9, theoretically we can have
-		  'up to 999 999 999 bp which would take years to map
-		  
-		  'this stuff is way too slow
-		  'memoryblocks for line strings should speed things up drastically (but only if everything is converted into them!)
-		  'alternatively - check the string funcs proj
+		  TextMap=DefineEncoding ("",Encodings.UTF8)
 		  
 		  'fill the spaces array 2 b used in numbering line:
 		  nl=""
@@ -1998,173 +1904,73 @@ End
 		    spaces(n)=nl
 		  next
 		  
-		  'in RB5 and up use smth like s=Encodings.UTF8.chr(&hF8FF) -  Apple logo
-		  #if targetMacOS then
-		    bar="|"
-		    rulerUnit="˙˙˙˙"+"'"+"˙˙˙˙"+bar
-		  #else
-		    rulerUnit="˙˙˙˙"+"'"+"˙˙˙˙"+"|"    // MAKE THE PROPER RULER FOR WINDOWS (WITH UNICODE SYMBOLS)
-		  #endif
 		  
-		  charsPerLine=TMBasesPerLine ' testing only
-		  tens=TMBasesPerLine/10
+		  rulerUnit="˙˙˙˙"+"'"+"˙˙˙˙"+"|"    // MAKE THE PROPER RULER FOR WINDOWS (WITH UNICODE SYMBOLS)
 		  
-		  rulerLine=" "
-		  for n=1 to tens                                 'create ruler
+		  tens=charsPerLine/10
+		  
+		  rulerLine="|" 'the start needs adjustment (rounding to tens)!
+		  for n=1 to tens                                 'create ruler (500 bp max!)
 		    rulerLine=rulerLine+rulerUnit
 		  next
 		  
-		  'for n=1 to charsPerLine+10   'create string of spaces to fill with RE names
-		  'REline=REline+" "
-		  'next
-		  'REblock=new MemoryBlock(charsPerLine+11)
-		  
-		  
-		  'format the sequence:
-		  linenum=ceil(lenB(Sequence)/charsPerLine)
-		  'formattedSeq=""
-		  blocktoAdd=""
-		  havecuts=false
 		  
 		  'translate the required frames and fill the array:
-		  redim frames(0)
 		  dim c as integer
 		  c=seq.gCodeNo
-		  frames.append TranslateFrame(Sequence,1,c)
-		  frameLabels.append " +1"
-		  frames.append TranslateFrame(Sequence,2,c)
-		  frameLabels.append " +2"
-		  frames.append TranslateFrame(Sequence,3,c)
-		  frameLabels.append " +3"
-		  frames.append TranslateFrame(Sequence,4,c)
-		  frameLabels.append " -1"
-		  frames.append TranslateFrame(Sequence,5,c)
-		  frameLabels.append " -2"
-		  frames.append TranslateFrame(Sequence,6,c)
-		  frameLabels.append " -3"
 		  
+		  'Clear the background:
+		  TextMapPic.Graphics.ForeColor=&cFFFFFF00
+		  TextMapPic.Graphics.FillRect(0,0,TextMapPic.Width,TextMapPic.Height)
+		  TextMapPic.Graphics.ForeColor=&c00000000
 		  
-		  'redim relines(0)
+		  'top frames:
+		  CurrentY=TMLineHeight
+		  string2draw=TranslateFrame(Sequence,1,c)
+		  TextMapPic.Graphics.DrawString(string2draw,0,CurrentY)
+		  if instr(string2draw,"M")>0 then
+		    TextMapPic.Graphics.ForeColor=&c00804000 'draw "M" green
+		    TextMapPic.Graphics.Drawstring("M", (instr(string2draw,"*")-1)*TMCharWidth,CurrentY)
+		    TextMapPic.Graphics.ForeColor=&c00000000
+		  end if
+		  if instr(string2draw,"*")>0 then
+		    TextMapPic.Graphics.ForeColor=&c80004000 'draw "*" red
+		    TextMapPic.Graphics.Drawstring("*", (instr(string2draw,"*")-1)*TMCharWidth,CurrentY)
+		    TextMapPic.Graphics.ForeColor=&c00000000
+		  end if
+		  CurrentY=CurrentY+TMLineHeight
+		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,2,c),0,CurrentY)
+		  CurrentY=CurrentY+TMLineHeight
+		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,3,c),0,CurrentY)
 		  
-		  for m=0 to linenum-1   'have to handle the last line separately
-		    numb=m*charsPerLine             'number of last char added (to use for numbering)
-		    'add previous line with other stuff:
-		    
-		    'formattedSeq=formattedSeq+blocktoAdd
-		    
-		    TextMap=TextMap+blocktoAdd
-		    
-		    blocktoadd=""
-		    
-		    'adjust ruler and number on the right display here:
-		    blocktoadd=blocktoadd+" "+midb(sequence, 1+numb, charsPerLine)
-		    
-		    blocktoadd=blocktoadd+" "+str(numb+charsPerLine)
-		    
-		    blocktoadd=blocktoadd+lineEnd  'use proper line ends! 'actual sequence
-		    
-		    blocktoadd=blocktoadd+rulerLine+lineEnd 'ruler
-		    
-		    
-		    'add numbering
-		    numberingline="          "
-		    spacer=""
-		    for n=1 to tens
-		      currnumb=str(numb+10*n)
-		      'numblen=lenb(currnumb)
-		      numberingline=numberingline+currnumb
-		      'add required spacers (can speed this up by moving out of cycle!):
-		      numberingline=numberingline+spaces(lenb(currnumb))
-		    next
-		    blocktoadd=blocktoadd+numberingline+lineEnd
-		    
-		    
-		    'add  bottom strand:
-		    blocktoadd=DefineEncoding(blocktoadd+" "+midb(revseq, 1+numb, charsPerLine)+lineEnd,Encodings.UTF8)
-		    
-		    
-		    'now add translation:
-		    for n=1 to ubound(Frames)
-		      blocktoadd=blocktoadd+" "+midb(Frames(n), 1+numb, charsPerLine)+frameLabels(n)+lineEnd  'use proper line ends! 'actual sequence
-		    next
-		    blocktoadd=blocktoadd+lineEnd
-		    
-		  next
-		  
-		  'add the last (shorter) line:
-		  
-		  'get the length of the last line:
-		  charsPerLine=lenb(NthField(blocktoAdd," ",2))+1
-		  'chop the ruler:
-		  rulerLine=left(rulerLine,charsPerLine)
-		  'chop the numberingline:
-		  tens=floor(charsPerLine/10)
-		  'numb=n*charsPerLine             'to use for numbering
-		  
-		  numberingline="          "
-		  spacer=""
-		  for m=1 to tens
-		    currnumb=str(numb+10*m)
-		    numblen=lenb(currnumb)
+		  'seq and ruler:
+		  CurrentY=CurrentY+TMLineHeight
+		  TextMapPic.Graphics.DrawString(Sequence,0,CurrentY)
+		  CurrentY=CurrentY+TMLineHeight
+		  TextMapPic.Graphics.DrawString(RulerLine,0,CurrentY)
+		  CurrentY=CurrentY+TMLineHeight
+		  numberingline="         "
+		  for n=1 to 50
+		    currnumb=str(SeqStart+10*n)
+		    'numblen=lenb(currnumb)
 		    numberingline=numberingline+currnumb
-		    for l=1 to 10-numblen
-		      numberingline=numberingline+" "
-		    next
+		    'add required spacers (can speed this up by moving out of cycle!):
+		    numberingline=numberingline+spaces(lenb(currnumb))
 		  next
+		  TextMapPic.Graphics.DrawString(numberingline,0,CurrentY)
+		  CurrentY=CurrentY+TMLineHeight
+		  TextMapPic.Graphics.DrawString(revseq,0,CurrentY)
 		  
 		  
+		  'bottom frames:
+		  CurrentY=CurrentY+TMLineHeight
+		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,4,c),0,CurrentY)
+		  CurrentY=CurrentY+TMLineHeight
+		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,5,c),0,CurrentY)
+		  CurrentY=CurrentY+TMLineHeight
+		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,6,c),0,CurrentY)
 		  
-		  'formattedSeq=formattedSeq+NthField(blocktoAdd,lineEnd,1)+lineEnd+rulerLine+lineEnd+numberingline
-		  spacer=NthField(blocktoAdd,lineEnd,1)
-		  spacer=NthField(spacer," ",2)
-		  charsPerLine=lenb(spacer) 'to use in translation line length adjustment
-		  
-		  TextMap=TextMap+formattedSeq+" "+spacer+" "+str(lenb(sequence))+lineEnd
-		  
-		  
-		  
-		  TextMap=TextMap+rulerLine+lineEnd 'ruler
-		  
-		  
-		  'add numbering :
-		  TextMap=TextMap+numberingline+lineEnd
-		  
-		  'add  bottom strand:
-		  TextMap=TextMap+DefineEncoding(" "+midb(revseq, 1+numb, charsPerLine)+lineEnd,Encodings.UTF8)
-		  
-		  
-		  blocktoadd=""
-		  for n=1 to ubound(Frames)
-		    'need to adjust translated lines lengths:
-		    spacer=midb(Frames(n), 1+numb, charsPerLine)
-		    if charsPerLine-lenb(spacer)=1 then
-		      spacer=spacer+" "
-		    elseif charsPerLine-lenb(spacer)=2 then
-		      spacer=spacer+"  "
-		    end
-		    blocktoadd=blocktoadd+" "+spacer+frameLabels(n)+lineEnd  'use proper line ends! 'actual sequence
-		  next
-		  'blocktoadd=blocktoadd+lineEnd
-		  TextMap=TextMap+DefineEncoding(blocktoadd,Encodings.UTF8)
-		  'restore scrollposition:
-		  'ef.scrollposition=ef.LineNumAtCharPos(len(ef.text))*oldscroll
-		  'TextMapField.text=Formattedseq
-		  'EF.Visible=True
-		  
-		  
-		  
-		  
-		  //display the map:
-		  editor.text=DefineEncoding(TextMap,Encodings.UTF8)
-		  editor.enabled=true
-		  editor.Visible=true
-		  
-		  '#if TargetCocoa then
-		  'EF.TextFont=FixedFont       'Cocoa bug - system font is used without this line no matter what
-		  '#endif
-		  editor.TextFont=TMFont
-		  editor.textsize=12
-		  TextMapPic.Graphics.DrawString(TextMap,0,50)
+		  TMdisplay.Refresh
 		  
 		  Exception err
 		    ExceptionHandler(err,"SeqWin:TextMap")
@@ -2173,9 +1979,9 @@ End
 
 	#tag Method, Flags = &h0
 		Sub UndoEdit()
-		  RedoSeq=Newseq
-		  Editor.text=Oldseq
-		  Oldseq=""
+		  'RedoSeq=Newseq
+		  'Editor.text=Oldseq
+		  'Oldseq=""
 		End Sub
 	#tag EndMethod
 
@@ -2263,58 +2069,58 @@ End
 
 	#tag Method, Flags = &h0
 		Sub UpdateMapCanvasSelection()
-		  dim p as picture
-		  'dim startangle,Arcangle as Double
-		  
-		  
-		  
-		  p=seq.map
-		  
-		  if p<>nil then
-		    'if seq.circular then
-		    'arcshape(p.Objects.Item(0)).startangle=(Editor.SelStart/seq.bpPerRad)-halfPi
-		    'arcshape(p.Objects.Item(0)).Arcangle=Editor.SelLength/seq.bpPerRad
-		    ''startangle=arcshape(p.Objects.Item(0)).startangle
-		    'else
-		    RectShape(p.Objects.Item(0)).width=Editor.Sellength/seq.bpPerPixel
-		    p.Objects.Item(0).x=(LmapDx+(Editor.SelStart+Editor.Sellength/2)/seq.bpPerPixel)*seq.map.Objects.Scale
-		    'end
-		  end
-		  
-		  
-		  if MapCanvas.Visible then
-		    updateMapCanvas
-		  end if
-		  
-		  
-		  
-		  app.doevents  'workaround for not showing selectiun when shift-selecting an RE fragment
+		  'dim p as picture
+		  ''dim startangle,Arcangle as Double
+		  '
+		  '
+		  '
+		  'p=seq.map
+		  '
+		  'if p<>nil then
+		  ''if seq.circular then
+		  ''arcshape(p.Objects.Item(0)).startangle=(Editor.SelStart/seq.bpPerRad)-halfPi
+		  ''arcshape(p.Objects.Item(0)).Arcangle=Editor.SelLength/seq.bpPerRad
+		  '''startangle=arcshape(p.Objects.Item(0)).startangle
+		  ''else
+		  'RectShape(p.Objects.Item(0)).width=Editor.Sellength/seq.bpPerPixel
+		  'p.Objects.Item(0).x=(LmapDx+(Editor.SelStart+Editor.Sellength/2)/seq.bpPerPixel)*seq.map.Objects.Scale
+		  ''end
+		  'end
+		  '
+		  '
+		  'if MapCanvas.Visible then
+		  'updateMapCanvas
+		  'end if
+		  '
+		  '
+		  '
+		  'app.doevents  'workaround for not showing selectiun when shift-selecting an RE fragment
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub UpdateSelRange()
-		  dim n as integer
-		  n=seq.length
-		  
-		  dim sl, ss As integer
-		  sl=Editor.sellength
-		  ss=editor.selStart
-		  if Editor.sellength>0 then
-		    
-		    if n<=seq.length then
-		      n=editor.selStart+editor.sellength-1
-		    end
-		    SelRange.text=str(editor.selStart+GenomeDelta)+"-"+str(n)+":"+str(editor.sellength)
-		  else
-		    if editor.selStart>=seq.length OR editor.selStart=0 then
-		      'SelRange.text=str(n)
-		      SelRange.text=""
-		    else
-		      SelRange.text=str(editor.selStart+GenomeDelta)+"("+str(n)+")"
-		    end
-		  end if
-		  
+		  'dim n as integer
+		  'n=seq.length
+		  '
+		  'dim sl, ss As integer
+		  'sl=Editor.sellength
+		  'ss=editor.selStart
+		  'if Editor.sellength>0 then
+		  '
+		  'if n<=seq.length then
+		  'n=editor.selStart+editor.sellength-1
+		  'end
+		  'SelRange.text=str(editor.selStart+GenomeDelta)+"-"+str(n)+":"+str(editor.sellength)
+		  'else
+		  'if editor.selStart>=seq.length OR editor.selStart=0 then
+		  ''SelRange.text=str(n)
+		  'SelRange.text=""
+		  'else
+		  'SelRange.text=str(editor.selStart+GenomeDelta)+"("+str(n)+")"
+		  'end
+		  'end if
+		  '
 		  
 		End Sub
 	#tag EndMethod
@@ -2767,6 +2573,14 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		TMCharWidth As Double
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TMLineHeight As Double
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ToolTipX As Integer
 	#tag EndProperty
 
@@ -2921,12 +2735,12 @@ End
 		        'Select Sequence in the text window:
 		        
 		        if Seq.Features(selFeatureNo).complement  then
-		          Editor.SelStart=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length
-		          Editor.Sellength=Seq.Features(selFeatureNo).length
+		          ////Editor.SelStart=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length
+		          ////Editor.Sellength=Seq.Features(selFeatureNo).length
 		          'bases.text=str(Seq.Features(selFeatureNo).length)+"("+str(Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length)+"-"+str(Seq.Features(selFeatureNo).start)+")"
 		        else
-		          Editor.SelStart=Seq.Features(selFeatureNo).start
-		          Editor.Sellength=Seq.Features(selFeatureNo).length
+		          ////Editor.SelStart=Seq.Features(selFeatureNo).start
+		          ////Editor.Sellength=Seq.Features(selFeatureNo).length
 		          'bases.text=str(Seq.Features(selFeatureNo).length)+"("+str(Seq.Features(selFeatureNo).start)+"-"+str(Seq.Features(selFeatureNo).start+Seq.Features(selFeatureNo).length)+")"
 		        end
 		        #if TargetMacOS then
@@ -2979,7 +2793,7 @@ End
 		        EditorLock=false
 		        SelectingREfragment=false
 		        seq.SelLength=0
-		        Editor.SelLength=0
+		        ////Editor.SelLength=0
 		      end
 		    end
 		    RetValue=True 'to trigger MouseDrag
@@ -3238,17 +3052,17 @@ End
 		    if x>=LastX then
 		      p.Objects.Item(0).x=LastX+w/2
 		      'refreshrect LastX,0,w,height
-		      Editor.SelStart=(lastx)*seq.bpPerPixel
+		      ////Editor.SelStart=(lastx)*seq.bpPerPixel
 		    else
 		      p.Objects.Item(0).x=X+w/2
 		      
 		      'refreshrect X,0,w,height
-		      Editor.SelStart=(x)*seq.bpPerPixel
+		      ////Editor.SelStart=(x)*seq.bpPerPixel
 		    end
 		    
 		    'need to set selection in the seq object too
 		    'Select Sequence in the text window:
-		    Editor.Sellength=w*seq.bpPerPixel
+		    ////Editor.Sellength=w*seq.bpPerPixel
 		    'end
 		    
 		    
@@ -3456,269 +3270,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Editor
-	#tag Event
-		Sub MouseUp(x as integer, y as integer)
-		  if SelNeedsRestoring then
-		    editor.SelStart=SelStart
-		    editor.SelLength=SelLength
-		  end
-		  SelNeedsRestoring=false
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  #if TargetWin32 then
-		    me.DoubleBuffer=true
-		  #endif
-		  
-		  EnableSave false
-		  self.opening=true
-		  'me.textfont=fixedFont
-		  Oldseq=""
-		  Newseq=""
-		  
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub TextChange()
-		  'must check for the features!!!
-		  
-		  'if app.opening or self.opening then
-		  ''self.opening=false
-		  'else
-		  'EnableSave true
-		  '
-		  'end
-		  'size.text=str(seq.length)
-		  EnableMenuItems 'to properly enable menus
-		  
-		  'to possibly avoid problems with different fonts in editfield:
-		  '#if targetWin32 then
-		  'me.textFont=FixedFont
-		  'me.textSize=12
-		  '#endif
-		  Oldseq=Newseq
-		  Newseq=Editor.text
-		  
-		  seq.Sequence=replaceall(editor.Text,chr(13),"")
-		  seq.Length=lenb(seq.Sequence)
-		  UpdateSelRange
-		  HighlightFeatures
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function KeyDown(key as string) As boolean
-		  
-		End Function
-	#tag EndEvent
-	#tag Event
-		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
-		  'dim slen as integer
-		  'dim selectedc as Color
-		  dim dummyBoolean as Boolean
-		  
-		  'Copying destroys selection (which it shouldn't)
-		  'Opening a contextual menu and then not choosing an action also
-		  'removes selection and may even select something else
-		  'Saving selection here and restoring it in editfield's mouseup
-		  'works around the problem (but causes flicker)
-		  
-		  SelNeedsRestoring=false
-		  SelStart=editor.SelStart
-		  SelLength=editor.SelLength
-		  
-		  featuredeleted=false
-		  
-		  select case hititem.text
-		    
-		    
-		    
-		  case kSelectAll
-		    selectAll
-		    
-		  else
-		    SelNeedsRestoring=true
-		  end
-		  
-		  Exception err
-		    ExceptionHandler(err,"Editor:ContextualMenu:Action")
-		End Function
-	#tag EndEvent
-	#tag Event
-		Function ConstructContextualMenu(base as menuitem, x as integer, y as integer) As boolean
-		  'dim SeparNeeded as boolean
-		  'Dim c as Clipboard
-		  'Dim b as integer
-		  '
-		  '
-		  'if x>=0 AND y>=0 then
-		  'c=New Clipboard
-		  'b=lenb(c.text)
-		  'c.close
-		  '
-		  '
-		  'if seq.length>0 then
-		  'SeparNeeded=false
-		  'if me.SelLength>0 then
-		  'SeparNeeded=True
-		  'base.append mItem(kCut)
-		  'base.append mItem(kCopy)
-		  'end
-		  'if b>0 then
-		  'SeparNeeded=True
-		  'base.append mItem(kPaste)
-		  'end
-		  '
-		  'if SeparNeeded then
-		  'base.append mItem("-")
-		  'end
-		  'base.Append mItem(kNewFeature)
-		  'base.append mItem(kSelectAll)
-		  'base.append mItem(kFind)
-		  'if ORFCurrCoord>1 or SiteNo<FoundSitesNumber then
-		  'base.append mItem(kFindAgain)
-		  'end
-		  '
-		  'base.append mItem("-")
-		  'base.append mItem(kRevCompl)
-		  'base.append mItem(kTranslate)
-		  'base.append mItem(kOligoFrequency)
-		  '
-		  '
-		  '
-		  'end
-		  'base.append mItem("-")
-		  'base.append mItem(kSequenceproperties)
-		  '
-		  '
-		  'Return True
-		  '
-		  'end
-		  '
-		  '
-		  'Exception err
-		  'ExceptionHandler(err,"SeqWin:Editor:MouseDown")
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub LostFocus()
-		  SelChange
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub SelChange(line as integer, column as integer, length as integer)
-		  SelChange
-		  HighlightFeatures
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub HighlightsChanged()
-		  HighlightFeatures
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseMove(X as integer, Y as integer)
-		  //show visible features names and types as tooltips
-		  'if features overlap, only the one that's the first in the array will trigger the tooltip
-		  'can display all overlapping features if required.
-		  if seq<>Nil  AND ubound(seq.features)>0 then
-		    if x>editor.GutterWidth then
-		      'get the feature under the mouse:
-		      dim SeqPos,m,n as integer
-		      dim tt as string
-		      
-		      ToolTipX=self.left+me.left+X
-		      ToolTipY=self.top+me.top+Y
-		      
-		      m=ubound(seq.Features)
-		      SeqPos=editor.CharPosAtXY(x,y)
-		      seqpos=lenb(ReplaceAllB(leftb(editor.text,seqpos),chr(13),"")) 'correction for CRs
-		      EditorToolTip=""
-		      tt=""
-		      for n=1 to m
-		        if seq.Features(n).Visible then
-		          if seq.Features(n).complement then
-		            if SeqPos>=seq.Features(n).start-seq.Features(n).length then
-		              if SeqPos< seq.Features(n).start then
-		                tt=tt+seq.Features(n).name + " ("+seq.Features(n).type+", complement);"+LineEnd
-		                'exit
-		              end if
-		            end if
-		          else
-		            if SeqPos>=seq.Features(n).start AND SeqPos< seq.Features(n).start+seq.Features(n).length then
-		              tt=tt+seq.Features(n).name + " ("+seq.Features(n).type+");"+LineEnd
-		              'exit
-		            end if
-		          end if
-		        end if
-		      next
-		      tt=rtrim(tt)
-		      
-		      #if TargetWin32 then
-		        if tt="" then
-		          wintooltip.InitialShowTime=0
-		          wintooltip.Hide
-		          wintooltip.Text=""
-		        else
-		          wintooltip.InitialShowTime=500
-		          EditorToolTip=left(tt,len(tt)-1)
-		          ToolTipTimer.Reset
-		        end if
-		      #else
-		        
-		        EditorToolTip=left(tt,len(tt)-1)
-		        ToolTipTimer.Reset
-		        
-		      #endif
-		      
-		      
-		    else
-		      'wintooltip= new cToolTip(me,true)
-		      'winToolTip.hide
-		      EditorToolTip=""
-		    end if
-		  end if
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseExit()
-		  
-		  #if TargetWin32 then
-		    'ToolTipTimer.mode=0
-		    winToolTip.Hide
-		  #else
-		    'ToolTipTimer.mode=0
-		    tooltip.hide
-		  #endif
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  ToolTipTimer.mode=1
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub ActivateE()
-		  #if TargetCocoa then
-		    EditorTimer.Mode=timer.ModeMultiple
-		  #endif
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DeactivateE()
-		  #if TargetCocoa then
-		    if EditorTimer <> Nil then 'strange bug at close
-		      EditorTimer.Mode=timer.ModeOff
-		    end if
-		  #endif
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events ToolTipTimer
 	#tag Event
 		Sub Action()
@@ -3743,10 +3294,10 @@ End
 #tag Events EditorTimer
 	#tag Event
 		Sub Action()
-		  if Editor.NeedsRedrawing then
-		    Editor.refresh
-		    Editor.NeedsRedrawing=false
-		  end if
+		  'if Editor.NeedsRedrawing then
+		  'Editor.refresh
+		  'Editor.NeedsRedrawing=false
+		  'end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -3859,7 +3410,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  TextMapPic=new picture(me.Width,me.Height)
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

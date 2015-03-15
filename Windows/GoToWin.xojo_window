@@ -158,6 +158,8 @@ End
 		    Parent.ExtractFragment(n-Genomewin.DisplayInterval/2,n+Genomewin.DisplayInterval/2)
 		    hide
 		  end if
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

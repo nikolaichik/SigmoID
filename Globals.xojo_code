@@ -1,6 +1,113 @@
 #tag Module
 Protected Module Globals
 	#tag Method, Flags = &h0
+		Sub AdjustLayout4lunux(w as window)
+		  'Adjust text sizes and buttons of a window to look better cross platform based on layout in Mac IDE
+		  'this must be called only once in open event of window.
+		  'by Guy Kuo         www.cosalient.com
+		  
+		  
+		  #pragma BackgroundTasks false
+		  
+		  #if TargetLinux
+		    
+		    dim i , imax as integer
+		    'dim scalingFactor as double
+		    'dim dpi as integer
+		    dim aControl as control
+		    'const kBaseTextSizeIfZero = 12
+		    
+		    'dpi = screenDPI
+		    'if dpi < 10 then exit
+		    
+		    'scalingFactor = (96/dpi)  'factor to scale from mac 96 dpi pixel size to windows equivalent size per inch
+		    
+		    imax = w.ControlCount-1
+		    
+		    for i = 0 to imax
+		      aControl = w.Control(i) 'assign for better code readability
+		      
+		      if aControl isa PopupMenu then
+		        PopupMenu(aControl).Top =PopupMenu(aControl).Top-4
+		        PopupMenu(aControl).height =PopupMenu(aControl).height+8
+		        'elseif aControl isa EditField then '-----------------------------
+		        '
+		        'if EditField(aControl).TextSize <> 0 then
+		        'EditField(aControl).TextSize = round(scalingFactor * EditField(aControl).TextSize) 'base on actual textsize
+		        'else
+		        'EditField(aControl).TextSize = round(scalingFactor * kBaseTextSizeIfZero) 'base on 12
+		        'end
+		        '
+		        'elseif aControl isa staticText then '-----------------------------
+		        '
+		        'if staticText(aControl).TextSize <> 0 then
+		        'staticText(aControl).TextSize = round(scalingFactor * staticText(aControl).TextSize)
+		        'else
+		        'staticText(aControl).TextSize = round(scalingFactor * kBaseTextSizeIfZero)
+		        'end
+		        '
+		        'elseif aControl isa ListBox then '-----------------------------
+		        '
+		        'if ListBox(aControl).TextSize <> 0 then
+		        'ListBox(aControl).TextSize = round(scalingFactor * ListBox(aControl).TextSize)
+		        'else
+		        'ListBox(aControl).TextSize = round(scalingFactor * kBaseTextSizeIfZero)
+		        'end
+		        '
+		        'elseif aControl isa CheckBox then '-----------------------------
+		        '
+		        'if CheckBox(aControl).TextSize <> 0 then
+		        'CheckBox(aControl).TextSize = round(scalingFactor * CheckBox(aControl).TextSize)
+		        'else
+		        'CheckBox(aControl).TextSize = round(scalingFactor * kBaseTextSizeIfZero)
+		        'end
+		        
+		      elseif aControl isa PushButton then '-----------------------------
+		        
+		        'if PushButton(aControl).TextSize <> 0 then
+		        'PushButton(aControl).TextSize = round(scalingFactor * PushButton(aControl).TextSize)
+		        'else
+		        'PushButton(aControl).TextSize = round(scalingFactor * kBaseTextSizeIfZero)
+		        'end
+		        
+		        #if TargetLinux then
+		          PushButton(aControl).Top = PushButton(aControl).Top - 5
+		          PushButton(aControl).Height = PushButton(aControl).Height + 10
+		        #endif
+		        
+		        '#if TargetWin32 then
+		        'PushButton(aControl).Top = PushButton(aControl).Top - 4
+		        'PushButton(aControl).Height = PushButton(aControl).Height + 8
+		        '#endif
+		        
+		        
+		        'elseif aControl isa BevelButton then '-----------------------------
+		        '
+		        'if BevelButton(aControl).TextSize <> 0 then
+		        'BevelButton(aControl).TextSize = round(scalingFactor * BevelButton(aControl).TextSize)
+		        'else
+		        'BevelButton(aControl).TextSize = round(scalingFactor * kBaseTextSizeIfZero)
+		        'end
+		        
+		        '#if TargetLinux then
+		        'BevelButton(aControl).Top = BevelButton(aControl).Top - 5
+		        'BevelButton(aControl).Height = BevelButton(aControl).Height + 10
+		        '#endif
+		        '
+		        '#if TargetWin32 then
+		        'BevelButton(aControl).Top = BevelButton(aControl).Top - 4
+		        'BevelButton(aControl).Height = BevelButton(aControl).Height + 8
+		        '#endif
+		        
+		      end
+		    next
+		    
+		  #endif
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CleanUp(Ge As string) As string
 		  
 		  #pragma disableBackgroundTasks
@@ -520,6 +627,100 @@ Protected Module Globals
 		  
 		  'Exception err
 		  'ExceptionHandler(err,"MethodsAndGlobals:RevCompl")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SetDefaultFonts(FromFontSelWin as boolean) As string
+		  'try to set the default fonts appropriate for three platforms
+		  
+		  'this method is called from fontSelectionWin.open (with TRUE)
+		  'and from app.defaultPrefs (with FALSE)
+		  
+		  'returned are font names and their positions in the lists
+		  
+		  dim m,n,i,GoodFFont, GoodPFont as Integer
+		  dim FixedFonts, PropFonts, CurrentFont, FF as string
+		  dim pic as picture
+		  
+		  
+		  pic=newPicture(20,20,1)
+		  n=FontCount-1
+		  For i=0 to n
+		    CurrentFont=Font(i)
+		    pic.graphics.textFont=CurrentFont
+		    if pic.graphics.stringWidth("w")=pic.graphics.stringWidth("i") then
+		      FixedFonts=FixedFonts+CurrentFont+";"
+		    else
+		      PropFonts=PropFonts+CurrentFont+";"
+		    End If
+		  Next
+		  
+		  FF=""
+		  GoodFFont=0
+		  if FixedFonts<>"" then
+		    m=countFields(FixedFonts,";")
+		    for n=1 to m-1
+		      CurrentFont=NthField(FixedFonts,";",n)
+		      if FromFontSelWin then
+		        FontSelectionWin.FixedFontSelMenu.addrow CurrentFont
+		      end if
+		      #if TargetMacOS then
+		        if CurrentFont="Lucida Console" then
+		          FF="Lucida Console"
+		          GoodFFont=n-1
+		        elseif CurrentFont="Courier" then
+		          FF="Courier"
+		          GoodFFont=n-1
+		        end
+		      #elseif TargetLinux then
+		        if CurrentFont="Monospace" then
+		          FF="Monospace"
+		          GoodFFont=n-1
+		        end
+		      #else
+		        if CurrentFont="Courier New" then
+		          FF="Courier New"
+		          GoodFFont=n-1
+		        end
+		      #endif
+		    next
+		    'if FF="" then
+		    'app.NeedFixedFont=true
+		    'end
+		  else
+		    MsgBox "At least one fixed width font is required for proper work of the programme.  Please install such a font and run the programme again."
+		    quit
+		  end
+		  
+		  
+		  dim PF as string
+		  PF=""
+		  GoodPFont=0
+		  if PropFonts<>"" then
+		    m=countFields(PropFonts,";")
+		    for n=1 to m-1
+		      CurrentFont=NthField(PropFonts,";",n)
+		      if FromFontSelWin then
+		        FontSelectionWin.PropFontSelMenu.addrow CurrentFont
+		      end if
+		      if CurrentFont="Arial" then
+		        PF="Arial"
+		        GoodPFont=n-1
+		      elseif CurrentFont="Ubuntu" then
+		        PF="Ubuntu"
+		        GoodPFont=n-1
+		      end
+		    next
+		    'if PF="" then
+		    'app.NeedFixedFont=true
+		    'end
+		  else
+		    MsgBox "At least one proportional font is required for proper work of the programme.  Please install such a font and run the programme again."
+		    quit
+		  end
+		  
+		  return FF+";"+PF+";"+str(GoodFFont)+";"+str(GoodPFont)
 		End Function
 	#tag EndMethod
 
