@@ -156,6 +156,7 @@ End
 		  n=val(GoToField.text)
 		  if n>0 then
 		    Parent.ExtractFragment(n-Genomewin.DisplayInterval/2,n+Genomewin.DisplayInterval/2)
+		    'Parent.FeatureLeft=0 'disable hit highlighting
 		    hide
 		  end if
 		  

@@ -833,6 +833,37 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DrawFrameColors(g as graphics, string2draw as string, CurrentY as double)
+		  'draw frame with colored start and stop codons
+		  
+		  dim co as integer
+		  
+		  'draw base string
+		  g.DrawString(string2draw,0,CurrentY)
+		  
+		  g.Bold=true 'highlight starts/stops
+		  'draw starts:
+		  co=instr(string2draw,"M")
+		  while co>0
+		    g.ForeColor=&c00804000 'draw "M" green
+		    g.Drawstring("M", (co-1)*TMCharWidth,CurrentY)
+		    g.ForeColor=&c00000000
+		    co=instr(co+1,string2draw,"M")
+		  wend
+		  
+		  'draw stops:
+		  co=instr(string2draw,"*")
+		  while co>0
+		    g.ForeColor=&c80004000 'draw "*" red
+		    g.Drawstring("*", (co-1)*TMCharWidth,CurrentY)
+		    g.ForeColor=&c00000000
+		    co=instr(co+1,string2draw,"*")
+		  wend
+		  g.Bold=false
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub EnableSave(Ya as boolean)
 		  
 		  dim i as integer
@@ -1080,11 +1111,12 @@ End
 		  'editor.text=seq.sequence
 		  updateMapCanvas
 		  
-		  'display the actual sequence:
-		  'just a test with 100 bp in the middle of the seq:
+		  'display the actual sequence around hit:
+		  if Featureleft=0 then
+		    dim FragmentCent as integer = (FragmentStart+FragmentEnd)/2
+		    TextMap(FragmentCent,FragmentCent)
+		  end if
 		  
-		  dim FragmentCent as integer = (FragmentStart+FragmentEnd)/2
-		  TextMap(FragmentCent,FragmentCent)
 		  refresh
 		End Sub
 	#tag EndMethod
@@ -1852,15 +1884,21 @@ End
 		  HScrollBarCodeLock=false
 		  
 		  'determine the distance of the left edge of displayed fragment from start:
-		  dim FeatureLeft, FeatureLength as integer
-		  FeatureLeft=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))
-		  FeatureLength=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-FeatureLeft
+		  
+		  if instr(HmmHitDescriptions(CurrentHit),"(+)")>0 then
+		    FeatureLeft=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))
+		    FeatureRight=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))
+		  else
+		    FeatureRight=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))
+		    FeatureLeft=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))
+		  end if
+		  
 		  
 		  'select the hit feature in the bottom pane:
 		  'Editor.SelStart=FeatureLeft-GenomeDelta
 		  'Editor.Sellength=FeatureLength
 		  
-		  
+		  genomeWin.TextMap(FeatureLeft,FeatureRight)
 		  genomeWin.Show
 		End Sub
 	#tag EndMethod
@@ -1883,6 +1921,8 @@ End
 		  if HighlightFrom=Highlightto then 'don't highlight anything
 		    SeqStart=HighlightFrom-charsPerLine/2
 		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
+		    HLtop=false
+		    HLbottom=false
 		  elseif HighlightFrom<Highlightto then 'highlight site on top strand
 		    HLtop=true
 		    SeqStart=(Highlightto+HighlightFrom)/2-charsPerLine/2
@@ -1926,25 +1966,19 @@ End
 		  
 		  'top frames:
 		  CurrentY=TMLineHeight
-		  string2draw=TranslateFrame(Sequence,1,c)
-		  TextMapPic.Graphics.DrawString(string2draw,0,CurrentY)
-		  if instr(string2draw,"M")>0 then
-		    TextMapPic.Graphics.ForeColor=&c00804000 'draw "M" green
-		    TextMapPic.Graphics.Drawstring("M", (instr(string2draw,"*")-1)*TMCharWidth,CurrentY)
-		    TextMapPic.Graphics.ForeColor=&c00000000
-		  end if
-		  if instr(string2draw,"*")>0 then
-		    TextMapPic.Graphics.ForeColor=&c80004000 'draw "*" red
-		    TextMapPic.Graphics.Drawstring("*", (instr(string2draw,"*")-1)*TMCharWidth,CurrentY)
-		    TextMapPic.Graphics.ForeColor=&c00000000
-		  end if
+		  DrawFrameColors(TextMapPic.Graphics,TranslateFrame(Sequence,1,c),CurrentY)
 		  CurrentY=CurrentY+TMLineHeight
-		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,2,c),0,CurrentY)
+		  DrawFrameColors(TextMapPic.Graphics,TranslateFrame(Sequence,2,c),CurrentY)
 		  CurrentY=CurrentY+TMLineHeight
-		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,3,c),0,CurrentY)
+		  DrawFrameColors(TextMapPic.Graphics,TranslateFrame(Sequence,3,c),CurrentY)
 		  
 		  'seq and ruler:
 		  CurrentY=CurrentY+TMLineHeight
+		  if HLtop then 'draw highlight rect:
+		    TextMapPic.Graphics.ForeColor=&c66CCFF00
+		    TextMapPic.Graphics.FillRect((HighlightFrom-SeqStart)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightTo-HighlightFrom)*TMCharWidth,TMLineHeight)
+		    TextMapPic.Graphics.ForeColor=&c00000000
+		  end if
 		  TextMapPic.Graphics.DrawString(Sequence,0,CurrentY)
 		  CurrentY=CurrentY+TMLineHeight
 		  TextMapPic.Graphics.DrawString(RulerLine,0,CurrentY)
@@ -1959,16 +1993,21 @@ End
 		  next
 		  TextMapPic.Graphics.DrawString(numberingline,0,CurrentY)
 		  CurrentY=CurrentY+TMLineHeight
+		  if HLbottom then 'draw highlight rect:
+		    TextMapPic.Graphics.ForeColor=&c66CCFF00
+		    TextMapPic.Graphics.FillRect((HighlightTo-SeqStart)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightFrom-HighlightTo)*TMCharWidth,TMLineHeight)
+		    TextMapPic.Graphics.ForeColor=&c00000000
+		  end if
 		  TextMapPic.Graphics.DrawString(revseq,0,CurrentY)
 		  
 		  
 		  'bottom frames:
 		  CurrentY=CurrentY+TMLineHeight
-		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,4,c),0,CurrentY)
+		  DrawFrameColors(TextMapPic.Graphics,TranslateFrame(Sequence,4,c),CurrentY)
 		  CurrentY=CurrentY+TMLineHeight
-		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,5,c),0,CurrentY)
+		  DrawFrameColors(TextMapPic.Graphics,TranslateFrame(Sequence,5,c),CurrentY)
 		  CurrentY=CurrentY+TMLineHeight
-		  TextMapPic.Graphics.DrawString(TranslateFrame(Sequence,6,c),0,CurrentY)
+		  DrawFrameColors(TextMapPic.Graphics,TranslateFrame(Sequence,6,c),CurrentY)
 		  
 		  TMdisplay.Refresh
 		  
@@ -2258,6 +2297,14 @@ End
 
 	#tag Property, Flags = &h0
 		featuredeleted As boolean = false
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		FeatureLeft As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		FeatureRight As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
