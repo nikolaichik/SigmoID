@@ -16,7 +16,7 @@ Begin Window GenomeWin
    MaxHeight       =   32000
    MaximizeButton  =   True
    MaxWidth        =   32000
-   MenuBar         =   2
+   MenuBar         =   149806200
    MenuBarVisible  =   True
    MinHeight       =   100
    MinimizeButton  =   True
@@ -171,12 +171,12 @@ Begin Window GenomeWin
       LockTop         =   True
       MacControlStyle =   0
       Scope           =   0
-      Segments        =   "Prev.\n\nFalse\r         \n\nFalse\rNext\n\nFalse"
+      Segments        =   "Prev.\n\nFalse\r                      \n\nFalse\rNext\n\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
       Top             =   7
       Visible         =   True
-      Width           =   157
+      Width           =   177
    End
    Begin CheckBox FeatureBox
       AutoDeactivate  =   True
@@ -190,7 +190,7 @@ Begin Window GenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   174
+      Left            =   192
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -208,7 +208,7 @@ Begin Window GenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   524
+      Width           =   506
    End
    Begin ScrollBar HScrollBar
       AcceptFocus     =   True
@@ -706,6 +706,25 @@ End
 		End Sub
 	#tag EndEvent
 
+
+	#tag MenuHandler
+		Function EditCopy() As Boolean Handles EditCopy.Action
+			Dim C as  Clipboard
+			C=new Clipboard
+			
+			if FeatureLeft>0 then
+			if FeatureLeft<Featureright then
+			c.Text=midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
+			else
+			c.Text=midb(Genome.Sequence,FeatureRight+GBrowseShift,FeatureLeft-FeatureRight)
+			end if
+			end if
+			
+			
+			'Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FilePageSetup() As Boolean Handles FilePageSetup.Action
@@ -1879,9 +1898,7 @@ End
 		  end if
 		  
 		  
-		  'select the hit feature in the bottom pane:
-		  'Editor.SelStart=FeatureLeft-GenomeDelta
-		  'Editor.Sellength=FeatureLength
+		  'need to set the correct highlightColour (according to feature being displayed) here
 		  
 		  genomeWin.TextMap(FeatureLeft,FeatureRight)
 		  UpdateMapCanvas
@@ -2143,7 +2160,12 @@ End
 		  
 		  
 		  if FeatureLeft>0 then
-		    SelRange.text=str(FeatureLeft+GBrowseShift)+"-"+str(FeatureRight+GBrowseShift)+":"+str(abs(FeatureRight-FeatureLeft))
+		    if FeatureLeft<FeatureRight then
+		      SelRange.text=str(FeatureLeft+GBrowseShift)+"-"+str(FeatureRight+GBrowseShift-1)+":"+str(abs(FeatureRight-FeatureLeft)-1)
+		    else
+		      SelRange.text=str(FeatureLeft+GBrowseShift-1)+"-"+str(FeatureRight+GBrowseShift)+":"+str(abs(FeatureRight-FeatureLeft)-1)
+		      
+		    end if
 		  else
 		    
 		    SelRange.text=""
@@ -2183,10 +2205,10 @@ End
 
 	#tag Note, Name = 2 do
 		[draft done] Navigation toolbar
-		- correct display of central segment in the navigator (accommodate varying text length)
+		+ correct display of central segment in the navigator (accommodate varying text length)
 		+ truncate feature name length
 		- Reading genome in a thread in parallel with profile scan to speed things up (won't help much, as all threads run on the same core)
-		- Highlight a feature on demand
+		+- Highlight a feature on demand
 		- Memorise selection when scrolling genome
 		-+ Sort hits before showing 'em (sorting done incorrectly
 		- Removing deselected features upon request
@@ -2782,7 +2804,7 @@ End
 		  if AnyObjectClicked=false then
 		    NewFeature=true
 		    seq.SelLength=0
-		    
+		    FeatureLeft=0     'to zero selrange
 		    RetValue=True 'to trigger MouseDrag
 		    
 		    topobj=DeselectNames(p)
