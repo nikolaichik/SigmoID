@@ -527,5 +527,3 @@ input_handle.close()
 print 'Total features: ', total
 print 'CPU time: ', time.clock()
 print '\n' + "="*50
-
-

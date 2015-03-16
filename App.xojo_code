@@ -59,7 +59,7 @@ Inherits Application
 		  next
 		  
 		  
-		  
+		  GeneticCodesInit
 		End Sub
 	#tag EndEvent
 
@@ -96,6 +96,22 @@ Inherits Application
 			// User cancelled
 			End If
 			
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileOpen() As Boolean Handles FileOpen.Action
+			'just open file in genome browser and display 9 kb of it
+			
+			dim GenomeFile as folderitem = GetOpenFolderItem("")
+			if GenomeFile<> Nil then
+			GenomeWin.opengenbankfile(GenomeFile)
+			GenomeWin.ExtractFragment(1000,10000)
+			GenomeWin.Show
+			end if
 			
 			Return True
 			

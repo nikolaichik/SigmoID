@@ -964,6 +964,99 @@ End
 		        if NOT ScanningGenome then
 		          WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
 		        end if
+		        
+		        dim ms,t1 as double
+		        ms=microseconds
+		        
+		        'display the hits in the browser:
+		        if HmmGenSettingsWin.GenomeBrowserCheckBox.value then
+		          
+		          
+		          redim GenomeWin.HmmHits(0)
+		          redim GenomeWin.HmmHitDescriptions(0)
+		          
+		          dim m,n,o,colonPos as integer
+		          dim currentHit,HitInfo, hits2sort(0),hitloc as string
+		          
+		          'sort the hits according to genome position:
+		          m=CountFields(sh.result,"location: [")
+		          for n=2 to m
+		            currentHit=nthfield(sh.result,"location: [",n)
+		            colonPos=instrb(currenthit,":")
+		            hitloc=nthfield(currentHit,":",1)
+		            if lenb(hitLoc)<8 then 'assuming genome length is less than 100Mb
+		              for o=0 to 8-lenb(hitLoc)
+		                hitloc="0"+hitloc
+		              next
+		            end if
+		            hitloc=hitloc+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
+		            hits2sort.append hitloc'+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
+		            'nthfield(sh.result,"location: [",n)
+		          next
+		          hits2sort.Sort
+		          m=ubound(hits2sort)
+		          for n=1 to m
+		            while left(hits2sort(n),1)="0"
+		              hits2sort(n)=right(hits2sort(n),lenb(hits2sort(n))-1)
+		            wend
+		          next
+		          
+		          'add sorted hits and their info into genome browser arrays
+		          for n=1 to ubound(hits2sort)
+		            currentHit=hits2sort(n)
+		            GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
+		            HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
+		            HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
+		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),cLineEnd,1)
+		            genomeWin.HmmHitDescriptions.append HitInfo
+		          next
+		          
+		          'initialise array to select/deselect hits:
+		          redim genomeWin.HmmHitChecked(ubound(hits2sort))
+		          for n=1 to ubound(hits2sort)
+		            genomeWin.HmmHitChecked(n)=true
+		          next
+		          genomeWin.AnyHitDeselected=false
+		        end if
+		        
+		        T1=microseconds-ms
+		        #if DebugBuild
+		          WriteToSTDOUT (EndofLine+"Processing hits before opening .gb file took "+str(t1/1000000)+" seconds")
+		        #endif
+		        
+		        if Ubound(genomeWin.HmmHits)>0 then
+		          WriteToSTDOUT (EndofLine+"Loading the GenBank file (this may take a while)...")
+		          
+		          'Load the Seq:
+		          GenomeWin.opengenbankfile(outFile)
+		          
+		          ms=microseconds
+		          'Set the genome map scrollbar:
+		          GenomeWin.HScrollBarCodeLock=true
+		          GenomeWin.HScrollBar.Maximum=LenB(GenomeWin.Genome.sequence)
+		          GenomeWin.HScrollBar.Minimum=1
+		          GenomeWin.HScrollBar.PageStep=GenomeWin.DisplayInterval*3/4
+		          GenomeWin.HScrollBar.LineStep=GenomeWin.DisplayInterval/10
+		          GenomeWin.HScrollBarCodeLock=false
+		          
+		          'Display the hit:
+		          genomeWin.CurrentHit=1
+		          Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
+		          s0.Enabled=false 'first hit: there's no previous one
+		          Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
+		          s1.Title="1/"+str(UBound(genomeWin.HmmHits))
+		          Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
+		          s2.enabled=true
+		          
+		          genomeWin.ShowHit
+		          T1=microseconds-ms
+		          #if DebugBuild
+		            WriteToSTDOUT (EndofLine+"Showing first hit took "+str(t1/1000000)+" seconds")
+		          #endif
+		          
+		          WriteToSTDOUT (EndofLine+"Hits are being shown in a separate window.")
+		          
+		        end if
 		      else
 		        WriteToSTDOUT (EndofLine+"HmmGen error Code: "+Str(sh.errorCode)+EndofLine)
 		        WriteToSTDOUT (EndofLine+Sh.Result)
@@ -1711,7 +1804,11 @@ End
 		      nhmmerSettingsWin.GenomeField.text=GenomeFile.ShellPath
 		      nhmmerSettingsWin.RunButton.Enabled=true
 		    else
-		      nhmmerSettingsWin.RunButton.Enabled=false
+		      #if Debugbuild
+		        GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
+		      #else
+		        nhmmerSettingsWin.RunButton.Enabled=false
+		      #endif
 		    end if
 		    nhmmerSettingsWin.ShowModalWithin(self)
 		    'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
@@ -1991,6 +2088,11 @@ End
 		Group="ID"
 		Type="String"
 		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LastHitNo"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"

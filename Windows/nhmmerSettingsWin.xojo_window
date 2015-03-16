@@ -915,6 +915,15 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Open()
+		  #if DebugBuild
+		    RunButton.Enabled=true
+		  #endif
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
 		Sub ReadOptions()
 		  dim PNO as string
@@ -977,6 +986,16 @@ End
 
 #tag EndWindowCode
 
+#tag Events GenomeField
+	#tag Event
+		Sub Open()
+		  #if DebugBuild then
+		    me.text="/Users/Home/3\-2rez9/Pca32_10182014.gb"
+		  #endif
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events RunButton
 	#tag Event
 		Sub Action()

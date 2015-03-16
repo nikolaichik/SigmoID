@@ -10,6 +10,9 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "Open..."
          Index = -2147483648
+         ShortcutKey = "O"
+         Shortcut = "Cmd+O"
+         MenuModifier = True
          AutoEnable = True
          Visible = True
       End
@@ -216,6 +219,23 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "Hide Viewer"
          Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+   End
+   Begin MenuItem GenomeMenu
+      SpecialMenu = 0
+      Text = "Genome"
+      Index = -2147483648
+      AutoEnable = True
+      Visible = True
+      Begin MenuItem GenomeGoto
+         SpecialMenu = 0
+         Text = "Go to..."
+         Index = -2147483648
+         ShortcutKey = "G"
+         Shortcut = "Cmd+G"
+         MenuModifier = True
          AutoEnable = True
          Visible = True
       End
