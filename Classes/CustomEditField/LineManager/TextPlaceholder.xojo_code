@@ -49,11 +49,47 @@ Inherits TextSegment
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="BackgroundColor"
+			Group="Behavior"
+			InitialValue="&h000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="bold"
+			Group="Behavior"
+			InitialValue="0"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="EndOffset"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasBackgroundColor"
+			Group="Behavior"
+			InitialValue="0"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ID"
+			Group="Behavior"
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="italic"
+			Group="Behavior"
+			InitialValue="0"
+			Type="boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -63,10 +99,22 @@ Inherits TextSegment
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="length"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="offset"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="placeholderBackgroundColor"
@@ -81,11 +129,35 @@ Inherits TextSegment
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="TextColor"
+			Group="Behavior"
+			InitialValue="&h000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Type"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="underline"
+			Group="Behavior"
+			InitialValue="0"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="width"
+			Group="Behavior"
+			InitialValue="0"
+			Type="double"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

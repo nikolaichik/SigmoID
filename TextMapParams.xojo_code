@@ -119,6 +119,7 @@ Protected Module TextMapParams
 		#tag ViewProperty
 			Name="TMFont"
 			Group="Behavior"
+			InitialValue="Courier"
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty

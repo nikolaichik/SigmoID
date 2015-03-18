@@ -406,8 +406,8 @@ End
 		  if LogoWin.GenomeFile<> Nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+LogoWin.GenomeFile.shellpath+" loaded.")
 		    if LogoWin.Logofile<>nil then
-		      LogoWin.toolbar11.Item(1).Enabled=true
-		      LogoWin.toolbar11.Item(2).Enabled=false 'new genome, no nhmmer output yet
+		      LogoWin.LogoWinToolbar.Item(1).Enabled=true
+		      LogoWin.LogoWinToolbar.Item(2).Enabled=false 'new genome, no nhmmer output yet
 		    end if
 		    GenomeField.text=LogoWin.Genomefile.shellpath
 		    RunButton.enabled=true

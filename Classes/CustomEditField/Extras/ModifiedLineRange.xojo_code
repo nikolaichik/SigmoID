@@ -133,6 +133,12 @@ Inherits DataRange
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="EndOffset"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
@@ -147,10 +153,22 @@ Inherits DataRange
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="length"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="offset"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

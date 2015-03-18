@@ -23,8 +23,6 @@ Inherits Application
 		  #endif
 		  
 		  
-		  //a piece from SQ
-		  
 		  'initialise array for reverse-complementation (and complementation):
 		  'A-65 -> T-84
 		  'B-66 -> V-86
@@ -60,6 +58,7 @@ Inherits Application
 		  
 		  
 		  GeneticCodesInit
+		  
 		End Sub
 	#tag EndEvent
 

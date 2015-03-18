@@ -402,9 +402,9 @@ End
 		  'a proper check for monospaced font is required
 		  STDOUT.TextFont="Courier"
 		  
-		  toolbar11.Item(4).Enabled=false 'SaveLog: disable until alignment loaded
-		  toolbar11.Item(1).Enabled=false 'Search: disable until alignment loaded
-		  toolbar11.Item(2).Enabled=false 'HmmGen: disable until nhmmer is run
+		  LogoWinToolbar.Item(4).Enabled=false 'SaveLog: disable until alignment loaded
+		  LogoWinToolbar.Item(1).Enabled=false 'Search: disable until alignment loaded
+		  LogoWinToolbar.Item(2).Enabled=false 'HmmGen: disable until nhmmer is run
 		  
 		  WriteToSTDOUT (EndofLine+"Load alignment file to start."+EndofLine)
 		  
@@ -1019,6 +1019,9 @@ End
 		            GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
 		            HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
 		            HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
+		            dim ss1,ss2 as string
+		            ss1=nthfield(currentHit,"nhmmer ",2)
+		            ss2=nthfield(ss1,cLineEnd,1)
 		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),cLineEnd,1)
 		            genomeWin.HmmHitDescriptions.append HitInfo
 		          next
@@ -1217,12 +1220,12 @@ End
 		    sequences=tis.ReadAll
 		    tis.Close
 		    
-		    toolbar11.Item(1).Enabled=true
+		    LogoWinToolbar.Item(1).Enabled=true
 		    
 		  else
 		    'MsgBox "Can't open the alignment file"
-		    toolbar11.Item(1).Enabled=false 'disable until alignment loaded
-		    toolbar11.Item(3).Enabled=false
+		    LogoWinToolbar.Item(1).Enabled=false 'disable until alignment loaded
+		    LogoWinToolbar.Item(3).Enabled=false
 		    
 		    Return
 		  end if
@@ -1233,14 +1236,14 @@ End
 		  end if
 		  
 		  if GenomeFile<> Nil AND Logofile<>nil then
-		    'toolbar11.Item(1).Enabled=true
-		    toolbar11.Item(2).Enabled=false 'new alignment, no nhmmer output yet
+		    'LogoWinToolbar.Item(1).Enabled=true
+		    LogoWinToolbar.Item(2).Enabled=false 'new alignment, no nhmmer output yet
 		  end if
 		  
 		  if Palindromic then
-		    toolbar11.Item(3).Enabled=false
+		    LogoWinToolbar.Item(3).Enabled=false
 		  else
-		    toolbar11.Item(3).Enabled=true
+		    LogoWinToolbar.Item(3).Enabled=true
 		  End If
 		  
 		  Exception err
@@ -1291,11 +1294,11 @@ End
 		    sh.execute cli
 		    If sh.errorCode=0 then
 		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      toolbar11.Item(2).Enabled=true
+		      LogoWinToolbar.Item(2).Enabled=true
 		    else
 		      MsgBox "nhmmer error Code: "+Str(sh.errorCode)
 		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      toolbar11.Item(2).Enabled=false
+		      LogoWinToolbar.Item(2).Enabled=false
 		    end if
 		  end if
 		  
@@ -1408,7 +1411,7 @@ End
 		    instream.Close
 		    DrawLogo
 		    palindromic=true
-		    toolbar11.Item(3).Enabled=false
+		    LogoWinToolbar.Item(3).Enabled=false
 		  End If
 		  
 		  Exception err
@@ -1805,8 +1808,8 @@ End
 		    if GenomeFile<> Nil then
 		      WriteToSTDOUT (EndofLine+"Genome from "+GenomeFile.shellpath+" loaded.")
 		      if Logofile<>nil then
-		        toolbar11.Item(1).Enabled=true
-		        toolbar11.Item(2).Enabled=false 'new genome, no nhmmer output yet
+		        LogoWinToolbar.Item(1).Enabled=true
+		        LogoWinToolbar.Item(2).Enabled=false 'new genome, no nhmmer output yet
 		      end if
 		    end if
 		  Case "SaveLogTool"
@@ -1847,6 +1850,7 @@ End
 		      HmmGen GetSaveFolderItem("????",fn)
 		      'Load the Seq:
 		      GenomeWin.opengenbankfile(outFile)
+		      msgbox "Genome length is "+str(len(GenomeWin.genome.sequence))
 		      genomeWin.ShowHit
 		    end if
 		  Case "SettingsTool"
@@ -1891,9 +1895,9 @@ End
 		    
 		  else
 		    if Palindromic then
-		      toolbar11.Item(3).Enabled=false
+		      LogoWinToolbar.Item(3).Enabled=false
 		    else
-		      toolbar11.Item(3).Enabled=true
+		      LogoWinToolbar.Item(3).Enabled=true
 		    End If
 		    
 		  End If
@@ -1999,9 +2003,9 @@ End
 	#tag Event
 		Sub TextChange()
 		  if len(me.Text)>0 then
-		    toolbar11.Item(4).Enabled=true 'SaveLog button
+		    LogoWinToolbar.Item(4).Enabled=true 'SaveLog button
 		  else
-		    toolbar11.Item(4).Enabled=false
+		    LogoWinToolbar.Item(4).Enabled=false
 		  end if
 		End Sub
 	#tag EndEvent

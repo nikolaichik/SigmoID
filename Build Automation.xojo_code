@@ -6,8 +6,8 @@
 					AppliesTo = 0
 					Destination = 1
 					Subdirectory = 
-					FolderItem = Li4ALi4AU2lnbW9JRABIbW1HZW4ucHk=
-					FolderItem = Li4ALi4AU2lnbW9JRABQcm9maWxlcw==
+					FolderItem = Li4ASG1tR2VuLnB5
+					FolderItem = Li4AUHJvZmlsZXM=
 				End
 			End
 			Begin BuildStepList Mac OS X
@@ -17,8 +17,8 @@
 					AppliesTo = 0
 					Destination = 1
 					Subdirectory = 
-					FolderItem = Li4ALi4AU2lnbW9JRABIbW1HZW4ucHk=
-					FolderItem = Li4ALi4AU2lnbW9JRABQcm9maWxlcw==
+					FolderItem = Li4ASG1tR2VuLnB5
+					FolderItem = Li4AUHJvZmlsZXM=
 				End
 			End
 			Begin BuildStepList Windows
@@ -28,8 +28,8 @@
 					AppliesTo = 0
 					Destination = 1
 					Subdirectory = 
-					FolderItem = Li4ALi4AU2lnbW9JRABIbW1HZW4ucHk=
-					FolderItem = Li4ALi4AU2lnbW9JRABQcm9maWxlcw==
+					FolderItem = Li4ASG1tR2VuLnB5
+					FolderItem = Li4AUHJvZmlsZXM=
 				End
 			End
 #tag EndBuildAutomation

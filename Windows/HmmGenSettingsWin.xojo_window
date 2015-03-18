@@ -812,10 +812,10 @@ End
 		Sub Action()
 		  if me.value then
 		    LogoWin.palindromic=true
-		    LogoWin.toolbar11.Item(3).Enabled=true
+		    LogoWin.LogoWinToolbar.Item(3).Enabled=true
 		  else
 		    LogoWin.palindromic=false
-		    LogoWin.toolbar11.Item(3).Enabled=false
+		    LogoWin.LogoWinToolbar.Item(3).Enabled=false
 		  end if
 		  
 		  

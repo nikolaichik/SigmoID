@@ -385,8 +385,7 @@ Protected Module Globals
 		  dim CodeNo,n,m as integer
 		  dim starts,stops,base1,base2,base3,Codons,codon,AAs,CodeName as string
 		  
-		  f=SpecialFolder.ApplicationData.Child("SQ")
-		  f = f.child("Genetic.codes")
+		  f = GetFolderItem("").child("Genetic.codes")
 		  if f.exists AND f<>NIL then
 		    stream = f.OpenAsTextFile
 		    
@@ -431,7 +430,7 @@ Protected Module Globals
 		    stream.close                     'close enzyme file
 		    
 		  else
-		    msgbox "No file with genetic codes found. Translation will be unavailable!"
+		    msgbox "No file with genetic codes found in "+f.ShellPath+". Translation will be unavailable!"
 		    
 		  end
 		  
@@ -876,54 +875,6 @@ Protected Module Globals
 		  return simplepat   'comma separated list completely representing the pattern sequence
 		  Exception err
 		    ExceptionHandler(err,"Globals:SimplePattern")
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function Translate(Gene As string) As string
-		  dim  m,n,GeneLength,aa0,up  as integer
-		  dim protein,codon,codons,aa1st as string
-		  protein=""
-		  GeneLength=lenB(Gene)
-		  for n=1 to (GeneLength - 2) step 3
-		    'the readable code:
-		    'codon=midB(gene,n,3)
-		    'CodonNo=((instr(CodonList,codon))-1)/4
-		    'protein=protein+aa(codonNo)
-		    'faster code:
-		    codon=midB(Gene,n,3)
-		    aa0=instr(CodonList,codon)
-		    if aa0>0 then
-		      protein=protein+aa(((aa0)+3)/4)
-		    else
-		      'if instr doesn't find a codon in the list, it will return 0
-		      'and  aa(0) is X - so it will work for all codons with redundancies-
-		      'but also happily translate into Xes any crap
-		      if haveRedundancies(codon)=true then
-		        codons=SimplePattern(codon)
-		        up=countfields(codons,",")
-		        aa1st=aa((instr(CodonList,nthfield(codons,",",1))+3)/4)
-		        for m=2 to up
-		          if aa1st<>aa((instr(CodonList,nthfield(codons,",",m))+3)/4) then
-		            aa1st="X"  'redundant codon translates to more than 1 amino acid
-		            exit
-		          end
-		        next
-		        protein=protein+aa1st
-		        
-		      else
-		        'some crap is probably  being translated, nevertheless...
-		        protein=protein+"X"
-		      end
-		      
-		      
-		      
-		    end
-		  next
-		  return protein
-		  
-		  Exception err
-		    ExceptionHandler(err,"Globals:Translate")
 		End Function
 	#tag EndMethod
 
