@@ -294,6 +294,9 @@ End
 		  next
 		  
 		  self.height=128+(SigArray(0).Height + 5)*SigArrayCount
+		  
+		  Exception err
+		    ExceptionHandler(err,"ScanGenomeWin:BuildSigArray")
 		End Sub
 	#tag EndMethod
 
@@ -365,6 +368,9 @@ End
 		    Logowin.ScanningGenome=false
 		    
 		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"ScanGenomeWin:ScanGenome")
 		End Sub
 	#tag EndMethod
 

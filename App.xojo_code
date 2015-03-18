@@ -110,6 +110,7 @@ Inherits Application
 			if GenomeFile<> Nil then
 			GenomeWin.opengenbankfile(GenomeFile)
 			GenomeWin.ExtractFragment(1000,10000)
+			GenomeWin.SegmentedControl1.Enabled=false
 			GenomeWin.Show
 			end if
 			
@@ -319,6 +320,8 @@ Inherits Application
 		    msgbox "No .options file found in the chosen folder. Can't proceed without it"
 		  end if
 		  
+		  Exception err
+		    ExceptionHandler(err,"App:MakeSigFile")
 		End Sub
 	#tag EndMethod
 

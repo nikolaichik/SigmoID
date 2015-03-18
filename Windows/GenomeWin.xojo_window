@@ -145,19 +145,6 @@ Begin Window GenomeWin
       Top             =   467
       Width           =   32
    End
-   Begin Timer EditorTimer
-      Height          =   32
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   40
-      LockedInPosition=   False
-      Mode            =   2
-      Period          =   100
-      Scope           =   0
-      TabPanelIndex   =   0
-      Top             =   40
-      Width           =   32
-   End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
       Height          =   24
@@ -181,7 +168,7 @@ Begin Window GenomeWin
    Begin CheckBox FeatureBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Untitled"
+      Caption         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -713,15 +700,36 @@ End
 			C=new Clipboard
 			
 			if FeatureLeft>0 then
-			if FeatureLeft<Featureright then
+			if topstrand then
 			c.Text=midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
 			else
-			c.Text=midb(Genome.Sequence,FeatureRight+GBrowseShift,FeatureLeft-FeatureRight)
+			c.Text=ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
 			end if
 			end if
 			
 			
 			'Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function EditCopyTranslation() As Boolean Handles EditCopyTranslation.Action
+			Dim C as  Clipboard
+			C=new Clipboard
+			
+			if FeatureLeft>0 then
+			if topstrand then
+			c.Text=Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+			else
+			c.Text=Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+			end if
+			end if
+			
+			
+			'Return True
+			
+			Return True
 			
 		End Function
 	#tag EndMenuHandler
@@ -1595,9 +1603,7 @@ End
 		    return
 		  end 'if instrb(s,"LOCUS       ")>0
 		  
-		  // ----------------------------------------------------------------------
-		  // Now extract the required portion of genome and populate the Seq object
-		  // ----------------------------------------------------------------------
+		  SetScrollbar
 		  
 		  'switch to the graphic:
 		  'w.mapCanvas.Invalidate
@@ -1854,6 +1860,18 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SetScrollbar()
+		  HScrollBarCodeLock=true
+		  HScrollBar.Maximum=LenB(GenomeWin.Genome.sequence)
+		  HScrollBar.Minimum=1
+		  HScrollBar.PageStep=GenomeWin.DisplayInterval*3/4
+		  HScrollBar.LineStep=GenomeWin.DisplayInterval/10
+		  HScrollBarCodeLock=false
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SetScrollbars()
 		  'set scrollbar values and position
 		  dim max as integer
@@ -1892,9 +1910,11 @@ End
 		  if instr(HmmHitDescriptions(CurrentHit),"(+)")>0 then
 		    FeatureLeft=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))-GBrowseShift
 		    FeatureRight=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-GBrowseShift+1
+		    topstrand=true
 		  else
 		    FeatureRight=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))-GBrowseShift
 		    FeatureLeft=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-GBrowseShift+1
+		    topstrand=false
 		  end if
 		  
 		  
@@ -2161,9 +2181,9 @@ End
 		  
 		  if FeatureLeft>0 then
 		    if FeatureLeft<FeatureRight then
-		      SelRange.text=str(FeatureLeft+GBrowseShift)+"-"+str(FeatureRight+GBrowseShift-1)+":"+str(abs(FeatureRight-FeatureLeft)-1)
+		      SelRange.text=str(FeatureLeft+GBrowseShift)+"-"+str(FeatureRight+GBrowseShift-1)+":"+str(abs(FeatureRight-FeatureLeft))
 		    else
-		      SelRange.text=str(FeatureLeft+GBrowseShift-1)+"-"+str(FeatureRight+GBrowseShift)+":"+str(abs(FeatureRight-FeatureLeft)-1)
+		      SelRange.text=str(FeatureLeft+GBrowseShift-1)+"-"+str(FeatureRight+GBrowseShift)+":"+str(abs(FeatureRight-FeatureLeft))
 		      
 		    end if
 		  else
@@ -2655,6 +2675,10 @@ End
 		ToolTipY As Integer
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		topstrand As boolean
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected tttext As string
 	#tag EndProperty
@@ -2782,10 +2806,12 @@ End
 		          FeatureLeft=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length
 		          FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length
 		          TextMap(FeatureRight,FeatureLeft)
+		          topstrand=false
 		        else
 		          FeatureLeft=Seq.Features(selFeatureNo).start
 		          FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length
 		          TextMap(FeatureLeft,FeatureRight)
+		          topstrand=true
 		        end
 		        
 		        'UpdateSelRange
@@ -3275,16 +3301,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events EditorTimer
-	#tag Event
-		Sub Action()
-		  'if Editor.NeedsRedrawing then
-		  'Editor.refresh
-		  'Editor.NeedsRedrawing=false
-		  'end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events SegmentedControl1
 	#tag Event
 		Sub Action(itemIndex as integer)
@@ -3619,6 +3635,11 @@ End
 		Group="Behavior"
 		InitialValue="false"
 		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="GBrowseShift"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="GraphExists"

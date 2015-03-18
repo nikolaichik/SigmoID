@@ -755,6 +755,9 @@ End
 		  
 		  
 		  LogoWin.HmmGenOptions=Opt
+		  
+		  Exception err
+		    ExceptionHandler(err,"HmmGenSettingsWin:ReadOptions")
 		End Sub
 	#tag EndMethod
 

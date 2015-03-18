@@ -980,6 +980,9 @@ End
 		  end if
 		  
 		  LogoWin.nhmmeroptions=PNO
+		  
+		  Exception err
+		    ExceptionHandler(err,"NhmmerSettingsWin:ReadOptions")
 		End Sub
 	#tag EndMethod
 

@@ -54,7 +54,7 @@ Begin Window LogoWin
       Visible         =   True
       Width           =   774
    End
-   Begin Toolbar1 Toolbar11
+   Begin Toolbar1 LogoWinToolbar
       Enabled         =   True
       Height          =   32
       Index           =   -2147483648
@@ -409,6 +409,9 @@ End
 		  WriteToSTDOUT (EndofLine+"Load alignment file to start."+EndofLine)
 		  
 		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:Open")
+		    
 		End Sub
 	#tag EndEvent
 
@@ -473,6 +476,8 @@ End
 			end if
 			Return True
 			
+			Exception err
+			ExceptionHandler(err,"LogoWin:FileSaveAlignmentSelection")
 		End Function
 	#tag EndMenuHandler
 
@@ -624,6 +629,9 @@ End
 		  else
 		    MsgBox "Problem creating temporary file"
 		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:alimask")
 		End Sub
 	#tag EndMethod
 
@@ -898,17 +906,21 @@ End
 		  else
 		    WriteToSTDOUT (EndofLine+"Could not load alignment from "+LogoFile.shellpath+EndofLine)
 		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:DrawLogo")
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub HmmGen(outfile as FolderItem)
+		Sub HmmGen(outf as FolderItem)
 		  
 		  'GenomeFile=GetOpenFolderItem("")
 		  if GenomeFile<> nil then
 		    dim cli as string
 		    Dim sh As Shell
 		    
+		    outfile=outf  'to use outside of this method
 		    'usage:
 		    'HmmGen <report_file>  <input_file> <output_file> [options]
 		    '
@@ -1027,17 +1039,11 @@ End
 		        if Ubound(genomeWin.HmmHits)>0 then
 		          WriteToSTDOUT (EndofLine+"Loading the GenBank file (this may take a while)...")
 		          
-		          'Load the Seq:
-		          GenomeWin.opengenbankfile(outFile)
+		          
 		          
 		          ms=microseconds
 		          'Set the genome map scrollbar:
-		          GenomeWin.HScrollBarCodeLock=true
-		          GenomeWin.HScrollBar.Maximum=LenB(GenomeWin.Genome.sequence)
-		          GenomeWin.HScrollBar.Minimum=1
-		          GenomeWin.HScrollBar.PageStep=GenomeWin.DisplayInterval*3/4
-		          GenomeWin.HScrollBar.LineStep=GenomeWin.DisplayInterval/10
-		          GenomeWin.HScrollBarCodeLock=false
+		          Genomewin.SetScrollbar
 		          
 		          'Display the hit:
 		          genomeWin.CurrentHit=1
@@ -1048,7 +1054,7 @@ End
 		          Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
 		          s2.enabled=true
 		          
-		          genomeWin.ShowHit
+		          
 		          T1=microseconds-ms
 		          #if DebugBuild
 		            WriteToSTDOUT (EndofLine+"Showing first hit took "+str(t1/1000000)+" seconds")
@@ -1068,6 +1074,9 @@ End
 		  end if
 		  
 		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:HmmGen")
+		    
 		End Sub
 	#tag EndMethod
 
@@ -1233,6 +1242,9 @@ End
 		  else
 		    toolbar11.Item(3).Enabled=true
 		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:LoadAlignment")
 		End Sub
 	#tag EndMethod
 
@@ -1355,6 +1367,8 @@ End
 		  '--bottomonly       : only search the bottom strand
 		  '--cpu <n>          : number of parallel CPU workers to use for multithreads  (n>=0)
 		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:nhmmer")
 		End Sub
 	#tag EndMethod
 
@@ -1396,6 +1410,9 @@ End
 		    palindromic=true
 		    toolbar11.Item(3).Enabled=false
 		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:Palindromise")
 		End Sub
 	#tag EndMethod
 
@@ -1429,6 +1446,9 @@ End
 		    LogoLength=ubound(Logodata)
 		    
 		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:ReadLogoData")
 		End Sub
 	#tag EndMethod
 
@@ -1612,6 +1632,10 @@ End
 		Protected nhmmerResultFile As folderitem
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		OutFile As folderitem
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected pA As Picture
 	#tag EndProperty
@@ -1705,7 +1729,8 @@ End
 		  end if
 		  g.DrawPicture(LogoPic,10,0)
 		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:LogoCanvas:Paint")
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1752,7 +1777,6 @@ End
 		    'clear selection arrays:
 		    redim selarray1(0)
 		    redim selarray2(0)
-		    'selarray1.Append firstX
 		    lastx=0
 		    
 		  end if
@@ -1766,7 +1790,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Toolbar11
+#tag Events LogoWinToolbar
 	#tag Event
 		Sub Action(item As ToolItem)
 		  select case Item.Name
@@ -1821,6 +1845,9 @@ End
 		    if hmmgenoptions<>"" then
 		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 		      HmmGen GetSaveFolderItem("????",fn)
+		      'Load the Seq:
+		      GenomeWin.opengenbankfile(outFile)
+		      genomeWin.ShowHit
 		    end if
 		  Case "SettingsTool"
 		    SettingsWin.showmodalwithin(self)
@@ -1828,6 +1855,8 @@ End
 		    Palindromise
 		  End Select
 		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWinToolbar:Action")
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1869,8 +1898,8 @@ End
 		    
 		  End If
 		  
-		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWinToolbar:DropDownMenuAction")
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1907,13 +1936,15 @@ End
 		  //assign the new menu to the toolitem..
 		  toolbutton(me.Item(0)).DropdownMenu=ButtMenu
 		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWinToolbar:Open")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events Informer
 	#tag Event
 		Sub Open()
-		  me.TextFont="Courier"
+		  me.TextFont=FixedFont
 		End Sub
 	#tag EndEvent
 #tag EndEvents

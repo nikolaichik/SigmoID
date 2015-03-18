@@ -118,6 +118,17 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem EditCopyTranslation
+         SpecialMenu = 0
+         Text = "Copy Translation"
+         Index = -2147483648
+         ShortcutKey = "C"
+         Shortcut = "Cmd+Shift+C"
+         MenuModifier = True
+         AltMenuModifier = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem EditPaste
          SpecialMenu = 0
          Text = "&Paste"

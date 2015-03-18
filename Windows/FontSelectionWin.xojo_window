@@ -373,6 +373,9 @@ End
 		    OKButt.Enabled=false
 		  end
 		  
+		  Exception err
+		    ExceptionHandler(err,"FontSelectionWin:Open")
+		    
 		End Sub
 	#tag EndEvent
 

@@ -180,7 +180,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "nhmmer:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -215,7 +214,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "alimask:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -250,7 +248,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "hmmgen:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -371,7 +368,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   9
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "weblogo:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -449,7 +445,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   11
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "hmmbuild:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -524,11 +519,6 @@ End
 		  
 		End Sub
 	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton2
 	#tag Event
@@ -536,20 +526,6 @@ End
 		  LogoWin.nhmmeroptions=""
 		  
 		  self.hide
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events nhmmerPathField
-	#tag Event
-		Sub LostFocus()
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events hmmBuildPathField
-	#tag Event
-		Sub LostFocus()
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

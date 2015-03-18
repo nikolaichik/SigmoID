@@ -104,6 +104,8 @@ Protected Module Globals
 		    
 		  #endif
 		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:AdjustLayout4Linux")
 		End Sub
 	#tag EndMethod
 
@@ -133,7 +135,7 @@ Protected Module Globals
 		  
 		  
 		  Exception err
-		    ExceptionHandler(err,"CleanUp")
+		    ExceptionHandler(err,"Globals:CleanUp")
 		End Function
 	#tag EndMethod
 
@@ -163,7 +165,7 @@ Protected Module Globals
 		  return out.cstring(1)
 		  
 		  Exception err
-		    ExceptionHandler(err,"MethodsAndGlobals:RevCompl")
+		    ExceptionHandler(err,"Globals:RevCompl")
 		End Function
 	#tag EndMethod
 
@@ -287,7 +289,9 @@ Protected Module Globals
 		  
 		  return ruler
 		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:DrawRuler")
+		    
 		End Function
 	#tag EndMethod
 
@@ -381,7 +385,6 @@ Protected Module Globals
 		  dim CodeNo,n,m as integer
 		  dim starts,stops,base1,base2,base3,Codons,codon,AAs,CodeName as string
 		  
-		  'f = getFolderItem("SQ Libs")
 		  f=SpecialFolder.ApplicationData.Child("SQ")
 		  f = f.child("Genetic.codes")
 		  if f.exists AND f<>NIL then
@@ -432,7 +435,8 @@ Protected Module Globals
 		    
 		  end
 		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:GeneticCodesInit")
 		End Sub
 	#tag EndMethod
 
@@ -463,8 +467,9 @@ Protected Module Globals
 		    end
 		  next
 		  return false
+		  
 		  Exception err
-		    ExceptionHandler(err,"HaveRedundancies")
+		    ExceptionHandler(err,"Globals:HaveRedundancies")
 		End Function
 	#tag EndMethod
 
@@ -563,8 +568,9 @@ Protected Module Globals
 		    return false
 		  end if
 		  
-		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:Hmmbuild")
+		    
 		End Function
 	#tag EndMethod
 
@@ -593,7 +599,7 @@ Protected Module Globals
 		  return out.cstring(1)
 		  
 		  Exception err
-		    ExceptionHandler(err,"MethodsAndGlobals:RevCompl")
+		    ExceptionHandler(err,"Globals:RevCompl")
 		End Function
 	#tag EndMethod
 
@@ -625,8 +631,8 @@ Protected Module Globals
 		  'so I have to forse the default encoding here:
 		  return DefineEncoding(out.cstring(1), Encodings.UTF8)
 		  
-		  'Exception err
-		  'ExceptionHandler(err,"MethodsAndGlobals:RevCompl")
+		  Exception err
+		    ExceptionHandler(err,"Globals:ReverseComplement")
 		End Function
 	#tag EndMethod
 
@@ -721,6 +727,9 @@ Protected Module Globals
 		  end
 		  
 		  return FF+";"+PF+";"+str(GoodFFont)+";"+str(GoodPFont)
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:SetDefaultFonts")
 		End Function
 	#tag EndMethod
 
@@ -866,7 +875,55 @@ Protected Module Globals
 		  
 		  return simplepat   'comma separated list completely representing the pattern sequence
 		  Exception err
-		    ExceptionHandler(err,"SimplePattern")
+		    ExceptionHandler(err,"Globals:SimplePattern")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Translate(Gene As string) As string
+		  dim  m,n,GeneLength,aa0,up  as integer
+		  dim protein,codon,codons,aa1st as string
+		  protein=""
+		  GeneLength=lenB(Gene)
+		  for n=1 to (GeneLength - 2) step 3
+		    'the readable code:
+		    'codon=midB(gene,n,3)
+		    'CodonNo=((instr(CodonList,codon))-1)/4
+		    'protein=protein+aa(codonNo)
+		    'faster code:
+		    codon=midB(Gene,n,3)
+		    aa0=instr(CodonList,codon)
+		    if aa0>0 then
+		      protein=protein+aa(((aa0)+3)/4)
+		    else
+		      'if instr doesn't find a codon in the list, it will return 0
+		      'and  aa(0) is X - so it will work for all codons with redundancies-
+		      'but also happily translate into Xes any crap
+		      if haveRedundancies(codon)=true then
+		        codons=SimplePattern(codon)
+		        up=countfields(codons,",")
+		        aa1st=aa((instr(CodonList,nthfield(codons,",",1))+3)/4)
+		        for m=2 to up
+		          if aa1st<>aa((instr(CodonList,nthfield(codons,",",m))+3)/4) then
+		            aa1st="X"  'redundant codon translates to more than 1 amino acid
+		            exit
+		          end
+		        next
+		        protein=protein+aa1st
+		        
+		      else
+		        'some crap is probably  being translated, nevertheless...
+		        protein=protein+"X"
+		      end
+		      
+		      
+		      
+		    end
+		  next
+		  return protein
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:Translate")
 		End Function
 	#tag EndMethod
 
@@ -917,8 +974,9 @@ Protected Module Globals
 		    end
 		  next
 		  return protein
-		  'Exception err
-		  'ExceptionHandler(err,"MethodsAndGlobals:Translate")
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:Translate")
 		End Function
 	#tag EndMethod
 
@@ -983,6 +1041,8 @@ Protected Module Globals
 		  end select
 		  return p
 		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:TranslateFrame")
 		End Function
 	#tag EndMethod
 
@@ -1126,13 +1186,22 @@ Protected Module Globals
 		    return ""
 		  end if
 		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:WebLogo")
 		End Function
 	#tag EndMethod
 
 
 	#tag Property, Flags = &h0
+		aa(65) As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		cLineEnd As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CodonList As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
