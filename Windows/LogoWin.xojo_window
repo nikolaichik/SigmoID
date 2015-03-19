@@ -1019,10 +1019,7 @@ End
 		            GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
 		            HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
 		            HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
-		            dim ss1,ss2 as string
-		            ss1=nthfield(currentHit,"nhmmer ",2)
-		            ss2=nthfield(ss1,cLineEnd,1)
-		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),cLineEnd,1)
+		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),Endofline,1)
 		            genomeWin.HmmHitDescriptions.append HitInfo
 		          next
 		          
@@ -1849,9 +1846,11 @@ End
 		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 		      HmmGen GetSaveFolderItem("????",fn)
 		      'Load the Seq:
-		      GenomeWin.opengenbankfile(outFile)
-		      msgbox "Genome length is "+str(len(GenomeWin.genome.sequence))
-		      genomeWin.ShowHit
+		      if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then
+		        GenomeWin.opengenbankfile(outFile)
+		        'msgbox "Genome length is "+str(len(GenomeWin.genome.sequence))
+		        genomeWin.ShowHit
+		      end if
 		    end if
 		  Case "SettingsTool"
 		    SettingsWin.showmodalwithin(self)

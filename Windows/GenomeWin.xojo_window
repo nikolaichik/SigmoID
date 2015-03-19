@@ -527,7 +527,7 @@ End
 		  'Editor.width=self.width
 		  'scroller.left=self.width
 		  'end if
-		  HighlightFeatures
+		  'HighlightFeatures
 		  me.Refresh
 		  
 		  //get proper color for tabpanel BG
@@ -593,11 +593,13 @@ End
 			Dim C as  Clipboard
 			C=new Clipboard
 			
+			dim se as string
 			if FeatureLeft>0 then
+			se=midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
 			if topstrand then
-			c.Text=midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
+			c.Text=se
 			else
-			c.Text=ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+			c.Text=ReverseComplement(se)
 			end if
 			end if
 			
@@ -728,7 +730,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub DrawFrameColors(g as graphics, string2draw as string, CurrentY as double)
-		  'draw frame with colored start and stop codons (well, only for standard code and for ATG only as start) 
+		  'draw frame with colored start and stop codons (well, only for standard code and for ATG only as start)
 		  
 		  'need to take the real genetic code into account
 		  
@@ -797,8 +799,135 @@ End
 		    for n=1 to u
 		      ft=Genome.Features(n)
 		      if (ft.start>FragmentStart AND ft.start<FragmentEnd) OR (ft.finish>FragmentStart AND ft.finish<FragmentEnd) then
-		        'excluding the fragmented features (like transmembrane segments) as these are problematic
+		        if instr(ft.FeatureText,"misc_feature    order(")=0 OR instr(ft.FeatureText,"misc_feature    complement(order(")=0 then
+		          
+		          FragmentFeature=new GBFeature(Genome.baselineY)
+		          'FragmentFeature.ArrowLength=ft.ArrowLength
+		          'FragmentFeature.ArrowWidth=ft.ArrowWidth
+		          'FragmentFeature.BaselineY=ft.BaselineY
+		          'FragmentFeature.BorderColor=ft.BorderColor
+		          'FragmentFeature.BorderWidth=ft.BorderWidth
+		          'FragmentFeature.Color=ft.Color
+		          FragmentFeature.complement=ft.complement
+		          FragmentFeature.FeatureText=ft.FeatureText
+		          FragmentFeature.Finish=ft.Finish
+		          'FragmentFeature.hasArrow=ft.hasArrow
+		          'FragmentFeature.LeftTrunc=ft.LeftTrunc
+		          'FragmentFeature.length=ft.length
+		          'FragmentFeature.name=ft.name
+		          'FragmentFeature.RightTrunc=ft.RightTrunc
+		          FragmentFeature.start=ft.start
+		          'FragmentFeature.type=ft.type
+		          'FragmentFeature.Width=ft.Width
+		          'FragmentFeature.linShape=New cClickableShape
+		          'dim ls,fs as cClickableShape
+		          'ls=FragmentFeature.linShape
+		          'fs=ft.linShape
+		          'fs=New cClickableShape
+		          'ls.ArrowLength=fs.ArrowLength
+		          'ls.ArrowWidth=fs.ArrowWidth
+		          'ls.Border=fs.Border
+		          'ls.BorderWidth=fs.BorderWidth
+		          'ls.Colour=fs.Colour
+		          'ls.Fill=fs.fill
+		          'ls.FillColor=fs.FillColor
+		          'ls.length=fs.length
+		          'ls.Width=fs.Width
+		          'ls.X=fs.X
+		          'ls.Y=fs.Y
+		          'FragmentFeature.ArrowInit
+		          
+		          CurrentFeature=FragmentFeature.FeatureText
+		          'feature description parsing:
+		          cf1=nthfield(FragmentFeature.FeatureText,cLineEnd,1)
+		          name=rtrim(leftb(cf1,16))      'feature name
+		          FragmentFeature.type=name
+		          'if leftb(start,1)=">" OR leftb(start,1)= "<" then
+		          'start=midb(start,2,lenb(start)-1)
+		          'NewFeature.lefttrunc=true
+		          'end
+		          'if leftb(finish,1)="<"  OR leftb(finish,1)=">" then
+		          'finish=midb(finish,2,lenb(finish)-1)
+		          'NewFeature.righttrunc=true
+		          'end
+		          
+		          if FragmentFeature.complement then
+		            FragmentFeature.start=FragmentFeature.start+1
+		            
+		          end if
+		          FragmentFeature.length=abs(FragmentFeature.start-FragmentFeature.finish)+1 'may just leave the negative here and remove the complement boolean altogether
+		          
+		          'now try to guess a name:
+		          p= instrb(CurrentFeature,"/gene=")
+		          p1=instrb(CurrentFeature,"/product=")
+		          p2=instrb(CurrentFeature,"/function=")
+		          p3=instrb(CurrentFeature,"/note=")
+		          p4=instrb(CurrentFeature,"/locus_tag=")
+		          p5=instrb(CurrentFeature,"/protein_id=")
+		          if name="gene" then
+		            if p>0 then        'use gene name if available
+		              coord=rightb(CurrentFeature,lenb(CurrentFeature)-p-6)
+		              FragmentFeature.name=nthField(coord,chr(34),1)
+		            else               'gene name not there – use locus_tag
+		              if p4>0 then
+		                coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
+		                FragmentFeature.name=nthField(coord,chr(34),1)
+		              end if
+		            end if
+		          elseif name="CDS" then
+		            if p5>0 then        'use protein_id if available
+		              coord=rightb(CurrentFeature,lenb(CurrentFeature)-p5-12)
+		              FragmentFeature.name=nthField(coord,chr(34),1)
+		            else               'protein_id not there – use locus_tag
+		              if p4>0 then
+		                coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
+		                FragmentFeature.name=nthField(coord,chr(34),1)
+		              end if
+		            end if
+		          elseif name="promoter" then
+		            FragmentFeature.name=""
+		          elseif name="protein_bind" then
+		            FragmentFeature.name=""
+		          else
+		            if p>0 then
+		              coord=rightb(CurrentFeature,lenb(CurrentFeature)-p-6)
+		              FragmentFeature.name=nthField(coord,chr(34),1)
+		            elseif p1>0 then
+		              coord=rightb(CurrentFeature,lenb(CurrentFeature)-p1-9)
+		              FragmentFeature.name=nthField(coord,chr(34),1)
+		            elseif p2>0 then
+		              coord=rightb(CurrentFeature,lenb(CurrentFeature)-p2-10)
+		              FragmentFeature.name=nthField(coord,chr(34),1)
+		            elseif p3>0 then
+		              coord=rightb(CurrentFeature,lenb(CurrentFeature)-p3-6)
+		              FragmentFeature.name=nthField(coord,chr(34),1)
+		            elseif p4>0 then
+		              coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
+		              FragmentFeature.name=nthField(coord,chr(34),1)
+		            else
+		              FragmentFeature.name=""
+		            end if
+		          end if
+		          
+		          
+		          
+		          
+		          
+		          
+		          'FragmentFeature.Init
+		          
+		          
+		          seq.features.append FragmentFeature
+		          
+		        end if
 		        
+		      end if
+		    next
+		    
+		  else
+		    for n=1 to u
+		      ft=Genome.Features(n)
+		      if (ft.start>FragmentStart AND ft.start<FragmentEnd) OR (ft.finish>FragmentStart AND ft.finish<FragmentEnd) then
 		        FragmentFeature=new GBFeature(Genome.baselineY)
 		        'FragmentFeature.ArrowLength=ft.ArrowLength
 		        'FragmentFeature.ArrowWidth=ft.ArrowWidth
@@ -907,147 +1036,19 @@ End
 		          end if
 		        end if
 		        
-		        
-		        
-		        
-		        
-		        
 		        'FragmentFeature.Init
 		        
-		        
 		        seq.features.append FragmentFeature
-		        
-		        
-		      end if
-		    next
-		    
-		  else
-		    
-		    for n=1 to u
-		      ft=Genome.Features(n)
-		      'excluding the fragmented features (like transmembrane segments) as these are problematic
-		      
-		      FragmentFeature=new GBFeature(Genome.baselineY)
-		      'FragmentFeature.ArrowLength=ft.ArrowLength
-		      'FragmentFeature.ArrowWidth=ft.ArrowWidth
-		      'FragmentFeature.BaselineY=ft.BaselineY
-		      'FragmentFeature.BorderColor=ft.BorderColor
-		      'FragmentFeature.BorderWidth=ft.BorderWidth
-		      'FragmentFeature.Color=ft.Color
-		      FragmentFeature.complement=ft.complement
-		      FragmentFeature.FeatureText=ft.FeatureText
-		      FragmentFeature.Finish=ft.Finish
-		      'FragmentFeature.hasArrow=ft.hasArrow
-		      'FragmentFeature.LeftTrunc=ft.LeftTrunc
-		      'FragmentFeature.length=ft.length
-		      'FragmentFeature.name=ft.name
-		      'FragmentFeature.RightTrunc=ft.RightTrunc
-		      FragmentFeature.start=ft.start
-		      'FragmentFeature.type=ft.type
-		      'FragmentFeature.Width=ft.Width
-		      'FragmentFeature.linShape=New cClickableShape
-		      'dim ls,fs as cClickableShape
-		      'ls=FragmentFeature.linShape
-		      'fs=ft.linShape
-		      'fs=New cClickableShape
-		      'ls.ArrowLength=fs.ArrowLength
-		      'ls.ArrowWidth=fs.ArrowWidth
-		      'ls.Border=fs.Border
-		      'ls.BorderWidth=fs.BorderWidth
-		      'ls.Colour=fs.Colour
-		      'ls.Fill=fs.fill
-		      'ls.FillColor=fs.FillColor
-		      'ls.length=fs.length
-		      'ls.Width=fs.Width
-		      'ls.X=fs.X
-		      'ls.Y=fs.Y
-		      'FragmentFeature.ArrowInit
-		      
-		      CurrentFeature=FragmentFeature.FeatureText
-		      'feature description parsing:
-		      cf1=nthfield(FragmentFeature.FeatureText,cLineEnd,1)
-		      name=rtrim(leftb(cf1,16))      'feature name
-		      FragmentFeature.type=name
-		      'if leftb(start,1)=">" OR leftb(start,1)= "<" then
-		      'start=midb(start,2,lenb(start)-1)
-		      'NewFeature.lefttrunc=true
-		      'end
-		      'if leftb(finish,1)="<"  OR leftb(finish,1)=">" then
-		      'finish=midb(finish,2,lenb(finish)-1)
-		      'NewFeature.righttrunc=true
-		      'end
-		      
-		      if FragmentFeature.complement then
-		        FragmentFeature.start=FragmentFeature.start+1
-		        
-		      end if
-		      FragmentFeature.length=abs(FragmentFeature.start-FragmentFeature.finish)+1 'may just leave the negative here and remove the complement boolean altogether
-		      
-		      'now try to guess a name:
-		      p= instrb(CurrentFeature,"/gene=")
-		      p1=instrb(CurrentFeature,"/product=")
-		      p2=instrb(CurrentFeature,"/function=")
-		      p3=instrb(CurrentFeature,"/note=")
-		      p4=instrb(CurrentFeature,"/locus_tag=")
-		      p5=instrb(CurrentFeature,"/protein_id=")
-		      if name="gene" then
-		        if p>0 then        'use gene name if available
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p-6)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        else               'gene name not there – use locus_tag
-		          if p4>0 then
-		            coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
-		            FragmentFeature.name=nthField(coord,chr(34),1)
-		          end if
-		        end if
-		      elseif name="CDS" then
-		        if p5>0 then        'use protein_id if available
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p5-12)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        else               'protein_id not there – use locus_tag
-		          if p4>0 then
-		            coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
-		            FragmentFeature.name=nthField(coord,chr(34),1)
-		          end if
-		        end if
-		      elseif name="promoter" then
-		        FragmentFeature.name=""
-		      elseif name="protein_bind" then
-		        FragmentFeature.name=""
 		      else
-		        if p>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p-6)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        elseif p1>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p1-9)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        elseif p2>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p2-10)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        elseif p3>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p3-6)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        elseif p4>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        else
-		          FragmentFeature.name=""
-		        end if
+		        'beep
 		      end if
-		      
-		      
-		      
-		      
-		      
-		      
-		      'FragmentFeature.Init
-		      
-		      
-		      seq.features.append FragmentFeature
-		      
 		    next
-		    
 		  end if
+		  
+		  '
+		  
+		  '
+		  
 		  'get the sequence corresponding to the matching sequence:
 		  
 		  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -1496,7 +1497,7 @@ End
 		    if cLineEnd="" then
 		      cLineEnd=EndOfLine  'seems to be set wrong for some files
 		    end if
-		    LineEnd=cLineEnd   
+		    LineEnd=cLineEnd
 		    
 		    features=midb(s,st,en-st)+cLineEnd +"     end"+cLineEnd 'a marker to stop parsing at the end of feature table
 		    'save description:
@@ -1845,16 +1846,25 @@ End
 		  HScrollBarCodeLock=false
 		  
 		  'determine the distance of the left edge of displayed fragment from start:
+		  FeatureLeft=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))-GBrowseShift
+		  FeatureRight=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-GBrowseShift+1
 		  
 		  if instr(HmmHitDescriptions(CurrentHit),"(+)")>0 then
-		    FeatureLeft=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))-GBrowseShift
-		    FeatureRight=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-GBrowseShift+1
 		    topstrand=true
 		  else
-		    FeatureRight=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))-GBrowseShift
-		    FeatureLeft=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-GBrowseShift+1
 		    topstrand=false
 		  end if
+		  
+		  'if instr(HmmHitDescriptions(CurrentHit),"(+)")>0 then
+		  'FeatureLeft=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))-GBrowseShift
+		  'FeatureRight=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-GBrowseShift+1
+		  'topstrand=true
+		  'else
+		  'FeatureRight=Val(NthField(HmmHitDescriptions(CurrentHit),":",1))-GBrowseShift
+		  'FeatureLeft=Val(NthField(NthField(HmmHitDescriptions(CurrentHit)," ",1),":",2))-GBrowseShift+1
+		  'topstrand=false
+		  'end if
+		  '
 		  
 		  
 		  'need to set the correct highlightColour (according to feature being displayed) here
@@ -1886,7 +1896,7 @@ End
 		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
 		    HLtop=false
 		    HLbottom=false
-		  elseif HighlightFrom<Highlightto then 'highlight site on top strand
+		  elseif topstrand then 'highlight site on top strand
 		    HLtop=true
 		    SeqStart=(Highlightto+HighlightFrom)/2-charsPerLine/2+GBrowseShift
 		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
@@ -4000,6 +4010,11 @@ End
 		Type="integer"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="SplitFeaturesPresent"
+		Group="Behavior"
+		Type="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="sTBButtons"
 		Group="Behavior"
 		InitialValue=",1,2,3,5,0,6,8,11,12,18,13,14,19,15,16,17,10,"
@@ -4052,6 +4067,11 @@ End
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="topstrand"
+		Group="Behavior"
+		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Visible"
