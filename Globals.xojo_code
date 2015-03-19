@@ -117,18 +117,19 @@ Protected Module Globals
 		  #pragma NilObjectChecking False
 		  #pragma StackOverflowChecking False
 		  
-		  ge=ReplaceAll(Ge," ","")
-		  ge=ReplaceAll(Ge,"1","")
-		  ge=ReplaceAll(Ge,"2","")
-		  ge=ReplaceAll(Ge,"3","")
-		  ge=ReplaceAll(Ge,"4","")
-		  ge=ReplaceAll(Ge,"5","")
-		  ge=ReplaceAll(Ge,"6","")
-		  ge=ReplaceAll(Ge,"7","")
-		  ge=ReplaceAll(Ge,"8","")
-		  ge=ReplaceAll(Ge,"9","")
-		  ge=ReplaceAll(Ge,"0","")
-		  ge=ReplaceAll(Ge,cLineEnd,"")
+		  ge=ReplaceAllB(Ge," ","")
+		  ge=ReplaceAllB(Ge,"1","")
+		  ge=ReplaceAllB(Ge,"2","")
+		  ge=ReplaceAllB(Ge,"3","")
+		  ge=ReplaceAllB(Ge,"4","")
+		  ge=ReplaceAllB(Ge,"5","")
+		  ge=ReplaceAllB(Ge,"6","")
+		  ge=ReplaceAllB(Ge,"7","")
+		  ge=ReplaceAllB(Ge,"8","")
+		  ge=ReplaceAllB(Ge,"9","")
+		  ge=ReplaceAllB(Ge,"0","")
+		  ge=ReplaceAllB(Ge,cLineEnd,"")
+		  ge=ReplaceAllB(Ge,"//","")
 		  
 		  return Uppercase(Ge)
 		  
@@ -1234,6 +1235,11 @@ Protected Module Globals
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CodonList"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CR"
