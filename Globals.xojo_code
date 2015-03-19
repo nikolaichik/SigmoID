@@ -1,7 +1,7 @@
 #tag Module
 Protected Module Globals
 	#tag Method, Flags = &h0
-		Sub AdjustLayout4lunux(w as window)
+		Sub AdjustLayout4linux(w as window)
 		  'Adjust text sizes and buttons of a window to look better cross platform based on layout in Mac IDE
 		  'this must be called only once in open event of window.
 		  'by Guy Kuo         www.cosalient.com

@@ -687,6 +687,8 @@ End
 		  ELSE
 		    RunButton.enabled=true
 		  END IF
+		  
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 

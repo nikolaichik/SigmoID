@@ -138,6 +138,14 @@ End
 		Sub Activate()
 		  GoToField.text=""
 		  GoToField.SetFocus
+		  
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Open()
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 

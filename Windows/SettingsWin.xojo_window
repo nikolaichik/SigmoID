@@ -505,6 +505,13 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Open()
+		  AdjustLayout4linux(me)
+		End Sub
+	#tag EndEvent
+
+
 #tag EndWindowCode
 
 #tag Events OKButton

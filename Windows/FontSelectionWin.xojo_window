@@ -351,13 +351,13 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Activate()
-		  
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub Open()
-		  AdjustLayout4lunux(me)
+		  AdjustLayout4linux(me)
 		  
 		  dim ff as string
 		  ff=SetDefaultFonts(true)

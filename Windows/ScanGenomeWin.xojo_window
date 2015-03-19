@@ -13,7 +13,7 @@ Begin Window ScanGenomeWin
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   324
+   MaxHeight       =   1024
    MaximizeButton  =   True
    MaxWidth        =   32000
    MenuBar         =   0
@@ -267,7 +267,9 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Open()
+		  
 		  BuildSigArray
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 

@@ -920,6 +920,7 @@ End
 		  #if DebugBuild
 		    RunButton.Enabled=true
 		  #endif
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 
