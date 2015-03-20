@@ -9,7 +9,7 @@ Begin Window GenomeWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   460
+   Height          =   788
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -95,33 +95,30 @@ Begin Window GenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   439
+      Top             =   767
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   247
    End
-   Begin cTabbedCanvas MapCanvas
+   Begin Canvas MapCanvas
       AcceptFocus     =   False
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
-      Boo             =   False
-      cPanelIndex     =   0
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
-      Height          =   240
+      Height          =   266
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      OldTicks        =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -208,11 +205,11 @@ Begin Window GenomeWin
       Left            =   3
       LineStep        =   1
       LiveScroll      =   False
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Maximum         =   100
       Minimum         =   0
       PageStep        =   20
@@ -220,7 +217,7 @@ Begin Window GenomeWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   277
+      Top             =   303
       Value           =   0
       Visible         =   True
       Width           =   765
@@ -253,25 +250,46 @@ Begin Window GenomeWin
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
-      Height          =   147
+      Height          =   132
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   293
+      Top             =   319
       Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
       Width           =   765
+   End
+   Begin HTMLViewer SearchViewer
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   319
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Renderer        =   0
+      Scope           =   0
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   449
+      Visible         =   True
+      Width           =   766
    End
 End
 #tag EndWindow
@@ -758,6 +776,30 @@ End
 		    co=instr(co+1,string2draw,"*")
 		  wend
 		  g.Bold=false
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EditFeature(f As gbFeature)
+		  FeaturePropertiesWin.ParentWin=self
+		  FeaturePropertiesWin.FeatureTextField.text=f.FeatureText
+		  FeaturePropertiesWin.ShowmodalWithin(self)
+		  
+		  if FeaturePropertiesWin.OKpressed then
+		    f.FeatureText=FeaturePropertiesWin.FeatureTextField.text
+		    
+		    'propagate this to original genome feature!
+		    
+		    
+		    MapInit
+		    
+		    updateMapCanvas
+		    
+		  else
+		    FeaturePropertiesWin.hide
+		  end
+		  
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1502,6 +1544,49 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub PhmmerSearchUniProt()
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
+		  'First, launch the search to get the UUID:
+		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
+		  
+		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  
+		  dim sh as New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute command
+		  If sh.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    UUID=NthField(sh.Result,"for job ",2)
+		    UUID=NthField(UUID,":",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    
+		  else
+		    beep
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub QuitCheck()
 		  #if TargetMacOS then
 		    'Shouldn't quit on Mac OS when closing the last window
@@ -1511,6 +1596,18 @@ End
 		    quit
 		    
 		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveFeature()
+		  seq.Features.Remove selFeatureNo
+		  
+		  MapInit
+		  
+		  updateMapCanvas
+		  
+		  
 		End Sub
 	#tag EndMethod
 
@@ -2104,6 +2201,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ContextFeature As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		CurrentHit As Integer
 	#tag EndProperty
 
@@ -2584,11 +2685,14 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub MouseDown(X as integer, Y As integer)
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  dim n,topObj,m,featureCount as integer
 		  dim AnyObjectClicked, RetValue as Boolean
 		  dim p as picture
 		  
+		  if IsContextualClick then
+		    return false
+		  end if
 		  
 		  NewFeature=False
 		  'scroll adjustment:
@@ -2682,7 +2786,7 @@ End
 		  end
 		  
 		  
-		  me.boo=RetValue
+		  'me.boo=RetValue
 		  updateMapCanvas
 		  UpdateMapCanvasSelection
 		  
@@ -2693,7 +2797,7 @@ End
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:MapCanvas:Mousedown")
 		    
-		End Sub
+		End Function
 	#tag EndEvent
 	#tag Event
 		Sub MouseDrag(X As Integer, Y As Integer)
@@ -2933,95 +3037,49 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub DubleClick(X as integer, Y As integer)
-		  dim n,topObj,m,featureCount as integer
-		  'dim RetValue as Boolean
-		  dim s,s1 as string
+		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
+		  dim n,topObj,m,featureCount,currentFeature as integer
 		  dim p as picture
-		  
-		  selFeatureNo=0
-		  
-		  
 		  
 		  p=Seq.Map
 		  topObj= p.Objects.Count-1
 		  featureCount=ubound(Seq.features)
+		  ContextFeature=0
+		  'check if the click is over a feature
 		  for n=1 to topObj 'skip zero object that contains selection
-		    'second (or more) obj. may contain the ruler
 		    if p.Objects.Item(n) IsA cClickableShape then
 		      if cClickableShape(p.Objects.Item(n)).contains(X,Y) then
-		        
-		        RE1="" 'clear previous enzyme mark
-		        
-		        'p.Objects(0) is a selection rectangle
-		        'p.Objects(1) is asequence line (or circle) => subtract 1 below to get correct feature number
-		        selFeatureNo=n-seq.ExtraObj -1
-		        'Now correct for the hidden features:
-		        for m=1 to featureCount
-		          if m>selFeatureNo then
-		            exit
-		          end
-		          if seq.Features(m).Visible=false then
-		            selFeatureNo=selFeatureNo+1
-		          end
-		        next
-		        if selFeatureNo>featureCount then selFeatureNo=featureCount  'correction for the complete site (unnecessary?)
-		        
-		        'EditFeature seq.Features(selFeatureNo)
-		        return
+		        ContextFeature=n/2'+1 'correction for feature names
 		      end
-		      
-		      
-		      'elseif  p.Objects.Item(n) IsA cName then 'name of a feature or enzyme clicked
-		      'if cName(p.Objects.Item(n)).contains(X,Y)  then
-		      '
-		      '
-		      'topObj=DeselectNames(p)
-		      ''end
-		      '
-		      ''retvalue=true
-		      '''select just clicked thing:
-		      ''cName(p.Objects.Item(n)).toggleSelection
-		      ''p.Objects.Append cName(p.Objects.Item(n)).selrect
-		      'SelNameNo=n
-		      'AnyNameClicked=true
-		      '
-		      'end
 		    end
 		  next
 		  
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:MapCanvas:DoubleClick")
-		    
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
-		  '
-		  '
-		  'if EnableEdit then
-		  'if SelNameNo>0 then
-		  'base.Append mItem(kRemoveREfromMap)
-		  'else
-		  'if Newfeature then
-		  'base.Append mItem(kNewFeature)
-		  '
-		  'else
-		  'base.Append mItem(kEditFeature)
-		  'base.Append mItem(kHideFeature)
-		  'base.Append mItem(kRemoveFeature)
-		  '
-		  'end
-		  'end if
-		  '
-		  'end
+		  
+		  
+		  if ContextFeature>0 then
+		    base.Append mItem(kEditFeature)
+		    base.Append mItem(kRemoveFeature)
+		    'Add a Separator
+		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
+		    'hmmer searches
+		    'check if applicable!!!
+		    base.Append mItem(kPhmmerSearchUniprot)
+		  end
+		  
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
 		  select case hititem.text
 		    
-		    
+		  case kEditFeature
+		    EditFeature(seq.Features(selFeatureNo))
+		  case kRemoveFeature
+		    RemoveFeature
+		    'featuredeleted=true
+		  case kPhmmerSearchUniprot
+		    PhmmerSearchUniProt
 		  end
 		End Function
 	#tag EndEvent
@@ -3892,11 +3950,6 @@ End
 		Group="Behavior"
 		InitialValue="0"
 		Type="integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="SplitFeaturesPresent"
-		Group="Behavior"
-		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="sTBButtons"

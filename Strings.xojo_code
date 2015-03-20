@@ -838,6 +838,11 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9F\xD0\xA6\xD0\xA0 "
 	#tag EndConstant
 
+	#tag Constant, Name = kPhmmerSearchUniprot, Type = String, Dynamic = True, Default = \"Query UniProtKB with phmmer", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C phmmer\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 UniProtKB"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C phmmer\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 UniProtKB"
+	#tag EndConstant
+
 	#tag Constant, Name = kPreferences, Type = String, Dynamic = True, Default = \"Preferences...", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9F\xD0\xB0\xD1\x80\xD0\xB0\xD0\xBC\xD0\xB5\xD1\x82\xD1\x80\xD1\x8B..."
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9D\xD0\xB0\xD0\xBB\xD0\xB0\xD0\xB4\xD1\x8B..."
