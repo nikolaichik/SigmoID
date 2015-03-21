@@ -5,11 +5,11 @@ Begin Window GenomeWin
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   True
-   Frame           =   0
+   Frame           =   9
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   788
+   Height          =   750
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,7 +25,7 @@ Begin Window GenomeWin
    Resizeable      =   True
    Title           =   "Untitled"
    Visible         =   False
-   Width           =   767
+   Width           =   1067
    Begin Canvas HelpTagDisplay
       AcceptFocus     =   False
       AcceptTabs      =   False
@@ -73,7 +73,7 @@ Begin Window GenomeWin
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   21
+      Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -95,7 +95,7 @@ Begin Window GenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   767
+      Top             =   730
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -109,7 +109,7 @@ Begin Window GenomeWin
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
-      Height          =   266
+      Height          =   216
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -123,11 +123,11 @@ Begin Window GenomeWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   38
+      Top             =   28
       Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   767
+      Width           =   1067
    End
    Begin Timer ToolTipTimer
       Height          =   32
@@ -136,7 +136,7 @@ Begin Window GenomeWin
       Left            =   -44
       LockedInPosition=   False
       Mode            =   1
-      Period          =   500
+      Period          =   700
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   467
@@ -158,7 +158,7 @@ Begin Window GenomeWin
       Segments        =   "Prev.\n\nFalse\r                      \n\nFalse\rNext\n\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
-      Top             =   7
+      Top             =   0
       Visible         =   True
       Width           =   177
    End
@@ -188,11 +188,11 @@ Begin Window GenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   7
+      Top             =   0
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   506
+      Width           =   809
    End
    Begin ScrollBar HScrollBar
       AcceptFocus     =   True
@@ -202,7 +202,7 @@ Begin Window GenomeWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   3
+      Left            =   0
       LineStep        =   1
       LiveScroll      =   False
       LockBottom      =   False
@@ -217,17 +217,17 @@ Begin Window GenomeWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   303
+      Top             =   244
       Value           =   0
       Visible         =   True
-      Width           =   765
+      Width           =   1067
    End
    BeginSegmented SegmentedControl Magnifier
       Enabled         =   True
       Height          =   24
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   713
+      Left            =   1013
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -238,7 +238,7 @@ Begin Window GenomeWin
       Segments        =   "+\n\nFalse\r-\n\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
-      Top             =   7
+      Top             =   0
       Visible         =   True
       Width           =   41
    End
@@ -264,20 +264,20 @@ Begin Window GenomeWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   319
+      Top             =   259
       Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
-      Width           =   765
+      Width           =   1067
    End
    Begin HTMLViewer SearchViewer
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   319
+      Height          =   337
       HelpTag         =   ""
       Index           =   -2147483648
       Left            =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
@@ -287,9 +287,30 @@ Begin Window GenomeWin
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   449
+      Top             =   395
       Visible         =   True
-      Width           =   766
+      Width           =   1067
+   End
+   Begin Separator Separator1
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   4
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   391
+      Visible         =   True
+      Width           =   1067
    End
 End
 #tag EndWindow
@@ -2064,12 +2085,14 @@ End
 		  dim p as picture
 		  
 		  p=seq.map
-		  dim rs as rectshape
 		  
 		  if p<>nil then
-		    RectShape(p.Objects.Item(0)).width=(FeatureLeft-FeatureRight)/seq.bpPerPixel
-		    p.Objects.Item(0).x=((FeatureLeft+FeatureRight)/2)/seq.bpPerPixel'*seq.map.Objects.Scale
-		    rs=RectShape(p.Objects.Item(0))
+		    if FeatureLeft=0 then
+		      RectShape(p.Objects.Item(0)).width=0
+		    else
+		      RectShape(p.Objects.Item(0)).width=(FeatureLeft-FeatureRight)/seq.bpPerPixel
+		      p.Objects.Item(0).x=((FeatureLeft+FeatureRight)/2)/seq.bpPerPixel'*seq.map.Objects.Scale
+		    end if
 		  end
 		  
 		  
@@ -2601,6 +2624,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ToolTipBlock As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ToolTipX As Integer
 	#tag EndProperty
 
@@ -2612,8 +2639,20 @@ End
 		topstrand As boolean
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		ttip As string
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected tttext As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TTx As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TTy As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -2675,10 +2714,6 @@ End
 #tag Events MapCanvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  'use QuickDraw instead of Quartz on mac
-		  'makes things faster but not anti-aliased:
-		  'g.UseOldRenderer=True
-		  
 		  
 		  UpdateMapCanvas
 		  
@@ -2690,8 +2725,15 @@ End
 		  dim AnyObjectClicked, RetValue as Boolean
 		  dim p as picture
 		  
+		  ToolTipTimer.Mode=1
+		  ToolTipBlock=false
+		  
+		  
+		  
 		  if IsContextualClick then
 		    return false
+		  else
+		    ToolTipTimer.Mode=1
 		  end if
 		  
 		  NewFeature=False
@@ -3041,6 +3083,11 @@ End
 		  dim n,topObj,m,featureCount,currentFeature as integer
 		  dim p as picture
 		  
+		  ToolTipBlock=true
+		  ToolTipTimer.Reset
+		  ToolTip.hide
+		  ToolTipTimer.Mode=0
+		  
 		  p=Seq.Map
 		  topObj= p.Objects.Count-1
 		  featureCount=ubound(Seq.features)
@@ -3071,6 +3118,10 @@ End
 	#tag EndEvent
 	#tag Event
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
+		  ToolTipBlock=false
+		  'ToolTipTimer.Reset
+		  ToolTipTimer.Mode=1
+		  ToolTip.hide
 		  select case hititem.text
 		    
 		  case kEditFeature
@@ -3116,6 +3167,8 @@ End
 		  dim tt as string
 		  dim p as picture
 		  
+		  ttip=""
+		  ToolTipTimer.Mode=1
 		  
 		  p=Seq.Map
 		  topObj= p.Objects.Count-1
@@ -3151,7 +3204,7 @@ End
 		  if PointedFeature>0 then
 		    'for CDS, translation has to be removed from tooltip
 		    dim trC as integer
-		    dim ftL,ftR,ttip as string
+		    dim ftL,ftR as string
 		    
 		    trC=InStr(seq.Features(PointedFeature).FeatureText,"/translation=")
 		    ftL=left(seq.Features(PointedFeature).FeatureText,trC)
@@ -3162,7 +3215,12 @@ End
 		    else
 		      ttip=ftL
 		    end if
-		    ToolTip.Show(ttip, X, Y+me.top, True)
+		    
+		    TTx=X+self.Left
+		    TTy=Y+self.top
+		    ToolTipTimer.Reset
+		    
+		    'ToolTip.Show(ttip, X+self.x, Y+self.top, True)
 		  else
 		    ToolTip.hide
 		  end if
@@ -3175,21 +3233,25 @@ End
 #tag Events ToolTipTimer
 	#tag Event
 		Sub Action()
-		  #if TargetWin32 then
-		    if EditorToolTip="" then
-		      winToolTip.hide
-		    else
-		      winToolTip.hide
-		      winToolTip.text=EditorToolTip
-		      winToolTip.Show
-		    end if
-		  #else
-		    if EditorToolTip="" then
-		      ToolTip.hide
-		    else
-		      ToolTip.Show EditorToolTip,ToolTipX,ToolTipY,true
-		    end if
-		  #endif
+		  if not ToolTipBlock then
+		    #if TargetWin32 then
+		      if EditorToolTip="" then
+		        winToolTip.hide
+		      else
+		        winToolTip.hide
+		        winToolTip.text=EditorToolTip
+		        winToolTip.Show
+		      end if
+		    #else
+		      if TTip="" then
+		        ToolTip.hide
+		      else
+		        ToolTip.Show(ttip, TTx,TTy, True)
+		      end if
+		    #endif
+		  end if
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -3383,6 +3445,11 @@ End
 		Group="Behavior"
 		InitialValue="0"
 		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ContextFeature"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="CurrentHit"
