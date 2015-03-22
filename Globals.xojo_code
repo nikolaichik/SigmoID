@@ -1240,6 +1240,7 @@ Protected Module Globals
 			Name="CodonList"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CR"

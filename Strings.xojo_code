@@ -545,6 +545,21 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA1\xD1\x85\xD0\xB0\xD0\xB2\xD0\xB0\xD1\x86\xD1\x8C \xD1\x8D\xD0\xBB\xD0\xB5\xD0\xBC\xD0\xB5\xD0\xBD\xD1\x82 \xD0\xB0\xD0\xBD\xD0\xB0\xD1\x82\xD0\xB0\xD1\x86\xD1\x8B\xD1\x96"
 	#tag EndConstant
 
+	#tag Constant, Name = kHmmerSearchSwissProt, Type = String, Dynamic = True, Default = \"Query SwissProt with phmmer", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C phmmer\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 SwissProt"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C phmmer\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 SwissProt"
+	#tag EndConstant
+
+	#tag Constant, Name = kHmmerSearchTIGRFAM, Type = String, Dynamic = True, Default = \"Hmmscan TIGRFAMs", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C \xD0\xB2 TIGRFAM hmmscan\xE2\x80\x99\xD0\xBE\xD0\xBC"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C \xD1\x83 TIGRFAM hmmscan\xE2\x80\x99\xD0\xB0\xD0\xBC"
+	#tag EndConstant
+
+	#tag Constant, Name = kHmmerSearchUniprot, Type = String, Dynamic = True, Default = \"Query UniProtKB with phmmer", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C phmmer\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 UniProtKB"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C phmmer\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 UniProtKB"
+	#tag EndConstant
+
 	#tag Constant, Name = kImportREBASE, Type = String, Dynamic = True, Default = \"Import REBASE", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD0\xBC\xD0\xBF\xD0\xBE\xD1\x80\xD1\x82 REBASE"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x86\xD0\xBC\xD0\xBF\xD0\xB0\xD1\x80\xD1\x82 REBASE"
@@ -836,11 +851,6 @@ Protected Module Strings
 	#tag Constant, Name = kPCR, Type = String, Dynamic = True, Default = \"PCR of ", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9F\xD0\xA6\xD0\xA0 "
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9F\xD0\xA6\xD0\xA0 "
-	#tag EndConstant
-
-	#tag Constant, Name = kPhmmerSearchUniprot, Type = String, Dynamic = True, Default = \"Query UniProtKB with phmmer", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C phmmer\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 UniProtKB"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C phmmer\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 UniProtKB"
 	#tag EndConstant
 
 	#tag Constant, Name = kPreferences, Type = String, Dynamic = True, Default = \"Preferences...", Scope = Public

@@ -89,7 +89,7 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      Text            =   "Untitled"
+      Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -273,7 +273,7 @@ Begin Window GenomeWin
    Begin HTMLViewer SearchViewer
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   337
+      Height          =   335
       HelpTag         =   ""
       Index           =   -2147483648
       Left            =   0
@@ -287,7 +287,7 @@ Begin Window GenomeWin
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   395
+      Top             =   394
       Visible         =   True
       Width           =   1067
    End
@@ -311,6 +311,47 @@ Begin Window GenomeWin
       Top             =   391
       Visible         =   True
       Width           =   1067
+   End
+   BeginSegmented SegmentedControl DBsearchSegmentedControl
+      Enabled         =   False
+      Height          =   24
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   400
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      MacControlStyle =   6
+      Scope           =   0
+      Segments        =   "UniProtKB\n\nFalse\rSwissProt\n\nFalse\rTIGRFAM\n\nFalse"
+      SelectionType   =   0
+      TabPanelIndex   =   0
+      Top             =   728
+      Visible         =   True
+      Width           =   266
+   End
+   Begin ProgressBar SearchProgressBar
+      AutoDeactivate  =   True
+      Enabled         =   False
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   901
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Maximum         =   0
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   730
+      Value           =   0
+      Visible         =   False
+      Width           =   146
    End
 End
 #tag EndWindow
@@ -1075,7 +1116,7 @@ End
 		  updateMapCanvas
 		  
 		  'display the actual sequence around hit:
-		  if Featureleft=0 then
+		  if featureleft=-1 then
 		    dim FragmentCent as integer = (FragmentStart+FragmentEnd)/2
 		    TextMap(FragmentCent,FragmentCent)
 		  end if
@@ -1288,6 +1329,186 @@ End
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:GetRaster")
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub HmmerSearchSwissProt()
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'show progressbar:
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		  'set DBsearchSegmentedControl to display correct DB
+		  DBsearchSegmentedControl.Enabled=true
+		  Dim sci0 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci0.Selected=false 'UniProtKB
+		  Dim sci1 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci1.Selected=true 'SwissProt
+		  Dim sci2 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci2.Selected=false 'TIGRFAM
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
+		  'First, launch the search to get the UUID:
+		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
+		  
+		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  
+		  dim sh as New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  SearchProgressBar.Refresh
+		  sh.execute command
+		  If sh.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(sh.Result,"for job ",2)
+		    UUID=NthField(UUID,":",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub HmmerSearchTIGRFAM()
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'show progressbar:
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		  'set DBsearchSegmentedControl to display correct DB
+		  DBsearchSegmentedControl.Enabled=true
+		  Dim sci0 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci0.Selected=false 'UniProtKB
+		  Dim sci1 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci1.Selected=false 'SwissProt
+		  Dim sci2 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci2.Selected=true 'TIGRFAM
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
+		  'First, launch the search to get the UUID:
+		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
+		  
+		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
+		  
+		  dim sh as New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  SearchProgressBar.Refresh
+		  sh.execute command
+		  If sh.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(sh.Result,"for job ",2)
+		    UUID=NthField(UUID,":",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub HmmerSearchUniProt()
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'show progressbar:
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		  'set DBsearchSegmentedControl to display correct DB
+		  DBsearchSegmentedControl.Enabled=true
+		  Dim sci0 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci0.Selected=true 'UniProtKB
+		  Dim sci1 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci1.Selected=false 'SwissProt
+		  Dim sci2 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci2.Selected=false 'TIGRFAM
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
+		  'First, launch the search to get the UUID:
+		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
+		  
+		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=uniprotkb  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  
+		  dim sh as New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  SearchProgressBar.Refresh
+		  sh.execute command
+		  If sh.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(sh.Result,"for job ",2)
+		    UUID=NthField(UUID,":",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1561,49 +1782,6 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:OpenGenBankFile")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub PhmmerSearchUniProt()
-		  dim theSeq, command, UUID, theURL as string
-		  
-		  'get the seq to search with:
-		  if Seq.Features(ContextFeature).complement  then
-		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
-		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
-		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
-		  else
-		    FeatureLeft=Seq.Features(ContextFeature).start
-		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
-		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
-		  end
-		  
-		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
-		  'First, launch the search to get the UUID:
-		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
-		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
-		  
-		  dim sh as New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute command
-		  If sh.errorCode=0 then
-		    'get the UUID from text result that look like this:
-		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
-		    UUID=NthField(sh.Result,"for job ",2)
-		    UUID=NthField(UUID,":",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
-		    
-		  else
-		    beep
-		  end if
-		  
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
 	#tag EndMethod
 
@@ -2087,7 +2265,7 @@ End
 		  p=seq.map
 		  
 		  if p<>nil then
-		    if FeatureLeft=0 then
+		    if featureleft=-1 then
 		      RectShape(p.Objects.Item(0)).width=0
 		    else
 		      RectShape(p.Objects.Item(0)).width=(FeatureLeft-FeatureRight)/seq.bpPerPixel
@@ -2808,7 +2986,7 @@ End
 		  if AnyObjectClicked=false then
 		    NewFeature=true
 		    seq.SelLength=0
-		    FeatureLeft=0     'to zero selrange
+		    featureleft=-1     'to zero selrange
 		    RetValue=True 'to trigger MouseDrag
 		    
 		    topobj=DeselectNames(p)
@@ -3093,11 +3271,20 @@ End
 		  featureCount=ubound(Seq.features)
 		  ContextFeature=0
 		  'check if the click is over a feature
+		  dim dbg as string=""
 		  for n=1 to topObj 'skip zero object that contains selection
 		    if p.Objects.Item(n) IsA cClickableShape then
+		      
 		      if cClickableShape(p.Objects.Item(n)).contains(X,Y) then
+		        'MsgBox str(n)+" "+str(x)+" "+str(y)
 		        ContextFeature=n/2'+1 'correction for feature names
+		      else
+		        'MsgBox str(n)+" "+str(x)+" "+str(y)
+		        
+		        dbg=dbg+str(n)+" "+str(x)+" "+str(y)+LineEnd
+		        
 		      end
+		      
 		    end
 		  next
 		  
@@ -3110,7 +3297,9 @@ End
 		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
 		    'hmmer searches
 		    'check if applicable!!!
-		    base.Append mItem(kPhmmerSearchUniprot)
+		    base.Append mItem(kHmmerSearchUniprot)
+		    base.Append mItem(kHmmerSearchSwissprot)
+		    base.Append mItem(kHmmerSearchTigrfam)
 		  end
 		  
 		  
@@ -3129,8 +3318,12 @@ End
 		  case kRemoveFeature
 		    RemoveFeature
 		    'featuredeleted=true
-		  case kPhmmerSearchUniprot
-		    PhmmerSearchUniProt
+		  case kHmmerSearchUniProt
+		    HmmerSearchUniProt
+		  case kHmmerSearchSwissProt
+		    HmmerSearchSwissProt
+		  case kHmmerSearchTIGRFAM
+		    HmmerSearchTIGRFAM
 		  end
 		End Function
 	#tag EndEvent
@@ -3368,6 +3561,22 @@ End
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  g.DrawPicture(TextMapPic,0,0)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SearchViewer
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  SearchProgressBar.Enabled=false
+		  SearchProgressBar.visible=false
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
