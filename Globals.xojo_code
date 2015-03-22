@@ -197,11 +197,11 @@ Protected Module Globals
 		  '100bp ticks:
 		  n=bp/100
 		  'find start:
-		  dim  startCoordinate as integer = ((GenomeDelta\100)+1)*100-GenomeDelta
+		  dim  startCoordinate as integer = ((GBrowseShift\100)+1)*100-GBrowseShift
 		  'Example:
-		  'GenomeDelta=2291576
+		  'GBrowseShift=2291576
 		  '                                     2291576               2291576
-		  'dim  startCoordinate as integer = ((GenomeDelta\100)+1)*100-GenomeDelta
+		  'dim  startCoordinate as integer = ((GBrowseShift\100)+1)*100-GBrowseShift
 		  '                                             22915
 		  '                                                 2291600
 		  'startCoordinate= 24
@@ -221,7 +221,7 @@ Protected Module Globals
 		    Ruler.Append(rect)
 		  next
 		  '500bp tick:
-		  startCoordinate = ((GenomeDelta\500)+1)*500-GenomeDelta
+		  startCoordinate = ((GBrowseShift\500)+1)*500-GBrowseShift
 		  x=startCoordinate*pixPerbp
 		  n=bp/500
 		  for m=0 to n
@@ -237,7 +237,7 @@ Protected Module Globals
 		    Ruler.Append(rect)
 		  next
 		  '1kb tick:
-		  startCoordinate = ((GenomeDelta\1000)+1)*1000-GenomeDelta
+		  startCoordinate = ((GBrowseShift\1000)+1)*1000-GBrowseShift
 		  x=startCoordinate*pixPerbp
 		  n=bp/1000
 		  for m=0 to n
@@ -255,7 +255,7 @@ Protected Module Globals
 		    
 		    'add coordinate text
 		    dim s as New StringShape
-		    s.Text=str(GenomeDelta+startCoordinate+1000*m)
+		    s.Text=str(GBrowseShift+startCoordinate+1000*m)
 		    s.TextFont=FixedFont
 		    s.TextSize=9
 		    's.rotation=1.5*3.1415926
@@ -1165,11 +1165,11 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		gCodes(30) As gCode
+		GBrowseShift As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		GenomeDelta As Integer
+		gCodes(30) As gCode
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1240,6 +1240,7 @@ Protected Module Globals
 			Name="CodonList"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CR"

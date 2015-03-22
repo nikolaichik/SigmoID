@@ -44,10 +44,16 @@ Inherits FigureShape
 		  p.graphics.FillRect 0,0,wid, hei
 		  p.graphics.DrawObject me,1-minX*me.scale,1-minY*me.scale
 		  c=p.Graphics.Pixel(X-minX*me.scale,Y-minY*me.scale)
-		  if c=me.Colour or c=me.BorderColor then
-		    return true
-		  else
+		  'if c=me.Colour or c=me.BorderColor then
+		  'return true
+		  'else
+		  'return false
+		  'end
+		  
+		  if c.Red=255 AND c.Green=255 AND c.Blue=255 then
 		    return false
+		  else
+		    return true
 		  end
 		  
 		  Exception err

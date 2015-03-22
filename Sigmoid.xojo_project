@@ -27,6 +27,7 @@ Folder=TabPanel;Classes/TabPanel;&h2335296B;&h47302C04;false
 Class=cClickableShape;Classes/cClickableShape.xojo_code;&hC36CEB89;&h47302C04;false
 Picture=CSH_Genetic_switch;Pix/CSH_Genetic_switch.jpg;&h1F9C8B5;&h1F038CB3;false;1;&h0
 Folder=Windows;Windows;&h2250E847;&h0;false
+Window=FeaturePropertiesWin;Windows/FeaturePropertiesWin.xojo_window;&hC5F1C391;&h2250E847;false
 Window=ExtendSitesWin;Windows/ExtendSitesWin.xojo_window;&h25CF912B;&h2250E847;false
 Window=FontSelectionWin;Windows/FontSelectionWin.xojo_window;&hBE739285;&h2250E847;false
 Window=HmmGenSettingsWin;Windows/HmmGenSettingsWin.xojo_window;&h128B4FEF;&h2250E847;false

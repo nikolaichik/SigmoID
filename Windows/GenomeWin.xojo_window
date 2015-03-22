@@ -5,11 +5,11 @@ Begin Window GenomeWin
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   True
-   Frame           =   0
+   Frame           =   9
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   460
+   Height          =   750
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,7 +25,7 @@ Begin Window GenomeWin
    Resizeable      =   True
    Title           =   "Untitled"
    Visible         =   False
-   Width           =   767
+   Width           =   1067
    Begin Canvas HelpTagDisplay
       AcceptFocus     =   False
       AcceptTabs      =   False
@@ -73,7 +73,7 @@ Begin Window GenomeWin
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   21
+      Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -89,48 +89,45 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      Text            =   "Untitled"
+      Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   439
+      Top             =   730
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   247
    End
-   Begin cTabbedCanvas MapCanvas
+   Begin Canvas MapCanvas
       AcceptFocus     =   False
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
-      Boo             =   False
-      cPanelIndex     =   0
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
-      Height          =   240
+      Height          =   216
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      OldTicks        =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   38
+      Top             =   28
       Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   767
+      Width           =   1067
    End
    Begin Timer ToolTipTimer
       Height          =   32
@@ -139,7 +136,7 @@ Begin Window GenomeWin
       Left            =   -44
       LockedInPosition=   False
       Mode            =   1
-      Period          =   500
+      Period          =   700
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   467
@@ -161,7 +158,7 @@ Begin Window GenomeWin
       Segments        =   "Prev.\n\nFalse\r                      \n\nFalse\rNext\n\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
-      Top             =   7
+      Top             =   0
       Visible         =   True
       Width           =   177
    End
@@ -191,11 +188,11 @@ Begin Window GenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   7
+      Top             =   0
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   506
+      Width           =   809
    End
    Begin ScrollBar HScrollBar
       AcceptFocus     =   True
@@ -205,14 +202,14 @@ Begin Window GenomeWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   3
+      Left            =   0
       LineStep        =   1
       LiveScroll      =   False
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Maximum         =   100
       Minimum         =   0
       PageStep        =   20
@@ -220,17 +217,17 @@ Begin Window GenomeWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   277
+      Top             =   244
       Value           =   0
       Visible         =   True
-      Width           =   765
+      Width           =   1067
    End
    BeginSegmented SegmentedControl Magnifier
       Enabled         =   True
       Height          =   24
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   713
+      Left            =   1013
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -241,7 +238,7 @@ Begin Window GenomeWin
       Segments        =   "+\n\nFalse\r-\n\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
-      Top             =   7
+      Top             =   0
       Visible         =   True
       Width           =   41
    End
@@ -253,25 +250,108 @@ Begin Window GenomeWin
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
-      Height          =   147
+      Height          =   132
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   259
+      Transparent     =   True
+      UseFocusRing    =   False
+      Visible         =   True
+      Width           =   1067
+   End
+   Begin HTMLViewer SearchViewer
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   335
+      HelpTag         =   ""
+      Index           =   -2147483648
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
+      Renderer        =   0
       Scope           =   0
-      TabIndex        =   6
+      TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   293
-      Transparent     =   True
-      UseFocusRing    =   False
+      Top             =   394
       Visible         =   True
-      Width           =   765
+      Width           =   1067
+   End
+   Begin Separator Separator1
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   4
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   391
+      Visible         =   True
+      Width           =   1067
+   End
+   BeginSegmented SegmentedControl DBsearchSegmentedControl
+      Enabled         =   False
+      Height          =   24
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   400
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      MacControlStyle =   6
+      Scope           =   0
+      Segments        =   "UniProtKB\n\nFalse\rSwissProt\n\nFalse\rTIGRFAM\n\nFalse"
+      SelectionType   =   0
+      TabPanelIndex   =   0
+      Top             =   728
+      Visible         =   True
+      Width           =   266
+   End
+   Begin ProgressBar SearchProgressBar
+      AutoDeactivate  =   True
+      Enabled         =   False
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   901
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Maximum         =   0
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   730
+      Value           =   0
+      Visible         =   False
+      Width           =   146
    End
 End
 #tag EndWindow
@@ -352,6 +432,12 @@ End
 		  'end if
 		  
 		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub Deactivate()
+		  ToolTip.Hide
+		End Sub
 	#tag EndEvent
 
 	#tag Event
@@ -664,6 +750,22 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FileSaveGenomeAs() As Boolean Handles FileSaveGenomeAs.Action
+			dim f as FolderItem
+			
+			f=GetSaveFolderItem("Text",GenomeFile.Name)
+			
+			if f<>nil then
+			SaveGenBankFile(f)
+			end if
+			
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeGoto() As Boolean Handles GenomeGoto.Action
 			GoToWin.parent=self
 			GoToWin.ShowModalWithin(self)
@@ -762,6 +864,48 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub EditFeature(f As gbFeature)
+		  dim n,u,start as integer
+		  dim OldFeatureText as string
+		  
+		  ToolTip.Hide
+		  
+		  FeaturePropertiesWin.ParentWin=self
+		  FeaturePropertiesWin.FeatureTextField.text=f.FeatureText
+		  OldFeatureText=f.FeatureText
+		  FeaturePropertiesWin.ShowmodalWithin(self)
+		  
+		  if FeaturePropertiesWin.OKpressed then
+		    f.FeatureText=FeaturePropertiesWin.FeatureTextField.text
+		    
+		    'propagate this to the original genome feature:
+		    u=ubound(Genome.Features)
+		    start=f.Start+GBrowseShift
+		    for n=1 to u
+		      if Genome.Features(n).start=Start then
+		        if OldFeatureText=Genome.Features(n).FeatureText then
+		          Genome.Features(n).FeatureText=f.FeatureText
+		          FillFeatureProperties(Genome.Features(n),f.FeatureText)
+		          exit
+		        end if
+		      end if
+		    next
+		    
+		    'update the display:
+		    ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
+		    
+		    'mark genome changed:
+		    GenomeChanged=true
+		    
+		  else
+		    FeaturePropertiesWin.hide
+		  end
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub EnableSave(Ya as boolean)
 		  
 		  dim i as integer
@@ -780,6 +924,8 @@ End
 		  dim m,n,p,p1,p2,p3,p4,p5,u as integer
 		  dim FragmentFeature, ft as GBFeature
 		  dim s,CurrentFeature,cf1, name,coord as string
+		  
+		  Featureleft=-1
 		  
 		  if FragmentStart<1 then
 		    fragmentstart=1
@@ -837,7 +983,7 @@ End
 		      
 		      CurrentFeature=FragmentFeature.FeatureText
 		      'feature description parsing:
-		      cf1=nthfield(FragmentFeature.FeatureText,cLineEnd,1)
+		      cf1=nthfield(CurrentFeature,cLineEnd,1)
 		      name=rtrim(leftb(cf1,16))      'feature name
 		      FragmentFeature.type=name
 		      'if leftb(start,1)=">" OR leftb(start,1)= "<" then
@@ -1004,7 +1150,6 @@ End
 		  
 		  seq.Circular=false
 		  
-		  GenomeDelta=FragmentLeft
 		  
 		  
 		  MapInit 'calculate all the rest SeqObject properties, including the map
@@ -1012,9 +1157,10 @@ End
 		  updateMapCanvas
 		  
 		  'display the actual sequence around hit:
-		  if Featureleft=0 then
+		  if featureleft=-1 then
 		    dim FragmentCent as integer = (FragmentStart+FragmentEnd)/2
 		    TextMap(FragmentCent,FragmentCent)
+		    
 		  end if
 		  
 		  refresh
@@ -1027,6 +1173,123 @@ End
 	#tag Method, Flags = &h0
 		Sub Filesaveproblem()
 		  msgbox "The file wasn't saved because of an error!"
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FillFeatureProperties(feature as GBFeature, FeatureText as string)
+		  // code from OpenGenbankFile and Extract fragment with minimal mods
+		  
+		  Feature.FeatureText=FeatureText
+		  
+		  dim cf1,coord,splitCoords,name as string
+		  dim p,p1,p2,p3,p4,p5 as integer
+		  
+		  'get coordinates:
+		  cf1=nthfield(FeatureText,cLineEnd,1)
+		  name=rtrim(leftb(cf1,16))      'feature name
+		  if InStrB(17,cf1,"complement")>0 then
+		    Feature.complement=true
+		    if InStrB(27,cf1,"order")>0 then
+		      'split feature
+		      Feature.start=val(nthfield(nthfield(cf1,"..",1),"(",3))
+		      'example:
+		      'misc_feature    complement(order(3576182..3576235,3576263..3576322,
+		      '3576341..3576409,3576467..3576532))
+		      splitCoords=NthFieldB(FeatureText,")",1)
+		      Feature.finish=val(nthFieldB(splitCoords,"..",countfields(splitCoords,"..") ))
+		    else
+		      
+		      coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
+		      Feature.start=val(nthField(coord,"..",2))
+		      Feature.finish=val(nthField(coord,"..",1))
+		      
+		    end if
+		  else
+		    if InStrB(17,cf1,"order")>0 then
+		      'split feature
+		      Feature.start=val(nthfield(nthfield(cf1,"..",1),"(",2))
+		      'misc_feature    order(343373..343441,343469..343537,343652..343720,
+		      '343799..343867,343925..343984)
+		      
+		      splitCoords=NthFieldB(FeatureText,")",1)
+		      Feature.finish=val(nthFieldB(splitCoords,"..",countfields(splitCoords,"..") ))
+		    else
+		      'Feature.complement=false false is the default
+		      coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
+		      Feature.start=val(nthField(coord,"..",1))
+		      Feature.finish=val(nthField(coord,"..",2))
+		    end if
+		  end if
+		  
+		  'feature description parsing:
+		  Feature.type=name
+		  'if leftb(start,1)=">" OR leftb(start,1)= "<" then
+		  'start=midb(start,2,lenb(start)-1)
+		  'Feature.lefttrunc=true
+		  'end
+		  'if leftb(finish,1)="<"  OR leftb(finish,1)=">" then
+		  'finish=midb(finish,2,lenb(finish)-1)
+		  'Feature.righttrunc=true
+		  'end
+		  
+		  if Feature.complement then
+		    Feature.start=Feature.start+1
+		    
+		  end if
+		  Feature.length=abs(Feature.start-Feature.finish)+1 'may just leave the negative here and remove the complement boolean altogether
+		  
+		  'now try to guess a name:
+		  p= instrb(FeatureText,"/gene=")
+		  p1=instrb(FeatureText,"/product=")
+		  p2=instrb(FeatureText,"/function=")
+		  p3=instrb(FeatureText,"/note=")
+		  p4=instrb(FeatureText,"/locus_tag=")
+		  p5=instrb(FeatureText,"/protein_id=")
+		  if name="gene" then
+		    if p>0 then        'use gene name if available
+		      coord=rightb(FeatureText,lenb(FeatureText)-p-6)
+		      Feature.name=nthField(coord,chr(34),1)
+		    else               'gene name not there – use locus_tag
+		      if p4>0 then
+		        coord=rightb(FeatureText,lenb(FeatureText)-p4-11)
+		        Feature.name=nthField(coord,chr(34),1)
+		      end if
+		    end if
+		  elseif name="CDS" then
+		    if p5>0 then        'use protein_id if available
+		      coord=rightb(FeatureText,lenb(FeatureText)-p5-12)
+		      Feature.name=nthField(coord,chr(34),1)
+		    else               'protein_id not there – use locus_tag
+		      if p4>0 then
+		        coord=rightb(FeatureText,lenb(FeatureText)-p4-11)
+		        Feature.name=nthField(coord,chr(34),1)
+		      end if
+		    end if
+		  elseif name="promoter" then
+		    Feature.name=""
+		  elseif name="protein_bind" then
+		    Feature.name=""
+		  else
+		    if p>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p-6)
+		      Feature.name=nthField(coord,chr(34),1)
+		    elseif p1>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p1-9)
+		      Feature.name=nthField(coord,chr(34),1)
+		    elseif p2>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p2-10)
+		      Feature.name=nthField(coord,chr(34),1)
+		    elseif p3>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p3-6)
+		      Feature.name=nthField(coord,chr(34),1)
+		    elseif p4>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p4-11)
+		      Feature.name=nthField(coord,chr(34),1)
+		    else
+		      Feature.name=""
+		    end if
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -1228,6 +1491,186 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub HmmerSearchSwissProt()
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'show progressbar:
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		  'set DBsearchSegmentedControl to display correct DB
+		  DBsearchSegmentedControl.Enabled=true
+		  Dim sci0 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci0.Selected=false 'UniProtKB
+		  Dim sci1 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci1.Selected=true 'SwissProt
+		  Dim sci2 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci2.Selected=false 'TIGRFAM
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
+		  'First, launch the search to get the UUID:
+		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
+		  
+		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  
+		  dim sh as New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  SearchProgressBar.Refresh
+		  sh.execute command
+		  If sh.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(sh.Result,"for job ",2)
+		    UUID=NthField(UUID,":",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub HmmerSearchTIGRFAM()
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'show progressbar:
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		  'set DBsearchSegmentedControl to display correct DB
+		  DBsearchSegmentedControl.Enabled=true
+		  Dim sci0 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci0.Selected=false 'UniProtKB
+		  Dim sci1 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci1.Selected=false 'SwissProt
+		  Dim sci2 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci2.Selected=true 'TIGRFAM
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
+		  'First, launch the search to get the UUID:
+		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
+		  
+		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
+		  
+		  dim sh as New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  SearchProgressBar.Refresh
+		  sh.execute command
+		  If sh.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(sh.Result,"for job ",2)
+		    UUID=NthField(UUID,":",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub HmmerSearchUniProt()
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'show progressbar:
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		  'set DBsearchSegmentedControl to display correct DB
+		  DBsearchSegmentedControl.Enabled=true
+		  Dim sci0 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci0.Selected=true 'UniProtKB
+		  Dim sci1 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci1.Selected=false 'SwissProt
+		  Dim sci2 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
+		  sci2.Selected=false 'TIGRFAM
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
+		  'First, launch the search to get the UUID:
+		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
+		  
+		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=uniprotkb  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  
+		  dim sh as New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  SearchProgressBar.Refresh
+		  sh.execute command
+		  If sh.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(sh.Result,"for job ",2)
+		    UUID=NthField(UUID,":",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub LoadVV()
 		  Dim f, f1, f2 As FolderItem
 		  Dim v As VirtualVolume
@@ -1291,7 +1734,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub OpenGenbankFile(f as folderitem)
+		Sub OpenGenBankFile(f as folderitem)
 		  dim stre as textInputStream
 		  dim s,s0,features,currentFeature, cf1,name,coord,start,finish,Separator,splitCoords,leftC as string
 		  dim en,st,l,m,n,p,p1,p2,p3,p4,p5 as integer
@@ -1370,9 +1813,10 @@ End
 		    end if
 		    LineEnd=cLineEnd
 		    
-		    features=midb(s,st,en-st)+cLineEnd +"     end"+cLineEnd 'a marker to stop parsing at the end of feature table
+		    features=midb(s,st,en-st+1)
+		    
 		    'save description:
-		    w.Genome.Description=leftb(s,st)
+		    Genome.Description=leftb(s,st)
 		    
 		    'now parse the feature table.
 		    'every new feature is identified as the line having 5 rather than 21 leading spaces
@@ -1459,8 +1903,8 @@ End
 		    #endif
 		    
 		    's=DefineEncoding ("",Encodings.ASCII)
-		    s=rightb(s,len(s)-instrb(s,"ORIGIN")-7) 'put the actual sequence into the "s" variable
-		    w.Genome.sequence=CleanUp(s)
+		    w.FormattedSequence=rightb(s,len(s)-instrb(s,"ORIGIN")-7) 
+		    w.Genome.sequence=CleanUp(w.FormattedSequence)
 		    
 		    #if DebugBuild
 		      tm=microseconds-ms
@@ -1486,7 +1930,7 @@ End
 		  w.title=f.name                //set the window title to the name of the document that was opened
 		  'w.ContentsChanged=false 'mac only: unset dirty bit
 		  w.EnableEdit=false
-		  
+		  w.GenomeChanged=false
 		  '
 		  'GoToWin.Parent=w
 		  'GoToWin.ShowModalWithin(w)
@@ -1495,6 +1939,7 @@ End
 		    LogoWin.WriteToSTDOUT (EndofLine+"Finishing took "+str(tm/1000000)+" seconds")
 		  #endif
 		  
+		  w.GenomeFile=f
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:OpenGenBankFile")
@@ -1511,6 +1956,20 @@ End
 		    quit
 		    
 		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveFeature(FeatureNo as integer)
+		  Genome.Features.Remove FeatureNo
+		  'update the display:
+		  ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
+		  
+		  'mark genome changed:
+		  GenomeChanged=true
+		  
+		  
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1564,6 +2023,42 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:SaveFile")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SaveGenBankFile(f as folderitem)
+		  dim stream as TextOutputStream = TextOutputStream.Create(f)
+		  dim m,n as integer
+		  
+		  
+		  
+		  if stream<>nil then
+		    'write the header:
+		    stream.Write(Genome.Description)
+		    
+		    'write features
+		    for n=1 to ubound(genome.features)
+		      'write feature coordinates:
+		      stream.WriteLine("     "+NthField(genome.features(n).FeatureText,LineEnd,1))
+		      for m=2 to CountFields(genome.features(n).FeatureText,LineEnd)
+		        stream.WriteLine("                     "+NthField(genome.features(n).FeatureText,LineEnd,m))
+		      next
+		    next 'n
+		    
+		    'write formatted sequence:
+		    stream.WriteLine("ORIGIN")
+		    stream.Write(FormattedSequence)
+		    
+		    stream.close
+		    
+		  else
+		    msgbox "Couldn't save file."
+		  end if
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:SaveGenBankFile")
 		End Sub
 	#tag EndMethod
 
@@ -1967,12 +2462,14 @@ End
 		  dim p as picture
 		  
 		  p=seq.map
-		  dim rs as rectshape
 		  
 		  if p<>nil then
-		    RectShape(p.Objects.Item(0)).width=(FeatureLeft-FeatureRight)/seq.bpPerPixel
-		    p.Objects.Item(0).x=((FeatureLeft+FeatureRight)/2)/seq.bpPerPixel'*seq.map.Objects.Scale
-		    rs=RectShape(p.Objects.Item(0))
+		    if featureleft=-1 then
+		      RectShape(p.Objects.Item(0)).width=0
+		    else
+		      RectShape(p.Objects.Item(0)).width=(FeatureLeft-FeatureRight)/seq.bpPerPixel
+		      p.Objects.Item(0).x=((FeatureLeft+FeatureRight)/2)/seq.bpPerPixel'*seq.map.Objects.Scale
+		    end if
 		  end
 		  
 		  
@@ -1997,13 +2494,13 @@ End
 		  'if n<=seq.length then
 		  'n=editor.selStart+editor.sellength-1
 		  'end
-		  'SelRange.text=str(editor.selStart+GenomeDelta)+"-"+str(n)+":"+str(editor.sellength)
+		  'SelRange.text=str(editor.selStart+GBrowseShift)+"-"+str(n)+":"+str(editor.sellength)
 		  'else
 		  'if editor.selStart>=seq.length OR editor.selStart=0 then
 		  ''SelRange.text=str(n)
 		  'SelRange.text=""
 		  'else
-		  'SelRange.text=str(editor.selStart+GenomeDelta)+"("+str(n)+")"
+		  'SelRange.text=str(editor.selStart+GBrowseShift)+"("+str(n)+")"
 		  'end
 		  'end if
 		  
@@ -2096,11 +2593,19 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		CMpointedFeature As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ConfigButtonType As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		ContentsChanged As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ContextFeature As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -2180,6 +2685,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		FormattedSequence As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		FoundCoords(0) As integer
 	#tag EndProperty
 
@@ -2205,6 +2714,14 @@ End
 
 	#tag Property, Flags = &h0
 		Genome As cSeqObject
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		GenomeChanged As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		GenomeFile As Folderitem
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -2500,6 +3017,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ToolTipBlock As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ToolTipX As Integer
 	#tag EndProperty
 
@@ -2511,8 +3032,20 @@ End
 		topstrand As boolean
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		ttip As string
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected tttext As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TTx As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TTy As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -2574,21 +3107,27 @@ End
 #tag Events MapCanvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  'use QuickDraw instead of Quartz on mac
-		  'makes things faster but not anti-aliased:
-		  'g.UseOldRenderer=True
-		  
 		  
 		  UpdateMapCanvas
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub MouseDown(X as integer, Y As integer)
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  dim n,topObj,m,featureCount as integer
 		  dim AnyObjectClicked, RetValue as Boolean
 		  dim p as picture
 		  
+		  ToolTipTimer.Mode=1
+		  ToolTipBlock=false
+		  
+		  
+		  
+		  if IsContextualClick then
+		    return false
+		  else
+		    ToolTipTimer.Mode=1
+		  end if
 		  
 		  NewFeature=False
 		  'scroll adjustment:
@@ -2662,7 +3201,7 @@ End
 		  if AnyObjectClicked=false then
 		    NewFeature=true
 		    seq.SelLength=0
-		    FeatureLeft=0     'to zero selrange
+		    featureleft=-1     'to zero selrange
 		    RetValue=True 'to trigger MouseDrag
 		    
 		    topobj=DeselectNames(p)
@@ -2682,7 +3221,7 @@ End
 		  end
 		  
 		  
-		  me.boo=RetValue
+		  'me.boo=RetValue
 		  updateMapCanvas
 		  UpdateMapCanvasSelection
 		  
@@ -2693,7 +3232,7 @@ End
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:MapCanvas:Mousedown")
 		    
-		End Sub
+		End Function
 	#tag EndEvent
 	#tag Event
 		Sub MouseDrag(X As Integer, Y As Integer)
@@ -2933,95 +3472,69 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub DubleClick(X as integer, Y As integer)
-		  dim n,topObj,m,featureCount as integer
-		  'dim RetValue as Boolean
-		  dim s,s1 as string
+		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
+		  dim n,topObj,m,featureCount,currentFeature as integer
 		  dim p as picture
 		  
-		  selFeatureNo=0
-		  
-		  
+		  ToolTipBlock=true
+		  ToolTipTimer.Reset
+		  ToolTip.hide
+		  ToolTipTimer.Mode=0
 		  
 		  p=Seq.Map
 		  topObj= p.Objects.Count-1
 		  featureCount=ubound(Seq.features)
+		  ContextFeature=0
+		  'check if the click is over a feature
+		  dim dbg as string=""
 		  for n=1 to topObj 'skip zero object that contains selection
-		    'second (or more) obj. may contain the ruler
 		    if p.Objects.Item(n) IsA cClickableShape then
+		      
 		      if cClickableShape(p.Objects.Item(n)).contains(X,Y) then
+		        ContextFeature=n/2
+		      else
 		        
-		        RE1="" 'clear previous enzyme mark
-		        
-		        'p.Objects(0) is a selection rectangle
-		        'p.Objects(1) is asequence line (or circle) => subtract 1 below to get correct feature number
-		        selFeatureNo=n-seq.ExtraObj -1
-		        'Now correct for the hidden features:
-		        for m=1 to featureCount
-		          if m>selFeatureNo then
-		            exit
-		          end
-		          if seq.Features(m).Visible=false then
-		            selFeatureNo=selFeatureNo+1
-		          end
-		        next
-		        if selFeatureNo>featureCount then selFeatureNo=featureCount  'correction for the complete site (unnecessary?)
-		        
-		        'EditFeature seq.Features(selFeatureNo)
-		        return
 		      end
 		      
-		      
-		      'elseif  p.Objects.Item(n) IsA cName then 'name of a feature or enzyme clicked
-		      'if cName(p.Objects.Item(n)).contains(X,Y)  then
-		      '
-		      '
-		      'topObj=DeselectNames(p)
-		      ''end
-		      '
-		      ''retvalue=true
-		      '''select just clicked thing:
-		      ''cName(p.Objects.Item(n)).toggleSelection
-		      ''p.Objects.Append cName(p.Objects.Item(n)).selrect
-		      'SelNameNo=n
-		      'AnyNameClicked=true
-		      '
-		      'end
 		    end
 		  next
 		  
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:MapCanvas:DoubleClick")
-		    
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
-		  '
-		  '
-		  'if EnableEdit then
-		  'if SelNameNo>0 then
-		  'base.Append mItem(kRemoveREfromMap)
-		  'else
-		  'if Newfeature then
-		  'base.Append mItem(kNewFeature)
-		  '
-		  'else
-		  'base.Append mItem(kEditFeature)
-		  'base.Append mItem(kHideFeature)
-		  'base.Append mItem(kRemoveFeature)
-		  '
-		  'end
-		  'end if
-		  '
-		  'end
+		  
+		  
+		  if ContextFeature>0 then
+		    base.Append mItem(kEditFeature)
+		    base.Append mItem(kRemoveFeature)
+		    'Add a Separator
+		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
+		    'hmmer searches
+		    'check if applicable!!!
+		    base.Append mItem(kHmmerSearchUniprot)
+		    base.Append mItem(kHmmerSearchSwissprot)
+		    base.Append mItem(kHmmerSearchTigrfam)
+		  end
+		  
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
+		  ToolTipBlock=false
+		  'ToolTipTimer.Reset
+		  ToolTipTimer.Mode=1
+		  ToolTip.hide
 		  select case hititem.text
 		    
-		    
+		  case kEditFeature
+		    EditFeature(seq.Features(ContextFeature))
+		  case kRemoveFeature
+		    RemoveFeature(ContextFeature)
+		    'featuredeleted=true
+		  case kHmmerSearchUniProt
+		    HmmerSearchUniProt
+		  case kHmmerSearchSwissProt
+		    HmmerSearchSwissProt
+		  case kHmmerSearchTIGRFAM
+		    HmmerSearchTIGRFAM
 		  end
 		End Function
 	#tag EndEvent
@@ -3058,6 +3571,8 @@ End
 		  dim tt as string
 		  dim p as picture
 		  
+		  ttip=""
+		  ToolTipTimer.Mode=1
 		  
 		  p=Seq.Map
 		  topObj= p.Objects.Count-1
@@ -3068,7 +3583,7 @@ End
 		    'second (or more) obj. may contain the ruler
 		    if p.Objects.Item(n) IsA cClickableShape then
 		      if cClickableShape(p.Objects.Item(n)).contains(X,Y) then
-		        PointedFeature=n/2'+1 'correction for feature names
+		        PointedFeature=n/2  'correction for feature names
 		        
 		        'make sure there are no hidden features, otherwise use the code below!
 		        
@@ -3093,7 +3608,7 @@ End
 		  if PointedFeature>0 then
 		    'for CDS, translation has to be removed from tooltip
 		    dim trC as integer
-		    dim ftL,ftR,ttip as string
+		    dim ftL,ftR as string
 		    
 		    trC=InStr(seq.Features(PointedFeature).FeatureText,"/translation=")
 		    ftL=left(seq.Features(PointedFeature).FeatureText,trC)
@@ -3104,7 +3619,12 @@ End
 		    else
 		      ttip=ftL
 		    end if
-		    ToolTip.Show(ttip, X, Y+me.top, True)
+		    
+		    TTx=X+self.Left
+		    TTy=Y+self.top
+		    ToolTipTimer.Reset
+		    
+		    'ToolTip.Show(ttip, X+self.x, Y+self.top, True)
 		  else
 		    ToolTip.hide
 		  end if
@@ -3117,21 +3637,25 @@ End
 #tag Events ToolTipTimer
 	#tag Event
 		Sub Action()
-		  #if TargetWin32 then
-		    if EditorToolTip="" then
-		      winToolTip.hide
-		    else
-		      winToolTip.hide
-		      winToolTip.text=EditorToolTip
-		      winToolTip.Show
-		    end if
-		  #else
-		    if EditorToolTip="" then
-		      ToolTip.hide
-		    else
-		      ToolTip.Show EditorToolTip,ToolTipX,ToolTipY,true
-		    end if
-		  #endif
+		  if not ToolTipBlock then
+		    #if TargetWin32 then
+		      if EditorToolTip="" then
+		        winToolTip.hide
+		      else
+		        winToolTip.hide
+		        winToolTip.text=EditorToolTip
+		        winToolTip.Show
+		      end if
+		    #else
+		      if TTip="" then
+		        ToolTip.hide
+		      else
+		        ToolTip.Show(ttip, TTx,TTy, True)
+		      end if
+		    #endif
+		  end if
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -3217,7 +3741,7 @@ End
 		  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
 		  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
 		  
-		  Dim CurrentLoc as integer= GenomeDelta+DisplayInterval/2
+		  Dim CurrentLoc as integer= GBrowseShift+DisplayInterval/2
 		  
 		  If itemIndex = 0 Then
 		    'zoom in
@@ -3248,6 +3772,22 @@ End
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  g.DrawPicture(TextMapPic,0,0)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SearchViewer
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  SearchProgressBar.Enabled=false
+		  SearchProgressBar.visible=false
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -3325,6 +3865,11 @@ End
 		Group="Behavior"
 		InitialValue="0"
 		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ContextFeature"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="CurrentHit"
@@ -3892,11 +4437,6 @@ End
 		Group="Behavior"
 		InitialValue="0"
 		Type="integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="SplitFeaturesPresent"
-		Group="Behavior"
-		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="sTBButtons"
