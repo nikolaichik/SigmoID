@@ -6,16 +6,6 @@ Begin Menu MainMenuBar
       Index = -2147483648
       AutoEnable = True
       Visible = True
-      Begin MenuItem FileOpen
-         SpecialMenu = 0
-         Text = "Open..."
-         Index = -2147483648
-         ShortcutKey = "O"
-         Shortcut = "Cmd+O"
-         MenuModifier = True
-         AutoEnable = True
-         Visible = True
-      End
       Begin MenuItem FileScanGenome
          SpecialMenu = 0
          Text = "Scan Genome..."
@@ -59,6 +49,34 @@ Begin Menu MainMenuBar
          Visible = True
       End
       Begin MenuItem UntitledSeparator
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem FileOpen
+         SpecialMenu = 0
+         Text = "Open Genome..."
+         Index = -2147483648
+         ShortcutKey = "O"
+         Shortcut = "Cmd+O"
+         MenuModifier = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem FileSaveGenomeAs
+         SpecialMenu = 0
+         Text = "Save Genome As..."
+         Index = -2147483648
+         ShortcutKey = "S"
+         Shortcut = "Cmd+Shift+S"
+         MenuModifier = True
+         AltMenuModifier = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledItem4
          SpecialMenu = 0
          Text = "-"
          Index = -2147483648

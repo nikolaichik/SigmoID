@@ -5,7 +5,7 @@ Begin Window FeaturePropertiesWin
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   False
-   Frame           =   0
+   Frame           =   8
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False

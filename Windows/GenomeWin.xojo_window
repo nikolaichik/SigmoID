@@ -435,6 +435,12 @@ End
 	#tag EndEvent
 
 	#tag Event
+		Sub Deactivate()
+		  ToolTip.Hide
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub EnableMenuItems()
 		  
 		End Sub
@@ -744,6 +750,22 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FileSaveGenomeAs() As Boolean Handles FileSaveGenomeAs.Action
+			dim f as FolderItem
+			
+			f=GetSaveFolderItem("Text",GenomeFile.Name)
+			
+			if f<>nil then
+			SaveGenBankFile(f)
+			end if
+			
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeGoto() As Boolean Handles GenomeGoto.Action
 			GoToWin.parent=self
 			GoToWin.ShowModalWithin(self)
@@ -843,19 +865,37 @@ End
 
 	#tag Method, Flags = &h0
 		Sub EditFeature(f As gbFeature)
+		  dim n,u,start as integer
+		  dim OldFeatureText as string
+		  
+		  ToolTip.Hide
+		  
 		  FeaturePropertiesWin.ParentWin=self
 		  FeaturePropertiesWin.FeatureTextField.text=f.FeatureText
+		  OldFeatureText=f.FeatureText
 		  FeaturePropertiesWin.ShowmodalWithin(self)
 		  
 		  if FeaturePropertiesWin.OKpressed then
 		    f.FeatureText=FeaturePropertiesWin.FeatureTextField.text
 		    
-		    'propagate this to original genome feature!
+		    'propagate this to the original genome feature:
+		    u=ubound(Genome.Features)
+		    start=f.Start+GBrowseShift
+		    for n=1 to u
+		      if Genome.Features(n).start=Start then
+		        if OldFeatureText=Genome.Features(n).FeatureText then
+		          Genome.Features(n).FeatureText=f.FeatureText
+		          FillFeatureProperties(Genome.Features(n),f.FeatureText)
+		          exit
+		        end if
+		      end if
+		    next
 		    
+		    'update the display:
+		    ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
 		    
-		    MapInit
-		    
-		    updateMapCanvas
+		    'mark genome changed:
+		    GenomeChanged=true
 		    
 		  else
 		    FeaturePropertiesWin.hide
@@ -941,7 +981,7 @@ End
 		      
 		      CurrentFeature=FragmentFeature.FeatureText
 		      'feature description parsing:
-		      cf1=nthfield(FragmentFeature.FeatureText,cLineEnd,1)
+		      cf1=nthfield(CurrentFeature,cLineEnd,1)
 		      name=rtrim(leftb(cf1,16))      'feature name
 		      FragmentFeature.type=name
 		      'if leftb(start,1)=">" OR leftb(start,1)= "<" then
@@ -1108,7 +1148,6 @@ End
 		  
 		  seq.Circular=false
 		  
-		  GenomeDelta=FragmentLeft
 		  
 		  
 		  MapInit 'calculate all the rest SeqObject properties, including the map
@@ -1131,6 +1170,123 @@ End
 	#tag Method, Flags = &h0
 		Sub Filesaveproblem()
 		  msgbox "The file wasn't saved because of an error!"
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FillFeatureProperties(feature as GBFeature, FeatureText as string)
+		  // code from OpenGenbankFile and Extract fragment with minimal mods
+		  
+		  Feature.FeatureText=FeatureText
+		  
+		  dim cf1,coord,splitCoords,name as string
+		  dim p,p1,p2,p3,p4,p5 as integer
+		  
+		  'get coordinates:
+		  cf1=nthfield(FeatureText,cLineEnd,1)
+		  name=rtrim(leftb(cf1,16))      'feature name
+		  if InStrB(17,cf1,"complement")>0 then
+		    Feature.complement=true
+		    if InStrB(27,cf1,"order")>0 then
+		      'split feature
+		      Feature.start=val(nthfield(nthfield(cf1,"..",1),"(",3))
+		      'example:
+		      'misc_feature    complement(order(3576182..3576235,3576263..3576322,
+		      '3576341..3576409,3576467..3576532))
+		      splitCoords=NthFieldB(FeatureText,")",1)
+		      Feature.finish=val(nthFieldB(splitCoords,"..",countfields(splitCoords,"..") ))
+		    else
+		      
+		      coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
+		      Feature.start=val(nthField(coord,"..",2))
+		      Feature.finish=val(nthField(coord,"..",1))
+		      
+		    end if
+		  else
+		    if InStrB(17,cf1,"order")>0 then
+		      'split feature
+		      Feature.start=val(nthfield(nthfield(cf1,"..",1),"(",2))
+		      'misc_feature    order(343373..343441,343469..343537,343652..343720,
+		      '343799..343867,343925..343984)
+		      
+		      splitCoords=NthFieldB(FeatureText,")",1)
+		      Feature.finish=val(nthFieldB(splitCoords,"..",countfields(splitCoords,"..") ))
+		    else
+		      'Feature.complement=false false is the default
+		      coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
+		      Feature.start=val(nthField(coord,"..",1))
+		      Feature.finish=val(nthField(coord,"..",2))
+		    end if
+		  end if
+		  
+		  'feature description parsing:
+		  Feature.type=name
+		  'if leftb(start,1)=">" OR leftb(start,1)= "<" then
+		  'start=midb(start,2,lenb(start)-1)
+		  'Feature.lefttrunc=true
+		  'end
+		  'if leftb(finish,1)="<"  OR leftb(finish,1)=">" then
+		  'finish=midb(finish,2,lenb(finish)-1)
+		  'Feature.righttrunc=true
+		  'end
+		  
+		  if Feature.complement then
+		    Feature.start=Feature.start+1
+		    
+		  end if
+		  Feature.length=abs(Feature.start-Feature.finish)+1 'may just leave the negative here and remove the complement boolean altogether
+		  
+		  'now try to guess a name:
+		  p= instrb(FeatureText,"/gene=")
+		  p1=instrb(FeatureText,"/product=")
+		  p2=instrb(FeatureText,"/function=")
+		  p3=instrb(FeatureText,"/note=")
+		  p4=instrb(FeatureText,"/locus_tag=")
+		  p5=instrb(FeatureText,"/protein_id=")
+		  if name="gene" then
+		    if p>0 then        'use gene name if available
+		      coord=rightb(FeatureText,lenb(FeatureText)-p-6)
+		      Feature.name=nthField(coord,chr(34),1)
+		    else               'gene name not there – use locus_tag
+		      if p4>0 then
+		        coord=rightb(FeatureText,lenb(FeatureText)-p4-11)
+		        Feature.name=nthField(coord,chr(34),1)
+		      end if
+		    end if
+		  elseif name="CDS" then
+		    if p5>0 then        'use protein_id if available
+		      coord=rightb(FeatureText,lenb(FeatureText)-p5-12)
+		      Feature.name=nthField(coord,chr(34),1)
+		    else               'protein_id not there – use locus_tag
+		      if p4>0 then
+		        coord=rightb(FeatureText,lenb(FeatureText)-p4-11)
+		        Feature.name=nthField(coord,chr(34),1)
+		      end if
+		    end if
+		  elseif name="promoter" then
+		    Feature.name=""
+		  elseif name="protein_bind" then
+		    Feature.name=""
+		  else
+		    if p>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p-6)
+		      Feature.name=nthField(coord,chr(34),1)
+		    elseif p1>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p1-9)
+		      Feature.name=nthField(coord,chr(34),1)
+		    elseif p2>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p2-10)
+		      Feature.name=nthField(coord,chr(34),1)
+		    elseif p3>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p3-6)
+		      Feature.name=nthField(coord,chr(34),1)
+		    elseif p4>0 then
+		      coord=rightb(FeatureText,lenb(FeatureText)-p4-11)
+		      Feature.name=nthField(coord,chr(34),1)
+		    else
+		      Feature.name=""
+		    end if
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -1575,7 +1731,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub OpenGenbankFile(f as folderitem)
+		Sub OpenGenBankFile(f as folderitem)
 		  dim stre as textInputStream
 		  dim s,s0,features,currentFeature, cf1,name,coord,start,finish,Separator,splitCoords,leftC as string
 		  dim en,st,l,m,n,p,p1,p2,p3,p4,p5 as integer
@@ -1654,9 +1810,10 @@ End
 		    end if
 		    LineEnd=cLineEnd
 		    
-		    features=midb(s,st,en-st)+cLineEnd +"     end"+cLineEnd 'a marker to stop parsing at the end of feature table
+		    features=midb(s,st,en-st+1)
+		    
 		    'save description:
-		    w.Genome.Description=leftb(s,st)
+		    Genome.Description=leftb(s,st)
 		    
 		    'now parse the feature table.
 		    'every new feature is identified as the line having 5 rather than 21 leading spaces
@@ -1743,8 +1900,8 @@ End
 		    #endif
 		    
 		    's=DefineEncoding ("",Encodings.ASCII)
-		    s=rightb(s,len(s)-instrb(s,"ORIGIN")-7) 'put the actual sequence into the "s" variable
-		    w.Genome.sequence=CleanUp(s)
+		    w.FormattedSequence=rightb(s,len(s)-instrb(s,"ORIGIN")-7) 
+		    w.Genome.sequence=CleanUp(w.FormattedSequence)
 		    
 		    #if DebugBuild
 		      tm=microseconds-ms
@@ -1770,7 +1927,7 @@ End
 		  w.title=f.name                //set the window title to the name of the document that was opened
 		  'w.ContentsChanged=false 'mac only: unset dirty bit
 		  w.EnableEdit=false
-		  
+		  w.GenomeChanged=false
 		  '
 		  'GoToWin.Parent=w
 		  'GoToWin.ShowModalWithin(w)
@@ -1779,6 +1936,7 @@ End
 		    LogoWin.WriteToSTDOUT (EndofLine+"Finishing took "+str(tm/1000000)+" seconds")
 		  #endif
 		  
+		  w.GenomeFile=f
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:OpenGenBankFile")
@@ -1799,12 +1957,14 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RemoveFeature()
-		  seq.Features.Remove selFeatureNo
+		Sub RemoveFeature(FeatureNo as integer)
+		  Genome.Features.Remove FeatureNo
+		  'update the display:
+		  ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
 		  
-		  MapInit
+		  'mark genome changed:
+		  GenomeChanged=true
 		  
-		  updateMapCanvas
 		  
 		  
 		End Sub
@@ -1860,6 +2020,42 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:SaveFile")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SaveGenBankFile(f as folderitem)
+		  dim stream as TextOutputStream = TextOutputStream.Create(f)
+		  dim m,n as integer
+		  
+		  
+		  
+		  if stream<>nil then
+		    'write the header:
+		    stream.Write(Genome.Description)
+		    
+		    'write features
+		    for n=1 to ubound(genome.features)
+		      'write feature coordinates:
+		      stream.WriteLine("     "+NthField(genome.features(n).FeatureText,LineEnd,1))
+		      for m=2 to CountFields(genome.features(n).FeatureText,LineEnd)
+		        stream.WriteLine("                     "+NthField(genome.features(n).FeatureText,LineEnd,m))
+		      next
+		    next 'n
+		    
+		    'write formatted sequence:
+		    stream.WriteLine("ORIGIN")
+		    stream.Write(FormattedSequence)
+		    
+		    stream.close
+		    
+		  else
+		    msgbox "Couldn't save file."
+		  end if
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:SaveGenBankFile")
 		End Sub
 	#tag EndMethod
 
@@ -2295,13 +2491,13 @@ End
 		  'if n<=seq.length then
 		  'n=editor.selStart+editor.sellength-1
 		  'end
-		  'SelRange.text=str(editor.selStart+GenomeDelta)+"-"+str(n)+":"+str(editor.sellength)
+		  'SelRange.text=str(editor.selStart+GBrowseShift)+"-"+str(n)+":"+str(editor.sellength)
 		  'else
 		  'if editor.selStart>=seq.length OR editor.selStart=0 then
 		  ''SelRange.text=str(n)
 		  'SelRange.text=""
 		  'else
-		  'SelRange.text=str(editor.selStart+GenomeDelta)+"("+str(n)+")"
+		  'SelRange.text=str(editor.selStart+GBrowseShift)+"("+str(n)+")"
 		  'end
 		  'end if
 		  
@@ -2394,6 +2590,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		CMpointedFeature As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ConfigButtonType As string
 	#tag EndProperty
 
@@ -2482,6 +2682,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		FormattedSequence As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		FoundCoords(0) As integer
 	#tag EndProperty
 
@@ -2507,6 +2711,14 @@ End
 
 	#tag Property, Flags = &h0
 		Genome As cSeqObject
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		GenomeChanged As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		GenomeFile As Folderitem
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3276,12 +3488,8 @@ End
 		    if p.Objects.Item(n) IsA cClickableShape then
 		      
 		      if cClickableShape(p.Objects.Item(n)).contains(X,Y) then
-		        'MsgBox str(n)+" "+str(x)+" "+str(y)
-		        ContextFeature=n/2'+1 'correction for feature names
+		        ContextFeature=n/2
 		      else
-		        'MsgBox str(n)+" "+str(x)+" "+str(y)
-		        
-		        dbg=dbg+str(n)+" "+str(x)+" "+str(y)+LineEnd
 		        
 		      end
 		      
@@ -3314,9 +3522,9 @@ End
 		  select case hititem.text
 		    
 		  case kEditFeature
-		    EditFeature(seq.Features(selFeatureNo))
+		    EditFeature(seq.Features(ContextFeature))
 		  case kRemoveFeature
-		    RemoveFeature
+		    RemoveFeature(ContextFeature)
 		    'featuredeleted=true
 		  case kHmmerSearchUniProt
 		    HmmerSearchUniProt
@@ -3372,7 +3580,7 @@ End
 		    'second (or more) obj. may contain the ruler
 		    if p.Objects.Item(n) IsA cClickableShape then
 		      if cClickableShape(p.Objects.Item(n)).contains(X,Y) then
-		        PointedFeature=n/2'+1 'correction for feature names
+		        PointedFeature=n/2  'correction for feature names
 		        
 		        'make sure there are no hidden features, otherwise use the code below!
 		        
@@ -3530,7 +3738,7 @@ End
 		  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
 		  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
 		  
-		  Dim CurrentLoc as integer= GenomeDelta+DisplayInterval/2
+		  Dim CurrentLoc as integer= GBrowseShift+DisplayInterval/2
 		  
 		  If itemIndex = 0 Then
 		    'zoom in
