@@ -925,6 +925,8 @@ End
 		  dim FragmentFeature, ft as GBFeature
 		  dim s,CurrentFeature,cf1, name,coord as string
 		  
+		  Featureleft=-1
+		  
 		  if FragmentStart<1 then
 		    fragmentstart=1
 		    FragmentEnd=FragmentStart+DisplayInterval
@@ -1158,6 +1160,7 @@ End
 		  if featureleft=-1 then
 		    dim FragmentCent as integer = (FragmentStart+FragmentEnd)/2
 		    TextMap(FragmentCent,FragmentCent)
+		    
 		  end if
 		  
 		  refresh
