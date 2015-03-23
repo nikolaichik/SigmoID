@@ -1091,7 +1091,6 @@ End
 		  
 		  seq.Sequence=midb(genome.Sequence,FragmentLeft,FragmentRight-FragmentLeft+1)
 		  
-		  'linshapes not initiated yet, can't adjust!
 		  'adjust fragment feature coordinates:
 		  for n=1 to u
 		    seq.features(n).start=seq.features(n).start-Fragmentleft
@@ -1111,9 +1110,7 @@ End
 		    seq.FtRow.append 1
 		  next
 		  
-		  'row distribution is buggy: disabled for original release
 		  dim CF,CM as GBFeature
-		  
 		  
 		  'spread overlapping features across rows:
 		  for n=1 to u
@@ -1712,7 +1709,7 @@ End
 		      
 		      Seq.init(Screen(0).width*4, Screen(0).height*4)
 		      
-		      SetScale scale
+		      'SetScale scale
 		    else
 		      Seq.init(Screen(0).width*4, Screen(0).height*4)
 		    end
@@ -1781,7 +1778,7 @@ End
 		    'the sequence starts right after "ORIGIN      <cr>        1 "
 		    
 		    'first get the feature table:
-		    st=instrb(s,"FEATURES             Location/Qualifiers")+40
+		    st=instrb(s,"FEATURES             Location/Qualifiers")+41
 		    's0=LineEnd+"BASE COUNT "  'this long in order to terminate parsing properly
 		    
 		    LineEnd=EndOfLine
@@ -1837,62 +1834,45 @@ End
 		    features=ConvertEncoding(features,Encodings.ASCII)
 		    for n=1 to m'+1
 		      currentFeature=Nthfield(features,Separator,n)
-		      's0=Nthfield(features,cLineEnd,n) 'get one line
-		      'l=lenb(s0)
-		      's0=ltrim(s0)
-		      'if l-lenb(s0)>5 then 'no new features on this line -> may add line to the previous feature
-		      'currentFeature=currentFeature+cLineEnd+s0
-		      'elseif lenb(s0)=0 then 'no new features on this line -> may add line to the previous feature
-		      'currentFeature=currentFeature+cLineEnd+s0
-		      'elseif lenb(currentFeature)>0 then
 		      
 		      'feature description parsing:
 		      cf1=nthfield(currentFeature,cLineEnd,1)
 		      name=rtrim(leftb(cf1,16))      'feature name
 		      
-		      if lenb(name)>0 then  'to skip first "feature" which is sort of dummy
-		        NewFeature=new GBfeature(w.Genome.baselineY)
-		        NewFeature.featureText=currentFeature
-		        'now check the direction and coorginates:
-		        'if midb(cf1,17,10)="complement" then
-		        if InStrB(17,cf1,"complement")>0 then
-		          NewFeature.complement=true
-		          'gene            complement(2659..4155)
-		          if InStrB(27,cf1,"order")>0 then
-		            'split feature
-		            NewFeature.start=val(nthfield(nthfield(cf1,"..",1),"(",3))
-		            'misc_feature    complement(order(3576182..3576235,3576263..3576322,
-		            '3576341..3576409,3576467..3576532))
-		            splitCoords=NthFieldB(currentFeature,")",1)
-		            NewFeature.finish=val(nthFieldB(splitCoords,"..",countfields(splitCoords,"..") ))
-		          else
-		            
-		            coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
-		            'coord=NthField(cf1,"(",2)
-		            NewFeature.start=val(nthField(coord,"..",2))
-		            NewFeature.finish=val(nthField(coord,"..",1))
-		            
-		          end if
+		      NewFeature=new GBfeature(w.Genome.baselineY)
+		      NewFeature.featureText=currentFeature
+		      'now check the direction and coorginates:
+		      if InStrB(17,cf1,"complement")>0 then
+		        NewFeature.complement=true
+		        'gene            complement(2659..4155)
+		        if InStrB(27,cf1,"order")>0 then
+		          'split feature
+		          NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",3))
+		          'misc_feature    complement(order(3576182..3576235,3576263..3576322,
+		          '3576341..3576409,3576467..3576532))
+		          splitCoords=NthFieldB(currentFeature,")",1)
+		          NewFeature.finish=val(nthFieldB(splitCoords,"..",countfieldsB(splitCoords,"..") ))
 		        else
-		          if InStrB(17,cf1,"order")>0 then
-		            'split feature
-		            NewFeature.start=val(nthfield(nthfield(cf1,"..",1),"(",2))
-		            'misc_feature    order(343373..343441,343469..343537,343652..343720,
-		            '343799..343867,343925..343984)
-		            
-		            splitCoords=NthFieldB(currentFeature,")",1)
-		            NewFeature.finish=val(nthFieldB(splitCoords,"..",countfields(splitCoords,"..") ))
-		          else
-		            'NewFeature.complement=false false is the default
-		            coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
-		            'coord=midb(cf1,17)
-		            NewFeature.start=val(nthField(coord,"..",1))
-		            NewFeature.finish=val(nthField(coord,"..",2))
-		          end if
+		          coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
+		          NewFeature.start=val(nthFieldB(coord,"..",2))
+		          NewFeature.finish=val(nthFieldB(coord,"..",1))
 		        end if
-		        w.Genome.features.Append NewFeature
-		        
+		      else
+		        if InStrB(17,cf1,"order")>0 then
+		          'split feature
+		          NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",2))
+		          'misc_feature    order(343373..343441,343469..343537,343652..343720,
+		          '343799..343867,343925..343984)
+		          splitCoords=NthFieldB(currentFeature,")",1)
+		          NewFeature.finish=val(nthFieldB(splitCoords,"..",CountFieldsB(splitCoords,"..") ))
+		        else
+		          'NewFeature.complement=false false is the default
+		          coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
+		          NewFeature.start=val(NthFieldB(coord,"..",1))
+		          NewFeature.finish=val(nthFieldB(coord,"..",2))
+		        end if
 		      end if
+		      w.Genome.features.Append NewFeature
 		      
 		    next 'n
 		    
@@ -2702,10 +2682,6 @@ End
 
 	#tag Property, Flags = &h0
 		GBOpened As boolean = false
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		GBrowseShift As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

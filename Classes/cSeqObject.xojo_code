@@ -35,7 +35,7 @@ Protected Class cSeqObject
 		  me.length=lenb(me.Sequence)
 		  
 		  
-		  'first initialise linear map:
+		  'initialise linear map:
 		  Lmap=New Group2D
 		  'adjWidth=width-20
 		  'adjWidth=MapSizeX-20
