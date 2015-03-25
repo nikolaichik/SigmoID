@@ -386,7 +386,7 @@ Protected Module Globals
 		  dim CodeNo,n,m as integer
 		  dim starts,stops,base1,base2,base3,Codons,codon,AAs,CodeName as string
 		  
-		  f = GetFolderItem("").child("Genetic.codes")
+		  f = Resources_f.child("Genetic.codes")
 		  if f.exists AND f<>NIL then
 		    stream = f.OpenAsTextFile
 		    
@@ -1255,7 +1255,7 @@ Protected Module Globals
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="GenomeDelta"
+			Name="GBrowseShift"
 			Group="Behavior"
 			Type="Integer"
 		#tag EndViewProperty

@@ -8,6 +8,7 @@
 					Subdirectory = 
 					FolderItem = Li4ASG1tR2VuLnB5
 					FolderItem = Li4AUHJvZmlsZXM=
+					FolderItem = Li4AR2VuZXRpYy5jb2Rlcw==
 				End
 			End
 			Begin BuildStepList Mac OS X
@@ -19,6 +20,7 @@
 					Subdirectory = 
 					FolderItem = Li4ASG1tR2VuLnB5
 					FolderItem = Li4AUHJvZmlsZXM=
+					FolderItem = Li4AR2VuZXRpYy5jb2Rlcw==
 				End
 			End
 			Begin BuildStepList Windows

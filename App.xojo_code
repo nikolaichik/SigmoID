@@ -228,22 +228,19 @@ Inherits Application
 		          Dim dlg as New SaveAsDialog
 		          dlg.InitialDirectory=SigFolder.Parent
 		          dlg.promptText="Select where to save the converted file"
-		          dlg.SuggestedFileName=SigFolder.displayname
+		          dlg.SuggestedFileName=SigFolder.displayname+".sig"
 		          dlg.Title="Save .sig file"
 		          dlg.Filter=FileTypes.Sig_file
 		          SigFile=dlg.ShowModal()
 		          If SigFile <> Nil then
 		            SigFileVV = SigFile.CreateVirtualVolume
 		            If SigFileVV <> nil Then
-		              
 		              'first copy the existing files:
 		              'AlignmentFile.CopyFileTo(SigFileVV.Root)    'broken in Linux                            'alignment
 		              CopyFileToVV(AlignmentFile,SigFileVV)
-		              
 		              'get the base of profile name
 		              dim baseName as string
 		              basename= NthField(SigFile.DisplayName,".sig",1)
-		              
 		              dim file2copy as folderitem
 		              file2copy=sigFolder.child(basename+".options")                  'options
 		              if file2copy.exists AND file2copy<>Nil then
