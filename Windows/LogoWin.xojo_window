@@ -1105,41 +1105,59 @@ End
 		      dim inStream as TextInputStream
 		      f=vv.root.child(basename+".info")     'Info
 		      InStream = f.OpenAsTextFile
-		      Info=inStream.ReadAll
-		      inStream.close
+		      if InStream <>nil then
+		        Info=inStream.ReadAll
+		        inStream.close
+		      else
+		        msgbox "Can't read alignment info"
+		      end if
 		      
 		      f=vv.root.child(basename+".options")  'Profile Settings
-		      InStream = f.OpenAsTextFile
-		      ProfileSettings=inStream.ReadAll
-		      inStream.close
 		      
-		      'read profile calibration values
-		      dim aline As string
 		      InStream = f.OpenAsTextFile
-		      while not InStream.EOF
-		        aLine=InStream.readLine
-		        if left(aLine,7)="#=GF GA" then
-		          nhmmerSettingsWin.GAvalue.text="("+trim(NthField(aline," ",3))+")"
-		        elseif left(aLine,7)="#=GF NC" then
-		          nhmmerSettingsWin.NCvalue.text="("+trim(NthField(aline," ",3))+")"
-		        elseif left(aLine,7)="#=GF TC" then
-		          nhmmerSettingsWin.TCvalue.text="("+trim(NthField(aline," ",3))+")"
-		        end if
-		      wend
-		      inStream.close
+		      if InStream <>nil then
+		        ProfileSettings=inStream.ReadAll
+		        
+		        inStream.close
+		        
+		        'read profile calibration values
+		        dim aline As string
+		        InStream = f.OpenAsTextFile
+		        while not InStream.EOF
+		          aLine=InStream.readLine
+		          if left(aLine,7)="#=GF GA" then
+		            nhmmerSettingsWin.GAvalue.text="("+trim(NthField(aline," ",3))+")"
+		          elseif left(aLine,7)="#=GF NC" then
+		            nhmmerSettingsWin.NCvalue.text="("+trim(NthField(aline," ",3))+")"
+		          elseif left(aLine,7)="#=GF TC" then
+		            nhmmerSettingsWin.TCvalue.text="("+trim(NthField(aline," ",3))+")"
+		          end if
+		        wend
+		        inStream.close
+		      else
+		        msgbox "Can't read SigmoID file options"
+		      end if
 		      HmmGenSettingsWin.EvalueField.enabled=false
 		      HmmGenSettingsWin.EvalueButton.enabled=false
 		      
 		      
 		      f=vv.root.child(basename+".hmm")      'Hmm profile
 		      InStream = f.OpenAsTextFile
-		      HmmProfile=inStream.ReadAll
-		      inStream.close
+		      if InStream <>nil then
+		        HmmProfile=inStream.ReadAll
+		        inStream.close
+		      else
+		        msgbox "Can't read hmm profile"
+		      end if
 		      
 		      f=vv.root.child(basename+".logodata") 'Logo data
 		      InStream = f.OpenAsTextFile
-		      Weblogo_out=inStream.ReadAll
-		      inStream.close
+		      if InStream <>nil then
+		        Weblogo_out=inStream.ReadAll
+		        inStream.close
+		      else
+		        msgbox "Can't read logo data"
+		      end if
 		      
 		      'Extract values from ProfileSettings
 		      'and fill in the variables / configure settings windows accordingly:
@@ -1228,6 +1246,9 @@ End
 		  end if
 		  if WebLogoAvailable then
 		    DrawLogo
+		  elseif WebLogoAvailable then
+		    'use stored logodata within .sig file if available 
+		    
 		  else
 		    ChangeView("Sequences")
 		  end if

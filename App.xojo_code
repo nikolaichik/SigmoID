@@ -128,6 +128,27 @@ Inherits Application
 
 
 	#tag Method, Flags = &h0
+		Sub CopyFileToVV(File2copy as folderitem, VV as virtualVolume)
+		  'this is used to copy files from tmp dir to virtualVolume
+		  'as the built in CopyFileTo works for virtual volumes only on OS X
+		  
+		  dim f as FolderItem
+		  Dim OutStream as TextOutputStream
+		  Dim InStream As TextInputStream
+		  f=VV.Root.Child(File2copy.name)
+		  If f <> Nil then
+		    Instream=TextInputStream.Open(File2copy)
+		    OutStream = TextOutputStream.Create(f)
+		    OutStream.Write(Instream.ReadAll)
+		    OutStream.Close
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"App:CopyFileToVV")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub MakeSigFile(SigFolder as folderitem)
 		  
 		  'structure of a transcription factor-specific folder:
@@ -168,6 +189,8 @@ Inherits Application
 		  'seq3  MNPQT...
 		  '//
 		  
+		  Dim SigFile as FolderItem
+		  Dim SigFileVV As VirtualVolume
 		  
 		  'Read options:
 		  dim optionsFile As FolderItem = SigFolder.Child(sigfolder.displayname+".options")
@@ -203,28 +226,32 @@ Inherits Application
 		        if AlignmentFile.Exists AND AlignmentFile<>Nil then
 		          'select where to save the .sig file
 		          Dim dlg as New SaveAsDialog
-		          Dim f as FolderItem
 		          dlg.InitialDirectory=SigFolder.Parent
 		          dlg.promptText="Select where to save the converted file"
 		          dlg.SuggestedFileName=SigFolder.displayname
 		          dlg.Title="Save .sig file"
 		          dlg.Filter=FileTypes.Sig_file
-		          f=dlg.ShowModal()
-		          If f <> Nil then
-		            dim v as virtualVolume = f.CreateVirtualVolume
-		            If v <> nil Then
+		          SigFile=dlg.ShowModal()
+		          If SigFile <> Nil then
+		            SigFileVV = SigFile.CreateVirtualVolume
+		            If SigFileVV <> nil Then
 		              
 		              'first copy the existing files:
-		              AlignmentFile.CopyFileTo(v.Root)                                'alignment
+		              'AlignmentFile.CopyFileTo(SigFileVV.Root)    'broken in Linux                            'alignment
+		              CopyFileToVV(AlignmentFile,SigFileVV)
 		              
 		              'get the base of profile name
 		              dim baseName as string
-		              basename= NthField(f.DisplayName,".sig",1)
+		              basename= NthField(SigFile.DisplayName,".sig",1)
 		              
 		              dim file2copy as folderitem
 		              file2copy=sigFolder.child(basename+".options")                  'options
 		              if file2copy.exists AND file2copy<>Nil then
-		                file2copy.CopyFileTo(v.Root)
+		                'file2copy.CopyFileTo(SigFileVV.Root) 'broken in Lunux
+		                CopyFileToVV(file2copy,SigFileVV)
+		                'If file2copy.LastErrorCode <> 0 Then
+		                'msgbox "File copy error"
+		                'End If
 		              else
 		                msgbox sigfolder.displayname+" folder is missing some files!"
 		                return
@@ -232,7 +259,12 @@ Inherits Application
 		              
 		              file2copy=sigFolder.child(basename+".info")                     'info
 		              if file2copy.exists AND file2copy<>Nil then
-		                file2copy.CopyFileTo(v.Root)
+		                'file2copy.CopyFileTo(SigFileVV.Root)  'broken in Linux
+		                CopyFileToVV(file2copy,SigFileVV)
+		                
+		                If file2copy.LastErrorCode <> 0 Then
+		                  msgbox "File copy error"
+		                End If
 		              else
 		                msgbox sigfolder.displayname+" folder is missing some files!"
 		                return
@@ -240,7 +272,7 @@ Inherits Application
 		              
 		              'generate logodata and save it:
 		              dim weblogo_out as string = weblogo(AlignmentFile)
-		              dim f2 as folderitem =v.Root.child(basename+".logodata")
+		              dim f2 as folderitem =SigFileVV.Root.child(basename+".logodata")
 		              if weblogo_out <>"" then
 		                if f2<>nil then
 		                  dim outstream As TextOutputStream
@@ -291,8 +323,16 @@ Inherits Application
 		              f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
 		              if f2<>nil then
 		                if hmmbuild(stock.ShellPath,f2.ShellPath) then
-		                  f2.CopyFileTo(v.Root)                                  'move the .hmm to the final place
-		                  logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+f.ShellPath)
+		                  if file2copy.exists then
+		                    if file2copy<>Nil then
+		                      CopyFileToVV(F2,SigFileVV)
+		                      logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
+		                    else
+		                      beep
+		                    end if
+		                  else
+		                    beep
+		                  end if
 		                else
 		                  'error message handled by hmmbuild
 		                  return

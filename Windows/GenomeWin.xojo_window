@@ -55,7 +55,8 @@ Begin Window GenomeWin
       Width           =   30
    End
    Begin Timer Timer1
-      Height          =   32
+      Enabled         =   True
+      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -65,7 +66,8 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   25
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
    End
    Begin Label SelRange
       AutoDeactivate  =   True
@@ -89,6 +91,7 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -130,7 +133,8 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Height          =   32
+      Enabled         =   True
+      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -140,7 +144,8 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   467
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -347,7 +352,9 @@ Begin Window GenomeWin
       LockTop         =   False
       Maximum         =   0
       Scope           =   0
+      TabIndex        =   13
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   730
       Value           =   0
       Visible         =   False
@@ -1153,12 +1160,14 @@ End
 		  'editor.text=seq.sequence
 		  updateMapCanvas
 		  
+		  
 		  'display the actual sequence around hit:
-		  if featureleft=-1 then
-		    dim FragmentCent as integer = (FragmentStart+FragmentEnd)/2
-		    TextMap(FragmentCent,FragmentCent)
-		    
-		  end if
+		  'disabled to keep textmap the same when scrolling the genome:
+		  'if featureleft=-1 then
+		  'dim FragmentCent as integer = lenb(seq.sequence)/2
+		  'TextMap(FragmentCent,FragmentCent)
+		  '
+		  'end if
 		  
 		  refresh
 		  
@@ -1883,7 +1892,7 @@ End
 		    #endif
 		    
 		    's=DefineEncoding ("",Encodings.ASCII)
-		    w.FormattedSequence=rightb(s,len(s)-instrb(s,"ORIGIN")-7) 
+		    w.FormattedSequence=rightb(s,len(s)-instrb(s,"ORIGIN")-7)
 		    w.Genome.sequence=CleanUp(w.FormattedSequence)
 		    
 		    #if DebugBuild
@@ -3824,6 +3833,11 @@ End
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="CMpointedFeature"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Composite"
 		Visible=true
 		Group="Appearance"
@@ -3935,6 +3949,11 @@ End
 		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="FormattedSequence"
+		Group="Behavior"
+		Type="String"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="FoundSitesNumber"
 		Group="Behavior"
 		InitialValue="0"
@@ -3991,9 +4010,9 @@ End
 		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="GBrowseShift"
+		Name="GenomeChanged"
 		Group="Behavior"
-		Type="Integer"
+		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="GraphExists"
@@ -4457,6 +4476,11 @@ End
 		Type="Double"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="ToolTipBlock"
+		Group="Behavior"
+		Type="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="ToolTipX"
 		Group="Behavior"
 		InitialValue="0"
@@ -4472,6 +4496,21 @@ End
 		Name="topstrand"
 		Group="Behavior"
 		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ttip"
+		Group="Behavior"
+		Type="string"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TTx"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TTy"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Visible"

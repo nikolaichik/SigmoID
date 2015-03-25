@@ -177,8 +177,8 @@ Protected Module Globals
 		  'mapwidth, 20, me.seq.length
 		  
 		  dim Ruler as New Group2D
-		  dim n,x,m as integer
-		  dim pixperbp as double
+		  dim n,m as integer
+		  dim pixperbp,x as double
 		  'dim p as new picture (1,1,32)
 		  
 		  pixPerbp=width/bp
