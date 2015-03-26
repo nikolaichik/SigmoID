@@ -237,7 +237,7 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem UntitledItem1
+      Begin MenuItem Separator1
          SpecialMenu = 0
          Text = "-"
          Index = -2147483648
@@ -250,6 +250,20 @@ Begin Menu MainMenuBar
          Index = -2147483648
          AutoEnable = True
          Visible = True
+      End
+      Begin MenuItem Separator2
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem ViewViewDetails
+         SpecialMenu = 0
+         Text = "View Details"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = False
       End
    End
    Begin MenuItem GenomeMenu

@@ -110,6 +110,8 @@ Inherits Application
 			GenomeWin.opengenbankfile(GenomeFile)
 			GenomeWin.ExtractFragment(1000,10000)
 			GenomeWin.SegmentedControl1.Enabled=false
+			dim FragmentCent as integer = lenb(GenomeWin.seq.sequence)/2
+			GenomeWin.TextMap(FragmentCent,FragmentCent) 'could be better to show the very beginning from bp 1
 			GenomeWin.Show
 			end if
 			

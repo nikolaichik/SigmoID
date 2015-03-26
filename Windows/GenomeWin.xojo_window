@@ -55,8 +55,7 @@ Begin Window GenomeWin
       Width           =   30
    End
    Begin Timer Timer1
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -66,8 +65,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   25
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
    Begin Label SelRange
       AutoDeactivate  =   True
@@ -91,7 +89,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -112,7 +109,7 @@ Begin Window GenomeWin
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
-      Height          =   216
+      Height          =   176
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -133,8 +130,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -144,8 +140,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   467
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -222,7 +217,7 @@ Begin Window GenomeWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   244
+      Top             =   204
       Value           =   0
       Visible         =   True
       Width           =   1067
@@ -269,7 +264,7 @@ Begin Window GenomeWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   259
+      Top             =   219
       Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
@@ -278,7 +273,7 @@ Begin Window GenomeWin
    Begin HTMLViewer SearchViewer
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   335
+      Height          =   375
       HelpTag         =   ""
       Index           =   -2147483648
       Left            =   0
@@ -292,11 +287,11 @@ Begin Window GenomeWin
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   394
+      Top             =   354
       Visible         =   True
       Width           =   1067
    End
-   Begin Separator Separator1
+   Begin Separator GWSeparator1
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   4
@@ -313,7 +308,7 @@ Begin Window GenomeWin
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   391
+      Top             =   351
       Visible         =   True
       Width           =   1067
    End
@@ -352,9 +347,7 @@ Begin Window GenomeWin
       LockTop         =   False
       Maximum         =   0
       Scope           =   0
-      TabIndex        =   13
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   730
       Value           =   0
       Visible         =   False
@@ -449,6 +442,13 @@ End
 
 	#tag Event
 		Sub EnableMenuItems()
+		  ViewViewDetails.Enable
+		  ViewViewDetails.Visible=true
+		  if TMdisplay.visible then
+		    ViewViewDetails.text = "Hide details"
+		  else
+		    ViewViewDetails.text = "Show details"
+		  end if
 		  
 		End Sub
 	#tag EndEvent
@@ -782,6 +782,23 @@ End
 		End Function
 	#tag EndMenuHandler
 
+	#tag MenuHandler
+		Function ViewViewDetails() As Boolean Handles ViewViewDetails.Action
+			TMdisplay.Visible=NOT TMdisplay.Visible
+			if TMdisplay.visible then
+			SearchViewer.top=SearchViewer.top+TMdisplay.height
+			SearchViewer.height=SearchViewer.height-TMdisplay.height
+			GWSeparator1.top=GWSeparator1.Top+TMdisplay.height
+			else
+			SearchViewer.top=SearchViewer.top-TMdisplay.height
+			SearchViewer.height=SearchViewer.height+TMdisplay.height
+			GWSeparator1.top=GWSeparator1.Top-TMdisplay.height
+			end if
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
 
 	#tag Method, Flags = &h0
 		Function DeselectNames(p as picture) As integer
@@ -948,6 +965,11 @@ End
 		  seq=new cSeqObject
 		  u=ubound(Genome.Features)
 		  
+		  'speed things up:
+		  #pragma BackgroundTasks false
+		  #pragma BoundsChecking false
+		  #pragma NilObjectChecking false
+		  #pragma StackOverflowChecking false
 		  
 		  for n=1 to u
 		    ft=Genome.Features(n)
@@ -1083,22 +1105,28 @@ End
 		  
 		  
 		  dim Fragmentleft,Fragmentright as integer
-		  FragmentLeft=lenB(Genome.Sequence)
-		  FragmentRight=1
-		  u=ubound(Seq.Features)
-		  for n=1 to u
-		    if seq.features(n).start<Fragmentleft then
-		      FragmentLeft=seq.features(n).start
-		    end if
-		    if seq.features(n).finish>FragmentRight then
-		      FragmentRight=seq.features(n).Finish
-		    end if
-		  next
+		  'adjusting coords to Feature 
+		  
+		  'FragmentLeft=lenB(Genome.Sequence)
+		  'FragmentRight=1
+		  'u=ubound(Seq.Features)
+		  'for n=1 to u
+		  'if seq.features(n).start<Fragmentleft then
+		  'FragmentLeft=seq.features(n).start
+		  'end if
+		  'if seq.features(n).finish>FragmentRight then
+		  'FragmentRight=seq.features(n).Finish
+		  'end if
+		  'next
+		  
+		  FragmentLeft=FragmentStart
+		  FragmentRight=FragmentEnd
 		  GBrowseShift=FragmentLeft
 		  
 		  seq.Sequence=midb(genome.Sequence,FragmentLeft,FragmentRight-FragmentLeft+1)
 		  
 		  'adjust fragment feature coordinates:
+		  u=ubound(Seq.Features)
 		  for n=1 to u
 		    seq.features(n).start=seq.features(n).start-Fragmentleft
 		    seq.features(n).finish=seq.features(n).finish-Fragmentleft
@@ -1528,7 +1556,7 @@ End
 		  'First, launch the search to get the UUID:
 		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
 		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
 		  
 		  dim sh as New Shell
 		  sh.mode=0
@@ -1537,11 +1565,11 @@ End
 		  sh.execute command
 		  If sh.errorCode=0 then
 		    'get the UUID from text result that look like this:
-		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
 		    SearchProgressBar.Refresh
 		    
-		    UUID=NthField(sh.Result,"for job ",2)
-		    UUID=NthField(UUID,":",1)
+		    UUID=NthField(sh.Result,"/results/",2)
+		    UUID=NthField(UUID,"/score",1)
 		    theURL="http://hmmer.janelia.org/results/score/"+UUID
 		    'now simply load the corrected URL:
 		    SearchViewer.LoadURL(theURL)
@@ -1588,7 +1616,7 @@ End
 		  'First, launch the search to get the UUID:
 		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
 		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
+		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
 		  
 		  dim sh as New Shell
 		  sh.mode=0
@@ -1597,11 +1625,11 @@ End
 		  sh.execute command
 		  If sh.errorCode=0 then
 		    'get the UUID from text result that look like this:
-		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    'var uuid = '90F943AC-D3E4-11E4-B284-A34C59DEE9FE.1';
 		    SearchProgressBar.Refresh
 		    
-		    UUID=NthField(sh.Result,"for job ",2)
-		    UUID=NthField(UUID,":",1)
+		    UUID=NthField(sh.Result,"var uuid = '",2)
+		    UUID=NthField(UUID,"';",1)
 		    theURL="http://hmmer.janelia.org/results/score/"+UUID
 		    'now simply load the corrected URL:
 		    SearchViewer.LoadURL(theURL)
@@ -1648,7 +1676,7 @@ End
 		  'First, launch the search to get the UUID:
 		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
 		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=uniprotkb  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=uniprotkb  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
 		  
 		  dim sh as New Shell
 		  sh.mode=0
@@ -1656,12 +1684,12 @@ End
 		  SearchProgressBar.Refresh
 		  sh.execute command
 		  If sh.errorCode=0 then
-		    'get the UUID from text result that look like this:
-		    'phmmer results for job C8BD7856-CF45-11E4-9D9F-FC07F29B2471.1:
+		    'get the UUID from html result that looks like this:
+		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
 		    SearchProgressBar.Refresh
 		    
-		    UUID=NthField(sh.Result,"for job ",2)
-		    UUID=NthField(UUID,":",1)
+		    UUID=NthField(sh.Result,"/results/",2)
+		    UUID=NthField(UUID,"/score",1)
 		    theURL="http://hmmer.janelia.org/results/score/"+UUID
 		    'now simply load the corrected URL:
 		    SearchViewer.LoadURL(theURL)
@@ -3744,6 +3772,11 @@ End
 		    End If
 		  End If
 		  
+		  'adjust scrolling steps:
+		  HScrollBar.PageStep=GenomeWin.DisplayInterval*3/4
+		  HScrollBar.LineStep=GenomeWin.DisplayInterval/10
+		  
+		  
 		  ExtractFragment(CurrentLoc-DisplayInterval/2,CurrentLoc+DisplayInterval/2)
 		  
 		  
@@ -3952,6 +3985,7 @@ End
 		Name="FormattedSequence"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="FoundSitesNumber"
@@ -4501,6 +4535,7 @@ End
 		Name="ttip"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TTx"
