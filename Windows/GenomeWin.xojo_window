@@ -973,7 +973,8 @@ End
 		  
 		  for n=1 to u
 		    ft=Genome.Features(n)
-		    if (ft.start>FragmentStart AND ft.start<FragmentEnd) OR (ft.finish>FragmentStart AND ft.finish<FragmentEnd) then
+		    if (ft.start>FragmentStart AND ft.start<FragmentEnd) OR (ft.finish>FragmentStart AND ft.finish<FragmentEnd) _
+		      OR (ft.start<FragmentStart AND ft.finish>FragmentEnd) OR (ft.finish<FragmentStart AND ft.start>FragmentEnd) then
 		      FragmentFeature=new GBFeature(Genome.baselineY)
 		      'FragmentFeature.ArrowLength=ft.ArrowLength
 		      'FragmentFeature.ArrowWidth=ft.ArrowWidth
@@ -3618,19 +3619,24 @@ End
 		    end if
 		    
 		  next
+		  
+		  'get tooltip text
 		  if PointedFeature>0 then
-		    'for CDS, translation has to be removed from tooltip
 		    dim trC as integer
 		    dim ftL,ftR as string
 		    
 		    trC=InStr(seq.Features(PointedFeature).FeatureText,"/translation=")
-		    ftL=left(seq.Features(PointedFeature).FeatureText,trC)
-		    ftR=mid(seq.Features(PointedFeature).FeatureText,trC+15)
-		    trC=instr(ftR,"/")
-		    if trC>0 then
-		      ttip=ftL+right(ftR,len(ftR)-trC)
+		    if trC>0 then 'for CDS, translation has to be removed from tooltip
+		      ftL=left(seq.Features(PointedFeature).FeatureText,trC)
+		      ftR=mid(seq.Features(PointedFeature).FeatureText,trC+15)
+		      trC=instr(ftR,"/")
+		      if trC>0 then
+		        ttip=ftL+right(ftR,len(ftR)-trC)
+		      else
+		        ttip=ftL
+		      end if
 		    else
-		      ttip=ftL
+		      ttip=seq.Features(PointedFeature).FeatureText
 		    end if
 		    
 		    TTx=X+self.Left

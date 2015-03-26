@@ -257,7 +257,7 @@ Protected Module Globals
 		    dim s as New StringShape
 		    s.Text=str(GBrowseShift+startCoordinate+1000*m)
 		    s.TextFont=FixedFont
-		    s.TextSize=9
+		    s.TextSize=10
 		    's.rotation=1.5*3.1415926
 		    s.x=rect.x'-(p.Graphics.StringWidth(s.text)/2)
 		    s.y=baseY-8

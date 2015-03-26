@@ -33,6 +33,20 @@ Protected Class GBFeature
 		  x3=linShape.X+r*linshape.length
 		  
 		  
+		  'make regulatory sites more visible
+		  if complement then
+		    if x1-x3<4 then
+		      x3=x1-3
+		      x1=x1+1
+		    end if
+		  else
+		    if x3-x1<4 then
+		      x3=x1+3
+		      x1=x1-1
+		    end if
+		  end if
+		  
+		  
 		  y1=linShape.y+BaselineY-linshape.ArrowWidth/2
 		  y2=linShape.y+BaselineY-linshape.width/2
 		  y3=linShape.y+BaselineY

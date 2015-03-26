@@ -57,7 +57,7 @@ Inherits FigureShape
 		  end
 		  
 		  Exception err
-		    'ExceptionHandler(err,"cPolygonShape.Contains")
+		    ExceptionHandler(err,"cClickableShape.Contains")
 		End Function
 	#tag EndMethod
 
