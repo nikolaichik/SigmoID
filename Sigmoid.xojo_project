@@ -144,6 +144,7 @@ Class=GBFeature;Classes/GBFeature.xojo_code;&hB7296908;&h47302C04;false
 Class=gCode;Classes/gCode.xojo_code;&h7DA8FFFF;&h47302C04;false
 Module=TextMapParams;TextMapParams.xojo_code;&h537AAFFF;&h0;false
 Module=Strings;Strings.xojo_code;&hB70FBEF7;&h0;false
+Class=myShell;myShell.xojo_code;&h59E11C29;&h0;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1

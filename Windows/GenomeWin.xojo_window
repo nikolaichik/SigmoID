@@ -312,26 +312,6 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   1067
    End
-   BeginSegmented SegmentedControl DBsearchSegmentedControl
-      Enabled         =   False
-      Height          =   24
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   400
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      MacControlStyle =   6
-      Scope           =   0
-      Segments        =   "UniProtKB\n\nFalse\rSwissProt\n\nFalse\rTIGRFAM\n\nFalse"
-      SelectionType   =   0
-      TabPanelIndex   =   0
-      Top             =   728
-      Visible         =   True
-      Width           =   266
-   End
    Begin ProgressBar SearchProgressBar
       AutoDeactivate  =   True
       Enabled         =   False
@@ -352,6 +332,51 @@ Begin Window GenomeWin
       Value           =   0
       Visible         =   False
       Width           =   146
+   End
+   Begin myShell SPshell
+      Arguments       =   ""
+      Backend         =   ""
+      Canonical       =   False
+      Height          =   32
+      Index           =   -2147483648
+      Left            =   0
+      LockedInPosition=   False
+      Mode            =   1
+      Scope           =   0
+      TabPanelIndex   =   0
+      TimeOut         =   -1
+      Top             =   0
+      Width           =   32
+   End
+   Begin myShell TIGRShell
+      Arguments       =   ""
+      Backend         =   ""
+      Canonical       =   False
+      Height          =   32
+      Index           =   -2147483648
+      Left            =   0
+      LockedInPosition=   False
+      Mode            =   1
+      Scope           =   0
+      TabPanelIndex   =   0
+      TimeOut         =   -1
+      Top             =   0
+      Width           =   32
+   End
+   Begin myShell UniprotShell
+      Arguments       =   ""
+      Backend         =   ""
+      Canonical       =   False
+      Height          =   32
+      Index           =   -2147483648
+      Left            =   0
+      LockedInPosition=   False
+      Mode            =   1
+      Scope           =   0
+      TabPanelIndex   =   0
+      TimeOut         =   -1
+      Top             =   0
+      Width           =   32
    End
 End
 #tag EndWindow
@@ -1106,7 +1131,7 @@ End
 		  
 		  
 		  dim Fragmentleft,Fragmentright as integer
-		  'adjusting coords to Feature 
+		  'adjusting coords to Feature
 		  
 		  'FragmentLeft=lenB(Genome.Sequence)
 		  'FragmentRight=1
@@ -1533,15 +1558,6 @@ End
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
 		  
-		  'set DBsearchSegmentedControl to display correct DB
-		  DBsearchSegmentedControl.Enabled=true
-		  Dim sci0 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
-		  sci0.Selected=false 'UniProtKB
-		  Dim sci1 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
-		  sci1.Selected=true 'SwissProt
-		  Dim sci2 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
-		  sci2.Selected=false 'TIGRFAM
-		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
 		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
@@ -1559,26 +1575,7 @@ End
 		  
 		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
 		  
-		  dim sh as New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  SearchProgressBar.Refresh
-		  sh.execute command
-		  If sh.errorCode=0 then
-		    'get the UUID from text result that look like this:
-		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
-		    SearchProgressBar.Refresh
-		    
-		    UUID=NthField(sh.Result,"/results/",2)
-		    UUID=NthField(UUID,"/score",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
-		    SearchProgressBar.Refresh
-		    
-		  else
-		    beep
-		  end if
+		  SPshell.execute command
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
@@ -1592,15 +1589,6 @@ End
 		  'show progressbar:
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
-		  
-		  'set DBsearchSegmentedControl to display correct DB
-		  DBsearchSegmentedControl.Enabled=true
-		  Dim sci0 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
-		  sci0.Selected=false 'UniProtKB
-		  Dim sci1 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
-		  sci1.Selected=false 'SwissProt
-		  Dim sci2 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
-		  sci2.Selected=true 'TIGRFAM
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -1619,26 +1607,7 @@ End
 		  
 		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
 		  
-		  dim sh as New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  SearchProgressBar.Refresh
-		  sh.execute command
-		  If sh.errorCode=0 then
-		    'get the UUID from text result that look like this:
-		    'var uuid = '90F943AC-D3E4-11E4-B284-A34C59DEE9FE.1';
-		    SearchProgressBar.Refresh
-		    
-		    UUID=NthField(sh.Result,"var uuid = '",2)
-		    UUID=NthField(UUID,"';",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
-		    SearchProgressBar.Refresh
-		    
-		  else
-		    beep
-		  end if
+		  TIGRShell.execute command
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
@@ -1652,15 +1621,6 @@ End
 		  'show progressbar:
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
-		  
-		  'set DBsearchSegmentedControl to display correct DB
-		  DBsearchSegmentedControl.Enabled=true
-		  Dim sci0 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
-		  sci0.Selected=true 'UniProtKB
-		  Dim sci1 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
-		  sci1.Selected=false 'SwissProt
-		  Dim sci2 As SegmentedControlItem = genomeWin.DBsearchSegmentedControl.Items( 0 )
-		  sci2.Selected=false 'TIGRFAM
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -1679,26 +1639,8 @@ End
 		  
 		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=uniprotkb  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
 		  
-		  dim sh as New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  SearchProgressBar.Refresh
-		  sh.execute command
-		  If sh.errorCode=0 then
-		    'get the UUID from html result that looks like this:
-		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
-		    SearchProgressBar.Refresh
-		    
-		    UUID=NthField(sh.Result,"/results/",2)
-		    UUID=NthField(UUID,"/score",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
-		    SearchProgressBar.Refresh
-		    
-		  else
-		    beep
-		  end if
+		  UniprotShell.execute command
+		  
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
@@ -1764,6 +1706,15 @@ End
 		Function mItem(mName As string) As menuitem
 		  dim m As new menuItem
 		  m.text=mName
+		  return m
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function mItem(mName As string, enabl as boolean) As menuitem
+		  dim m As new menuItem
+		  m.text=mName
+		  m.Enabled=enabl
 		  return m
 		End Function
 	#tag EndMethod
@@ -3521,10 +3472,14 @@ End
 		    'Add a Separator
 		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
 		    'hmmer searches
-		    'check if applicable!!!
-		    base.Append mItem(kHmmerSearchUniprot)
-		    base.Append mItem(kHmmerSearchSwissprot)
-		    base.Append mItem(kHmmerSearchTigrfam)
+		    'if previous search is still running, add menus as disabled 
+		    dim boo as boolean
+		    boo=NOT UniprotShell.IsRunning
+		    base.Append mItem(kHmmerSearchUniprot,boo)
+		    boo=NOT SPShell.IsRunning
+		    base.Append mItem(kHmmerSearchSwissprot,boo)
+		    boo=NOT TIGRShell.IsRunning
+		    base.Append mItem(kHmmerSearchTigrfam,boo)
 		  end
 		  
 		  
@@ -3812,6 +3767,75 @@ End
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SPshell
+	#tag Event
+		Sub Completed()
+		  dim UUID,theURL as string
+		  
+		  If me.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(me.Result,"/results/",2)
+		    UUID=NthField(UUID,"/score",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TIGRShell
+	#tag Event
+		Sub Completed()
+		  dim UUID,theURL as string
+		  
+		  If TIGRshell.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'var uuid = '90F943AC-D3E4-11E4-B284-A34C59DEE9FE.1';
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(TIGRshell.Result,"var uuid = '",2)
+		    UUID=NthField(UUID,"';",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events UniprotShell
+	#tag Event
+		Sub Completed()
+		  dim UUID,theURL as string
+		  
+		  If UniProtShell.errorCode=0 then
+		    'get the UUID from html result that looks like this:
+		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(UniProtShell.Result,"/results/",2)
+		    UUID=NthField(UUID,"/score",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    SearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

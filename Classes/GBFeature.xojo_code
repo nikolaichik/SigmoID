@@ -38,11 +38,13 @@ Protected Class GBFeature
 		    if x1-x3<4 then
 		      x3=x1-3
 		      x1=x1+1
+		      x2=x2+1
 		    end if
 		  else
 		    if x3-x1<4 then
 		      x3=x1+3
 		      x1=x1-1
+		      x2=x2-1
 		    end if
 		  end if
 		  
