@@ -67,40 +67,6 @@ Begin Window GenomeWin
       Top             =   25
       Width           =   32
    End
-   Begin Label SelRange
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   3
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      Text            =   ""
-      TextAlign       =   0
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   730
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   247
-   End
    Begin Canvas MapCanvas
       AcceptFocus     =   False
       AcceptTabs      =   False
@@ -192,7 +158,7 @@ Begin Window GenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   809
+      Width           =   557
    End
    Begin ScrollBar HScrollBar
       AcceptFocus     =   True
@@ -291,27 +257,6 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   1067
    End
-   Begin ProgressBar SearchProgressBar
-      AutoDeactivate  =   True
-      Enabled         =   False
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   901
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Maximum         =   0
-      Scope           =   0
-      TabPanelIndex   =   0
-      Top             =   730
-      Value           =   0
-      Visible         =   False
-      Width           =   146
-   End
    Begin myShell SPshell
       Arguments       =   ""
       Backend         =   ""
@@ -367,9 +312,10 @@ Begin Window GenomeWin
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
+      EnableTabReordering=   False
       EraseBackground =   True
       Facing          =   3
-      Height          =   374
+      Height          =   397
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -383,7 +329,7 @@ Begin Window GenomeWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   354
+      Top             =   353
       Transparent     =   True
       UseFocusRing    =   True
       value           =   0
@@ -393,7 +339,7 @@ Begin Window GenomeWin
    Begin PagePanel BrowserPagePanel
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   376
+      Height          =   396
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -409,13 +355,13 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   2
+      Value           =   0
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   375
+         Height          =   395
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -437,7 +383,7 @@ Begin Window GenomeWin
       Begin HTMLViewer UPSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   375
+         Height          =   395
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -459,7 +405,7 @@ Begin Window GenomeWin
       Begin HTMLViewer TFSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   375
+         Height          =   395
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -478,6 +424,61 @@ Begin Window GenomeWin
          Visible         =   True
          Width           =   1041
       End
+   End
+   Begin Label SelRange
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   774
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      Text            =   ""
+      TextAlign       =   2
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   2
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   227
+   End
+   Begin ProgressBar SearchProgressBar
+      AutoDeactivate  =   True
+      Enabled         =   False
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   918
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Maximum         =   0
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   725
+      Value           =   0
+      Visible         =   False
+      Width           =   146
    End
 End
 #tag EndWindow
@@ -1488,7 +1489,9 @@ End
 		    end if
 		  end if
 		  BrowserTabs.appendTab(TabName)
-		  BrowserPagePanel.value=BrowserTabs.tabCount-1
+		  dim va as integer
+		  va=BrowserPagePanel.value
+		  'BrowserPagePanel.value=BrowserTabs.tabCount-1
 		  
 		  
 		  
@@ -3221,13 +3224,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SelRange
-	#tag Event
-		Sub Open()
-		  me.textfont=fixedFont
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events MapCanvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
@@ -3985,29 +3981,6 @@ End
 #tag EndEvents
 #tag Events BrowserTabs
 	#tag Event
-		Sub Open()
-		  'Tabs in the BrowserPagePanel:
-		  '0-SPSearchViewer
-		  '1-UPSearchViewer
-		  '2-TFSearchViewer
-		  
-		  'me.appendTab("")
-		  'me.appendTab("")
-		  'me.appendTab("")
-		  '
-		  'me.value=0
-		  'me.RePaint
-		  
-		  'me.attachPanel(BrowserPagePanel)
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function CancelRemoveTab(tabIndex as integer) As boolean
-		  return true
-		  
-		End Function
-	#tag EndEvent
-	#tag Event
 		Sub TabChanged(tabIndex as integer)
 		  'BrowserPagePanel positions are fixed as follows:
 		  '0-SPSearchViewer
@@ -4027,7 +4000,9 @@ End
 		    BrowserPagePanel.value=2
 		  end if
 		  
-		  
+		  dim va as integer
+		  va=BrowserPagePanel.value
+		  beep
 		  
 		  'BrowserPagePanel.value=tabIndex
 		End Sub
@@ -4078,6 +4053,13 @@ End
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SelRange
+	#tag Event
+		Sub Open()
+		  me.textfont=fixedFont
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -4165,6 +4147,12 @@ End
 		Name="ContextFeature"
 		Group="Behavior"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ContextProteinName"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="CurrentHit"

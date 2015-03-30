@@ -96,9 +96,8 @@ Protected Module CustomTabGlobals
 		  dim result as Integer
 		  tmp=NewPicture(2,2,32)
 		  
-		  'tmp.graphics.TextSize=size
+		  tmp.graphics.TextSize=size
 		  tmp.graphics.TextFont=fontName
-		  tmp.graphics.Bold=true
 		  
 		  result=tmp.Graphics.StringWidth(caption)
 		  Return result

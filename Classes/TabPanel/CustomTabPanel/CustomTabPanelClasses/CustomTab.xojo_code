@@ -1,5 +1,22 @@
 #tag Class
 Protected Class CustomTab
+	#tag Method, Flags = &h0
+		Function alphaTabPicture(alpha as Single) As Picture
+		  if self.alphaTabPicture <> nil then Return self.alphaTabPicture
+		  
+		  dim tmp as Picture = NewPicture(tabPicture.Width, tabPicture.Height, 32)
+		  
+		  if alpha > 1.0 then alpha = 1.0
+		  dim maskColor as Color = rgb(255 - alpha * 255, 255 - alpha * 255, 255 - alpha * 255)
+		  tmp.Mask.Graphics.DrawPicture tabPicture.Mask, 0, 0
+		  tmp.Mask.RGBSurface.FloodFill(tmp.Width / 2, tmp.Height / 2, maskColor)
+		  
+		  tmp.Graphics.DrawPicture tabPicture, 0,0
+		  
+		  Return tmp
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function backPattern() As picture
 		  //get the tab background
@@ -67,6 +84,7 @@ Protected Class CustomTab
 		  end if
 		  
 		  //create the tabPicture, which will hold the composed Picture
+		  alphaTabPicture = nil
 		  tabPicture=NewPicture(tabW, tabBackground.Height,32)
 		  tabPicture.graphics.TextSize=11
 		  tabPicture.graphics.TextFont="System"
@@ -100,11 +118,6 @@ Protected Class CustomTab
 		  tabData=NewPicture(width,height,32)
 		  tabData.graphics.TextSize=11
 		  tabData.graphics.TextFont="System"
-		  'and another one for the active tab:
-		  tabDataBold=NewPicture(width,height,32)
-		  tabDataBold.graphics.TextSize=11
-		  tabDataBold.graphics.TextFont="System"
-		  tabDataBold.graphics.Bold=true
 		  
 		  //fill the tab with the appropiate backgroundColor
 		  dim tmp as Picture=backPattern
@@ -134,9 +147,7 @@ Protected Class CustomTab
 		  //caption
 		  tabData.graphics.ForeColor=&c000000
 		  tabW=width-(leftTabOutline.Width+iconw+7+closeW+rightTabOutline.Width)
-		  tabDataBold.graphics.DrawPicture tabdata,0,0
-		  tabData.graphics.DrawString caption, iconOffset, (tabData.Height+tabData.Graphics.TextAscent)/2, tabw,false
-		  tabDataBold.graphics.DrawString caption, iconOffset, (tabData.Height+tabData.Graphics.TextAscent)/2, tabw,true
+		  tabData.graphics.DrawString caption, iconOffset, (tabData.Height+tabData.Graphics.TextAscent)/2, tabw,true
 		End Sub
 	#tag EndMethod
 
@@ -165,6 +176,7 @@ Protected Class CustomTab
 		  end if
 		  
 		  //create the tabPicture, which will hold the composed Picture
+		  alphaTabPicture = nil
 		  tabPicture=NewPicture(tabBackground.Height, tabW, 32)
 		  tabPicture.graphics.TextSize=11
 		  tabPicture.graphics.TextFont="System"
@@ -256,13 +268,18 @@ Protected Class CustomTab
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Constructor(caption as string, icon as picture, hasCloseBox as boolean = false, facing as integer = 0, tabpan as CustomTabPanelTabs)
+		Sub Constructor(caption as string, hasCloseBox as boolean = false, facing as integer = 0)
+		  self.Constructor(caption,nil, hasCloseBox, facing)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Constructor(caption as string, icon as picture, hasCloseBox as boolean = false, facing as integer = 0)
 		  //designated initializer :P
 		  self.captionStr=caption
 		  if hasCloseBox then closeBoxButton=new LittleMiscButton(closeBoxData,closeBoxMask,closeBoxMaskOver,closeBoxMaskClicked)
 		  self.iconPic=icon
 		  self.facing=facing
-		  HostTabPanel=tabpan
 		  
 		  //build appropriate tab
 		  buildTab
@@ -281,16 +298,6 @@ Protected Class CustomTab
 	#tag Method, Flags = &h0
 		Function isClosing() As boolean
 		  Return closing
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function isSelected() As boolean
-		  if index=HostTabPanel.value then
-		    return true
-		  else
-		    return false
-		  end if
 		End Function
 	#tag EndMethod
 
@@ -385,7 +392,7 @@ Protected Class CustomTab
 		  end if
 		  
 		  //calculate width
-		  tabW=leftTabOutline.Width+iconw+3+closeW+rightTabOutline.Width+stringWidth(caption)
+		  tabW=leftTabOutline.Width+iconw+7+closeW+rightTabOutline.Width+stringWidth(caption)
 		  
 		  Return tabW
 		End Function
@@ -405,11 +412,7 @@ Protected Class CustomTab
 		  dim rightImg as Picture
 		  
 		  //paint unmodified tab data...
-		  if isSelected then
-		    tabPicture.Graphics.DrawPicture tabDataBold,0,0
-		  else
-		    tabPicture.Graphics.DrawPicture tabData,0,0
-		  end if
+		  tabPicture.Graphics.DrawPicture tabData,0,0
 		  
 		  rightImg=rightTabImg(facing)
 		  
@@ -459,6 +462,10 @@ Protected Class CustomTab
 		End Sub
 	#tag EndMethod
 
+
+	#tag Property, Flags = &h21
+		Private alphaTabPicture As Picture
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -540,10 +547,6 @@ Protected Class CustomTab
 		Private hitOverlay As picture
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		HostTabPanel As CustomTabPanelTabs
-	#tag EndProperty
-
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -599,15 +602,15 @@ Protected Class CustomTab
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private TabDataBold As picture
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
 		Private tabIndex As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private tabPicture As picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		tabValue As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -719,6 +722,12 @@ Protected Class CustomTab
 			Visible=true
 			Group="ID"
 			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="tabValue"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
