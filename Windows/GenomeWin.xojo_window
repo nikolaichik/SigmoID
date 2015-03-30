@@ -270,27 +270,6 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   1067
    End
-   Begin HTMLViewer SearchViewer
-      AutoDeactivate  =   True
-      Enabled         =   True
-      Height          =   375
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Left            =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Renderer        =   0
-      Scope           =   0
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   354
-      Visible         =   True
-      Width           =   1067
-   End
    Begin Separator GWSeparator1
       AutoDeactivate  =   True
       Enabled         =   True
@@ -339,6 +318,7 @@ Begin Window GenomeWin
       Canonical       =   False
       Height          =   32
       Index           =   -2147483648
+      InitialParent   =   ""
       Left            =   0
       LockedInPosition=   False
       Mode            =   1
@@ -354,6 +334,7 @@ Begin Window GenomeWin
       Canonical       =   False
       Height          =   32
       Index           =   -2147483648
+      InitialParent   =   ""
       Left            =   0
       LockedInPosition=   False
       Mode            =   1
@@ -369,6 +350,7 @@ Begin Window GenomeWin
       Canonical       =   False
       Height          =   32
       Index           =   -2147483648
+      InitialParent   =   ""
       Left            =   0
       LockedInPosition=   False
       Mode            =   1
@@ -377,6 +359,125 @@ Begin Window GenomeWin
       TimeOut         =   -1
       Top             =   0
       Width           =   32
+   End
+   Begin CustomTabPanelTabs BrowserTabs
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   True
+      Facing          =   3
+      Height          =   374
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   354
+      Transparent     =   True
+      UseFocusRing    =   True
+      value           =   0
+      Visible         =   True
+      Width           =   27
+   End
+   Begin PagePanel BrowserPagePanel
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   376
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   27
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      PanelCount      =   3
+      Panels          =   ""
+      Scope           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      Top             =   354
+      Value           =   2
+      Visible         =   True
+      Width           =   1041
+      Begin HTMLViewer SPSearchViewer
+         AutoDeactivate  =   True
+         Enabled         =   True
+         Height          =   375
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "BrowserPagePanel"
+         Left            =   27
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Renderer        =   0
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Top             =   354
+         Visible         =   True
+         Width           =   1041
+      End
+      Begin HTMLViewer UPSearchViewer
+         AutoDeactivate  =   True
+         Enabled         =   True
+         Height          =   375
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "BrowserPagePanel"
+         Left            =   27
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Renderer        =   0
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Top             =   354
+         Visible         =   True
+         Width           =   1041
+      End
+      Begin HTMLViewer TFSearchViewer
+         AutoDeactivate  =   True
+         Enabled         =   True
+         Height          =   375
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "BrowserPagePanel"
+         Left            =   27
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Renderer        =   0
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Top             =   354
+         Visible         =   True
+         Width           =   1041
+      End
    End
 End
 #tag EndWindow
@@ -811,12 +912,16 @@ End
 		Function ViewViewDetails() As Boolean Handles ViewViewDetails.Action
 			TMdisplay.Visible=NOT TMdisplay.Visible
 			if TMdisplay.visible then
-			SearchViewer.top=SearchViewer.top+TMdisplay.height
-			SearchViewer.height=SearchViewer.height-TMdisplay.height
+			BrowserTabs.top=BrowserTabs.top+TMdisplay.height
+			BrowserTabs.height=BrowserTabs.height-TMdisplay.height
+			BrowserPagePanel.top=BrowserPagePanel.top+TMdisplay.height
+			BrowserPagePanel.height=BrowserPagePanel.height-TMdisplay.height
 			GWSeparator1.top=GWSeparator1.Top+TMdisplay.height
 			else
-			SearchViewer.top=SearchViewer.top-TMdisplay.height
-			SearchViewer.height=SearchViewer.height+TMdisplay.height
+			BrowserTabs.top=BrowserTabs.top-TMdisplay.height
+			BrowserTabs.height=BrowserTabs.height+TMdisplay.height
+			BrowserPagePanel.top=BrowserPagePanel.top-TMdisplay.height
+			BrowserPagePanel.height=BrowserPagePanel.height+TMdisplay.height
 			GWSeparator1.top=GWSeparator1.Top-TMdisplay.height
 			end if
 			Return True
@@ -1354,6 +1459,43 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub FindTab(TabName as string)
+		  'We are keeping only one tab for each search type
+		  
+		  dim n,t as integer
+		  dim tab2find,caption as string
+		  t=-1
+		  
+		  if instr(TabName,"SwissProt")>0 then
+		    tab2find="SwissProt"
+		  elseif instr(TabName,"UniProt")>0 then
+		    tab2find="UniProt"
+		  elseif instr(TabName,"TIGRFAM")>0 then
+		    tab2find="TIGRFAM"
+		  end if
+		  
+		  if BrowserTabs.tabCount>0 then
+		    for n=0 to BrowserTabs.tabCount-1
+		      if instr(BrowserTabs.tabs(n).caption,tab2find)>0 then
+		        t=n
+		        exit
+		      end if
+		    next
+		    
+		    'remove the tab of the current type and append a new one
+		    if t>-1 then
+		      BrowserTabs.removeTab(t)
+		    end if
+		  end if
+		  BrowserTabs.appendTab(TabName)
+		  BrowserPagePanel.value=BrowserTabs.tabCount-1
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetMapBounds(Map As Group2D) As string
 		  dim n as integer
 		  dim topobj, featureCount as integer
@@ -1551,12 +1693,17 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub HmmerSearchSwissProt()
+		Sub HmmerSearchSwissProt(ProtName as string)
 		  dim theSeq, command, UUID, theURL as string
 		  
 		  'show progressbar:
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
+		  
+		  'name the search tab:
+		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
+		  FindTab(ProtName+":SwissProt")
+		  BrowserTabs.RePaint
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -1583,12 +1730,16 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub HmmerSearchTIGRFAM()
+		Sub HmmerSearchTIGRFAM(ProtName as string)
 		  dim theSeq, command, UUID, theURL as string
 		  
 		  'show progressbar:
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
+		  
+		  'name the search tab:
+		  FindTab(ProtName+":TIGRFAM")
+		  BrowserTabs.RePaint
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -1615,12 +1766,16 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub HmmerSearchUniProt()
+		Sub HmmerSearchUniProt(ProtName as string)
 		  dim theSeq, command, UUID, theURL as string
 		  
 		  'show progressbar:
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
+		  
+		  'name the search tab:
+		  FindTab(ProtName+":UniProtKB")
+		  BrowserTabs.RePaint
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -2578,6 +2733,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ContextProteinName As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		CurrentHit As Integer
 	#tag EndProperty
 
@@ -3469,10 +3628,11 @@ End
 		  if ContextFeature>0 then
 		    base.Append mItem(kEditFeature)
 		    base.Append mItem(kRemoveFeature)
+		    ContextProteinName=seq.Features(ContextFeature).name
 		    'Add a Separator
 		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
 		    'hmmer searches
-		    'if previous search is still running, add menus as disabled 
+		    'if previous search is still running, add menus as disabled
 		    dim boo as boolean
 		    boo=NOT UniprotShell.IsRunning
 		    base.Append mItem(kHmmerSearchUniprot,boo)
@@ -3499,11 +3659,11 @@ End
 		    RemoveFeature(ContextFeature)
 		    'featuredeleted=true
 		  case kHmmerSearchUniProt
-		    HmmerSearchUniProt
+		    HmmerSearchUniProt(ContextProteinName)
 		  case kHmmerSearchSwissProt
-		    HmmerSearchSwissProt
+		    HmmerSearchSwissProt(ContextProteinName)
 		  case kHmmerSearchTIGRFAM
-		    HmmerSearchTIGRFAM
+		    HmmerSearchTIGRFAM(ContextProteinName)
 		  end
 		End Function
 	#tag EndEvent
@@ -3754,22 +3914,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SearchViewer
-	#tag Event
-		Sub DocumentComplete(URL as String)
-		  SearchProgressBar.Enabled=false
-		  SearchProgressBar.visible=false
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentBegin(URL as String)
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events SPshell
 	#tag Event
 		Sub Completed()
@@ -3784,7 +3928,7 @@ End
 		    UUID=NthField(UUID,"/score",1)
 		    theURL="http://hmmer.janelia.org/results/score/"+UUID
 		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
+		    SPSearchViewer.LoadURL(theURL)
 		    SearchProgressBar.Refresh
 		    
 		  else
@@ -3807,7 +3951,7 @@ End
 		    UUID=NthField(UUID,"';",1)
 		    theURL="http://hmmer.janelia.org/results/score/"+UUID
 		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
+		    TFSearchViewer.LoadURL(theURL)
 		    SearchProgressBar.Refresh
 		    
 		  else
@@ -3830,12 +3974,110 @@ End
 		    UUID=NthField(UUID,"/score",1)
 		    theURL="http://hmmer.janelia.org/results/score/"+UUID
 		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
+		    UPSearchViewer.LoadURL(theURL)
 		    SearchProgressBar.Refresh
 		    
 		  else
 		    beep
 		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BrowserTabs
+	#tag Event
+		Sub Open()
+		  'Tabs in the BrowserPagePanel:
+		  '0-SPSearchViewer
+		  '1-UPSearchViewer
+		  '2-TFSearchViewer
+		  
+		  'me.appendTab("")
+		  'me.appendTab("")
+		  'me.appendTab("")
+		  '
+		  'me.value=0
+		  'me.RePaint
+		  
+		  'me.attachPanel(BrowserPagePanel)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CancelRemoveTab(tabIndex as integer) As boolean
+		  return true
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub TabChanged(tabIndex as integer)
+		  'BrowserPagePanel positions are fixed as follows:
+		  '0-SPSearchViewer
+		  '1-UPSearchViewer
+		  '2-TFSearchViewer
+		  
+		  
+		  dim Tabname as string
+		  
+		  Tabname=BrowserTabs.tabs(tabIndex).caption
+		  
+		  if instr(TabName,"SwissProt")>0 then
+		    BrowserPagePanel.value=0
+		  elseif instr(TabName,"UniProt")>0 then
+		    BrowserPagePanel.value=1
+		  elseif instr(TabName,"TIGRFAM")>0 then
+		    BrowserPagePanel.value=2
+		  end if
+		  
+		  
+		  
+		  'BrowserPagePanel.value=tabIndex
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SPSearchViewer
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  SearchProgressBar.Enabled=false
+		  SearchProgressBar.visible=false
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events UPSearchViewer
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  SearchProgressBar.Enabled=false
+		  SearchProgressBar.visible=false
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TFSearchViewer
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  SearchProgressBar.Enabled=false
+		  SearchProgressBar.visible=false
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
