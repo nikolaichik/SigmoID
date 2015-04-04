@@ -257,54 +257,6 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   1067
    End
-   Begin myShell SPshell
-      Arguments       =   ""
-      Backend         =   ""
-      Canonical       =   False
-      Height          =   32
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   0
-      LockedInPosition=   False
-      Mode            =   1
-      Scope           =   0
-      TabPanelIndex   =   0
-      TimeOut         =   -1
-      Top             =   0
-      Width           =   32
-   End
-   Begin myShell TIGRShell
-      Arguments       =   ""
-      Backend         =   ""
-      Canonical       =   False
-      Height          =   32
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   0
-      LockedInPosition=   False
-      Mode            =   1
-      Scope           =   0
-      TabPanelIndex   =   0
-      TimeOut         =   -1
-      Top             =   0
-      Width           =   32
-   End
-   Begin myShell UniprotShell
-      Arguments       =   ""
-      Backend         =   ""
-      Canonical       =   False
-      Height          =   32
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   0
-      LockedInPosition=   False
-      Mode            =   1
-      Scope           =   0
-      TabPanelIndex   =   0
-      TimeOut         =   -1
-      Top             =   0
-      Width           =   32
-   End
    Begin CustomTabPanelTabs BrowserTabs
       AcceptFocus     =   False
       AcceptTabs      =   False
@@ -480,6 +432,75 @@ Begin Window GenomeWin
       Visible         =   False
       Width           =   146
    End
+   Begin mHTTPSocket TIGRSocket
+      Address         =   ""
+      BytesAvailable  =   0
+      BytesLeftToSend =   0
+      Handle          =   0
+      Height          =   32
+      httpProxyAddress=   ""
+      httpProxyPort   =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      IsConnected     =   False
+      LastErrorCode   =   0
+      Left            =   0
+      LocalAddress    =   ""
+      LockedInPosition=   False
+      Port            =   0
+      RemoteAddress   =   ""
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   0
+      Width           =   32
+      yield           =   False
+   End
+   Begin mHTTPSocket SPSocket
+      Address         =   ""
+      BytesAvailable  =   0
+      BytesLeftToSend =   0
+      Handle          =   0
+      Height          =   32
+      httpProxyAddress=   ""
+      httpProxyPort   =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      IsConnected     =   False
+      LastErrorCode   =   0
+      Left            =   0
+      LocalAddress    =   ""
+      LockedInPosition=   False
+      Port            =   0
+      RemoteAddress   =   ""
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   0
+      Width           =   32
+      yield           =   False
+   End
+   Begin mHTTPSocket UniProtSocket
+      Address         =   ""
+      BytesAvailable  =   0
+      BytesLeftToSend =   0
+      Handle          =   0
+      Height          =   32
+      httpProxyAddress=   ""
+      httpProxyPort   =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      IsConnected     =   False
+      LastErrorCode   =   0
+      Left            =   0
+      LocalAddress    =   ""
+      LockedInPosition=   False
+      Port            =   0
+      RemoteAddress   =   ""
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   0
+      Width           =   32
+      yield           =   False
+   End
 End
 #tag EndWindow
 
@@ -612,10 +633,19 @@ End
 		  FixedFont=NthField(ff,";",1)
 		  ProportionalFont=NthField(ff,";",2)
 		  
+		  'Set detail view display and the sizes of dependent controls
 		  TextMapPic=new picture(Screen(0).Width,me.Height)
 		  TextMapPic.Graphics.TextSize=12
 		  TextMapPic.Graphics.TextFont=FixedFont
 		  TMLineHeight=TextMapPic.Graphics.StringHeight("Ay",TextMapPic.width)
+		  TMdisplay.Height=10*TMLineHeight+TMLineHeight/2
+		  GWSeparator1.top=TMdisplay.top+TMdisplay.Height
+		  BrowserTabs.top=TMdisplay.top+TMdisplay.Height+2 'enlarge for working separator
+		  BrowserTabs.height=self.Height-BrowserTabs.top
+		  BrowserPagePanel.top=BrowserTabs.top+1
+		  BrowserPagePanel.height=BrowserTabs.height-1
+		  
+		  
 		  TMCharWidth=TextMapPic.Graphics.StringWidth("A")
 		  
 		  
@@ -912,19 +942,7 @@ End
 	#tag MenuHandler
 		Function ViewViewDetails() As Boolean Handles ViewViewDetails.Action
 			TMdisplay.Visible=NOT TMdisplay.Visible
-			if TMdisplay.visible then
-			BrowserTabs.top=BrowserTabs.top+TMdisplay.height
-			BrowserTabs.height=BrowserTabs.height-TMdisplay.height
-			BrowserPagePanel.top=BrowserPagePanel.top+TMdisplay.height
-			BrowserPagePanel.height=BrowserPagePanel.height-TMdisplay.height
-			GWSeparator1.top=GWSeparator1.Top+TMdisplay.height
-			else
-			BrowserTabs.top=BrowserTabs.top-TMdisplay.height
-			BrowserTabs.height=BrowserTabs.height+TMdisplay.height
-			BrowserPagePanel.top=BrowserPagePanel.top-TMdisplay.height
-			BrowserPagePanel.height=BrowserPagePanel.height+TMdisplay.height
-			GWSeparator1.top=GWSeparator1.Top-TMdisplay.height
-			end if
+			TMdisplayAdjustment
 			Return True
 			
 		End Function
@@ -937,11 +955,7 @@ End
 		  
 		  topObj= p.Objects.Count-1
 		  if topObj>1 then
-		    'for z=1 to topObj   'deselect all names
-		    'if  p.Objects.Item(z) IsA cName then
-		    'cName(p.Objects.Item(z)).selected=false
-		    'end
-		    'next
+		    
 		    while p.Objects.Item(topObj) IsA RectShape
 		      
 		      if topobj>1 then
@@ -953,6 +967,7 @@ End
 		      else
 		        exit
 		      end
+		      
 		    wend
 		    
 		  end
@@ -1488,7 +1503,7 @@ End
 		      BrowserTabs.removeTab(t)
 		    end if
 		  end if
-		  BrowserTabs.appendTab(TabName)
+		  BrowserTabs.appendTab(TabName,true)
 		  dim va as integer
 		  va=BrowserPagePanel.value
 		  'BrowserPagePanel.value=BrowserTabs.tabCount-1
@@ -1723,10 +1738,19 @@ End
 		  'First, launch the search to get the UUID:
 		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
 		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  'command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  'SPshell.execute command
 		  
-		  SPshell.execute command
-		  
+		  SPSocket.SetRequestHeader("Expect:","")
+		  SPSocket.SetRequestHeader("Accept:","text/html")
+		  Dim form As Dictionary
+		  'create and populate the form object
+		  form = New Dictionary
+		  form.Value("seqdb") = "swissprot"
+		  form.Value("algo") = "phmmer"
+		  form.Value("seq") = theSeq
+		  SPSocket.SetFormData(form)
+		  SPSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -1759,9 +1783,17 @@ End
 		  'First, launch the search to get the UUID:
 		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
 		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
-		  
-		  TIGRShell.execute command
+		  'command="curl -L -H 'Expect:' -H 'Accept:text/html' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
+		  'TIGRShell.execute command
+		  TIGRSocket.SetRequestHeader("Expect:","")
+		  TIGRSocket.SetRequestHeader("Accept:","text/html")
+		  Dim form As Dictionary
+		  'create and populate the form object
+		  form = New Dictionary
+		  form.Value("hmmdb") = "tigrfam"
+		  form.Value("seq") = theSeq
+		  TIGRSocket.SetFormData(form)
+		  TIGRSocket.Post("http://hmmer.janelia.org/search/hmmscan")
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
@@ -1795,10 +1827,18 @@ End
 		  'First, launch the search to get the UUID:
 		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
 		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=uniprotkb  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
-		  
-		  UniprotShell.execute command
-		  
+		  'command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=uniprotkb  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  'UniprotShell.execute command
+		  UniprotSocket.SetRequestHeader("Expect:","")
+		  UniprotSocket.SetRequestHeader("Accept:","text/html")
+		  Dim form As Dictionary
+		  'create and populate the form object
+		  form = New Dictionary
+		  form.Value("seqdb") = "uniprotkb"
+		  form.Value("algo") = "phmmer"
+		  form.Value("seq") = theSeq
+		  UniprotSocket.SetFormData(form)
+		  UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
@@ -2492,10 +2532,29 @@ End
 		  CurrentY=CurrentY+TMLineHeight
 		  DrawFrameColors(TextMapPic.Graphics,TranslateFrame(Sequence,6,c),CurrentY)
 		  
+		  'current TMdisplay.height=132
 		  TMdisplay.Refresh
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:TextMap")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TMDisplayAdjustment()
+		  if TMdisplay.visible then
+		    BrowserTabs.top=BrowserTabs.top+TMdisplay.height
+		    BrowserTabs.height=BrowserTabs.height-TMdisplay.height
+		    BrowserPagePanel.top=BrowserPagePanel.top+TMdisplay.height
+		    BrowserPagePanel.height=BrowserPagePanel.height-TMdisplay.height
+		    GWSeparator1.top=GWSeparator1.Top+TMdisplay.height
+		  else
+		    BrowserTabs.top=BrowserTabs.top-TMdisplay.height
+		    BrowserTabs.height=BrowserTabs.height+TMdisplay.height
+		    BrowserPagePanel.top=BrowserPagePanel.top-TMdisplay.height
+		    BrowserPagePanel.height=BrowserPagePanel.height+TMdisplay.height
+		    GWSeparator1.top=GWSeparator1.Top-TMdisplay.height
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -3630,11 +3689,11 @@ End
 		    'hmmer searches
 		    'if previous search is still running, add menus as disabled
 		    dim boo as boolean
-		    boo=NOT UniprotShell.IsRunning
+		    boo=NOT UniProtSocket.IsConnected
 		    base.Append mItem(kHmmerSearchUniprot,boo)
-		    boo=NOT SPShell.IsRunning
+		    boo=NOT SPSocket.IsConnected
 		    base.Append mItem(kHmmerSearchSwissprot,boo)
-		    boo=NOT TIGRShell.IsRunning
+		    boo=NOT TIGRSocket.IsConnected
 		    base.Append mItem(kHmmerSearchTigrfam,boo)
 		  end
 		  
@@ -3910,75 +3969,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SPshell
-	#tag Event
-		Sub Completed()
-		  dim UUID,theURL as string
-		  
-		  If me.errorCode=0 then
-		    'get the UUID from text result that look like this:
-		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
-		    SearchProgressBar.Refresh
-		    
-		    UUID=NthField(me.Result,"/results/",2)
-		    UUID=NthField(UUID,"/score",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    SPSearchViewer.LoadURL(theURL)
-		    SearchProgressBar.Refresh
-		    
-		  else
-		    beep
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events TIGRShell
-	#tag Event
-		Sub Completed()
-		  dim UUID,theURL as string
-		  
-		  If TIGRshell.errorCode=0 then
-		    'get the UUID from text result that look like this:
-		    'var uuid = '90F943AC-D3E4-11E4-B284-A34C59DEE9FE.1';
-		    SearchProgressBar.Refresh
-		    
-		    UUID=NthField(TIGRshell.Result,"var uuid = '",2)
-		    UUID=NthField(UUID,"';",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    TFSearchViewer.LoadURL(theURL)
-		    SearchProgressBar.Refresh
-		    
-		  else
-		    beep
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events UniprotShell
-	#tag Event
-		Sub Completed()
-		  dim UUID,theURL as string
-		  
-		  If UniProtShell.errorCode=0 then
-		    'get the UUID from html result that looks like this:
-		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
-		    SearchProgressBar.Refresh
-		    
-		    UUID=NthField(UniProtShell.Result,"/results/",2)
-		    UUID=NthField(UUID,"/score",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    UPSearchViewer.LoadURL(theURL)
-		    SearchProgressBar.Refresh
-		    
-		  else
-		    beep
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events BrowserTabs
 	#tag Event
 		Sub TabChanged(tabIndex as integer)
@@ -3993,19 +3983,55 @@ End
 		  Tabname=BrowserTabs.tabs(tabIndex).caption
 		  
 		  if instr(TabName,"SwissProt")>0 then
+		    SPSearchViewer.Visible=true
 		    BrowserPagePanel.value=0
 		  elseif instr(TabName,"UniProt")>0 then
+		    UPSearchViewer.Visible=true
 		    BrowserPagePanel.value=1
 		  elseif instr(TabName,"TIGRFAM")>0 then
+		    TFSearchViewer.Visible=true
 		    BrowserPagePanel.value=2
 		  end if
 		  
-		  dim va as integer
-		  va=BrowserPagePanel.value
-		  beep
+		  'dim va as integer
+		  'va=BrowserPagePanel.value
+		  'beep
 		  
 		  'BrowserPagePanel.value=tabIndex
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TabRemoved(tabIndex as integer)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CancelRemoveTab(tabIndex as integer) As boolean
+		  
+		  if tabIndex>0 then
+		    me.value=tabIndex-1
+		  end if
+		  
+		  ''BrowserPagePanel positions are fixed as follows:
+		  ''0-SPSearchViewer
+		  ''1-UPSearchViewer
+		  ''2-TFSearchViewer
+		  '
+		  '
+		  'dim Tabname as string
+		  '
+		  'Tabname=BrowserTabs.tabs(tabIndex).caption
+		  '
+		  'if instr(TabName,"SwissProt")>0 then
+		  'SPSearchViewer.Visible=false
+		  'elseif instr(TabName,"UniProt")>0 then
+		  'UPSearchViewer.Visible=false
+		  'elseif instr(TabName,"TIGRFAM")>0 then
+		  'TFSearchViewer.Visible=false
+		  'end if
+		  '
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events SPSearchViewer
@@ -4060,6 +4086,87 @@ End
 	#tag Event
 		Sub Open()
 		  me.textfont=fixedFont
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TIGRSocket
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		  dim UUID,theURL as string
+		  
+		  'get the UUID from text result that look like this:
+		  '<p>This item has moved <a href="http;//hmmer.janelia.org/results/72FE0A78-DA87-11E4-AAA3-3AF1F19B2471/score">here</a>
+		  SearchProgressBar.Refresh
+		  
+		  UUID=NthField(Content,"/results/",2)
+		  UUID=NthField(UUID,"/score",1)
+		  'UUID correctness should be verified!
+		  theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  'now simply load the corrected URL:
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
+		  end if
+		  TFSearchViewer.LoadURL(theURL)
+		  SearchProgressBar.Refresh
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:TIGRSocket")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SPSocket
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		  dim UUID,theURL as string
+		  
+		  If me.errorCode=0 then
+		    'get the UUID from text result that look like this:
+		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
+		    SearchProgressBar.Refresh
+		    
+		    UUID=NthField(Content,"/results/",2)
+		    UUID=NthField(UUID,"/score",1)
+		    theURL="http://hmmer.janelia.org/results/score/"+UUID
+		    'now simply load the corrected URL:
+		    if TMdisplay.Visible then
+		      TMdisplay.Visible=false
+		      TMdisplayAdjustment
+		    end if
+		    SPSearchViewer.LoadURL(theURL)
+		    SearchProgressBar.Refresh
+		    
+		  else
+		    beep
+		  end if
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:SPSocket")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events UniProtSocket
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		  dim UUID,theURL as string
+		  
+		  
+		  'get the UUID from html result that looks like this:
+		  'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
+		  SearchProgressBar.Refresh
+		  
+		  UUID=NthField(content,"/results/",2)
+		  UUID=NthField(UUID,"/score",1)
+		  theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  'now simply load the corrected URL:
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
+		  end if
+		  UPSearchViewer.LoadURL(theURL)
+		  SearchProgressBar.Refresh
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

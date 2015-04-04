@@ -196,7 +196,7 @@ Inherits Application
 		  
 		  'Read options:
 		  dim optionsFile As FolderItem = SigFolder.Child(sigfolder.displayname+".options")
-		  if optionsFile.Exists AND optionsFile<>Nil then
+		  if optionsFile<>Nil AND optionsFile.Exists then
 		    dim instream as TextInputStream
 		    dim aline, cutoffs As string
 		    
@@ -225,7 +225,7 @@ Inherits Application
 		      if stock <> nil then
 		        'open alignment:
 		        dim AlignmentFile as FolderItem = SigFolder.child(sigfolder.displayname+".fasta")
-		        if AlignmentFile.Exists AND AlignmentFile<>Nil then
+		        if AlignmentFile<>Nil AND AlignmentFile.Exists then
 		          'select where to save the .sig file
 		          Dim dlg as New SaveAsDialog
 		          dlg.InitialDirectory=SigFolder.Parent
@@ -245,7 +245,7 @@ Inherits Application
 		              basename= NthField(SigFile.DisplayName,".sig",1)
 		              dim file2copy as folderitem
 		              file2copy=sigFolder.child(basename+".options")                  'options
-		              if file2copy.exists AND file2copy<>Nil then
+		              if file2copy<>Nil AND file2copy.exists then
 		                'file2copy.CopyFileTo(SigFileVV.Root) 'broken in Lunux
 		                CopyFileToVV(file2copy,SigFileVV)
 		                'If file2copy.LastErrorCode <> 0 Then
@@ -257,7 +257,7 @@ Inherits Application
 		              end if
 		              
 		              file2copy=sigFolder.child(basename+".info")                     'info
-		              if file2copy.exists AND file2copy<>Nil then
+		              if file2copy<>Nil AND file2copy.exists then
 		                'file2copy.CopyFileTo(SigFileVV.Root)  'broken in Linux
 		                CopyFileToVV(file2copy,SigFileVV)
 		                
@@ -372,6 +372,12 @@ Inherits Application
 		  ScanGenomeWin.show
 		End Sub
 	#tag EndMethod
+
+
+	#tag Note, Name = Linux details
+		
+		32-bit Webkit1 is required for displaying the search results. This could be a problem on a 64-bit system
+	#tag EndNote
 
 
 	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public

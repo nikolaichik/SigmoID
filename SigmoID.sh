@@ -1,0 +1,1 @@
+ LD_LIBRARY_PATH=./Resources/libwebkit32 ./SigmoID

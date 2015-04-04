@@ -238,6 +238,7 @@ End
 		  dim cli as string
 		  dim allProgsFine as boolean
 		  Dim sh As Shell
+		  dim f As FolderItem
 		  
 		  
 		  alimaskpath=SettingsWin.alimaskPathField.text
@@ -245,7 +246,16 @@ End
 		  weblogopath=SettingsWin.weblogoPathField.text
 		  hmmBuildPath=SettingsWin.hmmBuildPathField.text
 		  
-		  hmmgenpath=resources_f.child("HmmGen.py").ShellPath
+		  f=resources_f.child("HmmGen.py")
+		  if f<>Nil then
+		    if f.exists then
+		      hmmgenpath=f.ShellPath
+		    else
+		      msgbox "Can't find the HmmGen.py script"
+		    end if
+		  else
+		    msgbox "Can't find the HmmGen.py script"
+		  end if
 		  
 		  allProgsFine=true
 		  'check for the command line tools:
@@ -1247,7 +1257,7 @@ End
 		  if WebLogoAvailable then
 		    DrawLogo
 		  elseif WebLogoAvailable then
-		    'use stored logodata within .sig file if available 
+		    'use stored logodata within .sig file if available
 		    
 		  else
 		    ChangeView("Sequences")
@@ -1869,7 +1879,6 @@ End
 		      'Load the Seq:
 		      if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then
 		        GenomeWin.opengenbankfile(outFile)
-		        'msgbox "Genome length is "+str(len(GenomeWin.genome.sequence))
 		        genomeWin.ShowHit
 		      end if
 		    end if
