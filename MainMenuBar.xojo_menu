@@ -277,6 +277,27 @@ Begin Menu MainMenuBar
          Text = "Go to..."
          Index = -2147483648
          ShortcutKey = "G"
+         Shortcut = "Cmd+Shift+G"
+         MenuModifier = True
+         AltMenuModifier = True
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem GenomeFind
+         SpecialMenu = 0
+         Text = "Find..."
+         Index = -2147483648
+         ShortcutKey = "F"
+         Shortcut = "Cmd+F"
+         MenuModifier = True
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem GenomeFindAgain
+         SpecialMenu = 0
+         Text = "Find Again"
+         Index = -2147483648
+         ShortcutKey = "G"
          Shortcut = "Cmd+G"
          MenuModifier = True
          AutoEnable = True

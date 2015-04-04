@@ -598,6 +598,10 @@ End
 		    ViewViewDetails.text = "Show details"
 		  end if
 		  
+		  GenomeFind.enable
+		  GenomeGoto.enable
+		  
+		  
 		End Sub
 	#tag EndEvent
 
@@ -925,6 +929,59 @@ End
 			
 			
 			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeFind() As Boolean Handles GenomeFind.Action
+			dim m,n,u,coord As Integer
+			dim ft as GBFeature
+			dim query,genomeFtext as string
+			
+			
+			FindWin.showmodalwithin(self)
+			if FindWin.OKpressed then
+			query=trim(FindWin.FindField.text)
+			
+			u=ubound(Genome.Features)
+			
+			'speed things up:
+			#pragma BackgroundTasks false
+			#pragma BoundsChecking false
+			#pragma NilObjectChecking false
+			#pragma StackOverflowChecking false
+			
+			'search within feature text:
+			for n=1 to u
+			ft=Genome.Features(n)
+			if instrB(ft.FeatureText,query)>0 then
+			'show the feature within genome context
+			coord=(ft.start+ft.Finish)/2
+			ExtractFragment(coord-Genomewin.DisplayInterval/2,coord+Genomewin.DisplayInterval/2)
+			'set the scrollbar:
+			Genomewin.HScrollBar.value=coord
+			
+			'find the feature number within the displayed fragment
+			genomeFtext=ft.FeatureText
+			for m=1 to UBound(seq.Features)
+			ft=Seq.Features(m)
+			if ft.FeatureText=genomeFtext then
+			SelectFeature(m)
+			exit
+			end if
+			next
+			exit
+			end if
+			next
+			end if
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeFindAgain() As Boolean Handles GenomeFindAgain.Action
+			
 			
 		End Function
 	#tag EndMenuHandler
@@ -2280,6 +2337,35 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SelectFeature(SelFeatureNo as integer)
+		  
+		  
+		  'deselect other things
+		  DeselectShapes(Seq.map)
+		  
+		  'Select Sequence in the TextMap pane:
+		  HighlightColour=Seq.Features(selFeatureNo).linShape.Colour
+		  if Seq.Features(selFeatureNo).complement  then
+		    FeatureLeft=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length-1
+		    TextMap(FeatureRight,FeatureLeft)
+		    topstrand=false
+		  else
+		    FeatureLeft=Seq.Features(selFeatureNo).start
+		    FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length
+		    TextMap(FeatureLeft,FeatureRight)
+		    topstrand=true
+		  end
+		  
+		  'Change selected feature colour
+		  cClickableShape(Seq.Map.Objects.Item(selFeatureNo*2)).toggleSelection 
+		  
+		  'add selection highlight:
+		  UpdateMapCanvasSelection
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub setMapCanvasScrollers()
 		  'out=str(minX)+";"+str(maxX)+";"+str(minY)+";"+str(maxY)
 		  if seq.map<>nil then
@@ -3345,28 +3431,11 @@ End
 		        
 		        if selFeatureNo>featureCount then selFeatureNo=featureCount  'correction for the complete site (unnecessary?)
 		        
-		        'deselect other things here
-		        topObj=DeselectNames( p)
-		        DeselectShapes(p)
+		        
+		        
 		        AnyObjectClicked=true
 		        
-		        'Select Sequence in the TextMap pane:
-		        HighlightColour=Seq.Features(selFeatureNo).linShape.Colour
-		        if Seq.Features(selFeatureNo).complement  then
-		          FeatureLeft=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length+1
-		          FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length-1
-		          TextMap(FeatureRight,FeatureLeft)
-		          topstrand=false
-		        else
-		          FeatureLeft=Seq.Features(selFeatureNo).start
-		          FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length
-		          TextMap(FeatureLeft,FeatureRight)
-		          topstrand=true
-		        end
-		        
-		        'UpdateSelRange
-		        'cClickableShape(p.Objects.Item(n)).fillColor=&c00000000
-		        cClickableShape(p.Objects.Item(n)).toggleSelection 'Change selected feature colour
+		        SelectFeature(SelFeatureNo)
 		        
 		        exit
 		      else

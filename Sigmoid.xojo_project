@@ -146,6 +146,7 @@ Picture=blockFoldedMarker;Classes/CustomEditField/imgs/blockFoldedMarker.bmp;&h6
 Picture=blockFoldedTrailMarker;Classes/CustomEditField/imgs/blockFoldedTrailMarker.bmp;&h75742ED4;&h55FFDEC;false;0;&h0
 Picture=blockStartMarker;Classes/CustomEditField/imgs/blockStartMarker.bmp;&h1EAEDE30;&h55FFDEC;false;0;&h0
 Picture=bookmarksimg;Classes/CustomEditField/imgs/bookmarksimg.bmp;&h6A7D72B2;&h55FFDEC;false;0;&h0
+Window=FindWin;Windows/FindWin.xojo_window;&h3689142A;&h2250E847;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1
