@@ -67,40 +67,6 @@ Begin Window GenomeWin
       Top             =   25
       Width           =   32
    End
-   Begin Label SelRange
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   3
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      Text            =   ""
-      TextAlign       =   0
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   730
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   247
-   End
    Begin Canvas MapCanvas
       AcceptFocus     =   False
       AcceptTabs      =   False
@@ -192,7 +158,7 @@ Begin Window GenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   809
+      Width           =   557
    End
    Begin ScrollBar HScrollBar
       AcceptFocus     =   True
@@ -270,27 +236,6 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   1067
    End
-   Begin HTMLViewer SearchViewer
-      AutoDeactivate  =   True
-      Enabled         =   True
-      Height          =   375
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Left            =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Renderer        =   0
-      Scope           =   0
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   354
-      Visible         =   True
-      Width           =   1067
-   End
    Begin Separator GWSeparator1
       AutoDeactivate  =   True
       Enabled         =   True
@@ -312,6 +257,160 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   1067
    End
+   Begin CustomTabPanelTabs BrowserTabs
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EnableTabReordering=   False
+      EraseBackground =   True
+      Facing          =   3
+      Height          =   397
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   353
+      Transparent     =   True
+      UseFocusRing    =   True
+      value           =   0
+      Visible         =   True
+      Width           =   27
+   End
+   Begin PagePanel BrowserPagePanel
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   396
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   27
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      PanelCount      =   3
+      Panels          =   ""
+      Scope           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      Top             =   354
+      Value           =   0
+      Visible         =   True
+      Width           =   1041
+      Begin HTMLViewer SPSearchViewer
+         AutoDeactivate  =   True
+         Enabled         =   True
+         Height          =   395
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "BrowserPagePanel"
+         Left            =   27
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Renderer        =   0
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Top             =   354
+         Visible         =   True
+         Width           =   1041
+      End
+      Begin HTMLViewer UPSearchViewer
+         AutoDeactivate  =   True
+         Enabled         =   True
+         Height          =   395
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "BrowserPagePanel"
+         Left            =   27
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Renderer        =   0
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Top             =   354
+         Visible         =   True
+         Width           =   1041
+      End
+      Begin HTMLViewer TFSearchViewer
+         AutoDeactivate  =   True
+         Enabled         =   True
+         Height          =   395
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "BrowserPagePanel"
+         Left            =   27
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Renderer        =   0
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   3
+         TabStop         =   True
+         Top             =   354
+         Visible         =   True
+         Width           =   1041
+      End
+   End
+   Begin Label SelRange
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   774
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      Text            =   ""
+      TextAlign       =   2
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   2
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   227
+   End
    Begin ProgressBar SearchProgressBar
       AutoDeactivate  =   True
       Enabled         =   False
@@ -319,7 +418,7 @@ Begin Window GenomeWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   901
+      Left            =   918
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -328,55 +427,79 @@ Begin Window GenomeWin
       Maximum         =   0
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   730
+      Top             =   725
       Value           =   0
       Visible         =   False
       Width           =   146
    End
-   Begin myShell SPshell
-      Arguments       =   ""
-      Backend         =   ""
-      Canonical       =   False
+   Begin mHTTPSocket TIGRSocket
+      Address         =   ""
+      BytesAvailable  =   0
+      BytesLeftToSend =   0
+      Handle          =   0
       Height          =   32
+      httpProxyAddress=   ""
+      httpProxyPort   =   0
       Index           =   -2147483648
+      InitialParent   =   ""
+      IsConnected     =   False
+      LastErrorCode   =   0
       Left            =   0
+      LocalAddress    =   ""
       LockedInPosition=   False
-      Mode            =   1
+      Port            =   0
+      RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      TimeOut         =   -1
       Top             =   0
       Width           =   32
+      yield           =   False
    End
-   Begin myShell TIGRShell
-      Arguments       =   ""
-      Backend         =   ""
-      Canonical       =   False
+   Begin mHTTPSocket SPSocket
+      Address         =   ""
+      BytesAvailable  =   0
+      BytesLeftToSend =   0
+      Handle          =   0
       Height          =   32
+      httpProxyAddress=   ""
+      httpProxyPort   =   0
       Index           =   -2147483648
+      InitialParent   =   ""
+      IsConnected     =   False
+      LastErrorCode   =   0
       Left            =   0
+      LocalAddress    =   ""
       LockedInPosition=   False
-      Mode            =   1
+      Port            =   0
+      RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      TimeOut         =   -1
       Top             =   0
       Width           =   32
+      yield           =   False
    End
-   Begin myShell UniprotShell
-      Arguments       =   ""
-      Backend         =   ""
-      Canonical       =   False
+   Begin mHTTPSocket UniProtSocket
+      Address         =   ""
+      BytesAvailable  =   0
+      BytesLeftToSend =   0
+      Handle          =   0
       Height          =   32
+      httpProxyAddress=   ""
+      httpProxyPort   =   0
       Index           =   -2147483648
+      InitialParent   =   ""
+      IsConnected     =   False
+      LastErrorCode   =   0
       Left            =   0
+      LocalAddress    =   ""
       LockedInPosition=   False
-      Mode            =   1
+      Port            =   0
+      RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      TimeOut         =   -1
       Top             =   0
       Width           =   32
+      yield           =   False
    End
 End
 #tag EndWindow
@@ -510,10 +633,19 @@ End
 		  FixedFont=NthField(ff,";",1)
 		  ProportionalFont=NthField(ff,";",2)
 		  
+		  'Set detail view display and the sizes of dependent controls
 		  TextMapPic=new picture(Screen(0).Width,me.Height)
 		  TextMapPic.Graphics.TextSize=12
 		  TextMapPic.Graphics.TextFont=FixedFont
 		  TMLineHeight=TextMapPic.Graphics.StringHeight("Ay",TextMapPic.width)
+		  TMdisplay.Height=10*TMLineHeight+TMLineHeight/2
+		  GWSeparator1.top=TMdisplay.top+TMdisplay.Height
+		  BrowserTabs.top=TMdisplay.top+TMdisplay.Height+2 'enlarge for working separator
+		  BrowserTabs.height=self.Height-BrowserTabs.top
+		  BrowserPagePanel.top=BrowserTabs.top+1
+		  BrowserPagePanel.height=BrowserTabs.height-1
+		  
+		  
 		  TMCharWidth=TextMapPic.Graphics.StringWidth("A")
 		  
 		  
@@ -810,15 +942,7 @@ End
 	#tag MenuHandler
 		Function ViewViewDetails() As Boolean Handles ViewViewDetails.Action
 			TMdisplay.Visible=NOT TMdisplay.Visible
-			if TMdisplay.visible then
-			SearchViewer.top=SearchViewer.top+TMdisplay.height
-			SearchViewer.height=SearchViewer.height-TMdisplay.height
-			GWSeparator1.top=GWSeparator1.Top+TMdisplay.height
-			else
-			SearchViewer.top=SearchViewer.top-TMdisplay.height
-			SearchViewer.height=SearchViewer.height+TMdisplay.height
-			GWSeparator1.top=GWSeparator1.Top-TMdisplay.height
-			end if
+			TMdisplayAdjustment
 			Return True
 			
 		End Function
@@ -831,11 +955,7 @@ End
 		  
 		  topObj= p.Objects.Count-1
 		  if topObj>1 then
-		    'for z=1 to topObj   'deselect all names
-		    'if  p.Objects.Item(z) IsA cName then
-		    'cName(p.Objects.Item(z)).selected=false
-		    'end
-		    'next
+		    
 		    while p.Objects.Item(topObj) IsA RectShape
 		      
 		      if topobj>1 then
@@ -847,6 +967,7 @@ End
 		      else
 		        exit
 		      end
+		      
 		    wend
 		    
 		  end
@@ -1354,6 +1475,45 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub FindTab(TabName as string)
+		  'We are keeping only one tab for each search type
+		  
+		  dim n,t as integer
+		  dim tab2find,caption as string
+		  t=-1
+		  
+		  if instr(TabName,"SwissProt")>0 then
+		    tab2find="SwissProt"
+		  elseif instr(TabName,"UniProt")>0 then
+		    tab2find="UniProt"
+		  elseif instr(TabName,"TIGRFAM")>0 then
+		    tab2find="TIGRFAM"
+		  end if
+		  
+		  if BrowserTabs.tabCount>0 then
+		    for n=0 to BrowserTabs.tabCount-1
+		      if instr(BrowserTabs.tabs(n).caption,tab2find)>0 then
+		        t=n
+		        exit
+		      end if
+		    next
+		    
+		    'remove the tab of the current type and append a new one
+		    if t>-1 then
+		      BrowserTabs.removeTab(t)
+		    end if
+		  end if
+		  BrowserTabs.appendTab(TabName,true)
+		  dim va as integer
+		  va=BrowserPagePanel.value
+		  'BrowserPagePanel.value=BrowserTabs.tabCount-1
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetMapBounds(Map As Group2D) As string
 		  dim n as integer
 		  dim topobj, featureCount as integer
@@ -1551,12 +1711,17 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub HmmerSearchSwissProt()
+		Sub HmmerSearchSwissProt(ProtName as string)
 		  dim theSeq, command, UUID, theURL as string
 		  
 		  'show progressbar:
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
+		  
+		  'name the search tab:
+		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
+		  FindTab(ProtName+":SwissProt")
+		  BrowserTabs.RePaint
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -1573,9 +1738,62 @@ End
 		  'First, launch the search to get the UUID:
 		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
 		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  'command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  'SPshell.execute command
 		  
-		  SPshell.execute command
+		  SPSocket.SetRequestHeader("Expect:","")
+		  SPSocket.SetRequestHeader("Accept:","text/html")
+		  Dim form As Dictionary
+		  'create and populate the form object
+		  form = New Dictionary
+		  form.Value("seqdb") = "swissprot"
+		  form.Value("algo") = "phmmer"
+		  form.Value("seq") = theSeq
+		  SPSocket.SetFormData(form)
+		  SPSocket.Post("http://hmmer.janelia.org/search/phmmer")
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub HmmerSearchTIGRFAM(ProtName as string)
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'show progressbar:
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		  'name the search tab:
+		  FindTab(ProtName+":TIGRFAM")
+		  BrowserTabs.RePaint
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
+		  'First, launch the search to get the UUID:
+		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
+		  
+		  'command="curl -L -H 'Expect:' -H 'Accept:text/html' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
+		  'TIGRShell.execute command
+		  TIGRSocket.SetRequestHeader("Expect:","")
+		  TIGRSocket.SetRequestHeader("Accept:","text/html")
+		  Dim form As Dictionary
+		  'create and populate the form object
+		  form = New Dictionary
+		  form.Value("hmmdb") = "tigrfam"
+		  form.Value("seq") = theSeq
+		  TIGRSocket.SetFormData(form)
+		  TIGRSocket.Post("http://hmmer.janelia.org/search/hmmscan")
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
@@ -1583,12 +1801,16 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub HmmerSearchTIGRFAM()
+		Sub HmmerSearchUniProt(ProtName as string)
 		  dim theSeq, command, UUID, theURL as string
 		  
 		  'show progressbar:
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
+		  
+		  'name the search tab:
+		  FindTab(ProtName+":UniProtKB")
+		  BrowserTabs.RePaint
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -1605,42 +1827,18 @@ End
 		  'First, launch the search to get the UUID:
 		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
 		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
-		  
-		  TIGRShell.execute command
-		  
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub HmmerSearchUniProt()
-		  dim theSeq, command, UUID, theURL as string
-		  
-		  'show progressbar:
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
-		  
-		  'get the seq to search with:
-		  if Seq.Features(ContextFeature).complement  then
-		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
-		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
-		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
-		  else
-		    FeatureLeft=Seq.Features(ContextFeature).start
-		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
-		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
-		  end
-		  
-		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
-		  'First, launch the search to get the UUID:
-		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
-		  
-		  command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=uniprotkb  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
-		  
-		  UniprotShell.execute command
-		  
+		  'command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=uniprotkb  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
+		  'UniprotShell.execute command
+		  UniprotSocket.SetRequestHeader("Expect:","")
+		  UniprotSocket.SetRequestHeader("Accept:","text/html")
+		  Dim form As Dictionary
+		  'create and populate the form object
+		  form = New Dictionary
+		  form.Value("seqdb") = "uniprotkb"
+		  form.Value("algo") = "phmmer"
+		  form.Value("seq") = theSeq
+		  UniprotSocket.SetFormData(form)
+		  UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
@@ -2334,10 +2532,29 @@ End
 		  CurrentY=CurrentY+TMLineHeight
 		  DrawFrameColors(TextMapPic.Graphics,TranslateFrame(Sequence,6,c),CurrentY)
 		  
+		  'current TMdisplay.height=132
 		  TMdisplay.Refresh
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:TextMap")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TMDisplayAdjustment()
+		  if TMdisplay.visible then
+		    BrowserTabs.top=BrowserTabs.top+TMdisplay.height
+		    BrowserTabs.height=BrowserTabs.height-TMdisplay.height
+		    BrowserPagePanel.top=BrowserPagePanel.top+TMdisplay.height
+		    BrowserPagePanel.height=BrowserPagePanel.height-TMdisplay.height
+		    GWSeparator1.top=GWSeparator1.Top+TMdisplay.height
+		  else
+		    BrowserTabs.top=BrowserTabs.top-TMdisplay.height
+		    BrowserTabs.height=BrowserTabs.height+TMdisplay.height
+		    BrowserPagePanel.top=BrowserPagePanel.top-TMdisplay.height
+		    BrowserPagePanel.height=BrowserPagePanel.height+TMdisplay.height
+		    GWSeparator1.top=GWSeparator1.Top-TMdisplay.height
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -2575,6 +2792,10 @@ End
 
 	#tag Property, Flags = &h0
 		ContextFeature As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ContextProteinName As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3062,13 +3283,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SelRange
-	#tag Event
-		Sub Open()
-		  me.textfont=fixedFont
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events MapCanvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
@@ -3469,16 +3683,17 @@ End
 		  if ContextFeature>0 then
 		    base.Append mItem(kEditFeature)
 		    base.Append mItem(kRemoveFeature)
+		    ContextProteinName=seq.Features(ContextFeature).name
 		    'Add a Separator
 		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
 		    'hmmer searches
-		    'if previous search is still running, add menus as disabled 
+		    'if previous search is still running, add menus as disabled
 		    dim boo as boolean
-		    boo=NOT UniprotShell.IsRunning
+		    boo=NOT UniProtSocket.IsConnected
 		    base.Append mItem(kHmmerSearchUniprot,boo)
-		    boo=NOT SPShell.IsRunning
+		    boo=NOT SPSocket.IsConnected
 		    base.Append mItem(kHmmerSearchSwissprot,boo)
-		    boo=NOT TIGRShell.IsRunning
+		    boo=NOT TIGRSocket.IsConnected
 		    base.Append mItem(kHmmerSearchTigrfam,boo)
 		  end
 		  
@@ -3499,11 +3714,11 @@ End
 		    RemoveFeature(ContextFeature)
 		    'featuredeleted=true
 		  case kHmmerSearchUniProt
-		    HmmerSearchUniProt
+		    HmmerSearchUniProt(ContextProteinName)
 		  case kHmmerSearchSwissProt
-		    HmmerSearchSwissProt
+		    HmmerSearchSwissProt(ContextProteinName)
 		  case kHmmerSearchTIGRFAM
-		    HmmerSearchTIGRFAM
+		    HmmerSearchTIGRFAM(ContextProteinName)
 		  end
 		End Function
 	#tag EndEvent
@@ -3754,7 +3969,72 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SearchViewer
+#tag Events BrowserTabs
+	#tag Event
+		Sub TabChanged(tabIndex as integer)
+		  'BrowserPagePanel positions are fixed as follows:
+		  '0-SPSearchViewer
+		  '1-UPSearchViewer
+		  '2-TFSearchViewer
+		  
+		  
+		  dim Tabname as string
+		  
+		  Tabname=BrowserTabs.tabs(tabIndex).caption
+		  
+		  if instr(TabName,"SwissProt")>0 then
+		    SPSearchViewer.Visible=true
+		    BrowserPagePanel.value=0
+		  elseif instr(TabName,"UniProt")>0 then
+		    UPSearchViewer.Visible=true
+		    BrowserPagePanel.value=1
+		  elseif instr(TabName,"TIGRFAM")>0 then
+		    TFSearchViewer.Visible=true
+		    BrowserPagePanel.value=2
+		  end if
+		  
+		  'dim va as integer
+		  'va=BrowserPagePanel.value
+		  'beep
+		  
+		  'BrowserPagePanel.value=tabIndex
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TabRemoved(tabIndex as integer)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CancelRemoveTab(tabIndex as integer) As boolean
+		  
+		  if tabIndex>0 then
+		    me.value=tabIndex-1
+		  end if
+		  
+		  ''BrowserPagePanel positions are fixed as follows:
+		  ''0-SPSearchViewer
+		  ''1-UPSearchViewer
+		  ''2-TFSearchViewer
+		  '
+		  '
+		  'dim Tabname as string
+		  '
+		  'Tabname=BrowserTabs.tabs(tabIndex).caption
+		  '
+		  'if instr(TabName,"SwissProt")>0 then
+		  'SPSearchViewer.Visible=false
+		  'elseif instr(TabName,"UniProt")>0 then
+		  'UPSearchViewer.Visible=false
+		  'elseif instr(TabName,"TIGRFAM")>0 then
+		  'TFSearchViewer.Visible=false
+		  'end if
+		  '
+		  
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events SPSearchViewer
 	#tag Event
 		Sub DocumentComplete(URL as String)
 		  SearchProgressBar.Enabled=false
@@ -3770,9 +4050,74 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SPshell
+#tag Events UPSearchViewer
 	#tag Event
-		Sub Completed()
+		Sub DocumentComplete(URL as String)
+		  SearchProgressBar.Enabled=false
+		  SearchProgressBar.visible=false
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TFSearchViewer
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  SearchProgressBar.Enabled=false
+		  SearchProgressBar.visible=false
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SelRange
+	#tag Event
+		Sub Open()
+		  me.textfont=fixedFont
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TIGRSocket
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		  dim UUID,theURL as string
+		  
+		  'get the UUID from text result that look like this:
+		  '<p>This item has moved <a href="http;//hmmer.janelia.org/results/72FE0A78-DA87-11E4-AAA3-3AF1F19B2471/score">here</a>
+		  SearchProgressBar.Refresh
+		  
+		  UUID=NthField(Content,"/results/",2)
+		  UUID=NthField(UUID,"/score",1)
+		  'UUID correctness should be verified!
+		  theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  'now simply load the corrected URL:
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
+		  end if
+		  TFSearchViewer.LoadURL(theURL)
+		  SearchProgressBar.Refresh
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:TIGRSocket")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SPSocket
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
 		  dim UUID,theURL as string
 		  
 		  If me.errorCode=0 then
@@ -3780,62 +4125,48 @@ End
 		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
 		    SearchProgressBar.Refresh
 		    
-		    UUID=NthField(me.Result,"/results/",2)
+		    UUID=NthField(Content,"/results/",2)
 		    UUID=NthField(UUID,"/score",1)
 		    theURL="http://hmmer.janelia.org/results/score/"+UUID
 		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
+		    if TMdisplay.Visible then
+		      TMdisplay.Visible=false
+		      TMdisplayAdjustment
+		    end if
+		    SPSearchViewer.LoadURL(theURL)
 		    SearchProgressBar.Refresh
 		    
 		  else
 		    beep
 		  end if
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:SPSocket")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events TIGRShell
+#tag Events UniProtSocket
 	#tag Event
-		Sub Completed()
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
 		  dim UUID,theURL as string
 		  
-		  If TIGRshell.errorCode=0 then
-		    'get the UUID from text result that look like this:
-		    'var uuid = '90F943AC-D3E4-11E4-B284-A34C59DEE9FE.1';
-		    SearchProgressBar.Refresh
-		    
-		    UUID=NthField(TIGRshell.Result,"var uuid = '",2)
-		    UUID=NthField(UUID,"';",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
-		    SearchProgressBar.Refresh
-		    
-		  else
-		    beep
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events UniprotShell
-	#tag Event
-		Sub Completed()
-		  dim UUID,theURL as string
 		  
-		  If UniProtShell.errorCode=0 then
-		    'get the UUID from html result that looks like this:
-		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
-		    SearchProgressBar.Refresh
-		    
-		    UUID=NthField(UniProtShell.Result,"/results/",2)
-		    UUID=NthField(UUID,"/score",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    SearchViewer.LoadURL(theURL)
-		    SearchProgressBar.Refresh
-		    
-		  else
-		    beep
+		  'get the UUID from html result that looks like this:
+		  'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
+		  SearchProgressBar.Refresh
+		  
+		  UUID=NthField(content,"/results/",2)
+		  UUID=NthField(UUID,"/score",1)
+		  theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  'now simply load the corrected URL:
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
 		  end if
+		  UPSearchViewer.LoadURL(theURL)
+		  SearchProgressBar.Refresh
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -3923,6 +4254,12 @@ End
 		Name="ContextFeature"
 		Group="Behavior"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ContextProteinName"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="CurrentHit"

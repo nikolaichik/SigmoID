@@ -31,26 +31,89 @@ Inherits canvas
 		  //check all the tabs...
 		  for i=UBound(drawOrder) downto 0
 		    if drawOrder(i).mouseDown(x,y) then
-		      currentActionTab=drawOrder(i)
+		      currentActionTab = drawOrder(i)
+		      
+		      dragRect(0) = currentActionTab.x
+		      dragRect(1) = currentActionTab.y
+		      dragRect(2) = currentActionTab.width
+		      dragRect(3) = currentActionTab.height
 		      exit
 		    end if
 		  next
 		  
+		  //TODO, add some property to tabs to include a menu or something, or check for a specific hitpoint within the tab...
+		  dim base as new MenuItem
+		  if currentActionTab <> nil and ConstructTabContextualMenu(currentActionTab, base) then
+		    self.value = currentActionTab.index
+		    self.Repaint
+		    
+		    dim container as Window
+		    dim locx as integer
+		    dim locy as Integer
+		    
+		    select case facing
+		    case NORTH, SOUTH
+		      locx = me.Left + currentActionTab.x + leftTabImg(me.Facing).Width
+		      locy = me.top + me.Height
+		      
+		    case EAST, WEST
+		      locx = me.Left + me.Width
+		      locy = me.top + currentActionTab.y + leftTabImg(me.Facing).Height
+		      
+		    end select
+		    
+		    Container = me.Window
+		    while true
+		      locx = locx + Container.Left
+		      locy = locy + Container.top
+		      if container isa ContainerControl then
+		        Container = ContainerControl(Container).Window
+		      elseif Container isa Window then
+		        Exit
+		      end if
+		    Wend
+		    
+		    base = base.PopUp(locx, locy)
+		    if base <> nil then
+		      TabContextualMenuAction(currentActionTab, base)
+		    end if
+		    
+		    Return False
+		  end if
+		  
 		  Repaint
 		  
-		  Return currentActionTab<>nil
+		  draggingWholeTab = False
+		  mouseDownTimeStamp = Ticks
+		  lastMouseX = x
+		  lastMouseY = y
+		  
+		  Return currentActionTab <> nil
 		End Function
 	#tag EndEvent
 
 	#tag Event
 		Sub MouseDrag(X As Integer, Y As Integer)
-		  if currentActionTab=nil then Return
+		  if currentActionTab = nil then Return
+		  
+		  if Facing = NORTH or facing = SOUTH then
+		    dragOffsetX = x - lastMouseX
+		    dragOffsetY = 0
+		  else
+		    dragOffsetY = y - lastMouseY
+		    dragOffsetX = 0
+		  end if
+		  
+		  if (abs(dragOffsetX + dragOffsetY) > 3) and EnableTabReordering and (draggingWholeTab or Ticks < mouseDownTimeStamp + 60) then
+		    draggingWholeTab = true
+		    swapTabsIfNeeded
+		  end if
 		  
 		  //visual feedback
 		  dim over as Boolean
-		  over=currentActionTab.mouseDrag(x,y)
+		  over = currentActionTab.mouseDrag(x,y)
 		  
-		  if over then self.Repaint
+		  if over or draggingWholeTab then self.Repaint
 		End Sub
 	#tag EndEvent
 
@@ -86,6 +149,8 @@ Inherits canvas
 
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
+		  draggingWholeTab = False
+		  
 		  //there's no active tab, check the moreTabs button...
 		  if currentActionTab=nil then
 		    call scrollRightIcn.mouseUp(x,y)
@@ -100,20 +165,12 @@ Inherits canvas
 		  upOk=currentActionTab.mouseUp(x,y)
 		  
 		  if closing and upOk then
-		    dim v as integer=currentActionTab.index
-		    if currentActionTab.index>0 then 'prevent closing sequence tab
-		      dim pc as integer=panelcount
-		      if panelcount=1 then
-		        //last tab - close the window
-		        me.Window.Close
-		      else
-		        //close tab...
-		        removeTab(currentActionTab.index)
-		      end if
-		    end if
+		    //close tab...
+		    removeTab(currentActionTab.index)
+		    
 		  elseif upOk and not closing then
 		    //move tab to front...
-		    value=currentActionTab.index
+		    value = currentActionTab.index
 		  end if
 		  
 		  self.Repaint
@@ -131,7 +188,7 @@ Inherits canvas
 		  // most of the double buffering code, original from Aaron Ballman.
 		  // Check to see whether the user is on a system that
 		  // requires double buffering
-		  #if TargetWin32 or TargetLinux
+		  #if TargetWin32
 		    // On Windows, we always want to double buffer
 		    mDoubleBuffer = true
 		  #elseif TargetMacOS
@@ -285,7 +342,8 @@ Inherits canvas
 		  
 		  tabs.Append(tab)
 		  drawOrder.Append(tab)
-		  tab.index=UBound(tabs)
+		  tab.index = UBound(tabs)
+		  tab.tabValue = tab.index
 		  
 		  sizeChanged
 		  
@@ -293,7 +351,7 @@ Inherits canvas
 		  
 		  if panel<>nil then
 		    panel.Append
-		    PanelPageAdded(panel,value)
+		    PanelPageAdded(panel, value)
 		  end if
 		  
 		  doTabChange(value)
@@ -302,25 +360,25 @@ Inherits canvas
 
 	#tag Method, Flags = &h0
 		Sub appendTab(caption as string)
-		  appendTab(new CustomTab(caption,nil,false, facing,me))
+		  appendTab(new CustomTab(caption,nil,false, facing))
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub appendTab(caption as string, closeBox as boolean)
-		  appendTab(new CustomTab(caption,nil,closeBox, facing,me))
+		  appendTab(new CustomTab(caption,nil,closeBox, facing))
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub appendTab(caption as string, icon as picture)
-		  appendTab(new CustomTab(caption,icon,false, facing,me))
+		  appendTab(new CustomTab(caption,icon,false, facing))
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub appendTab(caption as string, icon as picture, closeBox as boolean)
-		  appendTab(new CustomTab(caption,icon,closeBox, facing,me))
+		  appendTab(new CustomTab(caption,icon,closeBox, facing))
 		End Sub
 	#tag EndMethod
 
@@ -420,7 +478,7 @@ Inherits canvas
 	#tag Method, Flags = &h21
 		Private Sub doContextualMissingTabs()
 		  dim menu as new MenuItem
-		  dim tmp as new MenuItem
+		  dim tmp as MenuItem
 		  
 		  dim i as Integer
 		  
@@ -428,6 +486,7 @@ Inherits canvas
 		    tmp=new MenuItem(caption(i))
 		    tmp.tag=i
 		    if value=i then tmp.Checked=true
+		    if icon(i) <> nil then tmp.Icon = icon(i)
 		    menu.Append(tmp)
 		  next
 		  
@@ -460,7 +519,7 @@ Inherits canvas
 	#tag Method, Flags = &h21
 		Private Sub doTabChange(tabIndex as integer)
 		  if Panel<>nil then
-		    panel.Value=tabIndex
+		    panel.Value = tabs(tabIndex).tabValue
 		  end if
 		  
 		  tabChanged(tabIndex)
@@ -468,13 +527,26 @@ Inherits canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub doTabRemove(tabIndex as integer)
+		Private Sub doTabRemove(tabIndex as integer, tabValue as Integer)
 		  //remove page from PagePanel, if any
 		  if panel<>nil then
-		    panel.Remove(tabIndex)
-		    panel.Value=me.value
+		    panel.Remove(tabValue)
 		  end if
+		  
+		  fixTabValues(tabValue)
 		  sizeChanged
+		  
+		  if panel <> nil then
+		    dim idx as Integer = me.value
+		    dim tab as Integer = -1
+		    
+		    if idx >= 0 then
+		      tab = tabs(idx).tabValue
+		    end if
+		    
+		    panel.Value = tab
+		  end if
+		  
 		  tabRemoved(tabIndex)
 		End Sub
 	#tag EndMethod
@@ -543,6 +615,16 @@ Inherits canvas
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub fixTabValues(removedTabValue as integer)
+		  for i as Integer = 0 to UBound(tabs)
+		    if tabs(i).tabValue > removedTabValue then
+		      tabs(i).tabValue = tabs(i).tabValue - 1
+		    end if
+		  next
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function icon(tabIndex as integer) As picture
 		  //returns if a given tab has an icon
@@ -589,6 +671,7 @@ Inherits canvas
 		  dim targetLoc as integer
 		  if index<0 or index>UBound(tabs) then Return
 		  
+		  dim tabValue as Integer = tabs(index).tabValue
 		  tabs.Remove index
 		  drawOrder.Remove(drawIndex(index))
 		  
@@ -608,8 +691,9 @@ Inherits canvas
 		  else
 		    animateTabsUp(index,targetLoc)
 		  End If
+		  
 		  //do remove cleanup
-		  doTabRemove(index)
+		  doTabRemove(Index, tabValue)
 		End Sub
 	#tag EndMethod
 
@@ -727,6 +811,10 @@ Inherits canvas
 		    g.DrawPicture tmp,0,0
 		  end if
 		  
+		  if draggingWholeTab then
+		    g.DrawPicture currentActionTab.alphaTabPicture(0.7), max(dragRect(0) + dragOffsetX, 0), max(dragRect(1) + dragOffsetY, 0)
+		  end if
+		  
 		  'g.DrawRect 0,0,g.Width,g.Height
 		End Sub
 	#tag EndMethod
@@ -736,45 +824,74 @@ Inherits canvas
 		  //shrink the tabs!
 		  dim i, tabSize, endIdx, tx as Integer
 		  
-		  if scrollRightIcn<>Nil then 'cocoa workaround
-		    
-		    if scrollRightIcn.visible then
-		      endIdx=hiddenIndex-1
-		    else
-		      endIdx=UBound(tabs)
-		    end if
-		    
-		    if endIdx<0 then
-		      fixLocations
-		      Return
-		    end if
-		    
-		    //find the shrinking offset
-		    if Facing=NORTH or Facing=SOUTH then
-		      tabSize=round((Width-(tabs(endIdx).width+tabs(endIdx).x+rightTabOutline.Width))/tabCount)
-		    else
-		      tabSize=round((Height-(tabs(endIdx).height+tabs(endIdx).y+rightTabOutline.Width))/tabCount)
-		    End If
-		    
-		    if tabSize=0 then
-		      fixLocations
-		      Return
-		    end if
-		    
-		    if Facing=NORTH or Facing=SOUTH then
-		      for i=0 to endIdx
-		        tabs(i).width=tabs(i).width+tabSize
-		      next
-		    else
-		      for i=0 to endIdx
-		        tabs(i).height=tabs(i).height+tabSize
-		      next
-		    End If
-		    
-		    fixLocations
-		    
+		  if scrollRightIcn <> nil and scrollRightIcn.visible then
+		    endIdx = hiddenIndex-1
+		  else
+		    endIdx = UBound(tabs)
 		  end if
 		  
+		  if endIdx<0 then
+		    fixLocations
+		    Return
+		  end if
+		  
+		  //find the shrinking offset
+		  if Facing=NORTH or Facing=SOUTH then
+		    tabSize=round((Width-(tabs(endIdx).width+tabs(endIdx).x+rightTabOutline.Width))/tabCount)
+		  else
+		    tabSize=round((Height-(tabs(endIdx).height+tabs(endIdx).y+rightTabOutline.Width))/tabCount)
+		  End If
+		  
+		  if tabSize=0 then
+		    fixLocations
+		    Return
+		  end if
+		  
+		  if Facing=NORTH or Facing=SOUTH then
+		    for i=0 to endIdx
+		      tabs(i).width=tabs(i).width+tabSize
+		    next
+		  else
+		    for i=0 to endIdx
+		      tabs(i).height=tabs(i).height+tabSize
+		    next
+		  End If
+		  
+		  fixLocations
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub swapTabsIfNeeded()
+		  //see if the dragged tab overlaps another one...
+		  dim x, y, w, h, mx, my as Integer
+		  
+		  x = max(dragRect(0) + dragOffsetX, 0)
+		  y = max(dragRect(1) + dragOffsetY, 0)
+		  
+		  w = dragRect(2)
+		  h = dragRect(3)
+		  
+		  mx = x + w / 2
+		  my = y + h / 2
+		  
+		  dim tab as CustomTab
+		  for i as Integer = 0 to UBound(tabs)
+		    tab = tabs(i)
+		    
+		    if tab = currentActionTab then continue for
+		    
+		    if ((Facing = NORTH or Facing = SOUTH) and mx >= tab.x + leftTabOutline.Width and mx <= tab.x + tab.width - rightTabOutline.Width) or _
+		      ((Facing = WEST or Facing = EAST) and my >= tab.y + leftTabOutline.Height and my <= tab.y + tab.height - rightTabOutline.Height) then
+		      
+		      tabs(i) = currentActionTab
+		      tabs(currentActionTab.index) = tab
+		      fixLocations
+		      exit for
+		    end if
+		  next
 		End Sub
 	#tag EndMethod
 
@@ -801,7 +918,7 @@ Inherits canvas
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event MouseDown()
+		Event ConstructTabContextualMenu(tab as CustomTab, base as MenuItem) As Boolean
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
@@ -817,14 +934,22 @@ Inherits canvas
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
+		Event TabContextualMenuAction(tab as CustomTab, menu as MenuItem)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
 		Event TabRemoved(tabIndex as integer)
 	#tag EndHook
 
 
 	#tag Note, Name = About
-		CustomTabPanelTabs 1.6
+		CustomTabPanelTabs 1.7
+		Double buffering code modified from Aaron Ballman's double buffered canvas: http://ramblings.aaronballman.com/2005/07/Double_Buffering.html
 		
 		changes:
+		version 1.7, 05/14/09
+		Added drag reorder.
+		
 		version 1.6, 11/27/07
 		Added an enumeration to the facing property.
 		Fixed a couple of small bugs that prevented a tab to update when the caption had the same width as the previous caption
@@ -893,6 +1018,8 @@ Inherits canvas
 		let me know if you find it useful.
 		
 		If you decide to use it in your projects, please give me credit in your about window, thanks.
+		
+		
 	#tag EndNote
 
 
@@ -901,7 +1028,27 @@ Inherits canvas
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
+		Private draggingWholeTab As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private dragOffsetX As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private dragOffsetY As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private dragRect(4) As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private drawOrder() As customTab
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		EnableTabReordering As Boolean = true
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -930,6 +1077,14 @@ Inherits canvas
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
+		Private lastMouseX As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private lastMouseY As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private lastWidth As Integer
 	#tag EndProperty
 
@@ -942,21 +1097,16 @@ Inherits canvas
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
+		Private mouseDownTimeStamp As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private nextLoc As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private panel As pagePanel
 	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h21
-		#tag Getter
-			Get
-			  return ubound(tabs)+1
-			End Get
-		#tag EndGetter
-		Private PanelCount As Integer
-	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
 		Private scrollRightIcn As littleMiscButton
@@ -995,7 +1145,6 @@ Inherits canvas
 			    if enabled(value) then
 			      moveTabToFront(value)
 			      doTabChange(value)
-			      mousedown
 			    end if
 			    self.Repaint
 			  end if
@@ -1047,6 +1196,12 @@ Inherits canvas
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="EnableTabReordering"
+			Group="Behavior"
+			InitialValue="0"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="EraseBackground"
 			Visible=true
 			Group="Behavior"
@@ -1090,6 +1245,7 @@ Inherits canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
+			Group="Behavior"
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
