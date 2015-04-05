@@ -1041,17 +1041,11 @@ End
 		          genomeWin.AnyHitDeselected=false
 		        end if
 		        
-		        T1=microseconds-ms
-		        #if DebugBuild
-		          WriteToSTDOUT (EndofLine+"Processing hits before opening .gb file took "+str(t1/1000000)+" seconds")
-		        #endif
+		        
 		        
 		        if Ubound(genomeWin.HmmHits)>0 then
-		          WriteToSTDOUT (EndofLine+"Loading the GenBank file (this may take a while)...")
+		          WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
 		          
-		          
-		          
-		          ms=microseconds
 		          'Set the genome map scrollbar:
 		          Genomewin.SetScrollbar
 		          
@@ -1063,12 +1057,6 @@ End
 		          s1.Title="1/"+str(UBound(genomeWin.HmmHits))
 		          Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
 		          s2.enabled=true
-		          
-		          
-		          T1=microseconds-ms
-		          #if DebugBuild
-		            WriteToSTDOUT (EndofLine+"Showing first hit took "+str(t1/1000000)+" seconds")
-		          #endif
 		          
 		          WriteToSTDOUT (EndofLine+"Hits are being shown in a separate window.")
 		          

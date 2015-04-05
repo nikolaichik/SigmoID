@@ -1156,11 +1156,11 @@ End
 		  seq=new cSeqObject
 		  u=ubound(Genome.Features)
 		  
-		  'speed things up:
-		  #pragma BackgroundTasks false
-		  #pragma BoundsChecking false
-		  #pragma NilObjectChecking false
-		  #pragma StackOverflowChecking false
+		  ''speed things up:
+		  '#pragma BackgroundTasks false
+		  '#pragma BoundsChecking false
+		  '#pragma NilObjectChecking false
+		  '#pragma StackOverflowChecking false
 		  
 		  for n=1 to u
 		    ft=Genome.Features(n)
@@ -1205,7 +1205,7 @@ End
 		      CurrentFeature=FragmentFeature.FeatureText
 		      'feature description parsing:
 		      cf1=nthfield(CurrentFeature,cLineEnd,1)
-		      name=rtrim(leftb(cf1,16))      'feature name
+		      name=trim(leftb(cf1,16))      'feature name
 		      FragmentFeature.type=name
 		      'if leftb(start,1)=">" OR leftb(start,1)= "<" then
 		      'start=midb(start,2,lenb(start)-1)
@@ -1297,20 +1297,6 @@ End
 		  
 		  
 		  dim Fragmentleft,Fragmentright as integer
-		  'adjusting coords to Feature
-		  
-		  'FragmentLeft=lenB(Genome.Sequence)
-		  'FragmentRight=1
-		  'u=ubound(Seq.Features)
-		  'for n=1 to u
-		  'if seq.features(n).start<Fragmentleft then
-		  'FragmentLeft=seq.features(n).start
-		  'end if
-		  'if seq.features(n).finish>FragmentRight then
-		  'FragmentRight=seq.features(n).Finish
-		  'end if
-		  'next
-		  
 		  FragmentLeft=FragmentStart
 		  FragmentRight=FragmentEnd
 		  GBrowseShift=FragmentLeft
@@ -1322,7 +1308,6 @@ End
 		  for n=1 to u
 		    seq.features(n).start=seq.features(n).start-Fragmentleft
 		    seq.features(n).finish=seq.features(n).finish-Fragmentleft
-		    
 		    'need to correct linshape.X too and only then call Arrowinit!
 		    seq.features(n).linShape=new cClickableShape
 		    seq.features(n).linShape.X=seq.features(n).linShape.X-Fragmentleft
@@ -1340,41 +1325,23 @@ End
 		  dim CF,CM as GBFeature
 		  
 		  'spread overlapping features across rows:
+		  'spread fails for SCRI1043 around birA
+		  
 		  for n=1 to u
-		    'if seq.Features(n).Visible then
-		    'if w.seq.Features(n).type="promoter" AND w.seq.Features(n).length<35 then
-		    'else
 		    CF=seq.Features(n)
-		    
 		    for m=1 to n-1
-		      'if seq.Features(m).Visible then
-		      'if w.seq.Features(n).type="promoter" AND w.seq.Features(n).length<35 then
-		      'else
 		      CM=seq.Features(m)
-		      'if CF.finish>CM.start AND CF.start< CM.finish then
-		      'seq.FtRow(m)=seq.FtRow(m)+1
-		      'elseif CF.start<CM.finish AND CF.start>CM.start  then
-		      'seq.FtRow(m)=seq.FtRow(m)+1
-		      'end
 		      if CF.finish>=CM.start AND CF.start<=CM.start then
-		        seq.FtRow(m)=seq.FtRow(m)+1
+		        SpreadFeatures(n,m,cf.type,cm.type)
 		      elseif CF.start<=CM.finish AND CF.start>=CM.start  then
-		        seq.FtRow(m)=seq.FtRow(m)+1
+		        SpreadFeatures(n,m,cf.type,cm.type)
 		      elseif CF.start>=CM.finish AND CF.finish<=CM.finish  then
-		        seq.FtRow(m)=seq.FtRow(m)+1
+		        SpreadFeatures(n,m,cf.type,cm.type)
 		      elseif CF.start<=CM.start AND CF.finish>=CM.finish  then
-		        seq.FtRow(m)=seq.FtRow(m)+1
+		        SpreadFeatures(n,m,cf.type,cm.type)
 		      end
-		      'end
-		      'end
-		    Next
-		    'end
-		    'end
-		  Next
-		  
-		  seq.Circular=false
-		  
-		  
+		    Next 'm
+		  Next 'n
 		  
 		  MapInit 'calculate all the rest SeqObject properties, including the map
 		  'editor.text=seq.sequence
@@ -1413,7 +1380,7 @@ End
 		  
 		  'get coordinates:
 		  cf1=nthfield(FeatureText,cLineEnd,1)
-		  name=rtrim(leftb(cf1,16))      'feature name
+		  name=trim(leftb(cf1,16))      'feature name
 		  if InStrB(17,cf1,"complement")>0 then
 		    Feature.complement=true
 		    if InStrB(27,cf1,"order")>0 then
@@ -1674,9 +1641,6 @@ End
 		      minX=miX
 		    else
 		      if miX<minX then
-		        if miX<-1 then
-		          'beep
-		        end if
 		        minX=miX
 		      end
 		    end if
@@ -1687,9 +1651,6 @@ End
 		      minY=miY
 		    else
 		      if miY<minY then
-		        if miX<-1 then
-		          'beep
-		        end if
 		        minY=miY
 		      end
 		    end if
@@ -1993,9 +1954,6 @@ End
 		  
 		  w=self
 		  
-		  #if DebugBuild
-		    ms=Microseconds
-		  #endif
 		  
 		  'genome browser should be wide
 		  if Screen(0).width>1280 then
@@ -2073,11 +2031,6 @@ End
 		    currentFeature=""
 		    w.Genome.features(0)=new GBfeature(w.Genome.baselineY)   'this will store map title/sequence size
 		    
-		    #if DebugBuild
-		      tm=microseconds-ms
-		      LogoWin.WriteToSTDOUT (EndofLine+"Preliminary feature cleanup took "+str(tm/1000000)+" seconds")
-		      ms=Microseconds
-		    #endif
 		    
 		    features=ConvertEncoding(features,Encodings.ASCII)
 		    
@@ -2103,12 +2056,12 @@ End
 		            '3576341..3576409,3576467..3576532))
 		            'CDS             complement(join(2497077..2497340,2497344..2497514))
 		            NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",3))
-		            splitCoords=NthFieldB(currentFeature,")",1)
-		            NewFeature.finish=val(replace((nthFieldB(splitCoords,"..",countfieldsB(splitCoords,".."))),"<",""))  'replacement to correct for partial features
+		            NewFeature.finish=val(nthFieldB(cf1,"..",countfieldsB(cf1,"..")))  'replacement to correct for partial features
 		          else
 		            coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
 		            NewFeature.start=val(nthFieldB(coord,"..",2))
-		            NewFeature.finish=val(replace((nthFieldB(coord,"..",1)),"<",""))  'replacement to correct for partial features
+		            'NewFeature.finish=val(replace((nthFieldB(coord,"..",1)),"<",""))  'replacement to correct for partial features
+		            NewFeature.finish=val(nthFieldB(coord,"..",1))  'replacement to correct for partial features
 		          end if
 		        else
 		          if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then
@@ -2118,8 +2071,9 @@ End
 		            'CDS             join(843475..843549,843551..844573)
 		            
 		            NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",2))
-		            splitCoords=NthFieldB(currentFeature,")",1)
-		            NewFeature.finish=val(nthFieldB(splitCoords,"..",CountFieldsB(splitCoords,"..") ))
+		            'splitCoords=NthFieldB(currentFeature,")",1)
+		            'NewFeature.finish=val(nthFieldB(splitCoords,"..",CountFieldsB(splitCoords,"..") ))
+		            NewFeature.finish=val(nthFieldB(cf1,"..",CountFieldsB(cf1,"..")))
 		          else
 		            'NewFeature.complement=false false is the default
 		            coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
@@ -2142,11 +2096,7 @@ End
 		    w.FormattedSequence=rightb(s,len(s)-instrb(s,"ORIGIN")-7)
 		    w.Genome.sequence=CleanUp(w.FormattedSequence)
 		    
-		    #if DebugBuild
-		      tm=microseconds-ms
-		      LogoWin.WriteToSTDOUT (EndofLine+"Genome cleanup took "+str(tm/1000000)+" seconds")
-		      ms=Microseconds
-		    #endif
+		    
 		    
 		  else
 		    msgbox kInvalidGenbankFile
@@ -2170,10 +2120,6 @@ End
 		  '
 		  'GoToWin.Parent=w
 		  'GoToWin.ShowModalWithin(w)
-		  #if DebugBuild
-		    tm=microseconds-ms
-		    LogoWin.WriteToSTDOUT (EndofLine+"Finishing took "+str(tm/1000000)+" seconds")
-		  #endif
 		  
 		  w.GenomeFile=f
 		  
@@ -2565,6 +2511,28 @@ End
 		  UpdateMapCanvas
 		  UpdateMapCanvasSelection
 		  genomeWin.Show
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SpreadFeatures(firstF as integer, secF as integer, firstFtype as string, secFtype as string)
+		  'spread overlapping features across rows according to
+		  'preferred feature type order
+		  
+		  const PreferredOrder as string ="CDS,gene" 'ascending preference
+		  
+		  dim pref1,pref2 as integer
+		  
+		  pref1=instr(PreferredOrder,firstFtype)
+		  pref2=instr(PreferredOrder,secFtype)
+		  
+		  if Pref1>Pref2 then 'move second feature down
+		    seq.FtRow(secF)=seq.FtRow(secF)+1
+		  else
+		    seq.FtRow(firstF)=seq.FtRow(firstF)+1
+		  end if
+		  
+		  '
 		End Sub
 	#tag EndMethod
 
@@ -4243,25 +4211,22 @@ End
 		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
 		  dim UUID,theURL as string
 		  
-		  If me.errorCode=0 then
-		    'get the UUID from text result that look like this:
-		    'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
-		    SearchProgressBar.Refresh
-		    
-		    UUID=NthField(Content,"/results/",2)
-		    UUID=NthField(UUID,"/score",1)
-		    theURL="http://hmmer.janelia.org/results/score/"+UUID
-		    'now simply load the corrected URL:
-		    if TMdisplay.Visible then
-		      TMdisplay.Visible=false
-		      TMdisplayAdjustment
-		    end if
-		    SPSearchViewer.LoadURL(theURL)
-		    SearchProgressBar.Refresh
-		    
-		  else
-		    beep
+		  'get the UUID from text result that look like this:
+		  'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
+		  SearchProgressBar.Refresh
+		  
+		  UUID=NthField(Content,"/results/",2)
+		  UUID=NthField(UUID,"/score",1)
+		  theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  'now simply load the corrected URL:
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
 		  end if
+		  SPSearchViewer.LoadURL(theURL)
+		  SearchProgressBar.Refresh
+		  
+		  
 		  
 		  
 		  Exception err

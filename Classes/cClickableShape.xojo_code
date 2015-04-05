@@ -31,12 +31,6 @@ Inherits FigureShape
 		  'return false
 		  'end
 		  
-		  'debug
-		  if (maxX-minX)>100000 then
-		    dim d as integer=maxX-minX
-		    beep
-		  end if
-		  '/debug
 		  
 		  if X<minX then
 		    return false
@@ -48,10 +42,6 @@ Inherits FigureShape
 		    return false
 		  end
 		  
-		  if (maxX-minX)>100000 then
-		    dim d as integer=maxX-minX
-		    beep
-		  end if
 		  
 		  wid=(maxX-minX)'*me.scale
 		  hei=(maxY-minY)'*me.scale
