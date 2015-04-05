@@ -21,23 +21,44 @@ Inherits FigureShape
 		  dim wid, hei as integer
 		  
 		  'first simple checks:
-		  if X<minX*me.scale then
+		  'if X<minX*me.scale then
+		  'return false
+		  'elseif X>maxX*me.scale then
+		  'return false
+		  'elseif Y<minY*me.scale then
+		  'return false
+		  'elseif Y>maxY*me.scale then
+		  'return false
+		  'end
+		  
+		  'debug
+		  if (maxX-minX)>100000 then
+		    dim d as integer=maxX-minX
+		    beep
+		  end if
+		  '/debug
+		  
+		  if X<minX then
 		    return false
-		  elseif X>maxX*me.scale then
+		  elseif X>maxX then
 		    return false
-		  elseif Y<minY*me.scale then
+		  elseif Y<minY then
 		    return false
-		  elseif Y>maxY*me.scale then
+		  elseif Y>maxY then
 		    return false
 		  end
 		  
-		  wid=(maxX-minX)*me.scale
-		  hei=(maxY-minY)*me.scale
+		  if (maxX-minX)>100000 then
+		    dim d as integer=maxX-minX
+		    beep
+		  end if
+		  
+		  wid=(maxX-minX)'*me.scale
+		  hei=(maxY-minY)'*me.scale
 		  p = new Picture (wid+1, hei+1)
 		  if p = nil then
 		    'beep
-		    msgBox "Sorry, there's not enough memory to run the program."
-		    msgBox "I must quit now."
+		    msgBox "Sorry, there's not enough memory to run. I must quit now."
 		    quit
 		  end if
 		  p.graphics.ForeColor=RGB(255,255,255) 'white

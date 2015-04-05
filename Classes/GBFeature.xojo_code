@@ -77,6 +77,9 @@ Protected Class GBFeature
 		  linshape.Border=100
 		  linShape.borderwidth=me.BorderWidth
 		  linshape.BorderColor=me.BorderColor
+		  if x3-x1>100000 then
+		    beep
+		  end if
 		  
 		End Sub
 	#tag EndMethod

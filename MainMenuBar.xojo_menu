@@ -300,7 +300,7 @@ Begin Menu MainMenuBar
          ShortcutKey = "G"
          Shortcut = "Cmd+G"
          MenuModifier = True
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
    End

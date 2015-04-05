@@ -599,6 +599,9 @@ End
 		  end if
 		  
 		  GenomeFind.enable
+		  if SearchPosition>0 then
+		    GenomeFindAgain.Enable
+		  end if
 		  GenomeGoto.enable
 		  
 		  
@@ -935,45 +938,24 @@ End
 
 	#tag MenuHandler
 		Function GenomeFind() As Boolean Handles GenomeFind.Action
-			dim m,n,u,coord As Integer
-			dim ft as GBFeature
-			dim query,genomeFtext as string
-			
+			//********* Still to do *************
+			' detect if query is sequence or text
+			' raw sequence search
+			' add search field to toolbar
+			' find again
+			//***********************************
 			
 			FindWin.showmodalwithin(self)
+			
 			if FindWin.OKpressed then
+			SearchPosition=0
 			query=trim(FindWin.FindField.text)
 			
-			u=ubound(Genome.Features)
-			
-			'speed things up:
-			#pragma BackgroundTasks false
-			#pragma BoundsChecking false
-			#pragma NilObjectChecking false
-			#pragma StackOverflowChecking false
-			
-			'search within feature text:
-			for n=1 to u
-			ft=Genome.Features(n)
-			if instrB(ft.FeatureText,query)>0 then
-			'show the feature within genome context
-			coord=(ft.start+ft.Finish)/2
-			ExtractFragment(coord-Genomewin.DisplayInterval/2,coord+Genomewin.DisplayInterval/2)
-			'set the scrollbar:
-			Genomewin.HScrollBar.value=coord
-			
-			'find the feature number within the displayed fragment
-			genomeFtext=ft.FeatureText
-			for m=1 to UBound(seq.Features)
-			ft=Seq.Features(m)
-			if ft.FeatureText=genomeFtext then
-			SelectFeature(m)
-			exit
+			if isACGT(query) then 'detect if query is sequence or plain text
+			'Search4sequence(query)
+			else
+			Search4text(query)
 			end if
-			next
-			exit
-			end if
-			next
 			end if
 			
 		End Function
@@ -981,7 +963,13 @@ End
 
 	#tag MenuHandler
 		Function GenomeFindAgain() As Boolean Handles GenomeFindAgain.Action
+			'continue from the current SearchPosition
 			
+			if isACGT(query) then 'detect if query is sequence or plain text
+			'Search4sequence(query)
+			else
+			Search4text(query)
+			end if
 			
 		End Function
 	#tag EndMenuHandler
@@ -1903,6 +1891,24 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function isACGT(query as string) As Boolean
+		  dim l,n as integer
+		  dim s,ACTG as string
+		  
+		  ACTG="ACTG"
+		  l=lenb(query)
+		  for n=1 to l
+		    s=midB(query,n,1)
+		    if instrB(ACTG,s)=0 then
+		      return false
+		    end if
+		  next
+		  
+		  return true
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub LoadVV()
 		  Dim f, f1, f2 As FolderItem
 		  Dim v As VirtualVolume
@@ -1977,15 +1983,13 @@ End
 	#tag Method, Flags = &h0
 		Sub OpenGenBankFile(f as folderitem)
 		  dim stre as textInputStream
-		  dim s,s0,features,currentFeature, cf1,name,coord,start,finish,Separator,splitCoords,leftC as string
+		  dim s,s0,features,currentFeature, cf1,name,coord,start,finish,Separator,splitCoords,leftC,FeatureArray(-1) as string
 		  dim en,st,l,m,n,p,p1,p2,p3,p4,p5 as integer
 		  dim t as double
 		  dim exitParsing as boolean
 		  dim w, toClose as GenomeWin
 		  dim NewFeature as GBFeature
 		  dim ms,tm as double
-		  
-		  
 		  
 		  w=self
 		  
@@ -2076,47 +2080,55 @@ End
 		    #endif
 		    
 		    features=ConvertEncoding(features,Encodings.ASCII)
-		    for n=1 to m'+1
-		      currentFeature=Nthfield(features,Separator,n)
+		    
+		    featureArray=Split(features,Separator)
+		    for n=0 to m-1 
+		      currentFeature=featureArray(n)
 		      
 		      'feature description parsing:
 		      cf1=nthfield(currentFeature,cLineEnd,1)
-		      name=rtrim(leftb(cf1,16))      'feature name
-		      
-		      NewFeature=new GBfeature(w.Genome.baselineY)
-		      NewFeature.featureText=currentFeature
-		      'now check the direction and coorginates:
-		      if InStrB(17,cf1,"complement")>0 then
-		        NewFeature.complement=true
-		        'gene            complement(2659..4155)
-		        if InStrB(27,cf1,"order")>0 then
-		          'split feature
-		          NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",3))
-		          'misc_feature    complement(order(3576182..3576235,3576263..3576322,
-		          '3576341..3576409,3576467..3576532))
-		          splitCoords=NthFieldB(currentFeature,")",1)
-		          NewFeature.finish=val(nthFieldB(splitCoords,"..",countfieldsB(splitCoords,"..") ))
+		      name=trim(leftb(cf1,16))      'feature name
+		      if name <>"source" then 'skip first feature which is supposed to be source
+		        NewFeature=new GBfeature(w.Genome.baselineY)
+		        NewFeature.featureText=currentFeature
+		        'now check the direction and coorginates:
+		        cf1=replace((cf1),"<","")  'remove markers of truncated genes to simplify coordinate parsing
+		        cf1=replace((cf1),">","")
+		        if InStrB(17,cf1,"complement")>0 then
+		          NewFeature.complement=true
+		          'gene            complement(2659..4155)
+		          if InStrB(27,cf1,"order")>0 OR InStrB(27,cf1,"join")>0 then
+		            'split feature:
+		            'misc_feature    complement(order(3576182..3576235,3576263..3576322,
+		            '3576341..3576409,3576467..3576532))
+		            'CDS             complement(join(2497077..2497340,2497344..2497514))
+		            NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",3))
+		            splitCoords=NthFieldB(currentFeature,")",1)
+		            NewFeature.finish=val(replace((nthFieldB(splitCoords,"..",countfieldsB(splitCoords,".."))),"<",""))  'replacement to correct for partial features
+		          else
+		            coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
+		            NewFeature.start=val(nthFieldB(coord,"..",2))
+		            NewFeature.finish=val(replace((nthFieldB(coord,"..",1)),"<",""))  'replacement to correct for partial features
+		          end if
 		        else
-		          coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
-		          NewFeature.start=val(nthFieldB(coord,"..",2))
-		          NewFeature.finish=val(nthFieldB(coord,"..",1))
+		          if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then
+		            'split feature:
+		            'misc_feature    order(343373..343441,343469..343537,343652..343720,
+		            '343799..343867,343925..343984)
+		            'CDS             join(843475..843549,843551..844573)
+		            
+		            NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",2))
+		            splitCoords=NthFieldB(currentFeature,")",1)
+		            NewFeature.finish=val(nthFieldB(splitCoords,"..",CountFieldsB(splitCoords,"..") ))
+		          else
+		            'NewFeature.complement=false false is the default
+		            coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
+		            NewFeature.start=val(NthFieldB(coord,"..",1))
+		            NewFeature.finish=val(nthFieldB(coord,"..",2))
+		          end if
 		        end if
-		      else
-		        if InStrB(17,cf1,"order")>0 then
-		          'split feature
-		          NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",2))
-		          'misc_feature    order(343373..343441,343469..343537,343652..343720,
-		          '343799..343867,343925..343984)
-		          splitCoords=NthFieldB(currentFeature,")",1)
-		          NewFeature.finish=val(nthFieldB(splitCoords,"..",CountFieldsB(splitCoords,"..") ))
-		        else
-		          'NewFeature.complement=false false is the default
-		          coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
-		          NewFeature.start=val(NthFieldB(coord,"..",1))
-		          NewFeature.finish=val(nthFieldB(coord,"..",2))
-		        end if
+		        w.Genome.features.Append NewFeature
 		      end if
-		      w.Genome.features.Append NewFeature
 		      
 		    next 'n
 		    
@@ -2287,6 +2299,52 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Search4text(query as string)
+		  'search for text within feature table
+		  
+		  dim m,n,u,coord As Integer
+		  dim ft as GBFeature
+		  dim genomeFtext as string
+		  
+		  u=ubound(Genome.Features)
+		  
+		  ''speed things up:
+		  '#pragma BackgroundTasks false
+		  '#pragma BoundsChecking false
+		  '#pragma NilObjectChecking false
+		  '#pragma StackOverflowChecking false
+		  
+		  for n=SearchPosition+1 to u
+		    ft=Genome.Features(n)
+		    if instrB(ft.FeatureText,query)>0 then
+		      SearchPosition=n
+		      'show the feature within genome context
+		      coord=(ft.start+ft.Finish)/2
+		      ExtractFragment(coord-Genomewin.DisplayInterval/2,coord+Genomewin.DisplayInterval/2)
+		      'set the scrollbar:
+		      Genomewin.HScrollBar.value=coord
+		      
+		      'find the feature number within the displayed fragment
+		      genomeFtext=ft.FeatureText
+		      for m=1 to UBound(seq.Features)
+		        ft=Seq.Features(m)
+		        if ft.FeatureText=genomeFtext then
+		          SelectFeature(m)
+		          exit
+		        end if
+		      next
+		      exit
+		    else
+		      SearchPosition=0 'FindAgain resumes from the beginning
+		    end if
+		  next
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:Search4text")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SelChange()
 		  dim p as picture
 		  dim m,n as integer
@@ -2358,7 +2416,7 @@ End
 		  end
 		  
 		  'Change selected feature colour
-		  cClickableShape(Seq.Map.Objects.Item(selFeatureNo*2)).toggleSelection 
+		  cClickableShape(Seq.Map.Objects.Item(selFeatureNo*2)).toggleSelection
 		  
 		  'add selection highlight:
 		  UpdateMapCanvasSelection
@@ -3153,14 +3211,6 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Query2 As string
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		QueryGap As integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		RE1 As string
 	#tag EndProperty
 
@@ -3226,6 +3276,10 @@ End
 
 	#tag Property, Flags = &h0
 		Scales As string = "25,33,50,75,100,125,150,200,300,400,800"
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SearchPosition As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -4757,18 +4811,6 @@ End
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Query2"
-		Group="Behavior"
-		Type="string"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="QueryGap"
-		Group="Behavior"
-		InitialValue="0"
-		Type="integer"
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="RE1"
 		Group="Behavior"
 		Type="string"
@@ -4872,6 +4914,11 @@ End
 		InitialValue="25,33,50,75,100,125,150,200,300,400"
 		Type="string"
 		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="SearchPosition"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SelColor"
