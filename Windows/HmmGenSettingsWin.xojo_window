@@ -91,7 +91,7 @@ Begin Window HmmGenSettingsWin
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton PushButton2
+   Begin PushButton CancelButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
@@ -764,22 +764,27 @@ End
 	#tag EndMethod
 
 
+	#tag Property, Flags = &h0
+		OKPressed As boolean
+	#tag EndProperty
+
+
 #tag EndWindowCode
 
 #tag Events RunButton
 	#tag Event
 		Sub Action()
 		  self.ReadOptions
-		  
+		  self.OKPressed=true
 		  self.hide
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton2
+#tag Events CancelButton
 	#tag Event
 		Sub Action()
 		  LogoWin.nhmmeroptions=""
-		  
+		  self.OKPressed=false
 		  self.hide
 		End Sub
 	#tag EndEvent

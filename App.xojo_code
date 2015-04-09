@@ -107,6 +107,7 @@ Inherits Application
 			
 			dim GenomeFile as folderitem = GetOpenFolderItem("")
 			if GenomeFile<> Nil then
+			GenomeWin.close 'to reinitialise things
 			GenomeWin.opengenbankfile(GenomeFile)
 			GenomeWin.ExtractFragment(1000,10000)
 			GenomeWin.SegmentedControl1.Enabled=false

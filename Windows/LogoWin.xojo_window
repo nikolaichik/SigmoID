@@ -1058,8 +1058,6 @@ End
 		          Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
 		          s2.enabled=true
 		          
-		          WriteToSTDOUT (EndofLine+"Hits are being shown in a separate window.")
-		          
 		        end if
 		      else
 		        WriteToSTDOUT (EndofLine+"HmmGen error Code: "+Str(sh.errorCode)+EndofLine)
@@ -1088,8 +1086,16 @@ End
 		      'set behaviour
 		      SigFileOpened=true
 		      nhmmerSettingsWin.MaskingBox.enabled=false
-		      nhmmerSettingsWin.CutoffBox.enabled=true
-		      nhmmerSettingsWin.ThresholdsBox.enabled=false
+		      'nhmmerSettingsWin.CutoffBox.enabled=true
+		      'nhmmerSettingsWin.ThresholdsBox.enabled=false
+		      nhmmerSettingsWin.BitScoreField.enabled=true
+		      nhmmerSettingsWin.BitScoreButton.enabled=false
+		      nhmmerSettingsWin.EvalueButton.enabled=false
+		      'nhmmerSettingsWin.CutOffBox.enabled=false
+		      nhmmerSettingsWin.ThresholdsBox.enabled=true
+		      
+		      nhmmerSettingsWin.BitScoreField.text=""
+		      nhmmerSettingsWin.EvalueField.Text=""
 		      nhmmerSettingsWin.MaskingBox.HelpTag="Positions selected in the logo above will be masked according to the algorithm chosen." ' Disabled as the calibrated profile cannot be masked."
 		      nhmmerSettingsWin.CutoffBox.HelpTag="Use score tresholds stored in the profile."
 		      nhmmerSettingsWin.ThresholdsBox.HelpTag="Thresholds to use with uncalibrated profile. Disabled as the cutoffs from the opened calibrated profile will be used."
@@ -1138,7 +1144,6 @@ End
 		      HmmGenSettingsWin.EvalueField.enabled=false
 		      HmmGenSettingsWin.EvalueButton.enabled=false
 		      
-		      
 		      f=vv.root.child(basename+".hmm")      'Hmm profile
 		      InStream = f.OpenAsTextFile
 		      if InStream <>nil then
@@ -1172,15 +1177,15 @@ End
 		        case "--cut_ga"
 		          nhmmerSettingsWin.gaButton.Value=true
 		          HmmGenSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.GAvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
-		          nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.GAvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
+		          'nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.GAvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
 		        case "--cut_nc"
 		          nhmmerSettingsWin.ncButton.Value=true
 		          HmmGenSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.NCvalue.text,2,len(nhmmerSettingsWin.NCvalue.text)-2)
-		          nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.NCvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
+		          'nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.NCvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
 		        case "--cut_tc"
 		          nhmmerSettingsWin.tcButton.Value=true
 		          HmmGenSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.TCvalue.text,2,len(nhmmerSettingsWin.TCvalue.text)-2)
-		          nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.TCvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
+		          'nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.TCvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
 		        end select
 		      next
 		      'HmmGen options
@@ -1219,6 +1224,9 @@ End
 		      HmmGenSettingsWin.EvalueButton.enabled=true
 		      nhmmerSettingsWin.MaskingBox.enabled=true
 		      nhmmerSettingsWin.CutoffBox.enabled=false
+		      nhmmerSettingsWin.TCvalue.text=""
+		      nhmmerSettingsWin.GAvalue.text=""
+		      nhmmerSettingsWin.NCvalue.text=""
 		      nhmmerSettingsWin.ThresholdsBox.enabled=true
 		      nhmmerSettingsWin.MaskingBox.HelpTag="Positions selected in the logo above will be masked according to the algorithm chosen."
 		      nhmmerSettingsWin.CutoffBox.HelpTag="Use score tresholds stored in the profile. Disabled as you are not using calibrated profile."
@@ -1861,7 +1869,7 @@ End
 		  Case "HmmGenTool"
 		    HmmGenOptions=""
 		    HmmGenSettingsWin.showmodalwithin(self)
-		    if hmmgenoptions<>"" then
+		    if HmmGenSettingsWin.OKpressed then
 		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 		      HmmGen GetSaveFolderItem("????",fn)
 		      'Load the Seq:

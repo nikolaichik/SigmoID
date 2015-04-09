@@ -856,7 +856,7 @@ Begin Window nhmmerSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "100"
+         Text            =   ""
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -899,7 +899,7 @@ Begin Window nhmmerSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "10"
+         Text            =   ""
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -1044,6 +1044,36 @@ End
 		    end if
 		    GenomeField.text=LogoWin.Genomefile.shellpath
 		    RunButton.enabled=true
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events EvalueField
+	#tag Event
+		Sub TextChange()
+		  if me.Text<>"" then
+		    CutoffBox.Enabled=false
+		    EvalueButton.enabled=true
+		  else
+		    EvalueButton.enabled=false
+		    if BitScoreField.text="" then
+		      CutoffBox.Enabled=true
+		    end if
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BitScoreField
+	#tag Event
+		Sub TextChange()
+		  if me.Text<>"" then
+		    CutoffBox.Enabled=false
+		    BitScoreButton.enabled=true
+		  else
+		    BitScoreButton.enabled=false
+		    if EvalueField.text="" then
+		      CutoffBox.Enabled=true
+		    end if
 		  end if
 		End Sub
 	#tag EndEvent

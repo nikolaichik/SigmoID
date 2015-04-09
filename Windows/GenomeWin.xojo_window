@@ -1950,7 +1950,6 @@ End
 		  dim exitParsing as boolean
 		  dim w, toClose as GenomeWin
 		  dim NewFeature as GBFeature
-		  dim ms,tm as double
 		  
 		  w=self
 		  
@@ -2086,11 +2085,6 @@ End
 		      
 		    next 'n
 		    
-		    #if DebugBuild
-		      tm=microseconds-ms
-		      LogoWin.WriteToSTDOUT (EndofLine+"Feature processing took "+str(tm/1000000)+" seconds")
-		      ms=Microseconds
-		    #endif
 		    
 		    's=DefineEncoding ("",Encodings.ASCII)
 		    w.FormattedSequence=rightb(s,len(s)-instrb(s,"ORIGIN")-7)
