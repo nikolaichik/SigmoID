@@ -688,6 +688,24 @@ End
 		    RunButton.enabled=true
 		  END IF
 		  
+		  'put the value used by hmmer in threshold box here:
+		   if nhmmerSettingsWin.BitScoreButton.value AND nhmmerSettingsWin.BitScoreButton.enabled then
+		    me.BitScoreButton.value=true
+		    me.BitScoreField.text=nhmmerSettingsWin.BitScoreField.text
+		  elseif nhmmerSettingsWin.EvalueButton.value AND nhmmerSettingsWin.EvalueButton.enabled  then
+		    me.EvalueButton.value=true
+		    me.EvalueField.text=nhmmerSettingsWin.EvalueField.text
+		  elseif nhmmerSettingsWin.tcButton.value then
+		    me.BitScoreButton.value=true
+		    me.BitScoreField.text=unbracket(nhmmerSettingsWin.TCvalue.text)
+		  elseif nhmmerSettingsWin.gaButton.value then
+		    me.BitScoreButton.value=true
+		    me.BitScoreField.text=unbracket(nhmmerSettingsWin.GAvalue.text)
+		  elseif nhmmerSettingsWin.ncButton.value then
+		    me.BitScoreButton.value=true
+		    me.BitScoreField.text=unbracket(nhmmerSettingsWin.NCvalue.text)
+		  end
+		  
 		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
@@ -761,6 +779,13 @@ End
 		  Exception err
 		    ExceptionHandler(err,"HmmGenSettingsWin:ReadOptions")
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Unbracket(s as string) As string
+		  s=replace(s,"(")
+		  return replace(s,")")
+		End Function
 	#tag EndMethod
 
 

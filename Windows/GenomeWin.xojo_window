@@ -515,70 +515,45 @@ End
 
 	#tag Event
 		Function CancelClose(appQuitting as Boolean) As Boolean
-		  if anyHitDeselected then
-		    'ask for saving modified Genbank File
+		  If ContentsChanged then
+		    Dim d as New MessageDialog  //declare the MessageDialog object
+		    Dim b as MessageDialogButton //for handling the result
+		    d.icon=MessageDialog.GraphicCaution   //display warning icon
+		    d.ActionButton.Caption=kSave
+		    d.CancelButton.Visible=True     //show the Cancel button
+		    d.CancelButton.Caption=kCancel
+		    d.AlternateActionButton.Visible=True   //show the "Don't Save" button
 		    
-		  end if
-		  
-		  
-		  
-		  ''If ContentsChanged then
-		  ''if not SaveNone then
-		  ''SaveChanges.question.text=kSaveChanges+me.title+"?"
-		  ''#if TargetMacOS then
-		  ''enzWin.hide
-		  ''#endif
-		  ''SaveChanges.ShowModalWithin(self) //display dialog & wait for input
-		  ''Select Case SaveChanges.ButtonPressed
-		  ''case "DontSave"
-		  ''case "Cancel"
-		  ''#if TargetMacOS then
-		  ''enzWin.show
-		  ''#endif
-		  ''Return True //cancel the quit
-		  ''case "Save" //call SaveFile to save the document
-		  ''SaveFile Title, False
-		  ''End Select
-		  ''SaveChanges.Close //close the dialog
-		  ''End if
-		  ''End if
-		  '
-		  'if not savenone then
-		  'If ContentsChanged then
-		  'Dim d as New MessageDialog  //declare the MessageDialog object
-		  'Dim b as MessageDialogButton //for handling the result
-		  'd.icon=MessageDialog.GraphicCaution   //display warning icon
-		  'd.ActionButton.Caption=kSave
-		  'd.CancelButton.Visible=True     //show the Cancel button
-		  'd.CancelButton.Caption=kCancel
-		  'd.AlternateActionButton.Visible=True   //show the "Don't Save" button
-		  '
-		  ''the if block below only work if option was pressed together with command-Q (almost useless)
-		  'if keyboard.AsyncOptionKey then
-		  'd.AlternateActionButton.Caption=kSaveNone
-		  'else
-		  'd.AlternateActionButton.Caption=kDontSave
-		  'end if
-		  'd.Message=kSaveChanges+me.title+"?"
-		  ''d.Explanation="If you don't save, your changes will be lost. "
-		  '
-		  'b=d.ShowModalwithin(self)     //display the dialog
-		  'Select Case b //determine which button was pressed.
-		  'Case d.ActionButton
-		  '//user pressed Save
-		  'SaveFile Title, False
-		  'Case d.AlternateActionButton
-		  '//user pressed Don't Save
-		  'if d.AlternateActionButton.Caption=kSaveNone then
-		  'SaveNone=true
-		  'end
-		  'Case d.CancelButton
-		  'Return True //cancel the quit
-		  'End select
-		  'EnableMenuItems //to properly disable menus when last win is closed
-		  'End If
-		  'end if
-		  
+		    'the if block below only work if option was pressed together with command-Q (almost useless)
+		    if keyboard.AsyncOptionKey then
+		      d.AlternateActionButton.Caption=kSaveNone
+		    else
+		      d.AlternateActionButton.Caption=kDontSave
+		    end if
+		    d.Message=kSaveChanges+me.title+"?"
+		    'd.Explanation="If you don't save, your changes will be lost. "
+		    
+		    b=d.ShowModalwithin(self)     //display the dialog
+		    Select Case b //determine which button was pressed.
+		    Case d.ActionButton
+		      //user pressed Save
+		      'prompt for file name and save
+		      dim f as folderitem
+		      f=GetSaveFolderItem("Text",GenomeFile.Name)
+		      
+		      if f<>nil then
+		        SaveGenBankFile(f)
+		      end if
+		      
+		    Case d.AlternateActionButton
+		      //user pressed Don't Save
+		      'if d.AlternateActionButton.Caption=kSaveNone then
+		      'SaveNone=true
+		      'end
+		    Case d.CancelButton
+		      Return True //cancel the quit
+		    End select
+		  End If
 		End Function
 	#tag EndEvent
 
@@ -2137,7 +2112,21 @@ End
 
 	#tag Method, Flags = &h0
 		Sub RemoveFeature(FeatureNo as integer)
-		  Genome.Features.Remove FeatureNo
+		  dim n,u As Integer
+		  dim ft as string
+		  
+		  'Convert FeatureNo to whole genome numbering and delete
+		   
+		  ft=seq.Features(FeatureNo).FeatureText
+		  
+		  u=ubound(Genome.Features)
+		  
+		  for n=1 to u
+		    if Genome.Features(n).FeatureText=ft then
+		      Genome.Features.Remove n
+		      exit
+		    end if
+		  next
 		  'update the display:
 		  ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
 		  
@@ -2224,6 +2213,7 @@ End
 		    
 		    'write formatted sequence:
 		    stream.WriteLine("ORIGIN")
+		    stream.Write(" ") 'a missing space
 		    stream.Write(FormattedSequence)
 		    
 		    stream.close
