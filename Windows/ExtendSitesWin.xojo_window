@@ -48,6 +48,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Extend sites in the opened alignment by the specified number of base pairs to the left and to the right. Results will appear in the log field."
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -82,6 +83,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Left:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -116,6 +118,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Right:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -338,6 +341,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -404,8 +408,8 @@ End
 		Sub Action()
 		  dim instream, instream2 as TextInputStream
 		  'dim outstream As TextOutputStream
-		  dim aLine,title, seq,seqRevSeq,site, newsite as string
-		  dim sitecount,sitepos, leftExt, rightExt As integer
+		  dim aLine,title, seq,seqRevSeq,site, newsite,s0 as string
+		  dim sitecount,sitepos, leftExt, rightExt,en As integer
 		  
 		  InStream = LogoWin.logofile.OpenAsTextFile
 		  InStream2 = LogoWin.genomefile.OpenAsTextFile
@@ -413,6 +417,41 @@ End
 		  if InStream2<>nil then
 		    self.hide
 		    seq=instream2.ReadAll
+		    if instr(seq,"ORIGIN")>0 then 'Genbank file
+		      
+		      LineEnd=EndOfLine
+		      s0=LineEnd+"ORIGIN"
+		      '^
+		      '|
+		      'SHOULD USE "origin" INSTEAD OF "BASE COUNT"
+		      en=instrb(seq,s0)-1
+		      'line ends may vary wildly, so checking if platform-specific line ends are indeed used
+		      cLineEnd=LineEnd
+		      if en=-1 then  'line ends are different or this may be not a genebank file
+		        s0=LF+"ORIGIN"
+		        en=instrb(seq,s0)-1
+		        if en >= 0 then
+		          'set the correct line ends for further use:
+		          cLineEnd=LF
+		        else
+		          s0=CR+"ORIGIN"
+		          en=instrb(seq,s0)-1
+		          if en > 0 then 'set the correct line ends for further use:
+		            cLineEnd=CR
+		          else
+		            msgbox "Problem trying to read GenBank format!"
+		          end if
+		        end
+		      end
+		      if cLineEnd="" then
+		        cLineEnd=EndOfLine  'seems to be set wrong for some files
+		      end if
+		      
+		      
+		      seq=rightb(seq,len(seq)-instrb(seq,"ORIGIN")-7)
+		    end if
+		    seq=CleanUp(seq) 
+		    
 		    InStream2.close
 		    seqRevSeq=seq+ReverseComplement(seq)
 		    leftExt=val(LeftField.Text)

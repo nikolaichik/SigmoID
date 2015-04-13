@@ -783,8 +783,8 @@ End
 
 	#tag Method, Flags = &h0
 		Function Unbracket(s as string) As string
-		  s=replace(s,"(")
-		  return replace(s,")")
+		  s=replace(s,"(","")
+		  return replace(s,")","")
 		End Function
 	#tag EndMethod
 

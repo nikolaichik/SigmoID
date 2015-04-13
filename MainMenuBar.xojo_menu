@@ -164,7 +164,7 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem EditSeparator2
+      Begin MenuItem UntitledItem1
          SpecialMenu = 0
          Text = "-"
          Index = -2147483648
@@ -177,6 +177,23 @@ Begin Menu MainMenuBar
          Index = -2147483648
          ShortcutKey = "A"
          Shortcut = "Cmd+A"
+         MenuModifier = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem EditSeparator2
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem EditClose
+         SpecialMenu = 0
+         Text = "#kClose"
+         Index = -2147483648
+         ShortcutKey = "W"
+         Shortcut = "Cmd+W"
          MenuModifier = True
          AutoEnable = True
          Visible = True

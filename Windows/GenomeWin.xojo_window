@@ -515,7 +515,7 @@ End
 
 	#tag Event
 		Function CancelClose(appQuitting as Boolean) As Boolean
-		  If ContentsChanged then
+		  If GenomeChanged then
 		    Dim d as New MessageDialog  //declare the MessageDialog object
 		    Dim b as MessageDialogButton //for handling the result
 		    d.icon=MessageDialog.GraphicCaution   //display warning icon
@@ -819,6 +819,14 @@ End
 		End Sub
 	#tag EndEvent
 
+
+	#tag MenuHandler
+		Function EditClose() As Boolean Handles EditClose.Action
+			close
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditCopy() As Boolean Handles EditCopy.Action

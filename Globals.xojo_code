@@ -111,6 +111,8 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function CleanUp(Ge As string) As string
+		  'Remove numbers, spaces, line ends
+		  '(no complete cleanup for speed reasons!)
 		  
 		  #pragma disableBackgroundTasks
 		  #pragma DisableBoundsChecking
@@ -364,11 +366,11 @@ Protected Module Globals
 		    ErrNo=30 '  This exception is raised in Cocoa applications that access a user interface property or method from within a thread
 		  elseif err IsA HTMLViewerException then
 		    ErrNo=31 'Occurs when The HTMLViewer cannot render the HTML, usually because of a missing library.
-		    #if TargetLinux then 
+		    #if TargetLinux then
 		      #if Target64Bit then
-		        'An HTMLViewerException is most likely to occur on 64-bit Linux 
+		        'An HTMLViewerException is most likely to occur on 64-bit Linux
 		        'when the required 32-bit webkit libraries are not installed.
-		        MsgBox "There was a problem displaying html. This is probably because of missing WebKit libraries. Please try to launch Sigmoid with the provided sigmoid.sh script or consult the docs on details of Linux install." 
+		        MsgBox "There was a problem displaying html. This is probably because of missing WebKit libraries. Please try to launch Sigmoid with the provided sigmoid.sh script or consult the docs on details of Linux install."
 		      #endif
 		    #endif
 		    
