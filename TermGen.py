@@ -1,6 +1,7 @@
 import os
 import argparse
 import sys
+import tempfile
 from Bio import SeqIO
 from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
@@ -17,12 +18,17 @@ def createParser():
                        help='''path to input Genbank file.''')
     parser.add_argument('output_file',
                         help='''path to input Genbank file.''')
+    parser.add_argument('-o', '--output',
+                        default='',
+                        type=str,
+                        metavar='<path>',
+                        help='''redirects TransTerm HP output file to directory given''')
     parser.add_argument('-C', '--confidence',
                         default=70,
                         type=int,
                         metavar='<integer>',
                         help='''threshold Score.''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.4 (April 12, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.1 (April 13, 2015)')
     return parser
 
 args = createParser()
@@ -31,6 +37,7 @@ arguments = sys.argv[1:0]
 name = enter.input_file.split('/')[-1]
 cwd = os.path.abspath(os.path.dirname(__file__))
 renamed_cwd = cwd.replace(' ', '\\ ')
+tmp_directory = tempfile.gettempdir()
 print renamed_cwd
 
 # handling with fasta...
@@ -62,9 +69,13 @@ os.system(ptt_converter)
 fasta_file = '%s/%s.fasta' % (renamed_cwd, name)
 ptt_file = '%s/%s.ptt' % (renamed_cwd, id)
 
-# executes TransTerm HP
-transterm_output = '/home/damenikan/termout'
-transterm_cmd = '%s/TransTermHP/transterm --min-conf=%s -S -p %s/TransTermHP/expterm.dat %s %s > %s' % (renamed_cwd, enter.confidence,
+# sets directory for output and executes TransTerm HP
+if enter.output == '':
+    transterm_output = '%s/transterm_output' % tmp_directory
+else:
+    transterm_output = '%s' % enter.output
+transterm_cmd = '%s/TransTermHP/transterm --min-conf=%s -S -p %s/TransTermHP/expterm.dat %s %s > %s' % (renamed_cwd,
+                                                                                        enter.confidence,
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
 os.system(transterm_cmd)
@@ -73,8 +84,11 @@ os.system(transterm_cmd)
 '''This piece of code deals with the TransTerm HP output file.'''
 
 # opens the output file
-term_out = open(transterm_output, 'r')
-term_out = term_out.readlines()
+try:
+    terms_out = open(transterm_output, 'r')
+except IOError:
+    sys.exit('Couldn\'t find directory %s. Please check your path.' % transterm_output)
+term_out = terms_out.readlines()
 
 # creates a list of lines, containing genes and terminators in order (deletes unnecessary lines)
 term_lines = []
@@ -163,8 +177,12 @@ print terminators
 for record in records:
     for terminator in terminators:
         strand = int(terminator[4]+str(1))
-        start = int(terminator[1])
-        end = int(terminator[2])
+        if strand == 1:
+            start = int(terminator[1])-1
+            end = int(terminator[2])
+        else:
+            start = int(terminator[2])-1
+            end = int(terminator[1])
         surrounding = terminator[3]
         conf = terminator[5]
         tail_score = terminator[6]
@@ -202,3 +220,4 @@ for record in records:
     SeqIO.write(record, output_gbk, 'genbank')
 output_gbk.close()
 input_gbk.close()
+terms_out.close()
