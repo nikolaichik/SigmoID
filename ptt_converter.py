@@ -15,7 +15,7 @@ def createParser():
             )
     parser.add_argument('input_file',
                         help='''path to input Genbank file.''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.4 (April 12, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.1 (April 13, 2015)')
     return parser
 
 args = createParser()
