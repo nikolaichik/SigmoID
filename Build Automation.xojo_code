@@ -10,6 +10,8 @@
 					FolderItem = Li4AUHJvZmlsZXM=
 					FolderItem = Li4AR2VuZXRpYy5jb2Rlcw==
 					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAGxpYndlYmtpdDMy
+					FolderItem = Li4AcHR0X2NvbnZlcnRlci5weQ==
+					FolderItem = Li4AVGVybUdlbi5weQ==
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
 					AppliesTo = 2
@@ -28,6 +30,10 @@
 					FolderItem = Li4ASG1tR2VuLnB5
 					FolderItem = Li4AUHJvZmlsZXM=
 					FolderItem = Li4AR2VuZXRpYy5jb2Rlcw==
+					FolderItem = Li4AcHR0X2NvbnZlcnRlci5weQ==
+					FolderItem = Li4AVGVybUdlbi5weQ==
+					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAGV4cHRlcm0uZGF0
+					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAHRyYW5zdGVybQ==
 				End
 			End
 			Begin BuildStepList Windows
