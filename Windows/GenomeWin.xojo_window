@@ -523,6 +523,54 @@ Begin Window GenomeWin
       Width           =   32
       yield           =   False
    End
+   Begin Cocoa.NSSearchField NSSearchField1
+      AcceptFocus     =   True
+      AcceptTabs      =   False
+      Alignment       =   ""
+      AllowsExpansionToolTips=   False
+      AutoDeactivate  =   True
+      autoresizesSubviews=   False
+      Backdrop        =   0
+      Bold            =   False
+      Description     =   ""
+      DoubleBuffer    =   False
+      DoubleValue     =   0.0
+      Enabled         =   True
+      EraseBackground =   False
+      FloatValue      =   0.0
+      FocusRing       =   True
+      Height          =   26
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      IntegerValue    =   0
+      IsFlipped       =   False
+      Italic          =   False
+      Left            =   800
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MaxRecentSearches=   0
+      PlaceholderText =   ""
+      Scope           =   0
+      SendSearchStringImmediately=   False
+      SendWholeSearchString=   False
+      ShowMenu        =   False
+      StringValue     =   ""
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      Top             =   0
+      Transparent     =   True
+      Underlined      =   False
+      UseFocusRing    =   False
+      Visible         =   True
+      Width           =   201
+   End
 End
 #tag EndWindow
 
@@ -1922,6 +1970,18 @@ End
 		  next
 		  
 		  return true
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function isNumber(s as string) As boolean
+		  
+		  if str(val(s))=s then 'number
+		    return true
+		  else
+		    return false
+		  end if
+		  
 		End Function
 	#tag EndMethod
 
@@ -4343,6 +4403,58 @@ End
 		  UPSearchViewer.LoadURL(theURL)
 		  SearchProgressBar.Refresh
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NSSearchField1
+	#tag Event
+		Sub MenuAction(item as NSMenuItem)
+		  me.PlaceholderText = item.Title
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.TabStop = true
+		  me.SendWholeSearchString = true
+		  me.FocusRing = false
+		  NSSearchField1.ShowMenu = true
+		  'NSSearchField1.AddMenuItem "Foo"
+		  'NSSearchField1.AddMenuSeparator
+		  'NSSearchField1.AddMenuItem "Bar"
+		  
+		  
+		  NSSearchField1.PlaceholderText = "Search"
+		  
+		  
+		  //setting this name means that recent searches will be saved to user defaults under this name.
+		  //the shared NSUserDefaults object is saved periodically.
+		  NSSearchField1.RecentsAutosaveName = "SigmoID.RecentSearches"
+		  
+		  NSSearchField1.ShowRecentSearches = true
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action()
+		  dim n as integer
+		  dim query as string
+		  
+		  SearchPosition=0
+		  query=trim(me.StringValue)
+		  
+		  if query<>"" then
+		    'detect if query is sequence, coordinate or plain text
+		    if isACGT(query) then 
+		      msgbox "sequence search not there yet"
+		      'Search4sequence(query)
+		    elseif isNumber(query) then
+		      n=val(query)
+		      ExtractFragment(n-DisplayInterval/2,n+DisplayInterval/2)
+		      'set the scrollbar:
+		      HScrollBar.value=n
+		    else
+		      Search4text(query)
+		    end if
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
