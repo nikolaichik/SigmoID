@@ -133,6 +133,11 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x97 \xD0\xB4\xD0\xB7\xD0\xB2\xD1\x8E\xD1\x85 \xD1\x87\xD0\xB0\xD1\x81\xD1\x82\xD0\xB0\xD0\xBA"
 	#tag EndConstant
 
+	#tag Constant, Name = kBLASTPsearch, Type = String, Dynamic = True, Default = \"BLASTP search of nr database", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C BLASTP\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C BLASTP\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
+	#tag EndConstant
+
 	#tag Constant, Name = kBluntEnds, Type = String, Dynamic = True, Default = \"Blunt Ends", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA2\xD1\x83\xD0\xBF\xD1\x8B\xD0\xB5 \xD0\xBA\xD0\xBE\xD0\xBD\xD1\x86\xD1\x8B"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA2\xD1\x83\xD0\xBF\xD1\x8B\xD1\x8F \xD0\xBA\xD0\xB0\xD0\xBD\xD1\x86\xD1\x8B"
@@ -546,6 +551,11 @@ Protected Module Strings
 	#tag EndConstant
 
 	#tag Constant, Name = kHmmerSearchSwissProt, Type = String, Dynamic = True, Default = \"Query SwissProt with phmmer", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C phmmer\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 SwissProt"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C phmmer\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 SwissProt"
+	#tag EndConstant
+
+	#tag Constant, Name = kHmmerSearchSwissProt1, Type = String, Dynamic = True, Default = \"Query SwissProt with phmmer", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C phmmer\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 SwissProt"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C phmmer\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 SwissProt"
 	#tag EndConstant

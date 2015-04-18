@@ -301,19 +301,19 @@ Begin Window GenomeWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      PanelCount      =   3
+      PanelCount      =   4
       Panels          =   ""
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   395
+         Height          =   396
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -335,7 +335,7 @@ Begin Window GenomeWin
       Begin HTMLViewer UPSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   395
+         Height          =   396
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -357,7 +357,7 @@ Begin Window GenomeWin
       Begin HTMLViewer TFSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   395
+         Height          =   396
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -375,6 +375,28 @@ Begin Window GenomeWin
          Top             =   354
          Visible         =   True
          Width           =   1041
+      End
+      Begin HTMLViewer BLASTPSearchViewer
+         AutoDeactivate  =   True
+         Enabled         =   True
+         Height          =   396
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "BrowserPagePanel"
+         Left            =   27
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Renderer        =   0
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Top             =   354
+         Visible         =   True
+         Width           =   994
       End
    End
    Begin Label SelRange
@@ -978,6 +1000,55 @@ End
 
 
 	#tag Method, Flags = &h0
+		Sub BLASTPsearch(ProtName as string)
+		  
+		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLend as string= "&DATABASE=nr&PROGRAM=blastp&HITLIST_SZE=100&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
+		  dim URL as string
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'show progressbar:
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		  'name the search tab:
+		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
+		  FindTab(ProtName+":BLASTP")
+		  BrowserTabs.RePaint
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'format the BLASTP request:
+		  theURL=URLstart+theSeq+URLend
+		  
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
+		  end if
+		  BLASTPSearchViewer.LoadURL(theURL)
+		  SearchProgressBar.Refresh
+		  
+		  
+		  
+		  
+		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
+		  
+		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DeselectNames(p as picture) As integer
 		  dim z, topObj as integer
 		  
@@ -1483,6 +1554,8 @@ End
 		    tab2find="UniProt"
 		  elseif instr(TabName,"TIGRFAM")>0 then
 		    tab2find="TIGRFAM"
+		  elseif instr(TabName,"BLASTP")>0 then
+		    tab2find="BLASTP"
 		  end if
 		  
 		  if BrowserTabs.tabCount>0 then
@@ -2017,7 +2090,7 @@ End
 		    features=ConvertEncoding(features,Encodings.ASCII)
 		    
 		    featureArray=Split(features,Separator)
-		    for n=0 to m-1 
+		    for n=0 to m-1
 		      currentFeature=featureArray(n)
 		      
 		      'feature description parsing:
@@ -2124,7 +2197,7 @@ End
 		  dim ft as string
 		  
 		  'Convert FeatureNo to whole genome numbering and delete
-		   
+		  
 		  ft=seq.Features(FeatureNo).FeatureText
 		  
 		  u=ubound(Genome.Features)
@@ -3778,6 +3851,7 @@ End
 		    base.Append mItem(kHmmerSearchSwissprot,boo)
 		    boo=NOT TIGRSocket.IsConnected
 		    base.Append mItem(kHmmerSearchTigrfam,boo)
+		    base.Append mItem(kBLASTPsearch,true)
 		  end
 		  
 		  
@@ -3802,6 +3876,8 @@ End
 		    HmmerSearchSwissProt(ContextProteinName)
 		  case kHmmerSearchTIGRFAM
 		    HmmerSearchTIGRFAM(ContextProteinName)
+		  case kBLASTPsearch
+		    BLASTPsearch(ContextProteinName)
 		  end
 		End Function
 	#tag EndEvent
@@ -4059,6 +4135,7 @@ End
 		  '0-SPSearchViewer
 		  '1-UPSearchViewer
 		  '2-TFSearchViewer
+		  '3-BLASTPsearchViewer
 		  
 		  
 		  dim Tabname as string
@@ -4074,6 +4151,9 @@ End
 		  elseif instr(TabName,"TIGRFAM")>0 then
 		    TFSearchViewer.Visible=true
 		    BrowserPagePanel.value=2
+		  elseif instr(TabName,"BLASTP")>0 then
+		    BLASTPSearchViewer.Visible=true
+		    BrowserPagePanel.value=3
 		  end if
 		  
 		  'dim va as integer
@@ -4150,6 +4230,22 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events TFSearchViewer
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  SearchProgressBar.Enabled=false
+		  SearchProgressBar.visible=false
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BLASTPSearchViewer
 	#tag Event
 		Sub DocumentComplete(URL as String)
 		  SearchProgressBar.Enabled=false
