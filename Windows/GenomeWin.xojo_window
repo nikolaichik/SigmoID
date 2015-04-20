@@ -158,7 +158,7 @@ Begin Window GenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   557
+      Width           =   390
    End
    Begin ScrollBar HScrollBar
       AcceptFocus     =   True
@@ -405,12 +405,12 @@ Begin Window GenomeWin
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   20
+      Height          =   24
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   774
+      Left            =   594
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -427,11 +427,11 @@ Begin Window GenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   2
+      Top             =   0
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   227
+      Width           =   194
    End
    Begin ProgressBar SearchProgressBar
       AutoDeactivate  =   True
@@ -539,7 +539,7 @@ Begin Window GenomeWin
       EraseBackground =   False
       FloatValue      =   0.0
       FocusRing       =   True
-      Height          =   26
+      Height          =   24
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -900,19 +900,7 @@ End
 
 	#tag MenuHandler
 		Function EditCopy() As Boolean Handles EditCopy.Action
-			Dim C as  Clipboard
-			C=new Clipboard
-			
-			dim se as string
-			if FeatureLeft>0 then
-			se=midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
-			if topstrand then
-			c.Text=se
-			else
-			c.Text=ReverseComplement(se)
-			end if
-			end if
-			
+			CopyDNA
 			
 			'Return True
 			
@@ -921,24 +909,7 @@ End
 
 	#tag MenuHandler
 		Function EditCopyTranslation() As Boolean Handles EditCopyTranslation.Action
-			Dim C as  Clipboard
-			C=new Clipboard
-			
-			'using standard code [ gcodes(1) ] for now!
-			
-			if FeatureLeft>0 then
-			if topstrand then
-			c.Text=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
-			else
-			c.Text=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
-			end if
-			end if
-			
-			
-			'Return True
-			
-			Return True
-			
+			CopyAA
 		End Function
 	#tag EndMenuHandler
 
@@ -1092,6 +1063,42 @@ End
 		  
 		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CopyAA()
+		  Dim C as  Clipboard
+		  C=new Clipboard
+		  
+		  'using standard code [ gcodes(1) ] for now!
+		  
+		  if FeatureLeft>0 then
+		    if topstrand then
+		      c.Text=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		    else
+		      c.Text=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		    end if
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CopyDNA()
+		  Dim C as  Clipboard
+		  C=new Clipboard
+		  
+		  dim se as string
+		  if FeatureLeft>0 then
+		    se=midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
+		    if topstrand then
+		      c.Text=se
+		    else
+		      c.Text=ReverseComplement(se)
+		    end if
+		  end if
 		  
 		End Sub
 	#tag EndMethod
@@ -1961,27 +1968,15 @@ End
 		  dim s,ACTG as string
 		  
 		  ACTG="ACTG"
-		  l=lenb(query)
+		  l=len(query)
 		  for n=1 to l
-		    s=midB(query,n,1)
-		    if instrB(ACTG,s)=0 then
+		    s=mid(query,n,1)
+		    if instr(ACTG,s)=0 then
 		      return false
 		    end if
 		  next
 		  
 		  return true
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function isNumber(s as string) As boolean
-		  
-		  if str(val(s))=s then 'number
-		    return true
-		  else
-		    return false
-		  end if
-		  
 		End Function
 	#tag EndMethod
 
@@ -2370,6 +2365,26 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Search4sequence(query as string)
+		  dim n as integer
+		  
+		  'search top strand
+		  n=instr(genome.sequence,query)
+		  topstrand=true
+		  FeatureLeft=n-GBrowseShift
+		  FeatureRight=n-GBrowseShift+len(query)
+		  HighlightColour=HighlightColor        'return to default color
+		  TextMap(FeatureLeft,FeatureRight)
+		  
+		  'add selection highlight:
+		  UpdateMapCanvasSelection
+		  
+		  'set the scrollbar:
+		  HScrollBar.value=n
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Search4text(query as string)
 		  'search for text within feature table
 		  
@@ -2477,13 +2492,13 @@ End
 		  if Seq.Features(selFeatureNo).complement  then
 		    FeatureLeft=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length-1
-		    TextMap(FeatureRight,FeatureLeft)
 		    topstrand=false
+		    TextMap(FeatureRight,FeatureLeft)
 		  else
 		    FeatureLeft=Seq.Features(selFeatureNo).start
 		    FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length
-		    TextMap(FeatureLeft,FeatureRight)
 		    topstrand=true
+		    TextMap(FeatureLeft,FeatureRight)
 		  end
 		  
 		  'Change selected feature colour
@@ -3897,6 +3912,11 @@ End
 		  
 		  
 		  if ContextFeature>0 then
+		    if seq.Features(ContextFeature).type="CDS" then
+		      base.Append mItem(kCopyProtein)
+		    else
+		      base.Append mItem(kCopyDNA)
+		    end if
 		    base.Append mItem(kEditFeature)
 		    base.Append mItem(kRemoveFeature)
 		    ContextProteinName=seq.Features(ContextFeature).name
@@ -3924,7 +3944,10 @@ End
 		  ToolTipTimer.Mode=1
 		  ToolTip.hide
 		  select case hititem.text
-		    
+		  case kCopyProtein
+		    CopyAA
+		  case kCopyDNA
+		    CopyDNA
 		  case kEditFeature
 		    EditFeature(seq.Features(ContextFeature))
 		  case kRemoveFeature
@@ -4443,10 +4466,10 @@ End
 		  
 		  if query<>"" then
 		    'detect if query is sequence, coordinate or plain text
-		    if isACGT(query) then 
-		      msgbox "sequence search not there yet"
-		      'Search4sequence(query)
-		    elseif isNumber(query) then
+		    if isACGT(query) then
+		      'msgbox "sequence search not there yet"
+		      Search4sequence(query)
+		    elseif isNumeric(query) then
 		      n=val(query)
 		      ExtractFragment(n-DisplayInterval/2,n+DisplayInterval/2)
 		      'set the scrollbar:
