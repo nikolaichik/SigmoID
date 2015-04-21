@@ -239,6 +239,10 @@ Protected Class cSeqObject
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		RCsequence As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		Redundant As boolean
 	#tag EndProperty
 

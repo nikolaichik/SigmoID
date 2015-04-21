@@ -962,12 +962,6 @@ End
 
 	#tag MenuHandler
 		Function GenomeFind() As Boolean Handles GenomeFind.Action
-			//********* Still to do *************
-			' detect if query is sequence or text
-			' raw sequence search
-			' add search field to toolbar
-			' find again
-			//***********************************
 			
 			FindWin.showmodalwithin(self)
 			
@@ -975,8 +969,9 @@ End
 			SearchPosition=0
 			query=trim(FindWin.FindField.text)
 			
+			topStrandSearched=false
 			if isACGT(query) then 'detect if query is sequence or plain text
-			'Search4sequence(query)
+			Search4sequence(query)
 			else
 			Search4text(query)
 			end if
@@ -990,7 +985,7 @@ End
 			'continue from the current SearchPosition
 			
 			if isACGT(query) then 'detect if query is sequence or plain text
-			'Search4sequence(query)
+			Search4sequence(query)
 			else
 			Search4text(query)
 			end if
@@ -2366,21 +2361,68 @@ End
 
 	#tag Method, Flags = &h0
 		Sub Search4sequence(query as string)
-		  dim n as integer
+		  dim n,coord as integer
 		  
-		  'search top strand
-		  n=instr(genome.sequence,query)
-		  topstrand=true
-		  FeatureLeft=n-GBrowseShift
-		  FeatureRight=n-GBrowseShift+len(query)
-		  HighlightColour=HighlightColor        'return to default color
-		  TextMap(FeatureLeft,FeatureRight)
+		  'deselect other things
+		  DeselectShapes(Seq.map)
 		  
-		  'add selection highlight:
-		  UpdateMapCanvasSelection
+		  if NOT topStrandSearched then
+		    'search top strand
+		    n=instr(SearchPosition+1,genome.sequence,query)
+		    if n>0 then
+		      'set the scrollbar:
+		      HScrollBar.value=n
+		      
+		      topstrand=true
+		      
+		      FeatureLeft=n-GBrowseShift
+		      FeatureRight=n-GBrowseShift+len(query)
+		      
+		      HighlightColour=HighlightColor        'return to default color
+		      TextMap(FeatureLeft,FeatureRight)
+		      
+		      'add selection highlight:
+		      UpdateMapCanvasSelection
+		      
+		      SearchPosition=n
+		    else
+		      topStrandSearched=true
+		      SearchPosition=0
+		    end if
+		  end if
 		  
-		  'set the scrollbar:
-		  HScrollBar.value=n
+		  if topStrandSearched then
+		    'search bottom strand
+		    if genome.RCsequence="" then
+		      genome.RCsequence=ReverseComplement(genome.Sequence)
+		    end if
+		    n=instr(SearchPosition+1,genome.RCsequence,query)
+		    dim gl as integer
+		    gl=len(genome.RCsequence)
+		    if n>0 then
+		      'set the scrollbar:
+		      HScrollBar.value=gl-n+2
+		      
+		      topstrand=false
+		      'coord=n+len(query)/2
+		      'ExtractFragment(coord-Genomewin.DisplayInterval/2,coord+Genomewin.DisplayInterval/2)
+		      FeatureLeft=gl-n-GBrowseShift-len(query)+2
+		      FeatureRight=gl-n-GBrowseShift+2
+		      dim fl,fr as integer
+		      fl=FeatureLeft
+		      fr=FeatureRight
+		      HighlightColour=HighlightColor        'return to default color
+		      TextMap(FeatureLeft,FeatureRight)
+		      
+		      'add selection highlight:
+		      UpdateMapCanvasSelection
+		      
+		      SearchPosition=n
+		    else
+		      topStrandSearched=false
+		      SearchPosition=0
+		    end if
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -2898,6 +2940,7 @@ End
 	#tag Method, Flags = &h0
 		Sub UpdateMapCanvasSelection()
 		  dim p as picture
+		  dim rs as RectShape
 		  
 		  p=seq.map
 		  
@@ -2905,8 +2948,10 @@ End
 		    if featureleft=-1 then
 		      RectShape(p.Objects.Item(0)).width=0
 		    else
-		      RectShape(p.Objects.Item(0)).width=(FeatureLeft-FeatureRight)/seq.bpPerPixel
+		      RectShape(p.Objects.Item(0)).width=abs(FeatureLeft-FeatureRight)/seq.bpPerPixel
 		      p.Objects.Item(0).x=((FeatureLeft+FeatureRight)/2)/seq.bpPerPixel'*seq.map.Objects.Scale
+		      rs=RectShape(p.Objects.Item(0))
+		      
 		    end if
 		  end
 		  
@@ -3464,6 +3509,10 @@ End
 
 	#tag Property, Flags = &h0
 		topstrand As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		topStrandSearched As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -4459,7 +4508,6 @@ End
 	#tag Event
 		Sub Action()
 		  dim n as integer
-		  dim query as string
 		  
 		  SearchPosition=0
 		  query=trim(me.StringValue)
@@ -4468,12 +4516,13 @@ End
 		    'detect if query is sequence, coordinate or plain text
 		    if isACGT(query) then
 		      'msgbox "sequence search not there yet"
+		      topStrandSearched=false
 		      Search4sequence(query)
 		    elseif isNumeric(query) then
 		      n=val(query)
-		      ExtractFragment(n-DisplayInterval/2,n+DisplayInterval/2)
+		      'ExtractFragment(n-DisplayInterval/2,n+DisplayInterval/2)
 		      'set the scrollbar:
-		      HScrollBar.value=n
+		      HScrollBar.value=n 'Extracts fragment too
 		    else
 		      Search4text(query)
 		    end if

@@ -1,37 +1,84 @@
 #tag Window
-Begin Window GoToWin
+Begin Window Window1
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
    Compatibility   =   ""
-   Composite       =   False
-   Frame           =   8
+   Composite       =   True
+   Frame           =   0
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   90
+   Height          =   512
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
    MaxWidth        =   32000
-   MenuBar         =   0
+   MenuBar         =   1267201922
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Go to..."
+   Title           =   "BLAST search"
    Visible         =   True
-   Width           =   212
-   Begin PushButton OKButton
+   Width           =   730
+   Begin TextArea TextArea1
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   True
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   162
+      HelpTag         =   ""
+      HideSelection   =   True
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   0
+      LimitText       =   0
+      LineHeight      =   0.0
+      LineSpacing     =   1.0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Multiline       =   True
+      ReadOnly        =   False
+      Scope           =   0
+      ScrollbarHorizontal=   False
+      ScrollbarVertical=   True
+      Styled          =   True
+      TabIndex        =   0
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "MSTTRLPVHHSNLPIHSSPTAPKKKLSTRTLMLLAGVTTIALGFILTIGLLIWQSGQQQKTIAQQYLEQTAYTNSYLIQQKLDVALHAARNLVQSVVSLQEAGNADRKTAEMLLKNALKSHPDFLSMSLAWEPDAFDGKDREYASQPDQDPQGRFVRYVDRDTAGNVALHNLVDYETPGSGDYYLLPKKRQKEVILEPYSYPYNGVDVLLTSIAVPIIINNKFYGSVTADFSLDTLQQLTNRIKPYQGTGYAQLLSHTGAYISHPDKARVTKKIENDATLLEHVTIGQPYQIERDNAVLNTPAFTVYVPVNIGNTGTPWMLGLSAPVNVVMAETAQQRNMALLLMVLSIVVVSGVLGIIFNRKVARPIGGEPAQAAQIALSVAQGNLTQIIPVQPRDDSSIFYAMNAMQTQLRDIAEQLINTSESVSHGATEIAAGNIDLASRTEQQAAALEETAASMEQITATVKQNADNAHNATTLAQNAAHIAQKGDKIVGQVVHIMSEIDDSSKKIADITSIISSIAFQTNILALNAAVEAARAGEQGRGFAVVANEVRNLAQRSASAVKDITALITESASRVDNGVTLVQSAGSTMQDMLHAVTSVKDIMDEIVSASDEQSRGISQVTQAVHEMDGVTQQNAALVQEATAAAASLEEQARQLAQTVLVFKLS"
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   0
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   730
+   End
+   Begin PushButton PushButton1
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "OK"
+      Caption         =   "BLAST!"
       Default         =   True
       Enabled         =   True
       Height          =   20
@@ -39,43 +86,12 @@ Begin Window GoToWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   112
-      LockBottom      =   True
+      Left            =   325
+      LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   56
-      Underline       =   False
-      Visible         =   True
-      Width           =   80
-   End
-   Begin PushButton CancelButton
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   True
-      Caption         =   "Cancel"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -83,39 +99,44 @@ Begin Window GoToWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   56
+      Top             =   174
       Underline       =   False
       Visible         =   True
       Width           =   80
    End
-   Begin TextField GoToField
+   Begin TextArea TextArea2
       AcceptTabs      =   False
       Alignment       =   0
       AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
+      AutomaticallyCheckSpelling=   True
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   22
+      Height          =   95
       HelpTag         =   ""
+      HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   0
       LimitText       =   0
+      LineHeight      =   0.0
+      LineSpacing     =   1.0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      Password        =   False
+      Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
+      ScrollbarHorizontal=   False
+      ScrollbarVertical=   True
+      Styled          =   True
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
@@ -124,53 +145,104 @@ Begin Window GoToWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   14
+      Top             =   206
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   172
+      Width           =   730
+   End
+   Begin mHTTPSocket mHTTPSocket1
+      Address         =   ""
+      BytesAvailable  =   0
+      BytesLeftToSend =   0
+      Handle          =   0
+      Height          =   32
+      httpProxyAddress=   ""
+      httpProxyPort   =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      IsConnected     =   False
+      LastErrorCode   =   0
+      Left            =   0
+      LocalAddress    =   ""
+      LockedInPosition=   False
+      Port            =   0
+      RemoteAddress   =   ""
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   0
+      Width           =   32
+      yield           =   False
+   End
+   Begin HTMLViewer HTMLViewer1
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   213
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Renderer        =   0
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   300
+      Visible         =   True
+      Width           =   730
    End
 End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Activate()
-		  GoToField.text=""
-		  GoToField.SetFocus
-		  
-		  
-		End Sub
-	#tag EndEvent
-
-	#tag Event
-		Sub Open()
-		  AdjustLayout4linux(me)
-		End Sub
-	#tag EndEvent
-
-
-	#tag Property, Flags = &h0
-		Parent As GenomeWin
-	#tag EndProperty
-
-
 #tag EndWindowCode
 
-#tag Events OKButton
+#tag Events PushButton1
 	#tag Event
 		Sub Action()
-		  dim n as integer
-		  n=val(GoToField.text)
-		  if n>0 then
-		    'Parent.ExtractFragment(n-Genomewin.DisplayInterval/2,n+Genomewin.DisplayInterval/2)
-		    'set the scrollbar:
-		    Genomewin.HScrollBar.value=n 'extracts fragment too
-		    'Parent.featureleft=-1 'disable hit highlighting
-		    hide
-		  end if
+		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLend as string= "&DATABASE=nr&PROGRAM=blastp&HITLIST_SZE=100&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
+		  dim URL as string
+		  
+		  'format the BLASTP request:
+		  URL=URLstart+TextArea1.text+URLend
+		  HTMLViewer1.LoadURL(URL)
 		  
 		  
+		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
+		  
+		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events mHTTPSocket1
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		  'dim UUID,theURL as string
+		  '
+		  ''get the UUID from text result that look like this:
+		  ''href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
+		  'SearchProgressBar.Refresh
+		  '
+		  'UUID=NthField(Content,"/results/",2)
+		  'UUID=NthField(UUID,"/score",1)
+		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  ''now simply load the corrected URL:
+		  'if TMdisplay.Visible then
+		  'TMdisplay.Visible=false
+		  'TMdisplayAdjustment
+		  'end if
+		  'SPSearchViewer.LoadURL(theURL)
+		  'SearchProgressBar.Refresh
+		  
+		  
+		  TextArea2.text=content
 		End Sub
 	#tag EndEvent
 #tag EndEvents
