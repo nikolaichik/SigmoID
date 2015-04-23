@@ -307,7 +307,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -396,7 +396,7 @@ Begin Window GenomeWin
          TabStop         =   True
          Top             =   354
          Visible         =   True
-         Width           =   994
+         Width           =   1041
       End
    End
    Begin Label SelRange
@@ -569,7 +569,49 @@ Begin Window GenomeWin
       Underlined      =   False
       UseFocusRing    =   False
       Visible         =   True
-      Width           =   201
+      Width           =   200
+   End
+   Begin TextField SearchField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   "Search..."
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   False
+      Format          =   ""
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   800
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   -54
+      Underline       =   False
+      UseFocusRing    =   False
+      Visible         =   False
+      Width           =   200
    End
 End
 #tag EndWindow
@@ -679,6 +721,17 @@ End
 
 	#tag Event
 		Sub Open()
+		  #if TargetCocoa then
+		    SearchField.enabled=false
+		    SearchField.visible=false
+		  #else
+		    SearchField.enabled=true
+		    SearchField.visible=true
+		    SearchField.top=0
+		    NSSearchField1.enabled=false
+		    NSSearchField1.visible=false
+		  #endif
+		  
 		  'Get the default fonts:
 		  dim ff as string
 		  ff=SetDefaultFonts(true)
@@ -2471,6 +2524,30 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:Search4text")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SearchAction()
+		  dim n as integer
+		  
+		  SearchPosition=0
+		  
+		  if query<>"" then
+		    'detect if query is sequence, coordinate or plain text
+		    if isACGT(query) then
+		      'msgbox "sequence search not there yet"
+		      topStrandSearched=false
+		      Search4sequence(query)
+		    elseif isNumeric(query) then
+		      n=val(query)
+		      'ExtractFragment(n-DisplayInterval/2,n+DisplayInterval/2)
+		      'set the scrollbar:
+		      HScrollBar.value=n 'Extracts fragment too
+		    else
+		      Search4text(query)
+		    end if
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -4481,7 +4558,7 @@ End
 		  'NSSearchField1.AddMenuItem "Bar"
 		  
 		  
-		  NSSearchField1.PlaceholderText = "Search"
+		  NSSearchField1.PlaceholderText = "Search..."
 		  
 		  
 		  //setting this name means that recent searches will be saved to user defaults under this name.
@@ -4493,27 +4570,28 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Action()
-		  dim n as integer
-		  
-		  SearchPosition=0
 		  query=trim(me.StringValue)
 		  
-		  if query<>"" then
-		    'detect if query is sequence, coordinate or plain text
-		    if isACGT(query) then
-		      'msgbox "sequence search not there yet"
-		      topStrandSearched=false
-		      Search4sequence(query)
-		    elseif isNumeric(query) then
-		      n=val(query)
-		      'ExtractFragment(n-DisplayInterval/2,n+DisplayInterval/2)
-		      'set the scrollbar:
-		      HScrollBar.value=n 'Extracts fragment too
-		    else
-		      Search4text(query)
-		    end if
-		  end if
+		  SearchAction
 		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SearchField
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  'check for CR/enter key
+		  if key=chr(13) OR key=chr(3) then
+		    
+		    query=trim(me.text)
+		    
+		    if query<>"" then
+		      SearchAction
+		    else
+		      beep
+		    end if
+		    
+		  end if
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior

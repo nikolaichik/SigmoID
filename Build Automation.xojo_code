@@ -3,7 +3,7 @@
 				Begin BuildProjectStep Build
 				End
 				Begin CopyFilesBuildStep CopyResources
-					AppliesTo = 2
+					AppliesTo = 0
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4ASG1tR2VuLnB5
@@ -12,6 +12,8 @@
 					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAGxpYndlYmtpdDMy
 					FolderItem = Li4AcHR0X2NvbnZlcnRlci5weQ==
 					FolderItem = Li4AVGVybUdlbi5weQ==
+					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAFRyYW5zVGVybUhQAGV4cHRlcm0uZGF0
+					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAExpbnV4AHRyYW5zdGVybQ==
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
 					AppliesTo = 2

@@ -12,12 +12,12 @@ Inherits Application
 		      resources_f=GetFolderItem("SigmoID.app")
 		    #endif
 		    resources_f=resources_f.Child("Contents").Child("Resources")
-		  #elseif TargetLinux then
-		    #if DebugBuild then
-		      resources_f=GetFolderItem("").Parent.Child("Resources")
-		    #else
-		      resources_f=GetFolderItem("").Child("Resources")
-		    #endif
+		    '#elseif TargetLinux then
+		    ''#if DebugBuild then
+		    'resources_f=GetFolderItem("").Child("Resources")
+		    ''#else
+		    ''resources_f=GetFolderItem("").Child("Resources")
+		    ''#endif
 		  #else
 		    resources_f=GetFolderItem("").Child("Resources")
 		  #endif

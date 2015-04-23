@@ -207,7 +207,7 @@ Begin Window TermGenSettingsWin
       CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
-      Enabled         =   False
+      Enabled         =   True
       Format          =   ""
       Height          =   22
       HelpTag         =   "Stem must be n nucleotides long"
@@ -633,7 +633,7 @@ End
 		  
 		  
 		  
-		  AdjustLayout4linux(me)
+		  
 		End Sub
 	#tag EndEvent
 
@@ -642,6 +642,8 @@ End
 		  if LogoWin.GenomeFile<>nil then
 		    GenomeField.text=LogoWin.GenomeFile.ShellPath
 		  end if
+		  
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 

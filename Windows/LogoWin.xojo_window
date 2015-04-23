@@ -411,6 +411,7 @@ End
 		  end if
 		  if Not hmmg then
 		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed.")
+		    WriteToSTDOUT (EndOfLine)
 		    allProgsFine=false
 		  end if
 		  
@@ -435,6 +436,7 @@ End
 		  end if
 		  if Not hmmg then
 		    WriteToSTDOUT ("TermGen script doesn't work properly. Please verify that biopython is installed.")
+		    WriteToSTDOUT (EndOfLine)
 		    allProgsFine=false
 		  end if
 		  
@@ -961,7 +963,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub HmmGen()
-		  'outfile must be set before calling this method 
+		  'outfile must be set before calling this method
 		  
 		  'GenomeFile=GetOpenFolderItem("")
 		  if GenomeFile<> nil then
@@ -1571,7 +1573,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub TermGen()
-		  'outfile must be set before calling this method 
+		  'outfile must be set before calling this method
 		  
 		  'GenomeFile=GetOpenFolderItem("")
 		  if GenomeFile<> nil then
@@ -2082,7 +2084,7 @@ End
 		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_term.gb"
 		      outfile=GetSaveFolderItem("????",fn)
 		      if outfile<>nil then
-		        TermGen 
+		        TermGen
 		        if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
 		          GenomeWin.opengenbankfile(outFile)
 		          genomeWin.ShowHit
@@ -2505,6 +2507,12 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TermGenOptions"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TermGenPath"
 		Group="Behavior"
 		Type="String"
 	#tag EndViewProperty

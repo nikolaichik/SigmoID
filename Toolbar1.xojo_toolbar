@@ -22,6 +22,7 @@ Begin Toolbar Toolbar1
 		Caption = "TermGen"
 		HelpTag = ""
 		Style = 0
+		Icon = 2141093887
 	End
 	Begin ToolButton PalindromiseTool
 		Caption = "Palindromise"
