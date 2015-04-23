@@ -68,7 +68,7 @@ Begin Window GenomeWin
       Width           =   32
    End
    Begin Canvas MapCanvas
-      AcceptFocus     =   False
+      AcceptFocus     =   True
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
@@ -91,7 +91,7 @@ Begin Window GenomeWin
       TabStop         =   True
       Top             =   28
       Transparent     =   True
-      UseFocusRing    =   True
+      UseFocusRing    =   False
       Visible         =   True
       Width           =   1067
    End
@@ -306,7 +306,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   354
       Value           =   1
       Visible         =   True
@@ -422,7 +421,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -450,9 +448,7 @@ Begin Window GenomeWin
       LockTop         =   False
       Maximum         =   0
       Scope           =   0
-      TabIndex        =   13
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   725
       Value           =   0
       Visible         =   False
@@ -1097,6 +1093,8 @@ End
 		    else
 		      c.Text=ReverseComplement(se)
 		    end if
+		  elseif seq.SelLength>0 then 'copy the highlighted piece
+		    c.Text=mid(seq.Sequence,seq.SelStart,seq.SelLength)
 		  end if
 		  
 		End Sub
@@ -2970,27 +2968,6 @@ End
 
 	#tag Method, Flags = &h0
 		Sub UpdateSelRange()
-		  'dim n as integer
-		  'n=seq.length
-		  '
-		  'dim sl, ss As integer
-		  'sl=Editor.sellength
-		  'ss=editor.selStart
-		  'if Editor.sellength>0 then
-		  '
-		  'if n<=seq.length then
-		  'n=editor.selStart+editor.sellength-1
-		  'end
-		  'SelRange.text=str(editor.selStart+GBrowseShift)+"-"+str(n)+":"+str(editor.sellength)
-		  'else
-		  'if editor.selStart>=seq.length OR editor.selStart=0 then
-		  ''SelRange.text=str(n)
-		  'SelRange.text=""
-		  'else
-		  'SelRange.text=str(editor.selStart+GBrowseShift)+"("+str(n)+")"
-		  'end
-		  'end if
-		  
 		  dim n as integer
 		  n=Genome.length
 		  
@@ -3003,8 +2980,11 @@ End
 		      
 		    end if
 		  else
-		    
-		    SelRange.text=""
+		    if seq.SelLength>0 then
+		      SelRange.text=str(seq.selstart+GBrowseShift)+"-"+str(seq.selstart+seq.sellength+GBrowseShift-1)+":"+str(seq.sellength)
+		    else
+		      SelRange.text=""
+		    end if
 		    
 		  end if
 		  
@@ -3603,6 +3583,8 @@ End
 		  dim AnyObjectClicked, RetValue as Boolean
 		  dim p as picture
 		  
+		  me.setfocus 'to switch focus away from the SearchField
+		  
 		  ToolTipTimer.Mode=1
 		  ToolTipBlock=false
 		  
@@ -3696,7 +3678,7 @@ End
 		  'updateMapCanvas
 		  'refresh
 		  'UpdateMapCanvasSelection
-		  'return RetValue
+		  return RetValue
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:MapCanvas:Mousedown")
 		    
@@ -3859,7 +3841,7 @@ End
 		  'end
 		  lastX2=x
 		  lastY2=Y
-		  EditorLock=TRUE
+		  'EditorLock=TRUE
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:MapCanvas:Mousedrag")
 		End Sub
@@ -3901,17 +3883,16 @@ End
 		    if x>=LastX then
 		      p.Objects.Item(0).x=LastX+w/2
 		      'refreshrect LastX,0,w,height
-		      ////Editor.SelStart=(lastx)*seq.bpPerPixel
+		      seq.SelStart=(lastx)*seq.bpPerPixel
 		    else
 		      p.Objects.Item(0).x=X+w/2
 		      
 		      'refreshrect X,0,w,height
-		      ////Editor.SelStart=(x)*seq.bpPerPixel
+		      seq.SelStart=(x)*seq.bpPerPixel
 		    end
 		    
 		    'need to set selection in the seq object too
-		    'Select Sequence in the text window:
-		    ////Editor.Sellength=w*seq.bpPerPixel
+		    seq.Sellength=w*seq.bpPerPixel
 		    'end
 		    
 		    
@@ -3922,18 +3903,14 @@ End
 		  else
 		    'name clicked - remove selection highlight
 		    
-		    if seq.circular  AND NOT SelectingREfragment then
-		      
-		      ArcShape(p.Objects.Item(0)).arcangle=0
-		      
-		    elseif  NOT SelectingREfragment then
+		    if  NOT SelectingREfragment then
 		      RectShape(p.Objects.Item(0)).width=0
 		    end
 		    
 		  end
 		  'SelectingREfragment=false
 		  updateMapCanvas
-		  'UpdateSelRange
+		  UpdateSelRange
 		  EditorLock=false
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:MapCanvas:MouseUp")

@@ -617,7 +617,7 @@ End
 		  
 		  if LogoWin.GenomeFile<>nil then
 		    genomeknown=true
-		  elseif
+		  else
 		    dim f as folderitem
 		    f = GetFolderItem(GenomeField.text,FolderItem.PathTypeShell)
 		    If f<>nil AND f.Exists Then
@@ -650,8 +650,8 @@ End
 		Sub ReadOptions()
 		  dim opt as string
 		  
-		  'currently, only confidence is set. 
-		  'stem/loop max/min length options are probably required 
+		  'currently, only confidence is set.
+		  'stem/loop max/min length options are probably required
 		  
 		  opt="-C "+str(ConfidenceField.text) 'set minimal confidence
 		  
