@@ -163,9 +163,9 @@ End
 		  dim n as integer
 		  n=val(GoToField.text)
 		  if n>0 then
-		    Parent.ExtractFragment(n-Genomewin.DisplayInterval/2,n+Genomewin.DisplayInterval/2)
+		    'Parent.ExtractFragment(n-Genomewin.DisplayInterval/2,n+Genomewin.DisplayInterval/2)
 		    'set the scrollbar:
-		    Genomewin.HScrollBar.value=n
+		    Genomewin.HScrollBar.value=n 'extracts fragment too
 		    'Parent.featureleft=-1 'disable hit highlighting
 		    hide
 		  end if

@@ -90,6 +90,7 @@ Begin Window nhmmerSettingsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "More options:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -124,6 +125,7 @@ Begin Window nhmmerSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -534,6 +536,7 @@ Begin Window nhmmerSettingsWin
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   ""
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -568,6 +571,7 @@ Begin Window nhmmerSettingsWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   ""
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -602,6 +606,7 @@ Begin Window nhmmerSettingsWin
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   ""
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -994,7 +999,7 @@ End
 	#tag Event
 		Sub Open()
 		  #if DebugBuild then
-		    me.text="/Users/Home/3\-2rez9/Pca32_10182014.gb"
+		    me.text="/Users/Home/3\-2rez9/Pca32_2015.04.08.gbk"
 		  #endif
 		  
 		End Sub

@@ -158,7 +158,7 @@ Begin Window GenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   557
+      Width           =   390
    End
    Begin ScrollBar HScrollBar
       AcceptFocus     =   True
@@ -405,12 +405,12 @@ Begin Window GenomeWin
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   20
+      Height          =   24
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   774
+      Left            =   594
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -427,11 +427,11 @@ Begin Window GenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   2
+      Top             =   0
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   227
+      Width           =   194
    End
    Begin ProgressBar SearchProgressBar
       AutoDeactivate  =   True
@@ -522,6 +522,54 @@ Begin Window GenomeWin
       Top             =   0
       Width           =   32
       yield           =   False
+   End
+   Begin Cocoa.NSSearchField NSSearchField1
+      AcceptFocus     =   True
+      AcceptTabs      =   False
+      Alignment       =   ""
+      AllowsExpansionToolTips=   False
+      AutoDeactivate  =   True
+      autoresizesSubviews=   False
+      Backdrop        =   0
+      Bold            =   False
+      Description     =   ""
+      DoubleBuffer    =   False
+      DoubleValue     =   0.0
+      Enabled         =   True
+      EraseBackground =   False
+      FloatValue      =   0.0
+      FocusRing       =   True
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      IntegerValue    =   0
+      IsFlipped       =   False
+      Italic          =   False
+      Left            =   800
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MaxRecentSearches=   0
+      PlaceholderText =   ""
+      Scope           =   0
+      SendSearchStringImmediately=   False
+      SendWholeSearchString=   False
+      ShowMenu        =   False
+      StringValue     =   ""
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      Top             =   0
+      Transparent     =   True
+      Underlined      =   False
+      UseFocusRing    =   False
+      Visible         =   True
+      Width           =   201
    End
 End
 #tag EndWindow
@@ -852,19 +900,7 @@ End
 
 	#tag MenuHandler
 		Function EditCopy() As Boolean Handles EditCopy.Action
-			Dim C as  Clipboard
-			C=new Clipboard
-			
-			dim se as string
-			if FeatureLeft>0 then
-			se=midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
-			if topstrand then
-			c.Text=se
-			else
-			c.Text=ReverseComplement(se)
-			end if
-			end if
-			
+			CopyDNA
 			
 			'Return True
 			
@@ -873,24 +909,7 @@ End
 
 	#tag MenuHandler
 		Function EditCopyTranslation() As Boolean Handles EditCopyTranslation.Action
-			Dim C as  Clipboard
-			C=new Clipboard
-			
-			'using standard code [ gcodes(1) ] for now!
-			
-			if FeatureLeft>0 then
-			if topstrand then
-			c.Text=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
-			else
-			c.Text=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
-			end if
-			end if
-			
-			
-			'Return True
-			
-			Return True
-			
+			CopyAA
 		End Function
 	#tag EndMenuHandler
 
@@ -943,12 +962,6 @@ End
 
 	#tag MenuHandler
 		Function GenomeFind() As Boolean Handles GenomeFind.Action
-			//********* Still to do *************
-			' detect if query is sequence or text
-			' raw sequence search
-			' add search field to toolbar
-			' find again
-			//***********************************
 			
 			FindWin.showmodalwithin(self)
 			
@@ -956,8 +969,9 @@ End
 			SearchPosition=0
 			query=trim(FindWin.FindField.text)
 			
+			topStrandSearched=false
 			if isACGT(query) then 'detect if query is sequence or plain text
-			'Search4sequence(query)
+			Search4sequence(query)
 			else
 			Search4text(query)
 			end if
@@ -971,7 +985,7 @@ End
 			'continue from the current SearchPosition
 			
 			if isACGT(query) then 'detect if query is sequence or plain text
-			'Search4sequence(query)
+			Search4sequence(query)
 			else
 			Search4text(query)
 			end if
@@ -1044,6 +1058,42 @@ End
 		  
 		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CopyAA()
+		  Dim C as  Clipboard
+		  C=new Clipboard
+		  
+		  'using standard code [ gcodes(1) ] for now!
+		  
+		  if FeatureLeft>0 then
+		    if topstrand then
+		      c.Text=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		    else
+		      c.Text=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		    end if
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CopyDNA()
+		  Dim C as  Clipboard
+		  C=new Clipboard
+		  
+		  dim se as string
+		  if FeatureLeft>0 then
+		    se=midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
+		    if topstrand then
+		      c.Text=se
+		    else
+		      c.Text=ReverseComplement(se)
+		    end if
+		  end if
 		  
 		End Sub
 	#tag EndMethod
@@ -1913,10 +1963,10 @@ End
 		  dim s,ACTG as string
 		  
 		  ACTG="ACTG"
-		  l=lenb(query)
+		  l=len(query)
 		  for n=1 to l
-		    s=midB(query,n,1)
-		    if instrB(ACTG,s)=0 then
+		    s=mid(query,n,1)
+		    if instr(ACTG,s)=0 then
 		      return false
 		    end if
 		  next
@@ -2310,6 +2360,73 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Search4sequence(query as string)
+		  dim n,coord as integer
+		  
+		  'deselect other things
+		  DeselectShapes(Seq.map)
+		  
+		  if NOT topStrandSearched then
+		    'search top strand
+		    n=instr(SearchPosition+1,genome.sequence,query)
+		    if n>0 then
+		      'set the scrollbar:
+		      HScrollBar.value=n
+		      
+		      topstrand=true
+		      
+		      FeatureLeft=n-GBrowseShift
+		      FeatureRight=n-GBrowseShift+len(query)
+		      
+		      HighlightColour=HighlightColor        'return to default color
+		      TextMap(FeatureLeft,FeatureRight)
+		      
+		      'add selection highlight:
+		      UpdateMapCanvasSelection
+		      
+		      SearchPosition=n
+		    else
+		      topStrandSearched=true
+		      SearchPosition=0
+		    end if
+		  end if
+		  
+		  if topStrandSearched then
+		    'search bottom strand
+		    if genome.RCsequence="" then
+		      genome.RCsequence=ReverseComplement(genome.Sequence)
+		    end if
+		    n=instr(SearchPosition+1,genome.RCsequence,query)
+		    dim gl as integer
+		    gl=len(genome.RCsequence)
+		    if n>0 then
+		      'set the scrollbar:
+		      HScrollBar.value=gl-n+2
+		      
+		      topstrand=false
+		      'coord=n+len(query)/2
+		      'ExtractFragment(coord-Genomewin.DisplayInterval/2,coord+Genomewin.DisplayInterval/2)
+		      FeatureLeft=gl-n-GBrowseShift-len(query)+2
+		      FeatureRight=gl-n-GBrowseShift+2
+		      dim fl,fr as integer
+		      fl=FeatureLeft
+		      fr=FeatureRight
+		      HighlightColour=HighlightColor        'return to default color
+		      TextMap(FeatureLeft,FeatureRight)
+		      
+		      'add selection highlight:
+		      UpdateMapCanvasSelection
+		      
+		      SearchPosition=n
+		    else
+		      topStrandSearched=false
+		      SearchPosition=0
+		    end if
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Search4text(query as string)
 		  'search for text within feature table
 		  
@@ -2417,13 +2534,13 @@ End
 		  if Seq.Features(selFeatureNo).complement  then
 		    FeatureLeft=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length-1
-		    TextMap(FeatureRight,FeatureLeft)
 		    topstrand=false
+		    TextMap(FeatureRight,FeatureLeft)
 		  else
 		    FeatureLeft=Seq.Features(selFeatureNo).start
 		    FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length
-		    TextMap(FeatureLeft,FeatureRight)
 		    topstrand=true
+		    TextMap(FeatureLeft,FeatureRight)
 		  end
 		  
 		  'Change selected feature colour
@@ -2823,6 +2940,7 @@ End
 	#tag Method, Flags = &h0
 		Sub UpdateMapCanvasSelection()
 		  dim p as picture
+		  dim rs as RectShape
 		  
 		  p=seq.map
 		  
@@ -2830,8 +2948,10 @@ End
 		    if featureleft=-1 then
 		      RectShape(p.Objects.Item(0)).width=0
 		    else
-		      RectShape(p.Objects.Item(0)).width=(FeatureLeft-FeatureRight)/seq.bpPerPixel
+		      RectShape(p.Objects.Item(0)).width=abs(FeatureLeft-FeatureRight)/seq.bpPerPixel
 		      p.Objects.Item(0).x=((FeatureLeft+FeatureRight)/2)/seq.bpPerPixel'*seq.map.Objects.Scale
+		      rs=RectShape(p.Objects.Item(0))
+		      
 		    end if
 		  end
 		  
@@ -3392,6 +3512,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		topStrandSearched As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ttip As string
 	#tag EndProperty
 
@@ -3837,6 +3961,11 @@ End
 		  
 		  
 		  if ContextFeature>0 then
+		    if seq.Features(ContextFeature).type="CDS" then
+		      base.Append mItem(kCopyProtein)
+		    else
+		      base.Append mItem(kCopyDNA)
+		    end if
 		    base.Append mItem(kEditFeature)
 		    base.Append mItem(kRemoveFeature)
 		    ContextProteinName=seq.Features(ContextFeature).name
@@ -3864,7 +3993,10 @@ End
 		  ToolTipTimer.Mode=1
 		  ToolTip.hide
 		  select case hititem.text
-		    
+		  case kCopyProtein
+		    CopyAA
+		  case kCopyDNA
+		    CopyDNA
 		  case kEditFeature
 		    EditFeature(seq.Features(ContextFeature))
 		  case kRemoveFeature
@@ -4343,6 +4475,58 @@ End
 		  UPSearchViewer.LoadURL(theURL)
 		  SearchProgressBar.Refresh
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NSSearchField1
+	#tag Event
+		Sub MenuAction(item as NSMenuItem)
+		  me.PlaceholderText = item.Title
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.TabStop = true
+		  me.SendWholeSearchString = true
+		  me.FocusRing = false
+		  NSSearchField1.ShowMenu = true
+		  'NSSearchField1.AddMenuItem "Foo"
+		  'NSSearchField1.AddMenuSeparator
+		  'NSSearchField1.AddMenuItem "Bar"
+		  
+		  
+		  NSSearchField1.PlaceholderText = "Search"
+		  
+		  
+		  //setting this name means that recent searches will be saved to user defaults under this name.
+		  //the shared NSUserDefaults object is saved periodically.
+		  NSSearchField1.RecentsAutosaveName = "SigmoID.RecentSearches"
+		  
+		  NSSearchField1.ShowRecentSearches = true
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action()
+		  dim n as integer
+		  
+		  SearchPosition=0
+		  query=trim(me.StringValue)
+		  
+		  if query<>"" then
+		    'detect if query is sequence, coordinate or plain text
+		    if isACGT(query) then
+		      'msgbox "sequence search not there yet"
+		      topStrandSearched=false
+		      Search4sequence(query)
+		    elseif isNumeric(query) then
+		      n=val(query)
+		      'ExtractFragment(n-DisplayInterval/2,n+DisplayInterval/2)
+		      'set the scrollbar:
+		      HScrollBar.value=n 'Extracts fragment too
+		    else
+		      Search4text(query)
+		    end if
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
