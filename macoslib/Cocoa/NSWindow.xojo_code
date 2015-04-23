@@ -4818,6 +4818,12 @@ Inherits NSResponder
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DisplaysWhenScreenProfileChanges"
 			Group="Behavior"
 			Type="Boolean"

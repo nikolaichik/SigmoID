@@ -450,7 +450,7 @@ End
 		      
 		      seq=rightb(seq,len(seq)-instrb(seq,"ORIGIN")-7)
 		    end if
-		    seq=CleanUp(seq) 
+		    seq=CleanUp(seq)
 		    
 		    InStream2.close
 		    seqRevSeq=seq+ReverseComplement(seq)

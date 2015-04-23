@@ -257,6 +257,17 @@ End
 		    msgbox "Can't find the HmmGen.py script"
 		  end if
 		  
+		  f=resources_f.child("TermGen.py")
+		  if f<>Nil then
+		    if f.exists then
+		      TermGenpath=f.ShellPath
+		    else
+		      msgbox "Can't find the TermGen.py script"
+		    end if
+		  else
+		    msgbox "Can't find the TermGen.py script"
+		  end if
+		  
 		  allProgsFine=true
 		  'check for the command line tools:
 		  
@@ -403,6 +414,30 @@ End
 		    allProgsFine=false
 		  end if
 		  
+		  'TermGen
+		  WriteToSTDOUT ("Checking the TermGen script... ")
+		  cli="python "+TermGenPath+" -v"
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  hmmg=false
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(nthfield((Sh.Result),EndOfLine,1),"TermGen")>0 then
+		      if CountFields(Sh.Result,EndOfLine)=2 then
+		        WriteToSTDOUT (s)
+		        hmmg=true
+		        'else
+		        'msgbox str(CountFields(Sh.Result,EndOfLine))
+		      End If
+		    end if
+		  end if
+		  if Not hmmg then
+		    WriteToSTDOUT ("TermGen script doesn't work properly. Please verify that biopython is installed.")
+		    allProgsFine=false
+		  end if
+		  
 		  
 		  if not allProgsFine then
 		    SettingsWin.ShowModalWithin self
@@ -412,11 +447,13 @@ End
 		  'a proper check for monospaced font is required
 		  STDOUT.TextFont="Courier"
 		  
-		  LogoWinToolbar.Item(4).Enabled=false 'SaveLog: disable until alignment loaded
 		  LogoWinToolbar.Item(1).Enabled=false 'Search: disable until alignment loaded
 		  LogoWinToolbar.Item(2).Enabled=false 'HmmGen: disable until nhmmer is run
+		  'LogoWinToolbar.Item(3).Enabled=false 'TermGen: enable from the beginning
+		  LogoWinToolbar.Item(4).Enabled=false 'palindromise: disable until alignment loaded
+		  LogoWinToolbar.Item(5).Enabled=false 'SaveLog: disable until alignment loaded
 		  
-		  WriteToSTDOUT (EndofLine+"Load alignment file to start."+EndofLine)
+		  WriteToSTDOUT (EndofLine+"Load alignment or genome file to start."+EndofLine)
 		  
 		  
 		  Exception err
@@ -923,14 +960,14 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub HmmGen(outf as FolderItem)
+		Sub HmmGen()
+		  'outfile must be set before calling this method 
 		  
 		  'GenomeFile=GetOpenFolderItem("")
 		  if GenomeFile<> nil then
 		    dim cli as string
 		    Dim sh As Shell
 		    
-		    outfile=outf  'to use outside of this method
 		    'usage:
 		    'HmmGen <report_file>  <input_file> <output_file> [options]
 		    '
@@ -1246,7 +1283,7 @@ End
 		  else
 		    'MsgBox "Can't open the alignment file"
 		    LogoWinToolbar.Item(1).Enabled=false 'disable until alignment loaded
-		    LogoWinToolbar.Item(3).Enabled=false
+		    LogoWinToolbar.Item(4).Enabled=false
 		    
 		    Return
 		  end if
@@ -1265,9 +1302,9 @@ End
 		  end if
 		  
 		  if Palindromic then
-		    LogoWinToolbar.Item(3).Enabled=false
+		    LogoWinToolbar.Item(4).Enabled=false
 		  else
-		    LogoWinToolbar.Item(3).Enabled=true
+		    LogoWinToolbar.Item(4).Enabled=true
 		  End If
 		  
 		  Exception err
@@ -1435,7 +1472,7 @@ End
 		    instream.Close
 		    DrawLogo
 		    palindromic=true
-		    LogoWinToolbar.Item(3).Enabled=false
+		    LogoWinToolbar.Item(4).Enabled=false
 		  End If
 		  
 		  Exception err
@@ -1528,6 +1565,154 @@ End
 		    
 		    
 		    
+		    
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub TermGen()
+		  'outfile must be set before calling this method 
+		  
+		  'GenomeFile=GetOpenFolderItem("")
+		  if GenomeFile<> nil then
+		    dim cli as string
+		    Dim sh As Shell
+		    
+		    'usage:
+		    'TermGen <input_file> <output_file> [options]
+		    '
+		    'This script allows to add terminators to a genbank file according to TransTerm
+		    'HP results. Requires Biopython 1.64 (or newer)
+		    '
+		    'positional arguments:
+		    'input_file            path to input Genbank file.
+		    'output_file           path to input Genbank file.
+		    '
+		    'optional arguments:
+		    '-h, --help            show this help message and exit
+		    '-o <path>, --output <path>
+		    'redirects TransTerm HP output file to directory given
+		    '-C <integer>, --confidence <integer>
+		    'threshold Score.
+		    '-v, --version         show program's version number and exit
+		    
+		    
+		    
+		    
+		    if outfile<>nil then
+		      WriteToSTDOUT (EndofLine+EndofLine+"Running TermGen script..."+EndofLine)
+		      
+		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
+		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
+		      cli="python "+TermGenPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+TermGenOptions
+		      
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      sh.execute cli
+		      If sh.errorCode=0 then
+		        'store hit number for genome scan:
+		        'dim LastHitStr as string
+		        'LastHitStr=NthField(Sh.Result,"Features added:",3)
+		        'LastHitStr=NthField(LastHitStr,"CPU time:",1)
+		        'LastHitNo=Val(LastHitStr)
+		        
+		        WriteToSTDOUT (EndofLine)
+		        
+		        dim termCount as integer
+		        termcount=countfields(Sh.Result,"['")
+		        WriteToSTDOUT (str(termcount)+" terminators added"+EndofLine)
+		        WriteToSTDOUT (nthfield(Sh.Result,"seconds.",1)+"seconds."+EndofLine)
+		        if NOT ScanningGenome then
+		          WriteToSTDOUT (EndofLine+"Genbank file with added terminators written to "+outFile.ShellPath+EndofLine)
+		        end if
+		      else
+		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        
+		      End If
+		      
+		      'display the hits in the browser (not yet!):
+		      'if TermGenSettingsWin.GenomeBrowserCheckBox.value then
+		      '
+		      '
+		      'redim GenomeWin.HmmHits(0)
+		      'redim GenomeWin.HmmHitDescriptions(0)
+		      '
+		      'dim m,n,o,colonPos as integer
+		      'dim currentHit,HitInfo, hits2sort(0),hitloc as string
+		      '
+		      ''sort the hits according to genome position:
+		      'm=CountFields(sh.result,"location: [")
+		      'for n=2 to m
+		      'currentHit=nthfield(sh.result,"location: [",n)
+		      'colonPos=instrb(currenthit,":")
+		      'hitloc=nthfield(currentHit,":",1)
+		      'if lenb(hitLoc)<8 then 'assuming genome length is less than 100Mb
+		      'for o=0 to 8-lenb(hitLoc)
+		      'hitloc="0"+hitloc
+		      'next
+		      'end if
+		      'hitloc=hitloc+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
+		      'hits2sort.append hitloc'+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
+		      ''nthfield(sh.result,"location: [",n)
+		      'next
+		      'hits2sort.Sort
+		      'm=ubound(hits2sort)
+		      'for n=1 to m
+		      'while left(hits2sort(n),1)="0"
+		      'hits2sort(n)=right(hits2sort(n),lenb(hits2sort(n))-1)
+		      'wend
+		      'next
+		      '
+		      ''add sorted hits and their info into genome browser arrays
+		      'for n=1 to ubound(hits2sort)
+		      'currentHit=hits2sort(n)
+		      'GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
+		      'HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
+		      'HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
+		      'HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),Endofline,1)
+		      'genomeWin.HmmHitDescriptions.append HitInfo
+		      'next
+		      '
+		      ''initialise array to select/deselect hits:
+		      'redim genomeWin.HmmHitChecked(ubound(hits2sort))
+		      'for n=1 to ubound(hits2sort)
+		      'genomeWin.HmmHitChecked(n)=true
+		      'next
+		      'genomeWin.AnyHitDeselected=false
+		      'end if
+		      '
+		      '
+		      '
+		      'if Ubound(genomeWin.HmmHits)>0 then
+		      'WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
+		      '
+		      ''Set the genome map scrollbar:
+		      'Genomewin.SetScrollbar
+		      '
+		      ''Display the hit:
+		      'genomeWin.CurrentHit=1
+		      'Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
+		      's0.Enabled=false 'first hit: there's no previous one
+		      'Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
+		      's1.Title="1/"+str(UBound(genomeWin.HmmHits))
+		      'Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
+		      's2.enabled=true
+		      '
+		      'end if
+		      'else
+		      'WriteToSTDOUT (EndofLine+"HmmGen error Code: "+Str(sh.errorCode)+EndofLine)
+		      'WriteToSTDOUT (EndofLine+Sh.Result)
+		      'end if
+		      'else
+		      'return
+		    end if
+		    '
+		  end if
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:TermGen")
 		    
 		End Sub
 	#tag EndMethod
@@ -1711,6 +1896,14 @@ End
 		Protected SigFileOpened As boolean
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		TermGenOptions As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TermGenPath As String
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected UpperPaneHeight As Integer = 175
 	#tag EndProperty
@@ -1820,6 +2013,8 @@ End
 #tag Events LogoWinToolbar
 	#tag Event
 		Sub Action(item As ToolItem)
+		  
+		  
 		  select case Item.Name
 		    
 		  Case "LoadAlignmentTool"
@@ -1834,6 +2029,8 @@ End
 		      if Logofile<>nil then
 		        LogoWinToolbar.Item(1).Enabled=true
 		        LogoWinToolbar.Item(2).Enabled=false 'new genome, no nhmmer output yet
+		        LogoWinToolbar.Item(3).Enabled=true
+		        
 		      end if
 		    end if
 		  Case "SaveLogTool"
@@ -1847,8 +2044,6 @@ End
 		        nhmmerSettingsWin.MaskingBox.Enabled=False
 		        nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. To enable, drag/shift-drag over undesired positions in the logo"
 		        'show cutoff values:
-		        
-		        
 		      end if
 		    end if
 		    if GenomeFile<>Nil then
@@ -1871,11 +2066,27 @@ End
 		    HmmGenSettingsWin.showmodalwithin(self)
 		    if HmmGenSettingsWin.OKpressed then
 		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-		      HmmGen GetSaveFolderItem("????",fn)
-		      'Load the Seq:
-		      if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then
-		        GenomeWin.opengenbankfile(outFile)
-		        genomeWin.ShowHit
+		      outfile=GetSaveFolderItem("????",fn)
+		      if outfile<>nil then
+		        HmmGen
+		        if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		          GenomeWin.opengenbankfile(outFile)
+		          genomeWin.ShowHit
+		        end if
+		      end if
+		    end if
+		  Case "TermGenTool"
+		    TermGenOptions=""
+		    TermGenSettingsWin.showmodalwithin(self)
+		    if TermGenSettingsWin.OKpressed then
+		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_term.gb"
+		      outfile=GetSaveFolderItem("????",fn)
+		      if outfile<>nil then
+		        TermGen 
+		        if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		          GenomeWin.opengenbankfile(outFile)
+		          genomeWin.ShowHit
+		        end if
 		      end if
 		    end if
 		  Case "SettingsTool"
@@ -1920,9 +2131,9 @@ End
 		    
 		  else
 		    if Palindromic then
-		      LogoWinToolbar.Item(3).Enabled=false
+		      LogoWinToolbar.Item(4).Enabled=false
 		    else
-		      LogoWinToolbar.Item(3).Enabled=true
+		      LogoWinToolbar.Item(4).Enabled=true
 		    End If
 		    
 		  End If
@@ -2028,9 +2239,9 @@ End
 	#tag Event
 		Sub TextChange()
 		  if len(me.Text)>0 then
-		    LogoWinToolbar.Item(4).Enabled=true 'SaveLog button
+		    LogoWinToolbar.Item(5).Enabled=true 'SaveLog button
 		  else
-		    LogoWinToolbar.Item(4).Enabled=false
+		    LogoWinToolbar.Item(5).Enabled=false
 		  end if
 		End Sub
 	#tag EndEvent
@@ -2291,6 +2502,11 @@ End
 		Group="ID"
 		Type="String"
 		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TermGenOptions"
+		Group="Behavior"
+		Type="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

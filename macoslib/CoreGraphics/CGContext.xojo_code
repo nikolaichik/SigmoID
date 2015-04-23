@@ -1154,11 +1154,29 @@ Inherits CFType
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="InterpolationQuality"
+			Group="Behavior"
+			Type="CGInterpolationQuality"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Default"
+				"1 - None"
+				"2 - Low"
+				"3 - High"
+			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"

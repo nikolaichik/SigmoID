@@ -32,8 +32,8 @@
 					FolderItem = Li4AR2VuZXRpYy5jb2Rlcw==
 					FolderItem = Li4AcHR0X2NvbnZlcnRlci5weQ==
 					FolderItem = Li4AVGVybUdlbi5weQ==
-					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAGV4cHRlcm0uZGF0
-					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAHRyYW5zdGVybQ==
+					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAFRyYW5zVGVybUhQAGV4cHRlcm0uZGF0
+					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAFRyYW5zVGVybUhQAHRyYW5zdGVybQ==
 				End
 			End
 			Begin BuildStepList Windows

@@ -306,6 +306,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   354
       Value           =   1
       Visible         =   True
@@ -421,6 +422,7 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -448,7 +450,9 @@ Begin Window GenomeWin
       LockTop         =   False
       Maximum         =   0
       Scope           =   0
+      TabIndex        =   13
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   725
       Value           =   0
       Visible         =   False
@@ -3036,17 +3040,22 @@ End
 
 
 	#tag Note, Name = 2 do
-		[draft done] Navigation toolbar
-		+ correct display of central segment in the navigator (accommodate varying text length)
-		+ truncate feature name length
-		- Reading genome in a thread in parallel with profile scan to speed things up (won't help much, as all threads run on the same core)
-		+- Highlight a feature on demand
+		- termGen settings window, menu, option in genomescan
+		- option to launch hmmGen after hmmer (without showing settings win) with default settings 
+		  for calibrated profiles
+		+- [draft done] Navigation toolbar
+		- unify hmmer hits navigation with search navigation (same controls, 
+		  menu to switch from displaying search results back to hmmer hits)
+		- drag-selection sequence in both panes
+		- blastn with selected DNA piece/feature
+		- fix overlapping feature display finally!
+		- resizing top browser pane
 		- Memorise selection when scrolling genome
-		-+ Sort hits before showing 'em (sorting done incorrectly
-		- Removing deselected features upon request
+		-+ Sort hits before showing 'em (sorting done incorrectly)
 		+- Proper sequence display with reading frames
-		- Editing features
-		- BLASTing frames/genes/raw sequence?
+		- prefs
+		- docs
+		
 		
 	#tag EndNote
 
@@ -5248,6 +5257,11 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="topstrand"
+		Group="Behavior"
+		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="topStrandSearched"
 		Group="Behavior"
 		Type="boolean"
 	#tag EndViewProperty

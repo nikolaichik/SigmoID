@@ -18,6 +18,11 @@ Begin Toolbar Toolbar1
 		Style = 0
 		Icon = 39430258
 	End
+	Begin ToolButton TermGenTool
+		Caption = "TermGen"
+		HelpTag = ""
+		Style = 0
+	End
 	Begin ToolButton PalindromiseTool
 		Caption = "Palindromise"
 		HelpTag = ""

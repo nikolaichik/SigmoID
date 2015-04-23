@@ -23,7 +23,7 @@ Begin Window HmmGenSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "nhmmer Settings"
+   Title           =   "HmmGen Settings"
    Visible         =   False
    Width           =   400
    Begin Label Label3
@@ -689,7 +689,7 @@ End
 		  END IF
 		  
 		  'put the value used by hmmer in threshold box here:
-		   if nhmmerSettingsWin.BitScoreButton.value AND nhmmerSettingsWin.BitScoreButton.enabled then
+		  if nhmmerSettingsWin.BitScoreButton.value AND nhmmerSettingsWin.BitScoreButton.enabled then
 		    me.BitScoreButton.value=true
 		    me.BitScoreField.text=nhmmerSettingsWin.BitScoreField.text
 		  elseif nhmmerSettingsWin.EvalueButton.value AND nhmmerSettingsWin.EvalueButton.enabled  then
@@ -844,10 +844,10 @@ End
 		Sub Action()
 		  if me.value then
 		    LogoWin.palindromic=true
-		    LogoWin.LogoWinToolbar.Item(3).Enabled=true
+		    LogoWin.LogoWinToolbar.Item(4).Enabled=true
 		  else
 		    LogoWin.palindromic=false
-		    LogoWin.LogoWinToolbar.Item(3).Enabled=false
+		    LogoWin.LogoWinToolbar.Item(4).Enabled=false
 		  end if
 		  
 		  
@@ -1049,6 +1049,11 @@ End
 		Group="ID"
 		Type="String"
 		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="OKPressed"
+		Group="Behavior"
+		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Placement"

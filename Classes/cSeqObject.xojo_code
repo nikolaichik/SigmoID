@@ -393,6 +393,12 @@ Protected Class cSeqObject
 			Type="integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="RCsequence"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Redundant"
 			Group="Behavior"
 			InitialValue="0"

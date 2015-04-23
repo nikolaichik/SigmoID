@@ -333,7 +333,8 @@ End
 		            nhmmerSettingsWin.ReadOptions
 		            LogoWin.nhmmer
 		            HmmGenSettingsWin.ReadOptions
-		            LogoWin.HmmGen(GenomeScanOut)
+		            LogoWin.outfile=GenomeScanOut
+		            LogoWin.HmmGen
 		            HitCount=HitCount+LogoWin.LastHitNo
 		            dim tmpfile as folderitem
 		            tmpfile=SpecialFolder.Temporary.child("GenomeScanIn")
@@ -410,6 +411,8 @@ End
 		    if LogoWin.Logofile<>nil then
 		      LogoWin.LogoWinToolbar.Item(1).Enabled=true
 		      LogoWin.LogoWinToolbar.Item(2).Enabled=false 'new genome, no nhmmer output yet
+		      LogoWin.LogoWinToolbar.Item(3).Enabled=true
+		      
 		    end if
 		    GenomeField.text=LogoWin.Genomefile.shellpath
 		    RunButton.enabled=true

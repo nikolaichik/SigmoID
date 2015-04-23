@@ -7,6 +7,10 @@
 		MacCreator=SgId
 		MacType=BINA
 		Name=SigmoidFile
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=False
 	#tag EndFileType
 
 	#tag FileType
@@ -17,6 +21,10 @@
 		MacCreator=????
 		MacType=TEXT
 		Name=Text
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=False
 	#tag EndFileType
 
 	#tag FileType
@@ -27,6 +35,10 @@
 		MacCreator=????
 		MacType=????
 		Name=All Files
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=False
 	#tag EndFileType
 
 	#tag FileType
@@ -37,6 +49,10 @@
 		MacCreator=MACS
 		MacType=fold
 		Name=Folder
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=False
 	#tag EndFileType
 
 	#tag FileType
@@ -47,6 +63,10 @@
 		MacCreator=SgId
 		MacType=SgPr
 		Name=Sigmoid Prefs
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=False
 	#tag EndFileType
 
 #tag EndFileTypeSet

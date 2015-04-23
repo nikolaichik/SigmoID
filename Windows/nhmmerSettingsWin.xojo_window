@@ -1043,6 +1043,7 @@ End
 		  LogoWin.GenomeFile=GetOpenFolderItem("")
 		  if LogoWin.GenomeFile<> Nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+LogoWin.GenomeFile.shellpath+" loaded.")
+		    LogoWin.LogoWinToolbar.Item(3).Enabled=true
 		    if LogoWin.Logofile<>nil then
 		      LogoWin.LogoWinToolbar.Item(1).Enabled=true
 		      LogoWin.LogoWinToolbar.Item(2).Enabled=false 'new genome, no nhmmer output yet
