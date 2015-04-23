@@ -17,7 +17,7 @@ def createParser():
     parser.add_argument('input_file',
                        help='''path to input Genbank file.''')
     parser.add_argument('output_file',
-                        help='''path to input Genbank file.''')
+                        help='''path to output Genbank file.''')
     parser.add_argument('-o', '--output',
                         default='',
                         type=str,
@@ -28,7 +28,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''threshold Score.''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.1 (April 13, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.2 (April 23, 2015)')
     return parser
 
 args = createParser()
@@ -74,7 +74,7 @@ if enter.output == '':
     transterm_output = '%s/transterm_output' % tmp_directory
 else:
     transterm_output = '%s' % enter.output
-transterm_cmd = '%s/TransTermHP/transterm --min-conf=%s -S -p %s/TransTermHP/expterm.dat %s %s > %s' % (renamed_cwd,
+transterm_cmd = '%s/transterm --min-conf=%s -S -p %s/expterm.dat %s %s > %s' % (renamed_cwd,
                                                                                         enter.confidence,
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
