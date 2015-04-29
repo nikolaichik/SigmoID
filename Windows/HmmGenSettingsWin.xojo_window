@@ -443,7 +443,7 @@ Begin Window HmmGenSettingsWin
    Begin CheckBox NextLocusBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Join next locus"
+      Caption         =   "Use next locus_tag"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -452,7 +452,7 @@ Begin Window HmmGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   244
+      Left            =   222
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -470,7 +470,7 @@ Begin Window HmmGenSettingsWin
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   136
+      Width           =   158
    End
    Begin GroupBox ThresholdsBox
       AutoDeactivate  =   True
@@ -682,11 +682,11 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Activate()
-		  if LengthField.text="" then
-		    RunButton.enabled=false
-		  ELSE
-		    RunButton.enabled=true
-		  END IF
+		  'if LengthField.text="" then
+		  'RunButton.enabled=false
+		  'ELSE
+		  'RunButton.enabled=true
+		  'END IF
 		  
 		  'put the value used by hmmer in threshold box here:
 		  if nhmmerSettingsWin.BitScoreButton.value AND nhmmerSettingsWin.BitScoreButton.enabled then
@@ -712,6 +712,20 @@ End
 
 	#tag Event
 		Sub Open()
+		  'determine the default length parameter 
+		  
+		  dim instream as TextInputStream
+		  dim aline As string
+		  'read profile calibration values
+		  InStream = logowin.LogoFile.OpenAsTextFile
+		  while not InStream.EOF
+		    aLine=InStream.readLine
+		    if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
+		      LengthField.CueText=str(len(aline))
+		      exit
+		    end if
+		  wend
+		  
 		  
 		End Sub
 	#tag EndEvent
@@ -733,8 +747,12 @@ End
 		  end if
 		  
 		  if LengthField.text<>"" then
-		    opt=opt+" -L "+HmmGenSettingsWin.lengthField.text
+		    opt=opt+" -L "+me.lengthField.text
+		  else
+		    'use the cueText which holds the alignment length
+		    opt=opt+" -L "+me.lengthField.CueText
 		  end if
+		  
 		  
 		  if PalindromicBox.Value then
 		    opt=opt+" -p"
@@ -857,11 +875,11 @@ End
 #tag Events LengthField
 	#tag Event
 		Sub TextChange()
-		  if me.text="" then
-		    RunButton.enabled=false
-		  ELSE
-		    RunButton.enabled=true
-		  END IF
+		  'if me.text="" then
+		  'RunButton.enabled=false
+		  'ELSE
+		  'RunButton.enabled=true
+		  'END IF
 		End Sub
 	#tag EndEvent
 #tag EndEvents

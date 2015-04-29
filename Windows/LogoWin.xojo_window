@@ -962,7 +962,9 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub HmmGen()
+		Function HmmGen() As boolean
+		  'returns true if completed without errors
+		  
 		  'outfile must be set before calling this method
 		  
 		  'GenomeFile=GetOpenFolderItem("")
@@ -1098,12 +1100,14 @@ End
 		          s2.enabled=true
 		          
 		        end if
+		        return true
 		      else
 		        WriteToSTDOUT (EndofLine+"HmmGen error Code: "+Str(sh.errorCode)+EndofLine)
 		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        return false
 		      end if
 		    else
-		      return
+		      return false
 		    end if
 		    
 		  end if
@@ -1112,7 +1116,7 @@ End
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:HmmGen")
 		    
-		End Sub
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1259,6 +1263,12 @@ End
 		      next
 		    else
 		      SigFileOpened=false
+		      LogoFile=tmpfile
+		      HmmGenSettingsWin.PalindromicBox.value=False
+		      HmmGenSettingsWin.IntergenicBox.value=False
+		      HmmGenSettingsWin.AddQualifierBox.value=False
+		      HmmGenSettingsWin.NextLocusBox.value=True
+		      HmmGenSettingsWin.lengthField.text=""
 		      HmmGenSettingsWin.EvalueField.enabled=true
 		      HmmGenSettingsWin.EvalueButton.enabled=true
 		      nhmmerSettingsWin.MaskingBox.enabled=true
@@ -1272,7 +1282,7 @@ End
 		      nhmmerSettingsWin.ThresholdsBox.HelpTag="Thresholds to use with uncalibrated profile."
 		      palindromic=false
 		      
-		      LogoFile=tmpfile
+		      
 		    end if
 		    'store the seqs first:
 		    dim tis as TextInputStream
@@ -1315,7 +1325,9 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub nhmmer()
+		Function nhmmer() As boolean
+		  'returns true if completed without errors
+		  
 		  'nhmmeroptions parameter isn't used
 		  '(nhmmerSettingsWin.OptionsField.text used instead)
 		  
@@ -1358,10 +1370,12 @@ End
 		    If sh.errorCode=0 then
 		      WriteToSTDOUT (EndofLine+Sh.Result)
 		      LogoWinToolbar.Item(2).Enabled=true
+		      return true
 		    else
 		      MsgBox "nhmmer error Code: "+Str(sh.errorCode)
 		      WriteToSTDOUT (EndofLine+Sh.Result)
 		      LogoWinToolbar.Item(2).Enabled=false
+		      return false
 		    end if
 		  end if
 		  
@@ -1435,41 +1449,18 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:nhmmer")
-		End Sub
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub Palindromise()
 		  PalindromeLogoFile=SpecialFolder.Temporary.child("LogoPalindrome")
 		  If PalindromeLogoFile <> Nil then
-		    dim instream as TextInputStream
-		    dim outstream As TextOutputStream
-		    dim aLine,title as string
-		    
-		    InStream = logofile.OpenAsTextFile
-		    OutStream = PalindromeLogoFile.createTextFile 'make the file to store the stuff in
-		    while not InStream.EOF
-		      
-		      aLine=trim(InStream.readLine)
-		      if left(aLine,1)=">" then
-		        OutStream.writeLine ">f_"+right(aline,len(aline)-1)
-		        title=aline
-		      else
-		        if aline<>"" then
-		          OutStream.writeLine aline
-		          'and now the reverse complement:
-		          OutStream.writeLine ">r_"+right(title,len(title)-1)
-		          OutStream.writeLine ReverseComplement(aline)
-		        end if
-		      end if
-		      
-		    wend
-		    InStream.close
-		    OutStream.close
+		    RevCompAlignment(logofile, palindromeLogofile)
 		    logofile=PalindromeLogoFile
 		    
 		    'replace contents of the Sequence variable (for viewing)
-		    Instream=PalindromeLogoFile.OpenAsTextFile
+		    dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
 		    Sequences=Instream.ReadAll
 		    instream.Close
 		    DrawLogo
@@ -1572,7 +1563,9 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub TermGen()
+		Function TermGen() As boolean
+		  'returns true if completed without errors
+		  
 		  'outfile must be set before calling this method
 		  
 		  'GenomeFile=GetOpenFolderItem("")
@@ -1628,95 +1621,19 @@ End
 		        if NOT ScanningGenome then
 		          WriteToSTDOUT (EndofLine+"Genbank file with added terminators written to "+outFile.ShellPath+EndofLine)
 		        end if
+		        return true
 		      else
 		        WriteToSTDOUT (EndofLine+Sh.Result)
-		        
+		        return false
 		      End If
-		      
-		      'display the hits in the browser (not yet!):
-		      'if TermGenSettingsWin.GenomeBrowserCheckBox.value then
-		      '
-		      '
-		      'redim GenomeWin.HmmHits(0)
-		      'redim GenomeWin.HmmHitDescriptions(0)
-		      '
-		      'dim m,n,o,colonPos as integer
-		      'dim currentHit,HitInfo, hits2sort(0),hitloc as string
-		      '
-		      ''sort the hits according to genome position:
-		      'm=CountFields(sh.result,"location: [")
-		      'for n=2 to m
-		      'currentHit=nthfield(sh.result,"location: [",n)
-		      'colonPos=instrb(currenthit,":")
-		      'hitloc=nthfield(currentHit,":",1)
-		      'if lenb(hitLoc)<8 then 'assuming genome length is less than 100Mb
-		      'for o=0 to 8-lenb(hitLoc)
-		      'hitloc="0"+hitloc
-		      'next
-		      'end if
-		      'hitloc=hitloc+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
-		      'hits2sort.append hitloc'+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
-		      ''nthfield(sh.result,"location: [",n)
-		      'next
-		      'hits2sort.Sort
-		      'm=ubound(hits2sort)
-		      'for n=1 to m
-		      'while left(hits2sort(n),1)="0"
-		      'hits2sort(n)=right(hits2sort(n),lenb(hits2sort(n))-1)
-		      'wend
-		      'next
-		      '
-		      ''add sorted hits and their info into genome browser arrays
-		      'for n=1 to ubound(hits2sort)
-		      'currentHit=hits2sort(n)
-		      'GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
-		      'HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
-		      'HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
-		      'HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),Endofline,1)
-		      'genomeWin.HmmHitDescriptions.append HitInfo
-		      'next
-		      '
-		      ''initialise array to select/deselect hits:
-		      'redim genomeWin.HmmHitChecked(ubound(hits2sort))
-		      'for n=1 to ubound(hits2sort)
-		      'genomeWin.HmmHitChecked(n)=true
-		      'next
-		      'genomeWin.AnyHitDeselected=false
-		      'end if
-		      '
-		      '
-		      '
-		      'if Ubound(genomeWin.HmmHits)>0 then
-		      'WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
-		      '
-		      ''Set the genome map scrollbar:
-		      'Genomewin.SetScrollbar
-		      '
-		      ''Display the hit:
-		      'genomeWin.CurrentHit=1
-		      'Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
-		      's0.Enabled=false 'first hit: there's no previous one
-		      'Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
-		      's1.Title="1/"+str(UBound(genomeWin.HmmHits))
-		      'Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
-		      's2.enabled=true
-		      '
-		      'end if
-		      'else
-		      'WriteToSTDOUT (EndofLine+"HmmGen error Code: "+Str(sh.errorCode)+EndofLine)
-		      'WriteToSTDOUT (EndofLine+Sh.Result)
-		      'end if
-		      'else
-		      'return
 		    end if
-		    '
 		  end if
 		  
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:TermGen")
 		    
-		End Sub
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -2050,6 +1967,7 @@ End
 		    end if
 		    if GenomeFile<>Nil then
 		      nhmmerSettingsWin.GenomeField.text=GenomeFile.ShellPath
+		      
 		      nhmmerSettingsWin.RunButton.Enabled=true
 		    else
 		      #if Debugbuild
@@ -2061,7 +1979,8 @@ End
 		    nhmmerSettingsWin.ShowModalWithin(self)
 		    'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
 		    if nhmmerOptions <> "" then
-		      nhmmer
+		      dim dummy as boolean
+		      dummy=nhmmer
 		    end if
 		  Case "HmmGenTool"
 		    HmmGenOptions=""
@@ -2070,10 +1989,13 @@ End
 		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 		      outfile=GetSaveFolderItem("????",fn)
 		      if outfile<>nil then
-		        HmmGen
-		        if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		          GenomeWin.opengenbankfile(outFile)
-		          genomeWin.ShowHit
+		        if HmmGen then
+		          if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		            GenomeWin.opengenbankfile(outFile)
+		            genomeWin.ShowHit
+		            WriteToSTDOUT (" done."+EndofLine)
+		            
+		          end if
 		        end if
 		      end if
 		    end if
@@ -2084,10 +2006,11 @@ End
 		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_term.gb"
 		      outfile=GetSaveFolderItem("????",fn)
 		      if outfile<>nil then
-		        TermGen
-		        if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		          GenomeWin.opengenbankfile(outFile)
-		          genomeWin.ShowHit
+		        if TermGen then
+		          if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		            GenomeWin.opengenbankfile(outFile)
+		            genomeWin.ShowHit
+		          end if
 		        end if
 		      end if
 		    end if
@@ -2186,6 +2109,12 @@ End
 #tag Events Informer
 	#tag Event
 		Sub Open()
+		  if FixedFont="" then
+		    dim ff as string
+		    ff=SetDefaultFonts(true)
+		    FixedFont=NthField(ff,";",1)
+		  end if
+		  
 		  me.TextFont=FixedFont
 		End Sub
 	#tag EndEvent
@@ -2515,6 +2444,7 @@ End
 		Name="TermGenPath"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

@@ -587,6 +587,36 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub RevCompAlignment(infile as folderitem, outfile as folderitem)
+		  RevCompAlignment(infile, outfile)
+		  dim instream as TextInputStream
+		  dim outstream As TextOutputStream
+		  dim aLine,title as string
+		  
+		  InStream = infile.OpenAsTextFile
+		  OutStream = outfile.createTextFile 'make the file to store the stuff in
+		  while not InStream.EOF
+		    
+		    aLine=trim(InStream.readLine)
+		    if left(aLine,1)=">" then
+		      OutStream.writeLine ">f_"+right(aline,len(aline)-1)
+		      title=aline
+		    else
+		      if aline<>"" then
+		        OutStream.writeLine aline
+		        'and now the reverse complement:
+		        OutStream.writeLine ">r_"+right(title,len(title)-1)
+		        OutStream.writeLine ReverseComplement(aline)
+		      end if
+		    end if
+		    
+		  wend
+		  InStream.close
+		  OutStream.close
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Reverse(seq as string) As String
 		  'memory blocks are up to 80 times faster than strings here!!! :
 		  dim n,l,count as integer

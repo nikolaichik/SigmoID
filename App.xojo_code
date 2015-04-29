@@ -221,11 +221,24 @@ Inherits Application
 		      Msgbox "No cutoff settings were found in the .options file. Can't make calibrated profile without it."
 		      return
 		    else
+		      
 		      'cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
 		      dim stock as FolderItem = SpecialFolder.Temporary.child("stock")
 		      if stock <> nil then
-		        'open alignment:
-		        dim AlignmentFile as FolderItem = SigFolder.child(sigfolder.displayname+".fasta")
+		        dim AlignmentFile,rcAlignmentFile as FolderItem
+		        'check if the site is marked as palindromic
+		        if options.InStr("HmmGen.-p")>0 then 'reverse complement every site
+		          AlignmentFile= SigFolder.child(sigfolder.displayname+".fasta")
+		          if AlignmentFile<>Nil AND AlignmentFile.Exists then
+		            rcAlignmentFile=SpecialFolder.Temporary.child("rcAliFile")
+		            RevCompAlignment(AlignmentFile,rcAlignmentFile)
+		            AlignmentFile=rcAlignmentFile
+		          end if
+		        else 'just open existing alignment:
+		          AlignmentFile= SigFolder.child(sigfolder.displayname+".fasta")
+		        end if
+		        
+		        
 		        if AlignmentFile<>Nil AND AlignmentFile.Exists then
 		          'select where to save the .sig file
 		          Dim dlg as New SaveAsDialog

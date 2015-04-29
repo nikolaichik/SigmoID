@@ -90,7 +90,6 @@ Begin Window nhmmerSettingsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "More options:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -125,7 +124,6 @@ Begin Window nhmmerSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -536,7 +534,6 @@ Begin Window nhmmerSettingsWin
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   ""
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -571,7 +568,6 @@ Begin Window nhmmerSettingsWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   ""
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -606,7 +602,6 @@ Begin Window nhmmerSettingsWin
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   ""
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -931,6 +926,24 @@ End
 
 
 	#tag Method, Flags = &h0
+		Sub EnableRun()
+		  RunButton.enabled=true
+		  
+		  if GenomeField.text<>LogoWin.Genomefile.shellpath then
+		    RunButton.enabled=false
+		  end if
+		  
+		  if BitScoreButton.Value=true AND BitScoreField.text="" then
+		    RunButton.enabled=false
+		  end if
+		  
+		  if EvalueButton.Value=true AND EvalueField.text="" then
+		    RunButton.enabled=false
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ReadOptions()
 		  dim PNO as string
 		  
@@ -960,9 +973,13 @@ End
 		    
 		    if ThresholdsBox.enabled then         'select threshold to use
 		      if EvalueButton.Value then
-		        PNO=PNO+" -E "+trim(EvalueField.text)
+		        if val(EvalueField.text)>0 then    'if cutoff isn't entered, run without it
+		          PNO=PNO+" -E "+trim(EvalueField.text)
+		        end if
 		      elseif BitScoreButton.value then
-		        PNO=PNO+" -T "+trim(BitScoreField.text)
+		        if val(BitScoreField.text)>0 then    'if cutoff isn't entered, run without it
+		          PNO=PNO+" -T "+trim(BitScoreField.text)
+		        end if
 		      end if
 		    end if
 		    
@@ -1049,7 +1066,7 @@ End
 		      LogoWin.LogoWinToolbar.Item(2).Enabled=false 'new genome, no nhmmer output yet
 		    end if
 		    GenomeField.text=LogoWin.Genomefile.shellpath
-		    RunButton.enabled=true
+		    EnableRun
 		  end if
 		End Sub
 	#tag EndEvent
@@ -1066,6 +1083,7 @@ End
 		      CutoffBox.Enabled=true
 		    end if
 		  end if
+		  EnableRun
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1081,6 +1099,7 @@ End
 		      CutoffBox.Enabled=true
 		    end if
 		  end if
+		  EnableRun
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -1070,7 +1070,7 @@ End
 		Sub BLASTPsearch(ProtName as string)
 		  
 		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
-		  const URLend as string= "&DATABASE=nr&PROGRAM=blastp&HITLIST_SZE=100&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
+		  const URLend as string= "&DATABASE=nr&PROGRAM=blastp&HITLIST_SZE=100&CDD_SEARCH=true&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
 		  
@@ -3097,19 +3097,23 @@ End
 
 
 	#tag Note, Name = 2 do
-		- termGen settings window, menu, option in genomescan
+		- contextual menus for copying non-feature selections (with rev-compl!); complete contextual menus everywhere
+		- correct search for short text ("tag") that looks like sequence
+		- termGen option in genomescan
 		- option to launch hmmGen after hmmer (without showing settings win) with default settings 
 		  for calibrated profiles
 		+- [draft done] Navigation toolbar
 		- unify hmmer hits navigation with search navigation (same controls, 
 		  menu to switch from displaying search results back to hmmer hits)
-		- drag-selection sequence in both panes
+		- drag-select sequence in details pane
 		- blastn with selected DNA piece/feature
 		- fix overlapping feature display finally!
 		- resizing top browser pane
 		- Memorise selection when scrolling genome
 		-+ Sort hits before showing 'em (sorting done incorrectly)
 		+- Proper sequence display with reading frames
+		- disable nhmmer Run button until bit score is entered
+		- menus
 		- prefs
 		- docs
 		
