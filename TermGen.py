@@ -28,7 +28,27 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''threshold Score.''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.2 (April 23, 2015)')
+    parser.add_argument('--minstem',
+                        default=1,
+                        type=int,
+                        metavar='<integer>',
+                        help='''Stem must be n nucleotides long''')
+    parser.add_argument('--minloop',
+                        default=1,
+                        type=int,
+                        metavar='<integer>',
+                        help='''Loop portion of the hairpin must be at least n long''')
+    parser.add_argument('--maxlen',
+                        default=1,
+                        type=int,
+                        metavar='<integer>',
+                        help='''Total extent of hairpin <= n NT long''')
+    parser.add_argument('--maxloop',
+                        default=1,
+                        type=int,
+                        metavar='<integer>',
+                        help='''The loop portion can be no longer than n''')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.3 (May 3, 2015)')
     return parser
 
 args = createParser()
@@ -38,7 +58,6 @@ name = enter.input_file.split('/')[-1]
 cwd = os.path.abspath(os.path.dirname(__file__))
 renamed_cwd = cwd.replace(' ', '\\ ')
 tmp_directory = tempfile.gettempdir()
-print renamed_cwd
 
 # handling with fasta...
 input_gbk = open(enter.input_file, 'r')
@@ -61,8 +80,9 @@ input_gbk.close()
 input_gbk = open(enter.input_file, 'r')
 records = SeqIO.parse(input_gbk, 'genbank')
 
+
 # executes ptt_converter.py script
-ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, enter.input_file)
+ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, enter.input_file.replace(' ', '\\ '))
 os.system(ptt_converter)
 
 # sets paths for TransTerm HP input files
@@ -74,8 +94,17 @@ if enter.output == '':
     transterm_output = '%s/transterm_output' % tmp_directory
 else:
     transterm_output = '%s' % enter.output
-transterm_cmd = '%s/transterm --min-conf=%s -S -p %s/expterm.dat %s %s > %s' % (renamed_cwd,
-                                                                                        enter.confidence,
+additional_options = ''
+if enter.minstem != 1:
+    additional_options += '--min-stem=%s ' % str(enter.minstem)
+if enter.minloop != 1:
+    additional_options += '--min-loop=%s ' % str(enter.minloop)
+if enter.maxlen != 1:
+    additional_options += '--max-len=%s ' % str(enter.maxlen)
+if enter.maxloop != 1:
+    additional_options += '--max-loop=%s ' % str(enter.maxloop)
+transterm_cmd = '%s/transterm --min-conf=%s %s -S -p %s/expterm.dat %s %s > %s' % (renamed_cwd,
+                                                                                        enter.confidence, additional_options,
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
 os.system(transterm_cmd)
@@ -173,8 +202,11 @@ for item in reversed(xrange(len(terminators))):
         if terminators[item] == terminator:
             del terminators[item]
             break
-print terminators
 for record in records:
+    gene_list = []
+    for feature in record.features:
+        if feature.type == 'gene':
+            gene_list.append(feature)
     for terminator in terminators:
         strand = int(terminator[4]+str(1))
         if strand == 1:
@@ -193,21 +225,43 @@ for record in records:
             else:
                 break
         elif surrounding == 'T':  # 'T' = between the ends of a +strand gene and a -strand gene
-            if strand == -1:
+            if strand == -1 and terminator[-1] != 'UNK':
                 gene = terminator[-1]
-            else:
+            elif strand == +1 and terminator[0] != 'UNK':
                 gene = terminator[0]
+            else:
+                pass
         elif surrounding == 'R':  # 'R' = between two -strand genes
             if strand == -1:
                 gene = terminator[-1]
             else:
                 break
+
         else:
             pass
+        qualifiers = {}
+        if strand == +1:
+            for feature in reversed(xrange(len(gene_list)-1)):
+                if start > gene_list[feature].location.start and strand == gene_list[feature].strand:
+                    if gene_list[feature].qualifiers.has_key('locus_tag'):
+                        qualifiers['locus_tag'] =  gene_list[feature].qualifiers['locus_tag']
+                        break
+                elif start > gene_list[feature].location.start and strand != gene_list[feature].strand:
+                    break
+        elif strand == -1:
+            for feature in xrange(len(gene_list)-1):
+                if start < gene_list[feature].location.start and strand == gene_list[feature].strand :
+                    if gene_list[feature].qualifiers.has_key('locus_tag'):
+                        qualifiers['locus_tag'] =  gene_list[feature].qualifiers['locus_tag']
+                        break
+                elif start < gene_list[feature].location.start and strand != gene_list[feature].strand:
+                    break
+
         if gene != True:
-            qualifiers = {'gene': gene, 'note': 'TransTerm HP conf=%s, tail_score=%s' % (conf, tail_score)}
+            qualifiers['gene'] = gene
+            qualifiers['note'] = 'TransTerm HP conf=%s, tail_score=%s' % (conf, tail_score)
         else:
-            qualifiers = {'note': 'TransTerm HP conf=%s, tail_score=%s' % (conf, tail_score)}
+            qualifiers['note'] = 'TransTerm HP conf=%s, tail_score=%s' % (conf, tail_score)
         feature_location = FeatureLocation(start, end)
         my_feature = SeqFeature(location=feature_location, type='terminator', strand=strand,
                                 qualifiers=qualifiers)
