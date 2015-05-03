@@ -1,5 +1,3 @@
-
-
 import sys
 import ast
 import argparse
@@ -45,11 +43,10 @@ def createParser():
     parser.add_argument('output_file', help= '''path to output Genbank file.''')
     parser.add_argument('-L', '--length',
                         default=False,
-                        help='''maximal and minimal allowed length of profile to genome alignment.''',
-                        metavar='<integer> or <integer>:<integer>',
+                        help='''final feature's length in genbank file''',
+                        metavar='<integer>',
                         required=False,
-                        type=str,
-                        )
+                        type=int)
     parser.add_argument('-q', '--qual',
                         default='',
                         metavar='<key#"value">',
@@ -87,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.5 (March 15, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.6 (May 3, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -100,13 +97,7 @@ enter = args.parse_args()
 arguments = sys.argv[1:0]
 max_eval = enter.eval
 if enter.length != False:
-    enter.length = enter.length.split(':')
-    if len(enter.length) == 1:
-        enter.min_length = int(enter.length[0])
-        enter.max_length = int(enter.length[0])
-    else:
-        enter.min_length = int(enter.length[0])
-        enter.max_length = int(enter.length[1])
+    enter.max_length = enter.length
 try:
     from Bio import SeqIO
 except ImportError:
@@ -123,7 +114,7 @@ except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
 
-print '\nHmmGen 2.5 (March 15, 2015)'
+print '\nHmmGen 2.6 (May 3, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -321,7 +312,7 @@ for record in records:
                 if record.features[i].location.start < my_feature.location.start and \
                         (enter.eval == False or e_value <= enter.eval or enter.score != False):
                     for c in xrange(len(CDS_list)-1):
-                        if CDS_list[c].location.start < my_feature.location.start < CDS_list[c+1].location.start:
+                        if CDS_list[c].location.start <= my_feature.location.start <= CDS_list[c+1].location.start:
                             record.features.insert(i+1, my_feature)
                             break
                         elif i == 0 and record.features[i].location.start > my_feature.location.start:
@@ -358,7 +349,8 @@ for record in records:
 
 
     if enter.name == False:
-        for i in xrange(len(record.features)):
+        for i in reversed(xrange(len(record.features))):
+            i = len(record.features) - 1 - i
             if record.features[i].qualifiers.has_key('CHECK'):
                 individual_qualifiers = {}
                 hit = record.features[i]
@@ -387,7 +379,8 @@ for record in records:
                         new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
-                        record.features.insert(i, new_feature)
+                        if hit.strand == cds_down.strand:
+                            record.features.insert(i, new_feature)
 
                     elif hit.strand == int('+1'):
                         try:
@@ -403,7 +396,9 @@ for record in records:
                         new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
-                        record.features.insert(i, new_feature)
+                        if hit.strand == cds_up.strand:
+                            record.features.insert(i, new_feature)
+
 
                 elif enter.palindromic == True and cds_up.location.strand != cds_down.location.strand:
                     if hit.strand == int('-1'):
@@ -427,7 +422,8 @@ for record in records:
                         new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
-                        record.features.insert(i, new_feature)
+                        if hit.strand == cds_down.strand:
+                            record.features.insert(i, new_feature)
                     if hit.strand == int('+1'):
                         try:
                             individual_qualifiers['cds_up_gene'] = cds_down.qualifiers['gene']
@@ -449,7 +445,8 @@ for record in records:
                         new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
-                        record.features.insert(i, new_feature)
+                        if hit.strand == cds_up.strand:
+                            record.features.insert(i, new_feature)
 
 
     if enter.palindromic is True:
