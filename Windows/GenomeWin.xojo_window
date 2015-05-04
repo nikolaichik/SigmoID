@@ -307,7 +307,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -376,7 +376,7 @@ Begin Window GenomeWin
          Visible         =   True
          Width           =   1041
       End
-      Begin HTMLViewer BLASTPSearchViewer
+      Begin HTMLViewer BLASTSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
          Height          =   396
@@ -1067,10 +1067,53 @@ End
 
 
 	#tag Method, Flags = &h0
+		Sub BLASTNsearch(GeneName as string)
+		  
+		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLend as string= "&DATABASE=nr&PROGRAM=blastn&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
+		  dim URL as string
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'show progressbar:
+		  SearchProgressBar.Enabled=true
+		  SearchProgressBar.visible=true
+		  
+		  'name the search tab:
+		  FindTab(GeneName+":BLASTN")
+		  BrowserTabs.RePaint
+		  
+		  'get the seq to search with:
+		  
+		  if seq.SelLength>0 then 'copy the highlighted piece
+		    theSeq=mid(seq.Sequence,seq.SelStart,seq.SelLength)
+		  end if
+		  
+		  'format the BLAST request:
+		  theURL=URLstart+theSeq+URLend
+		  
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
+		  end if
+		  BLASTSearchViewer.LoadURL(theURL)
+		  SearchProgressBar.Refresh
+		  
+		  
+		  
+		  
+		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
+		  
+		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub BLASTPsearch(ProtName as string)
 		  
 		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
-		  const URLend as string= "&DATABASE=nr&PROGRAM=blastp&HITLIST_SZE=100&CDD_SEARCH=true&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
+		  const URLend as string= "&DATABASE=nr&PROGRAM=blastp&HITLIST_SIZE=100&CDD_SEARCH=true&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
 		  
@@ -1101,7 +1144,7 @@ End
 		    TMdisplay.Visible=false
 		    TMdisplayAdjustment
 		  end if
-		  BLASTPSearchViewer.LoadURL(theURL)
+		  BLASTSearchViewer.LoadURL(theURL)
 		  SearchProgressBar.Refresh
 		  
 		  
@@ -1139,7 +1182,7 @@ End
 		  C=new Clipboard
 		  
 		  dim se as string
-		  if FeatureLeft>0 then
+		  if FeatureLeft>0 then 'copy selected feature
 		    se=midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
 		    if topstrand then
 		      c.Text=se
@@ -1659,8 +1702,10 @@ End
 		    tab2find="UniProt"
 		  elseif instr(TabName,"TIGRFAM")>0 then
 		    tab2find="TIGRFAM"
-		  elseif instr(TabName,"BLASTP")>0 then
-		    tab2find="BLASTP"
+		  elseif instr(TabName,"BLAST")>0 then
+		    tab2find="BLAST"
+		    'elseif instr(TabName,"BLASTN")>0 then
+		    'tab2find="BLASTN"
 		  end if
 		  
 		  if BrowserTabs.tabCount>0 then
@@ -4038,7 +4083,7 @@ End
 		    ContextProteinName=seq.Features(ContextFeature).name
 		    'Add a Separator
 		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
-		    'hmmer searches
+		    'hmmer & BLAST searches
 		    'if previous search is still running, add menus as disabled
 		    dim boo as boolean
 		    boo=NOT UniProtSocket.IsConnected
@@ -4048,6 +4093,14 @@ End
 		    boo=NOT TIGRSocket.IsConnected
 		    base.Append mItem(kHmmerSearchTigrfam,boo)
 		    base.Append mItem(kBLASTPsearch,true)
+		  else
+		    'Add a Separator
+		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
+		    'BLASTN search
+		    'if previous search is still running, add menus as disabled
+		    dim boo as boolean
+		    base.Append mItem(kBLASTNsearch,true)
+		    
 		  end
 		  
 		  
@@ -4077,6 +4130,8 @@ End
 		    HmmerSearchTIGRFAM(ContextProteinName)
 		  case kBLASTPsearch
 		    BLASTPsearch(ContextProteinName)
+		  case kBLASTNsearch
+		    BLASTNsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
 		  end
 		End Function
 	#tag EndEvent
@@ -4334,7 +4389,7 @@ End
 		  '0-SPSearchViewer
 		  '1-UPSearchViewer
 		  '2-TFSearchViewer
-		  '3-BLASTPsearchViewer
+		  '3-BLASTSearchViewer
 		  
 		  
 		  dim Tabname as string
@@ -4350,8 +4405,8 @@ End
 		  elseif instr(TabName,"TIGRFAM")>0 then
 		    TFSearchViewer.Visible=true
 		    BrowserPagePanel.value=2
-		  elseif instr(TabName,"BLASTP")>0 then
-		    BLASTPSearchViewer.Visible=true
+		  elseif instr(TabName,"BLASTP")>0 OR instr(TabName,"BLASTN")>0 then
+		    BLASTSearchViewer.Visible=true
 		    BrowserPagePanel.value=3
 		  end if
 		  
@@ -4444,7 +4499,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BLASTPSearchViewer
+#tag Events BLASTSearchViewer
 	#tag Event
 		Sub DocumentComplete(URL as String)
 		  SearchProgressBar.Enabled=false
@@ -4457,6 +4512,11 @@ End
 		  SearchProgressBar.Enabled=true
 		  SearchProgressBar.visible=true
 		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Error(errorNumber as Integer, errorMessage as String)
+		  msgbox errorMessage
 		End Sub
 	#tag EndEvent
 #tag EndEvents
