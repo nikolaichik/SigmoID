@@ -48,6 +48,7 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Acceptable match lengths:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -176,6 +177,7 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Feature to add:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -712,7 +714,7 @@ End
 
 	#tag Event
 		Sub Open()
-		  'determine the default length parameter 
+		  'determine the default length parameter
 		  
 		  dim instream as TextInputStream
 		  dim aline As string
@@ -747,7 +749,11 @@ End
 		  end if
 		  
 		  if LengthField.text<>"" then
-		    opt=opt+" -L "+me.lengthField.text
+		    if instr(LengthField.text,":")>0 then
+		      opt=opt+" -L "+me.lengthField.CueText 'workaround for old (min:max) format
+		    else
+		      opt=opt+" -L "+me.lengthField.text
+		    end if
 		  else
 		    'use the cueText which holds the alignment length
 		    opt=opt+" -L "+me.lengthField.CueText

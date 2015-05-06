@@ -128,7 +128,7 @@ Begin Window TermGenSettingsWin
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   ""
+      CueText         =   "76"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -204,7 +204,7 @@ Begin Window TermGenSettingsWin
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   ""
+      CueText         =   "4"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -246,7 +246,7 @@ Begin Window TermGenSettingsWin
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   ""
+      CueText         =   "3"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -288,7 +288,7 @@ Begin Window TermGenSettingsWin
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   ""
+      CueText         =   "59"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -330,7 +330,7 @@ Begin Window TermGenSettingsWin
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   ""
+      CueText         =   "13"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -386,7 +386,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   31
       TabPanelIndex   =   0
-      Text            =   "Minimal hairpin stem:"
+      Text            =   "Minimal stem length:"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -420,7 +420,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   32
       TabPanelIndex   =   0
-      Text            =   "Minimal hairpin loop:"
+      Text            =   "Minimal loop length:"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -488,7 +488,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   34
       TabPanelIndex   =   0
-      Text            =   "Minimal hairpin stem:"
+      Text            =   "Maximal loop length:"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -619,10 +619,13 @@ End
 		    genomeknown=true
 		  else
 		    dim f as folderitem
-		    f = GetFolderItem(GenomeField.text,FolderItem.PathTypeShell)
-		    If f<>nil AND f.Exists Then
-		      genomeknown=true
-		    End If
+		    if GenomeField.text<>"" then
+		      f = GetFolderItem(GenomeField.text,FolderItem.PathTypeShell)
+		      If f<>nil AND f.Exists Then
+		        genomeknown=true
+		      End If
+		      
+		    end if
 		  end if
 		  
 		  if ConfidenceField.text="" or NOT genomeKnown then
@@ -652,11 +655,29 @@ End
 		Sub ReadOptions()
 		  dim opt as string
 		  
-		  'currently, only confidence is set.
 		  'stem/loop max/min length options are probably required
 		  
-		  opt="-C "+str(ConfidenceField.text) 'set minimal confidence
+		  opt=""
 		  
+		  if trim(ConfidenceField.text)<>"" then
+		    opt=opt+" -C "+str(val(ConfidenceField.text))
+		  end if
+		  
+		  if trim(MinStemField.text)<>"" then
+		    opt=opt+" --minstem "+str(val(MinStemField.text)) 
+		  end if
+		  
+		  if trim(MinLoopField.text)<>"" then
+		    opt=opt+" --minloop "+str(val(MinLoopField.text))
+		  end if
+		  
+		  if trim(MaxHairpinLengthField.text)<>"" then
+		    opt=opt+" --maxlen "+str(val(MaxHairpinLengthField.text))
+		  end if
+		  
+		  if trim(MaxLoopLengthField.text)<>"" then
+		    opt=opt+" --minstem "+str(val(MaxLoopLengthField.text))
+		  end if
 		  
 		  LogoWin.TermGenOptions=Opt
 		  
@@ -731,64 +752,62 @@ End
 #tag Events ConfidenceField
 	#tag Event
 		Sub TextChange()
-		  if me.text="" then
-		    RunButton.enabled=false
-		  ELSE
-		    RunButton.enabled=true
-		  END IF
+		  'if me.text="" then
+		  'RunButton.enabled=false
+		  'ELSE
+		  'RunButton.enabled=true
+		  'END IF
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events MinStemField
 	#tag Event
 		Sub TextChange()
-		  if me.text="" then
-		    RunButton.enabled=false
-		  ELSE
-		    RunButton.enabled=true
-		  END IF
+		  'if me.text="" then
+		  'RunButton.enabled=false
+		  'ELSE
+		  'RunButton.enabled=true
+		  'END IF
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events MinLoopField
 	#tag Event
 		Sub TextChange()
-		  if me.text="" then
-		    RunButton.enabled=false
-		  ELSE
-		    RunButton.enabled=true
-		  END IF
+		  'if me.text="" then
+		  'RunButton.enabled=false
+		  'ELSE
+		  'RunButton.enabled=true
+		  'END IF
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events MaxHairpinLengthField
 	#tag Event
 		Sub TextChange()
-		  if me.text="" then
-		    RunButton.enabled=false
-		  ELSE
-		    RunButton.enabled=true
-		  END IF
+		  'if me.text="" then
+		  'RunButton.enabled=false
+		  'ELSE
+		  'RunButton.enabled=true
+		  'END IF
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events MaxLoopLengthField
 	#tag Event
 		Sub TextChange()
-		  if me.text="" then
-		    RunButton.enabled=false
-		  ELSE
-		    RunButton.enabled=true
-		  END IF
+		  'if me.text="" then
+		  'RunButton.enabled=false
+		  'ELSE
+		  'RunButton.enabled=true
+		  'END IF
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events GenomeField
 	#tag Event
 		Sub Open()
-		  #if DebugBuild then
-		    me.text="/Users/Home/3\-2rez9/Pca32_2015.04.08.gbk"
-		  #endif
+		  
 		  
 		End Sub
 	#tag EndEvent
@@ -798,9 +817,7 @@ End
 		  
 		  f = GetFolderItem(me.text,FolderItem.PathTypeShell)
 		  If f<>nil AND f.Exists Then
-		    if ConfidenceField.text<>"" then
-		      RunButton.enabled=true
-		    End If
+		    RunButton.enabled=true
 		  Else
 		    RunButton.enabled=false
 		  End If

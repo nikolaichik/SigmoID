@@ -1586,9 +1586,13 @@ End
 		    'optional arguments:
 		    '-h, --help            show this help message and exit
 		    '-o <path>, --output <path>
-		    'redirects TransTerm HP output file to directory given
+		    '                      redirects TransTerm HP output file to directory given
 		    '-C <integer>, --confidence <integer>
-		    'threshold Score.
+		    '                      threshold Score.
+		    '--minstem <integer>   Stem must be n nucleotides long
+		    '--minloop <integer>   Loop portion of the hairpin must be at least n long
+		    '--maxlen <integer>    Total extent of hairpin <= n NT long
+		    '--maxloop <integer>   The loop portion can be no longer than n
 		    '-v, --version         show program's version number and exit
 		    
 		    
@@ -1616,7 +1620,7 @@ End
 		        
 		        dim termCount as integer
 		        termcount=countfields(Sh.Result,"['")
-		        WriteToSTDOUT (str(termcount)+" terminators added"+EndofLine)
+		        'WriteToSTDOUT (str(termcount)+" terminators added"+EndofLine)
 		        WriteToSTDOUT (nthfield(Sh.Result,"seconds.",1)+"seconds."+EndofLine)
 		        if NOT ScanningGenome then
 		          WriteToSTDOUT (EndofLine+"Genbank file with added terminators written to "+outFile.ShellPath+EndofLine)
@@ -1976,6 +1980,7 @@ End
 		        nhmmerSettingsWin.RunButton.Enabled=false
 		      #endif
 		    end if
+		    nhmmerSettingsWin.EnableRun
 		    nhmmerSettingsWin.ShowModalWithin(self)
 		    'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
 		    if nhmmerOptions <> "" then
@@ -2009,7 +2014,8 @@ End
 		        if TermGen then
 		          if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
 		            GenomeWin.opengenbankfile(outFile)
-		            genomeWin.ShowHit
+		            GenomeWin.ShowGenomeStart
+		            'genomeWin.ShowHit
 		          end if
 		        end if
 		      end if

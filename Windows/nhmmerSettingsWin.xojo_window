@@ -929,16 +929,22 @@ End
 		Sub EnableRun()
 		  RunButton.enabled=true
 		  
-		  if GenomeField.text<>LogoWin.Genomefile.shellpath then
+		  if LogoWin.Genomefile=nil then
+		    RunButton.enabled=false
+		  elseif GenomeField.text<>LogoWin.Genomefile.shellpath then
 		    RunButton.enabled=false
 		  end if
 		  
-		  if BitScoreButton.Value=true AND BitScoreField.text="" then
-		    RunButton.enabled=false
+		  if BitScoreButton.Enabled=true then
+		    if BitScoreButton.Value=true AND BitScoreField.text="" then
+		      RunButton.enabled=false
+		    end if
 		  end if
 		  
-		  if EvalueButton.Value=true AND EvalueField.text="" then
-		    RunButton.enabled=false
+		  if EvalueButton.Enabled=true then
+		    if EvalueButton.Value=true AND EvalueField.text="" then
+		      RunButton.enabled=false
+		    end if
 		  end if
 		End Sub
 	#tag EndMethod

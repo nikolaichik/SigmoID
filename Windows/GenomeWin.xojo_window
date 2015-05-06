@@ -2158,7 +2158,7 @@ End
 		  dim NewFeature as GBFeature
 		  
 		  w=self
-		  
+		  genome=new cSeqObject
 		  
 		  'genome browser should be wide
 		  if Screen(0).width>1280 then
@@ -2780,6 +2780,15 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ShowGenomeStart()
+		  ExtractFragment(1,10000)
+		  SegmentedControl1.Enabled=false
+		  TextMap(0,0)
+		  Show
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ShowHit()
 		  ExtractFragment(HmmHits(CurrentHit)-DisplayInterval/2,HmmHits(CurrentHit)+DisplayInterval/2)
 		  FeatureBox.Caption=HmmHitDescriptions(CurrentHit)
@@ -2844,6 +2853,9 @@ End
 
 	#tag Method, Flags = &h0
 		Sub TextMap(HighlightFrom As integer, HighlightTo As integer)
+		  'equal parameters mean no Highlight
+		  'zeroes mean display start with no hoghlight
+		  
 		  dim  charsPerLine,  posInLine,lnl,cl,fullSize,halfSize As Integer
 		  dim lineNum, j, k, l,m,n,tens, numb,numblen, arrScanEnd, CurrentY, SeqStart as integer
 		  dim blocktoAdd,formattedSeq, rulerUnit,rulerLine, numberingLine,currNumb, spacer, revseq as string
@@ -2858,7 +2870,11 @@ End
 		  'get the sequence to display:
 		  charsPerLine=TMdisplay.width/TMCharWidth
 		  if HighlightFrom=Highlightto then 'don't highlight anything
-		    SeqStart=HighlightFrom-charsPerLine/2+GBrowseShift
+		    if HighlightFrom=0 then 'just show the start of the seq
+		      SeqStart=1
+		    else
+		      SeqStart=HighlightFrom-charsPerLine/2+GBrowseShift
+		    end if
 		    sequence=midb(genome.Sequence,SeqStart,charsPerLine)
 		    HLtop=false
 		    HLbottom=false
@@ -3142,6 +3158,7 @@ End
 
 
 	#tag Note, Name = 2 do
+		- textmap glitch when showing the genome after termgen
 		- contextual menus for copying non-feature selections (with rev-compl!); complete contextual menus everywhere
 		- correct search for short text ("tag") that looks like sequence
 		- termGen option in genomescan
@@ -3157,7 +3174,8 @@ End
 		- Memorise selection when scrolling genome
 		-+ Sort hits before showing 'em (sorting done incorrectly)
 		+- Proper sequence display with reading frames
-		- disable nhmmer Run button until bit score is entered
+		- add option to open genome browser after genome scan (with the list of all sites)
+		- add terminator prediction to genome scan 
 		- menus
 		- prefs
 		- docs
@@ -3428,10 +3446,6 @@ End
 
 	#tag Property, Flags = &h1
 		Protected Newseq As string
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		Obj As Group2D
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
