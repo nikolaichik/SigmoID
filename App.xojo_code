@@ -107,6 +107,7 @@ Inherits Application
 			
 			dim GenomeFile as folderitem = GetOpenFolderItem("")
 			if GenomeFile<> Nil then
+			GenomeWin.opengenbankfile(GenomeFile)
 			GenomeWin.ShowGenomeStart
 			end if
 			
