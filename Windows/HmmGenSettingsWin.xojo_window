@@ -48,7 +48,6 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Acceptable match lengths:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -177,7 +176,6 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Feature to add:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -736,6 +734,7 @@ End
 	#tag Method, Flags = &h0
 		Sub ReadOptions()
 		  dim opt as string
+		  dim featureType as string
 		  
 		  opt="-d " 'remove duplicates of the same site at the same position (happen when two or more profiles are used for the same TF and rarely with palindromic sites)
 		  
@@ -768,10 +767,13 @@ End
 		    opt=opt+" -n"
 		  end if
 		  
-		  dim st as string
-		  st=trim(FeatureCombo.text)
-		  if st<>"" then
-		    opt=opt+" -f "+ trim(FeatureCombo.text)
+		  featureType=trim(FeatureCombo.text)
+		  if featureType<>"" then
+		    if featureType="promoter" then
+		      opt=opt+" -f regulatory"  'GenBank 2015 format
+		    else
+		      opt=opt+" -f "+ featureType
+		    end if
 		  else
 		    msgbox "'Feature to add' box is not filled in. Can't proceed without feature name!"
 		    return
@@ -780,9 +782,13 @@ End
 		  if AddQualifierBox.value then
 		    '-q{"sigma-factor":"fliA"}
 		    if keyfield.text<>"" AND ValueField.text<>"" then
-		      'opt=opt+" -q{"+chr(34)+"Inference"+chr(34)+":"+chr(34)+"profile:nhmmer:"+nhmmerVersion+chr(34)+","+chr(34)+trim(keyfield.text)+chr(34)+":"+chr(34)+trim(valuefield.text)+chr(34)+"}" 'chr(34) gives "
-		      'opt=opt+" -q{"+chr(34)+trim(keyfield.text)+chr(34)+":"+chr(34)+trim(valuefield.text)+chr(34)+"}" 'chr(34) gives "
-		      opt=opt+" -q "+chr(34)+trim(keyfield.text)+chr(34)+"#"+chr(34)+trim(valuefield.text)+chr(34)+" "+chr(34)+"inference"+chr(34)+"#"+chr(34)+"profile:nhmmer:"+nhmmerVersion+chr(34)
+		      if featureType="promoter" then
+		        opt=opt+" -q "+chr(34)+"regulatory_class"+chr(34)+"#"+chr(34)+"promoter"
+		        opt=opt+chr(34)+" "+chr(34)+trim(keyfield.text)+chr(34)+"#"+chr(34)+trim(valuefield.text)
+		      else
+		        opt=opt+" -q "+chr(34)+trim(keyfield.text)+chr(34)+"#"+chr(34)+trim(valuefield.text)
+		      end if
+		      opt=opt+chr(34)+" "+chr(34)+"inference"+chr(34)+"#"+chr(34)+"profile:nhmmer:"+nhmmerVersion+chr(34)
 		      
 		    else
 		      msgbox "Key and/or value are not provided for the qualifier: ignoring..."

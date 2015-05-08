@@ -1408,7 +1408,16 @@ End
 		      'feature description parsing:
 		      cf1=nthfield(CurrentFeature,cLineEnd,1)
 		      name=trim(leftb(cf1,16))      'feature name
-		      FragmentFeature.type=name
+		      
+		      'handle the new Genbank 2015 format:
+		      if name="regulatory" then
+		        dim r_class as string
+		        r_class=NthField(CurrentFeature,"regulatory_class=",2)
+		        r_class=NthField(r_class,cLineEnd,1)
+		        FragmentFeature.type=replaceall(r_class,chr(34),"")
+		      else
+		        FragmentFeature.type=name
+		      end if
 		      'if leftb(start,1)=">" OR leftb(start,1)= "<" then
 		      'start=midb(start,2,lenb(start)-1)
 		      'NewFeature.lefttrunc=true
@@ -1452,6 +1461,8 @@ End
 		          end if
 		        end if
 		      elseif name="promoter" then
+		        FragmentFeature.name=""
+		      elseif name="regulatory" then
 		        FragmentFeature.name=""
 		      elseif name="protein_bind" then
 		        FragmentFeature.name=""
@@ -1664,6 +1675,8 @@ End
 		  elseif name="promoter" then
 		    Feature.name=""
 		  elseif name="protein_bind" then
+		    Feature.name=""
+		  elseif name="regulatory" then
 		    Feature.name=""
 		  else
 		    if p>0 then
@@ -3158,7 +3171,6 @@ End
 
 
 	#tag Note, Name = 2 do
-		- textmap glitch when showing the genome after termgen
 		- contextual menus for copying non-feature selections (with rev-compl!); complete contextual menus everywhere
 		- correct search for short text ("tag") that looks like sequence
 		- termGen option in genomescan
@@ -3168,7 +3180,6 @@ End
 		- unify hmmer hits navigation with search navigation (same controls, 
 		  menu to switch from displaying search results back to hmmer hits)
 		- drag-select sequence in details pane
-		- blastn with selected DNA piece/feature
 		- fix overlapping feature display finally!
 		- resizing top browser pane
 		- Memorise selection when scrolling genome

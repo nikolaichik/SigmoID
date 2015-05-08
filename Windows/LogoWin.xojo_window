@@ -1649,40 +1649,6 @@ End
 	#tag EndMethod
 
 
-	#tag Note, Name = 2 do
-		1. Should add several qualifiers to the feature, e.g.
-		
-		protein_bind    30..46
-		/bound_moiety="lac repressor encoded by lacI"
-		/note="lac operator"
-		/note="The lac repressor binds to the lac operator to
-		inhibit transcription in E. coli. This inhibition can be
-		relieved by adding lactose or
-		isopropyl-beta-D-thiogalactopyranoside (IPTG)."
-		/note="color: #31849b"
-		
-		
-		the /bound_moiety, /note and others should probably be saved along the alignment and logo 
-		in the same file (VirtualVolume? probably a folder per one promoter/binding site is better) and added automatically from there
-		
-		2. nhmmer and HmmGen search parameters should be saved along the alignment/profile
-		
-		3. Possible structure of a gene-specific folder:
-		KdgR (folder)
-		   KdgR.aln - alignment (fasta)
-		   KdgR.options - HmmGen (nhmmer?) options
-		   KdgR.info - references for the binding site data and description of the protein
-		   KdgR.hmm - calibrated hmm profile
-		   KdgR.logodata - data from weblogo in case it's not installed
-		
-		4. Stockholm  converter required for generating calibrated profiles
-		Hmmer E-value/score options could be used instead (less desirable)
-		
-		
-		
-	#tag EndNote
-
-
 	#tag Property, Flags = &h0
 		alimaskpath As string
 	#tag EndProperty
