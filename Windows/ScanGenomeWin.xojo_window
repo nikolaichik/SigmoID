@@ -9,7 +9,7 @@ Begin Window ScanGenomeWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   153
+   Height          =   198
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -48,14 +48,13 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   78
+      Top             =   123
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -97,7 +96,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   79
+      Top             =   124
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -129,7 +128,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   113
+      Top             =   158
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -160,7 +159,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   113
+      Top             =   158
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -191,7 +190,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   80
+      Top             =   125
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -250,7 +249,6 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "The genome will be searched with all the profiles checked"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -262,6 +260,80 @@ Begin Window ScanGenomeWin
       Underline       =   False
       Visible         =   True
       Width           =   406
+   End
+   Begin CheckBox TerminatorCheckBox
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "Scan for terminators"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      State           =   1
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   80
+      Underline       =   False
+      Value           =   True
+      Visible         =   True
+      Width           =   406
+   End
+   Begin Separator Separator1
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   18
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   17
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   60
+      Visible         =   True
+      Width           =   446
+   End
+   Begin Separator Separator2
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   18
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   100
+      Visible         =   True
+      Width           =   446
    End
 End
 #tag EndWindow
@@ -297,7 +369,7 @@ End
 		    end if
 		  next
 		  
-		  self.height=128+(SigArray(0).Height + 5)*SigArrayCount
+		  self.height=183+(SigArray(0).Height + 5)*SigArrayCount
 		  
 		  Exception err
 		    ExceptionHandler(err,"ScanGenomeWin:BuildSigArray")
@@ -362,7 +434,19 @@ End
 		    if f2.Exists then
 		      f2.Delete
 		    End If
-		    GenomeScanOut.CopyFileTo f2
+		    if TerminatorCheckBox.value then
+		      LogoWin.outfile=f2
+		      if LogoWin.TermGen then
+		        'if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		        'GenomeWin.opengenbankfile(outFile)
+		        'GenomeWin.ShowGenomeStart
+		        ''genomeWin.ShowHit
+		        'end if
+		      end if
+		    else
+		      GenomeScanOut.CopyFileTo f2
+		    End If
+		    
 		    dim min, sec As integer
 		    dim timestring As string
 		    sec=(Microseconds-Time)/1000000
