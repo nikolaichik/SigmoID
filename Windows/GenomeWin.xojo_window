@@ -1015,20 +1015,26 @@ End
 
 	#tag MenuHandler
 		Function GenomeFind() As Boolean Handles GenomeFind.Action
+			#if TargetMacOS then
+			NSSearchField1.SetFocus
+			#Else
+			SearchField.SetFocus
+			#endif
 			
-			FindWin.showmodalwithin(self)
-			
-			if FindWin.OKpressed then
-			SearchPosition=0
-			query=trim(FindWin.FindField.text)
-			
-			topStrandSearched=false
-			if isACGT(query) then 'detect if query is sequence or plain text
-			Search4sequence(query)
-			else
-			Search4text(query)
-			end if
-			end if
+			'
+			'FindWin.showmodalwithin(self)
+			'
+			'if FindWin.OKpressed then
+			'SearchPosition=0
+			'query=trim(FindWin.FindField.text)
+			'
+			'topStrandSearched=false
+			'if isACGT(query) then 'detect if query is sequence or plain text
+			'Search4sequence(query)
+			'else
+			'Search4text(query)
+			'end if
+			'end if
 			
 		End Function
 	#tag EndMenuHandler
@@ -2591,9 +2597,17 @@ End
 		  
 		  SearchPosition=0
 		  
+		  query=trim(query)
 		  if query<>"" then
 		    'detect if query is sequence, coordinate or plain text
-		    if isACGT(query) then
+		    
+		    if left(query,1)=chr(34) then
+		      if right(query,1)=chr(34) then
+		        'search for quoted text
+		        query=mid(query,2,len(query)-2)
+		        Search4text(query)
+		      end if
+		    elseif isACGT(query) then
 		      'msgbox "sequence search not there yet"
 		      topStrandSearched=false
 		      Search4sequence(query)
@@ -2605,6 +2619,8 @@ End
 		    else
 		      Search4text(query)
 		    end if
+		  else
+		    beep
 		  end if
 		End Sub
 	#tag EndMethod
@@ -3172,8 +3188,8 @@ End
 
 	#tag Note, Name = 2 do
 		- contextual menus for copying non-feature selections (with rev-compl!); complete contextual menus everywhere
-		- correct search for short text ("tag") that looks like sequence
-		- termGen option in genomescan
+		+- correct search for short text ("tag") that looks like sequence
+		   (currently a double quote anywhere within query leads to text search)
 		- option to launch hmmGen after hmmer (without showing settings win) with default settings 
 		  for calibrated profiles
 		+- [draft done] Navigation toolbar
@@ -3186,7 +3202,6 @@ End
 		-+ Sort hits before showing 'em (sorting done incorrectly)
 		+- Proper sequence display with reading frames
 		- add option to open genome browser after genome scan (with the list of all sites)
-		- add terminator prediction to genome scan 
 		- menus
 		- prefs
 		- docs
@@ -4659,7 +4674,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Action()
-		  query=trim(me.StringValue)
+		  query=me.StringValue
 		  
 		  SearchAction
 		End Sub
@@ -4671,13 +4686,10 @@ End
 		  'check for CR/enter key
 		  if key=chr(13) OR key=chr(3) then
 		    
-		    query=trim(me.text)
+		    query=me.text
 		    
-		    if query<>"" then
-		      SearchAction
-		    else
-		      beep
-		    end if
+		    SearchAction
+		    
 		    
 		  end if
 		End Function
