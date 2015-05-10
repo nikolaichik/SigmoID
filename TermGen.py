@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.3 (May 3, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.4 (May 10, 2015)')
     return parser
 
 args = createParser()
@@ -59,7 +59,16 @@ cwd = os.path.abspath(os.path.dirname(__file__))
 renamed_cwd = cwd.replace(' ', '\\ ')
 tmp_directory = tempfile.gettempdir()
 
+# creating output info
+print '\nTermGen 1.4 (May 10, 2015)'
+print "="*50
+output_args = ''
+for arg in range(1, len(sys.argv)):
+    output_args += sys.argv[arg] + ' '
+print 'Options used:\n%s' % output_args
+
 # handling with fasta...
+print '\nCreating .fasta file...'
 input_gbk = open(enter.input_file, 'r')
 gbk = SeqIO.parse(input_gbk, 'genbank')
 output_fasta = open('%s/%s.fasta' % (cwd, name), 'w')
@@ -80,8 +89,8 @@ input_gbk.close()
 input_gbk = open(enter.input_file, 'r')
 records = SeqIO.parse(input_gbk, 'genbank')
 
-
 # executes ptt_converter.py script
+print 'Creating .ptt file...'
 ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, enter.input_file.replace(' ', '\\ '))
 os.system(ptt_converter)
 
@@ -90,6 +99,7 @@ fasta_file = '%s/%s.fasta' % (renamed_cwd, name)
 ptt_file = '%s/%s.ptt' % (renamed_cwd, id)
 
 # sets directory for output and executes TransTerm HP
+print 'Running TransTerm HP...\n%s' % ('-'*50)
 if enter.output == '':
     transterm_output = '%s/transterm_output' % tmp_directory
 else:
@@ -103,7 +113,7 @@ if enter.maxlen != 1:
     additional_options += '--max-len=%s ' % str(enter.maxlen)
 if enter.maxloop != 1:
     additional_options += '--max-loop=%s ' % str(enter.maxloop)
-transterm_cmd = '%s/transterm --min-conf=%s %s -S -p %s/expterm.dat %s %s > %s' % (renamed_cwd,
+transterm_cmd = '%s/TransTermHP/transterm --min-conf=%s %s -S -p %s/TransTermHP/expterm.dat %s %s > %s' % (renamed_cwd,
                                                                                         enter.confidence, additional_options,
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
@@ -111,7 +121,6 @@ os.system(transterm_cmd)
 
 
 '''This piece of code deals with the TransTerm HP output file.'''
-
 # opens the output file
 try:
     terms_out = open(transterm_output, 'r')
@@ -220,23 +229,20 @@ for record in records:
         tail_score = terminator[6]
         gene = True
         if surrounding == 'F':  # 'F' = between two +strand genes
-            if strand == +1:
+            if strand == +1 and terminator[0] != 'UNK':
                 gene = terminator[0]
-            else:
-                break
+            elif terminator[0] == 'UNK':
+                pass
         elif surrounding == 'T':  # 'T' = between the ends of a +strand gene and a -strand gene
             if strand == -1 and terminator[-1] != 'UNK':
                 gene = terminator[-1]
             elif strand == +1 and terminator[0] != 'UNK':
                 gene = terminator[0]
-            else:
-                pass
         elif surrounding == 'R':  # 'R' = between two -strand genes
-            if strand == -1:
+            if strand == -1 and terminator[-1] != 'UNK':
                 gene = terminator[-1]
-            else:
-                break
-
+            elif terminator[-1] == 'UNK':
+                pass
         else:
             pass
         qualifiers = {}
@@ -262,8 +268,10 @@ for record in records:
             qualifiers['note'] = 'TransTerm HP conf=%s, tail_score=%s' % (conf, tail_score)
         else:
             qualifiers['note'] = 'TransTerm HP conf=%s, tail_score=%s' % (conf, tail_score)
+        qualifiers['regulatory_class'] = 'terminator'
+        qualifiers['TermGen_check'] = ['Checked!']
         feature_location = FeatureLocation(start, end)
-        my_feature = SeqFeature(location=feature_location, type='terminator', strand=strand,
+        my_feature = SeqFeature(location=feature_location, type='regulatory', strand=strand,
                                 qualifiers=qualifiers)
 
         # adding terminators to genbank features list
@@ -271,7 +279,79 @@ for record in records:
             if record.features[i].location.start < start:
                 record.features.insert(i+1, my_feature)
                 break
+
+    # editing features to add U-tail
+    new_features_list = []
+    for feature in record.features:
+        if feature.type == 'regulatory' and feature.qualifiers.has_key('TermGen_check'):
+            u_tail = 0
+            tail = ''
+            if feature.strand == +1:
+                penalty = 0
+                for letter in xrange(feature.location.end, len(record.seq)):
+                    if record.seq[letter] == 'T':
+                        u_tail += 1
+                        tail += record.seq[letter]
+                    elif record.seq[letter] != 'T' and record.seq[letter+1] == 'T': 
+                        u_tail += 2  # next letter is 'T'  
+                        penalty += 1
+                        tail += record.seq[letter]+record.seq[letter+1]
+                        for next_letter in xrange(letter+2, len(record.seq)):
+                            if record.seq[next_letter] == 'T':
+                                u_tail += 1
+                                tail += record.seq[next_letter]
+                            elif record.seq[next_letter] != 'T':
+                                break
+                        break
+                    elif record.seq[letter] != 'T' and record.seq[letter+1] != 'T':
+                        break
+            # handling with reverse complement strand
+            if feature.strand == -1:
+                penalty = 0
+                for letter in reversed(xrange(0, feature.location.start)):
+                    if record.seq[letter] == 'A':
+                        u_tail += 1
+                        tail += record.seq[letter]
+                    elif record.seq[letter] != 'A' and record.seq[letter-1] == 'A': 
+                        u_tail += 1   
+                        penalty += 1
+                        tail += record.seq[letter]
+                        for next_letter in reversed(xrange(0, letter)):
+                            if record.seq[next_letter] == 'A':
+                                u_tail += 1
+                                tail += record.seq[next_letter]
+                            elif record.seq[next_letter] != 'A':
+                                break
+                        break
+                    elif record.seq[letter] != 'A' and record.seq[letter-1] != 'A':
+                        break
+            # creating adjusted terminator's feature
+            if feature.strand == +1:
+            	new_feature_location = FeatureLocation(feature.location.start, feature.location.end+u_tail)
+            elif feature.strand == -1:
+                new_feature_location = FeatureLocation(feature.location.start-u_tail, feature.location.end)
+            new_feature_qualifiers = {}
+            for key, value in feature.qualifiers.iteritems():
+                if key != 'TermGen_check':
+                    new_feature_qualifiers[key] = value
+            new_feature = SeqFeature(location=new_feature_location, type=feature.type, strand=feature.strand,
+                                    qualifiers=new_feature_qualifiers)
+            new_features_list.append(new_feature)
+    # adding adjusted terminator's feature
+    for feature in new_features_list:
+        for i in reversed(xrange(len(record.features))):
+            if record.features[i].location.start < feature.location.start:
+                record.features.insert(i+1, feature)
+                break
+    for i in reversed(xrange(len(record.features))):
+        i = len(record.features)-1-i
+        if record.features[i].qualifiers.has_key('TermGen_check'):
+            del record.features[i]
     SeqIO.write(record, output_gbk, 'genbank')
+    print '-'*50
+    print '%s terminators were added.\n' % len(new_features_list)
+    print "="*50
 output_gbk.close()
 input_gbk.close()
 terms_out.close()
+
