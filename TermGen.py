@@ -113,7 +113,7 @@ if enter.maxlen != 1:
     additional_options += '--max-len=%s ' % str(enter.maxlen)
 if enter.maxloop != 1:
     additional_options += '--max-loop=%s ' % str(enter.maxloop)
-transterm_cmd = '%s/TransTermHP/transterm --min-conf=%s %s -S -p %s/TransTermHP/expterm.dat %s %s > %s' % (renamed_cwd,
+transterm_cmd = '%s/transterm --min-conf=%s %s -S -p %s/expterm.dat %s %s > %s' % (renamed_cwd,
                                                                                         enter.confidence, additional_options,
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
