@@ -241,10 +241,36 @@ End
 		  dim f As FolderItem
 		  
 		  
+		  
 		  alimaskpath=SettingsWin.alimaskPathField.text
 		  nhmmerpath=SettingsWin.nhmmerPathField.text
 		  weblogopath=SettingsWin.weblogoPathField.text
 		  hmmBuildPath=SettingsWin.hmmBuildPathField.text
+		  
+		  #if TargetWin32
+		    'weblogopath=SettingsWin.weblogoPathField.text
+		    f=resources_f.child("alimask.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        alimaskpath=f.ShellPath
+		        SettingsWin.alimaskPathField.text=alimaskpath
+		      end if
+		    end if
+		    f=resources_f.child("nhmmer.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        nhmmerpath=f.ShellPath
+		        SettingsWin.nhmmerpathField.text=nhmmerpath
+		      end if
+		    end if
+		    f=resources_f.child("hmmBuild.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        hmmBuildPath=f.ShellPath
+		        SettingsWin.hmmBuildPathField.text=hmmBuildPath
+		      end if
+		    end if
+		  #endif
 		  
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then
@@ -286,13 +312,9 @@ End
 		      WriteToSTDOUT (Sh.Result)
 		    end if
 		  else
-		    WriteToSTDOUT ("No python found. Please install it or correct the path in the settings.")
+		    WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
-		  
-		  
-		  
-		  'biopython
 		  
 		  'weblogo
 		  WriteToSTDOUT ("Looking for weblogo... ")
@@ -325,18 +347,18 @@ End
 		  sh.execute cli
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
-		    if instr(nthfield(s,EndOfLine,1),"nhmmer")>0 then
-		      s=nthfield((Sh.Result),EndOfLine,2)
+		    if instr(nthfield(s,EndOfLine.Unix,1),"nhmmer")>0 then
+		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
 		      s=nthfield((S),"HMMER",2)
 		      s=nthfield((S),";",1) 'that will result in smth like "3.1b1 (May 2013)"
 		      WriteToSTDOUT (s+EndOfLine)
 		      nhmmerVersion=trim(nthfield((S),"(",1))
 		    else
-		      WriteToSTDOUT ("No nhmmer found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings.")
+		      WriteToSTDOUT ("No nhmmer found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
 		      allProgsFine=false
 		    end if
 		  else
-		    WriteToSTDOUT ("No nhmmer found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings.")
+		    WriteToSTDOUT ("No nhmmer found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
 		  
@@ -349,18 +371,18 @@ End
 		  sh.execute cli
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
-		    if instr(nthfield(s,EndOfLine,1),"hmmbuild")>0 then
-		      s=nthfield((Sh.Result),EndOfLine,2)
+		    if instr(nthfield(s,EndOfLine.Unix,1),"hmmbuild")>0 then
+		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
 		      s=nthfield((S),"HMMER",2)
 		      s=nthfield((S),";",1) 'that will result in smth like "3.1b1 (May 2013)"
 		      WriteToSTDOUT (s)
 		      nhmmerVersion=trim(nthfield((S),"(",1))
 		    else
-		      WriteToSTDOUT ("No hmmbuild found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings.")
+		      WriteToSTDOUT ("No hmmbuild found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
 		      allProgsFine=false
 		    end if
 		  else
-		    WriteToSTDOUT ("No hmmbuild found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings.")
+		    WriteToSTDOUT ("No hmmbuild found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
 		  
@@ -374,18 +396,18 @@ End
 		  sh.execute cli
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine,1),"alimask")>0 then
-		      s=nthfield((Sh.Result),EndOfLine,2)
+		    if instr(nthfield((Sh.Result),EndOfLine.Unix,1),"alimask")>0 then
+		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
 		      s=nthfield((S),"HMMER",2)
 		      s=nthfield((S),";",1)
 		      WriteToSTDOUT (s)
 		      
 		    else
-		      WriteToSTDOUT ("No alimask (part of HMMER package) found. Please install it or correct the path in the settings.")
+		      WriteToSTDOUT ("No alimask (part of HMMER package) found. Please install it or correct the path in the settings."+EndOfLine)
 		      allProgsFine=false
 		    end if
 		  else
-		    WriteToSTDOUT ("No alimask (part of HMMER package) found. Please install it or correct the path in the settings.")
+		    WriteToSTDOUT ("No alimask (part of HMMER package) found. Please install it or correct the path in the settings."+EndOfLine)
 		    
 		    allProgsFine=false
 		  end if
@@ -410,7 +432,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed.")
+		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine)
 		    WriteToSTDOUT (EndOfLine)
 		    allProgsFine=false
 		  end if
@@ -435,7 +457,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT ("TermGen script doesn't work properly. Please verify that biopython is installed.")
+		    WriteToSTDOUT ("TermGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine)
 		    WriteToSTDOUT (EndOfLine)
 		    allProgsFine=false
 		  end if
@@ -1301,9 +1323,9 @@ End
 		  end if
 		  if WebLogoAvailable then
 		    DrawLogo
-		  elseif WebLogoAvailable then
+		  elseif SigFileOpened then
 		    'use stored logodata within .sig file if available
-		    
+		    DrawLogo
 		  else
 		    ChangeView("Sequences")
 		  end if
@@ -1490,9 +1512,9 @@ End
 		  end if
 		  
 		  if weblogo_out<>"0" then
-		    for n=1 to countfields(weblogo_out,EndOfLine)
+		    for n=1 to countfields(weblogo_out,EndOfLine.Unix)
 		      
-		      CurrentLine=NthField(weblogo_out,EndOfLine,n)
+		      CurrentLine=NthField(weblogo_out,EndOfLine.Unix,n)
 		      
 		      if instr("0123456789",left(CurrentLine,1))>0 then
 		        LogoData.Append(CurrentLine)
@@ -1618,10 +1640,15 @@ End
 		        
 		        WriteToSTDOUT (EndofLine)
 		        
-		        dim termCount as integer
-		        termcount=countfields(Sh.Result,"['")
-		        'WriteToSTDOUT (str(termcount)+" terminators added"+EndofLine)
-		        WriteToSTDOUT (nthfield(Sh.Result,"seconds.",1)+"seconds."+EndofLine)
+		        dim termCount as integer, tc as string
+		        
+		        'transterm output:
+		        '6 terminators were added.
+		        tc=NthField(Sh.Result,"terminators were added",1)
+		        termcount=countfields(tc,EndOfLine)
+		        tc=NthField(tc,EndOfLine,termcount)
+		        WriteToSTDOUT (trim(tc)+" terminators added."+EndofLine)
+		        'WriteToSTDOUT (nthfield(Sh.Result,"seconds.",1)+"seconds."+EndofLine)
 		        if NOT ScanningGenome then
 		          WriteToSTDOUT (EndofLine+"Genbank file with added terminators written to "+outFile.ShellPath+EndofLine)
 		        end if
@@ -1940,11 +1967,11 @@ End
 		      
 		      nhmmerSettingsWin.RunButton.Enabled=true
 		    else
-		      #if Debugbuild
-		        GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
-		      #else
-		        nhmmerSettingsWin.RunButton.Enabled=false
-		      #endif
+		      '#if Debugbuild
+		      'GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
+		      '#else
+		      nhmmerSettingsWin.RunButton.Enabled=false
+		      '#endif
 		    end if
 		    nhmmerSettingsWin.EnableRun
 		    nhmmerSettingsWin.ShowModalWithin(self)

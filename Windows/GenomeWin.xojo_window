@@ -54,19 +54,6 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   30
    End
-   Begin Timer Timer1
-      Height          =   32
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   -44
-      LockedInPosition=   False
-      Mode            =   0
-      Period          =   800
-      Scope           =   0
-      TabPanelIndex   =   0
-      Top             =   25
-      Width           =   32
-   End
    Begin Canvas MapCanvas
       AcceptFocus     =   True
       AcceptTabs      =   False
@@ -900,10 +887,7 @@ End
 		  'end if
 		  '#endif
 		  
-		  #if TargetWin32 then 'workaround for no tooltips in RB2008 (uses WFS)
-		    wintooltip= new cToolTip(Editor,true)
-		    
-		  #endif
+		  
 		  
 		  HighlightColour=HighlightColor 'set to default until features are read
 		  
@@ -3193,6 +3177,7 @@ End
 		- option to launch hmmGen after hmmer (without showing settings win) with default settings 
 		  for calibrated profiles
 		+- [draft done] Navigation toolbar
+		- show termgen hits the same way as hmmgen ones, if possible (browse next/prev. with arrows)
 		- unify hmmer hits navigation with search navigation (same controls, 
 		  menu to switch from displaying search results back to hmmer hits)
 		- drag-select sequence in details pane
@@ -3202,6 +3187,7 @@ End
 		-+ Sort hits before showing 'em (sorting done incorrectly)
 		+- Proper sequence display with reading frames
 		- add option to open genome browser after genome scan (with the list of all sites)
+		- save all hits just found as fasta
 		- menus
 		- prefs
 		- docs
@@ -3719,19 +3705,6 @@ End
 		Sub Open()
 		  me.height=13
 		  me.width=3
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events Timer1
-	#tag Event
-		Sub Action()
-		  #if TargetWin32 then
-		    tt.hide
-		    tt.text= tttext
-		    'tt.InitialShowTime=1
-		    'tt.ReshowTime=1
-		    tt.show
-		  #endif
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -4280,21 +4253,12 @@ End
 	#tag Event
 		Sub Action()
 		  if not ToolTipBlock then
-		    #if TargetWin32 then
-		      if EditorToolTip="" then
-		        winToolTip.hide
-		      else
-		        winToolTip.hide
-		        winToolTip.text=EditorToolTip
-		        winToolTip.Show
-		      end if
-		    #else
-		      if TTip="" then
-		        ToolTip.hide
-		      else
-		        ToolTip.Show(ttip, TTx,TTy, True)
-		      end if
-		    #endif
+		    
+		    if TTip="" then
+		      ToolTip.hide
+		    else
+		      ToolTip.Show(ttip, TTx,TTy, True)
+		    end if
 		  end if
 		  
 		  
