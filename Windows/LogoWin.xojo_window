@@ -26,34 +26,6 @@ Begin Window LogoWin
    Title           =   "SigmoID"
    Visible         =   True
    Width           =   774
-   Begin Canvas LogoCanvas
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
-      Backdrop        =   0
-      DoubleBuffer    =   True
-      Enabled         =   True
-      EraseBackground =   True
-      Height          =   175
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   0
-      Transparent     =   True
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   774
-   End
    Begin Toolbar1 LogoWinToolbar
       Enabled         =   True
       Height          =   32
@@ -66,82 +38,6 @@ Begin Window LogoWin
       Top             =   0
       Visible         =   True
       Width           =   100
-   End
-   Begin TextArea Informer
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
-      Bold            =   False
-      Border          =   True
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   175
-      HelpTag         =   ""
-      HideSelection   =   True
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   0
-      LimitText       =   0
-      LineHeight      =   0.0
-      LineSpacing     =   1.0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Mask            =   ""
-      Multiline       =   True
-      ReadOnly        =   False
-      Scope           =   0
-      ScrollbarHorizontal=   False
-      ScrollbarVertical=   True
-      Styled          =   True
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Informer\n"
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   0
-      Underline       =   False
-      UseFocusRing    =   True
-      Visible         =   False
-      Width           =   774
-   End
-   Begin Canvas Splitter
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
-      Backdrop        =   0
-      DoubleBuffer    =   False
-      Enabled         =   True
-      EraseBackground =   True
-      Height          =   5
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   3
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   175
-      Transparent     =   True
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   774
    End
    Begin TextArea STDOUT
       AcceptTabs      =   False
@@ -189,6 +85,133 @@ Begin Window LogoWin
       UseFocusRing    =   True
       Visible         =   True
       Width           =   774
+   End
+   Begin Canvas Splitter
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   True
+      Height          =   5
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   775
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   175
+      Transparent     =   True
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   774
+   End
+   Begin PagePanel TopPanel
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   175
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   775
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      PanelCount      =   2
+      Panels          =   ""
+      Scope           =   0
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      Top             =   0
+      Value           =   1
+      Visible         =   True
+      Width           =   774
+      Begin TextArea Informer
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   175
+         HelpTag         =   ""
+         HideSelection   =   True
+         Index           =   -2147483648
+         InitialParent   =   "TopPanel"
+         Italic          =   False
+         Left            =   775
+         LimitText       =   0
+         LineHeight      =   0.0
+         LineSpacing     =   1.0
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Multiline       =   True
+         ReadOnly        =   False
+         Scope           =   0
+         ScrollbarHorizontal=   False
+         ScrollbarVertical=   True
+         Styled          =   True
+         TabIndex        =   0
+         TabPanelIndex   =   1
+         TabStop         =   True
+         Text            =   "Informer\n"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   0
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   False
+         Width           =   774
+      End
+      Begin Canvas LogoCanvas
+         AcceptFocus     =   False
+         AcceptTabs      =   False
+         AutoDeactivate  =   True
+         Backdrop        =   0
+         DoubleBuffer    =   True
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   175
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "TopPanel"
+         Left            =   775
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Top             =   0
+         Transparent     =   True
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   774
+      End
    End
 End
 #tag EndWindow
@@ -717,10 +740,13 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
+		    'LogoCanvas.visible=true
+		    'LogoCanvas.Enabled=true
+		    'Informer.visible=false
+		    'Informer.enabled=false
+		    TopPanel.Value=1
+		    TopPanel.visible=true
 		    LogoCanvas.visible=true
-		    LogoCanvas.Enabled=true
-		    Informer.visible=false
-		    Informer.enabled=false
 		    DownshiftLog true
 		  case "Sequences"
 		    ViewLogo.Checked=false
@@ -729,11 +755,14 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
-		    LogoCanvas.visible=false
-		    LogoCanvas.Enabled=false
+		    'LogoCanvas.visible=false
+		    'LogoCanvas.Enabled=false
+		    'Informer.visible=true
+		    'Informer.enabled=true
 		    Informer.text=Sequences
-		    Informer.visible=true
-		    Informer.enabled=true
+		    TopPanel.Value=0
+		    informer.visible=true
+		    TopPanel.visible=true
 		    DownshiftLog true
 		  case "AlignmentInfo"
 		    ViewLogo.Checked=false
@@ -742,11 +771,14 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
-		    LogoCanvas.visible=false
-		    LogoCanvas.Enabled=false
 		    Informer.text=Info
-		    Informer.visible=true
-		    Informer.enabled=true
+		    TopPanel.value=0
+		    informer.visible=true
+		    TopPanel.visible=true
+		    'LogoCanvas.visible=false
+		    'LogoCanvas.Enabled=false
+		    'Informer.visible=true
+		    'Informer.enabled=true
 		    DownshiftLog true
 		  case "HideViewer"
 		    ViewLogo.Checked=false
@@ -755,10 +787,11 @@ End
 		    ViewHideViewer.Checked=true
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
-		    LogoCanvas.visible=false
-		    LogoCanvas.Enabled=false
-		    Informer.visible=false
-		    Informer.enabled=false
+		    'LogoCanvas.visible=false
+		    'LogoCanvas.Enabled=false
+		    'Informer.visible=false
+		    'Informer.enabled=false
+		    TopPanel.visible=false
 		    DownshiftLog false
 		  case "ProfileSettings"
 		    ViewLogo.Checked=false
@@ -767,11 +800,14 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=true
 		    ViewHmmProfile.Checked=false
-		    LogoCanvas.visible=false
-		    LogoCanvas.Enabled=false
 		    Informer.text=ProfileSettings
-		    Informer.visible=true
-		    Informer.enabled=true
+		    TopPanel.visible=true
+		    TopPanel.Value=0
+		    informer.visible=true
+		    'LogoCanvas.visible=false
+		    'LogoCanvas.Enabled=false
+		    'Informer.visible=true
+		    'Informer.enabled=true
 		    DownshiftLog true
 		  case "HmmProfile"
 		    ViewLogo.Checked=false
@@ -780,11 +816,14 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=False
 		    ViewHmmProfile.Checked=true
-		    LogoCanvas.visible=false
-		    LogoCanvas.Enabled=false
 		    Informer.text=HmmProfile
-		    Informer.visible=true
-		    Informer.enabled=true
+		    TopPanel.Value=0
+		    TopPanel.visible=true
+		    informer.visible=true
+		    'LogoCanvas.visible=false
+		    'LogoCanvas.Enabled=false
+		    'Informer.visible=true
+		    'Informer.enabled=true
 		    DownshiftLog true
 		  end select
 		End Sub
@@ -794,6 +833,8 @@ End
 		Protected Sub DownshiftLog(boo as boolean)
 		  if boo then
 		    if STDOUT.top=0 then
+		      TopPanel.left=0
+		      Splitter.left=0
 		      STDOUT.top=UpperPaneHeight+5
 		      STDOUT.height=self.Height-UpperPaneHeight-5
 		    else
@@ -803,6 +844,8 @@ End
 		    if STDOUT.top=0 then
 		      'already up
 		    else
+		      TopPanel.left=self.width+1 'prevent control overlap
+		      Splitter.left=self.width+1
 		      STDOUT.top=0
 		      STDOUT.height=self.Height
 		    end if
@@ -1846,93 +1889,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events LogoCanvas
-	#tag Event
-		Sub Open()
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  dim n as integer
-		  
-		  'draw background:
-		  g.ForeColor=&cFFFFFF00 'white
-		  g.FillRect(0,0,g.width,g.height)
-		  
-		  'draw selrect:
-		  g.ForeColor=HighlightColor
-		  
-		  for n=1 to ubound(SelArray1)
-		    g.fillRect(SelArray1(n),0,SelArray2(n)-SelArray1(n),me.height)
-		    
-		  next
-		  if lastx>0 then
-		    g.fillRect(FirstX,0,LastX-FirstX,me.height)
-		  end if
-		  g.DrawPicture(LogoPic,10,0)
-		  
-		  Exception err
-		    ExceptionHandler(err,"LogoWin:LogoCanvas:Paint")
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseUp(X As Integer, Y As Integer)
-		  selarray1.Append firstX
-		  selarray2.Append lastX
-		  if lastx=0 then
-		    'nothing was selected
-		    redim SelArray1(0)
-		    redim SelArray2(0)
-		  end if
-		  invalidate
-		  
-		  if ubound(SelArray1)>0 then
-		    masked=true
-		  else
-		    masked=false
-		  end if
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseDrag(X As Integer, Y As Integer)
-		  if CurrentX<>X then
-		    CurrentX=X
-		    'adjustFirstX and LastX to letter boundaries:
-		    lastX=(ceil((X+7)/30)-1)*30+7
-		    if lastx<37 then lastx=37
-		    self.Invalidate
-		    'me.refresh
-		    
-		  end if
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  'shift controls multiple selection
-		  
-		  firstX=(floor((X-7)/30))*30+7
-		  if firstX<37 then firstX=37
-		  
-		  if keyboard.AlternateMenuShortCutKey then    'shift pressed
-		    'selarray1.Append firstX
-		  else
-		    'clear selection arrays:
-		    redim selarray1(0)
-		    redim selarray2(0)
-		    lastx=0
-		    
-		  end if
-		  
-		  return true
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  Me.MouseCursor=System.Cursors.StandardPointer
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events LogoWinToolbar
 	#tag Event
 		Sub Action(item As ToolItem)
@@ -2130,16 +2086,14 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Informer
+#tag Events STDOUT
 	#tag Event
-		Sub Open()
-		  if FixedFont="" then
-		    dim ff as string
-		    ff=SetDefaultFonts(true)
-		    FixedFont=NthField(ff,";",1)
+		Sub TextChange()
+		  if len(me.Text)>0 then
+		    LogoWinToolbar.Item(5).Enabled=true 'SaveLog button
+		  else
+		    LogoWinToolbar.Item(5).Enabled=false
 		  end if
-		  
-		  me.TextFont=FixedFont
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2161,8 +2115,9 @@ End
 		  if Y<>DragStartY then
 		    dim deltaY as integer = Y-DragStartY
 		    UpperPaneHeight=UpperPaneHeight+deltaY
-		    LogoCanvas.Height=UpperPaneHeight
-		    Informer.height=UpperPaneHeight
+		    'LogoCanvas.Height=UpperPaneHeight
+		    'Informer.height=UpperPaneHeight
+		    TopPanel.Height=UpperPaneHeight
 		    STDOUT.height=STDOUT.height-deltaY
 		    STDOUT.top=STDOUT.top+deltaY
 		    me.top=me.top+deltaY
@@ -2190,14 +2145,103 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events STDOUT
+#tag Events Informer
 	#tag Event
-		Sub TextChange()
-		  if len(me.Text)>0 then
-		    LogoWinToolbar.Item(5).Enabled=true 'SaveLog button
-		  else
-		    LogoWinToolbar.Item(5).Enabled=false
+		Sub Open()
+		  if FixedFont="" then
+		    dim ff as string
+		    ff=SetDefaultFonts(true)
+		    FixedFont=NthField(ff,";",1)
 		  end if
+		  
+		  me.TextFont=FixedFont
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events LogoCanvas
+	#tag Event
+		Sub Open()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  dim n as integer
+		  
+		  'draw background:
+		  g.ForeColor=&cFFFFFF00 'white
+		  g.FillRect(0,0,g.width,g.height)
+		  
+		  'draw selrect:
+		  g.ForeColor=HighlightColor
+		  
+		  for n=1 to ubound(SelArray1)
+		    g.fillRect(SelArray1(n),0,SelArray2(n)-SelArray1(n),me.height)
+		    
+		  next
+		  if lastx>0 then
+		    g.fillRect(FirstX,0,LastX-FirstX,me.height)
+		  end if
+		  g.DrawPicture(LogoPic,10,0)
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:LogoCanvas:Paint")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseUp(X As Integer, Y As Integer)
+		  selarray1.Append firstX
+		  selarray2.Append lastX
+		  if lastx=0 then
+		    'nothing was selected
+		    redim SelArray1(0)
+		    redim SelArray2(0)
+		  end if
+		  invalidate
+		  
+		  if ubound(SelArray1)>0 then
+		    masked=true
+		  else
+		    masked=false
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseDrag(X As Integer, Y As Integer)
+		  if CurrentX<>X then
+		    CurrentX=X
+		    'adjustFirstX and LastX to letter boundaries:
+		    lastX=(ceil((X+7)/30)-1)*30+7
+		    if lastx<37 then lastx=37
+		    self.Invalidate
+		    'me.refresh
+		    
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  'shift controls multiple selection
+		  
+		  firstX=(floor((X-7)/30))*30+7
+		  if firstX<37 then firstX=37
+		  
+		  if keyboard.AlternateMenuShortCutKey then    'shift pressed
+		    'selarray1.Append firstX
+		  else
+		    'clear selection arrays:
+		    redim selarray1(0)
+		    redim selarray2(0)
+		    lastx=0
+		    
+		  end if
+		  
+		  return true
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  Me.MouseCursor=System.Cursors.StandardPointer
 		End Sub
 	#tag EndEvent
 #tag EndEvents
