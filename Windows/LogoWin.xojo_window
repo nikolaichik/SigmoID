@@ -1150,6 +1150,10 @@ End
 		    if vv<> nil then                   ' .sig file
 		      'set behaviour
 		      SigFileOpened=true
+		      nhmmerSettingsWin.AddAnnotationCheckBox.value=true
+		      nhmmerSettingsWin.AddAnnotationCheckBox.value=true
+		      nhmmerSettingsWin.AddAnnotationCheckBox.enabled=true
+		      nhmmerSettingsWin.AddAnnotationCheckBox.HelpTag="Annotation will be added with the HmmGen.py script"
 		      nhmmerSettingsWin.MaskingBox.enabled=false
 		      'nhmmerSettingsWin.CutoffBox.enabled=true
 		      'nhmmerSettingsWin.ThresholdsBox.enabled=false
@@ -1285,6 +1289,9 @@ End
 		      next
 		    else
 		      SigFileOpened=false
+		      nhmmerSettingsWin.AddAnnotationCheckBox.value=false
+		      nhmmerSettingsWin.AddAnnotationCheckBox.enabled=false
+		      nhmmerSettingsWin.AddAnnotationCheckBox.HelpTag="This option is enabled only for calibrated profiles"
 		      LogoFile=tmpfile
 		      HmmGenSettingsWin.PalindromicBox.value=False
 		      HmmGenSettingsWin.IntergenicBox.value=False
@@ -1977,8 +1984,27 @@ End
 		    nhmmerSettingsWin.ShowModalWithin(self)
 		    'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
 		    if nhmmerOptions <> "" then
-		      dim dummy as boolean
-		      dummy=nhmmer
+		      if nhmmer then
+		        if nhmmerSettingsWin.AddAnnotationCheckBox.value then
+		          Dim dlg as New SaveAsDialog
+		          dlg.InitialDirectory=genomefile.Parent
+		          dlg.promptText="Select where to save the modified genome file"
+		          dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		          dlg.Title="Save genome file"
+		          dlg.Filter=FileTypes.genbank
+		          outfile=dlg.ShowModal()
+		          if outfile<>nil then
+		            HmmGenSettingsWin.ReadOptions
+		            if HmmGen then
+		              if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		                GenomeWin.opengenbankfile(outFile)
+		                genomeWin.ShowHit
+		                WriteToSTDOUT (" done."+EndofLine)
+		              end if
+		            end if
+		          end if
+		        end if
+		      end if
 		    end if
 		  Case "HmmGenTool"
 		    HmmGenOptions=""
@@ -1992,7 +2018,6 @@ End
 		            GenomeWin.opengenbankfile(outFile)
 		            genomeWin.ShowHit
 		            WriteToSTDOUT (" done."+EndofLine)
-		            
 		          end if
 		        end if
 		      end if

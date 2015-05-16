@@ -69,4 +69,17 @@
 		Imported=False
 	#tag EndFileType
 
+	#tag FileType
+		CodeName=GenBank
+		Extension=.gb;.gbk
+		Flags=&h0
+		MacCreator=????
+		MacType=TEXT
+		Name=GenBank
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=True
+	#tag EndFileType
+
 #tag EndFileTypeSet

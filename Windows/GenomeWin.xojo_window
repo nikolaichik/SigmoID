@@ -3174,8 +3174,6 @@ End
 		- contextual menus for copying non-feature selections (with rev-compl!); complete contextual menus everywhere
 		+- correct search for short text ("tag") that looks like sequence
 		   (currently a double quote anywhere within query leads to text search)
-		- option to launch hmmGen after hmmer (without showing settings win) with default settings 
-		  for calibrated profiles
 		+- [draft done] Navigation toolbar
 		- show termgen hits the same way as hmmgen ones, if possible (browse next/prev. with arrows)
 		- unify hmmer hits navigation with search navigation (same controls, 

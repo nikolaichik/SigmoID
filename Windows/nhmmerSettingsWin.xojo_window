@@ -9,7 +9,7 @@ Begin Window nhmmerSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   324
+   Height          =   353
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -114,11 +114,11 @@ Begin Window nhmmerSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   False
+      LockTop         =   True
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -155,11 +155,11 @@ Begin Window nhmmerSettingsWin
       Italic          =   False
       Left            =   93
       LimitText       =   0
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -204,7 +204,7 @@ Begin Window nhmmerSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   284
+      Top             =   313
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -222,7 +222,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   374
+      Left            =   378
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -235,7 +235,7 @@ Begin Window nhmmerSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   284
+      Top             =   313
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -722,11 +722,11 @@ Begin Window nhmmerSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   466
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -910,6 +910,38 @@ Begin Window nhmmerSettingsWin
          Visible         =   True
          Width           =   40
       End
+   End
+   Begin CheckBox AddAnnotationCheckBox
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "Add annotation to the genome"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   False
+      Height          =   20
+      HelpTag         =   "Fnnotation will be added with the HmmGen.py script"
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   284
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   523
    End
 End
 #tag EndWindow
