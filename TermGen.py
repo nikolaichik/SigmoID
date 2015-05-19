@@ -1,4 +1,4 @@
-import os
+import os, platform
 import argparse
 import sys
 import tempfile
@@ -48,19 +48,28 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.4 (May 10, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.5 (May 18, 2015)')
     return parser
 
 args = createParser()
 enter = args.parse_args()
 arguments = sys.argv[1:0]
-name = enter.input_file.split('/')[-1]
+
+if platform.system() == 'Windows':
+    name = enter.input_file.split('\\')[-1]
+    name = name.split('.')[0]
+else:
+    name = enter.input_file.split('/')[-1]
+    name = name.split('.')[0]
 cwd = os.path.abspath(os.path.dirname(__file__))
-renamed_cwd = cwd.replace(' ', '\\ ')
+if platform.system() != 'Windows':
+    renamed_cwd = cwd.replace(' ', '\\ ')
+else:
+    renamed_cwd = cwd
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.4 (May 10, 2015)'
+print '\nTermGen 1.5 (May 18, 2015)'
 print "="*50
 output_args = ''
 for arg in range(1, len(sys.argv)):
@@ -71,7 +80,10 @@ print 'Options used:\n%s' % output_args
 print '\nCreating .fasta file...'
 input_gbk = open(enter.input_file, 'r')
 gbk = SeqIO.parse(input_gbk, 'genbank')
-output_fasta = open('%s/%s.fasta' % (cwd, name), 'w')
+if platform.system() != 'Windows':
+    output_fasta = open('%s/%s.fasta' % (cwd, name), 'w')
+else:
+    output_fasta = open('%s\%s.fasta' % (cwd, name), 'w')
 SeqIO.write(gbk, output_fasta, 'fasta')
 output_fasta.close()
 input_gbk.close()
@@ -89,19 +101,31 @@ input_gbk.close()
 input_gbk = open(enter.input_file, 'r')
 records = SeqIO.parse(input_gbk, 'genbank')
 
+
+
 # executes ptt_converter.py script
 print 'Creating .ptt file...'
-ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, enter.input_file.replace(' ', '\\ '))
+if platform.system() != 'Windows':
+    ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, enter.input_file.replace(' ', '\\ '))
+else:
+    ptt_converter = 'C:\Python27\python "%s\ptt_converter.py" %s' % (renamed_cwd, enter.input_file.replace(' ', '^ '))
 os.system(ptt_converter)
 
 # sets paths for TransTerm HP input files
-fasta_file = '%s/%s.fasta' % (renamed_cwd, name)
-ptt_file = '%s/%s.ptt' % (renamed_cwd, id)
+if platform.system() != 'Windows':
+    fasta_file = '%s/%s.fasta' % (renamed_cwd, name)
+    ptt_file = '%s/%s.ptt' % (renamed_cwd, id)
+else:
+    fasta_file = '%s.fasta' % (name)
+    ptt_file = '%s.ptt' % (id)
 
 # sets directory for output and executes TransTerm HP
 print 'Running TransTerm HP...\n%s' % ('-'*50)
 if enter.output == '':
-    transterm_output = '%s/transterm_output' % tmp_directory
+    if platform.system() != 'Windows':
+        transterm_output = '%s/transterm_output' % tmp_directory
+    else:
+        transterm_output = '%s\\transterm_output' % tmp_directory
 else:
     transterm_output = '%s' % enter.output
 additional_options = ''
@@ -113,14 +137,22 @@ if enter.maxlen != 1:
     additional_options += '--max-len=%s ' % str(enter.maxlen)
 if enter.maxloop != 1:
     additional_options += '--max-loop=%s ' % str(enter.maxloop)
-transterm_cmd = '%s/transterm --min-conf=%s %s -S -p %s/expterm.dat %s %s > %s' % (renamed_cwd,
+if platform.system() != 'Windows':
+    transterm_cmd = '%s/transterm --min-conf=%s %s -S -p %s/expterm.dat %s %s > %s' % (renamed_cwd,
                                                                                         enter.confidence, additional_options,
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
+else:
+    transterm_cmd = 'transterm --min-conf=%s %s -S -p "expterm.dat" "%s" "%s" > "%s"' % (
+                                                                                        enter.confidence, additional_options,
+                                                                                         fasta_file,
+                                                                                        ptt_file, transterm_output)
+    print 'CMD:', transterm_cmd
 os.system(transterm_cmd)
 
 
 '''This piece of code deals with the TransTerm HP output file.'''
+
 # opens the output file
 try:
     terms_out = open(transterm_output, 'r')
@@ -354,4 +386,5 @@ for record in records:
 output_gbk.close()
 input_gbk.close()
 terms_out.close()
+
 
