@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.6 (May 20, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.7 (May 20, 2015)')
     return parser
 
 args = createParser()
@@ -69,7 +69,7 @@ else:
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.6 (May 20, 2015)'
+print '\nTermGen 1.7 (May 20, 2015)'
 print "="*50
 output_args = ''
 for arg in range(1, len(sys.argv)):
@@ -143,9 +143,9 @@ if platform.system() != 'Windows':
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
 else:
-    transterm_cmd = '"%s\\transterm" --min-conf=%s %s -S -p "expterm.dat" "%s" "%s" > "%s"' % (renamed_cwd,
+    transterm_cmd = '"%s\\transterm" --min-conf=%s %s -S -p "%s\expterm.dat" %s %s > "%s"' % (renamed_cwd,
                                                                                         enter.confidence, additional_options,
-                                                                                         fasta_file,
+                                                                                        renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
     print 'CMD:', transterm_cmd
 os.system(transterm_cmd)
