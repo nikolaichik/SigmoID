@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.5 (May 18, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.6 (May 20, 2015)')
     return parser
 
 args = createParser()
@@ -69,7 +69,7 @@ else:
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.5 (May 18, 2015)'
+print '\nTermGen 1.6 (May 20, 2015)'
 print "="*50
 output_args = ''
 for arg in range(1, len(sys.argv)):
