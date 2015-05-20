@@ -116,8 +116,8 @@ if platform.system() != 'Windows':
     fasta_file = '%s/%s.fasta' % (renamed_cwd, name)
     ptt_file = '%s/%s.ptt' % (renamed_cwd, id)
 else:
-    fasta_file = '%s.fasta' % (name)
-    ptt_file = '%s.ptt' % (id)
+    fasta_file = '"%s\\%s.fasta"' % (renamed_cwd, name)
+    ptt_file = '"%s\\%s.ptt"' % (renamed_cwd, id)
 
 # sets directory for output and executes TransTerm HP
 print 'Running TransTerm HP...\n%s' % ('-'*50)
