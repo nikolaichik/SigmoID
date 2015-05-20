@@ -1,5 +1,5 @@
 from Bio import SeqIO
-import os
+import os, platform
 import sys
 import argparse
 
@@ -15,16 +15,23 @@ def createParser():
             )
     parser.add_argument('input_file',
                         help='''path to input Genbank file.''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.1 (April 13, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.1 (May 18, 2015)')
     return parser
+
 
 args = createParser()
 enter = args.parse_args()
 arguments = sys.argv[1:0]
-name = enter.input_file.split('/')[-1]
+if platform.system != 'Windows':
+    name = enter.input_file.split('/')[-1]
+else:
+    name = enter.input_file.split('\\')[-1]
 gbk = SeqIO.parse(enter.input_file, 'gb')
 cwd = os.path.abspath(os.path.dirname(__file__))
-renamed_cwd = cwd.replace(' ', '\\ ')
+if platform.system != 'Windows':
+    renamed_cwd = cwd.replace(' ', '\\ ')
+else:
+    renamed_cwd = cwd.replace(' ', '^ ')
 def list_of_features(genbank_record, feature_type):
     list = []
     for feature in genbank_record.features:
@@ -88,7 +95,10 @@ def ptt_product(feature):
 
 
 def ptt_writer(genbank_record, ptt_output, cwd):
-    ptt_file = open('/%s/%s.ptt' % (cwd, record.id), 'w')
+    if platform.system != 'Windows':
+        ptt_file = open('/%s/%s.ptt' % (cwd, record.id), 'w')
+    else:
+        ptt_file = open('\%s\%s.ptt' % (cwd, record.id), 'w')
     ptt_file.write(ptt_output)
     ptt_file.close()
 
