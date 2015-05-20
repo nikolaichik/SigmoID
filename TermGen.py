@@ -143,7 +143,7 @@ if platform.system() != 'Windows':
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
 else:
-    transterm_cmd = 'transterm --min-conf=%s %s -S -p "expterm.dat" "%s" "%s" > "%s"' % (
+    transterm_cmd = '"%s\\transterm" --min-conf=%s %s -S -p "expterm.dat" "%s" "%s" > "%s"' % (renamed_cwd,
                                                                                         enter.confidence, additional_options,
                                                                                          fasta_file,
                                                                                         ptt_file, transterm_output)
