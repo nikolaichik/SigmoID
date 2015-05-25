@@ -313,7 +313,7 @@ Protected Module Globals
 		      MsgBox err.Message+". Error Code: "+Str(err.errorNumber)
 		    #endif
 		  else
-		     MsgBox err.Message+". Error Code: "+Str(err.errorNumber)
+		    MsgBox err.Message+". Error Code: "+Str(err.errorNumber)
 		  end if
 		End Sub
 	#tag EndMethod
@@ -522,7 +522,6 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub RevCompAlignment(infile as folderitem, outfile as folderitem)
-		  RevCompAlignment(infile, outfile)
 		  dim instream as TextInputStream
 		  dim outstream As TextOutputStream
 		  dim aLine,title as string

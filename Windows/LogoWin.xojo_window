@@ -299,6 +299,7 @@ End
 		  if f<>Nil then
 		    if f.exists then
 		      hmmgenpath=f.ShellPath
+		      SettingsWin.HmmGenPathField.text=hmmgenpath
 		    else
 		      msgbox "Can't find the HmmGen.py script"
 		    end if
@@ -310,6 +311,7 @@ End
 		  if f<>Nil then
 		    if f.exists then
 		      TermGenpath=f.ShellPath
+		      'SettingsWin.TermGenPathField.text=TermGenpath
 		    else
 		      msgbox "Can't find the TermGen.py script"
 		    end if
@@ -1089,9 +1091,7 @@ End
 		        LastHitNo=Val(LastHitStr)
 		        
 		        WriteToSTDOUT (EndofLine+Sh.Result)
-		        if NOT ScanningGenome then
-		          WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
-		        end if
+		        
 		        
 		        dim ms,t1 as double
 		        ms=microseconds
@@ -1150,6 +1150,10 @@ End
 		        
 		        
 		        if Ubound(genomeWin.HmmHits)>0 then
+		          if NOT ScanningGenome then
+		            WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
+		          end if
+		          
 		          WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
 		          
 		          'Set the genome map scrollbar:
@@ -1283,7 +1287,7 @@ End
 		      OptionsNo=countFields(ProfileSettings,"nhmmer.")
 		      for n=1 to OptionsNo
 		        theOption=NthField(ProfileSettings,"nhmmer.",n+1)
-		        theOption=trim(NthField(TheOption,EndOfLine,1))
+		        theOption=trim(NthField(TheOption,EndOfLine.Unix,1))
 		        switchName=NthField(theOption," ",1)
 		        select case switchName
 		        case "--cut_ga"
@@ -1309,7 +1313,7 @@ End
 		      OptionsNo=countFields(ProfileSettings,"HmmGen.")
 		      for n=1 to OptionsNo
 		        theOption=NthField(ProfileSettings,"HmmGen.",n+1)
-		        theOption=trim(NthField(TheOption,EndOfLine,1))
+		        theOption=trim(NthField(TheOption,EndOfLine.Unix,1))
 		        switchName=NthField(theOption," ",1)
 		        select case switchName
 		        case "-L"
@@ -1953,9 +1957,11 @@ End
 		            HmmGenSettingsWin.ReadOptions
 		            if HmmGen then
 		              if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		                GenomeWin.opengenbankfile(outFile)
-		                genomeWin.ShowHit
-		                WriteToSTDOUT (" done."+EndofLine)
+		                if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		                  GenomeWin.opengenbankfile(outFile)
+		                  genomeWin.ShowHit
+		                  WriteToSTDOUT (" done."+EndofLine)
+		                end if
 		              end if
 		            end if
 		          end if
@@ -1971,9 +1977,11 @@ End
 		      if outfile<>nil then
 		        if HmmGen then
 		          if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		            GenomeWin.opengenbankfile(outFile)
-		            genomeWin.ShowHit
-		            WriteToSTDOUT (" done."+EndofLine)
+		            if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		              GenomeWin.opengenbankfile(outFile)
+		              genomeWin.ShowHit
+		              WriteToSTDOUT (" done."+EndofLine)
+		            end if
 		          end if
 		        end if
 		      end if
