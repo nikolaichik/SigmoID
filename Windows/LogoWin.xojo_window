@@ -271,7 +271,6 @@ End
 		  hmmBuildPath=SettingsWin.hmmBuildPathField.text
 		  
 		  #if TargetWin32
-		    'weblogopath=SettingsWin.weblogoPathField.text
 		    f=resources_f.child("alimask.exe")
 		    if f<>Nil then
 		      if f.exists then
@@ -305,6 +304,22 @@ End
 		    end if
 		  else
 		    msgbox "Can't find the HmmGen.py script"
+		  end if
+		  
+		  f=resources_f.child("Weblogo-3.3").child("weblogo")
+		  if f<>Nil then
+		    if f.exists then
+		      #if targetwin32
+		        weblogopath="python "+f.ShellPath
+		      #else
+		        weblogopath=f.ShellPath
+		      #endif
+		      SettingsWin.weblogoPathField.text=weblogopath
+		    else
+		      msgbox "Can't find WebLogo"
+		    end if
+		  else
+		    msgbox "Can't find the WebLogo"
 		  end if
 		  
 		  f=resources_f.child("TermGen.py")
@@ -344,6 +359,8 @@ End
 		  'weblogo
 		  WriteToSTDOUT ("Looking for weblogo... ")
 		  cli=WebLogoPath+" --version"
+		  
+		  
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
