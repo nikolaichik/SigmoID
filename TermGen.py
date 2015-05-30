@@ -48,13 +48,14 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.7 (May 20, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.8 (May 21, 2015)')
     return parser
 
 args = createParser()
 enter = args.parse_args()
 arguments = sys.argv[1:0]
-
+win_cwd = os.getcwd()
+win_cwd = win_cwd.replace('\\\\', '\\')
 if platform.system() == 'Windows':
     name = enter.input_file.split('\\')[-1]
     name = name.split('.')[0]
@@ -63,13 +64,25 @@ else:
     name = name.split('.')[0]
 cwd = os.path.abspath(os.path.dirname(__file__))
 if platform.system() != 'Windows':
-    renamed_cwd = cwd.replace(' ', '\\ ')
+    renamed_cwd = cwd.replace(' ', '\\')
 else:
-    renamed_cwd = cwd
+    renamed_cwd = ''
+    expterm_cwd = ''
+    renamed = cwd.split('\\')
+    for d in renamed:
+        if any(symbol == ' ' for symbol in d):
+            renamed_cwd += '"%s"\\' % d
+            expterm_cwd += '"%s"\\' % d
+        elif any(symbol == ':' for symbol in d):
+            renamed_cwd += '%s\\' % d
+            expterm_cwd += '%s\\\\' % d
+        else:
+            renamed_cwd += '%s\\' % d
+            expterm_cwd += '%s\\' % d
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.7 (May 20, 2015)'
+print '\nTermGen 1.8 (May 21, 2015)'
 print "="*50
 output_args = ''
 for arg in range(1, len(sys.argv)):
@@ -83,7 +96,7 @@ gbk = SeqIO.parse(input_gbk, 'genbank')
 if platform.system() != 'Windows':
     output_fasta = open('%s/%s.fasta' % (cwd, name), 'w')
 else:
-    output_fasta = open('%s\%s.fasta' % (cwd, name), 'w')
+    output_fasta = open('%s\%s.fasta' % (win_cwd, name), 'w')
 SeqIO.write(gbk, output_fasta, 'fasta')
 output_fasta.close()
 input_gbk.close()
@@ -108,7 +121,7 @@ print 'Creating .ptt file...'
 if platform.system() != 'Windows':
     ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, enter.input_file.replace(' ', '\\ '))
 else:
-    ptt_converter = 'C:\Python27\python "%s\ptt_converter.py" %s' % (renamed_cwd, enter.input_file.replace(' ', '^ '))
+    ptt_converter = 'C:\Python27\python %s\ptt_converter.py %s' % (expterm_cwd, enter.input_file.replace(' ', '^ '))
 os.system(ptt_converter)
 
 # sets paths for TransTerm HP input files
@@ -116,8 +129,8 @@ if platform.system() != 'Windows':
     fasta_file = '%s/%s.fasta' % (renamed_cwd, name)
     ptt_file = '%s/%s.ptt' % (renamed_cwd, id)
 else:
-    fasta_file = '"%s\%s.fasta"' % (renamed_cwd, name)
-    ptt_file = '"%s\%s.ptt"' % (renamed_cwd, id)
+    fasta_file = '%s.fasta' % (name)
+    ptt_file = '%s.ptt' % (id)
 
 # sets directory for output and executes TransTerm HP
 print 'Running TransTerm HP...\n%s' % ('-'*50)
@@ -143,9 +156,9 @@ if platform.system() != 'Windows':
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
 else:
-    transterm_cmd = '"%s\\transterm" --min-conf=%s %s -S -p "%s\expterm.dat" %s %s > "%s"' % (renamed_cwd,
+    transterm_cmd = '%stransterm --min-conf=%s %s -S -p %sexpterm.dat %s %s > "%s"' % (renamed_cwd,
                                                                                         enter.confidence, additional_options,
-                                                                                        renamed_cwd, fasta_file,
+                                                                                        expterm_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
     print 'CMD:', transterm_cmd
 os.system(transterm_cmd)
@@ -386,5 +399,3 @@ for record in records:
 output_gbk.close()
 input_gbk.close()
 terms_out.close()
-
-
