@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.6 (May 3, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.7 (May 30, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -114,7 +114,7 @@ except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
 
-print '\nHmmGen 2.6 (May 3, 2015)'
+print '\nHmmGen 2.7 (May 30, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -347,7 +347,6 @@ for record in records:
                     any(record.features[i] == hit for hit in hit_list) == False:
                 record.features.pop(i)
 
-
     if enter.name == False:
         for i in reversed(xrange(len(record.features))):
             i = len(record.features) - 1 - i
@@ -359,12 +358,17 @@ for record in records:
                             record.features[n].location.start > hit.location.end:
                         cds_up = record.features[n]
                         break
+                if hit.location.start > CDS_list[-1].location.end:
+                    cds_up = CDS_list[0]
                 for c in reversed(xrange(len(CDS_list))):
                     if CDS_list[c].location.end < hit.location.start:
                         cds_down = CDS_list[c]
                         break
+                    elif hit.location.end < CDS_list[0].location.start:
+                        cds_down = CDS_list[-1]
+                        break
                 if (enter.palindromic is True and
-                    cds_up.location.strand == cds_down.location.strand) or \
+                    cds_up.strand == cds_down.strand) or \
                     enter.palindromic is False:
                     if hit.strand == int('-1'):
                         try:
@@ -400,7 +404,7 @@ for record in records:
                             record.features.insert(i, new_feature)
 
 
-                elif enter.palindromic == True and cds_up.location.strand != cds_down.location.strand:
+                elif enter.palindromic == True and cds_up.strand != cds_down.strand:
                     if hit.strand == int('-1'):
                         try:
                             individual_qualifiers['cds_down_gene'] = cds_down.qualifiers['gene']
@@ -460,9 +464,15 @@ for record in records:
                     if CDS_list[c].location.end < hit.location.start:
                         cds_down = CDS_list[c]
                         break
+                    elif hit.location.end < CDS_list[0].location.start:
+                        cds_down = CDS_list[-1]
+                        break
                 for c in xrange(len(CDS_list)):
                     if CDS_list[c].location.start > hit.location.end:
                         cds_up = CDS_list[c]
+                        break
+                    elif hit.location.start < CDS_list[-1].location.end:
+                        cds_down = CDS_list[0]
                         break
                 if record.features[i+1].qualifiers.has_key('CHECK') and \
                         (hit.location.start == record.features[i+1].location.start and
