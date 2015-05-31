@@ -316,10 +316,14 @@ End
 		      #endif
 		      SettingsWin.weblogoPathField.text=weblogopath
 		    else
-		      msgbox "Can't find WebLogo"
+		      #if targetwin32
+		        msgbox "Can't find WebLogo"
+		      #endif
 		    end if
 		  else
-		    msgbox "Can't find the WebLogo"
+		    #if targetwin32
+		      msgbox "Can't find WebLogo"
+		    #endif
 		  end if
 		  
 		  f=resources_f.child("TermGen.py")

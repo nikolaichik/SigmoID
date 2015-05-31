@@ -13,7 +13,7 @@ Begin Window nhmmerSettingsWin
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   324
+   MaxHeight       =   353
    MaximizeButton  =   True
    MaxWidth        =   32000
    MenuBar         =   0
@@ -941,7 +941,7 @@ Begin Window nhmmerSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   523
+      Width           =   301
    End
 End
 #tag EndWindow
