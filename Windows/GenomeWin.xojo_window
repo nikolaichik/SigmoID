@@ -563,7 +563,7 @@ Begin Window GenomeWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       CueText         =   "Search..."
@@ -1965,7 +1965,9 @@ End
 		  form.Value("algo") = "phmmer"
 		  form.Value("seq") = theSeq
 		  SPSocket.SetFormData(form)
-		  SPSocket.Post("http://hmmer.janelia.org/search/phmmer")
+		  'SPSocket.Post("http://hmmer.janelia.org/search/phmmer")
+		  'change to the EBI address
+		  SPSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -2008,8 +2010,9 @@ End
 		  form.Value("hmmdb") = "tigrfam"
 		  form.Value("seq") = theSeq
 		  TIGRSocket.SetFormData(form)
-		  TIGRSocket.Post("http://hmmer.janelia.org/search/hmmscan")
-		  
+		  'TIGRSocket.Post("http://hmmer.janelia.org/search/hmmscan")
+		  'change to the EBI address
+		  TIGRSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/hmmscan")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -2054,7 +2057,8 @@ End
 		  form.Value("seq") = theSeq
 		  UniprotSocket.SetFormData(form)
 		  UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
-		  
+		  'change to the EBI address
+		  UniprotSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -4541,7 +4545,8 @@ End
 		  UUID=NthField(Content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'UUID correctness should be verified!
-		  theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
 		  'now simply load the corrected URL:
 		  if TMdisplay.Visible then
 		    TMdisplay.Visible=false
@@ -4566,7 +4571,9 @@ End
 		  
 		  UUID=NthField(Content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
-		  theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
+		  
 		  'now simply load the corrected URL:
 		  if TMdisplay.Visible then
 		    TMdisplay.Visible=false
@@ -4595,7 +4602,7 @@ End
 		  
 		  UUID=NthField(content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
-		  theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
 		  'now simply load the corrected URL:
 		  if TMdisplay.Visible then
 		    TMdisplay.Visible=false
