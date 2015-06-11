@@ -99,7 +99,7 @@ Begin Window LogoWin
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   775
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
@@ -133,7 +133,7 @@ Begin Window LogoWin
       TabIndex        =   4
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   774
       Begin TextArea Informer

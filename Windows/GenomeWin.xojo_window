@@ -4603,6 +4603,7 @@ End
 		  UUID=NthField(content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
+		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
 		  'now simply load the corrected URL:
 		  if TMdisplay.Visible then
 		    TMdisplay.Visible=false
