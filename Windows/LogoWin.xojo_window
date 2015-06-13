@@ -1381,11 +1381,24 @@ End
 		      
 		      
 		    end if
-		    'store the seqs first:
+		    'store the seqs
 		    dim tis as TextInputStream
 		    tis=logofile.OpenAsTextFile
 		    sequences=tis.ReadAll
 		    tis.Close
+		    
+		    'determine the default length parameter
+		    tis=logofile.OpenAsTextFile
+		    dim aline As string
+		    while not tis.EOF
+		      aLine=tis.readLine
+		      if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
+		        HmmGenSettingsWin.LengthField.CueText=str(len(aline))
+		        exit
+		      end if
+		    wend
+		    tis.Close
+		    
 		    
 		    LogoWinToolbar.Item(1).Enabled=true
 		    

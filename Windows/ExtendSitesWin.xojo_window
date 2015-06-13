@@ -409,7 +409,7 @@ End
 		  dim instream, instream2 as TextInputStream
 		  'dim outstream As TextOutputStream
 		  dim aLine,title, seq,seqRevSeq,site, newsite,s0 as string
-		  dim sitecount,sitepos, leftExt, rightExt,en As integer
+		  dim sitecount,sitepos, leftExt, rightExt, en, n As integer
 		  
 		  InStream = LogoWin.logofile.OpenAsTextFile
 		  InStream2 = LogoWin.genomefile.OpenAsTextFile
@@ -471,13 +471,15 @@ End
 		        site=trim(aline)
 		        sitecount=CountFields(seqRevSeq,site)-1
 		        if sitecount>0 then
-		          if sitecount=1 then
-		            sitepos=instr(seqRevSeq,site)
+		          if sitecount>1 then
+		            LogoWin.WriteToSTDOUT (str(sitecount)+" sites found:"+EndofLine)
+		          end if
+		          sitepos=0
+		          for n=1 to sitecount
+		            sitepos=instr(sitepos+1,seqRevSeq,site)
 		            newsite=mid(seqRevSeq,sitepos-leftExt, leftExt+len(site)+rightExt)
 		            LogoWin.WriteToSTDOUT (newsite+EndofLine)
-		          else
-		            LogoWin.WriteToSTDOUT (str(sitecount)+" sites found!"+EndofLine)
-		          end if
+		          next
 		        else
 		          LogoWin.WriteToSTDOUT ("No site found!"+EndofLine)
 		        end if

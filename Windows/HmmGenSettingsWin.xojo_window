@@ -714,17 +714,17 @@ End
 		Sub Open()
 		  'determine the default length parameter
 		  
-		  dim instream as TextInputStream
-		  dim aline As string
-		  'read profile calibration values
-		  InStream = logowin.LogoFile.OpenAsTextFile
-		  while not InStream.EOF
-		    aLine=InStream.readLine
-		    if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
-		      LengthField.CueText=str(len(aline))
-		      exit
-		    end if
-		  wend
+		  'dim instream as TextInputStream
+		  'dim aline As string
+		  ''read profile calibration values
+		  'InStream = logowin.LogoFile.OpenAsTextFile
+		  'while not InStream.EOF
+		  'aLine=InStream.readLine
+		  'if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
+		  'LengthField.CueText=str(len(aline))
+		  'exit
+		  'end if
+		  'wend
 		  
 		  
 		End Sub
