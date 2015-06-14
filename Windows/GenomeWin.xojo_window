@@ -678,6 +678,16 @@ End
 		  end if
 		  GenomeGoto.enable
 		  
+		  FileSaveCheckedSites.Visible=true
+		  FileSaveCheckedSites.Enabled=true
+		  FileSaveGenomeAs.Visible=true
+		  FileSaveGenomeAs.Enabled=true
+		  
+		  FileSaveAlignmentSelection.visible=false
+		  FileSaveLogo.visible=false
+		  FileScanGenome.Visible=false
+		  
+		  
 		  
 		End Sub
 	#tag EndEvent
@@ -978,6 +988,45 @@ End
 	#tag MenuHandler
 		Function FileSaveAs() As Boolean Handles FileSaveAs.Action
 			SaveFile Title, True
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileSaveCheckedSites() As Boolean Handles FileSaveCheckedSites.Action
+			Dim f as FolderItem=GetSaveFolderItem("????","Sites.fasta")
+			dim outstream As TextOutputStream
+			dim n, leftC, rightC as integer
+			dim hitSeq as string
+			
+			
+			outstream = TextOutputStream.Create(f)
+			for n=1 to ubound (hmmhits)
+			if HmmHitChecked(n) then
+			'get site sequence:
+			'determine the distance of the left edge of displayed fragment from start:
+			leftC=Val(NthField(HmmHitDescriptions(n),":",1))
+			rightC=Val(NthField(NthField(HmmHitDescriptions(n)," ",1),":",2))
+			if instr(HmmHitDescriptions(n),"(+)")>0 then
+			'top strand
+			hitseq=mid(Genome.Sequence,leftC,RightC-leftC+1)
+			
+			else
+			'bottom strand
+			hitseq=mid(Genome.Sequence,leftC+1,RightC-leftC+1)
+			hitseq=ReverseComplement(hitSeq)
+			end if
+			
+			genomeWin.TextMap(FeatureLeft,FeatureRight)
+			
+			outstream.WriteLine(">"+HmmHitNames(n)+HmmHitDescriptions(n))
+			outstream.WriteLine(HitSeq)
+			end if
+			next
+			outstream.Close
+			
+			
+			
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -3368,6 +3417,10 @@ End
 
 	#tag Property, Flags = &h0
 		HmmHitDescriptions(0) As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		HmmHitNames(0) As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

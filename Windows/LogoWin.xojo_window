@@ -253,6 +253,16 @@ End
 		    end if
 		    
 		  end if
+		  
+		  FileSaveCheckedSites.Visible=false
+		  FileSaveCheckedSites.Enabled=false
+		  FileSaveGenomeAs.Visible=false
+		  FileSaveGenomeAs.Enabled=false
+		  
+		  FileSaveAlignmentSelection.visible=true
+		  FileSaveLogo.visible=true
+		  FileScanGenome.Visible=true
+		  
 		End Sub
 	#tag EndEvent
 
@@ -1056,6 +1066,8 @@ End
 		  'outfile must be set before calling this method
 		  
 		  'GenomeFile=GetOpenFolderItem("")
+		  
+		  dim HitName as string 
 		  if GenomeFile<> nil then
 		    dim cli as string
 		    Dim sh As Shell
@@ -1123,6 +1135,7 @@ End
 		          
 		          redim GenomeWin.HmmHits(0)
 		          redim GenomeWin.HmmHitDescriptions(0)
+		          redim genomeWin.HmmHitNames(0)
 		          
 		          dim m,n,o,colonPos as integer
 		          dim currentHit,HitInfo, hits2sort(0),hitloc as string
@@ -1150,14 +1163,36 @@ End
 		            wend
 		          next
 		          
-		          'add sorted hits and their info into genome browser arrays
+		          'add sorted hits and their info into genome browser arrays:
+		          'hmmgen result:
+		          '2233715:2233745](-)
+		          'qualifiers:
+		          'Key: bound_moiety, Value: ['HrpL alternative sigma factor']
+		          'Key: gene, Value: ['hrpJ']
+		          'Key: inference, Value: ['profile:nhmmer:3.1b1']
+		          'Key: locus_tag, Value: ['OA04_20620']
+		          'Key: note, Value: nhmmer score 12.8 E-value 1.2
+		          'Key: regulatory_class, Value: ['promoter']
+		          'type: regulatory
+		          
 		          for n=1 to ubound(hits2sort)
 		            currentHit=hits2sort(n)
 		            GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
 		            HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
 		            HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
 		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),Endofline,1)
+		            HitName=""
+		            if instr(currenthit,"Key: gene")>0 then   
+		              'extract gene name
+		              Hitname=nthfield(currentHit,"Key: gene, Value: ['",2)
+		              Hitname=nthfield(HitName,"']",1)+" "
+		            end if
+		            'add locus_tag
+		            Hitname=Hitname+nthfield(nthfield(currentHit,"Key: locus_tag, Value: ['",2),"']",1)+" "
+		            
 		            genomeWin.HmmHitDescriptions.append HitInfo
+		            genomeWin.HmmHitNames.append HitName
+		            
 		          next
 		          
 		          'initialise array to select/deselect hits:

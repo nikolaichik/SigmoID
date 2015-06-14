@@ -6,9 +6,23 @@ Begin Menu MainMenuBar
       Index = -2147483648
       AutoEnable = True
       Visible = True
-      Begin MenuItem FileScanGenome
+      Begin MenuItem FileOpenAlignment
          SpecialMenu = 0
-         Text = "Scan Genome..."
+         Text = "Open Alignment..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem FileSaveAlignmentSelection
+         SpecialMenu = 0
+         Text = "Save Alignment Selection..."
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem FileSaveLogo
+         SpecialMenu = 0
+         Text = "Save Logo Picture..."
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -27,18 +41,11 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem FileSaveAlignmentSelection
+      Begin MenuItem FileSaveCheckedSites
          SpecialMenu = 0
-         Text = "Save Alignment Selection..."
+         Text = "Save Checked Sites..."
          Index = -2147483648
          AutoEnable = False
-         Visible = True
-      End
-      Begin MenuItem FileSaveLogo
-         SpecialMenu = 0
-         Text = "Save Logo..."
-         Index = -2147483648
-         AutoEnable = True
          Visible = True
       End
       Begin MenuItem FileMakeSigFile
@@ -51,6 +58,13 @@ Begin Menu MainMenuBar
       Begin MenuItem UntitledSeparator
          SpecialMenu = 0
          Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem FileScanGenome
+         SpecialMenu = 0
+         Text = "Scan Genome..."
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -73,7 +87,7 @@ Begin Menu MainMenuBar
          Shortcut = "Cmd+Shift+S"
          MenuModifier = True
          AltMenuModifier = True
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem UntitledItem4

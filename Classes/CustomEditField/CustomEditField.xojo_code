@@ -2420,7 +2420,7 @@ Implements MessageReceiver
 		  else
 		    //no open block found
 		    break
-		    beep
+		    'beep
 		  end
 		End Sub
 	#tag EndMethod

@@ -840,7 +840,7 @@ End
 		Sub Action()
 		  LogoWin.nhmmeroptions=""
 		  self.OKPressed=false
-		  self.close
+		  self.hide
 		  
 		End Sub
 	#tag EndEvent
