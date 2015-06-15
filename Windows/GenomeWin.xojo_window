@@ -1012,7 +1012,7 @@ End
 			
 			else
 			'bottom strand
-			hitseq=mid(Genome.Sequence,leftC+1,RightC-leftC+1)
+			hitseq=mid(Genome.Sequence,leftC,RightC-leftC+1)
 			hitseq=ReverseComplement(hitSeq)
 			end if
 			

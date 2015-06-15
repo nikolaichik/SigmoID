@@ -262,6 +262,8 @@ End
 		  FileSaveAlignmentSelection.visible=true
 		  FileSaveLogo.visible=true
 		  FileScanGenome.Visible=true
+		  FileOpenAlignment.visible=true
+		  FileOpenAlignment.Enabled=true
 		  
 		End Sub
 	#tag EndEvent
@@ -552,6 +554,16 @@ End
 			ExtendSitesWin.ExtendButton.Enabled=false
 			end if
 			ExtendSitesWin.ShowModalWithin(self)
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileOpenAlignment() As Boolean Handles FileOpenAlignment.Action
+			dim tmpfile as folderitem
+			tmpfile=GetOpenFolderItem("")
+			LoadAlignment(tmpFile)
 			Return True
 			
 		End Function

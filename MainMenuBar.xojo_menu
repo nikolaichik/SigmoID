@@ -10,6 +10,9 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "Open Alignment..."
          Index = -2147483648
+         ShortcutKey = "L"
+         Shortcut = "Cmd+L"
+         MenuModifier = True
          AutoEnable = True
          Visible = True
       End
