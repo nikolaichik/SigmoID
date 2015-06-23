@@ -1079,7 +1079,7 @@ End
 		  
 		  'GenomeFile=GetOpenFolderItem("")
 		  
-		  dim HitName as string 
+		  dim HitName as string
 		  if GenomeFile<> nil then
 		    dim cli as string
 		    Dim sh As Shell
@@ -1194,7 +1194,7 @@ End
 		            HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
 		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),Endofline,1)
 		            HitName=""
-		            if instr(currenthit,"Key: gene")>0 then   
+		            if instr(currenthit,"Key: gene")>0 then
 		              'extract gene name
 		              Hitname=nthfield(currentHit,"Key: gene, Value: ['",2)
 		              Hitname=nthfield(HitName,"']",1)+" "
@@ -1506,8 +1506,8 @@ End
 		      cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+nhmmerSettingsWin.GenomeField.text
 		    else
 		      if masked then
-		        WriteToSTDOUT (EndofLine+EndofLine+"Alignment masked.")
 		        alimask LogoFile
+		        WriteToSTDOUT (EndofLine+EndofLine+"Alignment masked.")
 		        '/usr/local/bin/nhmmer
 		        cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+alimasktmp.ShellPath+" "+nhmmerSettingsWin.GenomeField.text
 		      else
@@ -1529,8 +1529,8 @@ End
 		      LogoWinToolbar.Item(2).Enabled=true
 		      return true
 		    else
-		      MsgBox "nhmmer error Code: "+Str(sh.errorCode)
 		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "nhmmer error Code: "+Str(sh.errorCode)
 		      LogoWinToolbar.Item(2).Enabled=false
 		      return false
 		    end if

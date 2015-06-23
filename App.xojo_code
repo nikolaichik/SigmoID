@@ -383,6 +383,14 @@ Inherits Application
 	#tag EndMethod
 
 
+	#tag Note, Name = 2 do
+		
+		1. Deselect all hits in genome browser
+		2. blastx search
+		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
+		4. Clear description of the cleanup the scripts do.
+	#tag EndNote
+
 	#tag Note, Name = Linux details
 		
 		32-bit Webkit1 is required for displaying the search results. This could be a problem on a 64-bit system

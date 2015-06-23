@@ -607,7 +607,8 @@ End
 	#tag Event
 		Sub Activate()
 		  
-		  me.SetFocus
+		  'me.SetFocus
+		  MapCanvas.SetFocus
 		  
 		End Sub
 	#tag EndEvent
@@ -701,7 +702,7 @@ End
 		    end if
 		  end
 		  
-		  
+		  SkimHits
 		End Function
 	#tag EndEvent
 
@@ -2888,10 +2889,59 @@ End
 		  
 		  'need to set the correct highlightColour (according to feature being displayed) here
 		  
-		  genomeWin.TextMap(FeatureLeft,FeatureRight)
+		  me.TextMap(FeatureLeft,FeatureRight)
 		  UpdateMapCanvas
 		  UpdateMapCanvasSelection
-		  genomeWin.Show
+		  me.Show
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SkimHits()
+		  'skimming through the hits
+		  if Keyboard.AsynckeyDown(&h7C) OR Keyboard.AsynckeyDown(&h7B) then
+		    if CurrentHit > 0 then
+		      if Keyboard.AsynckeyDown(&h7C) then 'Right
+		        if CurrentHit<ubound(GenomeWin.HmmHits) then
+		          CurrentHit=CurrentHit+1
+		        else
+		          beep
+		        end if
+		      elseif Keyboard.AsynckeyDown(&h7B) then 'Left
+		        if CurrentHit>1 then
+		          CurrentHit=CurrentHit-1
+		        else
+		          beep
+		        end if
+		      end if
+		      
+		      
+		      Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
+		      Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
+		      Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
+		      if currentHit=1 then
+		        s0.Enabled=false
+		      else
+		        s0.Enabled=true
+		      end if
+		      
+		      if currentHit=ubound(GenomeWin.HmmHits) then
+		        s2.Enabled=false
+		      else
+		        s2.Enabled=true
+		      end if
+		      
+		      s1.Title=str(CurrentHit)+"/"+str(ubound(HmmHits))
+		      
+		      ShowHit
+		    else
+		      beep
+		    end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:SkimHits")
+		    
 		End Sub
 	#tag EndMethod
 
@@ -4205,7 +4255,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
-		  
+		  SkimHits
 		End Function
 	#tag EndEvent
 	#tag Event
