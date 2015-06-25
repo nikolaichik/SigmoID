@@ -202,7 +202,7 @@ Begin Window ScanGenomeWin
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   20
+      Height          =   17
       HelpTag         =   ""
       Index           =   0
       InitialParent   =   ""
@@ -364,7 +364,7 @@ End
 		      Dim cb As CheckBox
 		      cb = New SigArray //create clone
 		      cb.Caption = f.Item(n).DisplayName
-		      cb.top = 21 + (SigArray(0).Height + 5)*SigArrayCount
+		      cb.top = 21 + (SigArray(0).Height + 1)*SigArrayCount
 		      cb.visible=true
 		    end if
 		  next

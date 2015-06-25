@@ -26,34 +26,6 @@ Begin Window GenomeWin
    Title           =   "Untitled"
    Visible         =   False
    Width           =   1067
-   Begin Canvas HelpTagDisplay
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
-      Backdrop        =   0
-      DoubleBuffer    =   False
-      Enabled         =   True
-      EraseBackground =   False
-      Height          =   30
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   -49
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   False
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   3
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   280
-      Transparent     =   True
-      UseFocusRing    =   False
-      Visible         =   True
-      Width           =   30
-   End
    Begin Canvas MapCanvas
       AcceptFocus     =   True
       AcceptTabs      =   False
@@ -196,7 +168,7 @@ Begin Window GenomeWin
       Width           =   41
    End
    Begin Canvas TMdisplay
-      AcceptFocus     =   False
+      AcceptFocus     =   True
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
@@ -294,7 +266,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   3
+      Value           =   1
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -902,6 +874,7 @@ End
 		  
 		  HighlightColour=HighlightColor 'set to default until features are read
 		  
+		  FeatureBox.visible=false 'show later if required
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:Open")
 		End Sub
@@ -2858,6 +2831,7 @@ End
 	#tag Method, Flags = &h0
 		Sub ShowHit()
 		  ExtractFragment(HmmHits(CurrentHit)-DisplayInterval/2,HmmHits(CurrentHit)+DisplayInterval/2)
+		  FeatureBox.visible=true
 		  FeatureBox.Caption=HmmHitDescriptions(CurrentHit)
 		  Featurebox.Value=true
 		  
@@ -3797,22 +3771,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events HelpTagDisplay
-	#tag Event
-		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  If IsContextualClick Then
-		    ' Don't process this event for right-clicks
-		    Return false
-		  End If
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  me.height=13
-		  me.width=3
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events MapCanvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
@@ -4489,6 +4447,11 @@ End
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  g.DrawPicture(TextMapPic,0,0)
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  SkimHits
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events BrowserTabs
