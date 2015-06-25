@@ -902,7 +902,7 @@ End
 	#tag Method, Flags = &h1
 		Protected Sub DrawLogo()
 		  dim n,replicas, baseX, currentX,letterData as integer
-		  dim entropy, maxentropy, LetterHeight, baseY, nextY As double
+		  dim entropy, maxentropy, LetterHeight, baseY, nextY, totalEntropy As double
 		  dim posarray(4),letterName as string
 		  
 		  
@@ -950,6 +950,7 @@ End
 		      posarray(4)=format(val(NthField(logodata(n),chr(9),5)),"000")+"T"
 		      posarray.Sort
 		      entropy=val(NthField(logodata(n),chr(9),6))
+		      totalEntropy=totalEntropy+entropy
 		      
 		      'lowest letter
 		      letterData=val(posarray(1))
@@ -1060,6 +1061,8 @@ End
 		    me.refresh 'needed if logo of the same size is drawn and to remove selection
 		    
 		    WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    WriteToSTDOUT ("Binding site entropy is "+str(totalEntropy)+"."+EndofLine)
+		    
 		    'Palindromic=false
 		    ChangeView("Logo")
 		  else

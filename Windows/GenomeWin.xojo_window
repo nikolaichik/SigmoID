@@ -737,43 +737,7 @@ End
 		  
 		  me.findmode=0
 		  
-		  #if TargetCocoa then
-		    'me.setCocoaToolbar(65, 20)
-		    
-		    'EnzWin.hide
-		    'if me.frame=9 then
-		    ''remove the border under the title bar to get fake "Unified" look with UltraToolbar:
-		    'RemoveTitleBarSeparator(self)
-		    'me.BackColor=RGB(Fillcolor.red-33,Fillcolor.green-33,Fillcolor.blue-33)
-		    '
-		    '// From http://developer.apple.com/mac/library/documentation/Cocoa/Reference/ApplicationKit/Classes/NSWindow_Class/
-		    '//setMovableByWindowBackground:
-		    '//Sets whether the window is movable by clicking and dragging anywhere in its background.
-		    '//
-		    '//- (void)setMovableByWindowBackground:(BOOL)movableByWindowBackground
-		    '//
-		    '//Parameters
-		    '//movableByWindowBackground
-		    '//YES to specify that the window is movable by background, NO to specify that the window is not movable by background.
-		    '//
-		    '//Availability
-		    '//Available in Mac OS X v10.2 and later.
-		    '//See Also
-		    '//– isMovableByWindowBackground
-		    '//Related Sample Code
-		    '//MyMediaPlayer
-		    '//Declared In
-		    '//NSWindow.h
-		    '
-		    '
-		    'Dim cocoaWind As New RBCocoaObject(Ptr(self.handle))
-		    '
-		    'cocoaWind.Invoke( "setMovableByWindowBackground:", 0)
-		    '
-		    'end if
-		  #else
-		    HelpTagDisplay.Enabled=false
-		  #endif
+		  
 		  
 		  DisplayToolTips=true
 		  
