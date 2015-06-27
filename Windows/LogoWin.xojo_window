@@ -902,9 +902,9 @@ End
 	#tag Method, Flags = &h1
 		Protected Sub DrawLogo()
 		  dim n,replicas, baseX, currentX,letterData as integer
-		  dim entropy, maxentropy, LetterHeight, baseY, nextY, totalEntropy As double
+		  dim entropy, maxentropy, LetterHeight, baseY, nextY As double
 		  dim posarray(4),letterName as string
-		  
+		  totalEntropy=0
 		  
 		  ' the calculations below assume the maximal entropy is 1
 		  ' this, however, isn't the case, so the max entropy adjustment is required!
@@ -1615,6 +1615,10 @@ End
 	#tag Method, Flags = &h1
 		Protected Sub Palindromise()
 		  PalindromeLogoFile=SpecialFolder.Temporary.child("LogoPalindrome")
+		  
+		  'since we change data, that's not the .sig any more!
+		  SigFileOpened=false
+		  
 		  If PalindromeLogoFile <> Nil then
 		    RevCompAlignment(logofile, palindromeLogofile)
 		    logofile=PalindromeLogoFile
@@ -1959,6 +1963,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
+		Protected totalEntropy As Double
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
 		Protected UpperPaneHeight As Integer = 175
 	#tag EndProperty
 
@@ -2089,7 +2097,11 @@ End
 		  Case "SettingsTool"
 		    SettingsWin.showmodalwithin(self)
 		  Case "PalindromiseTool"
+		    dim oldentropy as double = totalEntropy
 		    Palindromise
+		    if totalEntropy<oldentropy then
+		      msgbox "Binding site entropy decreased after palindromising. Please check that the site is indeed palindromic!"
+		    end if
 		  End Select
 		  
 		  Exception err
