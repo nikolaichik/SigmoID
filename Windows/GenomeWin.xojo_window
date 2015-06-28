@@ -1274,7 +1274,11 @@ End
 		    
 		    'propagate this to the original genome feature:
 		    u=ubound(Genome.Features)
-		    start=f.Start+GBrowseShift
+		    if f.complement then
+		      start=f.Start+GBrowseShift-1
+		    else
+		      start=f.Start+GBrowseShift
+		    end if
 		    for n=1 to u
 		      if Genome.Features(n).start=Start then
 		        if OldFeatureText=Genome.Features(n).FeatureText then
