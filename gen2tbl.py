@@ -1,6 +1,7 @@
 import os, sys, platform
 import argparse
 from Bio import SeqIO
+from geneparse import *
 
 def createParser():
 
@@ -23,14 +24,13 @@ def createParser():
                         action='store_const',
                         const=True,
                         help='''adds translation qualifier to CDS features in .tbl''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.0 (June 2, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.0 (June 30, 2015)')
     return parser
 
 args = createParser()
 enter = args.parse_args()
 arguments = sys.argv[1:0]
 cwd = os.path.abspath(os.path.dirname(__file__))
-
 genbank_file = SeqIO.parse(enter.input_file, 'genbank')
 if enter.fasta != False:
     if platform.system() == 'Windows':
@@ -42,25 +42,29 @@ if enter.fasta != False:
     SeqIO.write(genbank_file, fasta_file, 'fasta')
     genbank_file.close()
     fasta_file.close()
+genbank_file = GenbankFile(path=enter.input_file)
+genbank_file.parse()
+count = -1
 genbank_file = SeqIO.parse(enter.input_file, 'genbank')
 for record in genbank_file:
     print '>Feature %s' % record.id
-    for feature in record.features:
+    count += 1
+    genbank = GenbankFile(path=enter.input_file)
+    genbank.parse()
+    for feature in genbank.records[count]:
         if feature.type != 'source':
             if feature.strand == 1:
-                start = feature.location.start+1
-                end = feature.location.end
+                start = feature.location[0]
+                end = feature.location[1]
+
             elif feature.strand == -1:
-                start = feature.location.end
-                end = feature.location.start+1
+                start = feature.location[1]
+                end = feature.location[0]
             feature_type = str(feature.type)
             qualifiers = ''
-            for key, value in feature.qualifiers.iteritems():
-                if key != 'translation' or (enter.translation == True and key == 'translation'):
-                    if type(value) != list:
-                        qualifiers += '\n\t\t\t%s\t%s' % (key, str(value)[2:-2])
-                    else:
-                        for x in xrange(len(value)):
-                            qualifiers += '\n\t\t\t%s\t%s' % (key, str(value[x])[2:-2])
+            for pair in feature.qualifiers:
+                for key, value in pair.iteritems():
+                    if key != 'translation' or (enter.translation == True and key == 'translation'):
+                        qualifiers += '\n\t\t\t%s\t%s' % (key, value)
             print '%s\t%s\t%s\t%s' % (start, end, feature_type, qualifiers)
 genbank_file.close()
