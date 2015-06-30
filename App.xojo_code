@@ -389,6 +389,11 @@ Inherits Application
 		2. blastx search
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		4. Clear description of the cleanup the scripts do.
+		5. Handle prompts when saving modified genome correctly 
+		6. Edit gene name function: enter new name and edit all features with the same locus_tag
+		7. double click to edit feature
+		8. Export feature table/fasta
+		9. Prepare submission
 	#tag EndNote
 
 	#tag Note, Name = Linux details
