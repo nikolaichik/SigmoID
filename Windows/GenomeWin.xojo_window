@@ -1304,6 +1304,106 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub EditGene(f As gbFeature)
+		  dim n,u,start,geneLoc as integer
+		  dim OldFeatureText, oldGeneName, locus_tag,featureArr() as string
+		  dim upstream, downstream as string
+		  
+		  
+		  ToolTip.Hide
+		  
+		  EditGeneWin.ParentWin=self
+		  OldFeatureText=f.FeatureText
+		  
+		  'find old gene name:
+		  geneloc=InStr(f.FeatureText,"/gene=")
+		  if geneLoc>0 then
+		    Upstream=left(f.FeatureText,geneLoc+6)
+		    Downstream=right(f.FeatureText,len(f.FeatureText)-geneLoc-6)
+		    oldGeneName=NthField(downstream,chr(34),1)
+		    geneloc=InStr(f.FeatureText,chr(34)) 'right doublequote
+		    Downstream=NthField(downstream,oldGeneName,2)
+		  else
+		    'no gene name
+		    Upstream=f.FeatureText
+		    Downstream=""
+		    oldGeneName=""
+		  end if
+		  
+		  EditGeneWin.GeneNameField.text=oldGeneName
+		  EditGeneWin.ShowmodalWithin(self)
+		  
+		  if EditGeneWin.OKpressed then
+		    if EditGeneWin.GeneNameField.text="" then
+		      if Downstream<>"" then
+		        dim newfeat,scar as string
+		        newfeat=Upstream+Downstream
+		        scar=LineEnd+"/gene="+chr(34)+chr(34)
+		        f.FeatureText=replaceall(newfeat,scar,"")
+		      end if
+		    else
+		      
+		      if geneLoc=0 then 'adding new name
+		        f.FeatureText=Upstream+lineend+"/gene="+chr(34)+EditGeneWin.GeneNameField.text+chr(34)
+		        
+		      else
+		        f.FeatureText=Upstream+EditGeneWin.GeneNameField.text+Downstream
+		      end if
+		    end if
+		    
+		    'propagate this to the original genome feature:
+		    
+		    
+		    if EditGeneWin.EditWholeLocus.value then 'edit gene name for all features with the same locus_tag
+		      'get locus_tag:
+		      featureArr()=split(f.FeatureText,lineend)
+		      for n=0 to UBound(featureArr)
+		        if instr(featureArr(n),"locus_tag")>0 then
+		          locus_tag=featureArr(n)
+		        end if
+		      next
+		      
+		      u=ubound(Genome.Features)
+		      
+		      for n=1 to u
+		        if instr(Genome.Features(n).featuretext,locus_tag)>0 then
+		          ReplaceGeneName(Genome.Features(n),EditGeneWin.GeneNameField.text)
+		        end if
+		      next
+		      
+		    else 'edit just one feature
+		      u=ubound(Genome.Features)
+		      if f.complement then
+		        start=f.Start+GBrowseShift-1
+		      else
+		        start=f.Start+GBrowseShift
+		      end if
+		      for n=1 to u
+		        if Genome.Features(n).start=Start then
+		          if OldFeatureText=Genome.Features(n).FeatureText then
+		            Genome.Features(n).FeatureText=f.FeatureText
+		            FillFeatureProperties(Genome.Features(n),f.FeatureText)
+		            exit
+		          end if
+		        end if
+		      next
+		    end if
+		    
+		    'update the display:
+		    ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
+		    
+		    'mark genome changed:
+		    GenomeChanged=true
+		    
+		  else
+		    FeaturePropertiesWin.hide
+		  end
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub EnableSave(Ya as boolean)
 		  
 		  dim i as integer
@@ -2364,6 +2464,57 @@ End
 		  
 		  
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ReplaceGeneName(feature as GBFeature, newGeneName as string)
+		  'replace gene name within feature text, then use standard function to fill all GBFeature object properties
+		  
+		  
+		  dim n,u,start,geneLoc as integer
+		  dim OldFeatureText, oldGeneName, locus_tag,featureArr() as string
+		  dim upstream, downstream as string
+		  
+		  
+		  
+		  EditGeneWin.ParentWin=self
+		  OldFeatureText=feature.FeatureText
+		  
+		  'find old gene name:
+		  geneloc=InStr(feature.FeatureText,"/gene=")
+		  if geneLoc>0 then
+		    Upstream=left(feature.FeatureText,geneLoc+6)
+		    Downstream=right(feature.FeatureText,len(feature.FeatureText)-geneLoc-6)
+		    oldGeneName=NthField(downstream,chr(34),1)
+		    geneloc=InStr(feature.FeatureText,chr(34)) 'right doublequote
+		    Downstream=NthField(downstream,oldGeneName,2)
+		  else
+		    'no gene name
+		    Upstream=feature.FeatureText
+		    Downstream=""
+		    oldGeneName=""
+		  end if
+		  
+		  
+		  if newGeneName="" then
+		    if Downstream<>"" then
+		      dim newfeat,scar as string
+		      newfeat=Upstream+Downstream
+		      scar=LineEnd+"/gene="+chr(34)+chr(34)
+		      feature.FeatureText=replaceall(newfeat,scar,"")
+		    end if
+		  else
+		    
+		    if geneLoc=0 then 'adding new name
+		      feature.FeatureText=Upstream+lineend+"/gene="+chr(34)+newGeneName+chr(34)
+		      
+		    else
+		      feature.FeatureText=Upstream+newGeneName+Downstream
+		    end if
+		  end if
+		  
+		  FillFeatureProperties(Feature,feature.FeatureText)
 		End Sub
 	#tag EndMethod
 
@@ -4123,6 +4274,7 @@ End
 		      base.Append mItem(kCopyDNA)
 		    end if
 		    base.Append mItem(kEditFeature)
+		    base.Append mItem(kEditGene)
 		    base.Append mItem(kRemoveFeature)
 		    ContextProteinName=seq.Features(ContextFeature).name
 		    'Add a Separator
@@ -4163,6 +4315,8 @@ End
 		    CopyDNA
 		  case kEditFeature
 		    EditFeature(seq.Features(ContextFeature))
+		  case kEditGene
+		    EditGene(seq.Features(ContextFeature))
 		  case kRemoveFeature
 		    RemoveFeature(ContextFeature)
 		    'featuredeleted=true

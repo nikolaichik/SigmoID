@@ -498,6 +498,7 @@ Class=ResourceItem;macoslib/ResourceForkReplacement/ResourceItem.xojo_code;&h148
 Window=TermGenSettingsWin;Windows/TermGenSettingsWin.xojo_window;&h7D3E4FFF;&h2250E847;false
 Picture=Terminator;Pix/Terminator.png;&h5EDBE7FF;&h1F038CB3;false;0;&h0
 Picture=Terminator2;Pix/Terminator2.png;&h7F9E7FFF;&h1F038CB3;false;0;&h0
+Window=EditGeneWin;Windows/EditGeneWin.xojo_window;&h6980BFFF;&h2250E847;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1
