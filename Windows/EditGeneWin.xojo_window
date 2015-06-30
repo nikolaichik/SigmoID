@@ -30,7 +30,7 @@ Begin Window EditGeneWin
       AcceptTabs      =   False
       Alignment       =   0
       AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   True
+      AutomaticallyCheckSpelling=   False
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
@@ -54,7 +54,7 @@ Begin Window EditGeneWin
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
-      Multiline       =   True
+      Multiline       =   False
       ReadOnly        =   False
       Scope           =   0
       ScrollbarHorizontal=   False
@@ -279,6 +279,14 @@ End
 		    me.text=""
 		    me.TextColor=RGB(0,0,0)
 		  end
+		  
+		  
+		  'if Key=chr(13)'CR
+		  'OKPressed=true
+		  'self.hide
+		  'self.ParentWin.Show
+		  'end if
+		  'return false
 		End Function
 	#tag EndEvent
 	#tag Event

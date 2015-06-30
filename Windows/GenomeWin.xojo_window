@@ -616,6 +616,7 @@ End
 		      if f<>nil then
 		        SaveGenBankFile(f)
 		      end if
+		      GenomeChanged=false
 		      
 		    Case d.AlternateActionButton
 		      //user pressed Don't Save
@@ -4431,6 +4432,39 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:MapCanvas:MouseMove")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DoubleClick(X As Integer, Y As Integer)
+		  dim n,topObj,m,featureCount,currentFeature as integer
+		  dim p as picture
+		  
+		  'ToolTipBlock=true
+		  'ToolTipTimer.Reset
+		  'ToolTip.hide
+		  'ToolTipTimer.Mode=0
+		  
+		  p=Seq.Map
+		  topObj= p.Objects.Count-1
+		  featureCount=ubound(Seq.features)
+		  ContextFeature=0
+		  'check if the double click is within a feature
+		  dim dbg as string=""
+		  for n=1 to topObj 'skip zero object that contains selection
+		    if p.Objects.Item(n) IsA cClickableShape then
+		      
+		      if cClickableShape(p.Objects.Item(n)).contains(X,Y) then
+		        ContextFeature=n/2
+		        EditFeature(seq.Features(ContextFeature))
+		        
+		      end
+		      
+		    end
+		  next
+		  
+		  
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
