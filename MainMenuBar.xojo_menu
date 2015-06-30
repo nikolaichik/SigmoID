@@ -100,6 +100,27 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem FileExportFeatureTable
+         SpecialMenu = 0
+         Text = "Export feature table..."
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem FileExportSequence
+         SpecialMenu = 0
+         Text = "Export sequence..."
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem UntitledItem01
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin QuitMenuItem FileQuit
          SpecialMenu = 0
          Text = "#App.kFileQuit"

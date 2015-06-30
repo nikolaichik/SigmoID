@@ -656,6 +656,8 @@ End
 		  FileSaveCheckedSites.Enabled=true
 		  FileSaveGenomeAs.Visible=true
 		  FileSaveGenomeAs.Enabled=true
+		  FileExportFeatureTable.enabled=true
+		  FileExportSequence.enabled=true
 		  
 		  FileSaveAlignmentSelection.visible=false
 		  FileSaveLogo.visible=false
@@ -896,6 +898,22 @@ End
 	#tag MenuHandler
 		Function EditCopyTranslation() As Boolean Handles EditCopyTranslation.Action
 			CopyAA
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileExportFeatureTable() As Boolean Handles FileExportFeatureTable.Action
+			gbk2tbl
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileExportSequence() As Boolean Handles FileExportSequence.Action
+			gbk2fasta
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -1823,6 +1841,119 @@ End
 		  
 		  
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub gbk2fasta()
+		  'usage:
+		  'Genbank to .tbl converter <input_file> [options]
+		  '
+		  'This script allows to convert genbank file into .tbl file format Requires
+		  'Biopython 1.64 (or newer). Use '>' (stdout) to create a .tbl file
+		  '
+		  'positional arguments:
+		  'input_file         path to input Genbank file.
+		  '
+		  'optional arguments:
+		  '-h, --help         show this help message and exit
+		  '-f, --fasta        creates fasta from genbank file.
+		  '-t, --translation  adds translation qualifier to CDS features in .tbl
+		  '-v, --version      show program's version number and exit
+		  
+		  dim cli,gbk2tblPath as string
+		  Dim sh As Shell
+		  dim outfile As folderitem
+		  
+		  Dim dlg as New SaveAsDialog
+		  dlg.InitialDirectory=genomefile.Parent
+		  dlg.promptText="Select a name for Fasta file to export sequence to."
+		  dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".fasta"
+		  dlg.Title="Export sequence in Fasta format"
+		  dlg.Filter=FileTypes.Fasta
+		  outfile=dlg.ShowModalwithin(self)
+		  if outfile<>nil then
+		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting sequence in Fasta format...")
+		    LogoWin.STDOUT.Refresh
+		    Logowin.show
+		    
+		    gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
+		    
+		    cli="python "+gbk2tblPath+" -f "+GenomeFile.ShellPath+" > "+outFile.ShellPath
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    sh.execute cli
+		    
+		    If sh.errorCode=0 then
+		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		      
+		    else
+		      LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error Code: "+Str(sh.errorCode)+EndofLine)
+		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      
+		    end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub gbk2tbl()
+		  'usage:
+		  'Genbank to .tbl converter <input_file> [options]
+		  '
+		  'This script allows to convert genbank file into .tbl file format Requires
+		  'Biopython 1.64 (or newer). Use '>' (stdout) to create a .tbl file
+		  '
+		  'positional arguments:
+		  'input_file         path to input Genbank file.
+		  '
+		  'optional arguments:
+		  '-h, --help         show this help message and exit
+		  '-f, --fasta        creates fasta from genbank file.
+		  '-t, --translation  adds translation qualifier to CDS features in .tbl
+		  '-v, --version      show program's version number and exit
+		  
+		  dim cli,gbk2tblPath as string
+		  Dim sh As Shell
+		  dim outfile As folderitem
+		  
+		  Dim dlg as New SaveAsDialog
+		  dlg.InitialDirectory=genomefile.Parent
+		  dlg.promptText="Select a name for Sequin file to export feature table to."
+		  dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+		  dlg.Title="Export Sequin feature table (.tbl)"
+		  dlg.Filter=FileTypes.Table
+		  outfile=dlg.ShowModalwithin(self)
+		  if outfile<>nil then
+		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting Sequin feature table...")
+		    LogoWin.STDOUT.Refresh
+		    Logowin.show
+		    gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
+		    
+		    cli="python "+gbk2tblPath+" "+GenomeFile.ShellPath+" > "+outFile.ShellPath
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    sh.execute cli
+		    
+		    If sh.errorCode=0 then
+		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		      
+		    else
+		      LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error Code: "+Str(sh.errorCode)+EndofLine)
+		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      
+		    end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
 		End Sub
 	#tag EndMethod
 

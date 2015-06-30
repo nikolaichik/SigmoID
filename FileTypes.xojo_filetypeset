@@ -10,13 +10,13 @@
 		UTIConformsTo=
 		Description=
 		MimeType=
-		Imported=False
+		Imported=True
 	#tag EndFileType
 
 	#tag FileType
 		CodeName=Text
 		DocIcon=Sigmoid.xojo_resources;&hC
-		Extension=.text;.txt;.gb;.gbk;.emb;.fas
+		Extension=.text;.txt;.gb;.gbk;.emb;.fas;.fasta;.fa;.fsa
 		Flags=&h2
 		MacCreator=????
 		MacType=TEXT
@@ -24,7 +24,7 @@
 		UTIConformsTo=
 		Description=
 		MimeType=
-		Imported=False
+		Imported=True
 	#tag EndFileType
 
 	#tag FileType
@@ -38,7 +38,7 @@
 		UTIConformsTo=
 		Description=
 		MimeType=
-		Imported=False
+		Imported=True
 	#tag EndFileType
 
 	#tag FileType
@@ -52,7 +52,7 @@
 		UTIConformsTo=
 		Description=
 		MimeType=
-		Imported=False
+		Imported=True
 	#tag EndFileType
 
 	#tag FileType
@@ -66,7 +66,7 @@
 		UTIConformsTo=
 		Description=
 		MimeType=
-		Imported=False
+		Imported=True
 	#tag EndFileType
 
 	#tag FileType
@@ -76,6 +76,32 @@
 		MacCreator=????
 		MacType=TEXT
 		Name=GenBank
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=True
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Fasta
+		Extension=.fasta;.fas;.fsa;.fa
+		Flags=&h0
+		MacCreator=????
+		MacType=TEXT
+		Name=Fasta
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=True
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Table
+		Extension=.tbl
+		Flags=&h0
+		MacCreator=????
+		MacType=TEXT
+		Name=Table
 		UTIConformsTo=
 		Description=
 		MimeType=
