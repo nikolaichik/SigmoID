@@ -19,12 +19,15 @@ def createParser():
                         action='store_const',
                         const=True,
                         help='''creates fasta from genbank file.''')
+    parser.add_argument('-p', '--prefix',
+                        default=False,
+                        help='''sequencing centre prefix.''')
     parser.add_argument('-t', '--translation',
                         default=False,
                         action='store_const',
                         const=True,
                         help='''adds translation qualifier to CDS features in .tbl''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.0 (June 30, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.2 (July 1, 2015)')
     return parser
 
 args = createParser()
@@ -64,7 +67,20 @@ for record in genbank_file:
             qualifiers = ''
             for pair in feature.qualifiers:
                 for key, value in pair.iteritems():
-                    if key != 'translation' or (enter.translation == True and key == 'translation'):
+                    if enter.translation == True and key == 'translation':
                         qualifiers += '\n\t\t\t%s\t%s' % (key, value)
+                    if key == 'protein_id':
+                        if enter.prefix != False:
+                            for find in feature.qualifiers:
+                                for adkey, advalue in find.iteritems():
+                                    if adkey == 'locus_tag':
+                                        loci = advalue
+                                        break
+                                    break
+                            qualifiers += '\n\t\t\t%s\t%s' % (key, 'gnl|'+enter.prefix+'|'+loci+'|gb|'+value)
+                        else:
+                            qualifiers += '\n\t\t\t%s\t%s' % (key, value)    
+                    if key != 'protein_id' and key !='translation':
+                        qualifiers += '\n\t\t\t%s\t%s' % (key, value)  
             print '%s\t%s\t%s\t%s' % (start, end, feature_type, qualifiers)
 genbank_file.close()
