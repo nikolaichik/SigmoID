@@ -1354,6 +1354,7 @@ End
 		  
 		  if EditGeneWin.OKpressed then
 		    if EditGeneWin.GeneNameField.text="" then
+		      'if oldGeneName<>"" then
 		      if Downstream<>"" then
 		        dim newfeat,scar as string
 		        newfeat=Upstream+Downstream
@@ -1877,23 +1878,31 @@ End
 		    LogoWin.STDOUT.Refresh
 		    Logowin.show
 		    
-		    gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
-		    
-		    cli="python "+gbk2tblPath+" -f "+GenomeFile.ShellPath+" > "+outFile.ShellPath
-		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
-		    sh.execute cli
-		    
-		    If sh.errorCode=0 then
+		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
+		    if s<> NIL then
+		      s.Writeline ">"+GenomeFile.Name
+		      s.write Genome.Sequence
+		      s.close
 		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
-		      
-		    else
-		      LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error Code: "+Str(sh.errorCode)+EndofLine)
-		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
-		      
 		    end if
+		    
+		    'gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
+		    '
+		    'cli="python "+gbk2tblPath+" "+GenomeFile.ShellPath+" -f > "+outFile.ShellPath
+		    '
+		    'sh=New Shell
+		    'sh.mode=0
+		    'sh.TimeOut=-1
+		    'sh.execute cli
+		    '
+		    'If sh.errorCode=0 then
+		    'LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		    '
+		    'else
+		    'LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error Code: "+Str(sh.errorCode)+EndofLine)
+		    'LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    '
+		    'end if
 		  end if
 		  
 		  Exception err

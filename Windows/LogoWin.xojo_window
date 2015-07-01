@@ -132,6 +132,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -562,7 +563,22 @@ End
 	#tag MenuHandler
 		Function FileOpenAlignment() As Boolean Handles FileOpenAlignment.Action
 			dim tmpfile as folderitem
-			tmpfile=GetOpenFolderItem("")
+			
+			dim GenomeFile as folderitem
+			Dim dlg as New OpenDialog
+			
+			#If Not TargetLinux Then
+			dlg.InitialDirectory = SpecialFolder.Documents
+			#Else //open Home directory on linux
+			dlg.InitialDirectory = SpecialFolder.Home
+			#Endif
+			
+			dlg.promptText="Select a fasta file"
+			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+			dlg.Title="Open alignment"
+			dlg.Filter=FileTypes.Fasta
+			tmpfile=dlg.ShowModalwithin(self)
+			
 			LoadAlignment(tmpFile)
 			Return True
 			
@@ -1995,7 +2011,20 @@ End
 		  Case "LoadAlignmentTool"
 		    'This should fire only on Linux and Windows
 		    dim tmpfile as folderitem
-		    tmpfile=GetOpenFolderItem("")
+		    dim GenomeFile as folderitem
+		    Dim dlg as New OpenDialog
+		    
+		    #If Not TargetLinux Then
+		      dlg.InitialDirectory = SpecialFolder.Documents
+		    #Else //open Home directory on linux
+		      dlg.InitialDirectory = SpecialFolder.Home
+		    #Endif
+		    
+		    dlg.promptText="Select a fasta file"
+		    'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+		    dlg.Title="Open alignment"
+		    dlg.Filter=FileTypes.Fasta
+		    tmpfile=dlg.ShowModalwithin(self)
 		    LoadAlignment(tmpFile)
 		  Case "LoadGenomeTool"
 		    GenomeFile=GetOpenFolderItem("")
@@ -2129,7 +2158,20 @@ End
 		    next
 		    #if TargetCocoa then               'a workaround for toolbar deficiency on Mac
 		      if hititem.Text="More..." then
-		        tmpfile=GetOpenFolderItem("")
+		        dim GenomeFile as folderitem
+		        Dim dlg as New OpenDialog
+		        
+		        #If Not TargetLinux Then
+		          dlg.InitialDirectory = SpecialFolder.Documents
+		        #Else //open Home directory on linux
+		          dlg.InitialDirectory = SpecialFolder.Home
+		        #Endif
+		        
+		        dlg.promptText="Select a fasta file"
+		        'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+		        dlg.Title="Open alignment"
+		        dlg.Filter=FileTypes.Fasta
+		        tmpfile=dlg.ShowModalwithin(self)
 		        LoadAlignment(tmpFile)
 		      else
 		        LoadAlignment(tmpFile)

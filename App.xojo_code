@@ -105,7 +105,20 @@ Inherits Application
 		Function FileOpen() As Boolean Handles FileOpen.Action
 			'just open file in genome browser and display 9 kb of it
 			
-			dim GenomeFile as folderitem = GetOpenFolderItem("")
+			dim GenomeFile as folderitem
+			Dim dlg as New OpenDialog
+			
+			#If Not TargetLinux Then
+			dlg.InitialDirectory = SpecialFolder.Documents
+			#Else //open Home directory on linux
+			dlg.InitialDirectory = SpecialFolder.Home
+			#Endif
+			
+			'dlg.promptText="Select a GenBank file"
+			dlg.Title="Open GenBank file"
+			dlg.Filter=FileTypes.GenBank
+			GenomeFile=dlg.ShowModal()
+			
 			if GenomeFile<> Nil then
 			GenomeWin.opengenbankfile(GenomeFile)
 			GenomeWin.ShowGenomeStart
@@ -389,11 +402,10 @@ Inherits Application
 		2. blastx search
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		4. Clear description of the cleanup the scripts do.
-		5. Handle prompts when saving modified genome correctly 
-		6. Edit gene name function: enter new name and edit all features with the same locus_tag
-		7. double click to edit feature
-		8. Export feature table/fasta
 		9. Prepare submission
+		10. opening/saving gbk files loses the source feature - this has to be stored/restored separetely from others
+		11. deleting gene name leaves /gene=" ? (happened once)
+		12. add Save Genome menuitem
 	#tag EndNote
 
 	#tag Note, Name = Linux details
