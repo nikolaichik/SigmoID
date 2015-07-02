@@ -120,7 +120,7 @@ Begin Window GenomeWin
       Width           =   390
    End
    Begin ScrollBar HScrollBar
-      AcceptFocus     =   True
+      AcceptFocus     =   False
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   15
@@ -242,7 +242,7 @@ Begin Window GenomeWin
       TabStop         =   True
       Top             =   353
       Transparent     =   True
-      UseFocusRing    =   True
+      UseFocusRing    =   False
       value           =   0
       Visible         =   True
       Width           =   27
@@ -950,13 +950,20 @@ End
 
 	#tag MenuHandler
 		Function FileSaveCheckedSites() As Boolean Handles FileSaveCheckedSites.Action
-			Dim f as FolderItem=GetSaveFolderItem("????","Sites.fasta")
+			Dim outfile as FolderItem
 			dim outstream As TextOutputStream
 			dim n, leftC, rightC as integer
 			dim hitSeq as string
 			
-			
-			outstream = TextOutputStream.Create(f)
+			Dim dlg as New SaveAsDialog
+			dlg.InitialDirectory=genomefile.Parent
+			'dlg.promptText="Select a name for Fasta file to export sequence to."
+			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".fasta"
+			dlg.Title="Save selected sites"
+			dlg.Filter=FileTypes.Fasta
+			outfile=dlg.ShowModalwithin(self)
+			if outfile<>nil then
+			outstream = TextOutputStream.Create(outfile)
 			for n=1 to ubound (hmmhits)
 			if HmmHitChecked(n) then
 			'get site sequence:
@@ -981,6 +988,7 @@ End
 			next
 			outstream.Close
 			
+			end if
 			
 			
 			
@@ -2721,13 +2729,15 @@ End
 		  
 		  if stream<>nil then
 		    'write the header:
-		    stream.Write(Genome.Description)
-		    
+		    stream.Write(RTrim(Genome.Description))
 		    'write features
 		    for n=1 to ubound(genome.features)
+		      dim aline as string
+		      aline="     "+NthField(genome.features(n).FeatureText,LineEnd,1)
 		      'write feature coordinates:
 		      stream.WriteLine("     "+NthField(genome.features(n).FeatureText,LineEnd,1))
 		      for m=2 to CountFields(genome.features(n).FeatureText,LineEnd)
+		        aline="                     "+NthField(genome.features(n).FeatureText,LineEnd,m)
 		        stream.WriteLine("                     "+NthField(genome.features(n).FeatureText,LineEnd,m))
 		      next
 		    next 'n

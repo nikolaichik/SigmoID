@@ -2093,18 +2093,22 @@ End
 		    HmmGenOptions=""
 		    HmmGenSettingsWin.showmodalwithin(self)
 		    if HmmGenSettingsWin.OKpressed then
-		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-		      outfile=GetSaveFolderItem("????",fn)
-		      if outfile<>nil then
-		        if HmmGen then
-		          if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		            if ubound(GenomeWin.HmmHitDescriptions)>0 then
-		              GenomeWin.opengenbankfile(outFile)
-		              genomeWin.ShowHit
-		              WriteToSTDOUT (" done."+EndofLine)
+		      if GenomeFile<>Nil then
+		        dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		        outfile=GetSaveFolderItem("????",fn)
+		        if outfile<>nil then
+		          if HmmGen then
+		            if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		              if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		                GenomeWin.opengenbankfile(outFile)
+		                genomeWin.ShowHit
+		                WriteToSTDOUT (" done."+EndofLine)
+		              end if
 		            end if
 		          end if
 		        end if
+		      else
+		        MsgBox "No genome file selected. Please repeat nhmmer search."
 		      end if
 		    end if
 		  Case "TermGenTool"
