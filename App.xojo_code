@@ -62,6 +62,23 @@ Inherits Application
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub OpenDocument(item As FolderItem)
+		  if item<> Nil then
+		    select case item.Type
+		    case "GenBank"
+		      GenomeWin.opengenbankfile(item)
+		      GenomeWin.ShowGenomeStart
+		    case "Fasta"
+		      logowin.LoadAlignment(item)
+		    case "SigmoidFile"
+		      logowin.LoadAlignment(item)
+		    end select
+		  end if
+		  
+		End Sub
+	#tag EndEvent
+
 
 	#tag MenuHandler
 		Function AboutSigmoID() As Boolean Handles AboutSigmoID.Action
@@ -108,11 +125,11 @@ Inherits Application
 			dim GenomeFile as folderitem
 			Dim dlg as New OpenDialog
 			
-			#If Not TargetLinux Then
-			dlg.InitialDirectory = SpecialFolder.Documents
-			#Else //open Home directory on linux
-			dlg.InitialDirectory = SpecialFolder.Home
-			#Endif
+			'#If Not TargetLinux Then
+			'dlg.InitialDirectory = SpecialFolder.Documents
+			'#Else //open Home directory on linux
+			'dlg.InitialDirectory = SpecialFolder.Home
+			'#Endif
 			
 			'dlg.promptText="Select a GenBank file"
 			dlg.Title="Open GenBank file"
@@ -406,6 +423,8 @@ Inherits Application
 		10. opening/saving gbk files loses the source feature - this has to be stored/restored separetely from others
 		11. deleting gene name leaves /gene=" ? (happened once)
 		12. add Save Genome menuitem
+		13. Prompt for saving edited .sig info and options (Save as only)! 
+		14. if a CDS is selected, Cmd-C should copy the AA, not DNA sequence
 	#tag EndNote
 
 	#tag Note, Name = Linux details

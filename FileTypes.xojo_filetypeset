@@ -16,7 +16,7 @@
 	#tag FileType
 		CodeName=Text
 		DocIcon=Sigmoid.xojo_resources;&hC
-		Extension=.text;.txt;.gb;.gbk;.emb;.fas;.fasta;.fa;.fsa
+		Extension=.text;.txt
 		Flags=&h2
 		MacCreator=????
 		MacType=TEXT
@@ -72,7 +72,7 @@
 	#tag FileType
 		CodeName=GenBank
 		Extension=.gb;.gbk
-		Flags=&h0
+		Flags=&h5
 		MacCreator=????
 		MacType=TEXT
 		Name=GenBank
@@ -85,7 +85,7 @@
 	#tag FileType
 		CodeName=Fasta
 		Extension=.fasta;.fas;.fsa;.fa
-		Flags=&h0
+		Flags=&h9
 		MacCreator=????
 		MacType=TEXT
 		Name=Fasta
@@ -98,7 +98,7 @@
 	#tag FileType
 		CodeName=Table
 		Extension=.tbl
-		Flags=&h0
+		Flags=&h2
 		MacCreator=????
 		MacType=TEXT
 		Name=Table

@@ -567,11 +567,11 @@ End
 			dim GenomeFile as folderitem
 			Dim dlg as New OpenDialog
 			
-			#If Not TargetLinux Then
-			dlg.InitialDirectory = SpecialFolder.Documents
-			#Else //open Home directory on linux
-			dlg.InitialDirectory = SpecialFolder.Home
-			#Endif
+			'#If Not TargetLinux Then
+			'dlg.InitialDirectory = SpecialFolder.Documents
+			'#Else //open Home directory on linux
+			'dlg.InitialDirectory = SpecialFolder.Home
+			'#Endif
 			
 			dlg.promptText="Select a fasta file"
 			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
@@ -2014,11 +2014,11 @@ End
 		    dim GenomeFile as folderitem
 		    Dim dlg as New OpenDialog
 		    
-		    #If Not TargetLinux Then
-		      dlg.InitialDirectory = SpecialFolder.Documents
-		    #Else //open Home directory on linux
-		      dlg.InitialDirectory = SpecialFolder.Home
-		    #Endif
+		    '#If Not TargetLinux Then
+		    'dlg.InitialDirectory = SpecialFolder.Documents
+		    '#Else //open Home directory on linux
+		    'dlg.InitialDirectory = SpecialFolder.Home
+		    '#Endif
 		    
 		    dlg.promptText="Select a fasta file"
 		    'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
@@ -2165,11 +2165,11 @@ End
 		        dim GenomeFile as folderitem
 		        Dim dlg as New OpenDialog
 		        
-		        #If Not TargetLinux Then
-		          dlg.InitialDirectory = SpecialFolder.Documents
-		        #Else //open Home directory on linux
-		          dlg.InitialDirectory = SpecialFolder.Home
-		        #Endif
+		        '#If Not TargetLinux Then
+		        'dlg.InitialDirectory = SpecialFolder.Documents
+		        '#Else //open Home directory on linux
+		        'dlg.InitialDirectory = SpecialFolder.Home
+		        '#Endif
 		        
 		        dlg.promptText="Select a fasta file"
 		        'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"

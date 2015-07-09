@@ -1015,8 +1015,10 @@ End
 		Function GenomeFind() As Boolean Handles GenomeFind.Action
 			#if TargetMacOS then
 			NSSearchField1.SetFocus
+			NSSearchField1.SelectAll
 			#Else
 			SearchField.SetFocus
+			SearchField.SelectAll
 			#endif
 			
 			'
@@ -1932,6 +1934,7 @@ End
 		  'optional arguments:
 		  '-h, --help         show this help message and exit
 		  '-f, --fasta        creates fasta from genbank file.
+		  '-p PREFIX, --prefix PREFIX
 		  '-t, --translation  adds translation qualifier to CDS features in .tbl
 		  '-v, --version      show program's version number and exit
 		  
@@ -1952,7 +1955,7 @@ End
 		    Logowin.show
 		    gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
 		    
-		    cli="python "+gbk2tblPath+" "+GenomeFile.ShellPath+" > "+outFile.ShellPath
+		    cli="python "+gbk2tblPath+" "+GenomeFile.ShellPath+" -p BSU > "+outFile.ShellPath
 		    
 		    sh=New Shell
 		    sh.mode=0
