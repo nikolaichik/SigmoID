@@ -933,22 +933,6 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function FileSave() As Boolean Handles FileSave.Action
-			if GBOpened then
-			SaveFile Title, true 'save as in order to avoid overwriting
-			else
-			SaveFile Title, False
-			end
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function FileSaveAs() As Boolean Handles FileSaveAs.Action
-			SaveFile Title, True
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
 		Function FileSaveCheckedSites() As Boolean Handles FileSaveCheckedSites.Action
 			Dim outfile as FolderItem
 			dim outstream As TextOutputStream
@@ -999,7 +983,7 @@ End
 		Function FileSaveGenomeAs() As Boolean Handles FileSaveGenomeAs.Action
 			dim f as FolderItem
 			
-			f=GetSaveFolderItem("Text",GenomeFile.Name)
+			f=GetSaveFolderItem("GenBank",GenomeFile.Name)
 			
 			if f<>nil then
 			SaveGenBankFile(f)
@@ -2490,13 +2474,18 @@ End
 		    features=ConvertEncoding(features,Encodings.ASCII)
 		    
 		    featureArray=Split(features,Separator)
+		    gbkSource=""
 		    for n=0 to m-1
 		      currentFeature=featureArray(n)
 		      
 		      'feature description parsing:
 		      cf1=nthfield(currentFeature,cLineEnd,1)
 		      name=trim(leftb(cf1,16))      'feature name
-		      if name <>"source" then 'skip first feature which is supposed to be source
+		      
+		      if name ="source" then 
+		        'store source separately
+		        gbkSource=currentFeature
+		      else
 		        NewFeature=new GBfeature(w.Genome.baselineY)
 		        NewFeature.featureText=currentFeature
 		        'now check the direction and coorginates:
@@ -2733,14 +2722,24 @@ End
 		  if stream<>nil then
 		    'write the header:
 		    stream.Write(RTrim(Genome.Description))
+		    stream.Write(LineEnd)
+		    'write source:
+		    if gbkSource<>"" then
+		      dim aline as string
+		      'aline="     "+NthField(gbkSource,LineEnd,1)
+		      aline=NthField(gbkSource,LineEnd,1)
+		      'write feature coordinates:
+		      stream.WriteLine(aline)
+		      for m=2 to CountFields(gbkSource,LineEnd)
+		        aline="                     "+NthField(gbkSource,LineEnd,m)
+		        stream.WriteLine(aline)
+		      next
+		    end if
 		    'write features
 		    for n=1 to ubound(genome.features)
-		      dim aline as string
-		      aline="     "+NthField(genome.features(n).FeatureText,LineEnd,1)
 		      'write feature coordinates:
 		      stream.WriteLine("     "+NthField(genome.features(n).FeatureText,LineEnd,1))
 		      for m=2 to CountFields(genome.features(n).FeatureText,LineEnd)
-		        aline="                     "+NthField(genome.features(n).FeatureText,LineEnd,m)
 		        stream.WriteLine("                     "+NthField(genome.features(n).FeatureText,LineEnd,m))
 		      next
 		    next 'n
@@ -3678,6 +3677,10 @@ End
 
 	#tag Property, Flags = &h0
 		FoundTargetSize As integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		gbkSource As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
