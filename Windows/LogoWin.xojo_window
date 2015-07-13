@@ -132,7 +132,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -555,31 +554,6 @@ End
 			ExtendSitesWin.ExtendButton.Enabled=false
 			end if
 			ExtendSitesWin.ShowModalWithin(self)
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function FileOpenAlignment() As Boolean Handles FileOpenAlignment.Action
-			dim tmpfile as folderitem
-			
-			dim GenomeFile as folderitem
-			Dim dlg as New OpenDialog
-			
-			'#If Not TargetLinux Then
-			'dlg.InitialDirectory = SpecialFolder.Documents
-			'#Else //open Home directory on linux
-			'dlg.InitialDirectory = SpecialFolder.Home
-			'#Endif
-			
-			dlg.promptText="Select a fasta file"
-			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
-			dlg.Title="Open alignment"
-			dlg.Filter=FileTypes.Fasta
-			tmpfile=dlg.ShowModalwithin(self)
-			
-			LoadAlignment(tmpFile)
 			Return True
 			
 		End Function

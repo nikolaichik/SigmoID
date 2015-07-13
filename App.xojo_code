@@ -67,8 +67,10 @@ Inherits Application
 		  if item<> Nil then
 		    select case item.Type
 		    case "GenBank"
-		      GenomeWin.opengenbankfile(item)
-		      GenomeWin.ShowGenomeStart
+		      if GenomeWin.SaveCheck then
+		        GenomeWin.opengenbankfile(item)
+		        GenomeWin.ShowGenomeStart
+		      end if
 		    case "Fasta"
 		      logowin.LoadAlignment(item)
 		    case "SigmoidFile"
@@ -122,6 +124,9 @@ Inherits Application
 		Function FileOpen() As Boolean Handles FileOpen.Action
 			'just open file in genome browser and display 9 kb of it
 			
+			if GenomeWin.SaveCheck then 'save changes in the open file if any 
+			
+			
 			dim GenomeFile as folderitem
 			Dim dlg as New OpenDialog
 			
@@ -141,6 +146,32 @@ Inherits Application
 			GenomeWin.ShowGenomeStart
 			end if
 			
+			Return True
+			
+			end if
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileOpenAlignment() As Boolean Handles FileOpenAlignment.Action
+			dim tmpfile as folderitem
+			
+			dim GenomeFile as folderitem
+			Dim dlg as New OpenDialog
+			
+			'#If Not TargetLinux Then
+			'dlg.InitialDirectory = SpecialFolder.Documents
+			'#Else //open Home directory on linux
+			'dlg.InitialDirectory = SpecialFolder.Home
+			'#Endif
+			
+			dlg.promptText="Select a fasta file"
+			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+			dlg.Title="Open alignment"
+			dlg.Filter=FileTypes.Fasta
+			tmpfile=dlg.ShowModal 'within(self)
+			
+			logowin.LoadAlignment(tmpFile)
 			Return True
 			
 		End Function
@@ -420,16 +451,21 @@ Inherits Application
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		4. Clear description of the cleanup the scripts do.
 		9. Prepare submission
-		10. opening/saving gbk files loses the source feature - this has to be stored/restored separetely from others
 		11. deleting gene name leaves /gene=" ? (happened once)
 		12. add Save Genome menuitem
 		13. Prompt for saving edited .sig info and options (Save as only)! 
 		14. if a CDS is selected, Cmd-C should copy the AA, not DNA sequence
+		16. add feature menu?
+		17. add scrolling/selection in detail view
+		19. when a gene is selected, blastN/blastX should be in menu instead of blastp
+		20. copies wrong sequence of DspF
+		21. title case in menus
 	#tag EndNote
 
 	#tag Note, Name = Linux details
 		
-		32-bit Webkit1 is required for displaying the search results. This could be a problem on a 64-bit system
+		32-bit Webkit1 is required for displaying the search results. 
+		This could be a problem on a 64-bit system
 	#tag EndNote
 
 

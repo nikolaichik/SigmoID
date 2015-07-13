@@ -587,46 +587,9 @@ End
 
 	#tag Event
 		Function CancelClose(appQuitting as Boolean) As Boolean
-		  If GenomeChanged then
-		    Dim d as New MessageDialog  //declare the MessageDialog object
-		    Dim b as MessageDialogButton //for handling the result
-		    d.icon=MessageDialog.GraphicCaution   //display warning icon
-		    d.ActionButton.Caption=kSave
-		    d.CancelButton.Visible=True     //show the Cancel button
-		    d.CancelButton.Caption=kCancel
-		    d.AlternateActionButton.Visible=True   //show the "Don't Save" button
-		    
-		    'the if block below only work if option was pressed together with command-Q (almost useless)
-		    if keyboard.AsyncOptionKey then
-		      d.AlternateActionButton.Caption=kSaveNone
-		    else
-		      d.AlternateActionButton.Caption=kDontSave
-		    end if
-		    d.Message=kSaveChanges+me.title+"?"
-		    'd.Explanation="If you don't save, your changes will be lost. "
-		    
-		    b=d.ShowModalwithin(self)     //display the dialog
-		    Select Case b //determine which button was pressed.
-		    Case d.ActionButton
-		      //user pressed Save
-		      'prompt for file name and save
-		      dim f as folderitem
-		      f=GetSaveFolderItem("Text",GenomeFile.Name)
-		      
-		      if f<>nil then
-		        SaveGenBankFile(f)
-		      end if
-		      GenomeChanged=false
-		      
-		    Case d.AlternateActionButton
-		      //user pressed Don't Save
-		      'if d.AlternateActionButton.Caption=kSaveNone then
-		      'SaveNone=true
-		      'end
-		    Case d.CancelButton
-		      Return True //cancel the quit
-		    End select
-		  End If
+		  dim boo as boolean=Savecheck
+		  
+		  if NOT boo then Return true
 		End Function
 	#tag EndEvent
 
@@ -2482,7 +2445,7 @@ End
 		      cf1=nthfield(currentFeature,cLineEnd,1)
 		      name=trim(leftb(cf1,16))      'feature name
 		      
-		      if name ="source" then 
+		      if name ="source" then
 		        'store source separately
 		        gbkSource=currentFeature
 		      else
@@ -2657,6 +2620,60 @@ End
 		  
 		  FillFeatureProperties(Feature,feature.FeatureText)
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SaveCheck() As boolean
+		  'returns true if the file is saved or the user pressed "Don't save"
+		  'returns false if the save is cancelled
+		  if GenomeFile=Nil then return true
+		  
+		  If GenomeChanged then
+		    Dim d as New MessageDialog  //declare the MessageDialog object
+		    Dim b as MessageDialogButton //for handling the result
+		    d.icon=MessageDialog.GraphicCaution   //display warning icon
+		    d.ActionButton.Caption=kSave
+		    d.CancelButton.Visible=True     //show the Cancel button
+		    d.CancelButton.Caption=kCancel
+		    d.AlternateActionButton.Visible=True   //show the "Don't Save" button
+		    
+		    'the if block below only work if option was pressed together with command-Q (almost useless)
+		    if keyboard.AsyncOptionKey then
+		      d.AlternateActionButton.Caption=kSaveNone
+		    else
+		      d.AlternateActionButton.Caption=kDontSave
+		    end if
+		    d.Message=kSaveChanges+me.title+"?"
+		    'd.Explanation="If you don't save, your changes will be lost. "
+		    
+		    b=d.ShowModalwithin(self)     //display the dialog
+		    Select Case b //determine which button was pressed.
+		    Case d.ActionButton
+		      //user pressed Save
+		      'prompt for file name and save
+		      dim f as folderitem
+		      f=GetSaveFolderItem("Text",GenomeFile.Name)
+		      
+		      if f<>nil then
+		        SaveGenBankFile(f)
+		        GenomeChanged=false
+		        return true
+		      else
+		        return false
+		      end if
+		      
+		      
+		    Case d.AlternateActionButton
+		      //user pressed Don't Save
+		      'if d.AlternateActionButton.Caption=kSaveNone then
+		      'SaveNone=true
+		      'end
+		      return true
+		    Case d.CancelButton
+		      Return false //cancel the quit
+		    End select
+		  End If
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -5276,6 +5293,11 @@ End
 		InitialValue="False"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="gbkSource"
+		Group="Behavior"
+		Type="string"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="GBOpened"
