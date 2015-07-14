@@ -266,7 +266,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   1
+      Value           =   3
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -391,27 +391,6 @@ Begin Window GenomeWin
       Underline       =   False
       Visible         =   True
       Width           =   194
-   End
-   Begin ProgressBar SearchProgressBar
-      AutoDeactivate  =   True
-      Enabled         =   False
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   918
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Maximum         =   0
-      Scope           =   0
-      TabPanelIndex   =   0
-      Top             =   725
-      Value           =   0
-      Visible         =   False
-      Width           =   146
    End
    Begin mHTTPSocket TIGRSocket
       Address         =   ""
@@ -571,6 +550,27 @@ Begin Window GenomeWin
       UseFocusRing    =   False
       Visible         =   False
       Width           =   200
+   End
+   Begin ProgressWheel ProgressWheel1
+      AutoDeactivate  =   True
+      Enabled         =   False
+      Height          =   16
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   525
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   -89
+      Visible         =   True
+      Width           =   16
    End
 End
 #tag EndWindow
@@ -1027,10 +1027,6 @@ End
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
 		  
-		  'show progressbar:
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
-		  
 		  'name the search tab:
 		  FindTab(GeneName+":BLASTN")
 		  BrowserTabs.RePaint
@@ -1049,8 +1045,6 @@ End
 		    TMdisplayAdjustment
 		  end if
 		  BLASTSearchViewer.LoadURL(theURL)
-		  SearchProgressBar.Refresh
-		  
 		  
 		  
 		  
@@ -1070,9 +1064,6 @@ End
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
 		  
-		  'show progressbar:
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
 		  
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
@@ -1098,7 +1089,6 @@ End
 		    TMdisplayAdjustment
 		  end if
 		  BLASTSearchViewer.LoadURL(theURL)
-		  SearchProgressBar.Refresh
 		  
 		  
 		  
@@ -2119,9 +2109,6 @@ End
 		Sub HmmerSearchSwissProt(ProtName as string)
 		  dim theSeq, command, UUID, theURL as string
 		  
-		  'show progressbar:
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
 		  
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
@@ -2167,9 +2154,6 @@ End
 		Sub HmmerSearchTIGRFAM(ProtName as string)
 		  dim theSeq, command, UUID, theURL as string
 		  
-		  'show progressbar:
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
 		  
 		  'name the search tab:
 		  FindTab(ProtName+":TIGRFAM")
@@ -2212,9 +2196,6 @@ End
 		Sub HmmerSearchUniProt(ProtName as string)
 		  dim theSeq, command, UUID, theURL as string
 		  
-		  'show progressbar:
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
 		  
 		  'name the search tab:
 		  FindTab(ProtName+":UniProtKB")
@@ -2652,7 +2633,7 @@ End
 		      //user pressed Save
 		      'prompt for file name and save
 		      dim f as folderitem
-		      f=GetSaveFolderItem("Text",GenomeFile.Name)
+		      f=GetSaveFolderItem("GenBank",GenomeFile.Name)
 		      
 		      if f<>nil then
 		        SaveGenBankFile(f)
@@ -4853,68 +4834,12 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events SPSearchViewer
-	#tag Event
-		Sub DocumentComplete(URL as String)
-		  SearchProgressBar.Enabled=false
-		  SearchProgressBar.visible=false
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentBegin(URL as String)
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
-		  
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag Events UPSearchViewer
-	#tag Event
-		Sub DocumentComplete(URL as String)
-		  SearchProgressBar.Enabled=false
-		  SearchProgressBar.visible=false
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentBegin(URL as String)
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
-		  
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag Events TFSearchViewer
-	#tag Event
-		Sub DocumentComplete(URL as String)
-		  SearchProgressBar.Enabled=false
-		  SearchProgressBar.visible=false
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentBegin(URL as String)
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
-		  
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag Events BLASTSearchViewer
-	#tag Event
-		Sub DocumentComplete(URL as String)
-		  SearchProgressBar.Enabled=false
-		  SearchProgressBar.visible=false
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentBegin(URL as String)
-		  SearchProgressBar.Enabled=true
-		  SearchProgressBar.visible=true
-		  
-		End Sub
-	#tag EndEvent
 	#tag Event
 		Sub Error(errorNumber as Integer, errorMessage as String)
 		  msgbox errorMessage
@@ -4935,7 +4860,6 @@ End
 		  
 		  'get the UUID from text result that look like this:
 		  '<p>This item has moved <a href="http;//hmmer.janelia.org/results/72FE0A78-DA87-11E4-AAA3-3AF1F19B2471/score">here</a>
-		  SearchProgressBar.Refresh
 		  
 		  UUID=NthField(Content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
@@ -4943,15 +4867,43 @@ End
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
 		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
 		  'now simply load the corrected URL:
+		  
+		  TFSearchViewer.LoadURL(theURL)
+		  ProgressWheel1.Visible=false
+		  ProgressWheel1.Enabled=false
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:TIGRSocket")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Connected()
+		  dim theURL,blankpath as string
+		  dim f as FolderItem
+		  
+		  
+		  f=resources_f.child("blank.html")
+		  if f<>Nil then
+		    if f.exists then
+		      blankpath=f.ShellPath
+		      theURL="file://"+blankpath
+		    end if
+		  end if
+		  
 		  if TMdisplay.Visible then
 		    TMdisplay.Visible=false
 		    TMdisplayAdjustment
 		  end if
 		  TFSearchViewer.LoadURL(theURL)
-		  SearchProgressBar.Refresh
+		  ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  
+		  
+		  
 		  
 		  Exception err
-		    ExceptionHandler(err,"GenomeWin:TIGRSocket")
+		    ExceptionHandler(err,"GenomeWin:SPSocket")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -4962,7 +4914,6 @@ End
 		  
 		  'get the UUID from text result that look like this:
 		  'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
-		  SearchProgressBar.Refresh
 		  
 		  UUID=NthField(Content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
@@ -4975,7 +4926,36 @@ End
 		    TMdisplayAdjustment
 		  end if
 		  SPSearchViewer.LoadURL(theURL)
-		  SearchProgressBar.Refresh
+		  
+		  ProgressWheel1.Visible=false
+		  ProgressWheel1.Enabled=false
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:SPSocket")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Connected()
+		  dim theURL,blankpath as string
+		  dim f as FolderItem
+		  
+		  
+		  f=resources_f.child("blank.html")
+		  if f<>Nil then
+		    if f.exists then
+		      blankpath=f.ShellPath
+		      theURL="file://"+blankpath
+		    end if
+		  end if
+		  
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
+		  end if
+		  SPSearchViewer.LoadURL(theURL)
+		  ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
 		  
 		  
 		  
@@ -4993,20 +4973,46 @@ End
 		  
 		  'get the UUID from html result that looks like this:
 		  'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
-		  SearchProgressBar.Refresh
 		  
 		  UUID=NthField(content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
 		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
 		  'now simply load the corrected URL:
+		  
+		  UPSearchViewer.LoadURL(theURL)
+		  ProgressWheel1.Visible=false
+		  ProgressWheel1.Enabled=false
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Connected()
+		  dim theURL,blankpath as string
+		  dim f as FolderItem
+		  
+		  
+		  f=resources_f.child("blank.html")
+		  if f<>Nil then
+		    if f.exists then
+		      blankpath=f.ShellPath
+		      theURL="file://"+blankpath
+		    end if
+		  end if
+		  
 		  if TMdisplay.Visible then
 		    TMdisplay.Visible=false
 		    TMdisplayAdjustment
 		  end if
 		  UPSearchViewer.LoadURL(theURL)
-		  SearchProgressBar.Refresh
+		  ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
 		  
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:SPSocket")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
