@@ -572,6 +572,28 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   16
    End
+   Begin mHTTPSocket BLASTSocket
+      Address         =   ""
+      BytesAvailable  =   0
+      BytesLeftToSend =   0
+      Handle          =   0
+      Height          =   32
+      httpProxyAddress=   ""
+      httpProxyPort   =   0
+      Index           =   -2147483648
+      IsConnected     =   False
+      LastErrorCode   =   0
+      Left            =   20
+      LocalAddress    =   ""
+      LockedInPosition=   False
+      Port            =   0
+      RemoteAddress   =   ""
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   20
+      Width           =   32
+      yield           =   False
+   End
 End
 #tag EndWindow
 
@@ -1040,11 +1062,12 @@ End
 		  'format the BLAST request:
 		  theURL=URLstart+theSeq+URLend
 		  
-		  if TMdisplay.Visible then
-		    TMdisplay.Visible=false
-		    TMdisplayAdjustment
-		  end if
+		  
 		  BLASTSearchViewer.LoadURL(theURL)
+		  BLASTSocket.Post(theURL)
+		  ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
 		  
 		  
 		  
@@ -1084,11 +1107,12 @@ End
 		  'format the BLASTP request:
 		  theURL=URLstart+theSeq+URLend
 		  
-		  if TMdisplay.Visible then
-		    TMdisplay.Visible=false
-		    TMdisplayAdjustment
-		  end if
-		  BLASTSearchViewer.LoadURL(theURL)
+		  
+		  'BLASTSearchViewer.LoadURL(theURL)
+		  BLASTSocket.Post(theURL)
+		  'ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
+		  'ProgressWheel1.Visible=true
+		  'ProgressWheel1.Enabled=true
 		  
 		  
 		  
@@ -1097,6 +1121,77 @@ End
 		  
 		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub BLASTXsearch(GeneName as string)
+		  
+		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLend as string= "&DATABASE=nr&PROGRAM=blastx&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto"
+		  dim URL as string
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  'name the search tab:
+		  FindTab(GeneName+":BLASTX")
+		  BrowserTabs.RePaint
+		  
+		  'get the seq to search with:
+		  
+		  if seq.SelLength>0 then 'copy the highlighted piece
+		    theSeq=mid(seq.Sequence,seq.SelStart,seq.SelLength)
+		  end if
+		  
+		  'format the BLAST request:
+		  theURL=URLstart+theSeq+URLend
+		  
+		  
+		  BLASTSearchViewer.LoadURL(theURL)
+		  BLASTSocket.Post(theURL)
+		  ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  
+		  
+		  
+		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
+		  
+		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CDsearch(ProtName as string)
+		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?DATABASE=cdd&SERVICE=rpsblast&PROGRAM=blastp&CMD=Put&CDD_SEARCH=true&QUERY="
+		  const URLend as string= "%0A%0A" 'protein seq is supposed to end with two newline chars, but works fine without those
+		  dim URL as string
+		  dim theSeq, command, UUID, theURL as string
+		  
+		  
+		  'name the search tab:
+		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
+		  FindTab(ProtName+":CDD")
+		  BrowserTabs.RePaint
+		  
+		  'get the seq to search with:
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  end
+		  
+		  'format the CDD request:
+		  theURL=URLstart+theSeq'+URLend
+		  
+		  BLASTSocket.Post(theURL)
+		  
 		  
 		End Sub
 	#tag EndMethod
@@ -1752,6 +1847,7 @@ End
 	#tag Method, Flags = &h0
 		Sub FindTab(TabName as string)
 		  'We are keeping only one tab for each search type
+		  'All searches to BLAST servers including CDD search go into one tab.
 		  
 		  dim n,t as integer
 		  dim tab2find,caption as string
@@ -1765,17 +1861,30 @@ End
 		    tab2find="TIGRFAM"
 		  elseif instr(TabName,"BLAST")>0 then
 		    tab2find="BLAST"
-		    'elseif instr(TabName,"BLASTN")>0 then
-		    'tab2find="BLASTN"
+		  elseif instr(TabName,":CDD")>0 then
+		    tab2find=":CDD"
 		  end if
 		  
+		  
+		  
 		  if BrowserTabs.tabCount>0 then
-		    for n=0 to BrowserTabs.tabCount-1
-		      if instr(BrowserTabs.tabs(n).caption,tab2find)>0 then
-		        t=n
-		        exit
-		      end if
-		    next
+		    if Tab2find="BLAST" or tab2find="CDD" then
+		      for n=0 to BrowserTabs.tabCount-1
+		        if instr(BrowserTabs.tabs(n).caption,"BLAST")>0 OR instr(BrowserTabs.tabs(n).caption,":CDD")>0 then
+		          t=n
+		          exit
+		        end if
+		      next
+		      
+		      
+		    else
+		      for n=0 to BrowserTabs.tabCount-1
+		        if instr(BrowserTabs.tabs(n).caption,tab2find)>0 then
+		          t=n
+		          exit
+		        end if
+		      next
+		    end if
 		    
 		    'remove the tab of the current type and append a new one
 		    if t>-1 then
@@ -2653,6 +2762,8 @@ End
 		    Case d.CancelButton
 		      Return false //cancel the quit
 		    End select
+		  else
+		    return true
 		  End If
 		End Function
 	#tag EndMethod
@@ -4444,6 +4555,7 @@ End
 		    boo=NOT TIGRSocket.IsConnected
 		    base.Append mItem(kHmmerSearchTigrfam,boo)
 		    base.Append mItem(kBLASTPsearch,true)
+		    base.Append mItem(kCDsearch,true)
 		  else
 		    'Add a Separator
 		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
@@ -4451,6 +4563,7 @@ End
 		    'if previous search is still running, add menus as disabled
 		    dim boo as boolean
 		    base.Append mItem(kBLASTNsearch,true)
+		    base.Append mItem(kBLASTXsearch,true)
 		    
 		  end
 		  
@@ -4483,8 +4596,12 @@ End
 		    HmmerSearchTIGRFAM(ContextProteinName)
 		  case kBLASTPsearch
 		    BLASTPsearch(ContextProteinName)
+		  case kCDsearch
+		    CDsearch(ContextProteinName)
 		  case kBLASTNsearch
 		    BLASTNsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
+		  case kBLASTXsearch
+		    BLASTXsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
 		  end
 		End Function
 	#tag EndEvent
@@ -4787,7 +4904,7 @@ End
 		  elseif instr(TabName,"TIGRFAM")>0 then
 		    TFSearchViewer.Visible=true
 		    BrowserPagePanel.value=2
-		  elseif instr(TabName,"BLASTP")>0 OR instr(TabName,"BLASTN")>0 then
+		  elseif instr(TabName,"BLASTP")>0 OR instr(TabName,"BLASTN")>0 OR instr(TabName,":CDD")>0 then
 		    BLASTSearchViewer.Visible=true
 		    BrowserPagePanel.value=3
 		  end if
@@ -4843,6 +4960,12 @@ End
 	#tag Event
 		Sub Error(errorNumber as Integer, errorMessage as String)
 		  msgbox errorMessage
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
+		  ProgressWheel1.Visible=false
+		  ProgressWheel1.Enabled=false
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -5064,6 +5187,74 @@ End
 		    
 		  end if
 		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events BLASTSocket
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		  dim RID,theURL,ltag as string
+		  
+		  'this socket should process all requests to BLAST servers, including CD search
+		  
+		  
+		  if instr(BrowserTabs.tabs(BrowserTabs.value).caption,":CDD")>0 then  'CDD search
+		    //get CDD search RID using hidden, but almost documented data in BLAST output that looks like:
+		    '<input name="RID" value="UB0V1HJK014" type="hidden" />
+		    '<input name="CDD_RID" value="data_cache_seq:641743590" type="hidden" />
+		    '<input name="CDD_SEARCH_STATE" type="hidden" value="4" />
+		    
+		    ltag="<input name="+chr(34)+"RID"+chr(34)+" value="+chr(34)
+		    RID=NthField(content,ltag,2)
+		    RID=NthField(RID,chr(34),1)
+		    theURL="http://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get"
+		  else
+		    
+		    //get the Request ID for blastp/n/x from result that looks like this:
+		    '<!--QBlastInfoBegin
+		    'RID = UB0V1HJK014
+		    'RTOE = 17
+		    'QBlastInfoEnd
+		    '-->
+		    
+		    RID=NthField(content,"RID = ",2)
+		    RID=NthField(RID,EndOfLine.UNIX,1)
+		    theURL="http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?RID="+RID+"&CMD=Get"
+		  end if
+		  
+		  'now load the URL:
+		  BLASTSearchViewer.LoadURL(theURL)
+		  ProgressWheel1.Visible=false
+		  ProgressWheel1.Enabled=false
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Connected()
+		  dim theURL,blankpath as string
+		  dim f as FolderItem
+		  
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
+		  end if
+		  
+		  f=resources_f.child("blank.html")
+		  if f<>Nil then
+		    if f.exists then
+		      blankpath=f.ShellPath
+		      theURL="file://"+blankpath
+		    end if
+		  end if
+		  BLASTSearchViewer.LoadURL(theURL) 'blank page to remove previous result
+		  ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:SPSocket")
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
