@@ -1063,7 +1063,7 @@ End
 		  theURL=URLstart+theSeq+URLend
 		  
 		  
-		  BLASTSearchViewer.LoadURL(theURL)
+		  'BLASTSearchViewer.LoadURL(theURL)
 		  BLASTSocket.Post(theURL)
 		  ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
 		  ProgressWheel1.Visible=true
@@ -1147,7 +1147,7 @@ End
 		  theURL=URLstart+theSeq+URLend
 		  
 		  
-		  BLASTSearchViewer.LoadURL(theURL)
+		  'BLASTSearchViewer.LoadURL(theURL)
 		  BLASTSocket.Post(theURL)
 		  ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
 		  ProgressWheel1.Visible=true
@@ -3214,7 +3214,7 @@ End
 		  ExtractFragment(HmmHits(CurrentHit)-DisplayInterval/2,HmmHits(CurrentHit)+DisplayInterval/2)
 		  FeatureBox.visible=true
 		  FeatureBox.Caption=HmmHitDescriptions(CurrentHit)
-		  Featurebox.Value=true
+		  Featurebox.Value=HmmHitChecked(currentHit)
 		  
 		  HScrollBarCodeLock=true
 		  HScrollBar.Value=HmmHits(CurrentHit)
@@ -3254,6 +3254,7 @@ End
 	#tag Method, Flags = &h0
 		Sub SkimHits()
 		  'skimming through the hits
+		  
 		  if Keyboard.AsynckeyDown(&h7C) OR Keyboard.AsynckeyDown(&h7B) then
 		    if CurrentHit > 0 then
 		      if Keyboard.AsynckeyDown(&h7C) then 'Right
@@ -4607,6 +4608,17 @@ End
 	#tag EndEvent
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
+		  'space checks/unchecks the current hit
+		  
+		  if key=" " then 'toggle selection for current hit
+		    FeatureBox.Value=NOT FeatureBox.Value
+		    return true
+		  elseif key=decodehex("1D") then 'right
+		    '1C - left
+		    'beep
+		    
+		  end if
+		  
 		  SkimHits
 		End Function
 	#tag EndEvent
@@ -4904,7 +4916,7 @@ End
 		  elseif instr(TabName,"TIGRFAM")>0 then
 		    TFSearchViewer.Visible=true
 		    BrowserPagePanel.value=2
-		  elseif instr(TabName,"BLASTP")>0 OR instr(TabName,"BLASTN")>0 OR instr(TabName,":CDD")>0 then
+		  elseif instr(TabName,":BLAST")>0 OR instr(TabName,":CDD")>0 then
 		    BLASTSearchViewer.Visible=true
 		    BrowserPagePanel.value=3
 		  end if
@@ -5245,7 +5257,7 @@ End
 		    end if
 		  end if
 		  BLASTSearchViewer.LoadURL(theURL) 'blank page to remove previous result
-		  ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
+		  ProgressWheel1.top=BlastSearchViewer.top+BlastSearchViewer.Height/3
 		  ProgressWheel1.Visible=true
 		  ProgressWheel1.Enabled=true
 		  
