@@ -1063,7 +1063,7 @@ End
 		  theURL=URLstart+theSeq+URLend
 		  
 		  
-		  'BLASTSearchViewer.LoadURL(theURL)
+		  CDDsearch=false
 		  BLASTSocket.Post(theURL)
 		  ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
 		  ProgressWheel1.Visible=true
@@ -1107,8 +1107,7 @@ End
 		  'format the BLASTP request:
 		  theURL=URLstart+theSeq+URLend
 		  
-		  
-		  'BLASTSearchViewer.LoadURL(theURL)
+		  CDDsearch=false
 		  BLASTSocket.Post(theURL)
 		  'ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
 		  'ProgressWheel1.Visible=true
@@ -1146,8 +1145,7 @@ End
 		  'format the BLAST request:
 		  theURL=URLstart+theSeq+URLend
 		  
-		  
-		  'BLASTSearchViewer.LoadURL(theURL)
+		  'CDDsearch=false
 		  BLASTSocket.Post(theURL)
 		  ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
 		  ProgressWheel1.Visible=true
@@ -1189,7 +1187,7 @@ End
 		  
 		  'format the CDD request:
 		  theURL=URLstart+theSeq'+URLend
-		  
+		  CDDsearch=true
 		  BLASTSocket.Post(theURL)
 		  
 		  
@@ -2647,6 +2645,88 @@ End
 		  for n=1 to u
 		    if Genome.Features(n).FeatureText=ft then
 		      Genome.Features.Remove n
+		      
+		      //check if we are deleting one of the just added nhmmer hits:
+		      'there are three arrays that have to be handled:
+		      'HmmHits
+		      'contain just the left coordinate;
+		      
+		      'HmmHitNames 
+		      'have the format:
+		      'rbsD GZ59_00100 
+		      '(or just locus_tag if there's no gene name);
+		      
+		      'HmmHitDescriptions
+		      'have the format:
+		      '10420:10443 (+) CRP score 6.7 E-value 110.0.
+		      
+		      //sufficient info is present in the /note of the feature being deleted:
+		      'protein_bind    4047388..4047407
+		      '/bound_moiety="LexA"
+		      '/note="nhmmer score 10.9 E-value 5.2"
+		      
+		       
+		      //So, only HmmHitDescriptions need to be parsed (for coordinate, then bound_moiety and both scores), 
+		      //but the matching item has to be removed from all three arrays
+		      
+		      if UBound(HmmHitDescriptions)>0 then
+		        //get the name of the TF/sigma:
+		        dim nm, cHit, scor as string 
+		        scor=NthField(ft,"/note="+chr(34)+"nhmmer score",2)
+		        scor=NthField(scor,chr(34),1)
+		        nm=NthField(HmmHitDescriptions(1),") ",2)
+		        nm=NthField(nm," score",1)
+		        if instr(ft,nm)>0 then'could be right hit
+		          cHit=NthField(ft,"/bound_moiety="+chr(34),2)
+		          cHit=NthField(cHit,chr(34),1)
+		          if cHit=nm then 'almost certainly we have the right one within current hits
+		            'scan the array for the actual hit
+		            //get the coordinates:
+		            dim coo as string
+		            if seq.Features(FeatureNo).complement then
+		              coo=str(seq.Features(FeatureNo).finish+GBrowseShift)+":"+str(seq.Features(FeatureNo).start+GBrowseShift-1)
+		            else
+		              coo=str(seq.Features(FeatureNo).start+GBrowseShift)+":"+str(seq.Features(FeatureNo).Finish+GBrowseShift)
+		            end if
+		            dim n1 as integer
+		            for n1=1 to ubound(HmmHitDescriptions)
+		              if instr(HmmHitDescriptions(n1),coo)>0 then 'almost there
+		                if instr(HmmHitDescriptions(n1),scor)>0 then 'bingo!
+		                  HmmHits.Remove n1
+		                  HmmHitNames.Remove n1
+		                  HmmHitDescriptions.Remove n1
+		                  HmmHitChecked.Remove n1
+		                  'need to update navigator counts here!
+		                  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
+		                  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
+		                  Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
+		                  if n1<=CurrentHit then 
+		                    CurrentHit=CurrentHit-1
+		                  end if
+		                  
+		                  
+		                  if currentHit<=1 then
+		                    s0.Enabled=false
+		                  else
+		                    s0.Enabled=true
+		                  end if
+		                  
+		                  if currentHit=ubound(GenomeWin.HmmHits) then
+		                    s2.Enabled=false
+		                  else
+		                    s2.Enabled=true
+		                  end if
+		                  'behaviour in not elegant at last hit, but is probably bearable
+		                  s1.Title=str(CurrentHit)+"/"+str(ubound(HmmHits))
+		                  
+		                end if
+		              end if
+		            next
+		          end if
+		        end if
+		        
+		      end if
+		      
 		      exit
 		    end if
 		  next
@@ -3670,6 +3750,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		CDDsearch As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		CmapDx As Integer
 	#tag EndProperty
 
@@ -4613,8 +4697,8 @@ End
 		  if key=" " then 'toggle selection for current hit
 		    FeatureBox.Value=NOT FeatureBox.Value
 		    return true
-		  elseif key=decodehex("1D") then 'right
-		    '1C - left
+		  elseif key=decodehex("1D") then 'right (or chr(124?)
+		    '1C (chr123)? - left
 		    'beep
 		    
 		  end if
@@ -4774,7 +4858,7 @@ End
 		  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
 		  Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
 		  
-		  if CurrentHit > 0 then
+		  if CurrentHit >= 0 then
 		    If itemIndex = 0 Then
 		      'show previous hit
 		      CurrentHit=CurrentHit-1
@@ -5209,7 +5293,7 @@ End
 		  'this socket should process all requests to BLAST servers, including CD search
 		  
 		  
-		  if instr(BrowserTabs.tabs(BrowserTabs.value).caption,":CDD")>0 then  'CDD search
+		  if CDDsearch then  'CDD search
 		    //get CDD search RID using hidden, but almost documented data in BLAST output that looks like:
 		    '<input name="RID" value="UB0V1HJK014" type="hidden" />
 		    '<input name="CDD_RID" value="data_cache_seq:641743590" type="hidden" />

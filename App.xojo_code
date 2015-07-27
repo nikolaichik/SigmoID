@@ -460,6 +460,7 @@ Inherits Application
 		19. when a gene is selected, blastN/blastX should be in menu instead of blastp
 		20. copies wrong sequence of DspF
 		21. title case in menus
+		
 	#tag EndNote
 
 	#tag Note, Name = Linux details
