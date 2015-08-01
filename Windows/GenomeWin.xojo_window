@@ -80,7 +80,7 @@ Begin Window GenomeWin
       LockTop         =   True
       MacControlStyle =   0
       Scope           =   0
-      Segments        =   "Prev.\n\nFalse\r                      \n\nFalse\rNext\n\nFalse"
+      Segments        =   "<\n\nFalse\r                      \n\nFalse\r>\n\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
       Top             =   0
@@ -581,6 +581,7 @@ Begin Window GenomeWin
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
+      InitialParent   =   ""
       IsConnected     =   False
       LastErrorCode   =   0
       Left            =   20
@@ -679,9 +680,25 @@ End
 
 	#tag Event
 		Sub Open()
+		  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
+		  Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
+		  'set segment sizes:
+		  s0.Width=20
+		  s2.Width=20
+		  genomeWin.SegmentedControl1.SizeToFit
+		  GenomeWin.FeatureBox.left=genomeWin.SegmentedControl1.left+genomeWin.SegmentedControl1.Width+5
+		  GenomeWin.FeatureBox.Width=genomeWin.SelRange.left-GenomeWin.FeatureBox.left-5
+		  
+		  
 		  #if TargetCocoa then
 		    SearchField.enabled=false
 		    SearchField.visible=false
+		    
+		    s0.Icon=SystemIcons.GoLeftTemplate
+		    s2.Icon=SystemIcons.GoRightTemplate
+		    s0.Title=""
+		    s2.Title=""
+		    
 		  #else
 		    SearchField.enabled=true
 		    SearchField.visible=true
@@ -827,6 +844,8 @@ End
 		  HighlightColour=HighlightColor 'set to default until features are read
 		  
 		  FeatureBox.visible=false 'show later if required
+		  
+		  MapCanvas.SetFocus
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:Open")
 		End Sub
@@ -2613,6 +2632,9 @@ End
 		  
 		  w.GenomeFile=f
 		  
+		  '
+		  SegmentedControl1.Visible=false
+		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:OpenGenBankFile")
 		End Sub
@@ -2651,9 +2673,9 @@ End
 		      'HmmHits
 		      'contain just the left coordinate;
 		      
-		      'HmmHitNames 
+		      'HmmHitNames
 		      'have the format:
-		      'rbsD GZ59_00100 
+		      'rbsD GZ59_00100
 		      '(or just locus_tag if there's no gene name);
 		      
 		      'HmmHitDescriptions
@@ -2665,13 +2687,13 @@ End
 		      '/bound_moiety="LexA"
 		      '/note="nhmmer score 10.9 E-value 5.2"
 		      
-		       
-		      //So, only HmmHitDescriptions need to be parsed (for coordinate, then bound_moiety and both scores), 
+		      
+		      //So, only HmmHitDescriptions need to be parsed (for coordinate, then bound_moiety and both scores),
 		      //but the matching item has to be removed from all three arrays
 		      
 		      if UBound(HmmHitDescriptions)>0 then
 		        //get the name of the TF/sigma:
-		        dim nm, cHit, scor as string 
+		        dim nm, cHit, scor as string
 		        scor=NthField(ft,"/note="+chr(34)+"nhmmer score",2)
 		        scor=NthField(scor,chr(34),1)
 		        nm=NthField(HmmHitDescriptions(1),") ",2)
@@ -2700,7 +2722,7 @@ End
 		                  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
 		                  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
 		                  Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
-		                  if n1<=CurrentHit then 
+		                  if n1<=CurrentHit then
 		                    CurrentHit=CurrentHit-1
 		                  end if
 		                  
@@ -3291,6 +3313,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ShowHit()
+		  SegmentedControl1.Visible=true
 		  ExtractFragment(HmmHits(CurrentHit)-DisplayInterval/2,HmmHits(CurrentHit)+DisplayInterval/2)
 		  FeatureBox.visible=true
 		  FeatureBox.Caption=HmmHitDescriptions(CurrentHit)
@@ -5046,12 +5069,6 @@ End
 		End Function
 	#tag EndEvent
 #tag EndEvents
-#tag Events SPSearchViewer
-#tag EndEvents
-#tag Events UPSearchViewer
-#tag EndEvents
-#tag Events TFSearchViewer
-#tag EndEvents
 #tag Events BLASTSearchViewer
 	#tag Event
 		Sub Error(errorNumber as Integer, errorMessage as String)
@@ -5392,6 +5409,11 @@ End
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="CDDsearch"
+		Group="Behavior"
+		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="CloseButton"
 		Visible=true
 		Group="Appearance"
@@ -5591,6 +5613,7 @@ End
 		Name="gbkSource"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="GBOpened"

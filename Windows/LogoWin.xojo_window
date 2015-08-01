@@ -1229,6 +1229,7 @@ End
 		          Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
 		          s2.enabled=true
 		          
+		          
 		        end if
 		        return true
 		      else

@@ -147,6 +147,7 @@ Picture=blockStartMarker;Classes/CustomEditField/imgs/blockStartMarker.bmp;&h1EA
 Picture=bookmarksimg;Classes/CustomEditField/imgs/bookmarksimg.bmp;&h6A7D72B2;&h55FFDEC;false;0;&h0
 Window=FindWin;Windows/FindWin.xojo_window;&h3689142A;&h2250E847;false
 Folder=macoslib;macoslib;&h62249E78;&h0;false
+Module=SystemIcons;macoslib/SystemIcons.xojo_code;&h42AE248B;&h62249E78;false
 Module=AppearanceManager;macoslib/AppearanceManager.xojo_code;&h466F7021;&h62249E78;false
 Module=AppleEvents;macoslib/AppleEvents.xojo_code;&h3A4EA29F;&h62249E78;false
 Module=ATSForFonts;macoslib/ATSForFonts.xojo_code;&h7FCAEA19;&h62249E78;false
