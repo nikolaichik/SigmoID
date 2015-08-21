@@ -891,6 +891,199 @@ End
 
 	#tag Method, Flags = &h1
 		Protected Sub DrawLogo()
+		  'Information content per position as defined by Schneider et al, 1986
+		  ' 
+		  ' Ii=2+sum(Fb,i*log2(Fb,i)),
+		  '
+		  'where i is the position within site, b refers to each of the four bases, 
+		  'and Fb,i is the frequency of each base at that position
+		  
+		  dim n,replicas, baseX, currentX,letterData as integer
+		  dim entropy, maxentropy, LetterHeight, baseY, nextY,freq As double
+		  dim posarray(4),letterName, Acount, Ccount, Gcount, Tcount as string
+		  totalEntropy=0
+		  
+		  
+		  baseX= -3
+		  baseY=150
+		  'read data from the file into array
+		  ReadLogoData
+		  if ubound(LogoData)>1 then
+		    '#if targetlinux then
+		    LogoPic=new Picture (30*(ubound(logodata)+1),170,32)
+		    '#else
+		    'LogoPic=new Picture (30*ubound(logodata),170,32)
+		    '#endif
+		    LogoPic.Transparent=1
+		    
+		    
+		    'format of the data is:
+		    '#    A     C     G     T     Entropy    Low    High    Weight
+		    '1     1     0     0     19     0.9777     0.6344     1.3210     1.0000
+		    '2     13     3     2     2     0.3639     0.1286     0.7196     1.0000
+		    
+		    
+		    'count number of replicates (bases per position)
+		    replicas=val(NthField(logodata(1),chr(9),2))+val(NthField(logodata(1),chr(9),3))+val(NthField(logodata(1),chr(9),4))+val(NthField(logodata(1),chr(9),5))
+		    
+		    'maxentropy correction
+		    'maxentropy=0
+		    'for n=1 to ubound(LogoData)
+		    'entropy=val(NthField(logodata(n),chr(9),8))
+		    'if entropy>maxentropy then
+		    'maxentropy=entropy
+		    'end if
+		    'next
+		    'maxentropy=2 '(it should be just bits, but apparently isn't)
+		    
+		    for n=1 to ubound(LogoData)
+		      Acount=NthField(logodata(n),chr(9),2)
+		      Ccount=NthField(logodata(n),chr(9),3)
+		      Gcount=NthField(logodata(n),chr(9),4)
+		      Tcount=NthField(logodata(n),chr(9),5)
+		      
+		      'combine letter names with counts for sorting
+		      posarray(1)=format(val(Acount),"000")+"A"
+		      posarray(2)=format(val(Ccount),"000")+"C"
+		      posarray(3)=format(val(Gcount),"000")+"G"
+		      posarray(4)=format(val(Tcount),"000")+"T"
+		      posarray.Sort
+		      entropy=2
+		      freq=val(Acount)/replicas
+		      'entropy=entropy+freq*
+		      freq=log2 (freq)
+		      freq=val(Ccount)/replicas
+		      entropy=entropy+freq*log2(freq)
+		      freq=val(Gcount)/replicas
+		      entropy=entropy+freq*log2(freq)
+		      freq=val(Tcount)/replicas
+		      entropy=entropy+freq*log2(freq)
+		      totalEntropy=totalEntropy+entropy
+		      
+		      'lowest letter
+		      letterData=val(posarray(1))
+		      letterName=right(posarray(1),1)
+		      LetterHeight=140*entropy*letterData/replicas
+		      NextY=baseY-letterheight
+		      CurrentX=baseX+n*30
+		      select case letterName
+		      case "A"
+		        LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "C"
+		        LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "G"
+		        LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "T"
+		        LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      end select
+		      
+		      'second lowest letter
+		      letterData=val(posarray(2))
+		      letterName=right(posarray(2),1)
+		      LetterHeight=140*entropy*letterData/replicas
+		      NextY=NextY-LetterHeight
+		      select case letterName
+		      case "A"
+		        LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "C"
+		        LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "G"
+		        LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "T"
+		        LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      end select
+		      
+		      'third lowest letter
+		      letterData=val(posarray(3))
+		      letterName=right(posarray(3),1)
+		      LetterHeight=140*entropy*letterData/replicas
+		      NextY=NextY-LetterHeight
+		      select case letterName
+		      case "A"
+		        LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "C"
+		        LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "G"
+		        LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "T"
+		        LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      end select
+		      
+		      'topmost letter
+		      letterData=val(posarray(4))
+		      letterName=right(posarray(4),1)
+		      LetterHeight=140*entropy*letterData/replicas
+		      NextY=NextY-LetterHeight
+		      select case letterName
+		      case "A"
+		        LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "C"
+		        LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "G"
+		        LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "T"
+		        LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      end select
+		      
+		    next
+		    
+		    'draw rulers
+		    'horisontal:
+		    '#if targetlinux then
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY+3,baseX+30*(n),BaseY+3)
+		    for n=1 to ubound(LogoData)
+		      LogoPic.graphics.DrawLine(baseX+15+30*n,BaseY+3,baseX+15+30*n,BaseY+7)
+		    next
+		    for n=5 to ubound(LogoData) step 5
+		      LogoPic.graphics.DrawString(str(n),baseX+10+30*n,baseY+20)
+		    next
+		    '#else
+		    'LogoPic.graphics.DrawLine(baseX+25,BaseY+3,baseX+30*(n-1),BaseY+3)
+		    'for n=1 to ubound(LogoData)-1
+		    'LogoPic.graphics.DrawLine(baseX+15+30*n,BaseY+3,baseX+15+30*n,BaseY+7)
+		    'next
+		    'for n=5 to ubound(LogoData) step 5
+		    'LogoPic.graphics.DrawString(str(n),baseX+10+30*n,baseY+20)
+		    'next
+		    '#endif
+		    
+		    'vertical:
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY+3,baseX+25,BaseY-140)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY-140,baseX+18,BaseY-140)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY-70,baseX+18,BaseY-70)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY,baseX+18,BaseY)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY-105,baseX+21,BaseY-105)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY-35,baseX+21,BaseY-35)
+		    
+		    LogoPic.graphics.DrawString("0",6,baseY+5)
+		    LogoPic.graphics.DrawString("1",6,baseY-65)
+		    LogoPic.graphics.DrawString("2",6,baseY-135)
+		    
+		    'self.Width=LogoPic.width+20
+		    'clear selection arrays to remove selection from previous logo:
+		    redim selarray1(0)
+		    redim selarray2(0)
+		    lastX=0
+		    masked=false
+		    LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
+		    me.refresh 'needed if logo of the same size is drawn and to remove selection
+		    
+		    WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    WriteToSTDOUT ("Binding site entropy is "+str(totalEntropy)+"."+EndofLine)
+		    
+		    'Palindromic=false
+		    ChangeView("Logo")
+		  else
+		    WriteToSTDOUT (EndofLine+"Could not load alignment from "+LogoFile.shellpath+EndofLine)
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:DrawLogo")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub DrawLogoOld()
 		  dim n,replicas, baseX, currentX,letterData as integer
 		  dim entropy, maxentropy, LetterHeight, baseY, nextY As double
 		  dim posarray(4),letterName as string

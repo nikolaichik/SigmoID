@@ -124,7 +124,7 @@ Inherits Application
 		Function FileOpen() As Boolean Handles FileOpen.Action
 			'just open file in genome browser and display 9 kb of it
 			
-			if GenomeWin.SaveCheck then 'save changes in the open file if any 
+			if GenomeWin.SaveCheck then 'save changes in the open file if any
 			
 			
 			dim GenomeFile as folderitem
@@ -460,7 +460,7 @@ Inherits Application
 		19. when a gene is selected, blastN/blastX should be in menu instead of blastp
 		20. copies wrong sequence of DspF
 		21. title case in menus
-		
+		22. text search glitch: searching with short upper case query (eg FNR) will pick up CDS with these letters in translation
 	#tag EndNote
 
 	#tag Note, Name = Linux details

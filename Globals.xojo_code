@@ -520,6 +520,17 @@ Protected Module Globals
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Function log2(numbr as double) As double
+		  'log2(X)=ln(X)/ln(2)
+		  'ln in Xojo is log
+		  
+		  const ln2 as double = 0.693147180559945
+		  
+		  return log(numbr)/ln2 
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub RevCompAlignment(infile as folderitem, outfile as folderitem)
 		  dim instream as TextInputStream
