@@ -321,6 +321,20 @@ Begin Menu MainMenuBar
          Visible = False
       End
    End
+   Begin MenuItem MEMEMenu
+      SpecialMenu = 0
+      Text = "MEME"
+      Index = -2147483648
+      AutoEnable = True
+      Visible = True
+      Begin MenuItem MEMEConverttoMEMEformat
+         SpecialMenu = 0
+         Text = "Convert to MEME format"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+   End
    Begin MenuItem GenomeMenu
       SpecialMenu = 0
       Text = "Genome"

@@ -254,6 +254,10 @@ End
 		    
 		  end if
 		  
+		  if LogoFile<>NIL then
+		    MEMEConverttoMEMEformat.enable
+		  end if
+		  
 		  FileSaveCheckedSites.Visible=false
 		  FileSaveCheckedSites.Enabled=false
 		  FileSaveGenomeAs.Visible=false
@@ -620,6 +624,15 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function MEMEConverttoMEMEformat() As Boolean Handles MEMEConverttoMEMEformat.Action
+			MEMEconvert
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ViewAlignmentInfo() As Boolean Handles ViewAlignmentInfo.Action
 			ChangeView("AlignmentInfo")
 			
@@ -950,8 +963,7 @@ End
 		      posarray.Sort
 		      entropy=2
 		      freq=val(Acount)/replicas
-		      'entropy=entropy+freq*
-		      freq=log2 (freq)
+		      entropy=entropy+freq*log2(freq)
 		      freq=val(Ccount)/replicas
 		      entropy=entropy+freq*log2(freq)
 		      freq=val(Gcount)/replicas
@@ -963,7 +975,7 @@ End
 		      'lowest letter
 		      letterData=val(posarray(1))
 		      letterName=right(posarray(1),1)
-		      LetterHeight=140*entropy*letterData/replicas
+		      LetterHeight=70*entropy*letterData/replicas
 		      NextY=baseY-letterheight
 		      CurrentX=baseX+n*30
 		      select case letterName
@@ -980,7 +992,7 @@ End
 		      'second lowest letter
 		      letterData=val(posarray(2))
 		      letterName=right(posarray(2),1)
-		      LetterHeight=140*entropy*letterData/replicas
+		      LetterHeight=70*entropy*letterData/replicas
 		      NextY=NextY-LetterHeight
 		      select case letterName
 		      case "A"
@@ -996,7 +1008,7 @@ End
 		      'third lowest letter
 		      letterData=val(posarray(3))
 		      letterName=right(posarray(3),1)
-		      LetterHeight=140*entropy*letterData/replicas
+		      LetterHeight=70*entropy*letterData/replicas
 		      NextY=NextY-LetterHeight
 		      select case letterName
 		      case "A"
@@ -1012,7 +1024,7 @@ End
 		      'topmost letter
 		      letterData=val(posarray(4))
 		      letterName=right(posarray(4),1)
-		      LetterHeight=140*entropy*letterData/replicas
+		      LetterHeight=70*entropy*letterData/replicas
 		      NextY=NextY-LetterHeight
 		      select case letterName
 		      case "A"
@@ -1069,7 +1081,7 @@ End
 		    me.refresh 'needed if logo of the same size is drawn and to remove selection
 		    
 		    WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
-		    WriteToSTDOUT ("Binding site entropy is "+str(totalEntropy)+"."+EndofLine)
+		    WriteToSTDOUT ("Information content of this site is "+str(totalEntropy)+" bits."+EndofLine)
 		    
 		    'Palindromic=false
 		    ChangeView("Logo")
@@ -1668,6 +1680,68 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub MEMEconvert()
+		  'Converts current alignment to minimal MEME format
+		  
+		  'copy alignment out of virtual volume:
+		  dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
+		  if alignment_tmp<>NIL then
+		    LogoFile.CopyFileTo alignment_tmp
+		    
+		  else
+		    msgbox "Can't create temporary file!"
+		    return
+		  end if
+		  
+		  
+		  'create a tmp dir to store MEME results:
+		  MEMEtmp=SpecialFolder.Temporary.child("MEMEtmp")
+		  
+		  if MEMEtmp<>NIL then
+		    if MEMEtmp.Exists then
+		      MEMEtmp.Delete
+		    end if
+		    'actual conversion
+		    dim cli as string
+		    Dim sh As Shell
+		    
+		    cli="/Users/Home/bin/meme -nmotifs 1 -dna -o "+MEMEtmp.ShellPath+" "
+		    if Palindromic then
+		      cli=cli+"-pal "
+		    end if
+		    cli=cli+alignment_tmp.ShellPath
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    WriteToSTDOUT (EndofLine+EndofLine+"Running meme...")
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      
+		      'print the result in the log pane:
+		      dim res as FolderItem
+		      dim InStream As  TextInputStream
+		      res=MEMEtmp.child("meme.txt")
+		      InStream = res.OpenAsTextFile
+		      if InStream<>NIL then
+		        WriteToSTDOUT (EndofLine+InStream.ReadAll)
+		      end if
+		      InStream.close
+		      
+		    else
+		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "MEME error Code: "+Str(sh.errorCode)
+		      
+		    end if
+		    
+		  else
+		    msgbox "Can't create temporary folder!"
+		  end if
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function nhmmer() As boolean
 		  'returns true if completed without errors
@@ -2072,6 +2146,10 @@ End
 
 	#tag Property, Flags = &h0
 		Masked As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected MEMEtmp As FolderItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

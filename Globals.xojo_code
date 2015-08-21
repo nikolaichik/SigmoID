@@ -520,14 +520,18 @@ Protected Module Globals
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Function log2(numbr as double) As double
+	#tag Method, Flags = &h0
+		Function log2(numbr as double) As double
 		  'log2(X)=ln(X)/ln(2)
 		  'ln in Xojo is log
 		  
 		  const ln2 as double = 0.693147180559945
 		  
-		  return log(numbr)/ln2 
+		  if numbr=0 then
+		    return 0  'that's incorrect mathematically, but required for proper Iseq calculation
+		  else
+		    return log(numbr)/ln2 
+		  end if
 		End Function
 	#tag EndMethod
 
