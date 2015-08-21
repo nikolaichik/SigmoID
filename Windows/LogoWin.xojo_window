@@ -627,7 +627,70 @@ End
 		Function MEMEConverttoMEMEformat() As Boolean Handles MEMEConverttoMEMEformat.Action
 			MEMEconvert
 			
-			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function MEMEMAST() As Boolean Handles MEMEMAST.Action
+			
+			if GenomeFile<>Nil then
+			MASTSettingsWin.GenomeField.text=GenomeFile.ShellPath
+			
+			MASTSettingsWin.RunButton.Enabled=true
+			else
+			
+			MASTSettingsWin.RunButton.Enabled=false
+			
+			end if
+			MASTSettingsWin.EnableRun
+			MASTSettingsWin.ShowModalWithin(self)
+			'Genomefile=GetFolderItem(trim(MASTSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
+			if nhmmerOptions <> "" then
+			MEMEconvert
+			WriteToSTDOUT (EndofLine+"Running MAST...")
+			dim meme_results as folderitem
+			dim cli as string
+			dim sh as shell
+			meme_results=MEMEtmp.child("meme.xml")
+			cli="/Users/home/bin/mast "+ meme_results.shellpath+" "+genomefile.shellpath +nhmmerOptions+" -hit_list"
+			sh=New Shell
+			sh.mode=0
+			sh.TimeOut=-1
+			sh.execute cli
+			If sh.errorCode=0 then
+			WriteToSTDOUT (EndofLine+Sh.Result)
+			
+			
+			else
+			LogoWin.WriteToSTDOUT (EndOfLine + "MAST error code: "+Str(sh.errorCode)+EndOfLine)
+			WriteToSTDOUT (EndofLine+Sh.Result)
+			
+			End If
+			
+			
+			if MASTSettingsWin.AddAnnotationCheckBox.value then
+			Dim dlg as New SaveAsDialog
+			dlg.InitialDirectory=genomefile.Parent
+			dlg.promptText="Select where to save the modified genome file"
+			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+			dlg.Title="Save genome file"
+			dlg.Filter=FileTypes.genbank
+			outfile=dlg.ShowModal()
+			if outfile<>nil then
+			HmmGenSettingsWin.ReadOptions
+			if HmmGen then
+			if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+			if ubound(GenomeWin.HmmHitDescriptions)>0 then
+			GenomeWin.opengenbankfile(outFile)
+			genomeWin.ShowHit
+			WriteToSTDOUT (" done."+EndofLine)
+			end if
+			end if
+			end if
+			end if
+			end if
+			end if
 			
 		End Function
 	#tag EndMenuHandler
@@ -905,10 +968,10 @@ End
 	#tag Method, Flags = &h1
 		Protected Sub DrawLogo()
 		  'Information content per position as defined by Schneider et al, 1986
-		  ' 
+		  '
 		  ' Ii=2+sum(Fb,i*log2(Fb,i)),
 		  '
-		  'where i is the position within site, b refers to each of the four bases, 
+		  'where i is the position within site, b refers to each of the four bases,
 		  'and Fb,i is the frequency of each base at that position
 		  
 		  dim n,replicas, baseX, currentX,letterData as integer
@@ -1438,7 +1501,7 @@ End
 		        end if
 		        return true
 		      else
-		        WriteToSTDOUT (EndofLine+"HmmGen error Code: "+Str(sh.errorCode)+EndofLine)
+		        WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(sh.errorCode)+EndofLine)
 		        WriteToSTDOUT (EndofLine+Sh.Result)
 		        return false
 		      end if
@@ -1706,7 +1769,7 @@ End
 		    dim cli as string
 		    Dim sh As Shell
 		    
-		    cli="/Users/Home/bin/meme -nmotifs 1 -dna -o "+MEMEtmp.ShellPath+" "
+		    cli="/Users/Home/bin/meme -nmotifs 1 -dna -oc "+MEMEtmp.ShellPath+" "
 		    if Palindromic then
 		      cli=cli+"-pal "
 		    end if
@@ -1732,7 +1795,7 @@ End
 		      
 		    else
 		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "MEME error Code: "+Str(sh.errorCode)
+		      MsgBox "MEME error code: "+Str(sh.errorCode)
 		      
 		    end if
 		    
@@ -1791,7 +1854,7 @@ End
 		      return true
 		    else
 		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "nhmmer error Code: "+Str(sh.errorCode)
+		      MsgBox "nhmmer error code: "+Str(sh.errorCode)
 		      LogoWinToolbar.Item(2).Enabled=false
 		      return false
 		    end if

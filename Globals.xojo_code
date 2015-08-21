@@ -509,7 +509,7 @@ Protected Module Globals
 		  If sh.errorCode=0 then
 		    return true
 		  else
-		    LogoWin.WriteToSTDOUT (EndOfLine + "hmmbuild error Code: "+Str(sh.errorCode)+EndOfLine)
+		    LogoWin.WriteToSTDOUT (EndOfLine + "hmmbuild error code: "+Str(sh.errorCode)+EndOfLine)
 		    LogoWin.WriteToSTDOUT sh.result
 		    return false
 		  end if
@@ -530,7 +530,7 @@ Protected Module Globals
 		  if numbr=0 then
 		    return 0  'that's incorrect mathematically, but required for proper Iseq calculation
 		  else
-		    return log(numbr)/ln2 
+		    return log(numbr)/ln2
 		  end if
 		End Function
 	#tag EndMethod
@@ -1123,7 +1123,7 @@ Protected Module Globals
 		  If sh.errorCode=0 then
 		    return Sh.Result
 		  else
-		    LogoWin.WriteToSTDOUT (EndofLine+"Weblogo error Code: "+Str(sh.errorCode)+EndofLine)
+		    LogoWin.WriteToSTDOUT (EndofLine+"Weblogo error code: "+Str(sh.errorCode)+EndofLine)
 		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		    return ""
 		  end if
