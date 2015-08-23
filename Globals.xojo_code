@@ -1175,6 +1175,14 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		MASTpath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		MEMEpath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		nhmmerVersion As string
 	#tag EndProperty
 

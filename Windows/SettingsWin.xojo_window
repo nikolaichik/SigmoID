@@ -9,11 +9,11 @@ Begin Window SettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   280
+   Height          =   354
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   280
+   MaxHeight       =   420
    MaximizeButton  =   True
    MaxWidth        =   32000
    MenuBar         =   0
@@ -52,7 +52,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   240
+      Top             =   314
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -83,7 +83,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   240
+      Top             =   314
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -93,7 +93,7 @@ Begin Window SettingsWin
       Bold            =   False
       Caption         =   "Paths"
       Enabled         =   True
-      Height          =   202
+      Height          =   276
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -180,7 +180,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "nhmmer:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -215,7 +214,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "alimask:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -250,7 +248,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "hmmgen:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -371,7 +368,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   9
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "weblogo:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -449,7 +445,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   11
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "hmmbuild:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -505,6 +500,160 @@ Begin Window SettingsWin
          Visible         =   True
          Width           =   409
       End
+      Begin Label Label9
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   30
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   13
+         TabPanelIndex   =   0
+         Text            =   "MEME:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   220
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   80
+      End
+      Begin TextField MEMEPathField
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         CueText         =   "value"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   114
+         LimitText       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   14
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "~/meme/bin/meme"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   218
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   409
+      End
+      Begin Label Label10
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   30
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   15
+         TabPanelIndex   =   0
+         Text            =   "MAST:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   254
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   80
+      End
+      Begin TextField MASTPathField
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         CueText         =   "value"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   114
+         LimitText       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   16
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "~/meme/bin/mast"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   252
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   409
+      End
    End
 End
 #tag EndWindow
@@ -525,9 +674,11 @@ End
 		  LogoWin.alimaskpath=alimaskPathField.text
 		  LogoWin.nhmmerpath=nhmmerPathField.text
 		  LogoWin.hmmgenpath=hmmgenPathField.text
+		  MEMEpath=MEMEPathField.text
+		  MASTpath=MASTPathField.text
 		  weblogopath=weblogoPathField.text
 		  msgbox "Please note that settings are not saved between launches at the moment."
-		  self.close
+		  self.hide
 		  
 		End Sub
 	#tag EndEvent

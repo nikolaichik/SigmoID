@@ -256,6 +256,7 @@ End
 		  
 		  if LogoFile<>NIL then
 		    MEMEConverttoMEMEformat.enable
+		    MEMEMAST.enable
 		  end if
 		  
 		  FileSaveCheckedSites.Visible=false
@@ -285,6 +286,10 @@ End
 		  nhmmerpath=SettingsWin.nhmmerPathField.text
 		  weblogopath=SettingsWin.weblogoPathField.text
 		  hmmBuildPath=SettingsWin.hmmBuildPathField.text
+		  memepath=SettingsWin.memePathField.text
+		  mastpath=SettingsWin.mastPathField.text
+		  
+		  
 		  
 		  #if TargetWin32
 		    f=resources_f.child("alimask.exe")
@@ -306,6 +311,20 @@ End
 		      if f.exists then
 		        hmmBuildPath=f.ShellPath
 		        SettingsWin.hmmBuildPathField.text=hmmBuildPath
+		      end if
+		    end if
+		    f=resources_f.child("meme.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        MEMEpath=f.ShellPath
+		        SettingsWin.MEMEPathField.text=MEMEpath
+		      end if
+		    end if
+		    f=resources_f.child("mast.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        MASTpath=f.ShellPath
+		        SettingsWin.MASTPathField.text=MASTpath
 		      end if
 		    end if
 		  #endif
@@ -474,8 +493,43 @@ End
 		    allProgsFine=false
 		  end if
 		  
+		  
+		  'MEME
+		  WriteToSTDOUT (EndofLine+"Looking for MEME... ")
+		  cli=memePath+" -version"
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    WriteToSTDOUT (Sh.Result)
+		  else
+		    WriteToSTDOUT ("No MEME found. Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
+		  'MAST
+		  WriteToSTDOUT (EndofLine+"Looking for MAST... ")
+		  cli=MASTPath+" -version"
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    WriteToSTDOUT (Sh.Result)
+		  else
+		    WriteToSTDOUT ("No MAST found. Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
+		  
+		  
+		  
+		  
+		  
+		  
 		  'hmmgen
-		  WriteToSTDOUT (EndOfLine+"Checking the HmmGen script... ")
+		  WriteToSTDOUT ("Checking the HmmGen script... ")
 		  cli="python "+hmmGenPath+" -v"
 		  sh=New Shell
 		  sh.mode=0
@@ -645,15 +699,43 @@ End
 			end if
 			MASTSettingsWin.EnableRun
 			MASTSettingsWin.ShowModalWithin(self)
+			
 			'Genomefile=GetFolderItem(trim(MASTSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
 			if nhmmerOptions <> "" then
-			MEMEconvert
+			
+			MEMEconvert 'need to check for errors and bail out if any
+			
 			WriteToSTDOUT (EndofLine+"Running MAST...")
-			dim meme_results as folderitem
+			'dim meme_results as folderitem
 			dim cli as string
 			dim sh as shell
-			meme_results=MEMEtmp.child("meme.xml")
-			cli="/Users/home/bin/mast "+ meme_results.shellpath+" "+genomefile.shellpath +nhmmerOptions+" -hit_list"
+			'meme_results=MEMEtmp.child("meme.txt")
+			
+			'Convert genome file to fasta format:
+			dim FastaFile as FolderItem
+			dim outfile As folderitem
+			dim tis as TextInputStream
+			dim seqin as string
+			tis=genomefile.OpenAsTextFile
+			seqin=tis.ReadAll
+			tis.Close
+			
+			outfile=SpecialFolder.Temporary.child("FastaFile")
+			if outfile<>nil then
+			Dim s as TextOutputStream=TextOutputStream.Create(outfile)
+			if s<> NIL then
+			s.Writeline ">"+GenomeFile.Name
+			s.write CleanUp(rightb(seqin,len(seqin)-instrb(seqin,"ORIGIN")-7))
+			s.close
+			end if
+			
+			
+			end if
+			
+			
+			
+			
+			cli=MASTpath+" "+ memetmp.shellpath+" "+outfile.shellpath +nhmmerOptions+" -hit_list"
 			sh=New Shell
 			sh.mode=0
 			sh.TimeOut=-1
@@ -670,26 +752,141 @@ End
 			
 			
 			if MASTSettingsWin.AddAnnotationCheckBox.value then
-			Dim dlg as New SaveAsDialog
-			dlg.InitialDirectory=genomefile.Parent
-			dlg.promptText="Select where to save the modified genome file"
-			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-			dlg.Title="Save genome file"
-			dlg.Filter=FileTypes.genbank
-			outfile=dlg.ShowModal()
-			if outfile<>nil then
-			HmmGenSettingsWin.ReadOptions
-			if HmmGen then
-			if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-			if ubound(GenomeWin.HmmHitDescriptions)>0 then
-			GenomeWin.opengenbankfile(outFile)
+			'Dim dlg as New SaveAsDialog
+			'dlg.InitialDirectory=genomefile.Parent
+			'dlg.promptText="Select where to save the modified genome file"
+			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+			'dlg.Title="Save genome file"
+			'dlg.Filter=FileTypes.genbank
+			'outfile=dlg.ShowModal()
+			'if outfile<>nil then
+			'HmmGenSettingsWin.ReadOptions
+			'if HmmGen then
+			'if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+			'if ubound(GenomeWin.HmmHitDescriptions)>0 then
+			'GenomeWin.opengenbankfile(outFile)
+			'genomeWin.ShowHit
+			'WriteToSTDOUT (" done."+EndofLine)
+			'end if
+			'end if
+			'end if
+			'end if
+			'end if
+			
+			
+			'display the hits in the browser:
+			'MAST output format:
+			'# All non-overlapping hits in all sequences from "/Users/Home/3-2rez9/Pca32_10182014.fsa".
+			'# sequence_name motif hit_start hit_end score hit_p-value
+			'gnl|BSU|OA04_contig1 +1 151274 151294  2344.29 2.61e-09
+			'gnl|BSU|OA04_contig1 +1 2506223 2506243  2388.66 1.62e-09
+			'# mast meme.txt FastaFile -hit_list  -mt 0.0000001
+			
+			
+			redim GenomeWin.HmmHits(0)
+			redim GenomeWin.HmmHitDescriptions(0)
+			redim genomeWin.HmmHitNames(0)
+			
+			dim m,n,o,colonPos as integer
+			dim HitList,currentHit,HitInfo, hits2sort(0),hitloc as string
+			
+			HitList=replaceall(NthField(sh.result,"hit_p-value",2),"  "," ") 'remove double spaces in front of score
+			HitList=replaceall(NthField(sh.result,"hit_p-value",2),"  "," ") 'remove double spaces in front of score
+			HitList=replaceall(NthField(sh.result,"hit_p-value",2),"  "," ") 'remove double spaces in front of score
+			
+			HitList=trim(NthField(HitList,"# mast",1))
+			
+			'sort the hits according to genome position:
+			m=CountFields(HitList,EndOfLine.unix)
+			for n=1 to m
+			currentHit=nthfield(HitList,EndOfLine.unix,n)
+			'colonPos=instrb(currenthit,":")
+			hitloc=nthfield(currentHit," ",3)
+			if lenb(hitLoc)<8 then 'assuming genome length is less than 100Mb
+			for o=0 to 8-lenb(hitLoc)
+			hitloc="0"+hitloc
+			next
+			end if
+			hitloc=hitloc+":"+nthfield(currentHit," ",4)+"("+replace(nthfield(currentHit," ",2),"1","")+") score "+nthfield(currentHit," ",5)+" p-value "+nthfield(currentHit," ",6)
+			hits2sort.append hitloc
+			
+			next
+			hits2sort.Sort
+			m=ubound(hits2sort)
+			for n=1 to m
+			while left(hits2sort(n),1)="0"
+			hits2sort(n)=right(hits2sort(n),lenb(hits2sort(n))-1)
+			wend
+			next
+			
+			'add sorted hits and their info into genome browser arrays:
+			'hmmgen result:
+			'2233715:2233745](-)
+			'qualifiers:
+			'Key: bound_moiety, Value: ['HrpL alternative sigma factor']
+			'Key: gene, Value: ['hrpJ']
+			'Key: inference, Value: ['profile:nhmmer:3.1b1']
+			'Key: locus_tag, Value: ['OA04_20620']
+			'Key: note, Value: nhmmer score 12.8 E-value 1.2
+			'Key: regulatory_class, Value: ['promoter']
+			'type: regulatory
+			
+			for n=1 to ubound(hits2sort)
+			currentHit=hits2sort(n)
+			GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
+			HitInfo=currentHit
+			'HitName="Unknown_name"
+			'if instr(currenthit,"Key: gene")>0 then
+			''extract gene name
+			'Hitname=nthfield(currentHit,"Key: gene, Value: ['",2)
+			'Hitname=nthfield(HitName,"']",1)+" "
+			'end if
+			''add locus_tag
+			'Hitname=Hitname+nthfield(nthfield(currentHit,"Key: locus_tag, Value: ['",2),"']",1)+" "
+			
+			genomeWin.HmmHitDescriptions.append HitInfo
+			genomeWin.HmmHitNames.append "Unknown_name" 'HitName
+			
+			next
+			
+			'initialise array to select/deselect hits:
+			redim genomeWin.HmmHitChecked(ubound(hits2sort))
+			for n=1 to ubound(hits2sort)
+			genomeWin.HmmHitChecked(n)=true
+			next
+			genomeWin.AnyHitDeselected=false
+			
+			
+			
+			
+			if Ubound(genomeWin.HmmHits)>0 then
+			'if NOT ScanningGenome then
+			'WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
+			'end if
+			
+			WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
+			
+			'Set the genome map scrollbar:
+			Genomewin.SetScrollbar
+			
+			'Display the hit:
+			genomeWin.CurrentHit=1
+			Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
+			s0.Enabled=false 'first hit: there's no previous one
+			Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
+			s1.Title="1/"+str(UBound(genomeWin.HmmHits))
+			Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
+			s2.enabled=true
+			
+			GenomeWin.opengenbankfile(genomeFile)
 			genomeWin.ShowHit
 			WriteToSTDOUT (" done."+EndofLine)
 			end if
+			
 			end if
-			end if
-			end if
-			end if
+			
+			
+			
 			end if
 			
 		End Function
@@ -1759,7 +1956,7 @@ End
 		  
 		  
 		  'create a tmp dir to store MEME results:
-		  MEMEtmp=SpecialFolder.Temporary.child("MEMEtmp")
+		  MEMEtmp=SpecialFolder.Temporary.child("MEME.txt")
 		  
 		  if MEMEtmp<>NIL then
 		    if MEMEtmp.Exists then
@@ -1769,7 +1966,7 @@ End
 		    dim cli as string
 		    Dim sh As Shell
 		    
-		    cli="/Users/Home/bin/meme -nmotifs 1 -dna -oc "+MEMEtmp.ShellPath+" "
+		    cli=MEMEpath+" -nmotifs 1 -dna -text > "+MEMEtmp.ShellPath+" "
 		    if Palindromic then
 		      cli=cli+"-pal "
 		    end if
@@ -1784,10 +1981,10 @@ End
 		      WriteToSTDOUT (EndofLine+Sh.Result)
 		      
 		      'print the result in the log pane:
-		      dim res as FolderItem
+		      'dim res as FolderItem
 		      dim InStream As  TextInputStream
-		      res=MEMEtmp.child("meme.txt")
-		      InStream = res.OpenAsTextFile
+		      'res=MEMEtmp.child("meme.txt")
+		      InStream = MEMEtmp.OpenAsTextFile
 		      if InStream<>NIL then
 		        WriteToSTDOUT (EndofLine+InStream.ReadAll)
 		      end if

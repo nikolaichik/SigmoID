@@ -90,7 +90,6 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "More options:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -125,7 +124,6 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -279,7 +277,7 @@ Begin Window MASTSettingsWin
       Caption         =   "Add annotation to the genome"
       DataField       =   ""
       DataSource      =   ""
-      Enabled         =   False
+      Enabled         =   True
       Height          =   20
       HelpTag         =   "Fnnotation will be added with the HmmGen.py script"
       Index           =   -2147483648
@@ -292,7 +290,7 @@ Begin Window MASTSettingsWin
       LockRight       =   False
       LockTop         =   False
       Scope           =   0
-      State           =   0
+      State           =   1
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
@@ -301,7 +299,7 @@ Begin Window MASTSettingsWin
       TextUnit        =   0
       Top             =   175
       Underline       =   False
-      Value           =   False
+      Value           =   True
       Visible         =   True
       Width           =   301
    End
@@ -327,7 +325,6 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "MEME and MAST will be run sequentially"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -404,7 +401,7 @@ Begin Window MASTSettingsWin
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      Text            =   "0.000001"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -505,7 +502,7 @@ End
 #tag Events PushButton3
 	#tag Event
 		Sub Action()
-		  LogoWin.GenomeFile=GetOpenFolderItem("")
+		  LogoWin.GenomeFile=GetOpenFolderItem("GenBank")
 		  if LogoWin.GenomeFile<> Nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+LogoWin.GenomeFile.shellpath+" loaded.")
 		    LogoWin.LogoWinToolbar.Item(3).Enabled=true

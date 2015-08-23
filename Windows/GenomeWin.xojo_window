@@ -55,8 +55,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -66,8 +65,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   467
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -267,7 +265,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   354
       Value           =   3
       Visible         =   True
@@ -383,7 +380,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -400,9 +396,8 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -417,17 +412,15 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket SPSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -442,17 +435,15 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket UniProtSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -467,8 +458,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin Cocoa.NSSearchField NSSearchField1
@@ -586,9 +576,8 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -603,8 +592,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   20
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
 End
@@ -1932,21 +1920,6 @@ End
 
 	#tag Method, Flags = &h0
 		Sub gbk2fasta()
-		  'usage:
-		  'Genbank to .tbl converter <input_file> [options]
-		  '
-		  'This script allows to convert genbank file into .tbl file format Requires
-		  'Biopython 1.64 (or newer). Use '>' (stdout) to create a .tbl file
-		  '
-		  'positional arguments:
-		  'input_file         path to input Genbank file.
-		  '
-		  'optional arguments:
-		  '-h, --help         show this help message and exit
-		  '-f, --fasta        creates fasta from genbank file.
-		  '-t, --translation  adds translation qualifier to CDS features in .tbl
-		  '-v, --version      show program's version number and exit
-		  
 		  dim cli,gbk2tblPath as string
 		  Dim sh As Shell
 		  dim outfile As folderitem
