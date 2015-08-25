@@ -217,6 +217,7 @@ Inherits Application
 		  'TF.info - references for the binding site data and description of the protein
 		  'TF.hmm - calibrated hmm profile
 		  'TF.logodata - data from weblogo in case it's not installed
+		  'meme.txt - MEME output file in text format (optional)
 		  
 		  'if weblogo i present, .logodata isn't required when creating .sig file
 		  
@@ -337,6 +338,17 @@ Inherits Application
 		              else
 		                msgbox sigfolder.displayname+" folder is missing some files!"
 		                return
+		              end if
+		              
+		              file2copy=sigFolder.child("meme.txt")                     'meme.txt
+		              if file2copy<>Nil AND file2copy.exists then
+		                CopyFileToVV(file2copy,SigFileVV)
+		                
+		                If file2copy.LastErrorCode <> 0 Then
+		                  msgbox "File copy error"
+		                End If
+		              else
+		                'this file is optional
 		              end if
 		              
 		              'generate logodata and save it:
@@ -463,6 +475,9 @@ Inherits Application
 		21. title case in menus
 		22. text search glitch: searching with short upper case query (eg FNR) will pick up CDS with these letters in translation
 		23. add 'GoTo hit # ' menu
+		24. add meme results to .sig files and check for these when launching MAST...
+		25. Check background frequences influence on MAST search.
+		26. Add 'Open sig file' menu ? (currently only fasta files could be opened!)
 	#tag EndNote
 
 	#tag Note, Name = Linux details

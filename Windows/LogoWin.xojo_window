@@ -565,6 +565,30 @@ End
 		    allProgsFine=false
 		  end if
 		  
+		  'mastgen
+		  WriteToSTDOUT ("Checking the MastGen script... ")
+		  cli="python "+MastGenPath+" -v"
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(nthfield((Sh.Result),EndOfLine,1),"MastGen")>0 then
+		      if CountFields(Sh.Result,EndOfLine)=2 then
+		        WriteToSTDOUT (s)
+		        hmmg=true
+		        'else
+		        'msgbox str(CountFields(Sh.Result,EndOfLine))
+		      End If
+		    end if
+		  end if
+		  if Not hmmg then
+		    WriteToSTDOUT ("MastGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine)
+		    WriteToSTDOUT (EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
 		  'TermGen
 		  WriteToSTDOUT ("Checking the TermGen script... ")
 		  cli="python "+TermGenPath+" -v"
@@ -699,6 +723,7 @@ End
 
 	#tag MenuHandler
 		Function MEMEMAST() As Boolean Handles MEMEMAST.Action
+			dim memeResultAvailable as boolean
 			
 			if GenomeFile<>Nil then
 			MASTSettingsWin.GenomeField.text=GenomeFile.ShellPath
@@ -713,8 +738,36 @@ End
 			MASTSettingsWin.ShowModalWithin(self)
 			
 			if nhmmerOptions <> "" then
+			'check if we have meme file already within the .sig
+			if SigFileOpened then
+			dim memefile as FolderItem
+			memefile=LogoFile.parent.child("MEME.txt")
+			if memefile<>NIL and memefile.Exists then
+			memefile.CopyFileTo(SpecialFolder.Temporary)
+			MEMEtmp=SpecialFolder.Temporary.child("MEME.txt")
+			if memetmp<>nil then
+			memeResultAvailable=true
+			WriteToSTDOUT (EndofLine+"MEME results from the .sig file will be used.")
+			end if
+			else
+			WriteToSTDOUT (EndofLine+"No MEME result file in the .sig, so have to run MEME...")
 			
-			 if MEMEconvert = 0 then
+			if MEMEconvert = 0 then
+			memeResultAvailable=true
+			end if
+			
+			end if
+			
+			else
+			if MEMEconvert = 0 then
+			memeResultAvailable=true
+			end if
+			
+			end if
+			
+			
+			
+			if memeResultAvailable then
 			
 			MASTsearch
 			
@@ -749,6 +802,7 @@ End
 			'remove hits within CDS:
 			dim HitCount,Featurecount as integer
 			dim m,n as integer
+			WriteToSTDOUT (EndofLine+"Filtering out hits within ORFs...")
 			
 			GenomeWin.opengenbankfile(genomeFile)
 			
@@ -769,7 +823,7 @@ End
 			'end if
 			next 'n
 			next 'm
-			
+			WriteToSTDOUT ("  "+str(HitCount-ubound(genomeWin.HmmHits))+" hits within ORF removed.") 
 			
 			if Ubound(genomeWin.HmmHits)>0 then
 			'if NOT ScanningGenome then
@@ -1741,7 +1795,7 @@ End
 		          'nhmmerSettingsWin.BitScoreField.Text=mid(nhmmerSettingsWin.TCvalue.text,2,len(nhmmerSettingsWin.GAvalue.text)-2)
 		        end select
 		      next
-		      'HmmGen options
+		      'HmmGen and MastGen options
 		      HmmGenSettingsWin.PalindromicBox.value=False
 		      palindromic=false                           'enable the "Palindromise" function
 		      HmmGenSettingsWin.IntergenicBox.value=False
@@ -1771,6 +1825,25 @@ End
 		          HmmGenSettingsWin.ValueField.text=NthField(theOption,"#",2)
 		        end select
 		      next
+		      
+		      MastGenSettingsWin.PalindromicBox.value=HmmGenSettingsWin.PalindromicBox.value
+		      MastGenSettingsWin.IntergenicBox.value=HmmGenSettingsWin.IntergenicBox.value
+		      MastGenSettingsWin.AddQualifierBox.value=HmmGenSettingsWin.AddQualifierBox.value
+		      MastGenSettingsWin.NextLocusBox.value=HmmGenSettingsWin.NextLocusBox.value
+		      MastGenSettingsWin.lengthField.text=HmmGenSettingsWin.lengthField.text
+		      MastGenSettingsWin.FeatureCombo.Text=HmmGenSettingsWin.FeatureCombo.Text
+		      MastGenSettingsWin.KeyField.text=HmmGenSettingsWin.KeyField.text
+		      MastGenSettingsWin.ValueField.text=HmmGenSettingsWin.ValueField.text
+		      
+		      
+		      'MASTgen p-value
+		      if instr(ProfileSettings,"mastGen.-V")>0 then
+		        theOption=NthField(ProfileSettings,"mastGen.-V",2)
+		        theOption=trim(NthField(TheOption," ",1))
+		        MastGenSettingsWin.PvalueField.text=theOption
+		        MastSettingsWin.PvalueField.text=theOption
+		      end if
+		      
 		    else
 		      SigFileOpened=false
 		      nhmmerSettingsWin.AddAnnotationCheckBox.value=false
@@ -2240,7 +2313,7 @@ End
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    WriteToSTDOUT (EndofLine+EndofLine+"Running meme...")
+		    WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
 		    sh.execute cli
 		    If sh.errorCode=0 then
 		      WriteToSTDOUT (EndofLine+Sh.Result)
