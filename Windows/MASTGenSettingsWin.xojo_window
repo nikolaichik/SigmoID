@@ -791,17 +791,14 @@ End
 		      else
 		        opt=opt+" -q "+chr(34)+trim(keyfield.text)+chr(34)+"#"+chr(34)+trim(valuefield.text)
 		      end if
-		      opt=opt+chr(34)+" "+chr(34)+"inference"+chr(34)+"#"+chr(34)+"profile:nhmmer:"+nhmmerVersion+chr(34)
+		      opt=opt+chr(34)+" "+chr(34)+"inference"+chr(34)+"#"+chr(34)+"profile:MAST:"+MASTVersion+chr(34)
 		      
 		    else
 		      msgbox "Key and/or value are not provided for the qualifier: ignoring..."
 		    end if
 		  else
 		    'add just the inference qualifier:
-		    opt=opt+" -q "+chr(34)+"inference"+chr(34)+"#"+chr(34)+"profile:nhmmer:"+nhmmerVersion+chr(34)
-		    
-		    'opt=opt+" -q{"+chr(34)+"Inference"+chr(34)+":"+chr(34)+"profile:nhmmer:"+nhmmerVersion+chr(34)+"}" 'chr(34) gives "
-		    'opt=opt+" -q "+chr(34)+trim(keyfield.text)+chr(34)+"#"+chr(34)+trim(valuefield.text)+chr(34)'+"}" 'chr(34) gives "
+		    opt=opt+" -q "+chr(34)+"inference"+chr(34)+"#"+chr(34)+"profile:MAST:"+MASTVersion+chr(34)
 		    
 		  end if
 		  

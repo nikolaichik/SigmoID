@@ -529,6 +529,7 @@ End
 		  sh.execute cli
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT (Sh.Result)
+		    MASTVersion=trim(Sh.Result)
 		  else
 		    WriteToSTDOUT ("No MAST found. Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
@@ -2153,7 +2154,7 @@ End
 		    if MASTResultFile<>nil then
 		      Dim tos as TextOutputStream
 		      tos=TextOutputStream.Create(MASTResultFile)
-		      tos.Write Sh.Result 
+		      tos.Write trim(Sh.Result)
 		      tos.close
 		    else
 		      msgbox "Can't create a file to store MAST results!"
