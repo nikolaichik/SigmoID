@@ -455,12 +455,14 @@ Inherits Application
 		12. add Save Genome menuitem
 		13. Prompt for saving edited .sig info and options (Save as only)! 
 		14. if a CDS is selected, Cmd-C should copy the AA, not DNA sequence
-		16. add feature menu?
-		17. add scrolling/selection in detail view
+		16. add feature menu? (Add new feature from current hit, etc.)
+		17. add search menu with all search-related stuff
+		18. add scrolling/selection in detail view
 		19. when a gene is selected, blastN/blastX should be in menu instead of blastp
 		20. copies wrong sequence of DspF
 		21. title case in menus
 		22. text search glitch: searching with short upper case query (eg FNR) will pick up CDS with these letters in translation
+		23. add 'GoTo hit # ' menu
 	#tag EndNote
 
 	#tag Note, Name = Linux details

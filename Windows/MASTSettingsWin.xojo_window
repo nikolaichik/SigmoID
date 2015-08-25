@@ -9,7 +9,7 @@ Begin Window MASTSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   247
+   Height          =   333
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -45,11 +45,11 @@ Begin Window MASTSettingsWin
       Italic          =   False
       Left            =   115
       LimitText       =   0
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   False
+      LockTop         =   True
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -80,11 +80,11 @@ Begin Window MASTSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   False
+      LockTop         =   True
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -114,11 +114,11 @@ Begin Window MASTSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   False
+      LockTop         =   True
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -155,11 +155,11 @@ Begin Window MASTSettingsWin
       Italic          =   False
       Left            =   115
       LimitText       =   0
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   False
+      LockTop         =   True
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -204,7 +204,7 @@ Begin Window MASTSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   207
+      Top             =   293
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -235,7 +235,7 @@ Begin Window MASTSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   207
+      Top             =   293
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -254,11 +254,11 @@ Begin Window MASTSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   434
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   False
+      LockTop         =   True
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -270,38 +270,6 @@ Begin Window MASTSettingsWin
       Underline       =   False
       Visible         =   True
       Width           =   80
-   End
-   Begin CheckBox AddAnnotationCheckBox
-      AutoDeactivate  =   True
-      Bold            =   False
-      Caption         =   "Add annotation to the genome"
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   "Fnnotation will be added with the HmmGen.py script"
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      Scope           =   0
-      State           =   1
-      TabIndex        =   15
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   175
-      Underline       =   False
-      Value           =   True
-      Visible         =   True
-      Width           =   301
    End
    Begin Label Label4
       AutoDeactivate  =   True
@@ -412,6 +380,130 @@ Begin Window MASTSettingsWin
       Visible         =   True
       Width           =   166
    End
+   Begin GroupBox GroupBox1
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   ""
+      Enabled         =   True
+      Height          =   109
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   20
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   170
+      Underline       =   False
+      Visible         =   True
+      Width           =   494
+      Begin CheckBox MaskWithinORFCheckBox
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "Mask hits within ORFs"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   "Fnnotation will be added with the HmmGen.py script"
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   66
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         Scope           =   0
+         State           =   1
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   209
+         Underline       =   False
+         Value           =   True
+         Visible         =   True
+         Width           =   239
+      End
+      Begin CheckBox AddAnnotationCheckBox
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "Add annotation to the genome"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   "Fnnotation will be added with the HmmGen.py script"
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   65
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         Scope           =   0
+         State           =   0
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   241
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         Width           =   239
+      End
+      Begin CheckBox ShowHitsCheckBox
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "Show hits in browser"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   40
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         State           =   1
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   177
+         Underline       =   False
+         Value           =   True
+         Visible         =   True
+         Width           =   237
+      End
+   End
 End
 #tag EndWindow
 
@@ -464,7 +556,7 @@ End
 		  LogoWin.nhmmeroptions=PNO
 		  
 		  Exception err
-		    ExceptionHandler(err,"NhmmerSettingsWin:ReadOptions")
+		    ExceptionHandler(err,"MASTSettingsWin:ReadOptions")
 		End Sub
 	#tag EndMethod
 
@@ -532,6 +624,33 @@ End
 		Sub TextChange()
 		  
 		  EnableRun
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MaskWithinORFCheckBox
+	#tag Event
+		Sub Action()
+		  if me.value then
+		    AddAnnotationCheckBox.value=false
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events AddAnnotationCheckBox
+	#tag Event
+		Sub Action()
+		  if me.value then
+		    MaskWithinORFCheckBox.value=false
+		  end if
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ShowHitsCheckBox
+	#tag Event
+		Sub Action()
+		  MaskWithinORFCheckBox.enabled=me.value
+		  AddAnnotationCheckBox.enabled=me.value
 		End Sub
 	#tag EndEvent
 #tag EndEvents
