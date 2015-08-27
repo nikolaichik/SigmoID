@@ -292,6 +292,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem ViewMEMEresults
+         SpecialMenu = 0
+         Text = "MEME data"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem Separator1
          SpecialMenu = 0
          Text = "-"

@@ -233,12 +233,14 @@ End
 		    ViewHmmProfile.Enabled=true
 		    ViewLogo.enabled=true
 		    ViewSequences.enabled=true
+		    ViewMEMEresults.enabled=true
 		    FileExtendBindingSites.enabled=true
 		    FileSaveLogo.enabled=true
 		  else
 		    ViewAlignmentInfo.enabled=false
 		    ViewHmmerSettings.enabled=false
 		    ViewHmmProfile.Enabled=false
+		    ViewMEMEresults.enabled=false
 		    FileExtendBindingSites.enabled=false
 		    if sequences<>"" then
 		      ViewSequences.enabled=true
@@ -900,6 +902,13 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ViewMEMEresults() As Boolean Handles ViewMEMEresults.Action
+			ChangeView("MEMEresults")
+			Return True
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ViewSequences() As Boolean Handles ViewSequences.Action
 			ChangeView("Sequences")
 			
@@ -1013,6 +1022,7 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
+		    ViewMEMEresults.checked=false
 		    'LogoCanvas.visible=true
 		    'LogoCanvas.Enabled=true
 		    'Informer.visible=false
@@ -1028,6 +1038,7 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
+		    ViewMEMEresults.checked=false
 		    'LogoCanvas.visible=false
 		    'LogoCanvas.Enabled=false
 		    'Informer.visible=true
@@ -1044,6 +1055,7 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
+		    ViewMEMEresults.checked=false
 		    Informer.text=Info
 		    TopPanel.value=0
 		    informer.visible=true
@@ -1060,6 +1072,7 @@ End
 		    ViewHideViewer.Checked=true
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
+		    ViewMEMEresults.checked=false
 		    'LogoCanvas.visible=false
 		    'LogoCanvas.Enabled=false
 		    'Informer.visible=false
@@ -1073,6 +1086,7 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=true
 		    ViewHmmProfile.Checked=false
+		    ViewMEMEresults.checked=false
 		    Informer.text=ProfileSettings
 		    TopPanel.visible=true
 		    TopPanel.Value=0
@@ -1089,7 +1103,25 @@ End
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=False
 		    ViewHmmProfile.Checked=true
+		    ViewMEMEresults.checked=false
 		    Informer.text=HmmProfile
+		    TopPanel.Value=0
+		    TopPanel.visible=true
+		    informer.visible=true
+		    'LogoCanvas.visible=false
+		    'LogoCanvas.Enabled=false
+		    'Informer.visible=true
+		    'Informer.enabled=true
+		    DownshiftLog true
+		  case "MEMEresults"
+		    ViewLogo.Checked=false
+		    ViewSequences.Checked=false
+		    ViewAlignmentInfo.checked=false
+		    ViewHideViewer.Checked=false
+		    ViewHmmerSettings.Checked=False
+		    ViewHmmProfile.Checked=true
+		    ViewMEMEresults.checked=false
+		    Informer.text=MEMEdata
 		    TopPanel.Value=0
 		    TopPanel.visible=true
 		    informer.visible=true
@@ -1759,6 +1791,16 @@ End
 		        inStream.close
 		      else
 		        msgbox "Can't read hmm profile"
+		      end if
+		      
+		      f=vv.root.child("meme.txt")      'meme data
+		      InStream = f.OpenAsTextFile
+		      if InStream <>nil then
+		        MEMEdata=inStream.ReadAll
+		        inStream.close
+		      else
+		        'meme data is optional, so the warning goes to the log:
+		        WriteToSTDOUT(LineEnd+"No MEME data is present in this .sig file")
 		      end if
 		      
 		      f=vv.root.child(basename+".logodata") 'Logo data
@@ -2735,6 +2777,10 @@ End
 
 	#tag Property, Flags = &h1
 		Protected MASTResultFile As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected MEMEdata As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
