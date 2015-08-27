@@ -1840,7 +1840,7 @@ End
 		      'MASTgen p-value
 		      if instr(ProfileSettings,"mastGen.-V")>0 then
 		        theOption=NthField(ProfileSettings,"mastGen.-V",2)
-		        theOption=trim(NthField(TheOption," ",1))
+		        theOption=NthField(trim(TheOption),EndOfLine.unix,1)
 		        MastGenSettingsWin.PvalueField.text=theOption
 		        MastSettingsWin.PvalueField.text=theOption
 		      end if
@@ -1996,7 +1996,7 @@ End
 		        
 		        'display the hits in the browser:
 		        if MastGenSettingsWin.GenomeBrowserCheckBox.value then
-		          
+		          'MastSettingsWin.AddAnnotationCheckBox.value
 		          
 		          redim GenomeWin.HmmHits(0)
 		          redim GenomeWin.HmmHitDescriptions(0)
@@ -2045,7 +2045,7 @@ End
 		            GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
 		            HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
 		            HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
-		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),Endofline,1)
+		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"MAST ",2),Endofline,1)
 		            HitName=""
 		            if instr(currenthit,"Key: gene")>0 then
 		              'extract gene name
@@ -2167,27 +2167,7 @@ End
 		  End If
 		  
 		  
-		  if MASTSettingsWin.ShowHitsCheckBox.value then
-		    'Dim dlg as New SaveAsDialog
-		    'dlg.InitialDirectory=genomefile.Parent
-		    'dlg.promptText="Select where to save the modified genome file"
-		    'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-		    'dlg.Title="Save genome file"
-		    'dlg.Filter=FileTypes.genbank
-		    'outfile=dlg.ShowModal()
-		    'if outfile<>nil then
-		    'HmmGenSettingsWin.ReadOptions
-		    'if HmmGen then
-		    'if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		    'if ubound(GenomeWin.HmmHitDescriptions)>0 then
-		    'GenomeWin.opengenbankfile(outFile)
-		    'genomeWin.ShowHit
-		    'WriteToSTDOUT (" done."+EndofLine)
-		    'end if
-		    'end if
-		    'end if
-		    'end if
-		    'end if
+		  if MASTSettingsWin.MaskWithinORFCheckBox.value then
 		    
 		    
 		    'display the hits in the browser:
@@ -2228,6 +2208,7 @@ End
 		      
 		    next
 		    hits2sort.Sort
+		    
 		    m=ubound(hits2sort)
 		    for n=1 to m
 		      while left(hits2sort(n),1)="0"

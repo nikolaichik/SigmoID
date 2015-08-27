@@ -168,7 +168,7 @@ Inherits Application
 			dlg.promptText="Select a fasta file"
 			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
 			dlg.Title="Open alignment"
-			dlg.Filter=FileTypes.Fasta
+			dlg.Filter="FileTypes.Fasta;FileTypes.Sig_file"
 			tmpfile=dlg.ShowModal 'within(self)
 			
 			logowin.LoadAlignment(tmpFile)

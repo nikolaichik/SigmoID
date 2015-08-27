@@ -546,6 +546,7 @@ End
 		  if PvalueCheck.Value then
 		    if val(PvalueField.text)>0 then    'if cutoff isn't entered, run without it
 		      PNO=PNO+" -mt "+trim(PvalueField.text)
+		      MASTGenSettingsWin.PvalueField.text=PvalueField.text
 		    end if
 		  end if
 		  
