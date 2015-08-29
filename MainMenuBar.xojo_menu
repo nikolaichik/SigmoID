@@ -348,6 +348,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem MEMERunMastGenscript
+         SpecialMenu = 0
+         Text = "Run MastGen script"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
    End
    Begin MenuItem GenomeMenu
       SpecialMenu = 0

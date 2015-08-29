@@ -415,7 +415,7 @@ Begin Window MASTSettingsWin
          DataSource      =   ""
          Enabled         =   True
          Height          =   20
-         HelpTag         =   "Fnnotation will be added with the HmmGen.py script"
+         HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
@@ -447,7 +447,7 @@ Begin Window MASTSettingsWin
          DataSource      =   ""
          Enabled         =   True
          Height          =   20
-         HelpTag         =   "Fnnotation will be added with the HmmGen.py script"
+         HelpTag         =   "Annotation will be added with the HmmGen.py script"
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False

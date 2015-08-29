@@ -740,7 +740,7 @@ End
 			MASTSettingsWin.EnableRun
 			MASTSettingsWin.ShowModalWithin(self)
 			
-			if nhmmerOptions <> "" then
+			if nhmmerOptions <> "" then    'lazy to rename into MASToptions
 			'check if we have meme file already within the .sig
 			if SigFileOpened then
 			dim memefile as FolderItem
@@ -851,8 +851,62 @@ End
 			WriteToSTDOUT (" done."+EndofLine)
 			end if
 			
+			else
+			
+			if Ubound(genomeWin.HmmHits)>0 then
+			'if NOT ScanningGenome then
+			'WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
+			'end if
+			
+			WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
+			
+			GenomeWin.opengenbankfile(genomeFile)
+			
+			'Set the genome map scrollbar:
+			Genomewin.SetScrollbar
+			
+			'Display the hit:
+			genomeWin.CurrentHit=1
+			Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
+			s0.Enabled=false 'first hit: there's no previous one
+			Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
+			s1.Title="1/"+str(UBound(genomeWin.HmmHits))
+			Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
+			s2.enabled=true
+			
+			genomeWin.ShowHit
+			WriteToSTDOUT (" done."+EndofLine)
+			end if
+			
 			end if
 			end if
+			end if
+			end if
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function MEMERunMastGenscript() As Boolean Handles MEMERunMastGenscript.Action
+			HmmGenOptions=""
+			MASTGenSettingsWin.showmodalwithin(self)
+			if MASTGenSettingsWin.OKpressed then
+			if GenomeFile<>Nil then
+			dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+			outfile=GetSaveFolderItem("????",fn)
+			if outfile<>nil then
+			if MastGen then
+			if MASTGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+			if ubound(GenomeWin.HmmHitDescriptions)>0 then
+			GenomeWin.opengenbankfile(outFile)
+			genomeWin.ShowHit
+			WriteToSTDOUT (" done."+EndofLine)
+			end if
+			end if
+			end if
+			end if
+			else
+			MsgBox "No genome file selected. Have you run MAST search?"
 			end if
 			end if
 			
@@ -2209,7 +2263,7 @@ End
 		  End If
 		  
 		  
-		  if MASTSettingsWin.MaskWithinORFCheckBox.value then
+		  if MASTSettingsWin.ShowHitsCheckBox.value AND MASTSettingsWin.AddAnnotationCheckBox.value=false then
 		    
 		    
 		    'display the hits in the browser:

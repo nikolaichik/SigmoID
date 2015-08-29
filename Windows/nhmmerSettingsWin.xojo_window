@@ -919,7 +919,7 @@ Begin Window nhmmerSettingsWin
       DataSource      =   ""
       Enabled         =   False
       Height          =   20
-      HelpTag         =   "Fnnotation will be added with the HmmGen.py script"
+      HelpTag         =   "Annotation will be added with the HmmGen.py script"
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
