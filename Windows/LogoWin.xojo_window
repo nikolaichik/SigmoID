@@ -2363,6 +2363,9 @@ End
 		  'copy alignment out of virtual volume:
 		  dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
 		  if alignment_tmp<>NIL then
+		    if alignment_tmp.Exists then
+		      alignment_tmp.Delete
+		    end if
 		    LogoFile.CopyFileTo alignment_tmp
 		    
 		  else
@@ -2382,11 +2385,12 @@ End
 		    dim cli as string
 		    Dim sh As Shell
 		    
-		    cli=MEMEpath+" -nmotifs 1 -dna -text > "+MEMEtmp.ShellPath+" "
+		    cli=MEMEpath+" -nmotifs 1 -dna -text "
 		    if Palindromic then
 		      cli=cli+"-pal "
 		    end if
 		    cli=cli+alignment_tmp.ShellPath
+		    cli=cli+" > "+MEMEtmp.ShellPath
 		    
 		    sh=New Shell
 		    sh.mode=0
