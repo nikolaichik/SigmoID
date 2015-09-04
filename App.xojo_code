@@ -168,7 +168,7 @@ Inherits Application
 			dlg.promptText="Select a fasta file"
 			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
 			dlg.Title="Open alignment"
-			dlg.Filter="FileTypes.Fasta;FileTypes.Sig_file"
+			dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
 			tmpfile=dlg.ShowModal 'within(self)
 			
 			logowin.LoadAlignment(tmpFile)
@@ -306,6 +306,9 @@ Inherits Application
 		          dlg.Filter=FileTypes.Sig_file
 		          SigFile=dlg.ShowModal()
 		          If SigFile <> Nil then
+		            if SigFile.exists then
+		              SigFile.Delete
+		            end if
 		            SigFileVV = SigFile.CreateVirtualVolume
 		            If SigFileVV <> nil Then
 		              'first copy the existing files:
@@ -404,8 +407,8 @@ Inherits Application
 		              f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
 		              if f2<>nil then
 		                if hmmbuild(stock.ShellPath,f2.ShellPath) then
-		                  if file2copy.exists then
-		                    if file2copy<>Nil then
+		                  if f2.exists then
+		                    if f2<>Nil then
 		                      CopyFileToVV(F2,SigFileVV)
 		                      logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
 		                    else
@@ -415,7 +418,8 @@ Inherits Application
 		                    beep
 		                  end if
 		                else
-		                  'error message handled by hmmbuild
+		                  'error message handled by hmmbuild most of the time
+		                  logowin.WriteToSTDOUT(EndOfLine+"hmmbuild error")
 		                  return
 		                end if
 		              else
@@ -462,7 +466,7 @@ Inherits Application
 		2. blastx search
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		4. Clear description of the cleanup the scripts do.
-		9. Prepare submission
+		9. Prepare submission menu?
 		11. deleting gene name leaves /gene=" ? (happened once)
 		12. add Save Genome menuitem
 		13. Prompt for saving edited .sig info and options (Save as only)! 
@@ -478,6 +482,10 @@ Inherits Application
 		24. add meme results to .sig files and check for these when launching MAST...
 		25. Check background frequences influence on MAST search.
 		26. Add 'Open sig file' menu ? (currently only fasta files could be opened!)
+		27. closing the last search tab in genome browser should hide htmlviewer control
+		28. Add preference/option to set which database use with BLAST (same for taxonomy restriction)
+		29. Correct HmmGenSettingsWin: disable Run button until score is set
+		30. alternative start codons are not translated as methionin
 	#tag EndNote
 
 	#tag Note, Name = Linux details

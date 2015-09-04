@@ -266,7 +266,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   3
+      Value           =   2
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -386,7 +386,7 @@ Begin Window GenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   0
+      Top             =   2
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -675,6 +675,21 @@ End
 		  Else
 		    return true
 		  end
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Function MouseWheel(X As Integer, Y As Integer, DeltaX as Integer, DeltaY as Integer) As Boolean
+		  if deltaX>300 then
+		    msgbox "swipe left!"
+		    return true
+		  end
+		  
+		  if deltaX<-300 then
+		    msgbox "swipe right!"
+		    return true
+		  end
+		  
 		End Function
 	#tag EndEvent
 
@@ -4719,6 +4734,8 @@ End
 		  'MapScrollerH.value=MapScrollerH.value+deltaX
 		  'MapScrollerV.value=MapScrollerV.value+deltaY
 		  '
+		  
+		  
 		  
 		End Function
 	#tag EndEvent

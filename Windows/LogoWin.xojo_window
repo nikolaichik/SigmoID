@@ -25,7 +25,7 @@ Begin Window LogoWin
    Resizeable      =   True
    Title           =   "SigmoID"
    Visible         =   True
-   Width           =   774
+   Width           =   1000
    Begin Toolbar1 LogoWinToolbar
       Enabled         =   True
       Height          =   32
@@ -84,7 +84,7 @@ Begin Window LogoWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   774
+      Width           =   1000
    End
    Begin Canvas Splitter
       AcceptFocus     =   False
@@ -98,7 +98,7 @@ Begin Window LogoWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   775
+      Left            =   1001
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -112,7 +112,7 @@ Begin Window LogoWin
       Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   774
+      Width           =   1000
    End
    Begin PagePanel TopPanel
       AutoDeactivate  =   True
@@ -121,7 +121,7 @@ Begin Window LogoWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   775
+      Left            =   1001
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -133,9 +133,37 @@ Begin Window LogoWin
       TabIndex        =   4
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   0
+      Value           =   1
       Visible         =   True
-      Width           =   774
+      Width           =   1000
+      Begin Canvas LogoCanvas
+         AcceptFocus     =   False
+         AcceptTabs      =   False
+         AutoDeactivate  =   True
+         Backdrop        =   0
+         DoubleBuffer    =   True
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   175
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "TopPanel"
+         Left            =   1001
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Top             =   0
+         Transparent     =   True
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   1000
+      End
       Begin TextArea Informer
          AcceptTabs      =   False
          Alignment       =   0
@@ -154,7 +182,7 @@ Begin Window LogoWin
          Index           =   -2147483648
          InitialParent   =   "TopPanel"
          Italic          =   False
-         Left            =   775
+         Left            =   1001
          LimitText       =   0
          LineHeight      =   0.0
          LineSpacing     =   1.0
@@ -182,35 +210,7 @@ Begin Window LogoWin
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   False
-         Width           =   774
-      End
-      Begin Canvas LogoCanvas
-         AcceptFocus     =   False
-         AcceptTabs      =   False
-         AutoDeactivate  =   True
-         Backdrop        =   0
-         DoubleBuffer    =   True
-         Enabled         =   True
-         EraseBackground =   True
-         Height          =   175
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "TopPanel"
-         Left            =   775
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   2
-         TabStop         =   True
-         Top             =   0
-         Transparent     =   True
-         UseFocusRing    =   True
-         Visible         =   True
-         Width           =   774
+         Width           =   1000
       End
    End
 End
@@ -3234,19 +3234,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Informer
-	#tag Event
-		Sub Open()
-		  if FixedFont="" then
-		    dim ff as string
-		    ff=SetDefaultFonts(true)
-		    FixedFont=NthField(ff,";",1)
-		  end if
-		  
-		  me.TextFont=FixedFont
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events LogoCanvas
 	#tag Event
 		Sub Open()
@@ -3331,6 +3318,19 @@ End
 	#tag Event
 		Sub MouseEnter()
 		  Me.MouseCursor=System.Cursors.StandardPointer
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Informer
+	#tag Event
+		Sub Open()
+		  if FixedFont="" then
+		    dim ff as string
+		    ff=SetDefaultFonts(true)
+		    FixedFont=NthField(ff,";",1)
+		  end if
+		  
+		  me.TextFont=FixedFont
 		End Sub
 	#tag EndEvent
 #tag EndEvents
