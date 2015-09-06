@@ -870,6 +870,42 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Stockholm(AlignmentFile as folderitem, StockholmFile as folderitem, cutoffs as string)
+		  'convert alignment to Stockholm format:
+		  
+		  dim InStream As TextInputStream
+		  dim OutStream As TextOutputStream
+		  dim aline as string
+		  
+		  OutStream = TextOutputStream.Create(StockholmFile)
+		  InStream = AlignmentFile.OpenAsTextFile
+		  
+		  outstream.WriteLine "# STOCKHOLM 1.0"         'Stockholm header
+		  if cutoffs<>"" then
+		    outstream.Write cutoffs+EndOfLine
+		  end if
+		  
+		  dim block as string = ""
+		  dim xtra as string = "____________________"
+		  while not InStream.EOF                        'sequence blocks
+		    aLine=InStream.readLine
+		    if left(aLine,1)=">" then                    'seq title
+		      aline=ReplaceAll(aline," ","_")             'hmmbuild doesn't like spaces
+		      aline=aline+xtra                            'equalise lengths
+		      block=mid(aline,1,20)+" "
+		    else
+		      outstream.writeline block+aline
+		      block=""
+		    end if
+		  wend
+		  outstream.WriteLine "//"                       'Stockholm footer
+		  instream.Close
+		  outstream.close
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Translate3(Gene As string, code as integer) As string
 		  dim  m,n,GeneLength,aa0,up  as integer
 		  dim protein,codon,codons,aa1st as string
@@ -1292,6 +1328,21 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MASTpath"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MASTVersion"
+			Group="Behavior"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MEMEpath"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"

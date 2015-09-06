@@ -647,7 +647,7 @@ End
 		  
 		  FileSaveAlignmentSelection.visible=false
 		  FileSaveLogo.visible=false
-		  FileScanGenome.Visible=false
+		  GenomeScanGenome.Visible=false
 		  
 		  
 		  
@@ -1120,7 +1120,6 @@ End
 		  const URLend as string= "&DATABASE=nr&PROGRAM=blastp&HITLIST_SIZE=100&CDD_SEARCH=true&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
-		  
 		  
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"

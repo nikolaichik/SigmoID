@@ -376,30 +376,7 @@ Inherits Application
 		              
 		              'palindrome handling not done yet, palindromize manually!
 		              
-		              'convert alignment to Stockholm format:
-		              dim outstream As TextOutputStream
-		              outstream = TextOutputStream.Create(stock)
-		              InStream = AlignmentFile.OpenAsTextFile
-		              
-		              outstream.WriteLine "# STOCKHOLM 1.0"         'Stockholm header
-		              outstream.Write cutoffs+EndOfLine
-		              
-		              dim block as string = ""
-		              dim xtra as string = "____________________"
-		              while not InStream.EOF                        'sequence blocks
-		                aLine=InStream.readLine
-		                if left(aLine,1)=">" then                    'seq title
-		                  aline=ReplaceAll(aline," ","_")             'hmmbuild doesn't like spaces
-		                  aline=aline+xtra                            'equalise lengths
-		                  block=mid(aline,1,20)+" "
-		                else
-		                  outstream.writeline block+aline
-		                  block=""
-		                end if
-		              wend
-		              outstream.WriteLine "//"                       'Stockholm footer
-		              instream.Close
-		              outstream.close
+		              Stockholm(AlignmentFile,stock, cutoffs)
 		              
 		              
 		              'build hmm:

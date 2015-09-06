@@ -31,12 +31,6 @@ Begin Toolbar Toolbar1
 		Enabled = False
 		Icon = 678101466
 	End
-	Begin ToolButton SaveLogTool
-		Caption = "Save log"
-		HelpTag = ""
-		Style = 0
-		Icon = 1731933303
-	End
 	Begin ToolButton ToolItem2
 		Caption = "Untitled"
 		HelpTag = ""

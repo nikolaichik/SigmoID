@@ -16,7 +16,7 @@
 	#tag FileType
 		CodeName=Text
 		DocIcon=Sigmoid.xojo_resources;&hC
-		Extension=.text;.txt
+		Extension=.text;.txt;.sto;.hmm
 		Flags=&h2
 		MacCreator=????
 		MacType=TEXT

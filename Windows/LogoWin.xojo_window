@@ -228,23 +228,34 @@ End
 		  ViewLogo.enabled=false
 		  
 		  if SigFileOpened then
+		    FileSaveLogo.enable
 		    ViewAlignmentInfo.enabled=true
 		    ViewHmmerSettings.enabled=true
 		    ViewHmmProfile.Enabled=true
 		    ViewLogo.enabled=true
 		    ViewSequences.enabled=true
 		    ViewMEMEresults.enabled=true
-		    FileExtendBindingSites.enabled=true
+		    AlignmentExtendBindingSites.enabled=true
+		    AlignmentConvertToHmm.enabled=true
+		    AlignmentConvertToMEME.enabled=true
+		    AlignmentConverttoStockholm.enabled=true
 		    FileSaveLogo.enabled=true
 		  else
 		    ViewAlignmentInfo.enabled=false
 		    ViewHmmerSettings.enabled=false
 		    ViewHmmProfile.Enabled=false
 		    ViewMEMEresults.enabled=false
-		    FileExtendBindingSites.enabled=false
+		    'AlignmentExtendBindingSites.enabled=false
+		    'AlignmentConvertToHmm.enabled=false
+		    'AlignmentConvertToMEME.enabled=false
+		    'AlignmentConverttoStockholm.enabled=false
 		    if sequences<>"" then
+		      FileSaveLogo.enable
 		      ViewSequences.enabled=true
-		      FileExtendBindingSites.enabled=true
+		      AlignmentExtendBindingSites.enabled=true
+		      AlignmentConvertToHmm.enabled=true
+		      AlignmentConvertToMEME.enabled=true
+		      AlignmentConverttoStockholm.enabled=true
 		      if WebLogoAvailable then
 		        ViewLogo.enabled=true
 		        FileSaveLogo.enabled=true
@@ -257,8 +268,9 @@ End
 		  end if
 		  
 		  if LogoFile<>NIL then
-		    MEMEConverttoMEMEformat.enable
-		    MEMEMAST.enable
+		    AlignmentConvertToMEME.enable
+		    GenomeMASTSearch.enable
+		    GenomeNhmmersearch.enable
 		  end if
 		  
 		  FileSaveCheckedSites.Visible=false
@@ -268,9 +280,12 @@ End
 		  
 		  FileSaveAlignmentSelection.visible=true
 		  FileSaveLogo.visible=true
-		  FileScanGenome.Visible=true
+		  GenomeScanGenome.Visible=true
 		  FileOpenAlignment.visible=true
 		  FileOpenAlignment.Enabled=true
+		  if LastSearch<>"" then
+		    GenomeAnnotate.Enabled=true
+		  end if
 		  
 		End Sub
 	#tag EndEvent
@@ -643,6 +658,63 @@ End
 
 
 	#tag MenuHandler
+		Function AlignmentConvertToHmm() As Boolean Handles AlignmentConvertToHmm.Action
+			Dim dlg as New SaveAsDialog
+			dim HmmFile as folderitem
+			
+			dlg.InitialDirectory=Logofile.Parent
+			dlg.promptText="Select a name for Hmm file to export alignment to."
+			dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".hmm"
+			dlg.Title="Export hmm Profile"
+			dlg.Filter=FileTypes.Text
+			HmmFile=dlg.ShowModalwithin(self)
+			if HmmFile<>nil then
+			dim StockholmFile as FolderItem = SpecialFolder.Temporary.child("stock")
+			if StockholmFile <> nil then
+			Stockholm(LogoFile,StockholmFile,"")
+			if hmmbuild(StockholmFile.shellpath,HmmFile.shellpath) then
+			else
+			WriteToSTDOUT(EndOfLine+"hmmbuild error")
+			end if
+			end if
+			end if
+			
+			Exception err
+			ExceptionHandler(err,"LogoWin:AlignmentConvertToHmm")
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function AlignmentConvertToMEME() As Boolean Handles AlignmentConvertToMEME.Action
+			dim d as integer = MEMEconvert
+			
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function AlignmentConverttoStockholm() As Boolean Handles AlignmentConverttoStockholm.Action
+			Dim dlg as New SaveAsDialog
+			dim StockholmFile as folderitem
+			
+			dlg.InitialDirectory=Logofile.Parent
+			dlg.promptText="Select a name for Stockholm file to export alignment to."
+			dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".sto"
+			dlg.Title="Export alignment in Stockholm format"
+			dlg.Filter=FileTypes.Text
+			StockholmFile=dlg.ShowModalwithin(self)
+			if StockholmFile<>nil then
+			Stockholm(LogoFile,StockholmFile,"")
+			end if
+			
+			Exception err
+			ExceptionHandler(err,"LogoWin:AlignmentConvertToStockholm")
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function FileExtendBindingSites() As Boolean Handles FileExtendBindingSites.Action
 			if GenomeFile<>Nil then
 			ExtendSitesWin.GenomeField.text=GenomeFile.ShellPath
@@ -717,15 +789,40 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function MEMEConverttoMEMEformat() As Boolean Handles MEMEConverttoMEMEformat.Action
-			dim d as integer = MEMEconvert
+		Function GenomeAnnotate() As Boolean Handles GenomeAnnotate.Action
+			if LastSearch="nhmmer" then
+			HmmGenSearch
+			elseif LastSearch="MAST" then
+			HmmGenOptions=""
+			MASTGenSettingsWin.showmodalwithin(self)
+			if MASTGenSettingsWin.OKpressed then
+			if GenomeFile<>Nil then
+			dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+			outfile=GetSaveFolderItem("????",fn)
+			if outfile<>nil then
+			if MastGen then
+			if MASTGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+			if ubound(GenomeWin.HmmHitDescriptions)>0 then
+			GenomeWin.opengenbankfile(outFile)
+			genomeWin.ShowHit
+			WriteToSTDOUT (" done."+EndofLine)
+			end if
+			end if
+			end if
+			end if
+			else
+			MsgBox "No genome file selected. Have you run MAST search?"
+			end if
+			end if
 			
+			end if
+			Return True
 			
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function MEMEMAST() As Boolean Handles MEMEMAST.Action
+		Function GenomeMASTSearch() As Boolean Handles GenomeMASTSearch.Action
 			dim memeResultAvailable as boolean
 			
 			if GenomeFile<>Nil then
@@ -776,7 +873,7 @@ End
 			
 			if MASTSettingsWin.ShowHitsCheckBox.value then
 			// the 'Add annotation' and 'Mask hits within ORFs' options are mutually exclusive
-			// both can't be selected (but can be deselected) at the same time 
+			// both can't be selected (but can be deselected) at the same time
 			
 			if MastSettingsWin.AddAnnotationCheckBox.value then
 			HmmGenOptions=""
@@ -826,7 +923,7 @@ End
 			'end if
 			next 'n
 			next 'm
-			WriteToSTDOUT ("  "+str(HitCount-ubound(genomeWin.HmmHits))+" hits within ORF removed.") 
+			WriteToSTDOUT ("  "+str(HitCount-ubound(genomeWin.HmmHits))+" hits within ORF removed.")
 			
 			if Ubound(genomeWin.HmmHits)>0 then
 			'if NOT ScanningGenome then
@@ -887,16 +984,45 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function MEMERunMastGenscript() As Boolean Handles MEMERunMastGenscript.Action
-			HmmGenOptions=""
-			MASTGenSettingsWin.showmodalwithin(self)
-			if MASTGenSettingsWin.OKpressed then
+		Function GenomeNhmmersearch() As Boolean Handles GenomeNhmmersearch.Action
+			if NOT SigFileOpened then
+			if masked then
+			nhmmerSettingsWin.MaskingBox.Enabled=true
+			nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. HMMer default is Henikoff position-based"
+			else
+			nhmmerSettingsWin.MaskingBox.Enabled=False
+			nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. To enable, drag/shift-drag over undesired positions in the logo"
+			'show cutoff values:
+			end if
+			end if
 			if GenomeFile<>Nil then
-			dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-			outfile=GetSaveFolderItem("????",fn)
+			nhmmerSettingsWin.GenomeField.text=GenomeFile.ShellPath
+			
+			nhmmerSettingsWin.RunButton.Enabled=true
+			else
+			'#if Debugbuild
+			'GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
+			'#else
+			nhmmerSettingsWin.RunButton.Enabled=false
+			'#endif
+			end if
+			nhmmerSettingsWin.EnableRun
+			nhmmerSettingsWin.ShowModalWithin(self)
+			'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
+			if nhmmerOptions <> "" then
+			if nhmmer then
+			if nhmmerSettingsWin.AddAnnotationCheckBox.value then
+			Dim dlg as New SaveAsDialog
+			dlg.InitialDirectory=genomefile.Parent
+			dlg.promptText="Select where to save the modified genome file"
+			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+			dlg.Title="Save genome file"
+			dlg.Filter=FileTypes.genbank
+			outfile=dlg.ShowModal()
 			if outfile<>nil then
-			if MastGen then
-			if MASTGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+			HmmGenSettingsWin.ReadOptions
+			if HmmGen then
+			if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
 			if ubound(GenomeWin.HmmHitDescriptions)>0 then
 			GenomeWin.opengenbankfile(outFile)
 			genomeWin.ShowHit
@@ -905,11 +1031,17 @@ End
 			end if
 			end if
 			end if
-			else
-			MsgBox "No genome file selected. Have you run MAST search?"
 			end if
 			end if
+			end if
+			Return True
 			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeTerminatorSearch() As Boolean Handles GenomeTerminatorSearch.Action
+			TermGenSearch
 		End Function
 	#tag EndMenuHandler
 
@@ -1766,6 +1898,32 @@ End
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub HmmGenSearch()
+		  HmmGenOptions=""
+		  HmmGenSettingsWin.showmodalwithin(self)
+		  if HmmGenSettingsWin.OKpressed then
+		    if GenomeFile<>Nil then
+		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		      outfile=GetSaveFolderItem("????",fn)
+		      if outfile<>nil then
+		        if HmmGen then
+		          if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		            if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		              GenomeWin.opengenbankfile(outFile)
+		              genomeWin.ShowHit
+		              WriteToSTDOUT (" done."+EndofLine)
+		            end if
+		          end if
+		        end if
+		      end if
+		    else
+		      MsgBox "No genome file selected. Please repeat nhmmer search."
+		    end if
+		  end if
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub LoadAlignment(tmpfile as folderitem)
 		  
@@ -2015,6 +2173,7 @@ End
 		    LogoWinToolbar.Item(4).Enabled=true
 		  End If
 		  
+		  LastSearch=""
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:LoadAlignment")
 		End Sub
@@ -2252,6 +2411,8 @@ End
 		      tos=TextOutputStream.Create(MASTResultFile)
 		      tos.Write trim(Sh.Result)
 		      tos.close
+		      LastSearch="MAST"
+		      
 		    else
 		      msgbox "Can't create a file to store MAST results!"
 		      return
@@ -2469,6 +2630,7 @@ End
 		    If sh.errorCode=0 then
 		      WriteToSTDOUT (EndofLine+Sh.Result)
 		      LogoWinToolbar.Item(2).Enabled=true
+		      LastSearch="nhmmer"
 		      return true
 		    else
 		      WriteToSTDOUT (EndofLine+Sh.Result)
@@ -2549,6 +2711,60 @@ End
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:nhmmer")
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub nhmmerSearch()
+		  if NOT SigFileOpened then
+		    if masked then
+		      nhmmerSettingsWin.MaskingBox.Enabled=true
+		      nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. HMMer default is Henikoff position-based"
+		    else
+		      nhmmerSettingsWin.MaskingBox.Enabled=False
+		      nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. To enable, drag/shift-drag over undesired positions in the logo"
+		      'show cutoff values:
+		    end if
+		  end if
+		  if GenomeFile<>Nil then
+		    nhmmerSettingsWin.GenomeField.text=GenomeFile.ShellPath
+		    
+		    nhmmerSettingsWin.RunButton.Enabled=true
+		  else
+		    '#if Debugbuild
+		    'GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
+		    '#else
+		    nhmmerSettingsWin.RunButton.Enabled=false
+		    '#endif
+		  end if
+		  nhmmerSettingsWin.EnableRun
+		  nhmmerSettingsWin.ShowModalWithin(self)
+		  'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
+		  if nhmmerOptions <> "" then
+		    if nhmmer then
+		      if nhmmerSettingsWin.AddAnnotationCheckBox.value then
+		        Dim dlg as New SaveAsDialog
+		        dlg.InitialDirectory=genomefile.Parent
+		        dlg.promptText="Select where to save the modified genome file"
+		        dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		        dlg.Title="Save genome file"
+		        dlg.Filter=FileTypes.genbank
+		        outfile=dlg.ShowModal()
+		        if outfile<>nil then
+		          HmmGenSettingsWin.ReadOptions
+		          if HmmGen then
+		            if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		              if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		                GenomeWin.opengenbankfile(outFile)
+		                genomeWin.ShowHit
+		                WriteToSTDOUT (" done."+EndofLine)
+		              end if
+		            end if
+		          end if
+		        end if
+		      end if
+		    end if
+		  end if
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
@@ -2748,6 +2964,26 @@ End
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub TermGenSearch()
+		  TermGenOptions=""
+		  TermGenSettingsWin.showmodalwithin(self)
+		  if TermGenSettingsWin.OKpressed then
+		    dim fn as string=nthfield(GenomeFile.Name,".",1)+"_term.gb"
+		    outfile=GetSaveFolderItem("????",fn)
+		    if outfile<>nil then
+		      if TermGen then
+		        if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		          GenomeWin.opengenbankfile(outFile)
+		          GenomeWin.ShowGenomeStart
+		          'genomeWin.ShowHit
+		        end if
+		      end if
+		    end if
+		  end if
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub WriteToSTDOUT(txt as string)
 		  STDOUT.text=STDOUT.text+txt
@@ -2803,6 +3039,10 @@ End
 
 	#tag Property, Flags = &h0
 		LastHitNo As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		LastSearch As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -2976,104 +3216,21 @@ End
 		        
 		      end if
 		    end if
-		  Case "SaveLogTool"
-		    SaveLog
+		    '
 		  Case "SearchTool"
-		    if NOT SigFileOpened then
-		      if masked then
-		        nhmmerSettingsWin.MaskingBox.Enabled=true
-		        nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. HMMer default is Henikoff position-based"
-		      else
-		        nhmmerSettingsWin.MaskingBox.Enabled=False
-		        nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. To enable, drag/shift-drag over undesired positions in the logo"
-		        'show cutoff values:
-		      end if
-		    end if
-		    if GenomeFile<>Nil then
-		      nhmmerSettingsWin.GenomeField.text=GenomeFile.ShellPath
-		      
-		      nhmmerSettingsWin.RunButton.Enabled=true
-		    else
-		      '#if Debugbuild
-		      'GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
-		      '#else
-		      nhmmerSettingsWin.RunButton.Enabled=false
-		      '#endif
-		    end if
-		    nhmmerSettingsWin.EnableRun
-		    nhmmerSettingsWin.ShowModalWithin(self)
-		    'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
-		    if nhmmerOptions <> "" then
-		      if nhmmer then
-		        if nhmmerSettingsWin.AddAnnotationCheckBox.value then
-		          Dim dlg as New SaveAsDialog
-		          dlg.InitialDirectory=genomefile.Parent
-		          dlg.promptText="Select where to save the modified genome file"
-		          dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-		          dlg.Title="Save genome file"
-		          dlg.Filter=FileTypes.genbank
-		          outfile=dlg.ShowModal()
-		          if outfile<>nil then
-		            HmmGenSettingsWin.ReadOptions
-		            if HmmGen then
-		              if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		                if ubound(GenomeWin.HmmHitDescriptions)>0 then
-		                  GenomeWin.opengenbankfile(outFile)
-		                  genomeWin.ShowHit
-		                  WriteToSTDOUT (" done."+EndofLine)
-		                end if
-		              end if
-		            end if
-		          end if
-		        end if
-		      end if
-		    end if
+		    nhmmerSearch
 		  Case "HmmGenTool"
-		    HmmGenOptions=""
-		    HmmGenSettingsWin.showmodalwithin(self)
-		    if HmmGenSettingsWin.OKpressed then
-		      if GenomeFile<>Nil then
-		        dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-		        outfile=GetSaveFolderItem("????",fn)
-		        if outfile<>nil then
-		          if HmmGen then
-		            if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		              if ubound(GenomeWin.HmmHitDescriptions)>0 then
-		                GenomeWin.opengenbankfile(outFile)
-		                genomeWin.ShowHit
-		                WriteToSTDOUT (" done."+EndofLine)
-		              end if
-		            end if
-		          end if
-		        end if
-		      else
-		        MsgBox "No genome file selected. Please repeat nhmmer search."
-		      end if
-		    end if
+		    HmmGenSearch
 		  Case "TermGenTool"
-		    TermGenOptions=""
-		    TermGenSettingsWin.showmodalwithin(self)
-		    if TermGenSettingsWin.OKpressed then
-		      dim fn as string=nthfield(GenomeFile.Name,".",1)+"_term.gb"
-		      outfile=GetSaveFolderItem("????",fn)
-		      if outfile<>nil then
-		        if TermGen then
-		          if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		            GenomeWin.opengenbankfile(outFile)
-		            GenomeWin.ShowGenomeStart
-		            'genomeWin.ShowHit
-		          end if
-		        end if
-		      end if
-		    end if
+		    TermGenSearch
 		  Case "SettingsTool"
 		    SettingsWin.showmodalwithin(self)
 		  Case "PalindromiseTool"
-		    dim oldentropy as double = totalEntropy
+		    'dim oldentropy as double = totalEntropy
 		    Palindromise
-		    if totalEntropy<oldentropy then
-		      msgbox "Binding site entropy decreased after palindromising. Please check that the site is indeed palindromic!"
-		    end if
+		    'if totalEntropy<oldentropy then
+		    'msgbox "Binding site entropy decreased after palindromising. Please check that the site is indeed palindromic!"
+		    'end if
 		  End Select
 		  
 		  Exception err
@@ -3472,6 +3629,11 @@ End
 		Name="Masked"
 		Group="Behavior"
 		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MASTGenPath"
+		Group="Behavior"
+		Type="string"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MaxHeight"

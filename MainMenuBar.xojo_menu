@@ -27,13 +27,6 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "Save Logo Picture..."
          Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem FileExtendBindingSites
-         SpecialMenu = 0
-         Text = "Extend Binding Sites..."
-         Index = -2147483648
          AutoEnable = False
          Visible = True
       End
@@ -42,13 +35,6 @@ Begin Menu MainMenuBar
          Text = "-"
          Index = -2147483648
          AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem FileSaveCheckedSites
-         SpecialMenu = 0
-         Text = "Save Checked Sites..."
-         Index = -2147483648
-         AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileMakeSigFile
@@ -61,13 +47,6 @@ Begin Menu MainMenuBar
       Begin MenuItem UntitledSeparator
          SpecialMenu = 0
          Text = "-"
-         Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem FileScanGenome
-         SpecialMenu = 0
-         Text = "Scan Genome..."
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -328,31 +307,38 @@ Begin Menu MainMenuBar
          Visible = False
       End
    End
-   Begin MenuItem MEMEMenu
+   Begin MenuItem AlignmentMenu
       SpecialMenu = 0
-      Text = "MEME"
+      Text = "Alignment"
       Index = -2147483648
       AutoEnable = True
       Visible = True
-      Begin MenuItem MEMEConverttoMEMEformat
+      Begin MenuItem AlignmentExtendBindingSites
          SpecialMenu = 0
-         Text = "Convert to MEME format"
+         Text = "Extend Binding Sites..."
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem MEMEMAST
+      Begin MenuItem AlignmentConverttoStockholm
          SpecialMenu = 0
-         Text = "MAST search..."
+         Text = "Convert to Stockholm"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem MEMERunMastGenscript
+      Begin MenuItem AlignmentConvertToHmm
          SpecialMenu = 0
-         Text = "Run MastGen script"
+         Text = "Convert to hmm"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem AlignmentConvertToMEME
+         SpecialMenu = 0
+         Text = "Convert to MEME"
+         Index = -2147483648
+         AutoEnable = False
          Visible = True
       End
    End
@@ -362,6 +348,62 @@ Begin Menu MainMenuBar
       Index = -2147483648
       AutoEnable = True
       Visible = True
+      Begin MenuItem GenomeNhmmersearch
+         SpecialMenu = 0
+         Text = "nhmmer Search..."
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem GenomeMASTSearch
+         SpecialMenu = 0
+         Text = "MAST Search..."
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem GenomeTerminatorSearch
+         SpecialMenu = 0
+         Text = "Terminator Search..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeScanGenome
+         SpecialMenu = 0
+         Text = "Scan Genome..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledItem5
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeAnnotate
+         SpecialMenu = 0
+         Text = "Annotate Current Sites..."
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem FileSaveCheckedSites
+         SpecialMenu = 0
+         Text = "Save Checked Sites..."
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem UntitledItem6
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem GenomeGoto
          SpecialMenu = 0
          Text = "Go to..."
