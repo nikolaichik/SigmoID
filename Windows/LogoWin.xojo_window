@@ -299,15 +299,6 @@ End
 		  
 		  
 		  
-		  alimaskpath=SettingsWin.alimaskPathField.text
-		  nhmmerpath=SettingsWin.nhmmerPathField.text
-		  weblogopath=SettingsWin.weblogoPathField.text
-		  hmmBuildPath=SettingsWin.hmmBuildPathField.text
-		  memepath=SettingsWin.memePathField.text
-		  mastpath=SettingsWin.mastPathField.text
-		  
-		  
-		  
 		  #if TargetWin32
 		    f=resources_f.child("alimask.exe")
 		    if f<>Nil then

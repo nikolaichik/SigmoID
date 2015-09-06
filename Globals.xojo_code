@@ -536,6 +536,19 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ReadPrefs()
+		  Logowin.alimaskpath=Prefs.value("alimaskpath",SettingsWin.alimaskPathField.text)
+		  Logowin.nhmmerpath=Prefs.value("nhmmerpath",SettingsWin.nhmmerPathField.text)
+		  Logowin.hmmgenpath=Prefs.value("hmmgenpath",SettingsWin.hmmgenPathField.text)
+		  hmmbuildpath=Prefs.value("hmmbuildpath",SettingsWin.hmmbuildPathField.text)
+		  MEMEpath=Prefs.value("MEMEpath",SettingsWin.MEMEPathField.text)
+		  MASTpath=Prefs.value("MASTpath",SettingsWin.MASTPathField.text)
+		  weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RevCompAlignment(infile as folderitem, outfile as folderitem)
 		  dim instream as TextInputStream
 		  dim outstream As TextOutputStream
@@ -1233,6 +1246,19 @@ Protected Module Globals
 	#tag Property, Flags = &h0
 		ORFStarts As string
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  static gPrefs as TTsSmartPreferences
+			  if gPrefs = nil then
+			    gPrefs = new TTsSmartPreferences ("SigmoID") // <- enter your app's name here, it's necessary for Windows and Linux
+			  end
+			  return gPrefs
+			End Get
+		#tag EndGetter
+		Prefs As TTsSmartPreferences
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
 		ProportionalFont As string

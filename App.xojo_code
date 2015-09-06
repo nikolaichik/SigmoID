@@ -59,6 +59,8 @@ Inherits Application
 		  
 		  GeneticCodesInit
 		  
+		  'ReadPrefs
+		  
 		End Sub
 	#tag EndEvent
 

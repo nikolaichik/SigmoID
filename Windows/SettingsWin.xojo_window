@@ -662,6 +662,17 @@ End
 	#tag Event
 		Sub Open()
 		  AdjustLayout4linux(me)
+		  ReadPrefs
+		  alimaskPathField.text=Prefs.value("alimaskpath","/usr/local/bin/alimask")
+		  nhmmerPathField.text=Prefs.value("nhmmerpath","/usr/local/bin/nhmmer")
+		  hmmgenPathField.text=Prefs.value("hmmgenpath","~/HmmGen.py")
+		  hmmbuildPathField.text=Prefs.value("hmmbuildpath","/usr/local/bin/hmmbuild")
+		  MEMEPathField.text=Prefs.value("MEMEpath","~/meme/bin/meme")
+		  MASTPathField.text=Prefs.value("MASTpath","~/meme/bin/MAST")
+		  weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
+		  
+		  
+		  
 		End Sub
 	#tag EndEvent
 
@@ -671,13 +682,17 @@ End
 #tag Events OKButton
 	#tag Event
 		Sub Action()
-		  LogoWin.alimaskpath=alimaskPathField.text
-		  LogoWin.nhmmerpath=nhmmerPathField.text
-		  LogoWin.hmmgenpath=hmmgenPathField.text
-		  MEMEpath=MEMEPathField.text
-		  MASTpath=MASTPathField.text
-		  weblogopath=weblogoPathField.text
-		  msgbox "Please note that settings are not saved between launches at the moment."
+		  Prefs.value("alimaskpath")=alimaskPathField.text
+		  Prefs.value("nhmmerpath")=nhmmerPathField.text
+		  Prefs.value("hmmgenpath")=hmmgenPathField.text
+		  Prefs.value("hmmbuildpath")=hmmbuildPathField.text
+		  Prefs.value("MEMEpath")=MEMEPathField.text
+		  Prefs.value("MASTpath")=MASTPathField.text
+		  Prefs.value("weblogopath")=weblogoPathField.text
+		  
+		  Prefs.Sync
+		  
+		  ReadPrefs
 		  self.hide
 		  
 		End Sub
