@@ -93,6 +93,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function AlignmentProfileWizard() As Boolean Handles AlignmentProfileWizard.Action
+			ProfileWizardWin.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function EditPreferences() As Boolean Handles EditPreferences.Action
 			SettingsWin.show
 			Return True
@@ -187,27 +195,6 @@ Inherits Application
 		End Function
 	#tag EndMenuHandler
 
-
-	#tag Method, Flags = &h0
-		Sub CopyFileToVV(File2copy as folderitem, VV as virtualVolume)
-		  'this is used to copy files from tmp dir to virtualVolume
-		  'as the built in CopyFileTo works for virtual volumes only on OS X
-		  
-		  dim f as FolderItem
-		  Dim OutStream as TextOutputStream
-		  Dim InStream As TextInputStream
-		  f=VV.Root.Child(File2copy.name)
-		  If f <> Nil then
-		    Instream=TextInputStream.Open(File2copy)
-		    OutStream = TextOutputStream.Create(f)
-		    OutStream.Write(Instream.ReadAll)
-		    OutStream.Close
-		  End If
-		  
-		  Exception err
-		    ExceptionHandler(err,"App:CopyFileToVV")
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub MakeSigFile(SigFolder as folderitem)

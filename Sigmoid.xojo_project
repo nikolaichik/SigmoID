@@ -505,6 +505,7 @@ Window=ExtendSitesWin;Windows/ExtendSitesWin.xojo_window;&h25CF912B;&h2250E847;f
 Folder=TT's SmartPreferences;macoslib/TT's SmartPreferences;&hF229F85;&h62249E78;false
 Class=TTsSmartPreferences;macoslib/TT's SmartPreferences/TTsSmartPreferences.xojo_code;&h53BE31F0;&hF229F85;false
 Module=XMLDictionary;macoslib/TT's SmartPreferences/XMLDictionary.xojo_code;&h2A171E2C;&hF229F85;false
+Window=ProfileWizardWin;Windows/ProfileWizardWin.xojo_window;&h4E0B8FFF;&h2250E847;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1

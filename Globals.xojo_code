@@ -173,6 +173,27 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub CopyFileToVV(File2copy as folderitem, VV as virtualVolume)
+		  'this is used to copy files from tmp dir to virtualVolume
+		  'as the built in CopyFileTo works for virtual volumes only on OS X
+		  
+		  dim f as FolderItem
+		  Dim OutStream as TextOutputStream
+		  Dim InStream As TextInputStream
+		  f=VV.Root.Child(File2copy.name)
+		  If f <> Nil then
+		    Instream=TextInputStream.Open(File2copy)
+		    OutStream = TextOutputStream.Create(f)
+		    OutStream.Write(Instream.ReadAll)
+		    OutStream.Close
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"App:CopyFileToVV")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DrawRuler(width as integer, baseY as integer, bp as integer) As Group2D
 		  'Routine to draw  the ruler on linear maps
 		  

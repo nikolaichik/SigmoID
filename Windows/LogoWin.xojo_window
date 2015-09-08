@@ -2119,20 +2119,24 @@ End
 		    'store the seqs
 		    dim tis as TextInputStream
 		    tis=logofile.OpenAsTextFile
-		    sequences=tis.ReadAll
-		    tis.Close
+		    if tis<>nil then
+		      sequences=tis.ReadAll
+		      tis.Close
+		    end if
 		    
 		    'determine the default length parameter
 		    tis=logofile.OpenAsTextFile
-		    dim aline As string
-		    while not tis.EOF
-		      aLine=tis.readLine
-		      if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
-		        HmmGenSettingsWin.LengthField.CueText=str(len(aline))
-		        exit
-		      end if
-		    wend
-		    tis.Close
+		    if tis<>nil then
+		      dim aline As string
+		      while not tis.EOF
+		        aLine=tis.readLine
+		        if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
+		          HmmGenSettingsWin.LengthField.CueText=str(len(aline))
+		          exit
+		        end if
+		      wend
+		      tis.Close
+		    end
 		    
 		    
 		    LogoWinToolbar.Item(1).Enabled=true
@@ -2164,10 +2168,28 @@ End
 		    LogoWinToolbar.Item(4).Enabled=true
 		  End If
 		  
+		  
 		  LastSearch=""
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:LoadAlignment")
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function LogoLength() As integer
+		  dim instream as TextInputStream
+		  dim aline As string
+		  
+		  InStream = LogoFile.OpenAsTextFile
+		  while not InStream.EOF
+		    aLine=InStream.readLine
+		    if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
+		      return len(trim(aline))
+		      exit
+		    end if
+		  wend
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -2508,8 +2530,8 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Function MEMEconvert() As integer
+	#tag Method, Flags = &h0
+		Function MEMEconvert() As integer
 		  'Converts current alignment to minimal MEME format
 		  
 		  'copy alignment out of virtual volume:
@@ -3602,6 +3624,11 @@ End
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="LastSearch"
+		Group="Behavior"
+		Type="string"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="LiveResize"
 		Visible=true
 		Group="Appearance"
@@ -3625,6 +3652,7 @@ End
 		Name="MASTGenPath"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MaxHeight"
