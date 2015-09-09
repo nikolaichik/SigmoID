@@ -719,7 +719,7 @@ Begin Window ProfileWizardWin
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton PushButton2
+   Begin PushButton CancelButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
@@ -754,6 +754,14 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Open()
+		  AdjustLayout4linux(me)
+		  
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h1
 		Protected Sub EnableSave()
 		  SaveButton.enabled=true
@@ -782,6 +790,11 @@ End
 		Function KeyDown(Key As String) As Boolean
 		  
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  EnableSave
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events FeatureCombo
@@ -816,6 +829,11 @@ End
 		  
 		End Function
 	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  EnableSave
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events InfoArea
 	#tag Event
@@ -836,6 +854,11 @@ End
 		  return false
 		  
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  EnableSave
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events SaveButton
@@ -1059,6 +1082,13 @@ End
 		  hide
 		  Exception err
 		    ExceptionHandler(err,"ProfileWisardWin:SaveButton:Action")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CancelButton
+	#tag Event
+		Sub Action()
+		  hide
 		End Sub
 	#tag EndEvent
 #tag EndEvents

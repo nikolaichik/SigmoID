@@ -297,7 +297,7 @@ End
 		  Dim sh As Shell
 		  dim f As FolderItem
 		  
-		  
+		  ReadPrefs
 		  
 		  #if TargetWin32
 		    f=resources_f.child("alimask.exe")
@@ -341,7 +341,6 @@ End
 		  if f<>Nil then
 		    if f.exists then
 		      hmmgenpath=f.ShellPath
-		      SettingsWin.HmmGenPathField.text=hmmgenpath
 		    else
 		      msgbox "Can't find the HmmGen.py script"
 		    end if
@@ -426,7 +425,7 @@ End
 		  sh.execute cli
 		  If sh.errorCode=0 then
 		    if instr(Sh.Result,"command not found")>0 then
-		      WriteToSTDOUT ("No weblogo found. Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
+		      WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
 		      allProgsFine=false
 		      WebLogoAvailable=false
 		    else
@@ -434,7 +433,7 @@ End
 		      WebLogoAvailable=true
 		    end if
 		  else
-		    WriteToSTDOUT ("No weblogo found. Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
+		    WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
 		  
@@ -455,11 +454,11 @@ End
 		      WriteToSTDOUT (s+EndOfLine)
 		      nhmmerVersion=trim(nthfield((S),"(",1))
 		    else
-		      WriteToSTDOUT ("No nhmmer found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
+		      WriteToSTDOUT ("No nhmmer found at "+nhmmerPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
 		      allProgsFine=false
 		    end if
 		  else
-		    WriteToSTDOUT ("No nhmmer found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
+		    WriteToSTDOUT ("No nhmmer found at "+nhmmerPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
 		  
@@ -479,11 +478,11 @@ End
 		      WriteToSTDOUT (s)
 		      nhmmerVersion=trim(nthfield((S),"(",1))
 		    else
-		      WriteToSTDOUT ("No hmmbuild found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
+		      WriteToSTDOUT ("No hmmbuild found at "+hmmbuildPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
 		      allProgsFine=false
 		    end if
 		  else
-		    WriteToSTDOUT ("No hmmbuild found. Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
+		    WriteToSTDOUT ("No hmmbuild found at "+hmmbuildPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
 		  
@@ -504,12 +503,11 @@ End
 		      WriteToSTDOUT (s)
 		      
 		    else
-		      WriteToSTDOUT ("No alimask (part of HMMER package) found. Please install it or correct the path in the settings."+EndOfLine)
+		      WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine)
 		      allProgsFine=false
 		    end if
 		  else
-		    WriteToSTDOUT ("No alimask (part of HMMER package) found. Please install it or correct the path in the settings."+EndOfLine)
-		    
+		    WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
 		  
@@ -524,7 +522,7 @@ End
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT (Sh.Result)
 		  else
-		    WriteToSTDOUT ("No MEME found. Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
+		    WriteToSTDOUT ("No MEME found at "+memePath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
 		  
@@ -539,15 +537,9 @@ End
 		    WriteToSTDOUT (Sh.Result)
 		    MASTVersion=trim(Sh.Result)
 		  else
-		    WriteToSTDOUT ("No MAST found. Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
+		    WriteToSTDOUT ("No MAST found at "+MASTPath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
-		  
-		  
-		  
-		  
-		  
-		  
 		  
 		  'hmmgen
 		  WriteToSTDOUT ("Checking the HmmGen script... ")

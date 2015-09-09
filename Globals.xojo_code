@@ -560,7 +560,7 @@ Protected Module Globals
 		Sub ReadPrefs()
 		  Logowin.alimaskpath=Prefs.value("alimaskpath",SettingsWin.alimaskPathField.text)
 		  Logowin.nhmmerpath=Prefs.value("nhmmerpath",SettingsWin.nhmmerPathField.text)
-		  Logowin.hmmgenpath=Prefs.value("hmmgenpath",SettingsWin.hmmgenPathField.text)
+		  'Logowin.hmmgenpath=Prefs.value("hmmgenpath",SettingsWin.hmmgenPathField.text)
 		  hmmbuildpath=Prefs.value("hmmbuildpath",SettingsWin.hmmbuildPathField.text)
 		  MEMEpath=Prefs.value("MEMEpath",SettingsWin.MEMEPathField.text)
 		  MASTpath=Prefs.value("MASTpath",SettingsWin.MASTPathField.text)
@@ -1380,16 +1380,19 @@ Protected Module Globals
 			Name="MASTpath"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MASTVersion"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MEMEpath"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"

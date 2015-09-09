@@ -9,7 +9,7 @@ Begin Window SettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   354
+   Height          =   322
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -52,7 +52,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   314
+      Top             =   282
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -83,7 +83,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   314
+      Top             =   282
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -93,7 +93,7 @@ Begin Window SettingsWin
       Bold            =   False
       Caption         =   "Paths"
       Enabled         =   True
-      Height          =   276
+      Height          =   244
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -226,40 +226,6 @@ Begin Window SettingsWin
          Visible         =   True
          Width           =   72
       End
-      Begin Label Label6
-         AutoDeactivate  =   True
-         Bold            =   False
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   30
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Multiline       =   False
-         Scope           =   0
-         Selectable      =   False
-         TabIndex        =   6
-         TabPanelIndex   =   0
-         Text            =   "hmmgen:"
-         TextAlign       =   0
-         TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   118
-         Transparent     =   False
-         Underline       =   False
-         Visible         =   True
-         Width           =   72
-      End
       Begin TextField alimaskPathField
          AcceptTabs      =   False
          Alignment       =   0
@@ -298,49 +264,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   82
-         Underline       =   False
-         UseFocusRing    =   True
-         Visible         =   True
-         Width           =   409
-      End
-      Begin TextField HmmGenPathField
-         AcceptTabs      =   False
-         Alignment       =   0
-         AutoDeactivate  =   True
-         AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
-         Bold            =   False
-         Border          =   True
-         CueText         =   "value"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Format          =   ""
-         Height          =   22
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   114
-         LimitText       =   0
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Mask            =   ""
-         Password        =   False
-         ReadOnly        =   False
-         Scope           =   0
-         TabIndex        =   8
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "/Users/Home/HmmGen.py"
-         TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   116
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -451,7 +374,7 @@ Begin Window SettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   186
+         Top             =   118
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -494,7 +417,7 @@ Begin Window SettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   184
+         Top             =   116
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -511,7 +434,7 @@ Begin Window SettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   30
+         Left            =   31
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -528,7 +451,7 @@ Begin Window SettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   220
+         Top             =   186
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -552,7 +475,7 @@ Begin Window SettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   114
+         Left            =   115
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -571,7 +494,7 @@ Begin Window SettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   218
+         Top             =   184
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -588,7 +511,7 @@ Begin Window SettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   30
+         Left            =   31
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -605,7 +528,7 @@ Begin Window SettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   254
+         Top             =   220
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -629,7 +552,7 @@ Begin Window SettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   114
+         Left            =   115
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -648,7 +571,7 @@ Begin Window SettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   252
+         Top             =   218
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -665,10 +588,9 @@ End
 		  ReadPrefs
 		  alimaskPathField.text=Prefs.value("alimaskpath","/usr/local/bin/alimask")
 		  nhmmerPathField.text=Prefs.value("nhmmerpath","/usr/local/bin/nhmmer")
-		  hmmgenPathField.text=Prefs.value("hmmgenpath","~/HmmGen.py")
 		  hmmbuildPathField.text=Prefs.value("hmmbuildpath","/usr/local/bin/hmmbuild")
 		  MEMEPathField.text=Prefs.value("MEMEpath","~/meme/bin/meme")
-		  MASTPathField.text=Prefs.value("MASTpath","~/meme/bin/MAST")
+		  MASTPathField.text=Prefs.value("MASTpath","~/meme/bin/mast")
 		  weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
 		  
 		  
@@ -684,7 +606,6 @@ End
 		Sub Action()
 		  Prefs.value("alimaskpath")=alimaskPathField.text
 		  Prefs.value("nhmmerpath")=nhmmerPathField.text
-		  Prefs.value("hmmgenpath")=hmmgenPathField.text
 		  Prefs.value("hmmbuildpath")=hmmbuildPathField.text
 		  Prefs.value("MEMEpath")=MEMEPathField.text
 		  Prefs.value("MASTpath")=MASTPathField.text
