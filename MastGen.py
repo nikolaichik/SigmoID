@@ -245,8 +245,8 @@ for record in records:
                 if (allowed_features_list[n].location.start < hit_list[i].location.start < allowed_features_list[n].location.end or
                         allowed_features_list[n].location.start < hit_list[i].location.end < allowed_features_list[n].location.end) or \
                         (allowed_features_list[n].location.start < hit_list[i].location.start < allowed_features_list[n+1].location.start and
-                         ((hit_list[i].strand == int('-1') and allowed_features_list[n].strand == +1) or
-                         (hit_list[i].strand == int('+1') and allowed_features_list[n+1].strand == -1))):
+                         ((enter.palindromic == False and hit_list[i].strand == int('-1') and allowed_features_list[n].strand == +1) or
+                         (enter.palindromic == False and hit_list[i].strand == int('+1') and allowed_features_list[n+1].strand == -1))):
                     hit_list.pop(i)
                     break
 
@@ -291,25 +291,35 @@ for record in records:
                         new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
-                        if hit.strand == cds_down.strand:
-                            record.features.insert(i, new_feature)
-
+                        record.features.insert(i, new_feature)
+                    
+                    # as MAST searches just one strand (+) in case of palindromic site, then here we've got additional "if"s
                     elif hit.strand == int('+1'):
-                        try:
-                            individual_qualifiers['gene'] = cds_up.qualifiers['gene']
-                        except:
-                            pass
-                        try:
-                            individual_qualifiers['locus_tag'] = cds_up.qualifiers['locus_tag']
-                        except:
-                            pass
+                        if (hit.strand == cds_up.strand and enter.palindromic == True) or enter.palindromic == False:
+                            try:
+                                individual_qualifiers['gene'] = cds_up.qualifiers['gene']
+                            except:
+                                pass
+                            try:
+                                individual_qualifiers['locus_tag'] = cds_up.qualifiers['locus_tag']
+                            except:
+                                pass
+                        #there is no chance here to be cds_down.strand==cds_up.strand, so: 
+                        elif hit.strand != cds_up.strand and enter.palindromic == True:
+                            try:
+                                individual_qualifiers['gene'] = cds_down.qualifiers['gene']
+                            except:
+                                pass
+                            try:
+                                individual_qualifiers['locus_tag'] = cds_down.qualifiers['locus_tag']
+                            except:
+                                pass
 
                         individual_qualifiers.update(hit.qualifiers)
                         new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
-                        if hit.strand == cds_up.strand:
-                            record.features.insert(i, new_feature)
+                        record.features.insert(i, new_feature)
 
 
                 elif enter.palindromic == True and cds_up.strand != cds_down.strand:
@@ -357,8 +367,7 @@ for record in records:
                         new_feature = MySeqFeature(location=hit.location, type=hit.type, strand=hit.strand,
                                                  qualifiers=individual_qualifiers)
                         record.features.pop(i)
-                        if hit.strand == cds_up.strand:
-                            record.features.insert(i, new_feature)
+                        record.features.insert(i, new_feature)
 
     if enter.palindromic is True:
         first_cds = allowed_features_list[0]
