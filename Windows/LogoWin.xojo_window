@@ -132,6 +132,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -348,16 +349,16 @@ End
 		    msgbox "Can't find the HmmGen.py script"
 		  end if
 		  
-		  f=resources_f.child("MASTGen.py")
+		  f=resources_f.child("MastGen.py")
 		  if f<>Nil then
 		    if f.exists then
 		      mastgenpath=f.ShellPath
 		      'SettingsWin.mastGenPathField.text=mastgenpath
 		    else
-		      msgbox "Can't find the MASTGen.py script"
+		      msgbox "Can't find the MastGen.py script"
 		    end if
 		  else
-		    msgbox "Can't find the MASTGen.py script"
+		    msgbox "Can't find the MastGen.py script"
 		  end if
 		  
 		  f=resources_f.child("Weblogo-3.3").child("weblogo")
@@ -2408,7 +2409,7 @@ End
 		  sh.execute cli
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT (EndofLine+Sh.Result)
-		    'write results to a temporary file for MASTgen.py:
+		    'write results to a temporary file for MastGen.py:
 		    MASTResultFile=SpecialFolder.Temporary.child("nhmmer.table")
 		    
 		    if MASTResultFile<>nil then
@@ -3619,6 +3620,7 @@ End
 		Name="LastSearch"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"
