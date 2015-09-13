@@ -132,7 +132,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -394,6 +393,10 @@ End
 		  end if
 		  
 		  allProgsFine=true
+		  
+		  'a proper check for monospaced font is required
+		  STDOUT.TextFont="Courier"
+		  
 		  'check for the command line tools:
 		  
 		  'python
@@ -616,14 +619,27 @@ End
 		    allProgsFine=false
 		  end if
 		  
+		  WriteToSTDOUT ("Accessing RegPrecise... ")
+		  me.Show
+		  
+		  dim res as string
+		  dim jsn as new JSONItem
+		  dim hts as new HTTPSocket
+		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/release",5)
+		  JSN.load(res)
+		  RegPreciseWin.RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
+		  if RegPreciseWin.RegPreciseVersion="" then
+		    WriteToSTDOUT ("no response in 5 seconds") 
+		  else
+		    WriteToSTDOUT (RegPreciseWin.RegPreciseVersion)+EndOfLine
+		  end if
+		  
 		  
 		  if not allProgsFine then
 		    SettingsWin.ShowModalWithin self
 		    
 		  end
 		  
-		  'a proper check for monospaced font is required
-		  STDOUT.TextFont="Courier"
 		  
 		  LogoWinToolbar.Item(1).Enabled=false 'Search: disable until alignment loaded
 		  LogoWinToolbar.Item(2).Enabled=false 'HmmGen: disable until nhmmer is run
@@ -2169,6 +2185,37 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub LoadRegpreciseData(ID as string)
+		  'get the binding site sequences, store 'em in a temp file and open it
+		  
+		  WriteToSTDOUT("Contacting RegPrecise... ")
+		  
+		  dim res as string
+		  dim jsn as new JSONItem
+		  dim hts as new HTTPSocket
+		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,15)
+		  if res<>"" then
+		    JSN.load(res)
+		    dim RegPreciseTemp as FolderItem
+		    dim OutStream As TextOutputStream
+		    
+		    RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		    if RegPreciseTemp<>nil then
+		      OutStream = TextOutputStream.Create(RegPreciseTemp)
+		      outstream.Write(JSON2Fasta(JSN))
+		      outstream.close
+		      LoadAlignment(RegPreciseTemp)
+		    end if
+		  else
+		    WriteToSTDOUT("no response in 15 sec.")
+		  end if
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function LogoLength() As integer
 		  dim instream as TextInputStream
 		  dim aline As string
@@ -2554,7 +2601,7 @@ End
 		    
 		    cli=MEMEpath+" -nmotifs 1 -dna -text "
 		    if Palindromic then
-		      cli=cli+"-pal "
+		      cli=cli+"-pal -revcomp "
 		    end if
 		    cli=cli+alignment_tmp.ShellPath
 		    cli=cli+" > "+MEMEtmp.ShellPath

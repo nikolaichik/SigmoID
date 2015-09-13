@@ -356,6 +356,27 @@ Begin Menu MainMenuBar
          Visible = True
       End
    End
+   Begin MenuItem RegPreciseMenu
+      SpecialMenu = 0
+      Text = "RegPrecise"
+      Index = -2147483648
+      AutoEnable = True
+      Visible = True
+      Begin MenuItem RegPreciseRegulons
+         SpecialMenu = 0
+         Text = "Regulons..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem RegPreciseRegulogs
+         SpecialMenu = 0
+         Text = "Regulogs..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+   End
    Begin MenuItem GenomeMenu
       SpecialMenu = 0
       Text = "Genome"

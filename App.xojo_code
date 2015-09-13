@@ -4,7 +4,6 @@ Inherits Application
 	#tag Event
 		Sub Open()
 		  
-		  
 		  #if TargetMacOS then 'Bundle ↠ Contents ↠ Resources
 		    #if DebugBuild then
 		      resources_f=GetFolderItem("SigmoID.debug.app")
@@ -181,6 +180,7 @@ Inherits Application
 			dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
 			tmpfile=dlg.ShowModal 'within(self)
 			
+			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 			logowin.LoadAlignment(tmpFile)
 			Return True
 			
@@ -190,6 +190,25 @@ Inherits Application
 	#tag MenuHandler
 		Function FileScanGenome() As Boolean Handles FileScanGenome.Action
 			ScanGenome
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function RegPreciseRegulogs() As Boolean Handles RegPreciseRegulogs.Action
+			RegPreciseWin.title="RegPrecise: regulogs"
+			RegPreciseWin.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function RegPreciseRegulons() As Boolean Handles RegPreciseRegulons.Action
+			RegPreciseWin.title="RegPrecise: regulons"
+			RegPreciseWin.LoadGenomes
+			RegPreciseWin.show
 			Return True
 			
 		End Function

@@ -38,6 +38,7 @@ Window=nhmmerSettingsWin;Windows/nhmmerSettingsWin.xojo_window;&h133F60E8;&h2250
 Window=LogoWin;Windows/LogoWin.xojo_window;&h68F012A1;&h2250E847;false
 Window=MASTSettingsWin;Windows/MASTSettingsWin.xojo_window;&h6ED167FF;&h2250E847;false
 Window=MASTGenSettingsWin;Windows/MASTGenSettingsWin.xojo_window;&h128B4FEF;&h2250E847;false
+Window=RegPreciseWin;Windows/RegPreciseWin.xojo_window;&h717FFFFF;&h2250E847;false
 Window=ScanGenomeWin;Windows/ScanGenomeWin.xojo_window;&h30DAFF66;&h2250E847;false
 Window=SettingsWin;Windows/SettingsWin.xojo_window;&h6A2EDB1E;&h2250E847;false
 Class=cTabbedSlider;Classes/TabPanel/cTabbedSlider.xojo_code;&h3C58F597;&h2335296B;false

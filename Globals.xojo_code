@@ -542,6 +542,39 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function JSON2Fasta(JSONin as JSONItem) As string
+		  dim sites,site as JSONItem
+		  dim FastaHeader, FastaSequence, AllFasta as string
+		  dim n as integer
+		  
+		  sites=JSONin.Value("site")
+		  if sites.IsArray then
+		    for n=0 to sites.Count-1
+		      if sites(n) isa JSONItem then
+		        'should contain smth like:
+		        '{"geneLocusTag":"SO_0443","geneVIMSSId":"199635","position":"-94","regulonId":"6423","score":"6.9617","sequence":"ACCTTGGAGTAGGCTCCAAGGT"}
+		        site=new JSONItem
+		        site=sites(n)
+		        FastaHeader=">"+site.value("geneLocusTag")+" VIMSSId="+site.value("geneVIMSSId")+" Pos="+site.value("position")+" Score="+site.value("score")
+		        FastaSequence=site.value("sequence")
+		        AllFasta=AllFasta+FastaHeader+EndOfLine+FastaSequence+EndOfLine
+		        
+		      end if
+		      
+		    next
+		    
+		    return AllFasta
+		    
+		  else
+		    'single site is of no use for SigmoID!
+		    
+		  end if
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:JSON2Fasta")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function log2(numbr as double) As double
 		  'log2(X)=ln(X)/ln(2)
 		  'ln in Xojo is log
