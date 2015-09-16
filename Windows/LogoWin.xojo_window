@@ -2185,7 +2185,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub LoadRegpreciseData(ID as string)
+		Sub LoadRegpreciseData(ID as string, TFname as string)
 		  'get the binding site sequences, store 'em in a temp file and open it
 		  
 		  WriteToSTDOUT("Contacting RegPrecise... ")
@@ -2196,6 +2196,7 @@ End
 		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,15)
 		  if res<>"" then
 		    JSN.load(res)
+		    WriteToSTDOUT("got the data for "+TFname+".")
 		    dim RegPreciseTemp as FolderItem
 		    dim OutStream As TextOutputStream
 		    

@@ -342,6 +342,11 @@ End
 		      
 		    next
 		    
+		    'sort the list:
+		    regulatorList.ColumnsortDirection(0)=ListBox.SortAscending
+		    regulatorList.SortedColumn=0   //first column is the sort column
+		    regulatorList.Sort
+		    
 		    RegulatorList.Enabled=true
 		  else
 		    'A problem with JSON
@@ -496,12 +501,27 @@ End
 #tag Events ViewLogoButton
 	#tag Event
 		Sub Action()
-		  dim RegulonID as string
+		  dim RegulonID, TFname as string
+		  dim n as integer
 		  
-		  RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
+		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
+		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
+		  'therefore, a full search of the regulator array is required
+		  
+		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  for n=0 to UBound(regulatorArray)
+		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
+		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
+		      exit
+		    end if
+		    
+		  next
+		  
+		  
 		  
 		  LogoWin.show
-		  LogoWin.LoadRegpreciseData(RegulonID)
+		  LogoWin.LoadRegpreciseData(RegulonID,TFname)
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
