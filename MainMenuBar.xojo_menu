@@ -376,6 +376,20 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem RegPreciseWeights
+         SpecialMenu = 0
+         Text = "Weights"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem RegPreciseCompareScores
+         SpecialMenu = 0
+         Text = "CompareScores"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
    End
    Begin MenuItem GenomeMenu
       SpecialMenu = 0

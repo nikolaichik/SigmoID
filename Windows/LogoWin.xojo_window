@@ -626,11 +626,11 @@ End
 		  dim jsn as new JSONItem
 		  dim hts as new HTTPSocket
 		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/release",5)
-		  JSN.load(res)
-		  RegPreciseWin.RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
-		  if RegPreciseWin.RegPreciseVersion="" then
+		  if Res="" then
 		    WriteToSTDOUT ("no response in 5 seconds") 
 		  else
+		    JSN.load(res)
+		    RegPreciseWin.RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
 		    WriteToSTDOUT (RegPreciseWin.RegPreciseVersion)+EndOfLine
 		  end if
 		  
@@ -715,7 +715,7 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function FileExtendBindingSites() As Boolean Handles FileExtendBindingSites.Action
+		Function AlignmentExtendBindingSites() As Boolean Handles AlignmentExtendBindingSites.Action
 			if GenomeFile<>Nil then
 			ExtendSitesWin.GenomeField.text=GenomeFile.ShellPath
 			ExtendSitesWin.ExtendButton.Enabled=true
@@ -1042,6 +1042,54 @@ End
 	#tag MenuHandler
 		Function GenomeTerminatorSearch() As Boolean Handles GenomeTerminatorSearch.Action
 			TermGenSearch
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function RegPreciseCompareScores() As Boolean Handles RegPreciseCompareScores.Action
+			'run nhmmer, then hmmgen, then convert hits to fasta string 
+			'and feed it to the actual comparison routine
+			
+			'for now, assume that both nhmmer and HmmGen have been run and we have the required hits.
+			
+			dim score as double
+			
+			score=CompareScores(GenomeWin.GetCheckedHits,me.Sequences)
+			
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function RegPreciseWeights() As Boolean Handles RegPreciseWeights.Action
+			
+			WriteToSTDOUT("__7,1,0,3__:"+EndOfLine)
+			WriteToSTDOUT("base 2 log: "+PosNucWeight(7,1,0,3)+EndOfLine)
+			WriteToSTDOUT("base 10 log: "+PosNucWeight1(7,1,0,3)+EndOfLine)
+			WriteToSTDOUT("base 2 log counts: "+PosNucWeight3(7,1,0,3)+EndOfLine)
+			WriteToSTDOUT("base 10 log counts: "+PosNucWeight2(7,1,0,3)+EndOfLine)
+			WriteToSTDOUT("__2,0,0,9__:"+EndOfLine)
+			WriteToSTDOUT("base 2 log: "+PosNucWeight(2,0,0,9)+EndOfLine)
+			WriteToSTDOUT("base 10 log: "+PosNucWeight1(2,0,0,9)+EndOfLine)
+			WriteToSTDOUT("base 2 log counts: "+PosNucWeight3(2,0,0,9)+EndOfLine)
+			WriteToSTDOUT("base 10 log counts: "+PosNucWeight2(2,0,0,9)+EndOfLine)
+			WriteToSTDOUT("__0,0,0,12__:"+EndOfLine)
+			WriteToSTDOUT("base 2 log: "+PosNucWeight(0,0,0,12)+EndOfLine)
+			WriteToSTDOUT("base 10 log: "+PosNucWeight1(0,0,0,12)+EndOfLine)
+			WriteToSTDOUT("base 2 log counts: "+PosNucWeight3(0,0,0,12)+EndOfLine)
+			WriteToSTDOUT("base 10 log counts: "+PosNucWeight2(0,0,0,12)+EndOfLine)
+			WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(0,0,0,12)+EndOfLine)
+			
+			WriteToSTDOUT("__11,0,1,0__:"+EndOfLine)
+			WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(11,0,1,0)+EndOfLine)
+			
+			WriteToSTDOUT("__0,5,1,6__:"+EndOfLine)
+			WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(0,5,1,6)+EndOfLine)
+			
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -1843,6 +1891,8 @@ End
 		            'add locus_tag
 		            Hitname=Hitname+nthfield(nthfield(currentHit,"Key: locus_tag, Value: ['",2),"']",1)+" "
 		            
+		            Hitinfo=Replace(HitInfo,"score ","Score=")
+		            Hitinfo=Replace(HitInfo,"E-value ","E-value=")
 		            genomeWin.HmmHitDescriptions.append HitInfo
 		            genomeWin.HmmHitNames.append HitName
 		            

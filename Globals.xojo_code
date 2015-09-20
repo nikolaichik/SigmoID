@@ -143,6 +143,116 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CompareScores(SigmoIDhits as string, TrainingData as string) As double
+		  'Sigmoid gives a fasta file with headers like this:
+		  '>2469306:2469325 (-) AscG Score=11.5 E-value=1.6
+		  'or this:
+		  '>ECA1243 2469306:2469325 (-) AscG Score=11.5 E-value=1.6
+		  'or this:
+		  '>nrdD ECA0375 427092:427113 (-) FNR Score=9.7 E-value=12.0
+		  
+		  
+		  'the scores are in genomeWin.HmmHitDescriptions()
+		  'names are in genomeWin.HmmHitNames()
+		  'hit coords (just the left one) are in in genomeWin.HmmHits()
+		  
+		  
+		  
+		  dim SigSeq(0), SigName(0) as string
+		  dim SigScore(0) as double
+		  dim TSSeq(0), TSName(0) as string
+		  dim aLine,theScore as string
+		  dim MinScore as double = 1000
+		  dim n,m as integer
+		  dim missedHits(0) as string
+		  
+		  'First, fill the SigmoID and training set arrays with seqs and scores
+		  for n=1 to CountFields(SigmoIDhits,EndOfLine.unix)
+		    aLine=NthField(SigmoIDhits,EndOfLine.unix,n)
+		    if left(aline,1)=">" then
+		      SigName.Append aLine
+		      'get the score:
+		      TheScore=NthField(aLine,"Score=",2)
+		      theScore=NthField(TheScore," ",1)
+		      SigScore.Append(val(theScore))
+		      n=n+1
+		      aLine=NthField(SigmoIDhits,EndOfLine.unix,n)
+		      SigSeq.Append aLine
+		    end if
+		  next
+		  for n=1 to CountFields(TrainingData,EndOfLine.unix)
+		    aLine=NthField(TrainingData,EndOfLine.unix,n)
+		    if left(aline,1)=">" then
+		      TSName.Append aLine
+		      n=n+1
+		      aLine=NthField(TrainingData,EndOfLine.unix,n)
+		      TSSeq.Append aLine
+		    end if
+		  next
+		  
+		  dim cTSseq,cTSname as string
+		  
+		  
+		  'Read RegPrecise file and compare to Sigmoid data:
+		  for m=1 to ubound(TSSeq) 'of training set 
+		    
+		    Dim hitCount as integer=0
+		    
+		    cTSseq=TSSeq(m)
+		    cTSname=TSname(m)
+		    
+		    for n=1 to ubound(SigSeq)
+		      if instr(SigSeq(n),cTSseq)>0 then
+		        hitCount=hitCount+1
+		        LogoWin.WriteToSTDOUT(cTSname+EndOfLine)
+		        if HitCount=1 then
+		          LogoWin.WriteToSTDOUT("corresponds to:"+EndOfLine)
+		          LogoWin.WriteToSTDOUT(SigName(n)+EndOfLine)
+		          LogoWin.WriteToSTDOUT(SigSeq(n)+EndOfLine)
+		        else
+		          LogoWin.WriteToSTDOUT("hit number "+str(n)+"! Corresponds to:"+EndOfLine)
+		          LogoWin.WriteToSTDOUT(SigName(n)+EndOfLine)
+		          LogoWin.WriteToSTDOUT(SigSeq(n)+EndOfLine)
+		        end if
+		        LogoWin.WriteToSTDOUT(SigName(0)+EndOfLine)
+		        if SigScore(n)<MinScore then
+		          MinScore=SigScore(n)
+		        end if
+		      elseif instr(SigSeq(n),ReverseComplement(cTSseq))>0 then
+		        hitCount=hitCount+1
+		        LogoWin.WriteToSTDOUT(cTSname+EndOfLine)
+		        if HitCount=1 then
+		          LogoWin.WriteToSTDOUT("corresponds to:"+EndOfLine)
+		          LogoWin.WriteToSTDOUT(SigName(n)+EndOfLine)
+		          LogoWin.WriteToSTDOUT(SigSeq(n)+EndOfLine)
+		        else
+		          LogoWin.WriteToSTDOUT("hit number "+str(n)+"! Corresponds to:"+EndOfLine)
+		          LogoWin.WriteToSTDOUT(SigName(n)+EndOfLine)
+		          LogoWin.WriteToSTDOUT(SigSeq(n)+EndOfLine)
+		        end if
+		        LogoWin.WriteToSTDOUT(SigName(0)+EndOfLine)
+		        if SigScore(n)<MinScore then
+		          MinScore=SigScore(n)
+		        end if
+		      end if
+		    next
+		    if hitCount=0 then 'no Sigmoid hit matches training set
+		      missedHits.Append cTSname+EndOfLine+cTSseq
+		    end if
+		    
+		  next
+		  
+		  LogoWin.WriteToSTDOUT("Minimal score found: "+str(minScore)+EndOfLine)
+		  if ubound(missedHits)>0 then
+		    LogoWin.WriteToSTDOUT("Some training set sites were missed by SigmoID:"+EndOfLine)
+		    for n=1 to ubound(missedHits)
+		      LogoWin.WriteToSTDOUT(missedHits(n)+EndOfLine)
+		    next
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Complement(seq as string) As String
 		  'memory blocks are up to 80 times faster than strings here!!! :
 		  dim n,l,count as integer
@@ -586,6 +696,111 @@ Protected Module Globals
 		  else
 		    return log(numbr)/ln2
 		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PosNucWeight(A as Integer, C as integer, G as integer, T as integer) As String
+		  'Positional Nucleotide Weight calculated as in Genome Explorer by Mironov et al
+		  
+		  dim SumN as integer
+		  dim Wa,Wc,Wg,Wt,logAve as double
+		  dim Wall as string
+		  
+		  SumN=A+C+G+T
+		  
+		  logAve=(log2(A/SumN+1/2)+log2(C/SumN+1/2)+log2(G/SumN+1/2)+log2(T/SumN+1/2))/4
+		  Wa=log2(A/SumN+1/2)-logAve
+		  Wc=log2(C/SumN+1/2)-logAve
+		  Wg=log2(G/SumN+1/2)-logAve
+		  Wt=log2(T/SumN+1/2)-logAve
+		  
+		  Wall=str(Wa)+";"+str(Wc)+";"+str(Wg)+";"+str(Wt)
+		  return Wall
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PosNucWeight1(A as Integer, C as integer, G as integer, T as integer) As String
+		  'Positional Nucleotide Weight calculated as in Genome Explorer by Mironov et al
+		  
+		  dim SumN as integer
+		  dim Wa,Wc,Wg,Wt,logAve as double
+		  dim Wall as string
+		  
+		  SumN=A+C+G+T
+		  
+		  logAve=(log(A/SumN+1/2)+log(C/SumN+1/2)+log(G/SumN+1/2)+log(T/SumN+1/2))/4
+		  Wa=log(A/SumN+1/2)-logAve
+		  Wc=log(C/SumN+1/2)-logAve
+		  Wg=log(G/SumN+1/2)-logAve
+		  Wt=log(T/SumN+1/2)-logAve
+		  
+		  Wall=str(Wa)+";"+str(Wc)+";"+str(Wg)+";"+str(Wt)
+		  return Wall
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PosNucWeight2(A as Integer, C as integer, G as integer, T as integer) As String
+		  'Positional Nucleotide Weight calculated as in Genome Explorer by Mironov et al
+		  
+		  dim SumN as integer
+		  dim Wa,Wc,Wg,Wt,logAve as double
+		  dim Wall as string
+		  
+		  SumN=A+C+G+T
+		  
+		  logAve=(log(A+1/2)+log(C+1/2)+log(G+1/2)+log(T+1/2))/4
+		  Wa=log(A+1/2)-logAve
+		  Wc=log(C+1/2)-logAve
+		  Wg=log(G+1/2)-logAve
+		  Wt=log(T+1/2)-logAve
+		  
+		  Wall=str(Wa)+";"+str(Wc)+";"+str(Wg)+";"+str(Wt)
+		  return Wall
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PosNucWeight3(A as Integer, C as integer, G as integer, T as integer) As String
+		  'Positional Nucleotide Weight calculated as in Genome Explorer by Mironov et al
+		  
+		  dim SumN as integer
+		  dim Wa,Wc,Wg,Wt,logAve as double
+		  dim Wall as string
+		  
+		  SumN=A+C+G+T
+		  
+		  logAve=(log2(A+1/2)+log2(C+1/2)+log2(G+1/2)+log2(T+1/2))/4
+		  Wa=log2(A+1/2)-logAve
+		  Wc=log2(C+1/2)-logAve
+		  Wg=log2(G+1/2)-logAve
+		  Wt=log2(T+1/2)-logAve
+		  
+		  Wall=str(Wa)+";"+str(Wc)+";"+str(Wg)+";"+str(Wt)
+		  return Wall
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PosNucWeight4(A as Integer, C as integer, G as integer, T as integer) As String
+		  'Positional Nucleotide Weight calculated as in Genome Explorer by Mironov et al
+		  
+		  dim SumN as integer
+		  dim Wa,Wc,Wg,Wt,logAve as double
+		  dim Wall as string
+		  
+		  SumN=A+C+G+T
+		  
+		  logAve=(A+C+G+T+2)/SumN
+		  Wa=log2((A/SumN+1/2)/logAve)
+		  Wc=log2((C/SumN+1/2)/logAve)
+		  Wg=log2((G/SumN+1/2)/logAve)
+		  Wt=log2((T/SumN+1/2)/logAve)
+		  
+		  Wall=str(Wa)+";"+str(Wc)+";"+str(Wg)+";"+str(Wt)
+		  return Wall
 		End Function
 	#tag EndMethod
 

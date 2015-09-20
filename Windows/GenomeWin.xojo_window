@@ -967,28 +967,7 @@ End
 			outfile=dlg.ShowModalwithin(self)
 			if outfile<>nil then
 			outstream = TextOutputStream.Create(outfile)
-			for n=1 to ubound (hmmhits)
-			if HmmHitChecked(n) then
-			'get site sequence:
-			'determine the distance of the left edge of displayed fragment from start:
-			leftC=Val(NthField(HmmHitDescriptions(n),":",1))
-			rightC=Val(NthField(NthField(HmmHitDescriptions(n)," ",1),":",2))
-			if instr(HmmHitDescriptions(n),"(+)")>0 then
-			'top strand
-			hitseq=mid(Genome.Sequence,leftC,RightC-leftC+1)
-			
-			else
-			'bottom strand
-			hitseq=mid(Genome.Sequence,leftC,RightC-leftC+1)
-			hitseq=ReverseComplement(hitSeq)
-			end if
-			
-			genomeWin.TextMap(FeatureLeft,FeatureRight)
-			
-			outstream.WriteLine(">"+HmmHitNames(n)+HmmHitDescriptions(n))
-			outstream.WriteLine(HitSeq)
-			end if
-			next
+			outstream.write(GetCheckedHits)
 			outstream.Close
 			
 			end if
@@ -1232,6 +1211,12 @@ End
 		  Dim C as  Clipboard
 		  C=new Clipboard
 		  
+		  dim fl,fr,gbs as integer
+		  
+		  fl=FeatureLeft
+		  fr=FeatureRight
+		  gbs=GBrowseShift
+		  
 		  'using standard code [ gcodes(1) ] for now!
 		  
 		  if FeatureLeft>0 then
@@ -1249,6 +1234,14 @@ End
 		Sub CopyDNA()
 		  Dim C as  Clipboard
 		  C=new Clipboard
+		  
+		  dim fl,fr,gbs as integer
+		  
+		  fl=FeatureLeft
+		  fr=FeatureRight
+		  gbs=GBrowseShift
+		  
+		  
 		  
 		  dim se as string
 		  if FeatureLeft>0 then 'copy selected feature
@@ -1813,10 +1806,7 @@ End
 		  'Feature.righttrunc=true
 		  'end
 		  
-		  if Feature.complement then
-		    Feature.start=Feature.start+1
-		    
-		  end if
+		  
 		  Feature.length=abs(Feature.start-Feature.finish)+1 'may just leave the negative here and remove the complement boolean altogether
 		  
 		  'now try to guess a name:
@@ -2037,6 +2027,39 @@ End
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetCheckedHits() As string
+		  dim n as integer
+		  dim hits as string
+		  dim leftC, rightC as integer
+		  dim hitseq as string
+		  
+		  for n=1 to ubound (hmmhits)
+		    if HmmHitChecked(n) then
+		      'get site sequence:
+		      'determine the distance of the left edge of displayed fragment from start:
+		      leftC=Val(NthField(HmmHitDescriptions(n),":",1))
+		      rightC=Val(NthField(NthField(HmmHitDescriptions(n)," ",1),":",2))
+		      if instr(HmmHitDescriptions(n),"(+)")>0 then
+		        'top strand
+		        hitseq=mid(Genome.Sequence,leftC,RightC-leftC+1)
+		        
+		      else
+		        'bottom strand
+		        hitseq=mid(Genome.Sequence,leftC,RightC-leftC+1)
+		        hitseq=ReverseComplement(hitSeq)
+		      end if
+		      
+		      genomeWin.TextMap(FeatureLeft,FeatureRight)
+		      
+		      Hits=Hits+">"+trim(HmmHitNames(n)+HmmHitDescriptions(n))+EndOfLine.Unix+HitSeq+EndOfLine.Unix
+		    end if
+		  next
+		  
+		  return Hits
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
