@@ -25,7 +25,7 @@ Begin Window RegPreciseWin
    Resizeable      =   True
    Title           =   "RegPrecise"
    Visible         =   False
-   Width           =   600
+   Width           =   672
    Begin Label Label2
       AutoDeactivate  =   True
       Bold            =   False
@@ -77,7 +77,7 @@ Begin Window RegPreciseWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       TabIndex        =   2
@@ -89,14 +89,14 @@ Begin Window RegPreciseWin
       Top             =   20
       Underline       =   False
       Visible         =   True
-      Width           =   486
+      Width           =   558
    End
    Begin Listbox RegulatorList
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
       Border          =   True
-      ColumnCount     =   2
+      ColumnCount     =   3
       ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
@@ -114,13 +114,13 @@ Begin Window RegPreciseWin
       Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "Regulator	Pathway"
+      InitialValue    =   "Regulator	Effector	Pathway"
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
       Scope           =   0
@@ -137,71 +137,9 @@ Begin Window RegPreciseWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   560
+      Width           =   632
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
-   End
-   Begin PushButton SelectAllButton
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "Select all"
-      Default         =   False
-      Enabled         =   False
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   4
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   360
-      Underline       =   False
-      Visible         =   True
-      Width           =   100
-   End
-   Begin PushButton DeselectAllButton
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "Deselect all"
-      Default         =   False
-      Enabled         =   False
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   132
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   360
-      Underline       =   False
-      Visible         =   True
-      Width           =   100
    End
    Begin PushButton ViewLogoButton
       AutoDeactivate  =   True
@@ -209,19 +147,19 @@ Begin Window RegPreciseWin
       ButtonStyle     =   "0"
       Cancel          =   False
       Caption         =   "View logo"
-      Default         =   False
+      Default         =   True
       Enabled         =   False
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   244
-      LockBottom      =   False
+      Left            =   552
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -233,37 +171,6 @@ Begin Window RegPreciseWin
       Underline       =   False
       Visible         =   True
       Width           =   100
-   End
-   Begin PushButton SearchButton
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "Search genome..."
-      Default         =   False
-      Enabled         =   False
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   440
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   360
-      Underline       =   False
-      Visible         =   True
-      Width           =   140
    End
    Begin mHTTPSocket RegPreciseSocket
       Address         =   ""
@@ -306,7 +213,7 @@ Begin Window RegPreciseWin
       TabStop         =   True
       Top             =   -58
       Visible         =   True
-      Width           =   16
+      Width           =   88
    End
 End
 #tag EndWindow
@@ -332,12 +239,16 @@ End
 		        '"genomeName":"Erwinia carotovora subsp. atroseptica SCRI1043",
 		        '"pathway":"Aromatic amino acid metabolism","regulationType":"TF","regulatorFamily":"TyrR",
 		        '"regulatorName":"TyrR","regulogId":"1118","regulonId":"10175"}
-		        regulatorArray.append regulators(n)
-		        dim s1, s2 as string
-		        s1=JSONItem(regulators(n)).Value("regulatorName")
-		        s2=JSONItem(regulators(n)).Value("pathway")
-		        Dim reg() As String = Array(s1, s2)
-		        regulatorList.AddRow(reg)
+		        
+		        if JSONItem(regulators(n)).Value("regulationType")="TF" then 'exclude the RNAs for now
+		          regulatorArray.append regulators(n)
+		          dim s1, s2, s3 as string
+		          s1=JSONItem(regulators(n)).Value("regulatorName")
+		          s2=JSONItem(regulators(n)).Value("effector")
+		          s3=JSONItem(regulators(n)).Value("pathway")
+		          Dim reg() As String = Array(s1, s2, s3)
+		          regulatorList.AddRow(reg)
+		        end if
 		      end if
 		      
 		    next
@@ -477,24 +388,24 @@ End
 		    ViewLogoButton.Enabled=false
 		  end if
 		  
-		  if me.SelCount>=1 then
-		    DeselectAllButton.enabled=true
-		    SearchButton.Enabled=true
-		  else
-		    DeselectAllButton.enabled=true
-		    SearchButton.Enabled=true
-		  end if
+		  'if me.SelCount>=1 then
+		  'DeselectAllButton.enabled=true
+		  'SearchButton.Enabled=true
+		  'else
+		  'DeselectAllButton.enabled=true
+		  'SearchButton.Enabled=true
+		  'end if
 		  
-		  if me.SelCount=me.ListCount then
-		    SelectAllButton.enabled=false
-		  else
-		    SelectAllButton.enabled=true
-		  end if
+		  'if me.SelCount=me.ListCount then
+		  'SelectAllButton.enabled=false
+		  'else
+		  'SelectAllButton.enabled=true
+		  'end if
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  me.ColumnWidths="20%,80%"
+		  me.ColumnWidths="14%,43%,43%"
 		End Sub
 	#tag EndEvent
 #tag EndEvents

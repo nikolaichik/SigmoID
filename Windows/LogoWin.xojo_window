@@ -1571,7 +1571,12 @@ End
 		    LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
 		    me.refresh 'needed if logo of the same size is drawn and to remove selection
 		    
-		    WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    #if DebugBuild
+		      WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    #else
+		      WriteToSTDOUT (EndofLine+"The alignment "+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		      
+		    #endif
 		    WriteToSTDOUT ("Information content of this site is "+str(totalEntropy)+" bits."+EndofLine)
 		    
 		    'Palindromic=false
@@ -1746,7 +1751,12 @@ End
 		    LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
 		    me.refresh 'needed if logo of the same size is drawn and to remove selection
 		    
-		    WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    #if DebugBuild
+		      WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    #else
+		      WriteToSTDOUT (EndofLine+"The alignment "+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    #endif
+		    
 		    WriteToSTDOUT ("Binding site entropy is "+str(totalEntropy)+"."+EndofLine)
 		    
 		    'Palindromic=false
@@ -2181,52 +2191,59 @@ End
 		    if tis<>nil then
 		      sequences=tis.ReadAll
 		      tis.Close
+		      'RegPrecise data may contain gaps like this:
+		      'TACAGAT-(17)-TTCAGAT-(13)-ATCTGTA-(23)-GTCTGTA
+		      'need to fill the gaps with Ns, but for now just display the warning:
+		      if instr(sequences,"-(")>0 then
+		        msgbox "The binding site data may contain gaps. Please replace them with Ns." 
+		      end if
+		      
+		      'determine the default length parameter
+		      tis=logofile.OpenAsTextFile
+		      if tis<>nil then
+		        dim aline As string
+		        while not tis.EOF
+		          aLine=tis.readLine
+		          if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
+		            HmmGenSettingsWin.LengthField.CueText=str(len(aline))
+		            exit
+		          end if
+		        wend
+		        tis.Close
+		      end
+		      
+		      
+		      LogoWinToolbar.Item(1).Enabled=true
+		      
+		    else
+		      'MsgBox "Can't open the alignment file"
+		      LogoWinToolbar.Item(1).Enabled=false 'disable until alignment loaded
+		      LogoWinToolbar.Item(4).Enabled=false
+		      
+		      Return
+		    end if
+		    if WebLogoAvailable then
+		      DrawLogo
+		    elseif SigFileOpened then
+		      'use stored logodata within .sig file if available
+		      DrawLogo
+		    else
+		      ChangeView("Sequences")
 		    end if
 		    
-		    'determine the default length parameter
-		    tis=logofile.OpenAsTextFile
-		    if tis<>nil then
-		      dim aline As string
-		      while not tis.EOF
-		        aLine=tis.readLine
-		        if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
-		          HmmGenSettingsWin.LengthField.CueText=str(len(aline))
-		          exit
-		        end if
-		      wend
-		      tis.Close
-		    end
+		    if GenomeFile<> Nil AND Logofile<>nil then
+		      'LogoWinToolbar.Item(1).Enabled=true
+		      LogoWinToolbar.Item(2).Enabled=false 'new alignment, no nhmmer output yet
+		    end if
+		    
+		    if Palindromic then
+		      LogoWinToolbar.Item(4).Enabled=false
+		    else
+		      LogoWinToolbar.Item(4).Enabled=true
+		    End If
 		    
 		    
-		    LogoWinToolbar.Item(1).Enabled=true
-		    
-		  else
-		    'MsgBox "Can't open the alignment file"
-		    LogoWinToolbar.Item(1).Enabled=false 'disable until alignment loaded
-		    LogoWinToolbar.Item(4).Enabled=false
-		    
-		    Return
 		  end if
-		  if WebLogoAvailable then
-		    DrawLogo
-		  elseif SigFileOpened then
-		    'use stored logodata within .sig file if available
-		    DrawLogo
-		  else
-		    ChangeView("Sequences")
-		  end if
-		  
-		  if GenomeFile<> Nil AND Logofile<>nil then
-		    'LogoWinToolbar.Item(1).Enabled=true
-		    LogoWinToolbar.Item(2).Enabled=false 'new alignment, no nhmmer output yet
-		  end if
-		  
-		  if Palindromic then
-		    LogoWinToolbar.Item(4).Enabled=false
-		  else
-		    LogoWinToolbar.Item(4).Enabled=true
-		  End If
-		  
 		  
 		  LastSearch=""
 		  Exception err
@@ -2256,6 +2273,7 @@ End
 		      outstream.Write(JSON2Fasta(JSN))
 		      outstream.close
 		      LoadAlignment(RegPreciseTemp)
+		      me.title="SigmoIH: "+TFname+" (RegPrecise)"
 		    end if
 		  else
 		    WriteToSTDOUT("no response in 15 sec.")

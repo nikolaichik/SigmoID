@@ -74,8 +74,10 @@ Inherits Application
 		      end if
 		    case "Fasta"
 		      logowin.LoadAlignment(item)
+		      logowin.title="SigmoIH: "+item.DisplayName
 		    case "SigmoidFile"
 		      logowin.LoadAlignment(item)
+		      logowin.title="SigmoIH: "+item.DisplayName
 		    end select
 		  end if
 		  
@@ -180,9 +182,11 @@ Inherits Application
 			dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
 			tmpfile=dlg.ShowModal 'within(self)
 			
+			if tmpfile<>nil then
 			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 			logowin.LoadAlignment(tmpFile)
 			Return True
+			end if
 			
 		End Function
 	#tag EndMenuHandler
@@ -452,25 +456,21 @@ Inherits Application
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		4. Clear description of the cleanup the scripts do.
 		9. Prepare submission menu?
-		11. deleting gene name leaves /gene=" ? (happened once)
-		12. add Save Genome menuitem
 		13. Prompt for saving edited .sig info and options (Save as only)! 
 		14. if a CDS is selected, Cmd-C should copy the AA, not DNA sequence
 		16. add feature menu? (Add new feature from current hit, etc.)
-		17. add search menu with all search-related stuff
 		18. add scrolling/selection in detail view
 		19. when a gene is selected, blastN/blastX should be in menu instead of blastp
-		20. copies wrong sequence of DspF
 		21. title case in menus
 		22. text search glitch: searching with short upper case query (eg FNR) will pick up CDS with these letters in translation
 		23. add 'GoTo hit # ' menu
 		24. add meme results to .sig files and check for these when launching MAST...
 		25. Check background frequences influence on MAST search.
-		26. Add 'Open sig file' menu ? (currently only fasta files could be opened!)
 		27. closing the last search tab in genome browser should hide htmlviewer control
 		28. Add preference/option to set which database use with BLAST (same for taxonomy restriction)
 		29. Correct HmmGenSettingsWin: disable Run button until score is set
-		30. alternative start codons are not translated as methionin
+		30. alternative start codons are not translated as methionine
+		
 	#tag EndNote
 
 	#tag Note, Name = Linux details

@@ -175,6 +175,15 @@ End
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h0
+		Sub AcceptEdit()
+		  OKPressed=true
+		  self.hide
+		  self.ParentWin.Show
+		End Sub
+	#tag EndMethod
+
+
 	#tag Property, Flags = &h0
 		Arrow As cClickableShape
 	#tag EndProperty
@@ -213,6 +222,14 @@ End
 		    me.text=""
 		    me.TextColor=RGB(0,0,0)
 		  end
+		  
+		  if NOT keyboard.AltKey then
+		    if key=chr(13) OR key=chr(3) then 'return or enter
+		      AcceptEdit
+		      return true
+		    end if
+		  end if
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -235,12 +252,7 @@ End
 #tag Events OKButton
 	#tag Event
 		Sub Action()
-		  OKPressed=true
-		  
-		  
-		  
-		  self.hide
-		  self.ParentWin.Show
+		  AcceptEdit
 		  
 		  
 		End Sub
