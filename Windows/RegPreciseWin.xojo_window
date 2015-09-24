@@ -141,12 +141,12 @@ Begin Window RegPreciseWin
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin PushButton ViewLogoButton
+   Begin PushButton RegulonLogoButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "View logo"
+      Caption         =   "RegulonLogo"
       Default         =   True
       Enabled         =   False
       Height          =   20
@@ -154,7 +154,7 @@ Begin Window RegPreciseWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   552
+      Left            =   534
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -170,7 +170,7 @@ Begin Window RegPreciseWin
       Top             =   360
       Underline       =   False
       Visible         =   True
-      Width           =   100
+      Width           =   118
    End
    Begin mHTTPSocket RegPreciseSocket
       Address         =   ""
@@ -214,6 +214,37 @@ Begin Window RegPreciseWin
       Top             =   -58
       Visible         =   True
       Width           =   88
+   End
+   Begin PushButton RegulogLogoButton
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "RegulogLogo"
+      Default         =   False
+      Enabled         =   False
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   392
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   360
+      Underline       =   False
+      Visible         =   True
+      Width           =   118
    End
 End
 #tag EndWindow
@@ -316,16 +347,28 @@ End
 
 	#tag Method, Flags = &h0
 		Sub LoadGenomes()
+		  dim gnms as string
+		  dim f as folderitem
+		  dim tis as TextInputStream
 		  
-		  SocketTask="genomes"
-		  RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/genomeStats")
-		  
-		  'ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
-		  'ProgressWheel1.Visible=true
-		  'ProgressWheel1.Enabled=true
-		  
-		  
-		  
+		  f=Resources_f.child("genomeStats.JSON")
+		  if f<>Nil then
+		    'loading the JSON from disk rather than retrieving it from the net:
+		    tis=f.OpenAsTextFile
+		    if tis<>nil then
+		      gnms=tis.ReadAll
+		      tis.Close
+		      
+		      dim JSN as new JSONItem
+		      JSN.load(gnms)
+		      
+		      GenomeStats2array(JSN)
+		    end if
+		  else
+		    'get the data from RegPrecise
+		    SocketTask="genomes"
+		    RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/genomeStats")
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -383,9 +426,11 @@ End
 	#tag Event
 		Sub Change()
 		  if me.SelCount=1 then
-		    ViewLogoButton.Enabled=true
+		    RegulonLogoButton.Enabled=true
+		    RegulogLogoButton.Enabled=true
 		  else
-		    ViewLogoButton.Enabled=false
+		    RegulonLogoButton.Enabled=false
+		    RegulogLogoButton.Enabled=false
 		  end if
 		  
 		  'if me.SelCount>=1 then
@@ -409,7 +454,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events ViewLogoButton
+#tag Events RegulonLogoButton
 	#tag Event
 		Sub Action()
 		  dim RegulonID, TFname as string
@@ -431,7 +476,7 @@ End
 		  
 		  
 		  LogoWin.show
-		  LogoWin.LoadRegpreciseData(RegulonID,TFname)
+		  LogoWin.LoadRegpreciseData(RegulonID,TFname,false)
 		  
 		End Sub
 	#tag EndEvent
@@ -473,6 +518,33 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:SPSocket")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events RegulogLogoButton
+	#tag Event
+		Sub Action()
+		  dim RegulogID, TFname as string
+		  dim n as integer
+		  
+		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
+		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
+		  'therefore, a full search of the regulator array is required
+		  
+		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  for n=0 to UBound(regulatorArray)
+		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
+		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
+		      exit
+		    end if
+		    
+		  next
+		  
+		  
+		  
+		  LogoWin.show
+		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

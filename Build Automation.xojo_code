@@ -20,6 +20,7 @@
 					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAExpbnV4AE1FTUUAbWFzdA==
 					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAExpbnV4AE1FTUUAbWVtZQ==
 					FolderItem = Li4ATWFzdEdlbi5weQ==
+					FolderItem = Li4AZ2Vub21lU3RhdHMuSlNPTg==
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
 					AppliesTo = 2
@@ -46,6 +47,7 @@
 					FolderItem = Li4AZ2VuZXBhcnNlLnB5
 					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAGJsYW5rLmh0bWw=
 					FolderItem = Li4ATWFzdEdlbi5weQ==
+					FolderItem = Li4AZ2Vub21lU3RhdHMuSlNPTg==
 				End
 			End
 			Begin BuildStepList Windows
@@ -75,6 +77,7 @@
 					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAFdpbjMyAE1FTUUAbWFzdA==
 					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAFdpbjMyAE1FTUUAbWVtZQ==
 					FolderItem = Li4ATWFzdEdlbi5weQ==
+					FolderItem = Li4AZ2Vub21lU3RhdHMuSlNPTg==
 				End
 			End
 #tag EndBuildAutomation

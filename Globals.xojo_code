@@ -677,7 +677,8 @@ Protected Module Globals
 		    
 		  else
 		    'single site is of no use for SigmoID!
-		    
+		    logowin.WriteToSTDOUT("RegPrecise contains just one site for this regulator. Just ignore it!")
+		    return ""
 		  end if
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:JSON2Fasta")

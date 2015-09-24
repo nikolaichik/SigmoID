@@ -2195,7 +2195,25 @@ End
 		      'TACAGAT-(17)-TTCAGAT-(13)-ATCTGTA-(23)-GTCTGTA
 		      'need to fill the gaps with Ns, but for now just display the warning:
 		      if instr(sequences,"-(")>0 then
-		        msgbox "The binding site data may contain gaps. Please replace them with Ns." 
+		        'msgbox "The binding site data may contain gaps. Please replace them with Ns." 
+		        dim Ns, gap as string
+		        dim n, m, gapSize as integer
+		        While instr(sequences,"-(")>0
+		          gapSize=val(NthField(sequences,"-(",2))
+		          'fill the gap:
+		          Ns=""
+		          for m=1 to gapSize
+		             Ns=Ns+"N"
+		          next
+		          sequences=replaceall(sequences,"-("+str(gapSize)+")-",Ns)
+		        wend
+		        
+		        'write the seqs back to LogoFile:
+		        dim tos as TextOutputStream
+		        tos = TextOutputStream.Create(LogoFile)
+		        tos.Write(Sequences)
+		        tos.Close
+		        
 		      end if
 		      
 		      'determine the default length parameter
@@ -2252,7 +2270,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub LoadRegpreciseData(ID as string, TFname as string)
+		Sub LoadRegpreciseData(ID as string, TFname as string, isRegulog As boolean)
 		  'get the binding site sequences, store 'em in a temp file and open it
 		  
 		  WriteToSTDOUT("Contacting RegPrecise... ")
@@ -2260,7 +2278,11 @@ End
 		  dim res as string
 		  dim jsn as new JSONItem
 		  dim hts as new HTTPSocket
-		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,15)
+		  if isregulog then
+		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulogId="+ID,15)
+		  else
+		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,15)
+		  end if
 		  if res<>"" then
 		    JSN.load(res)
 		    WriteToSTDOUT("got the data for "+TFname+".")
@@ -2269,11 +2291,22 @@ End
 		    
 		    RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
 		    if RegPreciseTemp<>nil then
-		      OutStream = TextOutputStream.Create(RegPreciseTemp)
-		      outstream.Write(JSON2Fasta(JSN))
-		      outstream.close
-		      LoadAlignment(RegPreciseTemp)
-		      me.title="SigmoIH: "+TFname+" (RegPrecise)"
+		      dim fa as string
+		      fa=JSON2Fasta(JSN)
+		      if fa<>"" then
+		        OutStream = TextOutputStream.Create(RegPreciseTemp)
+		        outstream.Write(fa)
+		        outstream.close
+		        LoadAlignment(RegPreciseTemp)
+		        me.title="SigmoIH: "+TFname+" (RegPrecise)"
+		        
+		        'fill some hmmgen settings:
+		        HmmGenSettingsWin.AddQualifierBox.Value=true
+		        HmmGenSettingsWin.KeyField.text="bound.moiety"
+		        HmmGenSettingsWin.ValueField.text=TFname
+		        HmmGenSettingsWin.FeatureCombo.ListIndex=1 'protein_bind
+		        HmmGenSettingsWin.IntergenicBox.Value=true
+		      end if
 		    end if
 		  else
 		    WriteToSTDOUT("no response in 15 sec.")
@@ -2907,6 +2940,7 @@ End
 		    DrawLogo
 		    palindromic=true
 		    LogoWinToolbar.Item(4).Enabled=false
+		    HmmGenSettingsWin.PalindromicBox.value=true
 		  End If
 		  
 		  Exception err
@@ -3326,7 +3360,10 @@ End
 		    dlg.Title="Open alignment"
 		    dlg.Filter=FileTypes.Fasta
 		    tmpfile=dlg.ShowModalwithin(self)
-		    LoadAlignment(tmpFile)
+		    if tmpfile<>Nil then
+		      LoadAlignment(tmpFile)
+		      logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
+		    end if
 		  Case "LoadGenomeTool"
 		    GenomeFile=GetOpenFolderItem("")
 		    if GenomeFile<> Nil then
@@ -3394,12 +3431,21 @@ End
 		        dlg.Title="Open alignment"
 		        dlg.Filter=FileTypes.Fasta
 		        tmpfile=dlg.ShowModalwithin(self)
-		        LoadAlignment(tmpFile)
+		        if tmpfile<>Nil then
+		          LoadAlignment(tmpFile)
+		          logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
+		        end if
 		      else
-		        LoadAlignment(tmpFile)
+		        if tmpfile<>Nil then
+		          LoadAlignment(tmpFile)
+		          logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
+		        end if
 		      end if
 		    #else
-		      LoadAlignment(tmpFile)
+		      if tmpfile<>Nil then
+		        LoadAlignment(tmpFile)
+		        logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
+		      end if
 		    #endif
 		    
 		  else
