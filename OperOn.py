@@ -7,12 +7,13 @@ from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
 
 class Operon():
-    def __init__(self, name, genes):
+    def __init__(self, name, genes, info):
         self.name = name
         self.genes = genes
+        self.info = info
 
     def __str__(self):
-        out = '>%s\n' % self.name
+        out = ''
         for gene_loci_product in self.genes:
             out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
                                        gene_loci_product[1],
@@ -37,7 +38,7 @@ def createParser():
                         metavar='<int>',
                         help='''set a threshold for gaps between operons ''')
     parser.add_argument('-i', '--indent',
-                        default=200,
+                        default=500,
                         type=int,
                         metavar='<int>',
                         help='''set a threshold for indentation from very first gene to regulatory region''')
@@ -45,8 +46,18 @@ def createParser():
                         action='store_const',
                         const='On',
                         default='Off',
-                        help='''terminators are regarded as operon separator''')       
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.0 (September 23, 2015)')
+                        help='''terminators are regarded as operon separator''')
+    parser.add_argument('-r', '--regulator',
+                        type=str,
+                        metavar='<name of regulator>',
+                        default='Off',
+                        help='''only specified regulator are considered''')
+    parser.add_argument('-p', '--palindromic',
+                        action='store_const',
+                        const='Off',
+                        default='On',
+                        help='''binding sites are on both strands''')       
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.1 (September 25, 2015)')
     return parser
 
 args = createParser()
@@ -69,11 +80,11 @@ all_features = []
 cds_list = []
 for record in genome:
     for feature in record.features:
-        if feature.type == 'gene' or feature.type == 'protein_bind' or \
-                (feature.qualifiers.has_key('regulatory_class') and \
-                str(feature.qualifiers['regulatory_class'])[2:-2] == 'terminator') or  \
-                    (feature.qualifiers.has_key('regulatory_class') and \
-                    str(feature.qualifiers['regulatory_class'])[2:-2] == 'promoter'):
+        if feature.type == 'gene' or \
+           feature.type == 'protein_bind' or \
+           (feature.qualifiers.has_key('regulatory_class') and \
+                           (str(feature.qualifiers['regulatory_class'])[2:-2] == 'terminator' or  \
+                            str(feature.qualifiers['regulatory_class'])[2:-2] == 'promoter')):
             all_features.append(feature)
         if feature.type == 'CDS':
             cds_list.append(feature)
@@ -84,10 +95,22 @@ for n in range(len(all_features)):
                 all_features[n] = cds
                 break
 for feature in all_features:
-    if feature.strand == 1:
-        plus_strand.append(feature)
-    elif feature.strand == -1:
-        minus_strand.append(feature)
+    if ((feature.qualifiers.has_key('regulatory_class') and \
+                       str(feature.qualifiers['regulatory_class']) == 'promoter') or \
+       feature.type == 'protein_bind') and \
+       enter.regulator != 'Off' and \
+       enter.regulator.lower() == str(feature.qualifiers['bound_moiety'])[2:-2].lower():
+        if feature.strand == 1 or (enter.palindromic == 'On' and feature.type == 'protein_bind'):
+            plus_strand.append(feature)
+        if feature.strand == -1 or (enter.palindromic == 'On' and feature.type == 'protein_bind'):
+            minus_strand.append(feature)
+    if enter.regulator == 'Off' or (feature.type == 'gene' or feature.type == 'CDS' or \
+       (feature.qualifiers.has_key('regulatory_class') and \
+                           str(feature.qualifiers['regulatory_class'])[2:-2] == 'terminator')):
+        if feature.strand == 1 or (enter.palindromic == 'On' and feature.type == 'protein_bind'):
+            plus_strand.append(feature)
+        if feature.strand == -1 or (enter.palindromic == 'On' and feature.type == 'protein_bind'):
+            minus_strand.append(feature)
 for feature in reversed(plus_strand):
     if feature.type == 'gene' or feature.type == 'CDS':
         last_plus = plus_strand.index(feature)
@@ -107,12 +130,20 @@ for feature in plus_strand:
         if any(regulator==str(feature.qualifiers['bound_moiety'])[2:-2] for regulator in regulators) == False:
             regulators.append(str(feature.qualifiers['bound_moiety'])[2:-2])
         oper.append(str(feature.qualifiers['bound_moiety'])[2:-2])
+        try:
+            if str(feature.qualifiers['note'])[2:-2].startswith('nhmmer') or \
+               str(feature.qualifiers['note'])[2:-2].startswith('MAST'): 
+                oper.append(str(feature.qualifiers['note'])[2:-2])
+        except:
+            oper.append('')
         counter = 0
         for item in plus_strand[plus_strand.index(feature):]:
             if item.type == 'gene' or item.type == 'CDS':
                 gene_loci_product = []
                 counter += 1
                 if counter == 1 and (item.location.start - feature.location.end) < enter.indent:
+                    position = item.location.start - feature.location.start - 1
+                    oper[1] = oper[1]+' Pos=-'+str(position)
                     try:
                         gene_loci_product.append(str(item.qualifiers['gene'])[2:-2])
                     except:
@@ -127,6 +158,8 @@ for feature in plus_strand:
                         gene_loci_product.append('-')
                     oper.append(gene_loci_product)
                 elif counter == 1 and (item.location.start - feature.location.end) > enter.indent:
+                    position = item.location.start - feature.location.start - 1
+                    oper[1] = oper[1]+' Pos=-'+str(position)
                     test = oper[0:]
                     test_operons.append(test)
                     break
@@ -158,13 +191,13 @@ for feature in plus_strand:
                     previous_location = feature.location.end
                 else:
                     previous_location = item.location.end
-            elif (item.qualifiers.has_key('regulatory_class') and \
+            if (item.qualifiers.has_key('regulatory_class') and \
                      str(item.qualifiers['regulatory_class'])[2:-2] == 'terminator') and \
             enter.terminator == 'On':
                 if counter == 0:
                     test = ['Unknown', '-', '-']
                     test_operons.append(test)
-                elif counter >= 1 and any(operon==test for operon in test_operons) == False:
+                elif counter >= 1 :
                     test = oper[0:len(oper)]
                     test_operons.append(test)
 for feature in rev_minus_strand:
@@ -174,12 +207,20 @@ for feature in rev_minus_strand:
         if any(regulator==str(feature.qualifiers['bound_moiety'])[2:-2] for regulator in regulators) == False:
             regulators.append(str(feature.qualifiers['bound_moiety'])[2:-2])
         oper.append(str(feature.qualifiers['bound_moiety'])[2:-2])
+        try:
+            if str(feature.qualifiers['note'])[2:-2].startswith('nhmmer') or \
+               str(feature.qualifiers['note'])[2:-2].startswith('MAST'): 
+                oper.append(str(feature.qualifiers['note'])[2:-2])
+        except:
+            oper.append('')
         counter = 0
         for item in rev_minus_strand[rev_minus_strand.index(feature):]:
             if item.type == 'gene' or item.type == 'CDS':
                 gene_loci_product = []
                 counter += 1
                 if counter == 1 and (item.location.end - feature.location.start) > -enter.indent:
+                    position = item.location.end - feature.location.end - 1
+                    oper[1] = oper[1]+' Pos='+str(position)
                     try:
                         gene_loci_product.append(str(item.qualifiers['gene'])[2:-2])
                     except:
@@ -193,10 +234,11 @@ for feature in rev_minus_strand:
                     except:
                         gene_loci_product.append('-')
                     oper.append(gene_loci_product)
-                elif counter == 1 and (item.location.end - feature.location.start) < -enter.indent and \
-                enter.terminator == 'Off':
+                elif counter == 1 and (item.location.end - feature.location.start) < -enter.indent:
+                    position = item.location.end - feature.location.end - 1
+                    oper[1] = oper[1]+' Pos='+str(position)
                     test = oper[0:len(oper)]
-                    test_operons.append(test)
+                    test_operons.append(test)                    
                     break
                 elif counter > 1 and (item.location.end - previous_location) > (-enter.gap):
                     try:
@@ -226,28 +268,31 @@ for feature in rev_minus_strand:
                     previous_location = feature.location.start
                 else:
                     previous_location = item.location.start
-            elif (item.qualifiers.has_key('regulatory_class') and \
+            if (item.qualifiers.has_key('regulatory_class') and \
                      str(item.qualifiers['regulatory_class'])[2:-2] == 'terminator') and \
             enter.terminator == 'On':
                 if counter == 0:
                     test = ['Unknown', '-', '-']
                     test_operons.append(test)
-                elif counter >= 1 and any(operon==test for operon in test_operons) == False:
+                elif counter >= 1:
                     test = oper[0:len(oper)]
                     test_operons.append(test)
 operon_list = []
 for operon in test_operons:
     operon_name = operon[0]
-    operon_genes = operon[1:]
-    operon_instance = Operon(name=operon_name, genes=operon_genes)
+    operon_genes = operon[2:]
+    regulator_info = operon[1]
+    operon_instance = Operon(name=operon_name, genes=operon_genes, info=regulator_info)
     operon_list.append(operon_instance)
-operon_out = 'RegOperon 1.0 (September 23)\n'+('='*50)+'\n\n'
+operon_out = 'RegOperon 1.1 (September 25)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 for regulator in regulators:
+    operon_counter = 0
     regulator = regulator.replace('*', ' ')
     operon_out += ('-'*50 + '\n')
     for operon in operon_list:
         if regulator == operon.name:
-            operon_out += str(operon)
+            operon_counter += 1
+            operon_out += '>%s_%s %s\n%s\n' % (operon.name, str(operon_counter), operon.info, str(operon))
 print operon_out
-input_handle.close()
+input_handle.close()     
