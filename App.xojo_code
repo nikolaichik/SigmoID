@@ -2,6 +2,37 @@
 Protected Class App
 Inherits Application
 	#tag Event
+		Sub EnableMenuItems()
+		  'Build dynamic Window Menu
+		  
+		  dim count, i as Integer
+		  
+		  // Get a handle to our parent sub menu.
+		  Dim parent, child as MenuItem
+		  parent = MainMenuBar.Child( "Window" )    // Get the file menu
+		  if parent = nil then return
+		  
+		  // Clear the existing menu
+		  for i=parent.Count-1 downto 0
+		    parent.Remove(i)
+		  next
+		  
+		  // Add the windows to the menu
+		  count = WindowCount
+		  
+		  for i = 0 to count - 1
+		    // Construct our child item
+		    if Window(i).visible then
+		      child = new WindowMenuItem(Window(i))
+		      // And add it to our sub-menu
+		      parent.Append( child )
+		    end if
+		  next i
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  
 		  #if TargetMacOS then 'Bundle ↠ Contents ↠ Resources
@@ -156,6 +187,7 @@ Inherits Application
 			GenomeWin.opengenbankfile(GenomeFile)
 			GenomeWin.ShowGenomeStart
 			end if
+			
 			
 			Return True
 			
@@ -470,6 +502,7 @@ Inherits Application
 		28. Add preference/option to set which database use with BLAST (same for taxonomy restriction)
 		29. Correct HmmGenSettingsWin: disable Run button until score is set
 		30. alternative start codons are not translated as methionine
+		31. Find Minimal Score menu should not be enabled until a search is run!
 		
 	#tag EndNote
 

@@ -194,7 +194,7 @@ Protected Module Globals
 		  
 		  
 		  'Read RegPrecise file and compare to Sigmoid data:
-		  for m=1 to ubound(TSSeq) 'of training set 
+		  for m=1 to ubound(TSSeq) 'of training set
 		    
 		    Dim hitCount as integer=0
 		    
@@ -814,6 +814,22 @@ Protected Module Globals
 		  MEMEpath=Prefs.value("MEMEpath",SettingsWin.MEMEPathField.text)
 		  MASTpath=Prefs.value("MASTpath",SettingsWin.MASTPathField.text)
 		  weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RegulonInfo(ID as integer, IsRegulog as boolean)
+		  'Get RegPrecise web pages for a regulon (regulog)
+		  
+		  'http://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id=12127
+		  'http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=1307
+		  
+		  If IsRegulog then
+		    WebBrowserWindow.WebViewer.LoadURL("http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id="+str(ID))
+		  else
+		    WebBrowserWindow.WebViewer.LoadURL("http://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id="+str(ID))
+		  end if
 		  
 		End Sub
 	#tag EndMethod

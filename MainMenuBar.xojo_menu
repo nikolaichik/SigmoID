@@ -369,23 +369,16 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem RegPreciseRegulogs
+      Begin MenuItem RegPreciseRegulonInfo
          SpecialMenu = 0
-         Text = "Regulogs..."
+         Text = "Regulon Info"
          Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem RegPreciseWeights
-         SpecialMenu = 0
-         Text = "Weights"
-         Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem RegPreciseCompareScores
          SpecialMenu = 0
-         Text = "CompareScores"
+         Text = "Find Minimal Score"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -484,6 +477,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+   End
+   Begin MenuItem WindowMenu
+      SpecialMenu = 0
+      Text = "Window"
+      Index = -2147483648
+      AutoEnable = True
+      Visible = True
    End
    Begin MenuItem HelpMenu
       SpecialMenu = 0

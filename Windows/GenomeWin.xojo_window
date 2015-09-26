@@ -617,6 +617,12 @@ End
 	#tag EndEvent
 
 	#tag Event
+		Sub Close()
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Deactivate()
 		  ToolTip.Hide
 		End Sub
@@ -2002,7 +2008,7 @@ End
 		  dlg.Filter=FileTypes.Table
 		  outfile=dlg.ShowModalwithin(self)
 		  if outfile<>nil then
-		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting Sequin feature table...")
+		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting Sequin feature table (takes a while)...")
 		    LogoWin.STDOUT.Refresh
 		    Logowin.show
 		    gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
@@ -2924,9 +2930,7 @@ End
 		      f.MacType="BINA"
 		      f.MacCreator="SqEd"
 		      Document=f
-		      'remove old name from and add new  to window menu:
-		      'app.RemoveWindowMenu(self)
-		      'app.AddWindowMenu(self)
+		      
 		    End if
 		  else
 		    f=document
@@ -4823,8 +4827,8 @@ End
 		    
 		    trC=InStr(seq.Features(PointedFeature).FeatureText,"/translation=")
 		    if trC>0 then 'for CDS, translation has to be removed from tooltip
-		      ftL=left(seq.Features(PointedFeature).FeatureText,trC)
-		      ftR=mid(seq.Features(PointedFeature).FeatureText,trC+15)
+		      ftL=left(seq.Features(PointedFeature).FeatureText,trC-1)
+		      ftR=mid(seq.Features(PointedFeature).FeatureText,trC+16)
 		      trC=instr(ftR,"/")
 		      if trC>0 then
 		        ttip=ftL+right(ftR,len(ftR)-trC)

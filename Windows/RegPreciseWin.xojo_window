@@ -16,7 +16,7 @@ Begin Window RegPreciseWin
    MaxHeight       =   32000
    MaximizeButton  =   True
    MaxWidth        =   32000
-   MenuBar         =   0
+   MenuBar         =   149806200
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -181,6 +181,7 @@ Begin Window RegPreciseWin
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
+      InitialParent   =   ""
       IsConnected     =   False
       LastErrorCode   =   0
       Left            =   40
@@ -250,6 +251,44 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub EnableMenuItems()
+		  if RegulatorList.SelCount=1 then
+		    RegPreciseRegulonInfo.enabled=true
+		  end if
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Open()
+		  
+		End Sub
+	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
+			'get the ID:
+			dim RegulonID, TFname as string
+			dim n as integer
+			
+			TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
+			for n=0 to UBound(regulatorArray)
+			if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
+			RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
+			exit
+			end if
+			
+			next
+			
+			'open the RegPrecise page:
+			RegulonInfo(val(RegulonID),false)
+			
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Method, Flags = &h0
 		Sub FillRegulatorList(JSONin as JSONItem)
 		  'Populates the RegulatorList and stores regulator JSONs in an array
@@ -457,7 +496,7 @@ End
 #tag Events RegulonLogoButton
 	#tag Event
 		Sub Action()
-		  dim RegulonID, TFname as string
+		  dim RegulonID,RegulogID, TFname as string
 		  dim n as integer
 		  
 		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
@@ -468,6 +507,7 @@ End
 		  for n=0 to UBound(regulatorArray)
 		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
 		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
+		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
 		      exit
 		    end if
 		    
@@ -475,8 +515,11 @@ End
 		  
 		  
 		  
-		  LogoWin.show
+		  LogoWin.RegulonID=Val(RegulonID)
+		  LogoWin.RegulogID=Val(RegulogID)
+		  LogoWin.IsRegulog=false
 		  LogoWin.LoadRegpreciseData(RegulonID,TFname,false)
+		  LogoWin.show
 		  
 		End Sub
 	#tag EndEvent
@@ -524,7 +567,7 @@ End
 #tag Events RegulogLogoButton
 	#tag Event
 		Sub Action()
-		  dim RegulogID, TFname as string
+		  dim RegulogID,RegulonID, TFname as string
 		  dim n as integer
 		  
 		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
@@ -534,6 +577,7 @@ End
 		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
 		  for n=0 to UBound(regulatorArray)
 		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
+		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
 		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
 		      exit
 		    end if
@@ -542,8 +586,11 @@ End
 		  
 		  
 		  
-		  LogoWin.show
+		  LogoWin.RegulonID=Val(RegulonID)
+		  LogoWin.RegulogID=Val(RegulogID)
+		  LogoWin.IsRegulog=true
 		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
+		  LogoWin.show
 		  
 		End Sub
 	#tag EndEvent
@@ -738,12 +785,22 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="RegPreciseVersion"
+		Group="Behavior"
+		Type="String"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Resizeable"
 		Visible=true
 		Group="Appearance"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="SocketTask"
+		Group="Behavior"
+		Type="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Super"

@@ -583,6 +583,12 @@ End
 
 #tag WindowCode
 	#tag Event
+		Sub Close()
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  AdjustLayout4linux(me)
 		  ReadPrefs
@@ -592,6 +598,8 @@ End
 		  MEMEPathField.text=Prefs.value("MEMEpath","~/meme/bin/meme")
 		  MASTPathField.text=Prefs.value("MASTpath","~/meme/bin/mast")
 		  weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
+		  
+		  
 		  
 		  
 		  

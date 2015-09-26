@@ -218,6 +218,12 @@ End
 
 #tag WindowCode
 	#tag Event
+		Sub Close()
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub EnableMenuItems()
 		  if ubound(SelArray1)>0 then
 		    FileSaveAlignmentSelection.enable
@@ -271,6 +277,9 @@ End
 		    AlignmentConvertToMEME.enable
 		    GenomeMASTSearch.enable
 		    GenomeNhmmersearch.enable
+		    if RegulonID<>0 then
+		      RegPreciseRegulonInfo.enabled=true
+		    end if
 		  end if
 		  
 		  FileSaveCheckedSites.Visible=false
@@ -627,7 +636,7 @@ End
 		  dim hts as new HTTPSocket
 		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/release",5)
 		  if Res="" then
-		    WriteToSTDOUT ("no response in 5 seconds") 
+		    WriteToSTDOUT ("no response in 5 seconds")
 		  else
 		    JSN.load(res)
 		    RegPreciseWin.RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
@@ -647,8 +656,7 @@ End
 		  LogoWinToolbar.Item(4).Enabled=false 'palindromise: disable until alignment loaded
 		  LogoWinToolbar.Item(5).Enabled=false 'SaveLog: disable until alignment loaded
 		  
-		  WriteToSTDOUT (EndofLine+"Load alignment or genome file to start."+EndofLine)
-		  
+		  WriteToSTDOUT (EndofLine+EndofLine+"Load alignment or genome file to start."+EndofLine)
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:Open")
@@ -1047,7 +1055,7 @@ End
 
 	#tag MenuHandler
 		Function RegPreciseCompareScores() As Boolean Handles RegPreciseCompareScores.Action
-			'run nhmmer, then hmmgen, then convert hits to fasta string 
+			'run nhmmer, then hmmgen, then convert hits to fasta string
 			'and feed it to the actual comparison routine
 			
 			'for now, assume that both nhmmer and HmmGen have been run and we have the required hits.
@@ -1056,6 +1064,17 @@ End
 			
 			score=CompareScores(GenomeWin.GetCheckedHits,me.Sequences)
 			
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
+			
+			
+			RegulonInfo(RegulonID,false)
 			
 			Return True
 			
@@ -2195,7 +2214,7 @@ End
 		      'TACAGAT-(17)-TTCAGAT-(13)-ATCTGTA-(23)-GTCTGTA
 		      'need to fill the gaps with Ns, but for now just display the warning:
 		      if instr(sequences,"-(")>0 then
-		        'msgbox "The binding site data may contain gaps. Please replace them with Ns." 
+		        'msgbox "The binding site data may contain gaps. Please replace them with Ns."
 		        dim Ns, gap as string
 		        dim n, m, gapSize as integer
 		        While instr(sequences,"-(")>0
@@ -2203,7 +2222,7 @@ End
 		          'fill the gap:
 		          Ns=""
 		          for m=1 to gapSize
-		             Ns=Ns+"N"
+		            Ns=Ns+"N"
 		          next
 		          sequences=replaceall(sequences,"-("+str(gapSize)+")-",Ns)
 		        wend
@@ -2263,6 +2282,9 @@ End
 		    
 		  end if
 		  
+		  RegulonID=0
+		  RegulogID=0
+		  
 		  LastSearch=""
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:LoadAlignment")
@@ -2272,6 +2294,11 @@ End
 	#tag Method, Flags = &h0
 		Sub LoadRegpreciseData(ID as string, TFname as string, isRegulog As boolean)
 		  'get the binding site sequences, store 'em in a temp file and open it
+		  
+		  'temporarily store the IDs as LoadAlignment() zeroes them
+		  dim RgID,RnID as integer
+		  RgID=RegulogID
+		  RnID=RegulonID
 		  
 		  WriteToSTDOUT("Contacting RegPrecise... ")
 		  
@@ -2302,10 +2329,12 @@ End
 		        
 		        'fill some hmmgen settings:
 		        HmmGenSettingsWin.AddQualifierBox.Value=true
-		        HmmGenSettingsWin.KeyField.text="bound.moiety"
+		        HmmGenSettingsWin.KeyField.text="bound_moiety"
 		        HmmGenSettingsWin.ValueField.text=TFname
 		        HmmGenSettingsWin.FeatureCombo.ListIndex=1 'protein_bind
 		        HmmGenSettingsWin.IntergenicBox.Value=true
+		        RegulogID=RgID
+		        RegulonID=RnID
 		      end if
 		    end if
 		  else
@@ -3194,6 +3223,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		IsRegulog As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		LastHitNo As Integer
 	#tag EndProperty
 
@@ -3283,6 +3316,14 @@ End
 
 	#tag Property, Flags = &h1
 		Protected pT As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		RegulogID As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		RegulonID As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
