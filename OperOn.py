@@ -25,7 +25,7 @@ def createParser():
     parser = argparse.ArgumentParser(
              prog='RegOperon',
              usage='\n%(prog)s <input_file> <output_file> [options]',
-             description='''This script allows to add terminators to a genbank file according to TransTerm HP results.
+             description='''This script finds putative operon according to binding sites of regulators.
     Requires Biopython 1.64 (or newer)''',
              epilog='''(c) Aliaksandr Damienikan, 2015.''')
     parser.add_argument('input_file',
@@ -51,13 +51,13 @@ def createParser():
                         type=str,
                         metavar='<name of regulator>',
                         default='Off',
-                        help='''only specified regulator are considered''')
+                        help='''only specified regulators are considered''')
     parser.add_argument('-p', '--palindromic',
                         action='store_const',
-                        const='Off',
-                        default='On',
-                        help='''binding sites are on both strands''')       
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.1 (September 25, 2015)')
+                        const='On',
+                        default='Off',
+                        help='''consider palindromic protein binding sites''')       
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.2 (September 27, 2015)')
     return parser
 
 args = createParser()
@@ -143,7 +143,7 @@ for feature in plus_strand:
                 counter += 1
                 if counter == 1 and (item.location.start - feature.location.end) < enter.indent:
                     position = item.location.start - feature.location.start - 1
-                    oper[1] = oper[1]+' Pos=-'+str(position)
+                    oper[1] = '[' + oper[1]+' Pos=-'+str(position)+']'
                     try:
                         gene_loci_product.append(str(item.qualifiers['gene'])[2:-2])
                     except:
@@ -159,7 +159,7 @@ for feature in plus_strand:
                     oper.append(gene_loci_product)
                 elif counter == 1 and (item.location.start - feature.location.end) > enter.indent:
                     position = item.location.start - feature.location.start - 1
-                    oper[1] = oper[1]+' Pos=-'+str(position)
+                    oper[1] = '[' + oper[1]+' Pos=-'+str(position)+']'
                     test = oper[0:]
                     test_operons.append(test)
                     break
@@ -220,7 +220,7 @@ for feature in rev_minus_strand:
                 counter += 1
                 if counter == 1 and (item.location.end - feature.location.start) > -enter.indent:
                     position = item.location.end - feature.location.end - 1
-                    oper[1] = oper[1]+' Pos='+str(position)
+                    oper[1] = '[' + oper[1]+' Pos='+str(position)+']'
                     try:
                         gene_loci_product.append(str(item.qualifiers['gene'])[2:-2])
                     except:
@@ -236,7 +236,7 @@ for feature in rev_minus_strand:
                     oper.append(gene_loci_product)
                 elif counter == 1 and (item.location.end - feature.location.start) < -enter.indent:
                     position = item.location.end - feature.location.end - 1
-                    oper[1] = oper[1]+' Pos='+str(position)
+                    oper[1] = '[' + oper[1]+' Pos='+str(position)+']'
                     test = oper[0:len(oper)]
                     test_operons.append(test)                    
                     break
@@ -284,14 +284,26 @@ for operon in test_operons:
     regulator_info = operon[1]
     operon_instance = Operon(name=operon_name, genes=operon_genes, info=regulator_info)
     operon_list.append(operon_instance)
-operon_out = 'RegOperon 1.1 (September 25)\n'+('='*50)+'\n\n'
+index_to_delete = []
+for index in reversed(xrange(len(operon_list))):
+    index = len(operon_list) - index - 1
+    for operon in operon_list[index+1:]:
+        if operon_list[index].name == operon.name and \
+           operon_list[index].genes == operon.genes and \
+           operon_list[index].info != operon.info:
+              index_to_delete.append(operon_list.index(operon))
+              operon_list[index] = Operon(name=operon_list[index].name, 
+                                      genes=operon_list[index].genes, 
+                                      info=operon_list[index].info+', '+operon.info)
+              del operon_list[operon_list.index(operon)] 
+operon_out = 'RegOperon 1.2 (September 27)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 for regulator in regulators:
     operon_counter = 0
     regulator = regulator.replace('*', ' ')
     operon_out += ('-'*50 + '\n')
     for operon in operon_list:
-        if regulator == operon.name:
+        if regulator == operon.name and len(operon.genes) > 0:
             operon_counter += 1
             operon_out += '>%s_%s %s\n%s\n' % (operon.name, str(operon_counter), operon.info, str(operon))
 print operon_out
