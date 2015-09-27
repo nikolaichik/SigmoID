@@ -439,6 +439,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem GenomeListRegulons
+         SpecialMenu = 0
+         Text = "List Regulons..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledItem6
          SpecialMenu = 0
          Text = "-"
@@ -500,7 +507,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem HelpHMMERuserguide
          SpecialMenu = 0
-         Text = "HMMER user guide"
+         Text = "HMMER User Guide"
          Index = -2147483648
          AutoEnable = True
          Visible = True

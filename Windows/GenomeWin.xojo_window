@@ -1051,6 +1051,17 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeListRegulons() As Boolean Handles GenomeListRegulons.Action
+			OperOnOptions=""
+			RegulonSettingsWin.showmodalwithin(self)
+			if RegulonSettingsWin.OKpressed then
+			OperOn
+			end if
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ViewViewDetails() As Boolean Handles ViewViewDetails.Action
 			TMdisplay.Visible=NOT TMdisplay.Visible
 			TMdisplayAdjustment
@@ -2669,6 +2680,57 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub OperOn()
+		  dim cli as string
+		  Dim sh As Shell
+		  
+		  'usage:
+		  'RegOperon <input_file> [options]
+		  '
+		  'positional arguments:
+		  'input_file            path to input Genbank file.
+		  '
+		  'optional arguments:
+		  '-h, --help            show this help message and exit
+		  '-g <int>, --gap <int>
+		  'set a threshold for gaps between operons
+		  '-i <int>, --indent <int>
+		  'set a threshold for indentation from very first gene
+		  'to regulatory region
+		  '-t, --terminator      terminators are regarded as operon separator
+		  '-r <name of regulator>, --regulator <name of regulator>
+		  'only specified regulator are considered
+		  '-p, --palindromic     binding sites are on both strands
+		  
+		  
+		  Logowin.show
+		  LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running the OperOn script..."+EndofLine)
+		  
+		  'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
+		  'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
+		  cli="python "+OperOnPath+" "+GenomeFile.ShellPath+" "+OperOnOptions
+		  
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    
+		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    
+		  else
+		    LogoWin.WriteToSTDOUT (EndofLine+"OperOn error code: "+Str(sh.errorCode)+EndofLine)
+		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:OperOn")
+		    
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub QuitCheck()
 		  #if TargetMacOS then
 		    'Shouldn't quit on Mac OS when closing the last window
@@ -4068,6 +4130,14 @@ End
 
 	#tag Property, Flags = &h0
 		Opening As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		OperOnOptions As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		OperOnPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

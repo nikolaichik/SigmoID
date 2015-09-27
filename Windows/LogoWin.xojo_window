@@ -401,6 +401,18 @@ End
 		    msgbox "Can't find the TermGen.py script"
 		  end if
 		  
+		  f=resources_f.child("OperOn.py")
+		  if f<>Nil then
+		    if f.exists then
+		      GenomeWin.OperOnPath=f.ShellPath
+		      'SettingsWin.TermGenPathField.text=TermGenpath
+		    else
+		      msgbox "Can't find the OperOn.py script"
+		    end if
+		  else
+		    msgbox "Can't find the OperOn.py script"
+		  end if
+		  
 		  allProgsFine=true
 		  
 		  'a proper check for monospaced font is required
@@ -624,6 +636,31 @@ End
 		  end if
 		  if Not hmmg then
 		    WriteToSTDOUT ("TermGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine)
+		    WriteToSTDOUT (EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
+		  'hmmgen
+		  WriteToSTDOUT ("Checking the OperOn script... ")
+		  cli="python "+GenomeWin.OperOnPath+" -v"
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  hmmg=false
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(nthfield((Sh.Result),EndOfLine,1),"OperOn")>0 then
+		      if CountFields(Sh.Result,EndOfLine)=2 then
+		        WriteToSTDOUT (s)
+		        hmmg=true
+		        'else
+		        'msgbox str(CountFields(Sh.Result,EndOfLine))
+		      End If
+		    end if
+		  end if
+		  if Not hmmg then
+		    WriteToSTDOUT ("OperOn script doesn't work properly. Please verify that biopython is installed."+EndOfLine)
 		    WriteToSTDOUT (EndOfLine)
 		    allProgsFine=false
 		  end if

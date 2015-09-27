@@ -509,6 +509,7 @@ Window=WebBrowserWindow;Windows/WebBrowserWindow.xojo_window;&hEDA64F6;&h2250E84
 Folder=TT's SmartPreferences;macoslib/TT's SmartPreferences;&hF229F85;&h62249E78;false
 Class=TTsSmartPreferences;macoslib/TT's SmartPreferences/TTsSmartPreferences.xojo_code;&h53BE31F0;&hF229F85;false
 Module=XMLDictionary;macoslib/TT's SmartPreferences/XMLDictionary.xojo_code;&h2A171E2C;&hF229F85;false
+Window=RegulonSettingsWin;Windows/RegulonSettingsWin.xojo_window;&h65B01FFF;&h2250E847;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1

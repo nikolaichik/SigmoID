@@ -29,6 +29,8 @@ Inherits Application
 		    end if
 		  next i
 		  
+		  
+		  
 		End Sub
 	#tag EndEvent
 
@@ -226,6 +228,20 @@ Inherits Application
 	#tag MenuHandler
 		Function FileScanGenome() As Boolean Handles FileScanGenome.Action
 			ScanGenome
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function HelpHMMERuserguide() As Boolean Handles HelpHMMERuserguide.Action
+			dim f as FolderItem
+			
+			f=Resources_f.child("HmmerUserGuide.pdf")
+			if f<>nil AND f.exists then
+			f.Launch
+			end if
+			
 			Return True
 			
 		End Function
