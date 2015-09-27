@@ -23,15 +23,13 @@ class Operon():
 def createParser():
 
     parser = argparse.ArgumentParser(
-             prog='RegOperon',
-             usage='\n%(prog)s <input_file> <output_file> [options]',
+             prog='OperOn',
+             usage='\n%(prog)s <input_file> [options]',
              description='''This script finds putative operon according to binding sites of regulators.
     Requires Biopython 1.64 (or newer)''',
              epilog='''(c) Aliaksandr Damienikan, 2015.''')
     parser.add_argument('input_file',
                        help='''path to input Genbank file.''')
-    parser.add_argument('output_file',
-                        help='''path to output Genbank file.''')
     parser.add_argument('-g', '--gap',
                         default=200,
                         type=int,
