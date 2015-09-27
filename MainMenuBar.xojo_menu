@@ -498,9 +498,9 @@ Begin Menu MainMenuBar
       Index = -2147483648
       AutoEnable = True
       Visible = True
-      Begin MenuItem HelpSigmoidHelp
+      Begin MenuItem HelpSigmoIDHelp
          SpecialMenu = 0
-         Text = "Sigmoid Help"
+         Text = "SigmoID Help"
          Index = -2147483648
          AutoEnable = True
          Visible = True

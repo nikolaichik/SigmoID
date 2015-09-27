@@ -248,6 +248,20 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function HelpSigmoIDHelp() As Boolean Handles HelpSigmoIDHelp.Action
+			dim f As folderitem
+			
+			f=Resources_f.Child("Help").child("index.html")
+			if f<>nil then
+			if f.exists then
+			HelpWin.LoadPage(f)
+			end if
+			end if
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function RegPreciseRegulogs() As Boolean Handles RegPreciseRegulogs.Action
 			RegPreciseWin.title="RegPrecise: regulogs"
 			RegPreciseWin.show

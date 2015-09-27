@@ -23,7 +23,7 @@ Begin Window RegulonSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "HmmGen Settings"
+   Title           =   "Regulon Settings"
    Visible         =   False
    Width           =   414
    Begin PushButton RunButton
@@ -603,7 +603,7 @@ End
 		  end if
 		  
 		  if SingleRegulonButton.value then
-		    opt=opt+" -r "+RegulonNameField.Text 
+		    opt=opt+" -r "+RegulonNameField.Text
 		  end if
 		  
 		  if PalindromicBox.Value then
@@ -650,10 +650,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events TerminatorBox
-#tag EndEvents
-#tag Events EndGapBox
-#tag EndEvents
 #tag Events SingleRegulonButton
 	#tag Event
 		Sub Action()
@@ -666,10 +662,6 @@ End
 		  end if
 		End Sub
 	#tag EndEvent
-#tag EndEvents
-#tag Events StartDistanceBox
-#tag EndEvents
-#tag Events PalindromicBox
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty

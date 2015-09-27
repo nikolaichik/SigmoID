@@ -4816,8 +4816,9 @@ End
 		  if key=" " then 'toggle selection for current hit
 		    FeatureBox.Value=NOT FeatureBox.Value
 		    return true
-		  elseif key=decodehex("1D") then 'right (or chr(124?)
-		    '1C (chr123)? - left
+		    'elseif key=decodehex("1D") then 'right (or chr(124?)
+		    'beep
+		    'elseif key=decodehex("1C") then ' (chr123)? - left
 		    'beep
 		    
 		  end if
@@ -5944,6 +5945,16 @@ End
 		Group="Behavior"
 		InitialValue="0"
 		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="OperOnOptions"
+		Group="Behavior"
+		Type="string"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="OperOnPath"
+		Group="Behavior"
+		Type="string"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ORFclickedDir"
