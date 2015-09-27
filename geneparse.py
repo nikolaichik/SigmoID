@@ -86,7 +86,7 @@ class GenbankFile(file):
                     fstrand = +1
                     flocation = feature[0].split(' ')[-1].split('..')
                 fqualifiers = feature[1:]
-                fqualifiers = [{line[1:].split('=')[0]:line[1:].replace('"', '').split('=')[-1]} for line in fqualifiers]
+                fqualifiers = [{line[1:].split('=', 1)[0]:line[1:].replace('"', '').split('=', 1)[-1]} for line in fqualifiers]
                 feat = GenbankFeature(location=flocation, type=ftype, qualifiers=fqualifiers, strand=fstrand)
                 record_with_features.append(feat)
             list_of_records.append(record_with_features)
