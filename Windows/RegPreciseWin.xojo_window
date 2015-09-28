@@ -256,6 +256,7 @@ End
 		  if RegulatorList.SelCount=1 then
 		    RegPreciseRegulonInfo.enabled=true
 		  end if
+		  
 		End Sub
 	#tag EndEvent
 
@@ -265,6 +266,14 @@ End
 		End Sub
 	#tag EndEvent
 
+
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			Close
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
@@ -449,6 +458,13 @@ End
 
 #tag EndWindowCode
 
+#tag Events Label2
+	#tag Event
+		Sub Open()
+		  me.text=kGenome+":"
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events GenomesPopup
 	#tag Event
 		Sub Change()
@@ -788,6 +804,7 @@ End
 		Name="RegPreciseVersion"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Resizeable"
@@ -801,6 +818,7 @@ End
 		Name="SocketTask"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Super"

@@ -29,6 +29,10 @@ Inherits Application
 		    end if
 		  next i
 		  
+		  if Window(0) isA GenomeWin or Window(0) isA RegPreciseWin or Window(0) isA WebBrowserWin or Window(0) isA HelpWin then
+		    FileClose.enabled=true
+		  end if
+		  
 		  
 		  
 		End Sub

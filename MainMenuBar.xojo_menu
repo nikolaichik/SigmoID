@@ -30,21 +30,17 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem FileClose
+         SpecialMenu = 0
+         Text = "#kClose"
+         Index = -2147483648
+         ShortcutKey = "W"
+         Shortcut = "Cmd+W"
+         MenuModifier = True
+         AutoEnable = False
+         Visible = True
+      End
       Begin MenuItem UntitledItem2
-         SpecialMenu = 0
-         Text = "-"
-         Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem FileMakeSigFile
-         SpecialMenu = 0
-         Text = "Make Sig File..."
-         Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem UntitledSeparator
          SpecialMenu = 0
          Text = "-"
          Index = -2147483648
@@ -72,6 +68,20 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem UntitledSeparator
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem FileMakeSigFile
+         SpecialMenu = 0
+         Text = "Make Sig File..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledItem4
          SpecialMenu = 0
          Text = "-"
@@ -81,14 +91,14 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FileExportFeatureTable
          SpecialMenu = 0
-         Text = "Export feature table..."
+         Text = "Export Feature Table..."
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileExportSequence
          SpecialMenu = 0
-         Text = "Export sequence..."
+         Text = "Export Sequence..."
          Index = -2147483648
          AutoEnable = False
          Visible = True
@@ -102,10 +112,11 @@ Begin Menu MainMenuBar
       End
       Begin QuitMenuItem FileQuit
          SpecialMenu = 0
-         Text = "#App.kFileQuit"
+         Text = "#kQuit"
          Index = -2147483648
-         ShortcutKey = "#App.kFileQuitShortcut"
-         Shortcut = "#App.kFileQuitShortcut"
+         ShortcutKey = "Q"
+         Shortcut = "Cmd+Q"
+         MenuModifier = True
          AutoEnable = True
          Visible = True
       End
@@ -176,7 +187,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem EditClear
          SpecialMenu = 0
-         Text = "#App.kEditClear"
+         Text = "#kClear"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -190,7 +201,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem EditSelectAll
          SpecialMenu = 0
-         Text = "Select &All"
+         Text = "#kSelectAll"
          Index = -2147483648
          ShortcutKey = "A"
          Shortcut = "Cmd+A"
@@ -224,7 +235,7 @@ Begin Menu MainMenuBar
       End
       Begin PrefsMenuItem EditPreferences
          SpecialMenu = 0
-         Text = "Preferences..."
+         Text = "#kPreferences"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -273,7 +284,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem ViewMEMEresults
          SpecialMenu = 0
-         Text = "MEME data"
+         Text = "MEME Data"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -514,7 +525,7 @@ Begin Menu MainMenuBar
       End
       Begin AppleMenuItem AboutSigmoID
          SpecialMenu = 0
-         Text = "About SigmoID"
+         Text = "#kAbout"
          Index = -2147483648
          AutoEnable = True
          Visible = True

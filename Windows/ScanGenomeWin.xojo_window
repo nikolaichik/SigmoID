@@ -48,7 +48,6 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -139,7 +138,7 @@ Begin Window ScanGenomeWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   True
-      Caption         =   "Cancel"
+      Caption         =   "#kCancel"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -250,7 +249,6 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "The genome will be searched with all the profiles checked"
       TextAlign       =   1
       TextColor       =   &c00000000

@@ -62,7 +62,7 @@ Begin Window RegulonSettingsWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   True
-      Caption         =   "Cancel"
+      Caption         =   "#kCancel"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -233,7 +233,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   374
+         Left            =   366
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -244,7 +244,7 @@ Begin Window RegulonSettingsWin
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
-         Text            =   "bp"
+         Text            =   "#kbp"
          TextAlign       =   0
          TextColor       =   &c00000000
          TextFont        =   "System"
@@ -254,7 +254,7 @@ Begin Window RegulonSettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   20
+         Width           =   28
       End
    End
    Begin GroupBox ThresholdsBox
@@ -499,7 +499,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   374
+         Left            =   367
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -510,7 +510,7 @@ Begin Window RegulonSettingsWin
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
-         Text            =   "bp"
+         Text            =   "#kbp"
          TextAlign       =   0
          TextColor       =   &c00000000
          TextFont        =   "System"
@@ -520,7 +520,7 @@ Begin Window RegulonSettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   20
+         Width           =   26
       End
       Begin CheckBox PalindromicBox
          AutoDeactivate  =   True

@@ -5,7 +5,7 @@ Begin Window HelpWin
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   True
-   Frame           =   0
+   Frame           =   3
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
@@ -16,7 +16,7 @@ Begin Window HelpWin
    MaxHeight       =   32000
    MaximizeButton  =   False
    MaxWidth        =   32000
-   MenuBar         =   201530497
+   MenuBar         =   149806200
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -125,6 +125,15 @@ End
 		  
 		End Sub
 	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			Close
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 
 	#tag Method, Flags = &h0

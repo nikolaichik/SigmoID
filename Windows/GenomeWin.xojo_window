@@ -927,6 +927,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			Close
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function FileExportFeatureTable() As Boolean Handles FileExportFeatureTable.Action
 			gbk2tbl
 			Return True
@@ -5950,11 +5958,13 @@ End
 		Name="OperOnOptions"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="OperOnPath"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ORFclickedDir"

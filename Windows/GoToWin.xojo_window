@@ -31,7 +31,7 @@ Begin Window GoToWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "OK"
+      Caption         =   "#kOK"
       Default         =   True
       Enabled         =   True
       Height          =   20
@@ -62,7 +62,7 @@ Begin Window GoToWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   True
-      Caption         =   "Cancel"
+      Caption         =   "#kCancel"
       Default         =   False
       Enabled         =   True
       Height          =   20

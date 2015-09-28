@@ -96,7 +96,7 @@ Begin Window HmmGenSettingsWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   True
-      Caption         =   "Cancel"
+      Caption         =   "#kCancel"
       Default         =   False
       Enabled         =   True
       Height          =   20
