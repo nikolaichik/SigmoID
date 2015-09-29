@@ -55,7 +55,7 @@ def createParser():
                         const='On',
                         default='Off',
                         help='''consider palindromic protein binding sites''')       
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.2 (September 27, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.3 (September 29, 2015)')
     return parser
 
 args = createParser()
@@ -282,19 +282,17 @@ for operon in test_operons:
     regulator_info = operon[1]
     operon_instance = Operon(name=operon_name, genes=operon_genes, info=regulator_info)
     operon_list.append(operon_instance)
-index_to_delete = []
 for index in reversed(xrange(len(operon_list))):
     index = len(operon_list) - index - 1
-    for operon in operon_list[index+1:]:
-        if operon_list[index].name == operon.name and \
-           operon_list[index].genes == operon.genes and \
-           operon_list[index].info != operon.info:
-              index_to_delete.append(operon_list.index(operon))
-              operon_list[index] = Operon(name=operon_list[index].name, 
+    for next in xrange(index+1, len(operon_list)):
+        if operon_list[index].name == operon_list[next].name and \
+           operon_list[index].genes == operon_list[next].genes:
+            operon_list[index] = Operon(name=operon_list[index].name, 
                                       genes=operon_list[index].genes, 
-                                      info=operon_list[index].info+', '+operon.info)
-              del operon_list[operon_list.index(operon)] 
-operon_out = 'RegOperon 1.2 (September 27)\n'+('='*50)+'\n\n'
+                                      info=operon_list[index].info+', '+operon_list[next].info)
+            del operon_list[next]
+            break
+operon_out = 'RegOperon 1.3 (September 29)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 for regulator in regulators:
     operon_counter = 0
