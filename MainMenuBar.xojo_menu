@@ -2,13 +2,13 @@
 Begin Menu MainMenuBar
    Begin MenuItem FileMenu
       SpecialMenu = 0
-      Text = "&File"
+      Text = "#kFile"
       Index = -2147483648
       AutoEnable = True
       Visible = True
       Begin MenuItem FileOpenAlignment
          SpecialMenu = 0
-         Text = "Open Alignment..."
+         Text = "#kOpenProfile"
          Index = -2147483648
          ShortcutKey = "L"
          Shortcut = "Cmd+L"
@@ -18,14 +18,14 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FileSaveAlignmentSelection
          SpecialMenu = 0
-         Text = "Save Alignment Selection..."
+         Text = "#kSaveAlignmentSelection"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileSaveLogo
          SpecialMenu = 0
-         Text = "Save Logo Picture..."
+         Text = "#kSaveLogoPicture"
          Index = -2147483648
          AutoEnable = False
          Visible = True
@@ -49,7 +49,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FileOpen
          SpecialMenu = 0
-         Text = "Open Genome..."
+         Text = "#kOpenGenome"
          Index = -2147483648
          ShortcutKey = "O"
          Shortcut = "Cmd+O"
@@ -59,7 +59,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FileSaveGenomeAs
          SpecialMenu = 0
-         Text = "Save Genome As..."
+         Text = "#kSaveGenomeAs"
          Index = -2147483648
          ShortcutKey = "S"
          Shortcut = "Cmd+Shift+S"
@@ -77,7 +77,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FileMakeSigFile
          SpecialMenu = 0
-         Text = "Make Sig File..."
+         Text = "#kMakeSigFile"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -91,14 +91,14 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FileExportFeatureTable
          SpecialMenu = 0
-         Text = "Export Feature Table..."
+         Text = "#kExportFeatureTable"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileExportSequence
          SpecialMenu = 0
-         Text = "Export Sequence..."
+         Text = "#kExportSequence"
          Index = -2147483648
          AutoEnable = False
          Visible = True
@@ -123,7 +123,7 @@ Begin Menu MainMenuBar
    End
    Begin MenuItem EditMenu
       SpecialMenu = 0
-      Text = "&Edit"
+      Text = "#kEdit"
       Index = -2147483648
       AutoEnable = True
       Visible = True
@@ -134,7 +134,7 @@ Begin Menu MainMenuBar
          ShortcutKey = "Z"
          Shortcut = "Cmd+Z"
          MenuModifier = True
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem EditSeparator1
@@ -146,7 +146,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem EditCut
          SpecialMenu = 0
-         Text = "Cu&t"
+         Text = "#kCut"
          Index = -2147483648
          ShortcutKey = "X"
          Shortcut = "Cmd+X"
@@ -156,7 +156,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem EditCopy
          SpecialMenu = 0
-         Text = "&Copy"
+         Text = "#kCopy"
          Index = -2147483648
          ShortcutKey = "C"
          Shortcut = "Cmd+C"
@@ -166,7 +166,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem EditCopyTranslation
          SpecialMenu = 0
-         Text = "Copy Translation"
+         Text = "#kCopyProtein"
          Index = -2147483648
          ShortcutKey = "C"
          Shortcut = "Cmd+Shift+C"
@@ -177,7 +177,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem EditPaste
          SpecialMenu = 0
-         Text = "&Paste"
+         Text = "#kPaste"
          Index = -2147483648
          ShortcutKey = "V"
          Shortcut = "Cmd+V"
@@ -243,41 +243,34 @@ Begin Menu MainMenuBar
    End
    Begin MenuItem ViewMenu
       SpecialMenu = 0
-      Text = "View"
+      Text = "#kView"
       Index = -2147483648
       AutoEnable = True
       Visible = True
       Begin MenuItem ViewLogo
          SpecialMenu = 0
-         Text = "Logo"
+         Text = "#kLogo"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem ViewSequences
          SpecialMenu = 0
-         Text = "Sequences"
+         Text = "#kSequences"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem ViewAlignmentInfo
          SpecialMenu = 0
-         Text = "Alignment Info"
+         Text = "#kProfileInfo"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem ViewHmmProfile
          SpecialMenu = 0
-         Text = "Hmm Profile"
-         Index = -2147483648
-         AutoEnable = False
-         Visible = True
-      End
-      Begin MenuItem ViewHmmerSettings
-         SpecialMenu = 0
-         Text = "Profile Settings"
+         Text = "#kHmmProfile"
          Index = -2147483648
          AutoEnable = False
          Visible = True
@@ -289,6 +282,13 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem ViewHmmerSettings
+         SpecialMenu = 0
+         Text = "#kProfileSettings"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
       Begin MenuItem Separator1
          SpecialMenu = 0
          Text = "-"
@@ -298,7 +298,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem ViewHideViewer
          SpecialMenu = 0
-         Text = "Hide Viewer"
+         Text = "#kHideViewer"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -312,7 +312,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem ViewViewDetails
          SpecialMenu = 0
-         Text = "View Details"
+         Text = "#kViewDetails"
          Index = -2147483648
          AutoEnable = False
          Visible = False
@@ -320,34 +320,34 @@ Begin Menu MainMenuBar
    End
    Begin MenuItem AlignmentMenu
       SpecialMenu = 0
-      Text = "Alignment"
+      Text = "#kAlignment"
       Index = -2147483648
       AutoEnable = True
       Visible = True
       Begin MenuItem AlignmentExtendBindingSites
          SpecialMenu = 0
-         Text = "Extend Binding Sites..."
+         Text = "#kExtendBindingSites"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem AlignmentConverttoStockholm
          SpecialMenu = 0
-         Text = "Convert to Stockholm"
+         Text = "#kConvertToStockholm"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem AlignmentConvertToHmm
          SpecialMenu = 0
-         Text = "Convert to hmm"
+         Text = "#kConvertToHmm"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem AlignmentConvertToMEME
          SpecialMenu = 0
-         Text = "Convert to MEME"
+         Text = "#kConvertToMEME"
          Index = -2147483648
          AutoEnable = False
          Visible = True
@@ -361,7 +361,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem AlignmentProfileWizard
          SpecialMenu = 0
-         Text = "Profile Wizard"
+         Text = "#kProfileWizard"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -375,21 +375,21 @@ Begin Menu MainMenuBar
       Visible = True
       Begin MenuItem RegPreciseRegulons
          SpecialMenu = 0
-         Text = "Regulons..."
+         Text = "#kRegulons"
          Index = -2147483648
          AutoEnable = True
          Visible = True
       End
       Begin MenuItem RegPreciseRegulonInfo
          SpecialMenu = 0
-         Text = "Regulon Info"
+         Text = "#kRegulonInfo"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem RegPreciseCompareScores
          SpecialMenu = 0
-         Text = "Find Minimal Score"
+         Text = "#kFindMinimalScore"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -397,34 +397,34 @@ Begin Menu MainMenuBar
    End
    Begin MenuItem GenomeMenu
       SpecialMenu = 0
-      Text = "Genome"
+      Text = "#kGenome"
       Index = -2147483648
       AutoEnable = True
       Visible = True
       Begin MenuItem GenomeNhmmersearch
          SpecialMenu = 0
-         Text = "nhmmer Search..."
+         Text = "#kNhmmerSearch"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem GenomeMASTSearch
          SpecialMenu = 0
-         Text = "MAST Search..."
+         Text = "#kMASTSearch"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem GenomeTerminatorSearch
          SpecialMenu = 0
-         Text = "Terminator Search..."
+         Text = "#kTerminatorSearch"
          Index = -2147483648
          AutoEnable = True
          Visible = True
       End
       Begin MenuItem GenomeScanGenome
          SpecialMenu = 0
-         Text = "Scan Genome..."
+         Text = "#kScanGenome"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -438,21 +438,21 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomeAnnotate
          SpecialMenu = 0
-         Text = "Annotate Current Sites..."
+         Text = "#kAnnotateCurrentSites"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileSaveCheckedSites
          SpecialMenu = 0
-         Text = "Save Checked Sites..."
+         Text = "#kSaveCheckedSites"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem GenomeListRegulons
          SpecialMenu = 0
-         Text = "List Regulons..."
+         Text = "#kListRegulons"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -466,7 +466,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomeGoto
          SpecialMenu = 0
-         Text = "Go to..."
+         Text = "#kGoTo"
          Index = -2147483648
          ShortcutKey = "G"
          Shortcut = "Cmd+Shift+G"
@@ -477,7 +477,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomeFind
          SpecialMenu = 0
-         Text = "Find..."
+         Text = "#kFind"
          Index = -2147483648
          ShortcutKey = "F"
          Shortcut = "Cmd+F"
@@ -487,7 +487,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomeFindAgain
          SpecialMenu = 0
-         Text = "Find Again"
+         Text = "#kFindAgain"
          Index = -2147483648
          ShortcutKey = "G"
          Shortcut = "Cmd+G"
@@ -498,20 +498,34 @@ Begin Menu MainMenuBar
    End
    Begin MenuItem WindowMenu
       SpecialMenu = 0
-      Text = "Window"
+      Text = "#kWindows"
       Index = -2147483648
       AutoEnable = True
       Visible = True
    End
    Begin MenuItem HelpMenu
       SpecialMenu = 0
-      Text = "Help"
+      Text = "#kHelp"
       Index = -2147483648
       AutoEnable = True
       Visible = True
+      Begin AppleMenuItem AboutSigmoID
+         SpecialMenu = 0
+         Text = "#kAbout"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem HelpSigmoIDHelp
          SpecialMenu = 0
-         Text = "SigmoID Help"
+         Text = "#kSigmoIDHelp"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator1
+         SpecialMenu = 0
+         Text = "-"
          Index = -2147483648
          AutoEnable = True
          Visible = True
@@ -523,9 +537,23 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin AppleMenuItem AboutSigmoID
+      Begin MenuItem HelpHMMERWebSite
          SpecialMenu = 0
-         Text = "#kAbout"
+         Text = "hmmer.org"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator2
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem HelpMEMEhelp
+         SpecialMenu = 0
+         Text = "#kMEMEhelp"
          Index = -2147483648
          AutoEnable = True
          Visible = True

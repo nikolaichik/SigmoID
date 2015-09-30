@@ -157,8 +157,9 @@ End
 
 	#tag Method, Flags = &h0
 		Sub LoadPage(aFile as FolderItem)
-		  ProgressWheel1.Enabled=true
 		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Refresh
 		  me.WebViewer.LoadPage(aFile)
 		  
 		End Sub
@@ -166,8 +167,9 @@ End
 
 	#tag Method, Flags = &h0
 		Sub LoadPage(URL as string)
-		  ProgressWheel1.Enabled=true
 		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Refresh
 		  me.WebViewer.LoadURL(URL)
 		End Sub
 	#tag EndMethod
@@ -206,12 +208,15 @@ End
 #tag Events SegmentedControl1
 	#tag Event
 		Sub Action(itemIndex as integer)
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Refresh
+		  
 		  if itemIndex=0 then
 		    WebViewer.GoBack
 		  else
 		    WebViewer.GoForward
 		  end if
-		  
 		  FwdBackCheck
 		  
 		End Sub

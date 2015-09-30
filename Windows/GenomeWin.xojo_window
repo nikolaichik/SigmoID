@@ -55,7 +55,8 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Height          =   32
+      Enabled         =   True
+      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -65,7 +66,8 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   467
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -265,6 +267,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   354
       Value           =   2
       Visible         =   True
@@ -380,6 +383,7 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -396,8 +400,9 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -412,15 +417,17 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
    Begin mHTTPSocket SPSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -435,15 +442,17 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
    Begin mHTTPSocket UniProtSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -458,7 +467,8 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
    Begin Cocoa.NSSearchField NSSearchField1
@@ -576,8 +586,9 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -592,7 +603,8 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   20
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
 End

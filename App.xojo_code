@@ -9,7 +9,7 @@ Inherits Application
 		  
 		  // Get a handle to our parent sub menu.
 		  Dim parent, child as MenuItem
-		  parent = MainMenuBar.Child( "Window" )    // Get the file menu
+		  parent = MainMenuBar.Child( kWindows )    // Get the window menu
 		  if parent = nil then return
 		  
 		  // Clear the existing menu
@@ -21,10 +21,10 @@ Inherits Application
 		  count = WindowCount
 		  
 		  for i = 0 to count - 1
-		    // Construct our child item
+		    // Construct the child item
 		    if Window(i).visible then
 		      child = new WindowMenuItem(Window(i))
-		      // And add it to our sub-menu
+		      // And add it to the menu
 		      parent.Append( child )
 		    end if
 		  next i
@@ -245,6 +245,24 @@ Inherits Application
 			if f<>nil AND f.exists then
 			f.Launch
 			end if
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function HelpHMMERWebSite() As Boolean Handles HelpHMMERWebSite.Action
+			HelpWin.LoadPage("http://hmmer.org")
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function HelpMEMEhelp() As Boolean Handles HelpMEMEhelp.Action
+			HelpWin.LoadPage("http://meme-suite.org")
 			
 			Return True
 			

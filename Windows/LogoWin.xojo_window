@@ -278,7 +278,11 @@ End
 		    GenomeMASTSearch.enable
 		    GenomeNhmmersearch.enable
 		    if RegulonID<>0 then
+		      
 		      RegPreciseRegulonInfo.enabled=true
+		      if IsRegulog then
+		        RegPreciseRegulonInfo.Text="Regulog Info"
+		      end if
 		    end if
 		  end if
 		  
@@ -695,6 +699,8 @@ End
 		  
 		  WriteToSTDOUT (EndofLine+EndofLine+"Load alignment or genome file to start."+EndofLine)
 		  
+		  ViewHideViewer.Checked=true
+		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:Open")
 		    
@@ -1110,8 +1116,11 @@ End
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
 			
-			
+			if IsRegulog then
+			RegulonInfo(RegulogID,true)
+			else
 			RegulonInfo(RegulonID,false)
+			end if
 			
 			Return True
 			
@@ -1356,19 +1365,35 @@ End
 		    'Informer.enabled=true
 		    DownshiftLog true
 		  case "HideViewer"
-		    ViewLogo.Checked=false
-		    ViewSequences.Checked=false
-		    ViewAlignmentInfo.checked=false
-		    ViewHideViewer.Checked=true
-		    ViewHmmerSettings.Checked=false
-		    ViewHmmProfile.Checked=false
-		    ViewMEMEresults.checked=false
-		    'LogoCanvas.visible=false
-		    'LogoCanvas.Enabled=false
-		    'Informer.visible=false
-		    'Informer.enabled=false
-		    TopPanel.visible=false
-		    DownshiftLog false
+		    if TopPanel.Visible then
+		      ViewLogo.Checked=false
+		      ViewSequences.Checked=false
+		      ViewAlignmentInfo.checked=false
+		      ViewHideViewer.Checked=true
+		      ViewHmmerSettings.Checked=false
+		      ViewHmmProfile.Checked=false
+		      ViewMEMEresults.checked=false
+		      'LogoCanvas.visible=false
+		      'LogoCanvas.Enabled=false
+		      'Informer.visible=false
+		      'Informer.enabled=false
+		      TopPanel.visible=false
+		      DownshiftLog false
+		    else
+		      ViewLogo.Checked=true
+		      ViewSequences.Checked=true
+		      ViewAlignmentInfo.checked=true
+		      ViewHideViewer.Checked=false
+		      ViewHmmerSettings.Checked=true
+		      ViewHmmProfile.Checked=true
+		      ViewMEMEresults.checked=true
+		      'LogoCanvas.visible=false
+		      'LogoCanvas.Enabled=false
+		      'Informer.visible=false
+		      'Informer.enabled=false
+		      TopPanel.visible=true
+		      DownshiftLog true
+		    end if
 		  case "ProfileSettings"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
@@ -2378,8 +2403,9 @@ End
 		    WriteToSTDOUT("no response in 15 sec.")
 		  end if
 		  
-		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:LoadRegPreciseData")
+		    
 		End Sub
 	#tag EndMethod
 
@@ -3852,6 +3878,11 @@ End
 		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="IsRegulog"
+		Group="Behavior"
+		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="LastHitNo"
 		Group="Behavior"
 		Type="Integer"
@@ -3985,6 +4016,16 @@ End
 			"3 - Parent Window Screen"
 			"4 - Stagger"
 		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="RegulogID"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="RegulonID"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Resizeable"

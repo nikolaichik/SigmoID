@@ -1,28 +1,49 @@
-<html>
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>About SigmoID</title>
-</head>
-
-<body>
-SigmoID is a simple GUI written in Xojo to ease annotation of sigma-factor and TF binding sites in bacterial genomes.<br><br>
-Functions:<br>
-- visualise binding site alignments with WebLogo;<br>
-- extend, shorten and mask alignments;<br>
-- create hmm profiles from alignments;<br>
-- search bacterial genomes with calibrated (and uncalibrated) hmm profiles;<br>
-- annotate promoters and transcription factor binding sites in GenBank-formatted genomes.
-<br><br>
-This version includes eleven calibrated profiles (for 4 sigma factors and 7 TFs) optimised for enterobacterial phytopathogens Pectobacterium spp. and Dickeya dadantii. Efficiency of these profiles may decrease for other bacteria.
-<br><br>
-The search for binding sites is done by nhmmer which is expected to be installed in the default location. 
-WebLogo installation is required for new alignments, otherwise logos won't be displayed, but the rest of SigmoID should work.
-<br><br>
-Adding annotations to GenBank files is done by the HmmGen.py script which could be used on its own. BioPython (version 1.64 and up) is required.
-<br><br>
-At the moment SigmoID is known to work on OS X (10.8 and 10.9) and Ubuntu (12.04 and 14.04); it may compile and run on Windows (provided HMMER, BioPython and WebLogo are installed), but this was not tested yet. 64 bit Ubuntu requires installation of 32-bit libraries. 
-<body>
-</html>
-
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>SigmoID overview</TITLE>
+	<META NAME="GENERATOR" CONTENT="NeoOffice 3.4.1  (Unix)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20150928;21233100">
+</HEAD>
+<BODY LANG="en-GB" DIR="LTR">
+<P><FONT COLOR="#000000">SigmoID front end is a GUI application
+written in Xojo (http://xojo.com) which gives it the expected look
+and usability on all three supported platforms (OS X, Linux and
+Windows). The GUI provides the interface for selected programmes form
+the HMMER, MEME Suite and TransTerm HP, which are responsible for the
+actual searches. Sequence logos are calculated by WebLogo which is
+written in Python, hence Python and BioPython (version 1.64 and
+above) are required. Processing of nhmmer, mast and TransTerm HP
+output, sequence format conversions and adding regulatory sites to
+genome annotation are implemented as </FONT><FONT COLOR="#000000"><SPAN LANG="en-US">separate</SPAN></FONT><FONT COLOR="#000000">
+Python scripts. The</FONT><FONT COLOR="#000000"><SPAN LANG="en-US">
+scripts </SPAN></FONT><FONT COLOR="#000000">are called from the GUI,
+but could easily be used separately and integrated in an annotation
+pipeline if desired.  Detailed installation instructions are provided
+within distributions for each platform. The source code for the whole
+SigmoID application is available with GPL 2.0 license
+(https://github.com/nikolaichik/SigmoID). </FONT><BR><BR>Functions:<BR>-
+visualise binding site alignments with WebLogo;<BR>- extend, shorten
+and mask alignments;<BR>- create hmm profiles from alignments;<BR>-
+search bacterial genomes with calibrated (and uncalibrated) hmm
+profiles;<BR>- annotate promoters and transcription factor binding
+sites in GenBank-formatted genomes. <BR><BR>This version includes
+eleven calibrated profiles (for 4 sigma factors and 7 TFs) optimised
+for enterobacterial phytopathogens Pectobacterium spp. and Dickeya
+dadantii. Efficiency of these profiles may decrease for other
+bacteria. <BR><BR>The search for binding sites is done by nhmmer
+which is expected to be installed in the default location. WebLogo
+installation is required for new alignments, otherwise logos won't be
+displayed, but the rest of SigmoID should work. <BR><BR>Adding
+annotations to GenBank files is done by the HmmGen.py script which
+could be used on its own. BioPython (version 1.64 and up) is
+required. <BR><BR>At the moment SigmoID is known to work on OS X
+(10.8 and 10.9) and Ubuntu (12.04 and 14.04); it may compile and run
+on Windows (provided HMMER, BioPython and WebLogo are installed), but
+this was not tested yet. 64 bit Ubuntu requires installation of
+32-bit libraries. 
+</P>
+</BODY>
+</HTML>

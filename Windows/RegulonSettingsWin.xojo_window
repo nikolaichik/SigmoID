@@ -574,6 +574,20 @@ End
 
 
 	#tag Method, Flags = &h0
+		Sub CheckList()
+		  if SingleRegulonButton.value then
+		    if RegulonNameField.text="" then
+		      RunButton.Enabled=false
+		    else
+		      RunButton.Enabled=true
+		    end if
+		  else 'all regulons
+		    RunButton.Enabled=true
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ReadOptions()
 		  'RegOperon <input_file> [options]
 		  '
@@ -653,13 +667,21 @@ End
 #tag Events SingleRegulonButton
 	#tag Event
 		Sub Action()
-		  if me.value then
-		    if RegulonNameField.text="" then
-		      RunButton.Enabled=false
-		    else
-		      RunButton.Enabled=true
-		    end if
-		  end if
+		  CheckList
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events AllRegulonsButton
+	#tag Event
+		Sub Action()
+		  CheckList
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events RegulonNameField
+	#tag Event
+		Sub TextChange()
+		  CheckList
 		End Sub
 	#tag EndEvent
 #tag EndEvents

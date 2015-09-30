@@ -147,14 +147,14 @@ Begin Window RegPreciseWin
       ButtonStyle     =   "0"
       Cancel          =   False
       Caption         =   "RegulonLogo"
-      Default         =   True
+      Default         =   False
       Enabled         =   False
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   534
+      Left            =   404
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -222,14 +222,14 @@ Begin Window RegPreciseWin
       ButtonStyle     =   "0"
       Cancel          =   False
       Caption         =   "RegulogLogo"
-      Default         =   False
+      Default         =   True
       Enabled         =   False
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   392
+      Left            =   534
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -293,6 +293,8 @@ End
 			'open the RegPrecise page:
 			RegulonInfo(val(RegulonID),false)
 			
+			Exception err
+			ExceptionHandler(err,"RegPreciseWin:RegPreciseRegulonInfo")
 			
 		End Function
 	#tag EndMenuHandler
@@ -345,7 +347,7 @@ End
 		  
 		  
 		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:GenomeStats2array")
+		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
 		End Sub
 	#tag EndMethod
 
@@ -417,6 +419,10 @@ End
 		    SocketTask="genomes"
 		    RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/genomeStats")
 		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:LoadGenomes")
+		    
 		End Sub
 	#tag EndMethod
 
@@ -537,6 +543,9 @@ End
 		  LogoWin.LoadRegpreciseData(RegulonID,TFname,false)
 		  LogoWin.show
 		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:RegulonLogoButton.Action")
+		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -563,6 +572,10 @@ End
 		    'populate the RegulatorList:
 		    beep
 		  End Select
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:RegPreciseSocket.pagereceived")
+		    
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -608,6 +621,9 @@ End
 		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
 		  LogoWin.show
 		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:RegulogLogoButton.Action")
+		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents

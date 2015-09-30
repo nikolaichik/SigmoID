@@ -825,6 +825,7 @@ Protected Module Globals
 		  'http://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id=12127
 		  'http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=1307
 		  
+		  WebBrowserWin.show
 		  If IsRegulog then
 		    WebBrowserWin.LoadPage("http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id="+str(ID))
 		  else
