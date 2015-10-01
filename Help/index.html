@@ -1,17 +1,191 @@
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>SigmoID Help</title>
-</head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
 
-<body>
-(the help is not there yet, only the rudimentary help system)<br>
+
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
+	
+	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
+	<meta name="CREATED" content="0;0">
+	<meta name="CHANGED" content="20150928;21232700"></head><body dir="ltr" lang="en-GB">
+<p><br></p>
+<ol id="mozToc">
+<!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview 
+</a></li><li><a href="#mozTocId629072">Interface</a><ol><li><a href="#mozTocId49640">Windows</a></li><li><a href="#mozTocId385906">Menus</a></li></ol></li><li><a href="#mozTocId931817">Usage instructions</a><ol><li><a href="#mozTocId237053">Working with files and data sources</a><ol><li><a href="#mozTocId246393">Opening binding site data</a></li><li><a href="#mozTocId815164">Opening genome files</a></li><li><a href="#mozTocId824112">Saving and converting files/data</a><ol><li><a href="#mozTocId386963">Binding site data (sig and partial
+alignments)</a></li><li><a href="#mozTocId156445">New sites</a></li><li><a href="#mozTocId568213">Logo picture</a></li><li><a href="#mozTocId330768">Stockholm</a></li><li><a href="#mozTocId793659">hmm</a></li><li><a href="#mozTocId192765">meme</a></li><li><a href="#mozTocId298013">fasta</a></li><li><a href="#mozTocId148348">tbl</a></li></ol></li></ol></li><li><a href="#mozTocId890944">Working with binding site sequences</a><ol><li><a href="#mozTocId219383">Loading and viewing data</a></li><li><a href="#mozTocId97492">Optimising profiles</a></li><li><a href="#mozTocId661995">Finding profile thresholds</a></li><li><a href="#mozTocId16732">Saving calibrated profiles</a></li></ol></li><li><a href="#mozTocId944920">Searching for regulatory sites in a
+genome</a><ol><li><a href="#mozTocId710493">nhmmer search</a></li><li><a href="#mozTocId48283">MAST search</a></li><li><a href="#mozTocId958162">terminator search</a></li></ol></li><li><a href="#mozTocId588132">Using genome browser</a><ol><li><a href="#mozTocId643881">Viewing genome sequence</a></li><li><a href="#mozTocId985366">Database searches and editing
+annotation</a></li></ol></li></ol></li><li><a href="#mozTocId922736">Possible usage scenarios</a><ol><li><a href="#mozTocId893501">Building an optimised profile</a></li><li><a href="#mozTocId139957">Genome scan</a></li><li><a href="#mozTocId70414">Annotation improvement</a></li></ol></li>
+</ol>
+
 <br>
-<H1><center>Contents</center></H1>
 
+<h1><a class="mozTocH1" name="mozTocId526876"></a>SigmoID overview</h1>
+SigmoID front end is a GUI application written in <a href="http://xojo.com">Xojo</a>
+which gives it the expected look and usability on all three supported
+platforms (OS X, Linux and Windows). The GUI provides the interface for
+selected programmes from the <a href="http://hmmer.org">HMMER</a>, <a href="http://meme-suite.org/">MEME Suite</a> and <a href="http://transterm.cbcb.umd.edu">TransTerm HP</a>, which are responsible for the actual searches. Sequence logos are calculated by <a href="http://weblogo.threeplusone.com">WebLogo</a>
+which is written in Python, hence Python and BioPython (version 1.64
+and above) are required. Processing of nhmmer, mast and TransTerm HP
+output, sequence format conversions and adding regulatory sites to
+genome annotation are implemented as separate Python scripts. The
+scripts are called from the GUI, but could easily be used separately
+and integrated in an annotation pipeline if desired. Detailed
+installation instructions are provided within distributions for each
+platform. The <a href="https://github.com/nikolaichik/SigmoID">source code</a> for the whole SigmoID application is available with GPL 2.0 license. <br>
+<br>
+Functions:<br>
+- visualise binding site alignments with WebLogo;<br>
+- extend, shorten and mask alignments;<br>
+- create hmm profiles from alignments;<br>
+- search bacterial genomes with calibrated (and uncalibrated) hmm profiles;<br>
+- annotate promoters and transcription factor binding sites in GenBank-formatted genomes. <br>
+<br>
+This version includes 36 calibrated profiles (for 5 sigma factors and 31 TFs) optimised for enterobacterial phytopathogens <span style="font-style: italic;">Pectobacterium</span> spp. and <span style="font-style: italic;">Dickeya dadantii</span>. Efficiency of these profiles may decrease for other bacteria. <br>
+<br>
+The search for binding sites is done by nhmmer which is expected to be
+installed in the default location. WebLogo installation is required for
+new alignments, otherwise logos won't be displayed, but the rest of
+SigmoID should work. <br>
+<br>
+Adding annotations to GenBank files is done by the HmmGen.py script
+which could be used on its own. BioPython (version 1.64 and up) is
+required. <br>
+<br>
+At the moment SigmoID is known to work on OS X (10.8-10.11), Windows (7
+and 8), Ubuntu (12.04 and 14.04). It may also work on other Linux
+distributions, provided the required libraries are installed. 64 bit
+Linux distibutions require installation of 32-bit libraries.<br>
+<br>
 
-<a href="about.html">About SigmoID</a>
-</body>
-</html>
+<h1><a class="mozTocH1" name="mozTocId629072"></a>Interface</h1>
 
+<h2><a class="mozTocH2" name="mozTocId49640"></a>Windows</h2>
 
+<h2><a class="mozTocH2" name="mozTocId385906"></a>Menus</h2>
+
+<br>
+
+<h1><a class="mozTocH1" name="mozTocId931817"></a>Usage instructions</h1>
+
+<h2><a class="mozTocH2" name="mozTocId237053"></a>Working with files and data sources</h2>
+
+<h3><a class="mozTocH3" name="mozTocId246393"></a>Opening binding site data</h3>
+
+<h3><a class="mozTocH3" name="mozTocId815164"></a>Opening genome files</h3>
+
+<h3><a class="mozTocH3" name="mozTocId824112"></a>Saving and converting files/data</h3>
+
+<h4><a class="mozTocH4" name="mozTocId386963"></a>Binding site data (sig and partial
+alignments)</h4>
+
+<h4><a class="mozTocH4" name="mozTocId156445"></a>New sites</h4>
+
+<h4><a class="mozTocH4" name="mozTocId568213"></a>Logo picture</h4>
+
+<h4><a class="mozTocH4" name="mozTocId330768"></a>Stockholm</h4>
+
+<h4><a class="mozTocH4" name="mozTocId793659"></a>hmm</h4>
+
+<h4><a class="mozTocH4" name="mozTocId192765"></a>meme</h4>
+
+<h4><a class="mozTocH4" name="mozTocId298013"></a>fasta</h4>
+
+<h4><a class="mozTocH4" name="mozTocId148348"></a>tbl</h4>
+<br>
+<br>
+
+<h2><a class="mozTocH2" name="mozTocId890944"></a>Working with binding site sequences</h2>
+
+<h3><a class="mozTocH3" name="mozTocId219383"></a>Loading and viewing data</h3>
+
+<h3><a class="mozTocH3" name="mozTocId97492"></a>Optimising profiles</h3>
+The binding site sequences extracted from RegPrecise (or from original
+publications) were used to build a primary hmm profile and search for
+the similar sites in genomes of at least four different species,
+usually Pectobacterium carotovorum, P.&nbsp;atrosepticum,
+P.&nbsp;wasabiae and Dickeya dadantii. Orthologous binding sites found
+by nhmmer were always retained. Contrary to the conservative approach
+utilised by RegPrecise, additional high scoring sites were considered
+and retained if located in front of the genes known or likely to be
+involved in the same physiological process as the characterised genes
+of the regulog. This resulted in secondary alignment of binding sites
+composed exclusively of Pectobacterium/Dickeya sequences. At this point
+we evaluated the possibility to improve signal/noise ratio by verifying
+the boundaries of the binding site alignments. To do this, we applied
+the "Extend binding sites" function of SigmoID, adding ten bases at
+each side of binding sites, verified the presence of conserved bases in
+extended regions and then shrinked the extended sites back to the
+conserved bases.<br>
+<br>
+
+<h3><a class="mozTocH3" name="mozTocId661995"></a>Finding profile thresholds</h3>
+
+<h3><a class="mozTocH3" name="mozTocId16732"></a>Saving calibrated profiles</h3>
+Utility functions are provided for extension/shortening/partial masking
+of an existing alignment of binding site sequences. Displaying the logo
+of the currently loaded binding site alignment helps to choose the
+correct boundaries of a binding site. Genome browser also gives an
+opportunity to display nhmmer hits in the genomic context, where the
+hits could be selected or deselected and the currently selected set of
+binding sites could be saved in fasta format. Finally, a calibrated hmm
+profile could be saved. Currently calibration thresholds have to be
+provided by the user, but choosing the right calibration values is
+simplified by looking through nhmmer hits in the genome browser.<br>
+<br>
+<br>
+
+<h2><a class="mozTocH2" name="mozTocId944920"></a>Searching for regulatory sites in a
+genome</h2>
+SigmoID can search for transcription/sigma factor binding sites and for terminators. <a href="#mozTocId958162">Terminator search</a> can be launched at any time, while binding site searches require loading binding site data first. Once a binding site data is <a href="#mozTocId219383">loaded</a>, either <a href="#mozTocId710493">nhmmer</a> or <a href="#mozTocId48283">MAST</a>
+could be used to search a genome for the corresponding binding sites. A
+genome browser window that opens after the completion of the search
+allows to quickly skim through the binding sites just found, inspect
+the neighbouring genes and correct their annotation if desired. The
+sites found during the last search could be selected/deselected and the
+selection could be saved as a fasta file. If a set of <a href="#mozTocId16732">pre-calibrated profiles</a> is available, the <a href="#mozTocId139957">Genome Scan</a> function could be used to search for automatic search for all binding sites and terminators in a given genome.<br>
+<br>
+
+<h3><a class="mozTocH3" name="mozTocId710493"></a>nhmmer search</h3>
+
+<h3><a class="mozTocH3" name="mozTocId48283"></a>MAST search</h3>
+
+<h3><a class="mozTocH3" name="mozTocId958162"></a>terminator search</h3>
+This function provides a simple GUI for TransTerm HP. It can also be called during the genome scan. <br>
+<br>
+
+<h2><a class="mozTocH2" name="mozTocId588132"></a>Using genome browser</h2>
+
+<h3><a class="mozTocH3" name="mozTocId643881"></a>Viewing genome sequence</h3>
+
+<h3><a class="mozTocH3" name="mozTocId985366"></a>Database searches and editing
+annotation</h3>
+Genome browser is opened after a search for binding sites and could be
+used to quickly skim through the sites just found. Alternatively, the
+browser could be used to view an existing GenBank file independently of
+any search function. SigmoID allows basic editing or deleting of
+existing features and their qualifiers and provides conveniently
+integrated web-based hmmersearch, hmmscan, blastn and blastp search
+functions for verifying the existing annotations. The search is
+possible against protein, nucleotide and domain databases. The access
+to these functions is provided via the corresponding APIs (12, 13). The
+browser can also be used to search for a sequence, coordinate or
+feature text within the current genome.<br>
+
+<h1><a class="mozTocH1" name="mozTocId922736"></a>Possible usage scenarios</h1>
+
+<h2><a class="mozTocH2" name="mozTocId893501"></a>Building an optimised profile</h2>
+
+<h2><a class="mozTocH2" name="mozTocId139957"></a>Genome scan</h2>
+We provide pre-calibrated hmm profiles for 26 transcription regulators
+optimised for Pectobacterium and Dickeya genera. The Genome Scan
+function will search a chosen genome for sites for each of these
+profiles (or profiles created by the user) and transcription
+terminators and add corresponding annotations to the GenBank file.<br>
+<br>
+
+<h2><a class="mozTocH2" name="mozTocId70414"></a>Annotation improvement</h2>
+<p style="margin-left: 1.03cm;"><br>
+</p>
+
+<p style="margin-left: 1.03cm;"><br><br>
+</p>
+</body></html>

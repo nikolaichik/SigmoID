@@ -55,8 +55,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -66,8 +65,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   467
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -267,7 +265,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   354
       Value           =   2
       Visible         =   True
@@ -383,7 +380,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -400,9 +396,8 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -417,17 +412,15 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket SPSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -442,17 +435,15 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket UniProtSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -467,8 +458,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin Cocoa.NSSearchField NSSearchField1
@@ -586,9 +576,8 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -603,8 +592,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   20
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
 End
@@ -667,7 +655,11 @@ End
 		  FileSaveLogo.visible=false
 		  GenomeScanGenome.Visible=false
 		  
-		  
+		  if GenomeChanged=false then
+		    FileSaveGenome.enabled=false
+		  else
+		    FileSaveGenome.enabled=true
+		  end if
 		  
 		End Sub
 	#tag EndEvent
@@ -999,6 +991,14 @@ End
 			end if
 			
 			
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileSaveGenome() As Boolean Handles FileSaveGenome.Action
+			SaveGenome
+			Return True
 			
 		End Function
 	#tag EndMenuHandler
@@ -2728,7 +2728,7 @@ End
 		  
 		  'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		  'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		  cli="python "+OperOnPath+" "+GenomeFile.ShellPath+" "+OperOnOptions
+		  cli="python "+LogoWin.OperOnPath+" "+GenomeFile.ShellPath+" "+OperOnOptions
 		  
 		  sh=New Shell
 		  sh.mode=0
@@ -2953,16 +2953,17 @@ End
 		    Case d.ActionButton
 		      //user pressed Save
 		      'prompt for file name and save
-		      dim f as folderitem
-		      f=GetSaveFolderItem("GenBank",GenomeFile.Name)
-		      
-		      if f<>nil then
-		        SaveGenBankFile(f)
-		        GenomeChanged=false
-		        return true
-		      else
-		        return false
-		      end if
+		      'dim f as folderitem
+		      'f=GetSaveFolderItem("GenBank",GenomeFile.Name)
+		      '
+		      'if f<>nil then
+		      'SaveGenBankFile(f)
+		      SaveGenBankFile(GenomeFile)
+		      GenomeChanged=false
+		      return true
+		      'else
+		      'return false
+		      'end if
 		      
 		      
 		    Case d.AlternateActionButton
@@ -3077,6 +3078,15 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:SaveGenBankFile")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SaveGenome()
+		  if GenomeFile<>Nil then
+		    SaveGenBankFile(GenomeFile)
+		    GenomeChanged=false
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -4154,10 +4164,6 @@ End
 
 	#tag Property, Flags = &h0
 		OperOnOptions As string
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		OperOnPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

@@ -255,6 +255,7 @@ End
 		Sub EnableMenuItems()
 		  if RegulatorList.SelCount=1 then
 		    RegPreciseRegulonInfo.enabled=true
+		    RegPreciseRegulonInfo.Text="Regulon Info"
 		  end if
 		  
 		End Sub

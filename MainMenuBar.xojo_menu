@@ -57,6 +57,16 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem FileSaveGenome
+         SpecialMenu = 0
+         Text = "#kSaveGenome"
+         Index = -2147483648
+         ShortcutKey = "S"
+         Shortcut = "Cmd+S"
+         MenuModifier = True
+         AutoEnable = False
+         Visible = True
+      End
       Begin MenuItem FileSaveGenomeAs
          SpecialMenu = 0
          Text = "#kSaveGenomeAs"

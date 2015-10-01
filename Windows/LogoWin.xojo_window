@@ -277,11 +277,13 @@ End
 		    AlignmentConvertToMEME.enable
 		    GenomeMASTSearch.enable
 		    GenomeNhmmersearch.enable
+		    
 		    if RegulonID<>0 then
-		      
 		      RegPreciseRegulonInfo.enabled=true
 		      if IsRegulog then
 		        RegPreciseRegulonInfo.Text="Regulog Info"
+		      else
+		        RegPreciseRegulonInfo.Text="Regulon Info"
 		      end if
 		    end if
 		  end if
@@ -408,7 +410,7 @@ End
 		  f=resources_f.child("OperOn.py")
 		  if f<>Nil then
 		    if f.exists then
-		      GenomeWin.OperOnPath=f.ShellPath
+		      OperOnPath=f.ShellPath
 		      'SettingsWin.TermGenPathField.text=TermGenpath
 		    else
 		      msgbox "Can't find the OperOn.py script"
@@ -646,7 +648,7 @@ End
 		  
 		  'hmmgen
 		  WriteToSTDOUT ("Checking the OperOn script... ")
-		  cli="python "+GenomeWin.OperOnPath+" -v"
+		  cli="python "+OperOnPath+" -v"
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -3347,6 +3349,10 @@ End
 
 	#tag Property, Flags = &h1
 		Protected nhmmerResultFile As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		OperOnPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
