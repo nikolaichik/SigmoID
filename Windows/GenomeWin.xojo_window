@@ -653,7 +653,7 @@ End
 		  
 		  FileSaveAlignmentSelection.visible=false
 		  FileSaveLogo.visible=false
-		  GenomeScanGenome.Visible=false
+		  'GenomeScanGenome.Visible=false
 		  
 		  if GenomeChanged=false then
 		    FileSaveGenome.enabled=false
@@ -661,6 +661,9 @@ End
 		    FileSaveGenome.enabled=true
 		  end if
 		  
+		  if Ubound(genomeWin.HmmHits)>0 then
+		    RegPreciseCompareScores.Enable
+		  end if
 		End Sub
 	#tag EndEvent
 
@@ -1416,7 +1419,7 @@ End
 		    
 		    'mark genome changed:
 		    GenomeChanged=true
-		    
+		    self.IsModified=true
 		  else
 		    FeaturePropertiesWin.hide
 		  end
@@ -1517,7 +1520,7 @@ End
 		    
 		    'mark genome changed:
 		    GenomeChanged=true
-		    
+		    self.IsModified=true
 		  else
 		    FeaturePropertiesWin.hide
 		  end
@@ -2555,7 +2558,7 @@ End
 		    st=instrb(s,"FEATURES             Location/Qualifiers")+41
 		    's0=LineEnd+"BASE COUNT "  'this long in order to terminate parsing properly
 		    
-		    LineEnd=EndOfLine
+		    LineEnd=EndOfLine.unix
 		    s0=LineEnd+"ORIGIN"
 		    '^
 		    '|
@@ -2661,7 +2664,7 @@ End
 		    
 		    
 		    's=DefineEncoding ("",Encodings.ASCII)
-		    w.FormattedSequence=rightb(s,len(s)-instrb(s,"ORIGIN")-7)
+		    w.FormattedSequence=trim(rightb(s,len(s)-instrb(s,"ORIGIN")-7))
 		    w.Genome.sequence=CleanUp(w.FormattedSequence)
 		    
 		    
@@ -2690,7 +2693,8 @@ End
 		  'GoToWin.ShowModalWithin(w)
 		  
 		  w.GenomeFile=f
-		  
+		  self.DocumentFile=f
+		  self.IsModified=false
 		  '
 		  SegmentedControl1.Visible=false
 		  
@@ -2867,7 +2871,7 @@ End
 		  
 		  'mark genome changed:
 		  GenomeChanged=true
-		  
+		  self.IsModified=true
 		  
 		  
 		End Sub
@@ -2960,6 +2964,7 @@ End
 		      'SaveGenBankFile(f)
 		      SaveGenBankFile(GenomeFile)
 		      GenomeChanged=false
+		      self.IsModified=false
 		      return true
 		      'else
 		      'return false
@@ -3086,6 +3091,7 @@ End
 		  if GenomeFile<>Nil then
 		    SaveGenBankFile(GenomeFile)
 		    GenomeChanged=false
+		    self.IsModified=false
 		  end if
 		End Sub
 	#tag EndMethod
@@ -5974,12 +5980,6 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="OperOnOptions"
-		Group="Behavior"
-		Type="string"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="OperOnPath"
 		Group="Behavior"
 		Type="string"
 		EditorType="MultiLineEditor"

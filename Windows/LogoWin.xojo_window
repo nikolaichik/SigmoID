@@ -219,7 +219,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Close()
-		  
+		  quit
 		End Sub
 	#tag EndEvent
 
@@ -296,12 +296,16 @@ End
 		  FileSaveAlignmentSelection.visible=true
 		  FileSaveLogo.visible=true
 		  GenomeScanGenome.Visible=true
+		  GenomeScanGenome.Enabled=true
 		  FileOpenAlignment.visible=true
 		  FileOpenAlignment.Enabled=true
 		  if LastSearch<>"" then
 		    GenomeAnnotate.Enabled=true
 		  end if
 		  
+		  if Ubound(genomeWin.HmmHits)>0 then
+		    RegPreciseCompareScores.Enable
+		  end if
 		End Sub
 	#tag EndEvent
 
@@ -457,6 +461,7 @@ End
 		  If sh.errorCode=0 then
 		    if instr(Sh.Result,"command not found")>0 then
 		      WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
+		      WriteToSTDOUT Sh.result+EndOfLine
 		      allProgsFine=false
 		      WebLogoAvailable=false
 		    else
@@ -465,6 +470,8 @@ End
 		    end if
 		  else
 		    WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
+		    WriteToSTDOUT Sh.result+EndOfLine
+		    WebLogoAvailable=false
 		    allProgsFine=false
 		  end if
 		  
@@ -2026,6 +2033,7 @@ End
 		      else
 		        WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(sh.errorCode)+EndofLine)
 		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+"HmmGen command line was: "+cli+EndofLine)
 		        return false
 		      end if
 		    else
@@ -2599,6 +2607,8 @@ End
 		      else
 		        WriteToSTDOUT (EndofLine+"MASTGen error code: "+Str(sh.errorCode)+EndofLine)
 		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+"MASTGen command line was: "+cli+EndofLine)
+		        
 		        return false
 		      end if
 		    else
@@ -2855,6 +2865,14 @@ End
 		    if SigFileOpened then
 		      HmmFile.CopyFileTo(SpecialFolder.Temporary)
 		      dim HmmFileTmp as folderitem = SpecialFolder.Temporary.child(HmmFile.DisplayName)
+		      #if TargetWin32
+		        'a workaround for shellpath glitch
+		        if not nhmmerResultFile.exists then
+		          Dim t As TextOutputStream
+		          t = TextOutputStream.Create(nhmmerResultFile)
+		          t.Close
+		        end if
+		      #endif
 		      cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+nhmmerSettingsWin.GenomeField.text
 		    else
 		      if masked then
@@ -2884,6 +2902,7 @@ End
 		    else
 		      WriteToSTDOUT (EndofLine+Sh.Result)
 		      MsgBox "nhmmer error code: "+Str(sh.errorCode)
+		      WriteToSTDOUT (EndofLine+"nhmmer command line was: "+cli+EndofLine)
 		      LogoWinToolbar.Item(2).Enabled=false
 		      return false
 		    end if
@@ -3202,6 +3221,8 @@ End
 		        return true
 		      else
 		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+"TermGen command line was: "+cli+EndofLine)
+		        
 		        return false
 		      End If
 		    end if
@@ -3998,6 +4019,12 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="nhmmerPath"
+		Group="Behavior"
+		Type="string"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="OperOnPath"
 		Group="Behavior"
 		Type="string"
 		EditorType="MultiLineEditor"

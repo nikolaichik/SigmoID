@@ -247,6 +247,50 @@ Begin Window RegPreciseWin
       Visible         =   True
       Width           =   118
    End
+   Begin BevelButton InfoButton
+      AcceptFocus     =   True
+      AutoDeactivate  =   True
+      BackColor       =   &c00000000
+      Bevel           =   4
+      Bold            =   False
+      ButtonType      =   0
+      Caption         =   "i"
+      CaptionAlign    =   3
+      CaptionDelta    =   0
+      CaptionPlacement=   1
+      Enabled         =   True
+      HasBackColor    =   False
+      HasMenu         =   0
+      Height          =   22
+      HelpTag         =   ""
+      Icon            =   0
+      IconAlign       =   1
+      IconDX          =   0
+      IconDY          =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MenuValue       =   0
+      Scope           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   358
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   22
+   End
 End
 #tag EndWindow
 
@@ -278,25 +322,7 @@ End
 
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
-			'get the ID:
-			dim RegulonID, TFname as string
-			dim n as integer
-			
-			TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-			for n=0 to UBound(regulatorArray)
-			if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-			RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-			exit
-			end if
-			
-			next
-			
-			'open the RegPrecise page:
-			RegulonInfo(val(RegulonID),false)
-			
-			Exception err
-			ExceptionHandler(err,"RegPreciseWin:RegPreciseRegulonInfo")
-			
+			RegulonInfo
 		End Function
 	#tag EndMenuHandler
 
@@ -445,6 +471,30 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub RegulonInfo()
+		  'get the ID:
+		  dim RegulonID, TFname as string
+		  dim n as integer
+		  
+		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  for n=0 to UBound(regulatorArray)
+		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
+		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
+		      exit
+		    end if
+		    
+		  next
+		  
+		  'open the RegPrecise page:
+		  RegulonInfo(val(RegulonID),false)
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:RegPreciseRegulonInfo")
+		    
+		End Sub
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h0
 		GenomeStatsArray(-1) As JSONItem
@@ -490,9 +540,11 @@ End
 		  if me.SelCount=1 then
 		    RegulonLogoButton.Enabled=true
 		    RegulogLogoButton.Enabled=true
+		    InfoButton.Enabled=true
 		  else
 		    RegulonLogoButton.Enabled=false
 		    RegulogLogoButton.Enabled=false
+		    InfoButton.Enabled=false
 		  end if
 		  
 		  'if me.SelCount>=1 then
@@ -625,6 +677,21 @@ End
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:RegulogLogoButton.Action")
 		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events InfoButton
+	#tag Event
+		Sub Open()
+		  #if TargetCocoa then
+		    me.Icon=SystemIcons.Info(20,20)
+		    me.Caption=""
+		  #endif
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action()
+		  RegulonInfo
 		End Sub
 	#tag EndEvent
 #tag EndEvents

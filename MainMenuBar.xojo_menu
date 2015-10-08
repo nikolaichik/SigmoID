@@ -401,7 +401,7 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "#kFindMinimalScore"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
    End

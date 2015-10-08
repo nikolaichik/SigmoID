@@ -131,6 +131,7 @@ Protected Module Globals
 		  ge=ReplaceAllB(Ge,"9","")
 		  ge=ReplaceAllB(Ge,"0","")
 		  ge=ReplaceAllB(Ge,cLineEnd,"")
+		  'ge=ReplaceAllB(Ge,EndOfLine.unix,"")
 		  ge=ReplaceAllB(Ge,"//","")
 		  
 		  return Uppercase(Ge)

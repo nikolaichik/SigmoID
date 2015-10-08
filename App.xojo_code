@@ -230,7 +230,7 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function FileScanGenome() As Boolean Handles FileScanGenome.Action
+		Function GenomeScanGenome() As Boolean Handles GenomeScanGenome.Action
 			ScanGenome
 			Return True
 			
@@ -545,17 +545,15 @@ Inherits Application
 		16. add feature menu? (Add new feature from current hit, etc.)
 		18. add scrolling/selection in detail view
 		19. when a gene is selected, blastN/blastX should be in menu instead of blastp
-		21. title case in menus
+		20. text search glitch: searching with a query composed of the four nucleotide letters (irrespective of the case) will look up sequences
 		22. text search glitch: searching with short upper case query (eg FNR) will pick up CDS with these letters in translation
 		23. add 'GoTo hit # ' menu
-		24. add meme results to .sig files and check for these when launching MAST...
 		25. Check background frequences influence on MAST search.
 		27. closing the last search tab in genome browser should hide htmlviewer control
 		28. Add preference/option to set which database use with BLAST (same for taxonomy restriction)
 		29. Correct HmmGenSettingsWin: disable Run button until score is set
 		30. alternative start codons are not translated as methionine
-		31. Find Minimal Score menu should not be enabled until a search is run!
-		
+		32. Need to support proxy icon for Mac
 	#tag EndNote
 
 	#tag Note, Name = Linux details

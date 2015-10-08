@@ -31,18 +31,18 @@ Protected Module Strings
 	#tag EndConstant
 
 	#tag Constant, Name = kBLASTNsearch, Type = String, Dynamic = True, Default = \"BLASTN search of nr database", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C BLASTN\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C BLASTN\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTN-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTN-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
 	#tag EndConstant
 
 	#tag Constant, Name = kBLASTPsearch, Type = String, Dynamic = True, Default = \"BLASTP search of nr database", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C BLASTP\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C BLASTP\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTP-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTP-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
 	#tag EndConstant
 
 	#tag Constant, Name = kBLASTXsearch, Type = String, Dynamic = True, Default = \"BLASTX search of nr database", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C BLASTX\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C BLASTX\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTX-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTX-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
 	#tag EndConstant
 
 	#tag Constant, Name = kBp, Type = String, Dynamic = True, Default = \"b.p.", Scope = Public
@@ -90,7 +90,7 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9A\xD0\xB0\xD0\xBC\xD0\xB5\xD0\xBD\xD1\x82\xD0\xB0\xD1\x80\xD1\x8B"
 	#tag EndConstant
 
-	#tag Constant, Name = kConvertToHmm, Type = String, Dynamic = True, Default = \"Convert to Stockholm", Scope = Public
+	#tag Constant, Name = kConvertToHmm, Type = String, Dynamic = True, Default = \"Convert to Hmm", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9A\xD0\xBE\xD0\xBD\xD0\xB2\xD0\xB5\xD1\x80\xD1\x82\xD0\xB8\xD1\x80\xD0\xBE\xD0\xB2\xD0\xB0\xD1\x82\xD1\x8C \xD0\xB2 hmm-\xD1\x84\xD0\xBE\xD1\x80\xD0\xBC\xD0\xB0\xD1\x82"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9A\xD0\xB0\xD0\xBD\xD0\xB2\xD0\xB5\xD1\x80\xD1\x82\xD0\xB0\xD0\xB2\xD0\xB0\xD1\x86\xD1\x8C \xD1\x83 hmm-\xD1\x84\xD0\xB0\xD1\x80\xD0\xBC\xD0\xB0\xD1\x82"
 	#tag EndConstant
@@ -340,13 +340,8 @@ Protected Module Strings
 	#tag EndConstant
 
 	#tag Constant, Name = kHmmerSearchSwissProt, Type = String, Dynamic = True, Default = \"Query SwissProt with phmmer", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C phmmer\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 SwissProt"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C phmmer\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 SwissProt"
-	#tag EndConstant
-
-	#tag Constant, Name = kHmmerSearchSwissProt1, Type = String, Dynamic = True, Default = \"Query SwissProt with phmmer", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C phmmer\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 SwissProt"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C phmmer\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 SwissProt"
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"phmmer-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 SwissProt"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"phmmer-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 SwissProt"
 	#tag EndConstant
 
 	#tag Constant, Name = kHmmerSearchTIGRFAM, Type = String, Dynamic = True, Default = \"Hmmscan TIGRFAMs", Scope = Public
@@ -355,8 +350,8 @@ Protected Module Strings
 	#tag EndConstant
 
 	#tag Constant, Name = kHmmerSearchUniprot, Type = String, Dynamic = True, Default = \"Query UniProtKB with phmmer", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C phmmer\xE2\x80\x99\xD0\xBE\xD0\xBC \xD0\xB2 UniProtKB"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C phmmer\xE2\x80\x99\xD0\xB0\xD0\xBC \xD1\x83 UniProtKB"
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"phmmer-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 UniProtKB"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"phmmer-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 UniProtKB"
 	#tag EndConstant
 
 	#tag Constant, Name = kHmmProfile, Type = String, Dynamic = True, Default = \"Hmm Profile", Scope = Public
