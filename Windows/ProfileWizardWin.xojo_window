@@ -14,7 +14,7 @@ Begin Window ProfileWizardWin
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
-   MaximizeButton  =   True
+   MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
@@ -22,7 +22,7 @@ Begin Window ProfileWizardWin
    MinimizeButton  =   True
    MinWidth        =   64
    Placement       =   0
-   Resizeable      =   True
+   Resizeable      =   False
    Title           =   "Profile Wizard"
    Visible         =   True
    Width           =   600

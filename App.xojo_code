@@ -479,6 +479,7 @@ Inherits Application
 		              'need a real file for hmmbuild output:
 		              f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
 		              if f2<>nil then
+		                FixPath4Windows(f2)
 		                if hmmbuild(stock.ShellPath,f2.ShellPath) then
 		                  if f2.exists then
 		                    if f2<>Nil then

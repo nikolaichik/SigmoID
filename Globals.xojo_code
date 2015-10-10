@@ -118,6 +118,8 @@ Protected Module Globals
 		  #pragma DisableBoundsChecking
 		  #pragma NilObjectChecking False
 		  #pragma StackOverflowChecking False
+		  ge=ConvertEncoding(ge, Encodings.ASCII)
+		  
 		  
 		  ge=ReplaceAllB(Ge," ","")
 		  ge=ReplaceAllB(Ge,"1","")
@@ -130,10 +132,13 @@ Protected Module Globals
 		  ge=ReplaceAllB(Ge,"8","")
 		  ge=ReplaceAllB(Ge,"9","")
 		  ge=ReplaceAllB(Ge,"0","")
-		  ge=ReplaceAllB(Ge,cLineEnd,"")
-		  'ge=ReplaceAllB(Ge,EndOfLine.unix,"")
+		  #if TargetWin32
+		    ge=ReplaceLineEndings(ge,EndOfLine.UNIX)
+		  #endif
+		  ge=ReplaceAllB(Ge,EndOfLine.unix,"")
 		  ge=ReplaceAllB(Ge,"//","")
 		  
+		  'ConvertEncoding to ASCII
 		  return Uppercase(Ge)
 		  
 		  
@@ -447,6 +452,19 @@ Protected Module Globals
 		  else
 		    MsgBox err.Message+". Error Code: "+Str(err.errorNumber)
 		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FixPath4Windows(aFile as folderitem)
+		  #if TargetWin32
+		    'a workaround for shellpath glitch
+		    if not aFile.exists then
+		      Dim t As TextOutputStream
+		      t = TextOutputStream.Create(afile)
+		      t.Close
+		    end if
+		  #endif
 		End Sub
 	#tag EndMethod
 

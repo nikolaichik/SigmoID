@@ -1292,6 +1292,7 @@ End
 		        'and most programs don't work
 		        'hence the full path below
 		        '/usr/local/bin/alimask
+		        FixPath4Windows(alimaskTmp)
 		        cli=alimaskpath+" --alirange "+mask+weighting+inFile.ShellPath+" "+alimaskTmp.shellpath
 		        
 		      else
@@ -1908,7 +1909,7 @@ End
 		    
 		    if outfile<>nil then
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running HmmGen script..."+EndofLine)
-		      
+		      FixPath4Windows(outfile)
 		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		      cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+HmmGenOptions
@@ -2487,7 +2488,7 @@ End
 		    
 		    if outfile<>nil and MASTResultFile<> NIL then
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running the MastGen script..."+EndofLine)
-		      
+		      FixPath4Windows(outfile)
 		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		      cli="python "+MastGenPath+" "+MASTResultFile.ShellPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+HmmGenOptions
@@ -2794,8 +2795,9 @@ End
 		  end if
 		  
 		  
-		  'create a tmp dir to store MEME results:
+		  'create a tmp file to store MEME results:
 		  MEMEtmp=SpecialFolder.Temporary.child("MEME.txt")
+		  FixPath4Windows(MEMEtmp)
 		  
 		  if MEMEtmp<>NIL then
 		    if MEMEtmp.Exists then
@@ -2862,17 +2864,11 @@ End
 		    
 		    'USE nhmmeroptions VARIABLE!!!
 		    
+		    FixPath4Windows(nhmmerResultFile)
+		    
 		    if SigFileOpened then
 		      HmmFile.CopyFileTo(SpecialFolder.Temporary)
 		      dim HmmFileTmp as folderitem = SpecialFolder.Temporary.child(HmmFile.DisplayName)
-		      #if TargetWin32
-		        'a workaround for shellpath glitch
-		        if not nhmmerResultFile.exists then
-		          Dim t As TextOutputStream
-		          t = TextOutputStream.Create(nhmmerResultFile)
-		          t.Close
-		        end if
-		      #endif
 		      cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+nhmmerSettingsWin.GenomeField.text
 		    else
 		      if masked then
@@ -3191,6 +3187,7 @@ End
 		      
 		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
+		      FixPath4Windows(outfile)
 		      cli="python "+TermGenPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+TermGenOptions
 		      
 		      sh=New Shell
