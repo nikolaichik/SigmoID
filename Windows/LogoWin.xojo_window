@@ -2327,6 +2327,8 @@ End
 		      
 		    else
 		      'MsgBox "Can't open the alignment file"
+		      WriteToSTDOUT(EndOfLine+"Can't read the binding site data!"+EndOfLine)
+		      
 		      LogoWinToolbar.Item(1).Enabled=false 'disable until alignment loaded
 		      LogoWinToolbar.Item(4).Enabled=false
 		      
@@ -3425,8 +3427,8 @@ End
 		Protected SelArray2(0) As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected Sequences As string
+	#tag Property, Flags = &h0
+		Sequences As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

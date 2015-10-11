@@ -95,6 +95,8 @@ Inherits Application
 		  
 		  GeneticCodesInit
 		  
+		  ProfileWizardWin.hide 'initialise to avoid showing at profile calibration
+		  
 		  'ReadPrefs
 		  
 		End Sub

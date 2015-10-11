@@ -248,13 +248,17 @@ Protected Module Globals
 		    
 		  next
 		  
-		  LogoWin.WriteToSTDOUT("Minimal score found: "+str(minScore)+EndOfLine)
+		  LogoWin.WriteToSTDOUT(EndOfLine)
 		  if ubound(missedHits)>0 then
 		    LogoWin.WriteToSTDOUT("Some training set sites were missed by SigmoID:"+EndOfLine)
 		    for n=1 to ubound(missedHits)
 		      LogoWin.WriteToSTDOUT(missedHits(n)+EndOfLine)
 		    next
 		  end if
+		  
+		  LogoWin.WriteToSTDOUT(EndOfLine+"Minimal score found: "+str(minScore)+EndOfLine)
+		  
+		  ProfileWizardWin.GatheringField.Text=str(minScore)
 		End Function
 	#tag EndMethod
 

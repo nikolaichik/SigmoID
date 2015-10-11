@@ -922,6 +922,7 @@ End
 		      
 		      if AlignmentFile<>Nil AND AlignmentFile.Exists then
 		        
+		        
 		        SigFileVV = SigFile.CreateVirtualVolume
 		        If SigFileVV <> nil Then
 		          'first copy the existing files:
@@ -930,7 +931,18 @@ End
 		          'get the base of profile name
 		          dim baseName as string
 		          basename= NthField(SigFile.DisplayName,".sig",1)
+		          
+		          'alignment file can have any name, so checking it here:
 		          dim file2copy as folderitem
+		          if AlignmentFile.Name<>basename+".fasta" then
+		            dim wrongFile as folderitem=SigFileVV.Root.child(AlignmentFile.Name)
+		            if wrongFile<>nil and wrongFile.exists then
+		              wrongFile.name=basename+".fasta"
+		            else
+		              logowin.WriteToSTDOUT(EndOfLine+"Error writing .sig file")
+		              return
+		            End If
+		          End If
 		          
 		          'Write options file:
 		          
