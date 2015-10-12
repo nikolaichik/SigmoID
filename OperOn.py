@@ -7,10 +7,14 @@ from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
 
 class Operon():
-    def __init__(self, name, genes, info):
+    def __init__(self, name, genes, info, terminator, regstart, regend, strand):
         self.name = name
         self.genes = genes
         self.info = info
+        self.terminator = terminator
+        self.regstart = regstart
+        self.regend = regend
+        self.strand = strand
 
     def __str__(self):
         out = ''
@@ -18,7 +22,25 @@ class Operon():
             out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
                                        gene_loci_product[1],
                                        gene_loci_product[2])
+        if len(self.terminator) > 0:
+            out += '\t' + self.terminator + '\n'
+        else:
+            out += self.terminator 
         return out
+
+class Divergon():
+    def __init__(self, name, up_genes, down_genes, info, up_terminator, down_terminator):
+        self.name = name
+        self.up_genes = up_genes
+        self.down_genes = down_genes
+        if len(self.up_genes) > 0 or len(self.down_genes) > 0:
+            self.genes = [self.down_genes, self.up_genes]
+        else:
+            self.genes = []
+        self.info = info
+        self.up_terminator = up_terminator
+        self.down_terminator = down_terminator
+
 
 def createParser():
 
@@ -55,7 +77,7 @@ def createParser():
                         const='On',
                         default='Off',
                         help='''consider palindromic protein binding sites''')       
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.3 (September 29, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.4 (October 12, 2015)')
     return parser
 
 args = createParser()
@@ -128,6 +150,8 @@ for feature in plus_strand:
         if any(regulator==str(feature.qualifiers['bound_moiety'])[2:-2] for regulator in regulators) == False:
             regulators.append(str(feature.qualifiers['bound_moiety'])[2:-2])
         oper.append(str(feature.qualifiers['bound_moiety'])[2:-2])
+        oper.append([feature.location.start, feature.location.end])
+        oper.append('+')
         try:
             if str(feature.qualifiers['note'])[2:-2].startswith('nhmmer') or \
                str(feature.qualifiers['note'])[2:-2].startswith('MAST'): 
@@ -141,7 +165,7 @@ for feature in plus_strand:
                 counter += 1
                 if counter == 1 and (item.location.start - feature.location.end) < enter.indent:
                     position = item.location.start - feature.location.start - 1
-                    oper[1] = '[' + oper[1]+' Pos=-'+str(position)+']'
+                    oper[3] = '[' + oper[3]+' Pos=-'+str(position)+']'
                     try:
                         gene_loci_product.append(str(item.qualifiers['gene'])[2:-2])
                     except:
@@ -157,8 +181,9 @@ for feature in plus_strand:
                     oper.append(gene_loci_product)
                 elif counter == 1 and (item.location.start - feature.location.end) > enter.indent:
                     position = item.location.start - feature.location.start - 1
-                    oper[1] = '[' + oper[1]+' Pos=-'+str(position)+']'
+                    oper[3] = '[' + oper[3]+' Pos=-'+str(position)+']'
                     test = oper[0:]
+                    test.append('')
                     test_operons.append(test)
                     break
                 elif counter > 1 and (item.location.start - previous_location) < enter.gap:
@@ -177,11 +202,13 @@ for feature in plus_strand:
                     oper.append(gene_loci_product)
                 elif counter > 1 and (item.location.start - previous_location) > enter.gap:
                     test = oper[0:]
+                    test.append('')
                     if any(operon==test for operon in test_operons) == False:
                         test_operons.append(test)  
                     break
                 if counter >= 1 and item == plus_strand[last_plus]:
                     test = oper[0:]
+                    test.append('')
                     test_operons.append(test)
                     break
                 if counter == 1 and (item.location.start - feature.location.end) > enter.indent and \
@@ -193,10 +220,15 @@ for feature in plus_strand:
                      str(item.qualifiers['regulatory_class'])[2:-2] == 'terminator') and \
             enter.terminator == 'On':
                 if counter == 0:
-                    test = ['Unknown', '-', '-']
-                    test_operons.append(test)
+                    pass
                 elif counter >= 1 :
                     test = oper[0:len(oper)]
+                    if type(item.qualifiers['note']) == list and \
+                       str(item.qualifiers['note'][0]).startswith('TransTerm'):
+                        terminator_score = str(item.qualifiers['note'][0]).split(' ')[-2] + ' ' + str(item.qualifiers['note'][0]).split(' ')[-1]
+                        test.append('(terminator %s)' % terminator_score) 
+                    else:
+                        test.append('(terminator)')
                     test_operons.append(test)
 for feature in rev_minus_strand:
     if feature.type == 'protein_bind' or \
@@ -205,6 +237,8 @@ for feature in rev_minus_strand:
         if any(regulator==str(feature.qualifiers['bound_moiety'])[2:-2] for regulator in regulators) == False:
             regulators.append(str(feature.qualifiers['bound_moiety'])[2:-2])
         oper.append(str(feature.qualifiers['bound_moiety'])[2:-2])
+        oper.append([feature.location.start, feature.location.end])
+        oper.append('-')
         try:
             if str(feature.qualifiers['note'])[2:-2].startswith('nhmmer') or \
                str(feature.qualifiers['note'])[2:-2].startswith('MAST'): 
@@ -218,7 +252,7 @@ for feature in rev_minus_strand:
                 counter += 1
                 if counter == 1 and (item.location.end - feature.location.start) > -enter.indent:
                     position = item.location.end - feature.location.end - 1
-                    oper[1] = '[' + oper[1]+' Pos='+str(position)+']'
+                    oper[3] = '[' + oper[3]+' Pos='+str(position)+']'
                     try:
                         gene_loci_product.append(str(item.qualifiers['gene'])[2:-2])
                     except:
@@ -234,8 +268,9 @@ for feature in rev_minus_strand:
                     oper.append(gene_loci_product)
                 elif counter == 1 and (item.location.end - feature.location.start) < -enter.indent:
                     position = item.location.end - feature.location.end - 1
-                    oper[1] = '[' + oper[1]+' Pos='+str(position)+']'
+                    oper[3] = '[' + oper[3]+' Pos='+str(position)+']'
                     test = oper[0:len(oper)]
+                    test.append('')
                     test_operons.append(test)                    
                     break
                 elif counter > 1 and (item.location.end - previous_location) > (-enter.gap):
@@ -254,11 +289,13 @@ for feature in rev_minus_strand:
                     oper.append(gene_loci_product)
                 elif counter > 1 and (item.location.end - previous_location) < -enter.gap:
                     test = oper[0:len(oper)]
+                    test.append('')
                     if any(operon==test for operon in test_operons) == False:
                         test_operons.append(test)
                     break
                 if counter >= 1 and item == rev_minus_strand[last_minus]:
                     test = oper[0:]
+                    test.append('')
                     test_operons.append(test)
                     break
                 if counter == 1 and (item.location.end - feature.location.start) < -enter.indent and \
@@ -270,29 +307,84 @@ for feature in rev_minus_strand:
                      str(item.qualifiers['regulatory_class'])[2:-2] == 'terminator') and \
             enter.terminator == 'On':
                 if counter == 0:
-                    test = ['Unknown', '-', '-']
-                    test_operons.append(test)
+                    pass
                 elif counter >= 1:
                     test = oper[0:len(oper)]
+                    if type(item.qualifiers['note']) == list and \
+                       str(item.qualifiers['note'][0]).startswith('TransTerm'):
+                        terminator_score = str(item.qualifiers['note'][0]).split(' ')[-2] + ' ' + str(item.qualifiers['note'][0]).split(' ')[-1]
+                        test.append('(terminator %s)' % terminator_score) 
+                    else:
+                        test.append('(terminator)')
                     test_operons.append(test)
 operon_list = []
 for operon in test_operons:
     operon_name = operon[0]
-    operon_genes = operon[2:]
-    regulator_info = operon[1]
-    operon_instance = Operon(name=operon_name, genes=operon_genes, info=regulator_info)
+    regulator_start = operon[1][0]
+    regulator_end = operon[1][1]
+    regulator_strand = operon[2]
+    operon_genes = operon[4:-1]
+    regulator_info = operon[3]
+    operon_terminator = operon[-1] 
+    operon_instance = Operon(name=operon_name, 
+                             genes=operon_genes, 
+                             info=regulator_info, 
+                             terminator=operon_terminator,
+                             regstart=regulator_start,
+                             regend=regulator_end,
+                             strand=regulator_strand)
     operon_list.append(operon_instance)
+duplicated = []
+for operon in operon_list:
+    for duplicate in operon_list:
+        if operon.name == duplicate.name and \
+           operon.regstart == duplicate.regstart and \
+           operon.regend == duplicate.regend and \
+           operon.genes == duplicate.genes:
+            if len(operon.terminator) == 0 and len(duplicate.terminator) != 0:
+                duplicated.append(operon_list.index(operon))
+            elif len(duplicate.terminator) == 0 and len(operon.terminator) != 0:
+                duplicated.append(operon_list.index(duplicate))
+            else:
+                pass
+operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in duplicated)]
 for index in reversed(xrange(len(operon_list))):
     index = len(operon_list) - index - 1
     for next in xrange(index+1, len(operon_list)):
         if operon_list[index].name == operon_list[next].name and \
-           operon_list[index].genes == operon_list[next].genes:
+           operon_list[index].genes == operon_list[next].genes and \
+           operon_list[index].info != operon_list[next].info and \
+           operon_list[index].terminator == operon_list[next].terminator:
             operon_list[index] = Operon(name=operon_list[index].name, 
                                       genes=operon_list[index].genes, 
-                                      info=operon_list[index].info+', '+operon_list[next].info)
+                                      info=operon_list[index].info+', '+operon_list[next].info, 
+                                      terminator=operon_list[index].terminator+operon_list[next].terminator,
+                                      regstart=operon_list[index].regstart,
+                                      regend=operon_list[index].regend,
+                                      strand=regulator_strand)
             del operon_list[next]
             break
-operon_out = 'RegOperon 1.3 (September 29)\n'+('='*50)+'\n\n'
+divergons_and_promoters = []
+intodel = []
+for up_operon in operon_list:
+    for down_operon in operon_list:
+        if len(up_operon.genes) > 0 and len(up_operon.genes) > 0 and \
+           up_operon.name == down_operon.name and \
+           up_operon.regstart == down_operon.regstart and \
+           up_operon.regend == down_operon.regend and \
+           up_operon.strand != down_operon.strand:
+            divergon = Divergon(name=up_operon.name, 
+                                up_genes=up_operon.genes, 
+                                down_genes=down_operon.genes, 
+                                info=up_operon.info, 
+                                up_terminator=up_operon.terminator, 
+                                down_terminator=down_operon.terminator)
+            divergons_and_promoters.append(divergon)
+            intodel.append(operon_list.index(up_operon))
+            intodel.append(operon_list.index(down_operon))
+operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
+operon_list += divergons_and_promoters
+operon_out = 'OperOn 1.4 (October 12)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 for regulator in regulators:
     operon_counter = 0
@@ -301,6 +393,30 @@ for regulator in regulators:
     for operon in operon_list:
         if regulator == operon.name and len(operon.genes) > 0:
             operon_counter += 1
-            operon_out += '>%s_%s %s\n%s\n' % (operon.name, str(operon_counter), operon.info, str(operon))
-print operon_out
+            if isinstance(operon, Operon):
+                operon_out += '>%s_%s %s\n%s\n' % (operon.name, str(operon_counter), operon.info, str(operon))
+            elif isinstance(operon, Divergon):
+                down_out = ''
+                if len(operon.down_terminator) > 0:
+                    down_out += '\n\t' + operon.down_terminator + ''
+                else:
+                    down_out += operon.down_terminator  
+                for gene_loci_product in reversed(operon.down_genes):
+                    down_out += '\n\t%s\t%s\t%s' % (gene_loci_product[0],
+                                                    gene_loci_product[1],
+                                                    gene_loci_product[2])
+                up_out = ''
+                for gene_loci_product in operon.up_genes:
+                    up_out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
+                                                  gene_loci_product[1],
+                                                  gene_loci_product[2])
+                if len(operon.up_terminator) > 0:
+                    up_out += '\t' + operon.up_terminator
+                else:
+                    up_out += operon.up_terminator
+                operon_out += '%s\n>%s_%s %s\n%s\n' % (down_out, operon.name, str(operon_counter), operon.info, up_out)
+operon_out = operon_out.split('\n\n\n')
+for splitted in operon_out:
+    if len(splitted) > 0:
+        print splitted + '\n'
 input_handle.close()     
