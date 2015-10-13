@@ -77,7 +77,7 @@ def createParser():
                         const='On',
                         default='Off',
                         help='''consider palindromic protein binding sites''')       
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.4 (October 12, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.5 (October 13, 2015)')
     return parser
 
 args = createParser()
@@ -358,7 +358,7 @@ for index in reversed(xrange(len(operon_list))):
             operon_list[index] = Operon(name=operon_list[index].name, 
                                       genes=operon_list[index].genes, 
                                       info=operon_list[index].info+', '+operon_list[next].info, 
-                                      terminator=operon_list[index].terminator+operon_list[next].terminator,
+                                      terminator=operon_list[index].terminator,
                                       regstart=operon_list[index].regstart,
                                       regend=operon_list[index].regend,
                                       strand=regulator_strand)
@@ -384,7 +384,7 @@ for up_operon in operon_list:
             intodel.append(operon_list.index(down_operon))
 operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
 operon_list += divergons_and_promoters
-operon_out = 'OperOn 1.4 (October 12)\n'+('='*50)+'\n\n'
+operon_out = 'OperOn 1.5 (October 13)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 for regulator in regulators:
     operon_counter = 0
@@ -419,4 +419,4 @@ operon_out = operon_out.split('\n\n\n')
 for splitted in operon_out:
     if len(splitted) > 0:
         print splitted + '\n'
-input_handle.close()     
+input_handle.close()
