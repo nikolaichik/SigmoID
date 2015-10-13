@@ -181,6 +181,7 @@ End
 		Sub LoadPage(aFile as FolderItem)
 		  ProgressWheel1.Enabled=true
 		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Refresh
 		  me.WebViewer.LoadPage(aFile)
 		  
 		End Sub
@@ -190,6 +191,7 @@ End
 		Sub LoadPage(URL as string)
 		  ProgressWheel1.Enabled=true
 		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Refresh
 		  me.WebViewer.LoadURL(URL)
 		End Sub
 	#tag EndMethod
@@ -216,6 +218,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub TitleChanged(newTitle as String)
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Refresh
 		  title=newTitle
 		End Sub
 	#tag EndEvent
@@ -223,10 +228,16 @@ End
 		Function KeyDown(Key As String) As Boolean
 		  if key=decodehex("1D") then 'right (or chr(124?)
 		    if me.CanGoForward then
+		      ProgressWheel1.Visible=true
+		      ProgressWheel1.Enabled=true
+		      ProgressWheel1.Refresh
 		      me.GoForward
 		    end if
 		  elseif key=decodehex("1C") then ' (chr123)? - left
 		    if me.CanGoBack then
+		      ProgressWheel1.Visible=true
+		      ProgressWheel1.Enabled=true
+		      ProgressWheel1.Refresh
 		      me.GoBack
 		    end if
 		  end if
@@ -235,13 +246,24 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub DocumentBegin(URL as String)
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Refresh
 		  AddressField.text=URL
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
+		  ProgressWheel1.Refresh
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events SegmentedControl1
 	#tag Event
 		Sub Action(itemIndex as integer)
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Refresh
 		  if itemIndex=0 then
 		    WebViewer.GoBack
 		  else

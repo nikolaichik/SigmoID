@@ -288,6 +288,12 @@ End
 		    end if
 		  end if
 		  
+		  if MEMEdata="" then
+		    ViewMEMEresults.Enabled=false
+		  else
+		    ViewMEMEresults.Enabled=true
+		  end if
+		  
 		  FileSaveCheckedSites.Visible=false
 		  FileSaveCheckedSites.Enabled=false
 		  FileSaveGenomeAs.Visible=false
@@ -1444,8 +1450,8 @@ End
 		    ViewAlignmentInfo.checked=false
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=False
-		    ViewHmmProfile.Checked=true
-		    ViewMEMEresults.checked=false
+		    ViewHmmProfile.Checked=false
+		    ViewMEMEresults.checked=true
 		    Informer.text=MEMEdata
 		    TopPanel.Value=0
 		    TopPanel.visible=true

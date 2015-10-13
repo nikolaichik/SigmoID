@@ -266,7 +266,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   2
+      Value           =   3
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -870,6 +870,9 @@ End
 		  
 		  
 		  HighlightColour=HighlightColor 'set to default until features are read
+		  #if TargetWin32
+		    HighlightColour=&c66CCFF00
+		  #endif
 		  
 		  FeatureBox.visible=false 'show later if required
 		  
@@ -1630,7 +1633,7 @@ End
 		      
 		      CurrentFeature=FragmentFeature.FeatureText
 		      
-		      #if targetWin32 
+		      #if targetWin32
 		        CurrentFeature=ReplaceLineEndings(CurrentFeature,EndOfLine.Unix)
 		      #endif
 		      
@@ -1638,7 +1641,7 @@ End
 		      cf1=nthfield(CurrentFeature,cLineEnd,1)
 		      name=trim(leftb(cf1,16))      'feature name
 		      
-		      'handle the new Genbank 2015 format:
+		      'handle the new Genbank 2015 format (Feature table v. 10.4):
 		      if name="regulatory" then
 		        dim r_class as string
 		        r_class=NthField(CurrentFeature,"regulatory_class=",2)
@@ -3329,7 +3332,8 @@ End
 		    FeatureLeft=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length-1
 		    topstrand=false
-		    TextMap(FeatureRight,FeatureLeft)
+		    'TextMap(FeatureRight,FeatureLeft)
+		    TextMap(FeatureLeft,FeatureRight)
 		  else
 		    FeatureLeft=Seq.Features(selFeatureNo).start
 		    FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length
@@ -3460,6 +3464,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ShowHit()
+		  
 		  SegmentedControl1.Visible=true
 		  ExtractFragment(HmmHits(CurrentHit)-DisplayInterval/2,HmmHits(CurrentHit)+DisplayInterval/2)
 		  FeatureBox.visible=true
@@ -3504,6 +3509,12 @@ End
 	#tag Method, Flags = &h0
 		Sub SkimHits()
 		  'skimming through the hits
+		  
+		  HighlightColour=HighlightColor 'reset to avoid feature colours
+		  #if TargetWin32
+		    HighlightColour=&c66CCFF00
+		  #endif
+		  
 		  
 		  if Keyboard.AsynckeyDown(&h7C) OR Keyboard.AsynckeyDown(&h7B) then
 		    if CurrentHit > 0 then
@@ -3674,7 +3685,7 @@ End
 		  CurrentY=CurrentY+TMLineHeight
 		  if HLbottom then 'draw highlight rect:
 		    TextMapPic.Graphics.ForeColor=HighlightColour
-		    TextMapPic.Graphics.FillRect((HighlightTo-SeqStart+GBrowseShift)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightFrom-HighlightTo)*TMCharWidth,TMLineHeight)
+		    TextMapPic.Graphics.FillRect((HighlightFrom-SeqStart+GBrowseShift)*TMCharWidth,CurrentY-TMLineHeight+3,(HighlightTo-HighlightFrom)*TMCharWidth,TMLineHeight)
 		    TextMapPic.Graphics.ForeColor=&c00000000
 		  end if
 		  TextMapPic.Graphics.DrawString(revseq,0,CurrentY)

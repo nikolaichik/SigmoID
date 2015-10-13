@@ -90,6 +90,7 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "More options:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -124,6 +125,7 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -293,6 +295,7 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "MEME and MAST will be run sequentially"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -569,6 +572,7 @@ End
 		Sub Open()
 		  #if DebugBuild then
 		    me.text="/Users/Home/3\-2rez9/Pca32_2015.04.08.gbk"
+		    RunButton.Enabled=true
 		  #endif
 		  
 		End Sub

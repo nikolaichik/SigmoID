@@ -1055,6 +1055,7 @@ End
 		Sub Open()
 		  #if DebugBuild then
 		    me.text="/Users/Home/3\-2rez9/Pca32_2015.04.08.gbk"
+		    RunButton.Enabled=true
 		  #endif
 		  
 		End Sub

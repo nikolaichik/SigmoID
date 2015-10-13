@@ -724,7 +724,7 @@ Protected Module Strings
 
 	#tag Constant, Name = kProfileInfo, Type = String, Dynamic = True, Default = \"Profile Info", Scope = Public
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"I\xD0\xBD\xD1\x84\xD0\xB0\xD1\x80\xD0\xBC\xD0\xB0\xD1\x86\xD1\x8B\xD1\x8F \xD0\xBF\xD1\x80\xD0\xB0 \xD0\xBF\xD1\x80\xD0\xBE\xD1\x84i\xD0\xBB\xD1\x8C"
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD0\xBD\xD1\x84\xD0\xBE\xD1\x80\xD0\xBC\xD0\xB0\xD1\x86\xD0\xB8\xD1\x8F \xD0\xBF\xD1\x80\xD0\xBE \xD0\xBF\xD1\x80\xD0\xBE\xD1\x84\xD0\xB8\xD0\xBB\xD1\x8C"
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD0\xBD\xD1\x84\xD0\xBE\xD1\x80\xD0\xBC\xD0\xB0\xD1\x86\xD0\xB8\xD1\x8F \xD0\xBE \xD0\xBF\xD1\x80\xD0\xBE\xD1\x84\xD0\xB8\xD0\xBB\xD0\xB5"
 	#tag EndConstant
 
 	#tag Constant, Name = kProfileSettings, Type = String, Dynamic = True, Default = \"Profile Settings", Scope = Public
@@ -963,8 +963,8 @@ Protected Module Strings
 	#tag EndConstant
 
 	#tag Constant, Name = kSigmoIDHelp, Type = String, Dynamic = True, Default = \"SigmoID Help", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA1\xD0\xBF\xD1\x80\xD0\xB0\xD0\xB2\xD0\xBA\xD0\xB0 SQ"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x94\xD0\xB0\xD0\xB2\xD0\xB5\xD0\xB4\xD0\xBA\xD0\xB0 SQ"
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA1\xD0\xBF\xD1\x80\xD0\xB0\xD0\xB2\xD0\xBA\xD0\xB0 SigmoID"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x94\xD0\xB0\xD0\xB2\xD0\xB5\xD0\xB4\xD0\xBA\xD0\xB0 SigmoID"
 	#tag EndConstant
 
 	#tag Constant, Name = kSimple, Type = String, Dynamic = True, Default = \"Simple", Scope = Public

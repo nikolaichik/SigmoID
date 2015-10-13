@@ -187,6 +187,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub TitleChanged(newTitle as String)
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Refresh
 		  title=newTitle
 		End Sub
 	#tag EndEvent
