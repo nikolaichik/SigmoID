@@ -22,10 +22,7 @@ class Operon():
             out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
                                        gene_loci_product[1],
                                        gene_loci_product[2])
-        if len(self.terminator) > 0:
-            out += '\t' + self.terminator + '\n'
-        else:
-            out += self.terminator 
+       
         return out
 
 class Divergon():
@@ -76,8 +73,13 @@ def createParser():
                         action='store_const',
                         const='On',
                         default='Off',
-                        help='''consider palindromic protein binding sites''')       
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.5 (October 13, 2015)')
+                        help='''consider palindromic protein binding sites''')
+    parser.add_argument('-s', '--strict',
+                        action='store_const',
+                        const='On',
+                        default='Off',
+                        help='''operon stops on first terminator (if -t is setted)''')        
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.6 (October 14, 2015)')
     return parser
 
 args = createParser()
@@ -222,14 +224,19 @@ for feature in plus_strand:
                 if counter == 0:
                     pass
                 elif counter >= 1 :
-                    test = oper[0:len(oper)]
                     if type(item.qualifiers['note']) == list and \
                        str(item.qualifiers['note'][0]).startswith('TransTerm'):
                         terminator_score = str(item.qualifiers['note'][0]).split(' ')[-2] + ' ' + str(item.qualifiers['note'][0]).split(' ')[-1]
+                        oper.append(['(terminator %s)' % terminator_score, '', ''])
+                        test = oper[0:len(oper)]
                         test.append('(terminator %s)' % terminator_score) 
                     else:
+                        oper.append(['(terminator)', '', ''])
+                        test = oper[0:len(oper)]
                         test.append('(terminator)')
                     test_operons.append(test)
+                    if enter.strict == 'On':
+                        break
 for feature in rev_minus_strand:
     if feature.type == 'protein_bind' or \
     (feature.qualifiers.has_key('regulatory_class') and str(feature.qualifiers['regulatory_class'])[2:-2] == 'promoter'):
@@ -309,14 +316,20 @@ for feature in rev_minus_strand:
                 if counter == 0:
                     pass
                 elif counter >= 1:
-                    test = oper[0:len(oper)]
                     if type(item.qualifiers['note']) == list and \
                        str(item.qualifiers['note'][0]).startswith('TransTerm'):
                         terminator_score = str(item.qualifiers['note'][0]).split(' ')[-2] + ' ' + str(item.qualifiers['note'][0]).split(' ')[-1]
+                        oper.append(['(terminator %s)' % terminator_score, '', ''])
+                        test = oper[0:len(oper)]
                         test.append('(terminator %s)' % terminator_score) 
                     else:
+                        oper.append(['(terminator)', '', ''])
+                        test = oper[0:len(oper)]
                         test.append('(terminator)')
                     test_operons.append(test)
+                    if enter.strict == 'On':
+                        break
+                        
 operon_list = []
 for operon in test_operons:
     operon_name = operon[0]
@@ -361,18 +374,31 @@ for index in reversed(xrange(len(operon_list))):
                                       terminator=operon_list[index].terminator,
                                       regstart=operon_list[index].regstart,
                                       regend=operon_list[index].regend,
-                                      strand=regulator_strand)
+                                      strand=operon_list[index].strand)
             del operon_list[next]
             break
+to_delete_list = []
+for index in range(len(operon_list)):
+    for indel in range(len(operon_list)): 
+        if operon_list[index].name == operon_list[indel].name and \
+           operon_list[index].regstart == operon_list[indel].regstart and \
+           operon_list[index].regend == operon_list[indel].regend and \
+           operon_list[index].info == operon_list[indel].info:
+            if len(operon_list[index].genes) > len(operon_list[indel].genes):
+                to_delete_list.append(indel)
+            elif len(operon_list[index].genes) < len(operon_list[indel].genes):
+                to_delete_list.append(index)
+                break
+operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in to_delete_list)]
 divergons_and_promoters = []
 intodel = []
 for up_operon in operon_list:
     for down_operon in operon_list:
-        if len(up_operon.genes) > 0 and len(up_operon.genes) > 0 and \
+        if len(up_operon.genes) > 0 and len(down_operon.genes) > 0 and \
            up_operon.name == down_operon.name and \
            up_operon.regstart == down_operon.regstart and \
            up_operon.regend == down_operon.regend and \
-           up_operon.strand != down_operon.strand:
+           up_operon.strand == '+' and  down_operon.strand == '-':
             divergon = Divergon(name=up_operon.name, 
                                 up_genes=up_operon.genes, 
                                 down_genes=down_operon.genes, 
@@ -384,7 +410,7 @@ for up_operon in operon_list:
             intodel.append(operon_list.index(down_operon))
 operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
 operon_list += divergons_and_promoters
-operon_out = 'OperOn 1.5 (October 13)\n'+('='*50)+'\n\n'
+operon_out = 'OperOn 1.6 (October 14)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 for regulator in regulators:
     operon_counter = 0
@@ -397,10 +423,6 @@ for regulator in regulators:
                 operon_out += '>%s_%s %s\n%s\n' % (operon.name, str(operon_counter), operon.info, str(operon))
             elif isinstance(operon, Divergon):
                 down_out = ''
-                if len(operon.down_terminator) > 0:
-                    down_out += '\n\t' + operon.down_terminator + ''
-                else:
-                    down_out += operon.down_terminator  
                 for gene_loci_product in reversed(operon.down_genes):
                     down_out += '\n\t%s\t%s\t%s' % (gene_loci_product[0],
                                                     gene_loci_product[1],
@@ -410,10 +432,7 @@ for regulator in regulators:
                     up_out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
                                                   gene_loci_product[1],
                                                   gene_loci_product[2])
-                if len(operon.up_terminator) > 0:
-                    up_out += '\t' + operon.up_terminator
-                else:
-                    up_out += operon.up_terminator
+
                 operon_out += '%s\n>%s_%s %s\n%s\n' % (down_out, operon.name, str(operon_counter), operon.info, up_out)
 operon_out = operon_out.split('\n\n\n')
 for splitted in operon_out:
