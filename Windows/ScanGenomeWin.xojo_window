@@ -225,7 +225,7 @@ Begin Window ScanGenomeWin
       Underline       =   False
       Value           =   True
       Visible         =   False
-      Width           =   406
+      Width           =   353
    End
    Begin Label Label1
       AutoDeactivate  =   True

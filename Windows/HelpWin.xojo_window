@@ -39,7 +39,7 @@ Begin Window HelpWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Renderer        =   0
+      Renderer        =   1
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -61,7 +61,7 @@ Begin Window HelpWin
       LockTop         =   True
       MacControlStyle =   2
       Scope           =   0
-      Segments        =   "<\n\nFalse\r>\n\nFalse"
+      Segments        =   "\nchevronleft2x\nFalse\r\nchevronright2x\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
       Top             =   4
@@ -102,7 +102,7 @@ Begin Window HelpWin
       LockTop         =   True
       MacControlStyle =   2
       Scope           =   0
-      Segments        =   "^\n\nFalse"
+      Segments        =   "\nhome2x\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
       Top             =   4

@@ -541,6 +541,44 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetShortPathName(LongPathName As String) As string
+		  dim lpShort,lpLong As MemoryBlock
+		  dim iBuff,iLen As Integer
+		  
+		  #IF TargetWin32 then
+		    //Declare Function GetShortPathName
+		    //Lib "kernel32" Alias "GetShortPathNameA" (
+		    //ByVal lpszLongPath As String, --> change to ptr
+		    //ByVal lpszShortPath As String,--> change to ptr
+		    //ByVal cchBuffer As Long) --> Integer
+		    //As Long --> Integer
+		    // *** look out for line breaks... :
+		    Declare Function GetShortPathName Lib "kernel32" Alias "GetShortPathNameA" (ByVal lpszLongPath As Ptr, ByVal lpszShortPath As Ptr, ByVal cchBuffer As Integer) As Integer
+		    // *** End of line breaks
+		    // lpszLongPath =long pointer to block in memory ;
+		    // lpszShortPath =1-- ditto ;
+		    // cchBuffer =>ize of resiving block ;
+		    lpShort = newmemoryBlock(255)
+		    lpLong = newMemoryBlock(len(LongPathName)+2)
+		    iBuff = 254
+		    if right(LongPathName,1) <> "\" then
+		      lpLong.CString(0) = LongPathName+"\"
+		    else
+		      lpLong.CString(0) = LongPathName
+		    end if
+		    iLen = GetShortPathName(lpLong,lpShort,iBuff)
+		    
+		    if iLen > 0 then
+		      Return lpShort.CString(0)
+		    else
+		      return "### Error Getting GetShortPathName: " + LongPathName
+		    end if
+		    
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function HaveRedundancies(gen As string) As Boolean
 		  'this is slow -
 		  'can use memoryblocks instead of strings -

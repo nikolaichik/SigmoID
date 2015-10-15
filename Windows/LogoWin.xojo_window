@@ -1915,10 +1915,17 @@ End
 		    
 		    if outfile<>nil then
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running HmmGen script..."+EndofLine)
-		      FixPath4Windows(outfile)
+		      dim GenomeFilePath as string
+		      #if TargetWin32
+		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		        FixPath4Windows(outfile)
+		        GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		      #else
+		        GenomeFilePath=GenomeFile.shellpath
+		      #endif
 		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		      cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+HmmGenOptions
+		      cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFile.ShellPath+" "+HmmGenOptions
 		      
 		      sh=New Shell
 		      sh.mode=0
@@ -2874,18 +2881,26 @@ End
 		    
 		    FixPath4Windows(nhmmerResultFile)
 		    
+		    dim genomefilepath as string
+		    #if TargetWin32
+		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		    #else
+		      GenomeFilePath=GenomeFile.shellpath
+		    #endif
+		    
 		    if SigFileOpened then
 		      HmmFile.CopyFileTo(SpecialFolder.Temporary)
 		      dim HmmFileTmp as folderitem = SpecialFolder.Temporary.child(HmmFile.DisplayName)
-		      cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+nhmmerSettingsWin.GenomeField.text
+		      cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+GenomeFilePath
 		    else
 		      if masked then
 		        alimask LogoFile
 		        WriteToSTDOUT (EndofLine+EndofLine+"Alignment masked.")
 		        '/usr/local/bin/nhmmer
-		        cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+alimasktmp.ShellPath+" "+nhmmerSettingsWin.GenomeField.text
+		        cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+alimasktmp.ShellPath+" "+GenomeFilePath
 		      else
-		        cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+Logofile.ShellPath+" "+nhmmerSettingsWin.GenomeField.text
+		        cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+Logofile.ShellPath+" "+GenomeFilePath
 		      end if
 		    end if
 		    
@@ -4077,6 +4092,12 @@ End
 		Name="ScanningGenome"
 		Group="Behavior"
 		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Sequences"
+		Group="Behavior"
+		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Super"

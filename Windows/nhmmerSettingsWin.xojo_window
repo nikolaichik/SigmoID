@@ -1096,7 +1096,7 @@ End
 #tag Events PushButton3
 	#tag Event
 		Sub Action()
-		  LogoWin.GenomeFile=GetOpenFolderItem("")
+		  LogoWin.GenomeFile=GetOpenFolderItem("GenBank")
 		  if LogoWin.GenomeFile<> Nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+LogoWin.GenomeFile.shellpath+" loaded.")
 		    LogoWin.LogoWinToolbar.Item(3).Enabled=true

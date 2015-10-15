@@ -1,291 +1,280 @@
 #tag Window
-Begin Window WebBrowserWin
-   BackColor       =   &cFFFFFF00
+Begin Window About
+   BackColor       =   &cF9F9F900
    Backdrop        =   0
-   CloseButton     =   True
+   CloseButton     =   False
    Compatibility   =   ""
-   Composite       =   True
-   Frame           =   9
+   Composite       =   False
+   Frame           =   0
    FullScreen      =   False
    FullScreenButton=   False
-   HasBackColor    =   False
-   Height          =   564
+   HasBackColor    =   True
+   Height          =   491
    ImplicitInstance=   True
-   LiveResize      =   True
-   MacProcID       =   0
+   LiveResize      =   False
+   MacProcID       =   1
    MaxHeight       =   32000
    MaximizeButton  =   False
    MaxWidth        =   32000
-   MenuBar         =   149806200
+   MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
-   MinimizeButton  =   True
+   MinimizeButton  =   False
    MinWidth        =   64
    Placement       =   0
-   Resizeable      =   True
-   Title           =   "RegPrecise"
+   Resizeable      =   False
+   Title           =   ""
    Visible         =   True
-   Width           =   970
-   Begin TextField AddressField
-      AcceptTabs      =   False
-      Alignment       =   0
+   Width           =   590
+   Begin Label StaticText3
       AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
       Bold            =   False
-      Border          =   True
-      CueText         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   86
-      LimitText       =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   5
-      Underline       =   False
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   848
-   End
-   Begin HTMLViewer WebViewer
-      AutoDeactivate  =   True
-      Enabled         =   True
-      Height          =   531
+      Height          =   46
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   0
+      Italic          =   False
+      Left            =   13
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   True
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   0
+      TabPanelIndex   =   0
+      Text            =   "#kAboutText"
+      TextAlign       =   1
+      TextColor       =   &c00000000
+      TextFont        =   "Sand"
+      TextSize        =   12.0
+      TextUnit        =   0
+      Top             =   442
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   564
+   End
+   Begin Label Version
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   19
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   13
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      Text            =   "1.0 alpha 1"
+      TextAlign       =   1
+      TextColor       =   &c00000000
+      TextFont        =   "Sand"
+      TextSize        =   12.0
+      TextUnit        =   0
+      Top             =   411
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   564
+   End
+   Begin Canvas Canvas1
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   33147061
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   False
+      Height          =   331
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   13
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Renderer        =   1
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   34
+      Top             =   0
+      Transparent     =   True
+      UseFocusRing    =   False
       Visible         =   True
-      Width           =   970
+      Width           =   561
    End
-   BeginSegmented SegmentedControl SegmentedControl1
-      Enabled         =   True
-      Height          =   24
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MacControlStyle =   2
-      Scope           =   0
-      Segments        =   "\nchevronleft2x\nFalse\r\nchevronright2x\nFalse"
-      SelectionType   =   2
-      TabPanelIndex   =   0
-      Top             =   4
-      Visible         =   True
-      Width           =   54
-   End
-   Begin ProgressWheel ProgressWheel1
+   Begin Label Title2
       AutoDeactivate  =   True
-      Enabled         =   False
-      Height          =   16
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   19
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   946
-      LockBottom      =   False
+      Italic          =   False
+      Left            =   13
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
+      Multiline       =   False
       Scope           =   0
+      Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   8
-      Visible         =   False
-      Width           =   16
+      Text            =   "an interface to nhmmer for identifying regulatory sites in bacterial genomes"
+      TextAlign       =   1
+      TextColor       =   &c00000000
+      TextFont        =   "Sand"
+      TextSize        =   12.0
+      TextUnit        =   0
+      Top             =   380
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   564
+   End
+   Begin Label Title1
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   13
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      Text            =   "SigmoID"
+      TextAlign       =   1
+      TextColor       =   &c00000000
+      TextFont        =   "Sand"
+      TextSize        =   18.0
+      TextUnit        =   0
+      Top             =   355
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   564
    End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Event
-		Sub Close()
+		Sub Activate()
+		  CenterMe
 		  
 		End Sub
 	#tag EndEvent
 
 	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  close
+		  
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  close
+		  
+		End Function
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
-		  
-		  
+		  CenterMe
 		End Sub
 	#tag EndEvent
 
 
-	#tag MenuHandler
-		Function FileClose() As Boolean Handles FileClose.Action
-			Close
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-
 	#tag Method, Flags = &h0
-		Sub FwdBackCheck()
-		  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
-		  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
+		Sub CenterMe()
+		  '#if targetWin32 then
+		  ''center the win on the screen:
+		  'Left=(app.MDIWindow.Width-width)/2
+		  'Top=(app.MDIWindow.height-height)/4
+		  ''version.text="1.9d57"
+		  '#else
+		  'Left=(Screen(0).Width-width)/2
+		  'Top=(Screen(0).height-height)/4
+		  'version.text=app.longversion
+		  '#endif
 		  
-		  if WebViewer.CanGoForward then
-		    s1.Enabled=true
-		  else
-		    s1.Enabled=false
-		  end if
 		  
-		  if WebViewer.CanGoBack then
-		    s0.Enabled=true
-		  else
-		    s0.Enabled=false
-		  end if
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub LoadPage(aFile as FolderItem)
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Refresh
-		  me.WebViewer.LoadPage(aFile)
+		  Left=(Screen(0).Width-width)/2
+		  Top=(Screen(0).height-height)/4
+		  dim l,s as string
+		  l=app.longversion
+		  s=app.shortversion
+		  
+		  version.text=app.longversion.Replace( "alpha",kAlpha )+kBuild+str(app.NonReleaseVersion)
 		  
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub LoadPage(URL as string)
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Refresh
-		  me.WebViewer.LoadURL(URL)
-		End Sub
-	#tag EndMethod
+
+	#tag Note, Name = Center the win properly on open!
+		
+		(and don't open more of these)
+	#tag EndNote
 
 
 #tag EndWindowCode
 
-#tag Events AddressField
-	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  if key=chr(13) OR key=chr(3) then 'CR or Enter
-		    LoadPage(trim(me.text))
-		  end if
-		End Function
-	#tag EndEvent
-#tag EndEvents
-#tag Events WebViewer
-	#tag Event
-		Sub DocumentComplete(URL as String)
-		  FwdBackCheck
-		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub TitleChanged(newTitle as String)
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Refresh
-		  title=newTitle
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  if key=decodehex("1D") then 'right (or chr(124?)
-		    if me.CanGoForward then
-		      ProgressWheel1.Visible=true
-		      ProgressWheel1.Enabled=true
-		      ProgressWheel1.Refresh
-		      me.GoForward
-		    end if
-		  elseif key=decodehex("1C") then ' (chr123)? - left
-		    if me.CanGoBack then
-		      ProgressWheel1.Visible=true
-		      ProgressWheel1.Enabled=true
-		      ProgressWheel1.Refresh
-		      me.GoBack
-		    end if
-		  end if
-		  FwdBackCheck
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub DocumentBegin(URL as String)
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Refresh
-		  AddressField.text=URL
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
-		  ProgressWheel1.Refresh
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events SegmentedControl1
-	#tag Event
-		Sub Action(itemIndex as integer)
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Refresh
-		  if itemIndex=0 then
-		    WebViewer.GoBack
-		  else
-		    WebViewer.GoForward
-		  end if
-		  
-		  FwdBackCheck
-		  
-		End Sub
-	#tag EndEvent
+#tag Events StaticText3
 	#tag Event
 		Sub Open()
-		  Dim s0 As SegmentedControlItem = me.Items( 0 )
-		  Dim s1 As SegmentedControlItem = me.Items( 1 )
-		  
-		  #if TargetCocoa then
-		    s0.Title=""
-		    s1.Title=""
-		    s0.Icon=SystemIcons.GoLeftTemplate
-		    s1.Icon=SystemIcons.GoRightTemplate
-		  #endif
+		  me.Text=kAboutText
 		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Version
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  me.text=app.LongVersion
+		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events Title2
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  me.text=app.LongVersion
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior

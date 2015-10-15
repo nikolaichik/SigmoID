@@ -80,7 +80,7 @@ Begin Window GenomeWin
       LockTop         =   True
       MacControlStyle =   0
       Scope           =   0
-      Segments        =   "<\n\nFalse\r                      \n\nFalse\r>\n\nFalse"
+      Segments        =   "\nchevronleft2x\nFalse\r                      \n\nFalse\r\nchevronright2x\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
       Top             =   0
@@ -266,7 +266,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   3
+      Value           =   1
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -282,7 +282,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   0
+         Renderer        =   1
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   1
@@ -304,7 +304,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   0
+         Renderer        =   1
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   2
@@ -326,7 +326,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   0
+         Renderer        =   1
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   3
@@ -348,7 +348,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   0
+         Renderer        =   1
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   4
@@ -4442,8 +4442,8 @@ End
 		  
 		  me.setfocus 'to switch focus away from the SearchField
 		  
-		  ToolTipTimer.Mode=1
 		  ToolTipBlock=false
+		  ToolTipTimer.Mode=1
 		  
 		  
 		  
@@ -4917,13 +4917,14 @@ End
 		  //show visible features names and types as tooltips
 		  'if features overlap, only the one that's the first in the array will trigger the tooltip
 		  'can display all overlapping features if required.
+		  
 		  dim PointedFeature as integer = -1
 		  dim topobj, featureCount, n as integer
 		  dim tt as string
 		  dim p as picture
 		  
 		  ttip=""
-		  ToolTipTimer.Mode=1
+		  
 		  
 		  p=Seq.Map
 		  topObj= p.Objects.Count-1
@@ -4978,7 +4979,8 @@ End
 		    
 		    TTx=X+self.Left
 		    TTy=Y+self.top
-		    ToolTipTimer.Reset
+		    
+		    ToolTipTimer.Mode=Timer.ModeSingle   'also resets the timer
 		    
 		    'ToolTip.Show(ttip, X+self.x, Y+self.top, True)
 		  else
@@ -5031,10 +5033,20 @@ End
 		    if TTip="" then
 		      ToolTip.hide
 		    else
-		      ToolTip.Show(ttip, TTx,TTy, True)
+		      'ToolTip.Show(ttip, TTx,TTy, True)
+		      #if TargetWin32
+		        ToolTip.Show(ttip,System.MouseX, System.MouseY-20, false)
+		      #else
+		        ToolTip.Show(ttip,System.MouseX, System.MouseY-20, true)
+		      #endif
 		    end if
 		  end if
 		  
+		  
+		  
+		  ''This places the tooltip right at the tip of the mouse cursor arrow :
+		  '
+		  'Tooltip.Show("hello", System.MouseX, System.MouseY-20, True)
 		  
 		End Sub
 	#tag EndEvent

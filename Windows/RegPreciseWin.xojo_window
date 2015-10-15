@@ -254,7 +254,7 @@ Begin Window RegPreciseWin
       Bevel           =   4
       Bold            =   False
       ButtonType      =   0
-      Caption         =   "i"
+      Caption         =   ""
       CaptionAlign    =   3
       CaptionDelta    =   0
       CaptionPlacement=   1
@@ -263,7 +263,7 @@ Begin Window RegPreciseWin
       HasMenu         =   0
       Height          =   22
       HelpTag         =   ""
-      Icon            =   0
+      Icon            =   568940543
       IconAlign       =   1
       IconDX          =   0
       IconDY          =   0

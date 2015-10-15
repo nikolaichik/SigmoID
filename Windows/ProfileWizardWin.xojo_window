@@ -967,8 +967,8 @@ End
 		            outstream.WriteLine("#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text))
 		            outstream.WriteLine(Endofline)
 		            
-		            outstream.WriteLine("// use the trusted cutoff threshold from the calibrated profile")
-		            outstream.WriteLine("nhmmer.--cut_tc")
+		            outstream.WriteLine("// use the gathering threshold from the calibrated profile")
+		            outstream.WriteLine("nhmmer.--cut_ga")
 		            outstream.WriteLine(Endofline)
 		            
 		            outstream.WriteLine("////")
