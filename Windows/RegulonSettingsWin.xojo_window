@@ -9,7 +9,7 @@ Begin Window RegulonSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   320
+   Height          =   364
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -52,7 +52,7 @@ Begin Window RegulonSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   280
+      Top             =   324
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -83,7 +83,7 @@ Begin Window RegulonSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   280
+      Top             =   324
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -93,7 +93,7 @@ Begin Window RegulonSettingsWin
       Bold            =   False
       Caption         =   "Operon end"
       Enabled         =   True
-      Height          =   59
+      Height          =   102
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -159,7 +159,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   215
+         Left            =   40
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -173,7 +173,7 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   223
+         Top             =   257
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -197,7 +197,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   330
+         Left            =   155
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -216,7 +216,7 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   221
+         Top             =   255
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -233,7 +233,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   366
+         Left            =   191
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -250,11 +250,43 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   223
+         Top             =   257
          Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   28
+      End
+      Begin CheckBox StrictBox
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "strictly the first one"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   False
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   155
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         State           =   1
+         TabIndex        =   6
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   223
+         Underline       =   False
+         Value           =   True
+         Visible         =   False
+         Width           =   219
       End
    End
    Begin GroupBox ThresholdsBox
@@ -614,6 +646,9 @@ End
 		  
 		  if TerminatorBox.value then
 		    opt=opt+" -t"
+		    if StrictBox.value then
+		      opt=opt+" -s"
+		    end if
 		  end if
 		  
 		  if SingleRegulonButton.value then
@@ -661,6 +696,19 @@ End
 		  self.OKPressed=false
 		  self.hide
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TerminatorBox
+	#tag Event
+		Sub Action()
+		  if me.Value then 
+		    StrictBox.enabled=true
+		    StrictBox.visible=true
+		  else
+		    StrictBox.enabled=false
+		    StrictBox.visible=false
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

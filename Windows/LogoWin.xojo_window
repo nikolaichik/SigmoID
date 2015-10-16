@@ -1915,17 +1915,19 @@ End
 		    
 		    if outfile<>nil then
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running HmmGen script..."+EndofLine)
-		      dim GenomeFilePath as string
+		      dim GenomeFilePath,outFilePath as string
 		      #if TargetWin32
 		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		        FixPath4Windows(outfile)
 		        GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		        outFilePath=chr(34)+outFile.ShellPath+chr(34)
 		      #else
 		        GenomeFilePath=GenomeFile.shellpath
+		        outFilePath=outFile.ShellPath
 		      #endif
 		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		      cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFile.ShellPath+" "+HmmGenOptions
+		      cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
 		      
 		      sh=New Shell
 		      sh.mode=0
@@ -2504,9 +2506,17 @@ End
 		    if outfile<>nil and MASTResultFile<> NIL then
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running the MastGen script..."+EndofLine)
 		      FixPath4Windows(outfile)
+		      dim genomefilepath as string
+		      #if TargetWin32
+		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		        GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		      #else
+		        GenomeFilePath=GenomeFile.shellpath
+		      #endif
+		      
 		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		      cli="python "+MastGenPath+" "+MASTResultFile.ShellPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+HmmGenOptions
+		      cli="python "+MastGenPath+" "+MASTResultFile.ShellPath+" "+GenomeFilePath+" "+outFile.ShellPath+" "+HmmGenOptions
 		      
 		      sh=New Shell
 		      sh.mode=0

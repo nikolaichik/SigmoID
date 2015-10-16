@@ -44,7 +44,7 @@ def createParser():
     parser = argparse.ArgumentParser(
              prog='OperOn',
              usage='\n%(prog)s <input_file> [options]',
-             description='''This script finds putative operon according to binding sites of regulators.
+             description='''This script finds putative operons between regulator binding sites and/or terminators/long intergenic gaps.
     Requires Biopython 1.64 (or newer)''',
              epilog='''(c) Aliaksandr Damienikan, 2015.''')
     parser.add_argument('input_file',
@@ -53,12 +53,12 @@ def createParser():
                         default=200,
                         type=int,
                         metavar='<int>',
-                        help='''set a threshold for gaps between operons ''')
+                        help='''minimal gap between operons''')
     parser.add_argument('-i', '--indent',
                         default=500,
                         type=int,
                         metavar='<int>',
-                        help='''set a threshold for indentation from very first gene to regulatory region''')
+                        help='''maximal distance from binding site to the first downstream CDS''')
     parser.add_argument('-t', '--terminator',
                         action='store_const',
                         const='On',
@@ -73,13 +73,13 @@ def createParser():
                         action='store_const',
                         const='On',
                         default='Off',
-                        help='''consider palindromic protein binding sites''')
+                        help='''treat all binding sites as palindromic''')
     parser.add_argument('-s', '--strict',
                         action='store_const',
                         const='On',
                         default='Off',
-                        help='''operon stops on first terminator (if -t is setted)''')        
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.6 (October 14, 2015)')
+                        help='''operon stops on first terminator (if -t is set)''')        
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.6.1 (October 16, 2015)')
     return parser
 
 args = createParser()
@@ -88,7 +88,7 @@ arguments = sys.argv[1:0]
 try:
     from Bio import SeqIO
 except ImportError:
-    raise ImportError('\nYou have no Biopython module installed!\nYou can download it here for free: http://biopython.org/wiki/Download\n')
+    raise ImportError('\nYou have no Biopython module installed!\nYou can download it from here: http://biopython.org/wiki/Download\n')
 try:
     input_handle = open(enter.input_file, 'r')
 except IOError:
@@ -410,7 +410,7 @@ for up_operon in operon_list:
             intodel.append(operon_list.index(down_operon))
 operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
 operon_list += divergons_and_promoters
-operon_out = 'OperOn 1.6 (October 14)\n'+('='*50)+'\n\n'
+operon_out = 'OperOn 1.6.1 (October 16)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 for regulator in regulators:
     operon_counter = 0

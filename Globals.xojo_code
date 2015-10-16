@@ -1505,7 +1505,6 @@ Protected Module Globals
 		  
 		  if f<>Nil then
 		    'shell within xojo doesn't read .bash_profile - hence PATH isn't set properly
-		    'and most programs don't work
 		    'hence the full path below
 		    'cli="/usr/local/bin/weblogo -c classic -F logodata -f "+f.ShellPath
 		    cli=WebLogoPath+" -c classic -F logodata -f "+f.ShellPath
