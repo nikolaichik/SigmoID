@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.8 (July 13, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.9 (October 17, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -114,7 +114,7 @@ except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
 
-print '\nHmmGen 2.8 (July 13, 2015)'
+print '\nHmmGen 2.9 (October 17, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -163,12 +163,19 @@ def nhmm_parser(path_to_file, x):
     for i in range(len(b)):
         if len(b[i]) > 10:
             e.append(b[i])
+    print e
     b=[]
     for item in e:
-        x.append([item[8], item[9], int(item[11]+'1'),
-                  float(item[12]), float(item[13]), item[0],
-                  item[1], int(item[4]), int(item[5]),
-                  int(item[6]), int(item[7])])
+        for num_of_spaces in range(len(e[0])): #to avoid problems with additional spaces... e[0] - firstly splitted string by ' '
+            try:
+                x.append([item[8+num_of_spaces], item[9+num_of_spaces], int(item[11+num_of_spaces]+'1'),
+                          float(item[12+num_of_spaces]), float(item[13+num_of_spaces]), item[0+num_of_spaces],
+                          item[1+num_of_spaces], int(item[4+num_of_spaces]), int(item[5+num_of_spaces]),
+                          int(item[6+num_of_spaces]), int(item[7+num_of_spaces])])
+            except ValueError:
+                pass
+            else:
+                break
 
 def nhmm_prog(path_to_file, e):
 
