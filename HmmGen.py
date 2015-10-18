@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.9 (October 17, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.10 (October 18, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -102,19 +102,28 @@ try:
     from Bio import SeqIO
 except ImportError:
     sys.exit('\nYou have no Biopython module installed!\nYou can download it here for free: http://biopython.org/wiki/Download\n')
-
 try:
     input_handle = open(enter.input_file, 'r')
 except IOError:
     sys.exit('Open error! Please check your genbank input file!')
-
+circular_vs_linear = []
+for line in input_handle.readlines():
+    if line.startswith('LOCUS'):
+        if 'circular' in line:
+            circular_vs_linear.append('circular')
+        elif 'linear' in line:
+            circular_vs_linear.append('linear')
+        else:
+            circular_vs_linear.append('')
+input_handle.close()
+input_handle = open(enter.input_file, 'r')
+if enter.input_file == enter.output_file:
+    sys.exit('Sorry, but we can\'t edit input file. Plese give another name to output file!')
 try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-
-
-print '\nHmmGen 2.9 (October 17, 2015)'
+print '\nHmmGen 2.10 (October 18, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -163,7 +172,6 @@ def nhmm_parser(path_to_file, x):
     for i in range(len(b)):
         if len(b[i]) > 10:
             e.append(b[i])
-    print e
     b=[]
     for item in e:
         for num_of_spaces in range(len(e[0])): #to avoid problems with additional spaces... e[0] - firstly splitted string by ' '
@@ -231,6 +239,29 @@ def feature_score(feature):
             temp = temp.split(' ')
             return float(temp[-3])
 
+def DNA_topology(path, topo_list):
+    infile = open(path, 'r')
+    loci_counter = -1 #because 1 is 0 in python
+    lines = infile.readlines()
+    for numline in xrange(len(lines)):
+        if lines[numline].startswith('LOCUS'):
+            loci_counter += 1
+            if topo_list[loci_counter] == 'circular':
+                spaces_before = " " * 3
+                spaces_after = " " * 1
+                lines[numline] = lines[numline].replace("DNA              ", "DNA%s%s%s" % (spaces_before, 
+                                                                        'circular',
+                                                                        spaces_after))
+            elif topo_list[loci_counter] == 'linear':
+                spaces_before = " " * 5
+                spaces_after = " " * 3
+                lines[numline] = lines[numline].replace("DNA              ", "DNA%s%s%s" % (spaces_before, 
+                                                                        'linear',
+                                                                        spaces_after))
+    infile.close()
+    return lines 
+    
+
 file_path = enter.report_file
 qualifier = {'CHECK':'CHECKED!'}
 qualifiers_function(enter.qual, qualifier)
@@ -247,11 +278,17 @@ for record in records:
     global allowed_features_list
     allowed_features_list = []
     for feature in record.features:
-        if feature.type == 'CDS' or feature.type == 'ncRNA':
+        if feature.type == 'CDS' or \
+           feature.type == 'ncRNA':
             allowed_features_list.append(feature)
-
-    cds_loc_start = allowed_features_list[0]
-    cds_loc_end = allowed_features_list[-1]
+    try:
+        cds_loc_start = allowed_features_list[0]
+    except:
+        cds_loc_start = record.features[0]
+    try:
+        cds_loc_end = allowed_features_list[-1]
+    except:
+        cds_loc_end = record.features[-1]
 
     for allign in allign_list:
         from Bio import SeqFeature
@@ -461,8 +498,14 @@ for record in records:
 
 
     if enter.palindromic is True:
-        first_cds = allowed_features_list[0]
-        last_cds = allowed_features_list[-1]
+        try:
+            first_cds = allowed_features_list[0]
+        except:
+            first_cds = record.features[0]
+        try:
+            last_cds = allowed_features_list[-1]
+        except:
+            last_cds = record.features[-1]
         for i in reversed(xrange(1, len(record.features))):
             i = len(record.features)-1-i
             if record.features[i].qualifiers.has_key('CHECK') and i < len(record.features):
@@ -537,6 +580,10 @@ for record in records:
 
     total += int(len(output_features))
 output_handle.close()
+newlines = DNA_topology(enter.output_file, circular_vs_linear)
+new_output_file = open(enter.output_file, 'w')
+new_output_file.writelines(newlines)
+new_output_file.close()
 input_handle.close()
 print 'Total features: ', total
 print 'CPU time: ', time.clock()
