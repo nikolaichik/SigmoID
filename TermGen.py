@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.8 (May 21, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.9 (October 19, 2015)')
     return parser
 
 args = createParser()
@@ -82,7 +82,7 @@ else:
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.8 (May 21, 2015)'
+print '\nTermGen 1.9 (October 19, 2015)'
 print "="*50
 output_args = ''
 for arg in range(1, len(sys.argv)):
@@ -105,6 +105,17 @@ try:
     input_gbk = open(enter.input_file, 'r')
 except IOError:
     sys.exit('Open error! Please check your genbank input file!')
+circular_vs_linear = []
+for line in input_gbk.readlines():
+    if line.startswith('LOCUS'):
+        if 'circular' in line:
+            circular_vs_linear.append('circular')
+        elif 'linear' in line:
+            circular_vs_linear.append('linear')
+        else:
+            circular_vs_linear.append('')
+input_gbk.close()
+input_gbk = open(enter.input_file, 'r')
 output_gbk = open(enter.output_file, 'w')
 id_list =[record.id for record in SeqIO.parse(input_gbk, 'genbank')]
 if len(id_list) > 1:
@@ -209,6 +220,28 @@ for terminator in terminators:
         if len(word) >= 1:
             terms[-1].append(word)
 
+#this function helps to return DNA topology to file after Biopython parsing...
+def DNA_topology(path, topo_list):
+    infile = open(path, 'r')
+    loci_counter = -1 #because 1 is 0 in python
+    lines = infile.readlines()
+    for numline in xrange(len(lines)):
+        if lines[numline].startswith('LOCUS'):
+            loci_counter += 1
+            if topo_list[loci_counter] == 'circular':
+                spaces_before = " " * 3
+                spaces_after = " " * 1
+                lines[numline] = lines[numline].replace("DNA              ", "DNA%s%s%s" % (spaces_before, 
+                                                                        'circular',
+                                                                        spaces_after))
+            elif topo_list[loci_counter] == 'linear':
+                spaces_before = " " * 5
+                spaces_after = " " * 3
+                lines[numline] = lines[numline].replace("DNA              ", "DNA%s%s%s" % (spaces_before, 
+                                                                        'linear',
+                                                                        spaces_after))
+    infile.close()
+    return lines
 
 ''' The part below creates a list of lists (each one is a founded terminator),
     where every feature contains information about it.'''
@@ -397,5 +430,17 @@ for record in records:
     print '%s terminators were added.\n' % len(new_features_list)
     print "="*50
 output_gbk.close()
+#overwriting output to add topology (see DNA_topology() function)
+newlines = DNA_topology(enter.output_file, circular_vs_linear)
+new_output_file = open(enter.output_file, 'w')
+new_output_file.writelines(newlines)
+new_output_file.close()
 input_gbk.close()
 terms_out.close()
+#deleting temporary ptt and fasta files
+if platform.system() != 'Windows':
+    os.remove('%s/%s.fasta' % (renamed_cwd, name))
+    os.remove('%s/%s.ptt' % (renamed_cwd, id))
+else:
+    os.remove('%s.fasta' % (name))
+    os.remove('%s.ptt' % (id))
