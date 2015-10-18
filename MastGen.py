@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.1 (September 10, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.2 (October 19, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -102,19 +102,26 @@ try:
     from Bio import SeqIO
 except ImportError:
     sys.exit('\nYou have no Biopython module installed!\nYou can download it here for free: http://biopython.org/wiki/Download\n')
-
 try:
     input_handle = open(enter.input_file, 'r')
 except IOError:
     sys.exit('Open error! Please check your genbank input file!')
-
+circular_vs_linear = []
+for line in input_handle.readlines():
+    if line.startswith('LOCUS'):
+        if 'circular' in line:
+            circular_vs_linear.append('circular')
+        elif 'linear' in line:
+            circular_vs_linear.append('linear')
+        else:
+            circular_vs_linear.append('')
+input_handle.close()
+input_handle = open(enter.input_file, 'r')
 try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-
-
-print '\nMastGen 1.1 (September 10, 2015)'
+print '\nMastGen 1.2 (October 19, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -183,6 +190,28 @@ def feature_score(feature):
             temp = feature.qualifiers[key]
             temp = temp.split(' ')
             return float(temp[-3])
+
+def DNA_topology(path, topo_list):
+    infile = open(path, 'r')
+    loci_counter = -1 #because 1 is 0 in python
+    lines = infile.readlines()
+    for numline in xrange(len(lines)):
+        if lines[numline].startswith('LOCUS'):
+            loci_counter += 1
+            if topo_list[loci_counter] == 'circular':
+                spaces_before = " " * 3
+                spaces_after = " " * 1
+                lines[numline] = lines[numline].replace("DNA              ", "DNA%s%s%s" % (spaces_before, 
+                                                                        'circular',
+                                                                        spaces_after))
+            elif topo_list[loci_counter] == 'linear':
+                spaces_before = " " * 5
+                spaces_after = " " * 3
+                lines[numline] = lines[numline].replace("DNA              ", "DNA%s%s%s" % (spaces_before, 
+                                                                        'linear',
+                                                                        spaces_after))
+    infile.close()
+    return lines 
 
 file_path = enter.report_file
 qualifier = {'CHECK':'CHECKED!'}
@@ -444,6 +473,10 @@ for record in records:
     SeqIO.write(record, output_handle, 'genbank')
     total += int(len(output_features))
 output_handle.close()
+newlines = DNA_topology(enter.output_file, circular_vs_linear)
+new_output_file = open(enter.output_file, 'w')
+new_output_file.writelines(newlines)
+new_output_file.close()
 input_handle.close()
 print 'Total features: ', total
 print 'CPU time: ', time.clock()
