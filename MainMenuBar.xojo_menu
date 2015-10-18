@@ -47,6 +47,20 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem FileOpenRegulonDBdata
+         SpecialMenu = 0
+         Text = "Open RegulonDB data..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator3
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem FileOpen
          SpecialMenu = 0
          Text = "#kOpenGenome"
@@ -372,6 +386,13 @@ Begin Menu MainMenuBar
       Begin MenuItem AlignmentProfileWizard
          SpecialMenu = 0
          Text = "#kProfileWizard"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem AlignmentMEME
+         SpecialMenu = 0
+         Text = "MEME..."
          Index = -2147483648
          AutoEnable = True
          Visible = True

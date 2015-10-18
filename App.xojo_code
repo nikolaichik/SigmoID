@@ -232,6 +232,34 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FileOpenRegulonDBdata() As Boolean Handles FileOpenRegulonDBdata.Action
+			dim tmpfile, convertedFasta as folderitem
+			
+			dim GenomeFile as folderitem
+			Dim dlg as New OpenDialog
+			
+			dlg.promptText="Select a file with RegulonDB data for a SINGLE regulator"
+			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+			dlg.Title="Open RegulonDB data"
+			'dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
+			tmpfile=dlg.ShowModal 'within(self)
+			
+			if tmpfile<>nil then
+			convertedFasta=SpecialFolder.Temporary.child("converted.fasta")
+			if convertedFasta<>nil then
+			RegulonDB2fasta(tmpfile,convertedFasta)
+			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
+			logowin.LoadAlignment(convertedFasta)
+			end if
+			
+			Return True
+			end if
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeScanGenome() As Boolean Handles GenomeScanGenome.Action
 			ScanGenome
 			Return True

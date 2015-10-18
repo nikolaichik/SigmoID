@@ -795,6 +795,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function AlignmentMEME() As Boolean Handles AlignmentMEME.Action
+			dim ret as integer=MEMEhtml
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function FileSaveAlignmentSelection() As Boolean Handles FileSaveAlignmentSelection.Action
 			if ubound(SelArray1)=1 then
 			
@@ -2856,6 +2864,70 @@ End
 		        WriteToSTDOUT (EndofLine+InStream.ReadAll)
 		      end if
 		      InStream.close
+		      return sh.errorCode
+		    else
+		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "MEME error code: "+Str(sh.errorCode)
+		      return sh.errorCode
+		    end if
+		    
+		  else
+		    msgbox "Can't create temporary folder!"
+		    return -1
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MEMEhtml() As integer
+		  'Standard MEME run with result display in browser
+		  
+		  'copy alignment out of virtual volume:
+		  dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
+		  if alignment_tmp<>NIL then
+		    if alignment_tmp.Exists then
+		      alignment_tmp.Delete
+		    end if
+		    LogoFile.CopyFileTo alignment_tmp
+		    
+		  else
+		    msgbox "Can't create temporary file!"
+		    return -1
+		  end if
+		  
+		  
+		  'create a tmp file to store MEME results:
+		  MEMEtmp=SpecialFolder.Temporary.child("MEMEoutdir")
+		  FixPath4Windows(MEMEtmp)
+		  
+		  if MEMEtmp<>NIL then
+		    if MEMEtmp.Exists then
+		      MEMEtmp.Delete
+		    end if
+		    'actual conversion
+		    dim cli as string
+		    Dim sh As Shell
+		    
+		    cli=MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw 15 -maxw 25 -revcomp -nmotifs 3 " 'motif width should be configurable
+		    if Palindromic then
+		      cli=cli+"-pal "
+		    end if
+		    cli=cli+"-oc "+MEMEtmp.ShellPath
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      
+		      'open the result in the browser:
+		      dim res as FolderItem
+		      res=MEMEtmp.child("meme.html")
+		      if res<>NIL then
+		        WebBrowserWin.LoadPage(res)
+		      end if
 		      return sh.errorCode
 		    else
 		      WriteToSTDOUT (EndofLine+Sh.Result)
