@@ -23,9 +23,9 @@ Begin Window WebBrowserWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "RegPrecise"
+   Title           =   ""
    Visible         =   True
-   Width           =   970
+   Width           =   1100
    Begin TextField AddressField
       AcceptTabs      =   False
       Alignment       =   0
@@ -66,7 +66,7 @@ Begin Window WebBrowserWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   848
+      Width           =   978
    End
    Begin HTMLViewer WebViewer
       AutoDeactivate  =   True
@@ -88,7 +88,7 @@ Begin Window WebBrowserWin
       TabStop         =   True
       Top             =   34
       Visible         =   True
-      Width           =   970
+      Width           =   1100
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -117,7 +117,7 @@ Begin Window WebBrowserWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   946
+      Left            =   1076
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False

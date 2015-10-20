@@ -23,7 +23,7 @@ Begin Window RegulonDBWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "RegPrecise"
+   Title           =   "E. coli regulons (RegulonDB)"
    Visible         =   False
    Width           =   672
    Begin Listbox RegulatorList
@@ -31,13 +31,13 @@ Begin Window RegulonDBWin
       AutoHideScrollbars=   True
       Bold            =   False
       Border          =   True
-      ColumnCount     =   4
+      ColumnCount     =   5
       ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      Enabled         =   False
+      Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
       GridLinesHorizontal=   0
@@ -75,37 +75,6 @@ Begin Window RegulonDBWin
       Width           =   672
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
-   End
-   Begin PushButton MEMEButton
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "Run MEME..."
-      Default         =   False
-      Enabled         =   False
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   404
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   360
-      Underline       =   False
-      Visible         =   True
-      Width           =   118
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   True
@@ -183,11 +152,11 @@ Begin Window RegulonDBWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       MenuValue       =   0
       Scope           =   0
       TabIndex        =   10
@@ -202,6 +171,40 @@ Begin Window RegulonDBWin
       Value           =   False
       Visible         =   True
       Width           =   22
+   End
+   Begin Label RegulonDBinfoLabel
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   68
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      Text            =   ""
+      TextAlign       =   1
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   360
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   440
    End
 End
 #tag EndWindow
@@ -240,50 +243,177 @@ End
 
 
 	#tag Method, Flags = &h0
-		Sub FillRegulatorList(JSONin as JSONItem)
-		  'Populates the RegulatorList and stores regulator JSONs in an array
-		  'the popup and array indices are the same
+		Sub FillRegulatorList(RegulonDBfile as folderitem)
 		  
-		  dim regulators as JSONItem
-		  dim n as integer
+		  'tab-sepaprated columns:
+		  '# Columns:
+		  '# (1) Transcription Factor (TF) identifier assigned by RegulonDB
+		  '# (2) TF name
+		  '# (3) TF binding site (TF-bs) identifier assigned by RegulonDB
+		  '# (4) TF-bs left end position in the genome
+		  '# (5) TF-bs right end position in the genome
+		  '# (6) DNA strand where the  TF-bs is located
+		  '# (7) TF-Gene interaction identifier assigned by RegulonDB (related to the "TF gene interactions" file)
+		  '# (8) Transcription unit regulated by the TF
+		  '# (9) Gene expression effect caused by the TF bound to the  TF-bs (+ activation, - repression, +- dual, ? unknown)
+		  '# (10) Promoter name
+		  '# (11) Center position of TF-bs, relative to Transcription Start Site
+		  '# (12) TF-bs sequence (upper case)
+		  '# (13) Evidence that supports the existence of the TF-bs
+		  '# (14) Evidence confidence level (Confirmed, Strong, Weak)
+		  'ECK125140816    AccB    ECK120011222    0    0    forward    ECK120032360    accBC    -    accBp
+		  'ECK120015994    AcrR    ECK120018491    484933    484956    reverse    ECK120033472    acrAB    -    acrAp    -22.5    gcgttagattTACATACATTTGTGAATGTATGTAccatagcacg    [BCE|W|Binding of cellular extracts],[GEA|W|Gene expression analysis]
 		  
-		  RegulatorList.DeleteAllRows
+		  'Some 'sites' are empty!
 		  
-		  redim regulatorArray(-1)
-		  regulators=JSONin.Value("regulon")
-		  if regulators.IsArray then
-		    for n=0 to regulators.Count-1
-		      if regulators(n) isa JSONItem then
-		        'should contain smth like:
-		        '{"effector":"Tyrosine; Phenylalanine","genomeId":"356",
-		        '"genomeName":"Erwinia carotovora subsp. atroseptica SCRI1043",
-		        '"pathway":"Aromatic amino acid metabolism","regulationType":"TF","regulatorFamily":"TyrR",
-		        '"regulatorName":"TyrR","regulogId":"1118","regulonId":"10175"}
-		        
-		        if JSONItem(regulators(n)).Value("regulationType")="TF" then 'exclude the RNAs for now
-		          regulatorArray.append regulators(n)
-		          dim s1, s2, s3 as string
-		          s1=JSONItem(regulators(n)).Value("regulatorName")
-		          s2=JSONItem(regulators(n)).Value("effector")
-		          s3=JSONItem(regulators(n)).Value("pathway")
-		          Dim reg() As String = Array(s1, s2, s3)
-		          regulatorList.AddRow(reg)
+		  'We convert some of the available info into fasta title, changing the order slightly:
+		  '# (8) Transcription unit regulated by the TF
+		  '# (11) Center position of TF-bs, relative to Transcription Start Site
+		  '# (10) Promoter name
+		  '# (9) Gene expression effect caused by the TF bound to the  TF-bs (+ activation, - repression, +- dual, ? unknown)
+		  '# (1) Transcription Factor (TF) identifier assigned by RegulonDB
+		  '# (2) TF name
+		  '# (3) TF binding site (TF-bs) identifier assigned by RegulonDB
+		  '# (4) TF-bs left end position in the genome
+		  '# (5) TF-bs right end position in the genome
+		  '# (6) DNA strand where the  TF-bs is located
+		  '# (7) TF-Gene interaction identifier assigned by RegulonDB (related to the "TF gene interactions" file)
+		  '# (13) Evidence that supports the existence of the TF-bs
+		  '# (14) Evidence confidence level (Confirmed, Strong, Weak)
+		  
+		  'Evidence confidence level added in version 9
+		  
+		  dim tis as TextInputStream
+		  dim tos as TextOutputStream
+		  dim BSarr() as string
+		  dim tab as string = chr(9)
+		  dim aline, tline as string
+		  dim theSeq, aGene, currentGene, geneArr() as string
+		  dim linecount, n, GeneNo as integer
+		  dim newgene as boolean
+		  dim aTF, currentTF, TFdata, TF_ID as string
+		  
+		  
+		  tis=RegulonDBfile.OpenAsTextFile
+		  
+		  if tis<>nil then
+		    
+		    'skip the header, but get version number:
+		    while not tis.EOF
+		      aLine=tis.readLine
+		      if instr(aline,"# Release:")>0 then
+		        RegulonDBVersion=NthField(aline,"# Release: ",2)
+		        RegulonDBVersion=replace(RegulonDBVersion," Date:","(")
+		        RegulonDBVersion=RegulonDBVersion+")"
+		        exit
+		      end if
+		    wend
+		    while not tis.EOF
+		      aLine=tis.readLine
+		      if left(aline,6)="# (14)" then
+		        exit
+		      end if
+		    wend
+		    
+		    minlen=100
+		    while not tis.EOF
+		      aLine=tis.readLine
+		      if len(aline)>60 then 'skip empty lines
+		        BSarr()=split(aline,tab)
+		        BSarr.Insert(0,"") 'zero based array correction
+		        if BSarr(12)<>"" then 'filter out empty sites
+		          
+		          aTF=BSarr(2)
+		          if aTF<>currentTF then 'new TF
+		            'First, fill the table and array with the data for the previous TF:
+		            MinLen=MinLen-20 '10 bases added by RegulonDB on each side
+		            MaxLen=maxLen-20
+		            GeneNo=UBound(geneArr)+1
+		            
+		            if GeneNo>0 then
+		              RegulatorArray.Append TFdata
+		              'RegulatorList columns are:
+		              'TF name    Number of sites    Genes controlled    Site width    RegulonDB_TF_ID
+		              dim reg() as string
+		              if MinLen=MaxLen then
+		                reg=array(currentTF, str(linecount), str(GeneNo), str(minLen), TF_ID)
+		              else
+		                reg=array(currentTF, str(linecount), str(GeneNo), str(minLen)+"-"+str(maxLen), TF_ID)
+		              end if
+		              RegulatorList.AddRow(reg)
+		            end if
+		            
+		            'reinitialise counters and accumulators
+		            currentTF=aTF
+		            linecount=0
+		            MinLen=100
+		            MaxLen=0
+		            redim geneArr(-1)
+		            TFdata=""
+		            TF_ID=BSarr(1)
+		          end if
+		          
+		          linecount=linecount+1
+		          
+		          currentGene=BSarr(8)
+		          newgene=true
+		          for n=0 to UBound(genearr)
+		            if currentGene=genearr(n) then
+		              newgene=false
+		              exit
+		            end if
+		          next
+		          if newgene then
+		            geneArr.append(currentGene)
+		          end if
+		          
+		          'BSarr(8)+"_"+BSarr(11) gives unique name
+		          if ubound(BSarr)<14 then
+		            tline=">"+BSarr(8)+"_"+BSarr(11)+" "+BSarr(10)+" "+BSarr(9)+" "+BSarr(1)+" "+BSarr(2)+" "+BSarr(3)+" "+BSarr(4)+" "+BSarr(5)+" "+BSarr(6)+" "+BSarr(7)+" "+BSarr(13)
+		          else
+		            tline=">"+BSarr(8)+"_"+BSarr(11)+" "+BSarr(10)+" "+BSarr(9)+" "+BSarr(1)+" "+BSarr(2)+" "+BSarr(3)+" "+BSarr(4)+" "+BSarr(5)+" "+BSarr(6)+" "+BSarr(7)+" "+BSarr(13)+" "+BSarr(14)
+		          end if
+		          theSeq=BSarr(12)
+		          
+		          if lenb(theSeq)<minLen then
+		            minLen=lenb(theSeq)
+		          end if
+		          
+		          if lenb(theSeq)>maxLen then
+		            maxLen=lenb(theSeq)
+		          end if
+		          
+		          TFdata=TFdata+tline+EndOfLine.Unix
+		          'RC should be an option
+		          if BSarr(6)="forward" then
+		            TFdata=TFdata+theSeq+EndOfLine.Unix
+		          else
+		            TFdata=TFdata+ReverseComplement(theSeq)+EndOfLine.Unix
+		          end if
+		          
 		        end if
 		      end if
-		      
-		    next
+		    wend
+		    'add the last TF
+		    MinLen=MinLen-20 '10 bases added by RegulonDB on each side
+		    MaxLen=maxLen-20
+		    GeneNo=UBound(geneArr)+1
+		    if GeneNo>0 then
+		      RegulatorArray.Append TFdata
+		      'RegulatorList columns are:
+		      'TF name    Number of sites    Genes controlled    Site width
+		      dim reg() as string
+		      if MinLen=MaxLen then
+		        reg=array(currentTF, str(linecount), str(GeneNo), str(minLen), TF_ID)
+		      else
+		        reg=array(currentTF, str(linecount), str(GeneNo), str(minLen)+"-"+str(maxLen), TF_ID)
+		      end if
+		      RegulatorList.AddRow(reg)
+		    end if
 		    
-		    'sort the list:
-		    regulatorList.ColumnsortDirection(0)=ListBox.SortAscending
-		    regulatorList.SortedColumn=0   //first column is the sort column
-		    regulatorList.Sort
-		    
-		    RegulatorList.Enabled=true
-		  else
-		    'A problem with JSON
 		    
 		  end if
-		  
+		  RegulonDBinfoLabel.text="GegulonDB "+RegulonDBVersion+". "+str(RegulatorList.ListCount)+" transcription factors."
 		  
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
@@ -292,43 +422,27 @@ End
 
 	#tag Method, Flags = &h0
 		Sub RegulonInfo()
-		  ''get the ID:
-		  'dim RegulonID, TFname as string
-		  'dim n as integer
-		  '
-		  'TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  'for n=0 to UBound(regulatorArray)
-		  'if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		  'RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		  'exit
-		  'end if
-		  '
-		  'next
-		  '
-		  ''open the RegPrecise page:
-		  'RegulonInfo(val(RegulonID),false)
+		  'get the ID:
+		  dim TF_ID, theURL as string
+		  TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
 		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:RegPreciseRegulonInfo")
-		    
+		  theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
+		  theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
+		  
+		  WebBrowserWin.show
+		  WebBrowserWin.LoadPage(theURL)
+		  
+		  
 		End Sub
 	#tag EndMethod
 
 
 	#tag Property, Flags = &h0
-		GenomeStatsArray(-1) As JSONItem
+		RegulatorArray(-1) As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		RegPreciseVersion As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		RegulatorArray(-1) As JSONItem
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		SocketTask As String
+		RegulonDBVersion As String
 	#tag EndProperty
 
 
@@ -339,11 +453,9 @@ End
 		Sub Change()
 		  if me.SelCount=1 then
 		    LogoButton.Enabled=true
-		    MEMEButton.Enabled=true
 		    InfoButton.Enabled=true
 		  else
 		    LogoButton.Enabled=false
-		    MEMEButton.Enabled=false
 		    InfoButton.Enabled=false
 		  end if
 		  
@@ -364,74 +476,56 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  me.ColumnWidths="14%,43%,43%"
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events MEMEButton
-	#tag Event
-		Sub Action()
-		  dim RegulonID,RegulogID, TFname as string
-		  dim n as integer
-		  
-		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
-		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
-		  'therefore, a full search of the regulator array is required
-		  
-		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  for n=0 to UBound(regulatorArray)
-		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
-		      exit
-		    end if
-		    
-		  next
-		  
-		  
-		  
-		  LogoWin.RegulonID=Val(RegulonID)
-		  LogoWin.RegulogID=Val(RegulogID)
-		  LogoWin.IsRegulog=false
-		  LogoWin.LoadRegpreciseData(RegulonID,TFname,false)
-		  LogoWin.show
-		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:RegulonLogoButton.Action")
-		    
+		  me.ColumnWidths="25%,25%,25%,25%,0%"
+		  'the last column is invisible and holds RegulonDB ID 
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events LogoButton
 	#tag Event
 		Sub Action()
-		  dim RegulogID,RegulonID, TFname as string
-		  dim n as integer
-		  
-		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
-		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
-		  'therefore, a full search of the regulator array is required
+		  dim tmpfile as folderitem
+		  dim TFname as string
 		  
 		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  for n=0 to UBound(regulatorArray)
-		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
-		      exit
-		    end if
+		  
+		  tmpfile=SpecialFolder.Temporary.child("RegulonDBtmp.fasta")
+		  if tmpfile<>nil then
+		    dim OutStream As TextOutputStream
+		    OutStream = TextOutputStream.Create(tmpfile)
+		    outstream.Write(RegulatorArray(RegulatorList.ListIndex))
+		    OutStream.Close
+		    logowin.Title="SigmoID: "+TFname+" (RegulonDB)"
+		    logowin.LoadAlignment(tmpfile)
 		    
-		  next
+		    'determine site width(s):
+		    dim instream as TextInputStream
+		    dim aLine as string
+		    minLen=100
+		    maxLen=0
+		    InStream = tmpfile.OpenAsTextFile
+		    while not InStream.EOF
+		      aLine=trim(InStream.readLine)
+		      if left(aLine,1)=">" then
+		      else
+		        if lenb(aline)<minLen then
+		          minLen=lenb(aline)
+		        end if
+		        if lenb(aline)>maxLen then
+		          maxLen=lenb(aline)
+		        end if
+		      end if
+		    wend
+		    instream.close
+		    minLen=minlen-20
+		    maxLen=maxLen-20
+		    
+		  end if
 		  
-		  
-		  
-		  LogoWin.RegulonID=Val(RegulonID)
-		  LogoWin.RegulogID=Val(RegulogID)
-		  LogoWin.IsRegulog=true
-		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
 		  LogoWin.show
 		  
 		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:RegulogLogoButton.Action")
+		    ExceptionHandler(err,"RegulonDBWin:LogoButton.Action")
 		    
 		End Sub
 	#tag EndEvent
@@ -641,7 +735,7 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="RegPreciseVersion"
+		Name="RegulonDBVersion"
 		Group="Behavior"
 		Type="String"
 		EditorType="MultiLineEditor"

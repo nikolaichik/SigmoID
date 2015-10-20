@@ -149,6 +149,23 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FileListAllRegulonDBdata() As Boolean Handles FileListAllRegulonDBdata.Action
+			dim RegulonDBfile as folderitem
+			
+			RegulonDBfile=Resources_f.child("RegulonDB").child("BindingSiteSet.txt")
+			
+			if RegulonDBfile<>Nil and RegulonDBfile.Exists then
+			RegulonDBWin.show
+			RegulonDBWin.FillRegulatorList(RegulonDBfile)
+			else
+			LogoWin.WriteToSTDOUT("RegulonDB data file is missing")
+			end if 
+			
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function FileMakeSigFile() As Boolean Handles FileMakeSigFile.Action
 			Dim dlg As New SelectFolderDialog
 			dlg.ActionButtonCaption = "Make .sig"

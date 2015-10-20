@@ -47,9 +47,9 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem FileOpenRegulonDBdata
+      Begin MenuItem FileListAllRegulonDBdata
          SpecialMenu = 0
-         Text = "Open RegulonDB data..."
+         Text = "List RegulonDB regulons"
          Index = -2147483648
          AutoEnable = True
          Visible = True
