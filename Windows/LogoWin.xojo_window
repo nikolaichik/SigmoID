@@ -132,6 +132,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -2384,6 +2385,7 @@ End
 		  RegulogID=0
 		  
 		  LastSearch=""
+		  show
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:LoadAlignment")
 		End Sub
@@ -2908,7 +2910,17 @@ End
 		    dim cli as string
 		    Dim sh As Shell
 		    
-		    cli=MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw 15 -maxw 25 -revcomp -nmotifs 3 " 'motif width should be configurable
+		    if minlen=0 then
+		      minlen=17
+		    end if
+		    
+		    if maxlen=0 then
+		      maxlen=23
+		    end if
+		    
+		    
+		    cli=MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(minlen-2)
+		    cli=cli+" -maxw "+str(maxlen+2)+" -revcomp -nmotifs 3 " 'motif width should be configurable
 		    if Palindromic then
 		      cli=cli+"-pal "
 		    end if
@@ -2927,6 +2939,7 @@ End
 		      res=MEMEtmp.child("meme.html")
 		      if res<>NIL then
 		        WebBrowserWin.LoadPage(res)
+		        WebBrowserWin.show
 		      end if
 		      return sh.errorCode
 		    else

@@ -896,6 +896,7 @@ Protected Module Globals
 		  '# (11) Center position of TF-bs, relative to Transcription Start Site
 		  '# (12) TF-bs sequence (upper case)
 		  '# (13) Evidence that supports the existence of the TF-bs
+		  '# (14) Evidence confidence level (Confirmed, Strong, Weak)
 		  'ECK125140816    AccB    ECK120011222    0    0    forward    ECK120032360    accBC    -    accBp
 		  'ECK120015994    AcrR    ECK120018491    484933    484956    reverse    ECK120033472    acrAB    -    acrAp    -22.5    gcgttagattTACATACATTTGTGAATGTATGTAccatagcacg    [BCE|W|Binding of cellular extracts],[GEA|W|Gene expression analysis]
 		  
@@ -903,8 +904,8 @@ Protected Module Globals
 		  
 		  'We convert some of the available info into fasta title, changing the order slightly:
 		  '# (8) Transcription unit regulated by the TF
-		  '# (10) Promoter name
 		  '# (11) Center position of TF-bs, relative to Transcription Start Site
+		  '# (10) Promoter name
 		  '# (9) Gene expression effect caused by the TF bound to the  TF-bs (+ activation, - repression, +- dual, ? unknown)
 		  '# (1) Transcription Factor (TF) identifier assigned by RegulonDB
 		  '# (2) TF name
@@ -914,36 +915,88 @@ Protected Module Globals
 		  '# (6) DNA strand where the  TF-bs is located
 		  '# (7) TF-Gene interaction identifier assigned by RegulonDB (related to the "TF gene interactions" file)
 		  '# (13) Evidence that supports the existence of the TF-bs
+		  '# (14) Evidence confidence level (Confirmed, Strong, Weak)
+		  
+		  'Evidence confidence level added in version 9
 		  
 		  dim tis as TextInputStream
 		  dim tos as TextOutputStream
 		  dim BSarr() as string
 		  dim tab as string = chr(9)
 		  dim aline, tline as string
+		  dim theSeq, aGene, currentGene, geneArr() as string
+		  dim linecount,n as integer
+		  dim newgene as boolean
 		  
 		  tos = TextOutputStream.Create(outFile)
 		  if tos=Nil then return
 		  tis=infile.OpenAsTextFile
 		  
 		  if tis<>nil then
+		    
+		    minlen=100
 		    while not tis.EOF
 		      aLine=tis.readLine
-		      BSarr()=split(aline,tab)
-		      BSarr.Insert(0,"") 'zero based array correction 
-		      if BSarr(12)<>"" then 'filter out empty sites
-		        'BSarr(8)+"_"+BSarr(10)+"_"+BSarr(11) gives unique name
-		        tline=">"+BSarr(8)+"_"+BSarr(10)+"_"+BSarr(11)+" "+BSarr(9)+"_"+BSarr(1)+"_"+BSarr(2)+"_"+BSarr(3)+"_"+BSarr(4)+"_"+BSarr(5)+"_"+BSarr(6)+"_"+BSarr(7)+BSarr(13)
-		        
-		        'RC should be an option
-		        if BSarr(6)="forward" then
-		          tos.WriteLine tline
-		          tos.WriteLine BSarr(12)
-		        else
-		          tos.WriteLine tline
-		          tos.WriteLine ReverseComplement(BSarr(12))
+		      if len(aline)>60 then 'skip empty lines
+		        BSarr()=split(aline,tab)
+		        BSarr.Insert(0,"") 'zero based array correction
+		        if BSarr(12)<>"" then 'filter out empty sites
+		          linecount=linecount+1
+		          currentGene=BSarr(8)
+		          
+		          newgene=true
+		          for n=0 to UBound(genearr)
+		            if currentGene=genearr(n) then
+		              newgene=false
+		              exit
+		            end if
+		          next
+		          if newgene then
+		            geneArr.append(currentGene)
+		          end if
+		          
+		          'BSarr(8)+"_"+BSarr(11) gives unique name
+		          if ubound(BSarr)<14 then
+		            tline=">"+BSarr(8)+"_"+BSarr(11)+" "+BSarr(10)+" "+BSarr(9)+" "+BSarr(1)+" "+BSarr(2)+" "+BSarr(3)+" "+BSarr(4)+" "+BSarr(5)+" "+BSarr(6)+" "+BSarr(7)+" "+BSarr(13)
+		            
+		          else
+		            tline=">"+BSarr(8)+"_"+BSarr(11)+" "+BSarr(10)+" "+BSarr(9)+" "+BSarr(1)+" "+BSarr(2)+" "+BSarr(3)+" "+BSarr(4)+" "+BSarr(5)+" "+BSarr(6)+" "+BSarr(7)+" "+BSarr(13)+" "+BSarr(14)
+		            
+		          end if
+		          theSeq=BSarr(12)
+		          
+		          if lenb(theSeq)<minLen then
+		            minLen=lenb(theSeq)
+		          end if
+		          
+		          if lenb(theSeq)>maxLen then
+		            maxLen=lenb(theSeq)
+		          end if
+		          
+		          
+		          'RC should be an option
+		          if BSarr(6)="forward" then
+		            tos.WriteLine tline
+		            tos.WriteLine theSeq
+		          else
+		            tos.WriteLine tline
+		            tos.WriteLine ReverseComplement(theSeq)
+		          end if
 		        end if
 		      end if
 		    wend
+		  end if
+		  
+		  
+		  minLen=minLen-20
+		  maxLen=maxLen-20
+		  
+		  LogoWin.WriteToSTDOUT(str(linecount)+" sites controlling "+str(UBound(genearr)+1)+" genes loaded."+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT("Binding site width is ")
+		  if minLen=maxlen then 
+		    LogoWin.WriteToSTDOUT(str(minLen)+"."+EndOfLine.UNIX)
+		  else
+		    LogoWin.WriteToSTDOUT(str(minLen)+"–"+str(maxLen)+"."+EndOfLine.UNIX)
 		  end if
 		  
 		End Sub
@@ -1649,7 +1702,15 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		maxLen As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		MEMEpath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		minLen As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

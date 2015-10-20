@@ -517,6 +517,7 @@ Picture=info2x;Pictures/info-2x.png;&h21E957FF;&h1F038CB3;false;0;&h0
 Picture=home2x;Pictures/home-2x.png;&h6C975FFF;&h1F038CB3;false;0;&h0
 Picture=home4x;Pictures/home-4x.png;&h41AAEFFF;&h1F038CB3;false;0;&h0
 Picture=home;Pictures/home.png;&h75AF27FF;&h1F038CB3;false;0;&h0
+Window=RegulonDBWin;Windows/RegulonDBWin.xojo_window;&h22AF3FFF;&h2250E847;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1
