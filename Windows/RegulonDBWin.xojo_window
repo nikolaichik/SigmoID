@@ -30,7 +30,7 @@ Begin Window RegulonDBWin
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
-      Border          =   True
+      Border          =   False
       ColumnCount     =   5
       ColumnsResizable=   True
       ColumnWidths    =   ""
@@ -477,7 +477,7 @@ End
 	#tag Event
 		Sub Open()
 		  me.ColumnWidths="25%,25%,25%,25%,0%"
-		  'the last column is invisible and holds RegulonDB ID 
+		  'the last column is invisible and holds RegulonDB ID
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -747,12 +747,6 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="SocketTask"
-		Group="Behavior"
-		Type="String"
-		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Super"

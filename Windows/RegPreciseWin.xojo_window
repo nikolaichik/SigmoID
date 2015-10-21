@@ -95,7 +95,7 @@ Begin Window RegPreciseWin
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
-      Border          =   True
+      Border          =   False
       ColumnCount     =   3
       ColumnsResizable=   True
       ColumnWidths    =   ""
@@ -116,7 +116,7 @@ Begin Window RegPreciseWin
       InitialParent   =   ""
       InitialValue    =   "Regulator	Effector	Pathway"
       Italic          =   False
-      Left            =   20
+      Left            =   0
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -137,7 +137,7 @@ Begin Window RegPreciseWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   632
+      Width           =   672
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End

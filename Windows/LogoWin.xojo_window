@@ -2965,6 +2965,11 @@ End
 		  dim cli as string
 		  Dim sh As Shell
 		  
+		  
+		  if GenomeFile=Nil then
+		    WriteToSTDOUT("Please select a file to search first.")
+		    return false
+		  end if
 		  'get the temp file to save nhmmer result table
 		  nhmmerResultFile=SpecialFolder.Temporary.child("nhmmer.table")
 		  

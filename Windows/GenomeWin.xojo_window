@@ -3118,7 +3118,7 @@ End
 		    
 		    'write formatted sequence:
 		    stream.WriteLine("ORIGIN")
-		    stream.Write(" ") 'a missing space
+		    stream.Write("        ") '8 missing spaces
 		    stream.Write(FormattedSequence)
 		    
 		    stream.close

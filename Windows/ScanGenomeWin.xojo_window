@@ -9,7 +9,7 @@ Begin Window ScanGenomeWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   198
+   Height          =   494
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,7 +25,7 @@ Begin Window ScanGenomeWin
    Resizeable      =   True
    Title           =   "nhmmer Settings"
    Visible         =   False
-   Width           =   446
+   Width           =   406
    Begin Label Label3
       AutoDeactivate  =   True
       Bold            =   False
@@ -48,14 +48,13 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   123
+      Top             =   419
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -97,11 +96,11 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   124
+      Top             =   420
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   241
+      Width           =   201
    End
    Begin PushButton RunButton
       AutoDeactivate  =   True
@@ -116,7 +115,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   346
+      Left            =   306
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -129,7 +128,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   158
+      Top             =   454
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -147,7 +146,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   254
+      Left            =   214
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -160,7 +159,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   158
+      Top             =   454
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -178,7 +177,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   346
+      Left            =   306
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -191,77 +190,10 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   125
+      Top             =   421
       Underline       =   False
       Visible         =   True
       Width           =   80
-   End
-   Begin CheckBox SigArray
-      AutoDeactivate  =   True
-      Bold            =   False
-      Caption         =   "Untitled"
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   17
-      HelpTag         =   ""
-      Index           =   0
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      State           =   1
-      TabIndex        =   14
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   -42
-      Underline       =   False
-      Value           =   True
-      Visible         =   False
-      Width           =   353
-   End
-   Begin Label Label1
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   15
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "The genome will be searched with all the profiles checked"
-      TextAlign       =   1
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   14
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   406
    End
    Begin CheckBox TerminatorCheckBox
       AutoDeactivate  =   True
@@ -289,32 +221,11 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   80
+      Top             =   376
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   406
-   End
-   Begin Separator Separator1
-      AutoDeactivate  =   True
-      Enabled         =   True
-      Height          =   18
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   17
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   60
-      Visible         =   True
-      Width           =   446
+      Width           =   366
    End
    Begin Separator Separator2
       AutoDeactivate  =   True
@@ -333,9 +244,191 @@ Begin Window ScanGenomeWin
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   100
+      Top             =   396
       Visible         =   True
-      Width           =   446
+      Width           =   406
+   End
+   Begin Listbox SigList
+      AutoDeactivate  =   True
+      AutoHideScrollbars=   True
+      Bold            =   False
+      Border          =   False
+      ColumnCount     =   2
+      ColumnsResizable=   False
+      ColumnWidths    =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      DefaultRowHeight=   -1
+      Enabled         =   True
+      EnableDrag      =   False
+      EnableDragReorder=   False
+      GridLinesHorizontal=   0
+      GridLinesVertical=   0
+      HasHeading      =   False
+      HeadingIndex    =   -1
+      Height          =   341
+      HelpTag         =   "The genome will be searched with all the profiles checked"
+      Hierarchical    =   False
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      RequiresSelection=   False
+      Scope           =   0
+      ScrollbarHorizontal=   False
+      ScrollBarVertical=   True
+      SelectionType   =   0
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   0
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   406
+      _ScrollOffset   =   0
+      _ScrollWidth    =   -1
+   End
+   Begin BevelButton SelectAllButton
+      AcceptFocus     =   True
+      AutoDeactivate  =   True
+      BackColor       =   &c00000000
+      Bevel           =   4
+      Bold            =   False
+      ButtonType      =   0
+      Caption         =   "Select All"
+      CaptionAlign    =   3
+      CaptionDelta    =   0
+      CaptionPlacement=   1
+      Enabled         =   True
+      HasBackColor    =   False
+      HasMenu         =   0
+      Height          =   22
+      HelpTag         =   ""
+      Icon            =   0
+      IconAlign       =   0
+      IconDX          =   0
+      IconDY          =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MenuValue       =   0
+      Scope           =   0
+      TabIndex        =   20
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   342
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin BevelButton DeselectAllButton
+      AcceptFocus     =   True
+      AutoDeactivate  =   True
+      BackColor       =   &c00000000
+      Bevel           =   4
+      Bold            =   False
+      ButtonType      =   0
+      Caption         =   "Deselect All"
+      CaptionAlign    =   3
+      CaptionDelta    =   0
+      CaptionPlacement=   1
+      Enabled         =   True
+      HasBackColor    =   False
+      HasMenu         =   0
+      Height          =   22
+      HelpTag         =   ""
+      Icon            =   0
+      IconAlign       =   0
+      IconDX          =   0
+      IconDY          =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   99
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MenuValue       =   0
+      Scope           =   0
+      TabIndex        =   21
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   342
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin BevelButton BevelButton3
+      AcceptFocus     =   True
+      AutoDeactivate  =   True
+      BackColor       =   &c00000000
+      Bevel           =   4
+      Bold            =   False
+      ButtonType      =   0
+      Caption         =   ""
+      CaptionAlign    =   3
+      CaptionDelta    =   0
+      CaptionPlacement=   1
+      Enabled         =   False
+      HasBackColor    =   False
+      HasMenu         =   0
+      Height          =   22
+      HelpTag         =   ""
+      Icon            =   0
+      IconAlign       =   0
+      IconDX          =   0
+      IconDY          =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   198
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      MenuValue       =   0
+      Scope           =   0
+      TabIndex        =   22
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   342
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   208
    End
 End
 #tag EndWindow
@@ -343,7 +436,6 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Open()
-		  
 		  BuildSigArray
 		  AdjustLayout4linux(me)
 		End Sub
@@ -354,24 +446,22 @@ End
 		Protected Sub BuildSigArray()
 		  dim m,n as integer
 		  dim f as folderitem
+		  dim aName as string
 		  
 		  f=Resources_f.child("Profiles")
 		  m=f.Count
-		  SigArrayCount=0
 		  for n=1 to m
 		    'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
 		    'msgbox dis
 		    if f.Item(n).Type="SigmoidFile" then
-		      SigArrayCount=SigArrayCount+1
-		      Dim cb As CheckBox
-		      cb = New SigArray //create clone
-		      cb.Caption = f.Item(n).DisplayName
-		      cb.top = 21 + (SigArray(0).Height + 1)*SigArrayCount
-		      cb.visible=true
+		      aName = f.Item(n).DisplayName
+		      aName = left(aName,len(aName)-4) 'drop the .sig part
+		      SigList.AddRow
+		      SigList.Cell(SigList.LastIndex, 1) = aName
+		      SigList.CellCheck(SigList.LastIndex,0) = true
 		    end if
 		  next
 		  
-		  self.height=183+(SigArray(0).Height + 5)*SigArrayCount
 		  
 		  Exception err
 		    ExceptionHandler(err,"ScanGenomeWin:BuildSigArray")
@@ -400,8 +490,8 @@ End
 		      'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
 		      'msgbox dis
 		      if f.Item(n).Type="SigmoidFile" then
-		        for k=1 to SigArrayCount
-		          if SigArray(k).Value=true AND f.Item(n).DisplayName=SigArray(k).Caption then
+		        for k=0 to SigList.ListCount-1
+		          if SigList.CellCheck(k,0) = true AND f.Item(n).DisplayName=SigList.Cell(k,1)+".sig" then
 		            'Scan the genome!
 		            LogoWin.LoadAlignment f.Item(n)
 		            app.DoEvents  'otherwise logo picture isn't updated
@@ -513,6 +603,37 @@ End
 		    GenomeField.text=LogoWin.Genomefile.shellpath
 		    RunButton.enabled=true
 		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SigList
+	#tag Event
+		Sub Open()
+		  me.ColumnWidths="30,*"
+		  me.ColumnType(0)=Listbox.TypeCheckbox
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SelectAllButton
+	#tag Event
+		Sub Action()
+		  dim k as integer
+		  
+		  for k=0 to SigList.ListCount-1
+		    SigList.CellCheck(k,0) = true
+		  next
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DeselectAllButton
+	#tag Event
+		Sub Action()
+		  dim k as integer
+		  
+		  for k=0 to SigList.ListCount-1
+		    SigList.CellCheck(k,0) = false
+		  next
 		End Sub
 	#tag EndEvent
 #tag EndEvents
