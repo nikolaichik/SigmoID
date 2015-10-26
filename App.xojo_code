@@ -150,16 +150,16 @@ Inherits Application
 
 	#tag MenuHandler
 		Function FileListAllRegulonDBdata() As Boolean Handles FileListAllRegulonDBdata.Action
-			dim RegulonDBfile as folderitem
 			
-			RegulonDBfile=Resources_f.child("RegulonDB").child("BindingSiteSet.txt")
 			
-			if RegulonDBfile<>Nil and RegulonDBfile.Exists then
+			RegulonDBwin.RegulonDBfile=Resources_f.child("RegulonDB").child("BindingSiteSet.txt")
+			
+			if RegulonDBWin.RegulonDBfile<>Nil and RegulonDBWin.RegulonDBfile.Exists then
 			RegulonDBWin.show
-			RegulonDBWin.FillRegulatorList(RegulonDBfile)
+			RegulonDBWin.FillRegulatorList(RegulonDBWin.RegulonDBfile)
 			else
 			LogoWin.WriteToSTDOUT("RegulonDB data file is missing")
-			end if 
+			end if
 			
 			
 		End Function
@@ -210,6 +210,7 @@ Inherits Application
 			
 			if GenomeFile<> Nil then
 			GenomeWin.opengenbankfile(GenomeFile)
+			LogoWin.GenomeFile=GenomeFile
 			GenomeWin.ShowGenomeStart
 			end if
 			
@@ -602,6 +603,8 @@ Inherits Application
 		29. Correct HmmGenSettingsWin: disable Run button until score is set
 		30. alternative start codons are not translated as methionine
 		32. Need to support proxy icon for Mac
+		33. limit log length to avoid slowdowns
+		
 	#tag EndNote
 
 	#tag Note, Name = Linux details

@@ -870,6 +870,7 @@ Protected Module Globals
 		Sub ReadPrefs()
 		  Logowin.alimaskpath=Prefs.value("alimaskpath",SettingsWin.alimaskPathField.text)
 		  Logowin.nhmmerpath=Prefs.value("nhmmerpath",SettingsWin.nhmmerPathField.text)
+		  tfastxPath=Prefs.value("tfastxPath",SettingsWin.tfastxPathField.text)
 		  'Logowin.hmmgenpath=Prefs.value("hmmgenpath",SettingsWin.hmmgenPathField.text)
 		  hmmbuildpath=Prefs.value("hmmbuildpath",SettingsWin.hmmbuildPathField.text)
 		  MEMEpath=Prefs.value("MEMEpath",SettingsWin.MEMEPathField.text)
@@ -993,7 +994,7 @@ Protected Module Globals
 		  
 		  LogoWin.WriteToSTDOUT(str(linecount)+" sites controlling "+str(UBound(genearr)+1)+" genes loaded."+EndOfLine.UNIX)
 		  LogoWin.WriteToSTDOUT("Binding site width is ")
-		  if minLen=maxlen then 
+		  if minLen=maxlen then
 		    LogoWin.WriteToSTDOUT(str(minLen)+"."+EndOfLine.UNIX)
 		  else
 		    LogoWin.WriteToSTDOUT(str(minLen)+"–"+str(maxLen)+"."+EndOfLine.UNIX)
@@ -1751,6 +1752,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		tfastxPath As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		WebLogoPath As string
 	#tag EndProperty
 
@@ -1846,10 +1851,20 @@ Protected Module Globals
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="maxLen"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="MEMEpath"
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="minLen"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"

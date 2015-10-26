@@ -323,9 +323,21 @@ End
 		  Dim sh As Shell
 		  dim f As FolderItem
 		  
+		  'a proper check for monospaced font is required
+		  STDOUT.TextFont="Courier"
+		  STDOUT.Refresh
+		  
+		  
 		  ReadPrefs
 		  
 		  #if TargetWin32
+		    f=resources_f.child("tfastx.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        tfastxPath=f.ShellPath
+		        'SettingsWin.tfastxPath.text=tfastxPath
+		      end if
+		    end if
 		    f=resources_f.child("alimask.exe")
 		    if f<>Nil then
 		      if f.exists then
@@ -432,8 +444,9 @@ End
 		  
 		  allProgsFine=true
 		  
-		  'a proper check for monospaced font is required
-		  STDOUT.TextFont="Courier"
+		  
+		  
+		  
 		  
 		  'check for the command line tools:
 		  
@@ -459,8 +472,6 @@ End
 		  'weblogo
 		  WriteToSTDOUT ("Looking for weblogo... ")
 		  cli=WebLogoPath+" --version"
-		  
-		  
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -482,7 +493,6 @@ End
 		    allProgsFine=false
 		  end if
 		  
-		  '
 		  'nhmmer
 		  WriteToSTDOUT ("Looking for nhmmer... ")
 		  cli=nhmmerPath+" -h"
@@ -583,6 +593,28 @@ End
 		    MASTVersion=trim(Sh.Result)
 		  else
 		    WriteToSTDOUT ("No MAST found at "+MASTPath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
+		  'tfastx
+		  WriteToSTDOUT ("Looking for tfastx... ")
+		  cli=tfastxPath
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(s,"TFASTX")>0 then
+		      s=nthfield((Sh.Result)," version: ",2)
+		      s=nthfield((S),EndOfLine.Unix,1)
+		      WriteToSTDOUT (s+EndOfLine.UNIX)
+		    else
+		      WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine)
+		      allProgsFine=false
+		    end if
+		  else
+		    WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
 		  end if
 		  

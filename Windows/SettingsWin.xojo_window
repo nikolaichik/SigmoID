@@ -9,7 +9,7 @@ Begin Window SettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   322
+   Height          =   356
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -52,7 +52,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   282
+      Top             =   316
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -83,7 +83,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   282
+      Top             =   316
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -93,7 +93,7 @@ Begin Window SettingsWin
       Bold            =   False
       Caption         =   "Paths"
       Enabled         =   True
-      Height          =   244
+      Height          =   278
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -577,6 +577,83 @@ Begin Window SettingsWin
          Visible         =   True
          Width           =   409
       End
+      Begin Label Label11
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   30
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   17
+         TabPanelIndex   =   0
+         Text            =   "tfastx:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   254
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   80
+      End
+      Begin TextField tfastxPathField
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         CueText         =   "value"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   114
+         LimitText       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   18
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "/usr/local/bin/tfastx"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   252
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   409
+      End
    End
 End
 #tag EndWindow
@@ -598,6 +675,7 @@ End
 		  MEMEPathField.text=Prefs.value("MEMEpath","~/meme/bin/meme")
 		  MASTPathField.text=Prefs.value("MASTpath","~/meme/bin/mast")
 		  weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
+		  tfastxPathField.text=Prefs.value("tfastxPath","/usr/local/bin/tfastx")
 		  
 		  
 		  
@@ -618,6 +696,7 @@ End
 		  Prefs.value("MEMEpath")=MEMEPathField.text
 		  Prefs.value("MASTpath")=MASTPathField.text
 		  Prefs.value("weblogopath")=weblogoPathField.text
+		  Prefs.value("tfastxPath")=tfastxPathField.text
 		  
 		  Prefs.Sync
 		  
