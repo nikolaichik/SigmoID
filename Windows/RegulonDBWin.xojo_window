@@ -996,6 +996,10 @@ End
 		RegulonDBVersion As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		TF_name As String
+	#tag EndProperty
+
 
 #tag EndWindowCode
 
@@ -1161,7 +1165,10 @@ End
 		  logowin.WriteToSTDOUT("Contacting RegulonDB... ")
 		  dim TF_ID, theURL as string
 		  TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
-		  
+		  TF_name=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  if instr(TF_name,"-")>0 then
+		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually".+EndOfLine.UNIX) 
+		  end if
 		  theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
 		  theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
 		  
@@ -1175,12 +1182,22 @@ End
 	#tag Event
 		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
 		  dim ProteinID, fastaURL as string
+		  dim n,geneNo as integer
 		  
 		  'get the gene/ProteinID from the first (there'll be many) html tag that look like this:
 		  '<a href="/gene?term=ECK120000719&organism=ECK12&format=jsp&type=gene">phoB</a></span></td>
 		  
-		  ProteinID=NthField(Content,"/gene?term=",2)
-		  ProteinID=NthField(ProteinID,"&organism=",1)
+		  'the page may contain several genes (e.g. the rcsB page), hence the dances below
+		  
+		  geneno=CountFields(Content,"/gene?term=")
+		  for n=2 to geneNo+2
+		    ProteinID=NthField(Content,"/gene?term=",n)
+		    ProteinID=NthField(ProteinID,"</a>",1)
+		    if instr(ProteinID,TF_name)>0 then
+		      ProteinID=NthField(ProteinID,"&organism=",1)
+		      exit
+		    end if
+		  next
 		  
 		  if ProteinID<>"" then
 		    fastaURL="http://regulondb.ccg.unam.mx/sequence?type=PD&term="+ProteinID+"&format=fasta"
@@ -1259,7 +1276,7 @@ End
 		    
 		    dim genomefilepath as string
 		    
-		    GenomeFilePath=chr(34)+LogoWin.GenomeFile.shellpath+" 1"+chr(34) 'need te quotes to include gbk format anyway
+		    GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34) 'need the quotes to include gbk format anyway
 		    'tfastx36 [-options] query_file library_file [ktup]
 		    cli=tfastxPath+fastaOptions+TFfastaFile.shellpath+" "+GenomeFilePath
 		    

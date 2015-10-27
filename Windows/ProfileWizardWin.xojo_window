@@ -807,7 +807,7 @@ End
 		Sub Open()
 		  Me.AddRow("promoter")
 		  Me.AddRow("protein_bind")
-		  Me.ListIndex = 0
+		  Me.ListIndex = 1
 		End Sub
 	#tag EndEvent
 #tag EndEvents

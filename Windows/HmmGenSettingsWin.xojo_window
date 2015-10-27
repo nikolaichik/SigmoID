@@ -706,6 +706,8 @@ End
 		    me.BitScoreField.text=unbracket(nhmmerSettingsWin.NCvalue.text)
 		  end
 		  
+		  RunCheck
+		  
 		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
@@ -812,6 +814,35 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub RunCheck()
+		  dim RunEnabled as boolean = true
+		  
+		  If BitScoreButton.value then
+		    if BitScoreField.text="" then
+		      RunEnabled=false
+		    end if
+		  else
+		    if EvalueField.text="" then
+		      RunEnabled=false
+		    end if
+		  end if
+		  
+		  if AddQualifierBox.value then
+		    if KeyField.text="" then
+		      RunEnabled=false
+		    end if
+		    if ValueField.text="" then
+		      RunEnabled=false
+		    end if
+		    if instr(ValueField.text," ")>0 then
+		      RunEnabled=false
+		    end if
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Unbracket(s as string) As string
 		  s=replace(s,"(","")
 		  return replace(s,")","")
@@ -855,6 +886,8 @@ End
 		    KeyField.enabled=false
 		    ValueField.Enabled=false
 		  end if
+		  
+		  RunCheck
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -867,7 +900,16 @@ End
 		    end if
 		    
 		  end if
+		  
+		  RunCheck
 		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events ValueField
+	#tag Event
+		Sub TextChange()
+		  RunCheck
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events PalindromicBox
@@ -902,6 +944,34 @@ End
 		  Me.AddRow("promoter")
 		  Me.AddRow("protein_bind")
 		  Me.ListIndex = 0
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events EvalueButton
+	#tag Event
+		Sub Action()
+		  RunCheck
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BitScoreButton
+	#tag Event
+		Sub Action()
+		  RunCheck
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events EvalueField
+	#tag Event
+		Sub TextChange()
+		  RunCheck
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BitScoreField
+	#tag Event
+		Sub TextChange()
+		  RunCheck
 		End Sub
 	#tag EndEvent
 #tag EndEvents

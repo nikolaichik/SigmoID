@@ -258,7 +258,7 @@ Begin Window MASTGenSettingsWin
          CueText         =   "bound_moiety"
          DataField       =   ""
          DataSource      =   ""
-         Enabled         =   True
+         Enabled         =   False
          Format          =   ""
          Height          =   22
          HelpTag         =   ""
@@ -279,7 +279,7 @@ Begin Window MASTGenSettingsWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   ""
+         Text            =   "bound_moiety"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -901,7 +901,7 @@ End
 		Sub Open()
 		  Me.AddRow("promoter")
 		  Me.AddRow("protein_bind")
-		  Me.ListIndex = 0
+		  Me.ListIndex = 1
 		End Sub
 	#tag EndEvent
 #tag EndEvents
