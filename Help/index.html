@@ -2,19 +2,20 @@
 <html><head>
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
 	<meta name="CREATED" content="0;0">
 	<meta name="CHANGED" content="20150928;21232700"></head><body dir="ltr" lang="en-GB">
 <p><br></p>
-<ol id="mozToc">
-<!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview 
-</a></li><li><a href="#mozTocId629072">Interface</a><ol><li><a href="#mozTocId49640">Windows</a></li><li><a href="#mozTocId385906">Menus</a></li></ol></li><li><a href="#mozTocId931817">Usage instructions</a><ol><li><a href="#mozTocId237053">Working with files and data sources</a><ol><li><a href="#mozTocId246393">Opening binding site data</a></li><li><a href="#mozTocId815164">Opening genome files</a></li><li><a href="#mozTocId824112">Saving and converting files/data</a><ol><li><a href="#mozTocId386963">Binding site data (sig and partial
-alignments)</a></li><li><a href="#mozTocId156445">New sites</a></li><li><a href="#mozTocId568213">Logo picture</a></li><li><a href="#mozTocId330768">Stockholm</a></li><li><a href="#mozTocId793659">hmm</a></li><li><a href="#mozTocId192765">meme</a></li><li><a href="#mozTocId298013">fasta</a></li><li><a href="#mozTocId148348">tbl</a></li></ol></li></ol></li><li><a href="#mozTocId890944">Working with binding site sequences</a><ol><li><a href="#mozTocId219383">Loading and viewing data</a></li><li><a href="#mozTocId97492">Optimising profiles</a></li><li><a href="#mozTocId661995">Finding profile thresholds</a></li><li><a href="#mozTocId16732">Saving calibrated profiles</a></li></ol></li><li><a href="#mozTocId944920">Searching for regulatory sites in a
-genome</a><ol><li><a href="#mozTocId710493">nhmmer search</a></li><li><a href="#mozTocId48283">MAST search</a></li><li><a href="#mozTocId958162">terminator search</a></li></ol></li><li><a href="#mozTocId588132">Using genome browser</a><ol><li><a href="#mozTocId643881">Viewing genome sequence</a></li><li><a href="#mozTocId985366">Database searches and editing
-annotation</a></li></ol></li></ol></li><li><a href="#mozTocId922736">Possible usage scenarios</a><ol><li><a href="#mozTocId893501">Building an optimised profile</a></li><li><a href="#mozTocId139957">Genome scan</a></li><li><a href="#mozTocId70414">Annotation improvement</a></li></ol></li>
-</ol>
+<ul id="mozToc">
+<!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview</a></li><li><a href="#mozTocId629072">Interface</a><ul><li><a href="#mozTocId49640">Windows</a></li><li><a href="#mozTocId385906">Menus</a><ul><li><a href="#mozTocId972700">Regulon menu</a></li></ul></li></ul></li><li><a href="#mozTocId931817">Usage instructions</a><ul><li><a href="#mozTocId237053">Working with files and data sources</a><ul><li><a href="#mozTocId246393">Opening binding site data</a></li><li><a href="#mozTocId815164">Opening genome files</a></li><li><a href="#mozTocId824112">Saving and converting files/data</a><ul><li><a href="#mozTocId386963">Binding site data (sig and partial
+alignments)</a></li><li><a href="#mozTocId156445">New sites</a></li><li><a href="#mozTocId568213">Logo picture</a></li><li><a href="#mozTocId330768">Stockholm</a></li><li><a href="#mozTocId793659">hmm</a></li><li><a href="#mozTocId192765">meme</a></li><li><a href="#mozTocId298013">fasta</a></li><li><a href="#mozTocId148348">tbl</a></li></ul></li></ul></li><li><a href="#mozTocId890944">Working with binding site sequences</a><ul><li><a href="#mozTocId219383">Loading and viewing data</a></li><li><a href="#mozTocId97492">Optimising profiles</a></li><li><a href="#mozTocId661995">Finding profile thresholds</a></li><li><a href="#mozTocId16732">Saving calibrated profiles</a></li></ul></li><li><a href="#mozTocId944920">Searching for regulatory sites in a
+genome</a><ul><li><a href="#mozTocId710493">nhmmer search</a></li><li><a href="#mozTocId48283">MAST search</a></li><li><a href="#mozTocId958162">terminator search</a></li></ul></li><li><a href="#mozTocId588132">Using genome browser</a><ul><li><a href="#mozTocId643881">Viewing genome sequence</a></li><li><a href="#mozTocId985366">Database searches and editing
+annotation</a></li></ul></li></ul></li><li><a href="#mozTocId922736">Possible usage scenarios</a><ul><li><a href="#mozTocId893501">Building an optimised profile</a></li><li><a href="#mozTocId139957">Genome scan</a></li><li><a href="#mozTocId70414">Annotation improvement</a></li></ul></li>
+</ul>
+
 
 <br>
 
@@ -62,7 +63,38 @@ Linux distibutions require installation of 32-bit libraries.<br>
 
 <h2><a class="mozTocH2" name="mozTocId385906"></a>Menus</h2>
 
+<h3><a class="mozTocH3" name="mozTocId972700"></a>Regulon menu</h3>
+The first two items of this menu provide access to databases with regulon information.  The <span style="font-weight: bold; color: rgb(0, 102, 0);">RegPrecise</span> database contains high quality information on binding sites for many bacteria while the <span style="font-weight: bold; color: rgb(0, 102, 0);">RegulonDB</span> is a specialised <span style="font-style: italic;">E. coli</span>
+regulon database. While the information from RegulonDB in most cases
+requires additional steps to be usable (see below), it has data on
+regulators not present in RegPrecise. <br>
 <br>
+When using the data from RegulonDB for genomes other than <span style="font-style: italic;">E. coli</span>, it might be worthwhile to check for the presence of the TF orthologue in the studied genome. This can be done with the <span style="color: rgb(0, 102, 0); font-weight: bold;">Check TF Presence</span>
+command. This command gets the regulator protein sequence from
+RegulonDB and runs tfastx search versus the currently open genome. The
+top three tfastx search results are displayed in the log pane of the
+main SigmoID window. We recommend a reciprocal check using the
+coordinates of the best hit to locate it in the current genome and run
+the phmmer search vs the SwissProt database which (in case of
+orthology) should bring the original regulator as the best <span style="font-style: italic;">E. coli </span>hit. At the moment the <span style="color: rgb(0, 102, 0);">Check TF Presence</span>&nbsp;
+command is not available for RegPrecise since there's no
+straightforward way to get regulator sequences from this database.<br>
+<br>
+<span style="font-weight: bold; color: rgb(0, 102, 0);">Regulon Info</span> command opens the RegPrecise or RegulonDB web page for the currently selected regulator.<br>
+<br>
+<span style="font-weight: bold; color: rgb(0, 102, 0);">Show Logo</span>
+command opens shows the logo of the currently selected regulator
+binding sites in the main SigmoID window. The result can usually be
+used for nhmmer/mast search for RegPrecise data. The binding sites in
+RegulonDB are often misaligned, in which case the <span style="font-weight: bold; color: rgb(0, 102, 0);">Find Sites with MEME</span> command from the <span style="color: rgb(0, 102, 0); font-weight: bold;">Profile</span> menu may (or may not) be useful. <br>
+<br>
+<span style="color: rgb(0, 102, 0); font-weight: bold;">FindMinimalScore</span>
+command may be helpful when determining search thresholds. This command
+can only be issued when a nhmmer search has just been run and its
+results are displayed in the Genome Browser window. This function
+simply compares the current hits to the training set (original binding
+sites opened in the main window), outputs the lowest score among the
+training set and lists missed hits. <br>
 
 <h1><a class="mozTocH1" name="mozTocId931817"></a>Usage instructions</h1>
 

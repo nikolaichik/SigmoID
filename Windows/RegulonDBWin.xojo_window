@@ -414,7 +414,7 @@ Begin Window RegulonDBWin
       Cancel          =   False
       Caption         =   "#kCheckTF"
       Default         =   False
-      Enabled         =   True
+      Enabled         =   False
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648

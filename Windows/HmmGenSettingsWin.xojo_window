@@ -234,7 +234,7 @@ Begin Window HmmGenSettingsWin
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         State           =   0
+         State           =   1
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
@@ -243,7 +243,7 @@ Begin Window HmmGenSettingsWin
          TextUnit        =   0
          Top             =   241
          Underline       =   False
-         Value           =   False
+         Value           =   True
          Visible         =   True
          Width           =   115
       End
@@ -279,7 +279,7 @@ Begin Window HmmGenSettingsWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   ""
+         Text            =   "bound_moiety"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
@@ -839,6 +839,7 @@ End
 		    end if
 		  end if
 		  
+		  RunButton.Enabled=RunEnabled
 		End Sub
 	#tag EndMethod
 
@@ -943,7 +944,8 @@ End
 		Sub Open()
 		  Me.AddRow("promoter")
 		  Me.AddRow("protein_bind")
-		  Me.ListIndex = 0
+		  Me.ListIndex = 1
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
