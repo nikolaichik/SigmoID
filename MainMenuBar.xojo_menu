@@ -40,20 +40,6 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem UntitledItem2
-         SpecialMenu = 0
-         Text = "-"
-         Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem FileListAllRegulonDBdata
-         SpecialMenu = 0
-         Text = "List RegulonDB regulons"
-         Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
       Begin MenuItem UntitledSeparator3
          SpecialMenu = 0
          Text = "-"
@@ -355,6 +341,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem UntitledSeparator7
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem AlignmentConverttoStockholm
          SpecialMenu = 0
          Text = "#kConvertToStockholm"
@@ -383,6 +376,20 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem AlignmentMEME
+         SpecialMenu = 0
+         Text = "#kMEMEfind"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator6
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem AlignmentProfileWizard
          SpecialMenu = 0
          Text = "#kProfileWizard"
@@ -390,17 +397,10 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem AlignmentMEME
-         SpecialMenu = 0
-         Text = "MEME..."
-         Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
    End
    Begin MenuItem RegPreciseMenu
       SpecialMenu = 0
-      Text = "RegPrecise"
+      Text = "#kRegulon"
       Index = -2147483648
       AutoEnable = True
       Visible = True
@@ -411,11 +411,46 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem FileListAllRegulonDBdata
+         SpecialMenu = 0
+         Text = "#kRegulonDBregulons"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator4
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem RegPreciseRegulonInfo
          SpecialMenu = 0
          Text = "#kRegulonInfo"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem RegulonShowLogo
+         SpecialMenu = 0
+         Text = "#kShowLogo"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem RegulonCheckTF
+         SpecialMenu = 0
+         Text = "#kCheckTF"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator5
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
          Visible = True
       End
       Begin MenuItem RegPreciseCompareScores

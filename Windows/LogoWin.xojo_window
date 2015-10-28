@@ -132,7 +132,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -335,7 +334,7 @@ End
 		    if f<>Nil then
 		      if f.exists then
 		        tfastxPath=f.ShellPath
-		        'SettingsWin.tfastxPath.text=tfastxPath
+		        SettingsWin.tfastxPath.text=tfastxPath
 		      end if
 		    end if
 		    f=resources_f.child("alimask.exe")

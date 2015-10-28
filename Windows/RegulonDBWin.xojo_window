@@ -25,7 +25,7 @@ Begin Window RegulonDBWin
    Resizeable      =   True
    Title           =   "E. coli regulons (RegulonDB)"
    Visible         =   False
-   Width           =   672
+   Width           =   678
    Begin Listbox RegulatorList
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -72,7 +72,7 @@ Begin Window RegulonDBWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   672
+      Width           =   678
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -95,14 +95,14 @@ Begin Window RegulonDBWin
       TabStop         =   True
       Top             =   -58
       Visible         =   True
-      Width           =   88
+      Width           =   94
    End
    Begin PushButton LogoButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Show Logo"
+      Caption         =   "#kShowLogo"
       Default         =   True
       Enabled         =   False
       Height          =   20
@@ -110,7 +110,7 @@ Begin Window RegulonDBWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   534
+      Left            =   532
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -126,7 +126,7 @@ Begin Window RegulonDBWin
       Top             =   480
       Underline       =   False
       Visible         =   True
-      Width           =   118
+      Width           =   126
    End
    Begin BevelButton InfoButton
       AcceptFocus     =   True
@@ -183,7 +183,7 @@ Begin Window RegulonDBWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   68
+      Left            =   54
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -204,7 +204,7 @@ Begin Window RegulonDBWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   304
+      Width           =   279
    End
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
@@ -216,11 +216,11 @@ Begin Window RegulonDBWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   312
+      Left            =   318
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       TabIndex        =   13
@@ -243,7 +243,7 @@ Begin Window RegulonDBWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   332
+         Left            =   338
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -272,7 +272,7 @@ Begin Window RegulonDBWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   551
+         Left            =   557
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -301,7 +301,7 @@ Begin Window RegulonDBWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   441
+         Left            =   447
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -412,7 +412,7 @@ Begin Window RegulonDBWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Check in genome"
+      Caption         =   "#kCheckTF"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -420,7 +420,7 @@ Begin Window RegulonDBWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   392
+      Left            =   345
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -436,7 +436,7 @@ Begin Window RegulonDBWin
       Top             =   480
       Underline       =   False
       Visible         =   True
-      Width           =   130
+      Width           =   175
    End
    Begin mHTTPSocket RegulonDBSocket
       Address         =   ""
@@ -490,7 +490,13 @@ End
 		Sub EnableMenuItems()
 		  if RegulatorList.SelCount=1 then
 		    RegPreciseRegulonInfo.enabled=true
-		    RegPreciseRegulonInfo.Text="Regulon Info"
+		    RegPreciseRegulonInfo.Text=kRegulonInfo
+		    RegulonShowLogo.Enabled=true
+		    if LogoWin.GenomeFile<>nil then
+		      RegulonCheckTF.Enabled=true
+		    else
+		      RegulonCheckTF.Enabled=false
+		    end if
 		  end if
 		  
 		End Sub
@@ -517,6 +523,41 @@ End
 		End Function
 	#tag EndMenuHandler
 
+	#tag MenuHandler
+		Function RegulonCheckTF() As Boolean Handles RegulonCheckTF.Action
+			
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function RegulonShowLogo() As Boolean Handles RegulonShowLogo.Action
+			ShowLogo
+		End Function
+	#tag EndMenuHandler
+
+
+	#tag Method, Flags = &h0
+		Sub CheckTF()
+		  'just run tfasty/tfastx
+		  
+		  'get the ID:
+		  logowin.show
+		  logowin.WriteToSTDOUT("Contacting RegulonDB... ")
+		  dim TF_ID, theURL as string
+		  TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
+		  TF_name=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  if instr(TF_name,"-")>0 then
+		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
+		  end if
+		  theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
+		  theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
+		  
+		  'WebBrowserWin.show
+		  RegulonDBSocket.Get(theURL)
+		  
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub FillRegulatorList(RegulonDBfile as folderitem)
@@ -741,7 +782,7 @@ End
 		    
 		    
 		  end if
-		  RegulonDBinfoLabel.text="RegulonDB "+RegulonDBVersion+". "+str(RegulatorList.ListCount)+" transcription factors."
+		  RegulonDBinfoLabel.text="RegulonDB "+RegulonDBVersion+". "+str(RegulatorList.ListCount)+" TFs."
 		  
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
@@ -960,7 +1001,7 @@ End
 		    
 		    
 		  end if
-		  RegulonDBinfoLabel.text="RegulonDB "+RegulonDBVersion+". "+str(RegulatorList.ListCount)+" transcription factors."
+		  RegulonDBinfoLabel.text="RegulonDB "+RegulonDBVersion+". "+str(RegulatorList.ListCount)+" TFs."
 		  
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
@@ -983,62 +1024,8 @@ End
 		End Sub
 	#tag EndMethod
 
-
-	#tag Property, Flags = &h0
-		RegulatorArray(-1) As string
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		RegulonDBfile As folderitem
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		RegulonDBVersion As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		TF_name As String
-	#tag EndProperty
-
-
-#tag EndWindowCode
-
-#tag Events RegulatorList
-	#tag Event
-		Sub Change()
-		  if me.SelCount=1 then
-		    LogoButton.Enabled=true
-		    InfoButton.Enabled=true
-		  else
-		    LogoButton.Enabled=false
-		    InfoButton.Enabled=false
-		  end if
-		  
-		  'if me.SelCount>=1 then
-		  'DeselectAllButton.enabled=true
-		  'SearchButton.Enabled=true
-		  'else
-		  'DeselectAllButton.enabled=true
-		  'SearchButton.Enabled=true
-		  'end if
-		  
-		  'if me.SelCount=me.ListCount then
-		  'SelectAllButton.enabled=false
-		  'else
-		  'SelectAllButton.enabled=true
-		  'end if
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  me.ColumnWidths="25%,25%,25%,25%,0%"
-		  'the last column is invisible and holds RegulonDB ID
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events LogoButton
-	#tag Event
-		Sub Action()
+	#tag Method, Flags = &h0
+		Sub ShowLogo()
 		  dim tmpfile as folderitem
 		  dim TFname as string
 		  
@@ -1080,8 +1067,74 @@ End
 		  LogoWin.show
 		  
 		  Exception err
-		    ExceptionHandler(err,"RegulonDBWin:LogoButton.Action")
+		    ExceptionHandler(err,"RegulonDBWin:ShowLogo")
 		    
+		End Sub
+	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		RegulatorArray(-1) As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		RegulonDBfile As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		RegulonDBVersion As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TF_name As String
+	#tag EndProperty
+
+
+#tag EndWindowCode
+
+#tag Events RegulatorList
+	#tag Event
+		Sub Change()
+		  if me.SelCount=1 then
+		    LogoButton.Enabled=true
+		    InfoButton.Enabled=true
+		    if LogoWin.GenomeFile<>nil then
+		      FastaButton.Enabled=true
+		    else
+		      FastaButton.Enabled=false
+		    end if
+		  else
+		    LogoButton.Enabled=false
+		    InfoButton.Enabled=false
+		    FastaButton.Enabled=false
+		  end if
+		  
+		  'if me.SelCount>=1 then
+		  'DeselectAllButton.enabled=true
+		  'SearchButton.Enabled=true
+		  'else
+		  'DeselectAllButton.enabled=true
+		  'SearchButton.Enabled=true
+		  'end if
+		  
+		  'if me.SelCount=me.ListCount then
+		  'SelectAllButton.enabled=false
+		  'else
+		  'SelectAllButton.enabled=true
+		  'end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.ColumnWidths="25%,25%,25%,25%,0%"
+		  'the last column is invisible and holds RegulonDB ID
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events LogoButton
+	#tag Event
+		Sub Action()
+		  ShowLogo
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1158,22 +1211,7 @@ End
 #tag Events FastaButton
 	#tag Event
 		Sub Action()
-		  'just run tfasty/tfastx
-		  
-		  'get the ID:
-		  logowin.show
-		  logowin.WriteToSTDOUT("Contacting RegulonDB... ")
-		  dim TF_ID, theURL as string
-		  TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
-		  TF_name=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  if instr(TF_name,"-")>0 then
-		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually".+EndOfLine.UNIX) 
-		  end if
-		  theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
-		  theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
-		  
-		  'WebBrowserWin.show
-		  RegulonDBSocket.Get(theURL)
+		  CheckTF
 		  
 		End Sub
 	#tag EndEvent

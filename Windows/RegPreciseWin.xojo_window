@@ -146,7 +146,7 @@ Begin Window RegPreciseWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "RegulonLogo"
+      Caption         =   "#kRegulonLogo"
       Default         =   False
       Enabled         =   False
       Height          =   20
@@ -221,7 +221,7 @@ Begin Window RegPreciseWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "RegulogLogo"
+      Caption         =   "#kRegulogLogo"
       Default         =   True
       Enabled         =   False
       Height          =   20
@@ -299,7 +299,9 @@ End
 		Sub EnableMenuItems()
 		  if RegulatorList.SelCount=1 then
 		    RegPreciseRegulonInfo.enabled=true
-		    RegPreciseRegulonInfo.Text="Regulon Info"
+		    RegPreciseRegulonInfo.Text=kRegulonInfo
+		    RegulonShowLogo.Enabled=true
+		    'RegulonCheckTF.Enabled=true
 		  end if
 		  
 		End Sub
@@ -323,6 +325,14 @@ End
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
 			RegulonInfo
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function RegulonShowLogo() As Boolean Handles RegulonShowLogo.Action
+			RegulonLogo
+			
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -472,6 +482,39 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub RegulogLogo()
+		  dim RegulogID,RegulonID, TFname as string
+		  dim n as integer
+		  
+		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
+		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
+		  'therefore, a full search of the regulator array is required
+		  
+		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  for n=0 to UBound(regulatorArray)
+		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
+		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
+		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
+		      exit
+		    end if
+		    
+		  next
+		  
+		  
+		  
+		  LogoWin.RegulonID=Val(RegulonID)
+		  LogoWin.RegulogID=Val(RegulogID)
+		  LogoWin.IsRegulog=true
+		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
+		  LogoWin.show
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:RegulogLogoButton.Action")
+		    
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RegulonInfo()
 		  'get the ID:
 		  dim RegulonID, TFname as string
@@ -491,6 +534,39 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:RegPreciseRegulonInfo")
+		    
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RegulonLogo()
+		  dim RegulonID,RegulogID, TFname as string
+		  dim n as integer
+		  
+		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
+		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
+		  'therefore, a full search of the regulator array is required
+		  
+		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  for n=0 to UBound(regulatorArray)
+		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
+		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
+		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
+		      exit
+		    end if
+		    
+		  next
+		  
+		  
+		  
+		  LogoWin.RegulonID=Val(RegulonID)
+		  LogoWin.RegulogID=Val(RegulogID)
+		  LogoWin.IsRegulog=false
+		  LogoWin.LoadRegpreciseData(RegulonID,TFname,false)
+		  LogoWin.show
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:RegulonLogoButton.Action")
 		    
 		End Sub
 	#tag EndMethod
@@ -571,34 +647,7 @@ End
 #tag Events RegulonLogoButton
 	#tag Event
 		Sub Action()
-		  dim RegulonID,RegulogID, TFname as string
-		  dim n as integer
-		  
-		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
-		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
-		  'therefore, a full search of the regulator array is required
-		  
-		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  for n=0 to UBound(regulatorArray)
-		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
-		      exit
-		    end if
-		    
-		  next
-		  
-		  
-		  
-		  LogoWin.RegulonID=Val(RegulonID)
-		  LogoWin.RegulogID=Val(RegulogID)
-		  LogoWin.IsRegulog=false
-		  LogoWin.LoadRegpreciseData(RegulonID,TFname,false)
-		  LogoWin.show
-		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:RegulonLogoButton.Action")
-		    
+		  RegulonLogo
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -649,34 +698,8 @@ End
 #tag Events RegulogLogoButton
 	#tag Event
 		Sub Action()
-		  dim RegulogID,RegulonID, TFname as string
-		  dim n as integer
+		  RegulogLogo
 		  
-		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
-		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
-		  'therefore, a full search of the regulator array is required
-		  
-		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  for n=0 to UBound(regulatorArray)
-		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
-		      exit
-		    end if
-		    
-		  next
-		  
-		  
-		  
-		  LogoWin.RegulonID=Val(RegulonID)
-		  LogoWin.RegulogID=Val(RegulogID)
-		  LogoWin.IsRegulog=true
-		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
-		  LogoWin.show
-		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:RegulogLogoButton.Action")
-		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents
