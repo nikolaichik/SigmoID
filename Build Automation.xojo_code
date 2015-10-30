@@ -25,6 +25,7 @@
 					FolderItem = Li4AT3Blck9uLnB5
 					FolderItem = Li4ASGVscA==
 					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAFJlZ3Vsb25EQg==
+					FolderItem = Li4ALi4AQnVpbGRfcmVzb3VyY2VzAExpbnV4AHRmYXN0eA==
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
 					AppliesTo = 2

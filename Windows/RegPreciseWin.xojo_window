@@ -48,6 +48,7 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -176,8 +177,9 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -192,7 +194,8 @@ Begin Window RegPreciseWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
@@ -258,7 +261,7 @@ Begin Window RegPreciseWin
       CaptionAlign    =   3
       CaptionDelta    =   0
       CaptionPlacement=   1
-      Enabled         =   True
+      Enabled         =   False
       HasBackColor    =   False
       HasMenu         =   0
       Height          =   22
@@ -309,7 +312,7 @@ End
 
 	#tag Event
 		Sub Open()
-		  
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 
@@ -690,8 +693,6 @@ End
 		  
 		  
 		  
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:SPSocket")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

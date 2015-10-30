@@ -55,8 +55,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -44
@@ -66,8 +65,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   467
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -267,9 +265,8 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   354
-      Value           =   1
+      Value           =   3
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -383,7 +380,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -400,9 +396,8 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -417,17 +412,15 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket SPSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -442,17 +435,15 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket UniProtSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -467,8 +458,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin Cocoa.NSSearchField NSSearchField1
@@ -564,7 +554,7 @@ Begin Window GenomeWin
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   True
       Enabled         =   False
-      Height          =   16
+      Height          =   24
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -572,23 +562,22 @@ Begin Window GenomeWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   -89
-      Visible         =   True
-      Width           =   16
+      Visible         =   False
+      Width           =   24
    End
    Begin mHTTPSocket BLASTSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -603,8 +592,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   20
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
 End
@@ -919,6 +907,8 @@ End
 		  next
 		  setMapCanvasScrollers
 		  
+		  ProgressWheel1.top=BrowserPagePanel.top+BrowserPagePanel.Height/3
+		  ProgressWheel1.left=(Self.width-ProgressWheel1.Width)/2
 		  
 		  
 		End Sub
@@ -1150,9 +1140,7 @@ End
 		  
 		  CDDsearch=false
 		  BLASTSocket.Post(theURL)
-		  ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
+		  ProgressShow
 		  
 		  
 		  
@@ -1176,6 +1164,8 @@ End
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
 		  FindTab(ProtName+":BLASTP")
 		  BrowserTabs.RePaint
+		  
+		  ProgressShow
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -1220,6 +1210,8 @@ End
 		  FindTab(GeneName+":BLASTX")
 		  BrowserTabs.RePaint
 		  
+		  ProgressShow
+		  
 		  'get the seq to search with:
 		  
 		  if seq.SelLength>0 then 'copy the highlighted piece
@@ -1231,9 +1223,6 @@ End
 		  
 		  'CDDsearch=false
 		  BLASTSocket.Post(theURL)
-		  ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
 		  
 		  
 		  
@@ -1257,6 +1246,7 @@ End
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
 		  FindTab(ProtName+":CDD")
 		  BrowserTabs.RePaint
+		  ProgressShow
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -2368,6 +2358,8 @@ End
 		  'command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
 		  'SPshell.execute command
 		  
+		  ProgressShow
+		  
 		  SPSocket.SetRequestHeader("Expect:","")
 		  SPSocket.SetRequestHeader("Accept:","text/html")
 		  Dim form As Dictionary
@@ -2435,6 +2427,8 @@ End
 		  'name the search tab:
 		  FindTab(ProtName+":UniProtKB")
 		  BrowserTabs.RePaint
+		  
+		  ProgressShow
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -2798,6 +2792,23 @@ End
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:OperOn")
 		    
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ProgressHide()
+		  ProgressWheel1.Visible=false
+		  ProgressWheel1.Enabled=false
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ProgressShow()
+		  ProgressWheel1.top=BrowserPagePanel.top+BrowserPagePanel.Height/3
+		  ProgressWheel1.left=(Self.width-ProgressWheel1.Width)/2
+		  
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
 		End Sub
 	#tag EndMethod
 
@@ -5267,6 +5278,52 @@ End
 		End Function
 	#tag EndEvent
 #tag EndEvents
+#tag Events SPSearchViewer
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub StatusChanged(newStatus as String)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
+		  if instr(URl,"blank.html")>0 then
+		    'just the first blank page
+		  else
+		    ProgressHide
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events UPSearchViewer
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  'ProgressHide
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TFSearchViewer
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events BLASTSearchViewer
 	#tag Event
 		Sub Error(errorNumber as Integer, errorMessage as String)
@@ -5275,8 +5332,16 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
-		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
+		  if instr(URl,"blank.html")>0 then
+		    'just the first blank page
+		  else
+		    ProgressHide
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentBegin(URL as String)
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -5303,9 +5368,7 @@ End
 		  'now simply load the corrected URL:
 		  
 		  TFSearchViewer.LoadURL(theURL)
-		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
-		  
+		  'ProgressHide
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:TIGRSocket")
 		End Sub
@@ -5329,9 +5392,9 @@ End
 		    TMdisplayAdjustment
 		  end if
 		  TFSearchViewer.LoadURL(theURL)
-		  ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
+		  'ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
+		  'ProgressWheel1.Visible=true
+		  'ProgressWheel1.Enabled=true
 		  
 		  
 		  
@@ -5361,8 +5424,7 @@ End
 		  end if
 		  SPSearchViewer.LoadURL(theURL)
 		  
-		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
+		  'ProgressHide
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:SPSocket")
@@ -5387,9 +5449,8 @@ End
 		    TMdisplayAdjustment
 		  end if
 		  SPSearchViewer.LoadURL(theURL)
-		  ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
+		  ProgressShow
+		  
 		  
 		  
 		  
@@ -5415,8 +5476,8 @@ End
 		  'now simply load the corrected URL:
 		  
 		  UPSearchViewer.LoadURL(theURL)
-		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
+		  
+		  'ProgressHide
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -5438,15 +5499,15 @@ End
 		    TMdisplayAdjustment
 		  end if
 		  UPSearchViewer.LoadURL(theURL)
-		  ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
+		  'ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
+		  'ProgressWheel1.Visible=true
+		  'ProgressWheel1.Enabled=true
 		  
 		  
 		  
 		  
 		  Exception err
-		    ExceptionHandler(err,"GenomeWin:SPSocket")
+		    ExceptionHandler(err,"GenomeWin:UniProtSocket")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -5534,8 +5595,7 @@ End
 		  
 		  'now load the URL:
 		  BLASTSearchViewer.LoadURL(theURL)
-		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
+		  'ProgressHide
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -5556,15 +5616,13 @@ End
 		    end if
 		  end if
 		  BLASTSearchViewer.LoadURL(theURL) 'blank page to remove previous result
-		  ProgressWheel1.top=BlastSearchViewer.top+BlastSearchViewer.Height/3
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
+		  
 		  
 		  
 		  
 		  
 		  Exception err
-		    ExceptionHandler(err,"GenomeWin:SPSocket")
+		    ExceptionHandler(err,"GenomeWin:BlastSocket")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

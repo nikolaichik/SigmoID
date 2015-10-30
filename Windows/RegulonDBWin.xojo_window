@@ -139,7 +139,7 @@ Begin Window RegulonDBWin
       CaptionAlign    =   3
       CaptionDelta    =   0
       CaptionPlacement=   1
-      Enabled         =   True
+      Enabled         =   False
       HasBackColor    =   False
       HasMenu         =   0
       Height          =   22
@@ -504,7 +504,7 @@ End
 
 	#tag Event
 		Sub Open()
-		  
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 

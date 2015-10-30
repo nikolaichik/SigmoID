@@ -706,7 +706,7 @@ End
 		  'me.BitScoreField.text=unbracket(nhmmerSettingsWin.NCvalue.text)
 		  'end
 		  
-		  AdjustLayout4linux(me)
+		  
 		End Sub
 	#tag EndEvent
 
@@ -726,6 +726,7 @@ End
 		  'end if
 		  'wend
 		  
+		  AdjustLayout4linux(me)
 		  
 		End Sub
 	#tag EndEvent

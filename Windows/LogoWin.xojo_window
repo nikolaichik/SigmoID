@@ -334,7 +334,7 @@ End
 		    if f<>Nil then
 		      if f.exists then
 		        tfastxPath=f.ShellPath
-		        SettingsWin.tfastxPath.text=tfastxPath
+		        SettingsWin.tfastxPathField.text=tfastxPath
 		      end if
 		    end if
 		    f=resources_f.child("alimask.exe")
@@ -370,6 +370,14 @@ End
 		      if f.exists then
 		        MASTpath=f.ShellPath
 		        SettingsWin.MASTPathField.text=MASTpath
+		      end if
+		    end if
+		  #elseif TargetLinux
+		    f=resources_f.child("tfastx")
+		    if f<>Nil then
+		      if f.exists then
+		        tfastxPath=f.ShellPath
+		        SettingsWin.tfastxPathField.text=tfastxPath
 		      end if
 		    end if
 		  #endif
@@ -2260,8 +2268,8 @@ End
 		      'HmmGen and MastGen options
 		      HmmGenSettingsWin.PalindromicBox.value=False
 		      palindromic=false                           'enable the "Palindromise" function
-		      HmmGenSettingsWin.IntergenicBox.value=False
-		      HmmGenSettingsWin.AddQualifierBox.value=False
+		      HmmGenSettingsWin.IntergenicBox.value=True
+		      HmmGenSettingsWin.AddQualifierBox.value=True
 		      HmmGenSettingsWin.NextLocusBox.value=True
 		      OptionsNo=countFields(ProfileSettings,"HmmGen.")
 		      for n=1 to OptionsNo
@@ -2313,8 +2321,8 @@ End
 		      nhmmerSettingsWin.AddAnnotationCheckBox.HelpTag="This option is enabled only for calibrated profiles"
 		      LogoFile=tmpfile
 		      HmmGenSettingsWin.PalindromicBox.value=False
-		      HmmGenSettingsWin.IntergenicBox.value=False
-		      HmmGenSettingsWin.AddQualifierBox.value=False
+		      HmmGenSettingsWin.IntergenicBox.value=True
+		      HmmGenSettingsWin.AddQualifierBox.value=True
 		      HmmGenSettingsWin.NextLocusBox.value=True
 		      HmmGenSettingsWin.lengthField.text=""
 		      HmmGenSettingsWin.EvalueField.enabled=true

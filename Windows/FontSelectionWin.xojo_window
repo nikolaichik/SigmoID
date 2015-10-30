@@ -79,7 +79,6 @@ Begin Window FontSelectionWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kFontSelInfo"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -141,7 +140,6 @@ Begin Window FontSelectionWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kFFexample"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -266,7 +264,6 @@ Begin Window FontSelectionWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kFFexample"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -302,7 +299,6 @@ Begin Window FontSelectionWin
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kFixed"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -337,7 +333,6 @@ Begin Window FontSelectionWin
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kProportional"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -356,7 +351,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Activate()
-		  AdjustLayout4linux(me)
+		  
 		End Sub
 	#tag EndEvent
 

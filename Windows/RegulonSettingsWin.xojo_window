@@ -594,13 +594,12 @@ End
 	#tag Event
 		Sub Activate()
 		  
-		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 
 	#tag Event
 		Sub Open()
-		  
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 
@@ -702,7 +701,7 @@ End
 #tag Events TerminatorBox
 	#tag Event
 		Sub Action()
-		  if me.Value then 
+		  if me.Value then
 		    StrictBox.enabled=true
 		    StrictBox.visible=true
 		  else

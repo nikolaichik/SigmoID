@@ -257,6 +257,13 @@ End
 		  ProgressWheel1.Refresh
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Function NewWindow() As HTMLViewer
+		  'we don't want any new windows, thanks
+		  
+		  return me
+		End Function
+	#tag EndEvent
 #tag EndEvents
 #tag Events SegmentedControl1
 	#tag Event
