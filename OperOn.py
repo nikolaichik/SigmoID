@@ -79,7 +79,7 @@ def createParser():
                         const='On',
                         default='Off',
                         help='''operon stops on first terminator (if -t is set)''')        
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.6.1 (October 16, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.7 (October 31, 2015)')
     return parser
 
 args = createParser()
@@ -368,12 +368,22 @@ for index in reversed(xrange(len(operon_list))):
            operon_list[index].genes == operon_list[next].genes and \
            operon_list[index].info != operon_list[next].info and \
            operon_list[index].terminator == operon_list[next].terminator:
-            operon_list[index] = Operon(name=operon_list[index].name, 
+            # the if-statement below is here to avoid problems with different locations in operon groups...
+            if operon_list[index].regstart <= operon_list[next].regstart:
+                operon_list[index] = Operon(name=operon_list[index].name, 
                                       genes=operon_list[index].genes, 
                                       info=operon_list[index].info+', '+operon_list[next].info, 
                                       terminator=operon_list[index].terminator,
                                       regstart=operon_list[index].regstart,
                                       regend=operon_list[index].regend,
+                                      strand=operon_list[index].strand)
+            elif operon_list[index].regstart > operon_list[next].regstart:
+                operon_list[index] = Operon(name=operon_list[index].name, 
+                                      genes=operon_list[index].genes, 
+                                      info=operon_list[next].info+', '+operon_list[index].info, 
+                                      terminator=operon_list[index].terminator,
+                                      regstart=operon_list[next].regstart,
+                                      regend=operon_list[next].regend,
                                       strand=operon_list[index].strand)
             del operon_list[next]
             break
@@ -398,7 +408,7 @@ for up_operon in operon_list:
            up_operon.name == down_operon.name and \
            up_operon.regstart == down_operon.regstart and \
            up_operon.regend == down_operon.regend and \
-           up_operon.strand == '+' and  down_operon.strand == '-':
+           up_operon.strand == '+' and down_operon.strand == '-':
             divergon = Divergon(name=up_operon.name, 
                                 up_genes=up_operon.genes, 
                                 down_genes=down_operon.genes, 
@@ -410,17 +420,21 @@ for up_operon in operon_list:
             intodel.append(operon_list.index(down_operon))
 operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
 operon_list += divergons_and_promoters
-operon_out = 'OperOn 1.6.1 (October 16)\n'+('='*50)+'\n\n'
+operon_out = 'OperOn 1.7 (October 31)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
+regulator_counter = []
 for regulator in regulators:
     operon_counter = 0
     regulator = regulator.replace('*', ' ')
     operon_out += ('-'*50 + '\n')
+    common_counter = 0
+    divergon_counter = 0
     for operon in operon_list:
         if regulator == operon.name and len(operon.genes) > 0:
             operon_counter += 1
             if isinstance(operon, Operon):
                 operon_out += '>%s_%s %s\n%s\n' % (operon.name, str(operon_counter), operon.info, str(operon))
+                common_counter += 1
             elif isinstance(operon, Divergon):
                 down_out = ''
                 for gene_loci_product in reversed(operon.down_genes):
@@ -434,8 +448,18 @@ for regulator in regulators:
                                                   gene_loci_product[2])
 
                 operon_out += '%s\n>%s_%s %s\n%s\n' % (down_out, operon.name, str(operon_counter), operon.info, up_out)
+                divergon_counter += 1
+                common_counter += 1
+    if enter.palindromic == 'On':
+        regulator_counter.append([regulator, (str(common_counter) + (' (%s divergons)' % str(divergon_counter)))])
+    elif enter.palindromic == 'Off':
+        regulator_counter.append([regulator, str(common_counter)])
 operon_out = operon_out.split('\n\n\n')
 for splitted in operon_out:
     if len(splitted) > 0:
         print splitted + '\n'
+print '-'*50
+print 'Operons found:'
+for regulator in regulator_counter:
+    print regulator[0] + '\t' + regulator[1]
 input_handle.close()
