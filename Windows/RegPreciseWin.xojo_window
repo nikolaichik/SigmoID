@@ -48,7 +48,6 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -177,9 +176,8 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -194,8 +192,7 @@ Begin Window RegPreciseWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
@@ -294,6 +291,37 @@ Begin Window RegPreciseWin
       Visible         =   True
       Width           =   22
    End
+   Begin PushButton FastaButton
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Check TF"
+      Default         =   False
+      Enabled         =   False
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   217
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   360
+      Underline       =   False
+      Visible         =   True
+      Width           =   175
+   End
 End
 #tag EndWindow
 
@@ -339,6 +367,92 @@ End
 		End Function
 	#tag EndMenuHandler
 
+
+	#tag Method, Flags = &h0
+		Sub CheckTF()
+		  dim RegulonID, vimssId, ProteinFasta as string
+		  logowin.show
+		  
+		  RegulonID=JSONitem(regulatorArray(RegulatorList.ListIndex)).Value("regulonId")
+		  
+		  logowin.WriteToSTDOUT("Contacting RegPrecise... ")
+		  
+		  dim res as string
+		  dim jsn as new JSONItem
+		  dim jsn0 as new JSONItem
+		  dim hts as new HTTPSocket
+		  
+		  res=hts.Get(" 'http://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,15)
+		  
+		  if res<>"" then
+		    JSN0.load(res)
+		    'should contain smth like:
+		    '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		    
+		    JSN=JSN0.value("regulator")
+		    ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
+		    vimssId=JSN.Value("vimssId")
+		    LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
+		    
+		  end if
+		  
+		  logowin.WriteToSTDOUT("Contacting MicrobesOnline... ")
+		  
+		  ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
+		  
+		  Dim db As New MySQLCommunityServer
+		  db.Host = "pub.microbesonline.org"
+		  'db.Port = 3306
+		  db.DatabaseName = "genomics"
+		  db.UserName = "guest"
+		  db.Password = "guest"
+		  If db.Connect Then
+		    // Use the database
+		    
+		    Dim rs As RecordSet
+		    rs = db.SQLSelect("select * from AASeq where locusId="+vimssId) 
+		    
+		    If db.Error Then
+		      MsgBox("Error: " + db.ErrorMessage)
+		      Return
+		    End If
+		    
+		    If rs <> Nil Then
+		      ProteinFasta=ProteinFasta+EndOfLine.UNIX+rs.Field("sequence").StringValue
+		      tfastx(ProteinFasta)
+		      rs.Close
+		    End If
+		    db.Close
+		    
+		    
+		  Else
+		    // Connection error
+		    MsgBox(db.ErrorMessage)
+		  End If
+		  
+		  
+		  
+		  
+		  
+		  
+		  'dim TF_ID, theURL as string
+		  'TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
+		  'TF_name=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  'if instr(TF_name,"-")>0 then
+		  'LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
+		  'end if
+		  'theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
+		  'theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
+		  '
+		  ''WebBrowserWin.show
+		  'RegulonDBSocket.Get(theURL)
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:CheckTF")
+		    
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub FillRegulatorList(JSONin as JSONItem)
@@ -716,6 +830,13 @@ End
 	#tag Event
 		Sub Action()
 		  RegulonInfo
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events FastaButton
+	#tag Event
+		Sub Action()
+		  checkTF
 		End Sub
 	#tag EndEvent
 #tag EndEvents

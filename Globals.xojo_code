@@ -460,6 +460,27 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub FastaButtonsCheck()
+		  
+		  if RegPreciseWin.RegulatorList.SelCount=1 then
+		    if LogoWin.GenomeFile<>nil then
+		      RegPreciseWin.FastaButton.Enabled=true
+		    else
+		      RegPreciseWin.FastaButton.Enabled=false
+		    end if
+		  end if
+		  
+		  if RegulonDBWin.RegulatorList.SelCount=1 then
+		    if LogoWin.GenomeFile<>nil then
+		      RegulonDBWin.FastaButton.Enabled=true
+		    else
+		      RegulonDBWin.FastaButton.Enabled=false
+		    end if
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub FixPath4Windows(aFile as folderitem)
 		  #if TargetWin32
 		    'a workaround for shellpath glitch
@@ -1391,6 +1412,71 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub tfastx(query as string)
+		  'launch Fasta search
+		  'tfastx36 [-options] query_file library_file [ktup]
+		  'OPTIONS:
+		  '-b:  high scores reported (limited by -E by default);
+		  '-d:  number of alignments shown (limited by -E by default)
+		  
+		  'the genome is in GenBank format, need to specify it
+		  'Fasta reads these formats:
+		  '0 FASTA (>SEQID - comment/sequence)
+		  '1 Uncompressed Genbank (LOCUS/DEFINITION/ORIGIN)
+		  '...
+		  'To specify a library type on the command line, add it to the library filename
+		  'and surround the filename and library type in quotes:
+		  'fasta36 query.file "/seqdb/genbank/gbmam 12"
+		  
+		  logowin.WriteToSTDOUT("OK"+EndOfLine.unix)
+		  logowin.WriteToSTDOUT("Running tfastx..."+EndOfLine.unix)
+		  
+		  dim cli as string
+		  Dim sh As Shell
+		  
+		  
+		  if LogoWin.GenomeFile=Nil then
+		    LogoWin.WriteToSTDOUT("Please open a genome file to search first."+EndOfLine.Unix)
+		    return
+		  end if
+		  
+		  
+		  'get the temp file and write the query into it:
+		  dim TFfastaFile as folderitem = SpecialFolder.Temporary.child("TF.fasta")
+		  if TFfastaFile<>nil then
+		    dim outstream As TextOutputStream
+		    outstream = TextOutputStream.Create(TFfastaFile)
+		    outstream.write query
+		    outstream.close
+		    
+		    
+		    cli=""
+		    dim fastaOptions as string = " -b 3 -d 3 "
+		    
+		    dim genomefilepath as string
+		    
+		    GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34) 'need the quotes to include gbk format anyway
+		    'tfastx36 [-options] query_file library_file [ktup]
+		    cli=tfastxPath+fastaOptions+TFfastaFile.shellpath+" "+GenomeFilePath
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      return
+		    else
+		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "tfastx error code: "+Str(sh.errorCode)
+		      LogoWin.WriteToSTDOUT (EndofLine+"tfastx command line was: "+cli+EndofLine)
+		      return
+		    end if
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Translate3(Gene As string, code as integer) As string
 		  dim  m,n,GeneLength,aa0,up  as integer
 		  dim protein,codon,codons,aa1st as string
@@ -1901,6 +1987,11 @@ Protected Module Globals
 			Visible=true
 			Group="ID"
 			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="tfastxPath"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
