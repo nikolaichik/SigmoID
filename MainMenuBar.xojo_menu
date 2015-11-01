@@ -78,18 +78,11 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem UntitledSeparator
-         SpecialMenu = 0
-         Text = "-"
-         Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
       Begin MenuItem FileMakeSigFile
          SpecialMenu = 0
          Text = "#kMakeSigFile"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem UntitledItem4
@@ -394,7 +387,7 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "#kProfileWizard"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
    End

@@ -2178,6 +2178,9 @@ End
 		      InStream = f.OpenAsTextFile
 		      if InStream <>nil then
 		        Info=inStream.ReadAll
+		        ProfileWizardWin.InfoArea.Italic=false
+		        ProfileWizardWin.InfoArea.TextColor=&c00000000 'black
+		        ProfileWizardWin.InfoArea.text=info
 		        inStream.close
 		      else
 		        msgbox "Can't read alignment info"
@@ -2196,12 +2199,19 @@ End
 		        InStream = f.OpenAsTextFile
 		        while not InStream.EOF
 		          aLine=InStream.readLine
+		          dim score as string
 		          if left(aLine,7)="#=GF GA" then
-		            nhmmerSettingsWin.GAvalue.text="("+trim(NthField(aline," ",3))+")"
+		            score=trim(NthField(aline," ",3))
+		            nhmmerSettingsWin.GAvalue.text="("+score+")"
+		            ProfileWizardWin.GatheringField.text=score
 		          elseif left(aLine,7)="#=GF NC" then
-		            nhmmerSettingsWin.NCvalue.text="("+trim(NthField(aline," ",3))+")"
+		            score=trim(NthField(aline," ",3))
+		            nhmmerSettingsWin.NCvalue.text="("+score+")"
+		            ProfileWizardWin.NoiseField.text=score
 		          elseif left(aLine,7)="#=GF TC" then
-		            nhmmerSettingsWin.TCvalue.text="("+trim(NthField(aline," ",3))+")"
+		            score=trim(NthField(aline," ",3))
+		            nhmmerSettingsWin.TCvalue.text="("+score+")"
+		            ProfileWizardWin.TrustedField.text=score
 		          end if
 		        wend
 		        inStream.close
@@ -2268,9 +2278,12 @@ End
 		      'HmmGen and MastGen options
 		      HmmGenSettingsWin.PalindromicBox.value=False
 		      palindromic=false                           'enable the "Palindromise" function
+		      ProfileWizardWin.PalindromicBox.value=false
 		      HmmGenSettingsWin.IntergenicBox.value=True
+		      ProfileWizardWin.WithinORFBox.value=True
 		      HmmGenSettingsWin.AddQualifierBox.value=True
 		      HmmGenSettingsWin.NextLocusBox.value=True
+		      ProfileWizardWin.NextLocusBox.value=True
 		      OptionsNo=countFields(ProfileSettings,"HmmGen.")
 		      for n=1 to OptionsNo
 		        theOption=NthField(ProfileSettings,"HmmGen.",n+1)
@@ -2282,17 +2295,23 @@ End
 		        case "-p"
 		          HmmGenSettingsWin.PalindromicBox.value=true
 		          palindromic=true
+		          ProfileWizardWin.PalindromicBox.value=true
 		        case "-i"
 		          HmmGenSettingsWin.IntergenicBox.value=true
+		          ProfileWizardWin.WithinORFBox.value=true
 		        case "-n"
 		          HmmGenSettingsWin.NextLocusBox.value=false
+		          ProfileWizardWin.NextLocusBox.value=false
 		        case "-f"
 		          HmmGenSettingsWin.FeatureCombo.Text=NthField(theOption," ",2)
+		          ProfileWizardWin.FeatureCombo.Text=NthField(theOption," ",2)
 		        case "-q"
 		          HmmGenSettingsWin.AddQualifierBox.value=true
 		          theOption=trim(right(theOption,len(theOption)-2))
 		          HmmGenSettingsWin.KeyField.text=NthField(theOption,"#",1)
 		          HmmGenSettingsWin.ValueField.text=NthField(theOption,"#",2)
+		          ProfileWizardWin.KeyField.text=NthField(theOption,"#",1)
+		          ProfileWizardWin.ValueField.text=NthField(theOption,"#",2)
 		        end select
 		      next
 		      
@@ -2312,6 +2331,7 @@ End
 		        theOption=NthField(trim(TheOption),EndOfLine.unix,1)
 		        MastGenSettingsWin.PvalueField.text=theOption
 		        MastSettingsWin.PvalueField.text=theOption
+		        ProfileWizardWin.MASTField.text=theOption
 		      end if
 		      
 		    else
@@ -2338,6 +2358,16 @@ End
 		      nhmmerSettingsWin.ThresholdsBox.HelpTag="Thresholds to use with uncalibrated profile."
 		      palindromic=false
 		      
+		      'ProfileWizardWin cleanup:
+		      ProfileWizardWin.InfoArea.text=""
+		      ProfileWizardWin.GatheringField.text=""
+		      ProfileWizardWin.NoiseField.text=""
+		      ProfileWizardWin.TrustedField.text=""
+		      ProfileWizardWin.PalindromicBox.value=false
+		      ProfileWizardWin.WithinORFBox.value=True
+		      ProfileWizardWin.NextLocusBox.value=True
+		      ProfileWizardWin.ValueField.text=""
+		      ProfileWizardWin.MASTField.text=""
 		      
 		    end if
 		    'store the seqs

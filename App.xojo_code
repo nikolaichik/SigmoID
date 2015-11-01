@@ -3,6 +3,18 @@ Protected Class App
 Inherits Application
 	#tag Event
 		Sub EnableMenuItems()
+		  if LogoWin.LogoFile<>Nil then
+		    AlignmentProfileWizard.enabled=true
+		  end if
+		  
+		  
+		  FileMakeSigFile.visible=false
+		  
+		  if Keyboard.AltKey then
+		    FileMakeSigFile.Visible=true
+		    FileMakeSigFile.Enabled=true
+		  end if
+		  
 		  'Build dynamic Window Menu
 		  
 		  dim count, i as Integer
@@ -211,6 +223,7 @@ Inherits Application
 			if GenomeFile<> Nil then
 			GenomeWin.opengenbankfile(GenomeFile)
 			LogoWin.GenomeFile=GenomeFile
+			FastaButtonsCheck
 			GenomeWin.ShowGenomeStart
 			end if
 			
@@ -585,11 +598,11 @@ Inherits Application
 	#tag Note, Name = 2 do
 		
 		1. Deselect all hits in genome browser
-		2. blastx search
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
-		4. Clear description of the cleanup the scripts do.
+		4. Clear description of what the cleanup the scripts do.
 		9. Prepare submission menu?
-		13. Prompt for saving edited .sig info and options (Save as only)! 
+		12. Proper profile extend/shrink functions
+		13. Allow to edit and save seqs in a .sig file  
 		14. if a CDS is selected, Cmd-C should copy the AA, not DNA sequence
 		16. add feature menu? (Add new feature from current hit, etc.)
 		18. add scrolling/selection in detail view
@@ -600,8 +613,7 @@ Inherits Application
 		25. Check background frequences influence on MAST search.
 		27. closing the last search tab in genome browser should hide htmlviewer control
 		28. Add preference/option to set which database use with BLAST (same for taxonomy restriction)
-		29. Correct HmmGenSettingsWin: disable Run button until score is set
-		30. alternative start codons are not translated as methionine
+		31. alternative start codons are not translated as methionine
 		32. Need to support proxy icon for Mac
 		33. limit log length to avoid slowdowns
 		

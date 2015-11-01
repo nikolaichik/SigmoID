@@ -398,6 +398,11 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="ActiveProcessorCount"
+			Group="Behavior"
+			Type="UInt32"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="AutomaticTerminationSupportEnabled"
 			Group="Behavior"
 			Type="Boolean"
@@ -441,6 +446,11 @@ Inherits NSObject
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="OperatingSystem"
+			Group="Behavior"
+			Type="UInt32"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="OperatingSystemName"
 			Group="Behavior"
 			Type="String"
@@ -453,6 +463,11 @@ Inherits NSObject
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="PhysicalMemory"
+			Group="Behavior"
+			Type="UInt64"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="ProcessIdentifier"
 			Group="Behavior"
 			Type="Integer"
@@ -462,6 +477,11 @@ Inherits NSObject
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ProcessorCount"
+			Group="Behavior"
+			Type="UInt32"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

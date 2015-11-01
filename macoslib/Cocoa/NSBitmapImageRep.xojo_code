@@ -1531,6 +1531,11 @@ Inherits NSImageRep
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="BitmapFormat"
+			Group="Behavior"
+			Type="UInt32"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="BitsPerPixel"
 			Group="Behavior"
 			Type="Integer"

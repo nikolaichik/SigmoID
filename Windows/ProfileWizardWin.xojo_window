@@ -25,7 +25,7 @@ Begin Window ProfileWizardWin
    Resizeable      =   False
    Title           =   "Profile Wizard"
    Visible         =   True
-   Width           =   600
+   Width           =   628
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
       Bold            =   False
@@ -376,7 +376,7 @@ Begin Window ProfileWizardWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       TabIndex        =   2
@@ -388,7 +388,7 @@ Begin Window ProfileWizardWin
       Top             =   20
       Underline       =   False
       Visible         =   True
-      Width           =   288
+      Width           =   316
       Begin CheckBox WithinORFBox
          AutoDeactivate  =   True
          Bold            =   False
@@ -405,7 +405,7 @@ Begin Window ProfileWizardWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          State           =   0
@@ -419,7 +419,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   240
+         Width           =   268
       End
       Begin Label Label5
          AutoDeactivate  =   True
@@ -473,7 +473,7 @@ Begin Window ProfileWizardWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          TabIndex        =   3
@@ -486,7 +486,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   156
+         Width           =   184
       End
       Begin TextField KeyField
          AcceptTabs      =   False
@@ -511,7 +511,7 @@ Begin Window ProfileWizardWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -529,7 +529,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   103
+         Width           =   131
       End
       Begin CheckBox PalindromicBox
          AutoDeactivate  =   True
@@ -615,11 +615,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   478
+         Left            =   506
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
+         LockLeft        =   False
          LockRight       =   True
          LockTop         =   True
          Mask            =   ""
@@ -639,6 +639,38 @@ Begin Window ProfileWizardWin
          UseFocusRing    =   True
          Visible         =   True
          Width           =   101
+      End
+      Begin CheckBox NextLocusBox
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "Use next locus_tag"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   " -n, --name            \ndon't pick 'locus_tag' and 'gene' qualifiers from the next CDS feature.\nChecking this will remove the -n option"
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox3"
+         Italic          =   False
+         Left            =   451
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         State           =   1
+         TabIndex        =   8
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   56
+         Underline       =   False
+         Value           =   True
+         Visible         =   True
+         Width           =   158
       End
    End
    Begin TextArea InfoArea
@@ -662,10 +694,10 @@ Begin Window ProfileWizardWin
       LimitText       =   0
       LineHeight      =   0.0
       LineSpacing     =   1.0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Mask            =   ""
       Multiline       =   True
@@ -686,7 +718,7 @@ Begin Window ProfileWizardWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   575
+      Width           =   603
    End
    Begin PushButton SaveButton
       AutoDeactivate  =   True
@@ -701,12 +733,12 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   507
-      LockBottom      =   False
+      Left            =   535
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
@@ -732,12 +764,12 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   415
-      LockBottom      =   False
+      Left            =   443
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -764,7 +796,12 @@ End
 
 	#tag Method, Flags = &h1
 		Protected Sub EnableSave()
-		  SaveButton.enabled=true
+		  if LogoWin.LogoFile=Nil then
+		    SaveButton.enabled=false
+		    return
+		  else
+		    SaveButton.enabled=true
+		  end if
 		  
 		  If GatheringField.text="" then
 		    SaveButton.enabled=false
@@ -839,7 +876,7 @@ End
 	#tag Event
 		Sub Open()
 		  me.Italic=true
-		  me.TextColor=&c99999900
+		  me.TextColor=&c99999900 'gray
 		  me.text="Profile info"
 		End Sub
 	#tag EndEvent
@@ -986,6 +1023,12 @@ End
 		              outstream.WriteLine(Endofline)
 		            end if
 		            
+		            if NOT NextLocusBox.value then
+		              outstream.WriteLine("// don't pick up locus_tag from next locus")
+		              outstream.WriteLine("HmmGen.-n")
+		              outstream.WriteLine(Endofline)
+		            end if
+		            
 		            if WithinORFBox.value then
 		              outstream.WriteLine("// ignore sites inside ORFs (a risk missing some real ones!)")
 		              outstream.WriteLine("HmmGen.-i ")
@@ -998,6 +1041,11 @@ End
 		            
 		            outstream.WriteLine("// feature qualifier")
 		            outstream.WriteLine("HmmGen.-q "+KeyField.Text+"#"+ValueField.Text)
+		            outstream.WriteLine(Endofline)
+		            
+		            'MASTgen p-value
+		            outstream.WriteLine("// MASTgen p-value cutoff")
+		            outstream.WriteLine("mastGen.-V "+MASTField.Text)
 		            outstream.WriteLine(Endofline)
 		            
 		            outstream.Close
@@ -1088,8 +1136,6 @@ End
 		  else
 		    'cancelled
 		  end if
-		  
-		  
 		  
 		  
 		  hide

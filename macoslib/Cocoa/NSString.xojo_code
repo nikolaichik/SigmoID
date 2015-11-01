@@ -1394,6 +1394,11 @@ Inherits NSObject
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="Int64Value"
+			Group="Behavior"
+			Type="Int64"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="IntegerValue"
 			Group="Behavior"
 			Type="Integer"
