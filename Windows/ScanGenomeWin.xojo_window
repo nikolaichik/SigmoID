@@ -48,6 +48,7 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -494,6 +495,7 @@ End
 		          if SigList.CellCheck(k,0) = true AND f.Item(n).DisplayName=SigList.Cell(k,1)+".sig" then
 		            'Scan the genome!
 		            LogoWin.LoadAlignment f.Item(n)
+		            logowin.ChangeView("Logo")
 		            app.DoEvents  'otherwise logo picture isn't updated
 		            nhmmerSettingsWin.GenomeField.text=LogoWin.GenomeFile.ShellPath
 		            nhmmerSettingsWin.ReadOptions

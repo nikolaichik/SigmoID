@@ -128,6 +128,7 @@ Inherits Application
 		      logowin.title="SigmoIH: "+item.DisplayName
 		    case "SigmoidFile"
 		      logowin.LoadAlignment(item)
+		      logowin.ChangeView("Logo")
 		      logowin.title="SigmoIH: "+item.DisplayName
 		    end select
 		  end if

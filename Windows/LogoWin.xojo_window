@@ -133,7 +133,7 @@ Begin Window LogoWin
       TabIndex        =   4
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   1000
       Begin Canvas LogoCanvas
@@ -232,6 +232,11 @@ End
 		  end if
 		  
 		  ViewLogo.enabled=false
+		  
+		  if SeqsChanged then
+		    FileSaveProfileAs.enabled=true
+		  end if
+		  
 		  
 		  if SigFileOpened then
 		    FileSaveLogo.enable
@@ -903,6 +908,30 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FileSaveProfileAs() As Boolean Handles FileSaveProfileAs.Action
+			'write the changed seqs to a temp file, point LogoFile to it
+			'and open Profile Wizard
+			
+			if SeqsChanged then
+			dim BSfastaFile as folderitem = SpecialFolder.Temporary.child("BS.fasta")
+			if BSfastaFile<>nil then
+			dim outstream As TextOutputStream
+			outstream = TextOutputStream.Create(BSfastaFile)
+			outstream.write(trim(Sequences))
+			outstream.close
+			LogoFile=BSfastaFile
+			WriteToSTDOUT("Edited alignment loaded."+EndOfLine.unix)
+			end if
+			end if
+			
+			ProfileWizardWin.show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeAnnotate() As Boolean Handles GenomeAnnotate.Action
 			if LastSearch="nhmmer" then
 			HmmGenSearch
@@ -1374,11 +1403,25 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Sub ChangeView(View As string)
+	#tag Method, Flags = &h0
+		Sub ChangeView(View As string)
 		  select case View
 		    
 		  case "Logo"
+		    if SeqsChanged then
+		      dim BSfastaFile as folderitem = SpecialFolder.Temporary.child("BS.fasta")
+		      if BSfastaFile<>nil then
+		        dim outstream As TextOutputStream
+		        outstream = TextOutputStream.Create(BSfastaFile)
+		        outstream.write(trim(Sequences))
+		        outstream.close
+		        LoadAlignment(BSfastaFile)
+		        logowin.ChangeView("Logo")
+		        WriteToSTDOUT("Edited alignment loaded."+EndOfLine.unix)
+		      end if
+		    end if
+		    
+		    
 		    ViewLogo.Checked=true
 		    ViewSequences.Checked=false
 		    ViewAlignmentInfo.checked=false
@@ -1396,7 +1439,6 @@ End
 		    DownshiftLog true
 		  case "Sequences"
 		    ViewLogo.Checked=false
-		    ViewSequences.Checked=true
 		    ViewAlignmentInfo.checked=false
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=false
@@ -1411,6 +1453,7 @@ End
 		    informer.visible=true
 		    TopPanel.visible=true
 		    DownshiftLog true
+		    ViewSequences.Checked=true
 		  case "AlignmentInfo"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
@@ -1725,7 +1768,7 @@ End
 		    WriteToSTDOUT ("Information content of this site is "+str(totalEntropy)+" bits."+EndofLine)
 		    
 		    'Palindromic=false
-		    ChangeView("Logo")
+		    'ChangeView("Logo")
 		  else
 		    WriteToSTDOUT (EndofLine+"Could not load alignment from "+LogoFile.shellpath+EndofLine)
 		  end if
@@ -2454,6 +2497,7 @@ End
 		  RegulogID=0
 		  
 		  LastSearch=""
+		  SeqsChanged=false
 		  show
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:LoadAlignment")
@@ -2494,6 +2538,7 @@ End
 		        outstream.Write(fa)
 		        outstream.close
 		        LoadAlignment(RegPreciseTemp)
+		        logowin.ChangeView("Logo")
 		        me.title="SigmoIH: "+TFname+" (RegPrecise)"
 		        
 		        'fill some hmmgen settings:
@@ -3617,6 +3662,10 @@ End
 		Protected SelArray2(0) As Integer
 	#tag EndProperty
 
+	#tag Property, Flags = &h1
+		Protected SeqsChanged As Boolean
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		Sequences As string
 	#tag EndProperty
@@ -3682,6 +3731,7 @@ End
 		    tmpfile=dlg.ShowModalwithin(self)
 		    if tmpfile<>Nil then
 		      LoadAlignment(tmpFile)
+		      ChangeView("Logo")
 		      logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		    end if
 		  Case "LoadGenomeTool"
@@ -3753,17 +3803,20 @@ End
 		        tmpfile=dlg.ShowModalwithin(self)
 		        if tmpfile<>Nil then
 		          LoadAlignment(tmpFile)
+		          ChangeView("Logo")
 		          logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		        end if
 		      else
 		        if tmpfile<>Nil then
 		          LoadAlignment(tmpFile)
+		          ChangeView("Logo")
 		          logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		        end if
 		      end if
 		    #else
 		      if tmpfile<>Nil then
 		        LoadAlignment(tmpFile)
+		        logowin.ChangeView("Logo")
 		        logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		      end if
 		    #endif
@@ -3976,6 +4029,16 @@ End
 		  end if
 		  
 		  me.TextFont=FixedFont
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  'watch only for sequence change
+		  'for other changes Profile Wizard should be used
+		  
+		  if ViewSequences.Checked=true then
+		    SeqsChanged=true
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

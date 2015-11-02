@@ -194,6 +194,7 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -442,8 +443,9 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -458,15 +460,17 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   20
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
    Begin mHTTPSocket RDBSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -481,7 +485,8 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
 End
@@ -1041,6 +1046,7 @@ End
 		    OutStream.Close
 		    logowin.Title="SigmoID: "+TFname+" (RegulonDB)"
 		    logowin.LoadAlignment(tmpfile)
+		    logowin.ChangeView("Logo")
 		    
 		    'determine site width(s):
 		    dim instream as TextInputStream
@@ -1501,6 +1507,7 @@ End
 		Name="TF_name"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

@@ -1030,7 +1030,7 @@ End
 		            end if
 		            
 		            if WithinORFBox.value then
-		              outstream.WriteLine("// ignore sites inside ORFs (a risk missing some real ones!)")
+		              outstream.WriteLine("// ignore sites inside ORFs (and risk missing some real ones!)")
 		              outstream.WriteLine("HmmGen.-i ")
 		              outstream.WriteLine(Endofline)
 		            end if

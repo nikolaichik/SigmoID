@@ -16,6 +16,13 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem FileSaveProfileAs
+         SpecialMenu = 0
+         Text = "#kSaveProfileAs"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
       Begin MenuItem FileSaveAlignmentSelection
          SpecialMenu = 0
          Text = "#kSaveAlignmentSelection"
