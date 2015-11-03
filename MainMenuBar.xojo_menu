@@ -481,6 +481,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem GenomeAnnotate
+         SpecialMenu = 0
+         Text = "#kAnnotateCurrentSites"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
       Begin MenuItem GenomeTerminatorSearch
          SpecialMenu = 0
          Text = "#kTerminatorSearch"
@@ -500,13 +507,6 @@ Begin Menu MainMenuBar
          Text = "-"
          Index = -2147483648
          AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem GenomeAnnotate
-         SpecialMenu = 0
-         Text = "#kAnnotateCurrentSites"
-         Index = -2147483648
-         AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileSaveCheckedSites

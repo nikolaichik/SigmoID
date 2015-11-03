@@ -841,8 +841,7 @@ End
 
 	#tag MenuHandler
 		Function AlignmentMEME() As Boolean Handles AlignmentMEME.Action
-			dim ret as integer=MEMEhtml
-			Return True
+			MEMESettingsWin.ShowModalwithin(self)
 			
 		End Function
 	#tag EndMenuHandler
@@ -2995,81 +2994,6 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function MEMEhtml() As integer
-		  'Standard MEME run with result display in browser
-		  
-		  'copy alignment out of virtual volume:
-		  dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
-		  if alignment_tmp<>NIL then
-		    if alignment_tmp.Exists then
-		      alignment_tmp.Delete
-		    end if
-		    LogoFile.CopyFileTo alignment_tmp
-		    
-		  else
-		    msgbox "Can't create temporary file!"
-		    return -1
-		  end if
-		  
-		  
-		  'create a tmp file to store MEME results:
-		  MEMEtmp=SpecialFolder.Temporary.child("MEMEoutdir")
-		  FixPath4Windows(MEMEtmp)
-		  
-		  if MEMEtmp<>NIL then
-		    if MEMEtmp.Exists then
-		      MEMEtmp.Delete
-		    end if
-		    'actual conversion
-		    dim cli as string
-		    Dim sh As Shell
-		    
-		    if minlen=0 then
-		      minlen=17
-		    end if
-		    
-		    if maxlen=0 then
-		      maxlen=23
-		    end if
-		    
-		    
-		    cli=MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(minlen-2)
-		    cli=cli+" -maxw "+str(maxlen+2)+" -revcomp -nmotifs 3 " 'motif width should be configurable
-		    if Palindromic then
-		      cli=cli+"-pal "
-		    end if
-		    cli=cli+"-oc "+MEMEtmp.ShellPath
-		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
-		    WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
-		    sh.execute cli
-		    If sh.errorCode=0 then
-		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      
-		      'open the result in the browser:
-		      dim res as FolderItem
-		      res=MEMEtmp.child("meme.html")
-		      if res<>NIL then
-		        WebBrowserWin.LoadPage(res)
-		        WebBrowserWin.show
-		      end if
-		      return sh.errorCode
-		    else
-		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "MEME error code: "+Str(sh.errorCode)
-		      return sh.errorCode
-		    end if
-		    
-		  else
-		    msgbox "Can't create temporary folder!"
-		    return -1
-		  end if
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function nhmmer() As boolean
 		  'returns true if completed without errors
 		  
@@ -3590,8 +3514,8 @@ End
 		Protected MEMEdata As string
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected MEMEtmp As FolderItem
+	#tag Property, Flags = &h0
+		MEMEtmp As FolderItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

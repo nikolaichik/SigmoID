@@ -392,7 +392,7 @@ Begin Window ProfileWizardWin
       Begin CheckBox WithinORFBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "ignore sites within ORFs"
+         Caption         =   "Ignore sites within ORFs"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -534,7 +534,7 @@ Begin Window ProfileWizardWin
       Begin CheckBox PalindromicBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "palindromic site"
+         Caption         =   "Palindromic site"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True

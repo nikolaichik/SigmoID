@@ -296,7 +296,7 @@ Begin Window RegPreciseWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Check TF"
+      Caption         =   "#kCheckTF"
       Default         =   False
       Enabled         =   False
       Height          =   20

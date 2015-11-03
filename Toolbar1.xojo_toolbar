@@ -1,7 +1,7 @@
 #tag Toolbar
 Begin Toolbar Toolbar1
 	Begin ToolButton LoadAlignmentTool
-		Caption = "Load alignment"
+		Caption = "Load Alignment"
 		HelpTag = ""
 		Style = 4
 		Icon = 1658368511
@@ -13,13 +13,13 @@ Begin Toolbar Toolbar1
 		Icon = 771960727
 	End
 	Begin ToolButton HmmGenTool
-		Caption = "HmmGen"
+		Caption = "PostProcess"
 		HelpTag = ""
 		Style = 0
 		Icon = 39430258
 	End
 	Begin ToolButton TermGenTool
-		Caption = "TermGen"
+		Caption = "Terminators"
 		HelpTag = ""
 		Style = 0
 		Icon = 2141093887

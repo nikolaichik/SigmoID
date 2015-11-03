@@ -509,6 +509,7 @@ Window=HmmGenSettingsWin;Windows/HmmGenSettingsWin.xojo_window;&h2A490FFF;&h2250
 Window=LogoWin;Windows/LogoWin.xojo_window;&h68F012A1;&h2250E847;false
 Window=MASTSettingsWin;Windows/MASTSettingsWin.xojo_window;&h6ED167FF;&h2250E847;false
 Window=MASTGenSettingsWin;Windows/MASTGenSettingsWin.xojo_window;&h128B4FEF;&h2250E847;false
+Window=MEMESettingsWin;Windows/MEMESettingsWin.xojo_window;&h1CE65FFF;&h2250E847;false
 Window=nhmmerSettingsWin;Windows/nhmmerSettingsWin.xojo_window;&h133F60E8;&h2250E847;false
 Window=ProfileWizardWin;Windows/ProfileWizardWin.xojo_window;&h4E0B8FFF;&h2250E847;false
 Window=RegPreciseWin;Windows/RegPreciseWin.xojo_window;&h717FFFFF;&h2250E847;false
