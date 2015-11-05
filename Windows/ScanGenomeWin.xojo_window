@@ -48,7 +48,6 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -555,7 +554,7 @@ End
 		    
 		    logowin.WriteToSTDOUT(EndOfLine+EndOfLine+timestring+"spent scanning "+infileName+" with "+str(SigCount)+" profiles.")
 		    logowin.WriteToSTDOUT(EndOfLine+str(HitCount)+" sites added to feature table.")
-		    logowin.WriteToSTDOUT(EndOfLine+"Modified GenBank file written to "+f2.ShellPath)
+		    logowin.WriteToSTDOUT(EndOfLine+"Modified GenBank file written to "+f2.ShellPath+endofline)
 		    Logowin.ScanningGenome=false
 		    
 		  End If

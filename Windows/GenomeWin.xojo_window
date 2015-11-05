@@ -266,7 +266,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   3
+      Value           =   0
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -618,7 +618,10 @@ End
 
 	#tag Event
 		Sub Close()
-		  
+		  BLASTSearchViewer.close
+		  SPSearchViewer.close
+		  TFSearchViewer.close
+		  UPSearchViewer.close
 		End Sub
 	#tag EndEvent
 
@@ -664,6 +667,20 @@ End
 		  if Ubound(genomeWin.HmmHits)>0 then
 		    RegPreciseCompareScores.Enable
 		  end if
+		  
+		  'enable copying if anything is selected:
+		  if seq.Sellength>0 OR selFeatureNo>0 then
+		    EditCopy.enabled=true
+		    'enable copying of protein sequence, but only if a CDS is selected
+		    if SelFeatureNo>0 then
+		      if seq.Features(SelFeatureNo).type="CDS" then
+		        EditCopyTranslation.enabled=true
+		      end if
+		    end if
+		  else
+		    EditCopy.enabled=false
+		  end if
+		  
 		End Sub
 	#tag EndEvent
 

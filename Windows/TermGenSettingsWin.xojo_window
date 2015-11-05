@@ -22,7 +22,7 @@ Begin Window TermGenSettingsWin
    MinimizeButton  =   True
    MinWidth        =   300
    Placement       =   0
-   Resizeable      =   True
+   Resizeable      =   False
    Title           =   "TermGen Settings"
    Visible         =   False
    Width           =   484

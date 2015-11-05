@@ -125,6 +125,7 @@ Inherits Application
 		      end if
 		    case "Fasta"
 		      logowin.LoadAlignment(item)
+		      logowin.ChangeView("Logo")
 		      logowin.title="SigmoIH: "+item.DisplayName
 		    case "SigmoidFile"
 		      logowin.LoadAlignment(item)
@@ -257,6 +258,7 @@ Inherits Application
 			if tmpfile<>nil then
 			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 			logowin.LoadAlignment(tmpFile)
+			logowin.ChangeView("Logo")
 			Return True
 			end if
 			
@@ -282,6 +284,7 @@ Inherits Application
 			RegulonDB2fasta(tmpfile,convertedFasta)
 			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 			logowin.LoadAlignment(convertedFasta)
+			logowin.ChangeView("Logo")
 			end if
 			
 			Return True
@@ -606,6 +609,7 @@ Inherits Application
 		13. Allow to edit and save seqs in a .sig file  
 		14. if a CDS is selected, Cmd-C should copy the AA, not DNA sequence
 		16. add feature menu? (Add new feature from current hit, etc.)
+		17. add menu commands for database search functions?
 		18. add scrolling/selection in detail view
 		19. when a gene is selected, blastN/blastX should be in menu instead of blastp
 		20. text search glitch: searching with a query composed of the four nucleotide letters (irrespective of the case) will look up sequences
@@ -617,7 +621,9 @@ Inherits Application
 		31. alternative start codons are not translated as methionine
 		32. Need to support proxy icon for Mac
 		33. limit log length to avoid slowdowns
-		
+		35. NCBI db config options
+		36. Selection of calibrated profile folders is required!
+		37. Disable nhmmer button after weblogo error
 	#tag EndNote
 
 	#tag Note, Name = Linux details

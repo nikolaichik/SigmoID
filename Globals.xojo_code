@@ -451,10 +451,10 @@ Protected Module Globals
 		        MsgBox "There was a problem displaying html. This is probably because of missing WebKit libraries. Please try to launch Sigmoid with the provided sigmoid.sh script or consult the docs on details of Linux install."
 		      #endif
 		    #else
-		      MsgBox err.Message+". Error Code: "+Str(err.errorNumber)
+		      MsgBox "There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)
 		    #endif
 		  else
-		    MsgBox err.Message+". Error Code: "+Str(err.errorNumber)
+		    MsgBox "There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)
 		  end if
 		End Sub
 	#tag EndMethod
@@ -1992,6 +1992,7 @@ Protected Module Globals
 			Name="tfastxPath"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"

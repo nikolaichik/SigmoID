@@ -596,7 +596,7 @@ End
 		    
 		    
 		    cli=MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
-		    cli=cli+" -maxw "+str(MinField.text)
+		    cli=cli+" -maxw "+str(MaxField.text)
 		    
 		    '[-pal]            force palindromes (requires -dna)
 		    if PalindromicBox.Value then
@@ -668,8 +668,9 @@ End
 #tag Events RunButton
 	#tag Event
 		Sub Action()
-		  dim errCode as integer = MEMEhtml
 		  self.hide
+		  dim errCode as integer = MEMEhtml
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

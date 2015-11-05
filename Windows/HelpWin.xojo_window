@@ -115,7 +115,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Close()
-		  
+		  WebViewer.close
 		End Sub
 	#tag EndEvent
 

@@ -305,11 +305,11 @@ Begin Window RegPreciseWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   217
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0

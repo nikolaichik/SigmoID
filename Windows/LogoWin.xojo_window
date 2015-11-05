@@ -868,6 +868,7 @@ End
 			start=floor((SelArray1(1)-7)/30)
 			length=floor((SelArray2(1)-7)/30)-start
 			InStream = logofile.OpenAsTextFile
+			if Instream<>Nil then
 			OutStream = outfile.createTextFile 'make the file to store the stuff in
 			while not InStream.EOF
 			aLine=InStream.readLine
@@ -879,6 +880,9 @@ End
 			
 			wend
 			InStream.close
+			else
+			msgbox "Error trying to create file"
+			end if
 			OutStream.close
 			
 			
@@ -1412,7 +1416,7 @@ End
 		      if BSfastaFile<>nil then
 		        dim outstream As TextOutputStream
 		        outstream = TextOutputStream.Create(BSfastaFile)
-		        outstream.write(trim(Sequences))
+		        outstream.write(trim(Informer.text))
 		        outstream.close
 		        LoadAlignment(BSfastaFile)
 		        logowin.ChangeView("Logo")
@@ -2402,6 +2406,8 @@ End
 		      
 		      'ProfileWizardWin cleanup:
 		      ProfileWizardWin.InfoArea.text=""
+		      ProfileWizardWin.InfoArea.Italic=false
+		      ProfileWizardWin.InfoArea.TextColor=&c00000000 'black
 		      ProfileWizardWin.GatheringField.text=""
 		      ProfileWizardWin.NoiseField.text=""
 		      ProfileWizardWin.TrustedField.text=""
@@ -3030,15 +3036,15 @@ End
 		    if SigFileOpened then
 		      HmmFile.CopyFileTo(SpecialFolder.Temporary)
 		      dim HmmFileTmp as folderitem = SpecialFolder.Temporary.child(HmmFile.DisplayName)
-		      cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+GenomeFilePath
+		      cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+GenomeFilePath
 		    else
 		      if masked then
 		        alimask LogoFile
 		        WriteToSTDOUT (EndofLine+EndofLine+"Alignment masked.")
 		        '/usr/local/bin/nhmmer
-		        cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+alimasktmp.ShellPath+" "+GenomeFilePath
+		        cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+alimasktmp.ShellPath+" "+GenomeFilePath
 		      else
-		        cli=nhmmerpath+" "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+Logofile.ShellPath+" "+GenomeFilePath
+		        cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+Logofile.ShellPath+" "+GenomeFilePath
 		      end if
 		    end if
 		    

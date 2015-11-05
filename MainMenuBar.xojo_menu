@@ -92,23 +92,16 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem UntitledItem4
+      Begin MenuItem FileExportSequence
          SpecialMenu = 0
-         Text = "-"
+         Text = "#kExportSequence"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileExportFeatureTable
          SpecialMenu = 0
          Text = "#kExportFeatureTable"
-         Index = -2147483648
-         AutoEnable = False
-         Visible = True
-      End
-      Begin MenuItem FileExportSequence
-         SpecialMenu = 0
-         Text = "#kExportSequence"
          Index = -2147483648
          AutoEnable = False
          Visible = True
@@ -182,7 +175,7 @@ Begin Menu MainMenuBar
          Shortcut = "Cmd+Shift+C"
          MenuModifier = True
          AltMenuModifier = True
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem EditPaste
@@ -220,23 +213,6 @@ Begin Menu MainMenuBar
          Visible = True
       End
       Begin MenuItem EditSeparator2
-         SpecialMenu = 0
-         Text = "-"
-         Index = -2147483648
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem EditClose
-         SpecialMenu = 0
-         Text = "#kClose"
-         Index = -2147483648
-         ShortcutKey = "W"
-         Shortcut = "Cmd+W"
-         MenuModifier = True
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem UntitledItem3
          SpecialMenu = 0
          Text = "-"
          Index = -2147483648

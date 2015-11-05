@@ -137,7 +137,8 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Close()
-		  
+		  WebViewer.close
+		  'this should prevent crash if the window is closed while still loading the page
 		End Sub
 	#tag EndEvent
 
@@ -255,6 +256,7 @@ End
 	#tag Event
 		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
 		  ProgressWheel1.Refresh
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
