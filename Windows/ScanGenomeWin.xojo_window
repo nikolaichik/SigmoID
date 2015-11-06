@@ -461,7 +461,9 @@ End
 		      SigList.CellCheck(SigList.LastIndex,0) = true
 		    end if
 		  next
-		  
+		  SigList.SortedColumn=1
+		  SigList.ColumnsortDirection(1)=ListBox.SortDescending
+		  SigList.sort
 		  
 		  Exception err
 		    ExceptionHandler(err,"ScanGenomeWin:BuildSigArray")

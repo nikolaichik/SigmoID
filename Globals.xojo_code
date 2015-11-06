@@ -464,7 +464,7 @@ Protected Module Globals
 		  
 		  if RegPreciseWin.RegulatorList.SelCount=1 then
 		    if LogoWin.GenomeFile<>nil then
-		      RegPreciseWin.FastaButton.Enabled=true
+		      RegPreciseWin.FastaButton.Enabled=true   
 		    else
 		      RegPreciseWin.FastaButton.Enabled=false
 		    end if

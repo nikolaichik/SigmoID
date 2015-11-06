@@ -436,6 +436,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem RegulonGetRegPreciseTFseqs
+         SpecialMenu = 0
+         Text = "Get RegPrecise TF seqs"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
    End
    Begin MenuItem GenomeMenu
       SpecialMenu = 0
@@ -450,16 +457,16 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem GenomeMASTSearch
+      Begin MenuItem GenomeAnnotate
          SpecialMenu = 0
-         Text = "#kMASTSearch"
+         Text = "#kAnnotateCurrentSites"
          Index = -2147483648
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem GenomeAnnotate
+      Begin MenuItem GenomeMASTSearch
          SpecialMenu = 0
-         Text = "#kAnnotateCurrentSites"
+         Text = "#kMASTSearch"
          Index = -2147483648
          AutoEnable = False
          Visible = True

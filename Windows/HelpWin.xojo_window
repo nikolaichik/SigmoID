@@ -5,7 +5,7 @@ Begin Window HelpWin
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   True
-   Frame           =   3
+   Frame           =   9
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False

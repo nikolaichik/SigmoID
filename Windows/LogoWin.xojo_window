@@ -67,7 +67,7 @@ Begin Window LogoWin
       LockTop         =   True
       Mask            =   ""
       Multiline       =   True
-      ReadOnly        =   False
+      ReadOnly        =   True
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollbarVertical=   True
@@ -236,6 +236,8 @@ End
 		  if SeqsChanged then
 		    FileSaveProfileAs.enabled=true
 		  end if
+		  
+		  
 		  
 		  
 		  if SigFileOpened then
@@ -1452,6 +1454,7 @@ End
 		    'Informer.visible=true
 		    'Informer.enabled=true
 		    Informer.text=Sequences
+		    Informer.ReadOnly=false
 		    TopPanel.Value=0
 		    informer.visible=true
 		    TopPanel.visible=true
@@ -1466,6 +1469,7 @@ End
 		    ViewHmmProfile.Checked=false
 		    ViewMEMEresults.checked=false
 		    Informer.text=Info
+		    Informer.ReadOnly=true
 		    TopPanel.value=0
 		    informer.visible=true
 		    TopPanel.visible=true
@@ -1513,6 +1517,7 @@ End
 		    ViewHmmProfile.Checked=false
 		    ViewMEMEresults.checked=false
 		    Informer.text=ProfileSettings
+		    Informer.ReadOnly=true
 		    TopPanel.visible=true
 		    TopPanel.Value=0
 		    informer.visible=true
@@ -1530,6 +1535,7 @@ End
 		    ViewHmmProfile.Checked=true
 		    ViewMEMEresults.checked=false
 		    Informer.text=HmmProfile
+		    Informer.ReadOnly=true
 		    TopPanel.Value=0
 		    TopPanel.visible=true
 		    informer.visible=true
@@ -1547,6 +1553,7 @@ End
 		    ViewHmmProfile.Checked=false
 		    ViewMEMEresults.checked=true
 		    Informer.text=MEMEdata
+		    Informer.ReadOnly=true
 		    TopPanel.Value=0
 		    TopPanel.visible=true
 		    informer.visible=true
@@ -3472,6 +3479,10 @@ End
 		Protected Info As string
 	#tag EndProperty
 
+	#tag Property, Flags = &h1
+		Protected InformerHasFocus As Boolean
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		IsRegulog As boolean
 	#tag EndProperty
@@ -3969,6 +3980,27 @@ End
 		  if ViewSequences.Checked=true then
 		    SeqsChanged=true
 		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  'enable editing of only the sequences
+		  
+		  if ViewSequences.Checked then
+		    return false 
+		  else
+		    return true
+		  end if
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  InformerHasFocus=true
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  InformerHasFocus=false
 		End Sub
 	#tag EndEvent
 #tag EndEvents

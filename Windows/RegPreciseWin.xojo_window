@@ -335,6 +335,14 @@ End
 		    'RegulonCheckTF.Enabled=true
 		  end if
 		  
+		  
+		  if Keyboard.AltKey then
+		    RegulonGetRegPreciseTFseqs.visible=true
+		    RegulonGetRegPreciseTFseqs.enabled=true
+		  else
+		    RegulonGetRegPreciseTFseqs.visible=false
+		    RegulonGetRegPreciseTFseqs.enabled=false
+		  end if
 		End Sub
 	#tag EndEvent
 
@@ -360,6 +368,12 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function RegPreciseRegulonInfo1() As Boolean Handles RegPreciseRegulonInfo1.Action
+			RegulonInfo
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function RegulonShowLogo() As Boolean Handles RegulonShowLogo.Action
 			RegulonLogo
 			
@@ -370,84 +384,75 @@ End
 
 	#tag Method, Flags = &h0
 		Sub CheckTF()
-		  dim RegulonID, vimssId, ProteinFasta as string
-		  logowin.show
+		  'This mentod is restricted to DebugBuild only due to Xojo database licensing restriction
+		  'You may fully enable it if if you have the Database license 
 		  
-		  RegulonID=JSONitem(regulatorArray(RegulatorList.ListIndex)).Value("regulonId")
-		  
-		  logowin.WriteToSTDOUT("Contacting RegPrecise... ")
-		  
-		  dim res as string
-		  dim jsn as new JSONItem
-		  dim jsn0 as new JSONItem
-		  dim hts as new HTTPSocket
-		  
-		  res=hts.Get(" 'http://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,15)
-		  
-		  if res<>"" then
-		    JSN0.load(res)
-		    'should contain smth like:
-		    '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		  #if DebugBuild then
+		    dim RegulonID, vimssId, ProteinFasta as string
+		    logowin.show
 		    
-		    JSN=JSN0.value("regulator")
-		    ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
-		    vimssId=JSN.Value("vimssId")
-		    LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
+		    RegulonID=JSONitem(regulatorArray(RegulatorList.ListIndex)).Value("regulonId")
 		    
-		  end if
-		  
-		  logowin.WriteToSTDOUT("Contacting MicrobesOnline... ")
-		  
-		  ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
-		  
-		  Dim db As New MySQLCommunityServer
-		  db.Host = "pub.microbesonline.org"
-		  'db.Port = 3306
-		  db.DatabaseName = "genomics"
-		  db.UserName = "guest"
-		  db.Password = "guest"
-		  If db.Connect Then
-		    // Use the database
+		    logowin.WriteToSTDOUT("Contacting RegPrecise... ")
 		    
-		    Dim rs As RecordSet
-		    rs = db.SQLSelect("select * from AASeq where locusId="+vimssId) 
+		    dim res as string
+		    dim jsn as new JSONItem
+		    dim jsn0 as new JSONItem
+		    dim hts as new HTTPSocket
 		    
-		    If db.Error Then
-		      MsgBox("Error: " + db.ErrorMessage)
-		      Return
+		    res=hts.Get(" 'http://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,15)
+		    
+		    if res<>"" then
+		      JSN0.load(res)
+		      'should contain smth like:
+		      '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		      
+		      JSN=JSN0.value("regulator")
+		      ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
+		      vimssId=JSN.Value("vimssId")
+		      LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
+		      
+		    end if
+		    
+		    logowin.WriteToSTDOUT("Contacting MicrobesOnline... ")
+		    
+		    ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
+		    
+		    Dim db As New MySQLCommunityServer
+		    db.Host = "pub.microbesonline.org"
+		    'db.Port = 3306
+		    db.DatabaseName = "genomics"
+		    db.UserName = "guest"
+		    db.Password = "guest"
+		    If db.Connect Then
+		      // Use the database
+		      
+		      Dim rs As RecordSet
+		      rs = db.SQLSelect("select * from AASeq where locusId="+vimssId) 
+		      
+		      If db.Error Then
+		        MsgBox("Error: " + db.ErrorMessage)
+		        Return
+		      End If
+		      
+		      If rs <> Nil Then
+		        ProteinFasta=ProteinFasta+EndOfLine.UNIX+rs.Field("sequence").StringValue
+		        tfastx(ProteinFasta)
+		        rs.Close
+		      End If
+		      db.Close
+		      
+		      
+		    Else
+		      // Connection error
+		      MsgBox(db.ErrorMessage)
 		    End If
 		    
-		    If rs <> Nil Then
-		      ProteinFasta=ProteinFasta+EndOfLine.UNIX+rs.Field("sequence").StringValue
-		      tfastx(ProteinFasta)
-		      rs.Close
-		    End If
-		    db.Close
 		    
+		  #else
+		    MsgBox "This method is currently disabled due to database licensing issue. Should hopefully be fixed sometime..."
 		    
-		  Else
-		    // Connection error
-		    MsgBox(db.ErrorMessage)
-		  End If
-		  
-		  
-		  
-		  
-		  
-		  
-		  'dim TF_ID, theURL as string
-		  'TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
-		  'TF_name=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  'if instr(TF_name,"-")>0 then
-		  'LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
-		  'end if
-		  'theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
-		  'theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
-		  '
-		  ''WebBrowserWin.show
-		  'RegulonDBSocket.Get(theURL)
-		  
-		  
+		  #endif
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:CheckTF")
 		    

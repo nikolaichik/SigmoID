@@ -194,7 +194,6 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -443,9 +442,8 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -460,17 +458,15 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   20
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket RDBSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -485,8 +481,7 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
 End
@@ -505,6 +500,8 @@ End
 		      RegulonCheckTF.Enabled=false
 		    end if
 		  end if
+		  
+		  
 		  
 		End Sub
 	#tag EndEvent
@@ -525,15 +522,71 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
-			RegulonInfo
+		Function RegulonCheckTF() As Boolean Handles RegulonCheckTF.Action
+			
+			
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function RegulonCheckTF() As Boolean Handles RegulonCheckTF.Action
+		Function RegulonGetRegPreciseTFseqs() As Boolean Handles RegulonGetRegPreciseTFseqs.Action
+			'just run tfasty/tfastx
 			
+			'get the ID:
+			logowin.show
+			logowin.WriteToSTDOUT("Contacting RegulonDB... ")
+			dim TF_ID, theURL as string
+			TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
+			TF_name=RegulatorList.Cell(RegulatorList.ListIndex,0)
+			if instr(TF_name,"-")>0 then
+			LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
+			end if
+			theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
+			theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
 			
+			dim res as string
+			dim hts as new HTTPSocket
+			res=hts.Get(theURL,10)
+			
+			if res<>"" then
+			dim ProteinID, fastaURL as string
+			dim n,geneNo as integer
+			
+			'get the gene/ProteinID from the first (there'll be many) html tag that look like this:
+			'<a href="/gene?term=ECK120000719&organism=ECK12&format=jsp&type=gene">phoB</a></span></td>
+			
+			'the page may contain several genes (e.g. the rcsB page), hence the dances below
+			
+			geneno=CountFields(res,"/gene?term=")
+			for n=2 to geneNo+2
+			ProteinID=NthField(res,"/gene?term=",n)
+			ProteinID=NthField(ProteinID,"</a>",1)
+			if instr(ProteinID,TF_name)>0 then
+			ProteinID=NthField(ProteinID,"&organism=",1)
+			exit
+			end if
+			next
+			
+			if ProteinID<>"" then
+			fastaURL="http://regulondb.ccg.unam.mx/sequence?type=PD&term="+ProteinID+"&format=fasta"
+			
+			res=hts.Get(fastaURL,10)
+			if res<>"" then
+			dim ProteinFasta as string
+			
+			'extract Fasta formatted protein seq
+			'the seq is within the <pre> tag, but there are two of those, so we're searching for "<pre>>"
+			'content supposedly has the ISO-8859-1 encoding, but Xojo gets line ends wrongx
+			
+			ProteinFasta=defineEncoding(NthField(res,"<pre>>",2),Encodings.ISOLatin1)
+			ProteinFasta=">"+NthField(ProteinFasta,"</pre>",1)
+			ProteinFasta=ConvertEncoding(trim(ProteinFasta),Encodings.ASCII)
+			logowin.WriteToSTDOUT(ProteinFasta+EndOfLine)
+			end if
+			else
+			msgbox "Can't get TF data from RegulonDB."
+			end if
+			end if
 		End Function
 	#tag EndMenuHandler
 
@@ -560,7 +613,7 @@ End
 		  theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
 		  theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
 		  
-		  'WebBrowserWin.show
+		  
 		  RegulonDBSocket.Get(theURL)
 		  
 		End Sub

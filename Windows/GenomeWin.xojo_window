@@ -669,7 +669,7 @@ End
 		  end if
 		  
 		  'enable copying if anything is selected:
-		  if seq.Sellength>0 OR selFeatureNo>0 then
+		  if AnythingSelected then
 		    EditCopy.enabled=true
 		    'enable copying of protein sequence, but only if a CDS is selected
 		    if SelFeatureNo>0 then
@@ -681,6 +681,7 @@ End
 		    EditCopy.enabled=false
 		  end if
 		  
+		  EditCut.enabled=false
 		End Sub
 	#tag EndEvent
 
@@ -3866,6 +3867,15 @@ End
 		  
 		  p=seq.map
 		  
+		  'set the boolean for proper contextual menu construction
+		  if FeatureLeft<0 then
+		    AnythingSelected=false
+		  elseif FeatureRight=FeatureLeft then
+		    AnythingSelected=false
+		  else
+		    AnythingSelected=true
+		  end if
+		  
 		  if p<>nil then
 		    if featureleft=-1 then
 		      RectShape(p.Objects.Item(0)).width=0
@@ -3969,6 +3979,10 @@ End
 
 	#tag Property, Flags = &h0
 		AnyNameClicked As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		AnythingSelected As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -4800,7 +4814,9 @@ End
 		    'need to set selection in the seq object too
 		    seq.Sellength=w*seq.bpPerPixel
 		    'end
-		    
+		    if seq.SelLength>0 then
+		      AnythingSelected=true
+		    end if
 		    
 		    
 		    'refreshrect 0,0,width,height
