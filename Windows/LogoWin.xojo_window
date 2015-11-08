@@ -24,7 +24,7 @@ Begin Window LogoWin
    Placement       =   0
    Resizeable      =   True
    Title           =   "SigmoID"
-   Visible         =   True
+   Visible         =   False
    Width           =   1000
    Begin Toolbar1 LogoWinToolbar
       Enabled         =   True

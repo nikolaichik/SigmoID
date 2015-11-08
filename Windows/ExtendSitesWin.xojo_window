@@ -24,7 +24,7 @@ Begin Window ExtendSitesWin
    Placement       =   0
    Resizeable      =   True
    Title           =   "Extend Binding Sites"
-   Visible         =   True
+   Visible         =   False
    Width           =   390
    Begin Label Label1
       AutoDeactivate  =   True

@@ -24,7 +24,7 @@ Begin Window About
    Placement       =   0
    Resizeable      =   False
    Title           =   ""
-   Visible         =   True
+   Visible         =   False
    Width           =   590
    Begin Label StaticText3
       AutoDeactivate  =   True

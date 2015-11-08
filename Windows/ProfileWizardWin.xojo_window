@@ -24,7 +24,7 @@ Begin Window ProfileWizardWin
    Placement       =   0
    Resizeable      =   False
    Title           =   "Profile Wizard"
-   Visible         =   True
+   Visible         =   False
    Width           =   628
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True

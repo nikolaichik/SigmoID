@@ -24,7 +24,7 @@ Begin Window GoToWin
    Placement       =   0
    Resizeable      =   True
    Title           =   "Go to..."
-   Visible         =   True
+   Visible         =   False
    Width           =   212
    Begin PushButton OKButton
       AutoDeactivate  =   True

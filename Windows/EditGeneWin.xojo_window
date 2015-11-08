@@ -24,7 +24,7 @@ Begin Window EditGeneWin
    Placement       =   0
    Resizeable      =   False
    Title           =   "#kEditFeatureWtitle"
-   Visible         =   True
+   Visible         =   False
    Width           =   296
    Begin TextArea GeneNameField
       AcceptTabs      =   False

@@ -24,7 +24,7 @@ Begin Window WebBrowserWin
    Placement       =   0
    Resizeable      =   True
    Title           =   ""
-   Visible         =   True
+   Visible         =   False
    Width           =   1100
    Begin TextField AddressField
       AcceptTabs      =   False

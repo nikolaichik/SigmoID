@@ -24,7 +24,7 @@ Begin Window HelpWin
    Placement       =   0
    Resizeable      =   True
    Title           =   "SQ Help"
-   Visible         =   True
+   Visible         =   False
    Width           =   600
    Begin HTMLViewer WebViewer
       AutoDeactivate  =   True

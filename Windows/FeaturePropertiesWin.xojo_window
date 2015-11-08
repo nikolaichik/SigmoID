@@ -24,7 +24,7 @@ Begin Window FeaturePropertiesWin
    Placement       =   0
    Resizeable      =   False
    Title           =   "#kEditFeatureWtitle"
-   Visible         =   True
+   Visible         =   False
    Width           =   524
    Begin TextArea FeatureTextField
       AcceptTabs      =   False
