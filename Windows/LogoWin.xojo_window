@@ -67,7 +67,7 @@ Begin Window LogoWin
       LockTop         =   True
       Mask            =   ""
       Multiline       =   True
-      ReadOnly        =   True
+      ReadOnly        =   False
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollbarVertical=   True
@@ -2344,7 +2344,7 @@ End
 		        switchName=NthField(theOption," ",1)
 		        select case switchName
 		        case "-L"
-		          HmmGenSettingsWin.lengthField.text=NthField(theOption," ",2)
+		          HmmGenSettingsWin.AlignmentLength=NthField(theOption," ",2)
 		        case "-p"
 		          HmmGenSettingsWin.PalindromicBox.value=true
 		          palindromic=true
@@ -2372,7 +2372,7 @@ End
 		      MastGenSettingsWin.IntergenicBox.value=HmmGenSettingsWin.IntergenicBox.value
 		      MastGenSettingsWin.AddQualifierBox.value=HmmGenSettingsWin.AddQualifierBox.value
 		      MastGenSettingsWin.NextLocusBox.value=HmmGenSettingsWin.NextLocusBox.value
-		      MastGenSettingsWin.lengthField.text=HmmGenSettingsWin.lengthField.text
+		      MastGenSettingsWin.lengthField.text=HmmGenSettingsWin.AlignmentLength
 		      MastGenSettingsWin.FeatureCombo.Text=HmmGenSettingsWin.FeatureCombo.Text
 		      MastGenSettingsWin.KeyField.text=HmmGenSettingsWin.KeyField.text
 		      MastGenSettingsWin.ValueField.text=HmmGenSettingsWin.ValueField.text
@@ -2397,7 +2397,6 @@ End
 		      HmmGenSettingsWin.IntergenicBox.value=True
 		      HmmGenSettingsWin.AddQualifierBox.value=True
 		      HmmGenSettingsWin.NextLocusBox.value=True
-		      HmmGenSettingsWin.lengthField.text=""
 		      HmmGenSettingsWin.EvalueField.enabled=true
 		      HmmGenSettingsWin.EvalueButton.enabled=true
 		      nhmmerSettingsWin.MaskingBox.enabled=true
@@ -2463,7 +2462,7 @@ End
 		        while not tis.EOF
 		          aLine=tis.readLine
 		          if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
-		            HmmGenSettingsWin.LengthField.CueText=str(len(aline))
+		            HmmGenSettingsWin.AlignmentLength=str(len(aline))
 		            exit
 		          end if
 		        wend

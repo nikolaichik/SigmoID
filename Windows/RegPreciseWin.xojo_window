@@ -628,6 +628,8 @@ End
 		  LogoWin.RegulogID=Val(RegulogID)
 		  LogoWin.IsRegulog=true
 		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
+		  HmmGenSettingsWin.ValueField.text=TFname
+		  MASTGenSettingsWin.ValueField.text=TFname
 		  LogoWin.show
 		  
 		  Exception err
@@ -685,6 +687,8 @@ End
 		  LogoWin.RegulogID=Val(RegulogID)
 		  LogoWin.IsRegulog=false
 		  LogoWin.LoadRegpreciseData(RegulonID,TFname,false)
+		  HmmGenSettingsWin.ValueField.text=TFname
+		  MASTGenSettingsWin.ValueField.text=TFname
 		  LogoWin.show
 		  
 		  Exception err

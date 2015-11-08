@@ -9,7 +9,7 @@ Begin Window HmmGenSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   414
+   Height          =   372
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -26,41 +26,6 @@ Begin Window HmmGenSettingsWin
    Title           =   "HmmGen Settings"
    Visible         =   False
    Width           =   400
-   Begin Label Label3
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Acceptable match lengths:"
-      TextAlign       =   2
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   150
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   190
-   End
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
@@ -87,7 +52,7 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   374
+      Top             =   332
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -118,7 +83,7 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   374
+      Top             =   332
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -167,24 +132,23 @@ Begin Window HmmGenSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockRight       =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Feature to add:"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   190
+      Top             =   148
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -201,11 +165,11 @@ Begin Window HmmGenSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
@@ -213,7 +177,7 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   226
+      Top             =   184
       Underline       =   False
       Visible         =   True
       Width           =   360
@@ -230,11 +194,11 @@ Begin Window HmmGenSettingsWin
          InitialParent   =   "GroupBox1"
          Italic          =   False
          Left            =   29
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
+         LockRight       =   True
+         LockTop         =   False
          Scope           =   0
          State           =   1
          TabIndex        =   0
@@ -243,7 +207,7 @@ Begin Window HmmGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   241
+         Top             =   199
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -269,11 +233,11 @@ Begin Window HmmGenSettingsWin
          Italic          =   False
          Left            =   29
          LimitText       =   0
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
+         LockRight       =   True
+         LockTop         =   False
          Mask            =   ""
          Password        =   False
          ReadOnly        =   False
@@ -286,7 +250,7 @@ Begin Window HmmGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   273
+         Top             =   231
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -312,11 +276,11 @@ Begin Window HmmGenSettingsWin
          Italic          =   False
          Left            =   166
          LimitText       =   0
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   True
-         LockTop         =   True
+         LockTop         =   False
          Mask            =   ""
          Password        =   False
          ReadOnly        =   False
@@ -329,7 +293,7 @@ Begin Window HmmGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   273
+         Top             =   231
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -368,48 +332,6 @@ Begin Window HmmGenSettingsWin
       Visible         =   True
       Width           =   136
    End
-   Begin TextField LengthField
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
-      Bold            =   False
-      Border          =   True
-      CueText         =   "min:max"
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   222
-      LimitText       =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   18
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   148
-      Underline       =   False
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   158
-   End
    Begin ComboBox FeatureCombo
       AutoComplete    =   False
       AutoDeactivate  =   True
@@ -424,11 +346,11 @@ Begin Window HmmGenSettingsWin
       Italic          =   False
       Left            =   136
       ListIndex       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -436,7 +358,7 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   190
+      Top             =   148
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -659,11 +581,11 @@ Begin Window HmmGenSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       State           =   1
       TabIndex        =   22
@@ -672,7 +594,7 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   324
+      Top             =   282
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -751,17 +673,7 @@ End
 		    opt=opt+" -i"
 		  end if
 		  
-		  if LengthField.text<>"" then
-		    if instr(LengthField.text,":")>0 then
-		      opt=opt+" -L "+me.lengthField.CueText 'workaround for old (min:max) format
-		    else
-		      opt=opt+" -L "+me.lengthField.text
-		    end if
-		  else
-		    'use the cueText which holds the alignment length
-		    opt=opt+" -L "+me.lengthField.CueText
-		  end if
-		  
+		  opt=opt+" -L "+me.AlignmentLength
 		  
 		  if PalindromicBox.Value then
 		    opt=opt+" -p"
@@ -854,6 +766,10 @@ End
 
 
 	#tag Property, Flags = &h0
+		Shared AlignmentLength As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		OKPressed As boolean
 	#tag EndProperty
 
@@ -927,17 +843,6 @@ End
 		  end if
 		  
 		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events LengthField
-	#tag Event
-		Sub TextChange()
-		  'if me.text="" then
-		  'RunButton.enabled=false
-		  'ELSE
-		  'RunButton.enabled=true
-		  'END IF
 		End Sub
 	#tag EndEvent
 #tag EndEvents

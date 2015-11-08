@@ -999,12 +999,17 @@ End
 		  end if
 		  
 		  if CutoffBox.Enabled then              'select cutoff to use
+		    'copy the values to HmmGenSettingsWin
+		    'in case the user runs HmmGen.py without configuring it. 
 		    if gaButton.Value=true then
 		      PNO=PNO+" --cut_ga"                 '--cut_ga
+		      HmmGenSettingsWin.BitScoreField.text=mid(GAvalue.text,2,len(GAvalue.text)-2)
 		    elseif ncButton.Value=true then
 		      PNO=PNO+" --cut_nc"                 '--cut_nc
+		      HmmGenSettingsWin.BitScoreField.text=mid(NCvalue.text,2,len(NCvalue.text)-2)
 		    elseif tcButton.Value=true then
 		      PNO=PNO+" --cut_tc"                 '--cut_tc
+		      HmmGenSettingsWin.BitScoreField.text=mid(TCvalue.text,2,len(TCvalue.text)-2)
 		    end if
 		    
 		  else
