@@ -45,7 +45,7 @@ Inherits Application
 		    FileClose.enabled=true
 		  end if
 		  
-		  
+		  RegulonGetRegPreciseTFseqs.visible=false
 		  
 		End Sub
 	#tag EndEvent
@@ -54,7 +54,11 @@ Inherits Application
 		Sub Open()
 		  
 		  #if TargetMacOS then 'Bundle ↠ Contents ↠ Resources
+		    
 		    #if DebugBuild then
+		      #If XojoVersion < 2015.03 Then
+		        msgbox "Running with Xojo "+str(XojoVersion)
+		      #endif
 		      resources_f=GetFolderItem("SigmoID.debug.app")
 		    #else
 		      resources_f=GetFolderItem("SigmoID.app")
@@ -67,7 +71,19 @@ Inherits Application
 		    ''resources_f=GetFolderItem("").Child("Resources")
 		    ''#endif
 		  #else
-		    resources_f=GetFolderItem("").Child("Resources")
+		    #If XojoVersion >= 2015.03 Then
+		      'folders now include app name
+		      resources_f=GetFolderItem("").Child("SigmoID Resources")
+		      if resources_f=NIL then
+		        msgbox "Can't access Resources folder!"
+		      end if
+		      
+		    #else
+		      resources_f=GetFolderItem("").Child("Resources")
+		      if resources_f=NIL then
+		        msgbox "Can't access Resources folder!"
+		      end if
+		    #endif
 		  #endif
 		  
 		  
@@ -103,6 +119,7 @@ Inherits Application
 		  for n=0 to 24
 		    RevCompArr(n+97)=val(midB(RCCodes,(3*n+1),2))+32
 		  next
+		  
 		  
 		  
 		  GeneticCodesInit
@@ -185,7 +202,7 @@ Inherits Application
 			dlg.ActionButtonCaption = "Make .sig"
 			dlg.Title = "Convert Folder to .sig File "
 			dlg.PromptText = "Select folder with .fasta, .options and .info files to convert"
-			dlg.InitialDirectory = Resources_f.child("Profiles")
+			dlg.InitialDirectory = Profile_f
 			
 			Dim f As FolderItem
 			f = dlg.ShowModal
@@ -600,30 +617,25 @@ Inherits Application
 
 
 	#tag Note, Name = 2 do
+		1. Selection of calibrated profile folders is required!
+		2. Add preference/option to set which database to use with BLAST (same for taxonomy restriction)
 		
-		1. Deselect all hits in genome browser
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
-		4. Clear description of what the cleanup the scripts do.
 		9. Prepare submission menu?
 		12. Proper profile extend/shrink functions
-		13. Allow to edit and save seqs in a .sig file  
-		14. if a CDS is selected, Cmd-C should copy the AA, not DNA sequence
 		16. add feature menu? (Add new feature from current hit, etc.)
 		17. add menu commands for database search functions?
 		18. add scrolling/selection in detail view
-		19. when a gene is selected, blastN/blastX should be in menu instead of blastp
 		20. text search glitch: searching with a query composed of the four nucleotide letters (irrespective of the case) will look up sequences
 		22. text search glitch: searching with short upper case query (eg FNR) will pick up CDS with these letters in translation
 		23. add 'GoTo hit # ' menu
 		25. Check background frequences influence on MAST search.
 		27. closing the last search tab in genome browser should hide htmlviewer control
-		28. Add preference/option to set which database use with BLAST (same for taxonomy restriction)
 		31. alternative start codons are not translated as methionine
-		32. Need to support proxy icon for Mac
 		33. limit log length to avoid slowdowns
-		35. NCBI db config options
-		36. Selection of calibrated profile folders is required!
-		37. Disable nhmmer button after weblogo error
+		38. Include TF AA seqs from RegPrecise to avoid mySQL connection
+		39. Don't add features if there's nothing to add!
+		40. (not reproduced) Select smth in genomewin, scroll (search) to remove selection, bring up context menu => crash
 	#tag EndNote
 
 	#tag Note, Name = Linux details

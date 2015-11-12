@@ -448,7 +448,7 @@ End
 		  dim f as folderitem
 		  dim aName as string
 		  
-		  f=Resources_f.child("Profiles")
+		  f=Profile_f
 		  m=f.Count
 		  for n=1 to m
 		    'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
@@ -479,7 +479,7 @@ End
 		  
 		  Logowin.ScanningGenome=true 'to prevent file writing messages
 		  infileName=logowin.genomefile.displayname
-		  f=Resources_f.child("Profiles")
+		  f=Profile_f
 		  m=f.Count
 		  Sigcount=0
 		  dim GenomeScanOut as new FolderItem

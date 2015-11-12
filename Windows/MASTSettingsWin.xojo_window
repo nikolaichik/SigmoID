@@ -23,7 +23,7 @@ Begin Window MASTSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "nhmmer Settings"
+   Title           =   "MAST Settings"
    Visible         =   False
    Width           =   534
    Begin TextField OptionsField
@@ -90,7 +90,6 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "More options:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -125,7 +124,6 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -295,7 +293,6 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "MEME and MAST will be run sequentially"
       TextAlign       =   1
       TextColor       =   &c00000000

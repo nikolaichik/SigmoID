@@ -23,7 +23,7 @@ Begin Window HelpWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "SQ Help"
+   Title           =   "SigmoID Help"
    Visible         =   False
    Width           =   600
    Begin HTMLViewer WebViewer

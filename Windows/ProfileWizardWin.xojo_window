@@ -909,7 +909,7 @@ End
 		  dlg.PromptText = "Save calibrated profile with postprocessing settings"
 		  dlg.SuggestedFileName=Nthfield(LogoWin.LogoFile.Name, ".",1)+".sig"
 		  dlg.filter = "Sig_file"
-		  dlg.InitialDirectory = Resources_f.child("Profiles")
+		  dlg.InitialDirectory = Profile_f
 		  
 		  SigFile=dlg.ShowModal
 		  If SigFile <> Nil then

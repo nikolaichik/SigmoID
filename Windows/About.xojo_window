@@ -2,14 +2,14 @@
 Begin Window About
    BackColor       =   &cF9F9F900
    Backdrop        =   0
-   CloseButton     =   False
+   CloseButton     =   True
    Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   True
-   Height          =   491
+   Height          =   385
    ImplicitInstance=   True
    LiveResize      =   False
    MacProcID       =   1
@@ -25,7 +25,7 @@ Begin Window About
    Resizeable      =   False
    Title           =   ""
    Visible         =   False
-   Width           =   590
+   Width           =   510
    Begin Label StaticText3
       AutoDeactivate  =   True
       Bold            =   False
@@ -54,11 +54,11 @@ Begin Window About
       TextFont        =   "Sand"
       TextSize        =   12.0
       TextUnit        =   0
-      Top             =   442
+      Top             =   336
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   564
+      Width           =   484
    End
    Begin Label Version
       AutoDeactivate  =   True
@@ -88,39 +88,39 @@ Begin Window About
       TextFont        =   "Sand"
       TextSize        =   12.0
       TextUnit        =   0
-      Top             =   411
+      Top             =   305
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   564
+      Width           =   484
    End
    Begin Canvas Canvas1
       AcceptFocus     =   False
       AcceptTabs      =   False
       AutoDeactivate  =   True
-      Backdrop        =   33147061
+      Backdrop        =   184883199
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   False
-      Height          =   331
+      Height          =   180
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   13
-      LockBottom      =   True
+      Left            =   105
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   0
+      Top             =   20
       Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
-      Width           =   561
+      Width           =   300
    End
    Begin Label Title2
       AutoDeactivate  =   True
@@ -150,11 +150,11 @@ Begin Window About
       TextFont        =   "Sand"
       TextSize        =   12.0
       TextUnit        =   0
-      Top             =   380
+      Top             =   274
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   564
+      Width           =   484
    End
    Begin Label Title1
       AutoDeactivate  =   True
@@ -184,11 +184,11 @@ Begin Window About
       TextFont        =   "Sand"
       TextSize        =   18.0
       TextUnit        =   0
-      Top             =   355
+      Top             =   249
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   564
+      Width           =   484
    End
 End
 #tag EndWindow

@@ -509,6 +509,7 @@ Protected Module Globals
 		  
 		  f = Resources_f.child("Genetic.codes")
 		  if f<>NIL AND f.exists then
+		    
 		    stream = f.OpenAsTextFile
 		    
 		    while not stream.EOF
@@ -898,6 +899,40 @@ Protected Module Globals
 		  MASTpath=Prefs.value("MASTpath",SettingsWin.MASTPathField.text)
 		  weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
 		  
+		  'set the path to default profiles folder
+		  dim pf as new folderitem
+		  #if TargetMacOS then 'Bundle ↠ Contents ↠ Resources
+		    #if DebugBuild then
+		      #If XojoVersion < 2015.03 Then
+		        msgbox "Running with Xojo "+str(XojoVersion)
+		      #endif
+		      pf=GetFolderItem("SigmoID.debug.app")
+		    #else
+		      pf=GetFolderItem("SigmoID.app")
+		    #endif
+		    pf=pf.Child("Contents").Child("Resources").Child("Profiles").Child("Pectobacterium")
+		  #else
+		    #If XojoVersion >= 2015.03 Then
+		      'folders now include app name
+		      pf=GetFolderItem("").Child("SigmoID Resources").Child("Profiles").Child("Pectobacterium")
+		      if resources_f=NIL then
+		        msgbox "Can't access Profiles folder!"
+		      end if
+		    #else
+		      pf=GetFolderItem("").Child("Resources").Child("Profiles").Child("Pectobacterium")
+		      if resources_f=NIL then
+		        msgbox "Can't access Profiles folder!"
+		      end if
+		    #endif
+		  #endif
+		  
+		  'read/set profile folder path
+		  dim ProfileFpath as string = Prefs.value("ProfileFpath",pf.shellPath)
+		  Profile_f=GetFolderItem(ProfileFpath,FolderItem.PathTypeShell)
+		  if Profile_f <>nil then
+		    SettingsWin.ProfileFolderLabel.text=Profile_f.NativePath
+		  end if
+		  LogoWin.BuildTBButtonMenu
 		End Sub
 	#tag EndMethod
 
@@ -1824,6 +1859,10 @@ Protected Module Globals
 		#tag EndGetter
 		Prefs As TTsSmartPreferences
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		Profile_f As folderitem
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		ProportionalFont As string

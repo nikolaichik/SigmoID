@@ -23,7 +23,7 @@ Begin Window MASTGenSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "HmmGen Settings"
+   Title           =   "MastGen Settings"
    Visible         =   False
    Width           =   400
    Begin Label Label3

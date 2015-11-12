@@ -23,7 +23,7 @@ Begin Window GenomeWin
    MinWidth        =   200
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Untitled"
+   Title           =   ""
    Visible         =   False
    Width           =   1067
    Begin Canvas MapCanvas
@@ -943,6 +943,7 @@ End
 
 	#tag MenuHandler
 		Function EditCopy() As Boolean Handles EditCopy.Action
+			
 			CopyDNA
 			
 			'Return True
@@ -4881,24 +4882,35 @@ End
 		    'Add a Separator
 		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
 		    'hmmer & BLAST searches
-		    'if previous search is still running, add menus as disabled
-		    dim boo as boolean
-		    boo=NOT UniProtSocket.IsConnected
-		    base.Append mItem(kHmmerSearchUniprot,boo)
-		    boo=NOT SPSocket.IsConnected
-		    base.Append mItem(kHmmerSearchSwissprot,boo)
-		    boo=NOT TIGRSocket.IsConnected
-		    base.Append mItem(kHmmerSearchTigrfam,boo)
-		    base.Append mItem(kBLASTPsearch,true)
-		    base.Append mItem(kCDsearch,true)
+		    if seq.Features(ContextFeature).type="CDS" then
+		      'if previous search is still running, add menus as disabled
+		      dim boo as boolean
+		      boo=NOT UniProtSocket.IsConnected
+		      base.Append mItem(kHmmerSearchUniprot,boo)
+		      boo=NOT SPSocket.IsConnected
+		      base.Append mItem(kHmmerSearchSwissprot,boo)
+		      boo=NOT TIGRSocket.IsConnected
+		      base.Append mItem(kHmmerSearchTigrfam,boo)
+		      base.Append mItem(kBLASTPsearch,true)
+		      base.Append mItem(kCDsearch,true)
+		    else
+		      dim boo as boolean
+		      boo=NOT BLASTSocket.IsConnected
+		      base.Append mItem(kBLASTNsearch,boo)
+		      base.Append mItem(kBLASTXsearch,boo)
+		    end if
+		    
 		  else
-		    'Add a Separator
-		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
-		    'BLASTN search
-		    'if previous search is still running, add menus as disabled
-		    dim boo as boolean
-		    base.Append mItem(kBLASTNsearch,true)
-		    base.Append mItem(kBLASTXsearch,true)
+		    if AnythingSelected then
+		      'Add a Separator
+		      base.Append( New MenuItem( MenuItem.TextSeparator ) )
+		      'BLASTN search
+		      'if previous search is still running, add menus as disabled
+		      dim boo as boolean
+		      boo=NOT BLASTSocket.IsConnected
+		      base.Append mItem(kBLASTNsearch,boo)
+		      base.Append mItem(kBLASTXsearch,boo)
+		    end if
 		    
 		  end
 		  
@@ -5087,6 +5099,16 @@ End
 		  
 		  
 		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseExit()
+		  ToolTip.hide
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Deactivate()
+		  ToolTip.hide
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -5669,6 +5691,11 @@ End
 		Name="AnyNameClicked"
 		Group="Behavior"
 		InitialValue="0"
+		Type="boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="AnythingSelected"
+		Group="Behavior"
 		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty

@@ -282,8 +282,11 @@ End
 		  
 		  if LogoFile<>NIL then
 		    AlignmentConvertToMEME.enable
-		    GenomeMASTSearch.enable
-		    GenomeNhmmersearch.enable
+		    
+		    if weblogo_out<>"" then
+		      GenomeMASTSearch.enable
+		      GenomeNhmmersearch.enable
+		    end if
 		    
 		    if RegulonID<>0 then
 		      RegPreciseRegulonInfo.enabled=true
@@ -394,10 +397,10 @@ End
 		    if f.exists then
 		      hmmgenpath=f.ShellPath
 		    else
-		      msgbox "Can't find the HmmGen.py script"
+		      msgbox "Can't find the HmmGen.py script (it's not Nil, but doesn't exist!)"
 		    end if
 		  else
-		    msgbox "Can't find the HmmGen.py script"
+		    msgbox "Can't find the HmmGen.py script (it's Nil!)"
 		  end if
 		  
 		  f=resources_f.child("MastGen.py")
@@ -748,7 +751,7 @@ End
 		  
 		  
 		  if not allProgsFine then
-		    SettingsWin.ShowModalWithin self
+		    SettingsWin.ShowModalWithin(self)
 		    
 		  end
 		  
@@ -854,7 +857,7 @@ End
 			
 			Dim dlg as New SaveAsDialog
 			Dim outfile as FolderItem
-			dlg.InitialDirectory=Resources_f.Child("Profiles")
+			dlg.InitialDirectory=Profile_f
 			'dlg.promptText="Prompt Text"
 			
 			dlg.SuggestedFileName=NthField(LogoFile.Name,".",1)+"_short.fasta"
@@ -1078,7 +1081,7 @@ End
 			'WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
 			'end if
 			
-			WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
+			WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
 			
 			'Set the genome map scrollbar:
 			Genomewin.SetScrollbar
@@ -1103,7 +1106,7 @@ End
 			'WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
 			'end if
 			
-			WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
+			WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
 			
 			GenomeWin.opengenbankfile(genomeFile)
 			
@@ -1409,6 +1412,45 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub BuildTBButtonMenu()
+		  //create the menu for the first toolbar button
+		  Dim ButtMenu as New MenuItem
+		  Dim aMenuItem as MenuItem
+		  dim m,n as integer
+		  dim f as folderitem
+		  
+		  f=Profile_f
+		  m=f.Count
+		  for n=1 to m
+		    if f.Item(n).name<>".DS_Store" then
+		      if f.Item(n).Directory then
+		        'skip folder
+		      else
+		        aMenuItem = new MenuItem
+		        aMenuItem.text = f.Item(n).Name
+		        ButtMenu.Append aMenuItem
+		      end if
+		    end if
+		  next
+		  
+		  #if TargetCocoa then               'a workaround for toolbar deficiency on Mac
+		    aMenuItem = new MenuItem
+		    aMenuItem.text = "-"
+		    ButtMenu.Append aMenuItem
+		    aMenuItem = new MenuItem
+		    aMenuItem.text = "More..."
+		    ButtMenu.Append aMenuItem
+		    
+		  #endif
+		  //assign the new menu to the toolitem..
+		  toolbutton(LogoWinToolBar.Item(0)).DropdownMenu=ButtMenu
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWinToolbar:BuildTBButtonMenu")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ChangeView(View As string)
 		  select case View
 		    
@@ -1610,13 +1652,16 @@ End
 		  baseY=150
 		  'read data from the file into array
 		  ReadLogoData
+		  
+		  '#if targetlinux then
+		  LogoPic=new Picture (30*(ubound(logodata)+1),170,32)
+		  '#else
+		  'LogoPic=new Picture (30*ubound(logodata),170,32)
+		  '#endif
+		  LogoPic.Transparent=1
+		  
 		  if ubound(LogoData)>1 then
-		    '#if targetlinux then
-		    LogoPic=new Picture (30*(ubound(logodata)+1),170,32)
-		    '#else
-		    'LogoPic=new Picture (30*ubound(logodata),170,32)
-		    '#endif
-		    LogoPic.Transparent=1
+		    
 		    
 		    
 		    'format of the data is:
@@ -1766,8 +1811,6 @@ End
 		    redim selarray2(0)
 		    lastX=0
 		    masked=false
-		    LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
-		    me.refresh 'needed if logo of the same size is drawn and to remove selection
 		    
 		    #if DebugBuild
 		      WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
@@ -1781,7 +1824,13 @@ End
 		    'ChangeView("Logo")
 		  else
 		    WriteToSTDOUT (EndofLine+"Could not load alignment from "+LogoFile.shellpath+EndofLine)
+		    'disable nhmmer:
+		    LogoWin.LogoWinToolbar.Item(1).Enabled=false
+		    
 		  end if
+		  
+		  LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
+		  me.refresh 'needed if logo of the same size is drawn and to remove selection
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:DrawLogo")
@@ -2127,10 +2176,10 @@ End
 		        
 		        if Ubound(genomeWin.HmmHits)>0 then
 		          if NOT ScanningGenome then
-		            WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
+		            WriteToSTDOUT (EndofLine.unix+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
 		          end if
 		          
-		          WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
+		          WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
 		          
 		          'Set the genome map scrollbar:
 		          Genomewin.SetScrollbar
@@ -2745,10 +2794,10 @@ End
 		        
 		        if Ubound(genomeWin.HmmHits)>0 then
 		          if NOT ScanningGenome then
-		            WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
+		            WriteToSTDOUT (EndofLine.unix+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
 		          end if
 		          
-		          WriteToSTDOUT (EndofLine+"Loading the GenBank file...")
+		          WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
 		          
 		          'Set the genome map scrollbar:
 		          Genomewin.SetScrollbar
@@ -3246,7 +3295,7 @@ End
 		    End If
 		  end if
 		  
-		  if weblogo_out<>"0" then
+		  if weblogo_out<>"" then
 		    for n=1 to countfields(weblogo_out,EndOfLine.Unix)
 		      
 		      CurrentLine=NthField(weblogo_out,EndOfLine.Unix,n)
@@ -3693,7 +3742,7 @@ End
 		  Case "TermGenTool"
 		    TermGenSearch
 		  Case "SettingsTool"
-		    SettingsWin.showmodalwithin(self)
+		    SettingsWin.show
 		  Case "PalindromiseTool"
 		    'dim oldentropy as double = totalEntropy
 		    Palindromise
@@ -3715,9 +3764,9 @@ End
 		    dim n,m as integer
 		    
 		    
-		    'tmpfile=Resources_f.child("Profiles").item(hititem.Index)
+		    'tmpfile=Profile_f.item(hititem.Index)
 		    ' appears to be a large negative number, hence the workaround:
-		    f=Resources_f.child("Profiles")
+		    f=Profile_f
 		    m=f.Count
 		    for n=1 to m
 		      if f.Item(n).name=hititem.Text then
@@ -3776,40 +3825,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  //create the menu for the first toolbar button
-		  Dim ButtMenu as New MenuItem
-		  Dim aMenuItem as MenuItem
-		  dim m,n as integer
-		  dim f as folderitem
 		  
-		  f=Resources_f.child("Profiles")
-		  m=f.Count
-		  for n=1 to m
-		    if f.Item(n).name<>".DS_Store" then
-		      if f.Item(n).Directory then
-		        'skip folder
-		      else
-		        aMenuItem = new MenuItem
-		        aMenuItem.text = f.Item(n).Name
-		        ButtMenu.Append aMenuItem
-		      end if
-		    end if
-		  next
-		  
-		  #if TargetCocoa then               'a workaround for toolbar deficiency on Mac
-		    aMenuItem = new MenuItem
-		    aMenuItem.text = "-"
-		    ButtMenu.Append aMenuItem
-		    aMenuItem = new MenuItem
-		    aMenuItem.text = "More..."
-		    ButtMenu.Append aMenuItem
-		    
-		  #endif
-		  //assign the new menu to the toolitem..
-		  toolbutton(me.Item(0)).DropdownMenu=ButtMenu
-		  
-		  Exception err
-		    ExceptionHandler(err,"LogoWinToolbar:Open")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
