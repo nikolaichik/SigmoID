@@ -898,6 +898,11 @@ Protected Module Globals
 		  MEMEpath=Prefs.value("MEMEpath",SettingsWin.MEMEPathField.text)
 		  MASTpath=Prefs.value("MASTpath",SettingsWin.MASTPathField.text)
 		  weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
+		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
+		  BLASTpDB=Prefs.value("BLASTpDB","swissprot")
+		  BLASTorganism=Prefs.value("BLASTorganism","")
+		  
+		  
 		  
 		  'set the path to default profiles folder
 		  dim pf as new folderitem
@@ -927,7 +932,10 @@ Protected Module Globals
 		  #endif
 		  
 		  'read/set profile folder path
-		  dim ProfileFpath as string = Prefs.value("ProfileFpath",pf.shellPath)
+		  ProfileFpath = Prefs.value("ProfileFpath",pf.shellPath)
+		  if ProfileFpath="" then
+		    ProfileFpath=pf.shellPath
+		  end if
 		  Profile_f=GetFolderItem(ProfileFpath,FolderItem.PathTypeShell)
 		  if Profile_f <>nil then
 		    SettingsWin.ProfileFolderLabel.text=Profile_f.NativePath
@@ -1777,6 +1785,18 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		aa(65) As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BLASTnDB As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BLASTorganism As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BLASTpDB As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

@@ -1139,7 +1139,7 @@ End
 		Sub BLASTNsearch(GeneName as string)
 		  
 		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
-		  const URLend as string= "&DATABASE=nr&PROGRAM=blastn&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
+		  dim URLend as string= "&PROGRAM=blastn&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto&DATABASE="
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
 		  
@@ -1154,8 +1154,12 @@ End
 		  end if
 		  
 		  'format the BLAST request:
-		  theURL=URLstart+theSeq+URLend
+		  theURL=URLstart+theSeq+URLend+BLASTnDB
 		  
+		  'add "species" name, if any
+		  if BLASTorganism<>"" then
+		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
+		  end if
 		  
 		  CDDsearch=false
 		  BLASTSocket.Post(theURL)
@@ -1175,7 +1179,7 @@ End
 		Sub BLASTPsearch(ProtName as string)
 		  
 		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
-		  const URLend as string= "&DATABASE=nr&PROGRAM=blastp&HITLIST_SIZE=100&CDD_SEARCH=true&ENTREZ_QUERY=Enterobacteriaceae&5BOrganism%5D"
+		  const URLend as string= "&PROGRAM=blastp&HITLIST_SIZE=100&CDD_SEARCH=true&DATABASE="
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
 		  
@@ -1198,7 +1202,12 @@ End
 		  end
 		  
 		  'format the BLASTP request:
-		  theURL=URLstart+theSeq+URLend
+		  theURL=URLstart+theSeq+URLend+BLASTpDB
+		  
+		  'add "species" name, if any
+		  if BLASTorganism<>"" then
+		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
+		  end if
 		  
 		  CDDsearch=false
 		  BLASTSocket.Post(theURL)
@@ -1221,7 +1230,7 @@ End
 		Sub BLASTXsearch(GeneName as string)
 		  
 		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
-		  const URLend as string= "&DATABASE=nr&PROGRAM=blastx&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto"
+		  const URLend as string= "&PROGRAM=blastx&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto&DATABASE="
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
 		  
@@ -1238,7 +1247,12 @@ End
 		  end if
 		  
 		  'format the BLAST request:
-		  theURL=URLstart+theSeq+URLend
+		  theURL=URLstart+theSeq+URLend+BLASTpDB
+		  
+		  'add "species" name, if any
+		  if BLASTorganism<>"" then
+		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
+		  end if
 		  
 		  'CDDsearch=false
 		  BLASTSocket.Post(theURL)

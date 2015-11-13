@@ -120,7 +120,7 @@ Begin Window SettingsWin
       TabIndex        =   17
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   2
+      Value           =   1
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox1
@@ -1045,7 +1045,9 @@ End
 		  Prefs.value("weblogopath")=weblogoPathField.text
 		  Prefs.value("tfastxPath")=tfastxPathField.text
 		  Prefs.value("ProfileFpath")=ProfileFpath
-		  
+		  Prefs.value("BLASTnDB")=nthfield(nthfield(NucleotidePopup.Text,"(",2),")",1)
+		  Prefs.value("BLASTpDB")=nthfield(nthfield(ProteinPopup.Text,"(",2),")",1)
+		  Prefs.value("BLASTorganism")=OrganismField.text
 		  
 		  Prefs.Sync
 		  

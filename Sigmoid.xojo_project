@@ -522,6 +522,7 @@ Picture=Profile;Pix/Profile.png;&h5A7AD7FF;&h1F038CB3;false;0;&h0
 Picture=Paths;Pix/Paths.png;&h3A58D7FF;&h1F038CB3;false;0;&h0
 Picture=BLAST;Pix/BLAST.png;&h604867FF;&h1F038CB3;false;0;&h0
 Picture=Profiles2;Pix/Profiles2.png;&h687B9FFF;&h1F038CB3;false;0;&h0
+Picture=Profile3;Pix/Profile3.png;&h1D7BEFFF;&h1F038CB3;false;0;&h0
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1
