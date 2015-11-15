@@ -390,6 +390,41 @@ End
 		        SettingsWin.tfastxPathField.text=tfastxPath
 		      end if
 		    end if
+		    f=resources_f.child("alimask")
+		    if f<>Nil then
+		      if f.exists then
+		        alimaskpath=f.ShellPath
+		        SettingsWin.alimaskPathField.text=alimaskpath
+		      end if
+		    end if
+		    f=resources_f.child("nhmmer")
+		    if f<>Nil then
+		      if f.exists then
+		        nhmmerpath=f.ShellPath
+		        SettingsWin.nhmmerpathField.text=nhmmerpath
+		      end if
+		    end if
+		    f=resources_f.child("hmmBuild")
+		    if f<>Nil then
+		      if f.exists then
+		        hmmBuildPath=f.ShellPath
+		        SettingsWin.hmmBuildPathField.text=hmmBuildPath
+		      end if
+		    end if
+		    f=resources_f.child("meme")
+		    if f<>Nil then
+		      if f.exists then
+		        MEMEpath=f.ShellPath
+		        SettingsWin.MEMEPathField.text=MEMEpath
+		      end if
+		    end if
+		    f=resources_f.child("mast")
+		    if f<>Nil then
+		      if f.exists then
+		        MASTpath=f.ShellPath
+		        SettingsWin.MASTPathField.text=MASTpath
+		      end if
+		    end if
 		  #endif
 		  
 		  f=resources_f.child("HmmGen.py")
@@ -741,12 +776,18 @@ End
 		  dim jsn as new JSONItem
 		  dim hts as new HTTPSocket
 		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/release",5)
-		  if Res="" then
-		    WriteToSTDOUT ("no response in 5 seconds")
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    
+		    if Res="" then
+		      WriteToSTDOUT ("no response in 5 seconds")
+		    else
+		      JSN.load(res)
+		      RegPreciseWin.RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
+		      WriteToSTDOUT (RegPreciseWin.RegPreciseVersion)+EndOfLine
+		    end if
+		    
 		  else
-		    JSN.load(res)
-		    RegPreciseWin.RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
-		    WriteToSTDOUT (RegPreciseWin.RegPreciseVersion)+EndOfLine
+		    WriteToSTDOUT ("Invalid response (HTTP status code "+str(hts.HTTPStatusCode)+")")
 		  end if
 		  
 		  

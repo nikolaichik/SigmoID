@@ -1290,24 +1290,28 @@ End
 		  
 		  'the page may contain several genes (e.g. the rcsB page), hence the dances below
 		  
-		  geneno=CountFields(Content,"/gene?term=")
-		  for n=2 to geneNo+2
-		    ProteinID=NthField(Content,"/gene?term=",n)
-		    ProteinID=NthField(ProteinID,"</a>",1)
-		    if instr(ProteinID,TF_name)>0 then
-		      ProteinID=NthField(ProteinID,"&organism=",1)
-		      exit
-		    end if
-		  next
-		  
-		  if ProteinID<>"" then
-		    fastaURL="http://regulondb.ccg.unam.mx/sequence?type=PD&term="+ProteinID+"&format=fasta"
+		  if httpStatus>=200 AND httpStatus<300 then 'successful
+		    geneno=CountFields(Content,"/gene?term=")
+		    for n=2 to geneNo+2
+		      ProteinID=NthField(Content,"/gene?term=",n)
+		      ProteinID=NthField(ProteinID,"</a>",1)
+		      if instr(ProteinID,TF_name)>0 then
+		        ProteinID=NthField(ProteinID,"&organism=",1)
+		        exit
+		      end if
+		    next
 		    
-		    RDBSocket.Get(fastaURL)
+		    if ProteinID<>"" then
+		      fastaURL="http://regulondb.ccg.unam.mx/sequence?type=PD&term="+ProteinID+"&format=fasta"
+		      
+		      RDBSocket.Get(fastaURL)
+		    else
+		      msgbox "Can't get TF data from RegulonDB."
+		    end if
+		    
 		  else
-		    msgbox "Can't get TF data from RegulonDB."
+		    MsgBox "Problems connecting to RegulonDB (HTTP status code "+str(httpStatus)+")"
 		  end if
-		  
 		  
 		End Sub
 	#tag EndEvent
@@ -1329,14 +1333,17 @@ End
 		  'the seq is within the <pre> tag, but there are two of those, so we're searching for "<pre>>"
 		  'content supposedly has the ISO-8859-1 encoding, but Xojo gets line ends wrongx
 		  
-		  ProteinFasta=defineEncoding(NthField(Content,"<pre>>",2),Encodings.ISOLatin1)
-		  ProteinFasta=">"+NthField(ProteinFasta,"</pre>",1)
-		  ProteinFasta=ConvertEncoding(trim(ProteinFasta),Encodings.ASCII)
-		  
-		  'msgbox ProteinFasta
-		  
-		  tfastx(ProteinFasta)
-		  
+		  if httpStatus>=200 AND httpStatus<300 then 'successful
+		    ProteinFasta=defineEncoding(NthField(Content,"<pre>>",2),Encodings.ISOLatin1)
+		    ProteinFasta=">"+NthField(ProteinFasta,"</pre>",1)
+		    ProteinFasta=ConvertEncoding(trim(ProteinFasta),Encodings.ASCII)
+		    
+		    'msgbox ProteinFasta
+		    
+		    tfastx(ProteinFasta)
+		  else
+		    MsgBox "Problems connecting to RegulonDB (HTTP status code "+str(httpStatus)+")"
+		  end if
 		End Sub
 	#tag EndEvent
 	#tag Event

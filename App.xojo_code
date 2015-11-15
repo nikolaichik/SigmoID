@@ -73,7 +73,11 @@ Inherits Application
 		  #else
 		    #If XojoVersion >= 2015.03 Then
 		      'folders now include app name
-		      resources_f=GetFolderItem("").Child("SigmoID Resources")
+		      #if DebugBuild then
+		        resources_f=GetFolderItem("").Child("DebugSigmoID Resources")
+		      #else
+		        resources_f=GetFolderItem("").Child("SigmoID Resources")
+		      #endif
 		      if resources_f=NIL then
 		        msgbox "Can't access Resources folder!"
 		      end if
@@ -358,6 +362,7 @@ Inherits Application
 			f=Resources_f.Child("Help").child("index.html")
 			if f<>nil then
 			if f.exists then
+			HelpWin.show
 			HelpWin.LoadPage(f)
 			end if
 			end if
@@ -642,6 +647,15 @@ Inherits Application
 		
 		32-bit Webkit1 is required for displaying the search results. 
 		This could be a problem on a 64-bit system
+	#tag EndNote
+
+	#tag Note, Name = next version
+		1. Get regulated gene list for each regulator in RegPrecise
+		   and display that data in the table
+		2. Automate thresholding/calibrated profile construction
+		3. Incorporate TF verification in TFBS search (may need to modify .sig files)
+		4. Add hmmsearch to scan for domains
+		
 	#tag EndNote
 
 

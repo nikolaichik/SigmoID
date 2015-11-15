@@ -5,13 +5,14 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
 	<meta name="CREATED" content="0;0">
 	<meta name="CHANGED" content="20150928;21232700"></head><body dir="ltr" lang="en-GB">
 <p><br></p>
-<ul id="mozToc"><!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview</a></li><li><a href="#mozTocId182858">Installation</a></li><li><a href="#mozTocId629072">Interface</a><ul><li><a href="#mozTocId49640">Windows</a><ul><li><a href="#mozTocId965351">Main Window</a></li><li><a href="#mozTocId23083">Genome Browser Window</a></li><li><a href="#mozTocId508441">Database Windows</a></li><li><a href="#mozTocId297884">Profile Wizard Window</a></li><li><a href="#mozTocId65146">Command Configuration Windows</a></li><li><a href="#mozTocId686762">Web Browser and Help Windows </a></li></ul></li><li><a href="#mozTocId385906">Menu Reference
+<ul id="mozToc"><!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview</a></li><li><a href="#mozTocId182858">Installation</a></li><li><a href="#mozTocId629072">Interface</a><ul><li><a href="#mozTocId49640">Windows</a><ul><li><a href="#mozTocId965351">Main Window</a></li><li><a href="#mozTocId23083">Genome Browser Window</a></li><li><a href="#mozTocId508441">Database Windows</a></li><li><a href="#mozTocId297884">Profile Wizard Window</a></li><li><a href="#mozTocId65146">Command Configuration Windows</a></li><li><a href="#mozTocId686762">Web Browser and Help Windows </a></li><li><a href="#mozTocId522291">SigmoID Preferences Window</a></li></ul></li><li><a href="#mozTocId385906">Menu Reference
 </a><ul><li><a href="#mozTocId324242">File Menu</a></li><li><a href="#mozTocId121686">Edit Menu</a></li><li><a href="#mozTocId916489">View Menu</a></li><li><a href="#mozTocId494918">Profile Menu</a></li><li><a href="#mozTocId972700">Regulon menu</a></li><li><a href="#mozTocId693367">Genome Menu</a></li><li><a href="#mozTocId600980">
 Window Menu</a></li><li><a href="#mozTocId2010">
 Help Menu</a></li></ul></li></ul></li><li><a href="#mozTocId708060">Python Scripts</a><ul><li><a href="#mozTocId227412">HmmGen.py</a></li><li><a href="#mozTocId61963">MastGen.py</a></li><li><a href="#mozTocId891699">TermGen.py</a></li><li><a href="#mozTocId793586">ptt_converter.py</a></li><li><a href="#mozTocId670482">geneparse.py</a></li><li><a href="#mozTocId218330">OperOn.py</a></li><li><a href="#mozTocId385189">gbk2tbl.py</a></li></ul></li></ul>
@@ -245,6 +246,21 @@ RegPrecise and RegulonDB databases, as well as SigmoID help. If these
 seem inconvenient, a link could be copied (via a contextual menu) and
 opened in a browser of your choice. <br>
 <br>
+<h3><a class="mozTocH3" name="mozTocId522291"></a>SigmoID Preferences Window</h3>
+This window can be opened via the Prefereces... command located in the
+SigmoID menu on OS X or in the Edit menu on Windows/Linux or by
+pressing the rightmost toolbar button in the main window. The buttons
+in the top part of this window switch between three preference panels.
+The panels allow to:<br>
+1) Set the paths to executable files (nhmmer, meme, mast, etc.) used by
+SigmoID. This can be useful if SigmoID can't fing some of the required
+programmes or if you like to use the ones already installed on your
+system;<br>
+2) Set the databases searched by BLAST and optionally restrict the searches to a smaller taxonomic group to speed up them.<br>
+3) Switch to an alternative folder with calibrated profiles from the
+one provided with SigmoID. Only the profiles from this folder will be
+accessible via the leftmost toolbar button in the main window. Only
+these profiles could be used by the&nbsp; <a href="#Scan_Genome">Scan Genome</a> function.<br>
 <br>
 
 
@@ -546,7 +562,7 @@ terminators to genome annotation (with the <a href="#TermGen.py">TermGen.py</a> 
 the results may take couple of minutes to appear, depending on
 available processing power. <br>
 <br>
-&nbsp;&nbsp;&nbsp; <span style="font-weight: bold; color: rgb(0, 102, 0);">Scan Genome...<br>
+&nbsp;&nbsp;&nbsp; <a name="Scan_Genome"></a><span style="font-weight: bold; color: rgb(0, 102, 0);">Scan Genome...<br>
 &nbsp;&nbsp;&nbsp; </span><span style="color: black;">This command is
 designed to perform a full genome scan with all available calibrated
 profiles with minimal interaction with the user. You can select the

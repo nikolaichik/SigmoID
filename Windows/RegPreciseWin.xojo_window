@@ -784,22 +784,27 @@ End
 		  ProgressWheel1.Visible=false
 		  ProgressWheel1.Enabled=false
 		  dim JSN as new JSONItem
-		  JSN.load(content)
 		  
-		  Select case SocketTask
-		  case "release"
+		  if httpStatus>=200 AND httpStatus<300 then 'successful
+		    JSN.load(content)
 		    
-		    RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
-		  case "genomes"
-		    'populate the GenomesPopup:
-		    GenomeStats2array(JSN)
-		  case "regulons"
-		    'populate the RegulatorList:
-		    FillRegulatorList(JSN)
-		  case "regulogs"
-		    'populate the RegulatorList:
-		    beep
-		  End Select
+		    Select case SocketTask
+		    case "release"
+		      
+		      RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
+		    case "genomes"
+		      'populate the GenomesPopup:
+		      GenomeStats2array(JSN)
+		    case "regulons"
+		      'populate the RegulatorList:
+		      FillRegulatorList(JSN)
+		    case "regulogs"
+		      'populate the RegulatorList:
+		      beep
+		    End Select
+		  else
+		    MsgBox "Problems connecting to RegPrecise (HTTP status code "+str(httpStatus)+")"
+		  end if
 		  
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:RegPreciseSocket.pagereceived")

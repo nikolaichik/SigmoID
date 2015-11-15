@@ -14,7 +14,7 @@ Begin Window SettingsWin
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   420
-   MaximizeButton  =   True
+   MaximizeButton  =   False
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
@@ -22,7 +22,7 @@ Begin Window SettingsWin
    MinimizeButton  =   True
    MinWidth        =   400
    Placement       =   0
-   Resizeable      =   True
+   Resizeable      =   False
    Title           =   "SigmoID Preferences"
    Visible         =   False
    Width           =   556
@@ -120,7 +120,7 @@ Begin Window SettingsWin
       TabIndex        =   17
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox1
@@ -1025,11 +1025,6 @@ End
 		  
 		End Sub
 	#tag EndEvent
-
-
-	#tag Property, Flags = &h0
-		ProfileFpath As String
-	#tag EndProperty
 
 
 #tag EndWindowCode

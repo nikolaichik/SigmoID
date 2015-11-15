@@ -442,6 +442,73 @@ Protected Module Globals
 	#tag Method, Flags = &h0
 		Sub ExceptionHandler(err as RuntimeException, meth as string)
 		  
+		  dim errtype as string 
+		  
+		  if err IsA FunctionNotFoundException then
+		    errtype="FunctionNotFoundException" ' A function declared using the Declare statement's "Soft" keyword could not be loaded.
+		  elseif err IsA HTMLViewerException then
+		    errtype="HTMLViewerException" '  There was an error parsing the HTML using HTMLViewer.
+		  elseif err IsA IllegalCastException then
+		    errtype="IllegalCastException" '  You cast an object to a different class and sent it a message its real class can't accept.
+		  elseif err IsA InvalidParentException then
+		    errtype="InvalidParentException" '  You tried to get the parent of a control using the Parent property of the Control class, but its parent is in a different window.
+		  elseif err IsA IOException then
+		    errtype="IOException" '  An error occurred while creating or opening a file.
+		  elseif err IsA JSONException then
+		    errtype="JSONException" '  A method of the JSONItem class failed.
+		  elseif err IsA  KeyChainException then
+		    errtype="KeyChainException" '  A method of the KeyChain or KeyChainItem classes failed.
+		  elseif err IsA KeyNotFoundException then
+		    errtype="KeyNotFoundException" '  An attempt was made to access a Dictionary item with a key that the dictionary does not contain.
+		  elseif err IsA MenuHasParentException then
+		    errtype="MenuHasParentException" '  A MenuItem has been used several times. Currently only applies to Cocoa applications.
+		  elseIf err IsA NilObjectException then
+		    errtype="NilObjectException" '  An attempt was made to access an object that does not exist.
+		  elseIf err IsA ObjCException   then
+		    errtype="ObjCException" ' An Objective-C exception around a Declare statement.
+		  elseif err IsA OLEException then
+		    errtype="OLEException" '  An OLE-related runtime exception occurred. Handle errors in Office Automation code via the OLEException class.
+		  elseif err IsA OutOfBoundsException then
+		    errtype="OutOfBoundsException" '  An attempt was made to read from or write to a value, character, or element outside the bounds of the object or data type.
+		  elseif err IsA OutOfMemoryException then
+		    errtype="OutOfMemoryException" '  Raised in certain cases when an operation cannot be completed due to insufficient memory.
+		  elseif err IsA RbScriptAlreadyRunningException then
+		    errtype="RbScriptAlreadyRunningException" '  The user tried to modify an RBscript that is already executing or tried to modify the context of the script while it is running.
+		  elseif err IsA RegExException then
+		    errtype="RegExException" '  The RegEx engine issued a runtime exception. Currently this means that you used an invalid search pattern in a Regular Expression. In the future, other types of regular expression exceptions may be added.
+		  elseif err IsA RegistryAccessErrorException then
+		    errtype="RegistryAccessErrorException" '  You tried to use the RegistryItem class without proper access privileges or tried to use it under any Macintosh OS or Linux. It is a Windows-only feature.
+		  elseif err IsA ShellNotRunningException then
+		    errtype="RegistryAccessErrorException" '   You tried to access an asynchronous or interactive shell session, but the shell was not running.
+		  elseif err IsA SOAPException then
+		    errtype="SOAPException" '  SOAPExceptions can be raised when using a WSDL to define your SOAP function. If the method name does not exist or the parameters passed do not match the WSDL specifications, a SOAPException runtime error will be raised.
+		  elseif err IsA SpotlightException then
+		    errtype="SpotlightException" '  An error related to a SpotlightQuery was encountered, such as an invalid query.
+		  elseif err IsA StackOverflowException then
+		    errtype="StackOverflowException" '  When one routine (method/event handler/menu handler) calls another, memory is used to keep track of the place in each routine where it was called along with the values of its local variables. The purpose of this is to return (when the routine being called finishes) to the previous routine with all local variables as they were before. The memory set aside for tracking this is called the Stack (because you are "stacking" one routine on top of another). If your application runs out of stack space, a StackOverflowException will occur. You should be able to test your application thoroughly enough to prevent this error from occurring.
+		  elseif err IsA ThreadAlreadyRunningException then
+		    errtype="ThreadAlreadyRunningException" '  You tried to change the stack size of a Thread while it was running.
+		  elseif err IsA TypeMismatchException then
+		    errtype="TypeMismatchException" '  You tried to assign to an object the wrong data type.
+		  elseif err IsA UnsupportedFormatException then
+		    errtype="UnsupportedFormatException" '  You used a string expression that does not evaluate to a number or tried to open or save an unsupported picture format.
+		  elseif err IsA UnsupportedOperationException then
+		    errtype="UnsupportedOperationException" '  You tried to perform an operation which is not supported.
+		  elseif err IsA XMLDOMException  then
+		    errtype="XMLDOMException" '  This exception may occur during the creation of a DOM document.
+		  elseif err IsA XMLException then
+		    errtype="XMLException" '  There was an error in parsing XML.
+		  elseif err IsA XMLReaderException then
+		    errtype="XMLReaderException" '  There was an error in parsing XML using XMLReader.
+		  elseif err IsA ThreadAccessingUIException then
+		    errtype="ThreadAccessingUIException" '  This exception is raised in Cocoa applications that access a user interface property or method from within a thread
+		  elseif err isa EndException or err isa ThreadEndException then
+		    raise err  //Re-raise the exception to allow for proper app or thread termination
+		  else
+		    errtype="Unknown exception" '  "Unnown error has occurred. Please try to save important files (under different names) and relaunch SQ."
+		  end if
+		  
+		  
 		  if err IsA HTMLViewerException then
 		    'Occurs when The HTMLViewer cannot render the HTML, usually because of a missing library.
 		    #if TargetLinux then
@@ -451,10 +518,10 @@ Protected Module Globals
 		        MsgBox "There was a problem displaying html. This is probably because of missing WebKit libraries. Please try to launch Sigmoid with the provided sigmoid.sh script or consult the docs on details of Linux install."
 		      #endif
 		    #else
-		      MsgBox "There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)
+		      MsgBox "There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)+" ("+ErrType+")"
 		    #endif
 		  else
-		    MsgBox "There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)
+		    MsgBox "There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)+" ("+ErrType+")"
 		  end if
 		End Sub
 	#tag EndMethod
@@ -919,7 +986,11 @@ Protected Module Globals
 		  #else
 		    #If XojoVersion >= 2015.03 Then
 		      'folders now include app name
-		      pf=GetFolderItem("").Child("SigmoID Resources").Child("Profiles").Child("Pectobacterium")
+		      #if DebugBuild then
+		        pf=GetFolderItem("").Child("DebugSigmoID Resources").Child("Profiles").Child("Pectobacterium")
+		      #else
+		        pf=GetFolderItem("").Child("SigmoID Resources").Child("Profiles").Child("Pectobacterium")
+		      #endif
 		      if resources_f=NIL then
 		        msgbox "Can't access Profiles folder!"
 		      end if
@@ -1879,6 +1950,10 @@ Protected Module Globals
 		#tag EndGetter
 		Prefs As TTsSmartPreferences
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		ProfileFpath As String
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		Profile_f As folderitem
