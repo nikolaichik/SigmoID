@@ -4925,13 +4925,13 @@ End
 		      base.Append mItem(kHmmerSearchSwissprot,boo)
 		      boo=NOT TIGRSocket.IsConnected
 		      base.Append mItem(kHmmerSearchTigrfam,boo)
-		      base.Append mItem(kBLASTPsearch,true)
+		      base.Append mItem(kBLASTPsearch+BLASTpDB,true)
 		      base.Append mItem(kCDsearch,true)
 		    else
 		      dim boo as boolean
 		      boo=NOT BLASTSocket.IsConnected
-		      base.Append mItem(kBLASTNsearch,boo)
-		      base.Append mItem(kBLASTXsearch,boo)
+		      base.Append mItem(kBLASTNsearch+BLASTnDB,boo)
+		      base.Append mItem(kBLASTXsearch+BLASTpDB,boo)
 		    end if
 		    
 		  else
@@ -4942,8 +4942,8 @@ End
 		      'if previous search is still running, add menus as disabled
 		      dim boo as boolean
 		      boo=NOT BLASTSocket.IsConnected
-		      base.Append mItem(kBLASTNsearch,boo)
-		      base.Append mItem(kBLASTXsearch,boo)
+		      base.Append mItem(kBLASTNsearch+BLASTnDB,boo)
+		      base.Append mItem(kBLASTXsearch+BLASTpDB,boo)
 		    end if
 		    
 		  end
@@ -4975,13 +4975,13 @@ End
 		    HmmerSearchSwissProt(ContextProteinName)
 		  case kHmmerSearchTIGRFAM
 		    HmmerSearchTIGRFAM(ContextProteinName)
-		  case kBLASTPsearch
+		  case kBLASTPsearch+BLASTpDB
 		    BLASTPsearch(ContextProteinName)
 		  case kCDsearch
 		    CDsearch(ContextProteinName)
-		  case kBLASTNsearch
+		  case kBLASTNsearch+BLASTnDB
 		    BLASTNsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
-		  case kBLASTXsearch
+		  case kBLASTXsearch+BLASTpDB
 		    BLASTXsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
 		  end
 		End Function

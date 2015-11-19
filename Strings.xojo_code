@@ -30,19 +30,19 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x94\xD0\xBE\xD0\xB1\xD0\xB0\xD0\xB2\xD0\xB8\xD1\x82\xD1\x8C \xD1\x81\xD0\xB0\xD0\xB9\xD1\x82\xD1\x8B \xD0\xBA \xD0\xB0\xD0\xBD\xD0\xBD\xD0\xBE\xD1\x82\xD0\xB0\xD1\x86\xD0\xB8\xD0\xB8\xE2\x80\xA6"
 	#tag EndConstant
 
-	#tag Constant, Name = kBLASTNsearch, Type = String, Dynamic = True, Default = \"BLASTN search of nr database", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTN-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTN-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
+	#tag Constant, Name = kBLASTNsearch, Type = String, Dynamic = True, Default = \"BLASTN search in ", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTN-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 "
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTN-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 "
 	#tag EndConstant
 
-	#tag Constant, Name = kBLASTPsearch, Type = String, Dynamic = True, Default = \"BLASTP search of nr database", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTP-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTP-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
+	#tag Constant, Name = kBLASTPsearch, Type = String, Dynamic = True, Default = \"BLASTP search in ", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTP-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 "
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTP-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 "
 	#tag EndConstant
 
-	#tag Constant, Name = kBLASTXsearch, Type = String, Dynamic = True, Default = \"BLASTX search of nr database", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTX-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5 nr"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTX-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 nr \xD0\xB1\xD0\xB0\xD0\xB7\xD0\xB5"
+	#tag Constant, Name = kBLASTXsearch, Type = String, Dynamic = True, Default = \"BLASTX search in", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTX-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 "
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTX-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 "
 	#tag EndConstant
 
 	#tag Constant, Name = kBp, Type = String, Dynamic = True, Default = \"b.p.", Scope = Public
