@@ -132,6 +132,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -787,7 +788,7 @@ End
 		    end if
 		    
 		  else
-		    WriteToSTDOUT ("Invalid response (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		    WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
 		  end if
 		  
 		  
@@ -2624,37 +2625,42 @@ End
 		  else
 		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,15)
 		  end if
-		  if res<>"" then
-		    JSN.load(res)
-		    WriteToSTDOUT("got the data for "+TFname+".")
-		    dim RegPreciseTemp as FolderItem
-		    dim OutStream As TextOutputStream
-		    
-		    RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
-		    if RegPreciseTemp<>nil then
-		      dim fa as string
-		      fa=JSON2Fasta(JSN)
-		      if fa<>"" then
-		        OutStream = TextOutputStream.Create(RegPreciseTemp)
-		        outstream.Write(fa)
-		        outstream.close
-		        LoadAlignment(RegPreciseTemp)
-		        logowin.ChangeView("Logo")
-		        me.title="SigmoIH: "+TFname+" (RegPrecise)"
-		        
-		        'fill some hmmgen settings:
-		        HmmGenSettingsWin.AddQualifierBox.Value=true
-		        HmmGenSettingsWin.KeyField.text="bound_moiety"
-		        HmmGenSettingsWin.ValueField.text=TFname
-		        HmmGenSettingsWin.FeatureCombo.ListIndex=1 'protein_bind
-		        HmmGenSettingsWin.IntergenicBox.Value=true
-		        RegulogID=RgID
-		        RegulonID=RnID
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if res<>"" then
+		      JSN.load(res)
+		      WriteToSTDOUT("got the data for "+TFname+".")
+		      dim RegPreciseTemp as FolderItem
+		      dim OutStream As TextOutputStream
+		      
+		      RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		      if RegPreciseTemp<>nil then
+		        dim fa as string
+		        fa=JSON2Fasta(JSN)
+		        if fa<>"" then
+		          OutStream = TextOutputStream.Create(RegPreciseTemp)
+		          outstream.Write(fa)
+		          outstream.close
+		          LoadAlignment(RegPreciseTemp)
+		          logowin.ChangeView("Logo")
+		          me.title="SigmoIH: "+TFname+" (RegPrecise)"
+		          
+		          'fill some hmmgen settings:
+		          HmmGenSettingsWin.AddQualifierBox.Value=true
+		          HmmGenSettingsWin.KeyField.text="bound_moiety"
+		          HmmGenSettingsWin.ValueField.text=TFname
+		          HmmGenSettingsWin.FeatureCombo.ListIndex=1 'protein_bind
+		          HmmGenSettingsWin.IntergenicBox.Value=true
+		          RegulogID=RgID
+		          RegulonID=RnID
+		        end if
 		      end if
+		    else
+		      WriteToSTDOUT("no response in 15 sec.")
 		    end if
 		  else
-		    WriteToSTDOUT("no response in 15 sec.")
+		    WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
 		  end if
+		  
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:LoadRegPreciseData")

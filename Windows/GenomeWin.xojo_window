@@ -682,6 +682,9 @@ End
 		  end if
 		  
 		  EditCut.enabled=false
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:EnableMenuItems")
 		End Sub
 	#tag EndEvent
 
@@ -943,8 +946,24 @@ End
 
 	#tag MenuHandler
 		Function EditCopy() As Boolean Handles EditCopy.Action
+			' Copies protein sequence if a CDS is selected, otherwise copies DNA seq
 			
+			if AnythingSelected then
+			if SelFeatureNo>0 then
+			if seq.Features(SelFeatureNo).type="CDS" then
+			CopyAA
+			else
 			CopyDNA
+			end if
+			else
+			CopyDNA
+			end if
+			else
+			CopyDNA
+			end if
+			
+			
+			
 			
 			'Return True
 			
@@ -1077,7 +1096,7 @@ End
 	#tag MenuHandler
 		Function GenomeFindAgain() As Boolean Handles GenomeFindAgain.Action
 			'continue from the current SearchPosition
-			
+			SelFeatureNo=0
 			if isACGT(query) then 'detect if query is sequence or plain text
 			Search4sequence(query)
 			else
@@ -3529,6 +3548,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ShowHit()
+		  SelFeatureNo=0
 		  
 		  SegmentedControl1.Visible=true
 		  ExtractFragment(HmmHits(CurrentHit)-DisplayInterval/2,HmmHits(CurrentHit)+DisplayInterval/2)
@@ -5610,7 +5630,7 @@ End
 	#tag Event
 		Sub Action()
 		  query=me.StringValue
-		  
+		  SelFeatureNo=0
 		  SearchAction
 		End Sub
 	#tag EndEvent
@@ -5622,7 +5642,7 @@ End
 		  if key=chr(13) OR key=chr(3) then
 		    
 		    query=me.text
-		    
+		    SelFeatureNo=0
 		    SearchAction
 		    
 		    

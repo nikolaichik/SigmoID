@@ -1490,6 +1490,50 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SocketError(ErrNo as integer)
+		  dim msg as string 
+		  
+		  select case ErrNo
+		  case -1
+		    'If Get/Post/GetHeaders/SendRequest times out, then ErrorCode = -1
+		    msg="Request timeout"
+		  case 1
+		    'When calling Get (the overloaded method that accepts a FolderItem as a parameter), if the file is a directory or could not be created then ErrorCode = 1
+		    msg="File is a directory or could not be created"
+		  case 100    'OpenDriverError    There was an error opening and initializing the drivers.
+		    'It may mean that WinSock (on Windows) is not installed, or the version is too early.
+		    msg="OpenDriverError"
+		  case 101 'Deprecated 5.0
+		    'This error code is no longer used.
+		  case 102    'LostConnection    This code means that you lost your connection.
+		    'You will get this error if the remote side disconnects (whether its forcibly- by pulling their ethernet cable out of the computer), or gracefully (by calling SocketCore's Close method). This may or not be a true error situation. If the remote side closed the connection, then it is not truly an error; it's just a status indication. But if they pulled the ethernet cable out of the computer, then it really is an error; but the results are the same. The connection was lost. You will also get this error if you call the Disconnect method of TCPSocket.
+		    msg="LostConnection"
+		  case 103    'NameResolutionError    The socket was unable to resolve the address that was specified.
+		    'A prime example of this would be a mistyped IP address, or a domain name of an unknown or unreachable host.
+		    msg="NameResolutionError"
+		  case 104 'Deprecated 5.0
+		    'This error code is no longer used.
+		  case 105    'AddressInUseError    The address is currently in use.
+		    'This error will occur if you attempt to bind to a port that you have already bound to. An example of this would be setting up two listening sockets to try to listen on the same port.
+		    msg="AddressInUseError"
+		  case 106    'InvalidStateError    This is an invalid state error, which means that the socket is not in the proper state to be doing a certain operation.
+		    'An example of this is calling the Write method before the socket is actually connected.
+		    msg="InvalidStateError"
+		  case 107    'InvalidPortError    This error means that the port you specified is invalid.
+		    'This could mean that you entered a port number less than 0, or greater than 65,535. It could also mean that you do not have enough privileges to bind to that port. This happens under Mac OS X and Linux if you are not running as root and try to bind to a port below 1024. You can only bind to ports less than 1024 if you have root privileges. A normal "Admin" user does not have root privileges.
+		    msg="InvalidPortError"
+		  case 108    'OutOfMemoryError
+		    msg="OutOfMemoryError"
+		    
+		    
+		  end select
+		  
+		  
+		  msgbox "Server error: "+msg
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Stockholm(AlignmentFile as folderitem, StockholmFile as folderitem, cutoffs as string)
 		  'convert alignment to Stockholm format:
 		  

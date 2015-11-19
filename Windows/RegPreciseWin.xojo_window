@@ -48,6 +48,7 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -176,8 +177,9 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -192,7 +194,8 @@ Begin Window RegPreciseWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
@@ -401,53 +404,58 @@ End
 		    dim hts as new HTTPSocket
 		    
 		    res=hts.Get(" 'http://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,15)
-		    
-		    if res<>"" then
-		      JSN0.load(res)
-		      'should contain smth like:
-		      '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		      if res<>"" then
+		        JSN0.load(res)
+		        'should contain smth like:
+		        '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		        
+		        JSN=JSN0.value("regulator")
+		        ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
+		        vimssId=JSN.Value("vimssId")
+		        LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
+		        
+		      end if
 		      
-		      JSN=JSN0.value("regulator")
-		      ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
-		      vimssId=JSN.Value("vimssId")
-		      LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
+		      logowin.WriteToSTDOUT("Contacting MicrobesOnline... ")
 		      
+		      ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
+		      
+		      Dim db As New MySQLCommunityServer
+		      db.Host = "pub.microbesonline.org"
+		      'db.Port = 3306
+		      db.DatabaseName = "genomics"
+		      db.UserName = "guest"
+		      db.Password = "guest"
+		      If db.Connect Then
+		        // Use the database
+		        
+		        Dim rs As RecordSet
+		        rs = db.SQLSelect("select * from AASeq where locusId="+vimssId)
+		        
+		        If db.Error Then
+		          MsgBox("Error: " + db.ErrorMessage)
+		          Return
+		        End If
+		        
+		        If rs <> Nil Then
+		          ProteinFasta=ProteinFasta+EndOfLine.UNIX+rs.Field("sequence").StringValue
+		          tfastx(ProteinFasta)
+		          rs.Close
+		        End If
+		        db.Close
+		        
+		        
+		      Else
+		        // Connection error
+		        MsgBox(db.ErrorMessage)
+		      End If
+		      
+		      
+		    else
+		      LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		      LogoWin.show
 		    end if
-		    
-		    logowin.WriteToSTDOUT("Contacting MicrobesOnline... ")
-		    
-		    ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
-		    
-		    Dim db As New MySQLCommunityServer
-		    db.Host = "pub.microbesonline.org"
-		    'db.Port = 3306
-		    db.DatabaseName = "genomics"
-		    db.UserName = "guest"
-		    db.Password = "guest"
-		    If db.Connect Then
-		      // Use the database
-		      
-		      Dim rs As RecordSet
-		      rs = db.SQLSelect("select * from AASeq where locusId="+vimssId) 
-		      
-		      If db.Error Then
-		        MsgBox("Error: " + db.ErrorMessage)
-		        Return
-		      End If
-		      
-		      If rs <> Nil Then
-		        ProteinFasta=ProteinFasta+EndOfLine.UNIX+rs.Field("sequence").StringValue
-		        tfastx(ProteinFasta)
-		        rs.Close
-		      End If
-		      db.Close
-		      
-		      
-		    Else
-		      // Connection error
-		      MsgBox(db.ErrorMessage)
-		    End If
-		    
 		    
 		  #else
 		    MsgBox "This method is currently disabled due to database licensing issue. Should hopefully be fixed sometime..."

@@ -194,6 +194,7 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -442,8 +443,9 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -458,15 +460,17 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   20
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
    Begin mHTTPSocket RDBSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -481,7 +485,8 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
 End
@@ -547,7 +552,7 @@ End
 			dim res as string
 			dim hts as new HTTPSocket
 			res=hts.Get(theURL,10)
-			
+			if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 			if res<>"" then
 			dim ProteinID, fastaURL as string
 			dim n,geneNo as integer
@@ -587,6 +592,11 @@ End
 			msgbox "Can't get TF data from RegulonDB."
 			end if
 			end if
+			else
+			LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+			LogoWin.show
+			end if
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -615,6 +625,9 @@ End
 		  
 		  
 		  RegulonDBSocket.Get(theURL)
+		  if RegulonDBSocket.ErrorCode<>0 then
+		    SocketError RegulonDBSocket.ErrorCode
+		  end if
 		  
 		End Sub
 	#tag EndMethod
