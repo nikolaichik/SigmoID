@@ -8,7 +8,9 @@ Functions:
 - extend, shorten and mask alignments;
 - create hmm profiles from alignments;
 - search bacterial genomes with calibrated (and uncalibrated) hmm profiles;
-- annotate promoters and transcription factor binding sites in GenBank-formatted genomes.
+- annotate promoters and transcription factor binding sites in GenBank-formatted genomes;
+- view regulatory sites in genomic context with the integrated genome browser;
+- verify annotation via the integrated database search.
 
 This version includes over 30 calibrated profiles (including 5 for sigma factors) optimised for enterobacterial phytopathogens Pectobacterium spp. and Dickeya dadantii. Efficiency of these profiles may decrease for other bacteria.
 
