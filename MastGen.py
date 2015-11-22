@@ -255,12 +255,11 @@ for record in records:
                     if allowed_features_list[c].location.start <= my_feature.location.start <= allowed_features_list[c+1].location.start:
                         record.features.insert(i+1, my_feature)
                         break
-                    elif i == 0 and record.features[i].location.start > my_feature.location.start:
-                        record.features.insert(i+1, my_feature)
-                        break
-                    elif i == len(record.features)-1 and record.features[i].location.start < my_feature.location.start:
-                        record.features.insert(i+1, my_feature)
-                        break
+            if i == 0 and record.features[i].location.start > my_feature.location.start:
+                record.features.insert(i, my_feature)
+                break
+            elif i == len(record.features)-1 and record.features[i].location.start < my_feature.location.start:
+                record.features.insert(i+1, my_feature)
                 break
     if enter.insert == True:
         hit_list = []
