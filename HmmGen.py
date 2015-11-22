@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.10 (October 18, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.11 (November 22, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -123,7 +123,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.10 (October 18, 2015)'
+print '\nHmmGen 2.11 (November 22, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -359,13 +359,14 @@ for record in records:
                         if allowed_features_list[c].location.start <= my_feature.location.start <= allowed_features_list[c+1].location.start:
                             record.features.insert(i+1, my_feature)
                             break
-                        elif i == 0 and record.features[i].location.start > my_feature.location.start:
-                            record.features.insert(i+1, my_feature)
-                            break
-                        elif i == len(record.features)-1 and record.features[i].location.start < my_feature.location.start:
-                            record.features.insert(i+1, my_feature)
-                            break
+                        
+                if i == 0 and record.features[i].location.start > my_feature.location.start:
+                    record.features.insert(i, my_feature)
                     break
+                elif i == len(record.features)-1 and record.features[i].location.start < my_feature.location.start:
+                    record.features.insert(i+1, my_feature)
+                    break
+                
 
     if enter.insert == True:
         hit_list = []
