@@ -912,20 +912,7 @@ End
 
 	#tag Event
 		Sub Resized()
-		  // recalculate positions of CRs in all customEditFields
-		  dim m,n as integer
-		  m=ControlCount-1
-		  for n=0 to m
-		    if control(n) isa CustomEditField then
-		      CustomEditField(control(n)).resize
-		      '#if TargetWin32 then
-		      
-		      
-		      '#else
-		      'self.Refreshrect(0,tabpanel1.top+tabpanel1.Height,width,editor.RulerPic.Height)
-		      '#endif
-		    end if
-		  next
+		  
 		  setMapCanvasScrollers
 		  
 		  ProgressWheel1.top=BrowserPagePanel.top+BrowserPagePanel.Height/3

@@ -142,7 +142,6 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Feature to add:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -855,6 +854,15 @@ End
 		  Me.AddRow("protein_bind")
 		  Me.ListIndex = 1
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NextLocusBox
+	#tag Event
+		Sub Action()
+		  if me.value then
+		    msgbox "Please note that GenBank objects adding locus_tag and 'gene' qualifiers to regulatory features"
+		  end if  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

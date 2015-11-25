@@ -1098,10 +1098,10 @@ End
 		  dim TFname as string
 		  
 		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  
 		  tmpfile=SpecialFolder.Temporary.child("RegulonDBtmp.fasta")
 		  if tmpfile<>nil then
 		    if tmpfile.Exists then
+		      '64-bit Error here in MoveFileTo!
 		      tmpfile.MoveFileTo(SpecialFolder.Trash)
 		      tmpfile=SpecialFolder.Temporary.child("RegulonDBtmp.fasta")
 		    end if
@@ -1122,6 +1122,7 @@ End
 		      minLen=100
 		      maxLen=0
 		      InStream = tmpfile.OpenAsTextFile
+		      
 		      if instream<>Nil then
 		        while not InStream.EOF
 		          aLine=trim(InStream.readLine)

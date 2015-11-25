@@ -906,6 +906,15 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events NextLocusBox
+	#tag Event
+		Sub Action()
+		  if me.value then
+		    msgbox "Please note that GenBank objects adding locus_tag and 'gene' qualifiers to regulatory features"
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="BackColor"
