@@ -903,6 +903,8 @@ End
 		Sub Action()
 		  Dim SigFile As FolderItem
 		  Dim dlg As New SaveAsDialog
+		  Dim SigFileVV As VirtualVolume
+		  
 		  
 		  dlg.ActionButtonCaption = "Save"
 		  dlg.Title = "Save .sig File"
@@ -914,10 +916,12 @@ End
 		  SigFile=dlg.ShowModal
 		  If SigFile <> Nil then
 		    if SigFile.exists then
-		      SigFile.Delete
+		      'workaround for virtualfolder problem
+		      dim fn as string = sigfile.ShellPath
+		      SigFile.MoveFileTo(SpecialFolder.Trash) 'can't just delete because of the VirtualVolume inside
+		      SigFile=GetFolderItem(fn,FolderItem.PathTypeShell)
 		    end if
 		    
-		    Dim SigFileVV As VirtualVolume
 		    
 		    
 		    
@@ -941,8 +945,24 @@ End
 		    if stock <> nil then
 		      dim AlignmentFile,rcAlignmentFile as FolderItem
 		      'copy alignment to temp (for weblogo)
-		      LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
+		      
 		      AlignmentFile=SpecialFolder.Temporary.Child(LogoWin.LogoFile.DisplayName)
+		      
+		      'CopyFileTo fails if the target exists, hence this check:
+		      If AlignmentFile <> Nil then
+		        if AlignmentFile.exists then
+		          if AlignmentFile.ShellPath<>LogoWin.LogoFile.ShellPath then
+		            AlignmentFile.delete
+		            LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
+		          else
+		            'the file is already there
+		          end if
+		        else
+		          LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
+		        End If
+		      End If
+		      
+		      
 		      'check if the site is marked as palindromic
 		      if palindromicBox.value then 'reverse complement every site
 		        
@@ -1105,6 +1125,7 @@ End
 		                  if f2<>Nil then
 		                    CopyFileToVV(f2,SigFileVV)
 		                    logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
+		                    LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
 		                  else
 		                    beep
 		                  end if
@@ -1120,6 +1141,8 @@ End
 		              msgbox "Creating hmm failed"
 		              return
 		            end if
+		          else
+		            Msgbox "Can't create virtual folder."
 		            
 		          end if
 		          

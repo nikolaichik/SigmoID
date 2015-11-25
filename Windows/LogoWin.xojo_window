@@ -2319,15 +2319,19 @@ End
 		      dim f as folderitem
 		      dim inStream as TextInputStream
 		      f=vv.root.child(basename+".info")     'Info
-		      InStream = f.OpenAsTextFile
-		      if InStream <>nil then
-		        Info=inStream.ReadAll
-		        ProfileWizardWin.InfoArea.Italic=false
-		        ProfileWizardWin.InfoArea.TextColor=&c00000000 'black
-		        ProfileWizardWin.InfoArea.text=info
-		        inStream.close
+		      if f.exists then
+		        InStream = f.OpenAsTextFile
+		        if InStream <>nil then
+		          Info=inStream.ReadAll
+		          ProfileWizardWin.InfoArea.Italic=false
+		          ProfileWizardWin.InfoArea.TextColor=&c00000000 'black
+		          ProfileWizardWin.InfoArea.text=info
+		          inStream.close
+		        else
+		          msgbox "Can't read alignment info"
+		        end if
 		      else
-		        msgbox "Can't read alignment info"
+		        msgbox "No alignment info file ("+ f.Name+") located at "+f.ShellPath
 		      end if
 		      
 		      f=vv.root.child(basename+".options")  'Profile Settings
@@ -2634,6 +2638,10 @@ End
 		      
 		      RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
 		      if RegPreciseTemp<>nil then
+		        if RegPreciseTemp.Exists then
+		          RegPreciseTemp.MoveFileTo(SpecialFolder.Trash)
+		          RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		        end if
 		        dim fa as string
 		        fa=JSON2Fasta(JSN)
 		        if fa<>"" then
@@ -3275,6 +3283,7 @@ End
 		  if nhmmerOptions <> "" then
 		    if nhmmer then
 		      if nhmmerSettingsWin.AddAnnotationCheckBox.value then
+		        
 		        Dim dlg as New SaveAsDialog
 		        dlg.InitialDirectory=genomefile.Parent
 		        dlg.promptText="Select where to save the modified genome file"
@@ -3868,11 +3877,6 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWinToolbar:DropDownMenuAction")
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

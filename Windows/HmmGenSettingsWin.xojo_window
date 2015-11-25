@@ -142,6 +142,7 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Feature to add:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -748,9 +749,10 @@ End
 		    if ValueField.text="" then
 		      RunEnabled=false
 		    end if
-		    if instr(ValueField.text," ")>0 then
-		      RunEnabled=false
-		    end if
+		    
+		    'if instr(ValueField.text," ")>0 then  'not needed any more?
+		    'RunEnabled=false
+		    'end if
 		  end if
 		  
 		  RunButton.Enabled=RunEnabled

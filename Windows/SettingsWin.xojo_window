@@ -1067,10 +1067,16 @@ End
 		  select case item.Name
 		  case "PathsButt"
 		    PagePanel1.value=0
+		    toolbutton(me.Item(1)).Pushed=false
+		    toolbutton(me.Item(2)).Pushed=false
 		  case "BLASTbutt"
 		    PagePanel1.value=1
+		    toolbutton(me.Item(0)).Pushed=false
+		    toolbutton(me.Item(2)).Pushed=false
 		  case "ProfileButt"
 		    PagePanel1.value=2
+		    toolbutton(me.Item(1)).Pushed=false
+		    toolbutton(me.Item(0)).Pushed=false
 		  end select
 		End Sub
 	#tag EndEvent

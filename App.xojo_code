@@ -495,8 +495,8 @@ Inherits Application
 		            SigFileVV = SigFile.CreateVirtualVolume
 		            If SigFileVV <> nil Then
 		              'first copy the existing files:
-		              'AlignmentFile.CopyFileTo(SigFileVV.Root)    'broken in Linux                            'alignment
-		              CopyFileToVV(AlignmentFile,SigFileVV)
+		              'AlignmentFile.CopyFileTo(SigFileVV.Root)    'broken in Linux                            
+		              CopyFileToVV(AlignmentFile,SigFileVV)                           'alignment
 		              'get the base of profile name
 		              dim baseName as string
 		              basename= NthField(SigFile.DisplayName,".sig",1)
@@ -526,7 +526,7 @@ Inherits Application
 		                return
 		              end if
 		              
-		              file2copy=sigFolder.child("meme.txt")                     'meme.txt
+		              file2copy=sigFolder.child("meme.txt")                           'meme.txt
 		              if file2copy<>Nil AND file2copy.exists then
 		                CopyFileToVV(file2copy,SigFileVV)
 		                
@@ -622,9 +622,6 @@ Inherits Application
 
 
 	#tag Note, Name = 2 do
-		1. Selection of calibrated profile folders is required!
-		2. Add preference/option to set which database to use with BLAST (same for taxonomy restriction)
-		
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		9. Prepare submission menu?
 		12. Proper profile extend/shrink functions
@@ -639,8 +636,11 @@ Inherits Application
 		31. alternative start codons are not translated as methionine
 		33. limit log length to avoid slowdowns
 		38. Include TF AA seqs from RegPrecise to avoid mySQL connection
-		39. Don't add features if there's nothing to add!
 		40. (not reproduced) Select smth in genomewin, scroll (search) to remove selection, bring up context menu => crash
+		39. Don't add features if there's nothing to add!
+		42. Don't show "SelectFile" dialog after nhmmersearch (with 'add annotation' checked) if nothing was found
+		45. Wrong item number in regprecise window list (RegPrecise's fault)
+		46. No check for TransTerm
 	#tag EndNote
 
 	#tag Note, Name = Linux details

@@ -472,8 +472,8 @@ Protected Module Globals
 		    errtype="OutOfBoundsException" '  An attempt was made to read from or write to a value, character, or element outside the bounds of the object or data type.
 		  elseif err IsA OutOfMemoryException then
 		    errtype="OutOfMemoryException" '  Raised in certain cases when an operation cannot be completed due to insufficient memory.
-		  elseif err IsA RbScriptAlreadyRunningException then
-		    errtype="RbScriptAlreadyRunningException" '  The user tried to modify an RBscript that is already executing or tried to modify the context of the script while it is running.
+		    'elseif err IsA RbScriptAlreadyRunningException then
+		    'errtype="RbScriptAlreadyRunningException" '  The user tried to modify an RBscript that is already executing or tried to modify the context of the script while it is running.
 		  elseif err IsA RegExException then
 		    errtype="RegExException" '  The RegEx engine issued a runtime exception. Currently this means that you used an invalid search pattern in a Regular Expression. In the future, other types of regular expression exceptions may be added.
 		  elseif err IsA RegistryAccessErrorException then
@@ -1550,13 +1550,13 @@ Protected Module Globals
 		  end if
 		  
 		  dim block as string = ""
-		  dim xtra as string = "____________________"
+		  dim xtra as string = "____________________________________________________________"
 		  while not InStream.EOF                        'sequence blocks
 		    aLine=InStream.readLine
 		    if left(aLine,1)=">" then                    'seq title
 		      aline=ReplaceAll(aline," ","_")             'hmmbuild doesn't like spaces
 		      aline=aline+xtra                            'equalise lengths
-		      block=mid(aline,1,20)+" "
+		      block=mid(aline,1,60)+" "                   'this long to distinguish duplicates from RegPrecise
 		    else
 		      outstream.writeline block+aline
 		      block=""
@@ -2042,6 +2042,24 @@ Protected Module Globals
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="BLASTnDB"
+			Group="Behavior"
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BLASTorganism"
+			Group="Behavior"
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BLASTpDB"
+			Group="Behavior"
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="cLineEnd"
 			Group="Behavior"
 			Type="String"
@@ -2152,6 +2170,12 @@ Protected Module Globals
 			Name="ORFStarts"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ProfileFpath"
+			Group="Behavior"
+			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty

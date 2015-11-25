@@ -3,7 +3,7 @@
 				Begin BuildProjectStep Build
 				End
 				Begin CopyFilesBuildStep CopyResources
-					AppliesTo = 0
+					AppliesTo = 2
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vSG1tR2VuLnB5

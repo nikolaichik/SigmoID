@@ -144,7 +144,7 @@ Begin Window RegulonDBWin
       HasMenu         =   0
       Height          =   22
       HelpTag         =   ""
-      Icon            =   568940543
+      Icon            =   495161343
       IconAlign       =   1
       IconDX          =   0
       IconDY          =   0
@@ -194,7 +194,6 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -443,9 +442,8 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -460,17 +458,15 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   20
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket RDBSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -485,8 +481,7 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
 End
@@ -1106,43 +1101,59 @@ End
 		  
 		  tmpfile=SpecialFolder.Temporary.child("RegulonDBtmp.fasta")
 		  if tmpfile<>nil then
+		    if tmpfile.Exists then
+		      tmpfile.MoveFileTo(SpecialFolder.Trash)
+		      tmpfile=SpecialFolder.Temporary.child("RegulonDBtmp.fasta")
+		    end if
 		    dim OutStream As TextOutputStream
 		    OutStream = TextOutputStream.Create(tmpfile)
-		    outstream.Write(RegulatorArray(RegulatorList.ListIndex))
-		    OutStream.Close
-		    logowin.Title="SigmoID: "+TFname+" (RegulonDB)"
-		    logowin.LoadAlignment(tmpfile)
-		    logowin.ChangeView("Logo")
-		    HmmGenSettingsWin.ValueField.text=TFname
-		    MASTGenSettingsWin.ValueField.text=TFname
-		    
-		    'determine site width(s):
-		    dim instream as TextInputStream
-		    dim aLine as string
-		    minLen=100
-		    maxLen=0
-		    InStream = tmpfile.OpenAsTextFile
-		    while not InStream.EOF
-		      aLine=trim(InStream.readLine)
-		      if left(aLine,1)=">" then
+		    if OutStream<>Nil then
+		      outstream.Write(RegulatorArray(RegulatorList.ListIndex))
+		      OutStream.Close
+		      logowin.Title="SigmoID: "+TFname+" (RegulonDB)"
+		      logowin.LoadAlignment(tmpfile)
+		      logowin.ChangeView("Logo")
+		      HmmGenSettingsWin.ValueField.text=TFname
+		      MASTGenSettingsWin.ValueField.text=TFname
+		      
+		      'determine site width(s):
+		      dim instream as TextInputStream
+		      dim aLine as string
+		      minLen=100
+		      maxLen=0
+		      InStream = tmpfile.OpenAsTextFile
+		      if instream<>Nil then
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          if left(aLine,1)=">" then
+		          else
+		            if lenb(aline)<minLen then
+		              minLen=lenb(aline)
+		            end if
+		            if lenb(aline)>maxLen then
+		              maxLen=lenb(aline)
+		            end if
+		          end if
+		        wend
+		        instream.close
+		        minLen=minlen-20
+		        maxLen=maxLen-20
 		      else
-		        if lenb(aline)<minLen then
-		          minLen=lenb(aline)
-		        end if
-		        if lenb(aline)>maxLen then
-		          maxLen=lenb(aline)
-		        end if
+		        msgbox "can't read temporary file "+tmpfile.ShellPath
 		      end if
-		    wend
-		    instream.close
-		    minLen=minlen-20
-		    maxLen=maxLen-20
+		      
+		    else
+		      msgbox "can't write temporary file "+tmpfile.ShellPath
+		    end if
 		    
 		  end if
 		  
 		  LogoWin.show
 		  
 		  Exception err
+		    if err isa IOException then
+		      msgbox "A problem creating/reading temporaty file. Please try to clean your temp folder"
+		    end if
 		    ExceptionHandler(err,"RegulonDBWin:ShowLogo")
 		    
 		End Sub

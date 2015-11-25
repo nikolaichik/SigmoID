@@ -48,7 +48,6 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -177,9 +176,8 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      Height          =   "32"
+      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -194,8 +192,7 @@ Begin Window RegPreciseWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
       yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
@@ -266,7 +263,7 @@ Begin Window RegPreciseWin
       HasMenu         =   0
       Height          =   22
       HelpTag         =   ""
-      Icon            =   568940543
+      Icon            =   495161343
       IconAlign       =   1
       IconDX          =   0
       IconDY          =   0
@@ -568,9 +565,9 @@ End
 		  dim f as folderitem
 		  dim tis as TextInputStream
 		  
+		  'loading the JSON from disk rather than retrieving it from the net:
 		  f=Resources_f.child("genomeStats.JSON")
 		  if f<>Nil then
-		    'loading the JSON from disk rather than retrieving it from the net:
 		    tis=f.OpenAsTextFile
 		    if tis<>nil then
 		      gnms=tis.ReadAll
@@ -641,6 +638,9 @@ End
 		  LogoWin.show
 		  
 		  Exception err
+		    if err isa IOException then
+		      msgbox "A problem creating/reading temporaty file. Please try to clean your temp folder"
+		    end if
 		    ExceptionHandler(err,"RegPreciseWin:RegulogLogoButton.Action")
 		    
 		End Sub
@@ -700,6 +700,9 @@ End
 		  LogoWin.show
 		  
 		  Exception err
+		    if err isa IOException then
+		      msgbox "A problem creating/reading temporaty file. Please try to clean your temp folder"
+		    end if
 		    ExceptionHandler(err,"RegPreciseWin:RegulonLogoButton.Action")
 		    
 		End Sub
