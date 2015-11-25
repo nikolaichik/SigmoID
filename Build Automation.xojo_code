@@ -2,7 +2,7 @@
 			Begin BuildStepList Linux
 				Begin BuildProjectStep Build
 				End
-				Begin CopyFilesBuildStep CopyResources
+				Begin CopyFilesBuildStep CopyResources32bit
 					AppliesTo = 2
 					Destination = 1
 					Subdirectory = 
@@ -27,7 +27,6 @@
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL1JlZ3Vsb25EQi8=
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L3RmYXN0eA==
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L2FsaW1hc2s=
-					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L2htbWFsaWdu
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L2htbWJ1aWxk
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L25obW1lcg==
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L3dlYmxvZ28tMy4zLw==
@@ -37,6 +36,34 @@
 					Destination = 0
 					Subdirectory = 
 					FolderItem = Li4vU2lnbW9JRC5zaA==
+				End
+				Begin CopyFilesBuildStep CopyResources64bit
+					AppliesTo = 2
+					Destination = 1
+					Subdirectory = 
+					FolderItem = Li4vSG1tR2VuLnB5
+					FolderItem = Li4vUHJvZmlsZXMv
+					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==
+					FolderItem = Li4vcHR0X2NvbnZlcnRlci5weQ==
+					FolderItem = Li4vVGVybUdlbi5weQ==
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL1RyYW5zVGVybUhQL2V4cHRlcm0uZGF0
+					FolderItem = Li4vZ2JrMnRibC5weQ==
+					FolderItem = Li4vZ2VuZXBhcnNlLnB5
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL2JsYW5rLmh0bWw=
+					FolderItem = Li4vTWFzdEdlbi5weQ==
+					FolderItem = Li4vZ2Vub21lU3RhdHMuSlNPTg==
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0htbWVyVXNlckd1aWRlLnBkZg==
+					FolderItem = Li4vT3Blck9uLnB5
+					FolderItem = Li4vSGVscC8=
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL1JlZ3Vsb25EQi8=
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvYWxpbWFzaw==
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvaG1tYnVpbGQ=
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbWFzdA==
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbWVtZQ==
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbmhtbWVy
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdGZhc3R4MzY=
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdHJhbnN0ZXJt
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvd2VibG9nby0zLjMv
 				End
 			End
 			Begin BuildStepList Mac OS X

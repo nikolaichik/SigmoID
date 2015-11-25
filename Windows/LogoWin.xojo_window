@@ -132,7 +132,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -1684,6 +1683,229 @@ End
 		  'where i is the position within site, b refers to each of the four bases,
 		  'and Fb,i is the frequency of each base at that position
 		  
+		  dim replicas, baseX, currentX,letterData as integer
+		  dim entropy, maxentropy, LetterHeight, baseY, nextY,freq As double
+		  dim posarray(4),letterName, Acount, Ccount, Gcount, Tcount as string
+		  totalEntropy=0
+		  
+		  
+		  baseX= -3
+		  baseY=150
+		  
+		  
+		  dim Acounter(0) as integer
+		  dim Ccounter(0) as integer
+		  dim Gcounter(0) as integer
+		  dim Tcounter(0) as integer
+		  dim tis as TextInputStream
+		  dim Arow, Achar as string
+		  dim n, SeqLen as integer
+		  
+		  
+		  'LogoData is an array of base counts at numbered positions
+		  
+		  'determine seqlength
+		  tis=TextInputStream.Open(Logofile)
+		  if tis<>Nil then
+		    While Not tis.EOF
+		      Arow = tis.ReadLine
+		      Arow=trim(Arow) 'just in case
+		      Achar=left(Arow,1)
+		      if Achar<>">" then
+		        SeqLen=len(Arow)
+		        exit
+		      end if
+		    Wend
+		  else
+		    Msgbox "Can't read alignment data."
+		    return
+		  end if
+		  Redim Acounter(SeqLen)
+		  Redim Ccounter(SeqLen)
+		  Redim Gcounter(SeqLen)
+		  Redim Tcounter(SeqLen)
+		  
+		  tis=TextInputStream.Open(Logofile)
+		  if tis<>Nil then
+		    While Not tis.EOF
+		      Arow = tis.ReadLine
+		      Arow=trim(Arow) 'just in case
+		      Achar=left(Arow,1)
+		      if Achar<>">" AND len(Arow)>0 then
+		        if len(Arow)<>SeqLen then
+		          msgbox "The sequences are of different lengths! Can't draw the logo for unaligned sequences!"
+		          return
+		        end if
+		        
+		        for n=1 to SeqLen
+		          Achar=mid(Arow,n,1)
+		          select case Achar
+		          case "A"
+		            Acounter(n)=Acounter(n)+1
+		          case "C"
+		            Ccounter(n)=Ccounter(n)+1
+		          case "G"
+		            Gcounter(n)=Gcounter(n)+1
+		          case "T"
+		            Tcounter(n)=Tcounter(n)+1
+		          case else
+		            msgbox "Unexpected non-nucleotide character in input. Stopping here."
+		            return
+		          end select
+		        next
+		      end if
+		      
+		    Wend
+		  end if
+		  
+		  LogoPic=new Picture (30*(SeqLen+1),170,32)
+		  LogoPic.Transparent=1
+		  
+		  'count number of replicates (bases per position)
+		  replicas=Acounter(1)+Ccounter(1)+Gcounter(1)+Tcounter(1)
+		  
+		  for n=1 to SeqLen
+		    'combine letter names with counts for sorting
+		    posarray(1)=format(Acounter(n),"000")+"A"
+		    posarray(2)=format(Ccounter(n),"000")+"C"
+		    posarray(3)=format(Gcounter(n),"000")+"G"
+		    posarray(4)=format(Tcounter(n),"000")+"T"
+		    posarray.Sort
+		    entropy=2
+		    freq=Acounter(n)/replicas
+		    entropy=entropy+freq*log2(freq)
+		    freq=Ccounter(n)/replicas
+		    entropy=entropy+freq*log2(freq)
+		    freq=Gcounter(n)/replicas
+		    entropy=entropy+freq*log2(freq)
+		    freq=Tcounter(n)/replicas
+		    entropy=entropy+freq*log2(freq)
+		    totalEntropy=totalEntropy+entropy
+		    
+		    'lowest letter
+		    letterData=val(posarray(1))
+		    letterName=right(posarray(1),1)
+		    LetterHeight=70*entropy*letterData/replicas
+		    NextY=baseY-letterheight
+		    CurrentX=baseX+n*30
+		    select case letterName
+		    case "A"
+		      LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "C"
+		      LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "G"
+		      LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "T"
+		      LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    end select
+		    
+		    'second lowest letter
+		    letterData=val(posarray(2))
+		    letterName=right(posarray(2),1)
+		    LetterHeight=70*entropy*letterData/replicas
+		    NextY=NextY-LetterHeight
+		    select case letterName
+		    case "A"
+		      LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "C"
+		      LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "G"
+		      LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "T"
+		      LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    end select
+		    
+		    'third lowest letter
+		    letterData=val(posarray(3))
+		    letterName=right(posarray(3),1)
+		    LetterHeight=70*entropy*letterData/replicas
+		    NextY=NextY-LetterHeight
+		    select case letterName
+		    case "A"
+		      LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "C"
+		      LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "G"
+		      LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "T"
+		      LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    end select
+		    
+		    'topmost letter
+		    letterData=val(posarray(4))
+		    letterName=right(posarray(4),1)
+		    LetterHeight=70*entropy*letterData/replicas
+		    NextY=NextY-LetterHeight
+		    select case letterName
+		    case "A"
+		      LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "C"
+		      LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "G"
+		      LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "T"
+		      LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    end select
+		    
+		  next
+		  
+		  'draw rulers
+		  'horisontal:
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY+3,baseX+30*(n),BaseY+3)
+		  for n=1 to Seqlen
+		    LogoPic.graphics.DrawLine(baseX+15+30*n,BaseY+3,baseX+15+30*n,BaseY+7)
+		  next
+		  for n=5 to Seqlen step 5
+		    LogoPic.graphics.DrawString(str(n),baseX+10+30*n,baseY+20)
+		  next
+		  
+		  'vertical:
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY+3,baseX+25,BaseY-140)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY-140,baseX+18,BaseY-140)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY-70,baseX+18,BaseY-70)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY,baseX+18,BaseY)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY-105,baseX+21,BaseY-105)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY-35,baseX+21,BaseY-35)
+		  
+		  LogoPic.graphics.DrawString("0",6,baseY+5)
+		  LogoPic.graphics.DrawString("1",6,baseY-65)
+		  LogoPic.graphics.DrawString("2",6,baseY-135)
+		  
+		  'clear selection arrays to remove selection from previous logo:
+		  redim selarray1(0)
+		  redim selarray2(0)
+		  lastX=0
+		  masked=false
+		  
+		  #if DebugBuild
+		    WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		  #else
+		    WriteToSTDOUT (EndofLine+"The alignment "+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    
+		  #endif
+		  WriteToSTDOUT ("Information content of this site is "+str(totalEntropy)+" bits."+EndofLine)
+		  LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
+		  me.refresh 'needed if logo of the same size is drawn and to remove selection
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:DrawLogo")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub DrawWebLogo()
+		  'Information content per position as defined by Schneider et al, 1986
+		  '
+		  ' Ii=2+sum(Fb,i*log2(Fb,i)),
+		  '
+		  'where i is the position within site, b refers to each of the four bases,
+		  'and Fb,i is the frequency of each base at that position
+		  
+		  'No small sample correction!
+		  
+		  'WebLogo still used, but only to count nucleotides
+		  
+		  
 		  dim n,replicas, baseX, currentX,letterData as integer
 		  dim entropy, maxentropy, LetterHeight, baseY, nextY,freq As double
 		  dim posarray(4),letterName, Acount, Ccount, Gcount, Tcount as string
@@ -1880,7 +2102,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub DrawLogoOld()
+		Protected Sub DrawWebLogo_SScorr()
 		  dim n,replicas, baseX, currentX,letterData as integer
 		  dim entropy, maxentropy, LetterHeight, baseY, nextY As double
 		  dim posarray(4),letterName as string
@@ -3365,6 +3587,80 @@ End
 		    LogoLength=ubound(Logodata)
 		    
 		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:ReadLogoData")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub ReadLogoDataFromFasta()
+		  dim Acounter(0) as integer
+		  dim Ccounter(0) as integer
+		  dim Gcounter(0) as integer
+		  dim Tcounter(0) as integer
+		  dim tis as TextInputStream
+		  dim Arow, Achar as string
+		  dim n,l,SeqLen as integer
+		  
+		  
+		  'this replaces WebLogo code
+		  
+		  'format of the data in WebLogo output is:
+		  '#    A     C     G     T     Entropy    Low    High    Weight
+		  '1     1     0     0     19     0.9777     0.6344     1.3210     1.0000
+		  '2     13     3     2     2     0.3639     0.1286     0.7196     1.0000
+		  
+		  
+		  'LogoData is an array of base counts at numbered positions
+		  
+		  'determine seqlength
+		  tis=TextInputStream.Open(Logofile)
+		  if tis<>Nil then
+		    Arow = tis.ReadLine
+		    Arow=trim(Arow) 'just in case
+		    Achar=left(Arow,1)
+		    if Achar<>">" then
+		      SeqLen=len(Arow)
+		    end if
+		  else
+		    Msgbox "Can't read alignment data."
+		    return
+		  end if
+		  Redim Acounter(SeqLen)
+		  Redim Ccounter(SeqLen)
+		  Redim Gcounter(SeqLen)
+		  Redim Tcounter(SeqLen)
+		  
+		  tis=TextInputStream.Open(Logofile)
+		  if tis<>Nil then
+		    While Not tis.EOF
+		      Arow = tis.ReadLine
+		      Arow=trim(Arow) 'just in case
+		      Achar=left(Arow,1)
+		      if Achar<>">" then
+		        l=len(Arow)
+		        for n=1 to l
+		          Achar=mid(Arow,n,1)
+		          select case Achar
+		          case "A"
+		            Acounter(n)=Acounter(n)+1
+		          case "C"
+		            Ccounter(n)=Ccounter(n)+1
+		          case "G"
+		            Gcounter(n)=Gcounter(n)+1
+		          case "T"
+		            Tcounter(n)=Tcounter(n)+1
+		          case else
+		            msgbox "Unexpected non-nucleotide character in input. Stopping here."
+		            return
+		          end select 
+		        next
+		      end if
+		      
+		    Wend
+		  end if
+		  
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:ReadLogoData")
