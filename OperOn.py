@@ -17,28 +17,71 @@ class Operon():
         self.strand = strand
 
     def __str__(self):
-        out = ''
+        self.out = ''
         for gene_loci_product in self.genes:
-            out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
-                                       gene_loci_product[1],
-                                       gene_loci_product[2])
-       
-        return out
+	    if self.genes.index(gene_loci_product) != -1:
+                self.out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
+                                           gene_loci_product[1],
+                                           gene_loci_product[2])
+            elif self.genes.index(gene_loci_product) == -1:
+	        self.out += '\t%s\t%s\t%s\n\n' % (gene_loci_product[0],
+                                                gene_loci_product[1],
+                                                gene_loci_product[2])
+	    
+        return self.out
 
 class Divergon():
-    def __init__(self, name, up_genes, down_genes, info, up_terminator, down_terminator):
+    def __init__(self, name, down_genes, up_genes, info, up_terminator, down_terminator):
         self.name = name
-        self.up_genes = up_genes
         self.down_genes = down_genes
-        if len(self.up_genes) > 0 or len(self.down_genes) > 0:
-            self.genes = [self.down_genes, self.up_genes]
+        self.up_genes = up_genes
+        if len(self.down_genes) > 0 or len(self.up_genes) > 0:
+            self.genes = [self.up_genes, self.down_genes]
         else:
             self.genes = []
         self.info = info
         self.up_terminator = up_terminator
         self.down_terminator = down_terminator
 
+class CommonOperon():
+    def __init__(self, regulators, genes):
+        self.regulators = regulators
+        self.genes = genes
 
+    def __str__(self):
+        self.out = ''
+        for regulator in self.regulators:
+	    self.out += '>'+regulator+'\n'
+	for gene_loci_product in self.genes:
+            self.out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
+                                       gene_loci_product[1],
+                                       gene_loci_product[2])
+                                       
+	return self.out
+
+
+class CommonDivergon():
+    def __init__(self, name, down_genes, up_genes):
+        self.name = name
+        self.down_genes = down_genes
+        self.up_genes = up_genes     
+    
+    def __str__(self):
+        self.out = ''
+        
+        for self.up_gene in reversed(self.up_genes):
+	    self.out += '\t%s\t%s\t%s\n' % (self.up_gene[0],
+                                            self.up_gene[1],
+                                            self.up_gene[2])
+	for self.one_name in self.name:
+	    self.out += '>'+self.one_name+'\n'
+	for self.down_gene in self.down_genes:    
+	    self.out += '\t%s\t%s\t%s\n' % (self.down_gene[0],
+	                                    self.down_gene[1],
+	                                    self.down_gene[2])
+        return self.out
+	    
+	
 def createParser():
 
     parser = argparse.ArgumentParser(
@@ -78,8 +121,13 @@ def createParser():
                         action='store_const',
                         const='On',
                         default='Off',
-                        help='''operon stops on first terminator (if -t is set)''')        
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.7 (October 31, 2015)')
+                        help='''operon stops on first terminator (if -t is set)''')
+    parser.add_argument('-o', '--operons',
+                        action='store_const',
+                        const='On',
+                        default='Off',
+                        help='''operon stops on first terminator (if -t is set)''')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.8 (November 18)')
     return parser
 
 args = createParser()
@@ -347,6 +395,18 @@ for operon in test_operons:
                              regend=regulator_end,
                              strand=regulator_strand)
     operon_list.append(operon_instance)
+operon_starts = [int(operon.regstart) for operon in operon_list]
+operon_starts.sort()
+print len(operon_starts)
+new = []
+for start in operon_starts:
+    for index in xrange(len(operon_list)):
+        if int(operon_list[index].regstart) == start:
+	    new.append(operon_list[index])
+	    del operon_list[index]
+	    break
+operon_list = [operon for operon in new]
+print len(operon_list)
 duplicated = []
 for operon in operon_list:
     for duplicate in operon_list:
@@ -403,63 +463,135 @@ operon_list = [operon_list[index] for index in range(len(operon_list)) if not an
 divergons_and_promoters = []
 intodel = []
 for up_operon in operon_list:
-    for down_operon in operon_list:
+    is_divergon = False
+    for down_operon in operon_list[operon_list.index(up_operon)+1:]:
         if len(up_operon.genes) > 0 and len(down_operon.genes) > 0 and \
            up_operon.name == down_operon.name and \
            up_operon.regstart == down_operon.regstart and \
            up_operon.regend == down_operon.regend and \
            up_operon.strand == '+' and down_operon.strand == '-':
+	    is_divergon = True
             divergon = Divergon(name=up_operon.name, 
-                                up_genes=up_operon.genes, 
-                                down_genes=down_operon.genes, 
+                                down_genes=up_operon.genes, 
+                                up_genes=down_operon.genes, 
                                 info=up_operon.info, 
                                 up_terminator=up_operon.terminator, 
                                 down_terminator=down_operon.terminator)
-            divergons_and_promoters.append(divergon)
-            intodel.append(operon_list.index(up_operon))
+            #intodel.append(operon_list.index(up_operon))
             intodel.append(operon_list.index(down_operon))
+    if is_divergon == True:
+        operon_list[operon_list.index(up_operon)] = divergon
 operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
-operon_list += divergons_and_promoters
-operon_out = 'OperOn 1.7 (October 31)\n'+('='*50)+'\n\n'
+operon_out = 'OperOn 1.8 (November 18)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 regulator_counter = []
-for regulator in regulators:
-    operon_counter = 0
-    regulator = regulator.replace('*', ' ')
-    operon_out += ('-'*50 + '\n')
-    common_counter = 0
-    divergon_counter = 0
+intodel = []
+if enter.operons == 'On':
     for operon in operon_list:
-        if regulator == operon.name and len(operon.genes) > 0:
-            operon_counter += 1
-            if isinstance(operon, Operon):
-                operon_out += '>%s_%s %s\n%s\n' % (operon.name, str(operon_counter), operon.info, str(operon))
-                common_counter += 1
-            elif isinstance(operon, Divergon):
-                down_out = ''
-                for gene_loci_product in reversed(operon.down_genes):
-                    down_out += '\n\t%s\t%s\t%s' % (gene_loci_product[0],
-                                                    gene_loci_product[1],
-                                                    gene_loci_product[2])
-                up_out = ''
-                for gene_loci_product in operon.up_genes:
-                    up_out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
-                                                  gene_loci_product[1],
-                                                  gene_loci_product[2])
+        common_operon = CommonOperon(regulators=[operon.name+' '+operon.info],
+    				 genes=operon.genes)
+        for next_operon in operon_list[operon_list.index(operon)+1:]:
+            if any(index==operon_list.index(next_operon) for index in intodel) == False and \
+               isinstance(operon, Operon) and \
+               isinstance(next_operon, Operon) and \
+               operon.name != next_operon.name and \
+               operon.genes == next_operon.genes and \
+               len(operon.genes) > 0:
+                common_operon = CommonOperon(regulators=common_operon.regulators + [next_operon.name+' '+next_operon.info],
+    				         genes=common_operon.genes)
+                intodel.append(operon_list.index(next_operon))
+        if len(common_operon.regulators) > 1:
+            operon_list[operon_list.index(operon)] = common_operon
+    operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
+    intodel = []
+    for divergon in operon_list:
+        if isinstance(divergon, Divergon):
+            common_divergon = CommonDivergon(name=[divergon.name+' '+divergon.info],
+                                             down_genes=divergon.down_genes,
+                                             up_genes=divergon.up_genes)
+            for next_divergon in operon_list[operon_list.index(divergon)+1:]:
+                if any(index==operon_list.index(next_divergon) for index in intodel) == False and \
+                   isinstance(next_divergon, Divergon) and \
+                   divergon.name != next_divergon.name and \
+                   divergon.down_genes == next_divergon.down_genes and \
+                   divergon.up_genes == next_divergon.up_genes and \
+                   len(divergon.down_genes) > 0 and len(divergon.up_genes) > 0:
+                    common_divergon = CommonDivergon(name=common_divergon.name+[next_divergon.name+' '+next_divergon.info],
+            	    		                 down_genes=common_divergon.down_genes,
+            	    		                 up_genes=common_divergon.up_genes)
+                    intodel.append(operon_list.index(next_divergon))
+            if len(common_divergon.name) > 1:
+                operon_list[operon_list.index(divergon)] = common_divergon
+    operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
 
-                operon_out += '%s\n>%s_%s %s\n%s\n' % (down_out, operon.name, str(operon_counter), operon.info, up_out)
-                divergon_counter += 1
-                common_counter += 1
-    if enter.palindromic == 'On':
-        regulator_counter.append([regulator, (str(common_counter) + (' (%s divergons)' % str(divergon_counter)))])
-    elif enter.palindromic == 'Off':
-        regulator_counter.append([regulator, str(common_counter)])
-operon_out = operon_out.split('\n\n\n')
-for splitted in operon_out:
-    if len(splitted) > 0:
-        print splitted + '\n'
-print '-'*50
-print 'Operons found:'
-for regulator in regulator_counter:
-    print regulator[0] + '\t' + regulator[1]
+if enter.operons == 'On':
+    regall = 0
+    for operon in operon_list:
+        if isinstance(operon, Operon) and len(operon.genes) > 0:
+	    regall += 1
+            operon_out += '>%s %s\n%s\n' % (operon.name, operon.info, str(operon))
+        elif isinstance(operon, Divergon) and len(operon.genes) > 0:
+            regall += 1
+            down_out = ''
+            for gene_loci_product in reversed(operon.up_genes):
+                down_out += '\n\t%s\t%s\t%s' % (gene_loci_product[0],
+                                                gene_loci_product[1],
+                                                gene_loci_product[2])
+            up_out = ''
+            for gene_loci_product in operon.down_genes:
+                up_out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
+                                              gene_loci_product[1],
+                                              gene_loci_product[2])
+
+            operon_out += '%s\n>%s %s\n%s\n' % (down_out, operon.name, operon.info, up_out)
+        elif isinstance(operon, CommonOperon) or isinstance(operon, CommonDivergon):
+            regall += 1
+            operon_out += str(operon)
+    operon_out += ('='*50)
+    print operon_out
+    print '\nTotal: ', regall, ' operons found'
+
+if enter.operons == 'Off':
+    regall = 0
+    for regulator in regulators:
+        operon_counter = 0
+        regulator = regulator.replace('*', ' ')
+        operon_out += ('-'*50 + '\n')
+        common_regulator_counter = 0
+        divergon_counter = 0
+        for operon in operon_list:
+            if regulator == operon.name and len(operon.genes) > 0:
+	        regall += 1
+                operon_counter += 1
+                if isinstance(operon, Operon):
+                    operon_out += '>%s_%s %s\n%s\n' % (operon.name, str(operon_counter), operon.info, str(operon))
+                    common_regulator_counter += 1
+                elif isinstance(operon, Divergon):
+                    down_out = ''
+                    for gene_loci_product in reversed(operon.up_genes):
+                        down_out += '\n\t%s\t%s\t%s' % (gene_loci_product[0],
+                                                        gene_loci_product[1],
+                                                        gene_loci_product[2])
+                    up_out = ''
+                    for gene_loci_product in operon.down_genes:
+                        up_out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
+                                                      gene_loci_product[1],
+                                                      gene_loci_product[2])
+
+                    operon_out += '%s\n>%s_%s %s\n%s\n' % (down_out, operon.name, str(operon_counter), operon.info, up_out)
+                    divergon_counter += 1
+                    common_regulator_counter += 1
+        if enter.palindromic == 'On':
+            regulator_counter.append([regulator, (str(common_regulator_counter) + (' (%s divergons)' % str(divergon_counter)))])
+        elif enter.palindromic == 'Off':
+            regulator_counter.append([regulator, str(common_regulator_counter)])
+    operon_out = operon_out.split('\n\n\n')
+    for splitted in operon_out:
+        if len(splitted) > 0:
+            print splitted + '\n'
+    print '-'*50
+    print 'Operons found:'
+    for regulator in regulator_counter:
+        print regulator[0] + '\t' + regulator[1]
+    print 'Total: ', regall
 input_handle.close()
