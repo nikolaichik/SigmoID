@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.9 (October 19, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.10 (November 29, 2015)')
     return parser
 
 args = createParser()
@@ -64,7 +64,7 @@ else:
     name = name.split('.')[0]
 cwd = os.path.abspath(os.path.dirname(__file__))
 if platform.system() != 'Windows':
-    renamed_cwd = cwd.replace(' ', '\\')
+    renamed_cwd = cwd.replace(' ', '\ ')
 else:
     renamed_cwd = ''
     expterm_cwd = ''
@@ -82,7 +82,7 @@ else:
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.9 (October 19, 2015)'
+print '\nTermGen 1.10 (November 29, 2015)'
 print "="*50
 output_args = ''
 for arg in range(1, len(sys.argv)):
@@ -439,8 +439,8 @@ input_gbk.close()
 terms_out.close()
 #deleting temporary ptt and fasta files
 if platform.system() != 'Windows':
-    os.remove('%s/%s.fasta' % (renamed_cwd, name))
-    os.remove('%s/%s.ptt' % (renamed_cwd, id))
+    os.remove('%s/%s.fasta' % (cwd, name))
+    os.remove('%s/%s.ptt' % (cwd, id))
 else:
     os.remove('%s.fasta' % (name))
     os.remove('%s.ptt' % (id))
