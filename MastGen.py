@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.2 (October 19, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.3 (November 29, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -121,7 +121,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nMastGen 1.2 (October 19, 2015)'
+print '\nMastGen 1.3 (November 29, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
