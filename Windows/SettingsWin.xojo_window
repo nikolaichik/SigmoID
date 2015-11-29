@@ -9,7 +9,7 @@ Begin Window SettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   356
+   Height          =   320
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -52,7 +52,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   316
+      Top             =   280
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -83,7 +83,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   316
+      Top             =   280
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -104,7 +104,7 @@ Begin Window SettingsWin
    Begin PagePanel PagePanel1
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   304
+      Height          =   268
       HelpTag         =   "All searches will be restricted to sequences from this organism"
       Index           =   -2147483648
       InitialParent   =   ""
@@ -128,7 +128,7 @@ Begin Window SettingsWin
          Bold            =   False
          Caption         =   "Paths"
          Enabled         =   True
-         Height          =   278
+         Height          =   242
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -304,83 +304,6 @@ Begin Window SettingsWin
             Visible         =   True
             Width           =   409
          End
-         Begin Label Label7
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   9
-            TabPanelIndex   =   1
-            Text            =   "weblogo:"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   144
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   72
-         End
-         Begin TextField weblogoPathField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "value"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   114
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   10
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "/usr/local/bin/weblogo"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   142
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   409
-         End
          Begin Label Label8
             AutoDeactivate  =   True
             Bold            =   False
@@ -469,7 +392,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   31
+            Left            =   30
             LockBottom      =   False
             LockedInPosition=   False
             LockLeft        =   True
@@ -486,7 +409,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   178
+            Top             =   144
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -510,7 +433,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   115
+            Left            =   114
             LimitText       =   0
             LockBottom      =   False
             LockedInPosition=   False
@@ -529,7 +452,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   176
+            Top             =   142
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -546,7 +469,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   31
+            Left            =   30
             LockBottom      =   False
             LockedInPosition=   False
             LockLeft        =   True
@@ -563,7 +486,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   212
+            Top             =   178
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -587,7 +510,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   115
+            Left            =   114
             LimitText       =   0
             LockBottom      =   False
             LockedInPosition=   False
@@ -606,7 +529,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   210
+            Top             =   176
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -640,7 +563,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   246
+            Top             =   212
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -683,7 +606,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   244
+            Top             =   210
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -1016,7 +939,7 @@ End
 		  hmmbuildPathField.text=Prefs.value("hmmbuildpath","/usr/local/bin/hmmbuild")
 		  MEMEPathField.text=Prefs.value("MEMEpath","~/meme/bin/meme")
 		  MASTPathField.text=Prefs.value("MASTpath","~/meme/bin/mast")
-		  weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
+		  'weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
 		  tfastxPathField.text=Prefs.value("tfastxPath","/usr/local/bin/tfastx")
 		  
 		  
@@ -1037,7 +960,7 @@ End
 		  Prefs.value("hmmbuildpath")=hmmbuildPathField.text
 		  Prefs.value("MEMEpath")=MEMEPathField.text
 		  Prefs.value("MASTpath")=MASTPathField.text
-		  Prefs.value("weblogopath")=weblogoPathField.text
+		  'Prefs.value("weblogopath")=weblogoPathField.text
 		  Prefs.value("tfastxPath")=tfastxPathField.text
 		  Prefs.value("ProfileFpath")=ProfileFpath
 		  Prefs.value("BLASTnDB")=nthfield(nthfield(NucleotidePopup.Text,"(",2),")",1)

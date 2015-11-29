@@ -3,7 +3,7 @@
 				Begin BuildProjectStep Build
 				End
 				Begin CopyFilesBuildStep CopyResources32bit
-					AppliesTo = 2
+					AppliesTo = 1
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vSG1tR2VuLnB5
@@ -29,7 +29,6 @@
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L2FsaW1hc2s=
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L2htbWJ1aWxk
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L25obW1lcg==
-					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L3dlYmxvZ28tMy4zLw==
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
 					AppliesTo = 2
@@ -63,7 +62,6 @@
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbmhtbWVy
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdGZhc3R4MzY=
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdHJhbnN0ZXJt
-					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvd2VibG9nby0zLjMv
 				End
 			End
 			Begin BuildStepList Mac OS X

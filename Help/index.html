@@ -7,6 +7,7 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
@@ -61,7 +62,7 @@ users can download it from <a href="https://www.python.org/downloads/windows/">p
 python 2.7. You can download the distribution and read the installation
 details for your system at <a href="http://biopython.org/wiki/Download">biopython.org</a>. Please make sure you download and install the correct version for you system and python version.<br>
 You may also need to install the <a href="http://numpy.scipy.org/">NumPy</a> library if it's not already present on your system. <br>
-&nbsp;&nbsp;&nbsp; Depending on your system set-up, WebLogo and MEME
+&nbsp;&nbsp;&nbsp; Depending on your system set-up, MEME
 may require additional python and perl modules. Please check the log
 pane of SigmoID's window for error messages and install missing modules
 if necessary. <br>
@@ -667,40 +668,36 @@ when necessary, but can be used separately if desired. Type the command below in
 <span style="font-family: monospace;">&nbsp;&nbsp; <br>
 &nbsp;&nbsp; python &lt;path_to_the_script&gt; -h</span><br style="font-family: monospace;">
 <br>
-<h2><a class="mozTocH2" name="mozTocId227412"></a><a name="HmmGen.py"></a>HmmGen.py</h2>&nbsp;&nbsp;&nbsp;
-This script filters nhmmer results and adds regulatory feature
-annotation to the specified GenBank file. Some useful options are
-provided to make annotation more convenient. These you can find in the
-"HmmGen Settings" window, which pops up after clicking the
-"Postprocess" button in the main window. <br>
+<h2><a class="mozTocH2" name="mozTocId227412"></a><a name="HmmGen.py"></a>HmmGen.py</h2>&nbsp;&nbsp;&nbsp; SigmoID processes nhmmer results (table of hits) with the help of the <span style="font-weight: bold; color: rgb(0, 102, 0);">HmmGen.py</span>
+python script, adding corresponding feature annotations to the genbank
+file being searched and saving the result in a new file. Some useful
+options are provided to make annotation more convenient. These you can
+find in the "<span style="font-weight: bold; color: rgb(0, 102, 0);">HmmGen Settings</span>" window, which pops up after clicking the "<span style="font-weight: bold; color: rgb(0, 102, 0);">Postprocess</span>" button in the main window. <br>
+&nbsp;&nbsp;&nbsp; To run the script, enter the appropriate threshold
+(either bit score or E-value). By default SigmoID chooses the same
+value that was used to run <span style="font-weight: bold;">nhmmer</span>, but you can increase the bit score or decrease the E-value to reduce the number of hits without re-running nhmmer. <br>
+&nbsp;&nbsp;&nbsp; To filter out all intragenic hits, check the "<span style="font-weight: bold;">Consider intergenic regions only</span>" box. <span style="font-weight: bold;">nhmmer</span>
+reports hits on both strands, and in the case of palindromic sites
+there will be two hits with the same coordinates and identical (or very
+close) scores. To remove one of the duplicate sites, check the "<span style="font-weight: bold;">Palindromic site</span>" checkbox. <br>
+&nbsp;&nbsp;&nbsp; This script can also add 'locus_tag' and 'gene'
+qualifiers to the feature being annotated, but please note that GenBank
+will object such additions if you later decide to submit this sequence
+to the database. If you are certain you really want this addition,
+check the "<span style="font-weight: bold;">Add qualifier</span>" box.<br>
+&nbsp;&nbsp;&nbsp; Choose feature type ("promoter" or "protein_bind") from the "<span style="font-weight: bold;">Feature to add:</span>"
+box (or just type in the valid feature type). The window also allows to
+configure one qualifier for this feature. The qualifier name could be
+typed in, but it should remain as 'protein_bind' in most cases. A valid
+protein name should be entered in the field to the right.<br>
+&nbsp;&nbsp;&nbsp; Pressing the <span style="font-weight: bold; color: rgb(0, 102, 0);">Run</span>
+button will ask you for the name of the file in which you'd like to
+save the genome sequence with modified annotation. If the "Show hits in
+genome browser" box is checked, You'll see the results in the browser
+window. The script also appends the detailed text report to the log
+pane.<br>
 
 <br>
-<pre>usage: </pre>
-<pre>HmmGen &lt;report_file&gt;&nbsp; &lt;input_file&gt; &lt;output_file&gt; [options]</pre>
-<pre><br>positional arguments:</pre>
-<pre>&nbsp; report_file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; path to nhmmer report file produced with -tblout</pre>
-<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; option.</pre>
-<pre>&nbsp; input_file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; path to input GenBank file.</pre>
-<pre>&nbsp; output_file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; path to output GenBank file.</pre>
-<pre><br>optional arguments:</pre>
-<pre>&nbsp; -h, --help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; show this help message and exit</pre>
-<pre>&nbsp; -L &lt;integer&gt;, --length &lt;integer&gt;</pre>
-<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final feature's length in genbank file</pre>
-<pre>&nbsp; -q [&lt;key#"value"&gt; [&lt;key#"value"&gt; ...]], --qual [&lt;key#"value"&gt; [&lt;key#"value"&gt; ...]]</pre>
-<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add this qualifier to each annotated feature.</pre>
-<pre>&nbsp; -p, --palindromic&nbsp;&nbsp;&nbsp;&nbsp; filter palindromic sites.</pre>
-<pre>&nbsp; -n, --name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; don't pick 'locus_tag' and 'gene' qualifiers from the</pre>
-<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; next CDS feature.</pre>
-<pre>&nbsp; -E &lt;float or integer&gt;, --eval &lt;float or integer&gt;</pre>
-<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; threshold E-Value.</pre>
-<pre>&nbsp; -S &lt;float or integer&gt;, --score &lt;float or integer&gt;</pre>
-<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; threshold Bit Score.</pre>
-<pre>&nbsp; -i, --insert&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; don't add features inside CDS</pre>
-<pre>&nbsp; -d, --duplicate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; no duplicate features with the same location and the</pre>
-<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; same protein_bind qualifier value</pre>
-<pre>&nbsp; -v, --version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; show program's version number and exit</pre>
-<pre>&nbsp; -f &lt;"feature key"&gt;, --feature &lt;"feature key"&gt;</pre>
-<pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature key to add (promoter, protein_bind etc.)</pre>
 <h2><a class="mozTocH2" name="mozTocId61963"></a><a name="MastGen.py"></a>MastGen.py</h2>
 &nbsp;&nbsp;&nbsp; This script allows to add features to a genbank file
 according to MAST results. From SigmoID it is called when <br>
@@ -760,9 +757,7 @@ This script allows to convert genbank file into .ptt file format.<br>
 <pre>&nbsp; input_file&nbsp;&nbsp;&nbsp;&nbsp; path to input Genbank file.</pre>
 <pre><br>optional arguments:</pre>
 <pre>&nbsp; -h, --help&nbsp;&nbsp;&nbsp;&nbsp; show this help message and exit</pre>
-<pre>&nbsp; -v, --version&nbsp; show program's version number and exit</pre>
-<h2><a class="mozTocH2" name="mozTocId670482"></a>geneparse.py</h2>
-&nbsp;&nbsp;&nbsp; Utility script that does... btw, what it does?<br>
+<pre>&nbsp; -v, --version&nbsp; show program's version number and exit<br><br></pre>
 <h2><a class="mozTocH2" name="mozTocId218330"></a>OperOn.py</h2>
 &nbsp;&nbsp;&nbsp; This script finds putative operons between regulator binding sites and/or terminators/long intergenic gaps. <br>
 <br>

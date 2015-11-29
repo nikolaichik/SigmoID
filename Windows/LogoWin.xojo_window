@@ -269,13 +269,13 @@ End
 		      AlignmentConvertToHmm.enabled=true
 		      AlignmentConvertToMEME.enabled=true
 		      AlignmentConverttoStockholm.enabled=true
-		      if WebLogoAvailable then
-		        ViewLogo.enabled=true
-		        FileSaveLogo.enabled=true
-		      else
-		        ViewLogo.enabled=false
-		        FileSaveLogo.enabled=false
-		      end if
+		      'if WebLogoAvailable then
+		      ViewLogo.enabled=true
+		      FileSaveLogo.enabled=true
+		      'else
+		      'ViewLogo.enabled=false
+		      'FileSaveLogo.enabled=false
+		      'end if
 		    end if
 		    
 		  end if
@@ -283,10 +283,8 @@ End
 		  if LogoFile<>NIL then
 		    AlignmentConvertToMEME.enable
 		    
-		    if weblogo_out<>"" then
-		      GenomeMASTSearch.enable
-		      GenomeNhmmersearch.enable
-		    end if
+		    GenomeMASTSearch.enable
+		    GenomeNhmmersearch.enable
 		    
 		    if RegulonID<>0 then
 		      RegPreciseRegulonInfo.enabled=true
@@ -432,10 +430,10 @@ End
 		    if f.exists then
 		      hmmgenpath=f.ShellPath
 		    else
-		      msgbox "Can't find the HmmGen.py script (it's not Nil, but doesn't exist!)"
+		      msgbox "Can't find the HmmGen.py script!"
 		    end if
 		  else
-		    msgbox "Can't find the HmmGen.py script (it's Nil!)"
+		    msgbox "A problem with the HmmGen.py script (it's Nil!)"
 		  end if
 		  
 		  f=resources_f.child("MastGen.py")
@@ -450,25 +448,25 @@ End
 		    msgbox "Can't find the MastGen.py script"
 		  end if
 		  
-		  f=resources_f.child("Weblogo-3.3").child("weblogo")
-		  if f<>Nil then
-		    if f.exists then
-		      #if targetwin32
-		        weblogopath="python "+f.ShellPath
-		      #else
-		        weblogopath=f.ShellPath
-		      #endif
-		      SettingsWin.weblogoPathField.text=weblogopath
-		    else
-		      #if targetwin32
-		        msgbox "Can't find WebLogo"
-		      #endif
-		    end if
-		  else
-		    #if targetwin32
-		      msgbox "Can't find WebLogo"
-		    #endif
-		  end if
+		  'f=resources_f.child("Weblogo-3.3").child("weblogo")
+		  'if f<>Nil then
+		  'if f.exists then
+		  '#if targetwin32
+		  'weblogopath="python "+f.ShellPath
+		  '#else
+		  'weblogopath=f.ShellPath
+		  '#endif
+		  'SettingsWin.weblogoPathField.text=weblogopath
+		  'else
+		  '#if targetwin32
+		  ''msgbox "Can't find WebLogo"
+		  '#endif
+		  'end if
+		  'else
+		  '#if targetwin32
+		  ''msgbox "Can't find WebLogo"
+		  '#endif
+		  'end if
 		  
 		  f=resources_f.child("TermGen.py")
 		  if f<>Nil then
@@ -522,28 +520,28 @@ End
 		  end if
 		  
 		  'weblogo
-		  WriteToSTDOUT ("Looking for weblogo... ")
-		  cli=WebLogoPath+" --version"
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute cli
-		  If sh.errorCode=0 then
-		    if instr(Sh.Result,"command not found")>0 then
-		      WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
-		      WriteToSTDOUT Sh.result+EndOfLine
-		      allProgsFine=false
-		      WebLogoAvailable=false
-		    else
-		      WriteToSTDOUT (Sh.Result)
-		      WebLogoAvailable=true
-		    end if
-		  else
-		    WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
-		    WriteToSTDOUT Sh.result+EndOfLine
-		    WebLogoAvailable=false
-		    allProgsFine=false
-		  end if
+		  'WriteToSTDOUT ("Looking for weblogo... ")
+		  'cli=WebLogoPath+" --version"
+		  'sh=New Shell
+		  'sh.mode=0
+		  'sh.TimeOut=-1
+		  'sh.execute cli
+		  'If sh.errorCode=0 then
+		  'if instr(Sh.Result,"command not found")>0 then
+		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
+		  'WriteToSTDOUT Sh.result+EndOfLine
+		  ''allProgsFine=false
+		  'WebLogoAvailable=false
+		  'else
+		  'WriteToSTDOUT (Sh.Result)
+		  'WebLogoAvailable=true
+		  'end if
+		  'else
+		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
+		  'WriteToSTDOUT Sh.result+EndOfLine
+		  'WebLogoAvailable=false
+		  'allProgsFine=false
+		  'end if
 		  
 		  'nhmmer
 		  WriteToSTDOUT ("Looking for nhmmer... ")
@@ -557,7 +555,7 @@ End
 		    if instr(nthfield(s,EndOfLine.Unix,1),"nhmmer")>0 then
 		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
 		      s=nthfield((S),"HMMER",2)
-		      s=nthfield((S),";",1) 'that will result in smth like "3.1b1 (May 2013)"
+		      s=trim(nthfield((S),";",1)) 'that will result in smth like "3.1b1 (May 2013)"
 		      WriteToSTDOUT (s+EndOfLine)
 		      nhmmerVersion=trim(nthfield((S),"(",1))
 		    else
@@ -582,7 +580,7 @@ End
 		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
 		      s=nthfield((S),"HMMER",2)
 		      s=nthfield((S),";",1) 'that will result in smth like "3.1b1 (May 2013)"
-		      WriteToSTDOUT (s)
+		      WriteToSTDOUT (trim(s))
 		      nhmmerVersion=trim(nthfield((S),"(",1))
 		    else
 		      WriteToSTDOUT ("No hmmbuild found at "+hmmbuildPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
@@ -616,6 +614,32 @@ End
 		  else
 		    WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
+		  end if
+		  
+		  'transterm
+		  WriteToSTDOUT (EndofLine+"Looking for TransTerm... ")
+		  f=resources_f.child("transterm")
+		  if f<>Nil then
+		    if f.exists then
+		      cli=f.ShellPath+" -h"
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      sh.execute cli
+		      If sh.errorCode=0 OR sh.errorCode=3 then 'TransTerm returns error code when run without all args
+		        dim s As string
+		        s=nthfield((Sh.Result),EndOfLine.Unix,1)
+		        if instr(s,"TransTermHP")>0 then
+		          WriteToSTDOUT (s)
+		        else
+		          WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
+		          allProgsFine=false
+		        end if
+		      else
+		        WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
+		        allProgsFine=false
+		      end if
+		    end if
 		  end if
 		  
 		  
@@ -2534,6 +2558,7 @@ End
 		      nhmmerSettingsWin.ThresholdsBox.HelpTag="Thresholds to use with uncalibrated profile. Disabled as the cutoffs from the opened calibrated profile will be used."
 		      'Read data
 		      dim basename as string=nthfield(tmpfile.DisplayName,".sig",1)
+		      
 		      LogoFile=vv.root.child(basename+".fasta")
 		      HmmFile=vv.root.child(basename+".hmm")
 		      
@@ -2608,16 +2633,18 @@ End
 		      else
 		        'meme data is optional, so the warning goes to the log:
 		        WriteToSTDOUT(LineEnd+"No MEME data is present in this .sig file")
+		        MEMEdata=""
 		      end if
 		      
-		      f=vv.root.child(basename+".logodata") 'Logo data
-		      InStream = f.OpenAsTextFile
-		      if InStream <>nil then
-		        Weblogo_out=inStream.ReadAll
-		        inStream.close
-		      else
-		        msgbox "Can't read logo data"
-		      end if
+		      
+		      'f=vv.root.child(basename+".logodata") 'Logo data
+		      'InStream = f.OpenAsTextFile
+		      'if InStream <>nil then
+		      'Weblogo_out=inStream.ReadAll
+		      'inStream.close
+		      'else
+		      'msgbox "Can't read logo data"
+		      'end if
 		      
 		      'Extract values from ProfileSettings
 		      'and fill in the variables / configure settings windows accordingly:
@@ -2861,7 +2888,11 @@ End
 		      RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
 		      if RegPreciseTemp<>nil then
 		        if RegPreciseTemp.Exists then
-		          RegPreciseTemp.MoveFileTo(SpecialFolder.Trash)
+		          #if TargetLinux 
+		            RegPreciseTemp.delete 'SpecialFolder.Trash returns NIL in Linux
+		          #else 
+		            RegPreciseTemp.MoveFileTo(SpecialFolder.Trash)
+		          #endif
 		          RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
 		        end if
 		        dim fa as string
@@ -3559,6 +3590,9 @@ End
 
 	#tag Method, Flags = &h1
 		Protected Sub ReadLogoData()
+		  'currently unused
+		  
+		  
 		  dim n, FeatureCount as integer
 		  dim CurrentLine As String
 		  
@@ -3587,80 +3621,6 @@ End
 		    LogoLength=ubound(Logodata)
 		    
 		  end if
-		  
-		  Exception err
-		    ExceptionHandler(err,"LogoWin:ReadLogoData")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub ReadLogoDataFromFasta()
-		  dim Acounter(0) as integer
-		  dim Ccounter(0) as integer
-		  dim Gcounter(0) as integer
-		  dim Tcounter(0) as integer
-		  dim tis as TextInputStream
-		  dim Arow, Achar as string
-		  dim n,l,SeqLen as integer
-		  
-		  
-		  'this replaces WebLogo code
-		  
-		  'format of the data in WebLogo output is:
-		  '#    A     C     G     T     Entropy    Low    High    Weight
-		  '1     1     0     0     19     0.9777     0.6344     1.3210     1.0000
-		  '2     13     3     2     2     0.3639     0.1286     0.7196     1.0000
-		  
-		  
-		  'LogoData is an array of base counts at numbered positions
-		  
-		  'determine seqlength
-		  tis=TextInputStream.Open(Logofile)
-		  if tis<>Nil then
-		    Arow = tis.ReadLine
-		    Arow=trim(Arow) 'just in case
-		    Achar=left(Arow,1)
-		    if Achar<>">" then
-		      SeqLen=len(Arow)
-		    end if
-		  else
-		    Msgbox "Can't read alignment data."
-		    return
-		  end if
-		  Redim Acounter(SeqLen)
-		  Redim Ccounter(SeqLen)
-		  Redim Gcounter(SeqLen)
-		  Redim Tcounter(SeqLen)
-		  
-		  tis=TextInputStream.Open(Logofile)
-		  if tis<>Nil then
-		    While Not tis.EOF
-		      Arow = tis.ReadLine
-		      Arow=trim(Arow) 'just in case
-		      Achar=left(Arow,1)
-		      if Achar<>">" then
-		        l=len(Arow)
-		        for n=1 to l
-		          Achar=mid(Arow,n,1)
-		          select case Achar
-		          case "A"
-		            Acounter(n)=Acounter(n)+1
-		          case "C"
-		            Ccounter(n)=Ccounter(n)+1
-		          case "G"
-		            Gcounter(n)=Gcounter(n)+1
-		          case "T"
-		            Tcounter(n)=Tcounter(n)+1
-		          case else
-		            msgbox "Unexpected non-nucleotide character in input. Stopping here."
-		            return
-		          end select 
-		        next
-		      end if
-		      
-		    Wend
-		  end if
-		  
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:ReadLogoData")

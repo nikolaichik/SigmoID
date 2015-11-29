@@ -860,9 +860,11 @@ End
 #tag Events NextLocusBox
 	#tag Event
 		Sub Action()
-		  if me.value then
-		    msgbox "Please note that GenBank objects adding locus_tag and 'gene' qualifiers to regulatory features"
-		  end if  
+		  if self.Visible then
+		    if me.value then
+		      msgbox "Please note that GenBank objects adding locus_tag and 'gene' qualifiers to regulatory features"
+		    end if  
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

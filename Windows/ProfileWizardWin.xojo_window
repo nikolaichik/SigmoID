@@ -75,6 +75,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "nhmmer trusted cutoff:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -152,6 +153,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "nhmmer gathering threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -229,6 +231,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "nhmmer noise cutoff:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -349,6 +352,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "MAST p-value threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -443,6 +447,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Feature to add:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -585,6 +590,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Qualifier:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -917,9 +923,15 @@ End
 		  If SigFile <> Nil then
 		    if SigFile.exists then
 		      'workaround for virtualfolder problem
-		      dim fn as string = sigfile.ShellPath
-		      SigFile.MoveFileTo(SpecialFolder.Trash) 'can't just delete because of the VirtualVolume inside
-		      SigFile=GetFolderItem(fn,FolderItem.PathTypeShell)
+		      #if TargetLinux
+		        'SpecialFolder.Trash returns NIL in Linux, hence we can't do this properly here
+		        msgbox "Can't overwrithe the existing .sig file. Please remove it or save the new file with a different name"
+		        return
+		      #else
+		        dim fn as string = sigfile.ShellPath
+		        SigFile.MoveFileTo(SpecialFolder.Trash) 'can't just delete because of the VirtualVolume inside
+		        SigFile=GetFolderItem(fn,FolderItem.PathTypeShell)
+		      #endif
 		    end if
 		    
 		    
@@ -1095,21 +1107,21 @@ End
 		            end
 		            
 		            'generate logodata and save it:
-		            dim weblogo_out as string = weblogo(AlignmentFile)
-		            f2=SigFileVV.Root.child(basename+".logodata")
-		            if weblogo_out <>"" then
-		              if f2<>nil then
-		                outstream = TextOutputStream.Create(f2)
-		                outstream.Write(weblogo_out)
-		                outstream.Close
-		              else
-		                msgbox "Can't write logo data file."
-		                return
-		              end if
-		            else
-		              LogoWin.WriteToSTDOUT (EndofLine+"Conversion to .sig file aborted because of a weblogo problem")
-		              return
-		            end if
+		            'dim weblogo_out as string = weblogo(AlignmentFile)
+		            'f2=SigFileVV.Root.child(basename+".logodata")
+		            'if weblogo_out <>"" then
+		            'if f2<>nil then
+		            'outstream = TextOutputStream.Create(f2)
+		            'outstream.Write(weblogo_out)
+		            'outstream.Close
+		            'else
+		            'msgbox "Can't write logo data file."
+		            'return
+		            'end if
+		            'else
+		            'LogoWin.WriteToSTDOUT (EndofLine+"Conversion to .sig file aborted because of a weblogo problem")
+		            'return
+		            'end if
 		            
 		            
 		            Stockholm(AlignmentFile,stock, cutoffs)

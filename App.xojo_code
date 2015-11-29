@@ -538,22 +538,24 @@ Inherits Application
 		              end if
 		              
 		              'generate logodata and save it:
-		              dim weblogo_out as string = weblogo(AlignmentFile)
-		              dim f2 as folderitem =SigFileVV.Root.child(basename+".logodata")
-		              if weblogo_out <>"" then
-		                if f2<>nil then
-		                  dim outstream As TextOutputStream
-		                  outstream = TextOutputStream.Create(f2)
-		                  outstream.Write(weblogo_out)
-		                  outstream.Close
-		                else
-		                  msgbox "Can't write converted file."
-		                  return
-		                end if
-		              else
-		                LogoWin.WriteToSTDOUT (EndofLine+"Conversion to .sig file aborted because of a weblogo problem")
-		                return
-		              end if
+		              '(no longer required)
+		              
+		              'dim weblogo_out as string = weblogo(AlignmentFile)
+		              'dim f2 as folderitem=SigFileVV.Root.child(basename+".logodata")
+		              'if weblogo_out <>"" then
+		              'if f2<>nil then
+		              'dim outstream As TextOutputStream
+		              'outstream = TextOutputStream.Create(f2)
+		              'outstream.Write(weblogo_out)
+		              'outstream.Close
+		              'else
+		              'msgbox "Can't write converted file."
+		              'return
+		              'end if
+		              'else
+		              'LogoWin.WriteToSTDOUT (EndofLine+"Conversion to .sig file aborted")
+		              'return
+		              'end if
 		              
 		              'make sure each seq has its rev-compl copy for palindromic sites:
 		              
@@ -564,6 +566,7 @@ Inherits Application
 		              
 		              'build hmm:
 		              'need a real file for hmmbuild output:
+		              dim f2 as folderitem
 		              f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
 		              if f2<>nil then
 		                FixPath4Windows(f2)

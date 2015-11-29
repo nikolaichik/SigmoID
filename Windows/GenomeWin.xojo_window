@@ -5078,9 +5078,10 @@ End
 		    TTx=X+self.Left
 		    TTy=Y+self.top
 		    
-		    ToolTipTimer.Mode=Timer.ModeSingle   'also resets the timer
+		    ToolTipTimer.Mode=Timer.ModeSingle   
+		    ToolTipTimer.Reset
 		    
-		    'ToolTip.Show(ttip, X+self.x, Y+self.top, True)
+		    'ToolTip.Show(ttip, X+self.left, Y+self.top, True)
 		  else
 		    ToolTip.hide
 		  end if
@@ -5144,6 +5145,8 @@ End
 		      'ToolTip.Show(ttip, TTx,TTy, True)
 		      #if TargetWin32
 		        ToolTip.Show(ttip,System.MouseX, System.MouseY-20, false)
+		        '#elseif TargetLinux
+		        'ToolTip.Show(ttip,System.MouseX, System.MouseY-20, false)
 		      #else
 		        ToolTip.Show(ttip,System.MouseX, System.MouseY-20, true)
 		      #endif

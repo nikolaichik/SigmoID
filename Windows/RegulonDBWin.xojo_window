@@ -194,6 +194,7 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -442,8 +443,9 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -458,15 +460,17 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   20
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
    Begin mHTTPSocket RDBSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
+      Height          =   "32"
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
@@ -481,7 +485,8 @@ Begin Window RegulonDBWin
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
       yield           =   False
    End
 End
@@ -1101,8 +1106,11 @@ End
 		  tmpfile=SpecialFolder.Temporary.child("RegulonDBtmp.fasta")
 		  if tmpfile<>nil then
 		    if tmpfile.Exists then
-		      '64-bit Error here in MoveFileTo!
-		      tmpfile.MoveFileTo(SpecialFolder.Trash)
+		      #if TargetLinux
+		        tmpfile.delete  'SpecialFolder.Trash returns NIL in Linux
+		      #else
+		        tmpfile.MoveFileTo(SpecialFolder.Trash)
+		      #endif
 		      tmpfile=SpecialFolder.Temporary.child("RegulonDBtmp.fasta")
 		    end if
 		    dim OutStream As TextOutputStream

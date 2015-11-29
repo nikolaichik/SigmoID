@@ -964,7 +964,7 @@ Protected Module Globals
 		  hmmbuildpath=Prefs.value("hmmbuildpath",SettingsWin.hmmbuildPathField.text)
 		  MEMEpath=Prefs.value("MEMEpath",SettingsWin.MEMEPathField.text)
 		  MASTpath=Prefs.value("MASTpath",SettingsWin.MASTPathField.text)
-		  weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
+		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","swissprot")
 		  BLASTorganism=Prefs.value("BLASTorganism","")
@@ -1755,6 +1755,8 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function Weblogo(f as folderitem) As string
+		  'Unused at the moment
+		  
 		  'Usage: weblogo [options]  < sequence_data.fa > sequence_logo.eps
 		  '
 		  'Create sequence logos from biological sequence alignments.
