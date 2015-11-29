@@ -2825,14 +2825,14 @@ End
 		      
 		      Return
 		    end if
-		    if WebLogoAvailable then
-		      DrawLogo
-		    elseif SigFileOpened then
-		      'use stored logodata within .sig file if available
-		      DrawLogo
-		    else
-		      ChangeView("Sequences")
-		    end if
+		    'if WebLogoAvailable then
+		    DrawLogo
+		    'elseif SigFileOpened then
+		    'use stored logodata within .sig file if available
+		    'DrawLogo
+		    'else
+		    'ChangeView("Sequences")
+		    'end if
 		    
 		    if GenomeFile<> Nil AND Logofile<>nil then
 		      'LogoWinToolbar.Item(1).Enabled=true
@@ -3989,10 +3989,6 @@ End
 
 	#tag Property, Flags = &h1
 		Protected UpperPaneHeight As Integer = 175
-	#tag EndProperty
-
-	#tag Property, Flags = &h1
-		Protected WebLogoAvailable As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

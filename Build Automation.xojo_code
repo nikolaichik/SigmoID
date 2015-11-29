@@ -31,7 +31,7 @@
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L25obW1lcg==
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
-					AppliesTo = 2
+					AppliesTo = 1
 					Destination = 0
 					Subdirectory = 
 					FolderItem = Li4vU2lnbW9JRC5zaA==
@@ -60,7 +60,6 @@
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbWFzdA==
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbWVtZQ==
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbmhtbWVy
-					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdGZhc3R4MzY=
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdHJhbnN0ZXJt
 				End
 			End
