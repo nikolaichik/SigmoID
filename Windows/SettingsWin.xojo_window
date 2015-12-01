@@ -22,7 +22,7 @@ Begin Window SettingsWin
    MinimizeButton  =   True
    MinWidth        =   400
    Placement       =   0
-   Resizeable      =   False
+   Resizeable      =   True
    Title           =   "SigmoID Preferences"
    Visible         =   False
    Width           =   556
@@ -128,7 +128,7 @@ Begin Window SettingsWin
          Bold            =   False
          Caption         =   "Paths"
          Enabled         =   True
-         Height          =   242
+         Height          =   247
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -932,18 +932,42 @@ End
 
 	#tag Event
 		Sub Open()
+		  dim n as integer
+		  
 		  AdjustLayout4linux(me)
 		  ReadPrefs
-		  alimaskPathField.text=Prefs.value("alimaskpath","/usr/local/bin/alimask")
-		  nhmmerPathField.text=Prefs.value("nhmmerpath","/usr/local/bin/nhmmer")
-		  hmmbuildPathField.text=Prefs.value("hmmbuildpath","/usr/local/bin/hmmbuild")
-		  MEMEPathField.text=Prefs.value("MEMEpath","~/meme/bin/meme")
-		  MASTPathField.text=Prefs.value("MASTpath","~/meme/bin/mast")
+		  'alimaskPathField.text=Prefs.value("alimaskpath","/usr/local/bin/alimask")
+		  'nhmmerPathField.text=Prefs.value("nhmmerpath","/usr/local/bin/nhmmer")
+		  'hmmbuildPathField.text=Prefs.value("hmmbuildpath","/usr/local/bin/hmmbuild")
+		  'MEMEPathField.text=Prefs.value("MEMEpath","~/meme/bin/meme")
+		  'MASTPathField.text=Prefs.value("MASTpath","~/meme/bin/mast")
+		  ''weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
+		  'tfastxPathField.text=Prefs.value("tfastxPath","/usr/local/bin/tfastx")
+		  
+		  alimaskPathField.text=Logowin.alimaskpath
+		  nhmmerPathField.text=Logowin.nhmmerpath
+		  hmmbuildPathField.text=hmmbuildpath
+		  MEMEPathField.text=MEMEpath
+		  MASTPathField.text=MASTpath
 		  'weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
-		  tfastxPathField.text=Prefs.value("tfastxPath","/usr/local/bin/tfastx")
+		  tfastxPathField.text=tfastxPath
 		  
+		  'set the BLAST database values
+		  for n=0 to NucleotidePopup.ListCount
+		    if instr(NucleotidePopup.List(n),BLASTnDB)>0 then
+		      NucleotidePopup.ListIndex=n
+		      exit
+		    end if
+		  next
 		  
+		  for n=0 to ProteinPopup.ListCount
+		    if instr(ProteinPopup.List(n),BLASTpDB)>0 then
+		      ProteinPopup.ListIndex=n
+		      exit
+		    end if
+		  next
 		  
+		  OrganismField.Text=BLASTorganism
 		  
 		  
 		End Sub

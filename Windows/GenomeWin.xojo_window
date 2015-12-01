@@ -658,6 +658,7 @@ End
 		  FileSaveLogo.visible=false
 		  'GenomeScanGenome.Visible=false
 		  
+		  GenomeListRegulons.Enabled=true
 		  if GenomeChanged=false then
 		    FileSaveGenome.enabled=false
 		  else
@@ -871,7 +872,7 @@ End
 		  'scroller.left=self.width
 		  'end if
 		  'HighlightFeatures
-		  me.Refresh
+		  
 		  
 		  //get proper color for tabpanel BG
 		  
@@ -896,6 +897,9 @@ End
 		  #endif
 		  
 		  FeatureBox.visible=false 'show later if required
+		  
+		  SegmentedControl1.Invalidate 'required on 64-bit, otherwise no icons
+		  me.Refresh
 		  
 		  MapCanvas.SetFocus
 		  Exception err
@@ -1157,6 +1161,8 @@ End
 		  
 		  if seq.SelLength>0 then 'copy the highlighted piece
 		    theSeq=mid(seq.Sequence,seq.SelStart,seq.SelLength)
+		  else 'a feature is selected
+		    theSeq=GetFeatureSeq
 		  end if
 		  
 		  'format the BLAST request:
@@ -1200,11 +1206,11 @@ End
 		  if Seq.Features(ContextFeature).complement  then
 		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
-		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		    theSeq=gcodes(gCodeNo).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
 		  else
 		    FeatureLeft=Seq.Features(ContextFeature).start
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
-		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		    theSeq=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
 		  end
 		  
 		  'format the BLASTP request:
@@ -1250,6 +1256,8 @@ End
 		  
 		  if seq.SelLength>0 then 'copy the highlighted piece
 		    theSeq=mid(seq.Sequence,seq.SelStart,seq.SelLength)
+		  else 'a feature is selected
+		    theSeq=GetFeatureSeq
 		  end if
 		  
 		  'format the BLAST request:
@@ -1291,11 +1299,11 @@ End
 		  if Seq.Features(ContextFeature).complement  then
 		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
-		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		    theSeq=gcodes(gCodeNo).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
 		  else
 		    FeatureLeft=Seq.Features(ContextFeature).start
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
-		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		    theSeq=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
 		  end
 		  
 		  'format the CDD request:
@@ -1318,13 +1326,12 @@ End
 		  fr=FeatureRight
 		  gbs=GBrowseShift
 		  
-		  'using standard code [ gcodes(1) ] for now!
 		  
 		  if FeatureLeft>0 then
 		    if topstrand then
-		      c.Text=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		      c.Text=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
 		    else
-		      c.Text=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		      c.Text=gcodes(gCodeNo).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
 		    end if
 		  end if
 		  
@@ -2179,6 +2186,20 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetFeatureSeq() As string
+		  if Seq.Features(ContextFeature).complement  then
+		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
+		    return ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		  else
+		    FeatureLeft=Seq.Features(ContextFeature).start
+		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
+		    return midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
+		  end
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetMapBounds(Map As Group2D) As string
 		  dim n as integer
 		  dim topobj, featureCount as integer
@@ -2383,11 +2404,11 @@ End
 		  if Seq.Features(ContextFeature).complement  then
 		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
-		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		    theSeq=gcodes(gCodeNo).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
 		  else
 		    FeatureLeft=Seq.Features(ContextFeature).start
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
-		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		    theSeq=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
 		  end
 		  
 		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
@@ -2429,11 +2450,11 @@ End
 		  if Seq.Features(ContextFeature).complement  then
 		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
-		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		    theSeq=gcodes(gCodeNo).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
 		  else
 		    FeatureLeft=Seq.Features(ContextFeature).start
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
-		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		    theSeq=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
 		  end
 		  
 		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
@@ -2473,11 +2494,11 @@ End
 		  if Seq.Features(ContextFeature).complement  then
 		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
-		    theSeq=gcodes(1).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		    theSeq=gcodes(gCodeNo).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
 		  else
 		    FeatureLeft=Seq.Features(ContextFeature).start
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
-		    theSeq=gcodes(1).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		    theSeq=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
 		  end
 		  
 		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
@@ -2668,6 +2689,21 @@ End
 		    LineEnd=cLineEnd
 		    
 		    features=midb(s,st,en-st+1)
+		    
+		    'get genetic code number
+		    dim tt As string
+		    if instr(features,"/transl_table=")>0 then
+		      tt=NthField(features,"/transl_table=",2)
+		      tt=trim(NthField(tt,EndOfLine.unix,1))
+		      if len(tt)<3 then
+		        gCodeNo=val(tt)
+		      else
+		        gCodeNo=1
+		      end if
+		    else
+		      gCodeNo=1 'can't get the translation table – using the universal code
+		    end if
+		    
 		    
 		    'save description:
 		    Genome.Description=leftb(s,st)
@@ -4607,19 +4643,10 @@ End
 		    next
 		  end
 		  
-		  if RetValue=False then
-		    updateMapCanvas
-		    
-		  end
 		  
-		  
-		  'me.boo=RetValue
 		  updateMapCanvas
 		  UpdateMapCanvasSelection
 		  
-		  'updateMapCanvas
-		  'refresh
-		  'UpdateMapCanvasSelection
 		  return RetValue
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:MapCanvas:Mousedown")

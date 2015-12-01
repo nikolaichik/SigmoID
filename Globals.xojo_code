@@ -566,7 +566,7 @@ Protected Module Globals
 		  
 		  'dim CodonList As String ="AGA,AGG,CGA,CGC,CGG,CGT,CTA,CTC,CTG,CTT,TTA,TTG,AGC,AGT,TCA,TCC,TCG,TCT,GGA,GGC,GGG,GGT,GCA,GCC,GCG,GCT,CCA,CCC,CCG,CCT,ACA,ACC,ACG,ACT,GTA,GTC,GTG,GTT,ATA,ATC,ATT,CAA,CAG,AAC,AAT,AAA,AAG,CAC,CAT,TTC,TTT,GAA,GAG,GAC,GAT,TGC,TGT,TAC,TAT,TGG,ATG,TAA,TAG,TGA"
 		  'dim aaList As String ="XRRRRRRLLLLLLSSSSSSGGGGAAAAPPPPTTTTVVVVIIIQQNNKKHHFFEEDDCCYYWM***"
-		  'me.gCodes(1)=new gCode(CodonList,aaList)
+		  'me.gcodes(gCodeNo)=new gCode(CodonList,aaList)
 		  
 		  dim f As FolderItem
 		  Dim stream as TextInputStream
@@ -1002,7 +1002,7 @@ Protected Module Globals
 		    #endif
 		  #endif
 		  
-		  'read/set profile folder path
+		  'read/set profile folder path pref
 		  ProfileFpath = Prefs.value("ProfileFpath",pf.shellPath)
 		  if ProfileFpath="" then
 		    ProfileFpath=pf.shellPath
@@ -1934,6 +1934,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		GBrowseShift As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		gCodeNo As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

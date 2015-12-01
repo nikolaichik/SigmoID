@@ -356,7 +356,7 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "#kMEMEfind"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem UntitledSeparator6
@@ -503,7 +503,7 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "#kListRegulons"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem UntitledItem6

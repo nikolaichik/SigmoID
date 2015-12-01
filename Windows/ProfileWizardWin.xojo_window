@@ -75,7 +75,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "nhmmer trusted cutoff:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -153,7 +152,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "nhmmer gathering threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -231,7 +229,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "nhmmer noise cutoff:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -352,7 +349,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "MAST p-value threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -447,7 +443,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Feature to add:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -566,7 +561,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   260
+         Width           =   141
       End
       Begin Label Label6
          AutoDeactivate  =   True
@@ -590,7 +585,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Qualifier:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -658,7 +652,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   451
+         Left            =   452
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -676,7 +670,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   158
+         Width           =   157
       End
    End
    Begin TextArea InfoArea
@@ -979,11 +973,26 @@ End
 		      if palindromicBox.value then 'reverse complement every site
 		        
 		        if AlignmentFile<>Nil AND AlignmentFile.Exists then
-		          rcAlignmentFile=SpecialFolder.Temporary.child("rcAliFile")
-		          RevCompAlignment(AlignmentFile,rcAlignmentFile)
-		          AlignmentFile.Delete
-		          AlignmentFile=rcAlignmentFile
-		          AlignmentFile.name=LogoWin.LogoFile.DisplayName
+		          'check if the alignment is already RC'd
+		          dim firstLine,thirdLine as string
+		          dim tis as TextInputStream
+		          tis=AlignmentFile.OpenAsTextFile
+		          if tis<>nil then
+		            firstLine=tis.readLine
+		            thirdLine=tis.readLine
+		            thirdLine=tis.readLine
+		            tis.Close
+		          End If
+		          
+		          if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
+		            'looks like the seqs are palindromised already
+		          else
+		            rcAlignmentFile=SpecialFolder.Temporary.child("rcAliFile")
+		            RevCompAlignment(AlignmentFile,rcAlignmentFile)
+		            AlignmentFile.Delete
+		            AlignmentFile=rcAlignmentFile
+		            AlignmentFile.name=LogoWin.LogoFile.DisplayName
+		          End If
 		        end if
 		        
 		      end if

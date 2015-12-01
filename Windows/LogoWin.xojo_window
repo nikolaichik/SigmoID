@@ -282,7 +282,7 @@ End
 		  
 		  if LogoFile<>NIL then
 		    AlignmentConvertToMEME.enable
-		    
+		    AlignmentMEME.enable
 		    GenomeMASTSearch.enable
 		    GenomeNhmmersearch.enable
 		    

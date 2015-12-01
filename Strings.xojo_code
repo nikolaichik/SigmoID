@@ -40,7 +40,7 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTP-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 "
 	#tag EndConstant
 
-	#tag Constant, Name = kBLASTXsearch, Type = String, Dynamic = True, Default = \"BLASTX search in", Scope = Public
+	#tag Constant, Name = kBLASTXsearch, Type = String, Dynamic = True, Default = \"BLASTX search in ", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"BLASTX-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 "
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"BLASTX-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 "
 	#tag EndConstant
