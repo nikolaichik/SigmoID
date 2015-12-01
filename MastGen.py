@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.3 (November 29, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.4 (December 1, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -121,7 +121,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nMastGen 1.3 (November 29, 2015)'
+print '\nMastGen 1.4 (December 1, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -236,7 +236,7 @@ for record in records:
         end = int(allign[3])
         strnd = int(allign[1])
         p_value = float(allign[5])
-        score = allign[4]
+        score = float(allign[4])
         feature_length = end - (start-1)
         start_pos = SeqFeature.ExactPosition(start-1)
         end_pos = SeqFeature.ExactPosition(end)
@@ -248,14 +248,15 @@ for record in records:
         my_feature = MySeqFeature(location=feature_location, type=feature_type, strand=strnd,
                                 qualifiers=dict(qualifier.items()+note_qualifier.items()))
         for i in reversed(xrange(len(record.features))):
-            if record.features[i].location.start < my_feature.location.start and \
+	    print int(record.features[i].location.start) < int(my_feature.location.start) and (enter.pval == False or p_value <= enter.pval) and (enter.score == False or score >= enter.score)
+            if int(record.features[i].location.start) < int(my_feature.location.start) and \
                     (enter.pval == False or p_value <= enter.pval) and \
-                     (enter.score == False or float(score) >= enter.score):
+                     (enter.score == False or score >= enter.score):       
                 for c in xrange(len(allowed_features_list)-1):
                     if allowed_features_list[c].location.start <= my_feature.location.start <= allowed_features_list[c+1].location.start:
                         record.features.insert(i+1, my_feature)
                         break
-            break
+                break
             if i == 0 and record.features[i].location.start > my_feature.location.start:
                 record.features.insert(i, my_feature)
                 break
