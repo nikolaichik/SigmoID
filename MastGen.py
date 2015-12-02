@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.4 (December 1, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.5 (December 2, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -121,7 +121,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nMastGen 1.4 (December 1, 2015)'
+print '\nMastGen 1.5 (December 2, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -248,7 +248,6 @@ for record in records:
         my_feature = MySeqFeature(location=feature_location, type=feature_type, strand=strnd,
                                 qualifiers=dict(qualifier.items()+note_qualifier.items()))
         for i in reversed(xrange(len(record.features))):
-	    print int(record.features[i].location.start) < int(my_feature.location.start) and (enter.pval == False or p_value <= enter.pval) and (enter.score == False or score >= enter.score)
             if int(record.features[i].location.start) < int(my_feature.location.start) and \
                     (enter.pval == False or p_value <= enter.pval) and \
                      (enter.score == False or score >= enter.score):       
