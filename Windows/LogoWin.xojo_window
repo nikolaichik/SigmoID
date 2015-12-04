@@ -2755,17 +2755,19 @@ End
 		      palindromic=false
 		      
 		      'ProfileWizardWin cleanup:
-		      ProfileWizardWin.InfoArea.text=""
-		      ProfileWizardWin.InfoArea.Italic=false
-		      ProfileWizardWin.InfoArea.TextColor=&c00000000 'black
-		      ProfileWizardWin.GatheringField.text=""
-		      ProfileWizardWin.NoiseField.text=""
-		      ProfileWizardWin.TrustedField.text=""
-		      ProfileWizardWin.PalindromicBox.value=false
-		      ProfileWizardWin.WithinORFBox.value=True
-		      ProfileWizardWin.NextLocusBox.value=True
-		      ProfileWizardWin.ValueField.text=""
-		      ProfileWizardWin.MASTField.text=""
+		      if Not ProfileWizardLocked then
+		        ProfileWizardWin.InfoArea.text=""
+		        ProfileWizardWin.InfoArea.Italic=false
+		        ProfileWizardWin.InfoArea.TextColor=&c00000000 'black
+		        ProfileWizardWin.GatheringField.text=""
+		        ProfileWizardWin.NoiseField.text=""
+		        ProfileWizardWin.TrustedField.text=""
+		        ProfileWizardWin.PalindromicBox.value=false
+		        ProfileWizardWin.WithinORFBox.value=True
+		        ProfileWizardWin.NextLocusBox.value=True
+		        ProfileWizardWin.ValueField.text=""
+		        ProfileWizardWin.MASTField.text=""
+		      end if
 		      
 		    end if
 		    'store the seqs

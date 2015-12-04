@@ -2006,6 +2006,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ProfileWizardLocked As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		Profile_f As folderitem
 	#tag EndProperty
 

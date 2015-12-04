@@ -782,6 +782,50 @@ Begin Window ProfileWizardWin
       Visible         =   True
       Width           =   80
    End
+   Begin BevelButton BevelButton1
+      AcceptFocus     =   True
+      AutoDeactivate  =   True
+      BackColor       =   &c00000000
+      Bevel           =   4
+      Bold            =   False
+      ButtonType      =   1
+      Caption         =   "Lock"
+      CaptionAlign    =   3
+      CaptionDelta    =   0
+      CaptionPlacement=   1
+      Enabled         =   True
+      HasBackColor    =   False
+      HasMenu         =   0
+      Height          =   22
+      HelpTag         =   ""
+      Icon            =   0
+      IconAlign       =   0
+      IconDX          =   0
+      IconDY          =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   12
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MenuValue       =   0
+      Scope           =   0
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   366
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   89
+   End
 End
 #tag EndWindow
 
@@ -1192,6 +1236,19 @@ End
 	#tag Event
 		Sub Action()
 		  hide
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BevelButton1
+	#tag Event
+		Sub Action()
+		  if me.Value then 'locked
+		    ProfileWizardLocked=true
+		    me.Caption="Unlock"
+		  else
+		    ProfileWizardLocked=false
+		    me.Caption="Lock"
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

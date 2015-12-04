@@ -1740,6 +1740,11 @@ End
 		            FragmentFeature.name=nthField(coord,chr(34),1)
 		          end if
 		        end if
+		      elseif name="operon" then
+		        dim s2 as string
+		        s2=nthField(CurrentFeature,"/operon=",2)
+		        s2=nthField(s2,chr(34),2)
+		        FragmentFeature.name=s2+" operon"
 		      elseif name="promoter" then
 		        FragmentFeature.name=""
 		      elseif name="regulatory" then
@@ -1820,21 +1825,25 @@ End
 		  'spread overlapping features across rows:
 		  'spread fails for SCRI1043 around birA
 		  
-		  for n=1 to u
-		    CF=seq.Features(n)
-		    for m=1 to n-1
-		      CM=seq.Features(m)
-		      if CF.finish>=CM.start AND CF.start<=CM.start then
-		        SpreadFeatures(n,m,cf.type,cm.type)
-		      elseif CF.start<=CM.finish AND CF.start>=CM.start  then
-		        SpreadFeatures(n,m,cf.type,cm.type)
-		      elseif CF.start>=CM.finish AND CF.finish<=CM.finish  then
-		        SpreadFeatures(n,m,cf.type,cm.type)
-		      elseif CF.start<=CM.start AND CF.finish>=CM.finish  then
-		        SpreadFeatures(n,m,cf.type,cm.type)
-		      end
-		    Next 'm
-		  Next 'n
+		  Do
+		    moving=false 'can be set true in SpreadFeatures
+		    for n=1 to u
+		      CF=seq.Features(n)
+		      for m=1 to n-1
+		        CM=seq.Features(m)
+		        if CF.finish>=CM.start AND CF.start<=CM.start then
+		          SpreadFeatures(n,m,cf.type,cm.type)
+		        elseif CF.start<=CM.finish AND CF.start>=CM.start  then
+		          SpreadFeatures(n,m,cf.type,cm.type)
+		        elseif CF.start>=CM.finish AND CF.finish<=CM.finish  then
+		          SpreadFeatures(n,m,cf.type,cm.type)
+		        elseif CF.start<=CM.start AND CF.finish>=CM.finish  then
+		          SpreadFeatures(n,m,cf.type,cm.type)
+		        end
+		      Next 'm
+		    Next 'n
+		    if not moving then exit
+		  loop 'loop until doesn't work here
 		  
 		  MapInit 'calculate all the rest SeqObject properties, including the map
 		  'editor.text=seq.sequence
@@ -3675,17 +3684,24 @@ End
 		  'spread overlapping features across rows according to
 		  'preferred feature type order
 		  
-		  const PreferredOrder as string ="CDS,gene" 'ascending preference
+		  const PreferredOrder as string ="operon,other,regulatory,attenuator,terminator,promoter,protein_bind,CDS,gene" 'ascending preference
 		  
 		  dim pref1,pref2 as integer
 		  
 		  pref1=instr(PreferredOrder,firstFtype)
 		  pref2=instr(PreferredOrder,secFtype)
 		  
-		  if Pref1>Pref2 then 'move second feature down
-		    seq.FtRow(secF)=seq.FtRow(secF)+1
-		  else
-		    seq.FtRow(firstF)=seq.FtRow(firstF)+1
+		  'dim firstRow as integer = seq.FtRow(firstF)
+		  'dim secRow as integer = seq.FtRow(secF)
+		  
+		  if seq.FtRow(firstF)=seq.FtRow(secF) then
+		    if Pref1>Pref2 then 'move second feature down
+		      seq.FtRow(secF)=seq.FtRow(secF)+1
+		      moving=true
+		    else                'move first feature down
+		      seq.FtRow(firstF)=seq.FtRow(firstF)+1
+		      moving=true
+		    end if
 		  end if
 		  
 		  '
@@ -4281,6 +4297,10 @@ End
 
 	#tag Property, Flags = &h0
 		MapRasterPic As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		moving As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

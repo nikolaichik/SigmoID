@@ -625,6 +625,8 @@ Inherits Application
 
 
 	#tag Note, Name = 2 do
+		1. Improve map drawing (fix long and multiline names for SCRI 1043)
+		2. Add resizing/scrolling to the map pane
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		9. Prepare submission menu?
 		12. Proper profile extend/shrink functions
@@ -636,14 +638,12 @@ Inherits Application
 		23. add 'GoTo hit # ' menu
 		25. Check background frequences influence on MAST search.
 		27. closing the last search tab in genome browser should hide htmlviewer control
-		31. alternative start codons are not translated as methionine
 		33. limit log length to avoid slowdowns
 		38. Include TF AA seqs from RegPrecise to avoid mySQL connection
-		40. (not reproduced) Select smth in genomewin, scroll (search) to remove selection, bring up context menu => crash
 		39. Don't add features if there's nothing to add!
 		42. Don't show "SelectFile" dialog after nhmmersearch (with 'add annotation' checked) if nothing was found
 		45. Wrong item number in regprecise window list (RegPrecise's fault)
-		46. No check for TransTerm
+		
 	#tag EndNote
 
 	#tag Note, Name = Linux details

@@ -121,48 +121,52 @@ Protected Class GBFeature
 		  s=me.type
 		  Select case s
 		  case "CDS"
-		    linshape.colour= &c66FFFF00'RGB(10,100,200)
+		    linshape.colour= &c66FFFF00 'light blue
 		    hasArrow=true
 		    ArrowInit
 		  case "sig_peptide"
-		    linshape.colour= &c0080FF00
+		    linshape.colour= &c0080FF00 'dark blue
 		    hasArrow=true
 		    ArrowInit
 		  case "rRNA"
-		    linshape.colour=&cFF00FF00
+		    linshape.colour=&cFF00FF00  'magenta
 		    hasArrow=true
 		    ArrowInit
 		  case "tRNA"
-		    linshape.colour=&cFF66FF00
+		    linshape.colour=&cFF66FF00  'light magenta
 		    hasArrow=true
 		    ArrowInit
 		  case "ncRNA"
-		    linshape.colour=&cCC66FF00
+		    linshape.colour=&cCC66FF00  'dark magenta
 		    hasArrow=true
 		    ArrowInit
 		  case "protein_bind"
-		    linshape.colour=&c66CCFF00
+		    linshape.colour=&c66CCFF00  'blue
 		    hasArrow=true
 		    ArrowInit
 		  case "gene"
-		    linshape.colour=&c66FF6600'RGB(100,10,200)
+		    linshape.colour=&c66FF6600  'light green
+		    hasArrow=true
+		    ArrowInit
+		  case "operon"
+		    linshape.colour=&cFFFF9900   'yellow 
 		    hasArrow=true
 		    ArrowInit
 		  case "promoter"
-		    linshape.colour=RGB(47,139,32)
+		    linshape.colour=RGB(47,139,32) 'dark green
 		    if length<35 then
 		      PromoterInit
 		    else
 		      hasarrow=true
 		      ArrowInit
 		    end
-		  case "terminator"
+		  case "terminator"  'red
 		    linshape.colour=&cE8378F
 		    'color=&cE8378F
 		    hasArrow=false
 		    ArrowInit
 		  else
-		    linshape.colour=&cC0C0C0
+		    linshape.colour=&cC0C0C0   'gray
 		    'color=&cC0C0C0
 		    'hasArrow=false
 		    ArrowInit
