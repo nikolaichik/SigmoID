@@ -1633,12 +1633,6 @@ End
 		  seq=new cSeqObject
 		  u=ubound(Genome.Features)
 		  
-		  ''speed things up:
-		  '#pragma BackgroundTasks false
-		  '#pragma BoundsChecking false
-		  '#pragma NilObjectChecking false
-		  '#pragma StackOverflowChecking false
-		  
 		  for n=1 to u
 		    ft=Genome.Features(n)
 		    if (ft.start>FragmentStart AND ft.start<FragmentEnd) OR (ft.finish>FragmentStart AND ft.finish<FragmentEnd) _
@@ -1695,6 +1689,12 @@ End
 		        r_class=NthField(CurrentFeature,"regulatory_class=",2)
 		        r_class=NthField(r_class,EndOfLine.Unix,1)
 		        FragmentFeature.type=replaceall(r_class,chr(34),"")
+		        if FragmentFeature.type="other" then
+		          'try to catch riboswitches
+		          if instr(CurrentFeature,"/note="+chr(34)+"riboswitch")>0 then
+		            FragmentFeature.type="riboswitch"
+		          end if
+		        end if
 		      else
 		        FragmentFeature.type=name
 		      end if
@@ -1731,7 +1731,11 @@ End
 		          end if
 		        end if
 		      elseif name="CDS" then
-		        if p5>0 then        'use protein_id if available
+		        if p1>0 then 'use /product
+		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p1-9)
+		          coord=replaceall(coord,EndOfLine.Unix," ")
+		          FragmentFeature.name=nthField(coord,chr(34),1)
+		        elseif p5>0 then        'protein_id if available
 		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p5-12)
 		          FragmentFeature.name=nthField(coord,chr(34),1)
 		        else               'protein_id not there – use locus_tag
@@ -1752,10 +1756,7 @@ End
 		      elseif name="protein_bind" then
 		        FragmentFeature.name=""
 		      else
-		        if p>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p-6)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        elseif p1>0 then
+		        if p1>0 then
 		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p1-9)
 		          FragmentFeature.name=nthField(coord,chr(34),1)
 		        elseif p2>0 then
@@ -1763,7 +1764,8 @@ End
 		          FragmentFeature.name=nthField(coord,chr(34),1)
 		        elseif p3>0 then
 		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p3-6)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
+		          coord=nthField(coord,chr(34),1)
+		          FragmentFeature.name=nthField(coord,EndOfLine,1)
 		        elseif p4>0 then
 		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
 		          FragmentFeature.name=nthField(coord,chr(34),1)
@@ -3684,7 +3686,7 @@ End
 		  'spread overlapping features across rows according to
 		  'preferred feature type order
 		  
-		  const PreferredOrder as string ="operon,other,regulatory,attenuator,terminator,promoter,protein_bind,CDS,gene" 'ascending preference
+		  const PreferredOrder as string ="operon,other,regulatory,attenuator,terminator,protein_bind,promoter,CDS,gene" 'ascending preference
 		  
 		  dim pref1,pref2 as integer
 		  

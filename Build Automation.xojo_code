@@ -61,6 +61,7 @@
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbWVtZQ==
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbmhtbWVy
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdHJhbnN0ZXJt
+					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdGZhc3R4
 				End
 			End
 			Begin BuildStepList Mac OS X

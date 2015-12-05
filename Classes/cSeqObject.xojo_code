@@ -90,11 +90,14 @@ Protected Class cSeqObject
 		    end
 		    u.TextFont=ProportionalFont
 		    u.TextSize=10
+		    p.Graphics.TextFont=ProportionalFont
+		    p.Graphics.TextSize=10
 		    u.Text=features(l).Name
 		    u.X=(ceil(pos/bpPerPixel))'*me.Lscale
 		    u.Y=features(l).baselineY+features(l).linShape.y+4
 		    'truncate feature name length to fit its shape:
-		    dim strw as double
+		    dim strw,newstrw as double
+		    dim lsl as double = features(l).linshape.length
 		    strw = p.Graphics.StringWidth(u.text)
 		    if strw>features(l).linshape.length then
 		      dim cw as double
@@ -103,6 +106,13 @@ Protected Class cSeqObject
 		      cw=features(l).linshape.length/strw
 		      newtextlength=len(u.text)*cw
 		      newtext=left(u.text,newtextlength)
+		      newstrw=p.Graphics.StringWidth(newtext)
+		      
+		      'that's approximate and text doesn't fit sometimes, therefore cutting off a bit%
+		      while newstrw>=lsl
+		        newtext=left(newtext,len(newtext)-1)
+		        newstrw=p.Graphics.StringWidth(newtext)
+		      wend
 		      u.text=newtext
 		    end if
 		    

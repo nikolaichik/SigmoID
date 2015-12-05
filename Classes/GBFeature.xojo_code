@@ -153,16 +153,24 @@ Protected Class GBFeature
 		    hasArrow=true
 		    ArrowInit
 		  case "promoter"
-		    linshape.colour=RGB(47,139,32) 'dark green
+		    linshape.colour=&c33993300   'green
 		    if length<35 then
 		      PromoterInit
 		    else
 		      hasarrow=true
 		      ArrowInit
 		    end
-		  case "terminator"  'red
-		    linshape.colour=&cE8378F
+		  case "terminator"  'dark red
+		    linshape.colour=&cCC000000
 		    'color=&cE8378F
+		    hasArrow=false
+		    ArrowInit
+		  case "attenuator"   'pink
+		    linshape.colour=&cFF666600
+		    hasArrow=false
+		    ArrowInit
+		  case "riboswitch"   'dirty pink
+		    linshape.colour=&cCC666600
 		    hasArrow=false
 		    ArrowInit
 		  else
