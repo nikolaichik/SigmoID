@@ -625,7 +625,6 @@ Inherits Application
 
 
 	#tag Note, Name = 2 do
-		1. Improve map drawing (fix long and multiline names for SCRI 1043)
 		2. Add resizing/scrolling to the map pane
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		9. Prepare submission menu?
