@@ -397,7 +397,6 @@ for operon in test_operons:
     operon_list.append(operon_instance)
 operon_starts = [int(operon.regstart) for operon in operon_list]
 operon_starts.sort()
-print len(operon_starts)
 new = []
 for start in operon_starts:
     for index in xrange(len(operon_list)):
@@ -406,7 +405,6 @@ for start in operon_starts:
 	    del operon_list[index]
 	    break
 operon_list = [operon for operon in new]
-print len(operon_list)
 duplicated = []
 for operon in operon_list:
     for duplicate in operon_list:
@@ -523,33 +521,44 @@ if enter.operons == 'On':
             if len(common_divergon.name) > 1:
                 operon_list[operon_list.index(divergon)] = common_divergon
     operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
-
+genes = 0
 if enter.operons == 'On':
     regall = 0
     for operon in operon_list:
         if isinstance(operon, Operon) and len(operon.genes) > 0:
 	    regall += 1
             operon_out += '>%s %s\n%s\n' % (operon.name, operon.info, str(operon))
+            for gene in operon.genes:
+                if gene[0].startswith('(terminator') == False:
+                    genes += 1 
         elif isinstance(operon, Divergon) and len(operon.genes) > 0:
             regall += 1
             down_out = ''
             for gene_loci_product in reversed(operon.up_genes):
+                if gene_loci_product[0].startswith('(terminator') == False:
+                    genes += 1
                 down_out += '\n\t%s\t%s\t%s' % (gene_loci_product[0],
                                                 gene_loci_product[1],
                                                 gene_loci_product[2])
             up_out = ''
             for gene_loci_product in operon.down_genes:
+                if gene_loci_product[0].startswith('(terminator') == False:
+                    genes += 1
                 up_out += '\t%s\t%s\t%s\n' % (gene_loci_product[0],
                                               gene_loci_product[1],
                                               gene_loci_product[2])
 
             operon_out += '%s\n>%s %s\n%s\n' % (down_out, operon.name, operon.info, up_out)
         elif isinstance(operon, CommonOperon) or isinstance(operon, CommonDivergon):
+            for gene in operon.genes:
+                if gene[0].startswith('(terminator') == False:
+                    genes += 1 
             regall += 1
             operon_out += str(operon)
     operon_out += ('='*50)
     print operon_out
-    print '\nTotal: ', regall, ' operons found'
+    print '\nTotal operons: ', regall
+    print 'Total genes:', genes
 
 if enter.operons == 'Off':
     regall = 0
