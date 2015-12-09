@@ -126,7 +126,7 @@ def createParser():
                         action='store_const',
                         const='On',
                         default='Off',
-                        help='''operon stops on first terminator (if -t is set)''')
+                        help='''combines operons that are common for several regulators''')
     parser.add_argument('-v','--version', action='version', version='%(prog)s 1.8 (November 18)')
     return parser
 
