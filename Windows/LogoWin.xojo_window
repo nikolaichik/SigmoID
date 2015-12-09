@@ -132,6 +132,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -1772,8 +1773,12 @@ End
 		            Gcounter(n)=Gcounter(n)+1
 		          case "T"
 		            Tcounter(n)=Tcounter(n)+1
+		          case "N"
+		            'do nothing
+		          case "-"
+		            'do nothing
 		          case else
-		            msgbox "Unexpected non-nucleotide character in input. Stopping here."
+		            msgbox "Unexpected non-nucleotide character in input (only ACGTN- allowed)."
 		            return
 		          end select
 		        next
@@ -1790,20 +1795,26 @@ End
 		  
 		  for n=1 to SeqLen
 		    'combine letter names with counts for sorting
-		    posarray(1)=format(Acounter(n),"000")+"A"
-		    posarray(2)=format(Ccounter(n),"000")+"C"
-		    posarray(3)=format(Gcounter(n),"000")+"G"
-		    posarray(4)=format(Tcounter(n),"000")+"T"
-		    posarray.Sort
-		    entropy=2
-		    freq=Acounter(n)/replicas
-		    entropy=entropy+freq*log2(freq)
-		    freq=Ccounter(n)/replicas
-		    entropy=entropy+freq*log2(freq)
-		    freq=Gcounter(n)/replicas
-		    entropy=entropy+freq*log2(freq)
-		    freq=Tcounter(n)/replicas
-		    entropy=entropy+freq*log2(freq)
+		    if Acounter(n)=0 AND Ccounter(n)=0 AND Gcounter(n)=0 AND Tcounter(n)=0 then
+		      'some sites (e.g. in RegPrecise) have all 'N' positions
+		      entropy=0
+		    else
+		      posarray(1)=format(Acounter(n),"000")+"A"
+		      posarray(2)=format(Ccounter(n),"000")+"C"
+		      posarray(3)=format(Gcounter(n),"000")+"G"
+		      posarray(4)=format(Tcounter(n),"000")+"T"
+		      posarray.Sort
+		      entropy=2
+		      freq=Acounter(n)/replicas
+		      entropy=entropy+freq*log2(freq)
+		      freq=Ccounter(n)/replicas
+		      entropy=entropy+freq*log2(freq)
+		      freq=Gcounter(n)/replicas
+		      entropy=entropy+freq*log2(freq)
+		      freq=Tcounter(n)/replicas
+		      entropy=entropy+freq*log2(freq)
+		    end if
+		    
 		    totalEntropy=totalEntropy+entropy
 		    
 		    'lowest letter
@@ -2905,7 +2916,7 @@ End
 		          outstream.close
 		          LoadAlignment(RegPreciseTemp)
 		          logowin.ChangeView("Logo")
-		          me.title="SigmoIH: "+TFname+" (RegPrecise)"
+		          me.title="SigmoID: "+TFname+" (RegPrecise)"
 		          
 		          'fill some hmmgen settings:
 		          HmmGenSettingsWin.AddQualifierBox.Value=true

@@ -349,6 +349,9 @@ End
 	#tag Event
 		Sub Open()
 		  AdjustLayout4linux(me)
+		  #if DebugBuild then 
+		    FastaButton.Enabled=true
+		  #endif
 		End Sub
 	#tag EndEvent
 
@@ -387,11 +390,22 @@ End
 		  'This mentod is restricted to DebugBuild only due to Xojo database licensing restriction
 		  'You may fully enable it if if you have the Database license 
 		  
+		  
 		  #if DebugBuild then
 		    dim RegulonID, vimssId, ProteinFasta as string
+		    dim TFname as string
+		    dim n as integer
+		    
 		    logowin.show
 		    
-		    RegulonID=JSONitem(regulatorArray(RegulatorList.ListIndex)).Value("regulonId")
+		    TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		    for n=0 to UBound(regulatorArray)
+		      if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
+		        RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
+		        exit
+		      end if
+		      
+		    next
 		    
 		    logowin.WriteToSTDOUT("Contacting RegPrecise... ")
 		    
@@ -399,6 +413,8 @@ End
 		    dim jsn as new JSONItem
 		    dim jsn0 as new JSONItem
 		    dim hts as new HTTPSocket
+		    
+		    
 		    
 		    res=hts.Get(" 'http://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,15)
 		    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful

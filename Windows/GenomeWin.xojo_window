@@ -3585,6 +3585,7 @@ End
 		  SelFeatureNo=0
 		  
 		  SegmentedControl1.Visible=true
+		  SegmentedControl1.Enabled=true
 		  ExtractFragment(HmmHits(CurrentHit)-DisplayInterval/2,HmmHits(CurrentHit)+DisplayInterval/2)
 		  FeatureBox.visible=true
 		  FeatureBox.Caption=HmmHitDescriptions(CurrentHit)
@@ -6186,6 +6187,11 @@ End
 		Group="Position"
 		InitialValue="64"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="moving"
+		Group="Behavior"
+		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Name"

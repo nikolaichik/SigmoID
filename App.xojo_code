@@ -147,11 +147,11 @@ Inherits Application
 		    case "Fasta"
 		      logowin.LoadAlignment(item)
 		      logowin.ChangeView("Logo")
-		      logowin.title="SigmoIH: "+item.DisplayName
+		      logowin.title="SigmoID: "+item.DisplayName
 		    case "SigmoidFile"
 		      logowin.LoadAlignment(item)
 		      logowin.ChangeView("Logo")
-		      logowin.title="SigmoIH: "+item.DisplayName
+		      logowin.title="SigmoID: "+item.DisplayName
 		    end select
 		  end if
 		  
