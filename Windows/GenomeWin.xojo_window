@@ -627,7 +627,7 @@ End
 
 	#tag Event
 		Sub Deactivate()
-		  ToolTip.Hide
+		  'ToolTip.Hide
 		End Sub
 	#tag EndEvent
 
@@ -1184,6 +1184,10 @@ End
 		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
 		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:BLASTNsearch")
+		    
 		End Sub
 	#tag EndMethod
 
@@ -1235,6 +1239,8 @@ End
 		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
 		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:BLASTPsearch")
 		End Sub
 	#tag EndMethod
 
@@ -1277,7 +1283,8 @@ End
 		  
 		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
-		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:BLASTPsearch")
 		End Sub
 	#tag EndMethod
 
@@ -4993,7 +5000,7 @@ End
 		  ToolTipBlock=false
 		  'ToolTipTimer.Reset
 		  ToolTipTimer.Mode=1
-		  ToolTip.hide
+		  'ToolTip.hide
 		  select case hititem.text
 		  case kCopyProtein
 		    CopyAA
@@ -5175,12 +5182,12 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub MouseExit()
-		  ToolTip.hide
+		  'ToolTip.hide
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Deactivate()
-		  ToolTip.hide
+		  'ToolTip.hide
 		End Sub
 	#tag EndEvent
 #tag EndEvents

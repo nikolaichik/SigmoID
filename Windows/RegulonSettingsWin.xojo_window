@@ -9,11 +9,11 @@ Begin Window RegulonSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   364
+   Height          =   472
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   424
+   MaxHeight       =   524
    MaximizeButton  =   True
    MaxWidth        =   32000
    MenuBar         =   0
@@ -25,7 +25,7 @@ Begin Window RegulonSettingsWin
    Resizeable      =   True
    Title           =   "Regulon Settings"
    Visible         =   False
-   Width           =   414
+   Width           =   416
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
@@ -39,7 +39,7 @@ Begin Window RegulonSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   314
+      Left            =   316
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -52,7 +52,7 @@ Begin Window RegulonSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   324
+      Top             =   432
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -70,7 +70,7 @@ Begin Window RegulonSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   222
+      Left            =   224
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -83,7 +83,7 @@ Begin Window RegulonSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   324
+      Top             =   432
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -99,11 +99,11 @@ Begin Window RegulonSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
@@ -111,14 +111,14 @@ Begin Window RegulonSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   196
+      Top             =   304
       Underline       =   False
       Visible         =   True
-      Width           =   374
+      Width           =   376
       Begin CheckBox TerminatorBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "terminator"
+         Caption         =   "Terminator"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -141,7 +141,7 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   223
+         Top             =   331
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -150,7 +150,7 @@ Begin Window RegulonSettingsWin
       Begin CheckBox EndGapBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "gap at least"
+         Caption         =   "Gap at least"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -173,7 +173,7 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   257
+         Top             =   365
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -216,7 +216,7 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   255
+         Top             =   363
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -250,7 +250,7 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   257
+         Top             =   365
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -262,7 +262,7 @@ Begin Window RegulonSettingsWin
          Caption         =   "strictly the first one"
          DataField       =   ""
          DataSource      =   ""
-         Enabled         =   False
+         Enabled         =   True
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
@@ -275,17 +275,17 @@ Begin Window RegulonSettingsWin
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         State           =   1
+         State           =   0
          TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   223
+         Top             =   331
          Underline       =   False
-         Value           =   True
-         Visible         =   False
+         Value           =   False
+         Visible         =   True
          Width           =   219
       End
    End
@@ -315,7 +315,7 @@ Begin Window RegulonSettingsWin
       Top             =   20
       Underline       =   False
       Visible         =   True
-      Width           =   374
+      Width           =   376
       Begin RadioButton SingleRegulonButton
          AutoDeactivate  =   True
          Bold            =   False
@@ -326,7 +326,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   246
+         Left            =   248
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -392,7 +392,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   317
+         Left            =   319
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -429,11 +429,11 @@ Begin Window RegulonSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   22
       TabPanelIndex   =   0
@@ -441,14 +441,14 @@ Begin Window RegulonSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   90
+      Top             =   198
       Underline       =   False
       Visible         =   True
-      Width           =   374
+      Width           =   376
       Begin CheckBox StartDistanceBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "max binding site distance from 1st gene:"
+         Caption         =   "Max binding site distance from 1st gene:"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -458,7 +458,7 @@ Begin Window RegulonSettingsWin
          InitialParent   =   "GroupBox2"
          Italic          =   False
          Left            =   40
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   False
@@ -471,7 +471,7 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   117
+         Top             =   225
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -495,7 +495,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   331
+         Left            =   333
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -514,7 +514,7 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   115
+         Top             =   223
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -531,7 +531,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   367
+         Left            =   369
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -548,7 +548,7 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   115
+         Top             =   223
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -567,11 +567,11 @@ Begin Window RegulonSettingsWin
          InitialParent   =   "GroupBox2"
          Italic          =   False
          Left            =   40
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
+         LockRight       =   True
+         LockTop         =   False
          Scope           =   0
          State           =   1
          TabIndex        =   4
@@ -580,11 +580,97 @@ Begin Window RegulonSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   149
+         Top             =   257
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   346
+         Width           =   348
+      End
+   End
+   Begin GroupBox GroupBox3
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "List operons with several regulators"
+      Enabled         =   True
+      Height          =   84
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   23
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   90
+      Underline       =   False
+      Visible         =   True
+      Width           =   376
+      Begin RadioButton SingleOperonButton
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "as one operon with many regulators "
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox3"
+         Italic          =   False
+         Left            =   40
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   118
+         Underline       =   False
+         Value           =   True
+         Visible         =   True
+         Width           =   334
+      End
+      Begin RadioButton SingleRegulatorButton
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "as many ""operons"", each with single regulator"
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox3"
+         Italic          =   False
+         Left            =   40
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   142
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         Width           =   345
       End
    End
 End
@@ -612,8 +698,10 @@ End
 		    else
 		      RunButton.Enabled=true
 		    end if
+		    GroupBox3.Enabled=false
 		  else 'all regulons
 		    RunButton.Enabled=true
+		    GroupBox3.Enabled=true
 		  end if
 		End Sub
 	#tag EndMethod
@@ -628,14 +716,18 @@ End
 		  'optional arguments:
 		  '-h, --help            show this help message and exit
 		  '-g <int>, --gap <int>
-		  'set a threshold for gaps between operons
+		  'minimal gap between operons
 		  '-i <int>, --indent <int>
-		  'set a threshold for indentation from very first gene
-		  'to regulatory region
+		  'maximal distance from binding site to the first
+		  'downstream CDS
 		  '-t, --terminator      terminators are regarded as operon separator
 		  '-r <name of regulator>, --regulator <name of regulator>
-		  'only specified regulator are considered
-		  '-p, --palindromic     binding sites are on both strands
+		  'only specified regulators are considered
+		  '-p, --palindromic     treat all binding sites as palindromic
+		  '-s, --strict          operon stops on first terminator (if -t is set)
+		  '-o, --operons         combines operons that are common for several
+		  'regulators
+		  '-v, --version         show program's version number and exit
 		  
 		  
 		  dim opt as string
@@ -656,6 +748,10 @@ End
 		  
 		  if PalindromicBox.Value then
 		    opt=opt+" -p"
+		  end if
+		  
+		  if SingleOperonButton.Value then
+		    opt=opt+" -o"
 		  end if
 		  
 		  GenomeWin.OperOnOptions=Opt
@@ -703,10 +799,8 @@ End
 		Sub Action()
 		  if me.Value then
 		    StrictBox.enabled=true
-		    StrictBox.visible=true
 		  else
 		    StrictBox.enabled=false
-		    StrictBox.visible=false
 		  end if
 		End Sub
 	#tag EndEvent

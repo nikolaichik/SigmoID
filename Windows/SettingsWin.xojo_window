@@ -120,7 +120,7 @@ Begin Window SettingsWin
       TabIndex        =   17
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox1
@@ -657,7 +657,7 @@ Begin Window SettingsWin
          HelpTag         =   "Will be used for all blastn searches"
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
-         InitialValue    =   "Reference genomic sequences (refseq_genomic)\nNucleotide collection (nr/nt)"
+         InitialValue    =   "Reference genomic sequences (refseq_genomic)\nNucleotide collection (nr)"
          Italic          =   False
          Left            =   181
          ListIndex       =   0

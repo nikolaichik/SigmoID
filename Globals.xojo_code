@@ -1456,7 +1456,7 @@ Protected Module Globals
 		      charNumber2add=4
 		    else
 		      msgbox "An illegal character was found. Please check your sequence!"
-		      simplepat="kuku"
+		      simplepat="0"
 		      return simplepat
 		    end
 		    
@@ -1661,6 +1661,9 @@ Protected Module Globals
 		      'but also happily translate into Xes any crap
 		      if haveRedundancies(codon)=true then
 		        codons=SimplePattern(codon)
+		        if codons="0" then 'Illegal character, exiting
+		          return ""
+		        end if
 		        up=countfields(codons,",")
 		        aa1st=gc.aa3((instr(gc.CodonList,nthfield(codons,",",1))+3)/4)
 		        for m=2 to up
@@ -2099,6 +2102,11 @@ Protected Module Globals
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="gCodeNo"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="hmmBuildPath"
 			Group="Behavior"
 			Type="string"
@@ -2187,6 +2195,11 @@ Protected Module Globals
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ProfileWizardLocked"
+			Group="Behavior"
+			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ProportionalFont"

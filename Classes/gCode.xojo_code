@@ -55,6 +55,9 @@ Protected Class gCode
 		      'but also happily translate into Xes any crap
 		      if haveRedundancies(codon)=true then
 		        codons=SimplePattern(codon)
+		        if codons="0" then 'Illegal character, exiting
+		          return ""
+		        end if
 		        up=countfields(codons,",")
 		        aa1st=me.aa((instr(CodonList,nthfield(codons,",",1))+3)/4)
 		        for m=2 to up
