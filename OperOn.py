@@ -138,7 +138,7 @@ def createParser():
                         const='On',
                         default='Off',
                         help='''combines operons that are common for several regulators''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.10 (December 10)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.11 (December 17)')
     return parser
 
 args = createParser()
@@ -492,7 +492,7 @@ for up_operon in operon_list:
     if is_divergon == True:
         operon_list[operon_list.index(up_operon)] = divergon
 operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
-operon_out = 'OperOn 1.10 (December 10)\n'+('='*50)+'\n\n'
+operon_out = 'OperOn 1.11 (December 17)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 regulator_counter = []
 intodel = []
@@ -540,6 +540,7 @@ if enter.operons == 'On':
 genes = []
 if enter.operons == 'On':
     regall = 0
+    operon_out += ('-'*50)
     for operon in operon_list:
         if isinstance(operon, Operon) and len(operon.genes) > 0:
 	    regall += 1
@@ -586,6 +587,8 @@ if enter.operons == 'On':
                     genes.append(gene)
 	    regall += 1
             operon_out += str(operon)
+    operon_out = operon_out.replace('\n\n\n', '\n\n')
+    operon_out += ('-'*50)
     operon_out += ('='*50)
     print operon_out
     print '\nTotal operons: ', regall
