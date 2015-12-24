@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.12 (November 29, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.13 (December 25, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -123,7 +123,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.12 (November 29, 2015)'
+print '\nHmmGen 2.13 (December 25, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -524,7 +524,7 @@ for record in records:
                         cds_up = allowed_features_list[c]
                         break
                     elif hit.location.start < allowed_features_list[-1].location.end:
-                        cds_down = allowed_features_list[0]
+                        cds_up = allowed_features_list[0]
                         break
                 if record.features[i+1].qualifiers.has_key('CHECK') and \
                         (hit.location.start == record.features[i+1].location.start and
