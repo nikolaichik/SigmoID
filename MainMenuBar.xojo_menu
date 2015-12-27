@@ -92,6 +92,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem FileConvertSigFilestoFolders
+         SpecialMenu = 0
+         Text = "Convert Sig Files to Folders..."
+         Index = -2147483648
+         AutoEnable = False
+         Visible = False
+      End
       Begin MenuItem FileExportSequence
          SpecialMenu = 0
          Text = "#kExportSequence"

@@ -9,10 +9,17 @@ Inherits Application
 		  
 		  
 		  FileMakeSigFile.visible=false
+		  FileConvertSigFilestoFolders.visible=false
 		  
 		  if Keyboard.AltKey then
-		    FileMakeSigFile.Visible=true
-		    FileMakeSigFile.Enabled=true
+		    #if Target64Bit then
+		      'VirtualVolumes are broken in 64 bitin  2015r3
+		    #else
+		      FileMakeSigFile.Visible=true
+		      FileMakeSigFile.Enabled=true
+		      FileConvertSigFilestoFolders.visible=true
+		      FileConvertSigFilestoFolders.Enabled=true
+		    #endif
 		  end if
 		  
 		  'Build dynamic Window Menu
@@ -184,6 +191,86 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FileConvertSigFilestoFolders() As Boolean Handles FileConvertSigFilestoFolders.Action
+			// Convert all .sig files in the current profiles folder into folders with the same names
+			// required to overcome the 64-bit compiler bug
+			
+			Dim OutF, SigF, f As FolderItem
+			Dim m,n,p,q as integer
+			dim basename as string
+			dim vv as VirtualVolume
+			Dim dlg As New SelectFolderDialog
+			dlg.ActionButtonCaption = "Select"
+			dlg.Title = "Select Folder for Converted Profiles"
+			dlg.PromptText = "Select a Folder to store converted .sig files"
+			dlg.InitialDirectory = Profile_f.parent
+			
+			OutF = dlg.ShowModal
+			If OutF <> Nil Then
+			'Profile_f is currently used
+			m=Profile_f.Count
+			for n=1 to m
+			if Profile_f.Item(n).name<>".DS_Store" then
+			if Profile_f.Item(n).Directory then
+			'skip folder
+			else
+			if right(Profile_f.Item(n).Name,4)=".sig" then
+			
+			'create the folder:
+			SigF=OutF.child(Profile_f.Item(n).Name)
+			SigF.createAsFolder
+			if not SigF.Exists or not SigF.Directory Then
+			// folder was not created - abort
+			Return False
+			End If
+			
+			'copy files:
+			vv=Profile_f.Item(n).openAsVirtualVolume
+			if vv<> nil then
+			basename=nthfield(Profile_f.Item(n).DisplayName,".sig",1)
+			f=vv.root.child(basename+".fasta")
+			if f<> NIL and f.exists then
+			f.CopyFileTo SigF
+			end if
+			f=vv.root.child(basename+".hmm")
+			if f<> NIL and f.exists then
+			f.CopyFileTo SigF
+			end if
+			f=vv.root.child(basename+".info")
+			if f<> NIL and f.exists then
+			f.CopyFileTo SigF
+			end if
+			f=vv.root.child(basename+".options")
+			if f<> NIL and f.exists then
+			f.CopyFileTo SigF
+			end if
+			f=vv.root.child("meme.txt")
+			if f<> NIL and f.exists then
+			f.CopyFileTo SigF
+			end if
+			else
+			beep
+			end if
+			
+			
+			end if
+			end if
+			end if
+			next
+			
+			
+			Else
+			// User cancelled
+			End If
+			
+			
+			Exception err
+			ExceptionHandler(err,"App:FileConvertSigFilestoFolders")
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function FileListAllRegulonDBdata() As Boolean Handles FileListAllRegulonDBdata.Action
 			
 			
@@ -261,20 +348,29 @@ Inherits Application
 		Function FileOpenAlignment() As Boolean Handles FileOpenAlignment.Action
 			dim tmpfile as folderitem
 			
-			dim GenomeFile as folderitem
+			'#if Target64Bit
+			'64 bit compiler has VirtualVolumes badly broken, hence we switch to folders here 
+			'Dim dlg as New SelectFolderDialog
+			'dlg.promptText="Select an alignment folder"
+			''dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+			'dlg.Title="Open alignment"
+			''dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
+			'dlg.ActionButtonCaption="Select"
+			'tmpfile=dlg.ShowModal 'within(self)
+			
+			'#Else
 			Dim dlg as New OpenDialog
-			
-			'#If Not TargetLinux Then
-			'dlg.InitialDirectory = SpecialFolder.Documents
-			'#Else //open Home directory on linux
-			'dlg.InitialDirectory = SpecialFolder.Home
-			'#Endif
-			
-			dlg.promptText="Select a fasta file"
-			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+			dlg.promptText="Select an alignment file"
 			dlg.Title="Open alignment"
+			#if Target64Bit
+			'64 bit compiler has VirtualVolumes badly broken, hence we just can't open .sig files
+			'and they are converted to folders that could be only opened from the toolbar
+			dlg.Filter=FileTypes.Fasta' + FileTypes.Sig_file
+			#else
 			dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
+			#endif
 			tmpfile=dlg.ShowModal 'within(self)
+			'#endif
 			
 			if tmpfile<>nil then
 			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
@@ -625,6 +721,7 @@ Inherits Application
 
 
 	#tag Note, Name = 2 do
+		1. Solve the permissions problem on Linux for temporary files on multiuser machines
 		2. Add resizing/scrolling to the map pane
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		9. Prepare submission menu?
@@ -642,6 +739,7 @@ Inherits Application
 		39. Don't add features if there's nothing to add!
 		42. Don't show "SelectFile" dialog after nhmmersearch (with 'add annotation' checked) if nothing was found
 		45. Wrong item number in regprecise window list (RegPrecise's fault)
+		46. Check and warn about the multiple entries in GenBank file
 		
 	#tag EndNote
 

@@ -8,16 +8,17 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
 	<meta name="CREATED" content="0;0">
 	<meta name="CHANGED" content="20150928;21232700"></head><body dir="ltr" lang="en-GB">
 <p><br></p>
-<ul id="mozToc"><!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview</a></li><li><a href="#mozTocId182858">Installation</a></li><li><a href="#mozTocId629072">Interface</a><ul><li><a href="#mozTocId49640">Windows</a><ul><li><a href="#mozTocId965351">Main Window</a></li><li><a href="#mozTocId23083">Genome Browser Window</a></li><li><a href="#mozTocId508441">Database Windows</a></li><li><a href="#mozTocId297884">Profile Wizard Window</a></li><li><a href="#mozTocId65146">Command Configuration Windows</a></li><li><a href="#mozTocId686762">Web Browser and Help Windows </a></li><li><a href="#mozTocId522291">SigmoID Preferences Window</a></li></ul></li><li><a href="#mozTocId385906">Menu Reference
+<ul id="mozToc"><!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview</a></li><li><a href="#mozTocId182858">Installation</a></li><li><a href="#mozTocId233463">Supported file formats</a></li><li><a href="#mozTocId629072">Interface</a><ul><li><a href="#mozTocId49640">Windows</a><ul><li><a href="#mozTocId965351">Main Window</a></li><li><a href="#mozTocId23083">Genome Browser Window</a></li><li><a href="#mozTocId508441">Database Windows</a></li><li><a href="#mozTocId297884">Profile Wizard Window</a></li><li><a href="#mozTocId65146">Command Configuration Windows</a></li><li><a href="#mozTocId686762">Web Browser and Help Windows </a></li><li><a href="#mozTocId522291">SigmoID Preferences Window</a></li></ul></li><li><a href="#mozTocId385906">Menu Reference
 </a><ul><li><a href="#mozTocId324242">File Menu</a></li><li><a href="#mozTocId121686">Edit Menu</a></li><li><a href="#mozTocId916489">View Menu</a></li><li><a href="#mozTocId494918">Profile Menu</a></li><li><a href="#mozTocId972700">Regulon menu</a></li><li><a href="#mozTocId693367">Genome Menu</a></li><li><a href="#mozTocId600980">
 Window Menu</a></li><li><a href="#mozTocId2010">
-Help Menu</a></li></ul></li></ul></li><li><a href="#mozTocId708060">Python Scripts</a><ul><li><a href="#mozTocId227412">HmmGen.py</a></li><li><a href="#mozTocId61963">MastGen.py</a></li><li><a href="#mozTocId891699">TermGen.py</a></li><li><a href="#mozTocId793586">ptt_converter.py</a></li><li><a href="#mozTocId670482">geneparse.py</a></li><li><a href="#mozTocId218330">OperOn.py</a></li><li><a href="#mozTocId385189">gbk2tbl.py</a></li></ul></li></ul>
+Help Menu</a></li></ul></li></ul></li><li><a href="#mozTocId708060">Python Scripts</a><ul><li><a href="#mozTocId227412">HmmGen.py</a></li><li><a href="#mozTocId61963">MastGen.py</a></li><li><a href="#mozTocId891699">TermGen.py</a></li><li><a href="#mozTocId793586">ptt_converter.py</a></li><li><a href="#mozTocId218330">OperOn.py</a></li><li><a href="#mozTocId385189">gbk2tbl.py</a></li></ul></li></ul>
 
 
 <br>
@@ -70,6 +71,46 @@ if necessary. <br>
 bit application and hence requires installation of the corresponding 32
 bit libraries on 64 bit systems. 64 bit version of SigmoID should be
 available soon. <br>
+<br>
+<h1><a class="mozTocH1" name="mozTocId233463"></a>Supported file formats<br>
+</h1>
+&nbsp;&nbsp;&nbsp; SigmoID can open two types of sequence files: with genome sequences and&nbsp; TFBS/promoter sequences.<br>
+&nbsp;&nbsp;&nbsp; SigmoID expects annotated genome sequence files to
+be in GenBank format. The current version of genome browser can
+properly open only files with a single accession per file.&nbsp; You
+can still perform a nhmmer (but not MAST) search of the genome split
+into several separate accessions, but please don't try to open this
+type of GenBank files in genome browser.<br>
+&nbsp;&nbsp;&nbsp; SigmoID can also work with unannotated&nbsp; genome
+sequences in fasta format.&nbsp; An unannotated genome in fasta format
+can't be opened directly in&nbsp; genome browser, but can be selected
+as a target for nhmmer/MAST search.<br>
+&nbsp;&nbsp;&nbsp; TFBS/promoter sequences can be in either fasta or
+special SigmoID profile format (with .sig extension). TFBS/promoter
+sequences in fasta files should be aligned and of the same length. If
+facing varying lengths sequences, SigmoID displays error meaasage and
+doesn't show sequence logo; the sequences, however, are loaded (for
+viewing purposes and/or for aligning them properly with MEME).<br>
+&nbsp;&nbsp;&nbsp; <span style="color: rgb(0, 102, 0); font-weight: bold;">SigmoID profile format</span>
+files (.sig extension) are virtual folders containing several separate
+files: the actual binding site sequences in fasta format, calibrated
+hmm and MEME profiles, as well as two text files with profile
+description and search engine/postprocessing options. The contents of
+the files within the .sig virtual folder can be viewed in the <a href="#mozTocId965351">main SigmoID window</a> via commands from the <a href="#mozTocId916489">View menu</a>.&nbsp;
+SigmoID has two hidden menu commands for converting a real folder to
+the .sig file and vice versa; holding down the&nbsp; 'Alt' button while
+selecting the File menu reveals them. <br>
+&nbsp;&nbsp;&nbsp; Please note that due to current Xojo limitation
+SigmoID can't handle virtual folders properly on 64-bit machines,
+therefore 64-bit Linux version converts all .sig files to real folders.
+These can only be accessed via toolbar of the main window and can't be
+opened via any menu command. Therefore, on 64-bit Linux machine, please
+move to the current profile folde any .sig folders you want to open and
+use the leftmost toolbar button of the main window to open them.<br>
+&nbsp;&nbsp;&nbsp; SigmoID can save genome files in standard GenBank
+format, export unannotated genome sequence in fasta format and export
+feature table in Sequin table format required by the NCBI tbl2asn
+program.&nbsp; The appropriate commands are located in the <a href="#mozTocId324242">File menu</a>.  <br>
 
 <h1><a class="mozTocH1" name="mozTocId629072"></a>Interface</h1>
 

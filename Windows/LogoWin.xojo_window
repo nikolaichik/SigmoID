@@ -132,7 +132,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -1489,11 +1488,12 @@ End
 		  m=f.Count
 		  for n=1 to m
 		    if f.Item(n).name<>".DS_Store" then
-		      if f.Item(n).Directory then
-		        'skip folder
-		      else
+		      'if f.Item(n).Directory then
+		      ''skip folder
+		      'else
+		      if right(f.Item(n).DisplayName,4)=".sig" then
 		        aMenuItem = new MenuItem
-		        aMenuItem.text = f.Item(n).Name
+		        aMenuItem.text = nthfield(f.Item(n).Name,".sig",1) 'drop the extension
 		        ButtMenu.Append aMenuItem
 		      end if
 		    end if
@@ -2544,9 +2544,13 @@ End
 		Sub LoadAlignment(tmpfile as folderitem)
 		  
 		  if tmpfile<> nil then
+		    
 		    dim vv as VirtualVolume
 		    vv=tmpfile.openAsVirtualVolume
-		    if vv<> nil then                   ' .sig file
+		    if vv<> nil OR (tmpfile.Directory and right(tmpfile.Name,4)=".sig") then ' .sig file or folder
+		      '
+		      'else
+		      'if vv<> nil then                   ' .sig file
 		      'set behaviour
 		      SigFileOpened=true
 		      nhmmerSettingsWin.AddAnnotationCheckBox.value=true
@@ -2570,13 +2574,23 @@ End
 		      'Read data
 		      dim basename as string=nthfield(tmpfile.DisplayName,".sig",1)
 		      
-		      LogoFile=vv.root.child(basename+".fasta")
-		      HmmFile=vv.root.child(basename+".hmm")
+		      if vv<>Nil then
+		        LogoFile=vv.root.child(basename+".fasta")
+		        HmmFile=vv.root.child(basename+".hmm")
+		      else
+		        LogoFile=tmpfile.child(basename+".fasta")
+		        HmmFile=tmpfile.child(basename+".hmm")
+		      end if
 		      
 		      'read the accessory files
 		      dim f as folderitem
 		      dim inStream as TextInputStream
-		      f=vv.root.child(basename+".info")     'Info
+		      if vv<>Nil then
+		        f=vv.root.child(basename+".info")     'Info
+		      else
+		        f=tmpfile.child(basename+".info")
+		      end if
+		      
 		      if f.exists then
 		        InStream = f.OpenAsTextFile
 		        if InStream <>nil then
@@ -2592,7 +2606,12 @@ End
 		        msgbox "No alignment info file ("+ f.Name+") located at "+f.ShellPath
 		      end if
 		      
-		      f=vv.root.child(basename+".options")  'Profile Settings
+		      if vv<>Nil then
+		        f=vv.root.child(basename+".options")  'Profile Settings
+		      else
+		        f=tmpfile.child(basename+".options")  
+		      end if
+		      
 		      
 		      InStream = f.OpenAsTextFile
 		      if InStream <>nil then
@@ -2627,7 +2646,13 @@ End
 		      HmmGenSettingsWin.EvalueField.enabled=false
 		      HmmGenSettingsWin.EvalueButton.enabled=false
 		      
-		      f=vv.root.child(basename+".hmm")      'Hmm profile
+		      
+		      if vv<>Nil then
+		        f=vv.root.child(basename+".hmm")  'Hmm profile
+		      else
+		        f=tmpfile.child(basename+".hmm")
+		      end if      
+		      
 		      InStream = f.OpenAsTextFile
 		      if InStream <>nil then
 		        HmmProfile=inStream.ReadAll
@@ -2636,7 +2661,13 @@ End
 		        msgbox "Can't read hmm profile"
 		      end if
 		      
-		      f=vv.root.child("meme.txt")      'meme data
+		      if vv<>Nil then
+		        f=vv.root.child("meme.txt")  'meme data
+		      else
+		        f=tmpfile.child("meme.txt")
+		      end if
+		      
+		      
 		      InStream = f.OpenAsTextFile
 		      if InStream <>nil then
 		        MEMEdata=inStream.ReadAll
@@ -2646,16 +2677,6 @@ End
 		        WriteToSTDOUT(LineEnd+"No MEME data is present in this .sig file")
 		        MEMEdata=""
 		      end if
-		      
-		      
-		      'f=vv.root.child(basename+".logodata") 'Logo data
-		      'InStream = f.OpenAsTextFile
-		      'if InStream <>nil then
-		      'Weblogo_out=inStream.ReadAll
-		      'inStream.close
-		      'else
-		      'msgbox "Can't read logo data"
-		      'end if
 		      
 		      'Extract values from ProfileSettings
 		      'and fill in the variables / configure settings windows accordingly:
@@ -2781,6 +2802,14 @@ End
 		      end if
 		      
 		    end if
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
 		    'store the seqs
 		    dim tis as TextInputStream
 		    tis=logofile.OpenAsTextFile
@@ -2794,7 +2823,8 @@ End
 		        'msgbox "The binding site data may contain gaps. Please replace them with Ns."
 		        dim Ns, gap as string
 		        dim n, m, gapSize as integer
-		        While instr(sequences,"-(")>0
+		        While instr(sequences,"-(")>0 AND instr(sequences,")-")>0
+		          'this assumes there are no -( and )- in sequence names
 		          gapSize=val(NthField(sequences,"-(",2))
 		          'fill the gap:
 		          Ns=""
@@ -2820,6 +2850,7 @@ End
 		          aLine=tis.readLine
 		          if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
 		            HmmGenSettingsWin.AlignmentLength=str(len(aline))
+		            '(may also check for seq validity here)
 		            exit
 		          end if
 		        wend
@@ -2832,6 +2863,7 @@ End
 		    else
 		      'MsgBox "Can't open the alignment file"
 		      WriteToSTDOUT(EndOfLine+"Can't read the binding site data!"+EndOfLine)
+		      WriteToSTDOUT(EndOfLine+"(tried to read from "+logofile.ShellPath+")"+EndOfLine)
 		      
 		      LogoWinToolbar.Item(1).Enabled=false 'disable until alignment loaded
 		      LogoWinToolbar.Item(4).Enabled=false
@@ -2860,6 +2892,7 @@ End
 		    
 		    
 		  end if
+		  'end if
 		  
 		  RegulonID=0
 		  RegulogID=0
@@ -3669,7 +3702,7 @@ End
 		    If Picture.IsExportFormatSupported(Picture.FormatPNG) Then
 		      dlg.InitialDirectory=SpecialFolder.Documents
 		      'dlg.promptText="Prompt Text"
-		      dlg.SuggestedFileName="Logo.Png"
+		      dlg.SuggestedFileName=NthField(LogoFile.Name,".",1)+".Png"
 		      dlg.Title="Save Logo"
 		      'dlg.Filter=FileTypes1.Text  //defined as a file type in FileTypes1 file type set
 		      f=dlg.ShowModal()
@@ -4090,7 +4123,7 @@ End
 		    f=Profile_f
 		    m=f.Count
 		    for n=1 to m
-		      if f.Item(n).name=hititem.Text then
+		      if f.Item(n).name=hititem.Text+".sig" then
 		        tmpfile=f.Item(n)
 		        exit
 		      end if

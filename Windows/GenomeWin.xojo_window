@@ -2561,37 +2561,6 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub LoadVV()
-		  Dim f, f1, f2 As FolderItem
-		  Dim v As VirtualVolume
-		  dim st as textInputStream
-		  
-		  
-		  f = GetFolderItem("MyVolume.vv")
-		  If f <> nil then
-		    v = f.OpenAsVirtualVolume
-		    If v <> nil Then
-		      'f1 = v.Root.Child("text1.txt")
-		      'If  f1<> nil then
-		      'St=f1.OpenAsTextFile
-		      'DocField(0).Text=st.readall
-		      'St.Close
-		      'end
-		      f2 = v.Root.Child("text2.txt")
-		      If  f2<> nil then
-		        St=f2.OpenAsTextFile
-		        ////Editor.Text=st.readall
-		        St.Close
-		      end
-		    End If
-		  End if
-		  
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:LoadVV")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub MapInit()
 		  'this is to avoid calculations related to scale
 		  dim scale as double
