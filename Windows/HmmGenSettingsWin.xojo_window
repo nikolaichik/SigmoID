@@ -142,6 +142,7 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Feature to add:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -837,10 +838,10 @@ End
 		Sub Action()
 		  if me.value then
 		    LogoWin.palindromic=true
-		    LogoWin.LogoWinToolbar.Item(4).Enabled=true
+		    LogoWin.LogoWinToolbar.Item(4).Enabled=false
 		  else
 		    LogoWin.palindromic=false
-		    LogoWin.LogoWinToolbar.Item(4).Enabled=false
+		    LogoWin.LogoWinToolbar.Item(4).Enabled=true
 		  end if
 		  
 		  

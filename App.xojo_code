@@ -741,6 +741,13 @@ Inherits Application
 		45. Wrong item number in regprecise window list (RegPrecise's fault)
 		46. Check and warn about the multiple entries in GenBank file
 		
+		
+		64-bit issues:
+		1. VirtualVolume is broken
+		2. После обыкновенного закрытия окна (без поиска), которое выскакивает после нажатия на кнопку "Search" выскакивает ошибка nhmmer'a (скриншот прилагаю)
+		3. MenuItems in File menu don't enable properly
+		
+		
 	#tag EndNote
 
 	#tag Note, Name = Linux details

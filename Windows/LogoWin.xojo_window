@@ -28,16 +28,12 @@ Begin Window LogoWin
    Width           =   1000
    Begin Toolbar1 LogoWinToolbar
       Enabled         =   True
-      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   0
       LockedInPosition=   False
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   0
       Visible         =   True
-      Width           =   100
    End
    Begin TextArea STDOUT
       AcceptTabs      =   False
@@ -226,7 +222,7 @@ End
 	#tag Event
 		Sub EnableMenuItems()
 		  if ubound(SelArray1)>0 then
-		    FileSaveAlignmentSelection.enable
+		    FileSaveAlignmentSelection.enabled=true
 		  else
 		    FileSaveAlignmentSelection.enabled=false
 		  end if
@@ -235,13 +231,15 @@ End
 		  
 		  if SeqsChanged then
 		    FileSaveProfileAs.enabled=true
+		  else
+		    FileSaveProfileAs.enabled=false
 		  end if
 		  
 		  
 		  
 		  
 		  if SigFileOpened then
-		    FileSaveLogo.enable
+		    FileSaveLogo.enabled=true
 		    ViewAlignmentInfo.enabled=true
 		    ViewHmmerSettings.enabled=true
 		    ViewHmmProfile.Enabled=true
@@ -263,7 +261,7 @@ End
 		    'AlignmentConvertToMEME.enabled=false
 		    'AlignmentConverttoStockholm.enabled=false
 		    if sequences<>"" then
-		      FileSaveLogo.enable
+		      FileSaveLogo.enabled=true
 		      ViewSequences.enabled=true
 		      AlignmentExtendBindingSites.enabled=true
 		      AlignmentConvertToHmm.enabled=true
@@ -281,10 +279,10 @@ End
 		  end if
 		  
 		  if LogoFile<>NIL then
-		    AlignmentConvertToMEME.enable
-		    AlignmentMEME.enable
-		    GenomeMASTSearch.enable
-		    GenomeNhmmersearch.enable
+		    AlignmentConvertToMEME.enabled=true
+		    AlignmentMEME.enabled=true
+		    GenomeMASTSearch.enabled=true
+		    GenomeNhmmersearch.enabled=true
 		    
 		    if RegulonID<>0 then
 		      RegPreciseRegulonInfo.enabled=true
@@ -318,7 +316,7 @@ End
 		  end if
 		  
 		  if Ubound(genomeWin.HmmHits)>0 then
-		    RegPreciseCompareScores.Enable
+		    RegPreciseCompareScores.Enabled=true
 		  end if
 		End Sub
 	#tag EndEvent
@@ -714,7 +712,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine)
+		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine)
 		    allProgsFine=false
 		  end if
@@ -738,7 +736,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT ("MastGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine)
+		    WriteToSTDOUT ("MastGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine)
 		    allProgsFine=false
 		  end if
@@ -763,7 +761,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT ("TermGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine)
+		    WriteToSTDOUT ("TermGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine)
 		    allProgsFine=false
 		  end if
@@ -788,7 +786,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT ("OperOn script doesn't work properly. Please verify that biopython is installed."+EndOfLine)
+		    WriteToSTDOUT ("OperOn script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine)
 		    allProgsFine=false
 		  end if

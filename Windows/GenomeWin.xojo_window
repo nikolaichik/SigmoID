@@ -282,7 +282,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   1
+         Renderer        =   0
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   1
@@ -1154,7 +1154,7 @@ End
 		  dim theSeq, command, UUID, theURL as string
 		  
 		  'name the search tab:
-		  FindTab(GeneName+":BLASTN")
+		  FindTab("BLASTN:"+GeneName)
 		  BrowserTabs.RePaint
 		  
 		  'get the seq to search with:
@@ -1201,7 +1201,7 @@ End
 		  
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
-		  FindTab(ProtName+":BLASTP")
+		  FindTab("BLASTP:"+ProtName)
 		  BrowserTabs.RePaint
 		  
 		  ProgressShow
@@ -1253,7 +1253,7 @@ End
 		  dim theSeq, command, UUID, theURL as string
 		  
 		  'name the search tab:
-		  FindTab(GeneName+":BLASTX")
+		  FindTab("BLASTX:"+GeneName)
 		  BrowserTabs.RePaint
 		  
 		  ProgressShow
@@ -1298,7 +1298,7 @@ End
 		  
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
-		  FindTab(ProtName+":CDD")
+		  FindTab("CDD:"+ProtName)
 		  BrowserTabs.RePaint
 		  ProgressShow
 		  
@@ -2013,8 +2013,8 @@ End
 		    tab2find="TIGRFAM"
 		  elseif instr(TabName,"BLAST")>0 then
 		    tab2find="BLAST"
-		  elseif instr(TabName,":CDD")>0 then
-		    tab2find=":CDD"
+		  elseif instr(TabName,"CDD:")>0 then
+		    tab2find="CDD:"
 		  end if
 		  
 		  
@@ -2022,7 +2022,7 @@ End
 		  if BrowserTabs.tabCount>0 then
 		    if Tab2find="BLAST" or tab2find="CDD" then
 		      for n=0 to BrowserTabs.tabCount-1
-		        if instr(BrowserTabs.tabs(n).caption,"BLAST")>0 OR instr(BrowserTabs.tabs(n).caption,":CDD")>0 then
+		        if instr(BrowserTabs.tabs(n).caption,"BLAST")>0 OR instr(BrowserTabs.tabs(n).caption,"CDD:")>0 then
 		          t=n
 		          exit
 		        end if
@@ -2415,7 +2415,7 @@ End
 		  
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
-		  FindTab(ProtName+":SwissProt")
+		  FindTab("SProt:"+ProtName)
 		  BrowserTabs.RePaint
 		  
 		  'get the seq to search with:
@@ -2503,7 +2503,7 @@ End
 		  
 		  
 		  'name the search tab:
-		  FindTab(ProtName+":UniProtKB")
+		  FindTab("UniProt:"+ProtName)
 		  BrowserTabs.RePaint
 		  
 		  ProgressShow
@@ -3814,17 +3814,19 @@ End
 		Sub TMDisplayAdjustment()
 		  if TMdisplay.visible then
 		    BrowserTabs.top=BrowserTabs.top+TMdisplay.height
-		    BrowserTabs.height=BrowserTabs.height-TMdisplay.height
+		    'BrowserTabs.height=BrowserTabs.height-TMdisplay.height
 		    BrowserPagePanel.top=BrowserPagePanel.top+TMdisplay.height
-		    BrowserPagePanel.height=BrowserPagePanel.height-TMdisplay.height
+		    'BrowserPagePanel.height=BrowserPagePanel.height-TMdisplay.height
 		    GWSeparator1.top=GWSeparator1.Top+TMdisplay.height
 		  else
 		    BrowserTabs.top=BrowserTabs.top-TMdisplay.height
-		    BrowserTabs.height=BrowserTabs.height+TMdisplay.height
+		    'BrowserTabs.height=BrowserTabs.height+TMdisplay.height
 		    BrowserPagePanel.top=BrowserPagePanel.top-TMdisplay.height
-		    BrowserPagePanel.height=BrowserPagePanel.height+TMdisplay.height
+		    'BrowserPagePanel.height=BrowserPagePanel.height+TMdisplay.height
 		    GWSeparator1.top=GWSeparator1.Top-TMdisplay.height
 		  end if
+		  BrowserTabs.height=self.height-BrowserTabs.top
+		  BrowserPagePanel.height=self.height-BrowserTabs.top
 		End Sub
 	#tag EndMethod
 
@@ -4937,7 +4939,7 @@ End
 		      boo=NOT SPSocket.IsConnected
 		      base.Append mItem(kHmmerSearchSwissprot,boo)
 		      boo=NOT TIGRSocket.IsConnected
-		      base.Append mItem(kHmmerSearchTigrfam,boo)
+		      'base.Append mItem(kHmmerSearchTigrfam,boo)    'disabled as it TIGRfam is included in CDD
 		      base.Append mItem(kBLASTPsearch+BLASTpDB,true)
 		      base.Append mItem(kCDsearch,true)
 		    else
@@ -5337,7 +5339,7 @@ End
 		  elseif instr(TabName,"TIGRFAM")>0 then
 		    TFSearchViewer.Visible=true
 		    BrowserPagePanel.value=2
-		  elseif instr(TabName,":BLAST")>0 OR instr(TabName,":CDD")>0 then
+		  elseif instr(TabName,"BLAST")>0 OR instr(TabName,"CDD:")>0 then
 		    BLASTSearchViewer.Visible=true
 		    BrowserPagePanel.value=3
 		  end if

@@ -7,6 +7,7 @@
 		MacCreator=SgId
 		MacType=BINA
 		Name=SigmoidFile
+		UTI=
 		UTIConformsTo=
 		Description=
 		MimeType=
@@ -21,6 +22,7 @@
 		MacCreator=????
 		MacType=TEXT
 		Name=Text
+		UTI=
 		UTIConformsTo=
 		Description=
 		MimeType=
@@ -35,6 +37,7 @@
 		MacCreator=????
 		MacType=????
 		Name=All Files
+		UTI=
 		UTIConformsTo=
 		Description=
 		MimeType=
@@ -49,6 +52,7 @@
 		MacCreator=MACS
 		MacType=fold
 		Name=Folder
+		UTI=
 		UTIConformsTo=
 		Description=
 		MimeType=
@@ -63,6 +67,7 @@
 		MacCreator=SgId
 		MacType=SgPr
 		Name=Sigmoid Prefs
+		UTI=
 		UTIConformsTo=
 		Description=
 		MimeType=
@@ -76,6 +81,7 @@
 		MacCreator=????
 		MacType=TEXT
 		Name=GenBank
+		UTI=
 		UTIConformsTo=
 		Description=
 		MimeType=
@@ -89,6 +95,7 @@
 		MacCreator=????
 		MacType=TEXT
 		Name=Fasta
+		UTI=
 		UTIConformsTo=
 		Description=
 		MimeType=
@@ -102,6 +109,7 @@
 		MacCreator=????
 		MacType=TEXT
 		Name=Table
+		UTI=
 		UTIConformsTo=
 		Description=
 		MimeType=

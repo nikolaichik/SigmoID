@@ -815,9 +815,25 @@ Protected Module Globals
 		        '{"geneLocusTag":"SO_0443","geneVIMSSId":"199635","position":"-94","regulonId":"6423","score":"6.9617","sequence":"ACCTTGGAGTAGGCTCCAAGGT"}
 		        site=new JSONItem
 		        site=sites(n)
-		        FastaHeader=">"+site.value("geneLocusTag")+" VIMSSId="+site.value("geneVIMSSId")+" Pos="+site.value("position")+" Score="+site.value("score")
-		        FastaSequence=site.value("sequence")
-		        AllFasta=AllFasta+FastaHeader+EndOfLine+FastaSequence+EndOfLine
+		        Try
+		          FastaSequence=""
+		          FastaHeader=""
+		          FastaSequence=site.value("sequence")
+		          FastaHeader=">"+site.value("geneLocusTag")
+		          FastaHeader=FastaHeader+" VIMSSId="+site.value("geneVIMSSId")
+		          FastaHeader=FastaHeader+" Pos="+site.value("position")
+		          FastaHeader=FastaHeader+" Score="+site.value("score")
+		          AllFasta=AllFasta+FastaHeader+EndOfLine+FastaSequence+EndOfLine
+		        Catch err As KeyNotFoundException
+		          if FastaSequence<>"" AND FastaHeader <>"" then
+		            'there's a problem with one of the JSON keys, but it's not fatal
+		            AllFasta=AllFasta+FastaHeader+EndOfLine+FastaSequence+EndOfLine
+		          else
+		            'Serious JSON error
+		            MsgBox("There was a problem parsing RegPrecise data. Sequence number "+str(n)+" was skipped")
+		          end if
+		        End Try
+		        
 		        
 		      end if
 		      
@@ -966,7 +982,7 @@ Protected Module Globals
 		  MASTpath=Prefs.value("MASTpath",SettingsWin.MASTPathField.text)
 		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
-		  BLASTpDB=Prefs.value("BLASTpDB","swissprot")
+		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
 		  BLASTorganism=Prefs.value("BLASTorganism","")
 		  
 		  
