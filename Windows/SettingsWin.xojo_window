@@ -57,7 +57,7 @@ Begin Window SettingsWin
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton PushButton2
+   Begin PushButton CancelButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
@@ -90,16 +90,12 @@ Begin Window SettingsWin
    End
    Begin PrefsToolbar PrefsToolbar1
       Enabled         =   True
-      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   0
       LockedInPosition=   False
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   0
       Visible         =   True
-      Width           =   100
    End
    Begin PagePanel PagePanel1
       AutoDeactivate  =   True
@@ -120,7 +116,7 @@ Begin Window SettingsWin
       TabIndex        =   17
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox1
@@ -298,7 +294,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   74
+            Top             =   75
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -925,6 +921,16 @@ End
 
 #tag WindowCode
 	#tag Event
+		Function CancelClose(appQuitting as Boolean) As Boolean
+		  if not appQuitting then
+		    'hide instead of closing to preserve the settings
+		    self.hide
+		    return true
+		  end if
+		End Function
+	#tag EndEvent
+
+	#tag Event
 		Sub Close()
 		  
 		End Sub
@@ -999,7 +1005,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton2
+#tag Events CancelButton
 	#tag Event
 		Sub Action()
 		  LogoWin.nhmmeroptions=""

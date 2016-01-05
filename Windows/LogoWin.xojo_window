@@ -616,7 +616,11 @@ End
 		  
 		  'transterm
 		  WriteToSTDOUT (EndofLine+"Looking for TransTerm... ")
-		  f=resources_f.child("transterm")
+		  #if TargetWin32
+		    f=resources_f.child("transterm.exe")
+		  #else
+		    f=resources_f.child("transterm")
+		  #endif
 		  if f<>Nil then
 		    if f.exists then
 		      cli=f.ShellPath+" -h"
@@ -637,7 +641,13 @@ End
 		        WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
 		        allProgsFine=false
 		      end if
+		    else
+		      WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
+		      allProgsFine=false
 		    end if
+		  else
+		    WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
+		    allProgsFine=false
 		  end if
 		  
 		  
@@ -713,7 +723,7 @@ End
 		  end if
 		  if Not hmmg then
 		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
-		    WriteToSTDOUT (EndOfLine)
+		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
 		  
@@ -737,7 +747,7 @@ End
 		  end if
 		  if Not hmmg then
 		    WriteToSTDOUT ("MastGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
-		    WriteToSTDOUT (EndOfLine)
+		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
 		  
@@ -762,7 +772,7 @@ End
 		  end if
 		  if Not hmmg then
 		    WriteToSTDOUT ("TermGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
-		    WriteToSTDOUT (EndOfLine)
+		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
 		  
@@ -787,7 +797,7 @@ End
 		  end if
 		  if Not hmmg then
 		    WriteToSTDOUT ("OperOn script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
-		    WriteToSTDOUT (EndOfLine)
+		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
 		  
@@ -805,11 +815,11 @@ End
 		    else
 		      JSN.load(res)
 		      RegPreciseWin.RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
-		      WriteToSTDOUT (RegPreciseWin.RegPreciseVersion)+EndOfLine
+		      WriteToSTDOUT (RegPreciseWin.RegPreciseVersion)+EndOfLine.Unix
 		    end if
 		    
 		  else
-		    WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		    WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")+EndOfLine.Unix
 		  end if
 		  
 		  
@@ -1199,7 +1209,9 @@ End
 
 	#tag MenuHandler
 		Function GenomeNhmmersearch() As Boolean Handles GenomeNhmmersearch.Action
-			if NOT SigFileOpened then
+			'if NOT SigFileOpened then
+			
+			'masking should be allowed for .sig files too...
 			if masked then
 			nhmmerSettingsWin.MaskingBox.Enabled=true
 			nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. HMMer default is Henikoff position-based"
@@ -1208,7 +1220,7 @@ End
 			nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. To enable, drag/shift-drag over undesired positions in the logo"
 			'show cutoff values:
 			end if
-			end if
+			'end if
 			if GenomeFile<>Nil then
 			nhmmerSettingsWin.GenomeField.text=GenomeFile.ShellPath
 			

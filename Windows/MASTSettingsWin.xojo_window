@@ -209,7 +209,7 @@ Begin Window MASTSettingsWin
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton PushButton2
+   Begin PushButton CancelButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
@@ -509,6 +509,17 @@ End
 
 #tag WindowCode
 	#tag Event
+		Function CancelClose(appQuitting as Boolean) As Boolean
+		  if not appQuitting then
+		    'hide instead of closing to preserve the settings
+		    LogoWin.nhmmeroptions=""
+		    self.hide
+		    return true
+		  end if
+		End Function
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  #if DebugBuild
 		    RunButton.Enabled=true
@@ -584,7 +595,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton2
+#tag Events CancelButton
 	#tag Event
 		Sub Action()
 		  LogoWin.nhmmeroptions=""

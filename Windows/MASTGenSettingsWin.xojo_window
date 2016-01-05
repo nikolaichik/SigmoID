@@ -711,6 +711,18 @@ End
 	#tag EndEvent
 
 	#tag Event
+		Function CancelClose(appQuitting as Boolean) As Boolean
+		  if not appQuitting then
+		    'hide instead of closing to preserve the settings
+		    LogoWin.nhmmeroptions=""
+		    self.OKPressed=false
+		    self.hide
+		    return true
+		  end if
+		End Function
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  'determine the default length parameter
 		  
