@@ -55,17 +55,13 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   -44
       LockedInPosition=   False
       Mode            =   1
       Period          =   700
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   467
-      Width           =   32
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -266,7 +262,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -304,7 +300,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   1
+         Renderer        =   0
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   2
@@ -326,7 +322,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   1
+         Renderer        =   0
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   3
@@ -348,7 +344,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   1
+         Renderer        =   0
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   4
@@ -397,22 +393,18 @@ Begin Window GenomeWin
       BytesAvailable  =   0
       BytesLeftToSend =   0
       Handle          =   0
-      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
       IsConnected     =   False
       LastErrorCode   =   0
-      Left            =   0
       LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
       RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   0
-      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket SPSocket
@@ -420,22 +412,18 @@ Begin Window GenomeWin
       BytesAvailable  =   0
       BytesLeftToSend =   0
       Handle          =   0
-      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
       IsConnected     =   False
       LastErrorCode   =   0
-      Left            =   0
       LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
       RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   0
-      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket UniProtSocket
@@ -443,22 +431,18 @@ Begin Window GenomeWin
       BytesAvailable  =   0
       BytesLeftToSend =   0
       Handle          =   0
-      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
       IsConnected     =   False
       LastErrorCode   =   0
-      Left            =   0
       LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
       RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   0
-      Width           =   32
       yield           =   False
    End
    Begin Cocoa.NSSearchField NSSearchField1
@@ -577,22 +561,18 @@ Begin Window GenomeWin
       BytesAvailable  =   0
       BytesLeftToSend =   0
       Handle          =   0
-      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
       IsConnected     =   False
       LastErrorCode   =   0
-      Left            =   20
       LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
       RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   20
-      Width           =   32
       yield           =   False
    End
 End
@@ -5388,7 +5368,7 @@ End
 #tag Events SPSearchViewer
 	#tag Event
 		Sub DocumentComplete(URL as String)
-		  
+		  'msgBox me.UserAgent
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -5522,16 +5502,94 @@ End
 		  UUID=NthField(Content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
+		  'theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
+		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
 		  
 		  'now simply load the corrected URL:
 		  if TMdisplay.Visible then
 		    TMdisplay.Visible=false
 		    TMdisplayAdjustment
 		  end if
-		  SPSearchViewer.LoadURL(theURL)
 		  
-		  'ProgressHide
+		  
+		  '#if TargetWin32 then
+		  dim hts as new HTTPSocket
+		  dim res as string
+		  'theURL=ReplaceAll(theURL, "score/","")
+		  hts.Yield=true  'allow background activities while waiting
+		  hts.SetRequestHeader("Content-Type:","text/plain")
+		  res=hts.Get(theURL,15)
+		  
+		  //convert plain text into simple html:
+		  dim resHtml as string
+		  dim HitSeparator as string = "=========="+EndOfLine.unix
+		  dim hrefLeft as string = "<a href="+chr(34)+"http://www.uniprot.org/uniprot/"
+		  dim hrefRight as string = "</a>"
+		  dim hrefMid as string = chr(34)+">"
+		  dim protID, hitData as string
+		  dim HmmerHitArray(-1) as string 
+		  dim n, u as integer
+		  'remove some extra lines:
+		  res=replaceall(res,HitSeparator+EndOfLine.unix,HitSeparator)
+		  'split the result file into single hit array
+		  HmmerHitArray=split(res,HitSeparator)
+		  u=UBound(HmmerHitArray)-2
+		  
+		  'convert protein names to links:
+		  '<a href="http://www.uniprot.org/uniprot/PROT_ID">PROT_ID</a>
+		  for n=1 to u 'skip the zero and last elements, as they aren't hits
+		    protID=NthField(HmmerHitArray(n)," ",1)
+		    hitData=right(HmmerHitArray(n),len(HmmerHitArray(n))-len(protID))
+		    HmmerHitArray(n)=hrefLeft+protID+hrefMid+protID+hrefRight+hitData
+		  next
+		  
+		  'Join the hits back into a single file adding html header and footer
+		  resHtml="<html><body><pre>"+join(HmmerHitArray,HitSeparator)+"</pre></body></html>"
+		  
+		  'write the html to temp file:
+		  dim f2 as folderitem
+		  f2 = SpecialFolder.Temporary.child("HmmerResult.html")      'place to save
+		  if f2<>nil then
+		    FixPath4Windows(f2)
+		    if f2.exists then
+		      f2.Delete
+		    end if
+		    
+		    dim stream as TextOutputStream = TextOutputStream.Create(f2)
+		    if stream<>nil then
+		      stream.Write(resHtml)
+		      stream.close
+		    else
+		      msgbox "Can't write temporary file"
+		      return
+		    end if
+		  else
+		    msgbox "Can't write temporary file"
+		    return
+		  end if
+		  
+		  
+		  
+		  
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if Res="" then
+		      LogoWin.WriteToSTDOUT ("no response in 15 seconds")
+		    else
+		      beep
+		      'SPSearchViewer.LoadPage(tmpResFile)
+		      
+		      SPSearchViewer.LoadPage(f2)
+		    end if
+		  else
+		    LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")+EndOfLine.Unix
+		  end if
+		  
+		  '#else
+		  '
+		  'SPSearchViewer.LoadURL(theURL)
+		  '
+		  '#endif
+		  ProgressHide
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:SPSocket")

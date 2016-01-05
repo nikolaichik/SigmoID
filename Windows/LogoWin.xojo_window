@@ -807,6 +807,7 @@ End
 		  dim res as string
 		  dim jsn as new JSONItem
 		  dim hts as new HTTPSocket
+		  hts.Yield=true
 		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/release",5)
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    
