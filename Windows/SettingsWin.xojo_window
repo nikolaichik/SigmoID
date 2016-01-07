@@ -116,7 +116,7 @@ Begin Window SettingsWin
       TabIndex        =   17
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox1
@@ -753,7 +753,7 @@ Begin Window SettingsWin
          Enabled         =   True
          Format          =   ""
          Height          =   22
-         HelpTag         =   ""
+         HelpTag         =   "Taxonomy restriction applied to BLAST (but not HMMER!) searches"
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
          Italic          =   False
@@ -915,6 +915,92 @@ Begin Window SettingsWin
          Visible         =   True
          Width           =   516
       End
+      Begin GroupBox GroupBox2
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "HMMER server output format"
+         Enabled         =   True
+         Height          =   60
+         HelpTag         =   "Set this to simple on Windows!"
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   6
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   124
+         Underline       =   False
+         Visible         =   True
+         Width           =   516
+         Begin RadioButton StandardFormatRadioButton
+            AutoDeactivate  =   True
+            Bold            =   False
+            Caption         =   "Standard"
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   False
+            Left            =   40
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   0
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   151
+            Underline       =   False
+            Value           =   True
+            Visible         =   True
+            Width           =   100
+         End
+         Begin RadioButton PlainFormatRadioButton
+            AutoDeactivate  =   True
+            Bold            =   False
+            Caption         =   "Simple"
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   False
+            Left            =   340
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   1
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   151
+            Underline       =   False
+            Value           =   False
+            Visible         =   True
+            Width           =   100
+         End
+      End
    End
 End
 #tag EndWindow
@@ -976,6 +1062,11 @@ End
 		  OrganismField.Text=BLASTorganism
 		  
 		  
+		  if LoadPlainResult then
+		    PlainFormatRadioButton.value=true
+		  else
+		    StandardFormatRadioButton.value=true
+		  end if
 		End Sub
 	#tag EndEvent
 
@@ -996,6 +1087,12 @@ End
 		  Prefs.value("BLASTnDB")=nthfield(nthfield(NucleotidePopup.Text,"(",2),")",1)
 		  Prefs.value("BLASTpDB")=nthfield(nthfield(ProteinPopup.Text,"(",2),")",1)
 		  Prefs.value("BLASTorganism")=OrganismField.text
+		  
+		  if LoadPlainResult then
+		    Prefs.value("LoadPlainResult")="true"
+		  else
+		    Prefs.value("LoadPlainResult")="false"
+		  end if
 		  
 		  Prefs.Sync
 		  
@@ -1054,6 +1151,28 @@ End
 		    // User cancelled
 		  End If
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events StandardFormatRadioButton
+	#tag Event
+		Sub Action()
+		  if me.Value then
+		    LoadPlainResult=false
+		  else
+		    LoadPlainResult=true
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PlainFormatRadioButton
+	#tag Event
+		Sub Action()
+		  if me.Value then
+		    LoadPlainResult=true
+		  else
+		    LoadPlainResult=false
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -985,6 +985,19 @@ Protected Module Globals
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
 		  BLASTorganism=Prefs.value("BLASTorganism","")
 		  
+		  dim ResultFormat as string
+		  #if TargetWindows then
+		    ResultFormat=Prefs.value("LoadPlainResult","true")  'HMMER server scripts don't work in IE on Windows
+		  #else
+		    ResultFormat=Prefs.value("LoadPlainResult","false")
+		  #endif
+		  if ResultFormat="true" then
+		    LoadPlainResult=true
+		  else
+		    LoadPlainResult=false
+		  end if
+		  
+		  
 		  
 		  
 		  'set the path to default profiles folder
@@ -1973,6 +1986,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		LineEnd As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		LoadPlainResult As boolean = true
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

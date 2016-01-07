@@ -194,6 +194,7 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -442,46 +443,40 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
       IsConnected     =   False
       LastErrorCode   =   0
-      Left            =   20
       LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
       RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   20
-      Width           =   32
       yield           =   False
    End
    Begin mHTTPSocket RDBSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
-      Height          =   32
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
       IsConnected     =   False
       LastErrorCode   =   0
-      Left            =   40
       LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
       RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   40
-      Width           =   32
       yield           =   False
    End
 End
@@ -546,7 +541,8 @@ End
 			
 			dim res as string
 			dim hts as new HTTPSocket
-			res=hts.Get(theURL,10)
+			hts.Yield=true
+			res=hts.Get(theURL,0)
 			if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 			if res<>"" then
 			dim ProteinID, fastaURL as string
@@ -570,7 +566,7 @@ End
 			if ProteinID<>"" then
 			fastaURL="http://regulondb.ccg.unam.mx/sequence?type=PD&term="+ProteinID+"&format=fasta"
 			
-			res=hts.Get(fastaURL,10)
+			res=hts.Get(fastaURL,0)
 			if res<>"" then
 			dim ProteinFasta as string
 			

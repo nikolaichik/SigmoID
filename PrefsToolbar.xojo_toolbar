@@ -8,7 +8,7 @@ Begin Toolbar PrefsToolbar
 		Icon = 644372479
 	End
 	Begin ToolButton BLASTbutt
-		Caption = "BLAST"
+		Caption = "DB Search"
 		HelpTag = ""
 		Style = 2
 		Icon = 1456736255

@@ -2930,10 +2930,11 @@ End
 		  dim res as string
 		  dim jsn as new JSONItem
 		  dim hts as new HTTPSocket
+		  hts.Yield=true
 		  if isregulog then
-		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulogId="+ID,15)
+		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulogId="+ID,0)
 		  else
-		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,15)
+		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,0)
 		  end if
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    if res<>"" then

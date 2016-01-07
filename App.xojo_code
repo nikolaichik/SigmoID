@@ -740,11 +740,11 @@ Inherits Application
 		42. Don't show "SelectFile" dialog after nhmmersearch (with 'add annotation' checked) if nothing was found
 		45. Wrong item number in regprecise window list (RegPrecise's fault)
 		46. Check and warn about the multiple entries in GenBank file
+		47. for plain text search results only first 100 are shown. This should probably be configurable
 		
 		
 		64-bit issues:
 		1. VirtualVolume is broken
-		2. После обыкновенного закрытия окна (без поиска), которое выскакивает после нажатия на кнопку "Search" выскакивает ошибка nhmmer'a (скриншот прилагаю)
 		3. MenuItems in File menu don't enable properly
 		
 		

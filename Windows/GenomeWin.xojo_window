@@ -607,7 +607,7 @@ End
 
 	#tag Event
 		Sub Deactivate()
-		  'ToolTip.Hide
+		  ToolTip.Hide
 		End Sub
 	#tag EndEvent
 
@@ -1985,8 +1985,8 @@ End
 		  dim tab2find,caption as string
 		  t=-1
 		  
-		  if instr(TabName,"SwissProt")>0 then
-		    tab2find="SwissProt"
+		  if instr(TabName,"SProt")>0 then
+		    tab2find="SProt"
 		  elseif instr(TabName,"UniProt")>0 then
 		    tab2find="UniProt"
 		  elseif instr(TabName,"TIGRFAM")>0 then
@@ -2180,6 +2180,94 @@ End
 		  next
 		  
 		  return Hits
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetConvertHMMERtext(theURL as String) As FolderItem
+		  dim hts as new HTTPSocket
+		  dim res as string
+		  dim outfile as folderitem
+		  
+		  
+		  
+		  hts.Yield=true  'allow background activities while waiting
+		  hts.SetRequestHeader("Content-Type:","text/plain")
+		  
+		  'set result format
+		  theURL=theURL+"?&range=1,100"   'first 100 results, should probably be configurable
+		  
+		  res=hts.Get(theURL,0)  'adjust timeout?
+		  
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if Res="" then
+		      'LogoWin.WriteToSTDOUT ("no response in 15 seconds")
+		    else
+		      //convert plain text into simple html:
+		      dim resHtml as string
+		      dim HitSeparator as string = "=========="+EndOfLine.unix
+		      dim hrefLeft as string = "<a href="+chr(34)+"http://www.uniprot.org/uniprot/"
+		      dim hrefRight as string = "</a>"
+		      dim hrefMid as string = chr(34)+">"
+		      dim protID, hitData as string
+		      dim HmmerHitArray(-1) as string 
+		      dim n, u as integer
+		      'remove some extra lines:
+		      res=replaceall(res,HitSeparator+EndOfLine.unix,HitSeparator)
+		      'split the result file into single hit array
+		      HmmerHitArray=split(res,HitSeparator)
+		      u=UBound(HmmerHitArray)-2
+		      
+		      'convert protein names to links:
+		      '<a href="http://www.uniprot.org/uniprot/PROT_ID">PROT_ID</a>
+		      for n=1 to u 'skip the zero and last elements, as they aren't hits
+		        protID=NthField(HmmerHitArray(n)," ",1)
+		        hitData=right(HmmerHitArray(n),len(HmmerHitArray(n))-len(protID))
+		        HmmerHitArray(n)=hrefLeft+protID+hrefMid+protID+hrefRight+hitData
+		      next
+		      
+		      'Join the hits back into a single file adding html header and footer
+		      resHtml="<html><body><pre>"+join(HmmerHitArray,HitSeparator)+"</pre></body></html>"
+		      
+		      'write the html to temp file:
+		      
+		      outfile = SpecialFolder.Temporary.child("HmmerResult.html")      'place to save
+		      if outfile<>nil then
+		        FixPath4Windows(outfile)
+		        if outfile.exists then
+		          outfile.Delete
+		        end if
+		        
+		        dim stream as TextOutputStream = TextOutputStream.Create(outfile)
+		        if stream<>nil then
+		          stream.Write(resHtml)
+		          stream.close
+		          
+		          return outfile  ' <-- proper converted output
+		          
+		        else
+		          msgbox "Can't write temporary file"
+		          return outfile  ' <-- nil
+		        end if
+		      else
+		        msgbox "Can't write temporary file"
+		        return outfile  ' <-- nil
+		      end if
+		      
+		      
+		    end if
+		  else
+		    ProgressHide
+		    LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+") getting phmmer results.")+EndOfLine.Unix
+		  end if
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
 		End Function
 	#tag EndMethod
 
@@ -5310,7 +5398,7 @@ End
 		  
 		  Tabname=BrowserTabs.tabs(tabIndex).caption
 		  
-		  if instr(TabName,"SwissProt")>0 then
+		  if instr(TabName,"SProt")>0 then
 		    SPSearchViewer.Visible=true
 		    BrowserPagePanel.value=0
 		  elseif instr(TabName,"UniProt")>0 then
@@ -5401,6 +5489,15 @@ End
 	#tag Event
 		Sub DocumentComplete(URL as String)
 		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
+		  if instr(URl,"blank.html")>0 then
+		    'just the first blank page
+		  else
+		    ProgressHide
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -5512,84 +5609,20 @@ End
 		  end if
 		  
 		  
-		  '#if TargetWin32 then
-		  dim hts as new HTTPSocket
-		  dim res as string
-		  'theURL=ReplaceAll(theURL, "score/","")
-		  hts.Yield=true  'allow background activities while waiting
-		  hts.SetRequestHeader("Content-Type:","text/plain")
-		  res=hts.Get(theURL,15)
-		  
-		  //convert plain text into simple html:
-		  dim resHtml as string
-		  dim HitSeparator as string = "=========="+EndOfLine.unix
-		  dim hrefLeft as string = "<a href="+chr(34)+"http://www.uniprot.org/uniprot/"
-		  dim hrefRight as string = "</a>"
-		  dim hrefMid as string = chr(34)+">"
-		  dim protID, hitData as string
-		  dim HmmerHitArray(-1) as string 
-		  dim n, u as integer
-		  'remove some extra lines:
-		  res=replaceall(res,HitSeparator+EndOfLine.unix,HitSeparator)
-		  'split the result file into single hit array
-		  HmmerHitArray=split(res,HitSeparator)
-		  u=UBound(HmmerHitArray)-2
-		  
-		  'convert protein names to links:
-		  '<a href="http://www.uniprot.org/uniprot/PROT_ID">PROT_ID</a>
-		  for n=1 to u 'skip the zero and last elements, as they aren't hits
-		    protID=NthField(HmmerHitArray(n)," ",1)
-		    hitData=right(HmmerHitArray(n),len(HmmerHitArray(n))-len(protID))
-		    HmmerHitArray(n)=hrefLeft+protID+hrefMid+protID+hrefRight+hitData
-		  next
-		  
-		  'Join the hits back into a single file adding html header and footer
-		  resHtml="<html><body><pre>"+join(HmmerHitArray,HitSeparator)+"</pre></body></html>"
-		  
-		  'write the html to temp file:
-		  dim f2 as folderitem
-		  f2 = SpecialFolder.Temporary.child("HmmerResult.html")      'place to save
-		  if f2<>nil then
-		    FixPath4Windows(f2)
-		    if f2.exists then
-		      f2.Delete
-		    end if
-		    
-		    dim stream as TextOutputStream = TextOutputStream.Create(f2)
-		    if stream<>nil then
-		      stream.Write(resHtml)
-		      stream.close
-		    else
-		      msgbox "Can't write temporary file"
-		      return
-		    end if
-		  else
-		    msgbox "Can't write temporary file"
-		    return
-		  end if
-		  
-		  
-		  
-		  
-		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		    if Res="" then
-		      LogoWin.WriteToSTDOUT ("no response in 15 seconds")
+		  if LoadPlainResult then
+		    dim resultfile as folderitem
+		    resultfile=GetConvertHMMERtext(theURL)
+		    if resultfile<>nil and resultfile.exists then
+		      SPSearchViewer.LoadPage(resultfile)
 		    else
 		      beep
-		      'SPSearchViewer.LoadPage(tmpResFile)
-		      
-		      SPSearchViewer.LoadPage(f2)
 		    end if
 		  else
-		    LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")+EndOfLine.Unix
+		    
+		    SPSearchViewer.LoadURL(theURL)
+		    
 		  end if
 		  
-		  '#else
-		  '
-		  'SPSearchViewer.LoadURL(theURL)
-		  '
-		  '#endif
-		  ProgressHide
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:SPSocket")
@@ -5637,10 +5670,32 @@ End
 		  UUID=NthField(content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
-		  'now simply load the corrected URL:
+		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
 		  
-		  UPSearchViewer.LoadURL(theURL)
+		  'now simply load the corrected URL:
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
+		  end if
+		  
+		  
+		  if LoadPlainResult then
+		    dim resultfile as folderitem
+		    resultfile=GetConvertHMMERtext(theURL)
+		    if resultfile<>nil and resultfile.exists then
+		      UPSearchViewer.LoadPage(resultfile)
+		    else
+		      beep
+		    end if
+		  else
+		    
+		    UPSearchViewer.LoadURL(theURL)
+		    
+		  end if
+		  'ProgressHide
+		  
+		  
+		  'UPSearchViewer.LoadURL(theURL)
 		  
 		  'ProgressHide
 		End Sub
