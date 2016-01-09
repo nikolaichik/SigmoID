@@ -128,7 +128,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   42
+         Width           =   46
       End
       Begin Label Label2
          AutoDeactivate  =   True
@@ -205,7 +205,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   42
+         Width           =   46
       End
       Begin Label Label3
          AutoDeactivate  =   True
@@ -282,7 +282,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   42
+         Width           =   46
       End
       Begin TextField MASTField
          AcceptTabs      =   False
@@ -292,7 +292,7 @@ Begin Window ProfileWizardWin
          BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
-         CueText         =   "0.000001"
+         CueText         =   "1e-6"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -325,7 +325,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   42
+         Width           =   46
       End
       Begin Label Label4
          AutoDeactivate  =   True
@@ -659,7 +659,7 @@ Begin Window ProfileWizardWin
          LockRight       =   True
          LockTop         =   True
          Scope           =   0
-         State           =   1
+         State           =   0
          TabIndex        =   8
          TabPanelIndex   =   0
          TabStop         =   True
@@ -668,7 +668,7 @@ Begin Window ProfileWizardWin
          TextUnit        =   0
          Top             =   56
          Underline       =   False
-         Value           =   True
+         Value           =   False
          Visible         =   True
          Width           =   157
       End

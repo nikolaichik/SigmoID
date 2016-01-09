@@ -985,9 +985,18 @@ Protected Module Globals
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
 		  BLASTorganism=Prefs.value("BLASTorganism","")
 		  
+		  'HMMER server scripts don't work in IE on Windows
+		  'and with older WebKit on 32-bit Linux,
+		  'so we work around this by switching to simpler plain text output
 		  dim ResultFormat as string
-		  #if TargetWindows then
-		    ResultFormat=Prefs.value("LoadPlainResult","true")  'HMMER server scripts don't work in IE on Windows
+		  #if TargetWin32 then
+		    ResultFormat=Prefs.value("LoadPlainResult","true")  
+		  #elseif TargetLinux
+		    #if Target32Bit
+		      ResultFormat=Prefs.value("LoadPlainResult","true")
+		    #else
+		      ResultFormat=Prefs.value("LoadPlainResult","false")
+		    #endif
 		  #else
 		    ResultFormat=Prefs.value("LoadPlainResult","false")
 		  #endif
@@ -1584,6 +1593,7 @@ Protected Module Globals
 		    aLine=InStream.readLine
 		    if left(aLine,1)=">" then                    'seq title
 		      aline=ReplaceAll(aline," ","_")             'hmmbuild doesn't like spaces
+		      aline=ReplaceAll(aline,chr(9),"_")          'hmmbuild doesn't like tabs
 		      aline=aline+xtra                            'equalise lengths
 		      block=mid(aline,1,60)+" "                   'this long to distinguish duplicates from RegPrecise
 		    else
@@ -2170,6 +2180,12 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LoadPlainResult"
+			Group="Behavior"
+			InitialValue="true"
+			Type="boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MASTpath"

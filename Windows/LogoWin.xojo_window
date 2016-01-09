@@ -128,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -213,6 +214,12 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Activate()
+		  EMI
+		End Sub
+	#tag EndEvent
+
 	#tag Event
 		Sub Close()
 		  quit
@@ -995,7 +1002,9 @@ End
 			'and open Profile Wizard
 			
 			if SeqsChanged then
-			dim BSfastaFile as folderitem = SpecialFolder.Temporary.child("BS.fasta")
+			dim TFname as string
+			TFname=nthfield(ProfileWizardWin.ValueField.Text," ",1)
+			dim BSfastaFile as folderitem = SpecialFolder.Temporary.child(TFname+".fasta")
 			if BSfastaFile<>nil then
 			dim outstream As TextOutputStream
 			outstream = TextOutputStream.Create(BSfastaFile)
@@ -1533,7 +1542,9 @@ End
 		    
 		  case "Logo"
 		    if SeqsChanged then
-		      dim BSfastaFile as folderitem = SpecialFolder.Temporary.child("BS.fasta")
+		      dim TFname as string
+		      TFname=nthfield(ProfileWizardWin.ValueField.Text," ",1)
+		      dim BSfastaFile as folderitem = SpecialFolder.Temporary.child(TFname+".fasta")
 		      if BSfastaFile<>nil then
 		        dim outstream As TextOutputStream
 		        outstream = TextOutputStream.Create(BSfastaFile)
@@ -1682,6 +1693,8 @@ End
 		    'Informer.enabled=true
 		    DownshiftLog true
 		  end select
+		  
+		  EMI
 		End Sub
 	#tag EndMethod
 
@@ -2328,6 +2341,117 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub EMI()
+		  'workaround for EnableMenuItems bug on 64-bit Linux
+		  
+		  #if TargetLinux
+		    #if Target64Bit
+		      if ubound(SelArray1)>0 then
+		        FileSaveAlignmentSelection.enabled=true
+		      else
+		        FileSaveAlignmentSelection.enabled=false
+		      end if
+		      
+		      ViewLogo.enabled=false
+		      
+		      if SeqsChanged then
+		        FileSaveProfileAs.enabled=true
+		      else
+		        FileSaveProfileAs.enabled=false
+		      end if
+		      
+		      
+		      
+		      
+		      if SigFileOpened then
+		        FileSaveLogo.enabled=true
+		        ViewAlignmentInfo.enabled=true
+		        ViewHmmerSettings.enabled=true
+		        ViewHmmProfile.Enabled=true
+		        ViewLogo.enabled=true
+		        ViewSequences.enabled=true
+		        ViewMEMEresults.enabled=true
+		        AlignmentExtendBindingSites.enabled=true
+		        AlignmentConvertToHmm.enabled=true
+		        AlignmentConvertToMEME.enabled=true
+		        AlignmentConverttoStockholm.enabled=true
+		        FileSaveLogo.enabled=true
+		        msgbox "view enabled"
+		      else
+		        ViewAlignmentInfo.enabled=false
+		        ViewHmmerSettings.enabled=false
+		        ViewHmmProfile.Enabled=false
+		        ViewMEMEresults.enabled=false
+		        'AlignmentExtendBindingSites.enabled=false
+		        'AlignmentConvertToHmm.enabled=false
+		        'AlignmentConvertToMEME.enabled=false
+		        'AlignmentConverttoStockholm.enabled=false
+		        if sequences<>"" then
+		          FileSaveLogo.enabled=true
+		          ViewSequences.enabled=true
+		          AlignmentExtendBindingSites.enabled=true
+		          AlignmentConvertToHmm.enabled=true
+		          AlignmentConvertToMEME.enabled=true
+		          AlignmentConverttoStockholm.enabled=true
+		          'if WebLogoAvailable then
+		          ViewLogo.enabled=true
+		          FileSaveLogo.enabled=true
+		          'else
+		          'ViewLogo.enabled=false
+		          'FileSaveLogo.enabled=false
+		          'end if
+		        end if
+		        msgbox "view not enabled"
+		      end if
+		      
+		      if LogoFile<>NIL then
+		        AlignmentConvertToMEME.enabled=true
+		        AlignmentMEME.enabled=true
+		        GenomeMASTSearch.enabled=true
+		        GenomeNhmmersearch.enabled=true
+		        
+		        if RegulonID<>0 then
+		          RegPreciseRegulonInfo.enabled=true
+		          if IsRegulog then
+		            RegPreciseRegulonInfo.Text="Regulog Info"
+		          else
+		            RegPreciseRegulonInfo.Text="Regulon Info"
+		          end if
+		        end if
+		      end if
+		      
+		      if MEMEdata="" then
+		        ViewMEMEresults.Enabled=false
+		      else
+		        ViewMEMEresults.Enabled=true
+		      end if
+		      
+		      FileSaveCheckedSites.Visible=false
+		      FileSaveCheckedSites.Enabled=false
+		      FileSaveGenomeAs.Visible=false
+		      FileSaveGenomeAs.Enabled=false
+		      
+		      FileSaveAlignmentSelection.visible=true
+		      FileSaveLogo.visible=true
+		      GenomeScanGenome.Visible=true
+		      GenomeScanGenome.Enabled=true
+		      FileOpenAlignment.visible=true
+		      FileOpenAlignment.Enabled=true
+		      if LastSearch<>"" then
+		        GenomeAnnotate.Enabled=true
+		      end if
+		      
+		      if Ubound(genomeWin.HmmHits)>0 then
+		        RegPreciseCompareScores.Enabled=true
+		      end if
+		      
+		      msgbox "Genome menu enabled"
+		    #endif
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function HmmGen() As boolean
 		  'returns true if completed without errors
 		  
@@ -2772,6 +2896,10 @@ End
 		        MastGenSettingsWin.PvalueField.text=theOption
 		        MastSettingsWin.PvalueField.text=theOption
 		        ProfileWizardWin.MASTField.text=theOption
+		      else
+		        MastGenSettingsWin.PvalueField.text=""
+		        MastSettingsWin.PvalueField.text=""
+		        ProfileWizardWin.MASTField.text=""
 		      end if
 		      
 		    else
@@ -2911,6 +3039,7 @@ End
 		  LastSearch=""
 		  SeqsChanged=false
 		  show
+		  EMI
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:LoadAlignment")
 		End Sub
@@ -4292,9 +4421,21 @@ End
 		  
 		  if ubound(SelArray1)>0 then
 		    masked=true
+		    #if Target64Bit 
+		      #if TargetLinux
+		        FileSaveAlignmentSelection.enabled=true
+		      #endif
+		    #endif
 		  else
 		    masked=false
+		    #if Target64Bit 
+		      #if TargetLinux
+		        FileSaveAlignmentSelection.enabled=false
+		      #endif
+		    #endif
 		  end if
+		  
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event

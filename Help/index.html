@@ -9,6 +9,7 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
@@ -50,8 +51,7 @@ required. <br>
 <br>
 At the moment SigmoID is known to work on OS X (10.8-10.11), Windows (Vista, 7
 and 8), Ubuntu (12.04 and 14.04). It may also work on other Linux
-distributions, provided the required libraries are installed. 64 bit
-Linux distributions require installation of 32-bit libraries.<br>
+distributions, provided the required libraries are installed. <br>
 <br>
 <h1><a class="mozTocH1" name="mozTocId182858"></a>Installation</h1>&nbsp;&nbsp;&nbsp;
 SigmoID relies heavily on Python and will have severely limited
@@ -67,10 +67,7 @@ You may also need to install the <a href="http://numpy.scipy.org/">NumPy</a> lib
 may require additional python and perl modules. Please check the log
 pane of SigmoID's window for error messages and install missing modules
 if necessary. <br>
-&nbsp;&nbsp;&nbsp; At the moment, Linux distribution of SigmoID is a 32
-bit application and hence requires installation of the corresponding 32
-bit libraries on 64 bit systems. 64 bit version of SigmoID should be
-available soon. <br>
+&nbsp;&nbsp;&nbsp; There are two Linux distributions of SigmoID. Both may require installation of additional libraries. <br>
 <br>
 <h1><a class="mozTocH1" name="mozTocId233463"></a>Supported file formats<br>
 </h1>
@@ -299,7 +296,16 @@ The panels allow to:<br>
 SigmoID. This can be useful if SigmoID can't fing some of the required
 programmes or if you like to use the ones already installed on your
 system;<br>
-2) Set the databases searched by BLAST and optionally restrict the searches to a smaller taxonomic group to speed up them.<br>
+2) Set the databases searched by BLAST and optionally restrict the
+searches to a smaller taxonomic group to speed up them. This panel also
+allows to switch between two result formats that can be output by the
+HMMER web server: the full graphics rich html format (default) and
+simple text format. Please note that html format must be supported by
+the html engine of your system (which is used by SigmoID), and that
+isn't necessarily the case. In particular, no version of Internet
+Explorer seems to be capable of displaying the default html HMMER
+server output. Neither is WebKit 1.0 that is used by SigmoID on 32-bit
+Linux. So, plain text format should be used on Windows and 32-bit Linux.<br>
 3) Switch to an alternative folder with calibrated profiles from the
 one provided with SigmoID. Only the profiles from this folder will be
 accessible via the leftmost toolbar button in the main window. Only

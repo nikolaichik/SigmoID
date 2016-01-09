@@ -945,7 +945,7 @@ Begin Window SettingsWin
          Begin RadioButton StandardFormatRadioButton
             AutoDeactivate  =   True
             Bold            =   False
-            Caption         =   "Standard"
+            Caption         =   "Standard html"
             Enabled         =   True
             Height          =   20
             HelpTag         =   ""
@@ -969,12 +969,12 @@ Begin Window SettingsWin
             Underline       =   False
             Value           =   True
             Visible         =   True
-            Width           =   100
+            Width           =   197
          End
          Begin RadioButton PlainFormatRadioButton
             AutoDeactivate  =   True
             Bold            =   False
-            Caption         =   "Simple"
+            Caption         =   "Plain text"
             Enabled         =   True
             Height          =   20
             HelpTag         =   ""
@@ -998,7 +998,7 @@ Begin Window SettingsWin
             Underline       =   False
             Value           =   False
             Visible         =   True
-            Width           =   100
+            Width           =   176
          End
       End
    End

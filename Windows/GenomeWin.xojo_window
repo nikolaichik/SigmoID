@@ -262,7 +262,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   354
-      Value           =   3
+      Value           =   0
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -535,27 +535,6 @@ Begin Window GenomeWin
       Visible         =   False
       Width           =   200
    End
-   Begin ProgressWheel ProgressWheel1
-      AutoDeactivate  =   True
-      Enabled         =   False
-      Height          =   24
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   525
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   14
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   -89
-      Visible         =   False
-      Width           =   24
-   End
    Begin mHTTPSocket BLASTSocket
       Address         =   ""
       BytesAvailable  =   0
@@ -575,6 +554,27 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       yield           =   False
    End
+   Begin ProgressWheel ProgressWheel1
+      AutoDeactivate  =   False
+      Enabled         =   True
+      Height          =   24
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   525
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   -89
+      Visible         =   False
+      Width           =   24
+   End
 End
 #tag EndWindow
 
@@ -584,6 +584,7 @@ End
 		  
 		  'me.SetFocus
 		  MapCanvas.SetFocus
+		  EMI
 		  
 		End Sub
 	#tag EndEvent
@@ -1585,6 +1586,69 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub EMI()
+		  'Workaround for EnableMenuItems bug on 64-bit Linux
+		  #if TargetLinux
+		    #if Target64Bit
+		      ViewViewDetails.Enable
+		      ViewViewDetails.Visible=true
+		      if TMdisplay.visible then
+		        ViewViewDetails.text = "Hide details"
+		      else
+		        ViewViewDetails.text = "Show details"
+		      end if
+		      
+		      GenomeFind.enable
+		      if SearchPosition>0 then
+		        GenomeFindAgain.Enable
+		      end if
+		      GenomeGoto.enable
+		      
+		      FileSaveCheckedSites.Visible=true
+		      FileSaveCheckedSites.Enabled=true
+		      FileSaveGenomeAs.Visible=true
+		      FileSaveGenomeAs.Enabled=true
+		      FileExportFeatureTable.enabled=true
+		      FileExportSequence.enabled=true
+		      
+		      FileSaveAlignmentSelection.visible=false
+		      FileSaveLogo.visible=false
+		      'GenomeScanGenome.Visible=false
+		      
+		      GenomeListRegulons.Enabled=true
+		      if GenomeChanged=false then
+		        FileSaveGenome.enabled=false
+		      else
+		        FileSaveGenome.enabled=true
+		      end if
+		      
+		      if Ubound(genomeWin.HmmHits)>0 then
+		        RegPreciseCompareScores.Enable
+		      end if
+		      
+		      'enable copying if anything is selected:
+		      if AnythingSelected then
+		        EditCopy.enabled=true
+		        'enable copying of protein sequence, but only if a CDS is selected
+		        if SelFeatureNo>0 then
+		          if seq.Features(SelFeatureNo).type="CDS" then
+		            EditCopyTranslation.enabled=true
+		          end if
+		        end if
+		      else
+		        EditCopy.enabled=false
+		      end if
+		      
+		      EditCut.enabled=false
+		      
+		      Exception err
+		        ExceptionHandler(err,"GenomeWin:EnableMenuItems")
+		    #endif
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub EnableSave(Ya as boolean)
 		  
 		  dim i as integer
@@ -2504,7 +2568,29 @@ End
 		  'command="curl -L -H 'Expect:' -H 'Accept:text/html' -F seqdb=swissprot  -F algo=phmmer -F seq="+theSeq+" http://hmmer.janelia.org/search/phmmer"
 		  'SPshell.execute command
 		  
+		  
+		  dim blankpath as string
+		  dim f as FolderItem
+		  f=resources_f.child("blank.html")
+		  if f<>Nil then
+		    if f.exists then
+		      blankpath=f.ShellPath
+		      theURL="file://"+blankpath
+		    end if
+		  end if
+		  
+		  if TMdisplay.Visible then
+		    TMdisplay.Visible=false
+		    TMdisplayAdjustment
+		  end if
+		  SPSearchViewer.LoadURL(theURL)
 		  ProgressShow
+		  #if TargetLinux
+		    'self.Refresh
+		    SPSearchViewer.Refresh
+		    'ProgressWheel1.Invalidate
+		    app.DoEvents
+		  #endif
 		  
 		  SPSocket.SetRequestHeader("Expect:","")
 		  SPSocket.SetRequestHeader("Accept:","text/html")
@@ -2928,7 +3014,7 @@ End
 	#tag Method, Flags = &h0
 		Sub ProgressHide()
 		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
+		  'ProgressWheel1.Enabled=false
 		End Sub
 	#tag EndMethod
 
@@ -2939,6 +3025,7 @@ End
 		  
 		  ProgressWheel1.Visible=true
 		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Refresh
 		End Sub
 	#tag EndMethod
 
@@ -5470,11 +5557,17 @@ End
 		    'just the first blank page
 		  else
 		    ProgressHide
+		    'ProgressWheel1.Visible=true
+		    'ProgressWheel1.Enabled=true
+		    'ProgressWheel1.Refresh
 		  end if
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub DocumentBegin(URL as String)
+		  ProgressWheel1.Visible=true
+		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Refresh
 		  
 		  
 		End Sub
@@ -5630,24 +5723,12 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Connected()
-		  dim theURL,blankpath as string
-		  dim f as FolderItem
-		  
-		  
-		  f=resources_f.child("blank.html")
-		  if f<>Nil then
-		    if f.exists then
-		      blankpath=f.ShellPath
-		      theURL="file://"+blankpath
-		    end if
-		  end if
-		  
-		  if TMdisplay.Visible then
-		    TMdisplay.Visible=false
-		    TMdisplayAdjustment
-		  end if
-		  SPSearchViewer.LoadURL(theURL)
-		  ProgressShow
+		  #if TargetLinux
+		    'self.Refresh
+		    SPSearchViewer.Refresh
+		    ProgressWheel1.Refresh
+		    app.DoEvents
+		  #endif
 		  
 		  
 		  

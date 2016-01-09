@@ -251,7 +251,7 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "#kSequences"
          Index = -2147483648
-         AutoEnable = False
+         AutoEnable = True
          Visible = True
       End
       Begin MenuItem ViewAlignmentInfo
@@ -461,7 +461,7 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "#kNhmmerSearch"
          Index = -2147483648
-         AutoEnable = False
+         AutoEnable = True
          Visible = True
       End
       Begin MenuItem GenomeAnnotate

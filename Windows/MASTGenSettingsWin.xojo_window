@@ -589,7 +589,7 @@ Begin Window MASTGenSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "0.000001"
+         Text            =   "1e-6"
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
