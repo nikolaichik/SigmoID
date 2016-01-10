@@ -41,7 +41,6 @@
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vSG1tR2VuLnB5
-					FolderItem = Li4vUHJvZmlsZXMv
 					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==
 					FolderItem = Li4vcHR0X2NvbnZlcnRlci5weQ==
 					FolderItem = Li4vVGVybUdlbi5weQ==
@@ -62,6 +61,7 @@
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbmhtbWVy
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdHJhbnN0ZXJt
 					FolderItem = Li4vLi4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdGZhc3R4
+					FolderItem = Li4vLi4vNjQtYml0JTIwUmVzb3VyY2VzL1Byb2ZpbGVzLw==
 				End
 			End
 			Begin BuildStepList Mac OS X

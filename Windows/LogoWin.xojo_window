@@ -2376,7 +2376,7 @@ End
 		        AlignmentConvertToMEME.enabled=true
 		        AlignmentConverttoStockholm.enabled=true
 		        FileSaveLogo.enabled=true
-		        msgbox "view enabled"
+		        'msgbox "view enabled"
 		      else
 		        ViewAlignmentInfo.enabled=false
 		        ViewHmmerSettings.enabled=false
@@ -2401,7 +2401,7 @@ End
 		          'FileSaveLogo.enabled=false
 		          'end if
 		        end if
-		        msgbox "view not enabled"
+		        'msgbox "view not enabled"
 		      end if
 		      
 		      if LogoFile<>NIL then
@@ -2445,7 +2445,7 @@ End
 		        RegPreciseCompareScores.Enabled=true
 		      end if
 		      
-		      msgbox "Genome menu enabled"
+		      'msgbox "Genome menu enabled"
 		    #endif
 		  #endif
 		End Sub
