@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.5 (December 2, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.6 (January 11, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -121,7 +121,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nMastGen 1.5 (December 2, 2015)'
+print '\nMastGen 1.6 (January 11, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -231,12 +231,19 @@ for record in records:
     cds_loc_start = allowed_features_list[0]
     cds_loc_end = allowed_features_list[-1]
     for allign in allign_list:
-        from Bio import SeqFeature
-        start = int(allign[2])
-        end = int(allign[3])
-        strnd = int(allign[1])
-        p_value = float(allign[5])
-        score = float(allign[4])
+        try:
+            from Bio import SeqFeature
+            start = int(allign[2])
+            end = int(allign[3])
+            strnd = int(allign[1])
+            p_value = float(allign[5])
+            score = float(allign[4])
+        except IndexError or ValueError:
+            print "Error while parsing MAST output. Please check it."
+            print "The problem may be in line:"
+            for word in allign:
+                print word+' ',
+            sys.exit()
         feature_length = end - (start-1)
         start_pos = SeqFeature.ExactPosition(start-1)
         end_pos = SeqFeature.ExactPosition(end)
@@ -274,8 +281,8 @@ for record in records:
                 if (allowed_features_list[n].location.start < hit_list[i].location.start < allowed_features_list[n].location.end or
                         allowed_features_list[n].location.start < hit_list[i].location.end < allowed_features_list[n].location.end) or \
                         (allowed_features_list[n].location.start < hit_list[i].location.start < allowed_features_list[n+1].location.start and
-                         ((enter.palindromic == False and hit_list[i].strand == int('-1') and allowed_features_list[n].strand == +1) or
-                         (enter.palindromic == False and hit_list[i].strand == int('+1') and allowed_features_list[n+1].strand == -1))):
+                         ((hit_list[i].strand == int('-1') and allowed_features_list[n].strand == +1) or
+                         (hit_list[i].strand == int('+1') and allowed_features_list[n+1].strand == -1))):
                     hit_list.pop(i)
                     break
 
