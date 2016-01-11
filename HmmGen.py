@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.13 (December 25, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.14 (January 11, 2015)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -123,7 +123,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.13 (December 25, 2015)'
+print '\nHmmGen 2.14 (January 11, 2015)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -279,7 +279,8 @@ for record in records:
     allowed_features_list = []
     for feature in record.features:
         if feature.type == 'CDS' or \
-           feature.type == 'ncRNA':
+           feature.type == 'ncRNA' or \
+           feature.type == 'sRNA':
             allowed_features_list.append(feature)
     try:
         cds_loc_start = allowed_features_list[0]
@@ -372,9 +373,7 @@ for record in records:
     if enter.insert == True:
         hit_list = []
         for i in xrange(len(record.features)):
-            if record.features[i].type == 'CDS':
-                allowed_features_list.append(record.features[i])
-            elif record.features[i].qualifiers.has_key('CHECK'):
+            if record.features[i].qualifiers.has_key('CHECK'):
                 hit_list.append(record.features[i])
 
         for i in reversed(xrange(len(hit_list))):
