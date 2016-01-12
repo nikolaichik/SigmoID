@@ -1610,6 +1610,22 @@ End
 		    DownshiftLog true
 		  case "HideViewer"
 		    if TopPanel.Visible then
+		      
+		      'store current state
+		      if ViewLogo.Checked then
+		        CheckState="ViewLogo"
+		      elseif ViewSequences.Checked then
+		        CheckState="ViewSequences"
+		      elseif ViewAlignmentInfo.checked then
+		        CheckState="ViewAlignmentInfo"
+		      elseif ViewHmmerSettings.Checked then
+		        CheckState="ViewHmmerSettings"
+		      elseif ViewHmmProfile.Checked then
+		        CheckState="ViewHmmProfile"
+		      elseif ViewMEMEresults.checked then
+		        CheckState="ViewMEMEresults"
+		      end if
+		      
 		      ViewLogo.Checked=false
 		      ViewSequences.Checked=false
 		      ViewAlignmentInfo.checked=false
@@ -1624,17 +1640,26 @@ End
 		      TopPanel.visible=false
 		      DownshiftLog false
 		    else
-		      ViewLogo.Checked=true
-		      ViewSequences.Checked=true
-		      ViewAlignmentInfo.checked=true
 		      ViewHideViewer.Checked=false
-		      ViewHmmerSettings.Checked=true
-		      ViewHmmProfile.Checked=true
-		      ViewMEMEresults.checked=true
-		      'LogoCanvas.visible=false
-		      'LogoCanvas.Enabled=false
-		      'Informer.visible=false
-		      'Informer.enabled=false
+		      
+		      'restore previous state:
+		      select case CheckState
+		      case "ViewLogo"
+		        ViewLogo.Checked=true
+		      case "ViewSequences"
+		        ViewSequences.Checked=true
+		      case "ViewAlignmentInfo"
+		        ViewAlignmentInfo.checked=true
+		      case "ViewHmmerSettings"
+		        ViewHmmerSettings.Checked=true
+		      case "ViewHmmProfile"
+		        ViewHmmProfile.Checked=true
+		      case "ViewMEMEresults"
+		        ViewMEMEresults.checked=true
+		        
+		      end select
+		      
+		      
 		      TopPanel.visible=true
 		      DownshiftLog true
 		    end if
@@ -3988,6 +4013,10 @@ End
 
 	#tag Property, Flags = &h0
 		alimaskTmp As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CheckState As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

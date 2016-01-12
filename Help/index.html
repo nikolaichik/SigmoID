@@ -10,6 +10,7 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
@@ -58,16 +59,27 @@ SigmoID relies heavily on Python and will have severely limited
 functionality without it. The various python scripts included with
 SigmoID require python version 2.7 and will not work with version 3.
 Linux and OS X systems should have python installed, while Windows
-users can download it from <a href="https://www.python.org/downloads/windows/">python.org</a>. <br>
+users can download it from <a href="https://www.python.org/downloads/windows/">python.org</a>.
+Please note that on Windows you need to modify system PATH environment
+variable to include path to python. The easiest way to do it is to
+select the "Add python.exe to path" option in the installer (it's not
+selected by default!). You may check that python is installed correctly
+by typing 'python' at the command prompt, which should launch the
+python interpreter.<br>
 &nbsp;&nbsp;&nbsp; Biopython (v. 1.64+) should be installed on top of
 python 2.7. You can download the distribution and read the installation
-details for your system at <a href="http://biopython.org/wiki/Download">biopython.org</a>. Please make sure you download and install the correct version for you system and python version.<br>
-You may also need to install the <a href="http://numpy.scipy.org/">NumPy</a> library if it's not already present on your system. <br>
+details for your system at <a href="http://biopython.org/wiki/Download">biopython.org</a>. Please make sure you download and install the correct version for you system and python version.&nbsp;<br>
 &nbsp;&nbsp;&nbsp; Depending on your system set-up, MEME
 may require additional python and perl modules. Please check the log
 pane of SigmoID's window for error messages and install missing modules
 if necessary. <br>
-&nbsp;&nbsp;&nbsp; There are two Linux distributions of SigmoID. Both may require installation of additional libraries. <br>
+&nbsp;&nbsp;&nbsp; There are two Linux distributions of SigmoID, for
+32-bit and 64-bit systems. Both may require installation of additional
+libraries. The 32-bit version depends on WebKit version 1 for
+displaying help and database search results. WebKit1 is actually
+included with the 32-bit Linux distribution; please see the SigmoID.sh
+file for the correct command to launch SigmoID with included WebKit
+libraries.<br>
 <br>
 <h1><a class="mozTocH1" name="mozTocId233463"></a>Supported file formats<br>
 </h1>
