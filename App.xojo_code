@@ -725,12 +725,12 @@ Inherits Application
 		2. Add resizing/scrolling to the map pane
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		9. Prepare submission menu?
-		12. Proper profile extend/shrink functions
-		16. add feature menu? (Add new feature from current hit, etc.)
 		17. add menu commands for database search functions?
 		18. add scrolling/selection in detail view
-		20. text search glitch: searching with a query composed of the four nucleotide letters (irrespective of the case) will look up sequences
-		22. text search glitch: searching with short upper case query (eg FNR) will pick up CDS with these letters in translation
+		20. text search glitch: searching with a query composed of the four nucleotide letters
+		    (irrespective of the case) will look up sequences
+		22. text search glitch: searching with short upper case query (eg FNR)
+		    will pick up CDS with these letters in translation
 		23. add 'GoTo hit # ' menu
 		25. Check background frequences influence on MAST search.
 		27. closing the last search tab in genome browser should hide htmlviewer control
@@ -741,11 +741,13 @@ Inherits Application
 		45. Wrong item number in regprecise window list (RegPrecise's fault)
 		46. Check and warn about the multiple entries in GenBank file
 		47. for plain text search results only first 100 are shown. This should probably be configurable
+		48. [Win10] scrolling the map in GBrowserWin clears the htmlviewer below (overlapping controls?
 		
 		
 		64-bit issues:
 		1. VirtualVolume is broken
-		3. MenuItems in File menu don't enable properly
+		3. MenuItems don't enable properly
+		4. CheckMarks missing in menus on Linux 62-bit
 		
 		
 	#tag EndNote

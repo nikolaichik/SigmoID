@@ -16,7 +16,7 @@ Begin Toolbar Toolbar1
 		Caption = "PostProcess"
 		HelpTag = ""
 		Style = 0
-		Icon = 39430258
+		Icon = 416061439
 	End
 	Begin ToolButton TermGenTool
 		Caption = "Terminators"

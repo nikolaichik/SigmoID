@@ -87,9 +87,9 @@ Begin Window LogoWin
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
-      DoubleBuffer    =   False
+      DoubleBuffer    =   True
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   False
       Height          =   5
       HelpTag         =   ""
       Index           =   -2147483648
@@ -106,7 +106,7 @@ Begin Window LogoWin
       TabStop         =   True
       Top             =   175
       Transparent     =   True
-      UseFocusRing    =   True
+      UseFocusRing    =   False
       Visible         =   True
       Width           =   1000
    End
@@ -128,9 +128,8 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   1000
       Begin Canvas LogoCanvas
@@ -140,7 +139,7 @@ Begin Window LogoWin
          Backdrop        =   0
          DoubleBuffer    =   True
          Enabled         =   True
-         EraseBackground =   True
+         EraseBackground =   False
          Height          =   175
          HelpTag         =   ""
          Index           =   -2147483648
@@ -337,7 +336,7 @@ End
 		  
 		  'a proper check for monospaced font is required
 		  STDOUT.TextFont="Courier"
-		  STDOUT.Refresh
+		  STDOUT.Refresh(false)
 		  
 		  
 		  ReadPrefs
@@ -1968,8 +1967,8 @@ End
 		    
 		  #endif
 		  WriteToSTDOUT ("Information content of this site is "+str(totalEntropy)+" bits."+EndofLine)
-		  LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
-		  me.refresh 'needed if logo of the same size is drawn and to remove selection
+		  LogoCanvas.Invalidate(false) 'there are problems updating the logo pic when scanning genome
+		  me.refresh(false) 'needed if logo of the same size is drawn and to remove selection
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:DrawLogo")
@@ -2177,8 +2176,8 @@ End
 		    
 		  end if
 		  
-		  LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
-		  me.refresh 'needed if logo of the same size is drawn and to remove selection
+		  LogoCanvas.Invalidate(false) 'there are problems updating the logo pic when scanning genome
+		  me.refresh(false) 'needed if logo of the same size is drawn and to remove selection
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:DrawLogo")
@@ -2343,8 +2342,8 @@ End
 		    redim selarray2(0)
 		    lastX=0
 		    masked=false
-		    LogoCanvas.Invalidate 'there are problems updating the logo pic when scanning genome
-		    me.refresh 'needed if logo of the same size is drawn and to remove selection
+		    LogoCanvas.Invalidate(false) 'there are problems updating the logo pic when scanning genome
+		    me.refresh(false) 'needed if logo of the same size is drawn and to remove selection
 		    
 		    #if DebugBuild
 		      WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
@@ -4002,7 +4001,7 @@ End
 		Sub WriteToSTDOUT(txt as string)
 		  STDOUT.text=STDOUT.text+txt
 		  STDOUT.ScrollPosition=STDOUT.LineNumAtCharPos(len(STDOUT.text))
-		  STDOUT.refresh
+		  STDOUT.refresh(false)
 		End Sub
 	#tag EndMethod
 
@@ -4369,7 +4368,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
-		  'Me.MouseCursor=System.Cursors.ArrowNorthSouth
+		  DragStartY=Y
+		  self.invalidate(false)
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -4383,8 +4384,7 @@ End
 		    STDOUT.height=STDOUT.height-deltaY
 		    STDOUT.top=STDOUT.top+deltaY
 		    me.top=me.top+deltaY
-		    DragStartY=Y
-		    self.invalidate
+		    
 		  end if
 		  
 		  
@@ -4474,7 +4474,7 @@ End
 		    'adjustFirstX and LastX to letter boundaries:
 		    lastX=(ceil((X+7)/30)-1)*30+7
 		    if lastx<37 then lastx=37
-		    self.Invalidate
+		    self.Invalidate(false)
 		    'me.refresh
 		    
 		  end if

@@ -31,9 +31,9 @@ Begin Window GenomeWin
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
-      DoubleBuffer    =   False
+      DoubleBuffer    =   True
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   False
       Height          =   176
       HelpTag         =   ""
       Index           =   -2147483648
@@ -76,7 +76,7 @@ Begin Window GenomeWin
       LockTop         =   True
       MacControlStyle =   0
       Scope           =   0
-      Segments        =   "\nchevronleft2x\nFalse\r                      \n\nFalse\r\nchevronright2x\nFalse"
+      Segments        =   "\nbr_prev_icon16\nFalse\r                      \n\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
       Top             =   0
@@ -138,7 +138,7 @@ Begin Window GenomeWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   204
+      Top             =   205
       Value           =   0
       Visible         =   True
       Width           =   1067
@@ -168,9 +168,9 @@ Begin Window GenomeWin
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
-      DoubleBuffer    =   False
+      DoubleBuffer    =   True
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   False
       Height          =   132
       HelpTag         =   ""
       Index           =   -2147483648
@@ -185,30 +185,9 @@ Begin Window GenomeWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   219
+      Top             =   221
       Transparent     =   True
       UseFocusRing    =   False
-      Visible         =   True
-      Width           =   1067
-   End
-   Begin Separator GWSeparator1
-      AutoDeactivate  =   True
-      Enabled         =   True
-      Height          =   4
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   351
       Visible         =   True
       Width           =   1067
    End
@@ -217,12 +196,12 @@ Begin Window GenomeWin
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
-      DoubleBuffer    =   False
+      DoubleBuffer    =   True
       Enabled         =   True
       EnableTabReordering=   False
-      EraseBackground =   True
+      EraseBackground =   False
       Facing          =   3
-      Height          =   397
+      Height          =   392
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -236,7 +215,7 @@ Begin Window GenomeWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   353
+      Top             =   358
       Transparent     =   True
       UseFocusRing    =   False
       value           =   0
@@ -246,7 +225,7 @@ Begin Window GenomeWin
    Begin PagePanel BrowserPagePanel
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   396
+      Height          =   391
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -261,14 +240,14 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      Top             =   354
-      Value           =   0
+      Top             =   359
+      Value           =   2
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   396
+         Height          =   391
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -283,14 +262,14 @@ Begin Window GenomeWin
          TabIndex        =   0
          TabPanelIndex   =   1
          TabStop         =   True
-         Top             =   354
+         Top             =   359
          Visible         =   True
          Width           =   1041
       End
       Begin HTMLViewer UPSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   396
+         Height          =   391
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -305,14 +284,14 @@ Begin Window GenomeWin
          TabIndex        =   0
          TabPanelIndex   =   2
          TabStop         =   True
-         Top             =   354
+         Top             =   359
          Visible         =   True
          Width           =   1041
       End
       Begin HTMLViewer TFSearchViewer
          AutoDeactivate  =   True
-         Enabled         =   True
-         Height          =   396
+         Enabled         =   False
+         Height          =   391
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -327,14 +306,14 @@ Begin Window GenomeWin
          TabIndex        =   0
          TabPanelIndex   =   3
          TabStop         =   True
-         Top             =   354
-         Visible         =   True
+         Top             =   359
+         Visible         =   False
          Width           =   1041
       End
       Begin HTMLViewer BLASTSearchViewer
          AutoDeactivate  =   True
          Enabled         =   True
-         Height          =   396
+         Height          =   391
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "BrowserPagePanel"
@@ -349,7 +328,7 @@ Begin Window GenomeWin
          TabIndex        =   0
          TabPanelIndex   =   4
          TabStop         =   True
-         Top             =   354
+         Top             =   359
          Visible         =   True
          Width           =   1041
       End
@@ -575,6 +554,34 @@ Begin Window GenomeWin
       Visible         =   False
       Width           =   24
    End
+   Begin Canvas Splitter
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   0
+      DoubleBuffer    =   True
+      Enabled         =   True
+      EraseBackground =   False
+      Height          =   4
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   354
+      Transparent     =   True
+      UseFocusRing    =   False
+      Visible         =   True
+      Width           =   1067
+   End
 End
 #tag EndWindow
 
@@ -750,8 +757,8 @@ End
 		  TextMapPic.Graphics.TextFont=FixedFont
 		  TMLineHeight=TextMapPic.Graphics.StringHeight("Ay",TextMapPic.width)
 		  TMdisplay.Height=10*TMLineHeight+TMLineHeight/2
-		  GWSeparator1.top=TMdisplay.top+TMdisplay.Height
-		  BrowserTabs.top=TMdisplay.top+TMdisplay.Height+2 'enlarge for working separator
+		  Splitter.top=TMdisplay.top+TMdisplay.Height+1
+		  BrowserTabs.top=Splitter.top+Splitter.Height'+1 
 		  BrowserTabs.height=self.Height-BrowserTabs.top
 		  BrowserPagePanel.top=BrowserTabs.top+1
 		  BrowserPagePanel.height=BrowserTabs.height-1
@@ -879,8 +886,10 @@ End
 		  
 		  FeatureBox.visible=false 'show later if required
 		  
-		  SegmentedControl1.Invalidate 'required on 64-bit, otherwise no icons
-		  me.Refresh
+		  #if Target64Bit
+		    SegmentedControl1.Invalidate 'required on 64-bit, otherwise no icons
+		    me.Refresh(false)
+		  #endif
 		  
 		  MapCanvas.SetFocus
 		  Exception err
@@ -2112,7 +2121,7 @@ End
 		  outfile=dlg.ShowModalwithin(self)
 		  if outfile<>nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting sequence in Fasta format...")
-		    LogoWin.STDOUT.Refresh
+		    LogoWin.STDOUT.Refresh(false)
 		    Logowin.show
 		    
 		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
@@ -2178,7 +2187,7 @@ End
 		  outfile=dlg.ShowModalwithin(self)
 		  if outfile<>nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting Sequin feature table (takes a while)...")
-		    LogoWin.STDOUT.Refresh
+		    LogoWin.STDOUT.Refresh(false)
 		    Logowin.show
 		    gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
 		    
@@ -3958,7 +3967,7 @@ End
 		  DrawFrameColors(TextMapPic.Graphics,TranslateFrame(Sequence,6,c),CurrentY)
 		  
 		  'current TMdisplay.height=132
-		  TMdisplay.Refresh
+		  TMdisplay.Refresh(false)
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:TextMap")
@@ -3972,13 +3981,13 @@ End
 		    'BrowserTabs.height=BrowserTabs.height-TMdisplay.height
 		    BrowserPagePanel.top=BrowserPagePanel.top+TMdisplay.height
 		    'BrowserPagePanel.height=BrowserPagePanel.height-TMdisplay.height
-		    GWSeparator1.top=GWSeparator1.Top+TMdisplay.height
+		    Splitter.top=Splitter.Top+TMdisplay.height
 		  else
 		    BrowserTabs.top=BrowserTabs.top-TMdisplay.height
 		    'BrowserTabs.height=BrowserTabs.height+TMdisplay.height
 		    BrowserPagePanel.top=BrowserPagePanel.top-TMdisplay.height
 		    'BrowserPagePanel.height=BrowserPagePanel.height+TMdisplay.height
-		    GWSeparator1.top=GWSeparator1.Top-TMdisplay.height
+		    Splitter.top=Splitter.Top-TMdisplay.height
 		  end if
 		  BrowserTabs.height=self.height-BrowserTabs.top
 		  BrowserPagePanel.height=self.height-BrowserTabs.top
@@ -4160,25 +4169,13 @@ End
 
 
 	#tag Note, Name = 2 do
-		- contextual menus for copying non-feature selections (with rev-compl!); complete contextual menus everywhere
 		+- correct search for short text ("tag") that looks like sequence
 		   (currently a double quote anywhere within query leads to text search)
-		+- [draft done] Navigation toolbar
-		- show termgen hits the same way as hmmgen ones, if possible (browse next/prev. with arrows)
-		- unify hmmer hits navigation with search navigation (same controls, 
-		  menu to switch from displaying search results back to hmmer hits)
 		- drag-select sequence in details pane
-		- fix overlapping feature display finally!
-		- resizing top browser pane
 		- Memorise selection when scrolling genome
 		-+ Sort hits before showing 'em (sorting done incorrectly)
 		+- Proper sequence display with reading frames
 		- add option to open genome browser after genome scan (with the list of all sites)
-		- save all hits just found as fasta
-		- menus
-		- prefs
-		- docs
-		
 		
 	#tag EndNote
 
@@ -4265,6 +4262,10 @@ End
 
 	#tag Property, Flags = &h0
 		Document As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected DragStartY As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -5567,7 +5568,7 @@ End
 		Sub DocumentBegin(URL as String)
 		  ProgressWheel1.Visible=true
 		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Refresh
+		  ProgressWheel1.Refresh(false)
 		  
 		  
 		End Sub
@@ -5924,6 +5925,81 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:BlastSocket")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Splitter
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  DragStartY=Y
+		  'Me.MouseCursor=System.Cursors.HandClosed
+		  return true
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseUp(X As Integer, Y As Integer)
+		  DragStartY=Y
+		  self.invalidate(false)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseDrag(X As Integer, Y As Integer)
+		  if Y<>DragStartY then
+		    dim deltaY as integer = Y-DragStartY
+		    
+		    MapCanvas.Height=MapCanvas.Height+deltaY
+		    
+		    'TMdisplay.height=TMdisplay.height-deltaY
+		    TMdisplay.top=TMdisplay.top+deltaY
+		    
+		    'HscrollBar.height=HscrollBar.height-deltaY
+		    HscrollBar.top=HscrollBar.top+deltaY
+		    
+		    BrowserTabs.height=BrowserTabs.height-deltaY
+		    BrowserTabs.top=BrowserTabs.top+deltaY
+		    
+		    BrowserPagePanel.height=BrowserTabs.height
+		    BrowserPagePanel.top=BrowserTabs.top
+		    'BrowserPagePanel.height=BrowserPagePanel.height-deltaY
+		    'BrowserPagePanel.top=BrowserPagePanel.top+deltaY
+		    '
+		    'BLASTSearchViewer.height=BLASTSearchViewer.height-deltaY
+		    'BLASTSearchViewer.top=BLASTSearchViewer.top+deltaY
+		    '
+		    'SPSearchViewer.height=SPSearchViewer.height-deltaY
+		    'SPSearchViewer.top=SPSearchViewer.top+deltaY
+		    '
+		    'UPSearchViewer.height=UPSearchViewer.height-deltaY
+		    'UPSearchViewer.top=UPSearchViewer.top+deltaY
+		    '
+		    'TFSearchViewer.height=TFSearchViewer.height-deltaY
+		    'TFSearchViewer.top=TFSearchViewer.top+deltaY
+		    
+		    
+		    me.top=me.top+deltaY
+		    'DragStartY=Y
+		    'self.invalidate(false)
+		  end if
+		  
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  Me.MouseCursor=System.Cursors.ArrowNorthSouth
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  'draw three little dots in the centre
+		  
+		  g.ForeColor=DarkBevelColor
+		  
+		  g.FillOval(me.width/2,0,3,3)
+		  g.FillOval(me.width/2-7,0,3,3)
+		  g.FillOval(me.width/2+7,0,3,3)
+		  
+		  g.DrawLine(me.left,me.Height-1,me.left+me.width,me.Height-1)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
