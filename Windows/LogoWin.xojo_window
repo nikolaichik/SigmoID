@@ -2372,8 +2372,10 @@ End
 		    #if Target64Bit
 		      if ubound(SelArray1)>0 then
 		        FileSaveAlignmentSelection.enabled=true
+		        AlignmentProfileWizard.enabled=true
 		      else
 		        FileSaveAlignmentSelection.enabled=false
+		        AlignmentProfileWizard.enabled=false
 		      end if
 		      
 		      ViewLogo.enabled=false

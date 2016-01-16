@@ -272,7 +272,7 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "MEME Data"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem ViewHmmerSettings

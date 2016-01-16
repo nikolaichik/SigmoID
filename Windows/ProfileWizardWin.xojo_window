@@ -945,285 +945,580 @@ End
 #tag Events SaveButton
 	#tag Event
 		Sub Action()
-		  Dim SigFile As FolderItem
-		  Dim dlg As New SaveAsDialog
-		  Dim SigFileVV As VirtualVolume
-		  
-		  
-		  dlg.ActionButtonCaption = "Save"
-		  dlg.Title = "Save .sig File"
-		  dlg.PromptText = "Save calibrated profile with postprocessing settings"
-		  dlg.SuggestedFileName=Nthfield(LogoWin.LogoFile.Name, ".",1)+".sig"
-		  dlg.filter = "Sig_file"
-		  dlg.InitialDirectory = Profile_f
-		  
-		  SigFile=dlg.ShowModal
-		  If SigFile <> Nil then
-		    if SigFile.exists then
-		      'workaround for virtualfolder problem
-		      #if TargetLinux
-		        'SpecialFolder.Trash returns NIL in Linux, hence we can't do this properly here
-		        msgbox "Can't overwrithe the existing .sig file. Please remove it or save the new file with a different name"
+		  #if Target64Bit
+		    'temporary workaround for 64-bit VirtualVolume Linux-only bug
+		    Dim SigFile As FolderItem
+		    Dim dlg As New SaveAsDialog
+		    
+		    
+		    
+		    dlg.ActionButtonCaption = "Save"
+		    dlg.Title = "Save .sig File"
+		    dlg.PromptText = "Save calibrated profile with postprocessing settings"
+		    dlg.SuggestedFileName=Nthfield(LogoWin.LogoFile.Name, ".",1)+".sig"
+		    dlg.filter = "Sig_file"
+		    dlg.InitialDirectory = Profile_f
+		    
+		    SigFile=dlg.ShowModal
+		    If SigFile <> Nil then
+		      if SigFile.exists then
+		        'workaround for virtualfolder problem
+		        msgbox "Can't overwrithe the existing .sig folder. Please remove it or save the new file with a different name"
 		        return
-		      #else
-		        dim fn as string = sigfile.ShellPath
-		        SigFile.MoveFileTo(SpecialFolder.Trash) 'can't just delete because of the VirtualVolume inside
-		        SigFile=GetFolderItem(fn,FolderItem.PathTypeShell)
-		      #endif
-		    end if
-		    
-		    
-		    
-		    
-		    'read profile calibration values
-		    dim cutoffs as string
-		    if TrustedField.text<>"" then
-		      cutoffs="#=GF TC "+trim(TrustedField.text)+" "+trim(TrustedField.text)+Endofline
-		    else
-		      'cutoffs="#=GF TC "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
-		    end if
-		    cutoffs=cutoffs+"#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
-		    if NoiseField.text<>"" then
-		      cutoffs=cutoffs+"#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text)+Endofline
-		    else
-		      'cutoffs=cutoffs+"#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
-		    end if
-		    
-		    
-		    'cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
-		    dim stock as FolderItem = SpecialFolder.Temporary.child("stock")
-		    if stock <> nil then
-		      dim AlignmentFile,rcAlignmentFile as FolderItem
-		      'copy alignment to temp (for weblogo)
-		      
-		      AlignmentFile=SpecialFolder.Temporary.Child(LogoWin.LogoFile.DisplayName)
-		      
-		      'CopyFileTo fails if the target exists, hence this check:
-		      If AlignmentFile <> Nil then
-		        if AlignmentFile.exists then
-		          if AlignmentFile.ShellPath<>LogoWin.LogoFile.ShellPath then
-		            AlignmentFile.delete
-		            LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
-		          else
-		            'the file is already there
-		          end if
-		        else
-		          LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
-		        End If
-		      End If
-		      
-		      
-		      'check if the site is marked as palindromic
-		      if palindromicBox.value then 'reverse complement every site
-		        
-		        if AlignmentFile<>Nil AND AlignmentFile.Exists then
-		          'check if the alignment is already RC'd
-		          dim firstLine,thirdLine as string
-		          dim tis as TextInputStream
-		          tis=AlignmentFile.OpenAsTextFile
-		          if tis<>nil then
-		            firstLine=tis.readLine
-		            thirdLine=tis.readLine
-		            thirdLine=tis.readLine
-		            tis.Close
-		          End If
-		          
-		          if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
-		            'looks like the seqs are palindromised already
-		          else
-		            rcAlignmentFile=SpecialFolder.Temporary.child("rcAliFile")
-		            RevCompAlignment(AlignmentFile,rcAlignmentFile)
-		            AlignmentFile.Delete
-		            AlignmentFile=rcAlignmentFile
-		            AlignmentFile.name=LogoWin.LogoFile.DisplayName
-		          End If
-		        end if
-		        
 		      end if
 		      
 		      
-		      if AlignmentFile<>Nil AND AlignmentFile.Exists then
+		      
+		      
+		      'read profile calibration values
+		      dim cutoffs as string
+		      if TrustedField.text<>"" then
+		        cutoffs="#=GF TC "+trim(TrustedField.text)+" "+trim(TrustedField.text)+Endofline
+		      else
+		        'cutoffs="#=GF TC "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
+		      end if
+		      cutoffs=cutoffs+"#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
+		      if NoiseField.text<>"" then
+		        cutoffs=cutoffs+"#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text)+Endofline
+		      else
+		        'cutoffs=cutoffs+"#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
+		      end if
+		      
+		      
+		      'cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
+		      dim stock as FolderItem = SpecialFolder.Temporary.child("stock")
+		      if stock <> nil then
+		        dim AlignmentFile,rcAlignmentFile as FolderItem
+		        'copy alignment to temp (for weblogo)
 		        
+		        AlignmentFile=SpecialFolder.Temporary.Child(LogoWin.LogoFile.DisplayName)
 		        
-		        SigFileVV = SigFile.CreateVirtualVolume
-		        If SigFileVV <> nil Then
-		          'first copy the existing files:
-		          'AlignmentFile.CopyFileTo(SigFileVV.Root)    'broken in Linux
-		          CopyFileToVV(AlignmentFile,SigFileVV)                          'alignment
-		          'get the base of profile name
-		          dim baseName as string
-		          basename= NthField(SigFile.DisplayName,".sig",1)
-		          
-		          'alignment file can have any name, so checking it here:
-		          dim file2copy as folderitem
-		          if AlignmentFile.Name<>basename+".fasta" then
-		            dim wrongFile as folderitem=SigFileVV.Root.child(AlignmentFile.Name)
-		            if wrongFile<>nil and wrongFile.exists then
-		              wrongFile.name=basename+".fasta"
+		        'CopyFileTo fails if the target exists, hence this check:
+		        If AlignmentFile <> Nil then
+		          if AlignmentFile.exists then
+		            if AlignmentFile.ShellPath<>LogoWin.LogoFile.ShellPath then
+		              AlignmentFile.delete
+		              LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
 		            else
-		              logowin.WriteToSTDOUT(EndOfLine+"Error writing .sig file")
-		              return
-		            End If
+		              'the file is already there
+		            end if
+		          else
+		            LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
 		          End If
+		        End If
+		        
+		        
+		        'check if the site is marked as palindromic
+		        if palindromicBox.value then 'reverse complement every site
 		          
-		          'Write options file:
+		          if AlignmentFile<>Nil AND AlignmentFile.Exists then
+		            'check if the alignment is already RC'd
+		            dim firstLine,thirdLine as string
+		            dim tis as TextInputStream
+		            tis=AlignmentFile.OpenAsTextFile
+		            if tis<>nil then
+		              firstLine=tis.readLine
+		              thirdLine=tis.readLine
+		              thirdLine=tis.readLine
+		              tis.Close
+		            End If
+		            
+		            if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
+		              'looks like the seqs are palindromised already
+		            else
+		              rcAlignmentFile=SpecialFolder.Temporary.child("rcAliFile")
+		              RevCompAlignment(AlignmentFile,rcAlignmentFile)
+		              AlignmentFile.Delete
+		              AlignmentFile=rcAlignmentFile
+		              AlignmentFile.name=LogoWin.LogoFile.DisplayName
+		            End If
+		          end if
 		          
-		          dim f2 as folderitem =SigFileVV.Root.child(basename+".options")
-		          if f2<>nil then
-		            dim outstream As TextOutputStream
-		            outstream = TextOutputStream.Create(f2)
-		            outstream.WriteLine("////")
-		            outstream.WriteLine("// nhmmer options")
-		            outstream.WriteLine("////")
-		            outstream.WriteLine(Endofline)
+		        end if
+		        
+		        
+		        if AlignmentFile<>Nil AND AlignmentFile.Exists then
+		          
+		          
+		          SigFile.CreateAsFolder
+		          If SigFile <> nil Then
+		            'first copy the existing files:
+		            AlignmentFile.CopyFileTo(SigFile)                        'alignment
+		            'get the base of profile name
+		            dim baseName as string
+		            basename= NthField(SigFile.DisplayName,".sig",1)
 		            
-		            outstream.WriteLine("// Trusted cutoff. Bit score per-sequence cutoff, set according to the lowest scores seen for true homologous sequences that were above the GA gathering thresholds, when gathering members of the alignment")
-		            outstream.WriteLine("#=GF TC "+trim(TrustedField.text)+" "+trim(TrustedField.text))
-		            outstream.WriteLine(Endofline)
-		            
-		            outstream.WriteLine("// Gathering threshold. Bit score per-sequence cutoff used in gathering the members of the alignment")
-		            outstream.WriteLine("#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text))
-		            outstream.WriteLine(Endofline)
-		            
-		            outstream.WriteLine("//Noise cutoff. Bit score per-sequence cutoff, set according to the highest scores seen for unrelated sequences")
-		            outstream.WriteLine("#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text))
-		            outstream.WriteLine(Endofline)
-		            
-		            outstream.WriteLine("// use the gathering threshold from the calibrated profile")
-		            outstream.WriteLine("nhmmer.--cut_ga")
-		            outstream.WriteLine(Endofline)
-		            
-		            outstream.WriteLine("////")
-		            outstream.WriteLine("// HmmGen options")
-		            outstream.WriteLine("////")
-		            outstream.WriteLine(Endofline)
-		            
-		            outstream.WriteLine("// the alignment length")
-		            outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))
-		            outstream.WriteLine(Endofline)
-		            
-		            if PalindromicBox.value then
-		              outstream.WriteLine("// the site is palindromic")
-		              outstream.WriteLine("HmmGen.-p")
-		              outstream.WriteLine(Endofline)
-		            end if
-		            
-		            if NOT NextLocusBox.value then
-		              outstream.WriteLine("// don't pick up locus_tag from next locus")
-		              outstream.WriteLine("HmmGen.-n")
-		              outstream.WriteLine(Endofline)
-		            end if
-		            
-		            if WithinORFBox.value then
-		              outstream.WriteLine("// ignore sites inside ORFs (and risk missing some real ones!)")
-		              outstream.WriteLine("HmmGen.-i ")
-		              outstream.WriteLine(Endofline)
-		            end if
-		            
-		            outstream.WriteLine("// feature key")
-		            outstream.WriteLine("HmmGen.-f "+FeatureCombo.Text)
-		            outstream.WriteLine(Endofline)
-		            
-		            outstream.WriteLine("// feature qualifier")
-		            outstream.WriteLine("HmmGen.-q "+KeyField.Text+"#"+ValueField.Text)
-		            outstream.WriteLine(Endofline)
-		            
-		            'MASTgen p-value
-		            outstream.WriteLine("// MASTgen p-value cutoff")
-		            outstream.WriteLine("mastGen.-V "+MASTField.Text)
-		            outstream.WriteLine(Endofline)
-		            
-		            outstream.Close
-		            
-		            
-		            'Write info file:
-		            
-		            f2=SigFileVV.Root.child(basename+".info")
-		            if f2<>nil then
-		              outstream = TextOutputStream.Create(f2)
-		              outstream.Write(InfoArea.text)
-		              outstream.close
-		            end if
-		            
-		            'Save MEME data
-		            if LogoWin.MEMEconvert=0 then
-		              file2copy=SpecialFolder.Temporary.child("meme.txt")                     'meme.txt
-		              if file2copy<>Nil AND file2copy.exists then
-		                CopyFileToVV(file2copy,SigFileVV)
-		                
-		                If file2copy.LastErrorCode <> 0 Then
-		                  msgbox "MEME result file copy error"
-		                End If
+		            'alignment file can have any name, so checking it here:
+		            dim file2copy as folderitem
+		            if AlignmentFile.Name<>basename+".fasta" then
+		              dim wrongFile as folderitem=SigFile.child(AlignmentFile.Name)
+		              if wrongFile<>nil and wrongFile.exists then
+		                wrongFile.name=basename+".fasta"
 		              else
-		                'this file is optional
-		              end if
-		            end
+		                logowin.WriteToSTDOUT(EndOfLine+"Error writing .sig file")
+		                return
+		              End If
+		            End If
 		            
-		            'generate logodata and save it:
-		            'dim weblogo_out as string = weblogo(AlignmentFile)
-		            'f2=SigFileVV.Root.child(basename+".logodata")
-		            'if weblogo_out <>"" then
-		            'if f2<>nil then
-		            'outstream = TextOutputStream.Create(f2)
-		            'outstream.Write(weblogo_out)
-		            'outstream.Close
-		            'else
-		            'msgbox "Can't write logo data file."
-		            'return
-		            'end if
-		            'else
-		            'LogoWin.WriteToSTDOUT (EndofLine+"Conversion to .sig file aborted because of a weblogo problem")
-		            'return
-		            'end if
+		            'Write options file:
 		            
-		            
-		            Stockholm(AlignmentFile,stock, cutoffs)
-		            
-		            
-		            'build hmm:
-		            'need a real file for hmmbuild output:
-		            f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
+		            dim f2 as folderitem =SigFile.child(basename+".options")
 		            if f2<>nil then
-		              FixPath4Windows(f2)
-		              if hmmbuild(stock.ShellPath,f2.ShellPath) then
-		                if f2.exists then
-		                  if f2<>Nil then
-		                    CopyFileToVV(f2,SigFileVV)
-		                    logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
-		                    LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
+		              dim outstream As TextOutputStream
+		              outstream = TextOutputStream.Create(f2)
+		              outstream.WriteLine("////")
+		              outstream.WriteLine("// nhmmer options")
+		              outstream.WriteLine("////")
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// Trusted cutoff. Bit score per-sequence cutoff, set according to the lowest scores seen for true homologous sequences that were above the GA gathering thresholds, when gathering members of the alignment")
+		              outstream.WriteLine("#=GF TC "+trim(TrustedField.text)+" "+trim(TrustedField.text))
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// Gathering threshold. Bit score per-sequence cutoff used in gathering the members of the alignment")
+		              outstream.WriteLine("#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text))
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("//Noise cutoff. Bit score per-sequence cutoff, set according to the highest scores seen for unrelated sequences")
+		              outstream.WriteLine("#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text))
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// use the gathering threshold from the calibrated profile")
+		              outstream.WriteLine("nhmmer.--cut_ga")
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("////")
+		              outstream.WriteLine("// HmmGen options")
+		              outstream.WriteLine("////")
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// the alignment length")
+		              outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))
+		              outstream.WriteLine(Endofline)
+		              
+		              if PalindromicBox.value then
+		                outstream.WriteLine("// the site is palindromic")
+		                outstream.WriteLine("HmmGen.-p")
+		                outstream.WriteLine(Endofline)
+		              end if
+		              
+		              if NOT NextLocusBox.value then
+		                outstream.WriteLine("// don't pick up locus_tag from next locus")
+		                outstream.WriteLine("HmmGen.-n")
+		                outstream.WriteLine(Endofline)
+		              end if
+		              
+		              if WithinORFBox.value then
+		                outstream.WriteLine("// ignore sites inside ORFs (and risk missing some real ones!)")
+		                outstream.WriteLine("HmmGen.-i ")
+		                outstream.WriteLine(Endofline)
+		              end if
+		              
+		              outstream.WriteLine("// feature key")
+		              outstream.WriteLine("HmmGen.-f "+FeatureCombo.Text)
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// feature qualifier")
+		              outstream.WriteLine("HmmGen.-q "+KeyField.Text+"#"+ValueField.Text)
+		              outstream.WriteLine(Endofline)
+		              
+		              'MASTgen p-value
+		              outstream.WriteLine("// MASTgen p-value cutoff")
+		              outstream.WriteLine("mastGen.-V "+MASTField.Text)
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.Close
+		              
+		              
+		              'Write info file:
+		              
+		              f2=SigFile.child(basename+".info")
+		              if f2<>nil then
+		                outstream = TextOutputStream.Create(f2)
+		                outstream.Write(InfoArea.text)
+		                outstream.close
+		              end if
+		              
+		              'Save MEME data
+		              if LogoWin.MEMEconvert=0 then
+		                file2copy=SpecialFolder.Temporary.child("meme.txt")                     'meme.txt
+		                if file2copy<>Nil AND file2copy.exists then
+		                  'CopyFileToVV(file2copy,SigFileVV)
+		                  file2copy.CopyFileTo(SigFile) 
+		                  If file2copy.LastErrorCode <> 0 Then
+		                    msgbox "MEME result file copy error"
+		                  End If
+		                else
+		                  'this file is optional
+		                end if
+		              end
+		              
+		              'generate logodata and save it:
+		              'dim weblogo_out as string = weblogo(AlignmentFile)
+		              'f2=SigFileVV.Root.child(basename+".logodata")
+		              'if weblogo_out <>"" then
+		              'if f2<>nil then
+		              'outstream = TextOutputStream.Create(f2)
+		              'outstream.Write(weblogo_out)
+		              'outstream.Close
+		              'else
+		              'msgbox "Can't write logo data file."
+		              'return
+		              'end if
+		              'else
+		              'LogoWin.WriteToSTDOUT (EndofLine+"Conversion to .sig file aborted because of a weblogo problem")
+		              'return
+		              'end if
+		              
+		              
+		              Stockholm(AlignmentFile,stock, cutoffs)
+		              
+		              
+		              'build hmm:
+		              'need a real file for hmmbuild output:
+		              f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
+		              if f2<>nil then
+		                FixPath4Windows(f2)
+		                if hmmbuild(stock.ShellPath,f2.ShellPath) then
+		                  if f2.exists then
+		                    if f2<>Nil then
+		                      'CopyFileToVV(f2,SigFileVV)
+		                      f2.CopyFileTo(SigFile) 
+		                      logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
+		                      LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
+		                    else
+		                      beep
+		                    end if
 		                  else
 		                    beep
 		                  end if
 		                else
-		                  beep
+		                  'error message handled by hmmbuild most of the time
+		                  logowin.WriteToSTDOUT(EndOfLine+"hmmbuild error")
+		                  return
 		                end if
 		              else
-		                'error message handled by hmmbuild most of the time
-		                logowin.WriteToSTDOUT(EndOfLine+"hmmbuild error")
+		                msgbox "Creating hmm failed"
 		                return
 		              end if
 		            else
-		              msgbox "Creating hmm failed"
-		              return
+		              Msgbox "Can't create virtual folder."
+		              
+		            end if
+		            
+		          end if
+		        else
+		          msgbox "No alignment file found in the chosen folder. Can't proceed without it"
+		          return
+		        end if
+		      else
+		        msgbox "Can't create temporary file"
+		        return
+		      end if
+		      
+		    else
+		      'cancelled
+		    end if
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		  #else
+		    Dim SigFile As FolderItem
+		    Dim dlg As New SaveAsDialog
+		    Dim SigFileVV As VirtualVolume
+		    
+		    
+		    dlg.ActionButtonCaption = "Save"
+		    dlg.Title = "Save .sig File"
+		    dlg.PromptText = "Save calibrated profile with postprocessing settings"
+		    dlg.SuggestedFileName=Nthfield(LogoWin.LogoFile.Name, ".",1)+".sig"
+		    dlg.filter = "Sig_file"
+		    dlg.InitialDirectory = Profile_f
+		    
+		    SigFile=dlg.ShowModal
+		    If SigFile <> Nil then
+		      if SigFile.exists then
+		        'workaround for virtualfolder problem
+		        #if TargetLinux
+		          'SpecialFolder.Trash returns NIL in Linux, hence we can't do this properly here
+		          msgbox "Can't overwrithe the existing .sig file. Please remove it or save the new file with a different name"
+		          return
+		        #else
+		          dim fn as string = sigfile.ShellPath
+		          SigFile.MoveFileTo(SpecialFolder.Trash) 'can't just delete because of the VirtualVolume inside
+		          SigFile=GetFolderItem(fn,FolderItem.PathTypeShell)
+		        #endif
+		      end if
+		      
+		      
+		      
+		      
+		      'read profile calibration values
+		      dim cutoffs as string
+		      if TrustedField.text<>"" then
+		        cutoffs="#=GF TC "+trim(TrustedField.text)+" "+trim(TrustedField.text)+Endofline
+		      else
+		        'cutoffs="#=GF TC "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
+		      end if
+		      cutoffs=cutoffs+"#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
+		      if NoiseField.text<>"" then
+		        cutoffs=cutoffs+"#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text)+Endofline
+		      else
+		        'cutoffs=cutoffs+"#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
+		      end if
+		      
+		      
+		      'cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
+		      dim stock as FolderItem = SpecialFolder.Temporary.child("stock")
+		      if stock <> nil then
+		        dim AlignmentFile,rcAlignmentFile as FolderItem
+		        'copy alignment to temp (for weblogo)
+		        
+		        AlignmentFile=SpecialFolder.Temporary.Child(LogoWin.LogoFile.DisplayName)
+		        
+		        'CopyFileTo fails if the target exists, hence this check:
+		        If AlignmentFile <> Nil then
+		          if AlignmentFile.exists then
+		            if AlignmentFile.ShellPath<>LogoWin.LogoFile.ShellPath then
+		              AlignmentFile.delete
+		              LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
+		            else
+		              'the file is already there
 		            end if
 		          else
-		            Msgbox "Can't create virtual folder."
+		            LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
+		          End If
+		        End If
+		        
+		        
+		        'check if the site is marked as palindromic
+		        if palindromicBox.value then 'reverse complement every site
+		          
+		          if AlignmentFile<>Nil AND AlignmentFile.Exists then
+		            'check if the alignment is already RC'd
+		            dim firstLine,thirdLine as string
+		            dim tis as TextInputStream
+		            tis=AlignmentFile.OpenAsTextFile
+		            if tis<>nil then
+		              firstLine=tis.readLine
+		              thirdLine=tis.readLine
+		              thirdLine=tis.readLine
+		              tis.Close
+		            End If
 		            
+		            if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
+		              'looks like the seqs are palindromised already
+		            else
+		              rcAlignmentFile=SpecialFolder.Temporary.child("rcAliFile")
+		              RevCompAlignment(AlignmentFile,rcAlignmentFile)
+		              AlignmentFile.Delete
+		              AlignmentFile=rcAlignmentFile
+		              AlignmentFile.name=LogoWin.LogoFile.DisplayName
+		            End If
 		          end if
 		          
 		        end if
+		        
+		        
+		        if AlignmentFile<>Nil AND AlignmentFile.Exists then
+		          
+		          
+		          SigFileVV = SigFile.CreateVirtualVolume
+		          If SigFileVV <> nil Then
+		            'first copy the existing files:
+		            'AlignmentFile.CopyFileTo(SigFileVV.Root)    'broken in Linux
+		            CopyFileToVV(AlignmentFile,SigFileVV)                          'alignment
+		            'get the base of profile name
+		            dim baseName as string
+		            basename= NthField(SigFile.DisplayName,".sig",1)
+		            
+		            'alignment file can have any name, so checking it here:
+		            dim file2copy as folderitem
+		            if AlignmentFile.Name<>basename+".fasta" then
+		              dim wrongFile as folderitem=SigFileVV.Root.child(AlignmentFile.Name)
+		              if wrongFile<>nil and wrongFile.exists then
+		                wrongFile.name=basename+".fasta"
+		              else
+		                logowin.WriteToSTDOUT(EndOfLine+"Error writing .sig file")
+		                return
+		              End If
+		            End If
+		            
+		            'Write options file:
+		            
+		            dim f2 as folderitem =SigFileVV.Root.child(basename+".options")
+		            if f2<>nil then
+		              dim outstream As TextOutputStream
+		              outstream = TextOutputStream.Create(f2)
+		              outstream.WriteLine("////")
+		              outstream.WriteLine("// nhmmer options")
+		              outstream.WriteLine("////")
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// Trusted cutoff. Bit score per-sequence cutoff, set according to the lowest scores seen for true homologous sequences that were above the GA gathering thresholds, when gathering members of the alignment")
+		              outstream.WriteLine("#=GF TC "+trim(TrustedField.text)+" "+trim(TrustedField.text))
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// Gathering threshold. Bit score per-sequence cutoff used in gathering the members of the alignment")
+		              outstream.WriteLine("#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text))
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("//Noise cutoff. Bit score per-sequence cutoff, set according to the highest scores seen for unrelated sequences")
+		              outstream.WriteLine("#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text))
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// use the gathering threshold from the calibrated profile")
+		              outstream.WriteLine("nhmmer.--cut_ga")
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("////")
+		              outstream.WriteLine("// HmmGen options")
+		              outstream.WriteLine("////")
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// the alignment length")
+		              outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))
+		              outstream.WriteLine(Endofline)
+		              
+		              if PalindromicBox.value then
+		                outstream.WriteLine("// the site is palindromic")
+		                outstream.WriteLine("HmmGen.-p")
+		                outstream.WriteLine(Endofline)
+		              end if
+		              
+		              if NOT NextLocusBox.value then
+		                outstream.WriteLine("// don't pick up locus_tag from next locus")
+		                outstream.WriteLine("HmmGen.-n")
+		                outstream.WriteLine(Endofline)
+		              end if
+		              
+		              if WithinORFBox.value then
+		                outstream.WriteLine("// ignore sites inside ORFs (and risk missing some real ones!)")
+		                outstream.WriteLine("HmmGen.-i ")
+		                outstream.WriteLine(Endofline)
+		              end if
+		              
+		              outstream.WriteLine("// feature key")
+		              outstream.WriteLine("HmmGen.-f "+FeatureCombo.Text)
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// feature qualifier")
+		              outstream.WriteLine("HmmGen.-q "+KeyField.Text+"#"+ValueField.Text)
+		              outstream.WriteLine(Endofline)
+		              
+		              'MASTgen p-value
+		              outstream.WriteLine("// MASTgen p-value cutoff")
+		              outstream.WriteLine("mastGen.-V "+MASTField.Text)
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.Close
+		              
+		              
+		              'Write info file:
+		              
+		              f2=SigFileVV.Root.child(basename+".info")
+		              if f2<>nil then
+		                outstream = TextOutputStream.Create(f2)
+		                outstream.Write(InfoArea.text)
+		                outstream.close
+		              end if
+		              
+		              'Save MEME data
+		              if LogoWin.MEMEconvert=0 then
+		                file2copy=SpecialFolder.Temporary.child("meme.txt")                     'meme.txt
+		                if file2copy<>Nil AND file2copy.exists then
+		                  CopyFileToVV(file2copy,SigFileVV)
+		                  
+		                  If file2copy.LastErrorCode <> 0 Then
+		                    msgbox "MEME result file copy error"
+		                  End If
+		                else
+		                  'this file is optional
+		                end if
+		              end
+		              
+		              'generate logodata and save it:
+		              'dim weblogo_out as string = weblogo(AlignmentFile)
+		              'f2=SigFileVV.Root.child(basename+".logodata")
+		              'if weblogo_out <>"" then
+		              'if f2<>nil then
+		              'outstream = TextOutputStream.Create(f2)
+		              'outstream.Write(weblogo_out)
+		              'outstream.Close
+		              'else
+		              'msgbox "Can't write logo data file."
+		              'return
+		              'end if
+		              'else
+		              'LogoWin.WriteToSTDOUT (EndofLine+"Conversion to .sig file aborted because of a weblogo problem")
+		              'return
+		              'end if
+		              
+		              
+		              Stockholm(AlignmentFile,stock, cutoffs)
+		              
+		              
+		              'build hmm:
+		              'need a real file for hmmbuild output:
+		              f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
+		              if f2<>nil then
+		                FixPath4Windows(f2)
+		                if hmmbuild(stock.ShellPath,f2.ShellPath) then
+		                  if f2.exists then
+		                    if f2<>Nil then
+		                      CopyFileToVV(f2,SigFileVV)
+		                      logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
+		                      LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
+		                    else
+		                      beep
+		                    end if
+		                  else
+		                    beep
+		                  end if
+		                else
+		                  'error message handled by hmmbuild most of the time
+		                  logowin.WriteToSTDOUT(EndOfLine+"hmmbuild error")
+		                  return
+		                end if
+		              else
+		                msgbox "Creating hmm failed"
+		                return
+		              end if
+		            else
+		              Msgbox "Can't create virtual folder."
+		              
+		            end if
+		            
+		          end if
+		        else
+		          msgbox "No alignment file found in the chosen folder. Can't proceed without it"
+		          return
+		        end if
 		      else
-		        msgbox "No alignment file found in the chosen folder. Can't proceed without it"
+		        msgbox "Can't create temporary file"
 		        return
 		      end if
+		      
 		    else
-		      msgbox "Can't create temporary file"
-		      return
+		      'cancelled
 		    end if
-		    
-		  else
-		    'cancelled
-		  end if
+		  #endif
 		  
 		  
 		  hide
