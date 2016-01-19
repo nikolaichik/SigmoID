@@ -227,11 +227,30 @@ End
 
 	#tag Event
 		Sub EnableMenuItems()
+		  'adjust View menu command visibility:
+		  ViewLogo.Visible=true
+		  ViewSequences.Visible=true
+		  ViewAlignmentInfo.Visible=true
+		  ViewHmmProfile.Visible=true
+		  ViewMEMEresults.Visible=true
+		  ViewHmmerSettings.Visible=true
+		  Separator1.Visible=true
+		  ViewHideViewer.Visible=true
+		  Separator2.Visible=false
+		  ViewViewDetails.Visible=false
+		  
+		  
 		  if ubound(SelArray1)>0 then
 		    FileSaveAlignmentSelection.enabled=true
 		  else
 		    FileSaveAlignmentSelection.enabled=false
 		  end if
+		  if LogoWin.LogoFile<>Nil then
+		    AlignmentProfileWizard.enabled=true
+		  else
+		    AlignmentProfileWizard.enabled=false
+		  end if
+		  
 		  
 		  ViewLogo.enabled=false
 		  
@@ -927,6 +946,15 @@ End
 	#tag MenuHandler
 		Function AlignmentMEME() As Boolean Handles AlignmentMEME.Action
 			MEMESettingsWin.ShowModalwithin(self)
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function AlignmentProfileWizard() As Boolean Handles AlignmentProfileWizard.Action
+			ProfileWizardWin.show
+			
+			Return True
 			
 		End Function
 	#tag EndMenuHandler
@@ -2370,13 +2398,30 @@ End
 		  
 		  #if TargetLinux
 		    #if Target64Bit
+		      'adjust View menu command visibility:
+		      ViewLogo.Visible=true
+		      ViewSequences.Visible=true
+		      ViewAlignmentInfo.Visible=true
+		      ViewHmmProfile.Visible=true
+		      ViewMEMEresults.Visible=true
+		      ViewHmmerSettings.Visible=true
+		      Separator1.Visible=true
+		      ViewHideViewer.Visible=true
+		      Separator2.Visible=false
+		      ViewViewDetails.Visible=false
+		      
+		      
 		      if ubound(SelArray1)>0 then
 		        FileSaveAlignmentSelection.enabled=true
-		        AlignmentProfileWizard.enabled=true
 		      else
 		        FileSaveAlignmentSelection.enabled=false
+		      end if
+		      if LogoWin.LogoFile<>Nil then
+		        AlignmentProfileWizard.enabled=true
+		      else
 		        AlignmentProfileWizard.enabled=false
 		      end if
+		      
 		      
 		      ViewLogo.enabled=false
 		      
@@ -2402,7 +2447,6 @@ End
 		        AlignmentConvertToMEME.enabled=true
 		        AlignmentConverttoStockholm.enabled=true
 		        FileSaveLogo.enabled=true
-		        'msgbox "view enabled"
 		      else
 		        ViewAlignmentInfo.enabled=false
 		        ViewHmmerSettings.enabled=false
@@ -2427,7 +2471,7 @@ End
 		          'FileSaveLogo.enabled=false
 		          'end if
 		        end if
-		        'msgbox "view not enabled"
+		        
 		      end if
 		      
 		      if LogoFile<>NIL then
@@ -2470,8 +2514,6 @@ End
 		      if Ubound(genomeWin.HmmHits)>0 then
 		        RegPreciseCompareScores.Enabled=true
 		      end if
-		      
-		      'msgbox "Genome menu enabled"
 		    #endif
 		  #endif
 		End Sub
@@ -4572,6 +4614,11 @@ End
 		Group="Appearance"
 		Type="Picture"
 		EditorType="Picture"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CheckState"
+		Group="Behavior"
+		Type="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="CloseButton"

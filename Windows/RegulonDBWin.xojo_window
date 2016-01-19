@@ -1114,6 +1114,7 @@ End
 		      logowin.ChangeView("Logo")
 		      HmmGenSettingsWin.ValueField.text=TFname
 		      MASTGenSettingsWin.ValueField.text=TFname
+		      ProfileWizardWin.ValueField.text=TFname
 		      
 		      'determine site width(s):
 		      dim instream as TextInputStream

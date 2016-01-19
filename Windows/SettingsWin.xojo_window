@@ -116,7 +116,7 @@ Begin Window SettingsWin
       TabIndex        =   17
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   1
+      Value           =   2
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox1

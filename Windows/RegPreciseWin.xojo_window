@@ -48,7 +48,6 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -177,7 +176,6 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -649,6 +647,7 @@ End
 		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
 		  HmmGenSettingsWin.ValueField.text=TFname
 		  MASTGenSettingsWin.ValueField.text=TFname
+		  ProfileWizardWin.ValueField.text=TFname
 		  LogoWin.show
 		  
 		  Exception err
@@ -711,6 +710,7 @@ End
 		  LogoWin.LoadRegpreciseData(RegulonID,TFname,false)
 		  HmmGenSettingsWin.ValueField.text=TFname
 		  MASTGenSettingsWin.ValueField.text=TFname
+		  ProfileWizardWin.ValueField.text=TFname
 		  LogoWin.show
 		  
 		  Exception err

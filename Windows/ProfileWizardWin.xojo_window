@@ -21,7 +21,7 @@ Begin Window ProfileWizardWin
    MinHeight       =   64
    MinimizeButton  =   True
    MinWidth        =   64
-   Placement       =   0
+   Placement       =   1
    Resizeable      =   False
    Title           =   "Profile Wizard"
    Visible         =   False

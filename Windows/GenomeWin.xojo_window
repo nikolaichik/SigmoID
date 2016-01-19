@@ -7,7 +7,7 @@ Begin Window GenomeWin
    Composite       =   True
    Frame           =   9
    FullScreen      =   False
-   FullScreenButton=   False
+   FullScreenButton=   True
    HasBackColor    =   False
    Height          =   750
    ImplicitInstance=   True
@@ -621,8 +621,20 @@ End
 
 	#tag Event
 		Sub EnableMenuItems()
-		  ViewViewDetails.Enable
+		  'adjust View menu command visibility:
+		  ViewLogo.Visible=false
+		  ViewSequences.Visible=false
+		  ViewAlignmentInfo.Visible=false
+		  ViewHmmProfile.Visible=false
+		  ViewMEMEresults.Visible=false
+		  ViewHmmerSettings.Visible=false
+		  Separator1.Visible=false
+		  ViewHideViewer.Visible=false
+		  Separator2.Visible=false
 		  ViewViewDetails.Visible=true
+		  
+		  ViewViewDetails.Enable
+		  
 		  if TMdisplay.visible then
 		    ViewViewDetails.text = "Hide details"
 		  else
@@ -1599,8 +1611,20 @@ End
 		  'Workaround for EnableMenuItems bug on 64-bit Linux
 		  #if TargetLinux
 		    #if Target64Bit
-		      ViewViewDetails.Enable
+		      'adjust View menu command visibility:
+		      ViewLogo.Visible=false
+		      ViewSequences.Visible=false
+		      ViewAlignmentInfo.Visible=false
+		      ViewHmmProfile.Visible=false
+		      ViewMEMEresults.Visible=false
+		      ViewHmmerSettings.Visible=false
+		      Separator1.Visible=false
+		      ViewHideViewer.Visible=false
+		      Separator2.Visible=false
 		      ViewViewDetails.Visible=true
+		      
+		      ViewViewDetails.Enable
+		      
 		      if TMdisplay.visible then
 		        ViewViewDetails.text = "Hide details"
 		      else
@@ -1649,6 +1673,7 @@ End
 		      end if
 		      
 		      EditCut.enabled=false
+		      
 		      
 		      Exception err
 		        ExceptionHandler(err,"GenomeWin:EnableMenuItems")
@@ -3005,7 +3030,7 @@ End
 		  sh.TimeOut=-1
 		  sh.execute cli
 		  If sh.errorCode=0 then
-		    
+		    LogoWin.WriteToSTDOUT (EndofLine+"OperOn.py was run with these options: "+nthfield(cli,".gb",2)) ' 
 		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		    
 		  else

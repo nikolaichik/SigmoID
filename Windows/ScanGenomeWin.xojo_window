@@ -48,6 +48,7 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -453,13 +454,23 @@ End
 		  for n=1 to m
 		    'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
 		    'msgbox dis
-		    if f.Item(n).Type="SigmoidFile" then
-		      aName = f.Item(n).DisplayName
-		      aName = left(aName,len(aName)-4) 'drop the .sig part
-		      SigList.AddRow
-		      SigList.Cell(SigList.LastIndex, 1) = aName
-		      SigList.CellCheck(SigList.LastIndex,0) = true
-		    end if
+		    #if Target64Bit 
+		      if right(f.Item(n).name,4)=".sig" then
+		        aName = f.Item(n).DisplayName
+		        aName = left(aName,len(aName)-4) 'drop the .sig part
+		        SigList.AddRow
+		        SigList.Cell(SigList.LastIndex, 1) = aName
+		        SigList.CellCheck(SigList.LastIndex,0) = true
+		      end if
+		    #else
+		      if f.Item(n).Type="SigmoidFile" then
+		        aName = f.Item(n).DisplayName
+		        aName = left(aName,len(aName)-4) 'drop the .sig part
+		        SigList.AddRow
+		        SigList.Cell(SigList.LastIndex, 1) = aName
+		        SigList.CellCheck(SigList.LastIndex,0) = true
+		      end if
+		    #endif
 		  next
 		  SigList.SortedColumn=1
 		  SigList.ColumnsortDirection(1)=ListBox.SortDescending
