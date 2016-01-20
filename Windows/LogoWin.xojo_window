@@ -3004,7 +3004,9 @@ End
 		        ProfileWizardWin.PalindromicBox.value=false
 		        ProfileWizardWin.WithinORFBox.value=True
 		        ProfileWizardWin.NextLocusBox.value=True
-		        ProfileWizardWin.ValueField.text=""
+		        if Not SeqsChanged then 'otherwise editing the same profile twice leads to HmmGen.py error 
+		          ProfileWizardWin.ValueField.text=""
+		        end if
 		        ProfileWizardWin.MASTField.text=""
 		      end if
 		      
@@ -4619,6 +4621,7 @@ End
 		Name="CheckState"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="CloseButton"
