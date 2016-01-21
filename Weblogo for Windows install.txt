@@ -1,6 +1,0 @@
-weblogo requirements for Windows:
-python
-numpy
-_______________
-the default eps format and logodata are OK, but nothing else
-logodata is with CRLF endings
