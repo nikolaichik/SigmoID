@@ -31,9 +31,9 @@ Begin Window GenomeWin
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
-      DoubleBuffer    =   True
+      DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   True
       Height          =   176
       HelpTag         =   ""
       Index           =   -2147483648
@@ -49,7 +49,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   28
-      Transparent     =   False
+      Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
       Width           =   1067
@@ -241,7 +241,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   359
-      Value           =   2
+      Value           =   3
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -5284,6 +5284,10 @@ End
 		      ttip=seq.Features(PointedFeature).FeatureText
 		    end if
 		    
+		    #if TargetWin32
+		      ttip=replaceall(ttip,EndOfLine.UNIX,EndOfLine.Windows)
+		    #endif
+		    
 		    TTx=X+self.Left
 		    TTy=Y+self.top
 		    
@@ -6003,7 +6007,12 @@ End
 		    
 		    me.top=me.top+deltaY
 		    'DragStartY=Y
-		    'self.invalidate(false)
+		    #if TargetWin32
+		      'too much flicker
+		    #else
+		      self.invalidate(false)
+		    #endif
+		    
 		  end if
 		  
 		  

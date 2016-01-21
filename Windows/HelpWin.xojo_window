@@ -39,7 +39,7 @@ Begin Window HelpWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Renderer        =   1
+      Renderer        =   0
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
