@@ -1,0 +1,100 @@
+>f_dctA_3937 score 14.4
+TGTTGAAGCGATTCAGCT
+>r_dctA_3937 score 14.4
+AGCTGAATCGCTTCAACA
+>f_pfkA_3937 & SCRIscore 12.0
+ACCTGAATCAATTCAGCT
+>r_pfkA_3937 & SCRIscore 12.0
+AGCTGAATTGATTCAGGT
+>f_fruB2_3937 & SCRI score 11.3
+TTTTGAAACGTTTCAGCG
+>r_fruB2_3937 & SCRI score 11.3
+CGCTGAAACGTTTCAAAA
+>f_fruB_3937 score 13.6
+AGCTGAAACGATTCAAGT
+>r_fruB_3937 score 13.6
+ACTTGAATCGTTTCAGCT
+>f_pykF_3937 score 8.4
+CATTGAATGGTTTCAGCG
+>r_pykF_3937 score 8.4
+CGCTGAAACCATTCAATG
+>f_nuoA_3937 score 10.1
+TGTTAAATCGATTAAGCA
+>r_nuoA_3937 score 10.1
+TGCTTAATCGATTTAACA
+>f_dctA_PC1 & SCRI score 11.6
+TGCTGACGTGATTCAGCT
+>r_dctA_PC1 & SCRI score 11.6
+AGCTGAATCACGTCAGCA
+>f_aegA_Pcc21 score 10.3
+TACTGAAACGATTCAATA
+>r_aegA_Pcc21 score 10.3
+TATTGAATCGTTTCAGTA
+>f_adhE_SCRI score  10
+TGCTGAATGGTGTCAGCT
+>r_adhE_SCRI score  10
+AGCTGACACCATTCAGCA
+>f_nuoA_SCRI score 11.2
+TACTGACTCGATTTAGCT
+>r_nuoA_SCRI score 11.2
+AGCTAAATCGAGTCAGTA
+>f_pdhR_Pccc21 score 9.9
+TATTTAAACGGTTCAGCA
+>r_pdhR_Pcc21 score 9.9
+TGCTGAACCGTTTAAATA
+>f_adhE_PC1 score 10.9
+TGCTGAATGGTGTCAGCA
+>r_adhE_PC1 score 10.9
+TGCTGACACCATTCAGCA
+>f_nuoA_PC1 score 10.0
+GACTGACTCGATTTAGCT
+>r_nuoA_PC1 score 10.0
+AGCTAAATCGAGTCAGTC
+>f_ECA1867(pykF) Score=4.7 Pos=-241 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AATTGAATGGTTTCAGCT
+>r_ECA1867(pykF) Score=4.7 Pos=-241 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AGCTGAAACCATTCAATT
+>f_ECA2729(fruB) Score=5.3 Pos=-37 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AGCTGAAACGATTCAACT
+>r_ECA2729(fruB) Score=5.3 Pos=-37 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AGTTGAATCGTTTCAGCT
+>f_ECA2439(icdA) Score=5.1 Pos=-176 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AGCTGAATCGTTTAACTT
+>r_ECA2439(icdA) Score=5.1 Pos=-176 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AAGTTAAACGATTCAGCT
+>f_ECA4272(tpiA) Score=4.6 Pos=-185 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TGTTGAACCGATTAAGCT
+>r_ECA4272(tpiA) Score=4.6 Pos=-185 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AGCTTAATCGGTTCAACA
+>f_ECA3790(pdhR) Score=4.1 Pos=-254 [Erwinia carotovora subsp. atroseptica SCRI1043]
+CATTTAAACGGTTCAGCA
+>r_ECA3790(pdhR) Score=4.1 Pos=-254 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TGCTGAACCGTTTAAATG
+>f_aegA_SCRI1043 score 13.4
+TATTGAATCGTTTCAGTT
+>r_aegA_SCRI1043 score 13.4
+AACTGAAACGATTCAATA
+>f_ECA1921_SCRI1043 score 11 L-lactate permease
+ATCTGACCCGATTCAGCT
+>r_ECA1921_SCRI1043 score 11 L-lactate permease
+AGCTGAATCGGGTCAGAT
+>f_crp_3937 & SCRI score 8.4
+TGCTGAAGCGAGACAACA
+>r_crp_3937 & SCRI score 8.4
+TGTTGTCTCGCTTCAGCA
+>f_ECA1853(ppsA) Score=4.4 Pos=-117 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AGGTTGATCGATTCACCT
+>r_ECA1853(ppsA) Score=4.4 Pos=-117 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AGGTGAATCGATCAACCT
+>f_gapA_3937 & epd_SCRI score 14.4
+AGCTGAAGCGTTTCAGTT
+>r_gapA_3937 & epd_SCRI score 14.4
+AACTGAAACGCTTCAGCT
+>f_ECA2344(gapA) Score=3.7 Pos=-93 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TATTGACACGATTCCGCT
+>r_ECA2344(gapA) Score=3.7 Pos=-93 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AGCGGAATCGTGTCAATA
+>f_ECA1382(gpmA) Score=4.5 Pos=-150 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TGCTGAAACGGTAAAGCC
+>r_ECA1382(gpmA) Score=4.5 Pos=-150 [Erwinia carotovora subsp. atroseptica SCRI1043]
+GGCTTTACCGTTTCAGCA

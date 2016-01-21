@@ -1,0 +1,8 @@
+Transcription factor NifA from the Fis family is a master regulator of nitrogen fixation in nitrogen-fixing Proteobacteria. NifA is an enhancer-binding protein (EBP) required for transcription initiation by RpoN-containing RNA polymerase.
+
+The profile was built starting with NifA sites from Rhizobiales obtained from RegPrecise (http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=1127) and scanning the genomes of Pectobacterium and Dickeya strains in which the nifA gene is present. Low scoring sites were retained if located near (in front of) RpoN-dependent promoter. 
+
+The final profile is built from 18 sites and their reverse complements. 
+
+
+    

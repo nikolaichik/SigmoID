@@ -658,6 +658,9 @@ End
 		        s=nthfield((Sh.Result),EndOfLine.Unix,1)
 		        if instr(s,"TransTermHP")>0 then
 		          WriteToSTDOUT (s)
+		          #if TargetWin32 
+		            WriteToSTDOUT (EndOfLine.Unix)
+		          #endif
 		        else
 		          WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
 		          allProgsFine=false
@@ -861,7 +864,7 @@ End
 		  LogoWinToolbar.Item(4).Enabled=false 'palindromise: disable until alignment loaded
 		  LogoWinToolbar.Item(5).Enabled=false 'SaveLog: disable until alignment loaded
 		  
-		  WriteToSTDOUT (EndofLine+EndofLine+"Load alignment or genome file to start."+EndofLine)
+		  WriteToSTDOUT (EndofLine+EndofLine+"Load alignment or genome file to start."+EndofLine.Unix)
 		  
 		  ViewHideViewer.Checked=true
 		  

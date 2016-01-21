@@ -1,0 +1,3 @@
+GalR is known to control genes of galactan degradation, oligogalactan transport and galactose utilisation.
+
+hmm profile made of 13 GalR binding sites (from Erwinia amylovora ATCC 49946 and Pectobacterium atrosepticum SCRI1043) taken from regPrecise version 3.2 was used to search genomes of Pectobacterium and Dickeya strains. Manually selected sites were added, the resulting alignment was shortened by 1 bp from each side. The final profile is built from 39 binding sites from six strains.

@@ -49,7 +49,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   28
-      Transparent     =   True
+      Transparent     =   False
       UseFocusRing    =   False
       Visible         =   True
       Width           =   1067
@@ -164,7 +164,7 @@ Begin Window GenomeWin
       Width           =   41
    End
    Begin Canvas TMdisplay
-      AcceptFocus     =   True
+      AcceptFocus     =   False
       AcceptTabs      =   False
       AutoDeactivate  =   True
       Backdrop        =   0
@@ -186,7 +186,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   221
-      Transparent     =   True
+      Transparent     =   False
       UseFocusRing    =   False
       Visible         =   True
       Width           =   1067
@@ -1945,7 +1945,7 @@ End
 		  '
 		  'end if
 		  
-		  refresh
+		  'refresh
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:ExtractFragment")
@@ -2988,7 +2988,7 @@ End
 		  self.IsModified=false
 		  '
 		  SegmentedControl1.Visible=false
-		  
+		  w.mapCanvas.Invalidate(false)
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:OpenGenBankFile")
 		End Sub

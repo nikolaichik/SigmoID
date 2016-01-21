@@ -1,0 +1,8 @@
+VasH is one of several bacterial enhancer binding proteins (bEBP) required for transcription activation by RpoN-containing RNA polymerase. vasH is located within the gene cluster coding for the components of the type VI secretion system (tss). VasH is known to activate transcription of hcp genes (usually 1-3 per genome) coding for the main tss effector proteins.
+
+Since no VasH binding site was described for Pectobacteria, intergenic regions in front of hcp genes from four pectobacterial genomes were scanned for potential palindromic binding sites with MEME. One palindrome was present in front of all hcps checked and this profile is built around this palindrome. 
+
+The final profile is built from 12 non-redundant sites from Pectobacterium genomes and their reverse complements. The profile is very strict with no false positives or false negatives finds a site in front of every hcp gene present in a pectobacterial genome (and nothing else), always followed by an RpoN-dependent promoter. Nevertheless, there is no experimental evidence for validity of this binding site. It may even be bound by some other regulator.
+
+
+

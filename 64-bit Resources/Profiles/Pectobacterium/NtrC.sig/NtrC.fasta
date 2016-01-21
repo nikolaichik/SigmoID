@@ -1,0 +1,224 @@
+>f_glnA1_SCRI_PC1 score 8.5
+TAGACTATAATGGTGCA
+>r_glnA1_SCRI_PC1 score 8.5
+TGCACCATTATAGTCTA
+>f_gltI_PC1 score 12.1
+CGCACCAAATTGGTGCC
+>r_gltI_PC1 score 12.1
+GGCACCAATTTGGTGCG
+>f_uxaC_PC1 score 8.1
+TCAACTAATTTGGTGCA
+>r_uxaC_PC1 score 8.1
+TGCACCAAATTAGTTGA
+>f_OA04_20310_PC1 ABC transporter ATPase subunit RpoN+(PC1) score 5.5 Spermidine/putrescine tr-t (PC1 refseq)?
+CGCACCGTTACGGTGCC
+>r_OA04_20310_PC1 ABC transporter ATPase subunit RpoN+(PC1) score 5.5 Spermidine/putrescine tr-t (PC1 refseq)?
+GGCACCGTAACGGTGCG
+>f_aapJ_SCRI1043 general L-aa transporter RpoN+ score 9.3
+CGCACCAAAATAGGGCG
+>r_aapJ_SCRI1043 general L-aa transporter RpoN+ score 9.3
+CGCCCTATTTTGGTGCG
+>f_ECA2051_SCRI1043 ABC transporter ATPase subunit RpoN+ score 7.6
+CGCACCATTAGAGTGCC
+>r_ECA2051_SCRI1043 ABC transporter ATPase subunit RpoN+ score 7.6
+GGCACTCTAATGGTGCG
+>f_ECA2073_1_SCRI1043 oxidoreductase RpoN- score 6.0
+TGCATTTATATGGTGCA
+>r_ECA2073_1_SCRI1043 oxidoreductase RpoN- score 6.0
+TGCACCATATAAATGCA
+>f_ECA2073_2_SCRI1043 oxidoreductase RpoN- score 8.5
+TGCACCATTTTGGATCG
+>r_ECA2073_2_SCRI1043 oxidoreductase RpoN- score 8.5
+CGATCCAAAATGGTGCA
+>f_ECA2883_SCRI1043 hypothetical protein RpoN+ score 7.2
+GTCACTAAAATGGTGTT
+>r_ECA2883_SCRI1043 hypothetical protein RpoN+ score 7.2
+AACACCATTTTAGTGAC
+>f_ECA0028(ntrB/glnL)_SCRI_PC1 Score=8.1
+TGCACCATGCTGGTGCG
+>r_ECA0028(ntrB/glnL)_SCRI_PC1 Score=8.1
+CGCACCAGCATGGTGCA
+>f_ECA0029(glnA3) Score=5.7
+TGCACCAAACAAGTGCA
+>r_ECA0029(glnA3) Score=5.7
+TGCACTTGTTTGGTGCA
+>f_ECA0029(glnA2) Score=9.9
+AGCACCAACTTGGTGCT
+>r_ECA0029(glnA2) Score=9.9
+AGCACCAAGTTGGTGCT
+>f_ECA1160(glnK) Score=10.5
+TGCACCAACTTAGTGCA
+>r_ECA1160(glnK) Score=10.5
+TGCACTAAGTTGGTGCA
+>f_ECA2888(nac) Score=4.5 Pos=-197  RpoN+ score 7.3->5.2
+TGCTTTAAGATGGTGCA
+>r_ECA2888(nac) Score=4.5 Pos=-197  RpoN+ score 7.3->5.2
+TGCACCATCTTAAAGCA
+>f_ECA1314(gltI) Score=12.2
+CGCACCAAATTGGTGCC
+>r_ECA1314(gltI) Score=12.2
+GGCACCAATTTGGTGCG
+>f_hisJ_SCRI1043 NtrC+ score 7.2
+AGCACTTAAATAGTGCG
+>r_hisJ_SCRI1043 NtrC+ score 7.2
+CGCACTATTTAAGTGCT
+>f_ECA3495 amino acid transporter NtrC+ score 6.8
+TGCACCGAAATGATGCG
+>r_ECA3495 amino acid transporter NtrC+ score 6.8
+CGCATCATTTCGGTGCA
+>f_occQ1_SCRI1043_PC1 octopine permease score 8.0 RpoN+
+TGCACCATCATAATGCA
+>r_occQ1_SCRI1043_PC1 octopine permease score 8.0 RpoN+
+TGCATTATGATGGTGCA
+>f_occQ2_SCRI1043 octopine permease score 5.3 RpoN+
+TGCACTATTTTGAACAT
+>r_occQ2_SCRI1043 octopine permease score 5.3 RpoN+
+ATGTTCAAAATAGTGCA
+>f_ECA0131 LysR-like regulator RpoN+ score 6.7
+CGCACCATTATTGGGCG
+>r_ECA0131 LysR-like regulator RpoN+ score 6.7
+CGCCCAATAATGGTGCG
+>f_glnL_Dda3737 score 12.6
+TGCACTAAAATGGTGCG
+>r_glnL_Dda3737 score 12.6
+CGCACCATTTTAGTGCA
+>f_glnA1_Dda3737 score 5.9
+TTAACTATCTTGGTGCA
+>r_glnA1_Dda3737 score 5.9
+TGCACCAAGATAGTTAA
+>f_glnA2_Dda3737 score 5.6
+TGCTCCATGGTGGTGCG
+>r_glnA2_Dda3737 score 5.6
+CGCACCACCATGGAGCA
+>f_glnA3_Dda3737 score 10.1
+AACACCAAAATGGTGCT
+>r_glnA3_Dda3737 score 10.1
+AGCACCATTTTGGTGTT
+>f_glnA4_Dda3737 score 12.9
+AGCACCATTTTGGTGCA
+>r_glnA4_Dda3737 score 12.9
+TGCACCAAAATGGTGCT
+>f_Dda3937_RS18100 decarboxylase RpoN+ score 6.4
+CGCACCACTACAGTGCA
+>r_Dda3937_RS18100 decarboxylase RpoN+ score 6.4
+TGCACTGTAGTGGTGCG
+>f_gltI_Dda3737 RpoN+ score 11.7
+TGCACCAAATTAGTGCC
+>r_gltI_Dda3737 RpoN+ score 11.7
+GGCACTAATTTGGTGCA
+>f_nac_Dda3737 RpoN+ score 9.3
+CGCACTGTTTTGGTGCA
+>r_nac_Dda3737 RpoN+ score 9.3
+TGCACCAAAACAGTGCG
+>f_hisJ_Dda3737 RpoN+ score 9.8
+TGCACCAATATTGTGCA
+>r_hisJ_Dda3737 RpoN+ score 9.8
+TGCACAATATTGGTGCA
+>f_Dda3937_RS19330 score 7.0
+TCATCCATTTTGGTGCG
+>r_Dda3937_RS19330 score 7.0
+CGCACCAAAATGGATGA
+>f_Dda3937_RS19330_2 score 7.7
+TGCACCAAATTGGATCG
+>r_Dda3937_RS19330_2 score 7.7
+CGATCCAATTTGGTGCA
+>f_Dda3937_RS15110 P-II-2 RpoN+ score 8.6
+CGCACTATTTTTGTGCG
+>r_Dda3937_RS15110 P-II-2 RpoN+ score 8.6
+CGCACAAAAATAGTGCG
+>f_Dda3937_RS06285 RpoN+ ABC transporter permease score 6.5
+TGCACCGTTATAGGGCG
+>r_Dda3937_RS06285 RpoN+ ABC transporter permease score 6.5
+CGCCCTATAACGGTGCA
+>f_PC1_0546 molybdopterin oxidoreductase RpoN+ score 8.4
+TGCACCATCTTGATGCA
+>r_PC1_0546 molybdopterin oxidoreductase RpoN+ score 8.4
+TGCATCAAGATGGTGCA
+>f_PC1 P-II RpoN+ score 12.0
+TGCACTAAAATAGTGCA
+>r_PC1 P-II RpoN+ score 12.0
+TGCACTATTTTAGTGCA
+>f_PC1_1545 score 5.9 putative ferric transport system periplasic binding protein
+TGCACTTTTTTGATGCA
+>r_PC1_1545 score 5.9 putative ferric transport system periplasic binding protein
+TGCATCAAAAAAGTGCA
+>f_PC1_3313 polar amino acid transporter RpoN+ score 9.2
+TGCACCAAAATAATGCG
+>r_PC1_3313 polar amino acid transporter RpoN+ score 9.2
+CGCATTATTTTGGTGCA
+>f_PC1_3501 amino acid permease associated protein RpoN+ score 8.8
+TGCACCATGATGGTTCA
+>r_PC1_3501 amino acid permease associated protein RpoN+ score 8.8
+TGAACCATCATGGTGCA
+>f_occQ2_PC1 octopine permease score 6.8 RpoN+
+TGCACTATTTTGGACAT
+>r_occQ2_PC1 octopine permease score 6.8 RpoN+
+ATGTCCAAAATAGTGCA
+>f_PC1_4115_1 LysR family transcriptional regulator RpoN+ score 6.6
+CGCACCATTATTGGGCA
+>r_PC1_4115_1 LysR family transcriptional regulator RpoN+ score 6.6
+TGCCCAATAATGGTGCG
+>f_PC1_4115_2 LysR family transcriptional regulator RpoN+ score 8.6
+GGCATCAAAATAGTGCA
+>r_PC1_4115_2 LysR family transcriptional regulator RpoN+ score 8.6
+TGCACTATTTTGATGCC
+>f_glnA3_PC1 NtrC+ score 8.2
+TGCACTAAATAAGTGCA
+>r_glnA3_PC1 NtrC+ score 8.2
+TGCACTTATTTAGTGCA
+>f_glnA2_PC1 NtrC+ score 12.3
+AGCACCATTTTGGTGCT
+>r_glnA2_PC1 NtrC+ score 12.3
+AGCACCAAAATGGTGCT
+>f_glnA2_3-2 score 9.3
+AGCACCACTTTGGTGCT
+>r_glnA2_3-2 score 9.3
+AGCACCAAAGTGGTGCT
+>f_glnA3_3-2 score 12.6
+TGCACCAAATTAGTGCA
+>r_glnA3_3-2 score 12.6
+TGCACTAATTTGGTGCA
+>f_glnK_3-2 score 9.6
+CGCACTACATTGGTGCA
+>r_glnK_3-2 score 9.6
+TGCACCAATGTAGTGCG
+>f_hisJ1_3-2 score 9.2
+TGCACTGAAATGGTGCG
+>r_hisJ1_3-2 score 9.2
+CGCACCATTTCAGTGCA
+>f_hisJ2_3-2 score 8.4+
+TGCACTAATTTTGTGCG
+>r_hisJ2_3-2 score 8.4
+CGCACAAAATTAGTGCA
+>f_OA04_35760_3-2 amino acid transporter RpoN+ score 9.0
+TGCACTAATGTAGTGCA
+>r_OA04_35760_3-2 amino acid transporter RpoN+ score 9.0
+TGCACTACATTAGTGCA
+>f_OA04_38810_3-2 MCP score 7.7
+TTCACTAATTTAGTGTA
+>r_OA04_38810_3-2 MCP score 7.7
+TACACTAAATTAGTGAA
+>f_glnL_3-2 score 5.1
+TGCACCACGACGGTGCG
+>r_glnL_3-2 score 5.1
+CGCACCGTCGTGGTGCA
+>f_uxaC_3-2 score 8.9
+TTAACTAATTTGGTGCA
+>r_uxaC_3-2 score 8.9
+TGCACCAAATTAGTTAA
+>f_nac_3-2 RpoN+ score 7.1
+TGCTTTAATATGGTGCA
+>r_nac_3-2 RpoN+ score 7.1
+TGCACCATATTAAAGCA
+>f_OA04_01500_3-2 LysR-fam regulator RpoN+ score 6.2
+TGCACCATTATCGGGCG
+>r_OA04_01500_3-2 LysR-fam regulator RpoN+ score 6.2
+CGCCCGATAATGGTGCA
+>f_aapJ_3-2 general L-aa transporter RpoN+ score 5.0+
+CGCACTAAAAGAGGGCG
+>r_aapJ_3-2 general L-aa transporter RpoN+ score 5.0
+CGCCCTCTTTTAGTGCG
+>f_OA04_04340 Uncharacterised p. RpoN- score 7.8 -> 6.6
+TGCACTAATAAGGAGCA
+>r_OA04_04340 Uncharacterised p. RpoN- score 7.8 -> 6.6
+TGCTCCTTATTAGTGCA

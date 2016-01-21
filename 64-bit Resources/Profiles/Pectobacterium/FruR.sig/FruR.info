@@ -1,0 +1,3 @@
+FruR (Cra) controls central carbohydrate metabolism in response to fructose-1-phosphate and fructose-1,6-diphosphate.
+
+hmm profile made of  FruR (Enterobacteriales) binding sites from regPrecise version 3.2 was used to search genomes of Dickeya dadantii 3937, Pectobacterium atrosepticum SCRI1043, P. carotovorum PC1 and P. carotovorum  PCC21. The binding sites were extended by 1 bp from each side. The final profile is built of 25 non-redundant sites.

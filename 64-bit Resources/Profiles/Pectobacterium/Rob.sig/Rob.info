@@ -1,0 +1,4 @@
+   The marA/soxS/rob regulon is well characterised in E. coli and includes about 50 genes related to toxic compound efflux and oxidative stress. All three regulators bind to very similar (if not the same) operator sequences. 
+Pectobacteria seem to contain just one of these three genes, rob. 
+   This profile was built starting with E. coli Rob binding sites and adding matching sites from Pectobacterium/Dickeya genomes located in front of the orthologues of E.coli Rob regulon members. E.coli sites were then removed and high scoring Pectobacterium/Dickeya sites were added. The final profile is built with 45 sites. 
+   The default threshold set in this profile is conservative and should allow to detect about 20 targets in related genomes with this profile, while the real Rob regulon could well be much larger.  

@@ -715,7 +715,10 @@ Inherits Application
 
 
 	#tag Note, Name = 2 do
+		0. Include all the binaries on mac/linux 
+		   AND write the proper help to explain installation in case included stuff doesn't work
 		1. Solve the permissions problem on Linux for temporary files on multiuser machines
+		2. Verify native/WebKit HTMLViewer on win
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		9. Prepare submission menu?
 		17. add menu commands for database search functions?

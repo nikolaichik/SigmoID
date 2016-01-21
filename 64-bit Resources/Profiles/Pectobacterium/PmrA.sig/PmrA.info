@@ -1,0 +1,3 @@
+PmrA (BasR) together with its cognate sensor kinase PmrB (BasS) controls modification of membrane structure and function and may control few stress-related genes.
+
+This profile was built starting with E.coli BasR binding sites described in  Ogasawara et al. (doi: 10.1099/mic.0.057745-0) and iteratively adding sites from Pectobacterium and Dickeya strains. Although PmrA is present in Dickeya genomes, the regulon has diverged significantly, therefore only one site from D. dadantii is used in this profile.  The final profile is based on 19 sites and is recommended only for Pectobacterium strains. 

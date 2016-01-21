@@ -1,0 +1,68 @@
+>f_ECA4244(metF) 10.8 Score=4.8 Pos=-156 [Erwinia carotovora subsp. atroseptica SCRI1043]
+ATCATGAACTTTTTTCATTTA
+>r_ECA4244(metF) 10.8 Score=4.8 Pos=-156 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TAAATGAAAAAAGTTCATGAT
+>f_ECA0181(metE metR) 3-2 Score=4.7 Pos=-106 [Erwinia carotovora subsp. atroseptica SCRI1043]
+ATCATGAGAGTCCTTCACAGT
+>r_ECA0181(metE metR) Score=4.7 Pos=-106 [Erwinia carotovora subsp. atroseptica SCRI1043]
+ACTGTGAAGGACTCTCATGAT
+>f_ECA3992(metA) Score=4.9 Pos=-112 [Erwinia carotovora subsp. atroseptica SCRI1043]
+CTCGTGAAACATTTTCACCTT
+>r_ECA3992(metA) Score=4.9 Pos=-112 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AAGGTGAAAATGTTTCACGAG
+>f_ECA3125(PF08908) Score=4.4 Pos=-181 [Erwinia carotovora subsp. atroseptica SCRI1043]
+ATCATGAATATAATTCATCTT
+>r_ECA3125(PF08908) Score=4.4 Pos=-181 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AAGATGAATTATATTCATGAT
+>f_ECA1113(metE2) Score=4.4 Pos=-202 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TACATGAATTTTATTCACGTG
+>r_ECA1113(metE2) Score=4.4 Pos=-202 [Erwinia carotovora subsp. atroseptica SCRI1043]
+CACGTGAATAAAATTCATGTA
+>f_ECA0180(metR) Score=3.8 Pos=-173 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TTCCTGCGCTTTTTTCAGTTC
+>r_ECA0180(metR) Score=3.8 Pos=-173 [Erwinia carotovora subsp. atroseptica SCRI1043]
+GAACTGAAAAAAGCGCAGGAA
+>f_ECA3987(metH) Score=4.7 Pos=-98 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TACCTGAAAAAGTCTCATGCT
+>r_ECA3987(metH) Score=4.7 Pos=-98 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AGCATGAGACTTTTTCAGGTA
+>f_metC_SCRI1043 11.8
+TACCTGAAATATTTTCACCTA
+>r_metC_SCRI1043 11.8
+TAGGTGAAAATATTTCAGGTA
+>f_metA_PwaSCC3193 9.5
+ACAGTGAAACATTTTCACCTT
+>r_metA_PwaSCC3193 9.5
+AAGGTGAAAATGTTTCACTGT
+>f_metH_Pcc3-2 8.1
+AGCATGAGACTTTTTCAGATC
+>r_metH_Pcc3-2 8.1
+GATCTGAAAAAGTCTCATGCT
+>f_metE2_Pcc3-2
+CACGTGAACTTTCTTCATGTT
+>r_metE2_Pcc3-2
+AACATGAAGAAAGTTCACGTG
+>f_metE2_2_Pcc3-2
+ATCATGAAGATGGCTCATGTC
+>r_metE2_2_Pcc3-2
+GACATGAGCCATCTTCATGAT
+>f_OA04_21030 ABC transporter substrate binding protein (?)
+AAATTGAAATTATTTCATAAG
+>r_OA04_21030 ABC transporter substrate binding protein (?)
+CTTATGAAATAATTTCAATTT
+>f_OA04_01940 AA transporter convergent with metR 8.0
+TGACTGAAATTCATTCAGCTA
+>r_OA04_01940 AA transporter convergent with metR 8.0
+TAGCTGAATGAATTTCAGTCA
+>f_metF_PwaSCC3193
+ATCATGAATTTTTTTCATTTA
+>r_metF_PwaSCC3193
+TAAATGAAAAAAATTCATGAT
+>f_metE2_PwaSCC3193
+AACATGAATTTTTTTCACGTG
+>r_metE2_PwaSCC3193
+CACGTGAAAAAAATTCATGTT
+>f_metE_PwaSCC3193
+AGCATGAGACTTTTTCAGGTC
+>r_metE_PwaSCC3193
+GACCTGAAAAAGTCTCATGCT

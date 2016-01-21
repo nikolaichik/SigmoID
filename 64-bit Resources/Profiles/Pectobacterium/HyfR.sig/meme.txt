@@ -1,0 +1,283 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_hyfA_3-2               1.0000     16  r_hyfA_3-2               1.0000     16  
+f_hyfA_3937_1            1.0000     16  r_hyfA_3937_1            1.0000     16  
+f_hyfA_3937_2            1.0000     16  r_hyfA_3937_2            1.0000     16  
+f_hyfA_SCRI_3            1.0000     16  r_hyfA_SCRI_3            1.0000     16  
+f_hyfA_SCRI_1            1.0000     16  r_hyfA_SCRI_1            1.0000     16  
+f_hyfA_SCRI_2            1.0000     16  r_hyfA_SCRI_2            1.0000     16  
+f_hyfA_Ech1591_1         1.0000     16  r_hyfA_Ech1591_1         1.0000     16  
+f_hyfA_Ech1591_2         1.0000     16  r_hyfA_Ech1591_2         1.0000     16  
+f_hyfA_Ech703_1          1.0000     16  r_hyfA_Ech703_1          1.0000     16  
+f_hyfA_Ech586_1          1.0000     16  r_hyfA_Ech586_1          1.0000     16  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           16    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       20    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             320    N=              20
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.272 C 0.228 G 0.228 T 0.272 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.272 C 0.228 G 0.228 T 0.272 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  16  sites =  20  llr = 297  E-value = 1.7e-096
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  :1:5:a3362::4::9
+pos.-specific     C  :9:1a:5::::::a::
+probability       G  1:a1:1:::5:a::9:
+matrix            T  a1:4::36329:5:::
+
+         bits    2.1   * *      * *  
+                 1.9   * *      * *  
+                 1.7 * * **    ** * *
+                 1.5 *** **    ** ***
+Relative         1.3 *** **    ** ***
+Entropy          1.1 *** **    ** ***
+(21.4 bits)      0.9 *** ** ** ** ***
+                 0.6 *** ** ** ** ***
+                 0.4 ****************
+                 0.2 ****************
+                 0.0 ----------------
+
+Multilevel           TCGACACTAGTGTCGA
+consensus               T  AATA  A   
+sequence                   T  T      
+                                     
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                  Site    
+-------------            ------  ----- ---------            ----------------
+r_hyfA_Ech1591_1             +      1  2.36e-09          . TCGACATTAGTGTCGA           
+f_hyfA_Ech1591_1             -      1  2.36e-09          . TCGACATTAGTGTCGA           
+r_hyfA_Ech586_1              +      1  5.32e-09          . TCGACATTAGTGACGA           
+f_hyfA_Ech586_1              -      1  5.32e-09          . TCGACATTAGTGACGA           
+r_hyfA_3937_1                -      1  5.32e-09          . TCGACATTAGTGACGA           
+f_hyfA_3937_1                +      1  5.32e-09          . TCGACATTAGTGACGA           
+r_hyfA_Ech703_1              +      1  1.50e-08          . TCGTCAAAAGTGTCGA           
+f_hyfA_Ech703_1              -      1  1.50e-08          . TCGTCAAAAGTGTCGA           
+r_hyfA_Ech1591_2             -      1  1.50e-08          . TCGTCAAAAGTGTCGA           
+f_hyfA_Ech1591_2             +      1  1.50e-08          . TCGTCAAAAGTGTCGA           
+r_hyfA_SCRI_3                +      1  1.50e-08          . TCGTCATAAGTGTCGA           
+f_hyfA_SCRI_3                -      1  1.50e-08          . TCGTCATAAGTGTCGA           
+r_hyfA_3937_2                +      1  1.50e-08          . TCGTCAAAAGTGTCGA           
+f_hyfA_3937_2                -      1  1.50e-08          . TCGTCAAAAGTGTCGA           
+r_hyfA_3-2                   -      1  2.30e-07          . TCGGCAAAAATGACGA           
+f_hyfA_3-2                   +      1  2.30e-07          . TCGGCAAAAATGACGA           
+r_hyfA_SCRI_2                -      1  2.72e-07          . TAGACAAAAGTGACGA           
+f_hyfA_SCRI_2                +      1  2.72e-07          . TAGACAAAAGTGACGA           
+r_hyfA_SCRI_1                +      1  1.71e-05          . GTGCCGCGAGTGTCGA           
+f_hyfA_SCRI_1                -      1  1.71e-05          . GTGCCGCGAGTGTCGA           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_hyfA_Ech1591_1                  2.4e-09  [+1]
+f_hyfA_Ech1591_1                  2.4e-09  [-1]
+r_hyfA_Ech586_1                   5.3e-09  [+1]
+f_hyfA_Ech586_1                   5.3e-09  [-1]
+r_hyfA_3937_1                     5.3e-09  [-1]
+f_hyfA_3937_1                     5.3e-09  [+1]
+r_hyfA_Ech703_1                   1.5e-08  [+1]
+f_hyfA_Ech703_1                   1.5e-08  [-1]
+r_hyfA_Ech1591_2                  1.5e-08  [-1]
+f_hyfA_Ech1591_2                  1.5e-08  [+1]
+r_hyfA_SCRI_3                     1.5e-08  [+1]
+f_hyfA_SCRI_3                     1.5e-08  [-1]
+r_hyfA_3937_2                     1.5e-08  [+1]
+f_hyfA_3937_2                     1.5e-08  [-1]
+r_hyfA_3-2                        2.3e-07  [-1]
+f_hyfA_3-2                        2.3e-07  [+1]
+r_hyfA_SCRI_2                     2.7e-07  [-1]
+f_hyfA_SCRI_2                     2.7e-07  [+1]
+r_hyfA_SCRI_1                     1.7e-05  [+1]
+f_hyfA_SCRI_1                     1.7e-05  [-1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=16 seqs=20
+r_hyfA_Ech1591_1         (    1) TCGACATTAGTGTCGA  1 
+f_hyfA_Ech1591_1         (    1) TCGACATTAGTGTCGA  1 
+r_hyfA_Ech586_1          (    1) TCGACATTAGTGACGA  1 
+f_hyfA_Ech586_1          (    1) TCGACATTAGTGACGA  1 
+r_hyfA_3937_1            (    1) TCGACATTAGTGACGA  1 
+f_hyfA_3937_1            (    1) TCGACATTAGTGACGA  1 
+r_hyfA_Ech703_1          (    1) TCGTCAAAAGTGTCGA  1 
+f_hyfA_Ech703_1          (    1) TCGTCAAAAGTGTCGA  1 
+r_hyfA_Ech1591_2         (    1) TCGTCAAAAGTGTCGA  1 
+f_hyfA_Ech1591_2         (    1) TCGTCAAAAGTGTCGA  1 
+r_hyfA_SCRI_3            (    1) TCGTCATAAGTGTCGA  1 
+f_hyfA_SCRI_3            (    1) TCGTCATAAGTGTCGA  1 
+r_hyfA_3937_2            (    1) TCGTCAAAAGTGTCGA  1 
+f_hyfA_3937_2            (    1) TCGTCAAAAGTGTCGA  1 
+r_hyfA_3-2               (    1) TCGGCAAAAATGACGA  1 
+f_hyfA_3-2               (    1) TCGGCAAAAATGACGA  1 
+r_hyfA_SCRI_2            (    1) TAGACAAAAGTGACGA  1 
+f_hyfA_SCRI_2            (    1) TAGACAAAAGTGACGA  1 
+r_hyfA_SCRI_1            (    1) GTGCCGCGAGTGTCGA  1 
+f_hyfA_SCRI_1            (    1) GTGCCGCGAGTGTCGA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 16 n= 20 bayes= -664.386 E= 1.7e-096 
+ -1097  -1097   -219    181 
+  -244    198  -1097   -244 
+ -1097  -1097    213  -1097 
+    88   -219   -219     56 
+ -1097    213  -1097  -1097 
+   181  -1097   -219  -1097 
+   -12    113  -1097    -12 
+    14  -1099   -219    126 
+   126   -219  -1097     14 
+   -12  -1098    113    -12 
+ -1098   -219  -1098    181 
+ -1098  -1098    213  -1098 
+    56   -219   -219     88 
+ -1098    213  -1098  -1098 
+  -244  -1098    198   -244 
+   181   -219  -1098  -1098 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 16 nsites= 20 E= 1.7e-096 
+ 0.000000  0.000000  0.050000  0.950000 
+ 0.050000  0.900000  0.000000  0.050000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.500000  0.050000  0.050000  0.400000 
+ 0.000000  1.000000  0.000000  0.000000 
+ 0.950000  0.000000  0.050000  0.000000 
+ 0.250000  0.500000  0.000000  0.250000 
+ 0.299999  0.000000  0.049999  0.649999 
+ 0.650000  0.050000  0.000000  0.299999 
+ 0.249999  0.000000  0.499999  0.249999 
+ 0.000000  0.049999  0.000000  0.949999 
+ 0.000000  0.000000  0.999999  0.000000 
+ 0.399999  0.049999  0.049999  0.499999 
+ 0.000000  0.999999  0.000000  0.000000 
+ 0.049999  0.000000  0.899999  0.049999 
+ 0.949999  0.049999  0.000000  0.000000 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+TCG[AT]CA[CAT][TA][AT][GAT]TG[TA]CGA
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.05 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_hyfA_3-2                       4.60e-07  [+1(2.30e-07)]
+r_hyfA_3-2                       4.60e-07  [+1(2.30e-07)]
+f_hyfA_3937_1                    1.06e-08  [+1(5.32e-09)]
+r_hyfA_3937_1                    1.06e-08  [+1(5.32e-09)]
+f_hyfA_3937_2                    2.99e-08  [+1(1.50e-08)]
+r_hyfA_3937_2                    2.99e-08  [+1(1.50e-08)]
+f_hyfA_SCRI_3                    2.99e-08  [+1(1.50e-08)]
+r_hyfA_SCRI_3                    2.99e-08  [+1(1.50e-08)]
+f_hyfA_SCRI_1                    3.42e-05  [+1(1.71e-05)]
+r_hyfA_SCRI_1                    3.42e-05  [+1(1.71e-05)]
+f_hyfA_SCRI_2                    5.43e-07  [+1(2.72e-07)]
+r_hyfA_SCRI_2                    5.43e-07  [+1(2.72e-07)]
+f_hyfA_Ech1591_1                 4.71e-09  [+1(2.36e-09)]
+r_hyfA_Ech1591_1                 4.71e-09  [+1(2.36e-09)]
+f_hyfA_Ech1591_2                 2.99e-08  [+1(1.50e-08)]
+r_hyfA_Ech1591_2                 2.99e-08  [+1(1.50e-08)]
+f_hyfA_Ech703_1                  2.99e-08  [+1(1.50e-08)]
+r_hyfA_Ech703_1                  2.99e-08  [+1(1.50e-08)]
+f_hyfA_Ech586_1                  1.06e-08  [+1(5.32e-09)]
+r_hyfA_Ech586_1                  1.06e-08  [+1(5.32e-09)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

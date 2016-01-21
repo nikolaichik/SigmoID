@@ -1,0 +1,8 @@
+HyfR is an enhancer-binding protein (EBP) required for transcription activation at the RpoN-dependent promoter of the hyfABCDEFGHIJhycI hydrogenase operon.
+
+The profile was built starting with a single HyfR binding site from E.coli described in RegulonDB and iteratively adding Pectobacterium/Dickeya sites. 
+
+The final profile is built from 10 non-redundant sites and their reverse complements. 
+
+
+    

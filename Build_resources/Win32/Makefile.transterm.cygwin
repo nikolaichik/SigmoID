@@ -1,0 +1,96 @@
+# $Id: Makefile,v 1.10 2006/05/27 21:14:03 carlk Exp carlk $
+# Makefile for TransTermHP
+# Usage: "make transterm" to make the main program
+#        "make clean" removes all results of the compilation
+#        "make no_obj" removes all the .o files
+
+
+VER=2.09
+
+# files used for the main transterm program
+OBJ = seq.o \
+      distr.o \
+      util.o \
+      map-output.o \
+      gene-reader.o \
+      search.o \
+      conf.o \
+      ermolaeva-score.o \
+      ermolaeva-oldconf.o \
+      analysis.o \
+      anti.o \
+      transterm.o
+
+# files used for the 2ndscore program
+SECONDARY_OBJ = seq.o \
+    search.o \
+    ermolaeva-score.o \
+    util.o \
+    2ndscore.o
+
+# files to include in the distribution (.cc and .h are included automatically)
+OTHERFILES = USAGE.txt \
+             expterm.dat \
+             LICENSE.txt \
+             RELEASE-NOTES.txt \
+             calibrate.sh \
+             random_fasta.py \
+             make_expterm.py \
+             mfold_rna.sh \
+             Makefile
+
+# These options are for GCC/G++ --- you may have to change them if you
+# use a different compiler
+
+# original flags
+#CXXFLAGS = -g -O3 -Wall -pedantic 
+
+# changed to hopefully fix segfault on windows 
+CXXFLAGS = -g -O3 -Wl,--stack,8000000 -pedantic
+
+all: transterm 2ndscore
+
+transterm: $(OBJ) 
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+2ndscore: $(SECONDARY_OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+clean: no_obj
+	rm -f transterm 2ndscore core.*
+
+no_obj:
+	rm -f *.o
+
+distribution:
+	mkdir -p transterm_hp_v$(VER)
+	cp $(OBJ:.o=.cc) $(SECONDARY_OBJ:.o=.cc) *.h $(OTHERFILES) transterm_hp_v$(VER)
+	make -C transterm_hp_v$(VER) all no_obj
+
+test:
+	time ./transterm -r expterm.dat -c 0 ../test/*.{fna,ptt} > ../test/tmp.tt
+	-diff ../test/tmp.tt ../test/correct.tt
+
+# DO NOT DELETE
+
+2ndscore.o: seq.h util.h ermolaeva-score.h
+2ndscore.o: search.h
+analysis.o: map-output.h seq.h conf.h distr.h util.h ermolaeva-score.h
+analysis.o: transterm.h
+anti.o: conf.h distr.h seq.h transterm.h
+conf.o: transterm.h seq.h distr.h conf.h
+distr.o: distr.h
+ermolaeva-oldconf.o: seq.h conf.h distr.h util.h
+ermolaeva-score.o: transterm.h ermolaeva-score.h seq.h
+gene-reader.o: gene-reader.h seq.h util.h
+map-output.o: map-output.h seq.h conf.h distr.h util.h transterm.h
+search.o: transterm.h seq.h ermolaeva-score.h util.h
+seq.o: seq.h util.h
+transterm.o: transterm.h seq.h util.h map-output.h
+transterm.o: conf.h distr.h gene-reader.h analysis.h ermolaeva-score.h
+util.o: util.h
+conf.o: distr.h seq.h
+ermolaeva-score.o: seq.h
+gene-reader.o: seq.h
+map-output.o: seq.h conf.h distr.h
+search.o: seq.h

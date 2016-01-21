@@ -1,0 +1,3 @@
+hmm profile made of 38 14-bp E.coli FNR binding sites from RegulonDB were used to search Dickeya dadantii 3937 and Pectobacterium atrosepticum SCRI 1043 genomes. The best hits were manually checked and extended by 4 A/T-rich bases on both sides. The final profile is 22 bp long and was build with 34 unique FNR binding sites and their reverse complements. Experimental evidence is available for only some of these sites.
+
+The 14 bp long MEME profile is included for completeness and is much less sensitive. 

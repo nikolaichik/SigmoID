@@ -1,0 +1,8 @@
+PspF is an enhancer-binding protein (EBP) required for transcription activation at the RpoN-dependent promoter of the phage shock protein genes (usually two loci per genome).
+
+The profile was built starting with six PspF binding sites from E.coli described in RegulonDB and iteratively adding Pectobacterium/Dickeya sites. 
+
+The final profile is built from 11 non-redundant sites. 
+
+
+    

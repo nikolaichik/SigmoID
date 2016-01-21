@@ -1,0 +1,369 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+nifF(nifA_upstream)_3937 1.0000     30  nifU(nifA)_3937          1.0000     30  
+nifE(nifA)_3937          1.0000     30  nifU(nifA)_SCRI          1.0000     30  
+nifF(nifA)_21A           1.0000     30  nifF(nifA)_SCRI          1.0000     30  
+nifE(nifA)_JG10-08       1.0000     30  hcp(VasH)_21A_SCRI       1.0000     30  
+occQ(NtrC)_21A           1.0000     30  hcp2(VasH)_21A           1.0000     30  
+glmZ(GlrR)_21A           1.0000     30  aapJ(NtrC)_21A           1.0000     30  
+nifJ(NifA)_21A(_SCRI1043 1.0000     30  hrpL(HrpS)_21A_SCRI1043  1.0000     30  
+norV(NorR)_21A_SCRI1043  1.0000     30  glnK(NtrC)_21A_SCRI1043  1.0000     30  
+EV46_02020(NtrC)_Pat21A_ 1.0000     30  pspG(PspF)_Pat21A_JG10-0 1.0000     30  
+hydN(HyfR)_21A           1.0000     30  potA(NtrC)_21A_Pca3-2    1.0000     30  
+GZ59_01430               1.0000     30  rtcB(RtcR)_Pca3-2        1.0000     30  
+hyfA_Pca3-2              1.0000     30  hydN_Pca3-2              1.0000     30  
+Dda3937_RS18100          1.0000     30  Dda3937_RS15110          1.0000     30  
+gltI_Dda3737             1.0000     30  nac_Dda3737              1.0000     30  
+hisJ_Dda3737             1.0000     30  Dda3937_RS06285          1.0000     30  
+glnC(NtrC)_21A           1.0000     30  hisJ(NtrC)_21A           1.0000     30  
+GZ59_35090(NtrC)_21A     1.0000     30  pspA(PspF)_21A           1.0000     30  
+GZ59_04100(NtrC)_21A     1.0000     30  gltI(NtrC)_21A           1.0000     30  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           30    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       36    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=            1080    N=              36
+strands: +
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.238 C 0.204 G 0.203 T 0.356 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.238 C 0.204 G 0.203 T 0.355 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  23  sites =  36  llr = 498  E-value = 1.0e-132
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  1355633::::8:341421:::4
+pos.-specific     C  232::14:::a151321211:91
+probability       G  :112121:aa:1:6121:1:a::
+matrix            T  7323343a::::5:254679:16
+
+         bits    2.3         ***         *  
+                 2.1         ***         *  
+                 1.8         ***         ** 
+                 1.6         ***         ** 
+Relative         1.4        ****         ** 
+Entropy          1.2        *****        ** 
+(19.9 bits)      0.9        *******     *** 
+                 0.7        *******     *** 
+                 0.5 *  **  *******    *****
+                 0.2 ***** *****************
+                 0.0 -----------------------
+
+Multilevel           TAAAATCTGGCATGATATTTGCT
+consensus             C TTAT     CACGTC    A
+sequence              T    A                
+                                            
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name             Start   P-value                     Site        
+-------------             ----- ---------            -----------------------
+norV(NorR)_21A_SCRI1043       1  6.67e-10          . TAAAAACTGGCACGCTTCCTGCA ATCTTTA   
+nifF(nifA_upstream)_3937      1  2.44e-09          . CCAAAACTGGCACGGGATTCGCA CTAACAG   
+nifF(nifA)_SCRI               1  4.04e-09          . CCAAATTTGGCATGATATTCGCA CCTCACT   
+nifF(nifA)_21A                1  4.04e-09          . CCAAATTTGGCATGATATTCGCA TCTCACT   
+GZ59_35090(NtrC)_21A          1  1.01e-08          . TGGAATCTGGCATGCTCCTTGCT TAGTATC   
+gltI_Dda3737                  1  1.17e-08          . TCATTTTTGGCACACTACTTGCT ACTCATT   
+hcp2(VasH)_21A                1  1.17e-08          . TAAAAATTGGCATGGGGATTGCT ATACAGA   
+Dda3937_RS18100               1  1.55e-08          . TTATAGCTGGCACGCTAGTTGCA ATGACAA   
+rtcB(RtcR)_Pca3-2             1  1.78e-08          . AGAAAACTGGCACGCCTTTCGCT ATATCTA   
+GZ59_01430                    1  2.65e-08          . TATAATCTGGCGTAATAATTGCA GACCCTT   
+hcp(VasH)_21A_SCRI            1  3.41e-08          . TATGAATTGGCATACGAATTGCT ATACAGA   
+Dda3937_RS15110               1  4.36e-08          . ACATTTATGGCACACGATTTGCT TTAAGTG   
+hyfA_Pca3-2                   1  4.92e-08          . TAAAAACTGGCATGAATTATGCC TGTAGTG   
+nac_Dda3737                   1  7.80e-08          . AATGATCTGGCGCGCTTCTTGCT ACTAGTT   
+glnK(NtrC)_21A_SCRI1043       1  7.80e-08          . TCATTTATGGCACACCGTTTGCT TTAATCA   
+pspA(PspF)_21A                1  1.20e-07          . TAAAAGTTGGCATGCTTATTGAT ATATCTA   
+gltI(NtrC)_21A                1  1.48e-07          . TTATTTATGGCACGGTATTTGCC TCTTATT   
+glmZ(GlrR)_21A                1  1.48e-07          . TTGATGTTGGCATGATACGTGCA TTTTAAT   
+GZ59_04100(NtrC)_21A          1  2.00e-07          . TCCAAAATGGCGCATTTTATGCA TTGTCCT   
+glnC(NtrC)_21A                1  2.00e-07          . AAAAAGTTGGCACACTTTTAGCT TTAGTCT   
+EV46_02020(NtrC)_Pat21A_      1  2.00e-07          . TCCAAAATGGCGCATTTTATGCA TTGTCCT   
+occQ(NtrC)_21A                1  2.42e-07          . TAAAACGTGGCCCGACTATTGCT TAGCTTT   
+nifE(nifA)_3937               1  3.21e-07          . TCAGCGCTGGCCTGCGTTTTGCA CCGTCCG   
+aapJ(NtrC)_21A                1  3.84e-07          . AGAAAACTGGCATTTTATTTGCT TTGCTCT   
+hisJ_Dda3737                  1  4.19e-07          . TTCTTTATGGCATAAAATTTGCT GTGTTTT   
+nifE(nifA)_JG10-08            1  4.58e-07          . TAATTTATGGCCTGTGAATTGCA CAAAAAG   
+hydN_Pca3-2                   1  5.90e-07          . TATGATTTGGCGCGTTTTGTGCA TGTTTGG   
+potA(NtrC)_21A_Pca3-2         1  7.54e-07          . TCGTATCCGGCATGGTTTATGCA TCCTTAT   
+hydN(HyfR)_21A                1  8.16e-07          . TATAAATTGGCACGTTTTATGTA TACCTGA   
+hrpL(HrpS)_21A_SCRI1043       1  8.83e-07          . TTTGGGCTGGCATAAGGCTTGCT CTTCCGT   
+nifU(nifA)_SCRI               1  1.20e-06          . TTGTGAATGGCATCACATTTGCT TGTTTTG   
+nifU(nifA)_3937               1  1.39e-06          . CTGTGACTGGCATCACATTTGCT CTGACTC   
+Dda3937_RS06285               1  1.49e-06          . GCTGTGCTGGCATGACCCTTGCT TGTATAG   
+pspG(PspF)_Pat21A_JG10-0      1  2.57e-06          . CGCATCTTGGCACGATTCTTGTT ATAGCTT   
+hisJ(NtrC)_21A                1  2.74e-06          . TTCATTGTGGCATGAATACTGCT TATGAAA   
+nifJ(NifA)_21A(_SCRI1043      1  2.93e-06          . CTCGACATGGCACAGGCTGTGCT ACTGACT   
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+norV(NorR)_21A_SCRI1043           6.7e-10  [+1]_7
+nifF(nifA_upstream)_3937          2.4e-09  [+1]_7
+nifF(nifA)_SCRI                     4e-09  [+1]_7
+nifF(nifA)_21A                      4e-09  [+1]_7
+GZ59_35090(NtrC)_21A                1e-08  [+1]_7
+gltI_Dda3737                      1.2e-08  [+1]_7
+hcp2(VasH)_21A                    1.2e-08  [+1]_7
+Dda3937_RS18100                   1.6e-08  [+1]_7
+rtcB(RtcR)_Pca3-2                 1.8e-08  [+1]_7
+GZ59_01430                        2.6e-08  [+1]_7
+hcp(VasH)_21A_SCRI                3.4e-08  [+1]_7
+Dda3937_RS15110                   4.4e-08  [+1]_7
+hyfA_Pca3-2                       4.9e-08  [+1]_7
+nac_Dda3737                       7.8e-08  [+1]_7
+glnK(NtrC)_21A_SCRI1043           7.8e-08  [+1]_7
+pspA(PspF)_21A                    1.2e-07  [+1]_7
+gltI(NtrC)_21A                    1.5e-07  [+1]_7
+glmZ(GlrR)_21A                    1.5e-07  [+1]_7
+GZ59_04100(NtrC)_21A                2e-07  [+1]_7
+glnC(NtrC)_21A                      2e-07  [+1]_7
+EV46_02020(NtrC)_Pat21A_            2e-07  [+1]_7
+occQ(NtrC)_21A                    2.4e-07  [+1]_7
+nifE(nifA)_3937                   3.2e-07  [+1]_7
+aapJ(NtrC)_21A                    3.8e-07  [+1]_7
+hisJ_Dda3737                      4.2e-07  [+1]_7
+nifE(nifA)_JG10-08                4.6e-07  [+1]_7
+hydN_Pca3-2                       5.9e-07  [+1]_7
+potA(NtrC)_21A_Pca3-2             7.5e-07  [+1]_7
+hydN(HyfR)_21A                    8.2e-07  [+1]_7
+hrpL(HrpS)_21A_SCRI1043           8.8e-07  [+1]_7
+nifU(nifA)_SCRI                   1.2e-06  [+1]_7
+nifU(nifA)_3937                   1.4e-06  [+1]_7
+Dda3937_RS06285                   1.5e-06  [+1]_7
+pspG(PspF)_Pat21A_JG10-0          2.6e-06  [+1]_7
+hisJ(NtrC)_21A                    2.7e-06  [+1]_7
+nifJ(NifA)_21A(_SCRI1043          2.9e-06  [+1]_7
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=23 seqs=36
+norV(NorR)_21A_SCRI1043  (    1) TAAAAACTGGCACGCTTCCTGCA  1 
+nifF(nifA_upstream)_3937 (    1) CCAAAACTGGCACGGGATTCGCA  1 
+nifF(nifA)_SCRI          (    1) CCAAATTTGGCATGATATTCGCA  1 
+nifF(nifA)_21A           (    1) CCAAATTTGGCATGATATTCGCA  1 
+GZ59_35090(NtrC)_21A     (    1) TGGAATCTGGCATGCTCCTTGCT  1 
+gltI_Dda3737             (    1) TCATTTTTGGCACACTACTTGCT  1 
+hcp2(VasH)_21A           (    1) TAAAAATTGGCATGGGGATTGCT  1 
+Dda3937_RS18100          (    1) TTATAGCTGGCACGCTAGTTGCA  1 
+rtcB(RtcR)_Pca3-2        (    1) AGAAAACTGGCACGCCTTTCGCT  1 
+GZ59_01430               (    1) TATAATCTGGCGTAATAATTGCA  1 
+hcp(VasH)_21A_SCRI       (    1) TATGAATTGGCATACGAATTGCT  1 
+Dda3937_RS15110          (    1) ACATTTATGGCACACGATTTGCT  1 
+hyfA_Pca3-2              (    1) TAAAAACTGGCATGAATTATGCC  1 
+nac_Dda3737              (    1) AATGATCTGGCGCGCTTCTTGCT  1 
+glnK(NtrC)_21A_SCRI1043  (    1) TCATTTATGGCACACCGTTTGCT  1 
+pspA(PspF)_21A           (    1) TAAAAGTTGGCATGCTTATTGAT  1 
+gltI(NtrC)_21A           (    1) TTATTTATGGCACGGTATTTGCC  1 
+glmZ(GlrR)_21A           (    1) TTGATGTTGGCATGATACGTGCA  1 
+GZ59_04100(NtrC)_21A     (    1) TCCAAAATGGCGCATTTTATGCA  1 
+glnC(NtrC)_21A           (    1) AAAAAGTTGGCACACTTTTAGCT  1 
+EV46_02020(NtrC)_Pat21A_ (    1) TCCAAAATGGCGCATTTTATGCA  1 
+occQ(NtrC)_21A           (    1) TAAAACGTGGCCCGACTATTGCT  1 
+nifE(nifA)_3937          (    1) TCAGCGCTGGCCTGCGTTTTGCA  1 
+aapJ(NtrC)_21A           (    1) AGAAAACTGGCATTTTATTTGCT  1 
+hisJ_Dda3737             (    1) TTCTTTATGGCATAAAATTTGCT  1 
+nifE(nifA)_JG10-08       (    1) TAATTTATGGCCTGTGAATTGCA  1 
+hydN_Pca3-2              (    1) TATGATTTGGCGCGTTTTGTGCA  1 
+potA(NtrC)_21A_Pca3-2    (    1) TCGTATCCGGCATGGTTTATGCA  1 
+hydN(HyfR)_21A           (    1) TATAAATTGGCACGTTTTATGTA  1 
+hrpL(HrpS)_21A_SCRI1043  (    1) TTTGGGCTGGCATAAGGCTTGCT  1 
+nifU(nifA)_SCRI          (    1) TTGTGAATGGCATCACATTTGCT  1 
+nifU(nifA)_3937          (    1) CTGTGACTGGCATCACATTTGCT  1 
+Dda3937_RS06285          (    1) GCTGTGCTGGCATGACCCTTGCT  1 
+pspG(PspF)_Pat21A_JG10-0 (    1) CGCATCTTGGCACGATTCTTGTT  1 
+hisJ(NtrC)_21A           (    1) TTCATTGTGGCATGAATACTGCT  1 
+nifJ(NifA)_21A(_SCRI1043 (    1) CTCGACATGGCACAGGCTGTGCT  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 23 n= 288 bayes= 2.95986 E= 1.0e-132 
+   -78    -29   -287     91 
+    49     58    -87    -51 
+   107    -29    -55    -87 
+   115  -1181     -6    -35 
+   136   -287   -128    -35 
+    49   -129     -6     13 
+     7     93   -187    -22 
+ -1181   -287  -1181    145 
+ -1181  -1181    230  -1181 
+ -1181  -1181    230  -1181 
+ -1181    229  -1181  -1181 
+   171   -129    -55  -1181 
+ -1181    121  -1181     57 
+    36   -187    159   -367 
+    60     71    -55   -109 
+  -151    -29     13     57 
+    81   -129   -128     23 
+   -29     12   -287     65 
+   -78   -187   -128    102 
+  -310    -88  -1181    128 
+ -1181  -1181    230  -1181 
+  -310    217  -1181   -267 
+    71   -187  -1181     65 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 23 nsites= 36 E= 1.0e-132 
+ 0.138889  0.166667  0.027778  0.666667 
+ 0.333333  0.305556  0.111111  0.250000 
+ 0.500000  0.166667  0.138889  0.194444 
+ 0.527778  0.000000  0.194444  0.277778 
+ 0.611111  0.027778  0.083333  0.277778 
+ 0.333333  0.083333  0.194444  0.388889 
+ 0.250000  0.388889  0.055556  0.305556 
+ 0.000000  0.027778  0.000000  0.972222 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  1.000000  0.000000  0.000000 
+ 0.777778  0.083333  0.138889  0.000000 
+ 0.000000  0.472222  0.000000  0.527778 
+ 0.305556  0.055556  0.611111  0.027778 
+ 0.361111  0.333333  0.138889  0.166667 
+ 0.083333  0.166667  0.222222  0.527778 
+ 0.416667  0.083333  0.083333  0.416667 
+ 0.194444  0.222222  0.027778  0.555556 
+ 0.138889  0.055556  0.083333  0.722222 
+ 0.027778  0.111111  0.000000  0.861111 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.027778  0.916667  0.000000  0.055556 
+ 0.388889  0.055556  0.000000  0.555556 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+T[ACT]A[AT][AT][TA][CTA]TGGCA[TC][GA][AC][TG][AT][TC]TTGC[TA]
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.16 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+nifF(nifA_upstream)_3937         1.95e-08  [+1(2.44e-09)]_7
+nifU(nifA)_3937                  1.11e-05  [+1(1.39e-06)]_7
+nifE(nifA)_3937                  2.56e-06  [+1(3.21e-07)]_7
+nifU(nifA)_SCRI                  9.58e-06  [+1(1.20e-06)]_7
+nifF(nifA)_21A                   3.23e-08  [+1(4.04e-09)]_7
+nifF(nifA)_SCRI                  3.23e-08  [+1(4.04e-09)]_7
+nifE(nifA)_JG10-08               3.66e-06  [+1(4.58e-07)]_7
+hcp(VasH)_21A_SCRI               2.73e-07  [+1(3.41e-08)]_7
+occQ(NtrC)_21A                   1.94e-06  [+1(2.42e-07)]_7
+hcp2(VasH)_21A                   9.38e-08  [+1(1.17e-08)]_7
+glmZ(GlrR)_21A                   1.18e-06  [+1(1.48e-07)]_7
+aapJ(NtrC)_21A                   3.07e-06  [+1(3.84e-07)]_7
+nifJ(NifA)_21A(_SCRI1043         2.34e-05  [+1(2.93e-06)]_7
+hrpL(HrpS)_21A_SCRI1043          7.07e-06  [+1(8.83e-07)]_7
+norV(NorR)_21A_SCRI1043          5.33e-09  [+1(6.67e-10)]_7
+glnK(NtrC)_21A_SCRI1043          6.24e-07  [+1(7.80e-08)]_7
+EV46_02020(NtrC)_Pat21A_         1.60e-06  [+1(2.00e-07)]_7
+pspG(PspF)_Pat21A_JG10-0         2.06e-05  [+1(2.57e-06)]_7
+hydN(HyfR)_21A                   6.53e-06  [+1(8.16e-07)]_7
+potA(NtrC)_21A_Pca3-2            6.03e-06  [+1(7.54e-07)]_7
+GZ59_01430                       2.12e-07  [+1(2.65e-08)]_7
+rtcB(RtcR)_Pca3-2                1.42e-07  [+1(1.78e-08)]_7
+hyfA_Pca3-2                      3.93e-07  [+1(4.92e-08)]_7
+hydN_Pca3-2                      4.72e-06  [+1(5.90e-07)]_7
+Dda3937_RS18100                  1.24e-07  [+1(1.55e-08)]_7
+Dda3937_RS15110                  3.49e-07  [+1(4.36e-08)]_7
+gltI_Dda3737                     9.38e-08  [+1(1.17e-08)]_7
+nac_Dda3737                      6.24e-07  [+1(7.80e-08)]_7
+hisJ_Dda3737                     3.35e-06  [+1(4.19e-07)]_7
+Dda3937_RS06285                  1.19e-05  [+1(1.49e-06)]_7
+glnC(NtrC)_21A                   1.60e-06  [+1(2.00e-07)]_7
+hisJ(NtrC)_21A                   2.20e-05  [+1(2.74e-06)]_7
+GZ59_35090(NtrC)_21A             8.12e-08  [+1(1.01e-08)]_7
+pspA(PspF)_21A                   9.62e-07  [+1(1.20e-07)]_7
+GZ59_04100(NtrC)_21A             1.60e-06  [+1(2.00e-07)]_7
+gltI(NtrC)_21A                   1.18e-06  [+1(1.48e-07)]_7
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

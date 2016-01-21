@@ -1,0 +1,7 @@
+The alternative sigma factor RpoH (sigma32) is the key heat shock response regulator in many Gram negative bacteria. The characterised RpoH(sigma32)-dependent E.coli promoters described in  Nonaka et al.,2006 (doi:10.1101/gad.1428206)  were used to biuld two hmm profiles differing by 1 bp in the spacing between proximal and distal promoter elements. These profiles were used to search genomes of Pectobacterium atrosepticum SCRI1043, P. carotovorum PCC21, P. wasabiae SCC3193 and Dickeya dadantii 3937 genomes. Heat shock related hits were collected to build the two final Pectobacterium/Dickeya specific profiles.  Both profiles are sufficiently specific to be used without restricting the search to intergenic regions. 
+
+The RpoH1_Pectobacterium profile contains 20 non-redundant promoters with shorter distance between promoter elements, located in front of the dnaK, grpE, groES, ibpA, lon and yccA genes.
+
+The RpoH2_Pectobacterium profile contains 19 non-redundant promoters with longer distance between promoter elements, located in front of the clpP, erpA, fxsA, hslV, hspQ, htpG and rrmJ genes.
+
+Both profiles should be used to get full regulon coverage.

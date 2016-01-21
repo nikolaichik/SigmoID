@@ -1,0 +1,282 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_ECA2488(celB)          1.0000     20  r_ECA2488(celB)          1.0000     20  
+f_ECA2164                1.0000     20  r_ECA2164                1.0000     20  
+f_ECA4435(bglE)          1.0000     20  r_ECA4435(bglE)          1.0000     20  
+f_ECA4409                1.0000     20  r_ECA4409                1.0000     20  
+f_W5S_0033               1.0000     20  r_W5S_0033               1.0000     20  
+f_W5S_2053               1.0000     20  r_W5S_2053               1.0000     20  
+f_W5S_2457               1.0000     20  r_W5S_2457               1.0000     20  
+f_PC1_1824               1.0000     20  r_PC1_1824               1.0000     20  
+f_PC1_1461               1.0000     20  r_PC1_1461               1.0000     20  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           20    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       18    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             360    N=              18
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.286 C 0.214 G 0.214 T 0.286 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.286 C 0.214 G 0.214 T 0.286 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  20  sites =  18  llr = 274  E-value = 4.2e-082
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  643116aa3:::::1:3361
+pos.-specific     C  2:1::1::791:::296311
+probability       G  113692:::197::1::1:2
+matrix            T  1633:1:::::3aa611346
+
+         bits    2.2                     
+                 2.0     *    **    *    
+                 1.8     * ** ** ** *    
+                 1.6     * ** ** ** *    
+Relative         1.3     * ******** *    
+Entropy          1.1     * ******** *    
+(21.9 bits)      0.9    ** ******** **   
+                 0.7  * ** ******** ** * 
+                 0.4 ** ************** **
+                 0.2 ** ************** **
+                 0.0 --------------------
+
+Multilevel           ATTGGAAACCGGTTTCCAAT
+consensus            CAAT    A  T    ACTG
+sequence               G              T  
+                                         
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                    Site      
+-------------            ------  ----- ---------            --------------------
+r_ECA2164                    -      1  6.70e-09          . ATGGGTAACCGGTTCCACAT           
+f_ECA2164                    +      1  6.70e-09          . ATGGGTAACCGGTTCCACAT           
+r_W5S_0033                   -      1  7.52e-09          . AACGGAAACCGTTTTCCATG           
+f_W5S_0033                   +      1  7.52e-09          . AACGGAAACCGTTTTCCATG           
+r_ECA4409                    -      1  7.52e-09          . AACGGAAACCGTTTTCCATG           
+f_ECA4409                    +      1  7.52e-09          . AACGGAAACCGTTTTCCATG           
+r_ECA4435(bglE)              +      1  8.40e-09          . ATATGCAACCGGTTTCATAT           
+f_ECA4435(bglE)              -      1  8.40e-09          . ATATGCAACCGGTTTCATAT           
+r_PC1_1824                   +      1  2.22e-08          . TATGGAAACCGTTTTCCATG           
+f_PC1_1824                   -      1  2.22e-08          . TATGGAAACCGTTTTCCATG           
+r_PC1_1461                   +      1  6.13e-08          . ATAAGAAACCGGTTGCATAT           
+f_PC1_1461                   -      1  6.13e-08          . ATAAGAAACCGGTTGCATAT           
+r_W5S_2457                   +      1  7.25e-08          . GTGTGGAACCGGTTACCCAT           
+f_W5S_2457                   -      1  7.25e-08          . GTGTGGAACCGGTTACCCAT           
+r_W5S_2053                   +      1  1.17e-07          . CGTGGAAAACGGTTTCCATA           
+f_W5S_2053                   -      1  1.17e-07          . CGTGGAAAACGGTTTCCATA           
+r_ECA2488(celB)              +      1  1.07e-06          . ATATGGAAACCGTTTTCCAT           
+f_ECA2488(celB)              -      1  1.07e-06          . ATATGGAAACCGTTTTCCAT           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_ECA2164                         6.7e-09  [-1]
+f_ECA2164                         6.7e-09  [+1]
+r_W5S_0033                        7.5e-09  [-1]
+f_W5S_0033                        7.5e-09  [+1]
+r_ECA4409                         7.5e-09  [-1]
+f_ECA4409                         7.5e-09  [+1]
+r_ECA4435(bglE)                   8.4e-09  [+1]
+f_ECA4435(bglE)                   8.4e-09  [-1]
+r_PC1_1824                        2.2e-08  [+1]
+f_PC1_1824                        2.2e-08  [-1]
+r_PC1_1461                        6.1e-08  [+1]
+f_PC1_1461                        6.1e-08  [-1]
+r_W5S_2457                        7.3e-08  [+1]
+f_W5S_2457                        7.3e-08  [-1]
+r_W5S_2053                        1.2e-07  [+1]
+f_W5S_2053                        1.2e-07  [-1]
+r_ECA2488(celB)                   1.1e-06  [+1]
+f_ECA2488(celB)                   1.1e-06  [-1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=20 seqs=18
+r_ECA2164                (    1) ATGGGTAACCGGTTCCACAT  1 
+f_ECA2164                (    1) ATGGGTAACCGGTTCCACAT  1 
+r_W5S_0033               (    1) AACGGAAACCGTTTTCCATG  1 
+f_W5S_0033               (    1) AACGGAAACCGTTTTCCATG  1 
+r_ECA4409                (    1) AACGGAAACCGTTTTCCATG  1 
+f_ECA4409                (    1) AACGGAAACCGTTTTCCATG  1 
+r_ECA4435(bglE)          (    1) ATATGCAACCGGTTTCATAT  1 
+f_ECA4435(bglE)          (    1) ATATGCAACCGGTTTCATAT  1 
+r_PC1_1824               (    1) TATGGAAACCGTTTTCCATG  1 
+f_PC1_1824               (    1) TATGGAAACCGTTTTCCATG  1 
+r_PC1_1461               (    1) ATAAGAAACCGGTTGCATAT  1 
+f_PC1_1461               (    1) ATAAGAAACCGGTTGCATAT  1 
+r_W5S_2457               (    1) GTGTGGAACCGGTTACCCAT  1 
+f_W5S_2457               (    1) GTGTGGAACCGGTTACCCAT  1 
+r_W5S_2053               (    1) CGTGGAAAACGGTTTCCATA  1 
+f_W5S_2053               (    1) CGTGGAAAACGGTTTCCATA  1 
+r_ECA2488(celB)          (    1) ATATGGAAACCGTTTTCCAT  1 
+f_ECA2488(celB)          (    1) ATATGGAAACCGTTTTCCAT  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 20 n= 18 bayes= -664.386 E= 4.2e-082 
+   110      5   -195   -136 
+    44  -1081   -195     96 
+    -4    -95     37     22 
+  -236  -1081    151     22 
+  -236  -1081    214  -1081 
+   110    -95    -36   -136 
+   181  -1081  -1081  -1081 
+   181  -1081  -1081  -1081 
+    -4    175  -1081  -1081 
+ -1083    214   -195  -1083 
+ -1082   -195    214  -1082 
+ -1082  -1083    175     -4 
+ -1082  -1083  -1083    181 
+ -1082  -1083  -1083    181 
+  -136    -36    -95    110 
+ -1082    214  -1083   -236 
+    22    151  -1083   -236 
+    22     37    -95     -4 
+    96   -195  -1083     44 
+  -136   -195      5    110 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 20 nsites= 18 E= 4.2e-082 
+ 0.611111  0.222222  0.055556  0.111111 
+ 0.388889  0.000000  0.055556  0.555556 
+ 0.277778  0.111111  0.277778  0.333333 
+ 0.055556  0.000000  0.611111  0.333333 
+ 0.055556  0.000000  0.944444  0.000000 
+ 0.611111  0.111111  0.166667  0.111111 
+ 1.000000  0.000000  0.000000  0.000000 
+ 1.000000  0.000000  0.000000  0.000000 
+ 0.277778  0.722222  0.000000  0.000000 
+ 0.000000  0.944443  0.055554  0.000000 
+ 0.000000  0.055555  0.944444  0.000000 
+ 0.000000  0.000000  0.722221  0.277777 
+ 0.000000  0.000000  0.000000  0.999999 
+ 0.000000  0.000000  0.000000  0.999999 
+ 0.111110  0.166666  0.111110  0.611110 
+ 0.000000  0.944443  0.000000  0.055555 
+ 0.333332  0.611110  0.000000  0.055555 
+ 0.333332  0.277777  0.111110  0.277777 
+ 0.555555  0.055555  0.000000  0.388888 
+ 0.111110  0.055555  0.222221  0.611110 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+[AC][TA][TAG][GT]GAAA[CA]CG[GT]TTTC[CA][ACT][AT][TG]
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.07 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_ECA2488(celB)                  2.13e-06  [+1(1.07e-06)]
+r_ECA2488(celB)                  2.13e-06  [+1(1.07e-06)]
+f_ECA2164                        1.34e-08  [+1(6.70e-09)]
+r_ECA2164                        1.34e-08  [+1(6.70e-09)]
+f_ECA4435(bglE)                  1.68e-08  [+1(8.40e-09)]
+r_ECA4435(bglE)                  1.68e-08  [+1(8.40e-09)]
+f_ECA4409                        1.50e-08  [+1(7.52e-09)]
+r_ECA4409                        1.50e-08  [+1(7.52e-09)]
+f_W5S_0033                       1.50e-08  [+1(7.52e-09)]
+r_W5S_0033                       1.50e-08  [+1(7.52e-09)]
+f_W5S_2053                       2.35e-07  [+1(1.17e-07)]
+r_W5S_2053                       2.35e-07  [+1(1.17e-07)]
+f_W5S_2457                       1.45e-07  [+1(7.25e-08)]
+r_W5S_2457                       1.45e-07  [+1(7.25e-08)]
+f_PC1_1824                       4.44e-08  [+1(2.22e-08)]
+r_PC1_1824                       4.44e-08  [+1(2.22e-08)]
+f_PC1_1461                       1.23e-07  [+1(6.13e-08)]
+r_PC1_1461                       1.23e-07  [+1(6.13e-08)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

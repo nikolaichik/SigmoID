@@ -1,0 +1,4 @@
+UxuR repressor regulates glucuronate utilisation and usually controls at least four operons.
+ 
+hmm profile made of UxuR-Enterobacteriales binding sites  present in regPrecise version 3.2 was used to search genomes of Pectobacterium and Dickeya strains. Manually selected sites were added, the resulting alignment was extened by 2 bp from each side. The final profile is built from 17 nonredundant sequences from 10 Pectobacterium and Dickeya strains and their reverse complements. The profile should hopely work well in all pectolytic enterobacteria.
+

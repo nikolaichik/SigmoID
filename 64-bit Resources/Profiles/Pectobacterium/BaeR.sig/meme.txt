@@ -1,0 +1,278 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+acrD_21A                 1.0000     27  acrD2_Pwa_21A            1.0000     27  
+mdtG_21A                 1.0000     27  mdtG_PCC21               1.0000     27  
+mdtA_21A                 1.0000     27  acrD_PCC21               1.0000     27  
+acrD2_PCC21              1.0000     27  mdtA_PCC21               1.0000     27  
+mdtA_3937                1.0000     27  mdtG_PwaSCC3193+         1.0000     27  
+mdtA_PwaSCC3193+         1.0000     27  acrB_PwaSCC3193+         1.0000     27  
+acrB2_PwaSCC3193+        1.0000     27  mdtH_Pcc3-2              1.0000     27  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           27    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       14    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             378    N=              14
+strands: +
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.161 C 0.286 G 0.053 T 0.500 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.162 C 0.285 G 0.055 T 0.497 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  27  sites =  14  llr = 203  E-value = 1.6e-044
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  :42::25173::::2::5:34:::23:
+pos.-specific     C  :35:7524::::4a:8a:4:1:::239
+probability       G  1::21::::::::::::::41::311:
+matrix            T  9338233537aa6:82:5644aa7431
+
+         bits    4.2                            
+                 3.8                            
+                 3.3                            
+                 2.9                            
+Relative         2.5                            
+Entropy          2.1                            
+(20.9 bits)      1.7              *  *          
+                 1.3         *    *  *      *  *
+                 0.8 *  **   * ** * *** * ***  *
+                 0.4 ******* ****************  *
+                 0.0 ---------------------------
+
+Multilevel           TACTCCATATTTTCTCCATGATTTTAC
+consensus             CTGTTTCTA  C AT TCTT  GAC 
+sequence              TA  AC            A    CT 
+                                                
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name             Start   P-value                       Site          
+-------------             ----- ---------            ---------------------------
+acrD_PCC21                    1  2.33e-10          . TTCTCCTCAATTTCTCCACGATTTAGC           
+acrD_21A                      1  2.33e-10          . TTCTCCTCAATTTCTCCACGATTTAGC           
+acrB_PwaSCC3193+              1  4.32e-10          . TTCTCCTCAATTTCTCCACGATTTAAC           
+mdtG_PCC21                    1  2.35e-09          . TACGCACTTTTTTCACCTTGGTTTGAC           
+mdtG_21A                      1  1.05e-08          . TACGCACTTTTTTCACCTTGGTTTTAC           
+mdtA_3937                     1  2.88e-08          . TCTTCCATATTTCCTCCATTTTTGTCC           
+acrB2_PwaSCC3193+             1  1.37e-07          . TAATTTACATTTTCTCCTCAATTTCTC           
+acrD2_PCC21                   1  1.37e-07          . TAATTTACATTTTCTCCTCAATTTCTC           
+acrD2_Pwa_21A                 1  1.37e-07          . TAATTTACATTTTCTCCTCAATTTCTC           
+mdtA_PCC21                    1  1.64e-07          . TCTTCCATAATTCCTTCATTTTTGTCC           
+mdtG_PwaSCC3193+              1  1.79e-07          . TACGCACTTTTTTCACCTTATTTTTAC           
+mdtA_PwaSCC3193+              1  2.12e-07          . TCTTCCATATTTCCTTCATTTTTGTCC           
+mdtA_21A                      1  2.12e-07          . TCTTCCATATTTCCTTCATTTTTGTCC           
+mdtH_Pcc3-2                   1  4.95e-05          . GTCTGTTATTTTCCTCCTTTCTTTGTT           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+acrD_PCC21                        2.3e-10  [+1]
+acrD_21A                          2.3e-10  [+1]
+acrB_PwaSCC3193+                  4.3e-10  [+1]
+mdtG_PCC21                        2.4e-09  [+1]
+mdtG_21A                          1.1e-08  [+1]
+mdtA_3937                         2.9e-08  [+1]
+acrB2_PwaSCC3193+                 1.4e-07  [+1]
+acrD2_PCC21                       1.4e-07  [+1]
+acrD2_Pwa_21A                     1.4e-07  [+1]
+mdtA_PCC21                        1.6e-07  [+1]
+mdtG_PwaSCC3193+                  1.8e-07  [+1]
+mdtA_PwaSCC3193+                  2.1e-07  [+1]
+mdtA_21A                          2.1e-07  [+1]
+mdtH_Pcc3-2                         5e-05  [+1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=27 seqs=14
+acrD_PCC21               (    1) TTCTCCTCAATTTCTCCACGATTTAGC  1 
+acrD_21A                 (    1) TTCTCCTCAATTTCTCCACGATTTAGC  1 
+acrB_PwaSCC3193+         (    1) TTCTCCTCAATTTCTCCACGATTTAAC  1 
+mdtG_PCC21               (    1) TACGCACTTTTTTCACCTTGGTTTGAC  1 
+mdtG_21A                 (    1) TACGCACTTTTTTCACCTTGGTTTTAC  1 
+mdtA_3937                (    1) TCTTCCATATTTCCTCCATTTTTGTCC  1 
+acrB2_PwaSCC3193+        (    1) TAATTTACATTTTCTCCTCAATTTCTC  1 
+acrD2_PCC21              (    1) TAATTTACATTTTCTCCTCAATTTCTC  1 
+acrD2_Pwa_21A            (    1) TAATTTACATTTTCTCCTCAATTTCTC  1 
+mdtA_PCC21               (    1) TCTTCCATAATTCCTTCATTTTTGTCC  1 
+mdtG_PwaSCC3193+         (    1) TACGCACTTTTTTCACCTTATTTTTAC  1 
+mdtA_PwaSCC3193+         (    1) TCTTCCATATTTCCTTCATTTTTGTCC  1 
+mdtA_21A                 (    1) TCTTCCATATTTCCTTCATTTTTGTCC  1 
+mdtH_Pcc3-2              (    1) GTCTGTTATTTTCCTCCTTTCTTTGTT  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 27 n= 14 bayes= 1.12553 E= 1.6e-044 
+ -1045  -1045     38     90 
+   140      0  -1045    -80 
+    40     81  -1045    -80 
+ -1045  -1045    196     66 
+ -1045    132     38   -121 
+    40     81  -1045    -80 
+   162    -41  -1045    -80 
+  -118     59  -1045      1 
+   214  -1045  -1045    -80 
+    82  -1045  -1045     52 
+ -1045  -1045  -1045    101 
+ -1045  -1045  -1045    101 
+ -1045     32  -1045     37 
+ -1045    181  -1045  -1045 
+    40  -1045  -1045     66 
+ -1045    146  -1045   -121 
+ -1045    181  -1045  -1045 
+   162  -1045  -1045      1 
+ -1045     59  -1045     20 
+    82  -1045    270    -48 
+   140   -200    138    -48 
+ -1045  -1045  -1045    101 
+ -1045  -1045  -1045    101 
+ -1045  -1045    238     52 
+    40    -41    138    -21 
+    82      0    138    -80 
+ -1045    170  -1045   -279 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 27 nsites= 14 E= 1.6e-044 
+ 0.000000  0.000000  0.071429  0.928571 
+ 0.428571  0.285714  0.000000  0.285714 
+ 0.214286  0.500000  0.000000  0.285714 
+ 0.000000  0.000000  0.214286  0.785714 
+ 0.000000  0.714286  0.071429  0.214286 
+ 0.214286  0.500000  0.000000  0.285714 
+ 0.500000  0.214286  0.000000  0.285714 
+ 0.071429  0.428571  0.000000  0.500000 
+ 0.714286  0.000000  0.000000  0.285714 
+ 0.285714  0.000000  0.000000  0.714286 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.357143  0.000000  0.642857 
+ 0.000000  1.000000  0.000000  0.000000 
+ 0.214286  0.000000  0.000000  0.785714 
+ 0.000000  0.785714  0.000000  0.214286 
+ 0.000000  1.000000  0.000000  0.000000 
+ 0.500000  0.000000  0.000000  0.500000 
+ 0.000000  0.428571  0.000000  0.571429 
+ 0.285714  0.000000  0.357143  0.357143 
+ 0.428571  0.071429  0.142857  0.357143 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  0.285714  0.714286 
+ 0.214286  0.214286  0.142857  0.428571 
+ 0.285714  0.285714  0.142857  0.285714 
+ 0.000000  0.928571  0.000000  0.071429 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+T[ACT][CTA][TG][CT][CTA][ATC][TC][AT][TA]TT[TC]C[TA][CT]C[AT][TC][GTA][AT]TT[TG][TAC][ACT]C
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.04 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+acrD_21A                         2.33e-10  [+1(2.33e-10)]
+acrD2_Pwa_21A                    1.37e-07  [+1(1.37e-07)]
+mdtG_21A                         1.05e-08  [+1(1.05e-08)]
+mdtG_PCC21                       2.35e-09  [+1(2.35e-09)]
+mdtA_21A                         2.12e-07  [+1(2.12e-07)]
+acrD_PCC21                       2.33e-10  [+1(2.33e-10)]
+acrD2_PCC21                      1.37e-07  [+1(1.37e-07)]
+mdtA_PCC21                       1.64e-07  [+1(1.64e-07)]
+mdtA_3937                        2.88e-08  [+1(2.88e-08)]
+mdtG_PwaSCC3193+                 1.79e-07  [+1(1.79e-07)]
+mdtA_PwaSCC3193+                 2.12e-07  [+1(2.12e-07)]
+acrB_PwaSCC3193+                 4.32e-10  [+1(4.32e-10)]
+acrB2_PwaSCC3193+                1.37e-07  [+1(1.37e-07)]
+mdtH_Pcc3-2                      4.95e-05  [+1(4.95e-05)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

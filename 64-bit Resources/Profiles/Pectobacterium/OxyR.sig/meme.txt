@@ -1,0 +1,362 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_acsA/hexY_21A_Pwa_3-2  1.0000     15  r_acsA/hexY_21A_Pwa_3-2  1.0000     15  
+f_mntH_21A               1.0000     15  r_mntH_21A               1.0000     15  
+f_mntH_3-2               1.0000     15  r_mntH_3-2               1.0000     15  
+f_fur_21A_3-2_Pwa        1.0000     15  r_fur_21A_3-2_Pwa        1.0000     15  
+f_tsaA_11440_21A         1.0000     15  r_tsaA_11440_21A         1.0000     15  
+f_gltA/sdhC_21A_3-2      1.0000     15  r_gltA/sdhC_21A_3-2      1.0000     15  
+f_ahpC_21A_3-2_Pwa       1.0000     15  r_ahpC_21A_3-2_Pwa       1.0000     15  
+f_gor_3-2                1.0000     15  r_gor_3-2                1.0000     15  
+f_gor_21A                1.0000     15  r_gor_21A                1.0000     15  
+f_fur_3937               1.0000     15  r_fur_3937               1.0000     15  
+f_katG_3937              1.0000     15  r_katG_3937              1.0000     15  
+f_acnA/gst_3937          1.0000     15  r_acnA/gst_3937          1.0000     15  
+f_sufA_3937              1.0000     15  r_sufA_3937              1.0000     15  
+f_pdhR_3937_Pwa          1.0000     15  r_pdhR_3937_Pwa          1.0000     15  
+f_ftnA_21A               1.0000     15  r_ftnA_21A               1.0000     15  
+f_GZ59_32890             1.0000     15  r_GZ59_32890             1.0000     15  
+f_pdhR_21A               1.0000     15  r_pdhR_21A               1.0000     15  
+f_pdhR2/aroP             1.0000     15  r_pdhR2/aroP             1.0000     15  
+f_tsaA_3937              1.0000     15  r_tsaA_3937              1.0000     15  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           15    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       38    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             570    N=              38
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.377 C 0.123 G 0.123 T 0.377 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.376 C 0.124 G 0.124 T 0.376 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  15  sites =  38  llr = 400  E-value = 7.9e-139
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  91712:85281:291
+pos.-specific     C  ::::12::::69:::
+probability       G  :::96::::21::::
+matrix            T  192:18258:21719
+
+         bits    3.0                
+                 2.7                
+                 2.4    *       *   
+                 2.1    *       *   
+Relative         1.8    *       *   
+Entropy          1.5    *       *   
+(15.2 bits)      1.2    *       *   
+                 0.9 ** ***   *** **
+                 0.6 ******* *******
+                 0.3 ***************
+                 0.0 ---------------
+
+Multilevel           ATAGGTATTACCTAT
+consensus              T A TAA T A  
+sequence                            
+                                    
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                 Site    
+-------------            ------  ----- ---------            ---------------
+r_pdhR_21A                   +      1  1.82e-07          . ATTGGTATTACCAAT           
+f_pdhR_21A                   -      1  1.82e-07          . ATTGGTATTACCAAT           
+r_pdhR_3937_Pwa              +      1  1.82e-07          . ATTGGTATTACCAAT           
+f_pdhR_3937_Pwa              -      1  1.82e-07          . ATTGGTATTACCAAT           
+r_mntH_21A                   -      1  1.82e-07          . ATTGGTATTACCAAT           
+f_mntH_21A                   +      1  1.82e-07          . ATTGGTATTACCAAT           
+r_GZ59_32890                 -      1  7.42e-07          . ATCGGTAATACCAAT           
+f_GZ59_32890                 +      1  7.42e-07          . ATCGGTAATACCAAT           
+r_fur_3937                   -      1  8.98e-07          . ATAGATAAAACCTAT           
+f_fur_3937                   +      1  8.98e-07          . ATAGATAAAACCTAT           
+r_gor_3-2                    +      1  1.14e-06          . AAAGGTTATACCTAT           
+f_gor_3-2                    -      1  1.14e-06          . AAAGGTTATACCTAT           
+r_fur_21A_3-2_Pwa            +      1  1.14e-06          . AAAGGTTTTACCTAT           
+f_fur_21A_3-2_Pwa            -      1  1.14e-06          . AAAGGTTTTACCTAT           
+r_acnA/gst_3937              +      1  1.42e-06          . ATAAGCATTACCTAT           
+f_acnA/gst_3937              -      1  1.42e-06          . ATAAGCATTACCTAT           
+r_gor_21A                    +      1  1.99e-06          . AAAGGTTATGCCTAT           
+f_gor_21A                    -      1  1.99e-06          . AAAGGTTATGCCTAT           
+r_katG_3937                  -      1  3.18e-06          . ATAGCCATTATCTAT           
+f_katG_3937                  +      1  3.18e-06          . ATAGCCATTATCTAT           
+r_mntH_3-2                   +      1  3.35e-06          . AGTGGTAATACCAAT           
+f_mntH_3-2                   -      1  3.35e-06          . AGTGGTAATACCAAT           
+r_acsA/hexY_21A_Pwa_3-2      -      1  7.84e-06          . ATAGATATAATCTAT           
+f_acsA/hexY_21A_Pwa_3-2      +      1  7.84e-06          . ATAGATATAATCTAT           
+r_tsaA_3937                  -      1  1.01e-05          . ATAGACAAAAGCTAT           
+f_tsaA_3937                  +      1  1.01e-05          . ATAGACAAAAGCTAT           
+r_tsaA_11440_21A             -      1  1.01e-05          . ATAGACAAAAGCTAT           
+f_tsaA_11440_21A             +      1  1.01e-05          . ATAGACAAAAGCTAT           
+r_ahpC_21A_3-2_Pwa           -      1  1.25e-05          . TTAGGTATTACTTAT           
+f_ahpC_21A_3-2_Pwa           +      1  1.25e-05          . TTAGGTATTACTTAT           
+r_gltA/sdhC_21A_3-2          +      1  1.25e-05          . GTAGTCATTACCTAT           
+f_gltA/sdhC_21A_3-2          -      1  1.25e-05          . GTAGTCATTACCTAT           
+r_ftnA_21A                   +      1  2.96e-05          . TTAGATATTATCTAT           
+f_ftnA_21A                   -      1  2.96e-05          . TTAGATATTATCTAT           
+r_sufA_3937                  -      1  4.56e-05          . ATAATTTATACCTAT           
+f_sufA_3937                  +      1  4.56e-05          . ATAATTTATACCTAT           
+r_pdhR2/aroP                 +      1  1.54e-04          . ATAACTAAAAACTAT           
+f_pdhR2/aroP                 -      1  1.54e-04          . ATAACTAAAAACTAT           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_pdhR_21A                        1.8e-07  [+1]
+f_pdhR_21A                        1.8e-07  [-1]
+r_pdhR_3937_Pwa                   1.8e-07  [+1]
+f_pdhR_3937_Pwa                   1.8e-07  [-1]
+r_mntH_21A                        1.8e-07  [-1]
+f_mntH_21A                        1.8e-07  [+1]
+r_GZ59_32890                      7.4e-07  [-1]
+f_GZ59_32890                      7.4e-07  [+1]
+r_fur_3937                          9e-07  [-1]
+f_fur_3937                          9e-07  [+1]
+r_gor_3-2                         1.1e-06  [+1]
+f_gor_3-2                         1.1e-06  [-1]
+r_fur_21A_3-2_Pwa                 1.1e-06  [+1]
+f_fur_21A_3-2_Pwa                 1.1e-06  [-1]
+r_acnA/gst_3937                   1.4e-06  [+1]
+f_acnA/gst_3937                   1.4e-06  [-1]
+r_gor_21A                           2e-06  [+1]
+f_gor_21A                           2e-06  [-1]
+r_katG_3937                       3.2e-06  [-1]
+f_katG_3937                       3.2e-06  [+1]
+r_mntH_3-2                        3.4e-06  [+1]
+f_mntH_3-2                        3.4e-06  [-1]
+r_acsA/hexY_21A_Pwa_3-2           7.8e-06  [-1]
+f_acsA/hexY_21A_Pwa_3-2           7.8e-06  [+1]
+r_tsaA_3937                         1e-05  [-1]
+f_tsaA_3937                         1e-05  [+1]
+r_tsaA_11440_21A                    1e-05  [-1]
+f_tsaA_11440_21A                    1e-05  [+1]
+r_ahpC_21A_3-2_Pwa                1.2e-05  [-1]
+f_ahpC_21A_3-2_Pwa                1.2e-05  [+1]
+r_gltA/sdhC_21A_3-2               1.2e-05  [+1]
+f_gltA/sdhC_21A_3-2               1.2e-05  [-1]
+r_ftnA_21A                          3e-05  [+1]
+f_ftnA_21A                          3e-05  [-1]
+r_sufA_3937                       4.6e-05  [-1]
+f_sufA_3937                       4.6e-05  [+1]
+r_pdhR2/aroP                      0.00015  [+1]
+f_pdhR2/aroP                      0.00015  [-1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=15 seqs=38
+r_pdhR_21A               (    1) ATTGGTATTACCAAT  1 
+f_pdhR_21A               (    1) ATTGGTATTACCAAT  1 
+r_pdhR_3937_Pwa          (    1) ATTGGTATTACCAAT  1 
+f_pdhR_3937_Pwa          (    1) ATTGGTATTACCAAT  1 
+r_mntH_21A               (    1) ATTGGTATTACCAAT  1 
+f_mntH_21A               (    1) ATTGGTATTACCAAT  1 
+r_GZ59_32890             (    1) ATCGGTAATACCAAT  1 
+f_GZ59_32890             (    1) ATCGGTAATACCAAT  1 
+r_fur_3937               (    1) ATAGATAAAACCTAT  1 
+f_fur_3937               (    1) ATAGATAAAACCTAT  1 
+r_gor_3-2                (    1) AAAGGTTATACCTAT  1 
+f_gor_3-2                (    1) AAAGGTTATACCTAT  1 
+r_fur_21A_3-2_Pwa        (    1) AAAGGTTTTACCTAT  1 
+f_fur_21A_3-2_Pwa        (    1) AAAGGTTTTACCTAT  1 
+r_acnA/gst_3937          (    1) ATAAGCATTACCTAT  1 
+f_acnA/gst_3937          (    1) ATAAGCATTACCTAT  1 
+r_gor_21A                (    1) AAAGGTTATGCCTAT  1 
+f_gor_21A                (    1) AAAGGTTATGCCTAT  1 
+r_katG_3937              (    1) ATAGCCATTATCTAT  1 
+f_katG_3937              (    1) ATAGCCATTATCTAT  1 
+r_mntH_3-2               (    1) AGTGGTAATACCAAT  1 
+f_mntH_3-2               (    1) AGTGGTAATACCAAT  1 
+r_acsA/hexY_21A_Pwa_3-2  (    1) ATAGATATAATCTAT  1 
+f_acsA/hexY_21A_Pwa_3-2  (    1) ATAGATATAATCTAT  1 
+r_tsaA_3937              (    1) ATAGACAAAAGCTAT  1 
+f_tsaA_3937              (    1) ATAGACAAAAGCTAT  1 
+r_tsaA_11440_21A         (    1) ATAGACAAAAGCTAT  1 
+f_tsaA_11440_21A         (    1) ATAGACAAAAGCTAT  1 
+r_ahpC_21A_3-2_Pwa       (    1) TTAGGTATTACTTAT  1 
+f_ahpC_21A_3-2_Pwa       (    1) TTAGGTATTACTTAT  1 
+r_gltA/sdhC_21A_3-2      (    1) GTAGTCATTACCTAT  1 
+f_gltA/sdhC_21A_3-2      (    1) GTAGTCATTACCTAT  1 
+r_ftnA_21A               (    1) TTAGATATTATCTAT  1 
+f_ftnA_21A               (    1) TTAGATATTATCTAT  1 
+r_sufA_3937              (    1) ATAATTTATACCTAT  1 
+f_sufA_3937              (    1) ATAATTTATACCTAT  1 
+r_pdhR2/aroP             (    1) ATAACTAAAAACTAT  1 
+f_pdhR2/aroP             (    1) ATAACTAAAAACTAT  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 15 n= 38 bayes= 1.64636 E= 7.9e-139 
+   129  -1189   -223   -284 
+  -225  -1189   -223    125 
+    97   -223  -1189    -67 
+  -184  -1189    285  -1189 
+   -84    -23    229   -225 
+ -1189     35  -1189    116 
+   102  -1196  -1196    -67 
+    41  -1196  -1191     41 
+   -67  -1191  -1191    102 
+   116  -1194     35  -1191 
+  -225    229    -23    -84 
+ -1191    285  -1194   -184 
+   -67  -1194   -223     97 
+   125   -223  -1194   -225 
+  -284   -223  -1194    129 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 15 nsites= 38 E= 7.9e-139 
+ 0.921053  0.000000  0.026316  0.052632 
+ 0.078947  0.000000  0.026316  0.894737 
+ 0.736842  0.026316  0.000000  0.236842 
+ 0.105263  0.000000  0.894737  0.000000 
+ 0.210526  0.105263  0.605263  0.078947 
+ 0.000000  0.157895  0.000000  0.842105 
+ 0.763156  0.000000  0.000000  0.236841 
+ 0.499999  0.000000  0.000000  0.500000 
+ 0.236842  0.000000  0.000000  0.763157 
+ 0.842104  0.000000  0.157894  0.000000 
+ 0.078946  0.605262  0.105262  0.210525 
+ 0.000000  0.894736  0.000000  0.105262 
+ 0.236841  0.000000  0.026315  0.736841 
+ 0.894736  0.026315  0.000000  0.078946 
+ 0.052631  0.026315  0.000000  0.921052 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+AT[AT]G[GA]T[AT][TA][TA]A[CT]C[TA]AT
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.13 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_acsA/hexY_21A_Pwa_3-2          1.57e-05  [+1(7.84e-06)]
+r_acsA/hexY_21A_Pwa_3-2          1.57e-05  [+1(7.84e-06)]
+f_mntH_21A                       3.64e-07  [+1(1.82e-07)]
+r_mntH_21A                       3.64e-07  [+1(1.82e-07)]
+f_mntH_3-2                       6.71e-06  [+1(3.35e-06)]
+r_mntH_3-2                       6.71e-06  [+1(3.35e-06)]
+f_fur_21A_3-2_Pwa                2.29e-06  [+1(1.14e-06)]
+r_fur_21A_3-2_Pwa                2.29e-06  [+1(1.14e-06)]
+f_tsaA_11440_21A                 2.02e-05  [+1(1.01e-05)]
+r_tsaA_11440_21A                 2.02e-05  [+1(1.01e-05)]
+f_gltA/sdhC_21A_3-2              2.49e-05  [+1(1.25e-05)]
+r_gltA/sdhC_21A_3-2              2.49e-05  [+1(1.25e-05)]
+f_ahpC_21A_3-2_Pwa               2.49e-05  [+1(1.25e-05)]
+r_ahpC_21A_3-2_Pwa               2.49e-05  [+1(1.25e-05)]
+f_gor_3-2                        2.29e-06  [+1(1.14e-06)]
+r_gor_3-2                        2.29e-06  [+1(1.14e-06)]
+f_gor_21A                        3.99e-06  [+1(1.99e-06)]
+r_gor_21A                        3.99e-06  [+1(1.99e-06)]
+f_fur_3937                       1.80e-06  [+1(8.98e-07)]
+r_fur_3937                       1.80e-06  [+1(8.98e-07)]
+f_katG_3937                      6.36e-06  [+1(3.18e-06)]
+r_katG_3937                      6.36e-06  [+1(3.18e-06)]
+f_acnA/gst_3937                  2.85e-06  [+1(1.42e-06)]
+r_acnA/gst_3937                  2.85e-06  [+1(1.42e-06)]
+f_sufA_3937                      9.12e-05  [+1(4.56e-05)]
+r_sufA_3937                      9.12e-05  [+1(4.56e-05)]
+f_pdhR_3937_Pwa                  3.64e-07  [+1(1.82e-07)]
+r_pdhR_3937_Pwa                  3.64e-07  [+1(1.82e-07)]
+f_ftnA_21A                       5.91e-05  [+1(2.96e-05)]
+r_ftnA_21A                       5.91e-05  [+1(2.96e-05)]
+f_GZ59_32890                     1.48e-06  [+1(7.42e-07)]
+r_GZ59_32890                     1.48e-06  [+1(7.42e-07)]
+f_pdhR_21A                       3.64e-07  [+1(1.82e-07)]
+r_pdhR_21A                       3.64e-07  [+1(1.82e-07)]
+f_pdhR2/aroP                     3.07e-04  15
+r_pdhR2/aroP                     3.07e-04  15
+f_tsaA_3937                      2.02e-05  [+1(1.01e-05)]
+r_tsaA_3937                      2.02e-05  [+1(1.01e-05)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

@@ -1,0 +1,2 @@
+RhaS controls rhamnogalacturonan degradation, rhamnogalacturonide transport and rhamnose utilisation.
+HMM profile made of 30 RhaS (Enterobacteriales) binding sites from regPrecise version 3.2 was used to search genomes of Dickeya dadantii 3937, Pectobacterium carotovorum 3-2 and P.wasabiae SCC3193.  Sites in front of aldA, rhaB,rhaT,rhiE, rhiT and OA04_21710 of P. atrosepticum SCRI1043 were combined with orthologous sites from the 3937, 3-2 and SCC3193 strains to make the final alignment. The final profile is built of 15 sites.

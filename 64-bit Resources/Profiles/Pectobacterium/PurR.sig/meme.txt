@@ -1,0 +1,400 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_ECA0241(purH)          1.0000     16  r_ECA0241(purH)          1.0000     16  
+f_ECA3053(cvpA)          1.0000     16  r_ECA3053(cvpA)          1.0000     16  
+f_ECA3156(purE)          1.0000     16  r_ECA3156(purE)          1.0000     16  
+f_ECA3929(purA)          1.0000     16  r_ECA3929(purA)          1.0000     16  
+f_ECA1254(purM)          1.0000     16  r_ECA1254(purM)          1.0000     16  
+f_ECA4464(purP)          1.0000     16  r_ECA4464(purP)          1.0000     16  
+f_ECA2477(purT)          1.0000     16  r_ECA2477(purT)          1.0000     16  
+f_ECA3258(purL)          1.0000     16  r_ECA3258(purL)          1.0000     16  
+f_ECA3209(guaB)          1.0000     16  r_ECA3209(guaB)          1.0000     16  
+f_ECA0382(pyrB)          1.0000     16  r_ECA0382(pyrB)          1.0000     16  
+f_ECA4354(yhhQ)          1.0000     16  r_ECA4354(yhhQ)          1.0000     16  
+f_ECA3871(carA)          1.0000     16  r_ECA3871(carA)          1.0000     16  
+f_ECA3905(serA)          1.0000     16  r_ECA3905(serA)          1.0000     16  
+f_ECA2538(pyrD)          1.0000     16  r_ECA2538(pyrD)          1.0000     16  
+f_ECA3250(glyA)          1.0000     16  r_ECA3250(glyA)          1.0000     16  
+f_ECA2186(prs)           1.0000     16  r_ECA2186(prs)           1.0000     16  
+f_ECA1925(purR)          1.0000     16  r_ECA1925(purR)          1.0000     16  
+f_ECA2444(purB)          1.0000     16  r_ECA2444(purB)          1.0000     16  
+f_ECA0035(xanP)          1.0000     16  r_ECA0035(xanP)          1.0000     16  
+f_ECA1856(ydiJ)          1.0000     16  r_ECA1856(ydiJ)          1.0000     16  
+f_ECA0783(yjcD)          1.0000     16  r_ECA0783(yjcD)          1.0000     16  
+f_ECA0783_2(yjcD)        1.0000     16  r_ECA0783_2(yjcD)        1.0000     16  
+f_ECA3796(tsx)           1.0000     16  r_ECA3796(tsx)           1.0000     16  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           16    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       46    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             736    N=              46
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.268 C 0.232 G 0.232 T 0.268 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.268 C 0.232 G 0.232 T 0.268 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  16  sites =  46  llr = 559  E-value = 1.1e-203
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  72:3aa6::2::1::2
+pos.-specific     C  15:6::1a:::::931
+probability       G  139:::::a1::6:51
+matrix            T  2::1::2::6aa3:27
+
+         bits    2.1        **       
+                 1.9        **       
+                 1.7     ** ** **    
+                 1.5     ** ** **    
+Relative         1.3   * ** ** ** *  
+Entropy          1.1   * ** ** ** *  
+(17.5 bits)      0.8   * ** ** ** *  
+                 0.6 * ************ *
+                 0.4 ****************
+                 0.2 ****************
+                 0.0 ----------------
+
+Multilevel           ACGCAAACGTTTGCGT
+consensus             G A  T  A  T C 
+sequence                             
+                                     
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                  Site    
+-------------            ------  ----- ---------            ----------------
+r_ECA2477(purT)              +      1  1.19e-09          . ACGAAAACGTTTGCGT           
+f_ECA2477(purT)              -      1  1.19e-09          . ACGAAAACGTTTGCGT           
+r_ECA3053(cvpA)              +      1  1.13e-08          . AAGAAAACGTTTGCGT           
+f_ECA3053(cvpA)              -      1  1.13e-08          . AAGAAAACGTTTGCGT           
+r_ECA3258(purL)              +      1  1.49e-08          . ACGAAACCGTTTGCGT           
+f_ECA3258(purL)              -      1  1.49e-08          . ACGAAACCGTTTGCGT           
+r_ECA0241(purH)              +      1  2.25e-08          . GCGAAAACGTTTGCGT           
+f_ECA0241(purH)              -      1  2.25e-08          . GCGAAAACGTTTGCGT           
+r_ECA3796(tsx)               -      1  3.88e-08          . AGGCAACCGTTTTCGT           
+f_ECA3796(tsx)               +      1  3.88e-08          . AGGCAACCGTTTTCGT           
+r_ECA3156(purE)              -      1  3.88e-08          . ACGCAACCGTTTTCCT           
+f_ECA3156(purE)              +      1  3.88e-08          . ACGCAACCGTTTTCCT           
+r_ECA2186(prs)               -      1  4.51e-08          . AAGAAAACGTTTTCGT           
+f_ECA2186(prs)               +      1  4.51e-08          . AAGAAAACGTTTTCGT           
+r_ECA1254(purM)              -      1  5.28e-08          . TCGCAAACGATTGCCT           
+f_ECA1254(purM)              +      1  5.28e-08          . TCGCAAACGATTGCCT           
+r_ECA0035(xanP)              -      1  1.11e-07          . TAGCAAACGTTTGCTT           
+f_ECA0035(xanP)              +      1  1.11e-07          . TAGCAAACGTTTGCTT           
+r_ECA2444(purB)              +      1  3.79e-07          . AGGAAAGCGTTTGCGT           
+f_ECA2444(purB)              -      1  3.79e-07          . AGGAAAGCGTTTGCGT           
+r_ECA0382(pyrB)              -      1  4.61e-07          . AAGCAACCGATTGCGA           
+f_ECA0382(pyrB)              +      1  4.61e-07          . AAGCAACCGATTGCGA           
+r_ECA4354(yhhQ)              -      1  1.47e-06          . ACGACAACGTTTGCGC           
+f_ECA4354(yhhQ)              +      1  1.47e-06          . ACGACAACGTTTGCGC           
+r_ECA3209(guaB)              +      1  1.62e-06          . GCGTAATCGATTGCCT           
+f_ECA3209(guaB)              -      1  1.62e-06          . GCGTAATCGATTGCCT           
+r_ECA4464(purP)              -      1  1.93e-06          . ACGGAAACGATTGCCG           
+f_ECA4464(purP)              +      1  1.93e-06          . ACGGAAACGATTGCCG           
+r_ECA0783_2(yjcD)            -      1  2.10e-06          . AGCTAATCGTTTGCGT           
+f_ECA0783_2(yjcD)            +      1  2.10e-06          . AGCTAATCGTTTGCGT           
+r_ECA3250(glyA)              -      1  2.10e-06          . AGCTAATCGTTTGCGT           
+f_ECA3250(glyA)              +      1  2.10e-06          . AGCTAATCGTTTGCGT           
+r_ECA2538(pyrD)              +      1  2.73e-06          . AGTAAAACGTTTGCGG           
+f_ECA2538(pyrD)              -      1  2.73e-06          . AGTAAAACGTTTGCGG           
+r_ECA3871(carA)              -      1  2.97e-06          . TAGCAACCGTTTACTT           
+f_ECA3871(carA)              +      1  2.97e-06          . TAGCAACCGTTTACTT           
+r_ECA1856(ydiJ)              -      1  3.22e-06          . GCGCACACGATTGCGA           
+f_ECA1856(ydiJ)              +      1  3.22e-06          . GCGCACACGATTGCGA           
+r_ECA3929(purA)              +      1  1.04e-05          . TAGCACACGGTTGCGC           
+f_ECA3929(purA)              -      1  1.04e-05          . TAGCACACGGTTGCGC           
+r_ECA3905(serA)              +      1  1.12e-05          . ATACAAACGATTGCTT           
+f_ECA3905(serA)              -      1  1.12e-05          . ATACAAACGATTGCTT           
+r_ECA1925(purR)              +      1  1.29e-05          . TGTTAATCGTTTGCCT           
+f_ECA1925(purR)              -      1  1.29e-05          . TGTTAATCGTTTGCCT           
+r_ECA0783(yjcD)              -      1  1.84e-04          . ACAGTAACGTTTTCCG           
+f_ECA0783(yjcD)              +      1  1.84e-04          . ACAGTAACGTTTTCCG           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_ECA2477(purT)                   1.2e-09  [+1]
+f_ECA2477(purT)                   1.2e-09  [-1]
+r_ECA3053(cvpA)                   1.1e-08  [+1]
+f_ECA3053(cvpA)                   1.1e-08  [-1]
+r_ECA3258(purL)                   1.5e-08  [+1]
+f_ECA3258(purL)                   1.5e-08  [-1]
+r_ECA0241(purH)                   2.3e-08  [+1]
+f_ECA0241(purH)                   2.3e-08  [-1]
+r_ECA3796(tsx)                    3.9e-08  [-1]
+f_ECA3796(tsx)                    3.9e-08  [+1]
+r_ECA3156(purE)                   3.9e-08  [-1]
+f_ECA3156(purE)                   3.9e-08  [+1]
+r_ECA2186(prs)                    4.5e-08  [-1]
+f_ECA2186(prs)                    4.5e-08  [+1]
+r_ECA1254(purM)                   5.3e-08  [-1]
+f_ECA1254(purM)                   5.3e-08  [+1]
+r_ECA0035(xanP)                   1.1e-07  [-1]
+f_ECA0035(xanP)                   1.1e-07  [+1]
+r_ECA2444(purB)                   3.8e-07  [+1]
+f_ECA2444(purB)                   3.8e-07  [-1]
+r_ECA0382(pyrB)                   4.6e-07  [-1]
+f_ECA0382(pyrB)                   4.6e-07  [+1]
+r_ECA4354(yhhQ)                   1.5e-06  [-1]
+f_ECA4354(yhhQ)                   1.5e-06  [+1]
+r_ECA3209(guaB)                   1.6e-06  [+1]
+f_ECA3209(guaB)                   1.6e-06  [-1]
+r_ECA4464(purP)                   1.9e-06  [-1]
+f_ECA4464(purP)                   1.9e-06  [+1]
+r_ECA0783_2(yjcD)                 2.1e-06  [-1]
+f_ECA0783_2(yjcD)                 2.1e-06  [+1]
+r_ECA3250(glyA)                   2.1e-06  [-1]
+f_ECA3250(glyA)                   2.1e-06  [+1]
+r_ECA2538(pyrD)                   2.7e-06  [+1]
+f_ECA2538(pyrD)                   2.7e-06  [-1]
+r_ECA3871(carA)                     3e-06  [-1]
+f_ECA3871(carA)                     3e-06  [+1]
+r_ECA1856(ydiJ)                   3.2e-06  [-1]
+f_ECA1856(ydiJ)                   3.2e-06  [+1]
+r_ECA3929(purA)                     1e-05  [+1]
+f_ECA3929(purA)                     1e-05  [-1]
+r_ECA3905(serA)                   1.1e-05  [+1]
+f_ECA3905(serA)                   1.1e-05  [-1]
+r_ECA1925(purR)                   1.3e-05  [+1]
+f_ECA1925(purR)                   1.3e-05  [-1]
+r_ECA0783(yjcD)                   0.00018  [-1]
+f_ECA0783(yjcD)                   0.00018  [+1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=16 seqs=46
+r_ECA2477(purT)          (    1) ACGAAAACGTTTGCGT  1 
+f_ECA2477(purT)          (    1) ACGAAAACGTTTGCGT  1 
+r_ECA3053(cvpA)          (    1) AAGAAAACGTTTGCGT  1 
+f_ECA3053(cvpA)          (    1) AAGAAAACGTTTGCGT  1 
+r_ECA3258(purL)          (    1) ACGAAACCGTTTGCGT  1 
+f_ECA3258(purL)          (    1) ACGAAACCGTTTGCGT  1 
+r_ECA0241(purH)          (    1) GCGAAAACGTTTGCGT  1 
+f_ECA0241(purH)          (    1) GCGAAAACGTTTGCGT  1 
+r_ECA3796(tsx)           (    1) AGGCAACCGTTTTCGT  1 
+f_ECA3796(tsx)           (    1) AGGCAACCGTTTTCGT  1 
+r_ECA3156(purE)          (    1) ACGCAACCGTTTTCCT  1 
+f_ECA3156(purE)          (    1) ACGCAACCGTTTTCCT  1 
+r_ECA2186(prs)           (    1) AAGAAAACGTTTTCGT  1 
+f_ECA2186(prs)           (    1) AAGAAAACGTTTTCGT  1 
+r_ECA1254(purM)          (    1) TCGCAAACGATTGCCT  1 
+f_ECA1254(purM)          (    1) TCGCAAACGATTGCCT  1 
+r_ECA0035(xanP)          (    1) TAGCAAACGTTTGCTT  1 
+f_ECA0035(xanP)          (    1) TAGCAAACGTTTGCTT  1 
+r_ECA2444(purB)          (    1) AGGAAAGCGTTTGCGT  1 
+f_ECA2444(purB)          (    1) AGGAAAGCGTTTGCGT  1 
+r_ECA0382(pyrB)          (    1) AAGCAACCGATTGCGA  1 
+f_ECA0382(pyrB)          (    1) AAGCAACCGATTGCGA  1 
+r_ECA4354(yhhQ)          (    1) ACGACAACGTTTGCGC  1 
+f_ECA4354(yhhQ)          (    1) ACGACAACGTTTGCGC  1 
+r_ECA3209(guaB)          (    1) GCGTAATCGATTGCCT  1 
+f_ECA3209(guaB)          (    1) GCGTAATCGATTGCCT  1 
+r_ECA4464(purP)          (    1) ACGGAAACGATTGCCG  1 
+f_ECA4464(purP)          (    1) ACGGAAACGATTGCCG  1 
+r_ECA0783_2(yjcD)        (    1) AGCTAATCGTTTGCGT  1 
+f_ECA0783_2(yjcD)        (    1) AGCTAATCGTTTGCGT  1 
+r_ECA3250(glyA)          (    1) AGCTAATCGTTTGCGT  1 
+f_ECA3250(glyA)          (    1) AGCTAATCGTTTGCGT  1 
+r_ECA2538(pyrD)          (    1) AGTAAAACGTTTGCGG  1 
+f_ECA2538(pyrD)          (    1) AGTAAAACGTTTGCGG  1 
+r_ECA3871(carA)          (    1) TAGCAACCGTTTACTT  1 
+f_ECA3871(carA)          (    1) TAGCAACCGTTTACTT  1 
+r_ECA1856(ydiJ)          (    1) GCGCACACGATTGCGA  1 
+f_ECA1856(ydiJ)          (    1) GCGCACACGATTGCGA  1 
+r_ECA3929(purA)          (    1) TAGCACACGGTTGCGC  1 
+f_ECA3929(purA)          (    1) TAGCACACGGTTGCGC  1 
+r_ECA3905(serA)          (    1) ATACAAACGATTGCTT  1 
+f_ECA3905(serA)          (    1) ATACAAACGATTGCTT  1 
+r_ECA1925(purR)          (    1) TGTTAATCGTTTGCCT  1 
+f_ECA1925(purR)          (    1) TGTTAATCGTTTGCCT  1 
+r_ECA0783(yjcD)          (    1) ACAGTAACGTTTTCCG  1 
+f_ECA0783(yjcD)          (    1) ACAGTAACGTTTTCCG  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 16 n= 46 bayes= -664.386 E= 1.1e-203 
+   133   -183   -110    -81 
+   -45    117     17   -362 
+  -262   -242    190   -262 
+    -4    134   -242   -130 
+   184   -342  -1217   -362 
+   184   -242  -1217  -1217 
+   124    -83   -342    -30 
+ -1221    210  -1221  -1221 
+ -1218  -1218    210  -1218 
+   -30   -342    -83    124 
+ -1219  -1220   -242    184 
+  -362  -1220   -342    184 
+  -130   -242    134     -4 
+  -262    190   -242   -262 
+  -362     17    117    -45 
+   -81   -110   -183    133 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 16 nsites= 46 E= 1.1e-203 
+ 0.673913  0.065217  0.108696  0.152174 
+ 0.195652  0.521739  0.260870  0.021739 
+ 0.043478  0.043478  0.869565  0.043478 
+ 0.260870  0.586957  0.043478  0.108696 
+ 0.956522  0.021739  0.000000  0.021739 
+ 0.956522  0.043478  0.000000  0.000000 
+ 0.630435  0.130435  0.021739  0.217391 
+ 0.000000  0.999998  0.000000  0.000000 
+ 0.000000  0.000000  0.999999  0.000000 
+ 0.217390  0.021738  0.130434  0.630434 
+ 0.000000  0.000000  0.043477  0.956521 
+ 0.021738  0.000000  0.021738  0.956521 
+ 0.108695  0.043477  0.586956  0.260869 
+ 0.043477  0.869564  0.043477  0.043477 
+ 0.021738  0.260869  0.521738  0.195651 
+ 0.152173  0.108695  0.065216  0.673912 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+A[CG]G[CA]AA[AT]CG[TA]TT[GT]C[GC]T
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.23 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_ECA0241(purH)                  4.50e-08  [+1(2.25e-08)]
+r_ECA0241(purH)                  4.50e-08  [+1(2.25e-08)]
+f_ECA3053(cvpA)                  2.27e-08  [+1(1.13e-08)]
+r_ECA3053(cvpA)                  2.27e-08  [+1(1.13e-08)]
+f_ECA3156(purE)                  7.76e-08  [+1(3.88e-08)]
+r_ECA3156(purE)                  7.76e-08  [+1(3.88e-08)]
+f_ECA3929(purA)                  2.08e-05  [+1(1.04e-05)]
+r_ECA3929(purA)                  2.08e-05  [+1(1.04e-05)]
+f_ECA1254(purM)                  1.06e-07  [+1(5.28e-08)]
+r_ECA1254(purM)                  1.06e-07  [+1(5.28e-08)]
+f_ECA4464(purP)                  3.87e-06  [+1(1.93e-06)]
+r_ECA4464(purP)                  3.87e-06  [+1(1.93e-06)]
+f_ECA2477(purT)                  2.37e-09  [+1(1.19e-09)]
+r_ECA2477(purT)                  2.37e-09  [+1(1.19e-09)]
+f_ECA3258(purL)                  2.97e-08  [+1(1.49e-08)]
+r_ECA3258(purL)                  2.97e-08  [+1(1.49e-08)]
+f_ECA3209(guaB)                  3.24e-06  [+1(1.62e-06)]
+r_ECA3209(guaB)                  3.24e-06  [+1(1.62e-06)]
+f_ECA0382(pyrB)                  9.21e-07  [+1(4.61e-07)]
+r_ECA0382(pyrB)                  9.21e-07  [+1(4.61e-07)]
+f_ECA4354(yhhQ)                  2.94e-06  [+1(1.47e-06)]
+r_ECA4354(yhhQ)                  2.94e-06  [+1(1.47e-06)]
+f_ECA3871(carA)                  5.95e-06  [+1(2.97e-06)]
+r_ECA3871(carA)                  5.95e-06  [+1(2.97e-06)]
+f_ECA3905(serA)                  2.23e-05  [+1(1.12e-05)]
+r_ECA3905(serA)                  2.23e-05  [+1(1.12e-05)]
+f_ECA2538(pyrD)                  5.46e-06  [+1(2.73e-06)]
+r_ECA2538(pyrD)                  5.46e-06  [+1(2.73e-06)]
+f_ECA3250(glyA)                  4.20e-06  [+1(2.10e-06)]
+r_ECA3250(glyA)                  4.20e-06  [+1(2.10e-06)]
+f_ECA2186(prs)                   9.03e-08  [+1(4.51e-08)]
+r_ECA2186(prs)                   9.03e-08  [+1(4.51e-08)]
+f_ECA1925(purR)                  2.57e-05  [+1(1.29e-05)]
+r_ECA1925(purR)                  2.57e-05  [+1(1.29e-05)]
+f_ECA2444(purB)                  7.57e-07  [+1(3.79e-07)]
+r_ECA2444(purB)                  7.57e-07  [+1(3.79e-07)]
+f_ECA0035(xanP)                  2.21e-07  [+1(1.11e-07)]
+r_ECA0035(xanP)                  2.21e-07  [+1(1.11e-07)]
+f_ECA1856(ydiJ)                  6.44e-06  [+1(3.22e-06)]
+r_ECA1856(ydiJ)                  6.44e-06  [+1(3.22e-06)]
+f_ECA0783(yjcD)                  3.69e-04  16
+r_ECA0783(yjcD)                  3.69e-04  16
+f_ECA0783_2(yjcD)                4.20e-06  [+1(2.10e-06)]
+r_ECA0783_2(yjcD)                4.20e-06  [+1(2.10e-06)]
+f_ECA3796(tsx)                   7.76e-08  [+1(3.88e-08)]
+r_ECA3796(tsx)                   7.76e-08  [+1(3.88e-08)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************
