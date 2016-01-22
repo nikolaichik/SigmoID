@@ -90,6 +90,9 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9tYXN0
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9tZW1l
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy90ZmFzdHg=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9hbGltYXNr
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9obW1idWlsZA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9uaG1tZXI=
 				End
 			End
 			Begin BuildStepList Windows

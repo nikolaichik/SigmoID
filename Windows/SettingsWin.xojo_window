@@ -1036,8 +1036,8 @@ End
 		  ''weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
 		  'tfastxPathField.text=Prefs.value("tfastxPath","/usr/local/bin/tfastx")
 		  
-		  alimaskPathField.text=Logowin.alimaskpath
-		  nhmmerPathField.text=Logowin.nhmmerpath
+		  alimaskPathField.text=alimaskpath
+		  nhmmerPathField.text=nhmmerpath
 		  hmmbuildPathField.text=hmmbuildpath
 		  MEMEPathField.text=MEMEpath
 		  MASTPathField.text=MASTpath

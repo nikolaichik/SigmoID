@@ -973,13 +973,22 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub ReadPrefs()
-		  Logowin.alimaskpath=Prefs.value("alimaskpath",SettingsWin.alimaskPathField.text)
-		  Logowin.nhmmerpath=Prefs.value("nhmmerpath",SettingsWin.nhmmerPathField.text)
-		  tfastxPath=Prefs.value("tfastxPath",SettingsWin.tfastxPathField.text)
-		  'Logowin.hmmgenpath=Prefs.value("hmmgenpath",SettingsWin.hmmgenPathField.text)
-		  hmmbuildpath=Prefs.value("hmmbuildpath",SettingsWin.hmmbuildPathField.text)
-		  MEMEpath=Prefs.value("MEMEpath",SettingsWin.MEMEPathField.text)
-		  MASTpath=Prefs.value("MASTpath",SettingsWin.MASTPathField.text)
+		  SetDefaultPaths
+		  
+		  alimaskpath=Prefs.value("alimaskpath",alimaskpath)
+		  nhmmerpath=Prefs.value("nhmmerpath",nhmmerpath)
+		  tfastxPath=Prefs.value("tfastxPath",tfastxPath)
+		  hmmbuildpath=Prefs.value("hmmbuildpath",hmmbuildpath)
+		  MEMEpath=Prefs.value("MEMEpath",MEMEpath)
+		  MASTpath=Prefs.value("MASTpath",MASTpath)
+		  
+		  SettingsWin.tfastxPathField.text=tfastxPath
+		  SettingsWin.alimaskPathField.text=alimaskpath
+		  SettingsWin.nhmmerpathField.text=nhmmerpath
+		  SettingsWin.hmmBuildPathField.text=hmmBuildPath
+		  SettingsWin.MEMEPathField.text=MEMEpath
+		  SettingsWin.MASTPathField.text=MASTpath
+		  
 		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
@@ -1379,6 +1388,90 @@ Protected Module Globals
 		  Exception err
 		    ExceptionHandler(err,"Globals:SetDefaultFonts")
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetDefaultPaths()
+		  'set defaults:
+		  dim f as folderitem
+		  
+		  #if TargetWin32
+		    f=resources_f.child("tfastx.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        tfastxPath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("alimask.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        alimaskpath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("nhmmer.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        nhmmerpath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("hmmBuild.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        hmmBuildPath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("meme.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        MEMEpath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("mast.exe")
+		    if f<>Nil then
+		      if f.exists then
+		        MASTpath=f.ShellPath
+		      end if
+		    end if
+		  #else
+		    f=resources_f.child("tfastx")
+		    if f<>Nil then
+		      if f.exists then
+		        tfastxPath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("alimask")
+		    if f<>Nil then
+		      if f.exists then
+		        alimaskpath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("nhmmer")
+		    if f<>Nil then
+		      if f.exists then
+		        nhmmerpath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("hmmbuild")
+		    if f<>Nil then
+		      if f.exists then
+		        hmmBuildPath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("meme")
+		    if f<>Nil then
+		      if f.exists then
+		        MEMEpath=f.ShellPath
+		      end if
+		    end if
+		    f=resources_f.child("mast")
+		    if f<>Nil then
+		      if f.exists then
+		        MASTpath=f.ShellPath
+		      end if
+		    end if
+		  #endif
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1947,6 +2040,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		alimaskpath As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		BLASTnDB As string
 	#tag EndProperty
 
@@ -2020,6 +2117,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		minLen As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		nhmmerPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

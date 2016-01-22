@@ -81,7 +81,7 @@ Begin Window WebBrowserWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Renderer        =   1
+      Renderer        =   0
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -103,7 +103,7 @@ Begin Window WebBrowserWin
       LockTop         =   True
       MacControlStyle =   2
       Scope           =   0
-      Segments        =   "\nchevronleft2x\nFalse\r\nchevronright2x\nFalse"
+      Segments        =   "\nchevronleft2x\nFalse\r\n\nFalse\r\nchevronright2x\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
       Top             =   4

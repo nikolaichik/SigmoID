@@ -9,7 +9,7 @@ Begin Window LogoWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   512
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -47,7 +47,7 @@ Begin Window LogoWin
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   400
+      Height          =   512
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -356,97 +356,10 @@ End
 		  'a proper check for monospaced font is required
 		  STDOUT.TextFont="Courier"
 		  STDOUT.Refresh(false)
-		  
+		   
 		  
 		  ReadPrefs
 		  
-		  #if TargetWin32
-		    f=resources_f.child("tfastx.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        tfastxPath=f.ShellPath
-		        SettingsWin.tfastxPathField.text=tfastxPath
-		      end if
-		    end if
-		    f=resources_f.child("alimask.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        alimaskpath=f.ShellPath
-		        SettingsWin.alimaskPathField.text=alimaskpath
-		      end if
-		    end if
-		    f=resources_f.child("nhmmer.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        nhmmerpath=f.ShellPath
-		        SettingsWin.nhmmerpathField.text=nhmmerpath
-		      end if
-		    end if
-		    f=resources_f.child("hmmBuild.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        hmmBuildPath=f.ShellPath
-		        SettingsWin.hmmBuildPathField.text=hmmBuildPath
-		      end if
-		    end if
-		    f=resources_f.child("meme.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        MEMEpath=f.ShellPath
-		        SettingsWin.MEMEPathField.text=MEMEpath
-		      end if
-		    end if
-		    f=resources_f.child("mast.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        MASTpath=f.ShellPath
-		        SettingsWin.MASTPathField.text=MASTpath
-		      end if
-		    end if
-		  #elseif TargetLinux
-		    f=resources_f.child("tfastx")
-		    if f<>Nil then
-		      if f.exists then
-		        tfastxPath=f.ShellPath
-		        SettingsWin.tfastxPathField.text=tfastxPath
-		      end if
-		    end if
-		    f=resources_f.child("alimask")
-		    if f<>Nil then
-		      if f.exists then
-		        alimaskpath=f.ShellPath
-		        SettingsWin.alimaskPathField.text=alimaskpath
-		      end if
-		    end if
-		    f=resources_f.child("nhmmer")
-		    if f<>Nil then
-		      if f.exists then
-		        nhmmerpath=f.ShellPath
-		        SettingsWin.nhmmerpathField.text=nhmmerpath
-		      end if
-		    end if
-		    f=resources_f.child("hmmBuild")
-		    if f<>Nil then
-		      if f.exists then
-		        hmmBuildPath=f.ShellPath
-		        SettingsWin.hmmBuildPathField.text=hmmBuildPath
-		      end if
-		    end if
-		    f=resources_f.child("meme")
-		    if f<>Nil then
-		      if f.exists then
-		        MEMEpath=f.ShellPath
-		        SettingsWin.MEMEPathField.text=MEMEpath
-		      end if
-		    end if
-		    f=resources_f.child("mast")
-		    if f<>Nil then
-		      if f.exists then
-		        MASTpath=f.ShellPath
-		        SettingsWin.MASTPathField.text=MASTpath
-		      end if
-		    end if
-		  #endif
 		  
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then
@@ -532,13 +445,13 @@ End
 		  sh.execute cli
 		  If sh.errorCode=0 then
 		    if instr(Sh.Result,"command not found")>0 then
-		      WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine)
+		      WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
 		      allProgsFine=false
 		    else
 		      WriteToSTDOUT (Sh.Result)
 		    end if
 		  else
-		    WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine)
+		    WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
 		    allProgsFine=false
 		  end if
 		  
@@ -579,7 +492,7 @@ End
 		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
 		      s=nthfield((S),"HMMER",2)
 		      s=trim(nthfield((S),";",1)) 'that will result in smth like "3.1b1 (May 2013)"
-		      WriteToSTDOUT (s+EndOfLine)
+		      WriteToSTDOUT (s+EndOfLine.unix)
 		      nhmmerVersion=trim(nthfield((S),"(",1))
 		    else
 		      WriteToSTDOUT ("No nhmmer found at "+nhmmerPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
@@ -616,7 +529,7 @@ End
 		  
 		  
 		  'alimask
-		  WriteToSTDOUT (EndofLine+"Looking for alimask...")
+		  WriteToSTDOUT (EndofLine.unix+"Looking for alimask...")
 		  cli=alimaskPath+" -h"
 		  sh=New Shell
 		  sh.mode=0
@@ -631,16 +544,16 @@ End
 		      WriteToSTDOUT (s)
 		      
 		    else
-		      WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine)
+		      WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine.unix)
 		      allProgsFine=false
 		    end if
 		  else
-		    WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine)
+		    WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine.unix)
 		    allProgsFine=false
 		  end if
 		  
 		  'transterm
-		  WriteToSTDOUT (EndofLine+"Looking for TransTerm... ")
+		  WriteToSTDOUT (EndofLine.unix+"Looking for TransTerm... ")
 		  #if TargetWin32
 		    f=resources_f.child("transterm.exe")
 		  #else
@@ -658,29 +571,26 @@ End
 		        s=nthfield((Sh.Result),EndOfLine.Unix,1)
 		        if instr(s,"TransTermHP")>0 then
 		          WriteToSTDOUT (s)
-		          #if TargetWin32 
-		            WriteToSTDOUT (EndOfLine.Unix)
-		          #endif
 		        else
-		          WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
+		          WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
 		          allProgsFine=false
 		        end if
 		      else
-		        WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
+		        WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
 		        allProgsFine=false
 		      end if
 		    else
-		      WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
+		      WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
 		      allProgsFine=false
 		    end if
 		  else
-		    WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine)
+		    WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
 		    allProgsFine=false
 		  end if
 		  
 		  
 		  'MEME
-		  WriteToSTDOUT (EndofLine+"Looking for MEME... ")
+		  WriteToSTDOUT (EndofLine.unix+"Looking for MEME... ")
 		  cli=memePath+" -version"
 		  sh=New Shell
 		  sh.mode=0
@@ -722,11 +632,11 @@ End
 		      s=nthfield((S),EndOfLine.Unix,1)
 		      WriteToSTDOUT (s+EndOfLine.UNIX)
 		    else
-		      WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine)
+		      WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine.unix)
 		      allProgsFine=false
 		    end if
 		  else
-		    WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine)
+		    WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine.unix)
 		    allProgsFine=false
 		  end if
 		  
@@ -740,8 +650,8 @@ End
 		  dim hmmg as boolean=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine,1),"HmmGen")>0 then
-		      if CountFields(Sh.Result,EndOfLine)=2 then
+		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"HmmGen")>0 then
+		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
@@ -764,8 +674,8 @@ End
 		  sh.execute cli
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine,1),"MastGen")>0 then
-		      if CountFields(Sh.Result,EndOfLine)=2 then
+		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"MastGen")>0 then
+		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
@@ -789,8 +699,8 @@ End
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine,1),"TermGen")>0 then
-		      if CountFields(Sh.Result,EndOfLine)=2 then
+		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"TermGen")>0 then
+		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
@@ -814,8 +724,8 @@ End
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine,1),"OperOn")>0 then
-		      if CountFields(Sh.Result,EndOfLine)=2 then
+		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"OperOn")>0 then
+		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
@@ -864,7 +774,7 @@ End
 		  LogoWinToolbar.Item(4).Enabled=false 'palindromise: disable until alignment loaded
 		  LogoWinToolbar.Item(5).Enabled=false 'SaveLog: disable until alignment loaded
 		  
-		  WriteToSTDOUT (EndofLine+EndofLine+"Load alignment or genome file to start."+EndofLine.Unix)
+		  WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Load alignment or genome file to start."+EndofLine.Unix)
 		  
 		  ViewHideViewer.Checked=true
 		  
@@ -4056,10 +3966,6 @@ End
 
 
 	#tag Property, Flags = &h0
-		alimaskpath As string
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		alimaskTmp As folderitem
 	#tag EndProperty
 
@@ -4161,10 +4067,6 @@ End
 
 	#tag Property, Flags = &h0
 		nhmmerOptions As string
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		nhmmerPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

@@ -5285,7 +5285,7 @@ End
 		    end if
 		    
 		    #if TargetWin32
-		      ttip=replaceall(ttip,EndOfLine.UNIX,EndOfLine.Windows)
+		      ttip=replaceall(ttip,EndOfLine.UNIX,EndOfLine) 'di
 		    #endif
 		    
 		    TTx=X+self.Left
