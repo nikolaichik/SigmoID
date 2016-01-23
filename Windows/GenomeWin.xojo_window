@@ -5285,7 +5285,11 @@ End
 		    end if
 		    
 		    #if TargetWin32
-		      ttip=replaceall(ttip,EndOfLine.UNIX,EndOfLine) 'di
+		      dim CRLF as string = chr(13)+chr(10)
+		      if instr(ttip, CRLF)=0 then
+		        ttip=replaceall(ttip,EndOfLine.UNIX,EndOfLine) 'different line ends on different Windows machines
+		      end if
+		      ttip=trim(ttip)
 		    #endif
 		    
 		    TTx=X+self.Left

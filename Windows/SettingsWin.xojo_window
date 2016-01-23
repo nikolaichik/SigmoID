@@ -18,7 +18,7 @@ Begin Window SettingsWin
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
-   MinHeight       =   220
+   MinHeight       =   320
    MinimizeButton  =   True
    MinWidth        =   400
    Placement       =   0
@@ -116,7 +116,7 @@ Begin Window SettingsWin
       TabIndex        =   17
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   2
+      Value           =   1
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox1
@@ -660,7 +660,7 @@ Begin Window SettingsWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          TabIndex        =   1
@@ -725,7 +725,7 @@ Begin Window SettingsWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          TabIndex        =   3
@@ -762,7 +762,7 @@ Begin Window SettingsWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -929,7 +929,7 @@ Begin Window SettingsWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          TabIndex        =   6
@@ -984,8 +984,8 @@ Begin Window SettingsWin
             Left            =   340
             LockBottom      =   False
             LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
+            LockLeft        =   False
+            LockRight       =   True
             LockTop         =   True
             Scope           =   0
             TabIndex        =   1

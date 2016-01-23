@@ -103,7 +103,7 @@ Begin Window WebBrowserWin
       LockTop         =   True
       MacControlStyle =   2
       Scope           =   0
-      Segments        =   "\nchevronleft2x\nFalse\r\n\nFalse\r\nchevronright2x\nFalse"
+      Segments        =   "\nbr_prev_icon16\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
       Top             =   4
