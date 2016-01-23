@@ -24,7 +24,7 @@ At the moment SigmoID is known to work on OS X (10.8 and 10.9 tested), 32-bit Ub
 
 Full list of platform-specific system requirements is located at Xojo site: http://developer.xojo.com/system-requirements 
 
-Additional info and short instructions are in the help file.
+Additional info and short instructions are in the help file: https://github.com/nikolaichik/SigmoID/blob/master/Help/index.html.
 
 Compiled applications for all supported platforms are located in the 'Builds - Sigmoid.xojo_project' folder.
 
