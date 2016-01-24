@@ -2471,6 +2471,35 @@ End
 		      if Ubound(genomeWin.HmmHits)>0 then
 		        RegPreciseCompareScores.Enabled=true
 		      end if
+		      
+		      dim count, i as Integer
+		      
+		      // Get a handle to our parent sub menu.
+		      Dim parent, child as MenuItem
+		      parent = MainMenuBar.Child( kWindows )    // Get the window menu
+		      if parent = nil then return
+		      
+		      // Clear the existing menu
+		      for i=parent.Count-1 downto 0
+		        parent.Remove(i)
+		      next
+		      
+		      // Add the windows to the menu
+		      count = WindowCount
+		      
+		      for i = 0 to count - 1
+		        // Construct the child item
+		        if Window(i).visible then
+		          child = new WindowMenuItem(Window(i))
+		          // And add it to the menu
+		          parent.Append( child )
+		        end if
+		      next i
+		      
+		      if Window(0) isA GenomeWin or Window(0) isA RegPreciseWin or Window(0) isA WebBrowserWin or Window(0) isA HelpWin then
+		        FileClose.enabled=true
+		      end if
+		      
 		    #endif
 		  #endif
 		End Sub

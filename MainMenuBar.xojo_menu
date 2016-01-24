@@ -20,21 +20,21 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "#kSaveProfileAs"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileSaveAlignmentSelection
          SpecialMenu = 0
          Text = "#kSaveAlignmentSelection"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileSaveLogo
          SpecialMenu = 0
          Text = "#kSaveLogoPicture"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem FileClose
@@ -251,7 +251,7 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "#kSequences"
          Index = -2147483648
-         AutoEnable = True
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem ViewAlignmentInfo
