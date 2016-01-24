@@ -356,7 +356,7 @@ End
 		  'a proper check for monospaced font is required
 		  STDOUT.TextFont="Courier"
 		  STDOUT.Refresh(false)
-		   
+		  
 		  
 		  ReadPrefs
 		  
@@ -481,7 +481,11 @@ End
 		  
 		  'nhmmer
 		  WriteToSTDOUT ("Looking for nhmmer... ")
-		  cli=nhmmerPath+" -h"
+		  #if TargetWin32
+		    cli=chr(34)+nhmmerPath+chr(34)+" -h"
+		  #else
+		    cli=nhmmerPath+" -h"
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -505,7 +509,11 @@ End
 		  
 		  'hmmbuild
 		  WriteToSTDOUT ("Looking for hmmbuild... ")
-		  cli=hmmBuildPath+" -h"
+		  #if TargetWin32
+		    cli=chr(34)+hmmBuildPath+chr(34)+" -h"
+		  #else
+		    cli=hmmBuildPath+" -h"
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -530,7 +538,11 @@ End
 		  
 		  'alimask
 		  WriteToSTDOUT (EndofLine.unix+"Looking for alimask...")
-		  cli=alimaskPath+" -h"
+		  #if TargetWin32
+		    cli=chr(34)+alimaskPath+chr(34)+" -h"
+		  #else
+		    cli=alimaskPath+" -h"
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -561,7 +573,11 @@ End
 		  #endif
 		  if f<>Nil then
 		    if f.exists then
-		      cli=f.ShellPath+" -h"
+		      #if TargetWin32
+		        cli=chr(34)+f.ShellPath+chr(34)+" -h"
+		      #else
+		        cli=f.ShellPath+" -h"
+		      #endif
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
@@ -591,7 +607,11 @@ End
 		  
 		  'MEME
 		  WriteToSTDOUT (EndofLine.unix+"Looking for MEME... ")
-		  cli=memePath+" -version"
+		  #if TargetWin32
+		    cli=chr(34)+memePath+chr(34)+" -version"
+		  #else
+		    cli=memePath+" -version"
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -605,7 +625,11 @@ End
 		  
 		  'MAST
 		  WriteToSTDOUT ("Looking for MAST... ")
-		  cli=MASTPath+" -version"
+		  #if TargetWin32
+		    cli=chr(34)+MASTPath+chr(34)+" -version"
+		  #else
+		    cli=MASTPath+" -version"
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -620,7 +644,11 @@ End
 		  
 		  'tfastx
 		  WriteToSTDOUT ("Looking for tfastx... ")
-		  cli=tfastxPath
+		  #if TargetWin32
+		    cli=chr(34)+tfastxPath+chr(34)
+		  #else
+		    cli=tfastxPath
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -642,7 +670,11 @@ End
 		  
 		  'hmmgen
 		  WriteToSTDOUT ("Checking the HmmGen script... ")
-		  cli="python "+hmmGenPath+" -v"
+		  #if TargetWin32
+		    cli="python "+chr(34)+hmmGenPath+chr(34)+" -v"
+		  #else
+		    cli="python "+hmmGenPath+" -v"
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -667,7 +699,11 @@ End
 		  
 		  'mastgen
 		  WriteToSTDOUT ("Checking the MastGen script... ")
-		  cli="python "+MastGenPath+" -v"
+		  #if TargetWin32
+		    cli="python "+chr(34)+MastGenPath+chr(34)+" -v"
+		  #else
+		    cli="python "+MastGenPath+" -v"
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -691,7 +727,11 @@ End
 		  
 		  'TermGen
 		  WriteToSTDOUT ("Checking the TermGen script... ")
-		  cli="python "+TermGenPath+" -v"
+		  #if TargetWin32
+		    cli="python "+chr(34)+TermGenPath+chr(34)+" -v"
+		  #else
+		    cli="python "+TermGenPath+" -v"
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -714,9 +754,13 @@ End
 		    allProgsFine=false
 		  end if
 		  
-		  'hmmgen
+		  'OperOn
 		  WriteToSTDOUT ("Checking the OperOn script... ")
-		  cli="python "+OperOnPath+" -v"
+		  #if TargetWin32
+		    cli="python "+chr(34)+OperOnPath+chr(34)+" -v"
+		  #else
+		    cli="python "+OperOnPath+" -v"
+		  #endif
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -4503,12 +4547,6 @@ End
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
-		Name="alimaskpath"
-		Group="Behavior"
-		Type="string"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="BackColor"
 		Visible=true
 		Group="Appearance"
@@ -4730,12 +4768,6 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="nhmmerOptions"
-		Group="Behavior"
-		Type="string"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="nhmmerPath"
 		Group="Behavior"
 		Type="string"
 		EditorType="MultiLineEditor"

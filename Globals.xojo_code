@@ -975,12 +975,15 @@ Protected Module Globals
 		Sub ReadPrefs()
 		  SetDefaultPaths
 		  
-		  alimaskpath=Prefs.value("alimaskpath",alimaskpath)
-		  nhmmerpath=Prefs.value("nhmmerpath",nhmmerpath)
-		  tfastxPath=Prefs.value("tfastxPath",tfastxPath)
-		  hmmbuildpath=Prefs.value("hmmbuildpath",hmmbuildpath)
-		  MEMEpath=Prefs.value("MEMEpath",MEMEpath)
-		  MASTpath=Prefs.value("MASTpath",MASTpath)
+		  if PathsChanged then
+		    alimaskpath=Prefs.value("alimaskpath",alimaskpath)
+		    nhmmerpath=Prefs.value("nhmmerpath",nhmmerpath)
+		    tfastxPath=Prefs.value("tfastxPath",tfastxPath)
+		    hmmbuildpath=Prefs.value("hmmbuildpath",hmmbuildpath)
+		    MEMEpath=Prefs.value("MEMEpath",MEMEpath)
+		    MASTpath=Prefs.value("MASTpath",MASTpath)
+		    PathsChanged=false
+		  end if
 		  
 		  SettingsWin.tfastxPathField.text=tfastxPath
 		  SettingsWin.alimaskPathField.text=alimaskpath
@@ -2135,6 +2138,10 @@ Protected Module Globals
 		ORFStarts As string
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		PathsChanged As boolean
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -2198,6 +2205,11 @@ Protected Module Globals
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="alimaskpath"
+			Group="Behavior"
+			Type="string"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BLASTnDB"
 			Group="Behavior"
@@ -2321,6 +2333,11 @@ Protected Module Globals
 			Visible=true
 			Group="ID"
 			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="nhmmerPath"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="nhmmerVersion"

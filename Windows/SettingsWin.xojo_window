@@ -116,7 +116,7 @@ Begin Window SettingsWin
       TabIndex        =   17
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox1
@@ -1128,6 +1128,54 @@ End
 		    toolbutton(me.Item(1)).Pushed=false
 		    toolbutton(me.Item(0)).Pushed=false
 		  end select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events nhmmerPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events alimaskPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events hmmBuildPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MEMEPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MASTPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events tfastxPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

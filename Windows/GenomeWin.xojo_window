@@ -5419,6 +5419,19 @@ End
 		    ExceptionHandler(err,"GenomeWin:SegmentedControl1:Action")
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  #if Target64Bit
+		    'SegmentedControl doesn't show icons on Linux 64-bit
+		    Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
+		    Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
+		    s0.Icon=nil
+		    s0.Title="<"
+		    s2.Icon=nil
+		    s2.Title=">"
+		  #endif
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events FeatureBox
 	#tag Event
