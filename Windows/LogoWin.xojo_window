@@ -2500,6 +2500,12 @@ End
 		        FileClose.enabled=true
 		      end if
 		      
+		      if NOT GenomeWin.visible then
+		        FileExportSequence.enabled=false
+		        FileExportFeatureTable.enabled=false
+		        GenomeListRegulons.enabled=false
+		      end if
+		      
 		    #endif
 		  #endif
 		End Sub
@@ -4488,7 +4494,7 @@ End
 		    #endif
 		  end if
 		  
-		  
+		  EMI
 		End Sub
 	#tag EndEvent
 	#tag Event
