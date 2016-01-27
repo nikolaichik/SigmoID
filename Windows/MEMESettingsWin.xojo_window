@@ -603,10 +603,13 @@ End
 		    dim cli as string
 		    Dim sh As Shell
 		    
-		    
-		    
-		    
-		    cli=MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    'need to set MEME_BIN_DIRS for the bundled meme version
+		    #if targetWin32
+		      dim MEME_BIN_DIRS as string=nthfield(MEMEpath,"/meme.exe",1)
+		    #else
+		      dim MEME_BIN_DIRS as string=nthfield(MEMEpath,"/meme",1)
+		    #endif
+		    cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		    cli=cli+" -maxw "+str(MaxField.text)
 		    
 		    '[-pal]            force palindromes (requires -dna)

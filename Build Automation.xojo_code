@@ -93,6 +93,12 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9hbGltYXNr
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9obW1idWlsZA==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9uaG1tZXI=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9tZW1lX3htbF90b19odG1s
+				End
+				Begin CopyFilesBuildStep CopyFiles11
+					AppliesTo = 0
+					Destination = 4
+					Subdirectory = 
 				End
 			End
 			Begin BuildStepList Windows
