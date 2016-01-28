@@ -604,12 +604,68 @@ End
 		    Dim sh As Shell
 		    
 		    'need to set MEME_BIN_DIRS for the bundled meme version
+		    dim MEME_BIN_DIRS as string
 		    #if targetWin32
-		      dim MEME_BIN_DIRS as string=nthfield(MEMEpath,"/meme.exe",1)
+		      'MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
+		      dim ff as folderitem
+		      ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		      if ff<>NIL AND ff.exists then
+		        'it's already there
+		        MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		      else
+		        ff=resources_f.child("meme_xml_to_html")
+		        if ff<>NIL AND ff.exists then
+		          ff.copyfileto(SpecialFolder.Temporary)
+		          MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		        end if
+		        ff=resources_f.child("meme.exe")
+		        if ff<>NIL AND ff.exists then
+		          ff.copyfileto(SpecialFolder.Temporary)
+		        end if
+		      end if
+		      
+		      'need to copy the dlls too!
+		      
+		      
+		      
+		    #elseif targetLinux
+		      MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
+		      if instr(MEME_BIN_DIRS," ")>0 then
+		        moved2tmp=true
+		        'MEME_BIN_DIRS should not have white space, so moving the script to /tmp
+		        dim ff as folderitem
+		        ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		        if ff<>NIL AND ff.exists then
+		          'it's already there
+		          MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		        else
+		          ff=resources_f.child("meme_xml_to_html")
+		          if ff<>NIL AND ff.exists then
+		            ff.copyfileto(SpecialFolder.Temporary)
+		            MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		          end if
+		          ff=resources_f.child("meme")
+		          if ff<>NIL AND ff.exists then
+		            ff.copyfileto(SpecialFolder.Temporary)
+		          end if
+		        end if
+		      end if
+		      
 		    #else
-		      dim MEME_BIN_DIRS as string=nthfield(MEMEpath,"/meme",1)
+		      MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
 		    #endif
-		    cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    
+		    #if TargetLinux
+		      if moved2tmp then
+		        cli="/tmp/meme"+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		      else
+		        cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		      end if
+		    #elseif TargetWin32
+		      cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    #else
+		      cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    #endif
 		    cli=cli+" -maxw "+str(MaxField.text)
 		    
 		    '[-pal]            force palindromes (requires -dna)
@@ -671,6 +727,10 @@ End
 		End Function
 	#tag EndMethod
 
+
+	#tag Property, Flags = &h0
+		moved2tmp As Boolean
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		OKPressed As boolean
