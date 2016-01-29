@@ -128,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -1792,7 +1793,10 @@ End
 		      if Achar<>">" AND len(Arow)>0 then
 		        if len(Arow)<>SeqLen then
 		          msgbox "The sequences are of different lengths! Can't draw the logo for unaligned sequences!"
+		          LengthsDiffer=true
 		          return
+		        else
+		          LengthsDiffer=false
 		        end if
 		        
 		        for n=1 to SeqLen

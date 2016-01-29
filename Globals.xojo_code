@@ -248,16 +248,15 @@ Protected Module Globals
 		    
 		  next
 		  
-		  LogoWin.WriteToSTDOUT(EndOfLine)
+		  LogoWin.WriteToSTDOUT(EndOfLine.unix)
 		  if ubound(missedHits)>0 then
-		    LogoWin.WriteToSTDOUT("Some training set sites were missed by SigmoID:"+EndOfLine)
+		    LogoWin.WriteToSTDOUT("Some training set sites were missed by SigmoID:"+EndOfLine.unix)
 		    for n=1 to ubound(missedHits)
-		      LogoWin.WriteToSTDOUT(missedHits(n)+EndOfLine)
+		      LogoWin.WriteToSTDOUT(missedHits(n)+EndOfLine.unix)
 		    next
 		  end if
 		  
-		  LogoWin.WriteToSTDOUT(EndOfLine+"Minimal score found: "+str(minScore)+EndOfLine)
-		  
+		  LogoWin.WriteToSTDOUT(EndOfLine+"Minimal score found: "+str(minScore)+EndOfLine.unix)
 		  ProfileWizardWin.GatheringField.Text=str(minScore)
 		End Function
 	#tag EndMethod
@@ -2091,6 +2090,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		LengthsDiffer As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		LF As string
 	#tag EndProperty
 
@@ -2209,6 +2212,7 @@ Protected Module Globals
 			Name="alimaskpath"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BLASTnDB"
@@ -2338,6 +2342,7 @@ Protected Module Globals
 			Name="nhmmerPath"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="nhmmerVersion"
@@ -2356,6 +2361,11 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PathsChanged"
+			Group="Behavior"
+			Type="boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ProfileFpath"

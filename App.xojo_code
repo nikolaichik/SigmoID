@@ -139,7 +139,12 @@ Inherits Application
 		  
 		  ProfileWizardWin.hide 'initialise to avoid showing at profile calibration
 		  
-		  'ReadPrefs
+		  
+		  #if targetwin32 then
+		    'No luck with this on Windows
+		    AlignmentMEME.Enabled=false
+		    AlignmentMEME.Visible=false
+		  #endif
 		  
 		End Sub
 	#tag EndEvent
@@ -737,8 +742,10 @@ Inherits Application
 		45. Wrong item number in regprecise window list (RegPrecise's fault)
 		46. Check and warn about the multiple entries in GenBank file
 		47. for plain text search results only first 100 are shown. This should probably be configurable
-		48. [Win10] scrolling the map in GBrowserWin clears the htmlviewer below (overlapping controls?)
-		
+		48. Recheck that the "use next locus tag" option is newer checked by default 
+		    (it's checked when opening a fasta or making a new .sig)
+		49. HmmGen may exit with error 1 after profile editing - recheck! (file ref problem?)
+		50. At startup, display current prefs: Profile folder and database options. 
 		
 		64-bit issues:
 		1. [Workarounds added] VirtualVolume is broken

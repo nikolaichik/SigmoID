@@ -48,6 +48,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Extend sites in the opened alignment by the specified number of base pairs to the left and to the right. Results will appear in the log field."
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -82,6 +83,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Left:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -116,6 +118,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Right:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -338,6 +341,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -403,7 +407,6 @@ End
 	#tag Event
 		Sub Action()
 		  dim instream, instream2 as TextInputStream
-		  'dim outstream As TextOutputStream
 		  dim aLine,title, seq,seqRevSeq,site, newsite,s0 as string
 		  dim sitecount,sitepos, leftExt, rightExt, en, n As integer
 		  
@@ -465,6 +468,10 @@ End
 		        title=aline
 		      else
 		        site=trim(aline)
+		        if instr(site,"N")>0 then
+		          msgbox "Sites with redundant bases are not currently supported by this function"
+		          return
+		        end if
 		        sitecount=CountFields(seqRevSeq,site)-1
 		        if sitecount>0 then
 		          if sitecount>1 then

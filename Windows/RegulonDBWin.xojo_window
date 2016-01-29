@@ -1111,7 +1111,11 @@ End
 		      OutStream.Close
 		      logowin.Title="SigmoID: "+TFname+" (RegulonDB)"
 		      logowin.LoadAlignment(tmpfile)
-		      logowin.ChangeView("Logo")
+		      if LengthsDiffer then
+		        logowin.ChangeView("Sequences")
+		      else
+		        logowin.ChangeView("Logo")
+		      end if
 		      HmmGenSettingsWin.ValueField.text=TFname
 		      MASTGenSettingsWin.ValueField.text=TFname
 		      ProfileWizardWin.ValueField.text=TFname
