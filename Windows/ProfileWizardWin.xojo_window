@@ -955,14 +955,14 @@ End
 		    dlg.ActionButtonCaption = "Save"
 		    dlg.Title = "Save .sig File"
 		    dlg.PromptText = "Save calibrated profile with postprocessing settings"
-		    dlg.SuggestedFileName=Nthfield(LogoWin.LogoFile.Name, ".",1)+".sig"
+		    dlg.SuggestedFileName=trim(ValueField.Text)+".sig"
 		    dlg.filter = "Sig_file"
 		    dlg.InitialDirectory = Profile_f
 		    
 		    SigFile=dlg.ShowModal
 		    If SigFile <> Nil then
 		      if SigFile.exists then
-		        'workaround for virtualfolder problem
+		        'a VirtualVolume problem
 		        msgbox "Can't overwrithe the existing .sig folder. Please remove it or save the new file with a different name"
 		        return
 		      end if
@@ -1247,14 +1247,14 @@ End
 		    dlg.ActionButtonCaption = "Save"
 		    dlg.Title = "Save .sig File"
 		    dlg.PromptText = "Save calibrated profile with postprocessing settings"
-		    dlg.SuggestedFileName=Nthfield(LogoWin.LogoFile.Name, ".",1)+".sig"
+		    dlg.SuggestedFileName=trim(ValueField.Text)+".sig"
 		    dlg.filter = "Sig_file"
 		    dlg.InitialDirectory = Profile_f
 		    
 		    SigFile=dlg.ShowModal
 		    If SigFile <> Nil then
 		      if SigFile.exists then
-		        'workaround for virtualfolder problem
+		        'a virtualVolume problem
 		        #if TargetLinux
 		          'SpecialFolder.Trash returns NIL in Linux, hence we can't do this properly here
 		          msgbox "Can't overwrithe the existing .sig file. Please remove it or save the new file with a different name"

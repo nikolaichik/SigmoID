@@ -45,10 +45,15 @@ Inherits Application
 		    // Construct the child item
 		    if Window(i).visible then
 		      child = new WindowMenuItem(Window(i))
+		      if i=0 then
+		        'add checkmark to the front window menuitem
+		        child.Checked=true
+		      end if
 		      // And add it to the menu
 		      parent.Append( child )
 		    end if
 		  next i
+		  
 		  
 		  if Window(0) isA GenomeWin or Window(0) isA RegPreciseWin or Window(0) isA WebBrowserWin or Window(0) isA HelpWin then
 		    FileClose.enabled=true
@@ -141,7 +146,8 @@ Inherits Application
 		  
 		  
 		  #if targetwin32 then
-		    'No luck with this on Windows
+		    'No luck with this on Windows, use the 'Convert to MEME' command
+		    '(does the same, but outputs plain text to the log pane)
 		    AlignmentMEME.Enabled=false
 		    AlignmentMEME.Visible=false
 		  #endif
@@ -746,6 +752,7 @@ Inherits Application
 		    (it's checked when opening a fasta or making a new .sig)
 		49. HmmGen may exit with error 1 after profile editing - recheck! (file ref problem?)
 		50. At startup, display current prefs: Profile folder and database options. 
+		51. Rewrite window menu (it's recreated in every EnableMenuItems, so window positions jump all the time) 
 		
 		64-bit issues:
 		1. [Workarounds added] VirtualVolume is broken

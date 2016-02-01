@@ -1537,6 +1537,7 @@ End
 		        outstream.close
 		        LoadAlignment(BSfastaFile)
 		        logowin.ChangeView("Logo")
+		        MEMEdata=""
 		        WriteToSTDOUT("Edited alignment loaded."+EndOfLine.unix)
 		      end if
 		    end if
@@ -1791,6 +1792,7 @@ End
 		      Arow=trim(Arow) 'just in case
 		      Achar=left(Arow,1)
 		      if Achar<>">" AND len(Arow)>0 then
+		        replicas=replicas+1
 		        if len(Arow)<>SeqLen then
 		          msgbox "The sequences are of different lengths! Can't draw the logo for unaligned sequences!"
 		          LengthsDiffer=true
@@ -1826,9 +1828,6 @@ End
 		  
 		  LogoPic=new Picture (30*(SeqLen+1),170,32)
 		  LogoPic.Transparent=1
-		  
-		  'count number of replicates (bases per position)
-		  replicas=Acounter(1)+Ccounter(1)+Gcounter(1)+Tcounter(1)
 		  
 		  for n=1 to SeqLen
 		    'combine letter names with counts for sorting
@@ -2910,8 +2909,8 @@ End
 		      HmmGenSettingsWin.IntergenicBox.value=True
 		      ProfileWizardWin.WithinORFBox.value=True
 		      HmmGenSettingsWin.AddQualifierBox.value=True
-		      HmmGenSettingsWin.NextLocusBox.value=True
-		      ProfileWizardWin.NextLocusBox.value=True
+		      HmmGenSettingsWin.NextLocusBox.value=False
+		      ProfileWizardWin.NextLocusBox.value=False
 		      OptionsNo=countFields(ProfileSettings,"HmmGen.")
 		      for n=1 to OptionsNo
 		        theOption=NthField(ProfileSettings,"HmmGen.",n+1)
@@ -2975,7 +2974,7 @@ End
 		      HmmGenSettingsWin.PalindromicBox.value=False
 		      HmmGenSettingsWin.IntergenicBox.value=True
 		      HmmGenSettingsWin.AddQualifierBox.value=True
-		      HmmGenSettingsWin.NextLocusBox.value=True
+		      HmmGenSettingsWin.NextLocusBox.value=False
 		      HmmGenSettingsWin.EvalueField.enabled=true
 		      HmmGenSettingsWin.EvalueButton.enabled=true
 		      nhmmerSettingsWin.MaskingBox.enabled=true
@@ -2999,7 +2998,7 @@ End
 		        ProfileWizardWin.TrustedField.text=""
 		        ProfileWizardWin.PalindromicBox.value=false
 		        ProfileWizardWin.WithinORFBox.value=True
-		        ProfileWizardWin.NextLocusBox.value=True
+		        ProfileWizardWin.NextLocusBox.value=False
 		        if Not SeqsChanged then 'otherwise editing the same profile twice leads to HmmGen.py error 
 		          ProfileWizardWin.ValueField.text=""
 		        end if

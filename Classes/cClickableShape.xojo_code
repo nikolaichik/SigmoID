@@ -45,6 +45,12 @@ Inherits FigureShape
 		  
 		  wid=(maxX-minX)'*me.scale
 		  hei=(maxY-minY)'*me.scale
+		  if wid>32766 then
+		    'the max width of object2D is 32767,
+		    'we simply assume here that the object covers all screen
+		    '(which isn't the case when obj end is onscreen)
+		    return true
+		  end if
 		  p = new Picture (wid+1, hei+1)
 		  if p = nil then
 		    'beep
