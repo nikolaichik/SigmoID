@@ -1,0 +1,4 @@
+This profile is based on RegPrecise data for P. atrosepticum SCRI 1043 with addition of the binding site in front of accD. The cutoff score is set  rather low to allow identification of the site in front of fadD. With this setting, two possible false positives may be picked up. 
+
+RegPrecise info:
+Transcription factor FadR from the GntR protein family regulates the fatty acid utilization genes in Gammaproteobacteria. It was originally characterized in Escherichia coli as a repressor of the fatty acid degradation genes, and later it was shown to act as an activator of the fatty acid biosynthesis genes fabA and fabB. The comparative genomic approach was used to reconstruct FadR regulons in Enterobacteria and other Gammaproteobacteria [doi: 10.1128/JB.01175-08]. In some lineages of Gammaproteobacteria, FadR co-exists with another regulator of fatty acid degradation genes, PsrA (TetR family).

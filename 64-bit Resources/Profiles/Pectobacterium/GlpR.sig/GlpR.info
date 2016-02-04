@@ -1,0 +1,2 @@
+GlpR is the repressor of the glycerol-3-phosphate regulon, genes of which are usually organized into five operons.
+This profile was built starting with RegPrecise data for P. atrosepticum SCRI 1043 and iteratively adding matching sites from other pectobacteria and D. dadantii. The final profile is extended by four bases at each end and includes 11 non-redundant sequences. 

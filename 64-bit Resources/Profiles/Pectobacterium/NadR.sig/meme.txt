@@ -1,0 +1,287 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_nadR_Pca3-2_PwaSCC3193 1.0000     18  r_nadR_Pca3-2_PwaSCC3193 1.0000     18  
+f_nadA_Pca3-2            1.0000     18  r_nadA_Pca3-2            1.0000     18  
+f_nadR_Pat21A            1.0000     18  r_nadR_Pat21A            1.0000     18  
+f_nadA_Pat21A            1.0000     18  r_nadA_Pat21A            1.0000     18  
+f_nadA_PwaSCC3193        1.0000     18  r_nadA_PwaSCC3193        1.0000     18  
+f_pncB_Dda3937           1.0000     18  r_pncB_Dda3937           1.0000     18  
+f_nadB1_Dda3937          1.0000     18  r_nadB1_Dda3937          1.0000     18  
+f_nadB2_Dda3937          1.0000     18  r_nadB2_Dda3937          1.0000     18  
+f_nadA1_Dda3937          1.0000     18  r_nadA1_Dda3937          1.0000     18  
+f_nadA2_Dda3937          1.0000     18  r_nadA2_Dda3937          1.0000     18  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           18    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       20    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             360    N=              20
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.394 C 0.106 G 0.106 T 0.394 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.393 C 0.107 G 0.107 T 0.393 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  18  sites =  20  llr = 271  E-value = 1.3e-082
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  1::::73:72723aaa:8
+pos.-specific     C  1::::::2::15::::9:
+probability       G  1a::::52::1:::::::
+matrix            T  81aaa42727:36::::1
+
+         bits    3.2                   
+                 2.9  *              * 
+                 2.6  *              * 
+                 2.3  *              * 
+Relative         1.9  *              * 
+Entropy          1.6  *              * 
+(19.6 bits)      1.3  ****        **** 
+                 1.0  ****        **** 
+                 0.6 ***** **  ** *****
+                 0.3 ******************
+                 0.0 ------------------
+
+Multilevel           TGTTTAGTATACTAAACA
+consensus                 TA    TA     
+sequence                   T           
+                                       
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                   Site     
+-------------            ------  ----- ---------            ------------------
+r_nadR_Pca3-2_PwaSCC3193     +      1  4.14e-09          . TGTTTAGCTTACTAAACA           
+f_nadR_Pca3-2_PwaSCC3193     -      1  4.14e-09          . TGTTTAGCTTACTAAACA           
+r_nadR_Pat21A                -      1  4.30e-09          . TGTTTAGTAGGCTAAACA           
+f_nadR_Pat21A                +      1  4.30e-09          . TGTTTAGTAGGCTAAACA           
+r_nadA2_Dda3937              +      1  3.11e-08          . TGTTTTACATACTAAACA           
+f_nadA2_Dda3937              -      1  3.11e-08          . TGTTTTACATACTAAACA           
+r_pncB_Dda3937               +      1  3.69e-08          . TGTTTTTTATACTAAACA           
+f_pncB_Dda3937               -      1  3.69e-08          . TGTTTTTTATACTAAACA           
+r_nadB1_Dda3937              +      1  1.02e-07          . TGTTTTGTAAATTAAACA           
+f_nadB1_Dda3937              -      1  1.02e-07          . TGTTTTGTAAATTAAACA           
+r_nadA_Pca3-2                +      1  2.94e-07          . CGTTTTTTATCCTAAACA           
+f_nadA_Pca3-2                -      1  2.94e-07          . CGTTTTTTATCCTAAACA           
+r_nadA_PwaSCC3193            -      1  4.95e-07          . AGTTTTTTATCCTAAACA           
+f_nadA_PwaSCC3193            +      1  4.95e-07          . AGTTTTTTATCCTAAACA           
+r_nadA_Pat21A                +      1  4.95e-07          . AGTTTTTTATCCTAAACA           
+f_nadA_Pat21A                -      1  4.95e-07          . AGTTTTTTATCCTAAACA           
+r_nadB2_Dda3937              -      1  2.00e-06          . GGTTTTATAAATTAAACA           
+f_nadB2_Dda3937              +      1  2.00e-06          . GGTTTTATAAATTAAACA           
+r_nadA1_Dda3937              -      1  7.09e-06          . TTTTTAATAAATTAAACA           
+f_nadA1_Dda3937              +      1  7.09e-06          . TTTTTAATAAATTAAACA           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_nadR_Pca3-2_PwaSCC3193          4.1e-09  [+1]
+f_nadR_Pca3-2_PwaSCC3193          4.1e-09  [-1]
+r_nadR_Pat21A                     4.3e-09  [-1]
+f_nadR_Pat21A                     4.3e-09  [+1]
+r_nadA2_Dda3937                   3.1e-08  [+1]
+f_nadA2_Dda3937                   3.1e-08  [-1]
+r_pncB_Dda3937                    3.7e-08  [+1]
+f_pncB_Dda3937                    3.7e-08  [-1]
+r_nadB1_Dda3937                     1e-07  [+1]
+f_nadB1_Dda3937                     1e-07  [-1]
+r_nadA_Pca3-2                     2.9e-07  [+1]
+f_nadA_Pca3-2                     2.9e-07  [-1]
+r_nadA_PwaSCC3193                   5e-07  [-1]
+f_nadA_PwaSCC3193                   5e-07  [+1]
+r_nadA_Pat21A                       5e-07  [+1]
+f_nadA_Pat21A                       5e-07  [-1]
+r_nadB2_Dda3937                     2e-06  [-1]
+f_nadB2_Dda3937                     2e-06  [+1]
+r_nadA1_Dda3937                   7.1e-06  [-1]
+f_nadA1_Dda3937                   7.1e-06  [+1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=18 seqs=20
+r_nadR_Pca3-2_PwaSCC3193 (    1) TGTTTAGCTTACTAAACA  1 
+f_nadR_Pca3-2_PwaSCC3193 (    1) TGTTTAGCTTACTAAACA  1 
+r_nadR_Pat21A            (    1) TGTTTAGTAGGCTAAACA  1 
+f_nadR_Pat21A            (    1) TGTTTAGTAGGCTAAACA  1 
+r_nadA2_Dda3937          (    1) TGTTTTACATACTAAACA  1 
+f_nadA2_Dda3937          (    1) TGTTTTACATACTAAACA  1 
+r_pncB_Dda3937           (    1) TGTTTTTTATACTAAACA  1 
+f_pncB_Dda3937           (    1) TGTTTTTTATACTAAACA  1 
+r_nadB1_Dda3937          (    1) TGTTTTGTAAATTAAACA  1 
+f_nadB1_Dda3937          (    1) TGTTTTGTAAATTAAACA  1 
+r_nadA_Pca3-2            (    1) CGTTTTTTATCCTAAACA  1 
+f_nadA_Pca3-2            (    1) CGTTTTTTATCCTAAACA  1 
+r_nadA_PwaSCC3193        (    1) AGTTTTTTATCCTAAACA  1 
+f_nadA_PwaSCC3193        (    1) AGTTTTTTATCCTAAACA  1 
+r_nadA_Pat21A            (    1) AGTTTTTTATCCTAAACA  1 
+f_nadA_Pat21A            (    1) AGTTTTTTATCCTAAACA  1 
+r_nadB2_Dda3937          (    1) GGTTTTATAAATTAAACA  1 
+f_nadB2_Dda3937          (    1) GGTTTTATAAATTAAACA  1 
+r_nadA1_Dda3937          (    1) TTTTTAATAAATTAAACA  1 
+f_nadA1_Dda3937          (    1) TTTTTAATAAATTAAACA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 18 n= 20 bayes= -664.386 E= 1.3e-082 
+  -197   -110   -110    103 
+ -1097  -1097    315   -297 
+ -1097  -1097  -1097    135 
+ -1097  -1097  -1097    135 
+ -1097  -1097  -1097    135 
+    73  -1097  -1097    -17 
+   -39  -1097    222    -97 
+ -1097     49     49     83 
+    93   -110  -1101    -97 
+   -97  -1098   -110     93 
+    83     49     49  -1097 
+   -97    222  -1099    -39 
+   -17  -1099  -1099     73 
+   135  -1099  -1099  -1097 
+   135  -1099  -1099  -1097 
+   135  -1099  -1099  -1097 
+  -297    315  -1099  -1097 
+   103   -110   -110   -197 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 18 nsites= 20 E= 1.3e-082 
+ 0.100000  0.050000  0.050000  0.800000 
+ 0.000000  0.000000  0.950000  0.050000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.650000  0.000000  0.000000  0.350000 
+ 0.300000  0.000000  0.500000  0.200000 
+ 0.000000  0.150000  0.150000  0.700000 
+ 0.749998  0.049999  0.000000  0.199998 
+ 0.199999  0.000000  0.050000  0.749999 
+ 0.699999  0.149999  0.149999  0.000000 
+ 0.199999  0.499999  0.000000  0.299999 
+ 0.349999  0.000000  0.000000  0.649999 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.049999  0.949999  0.000000  0.000000 
+ 0.799999  0.049999  0.049999  0.099999 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+TGTTT[AT][GAT]TATA[CT][TA]AAACA
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.07 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_nadR_Pca3-2_PwaSCC3193         8.28e-09  [+1(4.14e-09)]
+r_nadR_Pca3-2_PwaSCC3193         8.28e-09  [+1(4.14e-09)]
+f_nadA_Pca3-2                    5.88e-07  [+1(2.94e-07)]
+r_nadA_Pca3-2                    5.88e-07  [+1(2.94e-07)]
+f_nadR_Pat21A                    8.60e-09  [+1(4.30e-09)]
+r_nadR_Pat21A                    8.60e-09  [+1(4.30e-09)]
+f_nadA_Pat21A                    9.90e-07  [+1(4.95e-07)]
+r_nadA_Pat21A                    9.90e-07  [+1(4.95e-07)]
+f_nadA_PwaSCC3193                9.90e-07  [+1(4.95e-07)]
+r_nadA_PwaSCC3193                9.90e-07  [+1(4.95e-07)]
+f_pncB_Dda3937                   7.38e-08  [+1(3.69e-08)]
+r_pncB_Dda3937                   7.38e-08  [+1(3.69e-08)]
+f_nadB1_Dda3937                  2.03e-07  [+1(1.02e-07)]
+r_nadB1_Dda3937                  2.03e-07  [+1(1.02e-07)]
+f_nadB2_Dda3937                  4.00e-06  [+1(2.00e-06)]
+r_nadB2_Dda3937                  4.00e-06  [+1(2.00e-06)]
+f_nadA1_Dda3937                  1.42e-05  [+1(7.09e-06)]
+r_nadA1_Dda3937                  1.42e-05  [+1(7.09e-06)]
+f_nadA2_Dda3937                  6.21e-08  [+1(3.11e-08)]
+r_nadA2_Dda3937                  6.21e-08  [+1(3.11e-08)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

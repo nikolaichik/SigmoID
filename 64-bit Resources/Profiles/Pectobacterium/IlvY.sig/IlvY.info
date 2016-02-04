@@ -1,0 +1,2 @@
+IlvY is the transcriptional activator for ilvC.
+The profile was built from RegPrecise data for Pectobacterium atrosepticum by adding matching sequences from P. carotovorum, P. wasabiae and D. dadantii. The threshold is set rather low to allow this profile to pick up a secondary weaker site located in the ilvY-ilvC intergenic region. With this threshold, few additional (likely unspecific) hits are to be expected.

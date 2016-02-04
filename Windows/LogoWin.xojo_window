@@ -1794,7 +1794,8 @@ End
 		      if Achar<>">" AND len(Arow)>0 then
 		        replicas=replicas+1
 		        if len(Arow)<>SeqLen then
-		          msgbox "The sequences are of different lengths! Can't draw the logo for unaligned sequences!"
+		          WriteToSTDOUT "The sequences are of different lengths!"+EndOfLine.UNIX
+		          WriteToSTDOUT "Can't draw the logo for unaligned sequences, hence just showing them."+EndOfLine.UNIX
 		          LengthsDiffer=true
 		          return
 		        else
@@ -2561,7 +2562,7 @@ End
 		    
 		    
 		    if outfile<>nil then
-		      WriteToSTDOUT (EndofLine+EndofLine+"Running HmmGen script..."+EndofLine)
+		      WriteToSTDOUT (EndofLine+EndofLine+"Running the HmmGen script..."+EndofLine)
 		      dim GenomeFilePath,outFilePath as string
 		      #if TargetWin32
 		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
@@ -2688,8 +2689,11 @@ End
 		          Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
 		          s1.Title="1/"+str(UBound(genomeWin.HmmHits))
 		          Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
-		          s2.enabled=true
-		          
+		          if Ubound(genomeWin.HmmHits)>1 then
+		            s2.enabled=true
+		          else
+		            s2.enabled=false
+		          end if
 		          
 		        end if
 		        return true

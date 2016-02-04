@@ -950,7 +950,7 @@ End
 		    Dim SigFile As FolderItem
 		    Dim dlg As New SaveAsDialog
 		    
-		    
+		    LogoWin.show
 		    
 		    dlg.ActionButtonCaption = "Save"
 		    dlg.Title = "Save .sig File"
@@ -1243,6 +1243,7 @@ End
 		    Dim dlg As New SaveAsDialog
 		    Dim SigFileVV As VirtualVolume
 		    
+		    LogoWin.show
 		    
 		    dlg.ActionButtonCaption = "Save"
 		    dlg.Title = "Save .sig File"

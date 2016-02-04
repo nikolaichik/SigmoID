@@ -1,0 +1,3 @@
+   Trifunctional NAD biosynthesis/regulator protein NadR is involved in transcriptional regulation of nicotinamide adenine dinucleotide (NAD) biosynthesis and salvage genes.
+   It controls just two transcription units (nadA and nadR) in Pectobacterium and two more (nadB and pncB) in Dickeya.
+   This profile was built starting with RegPrecise data for Pectobacterium atrosepticum and adding sites (matching the characterised regulog) from P. carotovorum, P. wasabiae and D. dadantii.

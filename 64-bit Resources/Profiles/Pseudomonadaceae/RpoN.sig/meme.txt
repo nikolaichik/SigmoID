@@ -1,0 +1,298 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+glnA                     1.0000     19  hemE                     1.0000     19  
+eutH                     1.0000     19  PFL_0587                 1.0000     19  
+PFL_0595                 1.0000     19  PFL_0598                 1.0000     19  
+rpoN                     1.0000     19  PFL_1361                 1.0000     19  
+fliD                     1.0000     19  fleS                     1.0000     19  
+fliE                     1.0000     19  PFL_1646                 1.0000     19  
+fliL                     1.0000     19  PFL_1805                 1.0000     19  
+PFL_2169                 1.0000     19  PFL_3178                 1.0000     19  
+PFL_4135                 1.0000     19  amt-2                    1.0000     19  
+PFL_4298                 1.0000     19  PFL_4320                 1.0000     19  
+PFL_4871                 1.0000     19  PFL_5287                 1.0000     19  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           19    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       22    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             418    N=              22
+strands: +
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.165 C 0.285 G 0.275 T 0.275 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.166 C 0.284 G 0.275 T 0.275 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  19  sites =  22  llr = 296  E-value = 4.2e-090
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  12:::9:33241::::123
+pos.-specific     C  8:::a17113241::a251
+probability       G  ::aa:::665::1:a:11:
+matrix            T  :8::::3:::448a::625
+
+         bits    2.6                    
+                 2.3                    
+                 2.1                    
+                 1.8   ** *        *    
+Relative         1.6   ****       ***   
+Entropy          1.3  *****       ***   
+(19.4 bits)      1.0  ******      ***   
+                 0.8 ********    ****   
+                 0.5 ********* * ***** *
+                 0.3 *******************
+                 0.0 -------------------
+
+Multilevel           CTGGCACGGGTCTTGCTCT
+consensus                  TAACAT     AA
+sequence                                
+                                        
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name             Start   P-value                   Site      
+-------------             ----- ---------            -------------------
+fliL                          1  4.53e-09          . CTGGCATAACACTTGCTCT           
+PFL_1361                      1  1.41e-08          . CTGGCACGGAATCTGCTCT           
+PFL_1805                      1  2.63e-08          . CAGGCATGGGACTTGCCAA           
+PFL_2169                      1  2.98e-08          . CTGGCACCGGCCTTGCTCT           
+PFL_0598                      1  3.36e-08          . CTGGCACGGCGCTTGCTCT           
+PFL_0587                      1  4.25e-08          . CTGGCATAAGTCTTGCGCA           
+PFL_4871                      1  5.29e-08          . CTGGCACGACTCATGCTCT           
+PFL_3178                      1  5.91e-08          . ATGGCACAGGTCTTGCGAT           
+PFL_0595                      1  1.24e-07          . CTGGCCCGAGACTTGCCAA           
+glnA                          1  1.51e-07          . CTGGCATGCAATTTGCTCC           
+PFL_4320                      1  2.02e-07          . ATGGCACGAGTTTCGCTCT           
+fleS                          1  2.02e-07          . TAGGCACGGGTATTGCTAA           
+amt-2                         1  2.22e-07          . CTGGTACAGCTTTTGCTTT           
+PFL_5287                      1  4.17e-07          . CTGGCACAGGCTGTGCTTC           
+hemE                          1  4.17e-07          . AAGGCACGGCTCTTGCCGT           
+rpoN                          1  5.39e-07          . CAGGCATATAATTTGCTTA           
+eutH                          1  5.87e-07          . GTGGCACGGGATGTGCCCT           
+PFL_4298                      1  6.38e-07          . CTGGCATGGGCACTGCACA           
+PFL_1646                      1  1.50e-06          . CTGGCCCGGCCTTTGCAGT           
+PFL_4135                      1  1.61e-06          . CTGGCGCAGGTTTTGCTTG           
+fliD                          1  2.29e-06          . CTGGCATGAAAATTGTTGC           
+fliE                          1  5.67e-06          . CTGGCACCCTTGTTGCTAA           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+fliL                              4.5e-09  [+1]
+PFL_1361                          1.4e-08  [+1]
+PFL_1805                          2.6e-08  [+1]
+PFL_2169                            3e-08  [+1]
+PFL_0598                          3.4e-08  [+1]
+PFL_0587                          4.2e-08  [+1]
+PFL_4871                          5.3e-08  [+1]
+PFL_3178                          5.9e-08  [+1]
+PFL_0595                          1.2e-07  [+1]
+glnA                              1.5e-07  [+1]
+PFL_4320                            2e-07  [+1]
+fleS                                2e-07  [+1]
+amt-2                             2.2e-07  [+1]
+PFL_5287                          4.2e-07  [+1]
+hemE                              4.2e-07  [+1]
+rpoN                              5.4e-07  [+1]
+eutH                              5.9e-07  [+1]
+PFL_4298                          6.4e-07  [+1]
+PFL_1646                          1.5e-06  [+1]
+PFL_4135                          1.6e-06  [+1]
+fliD                              2.3e-06  [+1]
+fliE                              5.7e-06  [+1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=19 seqs=22
+fliL                     (    1) CTGGCATAACACTTGCTCT  1 
+PFL_1361                 (    1) CTGGCACGGAATCTGCTCT  1 
+PFL_1805                 (    1) CAGGCATGGGACTTGCCAA  1 
+PFL_2169                 (    1) CTGGCACCGGCCTTGCTCT  1 
+PFL_0598                 (    1) CTGGCACGGCGCTTGCTCT  1 
+PFL_0587                 (    1) CTGGCATAAGTCTTGCGCA  1 
+PFL_4871                 (    1) CTGGCACGACTCATGCTCT  1 
+PFL_3178                 (    1) ATGGCACAGGTCTTGCGAT  1 
+PFL_0595                 (    1) CTGGCCCGAGACTTGCCAA  1 
+glnA                     (    1) CTGGCATGCAATTTGCTCC  1 
+PFL_4320                 (    1) ATGGCACGAGTTTCGCTCT  1 
+fleS                     (    1) TAGGCACGGGTATTGCTAA  1 
+amt-2                    (    1) CTGGTACAGCTTTTGCTTT  1 
+PFL_5287                 (    1) CTGGCACAGGCTGTGCTTC  1 
+hemE                     (    1) AAGGCACGGCTCTTGCCGT  1 
+rpoN                     (    1) CAGGCATATAATTTGCTTA  1 
+eutH                     (    1) GTGGCACGGGATGTGCCCT  1 
+PFL_4298                 (    1) CTGGCATGGGCACTGCACA  1 
+PFL_1646                 (    1) CTGGCCCGGCCTTTGCAGT  1 
+PFL_4135                 (    1) CTGGCGCAGGTTTTGCTTG  1 
+fliD                     (    1) CTGGCATGAAAATTGTTGC  1 
+fliE                     (    1) CTGGCACCCTTGTTGCTAA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 19 n= 22 bayes= 1.41504 E= 4.2e-090 
+   -28    144   -259   -259 
+    13  -1110  -1110    157 
+ -1110  -1110    186  -1110 
+ -1110  -1110    186  -1110 
+ -1110    175  -1110   -259 
+   238   -164   -259  -1110 
+ -1110    126  -1110     21 
+    94   -164    110  -1110 
+    72   -164    110   -259 
+    13     -6     86   -259 
+   113    -64   -259     57 
+   -28     52   -259     57 
+  -187   -164   -159    149 
+ -1110   -264  -1110    180 
+ -1110  -1110    186  -1110 
+ -1110    175  -1110   -259 
+   -87    -64   -159    121 
+    45     68   -101    -60 
+    94   -106   -259     86 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 19 nsites= 22 E= 4.2e-090 
+ 0.136364  0.772727  0.045455  0.045455 
+ 0.181818  0.000000  0.000000  0.818182 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.954545  0.000000  0.045455 
+ 0.863636  0.090909  0.045455  0.000000 
+ 0.000000  0.681818  0.000000  0.318182 
+ 0.318182  0.090909  0.590909  0.000000 
+ 0.272727  0.090909  0.590909  0.045455 
+ 0.181818  0.272727  0.500000  0.045455 
+ 0.363636  0.181818  0.045455  0.409091 
+ 0.136364  0.409091  0.045455  0.409091 
+ 0.045455  0.090909  0.090909  0.772727 
+ 0.000000  0.045455  0.000000  0.954545 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.954545  0.000000  0.045455 
+ 0.090909  0.181818  0.090909  0.636364 
+ 0.227273  0.454545  0.136364  0.181818 
+ 0.318182  0.136364  0.045455  0.500000 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+CTGGCA[CT][GA][GA][GC][TA][CT]TTGCT[CA][TA]
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.04 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+glnA                             1.51e-07  [+1(1.51e-07)]
+hemE                             4.17e-07  [+1(4.17e-07)]
+eutH                             5.87e-07  [+1(5.87e-07)]
+PFL_0587                         4.25e-08  [+1(4.25e-08)]
+PFL_0595                         1.24e-07  [+1(1.24e-07)]
+PFL_0598                         3.36e-08  [+1(3.36e-08)]
+rpoN                             5.39e-07  [+1(5.39e-07)]
+PFL_1361                         1.41e-08  [+1(1.41e-08)]
+fliD                             2.29e-06  [+1(2.29e-06)]
+fleS                             2.02e-07  [+1(2.02e-07)]
+fliE                             5.67e-06  [+1(5.67e-06)]
+PFL_1646                         1.50e-06  [+1(1.50e-06)]
+fliL                             4.53e-09  [+1(4.53e-09)]
+PFL_1805                         2.63e-08  [+1(2.63e-08)]
+PFL_2169                         2.98e-08  [+1(2.98e-08)]
+PFL_3178                         5.91e-08  [+1(5.91e-08)]
+PFL_4135                         1.61e-06  [+1(1.61e-06)]
+amt-2                            2.22e-07  [+1(2.22e-07)]
+PFL_4298                         6.38e-07  [+1(6.38e-07)]
+PFL_4320                         2.02e-07  [+1(2.02e-07)]
+PFL_4871                         5.29e-08  [+1(5.29e-08)]
+PFL_5287                         4.17e-07  [+1(4.17e-07)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************
