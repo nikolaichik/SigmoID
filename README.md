@@ -12,7 +12,7 @@ Functions:
 - view regulatory sites in genomic context with the integrated genome browser;
 - verify annotation via the integrated database search.
 
-This version includes over 40 calibrated profiles (including 5 for sigma factors) optimised for enterobacterial phytopathogens Pectobacterium spp. and Dickeya dadantii. Efficiency of these profiles may decrease for other bacteria.
+This version includes 79 calibrated profiles (including 5 for sigma factors) optimised for enterobacterial phytopathogens Pectobacterium spp. and Dickeya dadantii. Efficiency of these profiles may decrease for other bacteria.
 
 The actual searches are done by nhmmer or mast which are included or could be configured to run from default installations on the user system.
 
