@@ -84,7 +84,7 @@ def createParser():
                         default=False,
                         help='''no duplicate features with the same location and the same protein_bind qualifier
                                 value''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.14 (January 11, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 2.15 (February 6, 2016)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -123,7 +123,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.14 (January 11, 2015)'
+print '\nHmmGen 2.15 (February 6, 2016)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -280,7 +280,8 @@ for record in records:
     for feature in record.features:
         if feature.type == 'CDS' or \
            feature.type == 'ncRNA' or \
-           feature.type == 'sRNA':
+           feature.type == 'sRNA' or \
+           feature.type == 'tRNA':
             allowed_features_list.append(feature)
     try:
         cds_loc_start = allowed_features_list[0]
