@@ -441,6 +441,7 @@ Inherits Application
 	#tag MenuHandler
 		Function HelpHMMERWebSite() As Boolean Handles HelpHMMERWebSite.Action
 			HelpWin.LoadPage("http://hmmer.org")
+			HelpWin.show
 			
 			Return True
 			
@@ -450,7 +451,7 @@ Inherits Application
 	#tag MenuHandler
 		Function HelpMEMEhelp() As Boolean Handles HelpMEMEhelp.Action
 			HelpWin.LoadPage("http://meme-suite.org")
-			
+			HelpWin.show
 			Return True
 			
 		End Function
@@ -753,6 +754,10 @@ Inherits Application
 		49. HmmGen may exit with error 1 after profile editing - recheck! (file ref problem?)
 		50. At startup, display current prefs: Profile folder and database options. 
 		51. Rewrite window menu (it's recreated in every EnableMenuItems, so window positions jump all the time) 
+		52. Check for timeouts when performing database searches 
+		    (browser window unresponsive for a while when there's a problem with connection)
+		53. Using protein names for browser tab labels proves a bit inconvenient (return to protein IDs?)
+		54. An option to use either name or ID for protein labels on the map?
 		
 		64-bit issues:
 		1. [Workarounds added] VirtualVolume is broken

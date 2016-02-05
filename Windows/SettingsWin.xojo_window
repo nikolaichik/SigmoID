@@ -1002,10 +1002,47 @@ Begin Window SettingsWin
          End
       End
    End
+   Begin PushButton DefaultPathsButton
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Restore Default Paths"
+      Default         =   False
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   280
+      Underline       =   False
+      Visible         =   True
+      Width           =   161
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Activate()
+		  
+		End Sub
+	#tag EndEvent
+
 	#tag Event
 		Function CancelClose(appQuitting as Boolean) As Boolean
 		  if not appQuitting then
@@ -1027,6 +1064,7 @@ End
 		  dim n as integer
 		  
 		  AdjustLayout4linux(me)
+		  PathsChanged=true
 		  ReadPrefs
 		  'alimaskPathField.text=Prefs.value("alimaskpath","/usr/local/bin/alimask")
 		  'nhmmerPathField.text=Prefs.value("nhmmerpath","/usr/local/bin/nhmmer")
@@ -1131,6 +1169,17 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events PagePanel1
+	#tag Event
+		Sub Change()
+		  if me.Value=0 then
+		    DefaultPathsButton.visible=true
+		  else
+		    DefaultPathsButton.visible=false
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events nhmmerPathField
 	#tag Event
 		Sub TextChange()
@@ -1221,6 +1270,14 @@ End
 		  else
 		    LoadPlainResult=false
 		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DefaultPathsButton
+	#tag Event
+		Sub Action()
+		  PathsChanged=false
+		  ReadPrefs
 		End Sub
 	#tag EndEvent
 #tag EndEvents

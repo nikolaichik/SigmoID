@@ -551,6 +551,20 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem UntitledSeparator
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomePlotTranscripts
+         SpecialMenu = 0
+         Text = "#kPlotTranscripts"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
    End
    Begin MenuItem WindowMenu
       SpecialMenu = 0

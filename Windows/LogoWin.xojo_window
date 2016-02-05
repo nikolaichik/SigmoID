@@ -358,9 +358,10 @@ End
 		  STDOUT.TextFont="Courier"
 		  STDOUT.Refresh(false)
 		  
+		  'PathsChanged=true
+		  'ReadPrefs
 		  
-		  ReadPrefs
-		  
+		  settingsWin.hide  'read prefs
 		  
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then

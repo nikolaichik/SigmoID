@@ -11,7 +11,8 @@ Protected Class cSeqObject
 		  'dim t as cName
 		  'dim u as REname
 		  dim c as curveShape
-		  dim parts, n, dir,r, r2, Ymax, AW, BW as Integer
+		  dim parts, m, n, dir,r, r2, Ymax, AW, BW as integer
+		  dim avgDepth, avgstart, avgend, maxdepth as Integer
 		  dim x0,x1,x2,x3,y0,y1,y2,y3 as double
 		  dim arcSecAngle, ancorX, ancorY, currRotAngle as double
 		  dim ArSizeAngle,ArStartAngle,ArHeadAngle,ArBodyAngle, corr as double
@@ -60,8 +61,54 @@ Protected Class cSeqObject
 		  
 		  Lmap.append DrawRuler(adjWidth, 20, me.length)
 		  
+		  // add RNA-seq coverage plot
+		  if UBound(ReadDepth)>1000 then
+		    dim DepthPlot as new Group2D
+		    dim plotstep as integer
+		    if bpPerPixel<1 then
+		      plotstep=1
+		    else
+		      plotstep=bpPerPixel
+		    end if
+		    for n=1 to UBound(ReadDepth) step plotstep
+		      if ReadDepth(n)>maxdepth then
+		        maxdepth=ReadDepth(n)
+		      end if
+		    next
+		    for n=1 to UBound(ReadDepth) step plotstep
+		      dim dot as new RectShape
+		      avgDepth=0
+		      if plotstep=1 then
+		        avgDepth=ReadDepth(n)
+		      else
+		        if n-bpPerPixel/2<1 then
+		          avgstart=1
+		        else
+		          avgstart=n-bpPerPixel/2
+		        end if
+		        if n+bpPerPixel/2>UBound(ReadDepth) then
+		          avgend=UBound(ReadDepth)
+		        else
+		          avgend=n+bpPerPixel/2
+		        end if
+		        for m=avgstart to avgend
+		          avgDepth=avgDepth+ReadDepth(m)
+		        next
+		        avgDepth=avgDepth/bpPerPixel
+		      end if
+		      
+		      dot.width=2
+		      dot.height=2
+		      dot.FillColor=&cCC339900
+		      dot.x=n/bpPerPixel
+		      dot.y=baselineY-60*avgdepth/maxdepth 'graph is 60 pixels high
+		      DepthPlot.append dot
+		    next
+		    
+		    Lmap.append depthPlot
+		    
+		  end if
 		  
-		  'add sequence circle for circular map:
 		  
 		  
 		  'now draw the rest of the map (actual features)!
@@ -250,6 +297,10 @@ Protected Class cSeqObject
 
 	#tag Property, Flags = &h0
 		RCsequence As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ReadDepth(0) As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

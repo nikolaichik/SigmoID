@@ -603,70 +603,79 @@ End
 		    dim cli as string
 		    Dim sh As Shell
 		    
-		    'need to set MEME_BIN_DIRS for the bundled meme version
-		    dim MEME_BIN_DIRS as string
-		    #if targetWin32
-		      'MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
-		      dim ff as folderitem
-		      ff=SpecialFolder.Temporary.child("meme_xml_to_html")
-		      if ff<>NIL AND ff.exists then
-		        'it's already there
-		        MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
-		      else
-		        ff=resources_f.child("meme_xml_to_html")
-		        if ff<>NIL AND ff.exists then
-		          ff.copyfileto(SpecialFolder.Temporary)
-		          MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
-		        end if
-		        ff=resources_f.child("meme.exe")
-		        if ff<>NIL AND ff.exists then
-		          ff.copyfileto(SpecialFolder.Temporary)
-		        end if
-		      end if
-		      
-		      'need to copy the dlls too!
-		      
-		      
-		      
-		    #elseif targetLinux
-		      MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
-		      if instr(MEME_BIN_DIRS," ")>0 then
-		        moved2tmp=true
-		        'MEME_BIN_DIRS should not have white space, so moving the script to /tmp
-		        dim ff as folderitem
-		        ff=SpecialFolder.Temporary.child("meme_xml_to_html")
-		        if ff<>NIL AND ff.exists then
-		          'it's already there
-		          MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
-		        else
-		          ff=resources_f.child("meme_xml_to_html")
-		          if ff<>NIL AND ff.exists then
-		            ff.copyfileto(SpecialFolder.Temporary)
-		            MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
-		          end if
-		          ff=resources_f.child("meme")
-		          if ff<>NIL AND ff.exists then
-		            ff.copyfileto(SpecialFolder.Temporary)
-		          end if
-		        end if
-		      end if
-		      
+		    ''need to set MEME_BIN_DIRS for the bundled meme version
+		    'dim MEME_BIN_DIRS as string
+		    '#if targetWin32
+		    ''MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
+		    'dim ff as folderitem
+		    'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		    'if ff<>NIL AND ff.exists then
+		    ''it's already there
+		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'else
+		    'ff=resources_f.child("meme_xml_to_html")
+		    'if ff<>NIL AND ff.exists then
+		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'end if
+		    'ff=resources_f.child("meme.exe")
+		    'if ff<>NIL AND ff.exists then
+		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'end if
+		    'end if
+		    '
+		    ''need to copy the dlls too!
+		    '
+		    '
+		    '
+		    '#elseif targetLinux
+		    'MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
+		    'if instr(MEME_BIN_DIRS," ")>0 then
+		    'moved2tmp=true
+		    ''MEME_BIN_DIRS should not have white space, so moving the script to /tmp
+		    'dim ff as folderitem
+		    'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		    'if ff<>NIL AND ff.exists then
+		    ''it's already there
+		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'else
+		    'ff=resources_f.child("meme_xml_to_html")
+		    'if ff<>NIL AND ff.exists then
+		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'end if
+		    'ff=resources_f.child("meme")
+		    'if ff<>NIL AND ff.exists then
+		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'end if
+		    'end if
+		    'end if
+		    '
+		    '#else
+		    'MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
+		    '#endif
+		    
+		    '#if TargetLinux
+		    'if moved2tmp then
+		    'cli="/tmp/meme"+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    'else
+		    'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    'end if
+		    '
+		    '#elseif TargetWin32
+		    'cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    '#else
+		    'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    '#endif
+		    
+		    #if TargetWin32
+		      cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath
 		    #else
-		      MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
+		      cli=MEMEpath+" "+alignment_tmp.ShellPath
 		    #endif
 		    
-		    #if TargetLinux
-		      if moved2tmp then
-		        cli="/tmp/meme"+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
-		      else
-		        cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
-		      end if
-		    #elseif TargetWin32
-		      cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
-		    #else
-		      cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
-		    #endif
-		    cli=cli+" -maxw "+str(MaxField.text)
+		    
+		    cli=cli+" -dna -minw "+str(MinField.text)+" -maxw "+str(MaxField.text)
 		    
 		    '[-pal]            force palindromes (requires -dna)
 		    if PalindromicBox.Value then

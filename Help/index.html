@@ -15,6 +15,7 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
@@ -76,7 +77,13 @@ details for your system at <a href="http://biopython.org/wiki/Download">biopytho
 &nbsp;&nbsp;&nbsp; Depending on your system set-up, MEME
 may require additional python and perl modules. Please check the log
 pane of SigmoID's window for error messages and install missing modules
-if necessary. <br>
+if necessary. MEME within SigmoID could be called in two ways: as a
+simple converter of the aligned sequences to MEME format (via the <a href="#Convert_to_MEME">Convert to MEME</a> menu command) or for finding&nbsp; binding sites within unaligned sequences (via the <a href="#Find_Sites_with_MEME">Find Sites with MEME</a>
+menu command). The second option generates html output via a perl
+script and relies on template files that MEME expects to find in
+certain locations, hence this is only likely to work when MEME is
+installed on the user system and the path to the system version is set
+in SigmoID preferences.<br>
 &nbsp;&nbsp;&nbsp; There are two Linux distributions of SigmoID, for
 32-bit and 64-bit systems. Both may require installation of additional
 libraries. The 32-bit version depends on WebKit version 1 for
@@ -317,10 +324,9 @@ The panels allow to:<br>&nbsp;&nbsp;&nbsp;
 1) Set the paths to executable files (nhmmer, meme, mast, etc.) used by
 SigmoID. This can be useful if SigmoID can't find some of the required
 programmes or if you like to use the ones already installed on your
-system. The paths entered here remain valid until SigmoID quits. Once
-you've verified that a particular executable file works, please&nbsp;
-copy it to the Resources folder within SigmoID folder (on OS X,
-right-click SigmoID.app and chose 'Show Package Contents'). <br>&nbsp;&nbsp;&nbsp; 2) Set the databases searched by BLAST and optionally restrict the
+system. You can also reset all paths to their defaults (pointing to the
+files distributed with SigmoID) with the button in the bottom left of
+this window. <br>&nbsp;&nbsp;&nbsp; 2) Set the databases searched by BLAST and optionally restrict the
 searches to a smaller taxonomic group to speed up them. This panel also
 allows to switch between two result formats that can be output by the
 HMMER web server: the full graphics rich html format (default) and
@@ -505,7 +511,7 @@ the <a href="#LogPane">Log</a> pane.<br>
 <br>
 
 
-<span style="font-weight: bold; color: rgb(0, 102, 0);">&nbsp;&nbsp;&nbsp; </span><span style="font-weight: bold; color: rgb(0, 102, 0);">Convert to MEME</span><br>
+<span style="font-weight: bold; color: rgb(0, 102, 0);">&nbsp;&nbsp;&nbsp; </span><span style="font-weight: bold; color: rgb(0, 102, 0);"><a name="Convert_to_MEME"></a>Convert to MEME</span><br>
 
 
 
