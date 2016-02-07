@@ -9,7 +9,7 @@ Begin Window LogoWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   512
+   Height          =   744
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -47,7 +47,7 @@ Begin Window LogoWin
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   512
+      Height          =   744
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -128,9 +128,8 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   1000
       Begin Canvas LogoCanvas
@@ -276,7 +275,7 @@ End
 		    AlignmentConvertToHmm.enabled=true
 		    AlignmentConvertToMEME.enabled=true
 		    AlignmentConverttoStockholm.enabled=true
-		    FileSaveLogo.enabled=true
+		    
 		  else
 		    ViewAlignmentInfo.enabled=false
 		    ViewHmmerSettings.enabled=false
@@ -287,15 +286,25 @@ End
 		    'AlignmentConvertToMEME.enabled=false
 		    'AlignmentConverttoStockholm.enabled=false
 		    if sequences<>"" then
-		      FileSaveLogo.enabled=true
+		      if LengthsDiffer then
+		        FileSaveLogo.enabled=false
+		        palindromic=false
+		        LogoWinToolbar.Item(4).Enabled=false
+		      else
+		        FileSaveLogo.enabled=true
+		        ViewLogo.enabled=true
+		        palindromic=true
+		        LogoWinToolbar.Item(4).Enabled=true
+		      end if
+		      
 		      ViewSequences.enabled=true
 		      AlignmentExtendBindingSites.enabled=true
 		      AlignmentConvertToHmm.enabled=true
 		      AlignmentConvertToMEME.enabled=true
 		      AlignmentConverttoStockholm.enabled=true
 		      'if WebLogoAvailable then
-		      ViewLogo.enabled=true
-		      FileSaveLogo.enabled=true
+		      
+		      
 		      'else
 		      'ViewLogo.enabled=false
 		      'FileSaveLogo.enabled=false
@@ -1537,15 +1546,19 @@ End
 		        outstream.write(trim(Informer.text))
 		        outstream.close
 		        LoadAlignment(BSfastaFile)
-		        logowin.ChangeView("Logo")
+		        if NOT LengthsDiffer then
+		          logowin.ChangeView("Logo")
+		        end if
 		        MEMEdata=""
 		        WriteToSTDOUT("Edited alignment loaded."+EndOfLine.unix)
 		      end if
 		    end if
 		    
-		    
-		    ViewLogo.Checked=true
-		    ViewSequences.Checked=false
+		    if NOT LengthsDiffer then
+		      ViewLogo.Checked=true
+		      ViewSequences.Checked=false
+		      TopPanel.Value=1
+		    end if
 		    ViewAlignmentInfo.checked=false
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=false
@@ -1555,7 +1568,7 @@ End
 		    'LogoCanvas.Enabled=true
 		    'Informer.visible=false
 		    'Informer.enabled=false
-		    TopPanel.Value=1
+		    
 		    TopPanel.visible=true
 		    LogoCanvas.visible=true
 		    DownshiftLog true
@@ -1798,6 +1811,8 @@ End
 		          WriteToSTDOUT "The sequences are of different lengths!"+EndOfLine.UNIX
 		          WriteToSTDOUT "Can't draw the logo for unaligned sequences, hence just showing them."+EndOfLine.UNIX
 		          LengthsDiffer=true
+		          MEMEdata=""
+		          LogoWin.LogoWinToolbar.Item(4).Enabled=false 'disable 'Palindromise' for unaligned data
 		          return
 		        else
 		          LengthsDiffer=false
@@ -2408,7 +2423,6 @@ End
 		        AlignmentConvertToHmm.enabled=true
 		        AlignmentConvertToMEME.enabled=true
 		        AlignmentConverttoStockholm.enabled=true
-		        FileSaveLogo.enabled=true
 		      else
 		        ViewAlignmentInfo.enabled=false
 		        ViewHmmerSettings.enabled=false
@@ -2419,15 +2433,23 @@ End
 		        'AlignmentConvertToMEME.enabled=false
 		        'AlignmentConverttoStockholm.enabled=false
 		        if sequences<>"" then
-		          FileSaveLogo.enabled=true
+		          if LengthsDiffer then
+		            FileSaveLogo.enabled=false
+		            palindromic=false
+		            LogoWinToolbar.Item(4).Enabled=false
+		          else
+		            FileSaveLogo.enabled=true
+		            ViewLogo.enabled=true
+		            palindromic=true
+		            LogoWinToolbar.Item(4).Enabled=true
+		          end if
 		          ViewSequences.enabled=true
 		          AlignmentExtendBindingSites.enabled=true
 		          AlignmentConvertToHmm.enabled=true
 		          AlignmentConvertToMEME.enabled=true
 		          AlignmentConverttoStockholm.enabled=true
 		          'if WebLogoAvailable then
-		          ViewLogo.enabled=true
-		          FileSaveLogo.enabled=true
+		          
 		          'else
 		          'ViewLogo.enabled=false
 		          'FileSaveLogo.enabled=false
@@ -3080,7 +3102,9 @@ End
 		      Return
 		    end if
 		    'if WebLogoAvailable then
+		    
 		    DrawLogo
+		    
 		    'elseif SigFileOpened then
 		    'use stored logodata within .sig file if available
 		    'DrawLogo
@@ -3438,7 +3462,7 @@ End
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT (EndofLine+Sh.Result)
 		    'write results to a temporary file for MastGen.py:
-		    MASTResultFile=SpecialFolder.Temporary.child("nhmmer.table")
+		    MASTResultFile=SpecialFolder.Temporary.child("mast.table")
 		    
 		    if MASTResultFile<>nil then
 		      Dim tos as TextOutputStream

@@ -1155,22 +1155,41 @@ End
 			dim tabChar as string = chr(9)
 			
 			InStream = infile.OpenAsTextFile
+			
+			if UBound(self.Genome.ReadDepth1)<1 then
+			
 			while not InStream.EOF
 			aLine=trim(InStream.readLine)
 			linecount=linecount+1
 			posNo=val(NthField(aLine,TabChar,2) )
-			self.Genome.ReadDepth.Append(val(NthField(aLine,TabChar,3)))
-			if UBound(self.Genome.ReadDepth)<>linecount then
-			redim self.Genome.ReadDepth(0)  'to prevent display of faulty data
+			self.Genome.ReadDepth1.Append(val(NthField(aLine,TabChar,3)))
+			if UBound(self.Genome.ReadDepth1)<>linecount then
+			redim self.Genome.ReadDepth1(0)  'to prevent display of faulty data
 			msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
 			return false
 			end if
 			wend
+			else
+			redim self.Genome.ReadDepth2(0)
+			while not InStream.EOF
+			aLine=trim(InStream.readLine)
+			linecount=linecount+1
+			posNo=val(NthField(aLine,TabChar,2) )
+			self.Genome.ReadDepth2.Append(val(NthField(aLine,TabChar,3)))
+			if UBound(self.Genome.ReadDepth2)<>linecount then
+			redim self.Genome.ReadDepth2(0)  'to prevent display of faulty data
+			msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
+			return false
 			end if
+			wend
 			
+			end if
 			genome.baselineY=100 'make room for the graph
 			ExtractFragment(1,10000)
 			TextMap(0,0)
+			end if
+			
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -1948,28 +1967,22 @@ End
 		  
 		  
 		  'Clone RNA-seq data:
-		  if ubound(genome.ReadDepth)>0 then
+		  if ubound(genome.ReadDepth1)>0 then
 		    for n=FragmentStart to FragmentEnd
-		      if n<=ubound(genome.ReadDepth) then
-		        seq.ReadDepth.Append genome.ReadDepth(n)
+		      if n<=ubound(genome.ReadDepth1) then
+		        seq.ReadDepth1.Append genome.ReadDepth1(n)
 		      end if
 		    next
 		  end if
-		  'end if
+		  if ubound(genome.ReadDepth2)>0 then
+		    for n=FragmentStart to FragmentEnd
+		      if n<=ubound(genome.ReadDepth2) then
+		        seq.ReadDepth2.Append genome.ReadDepth2(n)
+		      end if
+		    next
+		  end if
 		  
-		  '
-		  
-		  '
-		  
-		  'get the sequence corresponding to the matching sequence:
-		  
-		  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		  //
-		  //seq.features(1) is 'source', which creates problems. Filter it out!!!!
-		  //
-		  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		  
-		  
+		  // get the sequence corresponding to the fragment:
 		  dim Fragmentleft,Fragmentright as integer
 		  FragmentLeft=FragmentStart
 		  FragmentRight=FragmentEnd
@@ -3878,6 +3891,7 @@ End
 		  UpdateMapCanvas
 		  UpdateMapCanvasSelection
 		  me.Show
+		  MapCanvas.setfocus
 		End Sub
 	#tag EndMethod
 
@@ -3902,6 +3916,7 @@ End
 		      elseif Keyboard.AsynckeyDown(&h7B) then 'Left
 		        if CurrentHit>1 then
 		          CurrentHit=CurrentHit-1
+		          leftarrow=true
 		        else
 		          beep
 		        end if
@@ -3930,6 +3945,9 @@ End
 		      beep
 		    end if
 		  end if
+		  
+		  
+		  MapCanvas.setfocus
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:SkimHits")
@@ -4517,6 +4535,10 @@ End
 
 	#tag Property, Flags = &h0
 		LastY2 As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		leftarrow As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -5997,6 +6019,14 @@ End
 		    
 		  end if
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  #if TargetLinux then
+		    leftarrow=false
+		    MapCanvas.SetFocus
+		  #endif
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BLASTSocket

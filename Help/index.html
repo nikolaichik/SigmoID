@@ -16,6 +16,7 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
@@ -44,12 +45,12 @@ installation instructions are provided within distributions for each
 platform. The <a href="https://github.com/nikolaichik/SigmoID">source code</a> for the whole SigmoID application is available with GPL 2.0 license. <br>
 <br>&nbsp;&nbsp;&nbsp; SigmoID allows to:<br>&nbsp;&nbsp;&nbsp; - get binding site data from specialised databases;<br>&nbsp;&nbsp;&nbsp; - visualise binding site alignments with sequence logos;<br>&nbsp;&nbsp;&nbsp; - extend, shorten and mask alignments;<br>&nbsp;&nbsp;&nbsp; - create optimised hmm profiles from alignments;<br>&nbsp;&nbsp;&nbsp; - search bacterial genomes with calibrated (and uncalibrated) hmm profiles;<br>&nbsp;&nbsp;&nbsp; - add annotation of promoters and transcription factor binding sites to GenBank-formatted genome files;<br>&nbsp;&nbsp;&nbsp; - edit genome annotation.<br>
 <br>
-This version includes 43 calibrated profiles (for 5 sigma factors and 36 TFs) optimised for enterobacterial phytopathogens <span style="font-style: italic;">Pectobacterium</span> spp. and <span style="font-style: italic;">Dickeya dadantii</span>. Efficiency of these profiles may decrease for other bacteria. <br>
+This version includes 80 calibrated profiles (for 5 sigma factors and 36 TFs) optimised for enterobacterial phytopathogens <span style="font-style: italic;">Pectobacterium</span> spp. and <span style="font-style: italic;">Dickeya dadantii</span>.
+Efficiency of these profiles will be lower for other bacteria, but with
+threshold adjustment they may be usable for many enterobacteria. <br>
 <br>
 The search for binding sites is done by nhmmer which is expected to be
-installed in the default location. WebLogo installation is required for
-new alignments, otherwise logos won't be displayed, but the rest of
-SigmoID should work. <br>
+installed in the default location.<br>
 <br>
 Adding annotations to GenBank files is done by the HmmGen.py script
 which could be used on its own. BioPython (version 1.64 and up) is
@@ -82,29 +83,33 @@ simple converter of the aligned sequences to MEME format (via the <a href="#Conv
 menu command). The second option generates html output via a perl
 script and relies on template files that MEME expects to find in
 certain locations, hence this is only likely to work when MEME is
-installed on the user system and the path to the system version is set
+installed on the user system and the path to the system version is appropriately set
 in SigmoID preferences.<br>
 &nbsp;&nbsp;&nbsp; There are two Linux distributions of SigmoID, for
 32-bit and 64-bit systems. Both may require installation of additional
 libraries. The 32-bit version depends on WebKit version 1 for
 displaying help and database search results. WebKit1 is actually
-included with the 32-bit Linux distribution; please see the SigmoID.sh
-file for the correct command to launch SigmoID with included WebKit
+included with the 32-bit Linux SigmoID distribution; please see the SigmoID.sh
+file for the correct command to launch SigmoID with included WebKit1
 libraries.<br>
 <br>
 <h1><a class="mozTocH1" name="mozTocId233463"></a>Supported file formats<br>
 </h1>
 &nbsp;&nbsp;&nbsp; SigmoID can open two types of sequence files: with genome sequences and&nbsp; TFBS/promoter sequences.<br>
-&nbsp;&nbsp;&nbsp; SigmoID expects annotated genome sequence files to
-be in GenBank format. The current version of genome browser can
+&nbsp;&nbsp;&nbsp; SigmoID expects annotated genome sequence files that
+should be in GenBank format. Only the files in GenBank format can be
+opened in SigmoID via the command from the File menu. The current
+version of genome browser can
 properly open only files with a single accession per file.&nbsp; You
 can still perform a nhmmer (but not MAST) search of the genome split
 into several separate accessions, but please don't try to open this
-type of GenBank files in genome browser.<br>
+type of GenBank files in genome browser. <br>
 &nbsp;&nbsp;&nbsp; SigmoID can also work with unannotated&nbsp; genome
 sequences in fasta format.&nbsp; An unannotated genome in fasta format
 can't be opened directly in&nbsp; genome browser, but can be selected
-as a target for nhmmer/MAST search.<br>
+as a target for nhmmer/MAST search. Of course, filtering
+options of the post-processing script (HmmGen.py) that rely on feature
+table of .gbk files will not work with genome sequences in fasta format.<br>
 &nbsp;&nbsp;&nbsp; TFBS/promoter sequences can be in either fasta or
 special SigmoID profile format (with .sig extension). TFBS/promoter
 sequences in fasta files should be aligned and of the same length. If
@@ -118,14 +123,14 @@ hmm and MEME profiles, as well as two text files with profile
 description and search engine/postprocessing options. The contents of
 the files within the .sig virtual folder can be viewed in the <a href="#mozTocId965351">main SigmoID window</a> via commands from the <a href="#mozTocId916489">View menu</a>.&nbsp;
 SigmoID has two hidden menu commands for converting a real folder to
-the .sig file and vice versa; holding down the&nbsp; 'Alt' button while
+the .sig file and vice versa; holding down the 'Alt' button while
 selecting the File menu reveals them. <br>
 &nbsp;&nbsp;&nbsp; Please note that due to current Xojo limitation
 SigmoID can't handle virtual folders properly on 64-bit machines,
 therefore 64-bit Linux version converts all .sig files to real folders.
 These can only be accessed via toolbar of the main window and can't be
 opened via any menu command. Therefore, on 64-bit Linux machine, please
-move to the current profile folde any .sig folders you want to open and
+move to the current profile folder any .sig folders you may want to open and
 use the leftmost toolbar button of the main window to open them.<br>
 &nbsp;&nbsp;&nbsp; SigmoID can save genome files in standard GenBank
 format, export unannotated genome sequence in fasta format and export

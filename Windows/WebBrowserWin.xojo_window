@@ -9,7 +9,7 @@ Begin Window WebBrowserWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   564
+   Height          =   700
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -71,7 +71,7 @@ Begin Window WebBrowserWin
    Begin HTMLViewer WebViewer
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   531
+      Height          =   667
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""

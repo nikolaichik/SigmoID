@@ -9,7 +9,7 @@ Begin Window HelpWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   700
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,11 +25,11 @@ Begin Window HelpWin
    Resizeable      =   True
    Title           =   "SigmoID Help"
    Visible         =   False
-   Width           =   600
+   Width           =   1100
    Begin HTMLViewer WebViewer
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   367
+      Height          =   667
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -46,7 +46,7 @@ Begin Window HelpWin
       TabStop         =   True
       Top             =   34
       Visible         =   True
-      Width           =   600
+      Width           =   1100
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -75,7 +75,7 @@ Begin Window HelpWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   576
+      Left            =   1076
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False

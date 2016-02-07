@@ -61,54 +61,6 @@ Protected Class cSeqObject
 		  
 		  Lmap.append DrawRuler(adjWidth, 20, me.length)
 		  
-		  // add RNA-seq coverage plot
-		  if UBound(ReadDepth)>1000 then
-		    dim DepthPlot as new Group2D
-		    dim plotstep as integer
-		    if bpPerPixel<1 then
-		      plotstep=1
-		    else
-		      plotstep=bpPerPixel
-		    end if
-		    for n=1 to UBound(ReadDepth) step plotstep
-		      if ReadDepth(n)>maxdepth then
-		        maxdepth=ReadDepth(n)
-		      end if
-		    next
-		    for n=1 to UBound(ReadDepth) step plotstep
-		      dim dot as new RectShape
-		      avgDepth=0
-		      if plotstep=1 then
-		        avgDepth=ReadDepth(n)
-		      else
-		        if n-bpPerPixel/2<1 then
-		          avgstart=1
-		        else
-		          avgstart=n-bpPerPixel/2
-		        end if
-		        if n+bpPerPixel/2>UBound(ReadDepth) then
-		          avgend=UBound(ReadDepth)
-		        else
-		          avgend=n+bpPerPixel/2
-		        end if
-		        for m=avgstart to avgend
-		          avgDepth=avgDepth+ReadDepth(m)
-		        next
-		        avgDepth=avgDepth/bpPerPixel
-		      end if
-		      
-		      dot.width=2
-		      dot.height=2
-		      dot.FillColor=&cCC339900
-		      dot.x=n/bpPerPixel
-		      dot.y=baselineY-60*avgdepth/maxdepth 'graph is 60 pixels high
-		      DepthPlot.append dot
-		    next
-		    
-		    Lmap.append depthPlot
-		    
-		  end if
-		  
 		  
 		  
 		  'now draw the rest of the map (actual features)!
@@ -172,6 +124,132 @@ Protected Class cSeqObject
 		      end
 		    end
 		  next
+		  
+		  // add RNA-seq coverage plots
+		  ' we should really be using curveshapes here, but these behave starngely
+		  ' (the .X2 coordinate is always twice bigger than the value it's set to)
+		  dim plotstep as integer
+		  if bpPerPixel<1 then
+		    plotstep=1 
+		  else
+		    plotstep=bpPerPixel
+		  end if
+		  if UBound(ReadDepth1)>1000 then
+		    dim DepthPlot as new Group2D
+		    dim lastY As double = baselineY
+		    dim lastX As double = 0
+		    
+		    maxdepth=0
+		    for n=1 to UBound(ReadDepth1) step plotstep
+		      if ReadDepth1(n)>maxdepth then
+		        maxdepth=ReadDepth1(n)
+		      end if
+		    next
+		    for n=1 to UBound(ReadDepth1) step plotstep
+		      'dim dot as new RectShape
+		      dim lin as new CurveShape
+		      avgDepth=0
+		      if plotstep=1 then
+		        avgDepth=ReadDepth1(n)
+		      else
+		        if n-bpPerPixel/2<1 then
+		          avgstart=1
+		        else
+		          avgstart=n-bpPerPixel/2
+		        end if
+		        if n+bpPerPixel/2>UBound(ReadDepth1) then
+		          avgend=UBound(ReadDepth1)
+		        else
+		          avgend=n+bpPerPixel/2
+		        end if
+		        for m=avgstart to avgend
+		          avgDepth=avgDepth+ReadDepth1(m)
+		        next
+		        avgDepth=avgDepth/bpPerPixel
+		      end if
+		      lin.BorderColor=&cCC339900
+		      lin.Order=0
+		      lin.x=lastx
+		      lin.x2=n/bpPerPixel
+		      lin.y=lastY
+		      lin.y2=baselineY-60*avgdepth/maxdepth 'graph is 60 pixels high
+		      y2=lin.y2
+		      DepthPlot.append lin
+		      lastY=lin.y2
+		      lastX=lin.x2
+		    next
+		    Lmap.append depthPlot
+		    
+		    dim ss as new StringShape
+		    ss.Text="max depth="+str(maxdepth)
+		    ss.TextFont=FixedFont
+		    ss.TextSize=8
+		    ss.X=40
+		    ss.y=35
+		    ss.FillColor=&cCC339900
+		    Lmap.append ss
+		    
+		  end if
+		  
+		  
+		  //second track
+		  if UBound(ReadDepth2)>1000 then
+		    dim DepthPlot as new Group2D
+		    dim lastY As double = baselineY
+		    dim lastX As double = 0
+		    
+		    maxdepth=0
+		    for n=1 to UBound(ReadDepth2) step plotstep
+		      if ReadDepth2(n)>maxdepth then
+		        maxdepth=ReadDepth2(n)
+		      end if
+		    next
+		    for n=1 to UBound(ReadDepth2) step plotstep
+		      'dim dot as new RectShape
+		      dim lin as new CurveShape
+		      avgDepth=0
+		      if plotstep=1 then
+		        avgDepth=ReadDepth2(n)
+		      else
+		        if n-bpPerPixel/2<1 then
+		          avgstart=1
+		        else
+		          avgstart=n-bpPerPixel/2
+		        end if
+		        if n+bpPerPixel/2>UBound(ReadDepth2) then
+		          avgend=UBound(ReadDepth2)
+		        else
+		          avgend=n+bpPerPixel/2
+		        end if
+		        for m=avgstart to avgend
+		          avgDepth=avgDepth+ReadDepth2(m)
+		        next
+		        avgDepth=avgDepth/bpPerPixel
+		      end if
+		      lin.BorderColor=&cFF660000
+		      lin.Order=0
+		      lin.x=lastx
+		      lin.x2=n/bpPerPixel
+		      lin.y=lastY
+		      lin.y2=baselineY-60*avgdepth/maxdepth 'graph is 60 pixels high
+		      y2=lin.y2
+		      DepthPlot.append lin
+		      lastY=lin.y2
+		      lastX=lin.x2
+		    next
+		    Lmap.append depthPlot
+		    
+		    dim ss as new StringShape
+		    ss.Text="max depth="+str(maxdepth)
+		    ss.TextFont=FixedFont
+		    ss.TextSize=8
+		    ss.X=width-40
+		    ss.y=35
+		    ss.FillColor=&cFF660000
+		    Lmap.append ss
+		    
+		  end if
+		  
 		  
 		  
 		  
@@ -300,7 +378,11 @@ Protected Class cSeqObject
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		ReadDepth(0) As Integer
+		ReadDepth1(0) As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ReadDepth2(0) As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
