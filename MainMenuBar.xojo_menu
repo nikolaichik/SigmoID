@@ -558,9 +558,9 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem GenomePlotTranscripts
+      Begin MenuItem GenomeAddPlot
          SpecialMenu = 0
-         Text = "#kPlotTranscripts"
+         Text = "#kAddPlot"
          Index = -2147483648
          AutoEnable = False
          Visible = True

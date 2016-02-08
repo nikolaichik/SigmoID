@@ -3127,6 +3127,11 @@ End
 		  end if
 		  'end if
 		  
+		  
+		  if LengthsDiffer then
+		    logowin.ChangeView("Sequences")
+		  end if
+		  
 		  RegulonID=0
 		  RegulogID=0
 		  
