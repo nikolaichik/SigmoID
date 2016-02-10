@@ -126,8 +126,6 @@ Protected Class cSeqObject
 		  next
 		  
 		  // add RNA-seq coverage plots
-		  ' we should really be using curveshapes here, but these behave starngely
-		  ' (the .X2 coordinate is always twice bigger than the value it's set to)
 		  dim plotstep as integer
 		  if bpPerPixel<1 then
 		    plotstep=1 
@@ -149,30 +147,38 @@ Protected Class cSeqObject
 		      'dim dot as new RectShape
 		      dim lin as new CurveShape
 		      avgDepth=0
-		      if plotstep=1 then
-		        avgDepth=ReadDepth1(n)
-		      else
-		        if n-bpPerPixel/2<1 then
-		          avgstart=1
-		        else
-		          avgstart=n-bpPerPixel/2
-		        end if
-		        if n+bpPerPixel/2>UBound(ReadDepth1) then
-		          avgend=UBound(ReadDepth1)
-		        else
-		          avgend=n+bpPerPixel/2
-		        end if
-		        for m=avgstart to avgend
-		          avgDepth=avgDepth+ReadDepth1(m)
-		        next
-		        avgDepth=avgDepth/bpPerPixel
-		      end if
+		      'if plotstep=1 then
+		      'avgDepth=ReadDepth1(n)
+		      'else
+		      'if n-bpPerPixel/2<1 then
+		      'avgstart=1
+		      'else
+		      'avgstart=n-bpPerPixel/2
+		      'end if
+		      'if n+bpPerPixel/2>UBound(ReadDepth1) then
+		      'avgend=UBound(ReadDepth1)
+		      'else
+		      'avgend=n+bpPerPixel/2
+		      'end if
+		      'for m=avgstart to avgend
+		      'avgDepth=avgDepth+ReadDepth1(m)
+		      'next
+		      ''if bpPerPixel>(avgend-avgstart) then
+		      ''avgDepth=avgDepth/bpPerPixel
+		      ''else
+		      'avgDepth=avgDepth/(avgend-avgstart)
+		      ''end if
+		      'end if
+		      avgDepth=ReadDepth1(n)
 		      lin.BorderColor=&cCC339900
 		      lin.Order=0
 		      lin.x=lastx
 		      lin.x2=n/bpPerPixel
 		      lin.y=lastY
-		      lin.y2=baselineY-60*avgdepth/maxdepth 'graph is 60 pixels high
+		      if avgdepth>maxdepth then
+		        beep
+		      end if
+		      lin.y2=baselineY-70*avgdepth/maxdepth 'graph is 60 pixels high
 		      y2=lin.y2
 		      DepthPlot.append lin
 		      lastY=lin.y2
@@ -208,30 +214,31 @@ Protected Class cSeqObject
 		      'dim dot as new RectShape
 		      dim lin as new CurveShape
 		      avgDepth=0
-		      if plotstep=1 then
-		        avgDepth=ReadDepth2(n)
-		      else
-		        if n-bpPerPixel/2<1 then
-		          avgstart=1
-		        else
-		          avgstart=n-bpPerPixel/2
-		        end if
-		        if n+bpPerPixel/2>UBound(ReadDepth2) then
-		          avgend=UBound(ReadDepth2)
-		        else
-		          avgend=n+bpPerPixel/2
-		        end if
-		        for m=avgstart to avgend
-		          avgDepth=avgDepth+ReadDepth2(m)
-		        next
-		        avgDepth=avgDepth/bpPerPixel
-		      end if
+		      'if plotstep=1 then
+		      'avgDepth=ReadDepth2(n)
+		      'else
+		      'if n-bpPerPixel/2<1 then
+		      'avgstart=1
+		      'else
+		      'avgstart=n-bpPerPixel/2
+		      'end if
+		      'if n+bpPerPixel/2>UBound(ReadDepth2) then
+		      'avgend=UBound(ReadDepth2)
+		      'else
+		      'avgend=n+bpPerPixel/2
+		      'end if
+		      'for m=avgstart to avgend
+		      'avgDepth=avgDepth+ReadDepth2(m)
+		      'next
+		      'avgDepth=avgDepth/ceil(bpPerPixel)
+		      'end if
+		      avgDepth=ReadDepth2(n)
 		      lin.BorderColor=&cFF660000
 		      lin.Order=0
 		      lin.x=lastx
 		      lin.x2=n/bpPerPixel
 		      lin.y=lastY
-		      lin.y2=baselineY-60*avgdepth/maxdepth 'graph is 60 pixels high
+		      lin.y2=baselineY-65*avgdepth/maxdepth 'graph is 60 pixels high
 		      y2=lin.y2
 		      DepthPlot.append lin
 		      lastY=lin.y2

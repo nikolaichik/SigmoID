@@ -17,6 +17,7 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
@@ -203,7 +204,8 @@ calibrated profile via the Profile Wisard window, as setting the
 &nbsp;&nbsp;&nbsp; The last toolbar button, "<span style="font-weight: bold; color: rgb(0, 102, 0);">Settings</span>" currently allows to set the paths to command line programmes and key scripts used by the GUI. <br>
 <br>
 <h3><a class="mozTocH3" name="mozTocId23083"></a>Genome Browser Window</h3>
-&nbsp;&nbsp; This window is opened after a search for binding sites and could be
+&nbsp;&nbsp; This window is opened after a search for binding sites and
+could be
 used to quickly skim through the sites just found. Alternatively, the
 browser could be used to view an existing GenBank file independently of
 any search function. The window is split into three viewers which
@@ -215,7 +217,8 @@ dragging across it. Selected sequence can be copied to the clipboard,
 used as a query to launch database searches, edited or deleted. The
 corresponding commands are located in the contextual menu (brought up
 by right-clicking in the feature map); you can also double-click a
-feature to open its editor. <br>
+feature to open its editor. Please note that currently no format checks
+are done in this window: be careful to adhere to GenBank format!<br>
 &nbsp;&nbsp;&nbsp; Database searches can be launched via contextual
 menu. Depending on the current selection, the menu will contain
 commands to search (with BLAST) against the nr database or (with
@@ -230,10 +233,14 @@ this window by dragging the separator (the line with three dots abow
 the browser pane) up or down.<br>
 &nbsp;&nbsp;&nbsp; The toolbar located on top of this window can be
 used to navigate the last hmmer/mast search results (the leftmost
-arrows control). These hits could be saved (in fasta format) to a text
-file via the corresponding command from the Genome menu. The check box
+arrows control); keyboard 'left arrow' and 'right arrow' keys could
+also be used for navigation. The hit sequences could be saved&nbsp; to
+a text
+file (in fasta format) via the corresponding command from the Genome
+menu. The check box
 to the right of this control could be used to exclude the undesired
-hits when saving them. The toolbar also allows to zoom in/out feature map (the rightmost
+hits when saving them. The toolbar also allows to zoom in/out feature
+map (the rightmost
 control with +/- signs) or to search within the genome. The "smart"
 search field can distinguish three types of queries (sequence,
 coordinate or

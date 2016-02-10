@@ -177,6 +177,9 @@ End
 
 	#tag Method, Flags = &h0
 		Sub AcceptEdit()
+		  FeatureTextField.text=trim(FeatureTextField.text) 'a precaution to remove possible extra white space
+		  
+		  
 		  OKPressed=true
 		  self.hide
 		  self.ParentWin.Show
@@ -223,12 +226,15 @@ End
 		    me.TextColor=RGB(0,0,0)
 		  end
 		  
-		  if NOT keyboard.AltKey then
-		    if key=chr(13) OR key=chr(3) then 'return or enter
-		      AcceptEdit
-		      return true
-		    end if
-		  end if
+		  
+		  // using the code below to close this window by pressing "Enter" proved to be more confusing than helping 
+		  
+		  'if NOT keyboard.AltKey then
+		  'if key=chr(13) OR key=chr(3) then 'return or enter
+		  'AcceptEdit
+		  'return true
+		  'end if
+		  'end if
 		  
 		End Function
 	#tag EndEvent

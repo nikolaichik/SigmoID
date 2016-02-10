@@ -634,6 +634,11 @@ End
 		  Separator2.Visible=false
 		  ViewViewDetails.Visible=true
 		  
+		  if ubound(genome.ReadDepth1)>0 then
+		    GenomeRemovePlots.enabled=true
+		  end if
+		  GenomeMergePlotData.enabled=true
+		  
 		  ViewViewDetails.Enable
 		  
 		  if TMdisplay.visible then
@@ -920,13 +925,18 @@ End
 
 	#tag Event
 		Sub Resized()
-		  
 		  setMapCanvasScrollers
 		  
 		  ProgressWheel1.top=BrowserPagePanel.top+BrowserPagePanel.Height/3
 		  ProgressWheel1.left=(Self.width-ProgressWheel1.Width)/2
 		  
-		  
+		  if (HScrollbar.Value-DisplayInterval/2)<1 then
+		    ExtractFragment(1,DisplayInterval)
+		  elseif (HScrollbar.Value+DisplayInterval/2)>lenb(genome.sequence) then
+		    ExtractFragment(lenb(genome.sequence)-DisplayInterval,lenb(genome.sequence))
+		  else
+		    ExtractFragment(HScrollbar.Value-DisplayInterval/2,HScrollbar.Value+DisplayInterval/2)
+		  end if
 		End Sub
 	#tag EndEvent
 
@@ -1171,7 +1181,8 @@ End
 			TextMap(0,0)
 			end if
 			
-			
+			Exception err
+			ExceptionHandler(err,"GenomeWin:GenomeAddPlot")
 		End Function
 	#tag EndMenuHandler
 
@@ -1233,6 +1244,30 @@ End
 			if RegulonSettingsWin.OKpressed then
 			OperOn
 			end if
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeMergePlotData() As Boolean Handles GenomeMergePlotData.Action
+			MergePlotDataWin.inFile1Field.Text=""
+			MergePlotDataWin.inFile2Field.Text=""
+			MergePlotDataWin.OutFileField.Text=""
+			
+			MergePlotDataWin.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeRemovePlots() As Boolean Handles GenomeRemovePlots.Action
+			redim genome.ReadDepth1(0)
+			redim genome.ReadDepth2(0)
+			genome.baselineY=20 'make room for the graph
+			ExtractFragment(1,10000)
+			TextMap(0,0)
+			Return True
 			
 		End Function
 	#tag EndMenuHandler
@@ -1739,6 +1774,11 @@ End
 		      ViewHideViewer.Visible=false
 		      Separator2.Visible=false
 		      ViewViewDetails.Visible=true
+		      
+		      if ubound(ReadDepth1)>0 then
+		        GenomeRemovePlots.enabled=false
+		      end if
+		      GenomeMergePlotData.enabled=true
 		      
 		      ViewViewDetails.Enable
 		      
@@ -6556,6 +6596,11 @@ End
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="leftarrow"
+		Group="Behavior"
+		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"

@@ -456,6 +456,7 @@ Picture=filter_icon32;Pix/filter_icon&32.png;&h18CC97FF;&h1F038CB3;false;0;&h0
 Picture=br_next_icon16;Pix/br_next_icon&16.png;&h4A5BFFF;&h1F038CB3;false;0;&h0
 Picture=br_prev_icon16;Pix/br_prev_icon&16.png;&h49EFFF;&h1F038CB3;false;0;&h0
 Picture=RegulonDB16;Pix/RegulonDB16.png;&h7F9D6FFF;&h1F038CB3;false;0;&h0
+Window=MergePlotDataWin;Windows/MergePlotDataWin.xojo_window;&h4CED2FFF;&h2250E847;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1
