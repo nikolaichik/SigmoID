@@ -18,16 +18,18 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
 	<meta name="CREATED" content="0;0">
 	<meta name="CHANGED" content="20150928;21232700"></head><body dir="ltr" lang="en-GB">
 <p><br></p>
-<ul id="mozToc"><!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview</a></li><li><a href="#mozTocId182858">Installation</a></li><li><a href="#mozTocId233463">Supported file formats</a></li><li><a href="#mozTocId629072">Interface</a><ul><li><a href="#mozTocId49640">Windows</a><ul><li><a href="#mozTocId965351">Main Window</a></li><li><a href="#mozTocId23083">Genome Browser Window</a></li><li><a href="#mozTocId508441">Database Windows</a></li><li><a href="#mozTocId297884">Profile Wizard Window</a></li><li><a href="#mozTocId65146">Command Configuration Windows</a></li><li><a href="#mozTocId686762">Web Browser and Help Windows </a></li><li><a href="#mozTocId522291">SigmoID Preferences Window</a></li></ul></li><li><a href="#mozTocId385906">Menu Reference
+<ul id="mozToc"><!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview</a></li><li><a href="#mozTocId182858">Installation</a></li><li><a href="#mozTocId233463">Supported file formats
+</a></li><li><a href="#mozTocId629072">Interface</a><ul><li><a href="#mozTocId49640">Windows</a><ul><li><a href="#mozTocId965351">Main Window</a></li><li><a href="#mozTocId23083">Genome Browser Window</a></li><li><a href="#mozTocId508441">Database Windows</a></li><li><a href="#mozTocId297884">Profile Wizard Window</a></li><li><a href="#mozTocId65146">Command Configuration Windows</a></li><li><a href="#mozTocId686762">Web Browser and Help Windows </a></li><li><a href="#mozTocId522291">SigmoID Preferences Window</a></li></ul></li><li><a href="#mozTocId385906">Menu Reference
 </a><ul><li><a href="#mozTocId324242">File Menu</a></li><li><a href="#mozTocId121686">Edit Menu</a></li><li><a href="#mozTocId916489">View Menu</a></li><li><a href="#mozTocId494918">Profile Menu</a></li><li><a href="#mozTocId972700">Regulon menu</a></li><li><a href="#mozTocId693367">Genome Menu</a></li><li><a href="#mozTocId600980">
 Window Menu</a></li><li><a href="#mozTocId2010">
-Help Menu</a></li></ul></li></ul></li><li><a href="#mozTocId708060">Python Scripts</a><ul><li><a href="#mozTocId227412">HmmGen.py</a></li><li><a href="#mozTocId61963">MastGen.py</a></li><li><a href="#mozTocId891699">TermGen.py</a></li><li><a href="#mozTocId793586">ptt_converter.py</a></li><li><a href="#mozTocId218330">OperOn.py</a></li><li><a href="#mozTocId385189">gbk2tbl.py</a></li></ul></li></ul>
+Help Menu</a></li></ul></li></ul></li><li><a href="#mozTocId367103">Using SigmoID to view RNA-seq coverage data</a></li><li><a href="#mozTocId708060">Python Scripts</a><ul><li><a href="#mozTocId227412">HmmGen.py</a></li><li><a href="#mozTocId61963">MastGen.py</a></li><li><a href="#mozTocId891699">TermGen.py</a></li><li><a href="#mozTocId793586">ptt_converter.py</a></li><li><a href="#mozTocId218330">OperOn.py</a></li><li><a href="#mozTocId385189">gbk2tbl.py</a></li></ul></li></ul>
 
 
 <br>
@@ -43,7 +45,7 @@ genome annotation are implemented as separate <a href="#Python_Scripts">Python s
 scripts are called from the GUI, but could easily be used separately
 and integrated in an annotation pipeline if desired. Detailed
 installation instructions are provided within distributions for each
-platform. The <a href="https://github.com/nikolaichik/SigmoID">source code</a> for the whole SigmoID application is available with GPL 2.0 license. <br>
+platform. The <a href="https://github.com/nikolaichik/SigmoID">source code</a> for the whole SigmoID application is available with GPL 2.0 license.<br>
 <br>&nbsp;&nbsp;&nbsp; SigmoID allows to:<br>&nbsp;&nbsp;&nbsp; - get binding site data from specialised databases;<br>&nbsp;&nbsp;&nbsp; - visualise binding site alignments with sequence logos;<br>&nbsp;&nbsp;&nbsp; - extend, shorten and mask alignments;<br>&nbsp;&nbsp;&nbsp; - create optimised hmm profiles from alignments;<br>&nbsp;&nbsp;&nbsp; - search bacterial genomes with calibrated (and uncalibrated) hmm profiles;<br>&nbsp;&nbsp;&nbsp; - add annotation of promoters and transcription factor binding sites to GenBank-formatted genome files;<br>&nbsp;&nbsp;&nbsp; - edit genome annotation.<br>
 <br>
 This version includes 80 calibrated profiles (for 5 sigma factors and 36 TFs) optimised for enterobacterial phytopathogens <span style="font-style: italic;">Pectobacterium</span> spp. and <span style="font-style: italic;">Dickeya dadantii</span>.
@@ -698,11 +700,19 @@ highlighted.<br>
 
 
 &nbsp;&nbsp;&nbsp; Highlights the next position in genome of the previous search query.<br>
-<span style="font-weight: bold; color: rgb(0, 102, 0);"></span><br>
+
+<hr style="width: 100%; height: 2px;">&nbsp;&nbsp;&nbsp; <span style="font-weight: bold; color: rgb(0, 102, 0);"></span><span style="font-weight: bold; color: rgb(0, 102, 0);"><a name="AddPlot"></a>Add Plot...</span><br>
+
+&nbsp;&nbsp;&nbsp; This command can be used to plot either RNA-seq coverage data produced by samtools (please see the <a href="#RNAseq">instructions</a>) or simple numerical data (e.g. %GC). Two overlapping graphs can be shown in the plot area – just use the <span style="color: rgb(0, 102, 0); font-weight: bold;">Add Plot…</span> command twice.<br><br>
+&nbsp;&nbsp;&nbsp;  <span style="font-weight: bold; color: rgb(0, 102, 0);"></span><span style="font-weight: bold; color: rgb(0, 102, 0);">Remove Plots</span><br>
 
 
-
-&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; Well, it removes all plots that are displayed<br>
+<br>
+ <span style="font-weight: bold; color: rgb(0, 102, 0);"></span><span style="font-weight: bold; color: rgb(0, 102, 0);">&nbsp;&nbsp;&nbsp; Merge Plot Data...</span><br>
+&nbsp;&nbsp;&nbsp; This is an auxiliary command that can be used to
+merge two data files produced by samtools depth command. This is
+required to properly display RNA-seq data according to these <a href="index.html#RNAseq">instructions</a>. <br>
 
 
 <span style="font-weight: bold; color: rgb(0, 102, 0);">&nbsp;&nbsp;&nbsp; </span><br>
@@ -748,8 +758,70 @@ Help Menu</h3>
 
 
 &nbsp;&nbsp;&nbsp; Opens the main MEME Suite website in the web browser window.<span style="font-weight: bold; color: rgb(0, 102, 0);">&nbsp;&nbsp;&nbsp; <br>
-</span><p style="margin-left: 1.03cm;"><br>
+</span>
+<p style="margin-left: 1.03cm;"><br>
 </p>
+<h1><a class="mozTocH1" name="mozTocId367103"></a><a name="RNAseq"></a>Using SigmoID to view RNA-seq coverage data</h1>
+&nbsp;&nbsp;&nbsp; SigmoID can display graphs of RNA-seq coverage that
+could be very helpful for verifying regulatory sequences and operon
+boundaries. As of now, SigmoID does not include all functions required
+and can only load and display read count values. These can be produced
+in many different ways, one of which (not necessarily the best one) is
+described below. This approach requires <a href="http://bowtie-bio.sourceforge.net/bowtie2/index.shtml">bowtie2</a> for read mapping and <a href="http://www.htslib.org">samtools</a> for processing the resulting file. <br>
+<br>
+&nbsp;&nbsp;&nbsp; The commands to produce the required files in the
+case of paired reads are described below. The switches -p 8 and -@ 8
+will run the bowtie and samtools tasks on eight processor cores: adjust
+those for your system.<br>
+<br>
+&nbsp;&nbsp;&nbsp; The commands below assume that the genome file is
+called 'genome.fasta' and RNA-seq data are in the files 'read1.fastq'
+and 'read2.fastq'. <br>
+<br>
+1. Index your genome file:<br>
+<pre>bowtie2-build genome.fasta genome_index</pre>
+<br>
+2. Map the reads to your sequence:<br>
+<br>
+<pre>bowtie2 -x genome_index -p 8 --very-sensitive-local --no-mixed --no-discordant -1 read1.fastq -2 read2.fastq -S mapped.sam</pre>
+<br>
+3. Convert sam to bam, sort and index it<br>
+<br>
+<pre>samtools view -bS -@ 8 mapped.sam | samtools sort -@ 8 - mapped.bam</pre>
+<pre>samtools index mapped.bam mapped.bai</pre>
+<br>
+4. Remove reads with mapping quality below 2 (which map to more than one location):<br>
+<br>
+<pre>samtools view -b -q 2 -@ 8 mapped.bam &gt; mapped2.bam</pre>
+<br>
+5. Split the sam file into reads mapping to sense and antisense
+strands. Since mates of a paired read map to different strands and
+samtools can't extract those at the same time, samtools has to be run
+four times:<br>
+<br>
+<pre>samtools view -b -@ 8 -f 99 mapped2.bam &gt; sense1.bam</pre>
+<pre>samtools view -b -@ 8 -f 147 mapped2.bam &gt; sense2.bam</pre>
+<pre>samtools view -b -@ 8 -f 83 mapped2.bam &gt; antisense1.bam</pre>
+<pre>samtools view -b -@ 8 -f 163 mapped2.bam &gt; antisense2.bam</pre>
+<br>
+(note: three extra bits added to -f exclude unmapped and improperly
+mapped reads, which is not required in this particular case (but does
+no harm)<br>
+<br>
+6. Count the reads:<br>
+<br>
+<pre>samtools depth sense1.bam &gt; sense1.depth</pre>
+<pre>samtools depth sense2.bam &gt; sense2.depth</pre>
+<pre>samtools depth antisense1.bam &gt; antisense1.depth</pre>
+<pre>samtools depth antisense2.bam &gt; antisense2.depth</pre>
+<br>
+7. Open the genome file in SigmoID and combine read counts for sense
+and antisense strands using the Merge Plot Data... command from the
+Genome menu.<br>
+<br>
+8. Load the combined read count data for the sense strand using the <a href="#AddPlot">Add Plot...</a> command from the Genome menu, then load the data for the antisense strand via the same menu command.<br>
+<br>
+<p style="margin-left: 1.03cm;"></p>
 <h1><a class="mozTocH1" name="mozTocId708060"></a><a name="Python_Scripts"></a>Python Scripts</h1>
 &nbsp;&nbsp;&nbsp; The scripts described below process output produced
 by various search programmes, perform format conversions and add

@@ -699,6 +699,7 @@ End
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
 		  
+		  
 		  if Keyboard.AltKey AND Keyboard.CommandKey then
 		    if Keyboard.AsynckeyDown(&h0C) then
 		      quit
@@ -711,6 +712,8 @@ End
 
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  
 		  If IsContextualClick Then
 		    ' Don't process this event for right-clicks
 		    Return false
@@ -1775,7 +1778,7 @@ End
 		      Separator2.Visible=false
 		      ViewViewDetails.Visible=true
 		      
-		      if ubound(ReadDepth1)>0 then
+		      if ubound(Genome.ReadDepth1)>0 then
 		        GenomeRemovePlots.enabled=false
 		      end if
 		      GenomeMergePlotData.enabled=true
@@ -6093,6 +6096,11 @@ End
 #tag Events SearchField
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
+		  #if targetLinux
+		    'probably relevant to 64-bit only
+		    me.Enabled=true
+		  #endif
+		  
 		  'check for CR/enter key
 		  if key=chr(13) OR key=chr(3) then
 		    
@@ -6111,6 +6119,22 @@ End
 		      leftarrow=false
 		      MapCanvas.SetFocus
 		    end if
+		  #endif
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  #if targetLinux
+		    'probably relevant to 64-bit only
+		    me.Enabled=true
+		  #endif
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  #if targetLinux
+		    'probably relevant to 64-bit only
+		    me.Enabled=true
 		  #endif
 		End Sub
 	#tag EndEvent

@@ -48,7 +48,6 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -502,7 +501,7 @@ End
 		    for n=1 to m
 		      'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
 		      'msgbox dis
-		      if f.Item(n).Type="SigmoidFile" then
+		      if f.Item(n).Type="SigmoidFile" OR (f.Item(n).Directory AND right(f.Item(n).Name,4)=".sig") then
 		        for k=0 to SigList.ListCount-1
 		          if SigList.CellCheck(k,0) = true AND f.Item(n).DisplayName=SigList.Cell(k,1)+".sig" then
 		            'Scan the genome!
