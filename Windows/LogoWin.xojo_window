@@ -1007,6 +1007,7 @@ End
 			outstream.close
 			LogoFile=BSfastaFile
 			WriteToSTDOUT("Edited alignment loaded."+EndOfLine.unix)
+			
 			end if
 			end if
 			
@@ -1546,11 +1547,16 @@ End
 		        outstream.write(trim(Informer.text))
 		        outstream.close
 		        LoadAlignment(BSfastaFile)
-		        if NOT LengthsDiffer then
+		        if LengthsDiffer then
+		          logowin.ChangeView("Sequences")
+		          return
+		        else
 		          logowin.ChangeView("Logo")
 		        end if
 		        MEMEdata=""
-		        WriteToSTDOUT("Edited alignment loaded."+EndOfLine.unix)
+		        if NOT LengthsDiffer then
+		          WriteToSTDOUT("Edited alignment loaded."+EndOfLine.unix)
+		        end if
 		      end if
 		    end if
 		    
@@ -4592,6 +4598,8 @@ End
 		  
 		  if ViewSequences.Checked=true then
 		    SeqsChanged=true
+		    LengthsDiffer=false 'we don't actually know
+		    FileSaveLogo.enabled=true
 		  end if
 		End Sub
 	#tag EndEvent

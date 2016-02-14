@@ -19,6 +19,7 @@
 
 
 
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
@@ -587,12 +588,23 @@ command is not available for RegPrecise since there's no
 straightforward way to get regulator sequences from this database.
 <hr style="width: 100%; height: 2px;"><span style="font-weight: bold; color: rgb(0, 102, 0);"></span><span style="color: rgb(0, 102, 0); font-weight: bold;"><a name="FindMinimalScore"></a>Find Minimal Score</span>
 <br>
-&nbsp;&nbsp;&nbsp; May be helpful when determining search thresholds. This command
+&nbsp;&nbsp;&nbsp; May be helpful when determining search thresholds.
+This command
 can only be issued when a nhmmer search has just been run and its
 results are displayed in the Genome Browser window. This function
 simply compares the current hits to the training set (original binding
 sites opened in the main window), outputs the lowest score among the
-training set and lists missed hits. The lowest score found is also entered as the nhmmer gathering threshold into the <a href="#mozTocId297884">Profile Wizard</a> window.<br>
+training set and lists missed hits. The lowest specific and highest
+unspecific scores found are also entered as the nhmmer trusted and
+noise thresholds into the <a href="#mozTocId297884">Profile Wizard</a>
+window. If the noise threshold appears lower than the gathering one,
+their mean is entered in this window as the gathering threshold
+(otherwise the value of trusted threshold is entered here). The
+gathering threshold is actually the one that will be used for further
+searches. Depending on the original data and the actual genome, this
+simple approach may fail to choose the right values. You still have to
+verify thoroughly that these scores are the ones that you want! Also
+note that this command can't find sites with redundant bases or gaps.<br>
 
 
 

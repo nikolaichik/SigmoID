@@ -3069,7 +3069,6 @@ End
 		      gCodeNo=1 'can't get the translation table – using the universal code
 		    end if
 		    
-		    
 		    'save description:
 		    Genome.Description=leftb(s,st)
 		    
@@ -3143,12 +3142,9 @@ End
 		      
 		    next 'n
 		    
-		    
 		    's=DefineEncoding ("",Encodings.ASCII)
 		    w.FormattedSequence=trim(rightb(s,len(s)-instrb(s,"ORIGIN")-7))
 		    w.Genome.sequence=CleanUp(w.FormattedSequence)
-		    
-		    
 		    
 		  else
 		    msgbox kInvalidGenbankFile
@@ -3158,7 +3154,6 @@ End
 		  SetScrollbar
 		  
 		  'switch to the graphic:
-		  'w.mapCanvas.Invalidate
 		  w.GraphExists=true
 		  
 		  w.MapCanvas.visible=true
@@ -3169,9 +3164,7 @@ End
 		  'w.ContentsChanged=false 'mac only: unset dirty bit
 		  w.EnableEdit=false
 		  w.GenomeChanged=false
-		  '
-		  'GoToWin.Parent=w
-		  'GoToWin.ShowModalWithin(w)
+		  
 		  
 		  w.GenomeFile=f
 		  self.DocumentFile=f
