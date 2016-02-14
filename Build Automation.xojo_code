@@ -6,23 +6,16 @@
 					AppliesTo = 2
 					Destination = 1
 					Subdirectory = 
-					FolderItem = Li4vSG1tR2VuLnB5
 					FolderItem = Li4vUHJvZmlsZXMv
 					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2xpYndlYmtpdDMyLw==
-					FolderItem = Li4vcHR0X2NvbnZlcnRlci5weQ==
-					FolderItem = Li4vVGVybUdlbi5weQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1RyYW5zVGVybUhQL2V4cHRlcm0uZGF0
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L3RyYW5zdGVybQ==
-					FolderItem = Li4vZ2JrMnRibC5weQ==
-					FolderItem = Li4vZ2VuZXBhcnNlLnB5
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2JsYW5rLmh0bWw=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L01FTUUvbWFzdA==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L01FTUUvbWVtZQ==
-					FolderItem = Li4vTWFzdEdlbi5weQ==
 					FolderItem = Li4vZ2Vub21lU3RhdHMuSlNPTg==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0htbWVyVXNlckd1aWRlLnBkZg==
-					FolderItem = Li4vT3Blck9uLnB5
 					FolderItem = Li4vSGVscC8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1JlZ3Vsb25EQi8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L3RmYXN0eA==
@@ -30,6 +23,13 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L2htbWJ1aWxk
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4L25obW1lcg==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9tZW1lX3htbF90b19odG1s
+					FolderItem = Li4vUHl0aG9uL2diazJ0YmwucHk=
+					FolderItem = Li4vUHl0aG9uL2dlbmVwYXJzZS5weQ==
+					FolderItem = Li4vUHl0aG9uL0htbUdlbi5weQ==
+					FolderItem = Li4vUHl0aG9uL01hc3RHZW4ucHk=
+					FolderItem = Li4vUHl0aG9uL09wZXJPbi5weQ==
+					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
+					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
 					AppliesTo = 2
@@ -41,18 +41,11 @@
 					AppliesTo = 1
 					Destination = 1
 					Subdirectory = 
-					FolderItem = Li4vSG1tR2VuLnB5
 					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==
-					FolderItem = Li4vcHR0X2NvbnZlcnRlci5weQ==
-					FolderItem = Li4vVGVybUdlbi5weQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1RyYW5zVGVybUhQL2V4cHRlcm0uZGF0
-					FolderItem = Li4vZ2JrMnRibC5weQ==
-					FolderItem = Li4vZ2VuZXBhcnNlLnB5
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2JsYW5rLmh0bWw=
-					FolderItem = Li4vTWFzdEdlbi5weQ==
 					FolderItem = Li4vZ2Vub21lU3RhdHMuSlNPTg==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0htbWVyVXNlckd1aWRlLnBkZg==
-					FolderItem = Li4vT3Blck9uLnB5
 					FolderItem = Li4vSGVscC8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1JlZ3Vsb25EQi8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvYWxpbWFzaw==
@@ -62,8 +55,15 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvbmhtbWVy
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdHJhbnN0ZXJt
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdGZhc3R4
-					FolderItem = Li4vNjQtYml0JTIwUmVzb3VyY2VzL1Byb2ZpbGVzLw==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9tZW1lX3htbF90b19odG1s
+					FolderItem = Li4vUHl0aG9uL2diazJ0YmwucHk=
+					FolderItem = Li4vUHl0aG9uL2dlbmVwYXJzZS5weQ==
+					FolderItem = Li4vUHl0aG9uL0htbUdlbi5weQ==
+					FolderItem = Li4vUHl0aG9uL01hc3RHZW4ucHk=
+					FolderItem = Li4vUHl0aG9uL09wZXJPbi5weQ==
+					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
+					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvUHJvZmlsZXMv
 				End
 			End
 			Begin BuildStepList Mac OS X
@@ -73,20 +73,13 @@
 					AppliesTo = 0
 					Destination = 1
 					Subdirectory = 
-					FolderItem = Li4vSG1tR2VuLnB5
 					FolderItem = Li4vUHJvZmlsZXMv
 					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==
-					FolderItem = Li4vcHR0X2NvbnZlcnRlci5weQ==
-					FolderItem = Li4vVGVybUdlbi5weQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1RyYW5zVGVybUhQL2V4cHRlcm0uZGF0
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1RyYW5zVGVybUhQL3RyYW5zdGVybQ==
-					FolderItem = Li4vZ2JrMnRibC5weQ==
-					FolderItem = Li4vZ2VuZXBhcnNlLnB5
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2JsYW5rLmh0bWw=
-					FolderItem = Li4vTWFzdEdlbi5weQ==
 					FolderItem = Li4vZ2Vub21lU3RhdHMuSlNPTg==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0htbWVyVXNlckd1aWRlLnBkZg==
-					FolderItem = Li4vT3Blck9uLnB5
 					FolderItem = Li4vSGVscC8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1JlZ3Vsb25EQi8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9tYXN0
@@ -96,6 +89,13 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9obW1idWlsZA==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9uaG1tZXI=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9tZW1lX3htbF90b19odG1s
+					FolderItem = Li4vUHl0aG9uL2diazJ0YmwucHk=
+					FolderItem = Li4vUHl0aG9uL2dlbmVwYXJzZS5weQ==
+					FolderItem = Li4vUHl0aG9uL0htbUdlbi5weQ==
+					FolderItem = Li4vUHl0aG9uL01hc3RHZW4ucHk=
+					FolderItem = Li4vUHl0aG9uL09wZXJPbi5weQ==
+					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
+					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 				End
 			End
 			Begin BuildStepList Windows
@@ -105,11 +105,7 @@
 					AppliesTo = 0
 					Destination = 1
 					Subdirectory = 
-					FolderItem = Li4vSG1tR2VuLnB5
 					FolderItem = Li4vUHJvZmlsZXMv
-					FolderItem = Li4vSG1tR2VuLnB5
-					FolderItem = Li4vcHR0X2NvbnZlcnRlci5weQ==
-					FolderItem = Li4vVGVybUdlbi5weQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1RyYW5zVGVybUhQL2V4cHRlcm0uZGF0
 					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL3RyYW5zdGVybS5leGU=
@@ -118,13 +114,9 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2N5Z3dpbjEuZGxs
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2htbWJ1aWxkLmV4ZQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL25obW1lci5leGU=
-					FolderItem = Li4vZ2JrMnRibC5weQ==
-					FolderItem = Li4vZ2VuZXBhcnNlLnB5
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2JsYW5rLmh0bWw=
-					FolderItem = Li4vTWFzdEdlbi5weQ==
 					FolderItem = Li4vZ2Vub21lU3RhdHMuSlNPTg==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0htbWVyVXNlckd1aWRlLnBkZg==
-					FolderItem = Li4vT3Blck9uLnB5
 					FolderItem = Li4vSGVscC8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL21hc3QuZXhl
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL21lbWUuZXhl
@@ -134,6 +126,13 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1JlZ3Vsb25EQi8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL3RmYXN0eC5leGU=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9tZW1lX3htbF90b19odG1s
+					FolderItem = Li4vUHl0aG9uL2diazJ0YmwucHk=
+					FolderItem = Li4vUHl0aG9uL2dlbmVwYXJzZS5weQ==
+					FolderItem = Li4vUHl0aG9uL0htbUdlbi5weQ==
+					FolderItem = Li4vUHl0aG9uL01hc3RHZW4ucHk=
+					FolderItem = Li4vUHl0aG9uL09wZXJPbi5weQ==
+					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
+					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 				End
 			End
 #tag EndBuildAutomation
