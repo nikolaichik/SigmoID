@@ -194,7 +194,6 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -443,7 +442,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -463,7 +461,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -536,8 +533,13 @@ End
 			if instr(TF_name,"-")>0 then
 			LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
 			end if
+			if TFBSRadio.value then 'TF
 			theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
 			theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
+			else                    'sigma
+			theURL="http://regulondb.ccg.unam.mx/sigmulon?term="+TF_ID
+			theURL=theURL+"&organism=ECK12&format=jsp&type=sigmulon"
+			end if
 			
 			dim res as string
 			dim hts as new HTTPSocket
@@ -611,8 +613,13 @@ End
 		  if instr(TF_name,"-")>0 then
 		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
 		  end if
-		  theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
-		  theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
+		  if TFBSRadio.value then 'TF
+		    theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
+		    theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
+		  else                    'sigma
+		    theURL="http://regulondb.ccg.unam.mx/sigmulon?term="+TF_ID
+		    theURL=theURL+"&organism=ECK12&format=jsp&type=sigmulon"
+		  end if
 		  
 		  
 		  RegulonDBSocket.Get(theURL)
@@ -1078,8 +1085,13 @@ End
 		  dim TF_ID, theURL as string
 		  TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
 		  
-		  theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
-		  theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
+		  if TFBSRadio.value then 'TF
+		    theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
+		    theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
+		  else                    'sigma
+		    theURL="http://regulondb.ccg.unam.mx/sigmulon?term="+TF_ID
+		    theURL=theURL+"&organism=ECK12&format=jsp&type=sigmulon"
+		  end if
 		  
 		  WebBrowserWin.show
 		  WebBrowserWin.LoadPage(theURL)

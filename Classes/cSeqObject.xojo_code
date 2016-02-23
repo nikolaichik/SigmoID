@@ -119,29 +119,67 @@ Protected Class cSeqObject
 		  next
 		  
 		  // add RNA-seq coverage plots
+		  
 		  dim plotstep as integer
 		  if bpPerPixel<1 then
 		    plotstep=1 
 		  else
 		    plotstep=bpPerPixel
 		  end if
+		  
+		  if PlotScaleMax>0 then
+		    maxdepth=PlotScaleMax
+		  else
+		    if NOT ScalePlotsSeparately then
+		      'determine maximal value for all plots
+		      maxdepth=0
+		      for n=1 to UBound(ReadDepth1) step plotstep
+		        if ReadDepth1(n)>maxdepth then
+		          maxdepth=ReadDepth1(n)
+		        end if
+		      next
+		      for n=1 to UBound(ReadDepth2) step plotstep
+		        if ReadDepth2(n)>maxdepth then
+		          maxdepth=ReadDepth2(n)
+		        end if
+		      next
+		      for n=1 to UBound(ReadDepth3) step plotstep
+		        if ReadDepth3(n)>maxdepth then
+		          maxdepth=ReadDepth3(n)
+		        end if
+		      next
+		      for n=1 to UBound(ReadDepth4) step plotstep
+		        if ReadDepth4(n)>maxdepth then
+		          maxdepth=ReadDepth4(n)
+		        end if
+		      next
+		      
+		      
+		    end if
+		  end if
+		  
+		  
+		  // first track
 		  if UBound(ReadDepth1)>1000 then
 		    dim DepthPlot as new Group2D
 		    dim lastY As double = baselineY
 		    dim lastX As double = 0
 		    
-		    maxdepth=0
-		    for n=1 to UBound(ReadDepth1) step plotstep
-		      if ReadDepth1(n)>maxdepth then
-		        maxdepth=ReadDepth1(n)
-		      end if
-		    next
+		    if ScalePlotsSeparately then
+		      maxdepth=0
+		      for n=1 to UBound(ReadDepth1) step plotstep
+		        if ReadDepth1(n)>maxdepth then
+		          maxdepth=ReadDepth1(n)
+		        end if
+		      next
+		    end if
+		    
 		    for n=1 to UBound(ReadDepth1) step plotstep
 		      'dim dot as new RectShape
 		      dim lin as new CurveShape
 		      avgDepth=0
 		      avgDepth=ReadDepth1(n)
-		      lin.BorderColor=&cCC339900
+		      lin.BorderColor=&cFF000000
 		      lin.Order=0
 		      lin.x=lastx
 		      lin.x2=n/bpPerPixel
@@ -158,12 +196,12 @@ Protected Class cSeqObject
 		    Lmap.append depthPlot
 		    
 		    dim ss as new StringShape
-		    ss.Text="max depth="+str(maxdepth)
+		    ss.Text="max="+str(maxdepth)
 		    ss.TextFont=FixedFont
-		    ss.TextSize=8
-		    ss.X=40
+		    ss.TextSize=9
+		    ss.X=30
 		    ss.y=35
-		    ss.FillColor=&cCC339900
+		    ss.FillColor=&cFF000000
 		    Lmap.append ss
 		    
 		  end if
@@ -175,18 +213,21 @@ Protected Class cSeqObject
 		    dim lastY As double = baselineY
 		    dim lastX As double = 0
 		    
-		    maxdepth=0
-		    for n=1 to UBound(ReadDepth2) step plotstep
-		      if ReadDepth2(n)>maxdepth then
-		        maxdepth=ReadDepth2(n)
-		      end if
-		    next
+		    if ScalePlotsSeparately then
+		      maxdepth=0
+		      for n=1 to UBound(ReadDepth2) step plotstep
+		        if ReadDepth2(n)>maxdepth then
+		          maxdepth=ReadDepth2(n)
+		        end if
+		      next
+		    end if
+		    
 		    for n=1 to UBound(ReadDepth2) step plotstep
 		      'dim dot as new RectShape
 		      dim lin as new CurveShape
 		      avgDepth=0
 		      avgDepth=ReadDepth2(n)
-		      lin.BorderColor=&cFF660000
+		      lin.BorderColor=&c66330000
 		      lin.Order=0
 		      lin.x=lastx
 		      lin.x2=n/bpPerPixel
@@ -199,16 +240,113 @@ Protected Class cSeqObject
 		    next
 		    Lmap.append depthPlot
 		    
-		    dim ss as new StringShape
-		    ss.Text="max depth="+str(maxdepth)
-		    ss.TextFont=FixedFont
-		    ss.TextSize=8
-		    ss.X=width-40
-		    ss.y=35
-		    ss.FillColor=&cFF660000
-		    Lmap.append ss
+		    if ScalePlotsSeparately then
+		      dim ss as new StringShape
+		      ss.Text="max="+str(maxdepth)
+		      ss.TextFont=FixedFont
+		      ss.TextSize=9
+		      ss.X=30
+		      ss.y=45
+		      ss.FillColor=&c66330000
+		      Lmap.append ss
+		    end if
 		    
 		  end if
+		  
+		  //third track
+		  if UBound(ReadDepth3)>1000 then
+		    dim DepthPlot as new Group2D
+		    dim lastY As double = baselineY
+		    dim lastX As double = 0
+		    
+		    if ScalePlotsSeparately then
+		      maxdepth=0
+		      for n=1 to UBound(ReadDepth3) step plotstep
+		        if ReadDepth3(n)>maxdepth then
+		          maxdepth=ReadDepth3(n)
+		        end if
+		      next
+		    end if
+		    
+		    for n=1 to UBound(ReadDepth3) step plotstep
+		      'dim dot as new RectShape
+		      dim lin as new CurveShape
+		      avgDepth=0
+		      avgDepth=ReadDepth3(n)
+		      lin.BorderColor=&c00804000
+		      lin.Order=0
+		      lin.x=lastx
+		      lin.x2=n/bpPerPixel
+		      lin.y=lastY
+		      lin.y2=baselineY-65*avgdepth/maxdepth 'graph is 60 pixels high
+		      y2=lin.y2
+		      DepthPlot.append lin
+		      lastY=lin.y2
+		      lastX=lin.x2
+		    next
+		    Lmap.append depthPlot
+		    
+		    if ScalePlotsSeparately then
+		      dim ss as new StringShape
+		      ss.Text="max="+str(maxdepth)
+		      ss.TextFont=FixedFont
+		      ss.TextSize=9
+		      ss.X=width-30
+		      ss.y=35
+		      ss.FillColor=&c00804000
+		      Lmap.append ss
+		    end if
+		    
+		  end if
+		  
+		  //fourth track
+		  if UBound(ReadDepth4)>1000 then
+		    dim DepthPlot as new Group2D
+		    dim lastY As double = baselineY
+		    dim lastX As double = 0
+		    
+		    if ScalePlotsSeparately then
+		      maxdepth=0
+		      for n=1 to UBound(ReadDepth4) step plotstep
+		        if ReadDepth4(n)>maxdepth then
+		          maxdepth=ReadDepth4(n)
+		        end if
+		      next
+		    end if
+		    
+		    for n=1 to UBound(ReadDepth4) step plotstep
+		      'dim dot as new RectShape
+		      dim lin as new CurveShape
+		      avgDepth=0
+		      avgDepth=ReadDepth4(n)
+		      lin.BorderColor=&c0080FF00
+		      lin.Order=0
+		      lin.x=lastx
+		      lin.x2=n/bpPerPixel
+		      lin.y=lastY
+		      lin.y2=baselineY-65*avgdepth/maxdepth 'graph is 60 pixels high
+		      y2=lin.y2
+		      DepthPlot.append lin
+		      lastY=lin.y2
+		      lastX=lin.x2
+		    next
+		    Lmap.append depthPlot
+		    
+		    if ScalePlotsSeparately then
+		      dim ss as new StringShape
+		      ss.Text="max="+str(maxdepth)
+		      ss.TextFont=FixedFont
+		      ss.TextSize=9
+		      ss.X=width-30
+		      ss.y=45
+		      ss.FillColor=&c0080FF00
+		      Lmap.append ss
+		    end if
+		    
+		  end if
+		  
+		  
+		  
 		  
 		  map.Objects=Lmap
 		  
@@ -325,6 +463,10 @@ Protected Class cSeqObject
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		PlotScaleMax As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		Radius As integer = 130
 	#tag EndProperty
 
@@ -341,6 +483,14 @@ Protected Class cSeqObject
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ReadDepth3(0) As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ReadDepth4(0) As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		Redundant As boolean
 	#tag EndProperty
 
@@ -350,6 +500,10 @@ Protected Class cSeqObject
 
 	#tag Property, Flags = &h0
 		REpos(0) As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ScalePlotsSeparately As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

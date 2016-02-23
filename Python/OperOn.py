@@ -138,7 +138,7 @@ def createParser():
                         const='On',
                         default='Off',
                         help='''combines operons that are common for several regulators''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.12 (January 11)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.13 (February 21)')
     return parser
 
 args = createParser()
@@ -176,8 +176,9 @@ for n in range(len(all_features)):
                 all_features[n] = cds
                 break
 for feature in all_features:
+    
     if ((feature.qualifiers.has_key('regulatory_class') and \
-                       str(feature.qualifiers['regulatory_class']) == 'promoter') or \
+                       str(feature.qualifiers['regulatory_class'])[2:-2] == 'promoter') or \
        feature.type == 'protein_bind') and \
        enter.regulator != 'Off' and \
        enter.regulator.lower() == str(feature.qualifiers['bound_moiety'])[2:-2].lower():
@@ -492,7 +493,7 @@ for up_operon in operon_list:
     if is_divergon == True:
         operon_list[operon_list.index(up_operon)] = divergon
 operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
-operon_out = 'OperOn 1.12 (January 11)\n'+('='*50)+'\n\n'
+operon_out = 'OperOn 1.13 (February 21)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 regulator_counter = []
 intodel = []

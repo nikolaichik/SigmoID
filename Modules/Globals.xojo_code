@@ -132,9 +132,8 @@ Protected Module Globals
 		  ge=ReplaceAllB(Ge,"8","")
 		  ge=ReplaceAllB(Ge,"9","")
 		  ge=ReplaceAllB(Ge,"0","")
-		  #if TargetWin32
-		    ge=ReplaceLineEndings(ge,EndOfLine.UNIX)
-		  #endif
+		  
+		  ge=ReplaceLineEndings(ge,EndOfLine.UNIX) 'required on Windows and for files coming from it
 		  ge=ReplaceAllB(Ge,EndOfLine.unix,"")
 		  ge=ReplaceAllB(Ge,"//","")
 		  

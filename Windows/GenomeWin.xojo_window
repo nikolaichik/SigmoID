@@ -1130,20 +1130,27 @@ End
 			while not InStream.EOF
 			aLine=trim(InStream.readLine)
 			'check if we have the expected numerical data:
-			if str(val(aline))<>aline then
-			msgbox "The data don't seem to be in the expected format. Can't draw these!"
-			return false
-			end if
+			'the check is nice but slow: disabling
+			'if str(val(aline))<>aline then
+			''problems start when counts are over 1000000 
+			'dim c as integer
+			'c=val(aline)
+			'if str(c)<>aline then
+			'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
+			'return false
+			'end if
+			'end if
 			self.Genome.ReadDepth1.Append(val(aLine))
-			if UBound(self.Genome.ReadDepth1)<>linecount then
-			redim self.Genome.ReadDepth1(0)  'to prevent display of faulty data
-			msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
-			return false
-			end if
+			'if UBound(self.Genome.ReadDepth1)<>linecount then
+			'redim self.Genome.ReadDepth1(0)  'to prevent display of faulty data
+			'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
+			'return false
+			'end if
 			wend
-			
 			end if
-			else
+			
+			elseif UBound(self.Genome.ReadDepth2)<1 then 
+			
 			redim self.Genome.ReadDepth2(0)
 			InStream = infile.OpenAsTextFile
 			aLine=trim(InStream.readLine)
@@ -1155,6 +1162,48 @@ End
 			aLine=trim(InStream.readLine)
 			posNo=val(NthField(aLine,TabChar,2))
 			Genome.ReadDepth2(posNo)=val(NthField(aLine,TabChar,3))
+			wend
+			else
+			instream.close
+			InStream = infile.OpenAsTextFile
+			
+			while not InStream.EOF
+			aLine=trim(InStream.readLine)
+			'check if we have the expected numerical data:
+			'the check is nice but slow: disabling
+			'if str(val(aline))<>aline then
+			''problems start when counts are over 1000000 
+			'dim c as integer
+			'c=val(aline)
+			'if str(c)<>aline then
+			'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
+			'return false
+			'end if
+			'end if
+			
+			self.Genome.ReadDepth2.Append(val(aLine))
+			'if UBound(self.Genome.ReadDepth2)<>linecount then
+			'redim self.Genome.ReadDepth2(0)  'to prevent display of faulty data
+			'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
+			'return false
+			'end if
+			wend
+			
+			end if
+			
+			elseif UBound(self.Genome.ReadDepth3)<1 then 
+			
+			redim self.Genome.ReadDepth3(0)
+			InStream = infile.OpenAsTextFile
+			aLine=trim(InStream.readLine)
+			if CountFields(aLine,TabChar)=3 then'triple column file (e.g. produced by samtools)
+			instream.close
+			InStream = infile.OpenAsTextFile
+			redim genome.ReadDepth3(len(Genome.Sequence))
+			while not InStream.EOF
+			aLine=trim(InStream.readLine)
+			posNo=val(NthField(aLine,TabChar,2))
+			Genome.ReadDepth3(posNo)=val(NthField(aLine,TabChar,3))
 			
 			wend
 			else
@@ -1164,21 +1213,75 @@ End
 			while not InStream.EOF
 			aLine=trim(InStream.readLine)
 			'check if we have the expected numerical data:
-			if str(val(aline))<>aline then
-			msgbox "The data don't seem to be in the expected format. Can't draw these!"
-			return false
+			'the check is nice but slow: disabling
+			'if str(val(aline))<>aline then
+			''problems start when counts are over 1000000 
+			'dim c as integer
+			'c=val(aline)
+			'if str(c)<>aline then
+			'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
+			'return false
+			'end if
+			'end if
+			
+			self.Genome.ReadDepth3.Append(val(aLine))
+			'if UBound(self.Genome.ReadDepth3)<>linecount then
+			'redim self.Genome.ReadDepth3(0)  'to prevent display of faulty data
+			'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
+			'return false
+			'end if
+			wend
+			
 			end if
 			
-			self.Genome.ReadDepth2.Append(val(aLine))
-			if UBound(self.Genome.ReadDepth2)<>linecount then
-			redim self.Genome.ReadDepth2(0)  'to prevent display of faulty data
-			msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
-			return false
-			end if
+			
+			
+			else
+			redim self.Genome.ReadDepth4(0)
+			InStream = infile.OpenAsTextFile
+			aLine=trim(InStream.readLine)
+			if CountFields(aLine,TabChar)=3 then'triple column file (e.g. produced by samtools)
+			instream.close
+			InStream = infile.OpenAsTextFile
+			redim genome.ReadDepth4(len(Genome.Sequence))
+			while not InStream.EOF
+			aLine=trim(InStream.readLine)
+			posNo=val(NthField(aLine,TabChar,2))
+			Genome.ReadDepth4(posNo)=val(NthField(aLine,TabChar,3))
+			
+			wend
+			else
+			instream.close
+			InStream = infile.OpenAsTextFile
+			
+			while not InStream.EOF
+			aLine=trim(InStream.readLine)
+			'check if we have the expected numerical data:
+			'the check is nice but slow: disabling
+			'if str(val(aline))<>aline then
+			''problems start when counts are over 1000000 
+			'dim c as integer
+			'c=val(aline)
+			'if str(c)<>aline then
+			'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
+			'return false
+			'end if
+			'end if
+			
+			self.Genome.ReadDepth4.Append(val(aLine))
+			'if UBound(self.Genome.ReadDepth4)<>linecount then
+			'redim self.Genome.ReadDepth4(0)  'to prevent display of faulty data
+			'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
+			'return false
+			'end if
 			wend
 			
 			end if
 			end if
+			
+			
+			
+			
 			genome.baselineY=100 'make room for the graph
 			ExtractFragment(1,10000)
 			TextMap(0,0)
@@ -1264,9 +1367,19 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomePrintMap() As Boolean Handles GenomePrintMap.Action
+			PrintMap
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeRemovePlots() As Boolean Handles GenomeRemovePlots.Action
 			redim genome.ReadDepth1(0)
 			redim genome.ReadDepth2(0)
+			redim genome.ReadDepth3(0)
+			redim genome.ReadDepth4(0)
 			genome.baselineY=20 'make room for the graph
 			ExtractFragment(1,10000)
 			TextMap(0,0)
@@ -1903,6 +2016,8 @@ End
 		  FragmentFeature=new GBFeature(Genome.baselineY)
 		  seq=new cSeqObject
 		  u=ubound(Genome.Features)
+		  seq.ScalePlotsSeparately=Genome.ScalePlotsSeparately
+		  seq.PlotScaleMax=genome.PlotScaleMax
 		  for n=1 to u
 		    ft=Genome.Features(n)
 		    if (ft.start>FragmentStart AND ft.start<FragmentEnd) OR (ft.finish>FragmentStart AND ft.finish<FragmentEnd) _
@@ -2065,6 +2180,20 @@ End
 		    for n=FragmentStart to FragmentEnd
 		      if n<=ubound(genome.ReadDepth2) then
 		        seq.ReadDepth2.Append genome.ReadDepth2(n)
+		      end if
+		    next
+		  end if
+		  if ubound(genome.ReadDepth3)>0 then
+		    for n=FragmentStart to FragmentEnd
+		      if n<=ubound(genome.ReadDepth3) then
+		        seq.ReadDepth3.Append genome.ReadDepth3(n)
+		      end if
+		    next
+		  end if
+		  if ubound(genome.ReadDepth4)>0 then
+		    for n=FragmentStart to FragmentEnd
+		      if n<=ubound(genome.ReadDepth4) then
+		        seq.ReadDepth4.Append genome.ReadDepth4(n)
 		      end if
 		    next
 		  end if
@@ -2963,6 +3092,20 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub MapScrollUpdate()
+		  if NOT HScrollBarCodeLock then
+		    if (HScrollBar.Value-DisplayInterval/2)<1 then
+		      ExtractFragment(1,DisplayInterval)
+		    elseif (HScrollBar.Value+DisplayInterval/2)>lenb(genome.sequence) then
+		      ExtractFragment(lenb(genome.sequence)-DisplayInterval,lenb(genome.sequence))
+		    else
+		      ExtractFragment(HScrollBar.Value-DisplayInterval/2,HScrollBar.Value+DisplayInterval/2)
+		    end if
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function mItem(mName As string) As menuitem
 		  dim m As new menuItem
 		  m.text=mName
@@ -3225,6 +3368,43 @@ End
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:OperOn")
 		    
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub PrintMap()
+		  Dim g as Graphics
+		  Dim ps as PrinterSetup
+		  
+		  ps=new PrinterSetup
+		  Dim pageWidth as Integer
+		  Dim pageHeight as Integer
+		  
+		  If PageSetup <> "" then //PageSetup contains properties
+		    ps.setupString=PageSetup
+		    pageWidth=ps.Width-36
+		    pageHeight=ps.Height-36
+		    // open Print dialog with Page Setup properties
+		    g=openPrinterDialog(ps)
+		  else
+		    g=openPrinterDialog() //open dg w/o Page Setup properties
+		    pageWidth=72*7.5 //default width and height
+		    pageHeight=72*9
+		  end if
+		  If g <> Nil then //user didn't cancel Print dialog
+		    g.DrawPicture seq.map,0,0
+		    'ratio=GetRaster(PageWidth,PageHeight,theMap)
+		    'if MapRasterPic<>nil then
+		    ''g.DrawPicture MapRasterPic,0,0,PageWidth/ratio,PageHeight/ratio,0,0,PageWidth,PageHeight
+		    'if ratio>0 then 'scaling according to widths ratio
+		    'g.DrawPicture MapRasterPic,0,0,PageWidth,MapRasterPic.Height/ratio,0,0,MapRasterPic.Width,MapRasterPic.Height
+		    'else 'scaling according to heights ratio
+		    'g.DrawPicture MapRasterPic,0,0,-MapRasterPic.width/ratio,PageHeight,0,0,MapRasterPic.Width,MapRasterPic.Height
+		    'end
+		    'else
+		    'msgbox "Not enough memory to print!"
+		    'end
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -3718,7 +3898,6 @@ End
 		        Search4text(query)
 		      end if
 		    elseif isACGT(query) then
-		      'msgbox "sequence search not there yet"
 		      topStrandSearched=false
 		      Search4sequence(query)
 		    elseif isNumeric(query) then
@@ -5307,14 +5486,14 @@ End
 		    if seq.Features(ContextFeature).type="CDS" then
 		      'if previous search is still running, add menus as disabled
 		      dim boo as boolean
-		      boo=NOT UniProtSocket.IsConnected
-		      base.Append mItem(kHmmerSearchUniprot,boo)
 		      boo=NOT SPSocket.IsConnected
 		      base.Append mItem(kHmmerSearchSwissprot,boo)
-		      boo=NOT TIGRSocket.IsConnected
-		      'base.Append mItem(kHmmerSearchTigrfam,boo)    'disabled as it TIGRfam is included in CDD
-		      base.Append mItem(kBLASTPsearch+BLASTpDB,true)
+		      boo=NOT UniProtSocket.IsConnected
+		      base.Append mItem(kHmmerSearchUniprot,boo)
+		      'boo=NOT TIGRSocket.IsConnected
+		      'base.Append mItem(kHmmerSearchTigrfam,boo)    'disabled as TIGRfam is included in CDD
 		      base.Append mItem(kCDsearch,true)
+		      base.Append mItem(kBLASTPsearch+BLASTpDB,true)
 		    else
 		      dim boo as boolean
 		      boo=NOT BLASTSocket.IsConnected
@@ -5332,6 +5511,21 @@ End
 		      boo=NOT BLASTSocket.IsConnected
 		      base.Append mItem(kBLASTNsearch+BLASTnDB,boo)
 		      base.Append mItem(kBLASTXsearch+BLASTpDB,boo)
+		    else
+		      'plot-related commands
+		      if ubound(Genome.ReadDepth1)>0 then
+		         base.Append( New MenuItem( MenuItem.TextSeparator ) )
+		        
+		        if Genome.ScalePlotsSeparately then
+		          base.Append mItem(kScalePlotsTogether)
+		        else
+		          base.Append mItem(kScalePlotsSeparately)
+		        end if
+		        base.Append mItem(kSetPlotScaleMax)
+		        
+		      end if
+		      
+		      
 		    end if
 		    
 		  end
@@ -5371,6 +5565,14 @@ End
 		    BLASTNsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
 		  case kBLASTXsearch+BLASTpDB
 		    BLASTXsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
+		  case kScalePlotsSeparately
+		    Genome.ScalePlotsSeparately=true
+		    MapScrollUpdate 'apply change
+		  case kScalePlotsTogether
+		    Genome.ScalePlotsSeparately=false
+		    MapScrollUpdate 'apply change
+		  case kSetPlotScaleMax
+		    PlotScaleMaxWin.show
 		  end
 		End Function
 	#tag EndEvent
@@ -5527,6 +5729,12 @@ End
 		    end
 		  next
 		  
+		  if ContextFeature=0 then 'outside any object: center view at the coordinate
+		    
+		    n=x*seq.bpPerPixel  'bp within view
+		    HScrollBar.value=n+GBrowseShift
+		  end if
+		  
 		  
 		  
 		  
@@ -5645,15 +5853,7 @@ End
 #tag Events HScrollBar
 	#tag Event
 		Sub ValueChanged()
-		  if NOT HScrollBarCodeLock then
-		    if (me.Value-DisplayInterval/2)<1 then
-		      ExtractFragment(1,DisplayInterval)
-		    elseif (me.Value+DisplayInterval/2)>lenb(genome.sequence) then
-		      ExtractFragment(lenb(genome.sequence)-DisplayInterval,lenb(genome.sequence))
-		    else
-		      ExtractFragment(me.Value-DisplayInterval/2,me.Value+DisplayInterval/2)
-		    end if
-		  end if
+		  MapScrollUpdate
 		  
 		  'need to maintain selection!
 		  
