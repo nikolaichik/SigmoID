@@ -162,19 +162,21 @@ Protected Class cSeqObject
 		  // first track
 		  if UBound(ReadDepth1)>1000 then
 		    dim DepthPlot as new Group2D
-		    dim lastY As double = baselineY
-		    dim lastX As double = 0
+		    dim lastX As double = 13
+		    dim PlotStart as integer=13*bpPerPixel
 		    
 		    if ScalePlotsSeparately then
 		      maxdepth=0
-		      for n=1 to UBound(ReadDepth1) step plotstep
+		      for n=PlotStart to UBound(ReadDepth1) step plotstep
 		        if ReadDepth1(n)>maxdepth then
 		          maxdepth=ReadDepth1(n)
 		        end if
 		      next
 		    end if
 		    
-		    for n=1 to UBound(ReadDepth1) step plotstep
+		    dim lastY As double = baselineY-70*ReadDepth1(PlotStart)/maxdepth
+		    
+		    for n=PlotStart to UBound(ReadDepth1) step plotstep 'starting from 10 to make room for the scale
 		      'dim dot as new RectShape
 		      dim lin as new CurveShape
 		      avgDepth=0
@@ -187,7 +189,7 @@ Protected Class cSeqObject
 		      if avgdepth>maxdepth then
 		        beep
 		      end if
-		      lin.y2=baselineY-70*avgdepth/maxdepth 'graph is 60 pixels high
+		      lin.y2=baselineY-70*avgdepth/maxdepth 'graph is 70 pixels high
 		      y2=lin.y2
 		      DepthPlot.append lin
 		      lastY=lin.y2
@@ -195,14 +197,81 @@ Protected Class cSeqObject
 		    next
 		    Lmap.append depthPlot
 		    
-		    dim ss as new StringShape
-		    ss.Text="max="+str(maxdepth)
-		    ss.TextFont=FixedFont
-		    ss.TextSize=9
-		    ss.X=30
-		    ss.y=35
-		    ss.FillColor=&cFF000000
-		    Lmap.append ss
+		    
+		    if ScalePlotsSeparately then
+		      dim ss as new StringShape
+		      ss.Text="max="+str(maxdepth)
+		      ss.TextFont=FixedFont
+		      ss.TextSize=9
+		      ss.X=30
+		      ss.y=35
+		      ss.FillColor=&cFF000000
+		      Lmap.append ss
+		    else
+		      'add a proper scale on the left
+		      
+		      'draw the ordinate line:
+		      dim rect as New RectShape
+		      rect.width=1
+		      rect.height=71
+		      rect.border=0
+		      'rect.fillcolor=RGB(24,96,90)
+		      rect.x=2 
+		      rect.y=baselineY-34
+		      Lmap.Append(rect)
+		      
+		      'draw two(three) ticks across the line:
+		      'rect=New RectShape
+		      'rect.width=3
+		      'rect.height=1
+		      'rect.border=0
+		      'rect.x=4
+		      'rect.y=baselineY-35
+		      'Lmap.Append(rect)
+		      
+		      rect=New RectShape
+		      rect.width=3
+		      rect.height=1
+		      rect.border=0
+		      rect.x=4
+		      rect.y=baselineY-70
+		      Lmap.Append(rect)
+		      
+		      rect=New RectShape
+		      rect.width=3
+		      rect.height=1
+		      rect.border=0
+		      rect.x=4
+		      rect.y=baselineY
+		      Lmap.Append(rect)
+		      
+		      'add text labels
+		      dim s as New StringShape
+		      s.TextFont=FixedFont
+		      s.TextSize=10
+		      s.Text="0"
+		      s.x=9 '-(p.Graphics.StringWidth(s.text)/2)
+		      s.y=baselineY+4
+		      Lmap.Append(s)
+		      
+		      s = New StringShape
+		      s.TextFont=FixedFont
+		      s.TextSize=10
+		      s.text=str(maxdepth)
+		      s.x=7+p.Graphics.StringWidth(s.text)/2
+		      s.y=baselineY-66
+		      Lmap.Append(s)
+		      
+		      's = New StringShape
+		      's.TextFont=FixedFont
+		      's.TextSize=10
+		      'dim midlabel as integer = maxdepth/2
+		      's.text=str(midlabel)
+		      's.x=7+p.Graphics.StringWidth(s.text)/2
+		      's.y=baselineY-31
+		      'Lmap.Append(s)
+		      
+		    end if
 		    
 		  end if
 		  
@@ -210,19 +279,21 @@ Protected Class cSeqObject
 		  //second track
 		  if UBound(ReadDepth2)>1000 then
 		    dim DepthPlot as new Group2D
-		    dim lastY As double = baselineY
-		    dim lastX As double = 0
+		    dim lastX As double = 13
+		    dim PlotStart as integer=13*bpPerPixel
 		    
 		    if ScalePlotsSeparately then
 		      maxdepth=0
-		      for n=1 to UBound(ReadDepth2) step plotstep
+		      for n=PlotStart to UBound(ReadDepth2) step plotstep
 		        if ReadDepth2(n)>maxdepth then
 		          maxdepth=ReadDepth2(n)
 		        end if
 		      next
 		    end if
 		    
-		    for n=1 to UBound(ReadDepth2) step plotstep
+		    dim lastY As double = baselineY-70*ReadDepth2(PlotStart)/maxdepth
+		    
+		    for n=plotstart to UBound(ReadDepth2) step plotstep
 		      'dim dot as new RectShape
 		      dim lin as new CurveShape
 		      avgDepth=0
@@ -256,19 +327,21 @@ Protected Class cSeqObject
 		  //third track
 		  if UBound(ReadDepth3)>1000 then
 		    dim DepthPlot as new Group2D
-		    dim lastY As double = baselineY
-		    dim lastX As double = 0
+		    dim lastX As double = 13
+		    dim PlotStart as integer=13*bpPerPixel
 		    
 		    if ScalePlotsSeparately then
 		      maxdepth=0
-		      for n=1 to UBound(ReadDepth3) step plotstep
+		      for n=PlotStart to UBound(ReadDepth3) step plotstep
 		        if ReadDepth3(n)>maxdepth then
 		          maxdepth=ReadDepth3(n)
 		        end if
 		      next
 		    end if
 		    
-		    for n=1 to UBound(ReadDepth3) step plotstep
+		    dim lastY As double = baselineY-70*ReadDepth3(PlotStart)/maxdepth
+		    
+		    for n=PlotStart to UBound(ReadDepth3) step plotstep
 		      'dim dot as new RectShape
 		      dim lin as new CurveShape
 		      avgDepth=0
@@ -302,19 +375,21 @@ Protected Class cSeqObject
 		  //fourth track
 		  if UBound(ReadDepth4)>1000 then
 		    dim DepthPlot as new Group2D
-		    dim lastY As double = baselineY
-		    dim lastX As double = 0
+		    dim lastX As double = 13
+		    dim PlotStart as integer=13*bpPerPixel
 		    
 		    if ScalePlotsSeparately then
 		      maxdepth=0
-		      for n=1 to UBound(ReadDepth4) step plotstep
+		      for n=PlotStart to UBound(ReadDepth4) step plotstep
 		        if ReadDepth4(n)>maxdepth then
 		          maxdepth=ReadDepth4(n)
 		        end if
 		      next
 		    end if
 		    
-		    for n=1 to UBound(ReadDepth4) step plotstep
+		    dim lastY As double = baselineY-70*ReadDepth4(PlotStart)/maxdepth
+		    
+		    for n=PlotStart to UBound(ReadDepth4) step plotstep
 		      'dim dot as new RectShape
 		      dim lin as new CurveShape
 		      avgDepth=0
@@ -639,6 +714,11 @@ Protected Class cSeqObject
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="PlotScaleMax"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="radius"
 			Group="Behavior"
 			InitialValue="0"
@@ -654,6 +734,11 @@ Protected Class cSeqObject
 			Name="Redundant"
 			Group="Behavior"
 			InitialValue="0"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ScalePlotsSeparately"
+			Group="Behavior"
 			Type="boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
