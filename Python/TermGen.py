@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.11 (March 6, 2016)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.12 (March 6, 2016)')
     return parser
 
 args = createParser()
@@ -82,7 +82,7 @@ else:
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.10 (November 29, 2015)'
+print '\nTermGen 1.12 (March 6, 2016))'
 print "="*50
 output_args = ''
 for arg in range(1, len(sys.argv)):
@@ -125,7 +125,10 @@ records = SeqIO.parse(input_gbk, 'genbank')
 # executes ptt_converter.py script
 print 'Creating .ptt file...'
 if platform.system() != 'Windows':
-    ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, enter.input_file.replace(' ', '\\ '))
+    edited_input = enter.input_file.replace(' ', '\\ ')
+    edited_input = edited_input.replace('(', '\(')
+    edited_input = edited_input.replace(')', '\)')
+    ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, edited_input)
 else:
     ptt_converter = 'C:\Python27\python %s\ptt_converter.py %s' % (expterm_cwd, enter.input_file.replace(' ', '^ '))
 os.system(ptt_converter)
@@ -176,7 +179,7 @@ os.system(transterm_cmd)
 try:
     terms_out = open(transterm_output, 'r')
 except IOError:
-    sys.exit('Couldn\'t find directory %s. Please check your path.' % transterm_output)
+    sys.exit('Couldn\'t find directory %s Please check your path.' % transterm_output)
 term_out = terms_out.readlines()
 
 # creates a list of lines, containing genes and terminators in order (deletes unnecessary lines)
