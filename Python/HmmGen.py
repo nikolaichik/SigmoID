@@ -184,23 +184,7 @@ def dna_topology(path, topo_list):
     for numline in xrange(len(lines)):
         if lines[numline].startswith('LOCUS'):
             loci_counter += 1
-            std_spaces = ' ' * 14
-            if topo_list[loci_counter] == 'circular':
-                spaces_before = ' ' * 3
-                spaces_after = ' ' * 1
-                lines[numline] = lines[numline].replace("DNA%s" % std_spaces,
-                                                        "DNA%s%s%s" % (
-                                                            spaces_before,
-                                                            'circular',
-                                                            spaces_after))
-            elif topo_list[loci_counter] == 'linear':
-                spaces_before = " " * 5
-                spaces_after = " " * 3
-                lines[numline] = lines[numline].replace("DNA%s" % std_spaces,
-                                                        "DNA%s%s%s" % (
-                                                            spaces_before,
-                                                            'circular',
-                                                            spaces_after))
+            lines[numline] = topo_list[loci_counter]
     infile.close()
     return lines
 
@@ -267,7 +251,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.16 (February 13, 2016)')
+                        version='%(prog)s 2.17 (March 6, 2016)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -295,12 +279,7 @@ except IOError:
 circular_vs_linear = []
 for line in input_handle.readlines():
     if line.startswith('LOCUS'):
-        if 'circular' in line:
-            circular_vs_linear.append('circular')
-        elif 'linear' in line:
-            circular_vs_linear.append('linear')
-        else:
-            circular_vs_linear.append('')
+        circular_vs_linear.append(line)
 input_handle.close()
 input_handle = open(enter.input_file, 'r')
 if enter.input_file == enter.output_file:
@@ -310,7 +289,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.16 (February 13, 2016)'
+print '\nHmmGen 2.17 (March 6, 2016)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
