@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.10 (November 29, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.11 (March 6, 2016)')
     return parser
 
 args = createParser()
@@ -108,12 +108,7 @@ except IOError:
 circular_vs_linear = []
 for line in input_gbk.readlines():
     if line.startswith('LOCUS'):
-        if 'circular' in line:
-            circular_vs_linear.append('circular')
-        elif 'linear' in line:
-            circular_vs_linear.append('linear')
-        else:
-            circular_vs_linear.append('')
+        circular_vs_linear.append(line)
 input_gbk.close()
 input_gbk = open(enter.input_file, 'r')
 output_gbk = open(enter.output_file, 'w')
@@ -220,26 +215,16 @@ for terminator in terminators:
         if len(word) >= 1:
             terms[-1].append(word)
 
-#this function helps to return DNA topology to file after Biopython parsing...
-def DNA_topology(path, topo_list):
+def dna_topology(path, topo_list):
+    # This function deals with with DNA topology problem in biopython
+    # for more detail: https://github.com/biopython/biopython/issues/363
     infile = open(path, 'r')
-    loci_counter = -1 #because 1 is 0 in python
+    loci_counter = -1  # because 1 is 0 in python
     lines = infile.readlines()
     for numline in xrange(len(lines)):
         if lines[numline].startswith('LOCUS'):
             loci_counter += 1
-            if topo_list[loci_counter] == 'circular':
-                spaces_before = " " * 3
-                spaces_after = " " * 1
-                lines[numline] = lines[numline].replace("DNA              ", "DNA%s%s%s" % (spaces_before, 
-                                                                        'circular',
-                                                                        spaces_after))
-            elif topo_list[loci_counter] == 'linear':
-                spaces_before = " " * 5
-                spaces_after = " " * 3
-                lines[numline] = lines[numline].replace("DNA              ", "DNA%s%s%s" % (spaces_before, 
-                                                                        'linear',
-                                                                        spaces_after))
+            lines[numline] = topo_list[loci_counter]
     infile.close()
     return lines
 
@@ -431,7 +416,7 @@ for record in records:
     print "="*50
 output_gbk.close()
 #overwriting output to add topology (see DNA_topology() function)
-newlines = DNA_topology(enter.output_file, circular_vs_linear)
+newlines = dna_topology(enter.output_file, circular_vs_linear)
 new_output_file = open(enter.output_file, 'w')
 new_output_file.writelines(newlines)
 new_output_file.close()
