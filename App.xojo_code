@@ -263,6 +263,7 @@ Inherits Application
 			end if
 			next
 			
+			logowin.WriteToSTDOUT(EndOfLine+"Converted sig files written to "+OutF.ShellPath+EndOfLine)
 			
 			Else
 			// User cancelled
@@ -727,9 +728,6 @@ Inherits Application
 
 
 	#tag Note, Name = 2 do
-		0. Include all the binaries on mac/linux 
-		   AND write the proper help to explain installation in case included stuff doesn't work
-		1. Solve the permissions problem on Linux for temporary files on multiuser machines
 		2. Verify native/WebKit HTMLViewer on win
 		3. Alimask and nhmmer bark at lowercase sequence letters in alignment files. Should convert these to uppercase on the fly
 		9. Prepare submission menu?
@@ -758,6 +756,14 @@ Inherits Application
 		    (browser window unresponsive for a while when there's a problem with connection)
 		53. Using protein names for browser tab labels proves a bit inconvenient (return to protein IDs?)
 		54. An option to use either name or ID for protein labels on the map?
+		55. Add menu/context commands to copy rev seq (now only fwd is copied)
+		56. Add "Regulator info" contextual menu (to connect to RegPrecise/RegulonDB/EcoGene)
+		57. blastX seems to be broken (ncbi server reorganised?)
+		58. Can't browse into (and hence, select) profile folders inside mac app bundle 
+		59. Find minimal score searches for revComplement sites, which is not nice
+		60. Need to wrap the code for the textChanged event of TermGenSettingsWin
+		   inside "try catch", as the user may enter anything here 
+		   (and add smth similar in other windows that have file selection field) 
 		
 		64-bit issues:
 		1. [Workarounds added] VirtualVolume is broken
@@ -779,6 +785,9 @@ Inherits Application
 		2. Automate thresholding/calibrated profile construction
 		3. Incorporate TF verification in TFBS search (may need to modify .sig files)
 		4. Add hmmsearch to scan for domains
+		5. Add export of binding sites for a given regulator (or all of them)
+		   in Fasta format (with scores and downstream gene info)
+		6. RemoveSites function
 		
 	#tag EndNote
 

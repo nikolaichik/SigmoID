@@ -1,0 +1,398 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_PA5439                 1.0000     17  r_PA5439                 1.0000     17  
+f_PA5015                 1.0000     17  r_PA5015                 1.0000     17  
+f_PA5438                 1.0000     17  r_PA5438                 1.0000     17  
+f_PA3185                 1.0000     17  r_PA3185                 1.0000     17  
+f_PSEEN5145              1.0000     17  r_PSEEN5145              1.0000     17  
+f_PSEEN5499              1.0000     17  r_PSEEN5499              1.0000     17  
+f_PSEEN5500              1.0000     17  r_PSEEN5500              1.0000     17  
+f_PP0339                 1.0000     17  r_PP0339                 1.0000     17  
+f_PP5350                 1.0000     17  r_PP5350                 1.0000     17  
+f_PP5351                 1.0000     17  r_PP5351                 1.0000     17  
+f_PSPTO5005              1.0000     17  r_PSPTO5005              1.0000     17  
+f_PSPTO5515              1.0000     17  r_PSPTO5515              1.0000     17  
+f_PFL_0509               1.0000     17  r_PFL_0509               1.0000     17  
+f_PFL_6160               1.0000     17  r_PFL_6160               1.0000     17  
+f_Pmen_0576              1.0000     17  r_Pmen_0576              1.0000     17  
+f_Pmen_4486              1.0000     17  r_Pmen_4486              1.0000     17  
+f_Pmen_4485              1.0000     17  r_Pmen_4485              1.0000     17  
+f_PST_3852               1.0000     17  r_PST_3852               1.0000     17  
+f_PST_0182               1.0000     17  r_PST_0182               1.0000     17  
+f_PST_0183               1.0000     17  r_PST_0183               1.0000     17  
+f_Avin_44900             1.0000     17  r_Avin_44900             1.0000     17  
+f_Avin_02020             1.0000     17  r_Avin_02020             1.0000     17  
+f_Avin_02030             1.0000     17  r_Avin_02030             1.0000     17  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           17    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       46    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             782    N=              46
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.364 C 0.136 G 0.136 T 0.364 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.364 C 0.136 G 0.136 T 0.364 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  15  sites =  46  llr = 732  E-value = 3.1e-258
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  2::a::555a::a:8
+pos.-specific     C  ::::::::::a::a:
+probability       G  :a::a::::::::::
+matrix            T  8:a::a555::a::2
+
+         bits    2.9  *  *     *  * 
+                 2.6  *  *     *  * 
+                 2.3  *  *     *  * 
+                 2.0  *  *     *  * 
+Relative         1.7  *  *     *  * 
+Entropy          1.4  *****   ***** 
+(22.9 bits)      1.2  *****   ***** 
+                 0.9  *****   ***** 
+                 0.6 ***************
+                 0.3 ***************
+                 0.0 ---------------
+
+Multilevel           TGTAGTATAACTACA
+consensus                  TAT      
+sequence                            
+                                    
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                 Site    
+-------------            ------  ----- ---------            ---------------
+r_Avin_02030                 -      2  4.07e-08          A TGTAGTATAACTACA G         
+f_Avin_02030                 +      2  4.07e-08          A TGTAGTATAACTACA G         
+r_Avin_02020                 +      2  4.07e-08          A TGTAGTATAACTACA G         
+f_Avin_02020                 -      2  4.07e-08          A TGTAGTATAACTACA G         
+r_Avin_44900                 +      2  4.07e-08          T TGTAGTTTTACTACA A         
+f_Avin_44900                 -      2  4.07e-08          T TGTAGTTTTACTACA A         
+r_Pmen_4485                  -      2  4.07e-08          A TGTAGTATAACTACA A         
+f_Pmen_4485                  +      2  4.07e-08          A TGTAGTATAACTACA A         
+r_Pmen_4486                  +      2  4.07e-08          A TGTAGTATAACTACA A         
+f_Pmen_4486                  -      2  4.07e-08          A TGTAGTATAACTACA A         
+r_PFL_6160                   -      2  4.07e-08          C TGTAGTATAACTACA A         
+f_PFL_6160                   +      2  4.07e-08          C TGTAGTATAACTACA A         
+r_PSPTO5515                  -      2  4.07e-08          A TGTAGTATAACTACA A         
+f_PSPTO5515                  +      2  4.07e-08          A TGTAGTATAACTACA A         
+r_PP5351                     +      2  4.07e-08          A TGTAGTATAACTACA A         
+f_PP5351                     -      2  4.07e-08          A TGTAGTATAACTACA A         
+r_PP5350                     -      2  4.07e-08          A TGTAGTATAACTACA A         
+f_PP5350                     +      2  4.07e-08          A TGTAGTATAACTACA A         
+r_PSEEN5500                  +      2  4.07e-08          A TGTAGTATAACTACA A         
+f_PSEEN5500                  -      2  4.07e-08          A TGTAGTATAACTACA A         
+r_PSEEN5499                  -      2  4.07e-08          A TGTAGTATAACTACA A         
+f_PSEEN5499                  +      2  4.07e-08          A TGTAGTATAACTACA A         
+r_PA3185                     +      2  4.07e-08          G TGTAGTTTTACTACA T         
+f_PA3185                     -      2  4.07e-08          G TGTAGTTTTACTACA T         
+r_PA5438                     -      2  4.07e-08          T TGTAGTATAACTACA A         
+f_PA5438                     +      2  4.07e-08          T TGTAGTATAACTACA A         
+r_PA5439                     +      2  4.07e-08          T TGTAGTATAACTACA A         
+f_PA5439                     -      2  4.07e-08          T TGTAGTATAACTACA A         
+r_PST_3852                   +      2  1.22e-07          T AGTAGTAAAACTACA G         
+f_PST_3852                   -      2  1.22e-07          T AGTAGTAAAACTACA G         
+r_Pmen_0576                  +      2  1.22e-07          T AGTAGTAAAACTACA A         
+f_Pmen_0576                  -      2  1.22e-07          T AGTAGTAAAACTACA A         
+r_PFL_0509                   +      2  1.22e-07          G AGTAGTAAAACTACA G         
+f_PFL_0509                   -      2  1.22e-07          G AGTAGTAAAACTACA G         
+r_PSPTO5005                  +      2  1.22e-07          C AGTAGTAAAACTACA G         
+f_PSPTO5005                  -      2  1.22e-07          C AGTAGTAAAACTACA G         
+r_PP0339                     +      2  1.22e-07          T AGTAGTAAAACTACA T         
+f_PP0339                     -      2  1.22e-07          T AGTAGTAAAACTACA T         
+r_PSEEN5145                  +      2  1.22e-07          T AGTAGTAAAACTACA C         
+f_PSEEN5145                  -      2  1.22e-07          T AGTAGTAAAACTACA C         
+r_PA5015                     +      2  1.22e-07          T AGTAGTAAAACTACA T         
+f_PA5015                     -      2  1.22e-07          T AGTAGTAAAACTACA T         
+r_PST_0183                   +      2  1.52e-07          C GGTAGTTATACTACA A         
+f_PST_0183                   -      2  1.52e-07          C GGTAGTTATACTACA A         
+r_PST_0182                   -      2  1.52e-07          C GGTAGTTATACTACA A         
+f_PST_0182                   +      2  1.52e-07          C GGTAGTTATACTACA A         
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_Avin_02030                      4.1e-08  1_[-1]_1
+f_Avin_02030                      4.1e-08  1_[+1]_1
+r_Avin_02020                      4.1e-08  1_[+1]_1
+f_Avin_02020                      4.1e-08  1_[-1]_1
+r_Avin_44900                      4.1e-08  1_[+1]_1
+f_Avin_44900                      4.1e-08  1_[-1]_1
+r_Pmen_4485                       4.1e-08  1_[-1]_1
+f_Pmen_4485                       4.1e-08  1_[+1]_1
+r_Pmen_4486                       4.1e-08  1_[+1]_1
+f_Pmen_4486                       4.1e-08  1_[-1]_1
+r_PFL_6160                        4.1e-08  1_[-1]_1
+f_PFL_6160                        4.1e-08  1_[+1]_1
+r_PSPTO5515                       4.1e-08  1_[-1]_1
+f_PSPTO5515                       4.1e-08  1_[+1]_1
+r_PP5351                          4.1e-08  1_[+1]_1
+f_PP5351                          4.1e-08  1_[-1]_1
+r_PP5350                          4.1e-08  1_[-1]_1
+f_PP5350                          4.1e-08  1_[+1]_1
+r_PSEEN5500                       4.1e-08  1_[+1]_1
+f_PSEEN5500                       4.1e-08  1_[-1]_1
+r_PSEEN5499                       4.1e-08  1_[-1]_1
+f_PSEEN5499                       4.1e-08  1_[+1]_1
+r_PA3185                          4.1e-08  1_[+1]_1
+f_PA3185                          4.1e-08  1_[-1]_1
+r_PA5438                          4.1e-08  1_[-1]_1
+f_PA5438                          4.1e-08  1_[+1]_1
+r_PA5439                          4.1e-08  1_[+1]_1
+f_PA5439                          4.1e-08  1_[-1]_1
+r_PST_3852                        1.2e-07  1_[+1]_1
+f_PST_3852                        1.2e-07  1_[-1]_1
+r_Pmen_0576                       1.2e-07  1_[+1]_1
+f_Pmen_0576                       1.2e-07  1_[-1]_1
+r_PFL_0509                        1.2e-07  1_[+1]_1
+f_PFL_0509                        1.2e-07  1_[-1]_1
+r_PSPTO5005                       1.2e-07  1_[+1]_1
+f_PSPTO5005                       1.2e-07  1_[-1]_1
+r_PP0339                          1.2e-07  1_[+1]_1
+f_PP0339                          1.2e-07  1_[-1]_1
+r_PSEEN5145                       1.2e-07  1_[+1]_1
+f_PSEEN5145                       1.2e-07  1_[-1]_1
+r_PA5015                          1.2e-07  1_[+1]_1
+f_PA5015                          1.2e-07  1_[-1]_1
+r_PST_0183                        1.5e-07  1_[+1]_1
+f_PST_0183                        1.5e-07  1_[-1]_1
+r_PST_0182                        1.5e-07  1_[-1]_1
+f_PST_0182                        1.5e-07  1_[+1]_1
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=15 seqs=46
+r_Avin_02030             (    2) TGTAGTATAACTACA  1 
+f_Avin_02030             (    2) TGTAGTATAACTACA  1 
+r_Avin_02020             (    2) TGTAGTATAACTACA  1 
+f_Avin_02020             (    2) TGTAGTATAACTACA  1 
+r_Avin_44900             (    2) TGTAGTTTTACTACA  1 
+f_Avin_44900             (    2) TGTAGTTTTACTACA  1 
+r_Pmen_4485              (    2) TGTAGTATAACTACA  1 
+f_Pmen_4485              (    2) TGTAGTATAACTACA  1 
+r_Pmen_4486              (    2) TGTAGTATAACTACA  1 
+f_Pmen_4486              (    2) TGTAGTATAACTACA  1 
+r_PFL_6160               (    2) TGTAGTATAACTACA  1 
+f_PFL_6160               (    2) TGTAGTATAACTACA  1 
+r_PSPTO5515              (    2) TGTAGTATAACTACA  1 
+f_PSPTO5515              (    2) TGTAGTATAACTACA  1 
+r_PP5351                 (    2) TGTAGTATAACTACA  1 
+f_PP5351                 (    2) TGTAGTATAACTACA  1 
+r_PP5350                 (    2) TGTAGTATAACTACA  1 
+f_PP5350                 (    2) TGTAGTATAACTACA  1 
+r_PSEEN5500              (    2) TGTAGTATAACTACA  1 
+f_PSEEN5500              (    2) TGTAGTATAACTACA  1 
+r_PSEEN5499              (    2) TGTAGTATAACTACA  1 
+f_PSEEN5499              (    2) TGTAGTATAACTACA  1 
+r_PA3185                 (    2) TGTAGTTTTACTACA  1 
+f_PA3185                 (    2) TGTAGTTTTACTACA  1 
+r_PA5438                 (    2) TGTAGTATAACTACA  1 
+f_PA5438                 (    2) TGTAGTATAACTACA  1 
+r_PA5439                 (    2) TGTAGTATAACTACA  1 
+f_PA5439                 (    2) TGTAGTATAACTACA  1 
+r_PST_3852               (    2) AGTAGTAAAACTACA  1 
+f_PST_3852               (    2) AGTAGTAAAACTACA  1 
+r_Pmen_0576              (    2) AGTAGTAAAACTACA  1 
+f_Pmen_0576              (    2) AGTAGTAAAACTACA  1 
+r_PFL_0509               (    2) AGTAGTAAAACTACA  1 
+f_PFL_0509               (    2) AGTAGTAAAACTACA  1 
+r_PSPTO5005              (    2) AGTAGTAAAACTACA  1 
+f_PSPTO5005              (    2) AGTAGTAAAACTACA  1 
+r_PP0339                 (    2) AGTAGTAAAACTACA  1 
+f_PP0339                 (    2) AGTAGTAAAACTACA  1 
+r_PSEEN5145              (    2) AGTAGTAAAACTACA  1 
+f_PSEEN5145              (    2) AGTAGTAAAACTACA  1 
+r_PA5015                 (    2) AGTAGTAAAACTACA  1 
+f_PA5015                 (    2) AGTAGTAAAACTACA  1 
+r_PST_0183               (    2) GGTAGTTATACTACA  1 
+f_PST_0183               (    2) GGTAGTTATACTACA  1 
+r_PST_0182               (    2) GGTAGTTATACTACA  1 
+f_PST_0182               (    2) GGTAGTTATACTACA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 15 n= 138 bayes= 1 E= 3.1e-258 
+  -126  -1217   -165    114 
+ -1217  -1217    288  -1217 
+ -1217  -1217  -1217    146 
+   146  -1217  -1217  -1217 
+ -1217  -1217    288  -1217 
+ -1217  -1217  -1217    146 
+    46  -1224  -1224     46 
+    46  -1224  -1219     46 
+    46  -1219  -1219     46 
+   146  -1222  -1222  -1219 
+ -1219    288  -1222  -1219 
+ -1219  -1222  -1222    146 
+   146  -1222  -1222  -1219 
+ -1219    288  -1222  -1219 
+   114   -165  -1222   -126 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 15 nsites= 46 E= 3.1e-258 
+ 0.152174  0.000000  0.043478  0.804348 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 1.000000  0.000000  0.000000  0.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.499999  0.000000  0.000000  0.499999 
+ 0.499999  0.000000  0.000000  0.500000 
+ 0.500000  0.000000  0.000000  0.500000 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.000000  0.999999  0.000000  0.000000 
+ 0.000000  0.000000  0.000000  0.999999 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.000000  0.999999  0.000000  0.000000 
+ 0.804347  0.043477  0.000000  0.152173 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+TGTAGT[AT][TA][AT]ACTACA
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.22 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_PA5439                         2.44e-07  1_[+1(4.07e-08)]_1
+r_PA5439                         2.44e-07  1_[+1(4.07e-08)]_1
+f_PA5015                         7.32e-07  1_[+1(1.22e-07)]_1
+r_PA5015                         7.32e-07  1_[+1(1.22e-07)]_1
+f_PA5438                         2.44e-07  1_[+1(4.07e-08)]_1
+r_PA5438                         2.44e-07  1_[+1(4.07e-08)]_1
+f_PA3185                         2.44e-07  1_[+1(4.07e-08)]_1
+r_PA3185                         2.44e-07  1_[+1(4.07e-08)]_1
+f_PSEEN5145                      7.32e-07  1_[+1(1.22e-07)]_1
+r_PSEEN5145                      7.32e-07  1_[+1(1.22e-07)]_1
+f_PSEEN5499                      2.44e-07  1_[+1(4.07e-08)]_1
+r_PSEEN5499                      2.44e-07  1_[+1(4.07e-08)]_1
+f_PSEEN5500                      2.44e-07  1_[+1(4.07e-08)]_1
+r_PSEEN5500                      2.44e-07  1_[+1(4.07e-08)]_1
+f_PP0339                         7.32e-07  1_[+1(1.22e-07)]_1
+r_PP0339                         7.32e-07  1_[+1(1.22e-07)]_1
+f_PP5350                         2.44e-07  1_[+1(4.07e-08)]_1
+r_PP5350                         2.44e-07  1_[+1(4.07e-08)]_1
+f_PP5351                         2.44e-07  1_[+1(4.07e-08)]_1
+r_PP5351                         2.44e-07  1_[+1(4.07e-08)]_1
+f_PSPTO5005                      7.32e-07  1_[+1(1.22e-07)]_1
+r_PSPTO5005                      7.32e-07  1_[+1(1.22e-07)]_1
+f_PSPTO5515                      2.44e-07  1_[+1(4.07e-08)]_1
+r_PSPTO5515                      2.44e-07  1_[+1(4.07e-08)]_1
+f_PFL_0509                       7.32e-07  1_[+1(1.22e-07)]_1
+r_PFL_0509                       7.32e-07  1_[+1(1.22e-07)]_1
+f_PFL_6160                       2.44e-07  1_[+1(4.07e-08)]_1
+r_PFL_6160                       2.44e-07  1_[+1(4.07e-08)]_1
+f_Pmen_0576                      7.32e-07  1_[+1(1.22e-07)]_1
+r_Pmen_0576                      7.32e-07  1_[+1(1.22e-07)]_1
+f_Pmen_4486                      2.44e-07  1_[+1(4.07e-08)]_1
+r_Pmen_4486                      2.44e-07  1_[+1(4.07e-08)]_1
+f_Pmen_4485                      2.44e-07  1_[+1(4.07e-08)]_1
+r_Pmen_4485                      2.44e-07  1_[+1(4.07e-08)]_1
+f_PST_3852                       7.32e-07  1_[+1(1.22e-07)]_1
+r_PST_3852                       7.32e-07  1_[+1(1.22e-07)]_1
+f_PST_0182                       9.15e-07  1_[+1(1.52e-07)]_1
+r_PST_0182                       9.15e-07  1_[+1(1.52e-07)]_1
+f_PST_0183                       9.15e-07  1_[+1(1.52e-07)]_1
+r_PST_0183                       9.15e-07  1_[+1(1.52e-07)]_1
+f_Avin_44900                     2.44e-07  1_[+1(4.07e-08)]_1
+r_Avin_44900                     2.44e-07  1_[+1(4.07e-08)]_1
+f_Avin_02020                     2.44e-07  1_[+1(4.07e-08)]_1
+r_Avin_02020                     2.44e-07  1_[+1(4.07e-08)]_1
+f_Avin_02030                     2.44e-07  1_[+1(4.07e-08)]_1
+r_Avin_02030                     2.44e-07  1_[+1(4.07e-08)]_1
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

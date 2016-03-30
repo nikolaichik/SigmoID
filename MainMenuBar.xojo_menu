@@ -120,6 +120,27 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem FilePrint
+         SpecialMenu = 0
+         Text = "#kPrint"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem FilePageSetup
+         SpecialMenu = 0
+         Text = "#kPageSetup"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator9
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin QuitMenuItem FileQuit
          SpecialMenu = 0
          Text = "#kQuit"
@@ -575,6 +596,20 @@ Begin Menu MainMenuBar
       Begin MenuItem GenomeMergePlotData
          SpecialMenu = 0
          Text = "#kMergePlotData"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator8
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomePrintMap
+         SpecialMenu = 0
+         Text = "Print Map..."
          Index = -2147483648
          AutoEnable = True
          Visible = True

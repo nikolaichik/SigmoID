@@ -1,0 +1,2 @@
+   NrdR negatively controls expression of genes for deoxyribonucleotide reductases (nrd). It seems to control two or three operons in Pseudomonadaceae with 1-3 sites in front of each. The sites seem to vary significantly between species, and a single profile doesn’t perform well for all pseudomonads. This one is better suited for plant-associated ones.
+   This profile was built from RegPrecise 3.0 data for Pseudomonadaceae.

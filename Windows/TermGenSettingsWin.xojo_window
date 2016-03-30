@@ -184,6 +184,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Confidence score:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -386,6 +387,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   31
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Minimal stem length:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -420,6 +422,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   32
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Minimal loop length:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -454,6 +457,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   33
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Maximal hairpin length:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -488,6 +492,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   34
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Maximal loop length:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -564,6 +569,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   36
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -827,6 +833,8 @@ End
 		Sub TextChange()
 		  dim f as folderitem
 		  
+		  'need to wrap this inside "try catch", as the user may enter anything here
+		   
 		  f = GetFolderItem(me.text,FolderItem.PathTypeShell)
 		  If f<>nil AND f.Exists Then
 		    RunButton.enabled=true

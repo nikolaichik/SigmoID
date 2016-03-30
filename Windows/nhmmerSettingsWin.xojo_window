@@ -379,7 +379,7 @@ Begin Window nhmmerSettingsWin
          TextUnit        =   0
          Top             =   134
          Underline       =   False
-         Value           =   True
+         Value           =   False
          Visible         =   True
          Width           =   319
       End

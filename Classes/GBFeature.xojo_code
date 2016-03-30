@@ -154,12 +154,12 @@ Protected Class GBFeature
 		    ArrowInit
 		  case "promoter"
 		    linshape.colour=&c33993300   'green
-		    if length<35 then
-		      PromoterInit
-		    else
-		      hasarrow=true
-		      ArrowInit
-		    end
+		    'if length<35 then
+		    PromoterInit
+		    'else
+		    'hasarrow=true
+		    'ArrowInit
+		    'end
 		  case "terminator"  'dark red
 		    linshape.colour=&cCC000000
 		    'color=&cE8378F
@@ -315,6 +315,10 @@ Protected Class GBFeature
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		protein_id As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		RightTrunc As boolean = false
 	#tag EndProperty
 
@@ -424,6 +428,11 @@ Protected Class GBFeature
 			Name="Name"
 			Visible=true
 			Group="ID"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="protein_id"
+			Group="Behavior"
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty

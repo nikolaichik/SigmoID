@@ -1,4 +1,0 @@
-This profile is built from RegPrecise data for P. atrosepticum strain SCRI1043 with addition of orthologous sites from P. atrosepticum 21A.
-
-RegPrecise info:
-ModE is a dual regulator that controls transcription of genes involved in the homeostasis of molybdenum. ModE-dependent regulation was experimentally characterized in Escherichia coli. ModE regulon includes molybdenum transporters, genes involved in the synthesis of molybdenum cofactors (e.g., molybdopterin guanine dinucleotide in E. coli), and some molybdenum-containing enzymes. The regulatory effect of ModE is induced when E. coli is grown under anaerobic growth conditions and when the physiological inducer, molybdenum, binds to ModE and promotes the dimerization of the ModE-Mo complex. We used a comparative genomics approach to reconstruct transcriptional regulons controlled by ModE orthologs in different lineages of Proteobacteria.

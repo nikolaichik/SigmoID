@@ -110,6 +110,7 @@ Begin Window MEMESettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Number of motifs to find:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -154,8 +155,8 @@ Begin Window MEMESettingsWin
       Visible         =   True
       Width           =   136
    End
-   Begin ComboBox MotifNoCombo
-      AutoComplete    =   False
+   Begin PopupMenu MotifNoPopup
+      AutoComplete    =   "False"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -164,6 +165,7 @@ Begin Window MEMESettingsWin
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
+      InitialParent   =   ""
       InitialValue    =   "1\n2\n3\n4\n5"
       Italic          =   False
       Left            =   226
@@ -182,7 +184,7 @@ Begin Window MEMESettingsWin
       TextUnit        =   0
       Top             =   154
       Underline       =   False
-      UseFocusRing    =   True
+      UseFocusRing    =   "False"
       Visible         =   True
       Width           =   64
    End
@@ -321,6 +323,7 @@ Begin Window MEMESettingsWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "min:"
          TextAlign       =   2
          TextColor       =   &c00000000
@@ -355,6 +358,7 @@ Begin Window MEMESettingsWin
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "max:"
          TextAlign       =   2
          TextColor       =   &c00000000
@@ -400,8 +404,8 @@ Begin Window MEMESettingsWin
       Visible         =   True
       Width           =   214
    End
-   Begin ComboBox MotifsPerSeqCombo
-      AutoComplete    =   False
+   Begin PopupMenu MotifsPerSeqPopup
+      AutoComplete    =   "False"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -410,6 +414,7 @@ Begin Window MEMESettingsWin
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
+      InitialParent   =   ""
       InitialValue    =   "Zero or one\nOne\nAny number"
       Italic          =   False
       Left            =   178
@@ -428,7 +433,7 @@ Begin Window MEMESettingsWin
       TextUnit        =   0
       Top             =   186
       Underline       =   False
-      UseFocusRing    =   True
+      UseFocusRing    =   "False"
       Visible         =   True
       Width           =   112
    End
@@ -454,6 +459,7 @@ Begin Window MEMESettingsWin
       Selectable      =   False
       TabIndex        =   25
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Motifs per sequence:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -689,15 +695,15 @@ End
 		    end if
 		    
 		    '[-nmotifs <nmotifs>]    maximum number of motifs to find
-		    cli=cli+" -nmotifs "+MotifNoCombo.Text
+		    cli=cli+" -nmotifs "+MotifNoPopup.Text
 		    
 		    '[-mod oops|zoops|anr]    distribution of motifs
-		    select case MotifsPerSeqCombo.ListIndex
-		    case 0
-		      cli=cli+" -mod oops"
-		    case 1
+		    select case MotifsPerSeqPopup.ListIndex
+		    case 0      'zero or one
 		      cli=cli+" -mod zoops"
-		    case 2
+		    case 1      'one
+		      cli=cli+" -mod oops"
+		    case 2      'any number
 		      cli=cli+" -mod anr"
 		    end select
 		    
@@ -781,7 +787,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events MotifNoCombo
+#tag Events MotifNoPopup
 	#tag Event
 		Sub Open()
 		  
@@ -818,7 +824,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events MotifsPerSeqCombo
+#tag Events MotifsPerSeqPopup
 	#tag Event
 		Sub Open()
 		  
@@ -993,6 +999,11 @@ End
 		Group="Position"
 		InitialValue="64"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="moved2tmp"
+		Group="Behavior"
+		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Name"

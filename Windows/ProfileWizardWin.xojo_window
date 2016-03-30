@@ -1202,10 +1202,12 @@ End
 		                return
 		              end if
 		            else
-		              Msgbox "Can't create virtual folder."
+		              
+		              Msgbox "Can't create .sig file here. Please try another location."
 		              
 		            end if
-		            
+		          else
+		            Msgbox "Can't create .sig file here. Please try another location."
 		          end if
 		        else
 		          msgbox "No alignment file found in the chosen folder. Can't proceed without it"
@@ -1502,10 +1504,11 @@ End
 		                return
 		              end if
 		            else
-		              Msgbox "Can't create virtual folder."
+		              Msgbox "Can't create .sig file here. Please try another location."
 		              
 		            end if
-		            
+		          else
+		            Msgbox "Can't create .sig file here. Please try another location."
 		          end if
 		        else
 		          msgbox "No alignment file found in the chosen folder. Can't proceed without it"

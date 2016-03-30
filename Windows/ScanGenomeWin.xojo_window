@@ -48,6 +48,7 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -472,7 +473,7 @@ End
 		    #endif
 		  next
 		  SigList.SortedColumn=1
-		  SigList.ColumnsortDirection(1)=ListBox.SortDescending
+		  SigList.ColumnsortDirection(1)=ListBox.SortAscending
 		  SigList.sort
 		  
 		  Exception err

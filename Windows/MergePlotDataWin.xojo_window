@@ -136,7 +136,7 @@ Begin Window MergePlotDataWin
       Enabled         =   True
       Format          =   ""
       Height          =   22
-      HelpTag         =   "Path to genome to be searched"
+      HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   100
@@ -207,7 +207,7 @@ Begin Window MergePlotDataWin
       Default         =   False
       Enabled         =   True
       Height          =   20
-      HelpTag         =   "Select genome to search"
+      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -243,7 +243,7 @@ Begin Window MergePlotDataWin
       Enabled         =   True
       Format          =   ""
       Height          =   22
-      HelpTag         =   "Path to genome to be searched"
+      HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   100
@@ -314,7 +314,7 @@ Begin Window MergePlotDataWin
       Default         =   False
       Enabled         =   True
       Height          =   20
-      HelpTag         =   "Select genome to search"
+      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -350,7 +350,7 @@ Begin Window MergePlotDataWin
       Enabled         =   True
       Format          =   ""
       Height          =   22
-      HelpTag         =   "Path to genome to be searched"
+      HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
       Left            =   100
@@ -421,7 +421,7 @@ Begin Window MergePlotDataWin
       Default         =   False
       Enabled         =   True
       Height          =   20
-      HelpTag         =   "Select genome to search"
+      HelpTag         =   "Select file to save merged data to"
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -566,8 +566,11 @@ End
 		  
 		  dim n as integer
 		  for n=1 to ubound(ReadDepth)
-		    aline=Seqname+tabChar+str(n)+tabchar+str(ReadDepth(n))
-		    outstream.WriteLine aline
+		    'aline=Seqname+tabChar+str(n)+tabchar+str(ReadDepth(n))
+		    'outstream.WriteLine aline
+		    
+		    'writing down just the counts to speed up further use
+		    outstream.WriteLine str(ReadDepth(n))
 		  next
 		  outstream.close
 		  logowin.WriteToSTDOUT ("OK"+EndOfLine.unix)

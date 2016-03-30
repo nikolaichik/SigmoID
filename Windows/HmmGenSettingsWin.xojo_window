@@ -91,7 +91,7 @@ Begin Window HmmGenSettingsWin
    Begin CheckBox IntergenicBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Consider intergenic regions only"
+      Caption         =   "Ignore sites within ORFs"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -142,7 +142,6 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Feature to add:"
       TextAlign       =   0
       TextColor       =   &c00000000

@@ -1,0 +1,277 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_PSPTO1157              1.0000     22  r_PSPTO1157              1.0000     22  
+f_PSPTO1158              1.0000     22  r_PSPTO1158              1.0000     22  
+f_PSPTO3660              1.0000     22  r_PSPTO3660              1.0000     22  
+f_PSPTO3671              1.0000     22  r_PSPTO3671              1.0000     22  
+f_PSPTO3671_2            1.0000     22  r_PSPTO3671_2            1.0000     22  
+f_PSPTO3666              1.0000     22  r_PSPTO3666              1.0000     22  
+f_PSPTO0769              1.0000     22  r_PSPTO0769              1.0000     22  
+f_PSPTO0772              1.0000     22  r_PSPTO0772              1.0000     22  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           22    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       16    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             352    N=              16
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.267 C 0.233 G 0.233 T 0.267 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.267 C 0.233 G 0.233 T 0.267 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  22  sites =  16  llr = 233  E-value = 5.0e-062
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  661:3:8::64213:1:71244
+pos.-specific     C  ::49::1971222:11a::2:1
+probability       G  1:3::a11:3221791::94::
+matrix            T  44318:1:31246::7:2:166
+
+         bits    2.1      *          *     
+                 1.9      *          *     
+                 1.7      * *      * *     
+                 1.5    * * *      * * *   
+Relative         1.3    * * *      * * *   
+Entropy          1.1    *** **    ** ***   
+(21.0 bits)      0.8  * ******    ****** * 
+                 0.6 ** ******    ****** **
+                 0.4 ** *******  ******* **
+                 0.2 **********  **********
+                 0.0 ----------------------
+
+Multilevel           AACCTGACCAATTGGTCAGGTT
+consensus            TTG A   TGTACA   T AAA
+sequence               T                C  
+                                           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                     Site       
+-------------            ------  ----- ---------            ----------------------
+r_PSPTO0769                  +      1  4.75e-09          . ATCCTGGCCAATGGGTCAGGTT           
+f_PSPTO0769                  -      1  4.75e-09          . ATCCTGGCCAATGGGTCAGGTT           
+r_PSPTO1158                  +      1  6.11e-09          . ATTCAGACCAAATGGTCTGCTA           
+f_PSPTO1158                  -      1  6.11e-09          . ATTCAGACCAAATGGTCTGCTA           
+r_PSPTO1157                  -      1  6.11e-09          . ATTCAGACCAAATGGTCTGCTA           
+f_PSPTO1157                  +      1  6.11e-09          . ATTCAGACCAAATGGTCTGCTA           
+r_PSPTO3666                  +      1  7.29e-08          . AACCTGCCTGACTGGTCAGTTA           
+f_PSPTO3666                  -      1  7.29e-08          . AACCTGCCTGACTGGTCAGTTA           
+r_PSPTO0772                  -      1  1.24e-07          . AACCTGAGCAGGTGGACAGTTT           
+f_PSPTO0772                  +      1  1.24e-07          . AACCTGAGCAGGTGGACAGTTT           
+r_PSPTO3671                  +      1  3.01e-07          . ATTTTGTCTGTCTGGTCAGCTT           
+f_PSPTO3671                  -      1  3.01e-07          . ATTTTGTCTGTCTGGTCAGCTT           
+r_PSPTO3660                  -      1  3.49e-07          . TTCCTGACTTAAGAGTCAGAAA           
+f_PSPTO3660                  +      1  3.49e-07          . TTCCTGACTTAAGAGTCAGAAA           
+r_PSPTO3671_2                +      1  6.98e-07          . GTCTTGACCGCGCAGTCAGCTA           
+f_PSPTO3671_2                -      1  6.98e-07          . GTCTTGACCGCGCAGTCAGCTA           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_PSPTO0769                       4.7e-09  [+1]
+f_PSPTO0769                       4.7e-09  [-1]
+r_PSPTO1158                       6.1e-09  [+1]
+f_PSPTO1158                       6.1e-09  [-1]
+r_PSPTO1157                       6.1e-09  [-1]
+f_PSPTO1157                       6.1e-09  [+1]
+r_PSPTO3666                       7.3e-08  [+1]
+f_PSPTO3666                       7.3e-08  [-1]
+r_PSPTO0772                       1.2e-07  [-1]
+f_PSPTO0772                       1.2e-07  [+1]
+r_PSPTO3671                         3e-07  [+1]
+f_PSPTO3671                         3e-07  [-1]
+r_PSPTO3660                       3.5e-07  [-1]
+f_PSPTO3660                       3.5e-07  [+1]
+r_PSPTO3671_2                       7e-07  [+1]
+f_PSPTO3671_2                       7e-07  [-1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=22 seqs=16
+r_PSPTO0769              (    1) ATCCTGGCCAATGGGTCAGGTT  1 
+f_PSPTO0769              (    1) ATCCTGGCCAATGGGTCAGGTT  1 
+r_PSPTO1158              (    1) ATTCAGACCAAATGGTCTGCTA  1 
+f_PSPTO1158              (    1) ATTCAGACCAAATGGTCTGCTA  1 
+r_PSPTO1157              (    1) ATTCAGACCAAATGGTCTGCTA  1 
+f_PSPTO1157              (    1) ATTCAGACCAAATGGTCTGCTA  1 
+r_PSPTO3666              (    1) AACCTGCCTGACTGGTCAGTTA  1 
+f_PSPTO3666              (    1) AACCTGCCTGACTGGTCAGTTA  1 
+r_PSPTO0772              (    1) AACCTGAGCAGGTGGACAGTTT  1 
+f_PSPTO0772              (    1) AACCTGAGCAGGTGGACAGTTT  1 
+r_PSPTO3671              (    1) ATTTTGTCTGTCTGGTCAGCTT  1 
+f_PSPTO3671              (    1) ATTTTGTCTGTCTGGTCAGCTT  1 
+r_PSPTO3660              (    1) TTCCTGACTTAAGAGTCAGAAA  1 
+f_PSPTO3660              (    1) TTCCTGACTTAAGAGTCAGAAA  1 
+r_PSPTO3671_2            (    1) GTCTTGACCGCGCAGTCAGCTA  1 
+f_PSPTO3671_2            (    1) GTCTTGACCGCGCAGTCAGCTA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 22 n= 16 bayes= -664.386 E= 5.0e-062 
+   108  -1064   -190     49 
+   108  -1064  -1064     71 
+  -109     69     10     -9 
+ -1064    191  -1064   -109 
+    -9  -1064  -1064    149 
+ -1064  -1064    210  -1064 
+   149   -190   -190   -109 
+ -1064    201   -190  -1064 
+ -1064    156  -1064     23 
+   108    -90     10   -209 
+    49    -31    -31     -9 
+    -9    -31    -31     49 
+  -209     10    -90    108 
+    23  -1065    156  -1065 
+ -1065   -190    201  -1065 
+  -109   -190   -190    149 
+ -1065    210  -1065  -1065 
+   149  -1065  -1065     -9 
+  -109  -1065    191  -1065 
+    -9     10     69   -109 
+    71  -1065  -1065    108 
+    49   -190  -1065    108 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 22 nsites= 16 E= 5.0e-062 
+ 0.562500  0.000000  0.062500  0.375000 
+ 0.562500  0.000000  0.000000  0.437500 
+ 0.125000  0.375000  0.250000  0.250000 
+ 0.000000  0.875000  0.000000  0.125000 
+ 0.250000  0.000000  0.000000  0.750000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.750000  0.062500  0.062500  0.125000 
+ 0.000000  0.937500  0.062500  0.000000 
+ 0.000000  0.687500  0.000000  0.312500 
+ 0.562500  0.125000  0.250000  0.062500 
+ 0.374999  0.187498  0.187498  0.249998 
+ 0.249999  0.187499  0.187499  0.375000 
+ 0.062499  0.249999  0.124999  0.562499 
+ 0.312499  0.000000  0.687499  0.000000 
+ 0.000000  0.062499  0.937499  0.000000 
+ 0.124999  0.062499  0.062499  0.749999 
+ 0.000000  0.999999  0.000000  0.000000 
+ 0.749999  0.000000  0.000000  0.249999 
+ 0.124999  0.000000  0.874999  0.000000 
+ 0.249999  0.249999  0.374999  0.124999 
+ 0.437499  0.000000  0.000000  0.562499 
+ 0.374999  0.062499  0.000000  0.562499 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+[AT][AT][CGT]C[TA]GAC[CT][AG][AT][TA][TC][GA]GTC[AT]G[GAC][TA][TA]
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.07 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_PSPTO1157                      1.22e-08  [+1(6.11e-09)]
+r_PSPTO1157                      1.22e-08  [+1(6.11e-09)]
+f_PSPTO1158                      1.22e-08  [+1(6.11e-09)]
+r_PSPTO1158                      1.22e-08  [+1(6.11e-09)]
+f_PSPTO3660                      6.99e-07  [+1(3.49e-07)]
+r_PSPTO3660                      6.99e-07  [+1(3.49e-07)]
+f_PSPTO3671                      6.02e-07  [+1(3.01e-07)]
+r_PSPTO3671                      6.02e-07  [+1(3.01e-07)]
+f_PSPTO3671_2                    1.40e-06  [+1(6.98e-07)]
+r_PSPTO3671_2                    1.40e-06  [+1(6.98e-07)]
+f_PSPTO3666                      1.46e-07  [+1(7.29e-08)]
+r_PSPTO3666                      1.46e-07  [+1(7.29e-08)]
+f_PSPTO0769                      9.49e-09  [+1(4.75e-09)]
+r_PSPTO0769                      9.49e-09  [+1(4.75e-09)]
+f_PSPTO0772                      2.49e-07  [+1(1.24e-07)]
+r_PSPTO0772                      2.49e-07  [+1(1.24e-07)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

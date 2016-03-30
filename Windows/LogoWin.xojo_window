@@ -128,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -1499,6 +1500,7 @@ End
 		  Dim aMenuItem as MenuItem
 		  dim m,n as integer
 		  dim f as folderitem
+		  dim MenuTexts(0) as string
 		  
 		  f=Profile_f
 		  m=f.Count
@@ -1508,12 +1510,22 @@ End
 		      ''skip folder
 		      'else
 		      if right(f.Item(n).DisplayName,4)=".sig" then
-		        aMenuItem = new MenuItem
-		        aMenuItem.text = nthfield(f.Item(n).Name,".sig",1) 'drop the extension
-		        ButtMenu.Append aMenuItem
+		        MenuTexts.append nthfield(f.Item(n).Name,".sig",1) 'drop the extension
 		      end if
 		    end if
 		  next
+		  
+		  'the array and its sorting is required on Linux as file order in a folder is unpredictable 
+		  MenuTexts.Sort
+		  m=ubound(MenuTexts)
+		  for n=1 to m
+		    aMenuItem = new MenuItem
+		    aMenuItem.text = MenuTexts(n)
+		    ButtMenu.Append aMenuItem
+		  next
+		  
+		  
+		  
 		  
 		  #if TargetCocoa then               'a workaround for toolbar deficiency on Mac
 		    aMenuItem = new MenuItem
@@ -1596,6 +1608,7 @@ End
 		    TopPanel.visible=true
 		    DownshiftLog true
 		    ViewSequences.Checked=true
+		    informer.SetFocus
 		  case "AlignmentInfo"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
@@ -1614,6 +1627,7 @@ End
 		    'Informer.visible=true
 		    'Informer.enabled=true
 		    DownshiftLog true
+		    informer.SetFocus
 		  case "HideViewer"
 		    if TopPanel.Visible then
 		      
@@ -2939,8 +2953,8 @@ End
 		      HmmGenSettingsWin.PalindromicBox.value=False
 		      palindromic=false                           'enable the "Palindromise" function
 		      ProfileWizardWin.PalindromicBox.value=false
-		      HmmGenSettingsWin.IntergenicBox.value=True
-		      ProfileWizardWin.WithinORFBox.value=True
+		      HmmGenSettingsWin.IntergenicBox.value=false
+		      ProfileWizardWin.WithinORFBox.value=False
 		      HmmGenSettingsWin.AddQualifierBox.value=True
 		      HmmGenSettingsWin.NextLocusBox.value=False
 		      ProfileWizardWin.NextLocusBox.value=False
@@ -4080,7 +4094,8 @@ End
 
 	#tag Method, Flags = &h0
 		Sub WriteToSTDOUT(txt as string)
-		  STDOUT.text=STDOUT.text+txt
+		  'STDOUT.text=STDOUT.text+txt
+		  STDOUT.AppendText(txt)
 		  STDOUT.ScrollPosition=STDOUT.LineNumAtCharPos(len(STDOUT.text))
 		  STDOUT.refresh(false)
 		End Sub
@@ -4374,17 +4389,10 @@ End
 		      if hititem.Text="More..." then
 		        dim GenomeFile as folderitem
 		        Dim dlg as New OpenDialog
-		        
-		        '#If Not TargetLinux Then
-		        'dlg.InitialDirectory = SpecialFolder.Documents
-		        '#Else //open Home directory on linux
-		        'dlg.InitialDirectory = SpecialFolder.Home
-		        '#Endif
-		        
-		        dlg.promptText="Select a fasta file"
-		        'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+		        dlg.promptText="Select an alignment file"
 		        dlg.Title="Open alignment"
-		        dlg.Filter=FileTypes.Fasta
+		        
+		        dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
 		        tmpfile=dlg.ShowModalwithin(self)
 		        if tmpfile<>Nil then
 		          LoadAlignment(tmpFile)

@@ -20,6 +20,8 @@
 
 
 
+
+
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
 	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
@@ -184,7 +186,10 @@ drop down list (OS X).&nbsp; <br>
 &nbsp;&nbsp;&nbsp; The next "<span style="font-weight: bold; color: rgb(0, 102, 0);">Search</span>" button launches nhmmer search with the currently loaded profile. The raw search results appear in the <span style="font-weight: bold; color: rgb(0, 102, 0);">Log</span> pane. In case a .sig file is opened the post processing python script is launched&nbsp; by default and the <a href="#mozTocId23083">Genome Browser window</a>
 is opened to display search results. For non-calibrated profiles
 (opened from fasta files) the post processing script has to be launched
-separately by pressing the third "<span style="font-weight: bold; color: rgb(0, 102, 0);">PostProcess</span>" toolbar button.<br>
+separately by pressing the third "<span style="font-weight: bold; color: rgb(0, 102, 0);">PostProcess</span>"
+toolbar button. Please note that the original GenBank file is never
+modified and SigmoID will ask where to save the file in the same
+(GenBank) format with the additions it makes.<br>
 &nbsp;&nbsp;&nbsp; The fourth "<span style="font-weight: bold; color: rgb(0, 102, 0);">Terminators</span>"
 toolbar button allows to search for terminators. This function uses
 TransTerm HP, performs the necessary format conversions and adds the
@@ -221,7 +226,9 @@ used as a query to launch database searches, edited or deleted. The
 corresponding commands are located in the contextual menu (brought up
 by right-clicking in the feature map); you can also double-click a
 feature to open its editor. Please note that currently no format checks
-are done in this window: be careful to adhere to GenBank format!<br>
+are done in this window: be careful to adhere to GenBank format!
+Double-clicking outside any features centers feature map at the clicked
+coordinate.<br>
 &nbsp;&nbsp;&nbsp; Database searches can be launched via contextual
 menu. Depending on the current selection, the menu will contain
 commands to search (with BLAST) against the nr database or (with
@@ -324,7 +331,7 @@ These simple windows are opened in most cases before launching command
 line utilities (nhmmer, meme, mast, TransTerm HP) and python scripts to
 allow changing some of the options. The options are hopefully
 self-explanatory, but an explanation is provided in most cases via help
-tags: hold a mouse over the option for a second to see this help. <br>
+tags: hold a mouse pointer over the option for a second to see this help. <br>
 <h3><a class="mozTocH3" name="mozTocId686762"></a>Web Browser and Help Windows </h3>
 The minimalistic web browser windows are used to display info from
 RegPrecise and RegulonDB databases, as well as SigmoID help. If these
@@ -642,7 +649,10 @@ separately by the <a href="#Annotate_Current_Sites">Annotate Current Sites</a> c
 (<a href="#HmmGen.py">HmmGen.py</a>) to filter nhmmer results, add the binding sites to genome
 annotation and open the updated genome sequence in the <a href="index.html#mozTocId23083">Genome Browser window</a>.
 Using this command separately from nhmmer search may be convenient for
-unoptimised profiles when desiding on the correct search options.<br>
+unoptimised profiles when deciding on the correct search options. This
+comand doesn't modify the original GenBank file, but will write a new
+one (asking where to save it)
+with the additions it makes.<br>
 <br>
 
 <span style="font-weight: bold; color: rgb(0, 102, 0);">&nbsp;&nbsp;&nbsp; MAST </span><span style="font-weight: bold; color: rgb(0, 102, 0);">Search...</span><br>&nbsp;&nbsp;&nbsp;
@@ -715,7 +725,12 @@ highlighted.<br>
 
 <hr style="width: 100%; height: 2px;">&nbsp;&nbsp;&nbsp; <span style="font-weight: bold; color: rgb(0, 102, 0);"></span><span style="font-weight: bold; color: rgb(0, 102, 0);"><a name="AddPlot"></a>Add Plot...</span><br>
 
-&nbsp;&nbsp;&nbsp; This command can be used to plot either RNA-seq coverage data produced by samtools (please see the <a href="#RNAseq">instructions</a>) or simple numerical data (e.g. %GC). Two overlapping graphs can be shown in the plot area – just use the <span style="color: rgb(0, 102, 0); font-weight: bold;">Add Plot…</span> command twice.<br><br>
+&nbsp;&nbsp;&nbsp; This command can be used to plot either RNA-seq coverage data produced by samtools (please see the <a href="#RNAseq">instructions</a>) or simple numerical data (e.g. %GC). Four overlapping graphs can be shown in the plot area – just use the <span style="color: rgb(0, 102, 0); font-weight: bold;">Add Plot…</span>
+command repeatedly. All graphs are shown in the same plot area which
+allows, for example, to compare RNA-seq data for two conditions and for
+both strands. Each plot is currently scaled separately, so the maximal
+values plotted (shown on the left and on the right) should be taken
+into account when comparing the plots.<br><br>
 &nbsp;&nbsp;&nbsp;  <span style="font-weight: bold; color: rgb(0, 102, 0);"></span><span style="font-weight: bold; color: rgb(0, 102, 0);">Remove Plots</span><br>
 
 
@@ -828,10 +843,10 @@ no harm)<br>
 <pre>samtools depth antisense2.bam &gt; antisense2.depth</pre>
 <br>
 7. Open the genome file in SigmoID and combine read counts for sense
-and antisense strands using the Merge Plot Data... command from the
+and antisense strands using the <span style="font-weight: bold; color: rgb(0, 102, 0);">Merge Plot Data...</span> command from the
 Genome menu.<br>
 <br>
-8. Load the combined read count data for the sense strand using the <a href="#AddPlot">Add Plot...</a> command from the Genome menu, then load the data for the antisense strand via the same menu command.<br>
+8. Load the combined read count data for the sense strand using the <a href="#AddPlot">Add Plot...</a> command from the Genome menu, then load the data for the antisense strand via the same menu command. Repeat for another sample.<br>
 <br>
 <p style="margin-left: 1.03cm;"></p>
 <h1><a class="mozTocH1" name="mozTocId708060"></a><a name="Python_Scripts"></a>Python Scripts</h1>

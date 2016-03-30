@@ -1,2 +1,0 @@
-DcuR is known to regulate genes involved in C4-dicarboxylate metabolism.
-This profile was built starting with E.coli data from RegulonDB (aligned with MEME) and then searching for the matching sites in pectobacterial genomes. The final profile includes 15 non-redundant sites from Pectobacterium atrosepticum, P. carotovorum, P. wasabiae and D. dadantii.

@@ -1,2 +1,0 @@
-LfaR is the regulator of unknown sugar utilisation that was shown to contribute to D. dadantii virulence.
-The profile was built starting with RegPrecise data for Pectobacterium atrosepticum and adding matching sites from P. carotovorum, P. wasabiae and D. dadantii. The threshold will cut off one of the three LfaR sites of  P. atrosepticum present in RegPrecise, but this site isn’t conserved in other four species.  

@@ -48,6 +48,7 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Genome:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -176,6 +177,7 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -403,7 +405,7 @@ End
 		      
 		    next
 		    
-		    logowin.WriteToSTDOUT("Contacting RegPrecise... ")
+		    logowin.WriteToSTDOUT("Getting protein ID from RegPrecise... ")
 		    
 		    dim res as string
 		    dim jsn as new JSONItem
@@ -426,7 +428,7 @@ End
 		        
 		      end if
 		      
-		      logowin.WriteToSTDOUT("Contacting MicrobesOnline... ")
+		      logowin.WriteToSTDOUT("Getting protein sequence from MicrobesOnline... ")
 		      
 		      ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
 		      
