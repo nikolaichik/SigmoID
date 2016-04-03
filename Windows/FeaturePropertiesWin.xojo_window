@@ -181,8 +181,10 @@ End
 		  
 		  
 		  OKPressed=true
-		  self.hide
+		  'self.hide
 		  self.ParentWin.Show
+		  self.close
+		  
 		End Sub
 	#tag EndMethod
 
@@ -269,7 +271,9 @@ End
 		Sub Action()
 		  OKPressed=false
 		  
-		  self.hide
+		  self.ParentWin.Show
+		  self.close
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

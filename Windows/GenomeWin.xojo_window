@@ -647,12 +647,14 @@ End
 		    ViewViewDetails.text = "Show details"
 		  end if
 		  
-		  GenomeFind.enable
+		  GenomeFind.enabled=true
 		  if SearchPosition>0 then
-		    GenomeFindAgain.Enable
+		    GenomeFindAgain.Enabled=true
 		  end if
-		  GenomeGoto.enable
-		  GenomeAddPlot.enable
+		  GenomeGoto.enabled=true
+		  GenomeAddPlot.enabled=true
+		  GenomeMergePlotData.enabled=true
+		  
 		  
 		  FileSaveCheckedSites.Visible=true
 		  FileSaveCheckedSites.Enabled=true
@@ -1818,7 +1820,7 @@ End
 		    GenomeChanged=true
 		    self.IsModified=true
 		  else
-		    FeaturePropertiesWin.hide
+		    'FeaturePropertiesWin.hide
 		  end
 		  
 		  
@@ -1919,7 +1921,7 @@ End
 		    GenomeChanged=true
 		    self.IsModified=true
 		  else
-		    FeaturePropertiesWin.hide
+		    'FeaturePropertiesWin.hide
 		  end
 		  
 		  
@@ -1956,12 +1958,13 @@ End
 		        ViewViewDetails.text = "Show details"
 		      end if
 		      
-		      GenomeFind.enable
+		      GenomeFind.enabled=true
 		      if SearchPosition>0 then
-		        GenomeFindAgain.Enable
+		        GenomeFindAgain.Enabled=true
 		      end if
-		      GenomeGoto.enable
-		      GenomeAddPlot.enable
+		      GenomeGoto.enabled=true
+		      GenomeAddPlot.enabled=true
+		      GenomeMergePlotData.enabled=true
 		      
 		      FileSaveCheckedSites.Visible=true
 		      FileSaveCheckedSites.Enabled=true
@@ -4718,6 +4721,10 @@ End
 		Document As FolderItem
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private DoubleClickedAlready As boolean
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected DragStartY As Integer
 	#tag EndProperty
@@ -5788,9 +5795,21 @@ End
 		    if p.Objects.Item(n) IsA cClickableShape then
 		      
 		      if cClickableShape(p.Objects.Item(n)).contains(X,Y) then
-		        ContextFeature=n/2
-		        EditFeature(seq.Features(ContextFeature))
-		        
+		        #if Target64Bit 'Linix 64-bit gives two double click events!
+		          if DoubleClickedAlready then
+		            DoubleClickedAlready=false
+		            exit
+		          else
+		            ContextFeature=n/2
+		            EditFeature(seq.Features(ContextFeature))
+		            DoubleClickedAlready=true
+		            exit
+		          end if
+		        #else
+		          ContextFeature=n/2
+		          EditFeature(seq.Features(ContextFeature))
+		          exit
+		        #endif
 		      end
 		      
 		    end

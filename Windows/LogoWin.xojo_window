@@ -2551,6 +2551,13 @@ End
 		        FileExportSequence.enabled=false
 		        FileExportFeatureTable.enabled=false
 		        GenomeListRegulons.enabled=false
+		        
+		        GenomeFind.enabled=false
+		        GenomeGoto.enabled=false
+		        GenomeAddPlot.enabled=false
+		        GenomeMergePlotData.enabled=false
+		        GenomeFindAgain.Enabled=false
+		        
 		      end if
 		      
 		    #endif
@@ -3014,6 +3021,7 @@ End
 		      
 		    else
 		      SigFileOpened=false
+		      MEMEdata=""
 		      nhmmerSettingsWin.AddAnnotationCheckBox.value=false
 		      nhmmerSettingsWin.AddAnnotationCheckBox.enabled=false
 		      nhmmerSettingsWin.AddAnnotationCheckBox.HelpTag="This option is enabled only for calibrated profiles"
