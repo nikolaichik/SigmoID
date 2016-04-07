@@ -26,6 +26,6 @@ Full list of platform-specific system requirements is located at Xojo site: http
 
 Additional info and short usage instructions are in the help file accessible from SigmoID.
 
-Compiled applications for all supported platforms are located in the 'Builds - Sigmoid.xojo_project' folder.
+Compiled applications for all supported platforms are located on the Releases page.
 
 As supporting four different systems (and different versions of those) isn't simple, we'd be grateful for reporting any problems via the Issues page here.
