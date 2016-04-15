@@ -241,7 +241,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   359
-      Value           =   3
+      Value           =   0
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -257,7 +257,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   0
+         Renderer        =   1
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   1
@@ -279,7 +279,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   0
+         Renderer        =   1
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   2
@@ -301,7 +301,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   0
+         Renderer        =   1
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   3
@@ -323,7 +323,7 @@ Begin Window GenomeWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Renderer        =   0
+         Renderer        =   1
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   4
@@ -6101,6 +6101,15 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Error(errorNumber as Integer, errorMessage as String)
+		  if errorMessage<>"" then
+		    SocketError(errorNumber, errorMessage)
+		  else
+		    SocketError errorNumber
+		  end if
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events UPSearchViewer
 	#tag Event
@@ -6122,6 +6131,15 @@ End
 		  end if
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Error(errorNumber as Integer, errorMessage as String)
+		  if errorMessage<>"" then
+		    SocketError(errorNumber, errorMessage)
+		  else
+		    SocketError errorNumber
+		  end if
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events TFSearchViewer
 	#tag Event
@@ -6129,11 +6147,24 @@ End
 		  
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Error(errorNumber as Integer, errorMessage as String)
+		  if errorMessage<>"" then
+		    SocketError(errorNumber, errorMessage)
+		  else
+		    SocketError errorNumber
+		  end if
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events BLASTSearchViewer
 	#tag Event
 		Sub Error(errorNumber as Integer, errorMessage as String)
-		  msgbox errorMessage
+		  if errorMessage<>"" then
+		    SocketError(errorNumber, errorMessage)
+		  else
+		    SocketError errorNumber
+		  end if
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -6267,6 +6298,12 @@ End
 		    ExceptionHandler(err,"GenomeWin:SPSocket")
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Error(code as integer)
+		  SocketError Code
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events UniProtSocket
 	#tag Event
@@ -6338,6 +6375,11 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:UniProtSocket")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Error(code as integer)
+		  SocketError Code
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -6484,6 +6526,11 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:BlastSocket")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Error(code as integer)
+		  SocketError Code
 		End Sub
 	#tag EndEvent
 #tag EndEvents

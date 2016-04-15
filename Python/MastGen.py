@@ -57,11 +57,10 @@ def is_within_feature(list_of_features, index, some_hit):
         list_of_features[index].location.end) or \
         (list_of_features[index].location.start <
             some_hit.location.start <
+             some_hit.location.end <
             list_of_features[index+1].location.start and
-            ((some_hit.strand == -1 and
-              list_of_features[index].strand == +1) or
-             (some_hit.strand == +1 and
-              list_of_features[index+1].strand == -1))):
+            list_of_features[index].strand != 
+                list_of_features[index+1].strand):
         # checking if hit is within other features
         return True
     else:

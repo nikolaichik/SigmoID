@@ -181,9 +181,9 @@ End
 		  
 		  
 		  OKPressed=true
-		  'self.hide
+		  self.hide
 		  self.ParentWin.Show
-		  self.close
+		  'self.close
 		  
 		End Sub
 	#tag EndMethod

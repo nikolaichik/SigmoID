@@ -28,10 +28,6 @@ nhmmer.--cut_ga
 HmmGen.-L 18
 
 
-// the site is palindromic
-HmmGen.-p
-
-
 // don't pick up locus_tag from next locus
 HmmGen.-n
 

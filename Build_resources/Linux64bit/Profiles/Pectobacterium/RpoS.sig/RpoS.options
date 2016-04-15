@@ -4,15 +4,15 @@
 
 
 // Trusted cutoff. Bit score per-sequence cutoff, set according to the lowest scores seen for true homologous sequences that were above the GA gathering thresholds, when gathering members of the alignment
-#=GF TC 7.0 7.0
+#=GF TC 8.9 8.9
 
 
 // Gathering threshold. Bit score per-sequence cutoff used in gathering the members of the alignment
-#=GF GA 6.4 6.4
+#=GF GA 8.9 8.9
 
 
 //Noise cutoff. Bit score per-sequence cutoff, set according to the highest scores seen for unrelated sequences
-#=GF NC 6.3 6.3
+#=GF NC 8.9 8.9
 
 
 // use the gathering threshold from the calibrated profile
@@ -25,11 +25,7 @@ nhmmer.--cut_ga
 
 
 // the alignment length
-HmmGen.-L 18
-
-
-// the site is palindromic
-HmmGen.-p
+HmmGen.-L 35
 
 
 // don't pick up locus_tag from next locus
@@ -41,14 +37,14 @@ HmmGen.-i
 
 
 // feature key
-HmmGen.-f protein_bind
+HmmGen.-f promoter
 
 
 // feature qualifier
-HmmGen.-q bound_moiety#LexA
+HmmGen.-q bound_moiety#RpoS alternative sigma factor
 
 
 // MASTgen p-value cutoff
-mastGen.-V 
+mastGen.-V 1e-6
 
 
