@@ -339,6 +339,11 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x94\xD0\xB0\xD0\xB2\xD0\xB5\xD0\xB4\xD0\xBA\xD0\xB0"
 	#tag EndConstant
 
+	#tag Constant, Name = kHelpFileName, Type = String, Dynamic = True, Default = \"help_en.html", Scope = Public
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"help_by.html"
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"help_ru.html"
+	#tag EndConstant
+
 	#tag Constant, Name = kHideFeature, Type = String, Dynamic = True, Default = \"Hide Feature", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA1\xD0\xBF\xD1\x80\xD1\x8F\xD1\x82\xD0\xB0\xD1\x82\xD1\x8C \xD1\x8D\xD0\xBB\xD0\xB5\xD0\xBC\xD0\xB5\xD0\xBD\xD1\x82 \xD0\xB0\xD0\xBD\xD0\xBD\xD0\xBE\xD1\x82\xD0\xB0\xD1\x86\xD0\xB8\xD0\xB8"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA1\xD1\x85\xD0\xB0\xD0\xB2\xD0\xB0\xD1\x86\xD1\x8C \xD1\x8D\xD0\xBB\xD0\xB5\xD0\xBC\xD0\xB5\xD0\xBD\xD1\x82 \xD0\xB0\xD0\xBD\xD0\xB0\xD1\x82\xD0\xB0\xD1\x86\xD1\x8B\xD1\x96"

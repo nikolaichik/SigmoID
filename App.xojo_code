@@ -462,11 +462,19 @@ Inherits Application
 		Function HelpSigmoIDHelp() As Boolean Handles HelpSigmoIDHelp.Action
 			dim f As folderitem
 			
-			f=Resources_f.Child("Help").child("index.html")
+			f=Resources_f.Child("Help").child(kHelpFileName)
 			if f<>nil then
 			if f.exists then
 			HelpWin.show
 			HelpWin.LoadPage(f)
+			end if
+			else
+			f=Resources_f.Child("Help").child("help_en.html")
+			if f<>nil then
+			if f.exists then
+			HelpWin.show
+			HelpWin.LoadPage(f)
+			end if
 			end if
 			end if
 			
