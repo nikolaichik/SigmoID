@@ -1458,37 +1458,74 @@ Protected Module Globals
 		    f=resources_f.child("tfastx.exe")
 		    if f<>Nil then
 		      if f.exists then
-		        tfastxPath=f.ShellPath
+		        tfastxPath=chr(34)+f.ShellPath+chr(34)
 		      end if
 		    end if
 		    f=resources_f.child("alimask.exe")
 		    if f<>Nil then
 		      if f.exists then
-		        alimaskpath=f.ShellPath
+		        alimaskpath=chr(34)+f.ShellPath+chr(34)
 		      end if
 		    end if
 		    f=resources_f.child("nhmmer.exe")
 		    if f<>Nil then
 		      if f.exists then
-		        nhmmerpath=f.ShellPath
+		        nhmmerpath=chr(34)+f.ShellPath+chr(34)
 		      end if
 		    end if
 		    f=resources_f.child("hmmBuild.exe")
 		    if f<>Nil then
 		      if f.exists then
-		        hmmBuildPath=f.ShellPath
+		        hmmBuildPath=chr(34)+f.ShellPath+chr(34)
 		      end if
 		    end if
 		    f=resources_f.child("meme.exe")
 		    if f<>Nil then
 		      if f.exists then
-		        MEMEpath=f.ShellPath
+		        MEMEpath=chr(34)+f.ShellPath+chr(34)
 		      end if
 		    end if
 		    f=resources_f.child("mast.exe")
 		    if f<>Nil then
 		      if f.exists then
-		        MASTpath=f.ShellPath
+		        MASTpath=chr(34)+f.ShellPath+chr(34)
+		      end if
+		    end if
+		  #elseif TargetLinux
+		    f=resources_f.child("tfastx")
+		    if f<>Nil then
+		      if f.exists then
+		        tfastxPath="'"+f.ShellPath+"'"
+		      end if
+		    end if
+		    f=resources_f.child("alimask")
+		    if f<>Nil then
+		      if f.exists then
+		        alimaskpath="'"+f.ShellPath+"'"
+		      end if
+		    end if
+		    f=resources_f.child("hmmbuild")
+		    if f<>Nil then
+		      if f.exists then
+		        hmmBuildPath="'"+f.ShellPath+"'"
+		      end if
+		    end if
+		    f=resources_f.child("meme")
+		    if f<>Nil then
+		      if f.exists then
+		        MEMEpath="'"+f.ShellPath+"'"
+		      end if
+		    end if
+		    f=resources_f.child("mast")
+		    if f<>Nil then
+		      if f.exists then
+		        MASTpath="'"+f.ShellPath+"'"
+		      end if
+		    end if
+		    f=resources_f.child("nhmmer")
+		    if f<>Nil then
+		      if f.exists then
+		        nhmmerpath="'"+f.ShellPath+"'"
 		      end if
 		    end if
 		  #else
@@ -1529,6 +1566,7 @@ Protected Module Globals
 		      end if
 		    end if
 		  #endif
+		  
 		  
 		End Sub
 	#tag EndMethod
