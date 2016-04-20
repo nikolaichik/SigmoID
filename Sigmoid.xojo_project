@@ -459,6 +459,7 @@ Picture=RegulonDB16;Pix/RegulonDB16.png;&h7F9D6FFF;&h1F038CB3;false;0;&h0
 Folder=Toolbars;Toolbars;&h6C5E7FF;&h0;false
 Toolbar=PrefsToolbar;Toolbars/PrefsToolbar.xojo_toolbar;&h7E7C8FFF;&h6C5E7FF;false
 Toolbar=Toolbar1;Toolbars/Toolbar1.xojo_toolbar;&h47C78CF3;&h6C5E7FF;false
+Window=NewFeatureWin;Windows/NewFeatureWin.xojo_window;&h1ACA37FF;&h2250E847;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=1

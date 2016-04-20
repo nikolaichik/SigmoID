@@ -38,7 +38,8 @@ def is_within_feature(list_of_features, index, some_hit):
         (list_of_features[index].location.start <
             some_hit.location.start <
              some_hit.location.end <
-            list_of_features[index+1].location.start and
+            list_of_features[index+1].location.start and \
+            list_of_features[index].strand == +1 and \
             list_of_features[index].strand != 
                 list_of_features[index+1].strand):
         # checking if hit is within other features
@@ -46,6 +47,12 @@ def is_within_feature(list_of_features, index, some_hit):
     else:
         return False
 
+def is_divergent(feature_1, feature_2):
+    if feature_1.strand == -1 and \
+       feature_1.strand != feature_2.strand:
+        return True
+    else:
+       return False
 
 def qualifiers_function(qualifiers, var):
     qual_var = []
@@ -195,7 +202,7 @@ def createparser():
              description='''This script allows to add features to a genbank \
                             file according to nhmmer results.\
                             Requires Biopython 1.64 (or newer)''',
-             epilog='(c) Aliaksandr Damienikan, 2014-2015.')
+             epilog='(c) Aliaksandr Damienikan, 2014-2016.')
     parser.add_argument('report_file',
                         help='path to nhmmer report file produced with \
                               -tblout option.')
@@ -250,7 +257,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.17 (March 6, 2016)')
+                        version='%(prog)s 2.18 (April 17, 2016)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -288,7 +295,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.17 (March 6, 2016)'
+print '\nHmmGen 2.18 (April 17, 2016)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -591,7 +598,7 @@ for record in records:
                             hit.location.end:
                         cds_up = allowed_features_list[c]
                         break
-                    elif hit.location.start < \
+                    elif hit.location.start > \
                             allowed_features_list[-1].location.end:
                         cds_up = allowed_features_list[0]
                         break
@@ -602,7 +609,8 @@ for record in records:
                          record.features[i+1].location.end):
                     left_distance = hit.location.start - cds_down.location.end
                     right_distance = cds_up.location.start - hit.location.end
-                    if last_cds.location.start > hit.location.start > \
+                    if is_divergent(cds_down, cds_up) and \
+                       last_cds.location.start > hit.location.start > \
                             first_cds.location.start:
                         if left_distance > right_distance and \
                            hit.strand == (+1):
@@ -616,6 +624,12 @@ for record in records:
                         elif left_distance < right_distance and \
                                 hit.strand == (-1):
                             del record.features[i+1]
+                    elif not is_divergent(cds_down, cds_up) and \
+                         cds_up.strand == cds_down.strand:
+                        if hit.strand == cds_up.strand:
+                            del record.features[i+1]
+                        elif hit.strand != cds_up.strand:
+                            del record.features[i]  # delets "hit"'''
 
     if enter.duplicate is True:
         for i in reversed(xrange(1, len(record.features))):

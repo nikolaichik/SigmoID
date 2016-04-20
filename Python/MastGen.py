@@ -58,13 +58,22 @@ def is_within_feature(list_of_features, index, some_hit):
         (list_of_features[index].location.start <
             some_hit.location.start <
              some_hit.location.end <
-            list_of_features[index+1].location.start and
+            list_of_features[index+1].location.start and \
+            list_of_features[index].strand == +1 and \
             list_of_features[index].strand != 
                 list_of_features[index+1].strand):
         # checking if hit is within other features
         return True
     else:
         return False
+
+
+def is_divergent(feature_1, feature_2):
+    if feature_1.strand == -1 and \
+       feature_1.strand != feature_2.strand:
+        return True
+    else:
+       return False
 
 
 def mast_parser(path_to_file):
@@ -201,7 +210,7 @@ def createparser():
                                 value')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 1.8 (March 6, 2016)')
+                        version='%(prog)s 1.9 (April 17, 2016)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -235,7 +244,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nMastGen 1.7 (February 14, 2016)'
+print '\nMastGen 1.9 (April 17, 2016)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -476,8 +485,14 @@ for record in records:
                         record.features.insert(i, new_feature)
 
     if enter.palindromic:
-        first_cds = allowed_features_list[0]
-        last_cds = allowed_features_list[-1]
+        try:
+            first_cds = allowed_features_list[0]
+        except:
+            first_cds = record.features[0]
+        try:
+            last_cds = allowed_features_list[-1]
+        except:
+            last_cds = record.features[-1]
         for i in reversed(xrange(1, len(record.features))):
             i = len(record.features)-1-i
             if 'CHECK' in record.features[i].qualifiers.keys() and \
@@ -497,22 +512,22 @@ for record in records:
                             hit.location.end:
                         cds_up = allowed_features_list[c]
                         break
-                    elif hit.location.start < \
+                    elif hit.location.start > \
                             allowed_features_list[-1].location.end:
-                        cds_down = allowed_features_list[0]
+                        cds_up = allowed_features_list[0]
                         break
                 if 'CHECK' in record.features[i+1].qualifiers.keys() and \
                         (hit.location.start ==
                          record.features[i+1].location.start and
-                            hit.location.end ==
-                            record.features[i+1].location.end):
+                         hit.location.end ==
+                         record.features[i+1].location.end):
                     left_distance = hit.location.start - cds_down.location.end
                     right_distance = cds_up.location.start - hit.location.end
-                    if last_cds.location.start > \
-                            hit.location.start > \
+                    if is_divergent(cds_down, cds_up) and \
+                       last_cds.location.start > hit.location.start > \
                             first_cds.location.start:
                         if left_distance > right_distance and \
-                               hit.strand == (+1):
+                           hit.strand == (+1):
                             del record.features[i+1]
                         elif left_distance > right_distance and \
                                 hit.strand == (-1):
@@ -523,6 +538,12 @@ for record in records:
                         elif left_distance < right_distance and \
                                 hit.strand == (-1):
                             del record.features[i+1]
+                    elif not is_divergent(cds_down, cds_up) and \
+                         cds_up.strand == cds_down.strand:
+                        if hit.strand == cds_up.strand:
+                            del record.features[i+1]
+                        elif hit.strand != cds_up.strand:
+                            del record.features[i]  # delets "hit"'''
 
     if enter.duplicate is True:
         for i in reversed(xrange(1, len(record.features))):

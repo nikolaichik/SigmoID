@@ -241,7 +241,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   359
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -1466,6 +1466,62 @@ End
 		End Function
 	#tag EndMenuHandler
 
+
+	#tag Method, Flags = &h0
+		Sub AddFeature()
+		  // adds a new feature for the selected piece
+		  
+		  dim fStart, fEnd, n, u as integer
+		  dim LocusTag as string
+		  dim ft as GBFeature
+		  dim prevTag, nextTag, newTag as string
+		  dim prevT, nextT, newT, tagLen as integer
+		  
+		  
+		  'get selection coords
+		  fStart=seq.SelStart+GBrowseShift
+		  fEnd=fStart+seq.SelLength-1
+		  NewFeatureWin.fStartField.text=str(fStart)
+		  NewFeatureWin.fEndField.text=str(fEnd)
+		  
+		  'guess locus_tag
+		  '(assuming locus_tags increment  with step 10 or smth, otherwise the guess won't work)
+		  u=ubound(seq.Features)
+		  nextTag=""
+		  for n=1 to u
+		    if seq.Features(n).start>Seq.selstart then
+		      nextTag = GetLocus_tag(seq.Features(n).FeatureText)
+		      if n>1 then
+		        prevTag = GetLocus_tag(seq.Features(n-1).FeatureText)
+		      else
+		        prevTag=""
+		      end if
+		      exit
+		    end if
+		  next
+		  
+		  if nextTag<>"" AND prevTag<>"" then
+		    prevT=val(NthField(prevTag,"_",2))
+		    nextT=val(NthField(nextTag,"_",2))
+		    newT=ceil((prevT+nextT)/2)
+		    tagLen=len(NthField(nextTag,"_",2))
+		    if newT>prevT AND newT<nextT then
+		      newTag=str(newT)
+		      
+		      while len(newTag)<tagLen
+		        newTag="0"+newTag
+		      wend
+		      
+		      newTag=NthField(nextTag,"_",1)+"_"+newTag
+		    end if
+		  end if
+		  
+		  NewFeatureWin.LocusTagField.text=newTag
+		  
+		  NewFeatureWin.ParentWin=self
+		  NewFeatureWin.show
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub BLASTNsearch(GeneName as string)
@@ -5585,6 +5641,11 @@ End
 		      boo=NOT BLASTSocket.IsConnected
 		      base.Append mItem(kBLASTNsearch+BLASTnDB,boo)
 		      base.Append mItem(kBLASTXsearch+BLASTpDB,boo)
+		      
+		      'new feature
+		      base.Append( New MenuItem( MenuItem.TextSeparator ) )
+		      base.Append mItem(kNewFeature)
+		      
 		    else
 		      'plot-related commands
 		      if ubound(Genome.ReadDepth1)>0 then
@@ -5639,6 +5700,8 @@ End
 		    BLASTNsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
 		  case kBLASTXsearch+BLASTpDB
 		    BLASTXsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
+		  case kNewFeature
+		    AddFeature
 		  case kScalePlotsSeparately
 		    Genome.ScalePlotsSeparately=true
 		    MapScrollUpdate 'apply change

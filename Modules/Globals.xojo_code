@@ -665,6 +665,19 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetLocus_tag(FeatureText as string) As string
+		  'extract locus_tag from feature text
+		  
+		  dim tagLoc as integer = instrb(FeatureText,"/locus_tag=")
+		  dim locus_tag as string =rightb(FeatureText,lenb(FeatureText)-tagLoc-11)
+		  
+		  return trim(nthField(locus_tag,chr(34),1))
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetShortPathName(LongPathName As String) As string
 		  dim lpShort,lpLong As MemoryBlock
 		  dim iBuff,iLen As Integer
