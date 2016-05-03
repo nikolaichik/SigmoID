@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="SigmoID : A  GUI tool to ease annotation of sigma-factor and TF binding sites in bacterial genomes">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>SigmoID</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/nikolaichik/SigmoID">View on GitHub</a>
+
+          <h1 id="project_title">SigmoID</h1>
+          <h2 id="project_tagline">A  GUI tool to ease annotation of sigma-factor and TF binding sites in bacterial genomes</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/nikolaichik/SigmoID/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/nikolaichik/SigmoID/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="sigmoid" class="anchor" href="#sigmoid" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SigmoID</h1>
+
+<p>This is a simple GUI written in Xojo to ease annotation of sigma-factor and transcription factor binding sites in bacterial genome sequences.
+Functions:</p>
+
+<ul>
+<li>visualise binding site alignments with sequence logo;</li>
+<li>integrated access to RegPrecise and RegulonDB</li>
+<li>extend, shorten and mask alignments;</li>
+<li>create hmm profiles from alignments;</li>
+<li>search bacterial genome sequences with calibrated (and uncalibrated) hmm profiles;</li>
+<li>annotate promoters and transcription factor binding sites in GenBank-formatted genomes;</li>
+<li>view regulatory sites in genomic context with the integrated genome browser;</li>
+<li>view RNA-seq coverage data;</li>
+<li>verify annotation via the integrated database search.</li>
+</ul>
+
+<p>This version includes over 80 calibrated profiles optimised for (i) soft rot enterobacterial phytopathogens (Pectobacterium spp. and Dickeya spp.) and (ii) Pseudomonas spp.</p>
+
+<p>The actual searches are done by nhmmer or mast which are included or could be configured to run from default installations on the user system.</p>
+
+<p>Adding annotations to GenBank files and some other functions are implemented as python scripts, hence BioPython (version 1.64 and up) is required as well as 32-bit version of Python 2.7.x.</p>
+
+<p>At the moment SigmoID is known to work on OS X (10.8 and up), 64-bit and 32-bit Linux distributions (Ubuntu 14.04 is tested for 64-bit and 12.04 for 32-bit) and Windows (from Vista to Windows 10). Other Linux distributions may work provided Xojo requirements are met. 32-bit SigmoID version runs on 64-bit Linux distributions provided 32-bit libraries are installed; web browser related features require loading 32-bit WebKit 1 libraries (see SigmoID.sh). 64-bit Linux version is compiled with beta version of Xojo compiler and may be less stable. An important limitation of this version is its inability to open standard SigmoID profile (.sig) files (these files are converted to folders on 64-bit Linux; .sig files and folders are fully interchangeable on other platforms). We hope to fix this problem once Xojo compiler is appropriately updated.      </p>
+
+<p>Full list of platform-specific system requirements is located at Xojo site: <a href="http://developer.xojo.com/system-requirements">http://developer.xojo.com/system-requirements</a> </p>
+
+<p>Additional info and usage instructions are in the help file accessible from SigmoID.</p>
+
+<p>Compiled applications for all supported platforms are located on the <a href="https://github.com/nikolaichik/SigmoID/releases/latest">Releases page</a>.</p>
+
+<p>As supporting four different systems (and different versions of those) isn't simple, we'd be grateful for reporting any problems via the Issues page here.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">SigmoID maintained by <a href="https://github.com/nikolaichik">nikolaichik</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
