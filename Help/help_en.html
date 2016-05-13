@@ -1,33 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html><head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<html>
+<head>
 	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8"><title>SigmoID Help</title>
-	
 	<meta name="GENERATOR" content="NeoOffice 3.4.1  (Unix)">
 	<meta name="CREATED" content="0;0">
-	<meta name="CHANGED" content="20150928;21232700"></head><body dir="ltr" lang="en-GB">
+	<meta name="CHANGED" content="20150928;21232700">
+</head>
+	
+<body dir="ltr" lang="en-GB">
 <p><br></p>
 <ul id="mozToc"><!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId526876">SigmoID overview</a></li><li><a href="#mozTocId182858">Installation</a></li><li><a href="#mozTocId233463">Supported file formats
 </a></li><li><a href="#mozTocId629072">Interface</a><ul><li><a href="#mozTocId49640">Windows</a><ul><li><a href="#mozTocId965351">Main Window</a></li><li><a href="#mozTocId23083">Genome Browser Window</a></li><li><a href="#mozTocId508441">Database Windows</a></li><li><a href="#mozTocId297884">Profile Wizard Window</a></li><li><a href="#mozTocId65146">Command Configuration Windows</a></li><li><a href="#mozTocId686762">Web Browser and Help Windows </a></li><li><a href="#mozTocId522291">SigmoID Preferences Window</a></li></ul></li><li><a href="#mozTocId385906">Menu Reference
@@ -38,36 +18,44 @@ Help Menu</a></li></ul></li></ul></li><li><a href="#mozTocId367103">Using SigmoI
 
 <br>
 
-<h1><a class="mozTocH1" name="mozTocId526876"></a>SigmoID overview</h1>&nbsp;&nbsp;&nbsp; SigmoID front end is a GUI application written in <a href="http://xojo.com">Xojo</a>
+<h1><a class="mozTocH1" name="mozTocId526876"></a>SigmoID overview</h1>&nbsp;&nbsp;&nbsp;
+The main purposes of SigmoID are to ease annotation of regulatory
+sequences (transcription factor binding sites, promoters and
+terminators) in bacterial genome sequences and to edit genome
+annotation according to this information.<br>
+&nbsp;&nbsp;&nbsp; SigmoID front end is a GUI application written in <a href="http://xojo.com">Xojo</a>
 which gives it the expected look and usability on all three supported
 platforms (OS X, Linux and Windows). The GUI provides the interface for
-selected programmes from the <a href="http://hmmer.org">HMMER</a>, <a href="http://meme-suite.org/">MEME Suite</a> and <a href="http://transterm.cbcb.umd.edu">TransTerm HP</a>, which are responsible for the actual searches. Sequence logos are calculated by <a href="http://weblogo.threeplusone.com">WebLogo</a>
-which is written in Python, hence Python (version 2.7.x) and BioPython (version 1.64
-and above) are required. Processing of nhmmer, mast and TransTerm HP
+selected programmes from the <a href="http://hmmer.org">HMMER</a>, <a href="http://meme-suite.org/">MEME Suite</a> and <a href="http://transterm.cbcb.umd.edu">TransTerm HP</a>, which are responsible for the actual searches. Processing of nhmmer, mast and TransTerm HP
 output, sequence format conversions and adding regulatory sites to
 genome annotation are implemented as separate <a href="#Python_Scripts">Python scripts</a>. The
 scripts are called from the GUI, but could easily be used separately
 and integrated in an annotation pipeline if desired. Detailed
 installation instructions are provided within distributions for each
 platform. The <a href="https://github.com/nikolaichik/SigmoID">source code</a> for the whole SigmoID application is available with GPL 2.0 license.<br>
-<br>&nbsp;&nbsp;&nbsp; SigmoID allows to:<br>&nbsp;&nbsp;&nbsp; - get binding site data from specialised databases;<br>&nbsp;&nbsp;&nbsp; - visualise binding site alignments with sequence logos;<br>&nbsp;&nbsp;&nbsp; - extend, shorten and mask alignments;<br>&nbsp;&nbsp;&nbsp; - create optimised hmm profiles from alignments;<br>&nbsp;&nbsp;&nbsp; - search bacterial genomes with calibrated (and uncalibrated) hmm profiles;<br>&nbsp;&nbsp;&nbsp; - add annotation of promoters and transcription factor binding sites to GenBank-formatted genome files;<br>&nbsp;&nbsp;&nbsp; - edit genome annotation.<br>
-<br>
-This version includes 80 calibrated profiles (for 5 sigma factors and 36 TFs) optimised for enterobacterial phytopathogens <span style="font-style: italic;">Pectobacterium</span> spp. and <span style="font-style: italic;">Dickeya dadantii</span>.
+<br>&nbsp;&nbsp;&nbsp; SigmoID allows to:<br>&nbsp;&nbsp;&nbsp; - get binding site data from specialised databases;<br>&nbsp;&nbsp;&nbsp; - visualise binding site alignments with sequence logos;<br>&nbsp;&nbsp;&nbsp; - extend, shorten and mask alignments;<br>&nbsp;&nbsp;&nbsp; - create optimised hmm profiles from alignments;<br>&nbsp;&nbsp;&nbsp; - search bacterial genomes with calibrated (and uncalibrated) hmm profiles;<br>&nbsp;&nbsp;&nbsp; - add annotation of promoters and transcription factor binding sites to GenBank-formatted genome files;<br>&nbsp;&nbsp;&nbsp; - view and edit genome annotation in the integrated genome browser,<br>
+&nbsp;&nbsp;&nbsp; - verify annotation via the integrated database search,<br>
+&nbsp;&nbsp;&nbsp; - view RNA-seq coverage data (and any other coordinate-bound numeric data) in the genome browser. <br>
+<br>&nbsp;&nbsp;&nbsp; This version includes over 80 calibrated profiles optimised for (i) soft rot enterobacterial phytopathogens (<span style="font-style: italic;">Pectobacterium</span> spp. and <span style="font-style: italic;">Dickeya</span> spp.) and (ii) <span style="font-style: italic;">Pseudomonas</span> spp.
 Efficiency of these profiles will be lower for other bacteria, but with
 threshold adjustment they may be usable for many enterobacteria. <br>
 <br>
-The search for binding sites is done by nhmmer which is expected to be
-installed in the default location.<br>
-<br>
-Adding annotations to GenBank files is done by the HmmGen.py script
-which could be used on its own. BioPython (version 1.64 and up) is
-required. <br>
-<br>
-At the moment SigmoID is known to work on OS X (10.8-10.11), Windows (Vista, 7
-and 8), Ubuntu (12.04 and 14.04). It may also work on other Linux
-distributions, provided the required libraries are installed. <br>
-<br>
 <h1><a class="mozTocH1" name="mozTocId182858"></a>Installation</h1>&nbsp;&nbsp;&nbsp;
+At the moment SigmoID is known to work on OS X (10.8 and up), 64-bit
+and 32-bit Linux distributions (Ubuntu 14.04 is tested for 64-bit and
+12.04 for 32-bit) and Windows (from Vista to Windows 10). Other Linux
+distributions may work provided Xojo requirements are met. 32-bit
+SigmoID version runs on 64-bit Linux distributions provided 32-bit
+libraries are installed; web browser related features require loading
+32-bit WebKit 1 libraries (see SigmoID.sh). 64-bit Linux version is
+compiled with beta version of Xojo compiler and may be less stable. An
+important limitation of this version is its inability to open standard
+SigmoID profile (.sig) files (these files are converted to folders on
+64-bit Linux; .sig files and folders are fully interchangeable on other
+platforms). We hope to fix this problem once Xojo compiler is
+appropriately updated.<br>
+&nbsp;&nbsp;&nbsp; Full list of platform-specific system requirements is located at <a href="http://developer.xojo.com/system-requirements">Xojo web site</a>.<br>
+&nbsp;&nbsp;&nbsp;
 SigmoID relies heavily on Python and will have severely limited
 functionality without it. The various python scripts included with
 SigmoID require python version 2.7 and will not work with version 3.
@@ -80,7 +68,7 @@ selected by default!). You may check that python is installed correctly
 by typing 'python' at the command prompt, which should launch the
 python interpreter.<br>
 &nbsp;&nbsp;&nbsp; Biopython (v. 1.64+) should be installed on top of
-python 2.7. You can download the distribution and read the installation
+<span style="text-decoration: underline;">32-bit version</span> of python 2.7. You can download the distribution and read the installation
 details for your system at <a href="http://biopython.org/wiki/Download">biopython.org</a>. Please make sure you download and install the correct version for you system and python version.&nbsp;<br>
 &nbsp;&nbsp;&nbsp; Depending on your system set-up, MEME
 may require additional python and perl modules. Please check the log

@@ -1495,37 +1495,37 @@ Protected Module Globals
 		    f=resources_f.child("tfastx")
 		    if f<>Nil then
 		      if f.exists then
-		        tfastxPath="'"+f.ShellPath+"'"
+		        tfastxPath="'"+f.NativePath+"'"
 		      end if
 		    end if
 		    f=resources_f.child("alimask")
 		    if f<>Nil then
 		      if f.exists then
-		        alimaskpath="'"+f.ShellPath+"'"
+		        alimaskpath="'"+f.NativePath+"'"
 		      end if
 		    end if
 		    f=resources_f.child("hmmbuild")
 		    if f<>Nil then
 		      if f.exists then
-		        hmmBuildPath="'"+f.ShellPath+"'"
+		        hmmBuildPath="'"+f.NativePath+"'"
 		      end if
 		    end if
 		    f=resources_f.child("meme")
 		    if f<>Nil then
 		      if f.exists then
-		        MEMEpath="'"+f.ShellPath+"'"
+		        MEMEpath="'"+f.NativePath+"'"
 		      end if
 		    end if
 		    f=resources_f.child("mast")
 		    if f<>Nil then
 		      if f.exists then
-		        MASTpath="'"+f.ShellPath+"'"
+		        MASTpath="'"+f.NativePath+"'"
 		      end if
 		    end if
 		    f=resources_f.child("nhmmer")
 		    if f<>Nil then
 		      if f.exists then
-		        nhmmerpath="'"+f.ShellPath+"'"
+		        nhmmerpath="'"+f.NativePath+"'"
 		      end if
 		    end if
 		  #else
