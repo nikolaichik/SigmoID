@@ -32,20 +32,12 @@ DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItem
 ALPHABET= ACGT
 Sequence name            Weight Length  Sequence name            Weight Length  
 -------------            ------ ------  -------------            ------ ------  
-pitA_21A                 1.0000     27  phoB_21A_Dda_Pwa         1.0000     27  
-ompX_21A                 1.0000     27  phoA_21A                 1.0000     27  
-glpT_21A_Pwa             1.0000     27  pstS_21A_Pwa             1.0000     27  
-pstS2_Pcc21              1.0000     27  pstS2_21A                1.0000     27  
-ugpB_21A                 1.0000     27  hexR_21A                 1.0000     27  
-ppk_21A_Pwa              1.0000     27  phoA_Dda3937             1.0000     27  
-pitA_Dda3937             1.0000     27  phnC_Dda3937             1.0000     27  
-pap_Dda3937              1.0000     27  psrP_Dda3937             1.0000     27  
-glpT_Dda3937             1.0000     27  pstS_Dda3937             1.0000     27  
-hexR_PwaSCC3193?         1.0000     27  ugpB_PwaSCC3193          1.0000     27  
-ompX_PwaSCC3193          1.0000     27  phoA_PwaSCC3193          1.0000     27  
-pitA_PwaSCC3193          1.0000     27  pstS1_PwaSCC3193         1.0000     27  
-agp_3-2                  1.0000     27  ugpB_3-2                 1.0000     27  
-hexR_3-2                 1.0000     27  
+pitA_21A                 1.0000     23  pitA_3-2                 1.0000     23  
+pitA_Dda3937             1.0000     23  pitA_PwaSCC3193          1.0000     23  
+phoB_21A_Dda_Pwa         1.0000     23  pstS_21A_Pwa_3-2         1.0000     23  
+pstS2_21A                1.0000     23  pstS2_3-2                1.0000     23  
+pstS_Dda3937             1.0000     23  pstS_21A_Pwa             1.0000     23  
+pstS1_PwaSCC3193         1.0000     23  pstS1_Pcc21              1.0000     23  
 ********************************************************************************
 
 ********************************************************************************
@@ -54,88 +46,73 @@ COMMAND LINE SUMMARY
 This information can also be useful in the event you wish to report a
 problem with the MEME software.
 
-command: meme -nmotifs 1 -dna -text /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
 
 model:  mod=         zoops    nmotifs=         1    evt=           inf
 object function=  E-value of product of p-values
-width:  minw=            8    maxw=           27    minic=        0.00
+width:  minw=            8    maxw=           23    minic=        0.00
 width:  wg=             11    ws=              1    endgaps=       yes
-nsites: minsites=        2    maxsites=       27    wnsites=       0.8
+nsites: minsites=        2    maxsites=       12    wnsites=       0.8
 theta:  prob=            1    spmap=         uni    spfuzz=        0.5
 global: substring=     yes    branching=      no    wbranch=        no
 em:     prior=   dirichlet    b=            0.01    maxiter=        50
         distance=    1e-05
-data:   n=             729    N=              27
-strands: +
+data:   n=             276    N=              12
+strands: + -
 sample: seed=            0    seqfrac=         1
 Letter frequencies in dataset:
-A 0.335 C 0.203 G 0.137 T 0.325 
+A 0.357 C 0.143 G 0.143 T 0.357 
 Background letter frequencies (from dataset with add-one prior applied):
-A 0.334 C 0.203 G 0.138 T 0.325 
+A 0.355 C 0.145 G 0.145 T 0.355 
 ********************************************************************************
 
 
 ********************************************************************************
-MOTIF  1 MEME	width =  27  sites =  27  llr = 402  E-value = 7.6e-120
+MOTIF  1 MEME	width =  21  sites =  12  llr = 148  E-value = 2.1e-025
 ********************************************************************************
 --------------------------------------------------------------------------------
 	Motif 1 Description
 --------------------------------------------------------------------------------
-Simplified        A  1:1a167973:::1a18434132312:
-pos.-specific     C  ::8:141:151:19:31::21232431
-probability       G  6::::::::2:a::::11223421:2:
-matrix            T  3a::7:211:9:9::5:4624133438
+Simplified        A  335a2955a251::4:6::61
+pos.-specific     C  :15:21:::7:::51:::::6
+probability       G  6:::::15:::7:::12:51:
+matrix            T  16::6:4::152a5592a533
 
-         bits    2.9            *               
-                 2.6            *               
-                 2.3            *               
-                 2.0            *               
-Relative         1.7  * *       * *             
-Entropy          1.4  ***      ** **            
-(21.5 bits)      1.1  ***   *  *****            
-                 0.9 **** * *  ***** *         *
-                 0.6 ****** ******** *         *
-                 0.3 ******************* **  * *
-                 0.0 ---------------------------
+         bits    2.8                      
+                 2.5                      
+                 2.2                      
+                 2.0                      
+Relative         1.7                      
+Entropy          1.4          * *         
+(17.7 bits)      1.1 *  * *  ** **  * *  *
+                 0.8 * ** * *** *** * ** *
+                 0.6 * **** ******* **** *
+                 0.3 ****** ******* ******
+                 0.0 ---------------------
 
-Multilevel           GTCATAAAACTGTCATAATATGTACTT
-consensus            T    C   A     C TATGACTTC 
-sequence                                   GC A 
-                                                
+Multilevel           GTAATAAGACTGTCTTATTAC
+consensus            AAC C TA  A  TA G GTT
+sequence                                  
+                                          
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 	Motif 1 sites sorted by position p-value
 --------------------------------------------------------------------------------
-Sequence name             Start   P-value                       Site          
--------------             ----- ---------            ---------------------------
-pstS2_Pcc21                   1  7.56e-12          . GTCATAAAACTGTCATATTGCGTACAT           
-pstS2_21A                     1  5.71e-11          . GTCATAAAACTGTCATGTTGTGTACAT           
-pstS1_PwaSCC3193              1  8.10e-10          . GTAATAAAACTGTCATATTCCGTACAT           
-pstS_Dda3937                  1  1.45e-09          . GTCACACAACTGTCATATTAAGTACAT           
-pitA_21A                      1  2.51e-09          . GTCAAAAAAATGTCATATTTTGCTTTT           
-ugpB_21A                      1  3.28e-09          . GTCATCTACGTGTCACAGGCGAACCCT           
-glpT_21A_Pwa                  1  4.84e-09          . TTCATAAAAGTGTAACATTAGCGTCAT           
-hexR_3-2                      1  9.00e-09          . GTTACCCAACTGTCACAATGGGCTTCT           
-pitA_PwaSCC3193               1  1.14e-08          . GTCAAAAAAATGTCATATTTTCCTTTT           
-glpT_Dda3937                  1  1.14e-08          . GTCATAAAAGTGTAACAATTGCGCGTT           
-ugpB_PwaSCC3193               1  1.44e-08          . GTCATCCACGTGTCACAGGTGAACTTT           
-phoA_21A                      1  2.82e-08          . TTCATCAAACTGTAAAAAAAGGTAACT           
-phoA_PwaSCC3193               1  3.14e-08          . GTCATCAAACTGTAAAAAAAAGTAACT           
-pitA_Dda3937                  1  3.14e-08          . GTCAAAATAATGTCATATTTTGCTTTT           
-ugpB_3-2                      1  4.31e-08          . ATCATCTACGTGTCACAGGCGAACCCT           
-ompX_PwaSCC3193               1  9.58e-08          . TTAATCTAACTGTCACAATAAAAACTT           
-phoB_21A_Dda_Pwa              1  1.05e-07          . TTCATAAATCTGTCATAAAACTGACGC           
-ppk_21A_Pwa                   1  1.16e-07          . GTCATCAACACGCCATAATGTTGTTGT           
-pap_Dda3937                   1  1.40e-07          . TTCATCGAACTGTCATCAGCGCCGATT           
-phnC_Dda3937                  1  1.40e-07          . ATCATAAAGCTGTCATCAGGTATTCAT           
-hexR_PwaSCC3193?              1  1.53e-07          . ATCATAAAAATGCCAAATAATGGGCGC           
-hexR_21A                      1  2.38e-07          . ATCATAAAAATGCCAAATAATGGTCGG           
-ompX_21A                      1  3.95e-07          . TTAATCTAACTGTCACAATAAAAAATT           
-phoA_Dda3937                  1  1.15e-06          . TTCATCATTCTGTCATTTTCTCTGTCT           
-agp_3-2                       1  1.74e-06          . GTCACATTTCCGTCACAAAATATTTTT           
-pstS_21A_Pwa                  1  1.98e-06          . GTCACCAAATTGTCCTATTTTTCCTCC           
-psrP_Dda3937                  1  8.86e-06          . TTAATAAAAATGTCAGGAAACACCTGA           
+Sequence name            Strand  Start   P-value                    Site       
+-------------            ------  ----- ---------            ---------------------
+pstS2_3-2                    -      2  1.90e-09          C GCAATATGACAGTTTTATGAC A         
+pstS1_PwaSCC3193             -      2  1.85e-08          C GGAATATGACAGTTTTATTAC A         
+pstS2_21A                    -      2  3.31e-08          C ACAACATGACAGTTTTATGAC A         
+pstS1_Pcc21                  +      2  1.00e-07          T GTCACCAAACTGTCCTATTTT T         
+pitA_3-2                     -      2  1.85e-07          C GAAATATGACATTTTTTTGAC T         
+pstS_Dda3937                 +      2  2.48e-07          T GTCACACAACTGTCATATTAA G         
+pitA_PwaSCC3193              -      2  1.06e-06          G AAAATATGACATTTTTTTGAC T         
+pitA_21A                     -      2  1.06e-06          C AAAATATGACATTTTTTTGAC T         
+pstS_21A_Pwa                 -      2  2.39e-06          A AAAATAGGACAATTTGGTGAC A         
+pstS_21A_Pwa_3-2             -      2  2.39e-06          A AAAATAGGACAATTTGGTGAC A         
+pitA_Dda3937                 +      2  8.36e-06          A GTCAAAATAATGTCATATTTT G         
+phoB_21A_Dda_Pwa             -      2  7.79e-05          A GTTTTATGACAGATTTATGAA A         
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
@@ -143,66 +120,36 @@ psrP_Dda3937                  1  8.86e-06          . TTAATAAAAATGTCAGGAAACACCTGA
 --------------------------------------------------------------------------------
 SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
 -------------            ----------------  -------------
-pstS2_Pcc21                       7.6e-12  [+1]
-pstS2_21A                         5.7e-11  [+1]
-pstS1_PwaSCC3193                  8.1e-10  [+1]
-pstS_Dda3937                      1.4e-09  [+1]
-pitA_21A                          2.5e-09  [+1]
-ugpB_21A                          3.3e-09  [+1]
-glpT_21A_Pwa                      4.8e-09  [+1]
-hexR_3-2                            9e-09  [+1]
-pitA_PwaSCC3193                   1.1e-08  [+1]
-glpT_Dda3937                      1.1e-08  [+1]
-ugpB_PwaSCC3193                   1.4e-08  [+1]
-phoA_21A                          2.8e-08  [+1]
-phoA_PwaSCC3193                   3.1e-08  [+1]
-pitA_Dda3937                      3.1e-08  [+1]
-ugpB_3-2                          4.3e-08  [+1]
-ompX_PwaSCC3193                   9.6e-08  [+1]
-phoB_21A_Dda_Pwa                  1.1e-07  [+1]
-ppk_21A_Pwa                       1.2e-07  [+1]
-pap_Dda3937                       1.4e-07  [+1]
-phnC_Dda3937                      1.4e-07  [+1]
-hexR_PwaSCC3193?                  1.5e-07  [+1]
-hexR_21A                          2.4e-07  [+1]
-ompX_21A                          3.9e-07  [+1]
-phoA_Dda3937                      1.1e-06  [+1]
-agp_3-2                           1.7e-06  [+1]
-pstS_21A_Pwa                        2e-06  [+1]
-psrP_Dda3937                      8.9e-06  [+1]
+pstS2_3-2                         1.9e-09  1_[-1]_1
+pstS1_PwaSCC3193                  1.8e-08  1_[-1]_1
+pstS2_21A                         3.3e-08  1_[-1]_1
+pstS1_Pcc21                         1e-07  1_[+1]_1
+pitA_3-2                          1.9e-07  1_[-1]_1
+pstS_Dda3937                      2.5e-07  1_[+1]_1
+pitA_PwaSCC3193                   1.1e-06  1_[-1]_1
+pitA_21A                          1.1e-06  1_[-1]_1
+pstS_21A_Pwa                      2.4e-06  1_[-1]_1
+pstS_21A_Pwa_3-2                  2.4e-06  1_[-1]_1
+pitA_Dda3937                      8.4e-06  1_[+1]_1
+phoB_21A_Dda_Pwa                  7.8e-05  1_[-1]_1
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 	Motif 1 in BLOCKS format
 --------------------------------------------------------------------------------
-BL   MOTIF 1 width=27 seqs=27
-pstS2_Pcc21              (    1) GTCATAAAACTGTCATATTGCGTACAT  1 
-pstS2_21A                (    1) GTCATAAAACTGTCATGTTGTGTACAT  1 
-pstS1_PwaSCC3193         (    1) GTAATAAAACTGTCATATTCCGTACAT  1 
-pstS_Dda3937             (    1) GTCACACAACTGTCATATTAAGTACAT  1 
-pitA_21A                 (    1) GTCAAAAAAATGTCATATTTTGCTTTT  1 
-ugpB_21A                 (    1) GTCATCTACGTGTCACAGGCGAACCCT  1 
-glpT_21A_Pwa             (    1) TTCATAAAAGTGTAACATTAGCGTCAT  1 
-hexR_3-2                 (    1) GTTACCCAACTGTCACAATGGGCTTCT  1 
-pitA_PwaSCC3193          (    1) GTCAAAAAAATGTCATATTTTCCTTTT  1 
-glpT_Dda3937             (    1) GTCATAAAAGTGTAACAATTGCGCGTT  1 
-ugpB_PwaSCC3193          (    1) GTCATCCACGTGTCACAGGTGAACTTT  1 
-phoA_21A                 (    1) TTCATCAAACTGTAAAAAAAGGTAACT  1 
-phoA_PwaSCC3193          (    1) GTCATCAAACTGTAAAAAAAAGTAACT  1 
-pitA_Dda3937             (    1) GTCAAAATAATGTCATATTTTGCTTTT  1 
-ugpB_3-2                 (    1) ATCATCTACGTGTCACAGGCGAACCCT  1 
-ompX_PwaSCC3193          (    1) TTAATCTAACTGTCACAATAAAAACTT  1 
-phoB_21A_Dda_Pwa         (    1) TTCATAAATCTGTCATAAAACTGACGC  1 
-ppk_21A_Pwa              (    1) GTCATCAACACGCCATAATGTTGTTGT  1 
-pap_Dda3937              (    1) TTCATCGAACTGTCATCAGCGCCGATT  1 
-phnC_Dda3937             (    1) ATCATAAAGCTGTCATCAGGTATTCAT  1 
-hexR_PwaSCC3193?         (    1) ATCATAAAAATGCCAAATAATGGGCGC  1 
-hexR_21A                 (    1) ATCATAAAAATGCCAAATAATGGTCGG  1 
-ompX_21A                 (    1) TTAATCTAACTGTCACAATAAAAAATT  1 
-phoA_Dda3937             (    1) TTCATCATTCTGTCATTTTCTCTGTCT  1 
-agp_3-2                  (    1) GTCACATTTCCGTCACAAAATATTTTT  1 
-pstS_21A_Pwa             (    1) GTCACCAAATTGTCCTATTTTTCCTCC  1 
-psrP_Dda3937             (    1) TTAATAAAAATGTCAGGAAACACCTGA  1 
+BL   MOTIF 1 width=21 seqs=12
+pstS2_3-2                (    2) GCAATATGACAGTTTTATGAC  1 
+pstS1_PwaSCC3193         (    2) GGAATATGACAGTTTTATTAC  1 
+pstS2_21A                (    2) ACAACATGACAGTTTTATGAC  1 
+pstS1_Pcc21              (    2) GTCACCAAACTGTCCTATTTT  1 
+pitA_3-2                 (    2) GAAATATGACATTTTTTTGAC  1 
+pstS_Dda3937             (    2) GTCACACAACTGTCATATTAA  1 
+pitA_PwaSCC3193          (    2) AAAATATGACATTTTTTTGAC  1 
+pitA_21A                 (    2) AAAATATGACATTTTTTTGAC  1 
+pstS_21A_Pwa             (    2) AAAATAGGACAATTTGGTGAC  1 
+pstS_21A_Pwa_3-2         (    2) AAAATAGGACAATTTGGTGAC  1 
+pitA_Dda3937             (    2) GTCAAAATAATGTCATATTTT  1 
+phoB_21A_Dda_Pwa         (    2) GTTTTATGACAGATTTATGAA  1 
 //
 
 --------------------------------------------------------------------------------
@@ -210,79 +157,67 @@ psrP_Dda3937             (    1) TTAATAAAAATGTCAGGAAACACCTGA  1
 --------------------------------------------------------------------------------
 	Motif 1 position-specific scoring matrix
 --------------------------------------------------------------------------------
-log-odds matrix: alength= 4 w= 27 n= 27 bayes= 1.51457 E= 7.6e-120 
-  -117  -1140    201    -13 
- -1140  -1140  -1140    162 
-  -117    200  -1140   -313 
-   158  -1140  -1140  -1140 
-  -159    -46  -1140    119 
-    73    113  -1140  -1140 
-   100    -87   -189    -81 
-   141  -1140  -1140   -155 
-   107    -46   -189   -155 
-   -37    135     43   -313 
- -1140   -146  -1140    151 
- -1140  -1140    286  -1140 
- -1140    -87  -1140    145 
-  -117    207  -1140  -1140 
-   153   -245  -1140  -1140 
-  -117     71   -189     57 
-   129   -146    -89   -313 
-    41  -1140    -31     45 
-   -37  -1140     43     77 
-    29    -13     43    -55 
-  -117    -46    110     33 
-   -17    -13    156   -155 
-   -85     35     69      4 
-     0     13    -31      4 
-  -117    113   -189     19 
-   -59     35     43      4 
-  -317    -87   -189    133 
+log-odds matrix: alength= 4 w= 21 n= 36 bayes= 1 E= 2.1e-025 
+   -28  -1023    211   -209 
+   -28    -79   -179     71 
+    49    166  -1023   -308 
+   143  -1023  -1023   -308 
+  -109     53  -1023     81 
+   130    -21  -1023  -1023 
+    37   -179    -21      8 
+    37  -1023    179   -308 
+   143  -1023  -1023   -308 
+  -109    237  -1025   -209 
+    49  -1025  -1024     49 
+  -209  -1024    237   -109 
+  -308  -1024  -1024    143 
+  -308    179  -1024     37 
+     8    -21   -179     37 
+ -1023  -1024    -21    130 
+    81  -1024     53   -109 
+  -308  -1024  -1024    143 
+  -308  -1024    166     49 
+    71   -179    -79    -28 
+  -209    211  -1024    -28 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 	Motif 1 position-specific probability matrix
 --------------------------------------------------------------------------------
-letter-probability matrix: alength= 4 w= 27 nsites= 27 E= 7.6e-120 
- 0.148148  0.000000  0.555556  0.296296 
- 0.000000  0.000000  0.000000  1.000000 
- 0.148148  0.814815  0.000000  0.037037 
- 1.000000  0.000000  0.000000  0.000000 
- 0.111111  0.148148  0.000000  0.740741 
- 0.555556  0.444444  0.000000  0.000000 
- 0.666667  0.111111  0.037037  0.185185 
- 0.888889  0.000000  0.000000  0.111111 
- 0.703704  0.148148  0.037037  0.111111 
- 0.259259  0.518519  0.185185  0.037037 
- 0.000000  0.074074  0.000000  0.925926 
- 0.000000  0.000000  1.000000  0.000000 
- 0.000000  0.111111  0.000000  0.888889 
- 0.148148  0.851852  0.000000  0.000000 
- 0.962963  0.037037  0.000000  0.000000 
- 0.148148  0.333333  0.037037  0.481481 
- 0.814815  0.074074  0.074074  0.037037 
- 0.444444  0.000000  0.111111  0.444444 
- 0.259259  0.000000  0.185185  0.555556 
- 0.407407  0.185185  0.185185  0.222222 
- 0.148148  0.148148  0.296296  0.407407 
- 0.296296  0.185185  0.407407  0.111111 
- 0.185185  0.259259  0.222222  0.333333 
- 0.333333  0.222222  0.111111  0.333333 
- 0.148148  0.444444  0.037037  0.370370 
- 0.222222  0.259259  0.185185  0.333333 
- 0.037037  0.111111  0.037037  0.814815 
+letter-probability matrix: alength= 4 w= 21 nsites= 12 E= 2.1e-025 
+ 0.291667  0.000000  0.625000  0.083333 
+ 0.291667  0.083333  0.041667  0.583333 
+ 0.500000  0.458333  0.000000  0.041667 
+ 0.958333  0.000000  0.000000  0.041667 
+ 0.166667  0.208333  0.000000  0.625000 
+ 0.875000  0.125000  0.000000  0.000000 
+ 0.458333  0.041667  0.125000  0.375000 
+ 0.458333  0.000000  0.500000  0.041667 
+ 0.958333  0.000000  0.000000  0.041667 
+ 0.166665  0.749998  0.000000  0.083332 
+ 0.499999  0.000000  0.000000  0.500000 
+ 0.083333  0.000000  0.749999  0.166666 
+ 0.041666  0.000000  0.000000  0.958332 
+ 0.041666  0.499999  0.000000  0.458332 
+ 0.374999  0.124999  0.041666  0.458332 
+ 0.000000  0.000000  0.124999  0.874999 
+ 0.624999  0.000000  0.208332  0.166666 
+ 0.041666  0.000000  0.000000  0.958332 
+ 0.041666  0.000000  0.458332  0.499999 
+ 0.583332  0.041666  0.083332  0.291666 
+ 0.083332  0.624999  0.000000  0.291666 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 	Motif 1 regular expression
 --------------------------------------------------------------------------------
-[GT]TCAT[AC]AAA[CA]TGTCA[TC]A[AT][TA][AT][TG][GA][TCG][ATC][CT][TCA]T
+[GA][TA][AC]A[TC]A[AT][GA]AC[TA]GT[CT][TA]T[AG]T[TG][AT][CT]
 --------------------------------------------------------------------------------
 
 
 
 
-Time  0.09 secs.
+Time  0.05 secs.
 
 ********************************************************************************
 
@@ -296,33 +231,18 @@ SUMMARY OF MOTIFS
 --------------------------------------------------------------------------------
 SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
 -------------            ----------------  -------------
-pitA_21A                         2.51e-09  [+1(2.51e-09)]
-phoB_21A_Dda_Pwa                 1.05e-07  [+1(1.05e-07)]
-ompX_21A                         3.95e-07  [+1(3.95e-07)]
-phoA_21A                         2.82e-08  [+1(2.82e-08)]
-glpT_21A_Pwa                     4.84e-09  [+1(4.84e-09)]
-pstS_21A_Pwa                     1.98e-06  [+1(1.98e-06)]
-pstS2_Pcc21                      7.56e-12  [+1(7.56e-12)]
-pstS2_21A                        5.71e-11  [+1(5.71e-11)]
-ugpB_21A                         3.28e-09  [+1(3.28e-09)]
-hexR_21A                         2.38e-07  [+1(2.38e-07)]
-ppk_21A_Pwa                      1.16e-07  [+1(1.16e-07)]
-phoA_Dda3937                     1.15e-06  [+1(1.15e-06)]
-pitA_Dda3937                     3.14e-08  [+1(3.14e-08)]
-phnC_Dda3937                     1.40e-07  [+1(1.40e-07)]
-pap_Dda3937                      1.40e-07  [+1(1.40e-07)]
-psrP_Dda3937                     8.86e-06  [+1(8.86e-06)]
-glpT_Dda3937                     1.14e-08  [+1(1.14e-08)]
-pstS_Dda3937                     1.45e-09  [+1(1.45e-09)]
-hexR_PwaSCC3193?                 1.53e-07  [+1(1.53e-07)]
-ugpB_PwaSCC3193                  1.44e-08  [+1(1.44e-08)]
-ompX_PwaSCC3193                  9.58e-08  [+1(9.58e-08)]
-phoA_PwaSCC3193                  3.14e-08  [+1(3.14e-08)]
-pitA_PwaSCC3193                  1.14e-08  [+1(1.14e-08)]
-pstS1_PwaSCC3193                 8.10e-10  [+1(8.10e-10)]
-agp_3-2                          1.74e-06  [+1(1.74e-06)]
-ugpB_3-2                         4.31e-08  [+1(4.31e-08)]
-hexR_3-2                         9.00e-09  [+1(9.00e-09)]
+pitA_21A                         6.35e-06  1_[+1(1.06e-06)]_1
+pitA_3-2                         1.11e-06  1_[+1(1.85e-07)]_1
+pitA_Dda3937                     5.01e-05  1_[+1(8.36e-06)]_1
+pitA_PwaSCC3193                  6.35e-06  1_[+1(1.06e-06)]_1
+phoB_21A_Dda_Pwa                 4.67e-04  1_[+1(7.79e-05)]_1
+pstS_21A_Pwa_3-2                 1.43e-05  1_[+1(2.39e-06)]_1
+pstS2_21A                        1.99e-07  1_[+1(3.31e-08)]_1
+pstS2_3-2                        1.14e-08  1_[+1(1.90e-09)]_1
+pstS_Dda3937                     1.49e-06  1_[+1(2.48e-07)]_1
+pstS_21A_Pwa                     1.43e-05  1_[+1(2.39e-06)]_1
+pstS1_PwaSCC3193                 1.11e-07  1_[+1(1.85e-08)]_1
+pstS1_Pcc21                      6.00e-07  1_[+1(1.00e-07)]_1
 --------------------------------------------------------------------------------
 
 ********************************************************************************

@@ -1,0 +1,223 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_ndh_Pat_Pca_Pwa        1.0000     21  r_ndh_Pat_Pca_Pwa        1.0000     21  
+f_pdhR_Pat_Pca_Pwa       1.0000     21  r_pdhR_Pat_Pca_Pwa       1.0000     21  
+f_ndh_Dda3937            1.0000     21  r_ndh_Dda3937            1.0000     21  
+f_pdhR_Dda3937           1.0000     21  r_pdhR_Dda3937           1.0000     21  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           21    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=        8    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             168    N=               8
+strands: +
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.369 C 0.131 G 0.131 T 0.369 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.366 C 0.134 G 0.134 T 0.366 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  13  sites =   8  llr = 126  E-value = 1.6e-026
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  :::::85:a::aa
+pos.-specific     C  :::::3:::aa::
+probability       G  ::aa:::3:::::
+matrix            T  aa::a:58:::::
+
+         bits    2.9   **     **  
+                 2.6   **     **  
+                 2.3   **     **  
+                 2.0   **     **  
+Relative         1.7   **     **  
+Entropy          1.5 *****   *****
+(22.8 bits)      1.2 *****   *****
+                 0.9 ****** ******
+                 0.6 *************
+                 0.3 *************
+                 0.0 -------------
+
+Multilevel           TTGGTAATACCAA
+consensus                 CTG     
+sequence                          
+                                  
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name             Start   P-value                Site   
+-------------             ----- ---------            -------------
+r_pdhR_Dda3937                5  7.60e-08       AAAA TTGGTATTACCAA TTGA      
+f_pdhR_Dda3937                5  7.60e-08       TCAA TTGGTAATACCAA TTTT      
+r_pdhR_Pat_Pca_Pwa            5  7.60e-08       GAAA TTGGTATTACCAA TTGA      
+f_pdhR_Pat_Pca_Pwa            5  7.60e-08       TCAA TTGGTAATACCAA TTTC      
+r_ndh_Dda3937                 5  1.32e-07       TCAT TTGGTCATACCAA AATT      
+f_ndh_Dda3937                 5  1.32e-07       AATT TTGGTATGACCAA ATGA      
+r_ndh_Pat_Pca_Pwa             5  1.32e-07       TTAT TTGGTCATACCAA AATT      
+f_ndh_Pat_Pca_Pwa             5  1.32e-07       AATT TTGGTATGACCAA ATAA      
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_pdhR_Dda3937                    7.6e-08  4_[+1]_4
+f_pdhR_Dda3937                    7.6e-08  4_[+1]_4
+r_pdhR_Pat_Pca_Pwa                7.6e-08  4_[+1]_4
+f_pdhR_Pat_Pca_Pwa                7.6e-08  4_[+1]_4
+r_ndh_Dda3937                     1.3e-07  4_[+1]_4
+f_ndh_Dda3937                     1.3e-07  4_[+1]_4
+r_ndh_Pat_Pca_Pwa                 1.3e-07  4_[+1]_4
+f_ndh_Pat_Pca_Pwa                 1.3e-07  4_[+1]_4
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=13 seqs=8
+r_pdhR_Dda3937           (    5) TTGGTATTACCAA  1 
+f_pdhR_Dda3937           (    5) TTGGTAATACCAA  1 
+r_pdhR_Pat_Pca_Pwa       (    5) TTGGTATTACCAA  1 
+f_pdhR_Pat_Pca_Pwa       (    5) TTGGTAATACCAA  1 
+r_ndh_Dda3937            (    5) TTGGTCATACCAA  1 
+f_ndh_Dda3937            (    5) TTGGTATGACCAA  1 
+r_ndh_Pat_Pca_Pwa        (    5) TTGGTCATACCAA  1 
+f_ndh_Pat_Pca_Pwa        (    5) TTGGTATGACCAA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 13 n= 72 bayes= 3 E= 1.6e-026 
+  -965   -965   -965    145 
+  -965   -965   -965    145 
+  -965   -965    290   -965 
+  -965   -965    290   -965 
+  -965   -965   -965    145 
+   103     90   -965   -965 
+    45   -965   -965     45 
+  -965   -965     90    103 
+   145   -965   -965   -965 
+  -965    290   -965   -965 
+  -965    290   -965   -965 
+   145   -965   -965   -965 
+   145   -965   -965   -965 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 13 nsites= 8 E= 1.6e-026 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.750000  0.250000  0.000000  0.000000 
+ 0.500000  0.000000  0.000000  0.500000 
+ 0.000000  0.000000  0.250000  0.750000 
+ 1.000000  0.000000  0.000000  0.000000 
+ 0.000000  1.000000  0.000000  0.000000 
+ 0.000000  1.000000  0.000000  0.000000 
+ 1.000000  0.000000  0.000000  0.000000 
+ 1.000000  0.000000  0.000000  0.000000 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+TTGGT[AC][AT][TG]ACCAA
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.01 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_ndh_Pat_Pca_Pwa                1.18e-06  4_[+1(1.32e-07)]_4
+r_ndh_Pat_Pca_Pwa                1.18e-06  4_[+1(1.32e-07)]_4
+f_pdhR_Pat_Pca_Pwa               6.84e-07  4_[+1(7.60e-08)]_4
+r_pdhR_Pat_Pca_Pwa               6.84e-07  4_[+1(7.60e-08)]_4
+f_ndh_Dda3937                    1.18e-06  4_[+1(1.32e-07)]_4
+r_ndh_Dda3937                    1.18e-06  4_[+1(1.32e-07)]_4
+f_pdhR_Dda3937                   6.84e-07  4_[+1(7.60e-08)]_4
+r_pdhR_Dda3937                   6.84e-07  4_[+1(7.60e-08)]_4
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

@@ -1,0 +1,266 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_b0344(lacZ)            1.0000     21  r_b0344(lacZ)            1.0000     21  
+f_CKO_02825(lacZ)        1.0000     21  r_CKO_02825(lacZ)        1.0000     21  
+f_KPN_pKPN3p05871(lacZ)  1.0000     21  r_KPN_pKPN3p05871(lacZ)  1.0000     21  
+f_Ent638_0928(lacZ)      1.0000     21  r_Ent638_0928(lacZ)      1.0000     21  
+f_ECA1490(lacZ)          1.0000     21  r_ECA1490(lacZ)          1.0000     21  
+f_lacZ_Dda3937           1.0000     21  r_lacZ_Dda3937           1.0000     21  
+f_lacZ_Ech703            1.0000     21  r_lacZ_Ech703            1.0000     21  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           21    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       14    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             294    N=              14
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.323 C 0.177 G 0.177 T 0.323 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.322 C 0.178 G 0.178 T 0.322 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  21  sites =  14  llr = 269  E-value = 1.7e-077
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  871::::a1::14:49:a93:
+pos.-specific     C  1::::1:::8515:6:a:::1
+probability       G  1:::a:6:5158:::1::::1
+matrix            T  :39a:94:41::1a::::178
+
+         bits    2.5     *           *    
+                 2.2     *           *    
+                 2.0     *           *    
+                 1.7    **  *     *  **   
+Relative         1.5    **  * *** *  **   
+Entropy          1.2    ***** *** *****   
+(27.7 bits)      1.0   ****** *** ******  
+                 0.7 *********************
+                 0.5 *********************
+                 0.2 *********************
+                 0.0 ---------------------
+
+Multilevel           AATTGTGAGCGGCTCACAATT
+consensus             T    T T C A A    A 
+sequence                                  
+                                          
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                    Site       
+-------------            ------  ----- ---------            ---------------------
+r_ECA1490(lacZ)              -      1  1.23e-11          . AATTGTGAGCGGATAACAATT           
+f_ECA1490(lacZ)              +      1  1.23e-11          . AATTGTGAGCGGATAACAATT           
+r_b0344(lacZ)                -      1  1.23e-11          . AATTGTGAGCGGATAACAATT           
+f_b0344(lacZ)                +      1  1.23e-11          . AATTGTGAGCGGATAACAATT           
+r_KPN_pKPN3p05871(lacZ)      -      1  1.75e-10          . AAATGTGAGCGGATAACAATT           
+f_KPN_pKPN3p05871(lacZ)      +      1  1.75e-10          . AAATGTGAGCGGATAACAATT           
+r_lacZ_Dda3937               -      1  2.81e-10          . GTTTGTTATCCGCTCACAATT           
+f_lacZ_Dda3937               +      1  2.81e-10          . GTTTGTTATCCGCTCACAATT           
+r_CKO_02825(lacZ)            +      1  2.76e-09          . GTTTGTTATTCGCTCACAATT           
+f_CKO_02825(lacZ)            -      1  2.76e-09          . GTTTGTTATTCGCTCACAATT           
+r_lacZ_Ech703                +      1  4.61e-09          . AAATGTGAGCGAATAACAAAT           
+f_lacZ_Ech703                -      1  4.61e-09          . AAATGTGAGCGAATAACAAAT           
+r_Ent638_0928(lacZ)          +      1  2.97e-08          . CTTTGCGAAGCGCTCACAATT           
+f_Ent638_0928(lacZ)          -      1  2.97e-08          . CTTTGCGAAGCGCTCACAATT           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_ECA1490(lacZ)                   1.2e-11  [-1]
+f_ECA1490(lacZ)                   1.2e-11  [+1]
+r_b0344(lacZ)                     1.2e-11  [-1]
+f_b0344(lacZ)                     1.2e-11  [+1]
+r_KPN_pKPN3p05871(lacZ)           1.8e-10  [-1]
+f_KPN_pKPN3p05871(lacZ)           1.8e-10  [+1]
+r_lacZ_Dda3937                    2.8e-10  [-1]
+f_lacZ_Dda3937                    2.8e-10  [+1]
+r_CKO_02825(lacZ)                 2.8e-09  [+1]
+f_CKO_02825(lacZ)                 2.8e-09  [-1]
+r_lacZ_Ech703                     4.6e-09  [+1]
+f_lacZ_Ech703                     4.6e-09  [-1]
+r_Ent638_0928(lacZ)                 3e-08  [+1]
+f_Ent638_0928(lacZ)                 3e-08  [-1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=21 seqs=14
+r_ECA1490(lacZ)          (    1) AATTGTGAGCGGATAACAATT  1 
+f_ECA1490(lacZ)          (    1) AATTGTGAGCGGATAACAATT  1 
+r_b0344(lacZ)            (    1) AATTGTGAGCGGATAACAATT  1 
+f_b0344(lacZ)            (    1) AATTGTGAGCGGATAACAATT  1 
+r_KPN_pKPN3p05871(lacZ)  (    1) AAATGTGAGCGGATAACAATT  1 
+f_KPN_pKPN3p05871(lacZ)  (    1) AAATGTGAGCGGATAACAATT  1 
+r_lacZ_Dda3937           (    1) GTTTGTTATCCGCTCACAATT  1 
+f_lacZ_Dda3937           (    1) GTTTGTTATCCGCTCACAATT  1 
+r_CKO_02825(lacZ)        (    1) GTTTGTTATTCGCTCACAATT  1 
+f_CKO_02825(lacZ)        (    1) GTTTGTTATTCGCTCACAATT  1 
+r_lacZ_Ech703            (    1) AAATGTGAGCGAATAACAAAT  1 
+f_lacZ_Ech703            (    1) AAATGTGAGCGAATAACAAAT  1 
+r_Ent638_0928(lacZ)      (    1) CTTTGCGAAGCGCTCACAATT  1 
+f_Ent638_0928(lacZ)      (    1) CTTTGCGAAGCGCTCACAATT  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 21 n= 14 bayes= 1.12553 E= 1.7e-077 
+   129   -131    -32  -1045 
+   115  -1045  -1045    -17 
+  -117  -1045  -1045    141 
+ -1045  -1045  -1045    163 
+ -1045  -1045    249  -1045 
+ -1045   -131  -1045    153 
+ -1045  -1045    168     41 
+   163  -1045  -1045  -1045 
+  -217  -1045    149     41 
+ -1046    214   -131   -117 
+ -1046    149    149  -1046 
+  -117   -131    214  -1046 
+    41    149  -1046   -217 
+ -1046  -1046  -1046    163 
+    41    168  -1046  -1046 
+   153  -1046   -131  -1046 
+ -1046    249  -1046  -1046 
+   163  -1046  -1046  -1046 
+   141  -1046  -1046   -117 
+   -17  -1046  -1046    115 
+ -1046    -32   -131    129 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 21 nsites= 14 E= 1.7e-077 
+ 0.785714  0.071429  0.142857  0.000000 
+ 0.714286  0.000000  0.000000  0.285714 
+ 0.142857  0.000000  0.000000  0.857143 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.071429  0.000000  0.928571 
+ 0.000000  0.000000  0.571429  0.428571 
+ 1.000000  0.000000  0.000000  0.000000 
+ 0.071429  0.000000  0.500000  0.428571 
+ 0.000000  0.785713  0.071427  0.142856 
+ 0.000000  0.499999  0.500000  0.000000 
+ 0.142857  0.071428  0.785714  0.000000 
+ 0.428570  0.499999  0.000000  0.071428 
+ 0.000000  0.000000  0.000000  0.999999 
+ 0.428570  0.571428  0.000000  0.000000 
+ 0.928570  0.000000  0.071428  0.000000 
+ 0.000000  0.999999  0.000000  0.000000 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.857142  0.000000  0.000000  0.142856 
+ 0.285713  0.000000  0.000000  0.714285 
+ 0.000000  0.142856  0.071428  0.785713 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+A[AT]TTGT[GT]A[GT]C[GC]G[CA]T[CA]ACAA[TA]T
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.04 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_b0344(lacZ)                    2.47e-11  [+1(1.23e-11)]
+r_b0344(lacZ)                    2.47e-11  [+1(1.23e-11)]
+f_CKO_02825(lacZ)                5.52e-09  [+1(2.76e-09)]
+r_CKO_02825(lacZ)                5.52e-09  [+1(2.76e-09)]
+f_KPN_pKPN3p05871(lacZ)          3.50e-10  [+1(1.75e-10)]
+r_KPN_pKPN3p05871(lacZ)          3.50e-10  [+1(1.75e-10)]
+f_Ent638_0928(lacZ)              5.95e-08  [+1(2.97e-08)]
+r_Ent638_0928(lacZ)              5.95e-08  [+1(2.97e-08)]
+f_ECA1490(lacZ)                  2.47e-11  [+1(1.23e-11)]
+r_ECA1490(lacZ)                  2.47e-11  [+1(1.23e-11)]
+f_lacZ_Dda3937                   5.61e-10  [+1(2.81e-10)]
+r_lacZ_Dda3937                   5.61e-10  [+1(2.81e-10)]
+f_lacZ_Ech703                    9.22e-09  [+1(4.61e-09)]
+r_lacZ_Ech703                    9.22e-09  [+1(4.61e-09)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

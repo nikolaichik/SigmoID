@@ -1,0 +1,425 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_b0463                  1.0000     24  r_b0463                  1.0000     24  
+f_b0464                  1.0000     24  r_b0464                  1.0000     24  
+f_STM0476                1.0000     24  r_STM0476                1.0000     24  
+f_STM0477                1.0000     24  r_STM0477                1.0000     24  
+f_CKO_02688              1.0000     24  r_CKO_02688              1.0000     24  
+f_CKO_02687              1.0000     24  r_CKO_02687              1.0000     24  
+f_KPN_00444              1.0000     24  r_KPN_00444              1.0000     24  
+f_KPN_00445              1.0000     24  r_KPN_00445              1.0000     24  
+f_Ent638_0943            1.0000     24  r_Ent638_0943            1.0000     24  
+f_Ent638_0944            1.0000     24  r_Ent638_0944            1.0000     24  
+f_EAM_1017               1.0000     24  r_EAM_1017               1.0000     24  
+f_EAM_1018               1.0000     24  r_EAM_1018               1.0000     24  
+f_y1050                  1.0000     24  r_y1050                  1.0000     24  
+f_y1051                  1.0000     24  r_y1051                  1.0000     24  
+f_Spro_1127              1.0000     24  r_Spro_1127              1.0000     24  
+f_Spro_1128              1.0000     24  r_Spro_1128              1.0000     24  
+f_ECA1170                1.0000     24  r_ECA1170                1.0000     24  
+f_ECA1171                1.0000     24  r_ECA1171                1.0000     24  
+f_ETAE_1011              1.0000     24  r_ETAE_1011              1.0000     24  
+f_ETAE_1012              1.0000     24  r_ETAE_1012              1.0000     24  
+f_PMI0132                1.0000     24  r_PMI0132                1.0000     24  
+f_PMI0133                1.0000     24  r_PMI0133                1.0000     24  
+f_plu3851                1.0000     24  r_plu3851                1.0000     24  
+f_plu3850                1.0000     24  r_plu3850                1.0000     24  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           24    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       48    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=            1152    N=              48
+strands: +
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.365 C 0.135 G 0.135 T 0.365 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.364 C 0.136 G 0.136 T 0.364 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  24  sites =  48  llr = 1210  E-value = 1.5e-462
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  :a:a1a:a:2:6:38a:::9:::a
+pos.-specific     C  ::a:::a::17:4:::::::::::
+probability       G  :::::::::::4:71::a:::a::
+matrix            T  a:::9:::a83:6:2:a:a1a:a:
+
+         bits    2.9   *   *          *   *  
+                 2.6   *   *          *   *  
+                 2.3   *   *          *   *  
+                 2.0   *   *          *   *  
+Relative         1.7   *   *          *   *  
+Entropy          1.4 ****  *** *  * ***  ****
+(36.4 bits)      1.2 ********* *  * *********
+                 0.9 ********* **** *********
+                 0.6 ************************
+                 0.3 ************************
+                 0.0 ------------------------
+
+Multilevel           TACATACATTCATGAATGTATGTA
+consensus                      TGCA          
+sequence                                     
+                                             
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name             Start   P-value                      Site        
+-------------             ----- ---------            ------------------------
+r_y1051                       1  7.06e-14          . TACATACATTCACGAATGTATGTA           
+f_y1051                       1  7.06e-14          . TACATACATTCGTGAATGTATGTA           
+r_y1050                       1  7.06e-14          . TACATACATTCGTGAATGTATGTA           
+f_y1050                       1  7.06e-14          . TACATACATTCACGAATGTATGTA           
+r_Spro_1128                   1  1.81e-13          . TACATACATTCGCGTATGTATGTA           
+f_Spro_1128                   1  1.81e-13          . TACATACATACGCGAATGTATGTA           
+r_Spro_1127                   1  1.81e-13          . TACATACATACGCGAATGTATGTA           
+f_Spro_1127                   1  1.81e-13          . TACATACATTCGCGTATGTATGTA           
+r_EAM_1018                    1  2.93e-13          . TACATACATTTGCGAATGTATGTA           
+f_EAM_1018                    1  2.93e-13          . TACATACATTCGCAAATGTATGTA           
+r_EAM_1017                    1  2.93e-13          . TACATACATTCGCAAATGTATGTA           
+f_EAM_1017                    1  2.93e-13          . TACATACATTTGCGAATGTATGTA           
+r_KPN_00445                   1  8.58e-13          . TACATACATTTGTGAATGTATGTA           
+f_KPN_00445                   1  8.58e-13          . TACATACATTCACAAATGTATGTA           
+r_KPN_00444                   1  8.58e-13          . TACATACATTCACAAATGTATGTA           
+f_KPN_00444                   1  8.58e-13          . TACATACATTTGTGAATGTATGTA           
+r_b0464                       1  8.58e-13          . TACATACATTTGTGAATGTATGTA           
+f_b0464                       1  8.58e-13          . TACATACATTCACAAATGTATGTA           
+r_b0463                       1  8.58e-13          . TACATACATTCACAAATGTATGTA           
+f_b0463                       1  8.58e-13          . TACATACATTTGTGAATGTATGTA           
+r_Ent638_0944                 1  1.78e-12          . TACATACATTTATGAATGTATGTA           
+f_Ent638_0944                 1  1.78e-12          . TACATACATTCATAAATGTATGTA           
+r_Ent638_0943                 1  1.78e-12          . TACATACATTCATAAATGTATGTA           
+f_Ent638_0943                 1  1.78e-12          . TACATACATTTATGAATGTATGTA           
+r_CKO_02687                   1  2.80e-12          . TACATACATTTGTGGATGTATGTA           
+f_CKO_02687                   1  2.80e-12          . TACATACATCCACAAATGTATGTA           
+r_CKO_02688                   1  2.80e-12          . TACATACATCCACAAATGTATGTA           
+f_CKO_02688                   1  2.80e-12          . TACATACATTTGTGGATGTATGTA           
+r_plu3850                     1  4.89e-12          . TACATACATTCACGTATGTTTGTA           
+f_plu3850                     1  4.89e-12          . TACAAACATACGTGAATGTATGTA           
+r_plu3851                     1  4.89e-12          . TACAAACATACGTGAATGTATGTA           
+f_plu3851                     1  4.89e-12          . TACATACATTCACGTATGTTTGTA           
+r_STM0477                     1  4.89e-12          . TACATACATTTATGGATGTATGTA           
+f_STM0477                     1  4.89e-12          . TACATACATCCATAAATGTATGTA           
+r_STM0476                     1  4.89e-12          . TACATACATCCATAAATGTATGTA           
+f_STM0476                     1  4.89e-12          . TACATACATTTATGGATGTATGTA           
+r_PMI0133                     1  8.59e-12          . TACATACATTCATGTATGTTTGTA           
+f_PMI0133                     1  8.59e-12          . TACAAACATACATGAATGTATGTA           
+r_PMI0132                     1  8.59e-12          . TACAAACATACATGAATGTATGTA           
+f_PMI0132                     1  8.59e-12          . TACATACATTCATGTATGTTTGTA           
+r_ECA1171                     1  1.04e-11          . TACATACATTCAAGTATGTATGTA           
+f_ECA1171                     1  1.04e-11          . TACATACATACTTGAATGTATGTA           
+r_ECA1170                     1  1.04e-11          . TACATACATACTTGAATGTATGTA           
+f_ECA1170                     1  1.04e-11          . TACATACATTCAAGTATGTATGTA           
+r_ETAE_1012                   1  1.69e-11          . TACATGCATTGATGAATGTATGTA           
+f_ETAE_1012                   1  1.69e-11          . TACATACATTCATCAATGCATGTA           
+r_ETAE_1011                   1  1.69e-11          . TACATACATTCATCAATGCATGTA           
+f_ETAE_1011                   1  1.69e-11          . TACATGCATTGATGAATGTATGTA           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_y1051                           7.1e-14  [+1]
+f_y1051                           7.1e-14  [+1]
+r_y1050                           7.1e-14  [+1]
+f_y1050                           7.1e-14  [+1]
+r_Spro_1128                       1.8e-13  [+1]
+f_Spro_1128                       1.8e-13  [+1]
+r_Spro_1127                       1.8e-13  [+1]
+f_Spro_1127                       1.8e-13  [+1]
+r_EAM_1018                        2.9e-13  [+1]
+f_EAM_1018                        2.9e-13  [+1]
+r_EAM_1017                        2.9e-13  [+1]
+f_EAM_1017                        2.9e-13  [+1]
+r_KPN_00445                       8.6e-13  [+1]
+f_KPN_00445                       8.6e-13  [+1]
+r_KPN_00444                       8.6e-13  [+1]
+f_KPN_00444                       8.6e-13  [+1]
+r_b0464                           8.6e-13  [+1]
+f_b0464                           8.6e-13  [+1]
+r_b0463                           8.6e-13  [+1]
+f_b0463                           8.6e-13  [+1]
+r_Ent638_0944                     1.8e-12  [+1]
+f_Ent638_0944                     1.8e-12  [+1]
+r_Ent638_0943                     1.8e-12  [+1]
+f_Ent638_0943                     1.8e-12  [+1]
+r_CKO_02687                       2.8e-12  [+1]
+f_CKO_02687                       2.8e-12  [+1]
+r_CKO_02688                       2.8e-12  [+1]
+f_CKO_02688                       2.8e-12  [+1]
+r_plu3850                         4.9e-12  [+1]
+f_plu3850                         4.9e-12  [+1]
+r_plu3851                         4.9e-12  [+1]
+f_plu3851                         4.9e-12  [+1]
+r_STM0477                         4.9e-12  [+1]
+f_STM0477                         4.9e-12  [+1]
+r_STM0476                         4.9e-12  [+1]
+f_STM0476                         4.9e-12  [+1]
+r_PMI0133                         8.6e-12  [+1]
+f_PMI0133                         8.6e-12  [+1]
+r_PMI0132                         8.6e-12  [+1]
+f_PMI0132                         8.6e-12  [+1]
+r_ECA1171                           1e-11  [+1]
+f_ECA1171                           1e-11  [+1]
+r_ECA1170                           1e-11  [+1]
+f_ECA1170                           1e-11  [+1]
+r_ETAE_1012                       1.7e-11  [+1]
+f_ETAE_1012                       1.7e-11  [+1]
+r_ETAE_1011                       1.7e-11  [+1]
+f_ETAE_1011                       1.7e-11  [+1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=24 seqs=48
+r_y1051                  (    1) TACATACATTCACGAATGTATGTA  1 
+f_y1051                  (    1) TACATACATTCGTGAATGTATGTA  1 
+r_y1050                  (    1) TACATACATTCGTGAATGTATGTA  1 
+f_y1050                  (    1) TACATACATTCACGAATGTATGTA  1 
+r_Spro_1128              (    1) TACATACATTCGCGTATGTATGTA  1 
+f_Spro_1128              (    1) TACATACATACGCGAATGTATGTA  1 
+r_Spro_1127              (    1) TACATACATACGCGAATGTATGTA  1 
+f_Spro_1127              (    1) TACATACATTCGCGTATGTATGTA  1 
+r_EAM_1018               (    1) TACATACATTTGCGAATGTATGTA  1 
+f_EAM_1018               (    1) TACATACATTCGCAAATGTATGTA  1 
+r_EAM_1017               (    1) TACATACATTCGCAAATGTATGTA  1 
+f_EAM_1017               (    1) TACATACATTTGCGAATGTATGTA  1 
+r_KPN_00445              (    1) TACATACATTTGTGAATGTATGTA  1 
+f_KPN_00445              (    1) TACATACATTCACAAATGTATGTA  1 
+r_KPN_00444              (    1) TACATACATTCACAAATGTATGTA  1 
+f_KPN_00444              (    1) TACATACATTTGTGAATGTATGTA  1 
+r_b0464                  (    1) TACATACATTTGTGAATGTATGTA  1 
+f_b0464                  (    1) TACATACATTCACAAATGTATGTA  1 
+r_b0463                  (    1) TACATACATTCACAAATGTATGTA  1 
+f_b0463                  (    1) TACATACATTTGTGAATGTATGTA  1 
+r_Ent638_0944            (    1) TACATACATTTATGAATGTATGTA  1 
+f_Ent638_0944            (    1) TACATACATTCATAAATGTATGTA  1 
+r_Ent638_0943            (    1) TACATACATTCATAAATGTATGTA  1 
+f_Ent638_0943            (    1) TACATACATTTATGAATGTATGTA  1 
+r_CKO_02687              (    1) TACATACATTTGTGGATGTATGTA  1 
+f_CKO_02687              (    1) TACATACATCCACAAATGTATGTA  1 
+r_CKO_02688              (    1) TACATACATCCACAAATGTATGTA  1 
+f_CKO_02688              (    1) TACATACATTTGTGGATGTATGTA  1 
+r_plu3850                (    1) TACATACATTCACGTATGTTTGTA  1 
+f_plu3850                (    1) TACAAACATACGTGAATGTATGTA  1 
+r_plu3851                (    1) TACAAACATACGTGAATGTATGTA  1 
+f_plu3851                (    1) TACATACATTCACGTATGTTTGTA  1 
+r_STM0477                (    1) TACATACATTTATGGATGTATGTA  1 
+f_STM0477                (    1) TACATACATCCATAAATGTATGTA  1 
+r_STM0476                (    1) TACATACATCCATAAATGTATGTA  1 
+f_STM0476                (    1) TACATACATTTATGGATGTATGTA  1 
+r_PMI0133                (    1) TACATACATTCATGTATGTTTGTA  1 
+f_PMI0133                (    1) TACAAACATACATGAATGTATGTA  1 
+r_PMI0132                (    1) TACAAACATACATGAATGTATGTA  1 
+f_PMI0132                (    1) TACATACATTCATGTATGTTTGTA  1 
+r_ECA1171                (    1) TACATACATTCAAGTATGTATGTA  1 
+f_ECA1171                (    1) TACATACATACTTGAATGTATGTA  1 
+r_ECA1170                (    1) TACATACATACTTGAATGTATGTA  1 
+f_ECA1170                (    1) TACATACATTCAAGTATGTATGTA  1 
+r_ETAE_1012              (    1) TACATGCATTGATGAATGTATGTA  1 
+f_ETAE_1012              (    1) TACATACATTCATCAATGCATGTA  1 
+r_ETAE_1011              (    1) TACATACATTCATCAATGCATGTA  1 
+f_ETAE_1011              (    1) TACATGCATTGATGAATGTATGTA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 24 n= 48 bayes= 1.71621 E= 1.5e-462 
+ -1223  -1223  -1223    146 
+   146  -1223  -1223  -1223 
+ -1223    288  -1223  -1223 
+   146  -1223  -1223  -1223 
+  -213  -1223  -1223    133 
+   140  -1223   -170  -1223 
+ -1223    288  -1223  -1223 
+   146  -1223  -1223  -1223 
+ -1223  -1223  -1223    146 
+  -113    -70  -1223    104 
+ -1223    238   -170    -54 
+    68  -1223    147   -313 
+  -313    147  -1223     68 
+   -54   -170    238  -1223 
+   104  -1223    -70   -113 
+   146  -1223  -1223  -1223 
+ -1223  -1223  -1223    146 
+ -1223  -1223    288  -1223 
+ -1223   -170  -1223    140 
+   133  -1223  -1223   -213 
+ -1223  -1223  -1223    146 
+ -1223  -1223    288  -1223 
+ -1223  -1223  -1223    146 
+   146  -1223  -1223  -1223 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 24 nsites= 48 E= 1.5e-462 
+ 0.000000  0.000000  0.000000  1.000000 
+ 1.000000  0.000000  0.000000  0.000000 
+ 0.000000  1.000000  0.000000  0.000000 
+ 1.000000  0.000000  0.000000  0.000000 
+ 0.083333  0.000000  0.000000  0.916667 
+ 0.958333  0.000000  0.041667  0.000000 
+ 0.000000  1.000000  0.000000  0.000000 
+ 1.000000  0.000000  0.000000  0.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.166667  0.083333  0.000000  0.750000 
+ 0.000000  0.708333  0.041667  0.250000 
+ 0.583333  0.000000  0.375000  0.041667 
+ 0.041667  0.375000  0.000000  0.583333 
+ 0.250000  0.041667  0.708333  0.000000 
+ 0.750000  0.000000  0.083333  0.166667 
+ 1.000000  0.000000  0.000000  0.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.041667  0.000000  0.958333 
+ 0.916667  0.000000  0.000000  0.083333 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 1.000000  0.000000  0.000000  0.000000 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+TACATACATT[CT][AG][TC][GA]AATGTATGTA
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.14 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_b0463                          8.58e-13  [+1(8.58e-13)]
+r_b0463                          8.58e-13  [+1(8.58e-13)]
+f_b0464                          8.58e-13  [+1(8.58e-13)]
+r_b0464                          8.58e-13  [+1(8.58e-13)]
+f_STM0476                        4.89e-12  [+1(4.89e-12)]
+r_STM0476                        4.89e-12  [+1(4.89e-12)]
+f_STM0477                        4.89e-12  [+1(4.89e-12)]
+r_STM0477                        4.89e-12  [+1(4.89e-12)]
+f_CKO_02688                      2.80e-12  [+1(2.80e-12)]
+r_CKO_02688                      2.80e-12  [+1(2.80e-12)]
+f_CKO_02687                      2.80e-12  [+1(2.80e-12)]
+r_CKO_02687                      2.80e-12  [+1(2.80e-12)]
+f_KPN_00444                      8.58e-13  [+1(8.58e-13)]
+r_KPN_00444                      8.58e-13  [+1(8.58e-13)]
+f_KPN_00445                      8.58e-13  [+1(8.58e-13)]
+r_KPN_00445                      8.58e-13  [+1(8.58e-13)]
+f_Ent638_0943                    1.78e-12  [+1(1.78e-12)]
+r_Ent638_0943                    1.78e-12  [+1(1.78e-12)]
+f_Ent638_0944                    1.78e-12  [+1(1.78e-12)]
+r_Ent638_0944                    1.78e-12  [+1(1.78e-12)]
+f_EAM_1017                       2.93e-13  [+1(2.93e-13)]
+r_EAM_1017                       2.93e-13  [+1(2.93e-13)]
+f_EAM_1018                       2.93e-13  [+1(2.93e-13)]
+r_EAM_1018                       2.93e-13  [+1(2.93e-13)]
+f_y1050                          7.06e-14  [+1(7.06e-14)]
+r_y1050                          7.06e-14  [+1(7.06e-14)]
+f_y1051                          7.06e-14  [+1(7.06e-14)]
+r_y1051                          7.06e-14  [+1(7.06e-14)]
+f_Spro_1127                      1.81e-13  [+1(1.81e-13)]
+r_Spro_1127                      1.81e-13  [+1(1.81e-13)]
+f_Spro_1128                      1.81e-13  [+1(1.81e-13)]
+r_Spro_1128                      1.81e-13  [+1(1.81e-13)]
+f_ECA1170                        1.04e-11  [+1(1.04e-11)]
+r_ECA1170                        1.04e-11  [+1(1.04e-11)]
+f_ECA1171                        1.04e-11  [+1(1.04e-11)]
+r_ECA1171                        1.04e-11  [+1(1.04e-11)]
+f_ETAE_1011                      1.69e-11  [+1(1.69e-11)]
+r_ETAE_1011                      1.69e-11  [+1(1.69e-11)]
+f_ETAE_1012                      1.69e-11  [+1(1.69e-11)]
+r_ETAE_1012                      1.69e-11  [+1(1.69e-11)]
+f_PMI0132                        8.59e-12  [+1(8.59e-12)]
+r_PMI0132                        8.59e-12  [+1(8.59e-12)]
+f_PMI0133                        8.59e-12  [+1(8.59e-12)]
+r_PMI0133                        8.59e-12  [+1(8.59e-12)]
+f_plu3851                        4.89e-12  [+1(4.89e-12)]
+r_plu3851                        4.89e-12  [+1(4.89e-12)]
+f_plu3850                        4.89e-12  [+1(4.89e-12)]
+r_plu3850                        4.89e-12  [+1(4.89e-12)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

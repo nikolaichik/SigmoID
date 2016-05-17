@@ -4,15 +4,15 @@
 
 
 // Trusted cutoff. Bit score per-sequence cutoff, set according to the lowest scores seen for true homologous sequences that were above the GA gathering thresholds, when gathering members of the alignment
-#=GF TC 9.5 9.5
+#=GF TC 14.9 14.9
 
 
 // Gathering threshold. Bit score per-sequence cutoff used in gathering the members of the alignment
-#=GF GA 9.3 9.3
+#=GF GA 12.9 12.9
 
 
 //Noise cutoff. Bit score per-sequence cutoff, set according to the highest scores seen for unrelated sequences
-#=GF NC 9.1 9.1
+#=GF NC 11 11
 
 
 // use the gathering threshold from the calibrated profile
@@ -25,15 +25,11 @@ nhmmer.--cut_ga
 
 
 // the alignment length
-HmmGen.-L 27
+HmmGen.-L 23
 
 
 // don't pick up locus_tag from next locus
 HmmGen.-n
-
-
-// ignore sites inside ORFs (and risk missing some real ones!)
-HmmGen.-i 
 
 
 // feature key

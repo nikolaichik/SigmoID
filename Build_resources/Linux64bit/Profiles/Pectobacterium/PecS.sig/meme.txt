@@ -1,0 +1,335 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_pecS_Dda3937_Ech583    1.0000     24  r_pecS_Dda3937_Ech583    1.0000     24  
+f_pecS_Ech703            1.0000     24  r_pecS_Ech703            1.0000     24  
+f_pecS_3-2               1.0000     24  r_pecS_3-2               1.0000     24  
+f_pecS_21A_SCC3193_PC1   1.0000     24  r_pecS_21A_SCC3193_PC1   1.0000     24  
+f_pecM_21A               1.0000     24  r_pecM_21A               1.0000     24  
+f_pecM_3-2               1.0000     24  r_pecM_3-2               1.0000     24  
+f_pecM_PC1               1.0000     24  r_pecM_PC1               1.0000     24  
+f_pecM_SCC3193           1.0000     24  r_pecM_SCC3193           1.0000     24  
+f_cynX1_3-2              1.0000     24  r_cynX1_3-2              1.0000     24  
+f_cynX1_PC1              1.0000     24  r_cynX1_PC1              1.0000     24  
+f_cynX2_3-2_21A_PC1      1.0000     24  r_cynX2_3-2_21A_PC1      1.0000     24  
+f_cynX_SCC3193           1.0000     24  r_cynX_SCC3193           1.0000     24  
+f_"dosP"_3-2             1.0000     24  r_"dosP"_3-2             1.0000     24  
+f_"dosP"_21A             1.0000     24  r_"dosP"_21A             1.0000     24  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           24    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       28    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             672    N=              28
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.365 C 0.135 G 0.135 T 0.365 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.364 C 0.136 G 0.136 T 0.364 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  24  sites =  28  llr = 488  E-value = 3.7e-158
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  45139::::2a41:2aa:717552
+pos.-specific     C  4::::3a::2:6::4::::::3::
+probability       G  ::3::::::4::6:2::a3::::4
+matrix            T  255817:aa2:14a2::::92154
+
+         bits    2.9       *          *      
+                 2.6       *          *      
+                 2.3       *          *      
+                 2.0       *          *      
+Relative         1.7       *          *      
+Entropy          1.4       ***      ***      
+(25.1 bits)      1.2     * *** *  * *** *    
+                 0.9     ***** **** *****    
+                 0.6 * ******************** *
+                 0.3 ************************
+                 0.0 ------------------------
+
+Multilevel           ATTTATCTTGACGTCAAGATAAAT
+consensus            CAGA C   C AT G   G TCTG
+sequence             T                      A
+                                             
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                      Site        
+-------------            ------  ----- ---------            ------------------------
+r_pecS_Ech703                -      1  1.25e-10          . AAGTATCTTAACGTCAAGATAAAT           
+f_pecS_Ech703                +      1  1.25e-10          . AAGTATCTTAACGTCAAGATAAAT           
+r_pecS_21A_SCC3193_PC1       +      1  1.46e-10          . AATTACCTTGAAGTCAAGATAAAT           
+f_pecS_21A_SCC3193_PC1       -      1  1.46e-10          . AATTACCTTGAAGTCAAGATAAAT           
+r_pecS_3-2                   -      1  1.46e-10          . AATTACCTTGAAGTCAAGATAAAT           
+f_pecS_3-2                   +      1  1.46e-10          . AATTACCTTGAAGTCAAGATAAAT           
+r_cynX_SCC3193               +      1  3.64e-10          . AAGAATCTTCACGTCAAGATAAAA           
+f_cynX_SCC3193               -      1  3.64e-10          . AAGAATCTTCACGTCAAGATAAAA           
+r_pecS_Dda3937_Ech583        -      1  6.26e-10          . AAGAATCTTAACGTCAAGATAAAT           
+f_pecS_Dda3937_Ech583        +      1  6.26e-10          . AAGAATCTTAACGTCAAGATAAAT           
+r_"dosP"_3-2                 -      1  7.17e-10          . CTGAACCTTAACGTAAAGATAAAG           
+f_"dosP"_3-2                 +      1  7.17e-10          . CTGAACCTTAACGTAAAGATAAAG           
+r_pecM_21A                   +      1  1.19e-09          . CTTTACCTTCAATTCAAGATACTA           
+f_pecM_21A                   -      1  1.19e-09          . CTTTACCTTCAATTCAAGATACTA           
+r_cynX2_3-2_21A_PC1          +      1  1.55e-09          . AAGAATCTTAACGTCAAGATAAAA           
+f_cynX2_3-2_21A_PC1          -      1  1.55e-09          . AAGAATCTTAACGTCAAGATAAAA           
+r_pecM_PC1                   -      1  8.91e-09          . TAATATCTTGAATTGAAGGTAAAG           
+f_pecM_PC1                   +      1  8.91e-09          . TAATATCTTGAATTGAAGGTAAAG           
+r_"dosP"_21A                 +      1  9.81e-09          . CTTTATCTTTCCGTTAAGGTTCAG           
+f_"dosP"_21A                 -      1  9.81e-09          . CTTTATCTTTCCGTTAAGGTTCAG           
+r_pecM_SCC3193               -      1  2.42e-08          . TAATATCTTGAATTAAAGGTAAAG           
+f_pecM_SCC3193               +      1  2.42e-08          . TAATATCTTGAATTAAAGGTAAAG           
+r_pecM_3-2                   -      1  3.33e-08          . TGATATCTTGAATTGAAGGTAAAG           
+f_pecM_3-2                   +      1  3.33e-08          . TGATATCTTGAATTGAAGGTAAAG           
+r_cynX1_3-2                  -      1  1.09e-07          . AAGATTCTTTATGTGAAGATAATG           
+f_cynX1_3-2                  +      1  1.09e-07          . AAGATTCTTTATGTGAAGATAATG           
+r_cynX1_PC1                  +      1  2.24e-07          . CAATATCTTCACATAAAGAATCTT           
+f_cynX1_PC1                  -      1  2.24e-07          . CAATATCTTCACATAAAGAATCTT           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_pecS_Ech703                     1.3e-10  [-1]
+f_pecS_Ech703                     1.3e-10  [+1]
+r_pecS_21A_SCC3193_PC1            1.5e-10  [+1]
+f_pecS_21A_SCC3193_PC1            1.5e-10  [-1]
+r_pecS_3-2                        1.5e-10  [-1]
+f_pecS_3-2                        1.5e-10  [+1]
+r_cynX_SCC3193                    3.6e-10  [+1]
+f_cynX_SCC3193                    3.6e-10  [-1]
+r_pecS_Dda3937_Ech583             6.3e-10  [-1]
+f_pecS_Dda3937_Ech583             6.3e-10  [+1]
+r_"dosP"_3-2                      7.2e-10  [-1]
+f_"dosP"_3-2                      7.2e-10  [+1]
+r_pecM_21A                        1.2e-09  [+1]
+f_pecM_21A                        1.2e-09  [-1]
+r_cynX2_3-2_21A_PC1               1.6e-09  [+1]
+f_cynX2_3-2_21A_PC1               1.6e-09  [-1]
+r_pecM_PC1                        8.9e-09  [-1]
+f_pecM_PC1                        8.9e-09  [+1]
+r_"dosP"_21A                      9.8e-09  [+1]
+f_"dosP"_21A                      9.8e-09  [-1]
+r_pecM_SCC3193                    2.4e-08  [-1]
+f_pecM_SCC3193                    2.4e-08  [+1]
+r_pecM_3-2                        3.3e-08  [-1]
+f_pecM_3-2                        3.3e-08  [+1]
+r_cynX1_3-2                       1.1e-07  [-1]
+f_cynX1_3-2                       1.1e-07  [+1]
+r_cynX1_PC1                       2.2e-07  [+1]
+f_cynX1_PC1                       2.2e-07  [-1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=24 seqs=28
+r_pecS_Ech703            (    1) AAGTATCTTAACGTCAAGATAAAT  1 
+f_pecS_Ech703            (    1) AAGTATCTTAACGTCAAGATAAAT  1 
+r_pecS_21A_SCC3193_PC1   (    1) AATTACCTTGAAGTCAAGATAAAT  1 
+f_pecS_21A_SCC3193_PC1   (    1) AATTACCTTGAAGTCAAGATAAAT  1 
+r_pecS_3-2               (    1) AATTACCTTGAAGTCAAGATAAAT  1 
+f_pecS_3-2               (    1) AATTACCTTGAAGTCAAGATAAAT  1 
+r_cynX_SCC3193           (    1) AAGAATCTTCACGTCAAGATAAAA  1 
+f_cynX_SCC3193           (    1) AAGAATCTTCACGTCAAGATAAAA  1 
+r_pecS_Dda3937_Ech583    (    1) AAGAATCTTAACGTCAAGATAAAT  1 
+f_pecS_Dda3937_Ech583    (    1) AAGAATCTTAACGTCAAGATAAAT  1 
+r_"dosP"_3-2             (    1) CTGAACCTTAACGTAAAGATAAAG  1 
+f_"dosP"_3-2             (    1) CTGAACCTTAACGTAAAGATAAAG  1 
+r_pecM_21A               (    1) CTTTACCTTCAATTCAAGATACTA  1 
+f_pecM_21A               (    1) CTTTACCTTCAATTCAAGATACTA  1 
+r_cynX2_3-2_21A_PC1      (    1) AAGAATCTTAACGTCAAGATAAAA  1 
+f_cynX2_3-2_21A_PC1      (    1) AAGAATCTTAACGTCAAGATAAAA  1 
+r_pecM_PC1               (    1) TAATATCTTGAATTGAAGGTAAAG  1 
+f_pecM_PC1               (    1) TAATATCTTGAATTGAAGGTAAAG  1 
+r_"dosP"_21A             (    1) CTTTATCTTTCCGTTAAGGTTCAG  1 
+f_"dosP"_21A             (    1) CTTTATCTTTCCGTTAAGGTTCAG  1 
+r_pecM_SCC3193           (    1) TAATATCTTGAATTAAAGGTAAAG  1 
+f_pecM_SCC3193           (    1) TAATATCTTGAATTAAAGGTAAAG  1 
+r_pecM_3-2               (    1) TGATATCTTGAATTGAAGGTAAAG  1 
+f_pecM_3-2               (    1) TGATATCTTGAATTGAAGGTAAAG  1 
+r_cynX1_3-2              (    1) AAGATTCTTTATGTGAAGATAATG  1 
+f_cynX1_3-2              (    1) AAGATTCTTTATGTGAAGATAATG  1 
+r_cynX1_PC1              (    1) CAATATCTTCACATAAAGAATCTT  1 
+f_cynX1_PC1              (    1) CAATATCTTCACATAAAGAATCTT  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 24 n= 28 bayes= -664.386 E= 3.7e-158 
+    24    139  -1145    -76 
+    35  -1145   -193     46 
+  -135  -1145    124     56 
+   -54  -1145  -1145    104 
+   135  -1145  -1145   -235 
+ -1145    107  -1145     97 
+ -1145    288  -1145  -1145 
+ -1145  -1145  -1145    146 
+ -1145  -1145  -1145    146 
+  -103     65    165   -103 
+   141   -193  -1145  -1145 
+    -3    207  -1150   -235 
+  -235  -1147    207     -3 
+ -1146  -1148   -193    141 
+  -103    165     65   -103 
+   146  -1148  -1148  -1146 
+   146  -1148  -1148  -1146 
+ -1146  -1148    288  -1146 
+    97  -1148    107  -1146 
+  -235  -1148  -1148    135 
+   104  -1148  -1148    -54 
+    56    124  -1148   -135 
+    46   -193  -1148     35 
+   -76  -1148    139     24 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 24 nsites= 28 E= 3.7e-158 
+ 0.428571  0.357143  0.000000  0.214286 
+ 0.464286  0.000000  0.035714  0.500000 
+ 0.142857  0.000000  0.321429  0.535714 
+ 0.250000  0.000000  0.000000  0.750000 
+ 0.928571  0.000000  0.000000  0.071429 
+ 0.000000  0.285714  0.000000  0.714286 
+ 0.000000  1.000000  0.000000  0.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.178571  0.214286  0.428571  0.178571 
+ 0.964286  0.035714  0.000000  0.000000 
+ 0.357141  0.571427  0.000000  0.071427 
+ 0.071428  0.000000  0.571428  0.357142 
+ 0.000000  0.000000  0.035713  0.964285 
+ 0.178570  0.428570  0.214285  0.178570 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.000000  0.000000  0.999999  0.000000 
+ 0.714285  0.000000  0.285713  0.000000 
+ 0.071428  0.000000  0.000000  0.928570 
+ 0.749999  0.000000  0.000000  0.249999 
+ 0.535713  0.321428  0.000000  0.142856 
+ 0.499999  0.035713  0.000000  0.464285 
+ 0.214285  0.000000  0.357142  0.428570 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+[ACT][TA][TG][TA]A[TC]CTT[GC]A[CA][GT]T[CG]AAG[AG]T[AT][AC][AT][TGA]
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.19 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_pecS_Dda3937_Ech583            1.25e-09  [+1(6.26e-10)]
+r_pecS_Dda3937_Ech583            1.25e-09  [+1(6.26e-10)]
+f_pecS_Ech703                    2.51e-10  [+1(1.25e-10)]
+r_pecS_Ech703                    2.51e-10  [+1(1.25e-10)]
+f_pecS_3-2                       2.92e-10  [+1(1.46e-10)]
+r_pecS_3-2                       2.92e-10  [+1(1.46e-10)]
+f_pecS_21A_SCC3193_PC1           2.92e-10  [+1(1.46e-10)]
+r_pecS_21A_SCC3193_PC1           2.92e-10  [+1(1.46e-10)]
+f_pecM_21A                       2.39e-09  [+1(1.19e-09)]
+r_pecM_21A                       2.39e-09  [+1(1.19e-09)]
+f_pecM_3-2                       6.67e-08  [+1(3.33e-08)]
+r_pecM_3-2                       6.67e-08  [+1(3.33e-08)]
+f_pecM_PC1                       1.78e-08  [+1(8.91e-09)]
+r_pecM_PC1                       1.78e-08  [+1(8.91e-09)]
+f_pecM_SCC3193                   4.84e-08  [+1(2.42e-08)]
+r_pecM_SCC3193                   4.84e-08  [+1(2.42e-08)]
+f_cynX1_3-2                      2.18e-07  [+1(1.09e-07)]
+r_cynX1_3-2                      2.18e-07  [+1(1.09e-07)]
+f_cynX1_PC1                      4.48e-07  [+1(2.24e-07)]
+r_cynX1_PC1                      4.48e-07  [+1(2.24e-07)]
+f_cynX2_3-2_21A_PC1              3.10e-09  [+1(1.55e-09)]
+r_cynX2_3-2_21A_PC1              3.10e-09  [+1(1.55e-09)]
+f_cynX_SCC3193                   7.27e-10  [+1(3.64e-10)]
+r_cynX_SCC3193                   7.27e-10  [+1(3.64e-10)]
+f_"dosP"_3-2                     1.43e-09  [+1(7.17e-10)]
+r_"dosP"_3-2                     1.43e-09  [+1(7.17e-10)]
+f_"dosP"_21A                     1.96e-08  [+1(9.81e-09)]
+r_"dosP"_21A                     1.96e-08  [+1(9.81e-09)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka-3.local
+
+********************************************************************************

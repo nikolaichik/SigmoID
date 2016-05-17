@@ -1,0 +1,255 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_gudX_Pca3-2_Pwa        1.0000     20  r_gudX_Pca3-2_Pwa        1.0000     20  
+f_sdaR_Pat_Pwa_PatSCRI10 1.0000     20  r_sdaR_Pat_Pwa_PatSCRI10 1.0000     20  
+f_gudX_PatSCRI1043       1.0000     20  r_gudX_PatSCRI1043       1.0000     20  
+f_gudP_PatSCRI1043       1.0000     20  r_gudP_PatSCRI1043       1.0000     20  
+f_garD_PatSCRI1043       1.0000     20  r_garD_PatSCRI1043       1.0000     20  
+f_garD_Dda3937           1.0000     20  r_garD_Dda3937           1.0000     20  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           20    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       12    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             240    N=              12
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.283 C 0.217 G 0.217 T 0.283 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.283 C 0.217 G 0.217 T 0.283 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  20  sites =  12  llr = 178  E-value = 2.2e-042
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  :5:22::18812:25:7823
+pos.-specific     C  6:21:::9:1:::7581:21
+probability       G  13:1858:::1:9:::12:6
+matrix            T  3387:53:21881::22:5:
+
+         bits    2.2                     
+                 2.0                     
+                 1.8        *    *       
+                 1.5     *  *    *  *    
+Relative         1.3   * * **    ** * *  
+Entropy          1.1   * ************ *  
+(21.4 bits)      0.9 * * ************ * *
+                 0.7 * * ************ * *
+                 0.4 ********************
+                 0.2 ********************
+                 0.0 --------------------
+
+Multilevel           CATTGGGCAATTGCACAATG
+consensus            TG   TT      AC   AA
+sequence              T                C 
+                                         
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                    Site      
+-------------            ------  ----- ---------            --------------------
+r_gudX_PatSCRI1043           -      1  5.36e-09          . TGCTGGGCTATTGCCCAATG           
+f_gudX_PatSCRI1043           +      1  5.36e-09          . TGCTGGGCTATTGCCCAATG           
+r_gudX_Pca3-2_Pwa            -      1  7.59e-09          . TGCTGTGCTATTGCCCAATG           
+f_gudX_Pca3-2_Pwa            +      1  7.59e-09          . TGCTGTGCTATTGCCCAATG           
+r_gudP_PatSCRI1043           +      1  2.52e-08          . CTTAGGTCAATTGCATAATG           
+f_gudP_PatSCRI1043           -      1  2.52e-08          . CTTAGGTCAATTGCATAATG           
+r_garD_Dda3937               -      1  7.61e-08          . TGTCGGTCAATTGCATAATG           
+f_garD_Dda3937               +      1  7.61e-08          . TGTCGGTCAATTGCATAATG           
+r_sdaR_Pat_Pwa_PatSCRI10     -      1  1.84e-07          . CTTTGTTAATTTGCACAATG           
+f_sdaR_Pat_Pwa_PatSCRI10     +      1  1.84e-07          . CTTTGTTAATTTGCACAATG           
+r_garD_PatSCRI1043           -      1  6.03e-07          . GTTGGTGCACTTGCCCTATA           
+f_garD_PatSCRI1043           +      1  6.03e-07          . GTTGGTGCACTTGCCCTATA           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_gudX_PatSCRI1043                5.4e-09  [-1]
+f_gudX_PatSCRI1043                5.4e-09  [+1]
+r_gudX_Pca3-2_Pwa                 7.6e-09  [-1]
+f_gudX_Pca3-2_Pwa                 7.6e-09  [+1]
+r_gudP_PatSCRI1043                2.5e-08  [+1]
+f_gudP_PatSCRI1043                2.5e-08  [-1]
+r_garD_Dda3937                    7.6e-08  [-1]
+f_garD_Dda3937                    7.6e-08  [+1]
+r_sdaR_Pat_Pwa_PatSCRI10          1.8e-07  [-1]
+f_sdaR_Pat_Pwa_PatSCRI10          1.8e-07  [+1]
+r_garD_PatSCRI1043                  6e-07  [-1]
+f_garD_PatSCRI1043                  6e-07  [+1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=20 seqs=12
+r_gudX_PatSCRI1043       (    1) TGCTGGGCTATTGCCCAATG  1 
+f_gudX_PatSCRI1043       (    1) TGCTGGGCTATTGCCCAATG  1 
+r_gudX_Pca3-2_Pwa        (    1) TGCTGTGCTATTGCCCAATG  1 
+f_gudX_Pca3-2_Pwa        (    1) TGCTGTGCTATTGCCCAATG  1 
+r_gudP_PatSCRI1043       (    1) CTTAGGTCAATTGCATAATG  1 
+f_gudP_PatSCRI1043       (    1) CTTAGGTCAATTGCATAATG  1 
+r_garD_Dda3937           (    1) TGTCGGTCAATTGCATAATG  1 
+f_garD_Dda3937           (    1) TGTCGGTCAATTGCATAATG  1 
+r_sdaR_Pat_Pwa_PatSCRI10 (    1) CTTTGTTAATTTGCACAATG  1 
+f_sdaR_Pat_Pwa_PatSCRI10 (    1) CTTTGTTAATTTGCACAATG  1 
+r_garD_PatSCRI1043       (    1) GTTGGTGCACTTGCCCTATA  1 
+f_garD_PatSCRI1043       (    1) GTTGGTGCACTTGCCCTATA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 20 n= 12 bayes= 1 E= 2.2e-042 
+ -1023    142   -138     24 
+    82  -1023     20    -18 
+ -1023    -38  -1023    156 
+   -76   -138   -138    124 
+   -76  -1023    194  -1023 
+ -1023  -1023    120     82 
+ -1023  -1023    179    -18 
+  -176    208  -1023  -1023 
+   156  -1023  -1023    -76 
+   156   -138  -1024   -176 
+  -176  -1023   -138    156 
+   -76  -1024  -1024    156 
+ -1024  -1024    208   -176 
+   -18    179  -1024  -1024 
+    82    120  -1024  -1024 
+ -1024    194  -1024    -76 
+   124   -138   -138    -76 
+   156  -1024    -38  -1024 
+   -18     20  -1024     82 
+    24   -138    142  -1024 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 20 nsites= 12 E= 2.2e-042 
+ 0.000000  0.583333  0.083333  0.333333 
+ 0.500000  0.000000  0.250000  0.250000 
+ 0.000000  0.166667  0.000000  0.833333 
+ 0.166667  0.083333  0.083333  0.666667 
+ 0.166667  0.000000  0.833333  0.000000 
+ 0.000000  0.000000  0.500000  0.500000 
+ 0.000000  0.000000  0.750000  0.250000 
+ 0.083333  0.916667  0.000000  0.000000 
+ 0.833333  0.000000  0.000000  0.166667 
+ 0.833332  0.083332  0.000000  0.083332 
+ 0.083333  0.000000  0.083333  0.833333 
+ 0.166666  0.000000  0.000000  0.833332 
+ 0.000000  0.000000  0.916666  0.083332 
+ 0.249999  0.749999  0.000000  0.000000 
+ 0.499999  0.499999  0.000000  0.000000 
+ 0.000000  0.833332  0.000000  0.166666 
+ 0.666666  0.083332  0.083332  0.166666 
+ 0.833332  0.000000  0.166666  0.000000 
+ 0.249999  0.249999  0.000000  0.499999 
+ 0.333332  0.083332  0.583332  0.000000 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+[CT][AGT]TTG[GT][GT]CAATTG[CA][AC]CAA[TAC][GA]
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.04 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_gudX_Pca3-2_Pwa                1.52e-08  [+1(7.59e-09)]
+r_gudX_Pca3-2_Pwa                1.52e-08  [+1(7.59e-09)]
+f_sdaR_Pat_Pwa_PatSCRI10         3.67e-07  [+1(1.84e-07)]
+r_sdaR_Pat_Pwa_PatSCRI10         3.67e-07  [+1(1.84e-07)]
+f_gudX_PatSCRI1043               1.07e-08  [+1(5.36e-09)]
+r_gudX_PatSCRI1043               1.07e-08  [+1(5.36e-09)]
+f_gudP_PatSCRI1043               5.04e-08  [+1(2.52e-08)]
+r_gudP_PatSCRI1043               5.04e-08  [+1(2.52e-08)]
+f_garD_PatSCRI1043               1.21e-06  [+1(6.03e-07)]
+r_garD_PatSCRI1043               1.21e-06  [+1(6.03e-07)]
+f_garD_Dda3937                   1.52e-07  [+1(7.61e-08)]
+r_garD_Dda3937                   1.52e-07  [+1(7.61e-08)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

@@ -1,0 +1,2 @@
+   SdaR (CdaR) family of transcription factors comprises regulators of sugar diacid (galactarate, glucarate) and glycerate utilization genes in Gammaproteobacteria.
+   This profile was built starting with RegPrecise data for Pectobacterium atrosepticum and adding orthologous sites from P. carotovorum, P. wasabiae and D. dadantii. The profile may be insufficiently specific, as it finds 1-2 unrelated (and non-conserved) genes. The SdaR regulon is apparently divergent in D. dadantii, therefore this profile isn’t sensitive enough for this species.

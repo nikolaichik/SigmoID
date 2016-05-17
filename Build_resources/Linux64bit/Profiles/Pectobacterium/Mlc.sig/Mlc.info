@@ -1,0 +1,3 @@
+Mlc (also called DgsA) of E. coli controls the expression of a number of genes encoding enzymes of the phosphotransferase (PTS) system and malT coding for the activator of the maltose regulon. 
+In pectobacteria, we have detected orthologous sites in front of ptsH, ptsG and mlc itself. The hmm profile built with these sites confidently finds two additional ones: in front of manXYZ coding for mannose-specific PTS components and pecT (hexA) coding for regulator of motility and virulence. 
+The final profile includes sites from P. atrosepticum, P. carotovorum, P. wasabiae and D. dadantii.

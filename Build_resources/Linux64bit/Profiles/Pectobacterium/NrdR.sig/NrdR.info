@@ -1,0 +1,2 @@
+   NrdR negatively controls expression of genes for deoxyribonucleotide reductases. In pectobacteria, it seems to control three nrd operons with two sites in front of each.
+   This profile was built starting with RegPrecise data for Pectobacterium atrosepticum and adding orthologous sites from P. carotovorum, P. wasabiae and D. dadantii. The final profile isn’t sufficiently specific; with current threshold it can miss 1-2 weaker sites (but should detect at least one per nrd operon) and may give 1-2 false positives.

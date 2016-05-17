@@ -1,0 +1,72 @@
+>f_gcvA_Ech586_site_1 offset= 2
+TCGGATTACAAAAACTAAT
+>r_gcvA_Ech586_site_1 offset= 2
+ATTAGTTTTTGTAATCCGA
+>f_gcvA_Dda3937_site_1 offset= 2
+TCGGATTACAAAAACTAAT
+>r_gcvA_Dda3937_site_1 offset= 2
+ATTAGTTTTTGTAATCCGA
+>f_ECA1015(gcvA)_site_1 offset= 2
+TCGGATTACAAAAACTAAT
+>r_ECA1015(gcvA)_site_1 offset= 2
+ATTAGTTTTTGTAATCCGA
+>f_gcvA_Pca3-2_site_1 offset= 2
+TCGGATTACAAAAACTAAT
+>r_gcvA_Pca3-2_site_1 offset= 2
+ATTAGTTTTTGTAATCCGA
+>f_gcvA_Pwa_site_1 offset= 2
+TCGGATTACAAAAACTAAT
+>r_gcvA_Pwa_site_1 offset= 2
+ATTAGTTTTTGTAATCCGA
+>f_gcvA_Ech703_site_1 offset= 2
+TCGGATTATAAAAACTAAT
+>r_gcvA_Ech703_site_1 offset= 2
+ATTAGTTTTTATAATCCGA
+>f_gcvT2_Pca3-2_site_1 offset= 9 RC
+TCGGATTAGATAATATAAT
+>r_gcvT2_Pca3-2_site_1 offset= 9 RC
+ATTATATTATCTAATCCGA
+>f_gcvT3_Pwa(weak)_site_1 offset= 9 RC
+TCGGATTAGATAATATAAT
+>r_gcvT3_Pwa(weak)_site_1 offset= 9 RC
+ATTATATTATCTAATCCGA
+>f_gcvT2_Dda3937_site_1 offset= 2
+TCGCATTACTTAATCTAAT
+>r_gcvT2_Dda3937_site_1 offset= 2
+ATTAGATTAAGTAATGCGA
+>f_gcvT2_SCRI1043_site_1 offset= 9 RC
+TCGAATTAGATAATATAAT
+>r_gcvT2_SCRI1043_site_1 offset= 9 RC
+ATTATATTATCTAATTCGA
+>f_gcvT_Dda3937_site_1 offset= 2
+TTACCTGAAATAATCTAAT
+>r_gcvT_Dda3937_site_1 offset= 2
+ATTAGATTATTTCAGGTAA
+>f_gcvT_SCRI1043_site_1 offset= 2
+TTGATTGAAAAAATCTAAT
+>r_gcvT_SCRI1043_site_1 offset= 2
+ATTAGATTTTTTCAATCAA
+>f_gcvT2_Ech586_site_1 offset= 2
+TCGCATTACTTTATCTAAT
+>r_gcvT2_Ech586_site_1 offset= 2
+ATTAGATAAAGTAATGCGA
+>f_gcvT1_Pca3-2_site_1 offset= 2
+TTGATTGAAAAAATCTAAT
+>r_gcvT1_Pca3-2_site_1 offset= 2
+ATTAGATTTTTTCAATCAA
+>f_gcvT_Ech70312.2_site_1 offset= 2
+TGACCTGAAATAATCTAAT
+>r_gcvT_Ech70312.2_site_1 offset= 2
+ATTAGATTATTTCAGGTCA
+>f_gcvT1_PwaSCC3193_site_1 offset= 2
+TTGATTGAAAAAATCTAAT
+>r_gcvT1_PwaSCC3193_site_1 offset= 2
+ATTAGATTTTTTCAATCAA
+>f_gcvT_Ech586_site_1 offset= 2
+TTACCTGAAATAATCTAAT
+>r_gcvT_Ech586_site_1 offset= 2
+ATTAGATTATTTCAGGTAA
+>f_gcvT2_Ech703_site_1 offset= 9 RC
+ATGGATTAGATAAAATAAT
+>r_gcvT2_Ech703_site_1 offset= 9 RC
+ATTATTTTATCTAATCCAT

@@ -32,53 +32,41 @@ DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItem
 ALPHABET= ACGT
 Sequence name            Weight Length  Sequence name            Weight Length  
 -------------            ------ ------  -------------            ------ ------  
-MCP0195_Pat21a           1.0000     26  MCP1132_Pat21a           1.0000     26  
-YcgR_Pat21a              1.0000     26  fliD_Pat21a              1.0000     26  
-GZ59_31750_21a           1.0000     26  MCP3617_Pat21a           1.0000     26  
-motA_SCRI1043            1.0000     26  flgM_SCRI1043            1.0000     26  
-MCP0091_1043             1.0000     26  mcp2712_1043             1.0000     26  
-flgK_SCRI1043            1.0000     26  MCP0182_1043             1.0000     26  
-MCP0183_1043             1.0000     26  MCP4333_1043             1.0000     26  
-tsr_SCRI1043             1.0000     26  MCP4120_1043             1.0000     26  
-cheV_SCRI1043            1.0000     26  fliD_SCRI1043            1.0000     26  
-ogl_SCRI1043             1.0000     26  fliC_SCRI1043            1.0000     26  
-flgF_SCRI1043            1.0000     26  MCP3615_1043             1.0000     26  
-MCP1774_1043             1.0000     26  aer1_SCRI1043            1.0000     26  
-motA_PC1                 1.0000     26  flgM_PC1                 1.0000     26  
-MCP4161_PC1              1.0000     26  fliD_PC1                 1.0000     26  
-MCP0007_PC1              1.0000     26  flgk_PC1                 1.0000     26  
-MCP3910_PC1              1.0000     26  MCP2609_PC1              1.0000     26  
-MCP0112_PC1              1.0000     26  ogl_PC1                  1.0000     26  
-YcgR_PC1                 1.0000     26  motA_Pcc21               1.0000     26  
-MCP0081_Pcc21            1.0000     26  YcgR_Pcc21               1.0000     26  
-MCP1675_Pcc21            1.0000     26  FliD_Pcc21               1.0000     26  
-flgM_Pcc21               1.0000     26  MCP3903_Pcc21            1.0000     26  
-CheV_Pcc21               1.0000     26  flgK_Pcc21               1.0000     26  
-ogl_Pcc21                1.0000     26  MCP4098_Pcc21            1.0000     26  
-MCP4199_Pcc21            1.0000     26  YjfB_Pcc21               1.0000     26  
-MCP0169_Pcc21            1.0000     26  MCP0449_Pcc21            1.0000     26  
-flxA-like_Pcc21          1.0000     26  MCP0168_Pcc21            1.0000     26  
-flgF_Pcc21               1.0000     26  PCC21_008760             1.0000     26  
-MCP1037_Pcc21            1.0000     26  MCP2130_Pcc21            1.0000     26  
-PCC21_027300             1.0000     26  MCP3442_Pcc21            1.0000     26  
-MCP0006_SCC3193          1.0000     26  MCP0007_SCC3193          1.0000     26  
-MCP0520_SCC3193          1.0000     26  W5S0623_SCC3193          1.0000     26  
-W5S0623_1237             1.0000     26  flgK_SCC3193             1.0000     26  
-W5S1806_SCC3193          1.0000     26  W5S1807_SCC3193          1.0000     26  
-MCP1886_SCC3193          1.0000     26  YcgR_SCC3193             1.0000     26  
-MCP2813_SCC3193          1.0000     26  aer_SCC3193              1.0000     26  
-MCP3114_SCC3193          1.0000     26  MCP3731_SCC3193          1.0000     26  
-MCP3736_SCC3193          1.0000     26  MCP4243_SCC3193          1.0000     26  
-MCP4505_SCC3193          1.0000     26  MCP4506_SCC3193          1.0000     26  
-MCP0103_Pca3-2           1.0000     26  MCP0197_Pca3-2           1.0000     26  
-MCP0198_Pca3-2           1.0000     26  MCP0507_Pca3-2           1.0000     26  
-MCP3706_Pca3-2           1.0000     26  OA04_21360_3-2           1.0000     26  
-hexY_PCC21               1.0000     26  clpP_Pca3-2              1.0000     26  
-flgM_Pca3-2              1.0000     26  OA04_19630_3-2           1.0000     26  
-MCP2188_Pca3-2           1.0000     26  MCP3711_Pca3-2           1.0000     26  
-MCP4411_Pca3-2           1.0000     26  MCP4520_Pca3-2           1.0000     26  
-aer1_PCC21               1.0000     26  OA04_36690_3-2           1.0000     26  
-MCP3681_Pca3-2           1.0000     26  
+112387:112422_Pat21A     1.0000     35  205231:205266_Pat21A     1.0000     35  
+207446:207481_Pat21A     1.0000     35  493475:493510_Pat21A     1.0000     35  
+778050:778085_Pat21A     1.0000     35  1232811:1232846_Pat21A   1.0000     35  
+1489613:1489648_Pat21A   1.0000     35  1804965:1805000_Pat21A   1.0000     35  
+2041417:2041452_Pat21A   1.0000     35  2376853:2376888_Pat21A   1.0000     35  
+2487426:2487461_Pat21A   1.0000     35  2558591:2558626_Pat21A   1.0000     35  
+2839942:2839977_Pat21A   1.0000     35  3091468:3091503_Pat21A   1.0000     35  
+3133395:3133430_Pat21A   1.0000     35  3133510:3133545_Pat21A   1.0000     35  
+3150648:3150683_Pat21A   1.0000     35  3158932:3158967_Pat21A   1.0000     35  
+3169023:3169058_Pat21A   1.0000     35  3459227:3459262_Pat21A   1.0000     35  
+3636466:3636501_Pat21A   1.0000     35  3969544:3969579_Pat21A   1.0000     35  
+4499793:4499828_Pat21A   1.0000     35  4777688:4777723_Pat21A   1.0000     35  
+119002:119037_Pca3-2     1.0000     35  217918:217953_Pca3-2     1.0000     35  
+220127:220162_Pca3-2     1.0000     35  545463:545498_Pca3-2     1.0000     35  
+863197:863232_Pca3-2     1.0000     35  1253495:1253530_Pca3-2   1.0000     35  
+1532477:1532512_Pca3-2   1.0000     35  1775835:1775870_Pca3-2   1.0000     35  
+1785904:1785939_Pca3-2   1.0000     35  1794164:1794199_Pca3-2   1.0000     35  
+1808367:1808402_Pca3-2   1.0000     35  1808506:1808541_Pca3-2   1.0000     35  
+1858025:1858060_Pca3-2   1.0000     35  2139729:2139764_Pca3-2   1.0000     35  
+2386118:2386153_Pca3-2   1.0000     35  2736314:2736349_Pca3-2   1.0000     35  
+2842729:2842764_Pca3-2   1.0000     35  3060354:3060389_Pca3-2   1.0000     35  
+4018479:4018514_Pca3-2   1.0000     35  4023813:4023848_Pca3-2   1.0000     35  
+4296004:4296039_Pca3-2   1.0000     35  4519755:4519790_Pca3-2   1.0000     35  
+4784178:4784213_Pca3-2   1.0000     35  4913881:4913916_Pca3-2   1.0000     35  
+9819:9854_PwaSCC3193     1.0000     35  126414:126449_PwaSCC3193 1.0000     35  
+573297:573332_PwaSCC3193 1.0000     35  891071:891106_PwaSCC3193 1.0000     35  
+1909387:1909422_PwaSCC31 1.0000     35  1930684:1930719_PwaSCC31 1.0000     35  
+1940736:1940771_PwaSCC31 1.0000     35  1949024:1949059_PwaSCC31 1.0000     35  
+1965954:1965989_PwaSCC31 1.0000     35  2044685:2044720_PwaSCC31 1.0000     35  
+2531015:2531050_PwaSCC31 1.0000     35  2770488:2770523_PwaSCC31 1.0000     35  
+3045526:3045561_PwaSCC31 1.0000     35  3350896:3350931_PwaSCC31 1.0000     35  
+4015013:4015048_PwaSCC31 1.0000     35  4019733:4019768_PwaSCC31 1.0000     35  
+4571041:4571076_PwaSCC31 1.0000     35  924327:924361_PwaSCC3193 1.0000     35  
+4856083:4856118_PwaSCC31 1.0000     35  4858509:4858544_PwaSCC31 1.0000     35  
+4966656:4966691_PwaSCC31 1.0000     35  
 ********************************************************************************
 
 ********************************************************************************
@@ -87,154 +75,130 @@ COMMAND LINE SUMMARY
 This information can also be useful in the event you wish to report a
 problem with the MEME software.
 
-command: meme -nmotifs 1 -dna -text /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
 
 model:  mod=         zoops    nmotifs=         1    evt=           inf
 object function=  E-value of product of p-values
-width:  minw=            8    maxw=           26    minic=        0.00
+width:  minw=            8    maxw=           35    minic=        0.00
 width:  wg=             11    ws=              1    endgaps=       yes
-nsites: minsites=        2    maxsites=       93    wnsites=       0.8
+nsites: minsites=        2    maxsites=       69    wnsites=       0.8
 theta:  prob=            1    spmap=         uni    spfuzz=        0.5
 global: substring=     yes    branching=      no    wbranch=        no
 em:     prior=   dirichlet    b=            0.01    maxiter=        50
         distance=    1e-05
-data:   n=            2418    N=              93
-strands: +
+data:   n=            2415    N=              69
+strands: + -
 sample: seed=            0    seqfrac=         1
 Letter frequencies in dataset:
-A 0.321 C 0.188 G 0.187 T 0.304 
+A 0.321 C 0.179 G 0.179 T 0.321 
 Background letter frequencies (from dataset with add-one prior applied):
-A 0.321 C 0.188 G 0.187 T 0.304 
+A 0.321 C 0.179 G 0.179 T 0.321 
 ********************************************************************************
 
 
 ********************************************************************************
-MOTIF  1 MEME	width =  26  sites =  93  llr = 1431  E-value = 8.0e-552
+MOTIF  1 MEME	width =  35  sites =  69  llr = 535  E-value = 5.3e-153
 ********************************************************************************
 --------------------------------------------------------------------------------
 	Motif 1 Description
 --------------------------------------------------------------------------------
-Simplified        A  :9a8:5132123335342:1:::9:9
-pos.-specific     C  11::21:223323111231:aa::::
-probability       G  :::17:2:133231121219::a::1
-matrix            T  9::1158553232534338::::1a:
+Simplified        A  17652413316222326322121616546433217
+pos.-specific     C  21111111221261:51211551121112141:11
+probability       G  11:14121112115511215:16212211111112
+matrix            T  71233464561612122362322261331425671
 
-         bits    2.4                      **   
-                 2.2                     ***   
-                 1.9                     ***   
-                 1.7   *                ****   
-Relative         1.5   *                **** **
-Entropy          1.2 *** *              *******
-(22.2 bits)      1.0 *****              *******
-                 0.7 ***** *           ********
-                 0.5 ***** *           ********
-                 0.2 ******** ** * *   ********
-                 0.0 --------------------------
+         bits    2.5                                    
+                 2.2                                    
+                 2.0                                    
+                 1.7                                    
+Relative         1.5                                    
+Entropy          1.2                                    
+(11.2 bits)      1.0                                    
+                 0.7             *         *            
+                 0.5 **       *  ****   ****  *       **
+                 0.2 ***** * ********* ********* * *****
+                 0.0 -----------------------------------
 
-Multilevel           TAAAGTTTTCGTATATATTGCCGATA
-consensus                CA AATCACATATC        
-sequence                      GACG   CG        
-                                G              
+Multilevel           TAAAGTTTTTATCGGCATTGCCGATAAAAACTTTA
+consensus            C TTTA AAC   TATTAAATA   GTT TAAA G
+sequence                              G                 
+                                      C                 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 	Motif 1 sites sorted by position p-value
 --------------------------------------------------------------------------------
-Sequence name             Start   P-value                       Site         
--------------             ----- ---------            --------------------------
-MCP0103_Pca3-2                1  9.37e-12          . TAAAGTTTCGGAGTAACGTGCCGATA           
-MCP2609_PC1                   1  1.70e-11          . TAAAGATATCCAGAATAGTGCCGATA           
-tsr_SCRI1043                  1  9.99e-11          . TAAAGATATCCAGAATAATGCCGATA           
-YcgR_Pcc21                    1  1.24e-10          . TAAAGTTATTGAGAAAATTGCCGATA           
-MCP1675_Pcc21                 1  1.54e-10          . TAAAGTGCCCGCCTAAAGTGCCGATA           
-MCP0081_Pcc21                 1  3.41e-10          . TAAAGTTTCAGAGTAAAGTGCCGATA           
-fliD_PC1                      1  3.41e-10          . TAAACTTATTCTCTATTCTGCCGATA           
-MCP0091_1043                  1  4.93e-10          . TAAAGTTTCAGAGTAGAGTGCCGATA           
-MCP1886_SCC3193               1  5.89e-10          . TAAAGTGCCCGCCCAAAGTGCCGATA           
-motA_Pcc21                    1  5.89e-10          . TAAACTTTCGCAAAATCTTGCCGATA           
-motA_PC1                      1  5.89e-10          . TAAACTTTCGCAAAATCTTGCCGATA           
-motA_SCRI1043                 1  5.89e-10          . TAAACTTTCGCAAAATCTTGCCGATA           
-FliD_Pcc21                    1  7.01e-10          . TAAACTTATTTTCTATCCTGCCGATA           
-mcp2712_1043                  1  8.31e-10          . TAAAGTGCCCGGCCAAAGTGCCGATA           
-MCP4161_PC1                   1  9.81e-10          . TAAAGTTCCAGAGTAAAGTGCCGATA           
-MCP0182_1043                  1  1.85e-09          . TAAAGCTAGGGGATATTGTGCCGATA           
-GZ59_31750_21a                1  1.85e-09          . TAAAGTTTACAGGGATGGTGCCGATA           
-MCP0197_Pca3-2                1  2.15e-09          . TAAAGCTAAGGAATATTGTGCCGATA           
-CheV_Pcc21                    1  2.15e-09          . TAAGGTGTTGGCAAATTCTGCCGATA           
-fliD_SCRI1043                 1  2.15e-09          . TAAACTTATCATGCACACTGCCGATA           
-MCP0198_Pca3-2                1  2.49e-09          . TAAAGATCATGGATGGCGTGCCGATA           
-YcgR_Pat21a                   1  2.89e-09          . TAAGGTTATTGAGAAAATTGCCGATA           
-cheV_SCRI1043                 1  4.41e-09          . TAAGGTGTTGGCAAAGTCTGCCGATA           
-flgM_Pcc21                    1  5.05e-09          . TAAAGATTTGCTCATGTTTGCCGATG           
-flgM_PC1                      1  5.05e-09          . TAAAGATTTGCTCATGTTTGCCGATG           
-flgM_SCRI1043                 1  5.05e-09          . TAAAGATTTGCTCATGTTTGCCGATG           
-W5S0623_1237                  1  5.78e-09          . TAAAGTTAACCAGAATGGGGCCGATA           
-MCP4505_SCC3193               1  6.59e-09          . TAAAGTTTAGAAACAAGTTGCCGATA           
-MCP0169_Pcc21                 1  6.59e-09          . TAAAGATCATGGGCGGTGTGCCGATA           
-YjfB_Pcc21                    1  6.59e-09          . TAAAGTTTACAGGGATAGGGCCGATA           
-MCP0006_SCC3193               1  8.53e-09          . TAAAGAGATGTTGTTTCCCGCCGATA           
-fliD_Pat21a                   1  8.53e-09          . TAAACTTATCATGCGCACTGCCGATA           
-hexY_PCC21                    1  1.10e-08          . TAAAGATCCCGCTTATTCAGCCGATA           
-flgM_Pca3-2                   1  1.24e-08          . TAAAGATTTGCTCACGTTTGCCGATG           
-MCP2813_SCC3193               1  1.24e-08          . TAAAGATTATCTAAAAAACGCCGATA           
-MCP0183_1043                  1  1.24e-08          . TAAAGATAAGAAACAAGTTGCCGATA           
-MCP0007_SCC3193               1  1.40e-08          . CAATGTTTTCCCCAAAAATGCCGATA           
-MCP1774_1043                  1  1.99e-08          . TAAAGATTATCTACAAAAGGCCGATA           
-MCP4333_1043                  1  2.22e-08          . CAATGTTTTCCCAAAAAATGCCGATA           
-MCP3711_Pca3-2                1  2.78e-08          . TAAGCATTGCGCCTGAAATGCCGATA           
-YcgR_PC1                      1  2.78e-08          . TAAAGTAGTTGGGCAAACTGCCGATA           
-MCP4506_SCC3193               1  3.45e-08          . TAAAGCTAAGAAATCTTGTGCCGATA           
-flxA-like_Pcc21               1  3.45e-08          . TAAAGAAAAGGGCGGAACTGCCGATA           
-MCP3903_Pcc21                 1  3.84e-08          . TCAACTGAACGCTTTTCCTGCCGATA           
-MCP3910_PC1                   1  3.84e-08          . TCAACTGAACGCTTTTCCTGCCGATA           
-MCP4520_Pca3-2                1  4.27e-08          . TAAAGAGATATTGTTTCCCGCCGATA           
-MCP0520_SCC3193               1  4.27e-08          . TAAAGATCTTATTTTCTCTGCCGTTA           
-MCP0507_Pca3-2                1  4.73e-08          . TAAAGATCTTATTTTATTTGCCGTTA           
-MCP0168_Pcc21                 1  4.73e-08          . TAAAGCTCGGAAATCTTGTGCCGATA           
-W5S1807_SCC3193               1  5.24e-08          . TAAAGCTTCTTTCAAGCACGCCGATA           
-clpP_Pca3-2                   1  5.80e-08          . TAAACTGCAGCGTTGCCGTGCCGATA           
-MCP3731_SCC3193               1  5.80e-08          . TAAATTTTTTTTATTTACTGCCGTTA           
-MCP0449_Pcc21                 1  5.80e-08          . TAAAGATCTTATTTTCTTTGCCGTTA           
-MCP4120_1043                  1  5.80e-08          . TCAACTGAACGCTTTTTCTGCCGATA           
-MCP0195_Pat21a                1  5.80e-08          . TAAAGATAAGAAACCGGTTGCCGATA           
-W5S1806_SCC3193               1  7.79e-08          . TAAACTTTCTACTACGGTTGCCGATA           
-MCP0007_PC1                   1  7.79e-08          . TAAAGAGGTAGTGTTTCCCGCCGATA           
-aer1_PCC21                    1  8.58e-08          . TAAGTATTTCGTGAAGATTGCCGTTA           
-aer_SCC3193                   1  8.58e-08          . TAATTATTTCGTGAACATTGCCGTTA           
-W5S0623_SCC3193               1  8.58e-08          . CAAACATCCCAAGATGATTGCCGATA           
-flgk_PC1                      1  8.58e-08          . TCAAGATTTGCGCTTCCTGACCGATA           
-flgK_SCRI1043                 1  8.58e-08          . TCAAGATTTGCGCTTCCTGACCGATA           
-MCP3736_SCC3193               1  9.43e-08          . TAAGTATTGCGCCTGAAATGCCGATA           
-MCP4098_Pcc21                 1  9.43e-08          . CAATGTTTTCCCTACTCATGCCGATA           
-MCP3706_Pca3-2                1  1.14e-07          . TAATTTTTTTCCATTTACTGCCGTTA           
-flgK_Pcc21                    1  1.14e-07          . TCAAGATTTGCGCATCCTGACCGATA           
-OA04_21360_3-2                1  1.24e-07          . TAAAGATTCTTCCTGAATTGTCGATA           
-ogl_Pcc21                     1  1.24e-07          . GAAACATTGTTTCTATAATGCCGATA           
-ogl_PC1                       1  1.24e-07          . GAAACATTGTTTCTATAATGCCGATA           
-MCP3681_Pca3-2                1  1.36e-07          . TAAAGAAAGCGGGTTTGTTACCGATA           
-MCP0112_PC1                   1  1.36e-07          . CAATGTTTTCTCCGGTCATGCCGATA           
-OA04_19630_3-2                1  1.49e-07          . TAAAGGTATCAGCTTTTCTACCGATA           
-PCC21_008760                  1  1.49e-07          . TAAAGATTGCCCTTCACTGACCGATA           
-MCP4411_Pca3-2                1  1.63e-07          . CAATGTTTTCCCAGCTTATGCCGATA           
-MCP2188_Pca3-2                1  1.78e-07          . TAAAGTTCAAAAAAAAAACGCCGATA           
-flgK_SCC3193                  1  1.78e-07          . TCAAGATTTGTGCTTCCTGACCGATA           
-MCP1132_Pat21a                1  1.93e-07          . TCAAGTTTTATTTTACTGTGCCGTTA           
-fliC_SCRI1043                 1  2.11e-07          . TAAAGCTTCTGGAAAGCGTTCCGATA           
-MCP3615_1043                  1  2.29e-07          . TAATTTTTTTTCATTTACTGCCGTTA           
-OA04_36690_3-2                1  2.70e-07          . TAAAGAAAAGCACGATACAGCCGATA           
-MCP2130_Pcc21                 1  3.18e-07          . TAAAGTTCAAAAAAAAGACGCCGATA           
-MCP3442_Pcc21                 1  4.03e-07          . TAATTTTTTTTCACTTACTGCCGTTA           
-MCP1037_Pcc21                 1  4.35e-07          . TCAAGTTTTATTTTGCTGTGCCGTTA           
-MCP3617_Pat21a                1  4.35e-07          . TAAAGAAAGCAGGCTTGCTACCGATA           
-MCP4199_Pcc21                 1  4.69e-07          . TAAAGACATATTGTTTCTCGCCGATA           
-YcgR_SCC3193                  1  5.06e-07          . TAAAGATGTTGAAGAAATTGTCGATA           
-MCP4243_SCC3193               1  5.45e-07          . TCAACCAAACGCTTTTTTTGCCGATA           
-aer1_SCRI1043                 1  5.45e-07          . TAATTATTTCTTAGACATTGCCGTTA           
-MCP3114_SCC3193               1  5.87e-07          . TAAATATTCTCTGTATTTAGCCGATG           
-flgF_Pcc21                    1  6.78e-07          . TAAACTGATCGGCAAATCTACCGAAA           
-flgF_SCRI1043                 1  6.78e-07          . TAAACTGATCGGCAAATCTACCGAAA           
-ogl_SCRI1043                  1  7.81e-07          . GAAACATTGTTTCTATAATACCGATA           
-PCC21_027300                  1  8.98e-07          . TAAAGAAACTAAAAAAGATACCGATA           
+Sequence name            Strand  Start   P-value                           Site              
+-------------            ------  ----- ---------            -----------------------------------
+3133510:3133545_Pat21A       +      1  1.24e-10          . TAAACTTATCATGCGCACTGCCGATAACCACTTTG           
+1775835:1775870_Pca3-2       +      1  3.46e-07          . TAAAGATATCCAGAATAGTGCCGATATCATCGGTG           
+220127:220162_Pca3-2         +      1  3.46e-07          . TAAAGATCATGGATGGCGTGCCGATAAAATGGATA           
+1808367:1808402_Pca3-2       +      1  4.40e-07          . TAAACTTATTTTCTATCCTGCCGATAATGATTTCA           
+1940736:1940771_PwaSCC31     +      1  4.76e-07          . TAAAGATTTGCTCATGTTTGCCGATGATAGCTACA           
+2842729:2842764_Pca3-2       +      1  4.76e-07          . TAAAGTGCCCGCCTAAAGTGCCGATAATGTTAATG           
+3169023:3169058_Pat21A       +      1  5.15e-07          . TAAAGATATCCAGAATAATGCCGATATTATCGGTG           
+3459227:3459262_Pat21A       -      1  8.51e-07          . TCATTTTGGTATCGGCACCATCCCTGTAAACTTTA           
+2736314:2736349_Pca3-2       +      1  1.15e-06          . TAAAGTTATTGAGAAAATTGCCGATATCGTTTTCA           
+2044685:2044720_PwaSCC31     +      1  1.29e-06          . TAAAGTGCCCGCCCAAAGTGCCGATAATGATAATG           
+2770488:2770523_PwaSCC31     +      1  1.87e-06          . TAATTATTTCGTGAACATTGCCGTTAATTAAAGTA           
+3158932:3158967_Pat21A       +      1  3.46e-06          . TAAAGATTTGCTCATGTTTGCCGATGATAGTTACA           
+1930684:1930719_PwaSCC31     -      1  3.71e-06          . CACCGGTAGTATCGGCATTATTCTGGATATCTTTA           
+573297:573332_PwaSCC3193     -      1  3.71e-06          . TAGTAGTAATAACGGCAGAGAAAATAAGATCTTTA           
+2041417:2041452_Pat21A       +      1  4.13e-06          . TAAAGTGCCCGGCCAAAGTGCCGATAATGTTAATG           
+1794164:1794199_Pca3-2       +      1  5.09e-06          . TCAAGATTTGCGCTTCCTGACCGATAAAGTAATTA           
+3150648:3150683_Pat21A       +      1  5.09e-06          . TCAAGATTTGCGCTTCCTGACCGATAAAGTAATTA           
+493475:493510_Pat21A         +      1  6.27e-06          . TAAAGATCTTATTTTATTTGCCGTTATCACTATTA           
+1785904:1785939_Pca3-2       +      1  8.53e-06          . TAAAGATTTGCTCACGTTTGCCGATGATAGTTACA           
+3091468:3091503_Pat21A       -      1  1.19e-05          . CGAAGGCGGTATCGGCCTTTTGTAGATAATCTTTA           
+3045526:3045561_PwaSCC31     -      1  1.27e-05          . CGAAGGCGGTATCGGCGTTTTTTAGATAATCTTTA           
+4015013:4015048_PwaSCC31     -      1  1.50e-05          . CATATGCGTTAACGGCAGTAAATAAAAAAAATTTA           
+4296004:4296039_Pca3-2       +      1  1.55e-05          . TACGTTTTAGACTGAAAATGCCGATAACAATCTTG           
+4018479:4018514_Pca3-2       -      1  1.83e-05          . CACATGCGTTAACGGCAGTAAATGGAAAAAAATTA           
+4856083:4856118_PwaSCC31     +      1  2.08e-05          . TAAAGTTTAGAAACAAGTTGCCGATAAAACGAATA           
+4023813:4023848_Pca3-2       +      1  2.08e-05          . TAAGCATTGCGCCTGAAATGCCGATAACAGATAAG           
+1949024:1949059_PwaSCC31     +      1  2.44e-05          . TCAAGATTTGTGCTTCCTGACCGATAAAGTAATTA           
+4966656:4966691_PwaSCC31     +      1  2.52e-05          . TAAAGTTTCAGAGTAGAGTGCCGATATCTACTGCG           
+2839942:2839977_Pat21A       -      1  2.52e-05          . CTATCTAATTAACGGCAATGTCTAAGAAATAATTA           
+112387:112422_Pat21A         +      1  2.52e-05          . TAAAGTTTCAGAGTAGAGTGCCGATATCTACTGCG           
+4019733:4019768_PwaSCC31     +      1  2.77e-05          . TAAGTATTGCGCCTGAAATGCCGATAACGGATAAG           
+9819:9854_PwaSCC3193         +      1  3.14e-05          . TAAAGAGATGTTGTTTCCCGCCGATAATTTATTTG           
+891071:891106_PwaSCC3193     +      1  4.56e-05          . TAAAGATCCCGCTTATTCAGCCGATAGTAAAAATC           
+863197:863232_Pca3-2         +      1  4.56e-05          . TAAAGATCCCGCTTATTCAGCCGATAGTAAAAATC           
+778050:778085_Pat21A         +      1  4.56e-05          . TAAAGATCCCGCTTATTCAGCCGATAGTAAAAATC           
+119002:119037_Pca3-2         -      1  4.70e-05          . TGCAATAGATATCGGCACGTTACTCCGAAACTTTA           
+1858025:1858060_Pca3-2       -      1  5.99e-05          . GAAGGGGGGTATCGGCCTTTTGTAGATAATCTTTA           
+545463:545498_Pca3-2         -      1  6.36e-05          . TAGTAGTGATAACGGCAAATAAAATAAGATCTTTA           
+217918:217953_Pca3-2         +      1  7.60e-05          . TAAAGCTAAGGAATATTGTGCCGATAAGGTAGACG           
+3969544:3969579_Pat21A       +      1  7.83e-05          . TAATTTTTTTTCATTTACTGCCGTTAACGCATGTG           
+2139729:2139764_Pca3-2       +      1  1.14e-04          . TAAGTATTTCGTGAAGATTGCCGTTAATTAAATAG           
+207446:207481_Pat21A         +      1  1.18e-04          . TAAAGATAAGAAACCGGTTGCCGATAAAACGAATA           
+4499793:4499828_Pat21A       +      1  1.28e-04          . TCAACTGAACGCTTTTTCTGCCGATATTAAAGATA           
+4519755:4519790_Pca3-2       +      1  1.32e-04          . TCAACTGAACGCTTTTCCTGCCGATATTAAAGATA           
+4913881:4913916_Pca3-2       +      1  1.40e-04          . TAAAGAGATATTGTTTCCCGCCGATAATTTATTTG           
+2487426:2487461_Pat21A       +      1  1.80e-04          . ACATTTTAGGGGCTTACCTGCCGATATTCAATTTA           
+4858509:4858544_PwaSCC31     +      1  1.90e-04          . TAAAGCTAAGAAATCTTGTGCCGATAAGGTAAACG           
+3060354:3060389_Pca3-2       +      1  1.90e-04          . TAAGGTGTTGGCAAATTCTGCCGATATTAATGGTT           
+1965954:1965989_PwaSCC31     +      1  2.07e-04          . TAAACTTTCTACTACGGTTGCCGATATACAGTTAA           
+1909387:1909422_PwaSCC31     +      1  2.13e-04          . TAAGGTGTTGGCAAAGTCTGCCGATATTAATGGTT           
+1804965:1805000_Pat21A       +      1  2.13e-04          . TAAGGTGTTGGCAAAGTCTGCCGATATTAATGGTT           
+126414:126449_PwaSCC3193     -      1  2.19e-04          . AGTCTGAAATATCGGCATTTTTGGGGAAAACATTG           
+205231:205266_Pat21A         +      1  2.31e-04          . TAAAGCTAGGGGATATTGTGCCGATAAGGTAAACG           
+1232811:1232846_Pat21A       +      1  2.58e-04          . TCAAGTTTTATTTTACTGTGCCGTTATGGATAGTA           
+2386118:2386153_Pca3-2       +      1  3.28e-04          . TAAAGTTCAAAAAAAAAACGCCGATAGACAAATAG           
+2558591:2558626_Pat21A       +      1  3.28e-04          . TAAAGTTCAAAAAAAAAACGCCGATAGACAAATAG           
+2531015:2531050_PwaSCC31     +      1  3.46e-04          . TAAAGTTCAAAAAAAAAACGCCGATAGACAAGTAG           
+4777688:4777723_Pat21A       -      1  3.56e-04          . ATACTGGAATATCGGCATTTTTTGGGAAAACATTG           
+3350896:3350931_PwaSCC31     -      1  5.12e-04          . ACGCTAGTTCATCGGCTAAATACAGAGAATATTTA           
+4784178:4784213_Pca3-2       +      1  5.12e-04          . CAATGTTTTCCCAGCTTATGCCGATATCCTAGAGT           
+1253495:1253530_Pca3-2       +      1  5.12e-04          . TCAAGTTTTATTTTTCTCTGCCGTTATGGATAGTA           
+924327:924361_PwaSCC3193     -      1  8.69e-04          . GAGAAACATTATCGGCAGAATTCGCATTATCAAAA           
+3133395:3133430_Pat21A       -      1  1.06e-03          . GATAACATTTATCGGAACGCTTTCCAGAAGCTTTA           
+4571041:4571076_PwaSCC31     +      1  1.16e-03          . TCAACCAAACGCTTTTTTTGCCGATATTAAAGATA           
+2376853:2376888_Pat21A       +      1  1.95e-03          . TAAGAAAGTTCCGATGTTTGCCGATAAACCATAAA           
+1532477:1532512_Pca3-2       -      1  2.44e-03          . ACGCTAACTCATCGGCTAAATACAGAGAATGTTTA           
+1808506:1808541_Pca3-2       -      1  2.91e-03          . GCTAACATTTATCGGAACGCTTTCCAGAAGCTTTA           
+1489613:1489648_Pat21A       -      1  3.11e-03          . ACGCTAACTCATCGGCTAAATGCAGAGAATATTTA           
+3636466:3636501_Pat21A       +      1  4.11e-03          . TTTTATTTCGCCATAATTTGCCGATAATCTGAACA           
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
@@ -242,198 +206,150 @@ PCC21_027300                  1  8.98e-07          . TAAAGAAACTAAAAAAGATACCGATA
 --------------------------------------------------------------------------------
 SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
 -------------            ----------------  -------------
-MCP0103_Pca3-2                    9.4e-12  [+1]
-MCP2609_PC1                       1.7e-11  [+1]
-tsr_SCRI1043                        1e-10  [+1]
-YcgR_Pcc21                        1.2e-10  [+1]
-MCP1675_Pcc21                     1.5e-10  [+1]
-MCP0081_Pcc21                     3.4e-10  [+1]
-fliD_PC1                          3.4e-10  [+1]
-MCP0091_1043                      4.9e-10  [+1]
-MCP1886_SCC3193                   5.9e-10  [+1]
-motA_Pcc21                        5.9e-10  [+1]
-motA_PC1                          5.9e-10  [+1]
-motA_SCRI1043                     5.9e-10  [+1]
-FliD_Pcc21                          7e-10  [+1]
-mcp2712_1043                      8.3e-10  [+1]
-MCP4161_PC1                       9.8e-10  [+1]
-MCP0182_1043                      1.8e-09  [+1]
-GZ59_31750_21a                    1.8e-09  [+1]
-MCP0197_Pca3-2                    2.2e-09  [+1]
-CheV_Pcc21                        2.2e-09  [+1]
-fliD_SCRI1043                     2.2e-09  [+1]
-MCP0198_Pca3-2                    2.5e-09  [+1]
-YcgR_Pat21a                       2.9e-09  [+1]
-cheV_SCRI1043                     4.4e-09  [+1]
-flgM_Pcc21                        5.1e-09  [+1]
-flgM_PC1                          5.1e-09  [+1]
-flgM_SCRI1043                     5.1e-09  [+1]
-W5S0623_1237                      5.8e-09  [+1]
-MCP4505_SCC3193                   6.6e-09  [+1]
-MCP0169_Pcc21                     6.6e-09  [+1]
-YjfB_Pcc21                        6.6e-09  [+1]
-MCP0006_SCC3193                   8.5e-09  [+1]
-fliD_Pat21a                       8.5e-09  [+1]
-hexY_PCC21                        1.1e-08  [+1]
-flgM_Pca3-2                       1.2e-08  [+1]
-MCP2813_SCC3193                   1.2e-08  [+1]
-MCP0183_1043                      1.2e-08  [+1]
-MCP0007_SCC3193                   1.4e-08  [+1]
-MCP1774_1043                        2e-08  [+1]
-MCP4333_1043                      2.2e-08  [+1]
-MCP3711_Pca3-2                    2.8e-08  [+1]
-YcgR_PC1                          2.8e-08  [+1]
-MCP4506_SCC3193                   3.5e-08  [+1]
-flxA-like_Pcc21                   3.5e-08  [+1]
-MCP3903_Pcc21                     3.8e-08  [+1]
-MCP3910_PC1                       3.8e-08  [+1]
-MCP4520_Pca3-2                    4.3e-08  [+1]
-MCP0520_SCC3193                   4.3e-08  [+1]
-MCP0507_Pca3-2                    4.7e-08  [+1]
-MCP0168_Pcc21                     4.7e-08  [+1]
-W5S1807_SCC3193                   5.2e-08  [+1]
-clpP_Pca3-2                       5.8e-08  [+1]
-MCP3731_SCC3193                   5.8e-08  [+1]
-MCP0449_Pcc21                     5.8e-08  [+1]
-MCP4120_1043                      5.8e-08  [+1]
-MCP0195_Pat21a                    5.8e-08  [+1]
-W5S1806_SCC3193                   7.8e-08  [+1]
-MCP0007_PC1                       7.8e-08  [+1]
-aer1_PCC21                        8.6e-08  [+1]
-aer_SCC3193                       8.6e-08  [+1]
-W5S0623_SCC3193                   8.6e-08  [+1]
-flgk_PC1                          8.6e-08  [+1]
-flgK_SCRI1043                     8.6e-08  [+1]
-MCP3736_SCC3193                   9.4e-08  [+1]
-MCP4098_Pcc21                     9.4e-08  [+1]
-MCP3706_Pca3-2                    1.1e-07  [+1]
-flgK_Pcc21                        1.1e-07  [+1]
-OA04_21360_3-2                    1.2e-07  [+1]
-ogl_Pcc21                         1.2e-07  [+1]
-ogl_PC1                           1.2e-07  [+1]
-MCP3681_Pca3-2                    1.4e-07  [+1]
-MCP0112_PC1                       1.4e-07  [+1]
-OA04_19630_3-2                    1.5e-07  [+1]
-PCC21_008760                      1.5e-07  [+1]
-MCP4411_Pca3-2                    1.6e-07  [+1]
-MCP2188_Pca3-2                    1.8e-07  [+1]
-flgK_SCC3193                      1.8e-07  [+1]
-MCP1132_Pat21a                    1.9e-07  [+1]
-fliC_SCRI1043                     2.1e-07  [+1]
-MCP3615_1043                      2.3e-07  [+1]
-OA04_36690_3-2                    2.7e-07  [+1]
-MCP2130_Pcc21                     3.2e-07  [+1]
-MCP3442_Pcc21                       4e-07  [+1]
-MCP1037_Pcc21                     4.3e-07  [+1]
-MCP3617_Pat21a                    4.3e-07  [+1]
-MCP4199_Pcc21                     4.7e-07  [+1]
-YcgR_SCC3193                      5.1e-07  [+1]
-MCP4243_SCC3193                   5.5e-07  [+1]
-aer1_SCRI1043                     5.5e-07  [+1]
-MCP3114_SCC3193                   5.9e-07  [+1]
-flgF_Pcc21                        6.8e-07  [+1]
-flgF_SCRI1043                     6.8e-07  [+1]
-ogl_SCRI1043                      7.8e-07  [+1]
-PCC21_027300                        9e-07  [+1]
+3133510:3133545_Pat21A            1.2e-10  [+1]
+1775835:1775870_Pca3-2            3.5e-07  [+1]
+220127:220162_Pca3-2              3.5e-07  [+1]
+1808367:1808402_Pca3-2            4.4e-07  [+1]
+1940736:1940771_PwaSCC31          4.8e-07  [+1]
+2842729:2842764_Pca3-2            4.8e-07  [+1]
+3169023:3169058_Pat21A            5.1e-07  [+1]
+3459227:3459262_Pat21A            8.5e-07  [-1]
+2736314:2736349_Pca3-2            1.2e-06  [+1]
+2044685:2044720_PwaSCC31          1.3e-06  [+1]
+2770488:2770523_PwaSCC31          1.9e-06  [+1]
+3158932:3158967_Pat21A            3.5e-06  [+1]
+1930684:1930719_PwaSCC31          3.7e-06  [-1]
+573297:573332_PwaSCC3193          3.7e-06  [-1]
+2041417:2041452_Pat21A            4.1e-06  [+1]
+1794164:1794199_Pca3-2            5.1e-06  [+1]
+3150648:3150683_Pat21A            5.1e-06  [+1]
+493475:493510_Pat21A              6.3e-06  [+1]
+1785904:1785939_Pca3-2            8.5e-06  [+1]
+3091468:3091503_Pat21A            1.2e-05  [-1]
+3045526:3045561_PwaSCC31          1.3e-05  [-1]
+4015013:4015048_PwaSCC31          1.5e-05  [-1]
+4296004:4296039_Pca3-2            1.6e-05  [+1]
+4018479:4018514_Pca3-2            1.8e-05  [-1]
+4856083:4856118_PwaSCC31          2.1e-05  [+1]
+4023813:4023848_Pca3-2            2.1e-05  [+1]
+1949024:1949059_PwaSCC31          2.4e-05  [+1]
+4966656:4966691_PwaSCC31          2.5e-05  [+1]
+2839942:2839977_Pat21A            2.5e-05  [-1]
+112387:112422_Pat21A              2.5e-05  [+1]
+4019733:4019768_PwaSCC31          2.8e-05  [+1]
+9819:9854_PwaSCC3193              3.1e-05  [+1]
+891071:891106_PwaSCC3193          4.6e-05  [+1]
+863197:863232_Pca3-2              4.6e-05  [+1]
+778050:778085_Pat21A              4.6e-05  [+1]
+119002:119037_Pca3-2              4.7e-05  [-1]
+1858025:1858060_Pca3-2              6e-05  [-1]
+545463:545498_Pca3-2              6.4e-05  [-1]
+217918:217953_Pca3-2              7.6e-05  [+1]
+3969544:3969579_Pat21A            7.8e-05  [+1]
+2139729:2139764_Pca3-2            0.00011  [+1]
+207446:207481_Pat21A              0.00012  [+1]
+4499793:4499828_Pat21A            0.00013  [+1]
+4519755:4519790_Pca3-2            0.00013  [+1]
+4913881:4913916_Pca3-2            0.00014  [+1]
+2487426:2487461_Pat21A            0.00018  [+1]
+4858509:4858544_PwaSCC31          0.00019  [+1]
+3060354:3060389_Pca3-2            0.00019  [+1]
+1965954:1965989_PwaSCC31          0.00021  [+1]
+1909387:1909422_PwaSCC31          0.00021  [+1]
+1804965:1805000_Pat21A            0.00021  [+1]
+126414:126449_PwaSCC3193          0.00022  [-1]
+205231:205266_Pat21A              0.00023  [+1]
+1232811:1232846_Pat21A            0.00026  [+1]
+2386118:2386153_Pca3-2            0.00033  [+1]
+2558591:2558626_Pat21A            0.00033  [+1]
+2531015:2531050_PwaSCC31          0.00035  [+1]
+4777688:4777723_Pat21A            0.00036  [-1]
+3350896:3350931_PwaSCC31          0.00051  [-1]
+4784178:4784213_Pca3-2            0.00051  [+1]
+1253495:1253530_Pca3-2            0.00051  [+1]
+924327:924361_PwaSCC3193          0.00087  [-1]
+3133395:3133430_Pat21A             0.0011  [-1]
+4571041:4571076_PwaSCC31           0.0012  [+1]
+2376853:2376888_Pat21A             0.0019  [+1]
+1532477:1532512_Pca3-2             0.0024  [-1]
+1808506:1808541_Pca3-2             0.0029  [-1]
+1489613:1489648_Pat21A             0.0031  [-1]
+3636466:3636501_Pat21A             0.0041  [+1]
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 	Motif 1 in BLOCKS format
 --------------------------------------------------------------------------------
-BL   MOTIF 1 width=26 seqs=93
-MCP0103_Pca3-2           (    1) TAAAGTTTCGGAGTAACGTGCCGATA  1 
-MCP2609_PC1              (    1) TAAAGATATCCAGAATAGTGCCGATA  1 
-tsr_SCRI1043             (    1) TAAAGATATCCAGAATAATGCCGATA  1 
-YcgR_Pcc21               (    1) TAAAGTTATTGAGAAAATTGCCGATA  1 
-MCP1675_Pcc21            (    1) TAAAGTGCCCGCCTAAAGTGCCGATA  1 
-MCP0081_Pcc21            (    1) TAAAGTTTCAGAGTAAAGTGCCGATA  1 
-fliD_PC1                 (    1) TAAACTTATTCTCTATTCTGCCGATA  1 
-MCP0091_1043             (    1) TAAAGTTTCAGAGTAGAGTGCCGATA  1 
-MCP1886_SCC3193          (    1) TAAAGTGCCCGCCCAAAGTGCCGATA  1 
-motA_Pcc21               (    1) TAAACTTTCGCAAAATCTTGCCGATA  1 
-motA_PC1                 (    1) TAAACTTTCGCAAAATCTTGCCGATA  1 
-motA_SCRI1043            (    1) TAAACTTTCGCAAAATCTTGCCGATA  1 
-FliD_Pcc21               (    1) TAAACTTATTTTCTATCCTGCCGATA  1 
-mcp2712_1043             (    1) TAAAGTGCCCGGCCAAAGTGCCGATA  1 
-MCP4161_PC1              (    1) TAAAGTTCCAGAGTAAAGTGCCGATA  1 
-MCP0182_1043             (    1) TAAAGCTAGGGGATATTGTGCCGATA  1 
-GZ59_31750_21a           (    1) TAAAGTTTACAGGGATGGTGCCGATA  1 
-MCP0197_Pca3-2           (    1) TAAAGCTAAGGAATATTGTGCCGATA  1 
-CheV_Pcc21               (    1) TAAGGTGTTGGCAAATTCTGCCGATA  1 
-fliD_SCRI1043            (    1) TAAACTTATCATGCACACTGCCGATA  1 
-MCP0198_Pca3-2           (    1) TAAAGATCATGGATGGCGTGCCGATA  1 
-YcgR_Pat21a              (    1) TAAGGTTATTGAGAAAATTGCCGATA  1 
-cheV_SCRI1043            (    1) TAAGGTGTTGGCAAAGTCTGCCGATA  1 
-flgM_Pcc21               (    1) TAAAGATTTGCTCATGTTTGCCGATG  1 
-flgM_PC1                 (    1) TAAAGATTTGCTCATGTTTGCCGATG  1 
-flgM_SCRI1043            (    1) TAAAGATTTGCTCATGTTTGCCGATG  1 
-W5S0623_1237             (    1) TAAAGTTAACCAGAATGGGGCCGATA  1 
-MCP4505_SCC3193          (    1) TAAAGTTTAGAAACAAGTTGCCGATA  1 
-MCP0169_Pcc21            (    1) TAAAGATCATGGGCGGTGTGCCGATA  1 
-YjfB_Pcc21               (    1) TAAAGTTTACAGGGATAGGGCCGATA  1 
-MCP0006_SCC3193          (    1) TAAAGAGATGTTGTTTCCCGCCGATA  1 
-fliD_Pat21a              (    1) TAAACTTATCATGCGCACTGCCGATA  1 
-hexY_PCC21               (    1) TAAAGATCCCGCTTATTCAGCCGATA  1 
-flgM_Pca3-2              (    1) TAAAGATTTGCTCACGTTTGCCGATG  1 
-MCP2813_SCC3193          (    1) TAAAGATTATCTAAAAAACGCCGATA  1 
-MCP0183_1043             (    1) TAAAGATAAGAAACAAGTTGCCGATA  1 
-MCP0007_SCC3193          (    1) CAATGTTTTCCCCAAAAATGCCGATA  1 
-MCP1774_1043             (    1) TAAAGATTATCTACAAAAGGCCGATA  1 
-MCP4333_1043             (    1) CAATGTTTTCCCAAAAAATGCCGATA  1 
-MCP3711_Pca3-2           (    1) TAAGCATTGCGCCTGAAATGCCGATA  1 
-YcgR_PC1                 (    1) TAAAGTAGTTGGGCAAACTGCCGATA  1 
-MCP4506_SCC3193          (    1) TAAAGCTAAGAAATCTTGTGCCGATA  1 
-flxA-like_Pcc21          (    1) TAAAGAAAAGGGCGGAACTGCCGATA  1 
-MCP3903_Pcc21            (    1) TCAACTGAACGCTTTTCCTGCCGATA  1 
-MCP3910_PC1              (    1) TCAACTGAACGCTTTTCCTGCCGATA  1 
-MCP4520_Pca3-2           (    1) TAAAGAGATATTGTTTCCCGCCGATA  1 
-MCP0520_SCC3193          (    1) TAAAGATCTTATTTTCTCTGCCGTTA  1 
-MCP0507_Pca3-2           (    1) TAAAGATCTTATTTTATTTGCCGTTA  1 
-MCP0168_Pcc21            (    1) TAAAGCTCGGAAATCTTGTGCCGATA  1 
-W5S1807_SCC3193          (    1) TAAAGCTTCTTTCAAGCACGCCGATA  1 
-clpP_Pca3-2              (    1) TAAACTGCAGCGTTGCCGTGCCGATA  1 
-MCP3731_SCC3193          (    1) TAAATTTTTTTTATTTACTGCCGTTA  1 
-MCP0449_Pcc21            (    1) TAAAGATCTTATTTTCTTTGCCGTTA  1 
-MCP4120_1043             (    1) TCAACTGAACGCTTTTTCTGCCGATA  1 
-MCP0195_Pat21a           (    1) TAAAGATAAGAAACCGGTTGCCGATA  1 
-W5S1806_SCC3193          (    1) TAAACTTTCTACTACGGTTGCCGATA  1 
-MCP0007_PC1              (    1) TAAAGAGGTAGTGTTTCCCGCCGATA  1 
-aer1_PCC21               (    1) TAAGTATTTCGTGAAGATTGCCGTTA  1 
-aer_SCC3193              (    1) TAATTATTTCGTGAACATTGCCGTTA  1 
-W5S0623_SCC3193          (    1) CAAACATCCCAAGATGATTGCCGATA  1 
-flgk_PC1                 (    1) TCAAGATTTGCGCTTCCTGACCGATA  1 
-flgK_SCRI1043            (    1) TCAAGATTTGCGCTTCCTGACCGATA  1 
-MCP3736_SCC3193          (    1) TAAGTATTGCGCCTGAAATGCCGATA  1 
-MCP4098_Pcc21            (    1) CAATGTTTTCCCTACTCATGCCGATA  1 
-MCP3706_Pca3-2           (    1) TAATTTTTTTCCATTTACTGCCGTTA  1 
-flgK_Pcc21               (    1) TCAAGATTTGCGCATCCTGACCGATA  1 
-OA04_21360_3-2           (    1) TAAAGATTCTTCCTGAATTGTCGATA  1 
-ogl_Pcc21                (    1) GAAACATTGTTTCTATAATGCCGATA  1 
-ogl_PC1                  (    1) GAAACATTGTTTCTATAATGCCGATA  1 
-MCP3681_Pca3-2           (    1) TAAAGAAAGCGGGTTTGTTACCGATA  1 
-MCP0112_PC1              (    1) CAATGTTTTCTCCGGTCATGCCGATA  1 
-OA04_19630_3-2           (    1) TAAAGGTATCAGCTTTTCTACCGATA  1 
-PCC21_008760             (    1) TAAAGATTGCCCTTCACTGACCGATA  1 
-MCP4411_Pca3-2           (    1) CAATGTTTTCCCAGCTTATGCCGATA  1 
-MCP2188_Pca3-2           (    1) TAAAGTTCAAAAAAAAAACGCCGATA  1 
-flgK_SCC3193             (    1) TCAAGATTTGTGCTTCCTGACCGATA  1 
-MCP1132_Pat21a           (    1) TCAAGTTTTATTTTACTGTGCCGTTA  1 
-fliC_SCRI1043            (    1) TAAAGCTTCTGGAAAGCGTTCCGATA  1 
-MCP3615_1043             (    1) TAATTTTTTTTCATTTACTGCCGTTA  1 
-OA04_36690_3-2           (    1) TAAAGAAAAGCACGATACAGCCGATA  1 
-MCP2130_Pcc21            (    1) TAAAGTTCAAAAAAAAGACGCCGATA  1 
-MCP3442_Pcc21            (    1) TAATTTTTTTTCACTTACTGCCGTTA  1 
-MCP1037_Pcc21            (    1) TCAAGTTTTATTTTGCTGTGCCGTTA  1 
-MCP3617_Pat21a           (    1) TAAAGAAAGCAGGCTTGCTACCGATA  1 
-MCP4199_Pcc21            (    1) TAAAGACATATTGTTTCTCGCCGATA  1 
-YcgR_SCC3193             (    1) TAAAGATGTTGAAGAAATTGTCGATA  1 
-MCP4243_SCC3193          (    1) TCAACCAAACGCTTTTTTTGCCGATA  1 
-aer1_SCRI1043            (    1) TAATTATTTCTTAGACATTGCCGTTA  1 
-MCP3114_SCC3193          (    1) TAAATATTCTCTGTATTTAGCCGATG  1 
-flgF_Pcc21               (    1) TAAACTGATCGGCAAATCTACCGAAA  1 
-flgF_SCRI1043            (    1) TAAACTGATCGGCAAATCTACCGAAA  1 
-ogl_SCRI1043             (    1) GAAACATTGTTTCTATAATACCGATA  1 
-PCC21_027300             (    1) TAAAGAAACTAAAAAAGATACCGATA  1 
+BL   MOTIF 1 width=35 seqs=69
+3133510:3133545_Pat21A   (    1) TAAACTTATCATGCGCACTGCCGATAACCACTTTG  1 
+1775835:1775870_Pca3-2   (    1) TAAAGATATCCAGAATAGTGCCGATATCATCGGTG  1 
+220127:220162_Pca3-2     (    1) TAAAGATCATGGATGGCGTGCCGATAAAATGGATA  1 
+1808367:1808402_Pca3-2   (    1) TAAACTTATTTTCTATCCTGCCGATAATGATTTCA  1 
+1940736:1940771_PwaSCC31 (    1) TAAAGATTTGCTCATGTTTGCCGATGATAGCTACA  1 
+2842729:2842764_Pca3-2   (    1) TAAAGTGCCCGCCTAAAGTGCCGATAATGTTAATG  1 
+3169023:3169058_Pat21A   (    1) TAAAGATATCCAGAATAATGCCGATATTATCGGTG  1 
+3459227:3459262_Pat21A   (    1) TCATTTTGGTATCGGCACCATCCCTGTAAACTTTA  1 
+2736314:2736349_Pca3-2   (    1) TAAAGTTATTGAGAAAATTGCCGATATCGTTTTCA  1 
+2044685:2044720_PwaSCC31 (    1) TAAAGTGCCCGCCCAAAGTGCCGATAATGATAATG  1 
+2770488:2770523_PwaSCC31 (    1) TAATTATTTCGTGAACATTGCCGTTAATTAAAGTA  1 
+3158932:3158967_Pat21A   (    1) TAAAGATTTGCTCATGTTTGCCGATGATAGTTACA  1 
+1930684:1930719_PwaSCC31 (    1) CACCGGTAGTATCGGCATTATTCTGGATATCTTTA  1 
+573297:573332_PwaSCC3193 (    1) TAGTAGTAATAACGGCAGAGAAAATAAGATCTTTA  1 
+2041417:2041452_Pat21A   (    1) TAAAGTGCCCGGCCAAAGTGCCGATAATGTTAATG  1 
+1794164:1794199_Pca3-2   (    1) TCAAGATTTGCGCTTCCTGACCGATAAAGTAATTA  1 
+3150648:3150683_Pat21A   (    1) TCAAGATTTGCGCTTCCTGACCGATAAAGTAATTA  1 
+493475:493510_Pat21A     (    1) TAAAGATCTTATTTTATTTGCCGTTATCACTATTA  1 
+1785904:1785939_Pca3-2   (    1) TAAAGATTTGCTCACGTTTGCCGATGATAGTTACA  1 
+3091468:3091503_Pat21A   (    1) CGAAGGCGGTATCGGCCTTTTGTAGATAATCTTTA  1 
+3045526:3045561_PwaSCC31 (    1) CGAAGGCGGTATCGGCGTTTTTTAGATAATCTTTA  1 
+4015013:4015048_PwaSCC31 (    1) CATATGCGTTAACGGCAGTAAATAAAAAAAATTTA  1 
+4296004:4296039_Pca3-2   (    1) TACGTTTTAGACTGAAAATGCCGATAACAATCTTG  1 
+4018479:4018514_Pca3-2   (    1) CACATGCGTTAACGGCAGTAAATGGAAAAAAATTA  1 
+4856083:4856118_PwaSCC31 (    1) TAAAGTTTAGAAACAAGTTGCCGATAAAACGAATA  1 
+4023813:4023848_Pca3-2   (    1) TAAGCATTGCGCCTGAAATGCCGATAACAGATAAG  1 
+1949024:1949059_PwaSCC31 (    1) TCAAGATTTGTGCTTCCTGACCGATAAAGTAATTA  1 
+4966656:4966691_PwaSCC31 (    1) TAAAGTTTCAGAGTAGAGTGCCGATATCTACTGCG  1 
+2839942:2839977_Pat21A   (    1) CTATCTAATTAACGGCAATGTCTAAGAAATAATTA  1 
+112387:112422_Pat21A     (    1) TAAAGTTTCAGAGTAGAGTGCCGATATCTACTGCG  1 
+4019733:4019768_PwaSCC31 (    1) TAAGTATTGCGCCTGAAATGCCGATAACGGATAAG  1 
+9819:9854_PwaSCC3193     (    1) TAAAGAGATGTTGTTTCCCGCCGATAATTTATTTG  1 
+891071:891106_PwaSCC3193 (    1) TAAAGATCCCGCTTATTCAGCCGATAGTAAAAATC  1 
+863197:863232_Pca3-2     (    1) TAAAGATCCCGCTTATTCAGCCGATAGTAAAAATC  1 
+778050:778085_Pat21A     (    1) TAAAGATCCCGCTTATTCAGCCGATAGTAAAAATC  1 
+119002:119037_Pca3-2     (    1) TGCAATAGATATCGGCACGTTACTCCGAAACTTTA  1 
+1858025:1858060_Pca3-2   (    1) GAAGGGGGGTATCGGCCTTTTGTAGATAATCTTTA  1 
+545463:545498_Pca3-2     (    1) TAGTAGTGATAACGGCAAATAAAATAAGATCTTTA  1 
+217918:217953_Pca3-2     (    1) TAAAGCTAAGGAATATTGTGCCGATAAGGTAGACG  1 
+3969544:3969579_Pat21A   (    1) TAATTTTTTTTCATTTACTGCCGTTAACGCATGTG  1 
+2139729:2139764_Pca3-2   (    1) TAAGTATTTCGTGAAGATTGCCGTTAATTAAATAG  1 
+207446:207481_Pat21A     (    1) TAAAGATAAGAAACCGGTTGCCGATAAAACGAATA  1 
+4499793:4499828_Pat21A   (    1) TCAACTGAACGCTTTTTCTGCCGATATTAAAGATA  1 
+4519755:4519790_Pca3-2   (    1) TCAACTGAACGCTTTTCCTGCCGATATTAAAGATA  1 
+4913881:4913916_Pca3-2   (    1) TAAAGAGATATTGTTTCCCGCCGATAATTTATTTG  1 
+2487426:2487461_Pat21A   (    1) ACATTTTAGGGGCTTACCTGCCGATATTCAATTTA  1 
+4858509:4858544_PwaSCC31 (    1) TAAAGCTAAGAAATCTTGTGCCGATAAGGTAAACG  1 
+3060354:3060389_Pca3-2   (    1) TAAGGTGTTGGCAAATTCTGCCGATATTAATGGTT  1 
+1965954:1965989_PwaSCC31 (    1) TAAACTTTCTACTACGGTTGCCGATATACAGTTAA  1 
+1909387:1909422_PwaSCC31 (    1) TAAGGTGTTGGCAAAGTCTGCCGATATTAATGGTT  1 
+1804965:1805000_Pat21A   (    1) TAAGGTGTTGGCAAAGTCTGCCGATATTAATGGTT  1 
+126414:126449_PwaSCC3193 (    1) AGTCTGAAATATCGGCATTTTTGGGGAAAACATTG  1 
+205231:205266_Pat21A     (    1) TAAAGCTAGGGGATATTGTGCCGATAAGGTAAACG  1 
+1232811:1232846_Pat21A   (    1) TCAAGTTTTATTTTACTGTGCCGTTATGGATAGTA  1 
+2386118:2386153_Pca3-2   (    1) TAAAGTTCAAAAAAAAAACGCCGATAGACAAATAG  1 
+2558591:2558626_Pat21A   (    1) TAAAGTTCAAAAAAAAAACGCCGATAGACAAATAG  1 
+2531015:2531050_PwaSCC31 (    1) TAAAGTTCAAAAAAAAAACGCCGATAGACAAGTAG  1 
+4777688:4777723_Pat21A   (    1) ATACTGGAATATCGGCATTTTTTGGGAAAACATTG  1 
+3350896:3350931_PwaSCC31 (    1) ACGCTAGTTCATCGGCTAAATACAGAGAATATTTA  1 
+4784178:4784213_Pca3-2   (    1) CAATGTTTTCCCAGCTTATGCCGATATCCTAGAGT  1 
+1253495:1253530_Pca3-2   (    1) TCAAGTTTTATTTTTCTCTGCCGTTATGGATAGTA  1 
+924327:924361_PwaSCC3193 (    1) GAGAAACATTATCGGCAGAATTCGCATTATCAAAA  1 
+3133395:3133430_Pat21A   (    1) GATAACATTTATCGGAACGCTTTCCAGAAGCTTTA  1 
+4571041:4571076_PwaSCC31 (    1) TCAACCAAACGCTTTTTTTGCCGATATTAAAGATA  1 
+2376853:2376888_Pat21A   (    1) TAAGAAAGTTCCGATGTTTGCCGATAAACCATAAA  1 
+1532477:1532512_Pca3-2   (    1) ACGCTAACTCATCGGCTAAATACAGAGAATGTTTA  1 
+1808506:1808541_Pca3-2   (    1) GCTAACATTTATCGGAACGCTTTCCAGAAGCTTTA  1 
+1489613:1489648_Pat21A   (    1) ACGCTAACTCATCGGCTAAATGCAGAGAATATTTA  1 
+3636466:3636501_Pat21A   (    1) TTTTATTTCGCCATAATTTGCCGATAATCTGAACA  1 
 //
 
 --------------------------------------------------------------------------------
@@ -441,77 +357,95 @@ PCC21_027300             (    1) TAAAGAAACTAAAAAAGATACCGATA  1
 --------------------------------------------------------------------------------
 	Motif 1 position-specific scoring matrix
 --------------------------------------------------------------------------------
-log-odds matrix: alength= 4 w= 26 n= 93 bayes= 1.84958 E= 8.0e-552 
- -1318   -154   -253    157 
-   147    -81  -1318  -1318 
-   164  -1318  -1318  -1318 
-   137  -1318   -153   -150 
- -1318     19    188   -165 
-    49   -132   -411     61 
-  -209   -413    -31    133 
-    -4    -22   -253     70 
-   -51      4    -80     64 
-  -158     87     53    -12 
-   -65     51     88    -73 
-   -32     33     13     -1 
-   -15     62     53   -101 
-     1    -55   -112     61 
-    71   -113    -80    -12 
-   -15    -43    -31     46 
-    27     33    -80    -18 
-   -81     51     27      9 
-  -331   -113   -112    139 
-  -132  -1318    220   -482 
- -1318    238  -1318   -382 
- -1318    241  -1318  -1318 
- -1318  -1318    242  -1318 
-   144  -1318  -1318   -124 
-  -390  -1318  -1318    169 
-   156  -1318   -180  -1318 
+log-odds matrix: alength= 4 w= 35 n= 69 bayes= 1.61298 E= 5.3e-153 
+  -215     28   -182    104 
+   112    -72    -72   -188 
+    99    -72   -204    -61 
+    76    -46   -130    -34 
+  -101    -82    123     -1 
+    23    -93    -72     39 
+  -156    -30    -17     87 
+     5    -30    -30     23 
+   -18    -17   -146     62 
+  -247     18    -38     91 
+    89    -30     13   -230 
+   -83    -10   -130     85 
+   -88    175    -46   -177 
+   -95   -163    156    -38 
+   -11   -230    156   -122 
+   -95    156    -82    -66 
+    83    -54   -130    -47 
+   -34     46     46    -34 
+   -47   -130    -54     83 
+   -66    -82    156    -95 
+  -122    156   -230    -11 
+   -38    156   -163    -95 
+  -177    -46    175    -88 
+    85   -130    -10    -83 
+  -230     13    -30     89 
+    91    -38     18   -247 
+    62   -146    -17    -18 
+    23    -30    -30      5 
+    87    -17    -30   -156 
+    39    -72    -93     23 
+    -1    123    -82   -101 
+   -34   -130    -46     76 
+   -61   -204    -72     99 
+  -188    -72    -72    112 
+   104   -182     28   -215 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 	Motif 1 position-specific probability matrix
 --------------------------------------------------------------------------------
-letter-probability matrix: alength= 4 w= 26 nsites= 93 E= 8.0e-552 
- 0.000000  0.064516  0.032258  0.903226 
- 0.892473  0.107527  0.000000  0.000000 
- 1.000000  0.000000  0.000000  0.000000 
- 0.827957  0.000000  0.064516  0.107527 
- 0.000000  0.215054  0.688172  0.096774 
- 0.451613  0.075269  0.010753  0.462366 
- 0.075269  0.010753  0.150538  0.763441 
- 0.311828  0.161290  0.032258  0.494624 
- 0.225806  0.193548  0.107527  0.473118 
- 0.107527  0.344086  0.268817  0.279570 
- 0.204301  0.268817  0.344086  0.182796 
- 0.258065  0.236559  0.204301  0.301075 
- 0.290323  0.290323  0.268817  0.150538 
- 0.322581  0.129032  0.086022  0.462366 
- 0.526882  0.086022  0.107527  0.279570 
- 0.290323  0.139785  0.150538  0.419355 
- 0.387097  0.236559  0.107527  0.268817 
- 0.182796  0.268817  0.225806  0.322581 
- 0.032258  0.086022  0.086022  0.795699 
- 0.129032  0.000000  0.860215  0.010753 
- 0.000000  0.978495  0.000000  0.021505 
- 0.000000  1.000000  0.000000  0.000000 
- 0.000000  0.000000  1.000000  0.000000 
- 0.870968  0.000000  0.000000  0.129032 
- 0.021505  0.000000  0.000000  0.978495 
- 0.946237  0.000000  0.053763  0.000000 
+letter-probability matrix: alength= 4 w= 35 nsites= 69 E= 5.3e-153 
+ 0.072464  0.217391  0.050725  0.659420 
+ 0.695652  0.108696  0.108696  0.086957 
+ 0.637681  0.108696  0.043478  0.210145 
+ 0.543478  0.130435  0.072464  0.253623 
+ 0.159420  0.101449  0.420290  0.318841 
+ 0.376812  0.094203  0.108696  0.420290 
+ 0.108696  0.144928  0.159420  0.586957 
+ 0.333333  0.144928  0.144928  0.376812 
+ 0.282609  0.159420  0.065217  0.492754 
+ 0.057971  0.202899  0.137681  0.601449 
+ 0.594203  0.144928  0.195652  0.065217 
+ 0.181159  0.166667  0.072464  0.579710 
+ 0.173913  0.601449  0.130435  0.094203 
+ 0.166667  0.057971  0.528986  0.246377 
+ 0.297101  0.036232  0.528986  0.137681 
+ 0.166667  0.528986  0.101449  0.202899 
+ 0.572462  0.123187  0.072462  0.231883 
+ 0.253622  0.246375  0.246376  0.253623 
+ 0.231884  0.072463  0.123188  0.572463 
+ 0.202898  0.101448  0.528985  0.166666 
+ 0.137680  0.528985  0.036231  0.297100 
+ 0.246376  0.528985  0.057970  0.166666 
+ 0.094202  0.130434  0.601448  0.173912 
+ 0.579709  0.072463  0.166666  0.181158 
+ 0.065216  0.195651  0.144927  0.594202 
+ 0.601448  0.137680  0.202898  0.057970 
+ 0.492753  0.065216  0.159419  0.282608 
+ 0.376811  0.144927  0.144927  0.333332 
+ 0.586956  0.159419  0.144927  0.108695 
+ 0.420289  0.108695  0.094202  0.376811 
+ 0.318840  0.420289  0.101448  0.159419 
+ 0.253622  0.072463  0.130434  0.543477 
+ 0.210144  0.043477  0.108695  0.637680 
+ 0.086956  0.108695  0.108695  0.695651 
+ 0.659419  0.050724  0.217390  0.072463 
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
 	Motif 1 regular expression
 --------------------------------------------------------------------------------
-TAAA[GC][TA]T[TA][TA][CTG][GCA][TACG][ACG][TA][AT][TA][ATC][TCG]TGCCGATA
+[TC]A[AT][AT][GT][TA]T[TA][TA][TC]ATC[GT][GA][CT][AT][TAGC][TA][GA][CT][CA]GAT[AG][AT][AT]A[AT][CA][TA][TA]T[AG]
 --------------------------------------------------------------------------------
 
 
 
 
-Time  0.58 secs.
+Time  2.14 secs.
 
 ********************************************************************************
 
@@ -525,99 +459,75 @@ SUMMARY OF MOTIFS
 --------------------------------------------------------------------------------
 SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
 -------------            ----------------  -------------
-MCP0195_Pat21a                   5.80e-08  [+1(5.80e-08)]
-MCP1132_Pat21a                   1.93e-07  [+1(1.93e-07)]
-YcgR_Pat21a                      2.89e-09  [+1(2.89e-09)]
-fliD_Pat21a                      8.53e-09  [+1(8.53e-09)]
-GZ59_31750_21a                   1.85e-09  [+1(1.85e-09)]
-MCP3617_Pat21a                   4.35e-07  [+1(4.35e-07)]
-motA_SCRI1043                    5.89e-10  [+1(5.89e-10)]
-flgM_SCRI1043                    5.05e-09  [+1(5.05e-09)]
-MCP0091_1043                     4.93e-10  [+1(4.93e-10)]
-mcp2712_1043                     8.31e-10  [+1(8.31e-10)]
-flgK_SCRI1043                    8.58e-08  [+1(8.58e-08)]
-MCP0182_1043                     1.85e-09  [+1(1.85e-09)]
-MCP0183_1043                     1.24e-08  [+1(1.24e-08)]
-MCP4333_1043                     2.22e-08  [+1(2.22e-08)]
-tsr_SCRI1043                     9.99e-11  [+1(9.99e-11)]
-MCP4120_1043                     5.80e-08  [+1(5.80e-08)]
-cheV_SCRI1043                    4.41e-09  [+1(4.41e-09)]
-fliD_SCRI1043                    2.15e-09  [+1(2.15e-09)]
-ogl_SCRI1043                     7.81e-07  [+1(7.81e-07)]
-fliC_SCRI1043                    2.11e-07  [+1(2.11e-07)]
-flgF_SCRI1043                    6.78e-07  [+1(6.78e-07)]
-MCP3615_1043                     2.29e-07  [+1(2.29e-07)]
-MCP1774_1043                     1.99e-08  [+1(1.99e-08)]
-aer1_SCRI1043                    5.45e-07  [+1(5.45e-07)]
-motA_PC1                         5.89e-10  [+1(5.89e-10)]
-flgM_PC1                         5.05e-09  [+1(5.05e-09)]
-MCP4161_PC1                      9.81e-10  [+1(9.81e-10)]
-fliD_PC1                         3.41e-10  [+1(3.41e-10)]
-MCP0007_PC1                      7.79e-08  [+1(7.79e-08)]
-flgk_PC1                         8.58e-08  [+1(8.58e-08)]
-MCP3910_PC1                      3.84e-08  [+1(3.84e-08)]
-MCP2609_PC1                      1.70e-11  [+1(1.70e-11)]
-MCP0112_PC1                      1.36e-07  [+1(1.36e-07)]
-ogl_PC1                          1.24e-07  [+1(1.24e-07)]
-YcgR_PC1                         2.78e-08  [+1(2.78e-08)]
-motA_Pcc21                       5.89e-10  [+1(5.89e-10)]
-MCP0081_Pcc21                    3.41e-10  [+1(3.41e-10)]
-YcgR_Pcc21                       1.24e-10  [+1(1.24e-10)]
-MCP1675_Pcc21                    1.54e-10  [+1(1.54e-10)]
-FliD_Pcc21                       7.01e-10  [+1(7.01e-10)]
-flgM_Pcc21                       5.05e-09  [+1(5.05e-09)]
-MCP3903_Pcc21                    3.84e-08  [+1(3.84e-08)]
-CheV_Pcc21                       2.15e-09  [+1(2.15e-09)]
-flgK_Pcc21                       1.14e-07  [+1(1.14e-07)]
-ogl_Pcc21                        1.24e-07  [+1(1.24e-07)]
-MCP4098_Pcc21                    9.43e-08  [+1(9.43e-08)]
-MCP4199_Pcc21                    4.69e-07  [+1(4.69e-07)]
-YjfB_Pcc21                       6.59e-09  [+1(6.59e-09)]
-MCP0169_Pcc21                    6.59e-09  [+1(6.59e-09)]
-MCP0449_Pcc21                    5.80e-08  [+1(5.80e-08)]
-flxA-like_Pcc21                  3.45e-08  [+1(3.45e-08)]
-MCP0168_Pcc21                    4.73e-08  [+1(4.73e-08)]
-flgF_Pcc21                       6.78e-07  [+1(6.78e-07)]
-PCC21_008760                     1.49e-07  [+1(1.49e-07)]
-MCP1037_Pcc21                    4.35e-07  [+1(4.35e-07)]
-MCP2130_Pcc21                    3.18e-07  [+1(3.18e-07)]
-PCC21_027300                     8.98e-07  [+1(8.98e-07)]
-MCP3442_Pcc21                    4.03e-07  [+1(4.03e-07)]
-MCP0006_SCC3193                  8.53e-09  [+1(8.53e-09)]
-MCP0007_SCC3193                  1.40e-08  [+1(1.40e-08)]
-MCP0520_SCC3193                  4.27e-08  [+1(4.27e-08)]
-W5S0623_SCC3193                  8.58e-08  [+1(8.58e-08)]
-W5S0623_1237                     5.78e-09  [+1(5.78e-09)]
-flgK_SCC3193                     1.78e-07  [+1(1.78e-07)]
-W5S1806_SCC3193                  7.79e-08  [+1(7.79e-08)]
-W5S1807_SCC3193                  5.24e-08  [+1(5.24e-08)]
-MCP1886_SCC3193                  5.89e-10  [+1(5.89e-10)]
-YcgR_SCC3193                     5.06e-07  [+1(5.06e-07)]
-MCP2813_SCC3193                  1.24e-08  [+1(1.24e-08)]
-aer_SCC3193                      8.58e-08  [+1(8.58e-08)]
-MCP3114_SCC3193                  5.87e-07  [+1(5.87e-07)]
-MCP3731_SCC3193                  5.80e-08  [+1(5.80e-08)]
-MCP3736_SCC3193                  9.43e-08  [+1(9.43e-08)]
-MCP4243_SCC3193                  5.45e-07  [+1(5.45e-07)]
-MCP4505_SCC3193                  6.59e-09  [+1(6.59e-09)]
-MCP4506_SCC3193                  3.45e-08  [+1(3.45e-08)]
-MCP0103_Pca3-2                   9.37e-12  [+1(9.37e-12)]
-MCP0197_Pca3-2                   2.15e-09  [+1(2.15e-09)]
-MCP0198_Pca3-2                   2.49e-09  [+1(2.49e-09)]
-MCP0507_Pca3-2                   4.73e-08  [+1(4.73e-08)]
-MCP3706_Pca3-2                   1.14e-07  [+1(1.14e-07)]
-OA04_21360_3-2                   1.24e-07  [+1(1.24e-07)]
-hexY_PCC21                       1.10e-08  [+1(1.10e-08)]
-clpP_Pca3-2                      5.80e-08  [+1(5.80e-08)]
-flgM_Pca3-2                      1.24e-08  [+1(1.24e-08)]
-OA04_19630_3-2                   1.49e-07  [+1(1.49e-07)]
-MCP2188_Pca3-2                   1.78e-07  [+1(1.78e-07)]
-MCP3711_Pca3-2                   2.78e-08  [+1(2.78e-08)]
-MCP4411_Pca3-2                   1.63e-07  [+1(1.63e-07)]
-MCP4520_Pca3-2                   4.27e-08  [+1(4.27e-08)]
-aer1_PCC21                       8.58e-08  [+1(8.58e-08)]
-OA04_36690_3-2                   2.70e-07  [+1(2.70e-07)]
-MCP3681_Pca3-2                   1.36e-07  [+1(1.36e-07)]
+112387:112422_Pat21A             5.04e-05  [+1(2.52e-05)]
+205231:205266_Pat21A             4.62e-04  35
+207446:207481_Pat21A             2.36e-04  35
+493475:493510_Pat21A             1.25e-05  [+1(6.27e-06)]
+778050:778085_Pat21A             9.11e-05  [+1(4.56e-05)]
+1232811:1232846_Pat21A           5.15e-04  35
+1489613:1489648_Pat21A           6.21e-03  35
+1804965:1805000_Pat21A           4.26e-04  35
+2041417:2041452_Pat21A           8.25e-06  [+1(4.13e-06)]
+2376853:2376888_Pat21A           3.89e-03  35
+2487426:2487461_Pat21A           3.60e-04  35
+2558591:2558626_Pat21A           6.57e-04  35
+2839942:2839977_Pat21A           5.04e-05  [+1(2.52e-05)]
+3091468:3091503_Pat21A           2.39e-05  [+1(1.19e-05)]
+3133395:3133430_Pat21A           2.11e-03  35
+3133510:3133545_Pat21A           2.48e-10  [+1(1.24e-10)]
+3150648:3150683_Pat21A           1.02e-05  [+1(5.09e-06)]
+3158932:3158967_Pat21A           6.92e-06  [+1(3.46e-06)]
+3169023:3169058_Pat21A           1.03e-06  [+1(5.15e-07)]
+3459227:3459262_Pat21A           1.70e-06  [+1(8.51e-07)]
+3636466:3636501_Pat21A           8.20e-03  35
+3969544:3969579_Pat21A           1.57e-04  [+1(7.83e-05)]
+4499793:4499828_Pat21A           2.57e-04  35
+4777688:4777723_Pat21A           7.11e-04  35
+119002:119037_Pca3-2             9.40e-05  [+1(4.70e-05)]
+217918:217953_Pca3-2             1.52e-04  [+1(7.60e-05)]
+220127:220162_Pca3-2             6.93e-07  [+1(3.46e-07)]
+545463:545498_Pca3-2             1.27e-04  [+1(6.36e-05)]
+863197:863232_Pca3-2             9.11e-05  [+1(4.56e-05)]
+1253495:1253530_Pca3-2           1.02e-03  35
+1532477:1532512_Pca3-2           4.87e-03  35
+1775835:1775870_Pca3-2           6.93e-07  [+1(3.46e-07)]
+1785904:1785939_Pca3-2           1.71e-05  [+1(8.53e-06)]
+1794164:1794199_Pca3-2           1.02e-05  [+1(5.09e-06)]
+1808367:1808402_Pca3-2           8.79e-07  [+1(4.40e-07)]
+1808506:1808541_Pca3-2           5.82e-03  35
+1858025:1858060_Pca3-2           1.20e-04  [+1(5.99e-05)]
+2139729:2139764_Pca3-2           2.29e-04  35
+2386118:2386153_Pca3-2           6.57e-04  35
+2736314:2736349_Pca3-2           2.31e-06  [+1(1.15e-06)]
+2842729:2842764_Pca3-2           9.51e-07  [+1(4.76e-07)]
+3060354:3060389_Pca3-2           3.81e-04  35
+4018479:4018514_Pca3-2           3.65e-05  [+1(1.83e-05)]
+4023813:4023848_Pca3-2           4.16e-05  [+1(2.08e-05)]
+4296004:4296039_Pca3-2           3.11e-05  [+1(1.55e-05)]
+4519755:4519790_Pca3-2           2.64e-04  35
+4784178:4784213_Pca3-2           1.02e-03  35
+4913881:4913916_Pca3-2           2.80e-04  35
+9819:9854_PwaSCC3193             6.28e-05  [+1(3.14e-05)]
+126414:126449_PwaSCC3193         4.37e-04  35
+573297:573332_PwaSCC3193         7.42e-06  [+1(3.71e-06)]
+891071:891106_PwaSCC3193         9.11e-05  [+1(4.56e-05)]
+1909387:1909422_PwaSCC31         4.26e-04  35
+1930684:1930719_PwaSCC31         7.42e-06  [+1(3.71e-06)]
+1940736:1940771_PwaSCC31         9.51e-07  [+1(4.76e-07)]
+1949024:1949059_PwaSCC31         4.88e-05  [+1(2.44e-05)]
+1965954:1965989_PwaSCC31         4.14e-04  35
+2044685:2044720_PwaSCC31         2.58e-06  [+1(1.29e-06)]
+2531015:2531050_PwaSCC31         6.92e-04  35
+2770488:2770523_PwaSCC31         3.74e-06  [+1(1.87e-06)]
+3045526:3045561_PwaSCC31         2.55e-05  [+1(1.27e-05)]
+3350896:3350931_PwaSCC31         1.02e-03  35
+4015013:4015048_PwaSCC31         3.01e-05  [+1(1.50e-05)]
+4019733:4019768_PwaSCC31         5.54e-05  [+1(2.77e-05)]
+4571041:4571076_PwaSCC31         2.33e-03  35
+924327:924361_PwaSCC3193         1.74e-03  35
+4856083:4856118_PwaSCC31         4.16e-05  [+1(2.08e-05)]
+4858509:4858544_PwaSCC31         3.81e-04  35
+4966656:4966691_PwaSCC31         5.04e-05  [+1(2.52e-05)]
 --------------------------------------------------------------------------------
 
 ********************************************************************************

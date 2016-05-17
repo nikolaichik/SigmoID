@@ -1,0 +1,48 @@
+>f_f_ECA0998(talD) Score=6.7 Pos=-33 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AAATGTTAGCGCAATCATTT
+>r_f_ECA0998(talD) Score=6.7 Pos=-33 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AAATGATTGCGCTAACATTT
+>f_r_ECA0998(talD) Score=6.7 Pos=-33 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AAATGATTGCGCTAACATTT
+>r_r_ECA0998(talD) Score=6.7 Pos=-33 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AAATGTTAGCGCAATCATTT
+>f_f_ECA0998(talD) Score=6.1 Pos=-151 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TGGTGATTGCGCAATCATTA
+>r_f_ECA0998(talD) Score=6.1 Pos=-151 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TAATGATTGCGCAATCACCA
+>f_r_ECA0998(talD) Score=6.1 Pos=-151 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TAATGATTGCGCAATCACCA
+>r_r_ECA0998(talD) Score=6.1 Pos=-151 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TGGTGATTGCGCAATCATTA
+>f_f_ECA0997(talR) Score=6.1 Pos=-193 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TAATGATTGCGCAATCACCA
+>r_f_ECA0997(talR) Score=6.1 Pos=-193 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TGGTGATTGCGCAATCATTA
+>f_r_ECA0997(talR) Score=6.1 Pos=-193 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TGGTGATTGCGCAATCATTA
+>r_r_ECA0997(talR) Score=6.1 Pos=-193 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TAATGATTGCGCAATCACCA
+>f_ECA0998(talD) Score=6.7 Pos=-33 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AAATGTTAGCGCAATCATTT
+>r_ECA0998(talD) Score=6.7 Pos=-33 [Erwinia carotovora subsp. atroseptica SCRI1043]
+AAATGATTGCGCTAACATTT
+>f_ECA0997(talR) Score=6.1 Pos=-193 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TAATGATTGCGCAATCACCA
+>r_ECA0997(talR) Score=6.1 Pos=-193 [Erwinia carotovora subsp. atroseptica SCRI1043]
+TGGTGATTGCGCAATCATTA
+>f_talR_Pca3-2
+GAATGTTAGCGCAATCATTT
+>r_talR_Pca3-2
+AAATGATTGCGCTAACATTC
+>f_talD_Dda3937
+TTATGTTAGCGCAAACATTT
+>r_talD_Dda3937
+AAATGTTTGCGCTAACATAA
+>f_talR_Dda3937
+GCATGTTGGCGCTATCATTT
+>r_talR_Dda3937
+AAATGATAGCGCCAACATGC
+>f_STM3696(talR) Score=6.7 Pos=-143 [Salmonella typhimurium LT2]
+AAATGATGGCGCTATCATTT
+>r_STM3696(talR) Score=6.7 Pos=-143 [Salmonella typhimurium LT2]
+AAATGATAGCGCCATCATTT

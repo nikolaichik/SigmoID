@@ -1,0 +1,560 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_mutS_3-2               1.0000     24  r_mutS_3-2               1.0000     24  
+f_sulA/sxy_3-2_21A_pwa   1.0000     24  r_sulA/sxy_3-2_21A_pwa   1.0000     24  
+f_radC_3-2               1.0000     24  r_radC_3-2               1.0000     24  
+f_ycaI_3-2               1.0000     24  r_ycaI_3-2               1.0000     24  
+f_pncC_3-2               1.0000     24  r_pncC_3-2               1.0000     24  
+f_rmuC_3-2               1.0000     24  r_rmuC_3-2               1.0000     24  
+f_sbcD_21A_3-2_SCRI1043  1.0000     24  r_sbcD_21A_3-2_SCRI1043  1.0000     24  
+f_rimO_3-2               1.0000     24  r_rimO_3-2               1.0000     24  
+f_mutS_21A_SCRI1043      1.0000     24  r_mutS_21A_SCRI1043      1.0000     24  
+f_radC_21A               1.0000     24  r_radC_21A               1.0000     24  
+f_ligB_21A               1.0000     24  r_ligB_21A               1.0000     24  
+f_ycaI_21A               1.0000     24  r_ycaI_21A               1.0000     24  
+f_pncC_21A               1.0000     24  r_pncC_21A               1.0000     24  
+f_ppdA_3-2               1.0000     24  r_ppdA_3-2               1.0000     24  
+f_ppdA_21A               1.0000     24  r_ppdA_21A               1.0000     24  
+f_ppdA_SCRI1043          1.0000     24  r_ppdA_SCRI1043          1.0000     24  
+f_rmuC_21A               1.0000     24  r_rmuC_21A               1.0000     24  
+f_rlmJ_21A               1.0000     24  r_rlmJ_21A               1.0000     24  
+f_hcp_21A_SCRI1043       1.0000     24  r_hcp_21A_SCRI1043       1.0000     24  
+f_hcp_3-2                1.0000     24  r_hcp_3-2                1.0000     24  
+f_parDE                  1.0000     24  r_parDE                  1.0000     24  
+f_sulA/sxy_Dda           1.0000     24  r_sulA/sxy_Dda           1.0000     24  
+f_pncC_Dda               1.0000     24  r_pncC_Dda               1.0000     24  
+f_ppdA1_Dda              1.0000     24  r_ppdA1_Dda              1.0000     24  
+f_ppdA2_Dda              1.0000     24  r_ppdA2_Dda              1.0000     24  
+f_ligB_Dda               1.0000     24  r_ligB_Dda               1.0000     24  
+f_hofM_Dda               1.0000     24  r_hofM_Dda               1.0000     24  
+f_radC_Pwa               1.0000     24  r_radC_Pwa               1.0000     24  
+f_ligB_21A_Pwa           1.0000     24  r_ligB_21A_Pwa           1.0000     24  
+f_ycaI_Pwa               1.0000     24  r_ycaI_Pwa               1.0000     24  
+f_pncC_Pwa               1.0000     24  r_pncC_Pwa               1.0000     24  
+f_rmuC_Pwa               1.0000     24  r_rmuC_Pwa               1.0000     24  
+f_sbcD_Pwa               1.0000     24  r_sbcD_Pwa               1.0000     24  
+f_Dda3937_RS20875        1.0000     24  r_Dda3937_RS20875        1.0000     24  
+f_rnz_Dda                1.0000     24  r_rnz_Dda                1.0000     24  
+f_ybeL_3-2               1.0000     24  r_ybeL_3-2               1.0000     24  
+f_rlmJ_SCRI1043          1.0000     24  r_rlmJ_SCRI1043          1.0000     24  
+f_glrK_3-2               1.0000     24  r_glrK_3-2               1.0000     24  
+f_glrK_Pwa163            1.0000     24  r_glrK_Pwa163            1.0000     24  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           24    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       78    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=            1872    N=              78
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.223 C 0.277 G 0.277 T 0.223 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.223 C 0.277 G 0.277 T 0.223 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  24  sites =  78  llr = 1089  E-value = 2.2e-406
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  523311:2951:::1:::185431
+pos.-specific     C  11221:8:1:3a:74:829:1243
+probability       G  3421:928:47:a3:1:8:12211
+matrix            T  134581:::1:::1592:113325
+
+         bits    2.2                         
+                 1.9                         
+                 1.7            **           
+                 1.5         *  **  *        
+Relative         1.3     **  *  **  *  **    
+Entropy          1.1     *****  **  *****    
+(20.1 bits)      0.9     *****  **  *****    
+                 0.6     ****************    
+                 0.4 *  ******************  *
+                 0.2 * ******************** *
+                 0.0 ------------------------
+
+Multilevel           AGTTTGCGAAGCGCTTCGCAAACT
+consensus            GTAA  G  GC  GC  C  TTAC
+sequence              A                    T 
+                                             
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                      Site        
+-------------            ------  ----- ---------            ------------------------
+r_radC_3-2                   +      1  2.76e-11          . AGGCTGCGAAGCGCTTCGCAATCT           
+f_radC_3-2                   -      1  2.76e-11          . AGGCTGCGAAGCGCTTCGCAATCT           
+r_radC_21A                   +      1  8.87e-11          . AGGCTGCGAAGCGCCTCGCAATCT           
+f_radC_21A                   -      1  8.87e-11          . AGGCTGCGAAGCGCCTCGCAATCT           
+r_sbcD_Pwa                   -      1  6.88e-09          . ATTTTTCGAACCGCTTTCCAAACT           
+f_sbcD_Pwa                   +      1  6.88e-09          . ATTTTTCGAACCGCTTTCCAAACT           
+r_ybeL_3-2                   +      1  7.84e-09          . AATTTGCGCAACGCCTCGCAGTCT           
+f_ybeL_3-2                   -      1  7.84e-09          . AATTTGCGCAACGCCTCGCAGTCT           
+r_radC_Pwa                   +      1  7.84e-09          . AGATTGCGAGGCACTTCGCAGCCT           
+f_radC_Pwa                   -      1  7.84e-09          . AGATTGCGAGGCACTTCGCAGCCT           
+r_rlmJ_SCRI1043              +      1  1.47e-08          . ACCCTGCGAACCGCCGCGCAAACT           
+f_rlmJ_SCRI1043              -      1  1.47e-08          . ACCCTGCGAACCGCCGCGCAAACT           
+r_rlmJ_21A                   -      1  1.47e-08          . ACCCTGCGAACCGCCGCGCAAACT           
+f_rlmJ_21A                   +      1  1.47e-08          . ACCCTGCGAACCGCCGCGCAAACT           
+r_sbcD_21A_3-2_SCRI1043      -      1  1.47e-08          . ATTTTTCGAGCCGCTTTCCAAACT           
+f_sbcD_21A_3-2_SCRI1043      +      1  1.47e-08          . ATTTTTCGAGCCGCTTTCCAAACT           
+r_ppdA1_Dda                  +      1  1.67e-08          . AAACTGCGCGGCGGCTCGCAAATC           
+f_ppdA1_Dda                  -      1  1.67e-08          . AAACTGCGCGGCGGCTCGCAAATC           
+r_pncC_Dda                   +      1  2.12e-08          . ATGTTGCGCGCCGCCTCGCATTCC           
+f_pncC_Dda                   -      1  2.12e-08          . ATGTTGCGCGCCGCCTCGCATTCC           
+r_ppdA2_Dda                  +      1  2.69e-08          . AGGTTACGAAGCGCTTCGCAGGCA           
+f_ppdA2_Dda                  -      1  2.69e-08          . AGGTTACGAAGCGCTTCGCAGGCA           
+r_sulA/sxy_3-2_21A_pwa       +      1  3.40e-08          . TTTTTTGAAAGCGCTTCGCATATT           
+f_sulA/sxy_3-2_21A_pwa       -      1  3.40e-08          . TTTTTTGAAAGCGCTTCGCATATT           
+r_glrK_Pwa163                +      1  3.81e-08          . GACATGCGCAACGCTTCGCAATAC           
+f_glrK_Pwa163                -      1  3.81e-08          . GACATGCGCAACGCTTCGCAATAC           
+r_pncC_Pwa                   +      1  8.26e-08          . TCTTTGAGAGGCGCTTCGCATACC           
+f_pncC_Pwa                   -      1  8.26e-08          . TCTTTGAGAGGCGCTTCGCATACC           
+r_glrK_3-2                   -      1  1.13e-07          . GGCATGCGCAGCACTTCGCAATAC           
+f_glrK_3-2                   +      1  1.13e-07          . GGCATGCGCAGCACTTCGCAATAC           
+r_rnz_Dda                    +      1  1.26e-07          . CCGTTGCGAACCGCTGCGCATTTC           
+f_rnz_Dda                    -      1  1.26e-07          . CCGTTGCGAACCGCTGCGCATTTC           
+r_parDE                      +      1  1.26e-07          . GGAAAGGGAGGCGGTTCGCAATAA           
+f_parDE                      -      1  1.26e-07          . GGAAAGGGAGGCGGTTCGCAATAA           
+r_pncC_3-2                   +      1  1.26e-07          . TCTTTGCTATGCGCTTCGCATACC           
+f_pncC_3-2                   -      1  1.26e-07          . TCTTTGCTATGCGCTTCGCATACC           
+r_sulA/sxy_Dda               +      1  1.40e-07          . ATTTCTGAAAGCGCTTCGCATAAT           
+f_sulA/sxy_Dda               -      1  1.40e-07          . ATTTCTGAAAGCGCTTCGCATAAT           
+r_ycaI_21A                   -      1  1.40e-07          . TTCTTGCGAAACGCTTCCCTACCT           
+f_ycaI_21A                   +      1  1.40e-07          . TTCTTGCGAAACGCTTCCCTACCT           
+r_mutS_3-2                   +      1  1.40e-07          . AACGCGCGAGGCGGCTCGCAAGTT           
+f_mutS_3-2                   -      1  1.40e-07          . AACGCGCGAGGCGGCTCGCAAGTT           
+r_ppdA_21A                   +      1  1.55e-07          . GTTATACGCGGCGGTTCGCAATGT           
+f_ppdA_21A                   -      1  1.55e-07          . GTTATACGCGGCGGTTCGCAATGT           
+r_rmuC_3-2                   +      1  1.89e-07          . CATATGGAATGCGGTTCGCATTTT           
+f_rmuC_3-2                   -      1  1.89e-07          . CATATGGAATGCGGTTCGCATTTT           
+r_hcp_21A_SCRI1043           +      1  2.09e-07          . ATTGCGCGAGGCGGTTCGCACGTT           
+f_hcp_21A_SCRI1043           -      1  2.09e-07          . ATTGCGCGAGGCGGTTCGCACGTT           
+r_ligB_Dda                   +      1  2.31e-07          . AAGCAGGAAAGCGGTTCGCAAAAC           
+f_ligB_Dda                   -      1  2.31e-07          . AAGCAGGAAAGCGGTTCGCAAAAC           
+r_rimO_3-2                   +      1  2.31e-07          . TTCGTGGAAGGCGCTTCGCAAAGC           
+f_rimO_3-2                   -      1  2.31e-07          . TTCGTGGAAGGCGCTTCGCAAAGC           
+r_hcp_3-2                    -      1  2.55e-07          . GGTGCGCGAGGCGGCTCGCAAGTC           
+f_hcp_3-2                    +      1  2.55e-07          . GGTGCGCGAGGCGGCTCGCAAGTC           
+r_ppdA_3-2                   +      1  2.81e-07          . GTTATACGCGGCGGCTCGCAATGT           
+f_ppdA_3-2                   -      1  2.81e-07          . GTTATACGCGGCGGCTCGCAATGT           
+r_rmuC_Pwa                   -      1  3.40e-07          . CATATGGAATGCGGCTCGCATTTT           
+f_rmuC_Pwa                   +      1  3.40e-07          . CATATGGAATGCGGCTCGCATTTT           
+r_rmuC_21A                   -      1  3.40e-07          . CATATGGAATGCGGCTCGCATTTT           
+f_rmuC_21A                   +      1  3.40e-07          . CATATGGAATGCGGCTCGCATTTT           
+r_ppdA_SCRI1043              +      1  3.40e-07          . GCTATACGCGGCGGTTCGCAATGT           
+f_ppdA_SCRI1043              -      1  3.40e-07          . GCTATACGCGGCGGTTCGCAATGT           
+r_pncC_21A                   +      1  3.74e-07          . CCTTTGCTATGCGCCTCGCATACC           
+f_pncC_21A                   -      1  3.74e-07          . CCTTTGCTATGCGCCTCGCATACC           
+r_Dda3937_RS20875            +      1  4.51e-07          . GAGATGGAATGCGCTTCGCAACAG           
+f_Dda3937_RS20875            -      1  4.51e-07          . GAGATGGAATGCGCTTCGCAACAG           
+r_ligB_21A_Pwa               +      1  4.95e-07          . AGACAGGAACGCGCTTCGCAATCT           
+f_ligB_21A_Pwa               -      1  4.95e-07          . AGACAGGAACGCGCTTCGCAATCT           
+r_ycaI_3-2                   +      1  4.95e-07          . AGGTGGGGAAACGCTTCGCAAGAA           
+f_ycaI_3-2                   -      1  4.95e-07          . AGGTGGGGAAACGCTTCGCAAGAA           
+r_mutS_21A_SCRI1043          +      1  7.77e-07          . GGCGCGCGATGCGGCTCGCAAGTT           
+f_mutS_21A_SCRI1043          -      1  7.77e-07          . GGCGCGCGATGCGGCTCGCAAGTT           
+r_ligB_21A                   +      1  1.01e-06          . GGACAGGAACGCGCTTCGCAATCT           
+f_ligB_21A                   -      1  1.01e-06          . GGACAGGAACGCGCTTCGCAATCT           
+r_hofM_Dda                   -      1  2.14e-06          . CTGCTGGGAGCCGCTTCGCTCTAT           
+f_hofM_Dda                   +      1  2.14e-06          . CTGCTGGGAGCCGCTTCGCTCTAT           
+r_ycaI_Pwa                   +      1  1.53e-05          . AGGTGGGGAAACATCTCGCAAAAA           
+f_ycaI_Pwa                   -      1  1.53e-05          . AGGTGGGGAAACATCTCGCAAAAA           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_radC_3-2                        2.8e-11  [+1]
+f_radC_3-2                        2.8e-11  [-1]
+r_radC_21A                        8.9e-11  [+1]
+f_radC_21A                        8.9e-11  [-1]
+r_sbcD_Pwa                        6.9e-09  [-1]
+f_sbcD_Pwa                        6.9e-09  [+1]
+r_ybeL_3-2                        7.8e-09  [+1]
+f_ybeL_3-2                        7.8e-09  [-1]
+r_radC_Pwa                        7.8e-09  [+1]
+f_radC_Pwa                        7.8e-09  [-1]
+r_rlmJ_SCRI1043                   1.5e-08  [+1]
+f_rlmJ_SCRI1043                   1.5e-08  [-1]
+r_rlmJ_21A                        1.5e-08  [-1]
+f_rlmJ_21A                        1.5e-08  [+1]
+r_sbcD_21A_3-2_SCRI1043           1.5e-08  [-1]
+f_sbcD_21A_3-2_SCRI1043           1.5e-08  [+1]
+r_ppdA1_Dda                       1.7e-08  [+1]
+f_ppdA1_Dda                       1.7e-08  [-1]
+r_pncC_Dda                        2.1e-08  [+1]
+f_pncC_Dda                        2.1e-08  [-1]
+r_ppdA2_Dda                       2.7e-08  [+1]
+f_ppdA2_Dda                       2.7e-08  [-1]
+r_sulA/sxy_3-2_21A_pwa            3.4e-08  [+1]
+f_sulA/sxy_3-2_21A_pwa            3.4e-08  [-1]
+r_glrK_Pwa163                     3.8e-08  [+1]
+f_glrK_Pwa163                     3.8e-08  [-1]
+r_pncC_Pwa                        8.3e-08  [+1]
+f_pncC_Pwa                        8.3e-08  [-1]
+r_glrK_3-2                        1.1e-07  [-1]
+f_glrK_3-2                        1.1e-07  [+1]
+r_rnz_Dda                         1.3e-07  [+1]
+f_rnz_Dda                         1.3e-07  [-1]
+r_parDE                           1.3e-07  [+1]
+f_parDE                           1.3e-07  [-1]
+r_pncC_3-2                        1.3e-07  [+1]
+f_pncC_3-2                        1.3e-07  [-1]
+r_sulA/sxy_Dda                    1.4e-07  [+1]
+f_sulA/sxy_Dda                    1.4e-07  [-1]
+r_ycaI_21A                        1.4e-07  [-1]
+f_ycaI_21A                        1.4e-07  [+1]
+r_mutS_3-2                        1.4e-07  [+1]
+f_mutS_3-2                        1.4e-07  [-1]
+r_ppdA_21A                        1.5e-07  [+1]
+f_ppdA_21A                        1.5e-07  [-1]
+r_rmuC_3-2                        1.9e-07  [+1]
+f_rmuC_3-2                        1.9e-07  [-1]
+r_hcp_21A_SCRI1043                2.1e-07  [+1]
+f_hcp_21A_SCRI1043                2.1e-07  [-1]
+r_ligB_Dda                        2.3e-07  [+1]
+f_ligB_Dda                        2.3e-07  [-1]
+r_rimO_3-2                        2.3e-07  [+1]
+f_rimO_3-2                        2.3e-07  [-1]
+r_hcp_3-2                         2.5e-07  [-1]
+f_hcp_3-2                         2.5e-07  [+1]
+r_ppdA_3-2                        2.8e-07  [+1]
+f_ppdA_3-2                        2.8e-07  [-1]
+r_rmuC_Pwa                        3.4e-07  [-1]
+f_rmuC_Pwa                        3.4e-07  [+1]
+r_rmuC_21A                        3.4e-07  [-1]
+f_rmuC_21A                        3.4e-07  [+1]
+r_ppdA_SCRI1043                   3.4e-07  [+1]
+f_ppdA_SCRI1043                   3.4e-07  [-1]
+r_pncC_21A                        3.7e-07  [+1]
+f_pncC_21A                        3.7e-07  [-1]
+r_Dda3937_RS20875                 4.5e-07  [+1]
+f_Dda3937_RS20875                 4.5e-07  [-1]
+r_ligB_21A_Pwa                    4.9e-07  [+1]
+f_ligB_21A_Pwa                    4.9e-07  [-1]
+r_ycaI_3-2                        4.9e-07  [+1]
+f_ycaI_3-2                        4.9e-07  [-1]
+r_mutS_21A_SCRI1043               7.8e-07  [+1]
+f_mutS_21A_SCRI1043               7.8e-07  [-1]
+r_ligB_21A                          1e-06  [+1]
+f_ligB_21A                          1e-06  [-1]
+r_hofM_Dda                        2.1e-06  [-1]
+f_hofM_Dda                        2.1e-06  [+1]
+r_ycaI_Pwa                        1.5e-05  [+1]
+f_ycaI_Pwa                        1.5e-05  [-1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=24 seqs=78
+r_radC_3-2               (    1) AGGCTGCGAAGCGCTTCGCAATCT  1 
+f_radC_3-2               (    1) AGGCTGCGAAGCGCTTCGCAATCT  1 
+r_radC_21A               (    1) AGGCTGCGAAGCGCCTCGCAATCT  1 
+f_radC_21A               (    1) AGGCTGCGAAGCGCCTCGCAATCT  1 
+r_sbcD_Pwa               (    1) ATTTTTCGAACCGCTTTCCAAACT  1 
+f_sbcD_Pwa               (    1) ATTTTTCGAACCGCTTTCCAAACT  1 
+r_ybeL_3-2               (    1) AATTTGCGCAACGCCTCGCAGTCT  1 
+f_ybeL_3-2               (    1) AATTTGCGCAACGCCTCGCAGTCT  1 
+r_radC_Pwa               (    1) AGATTGCGAGGCACTTCGCAGCCT  1 
+f_radC_Pwa               (    1) AGATTGCGAGGCACTTCGCAGCCT  1 
+r_rlmJ_SCRI1043          (    1) ACCCTGCGAACCGCCGCGCAAACT  1 
+f_rlmJ_SCRI1043          (    1) ACCCTGCGAACCGCCGCGCAAACT  1 
+r_rlmJ_21A               (    1) ACCCTGCGAACCGCCGCGCAAACT  1 
+f_rlmJ_21A               (    1) ACCCTGCGAACCGCCGCGCAAACT  1 
+r_sbcD_21A_3-2_SCRI1043  (    1) ATTTTTCGAGCCGCTTTCCAAACT  1 
+f_sbcD_21A_3-2_SCRI1043  (    1) ATTTTTCGAGCCGCTTTCCAAACT  1 
+r_ppdA1_Dda              (    1) AAACTGCGCGGCGGCTCGCAAATC  1 
+f_ppdA1_Dda              (    1) AAACTGCGCGGCGGCTCGCAAATC  1 
+r_pncC_Dda               (    1) ATGTTGCGCGCCGCCTCGCATTCC  1 
+f_pncC_Dda               (    1) ATGTTGCGCGCCGCCTCGCATTCC  1 
+r_ppdA2_Dda              (    1) AGGTTACGAAGCGCTTCGCAGGCA  1 
+f_ppdA2_Dda              (    1) AGGTTACGAAGCGCTTCGCAGGCA  1 
+r_sulA/sxy_3-2_21A_pwa   (    1) TTTTTTGAAAGCGCTTCGCATATT  1 
+f_sulA/sxy_3-2_21A_pwa   (    1) TTTTTTGAAAGCGCTTCGCATATT  1 
+r_glrK_Pwa163            (    1) GACATGCGCAACGCTTCGCAATAC  1 
+f_glrK_Pwa163            (    1) GACATGCGCAACGCTTCGCAATAC  1 
+r_pncC_Pwa               (    1) TCTTTGAGAGGCGCTTCGCATACC  1 
+f_pncC_Pwa               (    1) TCTTTGAGAGGCGCTTCGCATACC  1 
+r_glrK_3-2               (    1) GGCATGCGCAGCACTTCGCAATAC  1 
+f_glrK_3-2               (    1) GGCATGCGCAGCACTTCGCAATAC  1 
+r_rnz_Dda                (    1) CCGTTGCGAACCGCTGCGCATTTC  1 
+f_rnz_Dda                (    1) CCGTTGCGAACCGCTGCGCATTTC  1 
+r_parDE                  (    1) GGAAAGGGAGGCGGTTCGCAATAA  1 
+f_parDE                  (    1) GGAAAGGGAGGCGGTTCGCAATAA  1 
+r_pncC_3-2               (    1) TCTTTGCTATGCGCTTCGCATACC  1 
+f_pncC_3-2               (    1) TCTTTGCTATGCGCTTCGCATACC  1 
+r_sulA/sxy_Dda           (    1) ATTTCTGAAAGCGCTTCGCATAAT  1 
+f_sulA/sxy_Dda           (    1) ATTTCTGAAAGCGCTTCGCATAAT  1 
+r_ycaI_21A               (    1) TTCTTGCGAAACGCTTCCCTACCT  1 
+f_ycaI_21A               (    1) TTCTTGCGAAACGCTTCCCTACCT  1 
+r_mutS_3-2               (    1) AACGCGCGAGGCGGCTCGCAAGTT  1 
+f_mutS_3-2               (    1) AACGCGCGAGGCGGCTCGCAAGTT  1 
+r_ppdA_21A               (    1) GTTATACGCGGCGGTTCGCAATGT  1 
+f_ppdA_21A               (    1) GTTATACGCGGCGGTTCGCAATGT  1 
+r_rmuC_3-2               (    1) CATATGGAATGCGGTTCGCATTTT  1 
+f_rmuC_3-2               (    1) CATATGGAATGCGGTTCGCATTTT  1 
+r_hcp_21A_SCRI1043       (    1) ATTGCGCGAGGCGGTTCGCACGTT  1 
+f_hcp_21A_SCRI1043       (    1) ATTGCGCGAGGCGGTTCGCACGTT  1 
+r_ligB_Dda               (    1) AAGCAGGAAAGCGGTTCGCAAAAC  1 
+f_ligB_Dda               (    1) AAGCAGGAAAGCGGTTCGCAAAAC  1 
+r_rimO_3-2               (    1) TTCGTGGAAGGCGCTTCGCAAAGC  1 
+f_rimO_3-2               (    1) TTCGTGGAAGGCGCTTCGCAAAGC  1 
+r_hcp_3-2                (    1) GGTGCGCGAGGCGGCTCGCAAGTC  1 
+f_hcp_3-2                (    1) GGTGCGCGAGGCGGCTCGCAAGTC  1 
+r_ppdA_3-2               (    1) GTTATACGCGGCGGCTCGCAATGT  1 
+f_ppdA_3-2               (    1) GTTATACGCGGCGGCTCGCAATGT  1 
+r_rmuC_Pwa               (    1) CATATGGAATGCGGCTCGCATTTT  1 
+f_rmuC_Pwa               (    1) CATATGGAATGCGGCTCGCATTTT  1 
+r_rmuC_21A               (    1) CATATGGAATGCGGCTCGCATTTT  1 
+f_rmuC_21A               (    1) CATATGGAATGCGGCTCGCATTTT  1 
+r_ppdA_SCRI1043          (    1) GCTATACGCGGCGGTTCGCAATGT  1 
+f_ppdA_SCRI1043          (    1) GCTATACGCGGCGGTTCGCAATGT  1 
+r_pncC_21A               (    1) CCTTTGCTATGCGCCTCGCATACC  1 
+f_pncC_21A               (    1) CCTTTGCTATGCGCCTCGCATACC  1 
+r_Dda3937_RS20875        (    1) GAGATGGAATGCGCTTCGCAACAG  1 
+f_Dda3937_RS20875        (    1) GAGATGGAATGCGCTTCGCAACAG  1 
+r_ligB_21A_Pwa           (    1) AGACAGGAACGCGCTTCGCAATCT  1 
+f_ligB_21A_Pwa           (    1) AGACAGGAACGCGCTTCGCAATCT  1 
+r_ycaI_3-2               (    1) AGGTGGGGAAACGCTTCGCAAGAA  1 
+f_ycaI_3-2               (    1) AGGTGGGGAAACGCTTCGCAAGAA  1 
+r_mutS_21A_SCRI1043      (    1) GGCGCGCGATGCGGCTCGCAAGTT  1 
+f_mutS_21A_SCRI1043      (    1) GGCGCGCGATGCGGCTCGCAAGTT  1 
+r_ligB_21A               (    1) GGACAGGAACGCGCTTCGCAATCT  1 
+f_ligB_21A               (    1) GGACAGGAACGCGCTTCGCAATCT  1 
+r_hofM_Dda               (    1) CTGCTGGGAGCCGCTTCGCTCTAT  1 
+f_hofM_Dda               (    1) CTGCTGGGAGCCGCTTCGCTCTAT  1 
+r_ycaI_Pwa               (    1) AGGTGGGGAAACATCTCGCAAAAA  1 
+f_ycaI_Pwa               (    1) AGGTGGGGAAACATCTCGCAAAAA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 24 n= 78 bayes= -664.386 E= 2.2e-406 
+   124   -163     -4    -95 
+    13    -97     37     20 
+    34    -63    -73     74 
+    20    -85   -163    117 
+  -153   -211   -343    190 
+  -212  -1293    169   -212 
+  -412    147    -35  -1293 
+   -53  -1293    157   -312 
+   195    -97  -1293  -1293 
+   124   -343     37   -131 
+  -153    -11    127  -1293 
+ -1301    179  -1299   -253 
+  -253  -1295    179  -1295 
+ -1298    127    -11   -153 
+  -131     37   -343    124 
+ -1298  -1297    -97    195 
+  -312    157  -1297    -53 
+ -1298    -35    147   -412 
+  -212    169  -1297   -212 
+   190   -343   -211   -153 
+   117   -163    -85     20 
+    74    -73    -63     34 
+    20     37    -97     13 
+   -95     -4   -163    124 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 24 nsites= 78 E= 2.2e-406 
+ 0.525641  0.089744  0.269231  0.115385 
+ 0.243590  0.141026  0.358974  0.256410 
+ 0.282051  0.179487  0.166667  0.371795 
+ 0.256410  0.153846  0.089744  0.500000 
+ 0.076923  0.064103  0.025641  0.833333 
+ 0.051282  0.000000  0.897436  0.051282 
+ 0.012821  0.769231  0.217949  0.000000 
+ 0.153846  0.000000  0.820513  0.025641 
+ 0.858974  0.141026  0.000000  0.000000 
+ 0.525641  0.025641  0.358974  0.089744 
+ 0.076923  0.256410  0.666667  0.000000 
+ 0.000000  0.961537  0.000000  0.038460 
+ 0.038461  0.000000  0.961538  0.000000 
+ 0.000000  0.666666  0.256409  0.076922 
+ 0.089743  0.358973  0.025640  0.525640 
+ 0.000000  0.000000  0.141025  0.858973 
+ 0.025640  0.820512  0.000000  0.153845 
+ 0.000000  0.217948  0.769230  0.012820 
+ 0.051281  0.897435  0.000000  0.051281 
+ 0.833332  0.025640  0.064102  0.076922 
+ 0.499999  0.089743  0.153845  0.256409 
+ 0.371794  0.166666  0.179486  0.282050 
+ 0.256409  0.358973  0.141025  0.243589 
+ 0.115384  0.269230  0.089743  0.525640 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+[AG][GTA][TA][TA]TG[CG]GA[AG][GC]CG[CG][TC]TC[GC]CA[AT][AT][CAT][TC]
+--------------------------------------------------------------------------------
+
+
+
+
+Time  1.23 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_mutS_3-2                       2.79e-07  [+1(1.40e-07)]
+r_mutS_3-2                       2.79e-07  [+1(1.40e-07)]
+f_sulA/sxy_3-2_21A_pwa           6.79e-08  [+1(3.40e-08)]
+r_sulA/sxy_3-2_21A_pwa           6.79e-08  [+1(3.40e-08)]
+f_radC_3-2                       5.51e-11  [+1(2.76e-11)]
+r_radC_3-2                       5.51e-11  [+1(2.76e-11)]
+f_ycaI_3-2                       9.89e-07  [+1(4.95e-07)]
+r_ycaI_3-2                       9.89e-07  [+1(4.95e-07)]
+f_pncC_3-2                       2.52e-07  [+1(1.26e-07)]
+r_pncC_3-2                       2.52e-07  [+1(1.26e-07)]
+f_rmuC_3-2                       3.79e-07  [+1(1.89e-07)]
+r_rmuC_3-2                       3.79e-07  [+1(1.89e-07)]
+f_sbcD_21A_3-2_SCRI1043          2.95e-08  [+1(1.47e-08)]
+r_sbcD_21A_3-2_SCRI1043          2.95e-08  [+1(1.47e-08)]
+f_rimO_3-2                       4.62e-07  [+1(2.31e-07)]
+r_rimO_3-2                       4.62e-07  [+1(2.31e-07)]
+f_mutS_21A_SCRI1043              1.55e-06  [+1(7.77e-07)]
+r_mutS_21A_SCRI1043              1.55e-06  [+1(7.77e-07)]
+f_radC_21A                       1.77e-10  [+1(8.87e-11)]
+r_radC_21A                       1.77e-10  [+1(8.87e-11)]
+f_ligB_21A                       2.02e-06  [+1(1.01e-06)]
+r_ligB_21A                       2.02e-06  [+1(1.01e-06)]
+f_ycaI_21A                       2.79e-07  [+1(1.40e-07)]
+r_ycaI_21A                       2.79e-07  [+1(1.40e-07)]
+f_pncC_21A                       7.48e-07  [+1(3.74e-07)]
+r_pncC_21A                       7.48e-07  [+1(3.74e-07)]
+f_ppdA_3-2                       5.61e-07  [+1(2.81e-07)]
+r_ppdA_3-2                       5.61e-07  [+1(2.81e-07)]
+f_ppdA_21A                       3.09e-07  [+1(1.55e-07)]
+r_ppdA_21A                       3.09e-07  [+1(1.55e-07)]
+f_ppdA_SCRI1043                  6.80e-07  [+1(3.40e-07)]
+r_ppdA_SCRI1043                  6.80e-07  [+1(3.40e-07)]
+f_rmuC_21A                       6.80e-07  [+1(3.40e-07)]
+r_rmuC_21A                       6.80e-07  [+1(3.40e-07)]
+f_rlmJ_21A                       2.95e-08  [+1(1.47e-08)]
+r_rlmJ_21A                       2.95e-08  [+1(1.47e-08)]
+f_hcp_21A_SCRI1043               4.18e-07  [+1(2.09e-07)]
+r_hcp_21A_SCRI1043               4.18e-07  [+1(2.09e-07)]
+f_hcp_3-2                        5.09e-07  [+1(2.55e-07)]
+r_hcp_3-2                        5.09e-07  [+1(2.55e-07)]
+f_parDE                          2.52e-07  [+1(1.26e-07)]
+r_parDE                          2.52e-07  [+1(1.26e-07)]
+f_sulA/sxy_Dda                   2.79e-07  [+1(1.40e-07)]
+r_sulA/sxy_Dda                   2.79e-07  [+1(1.40e-07)]
+f_pncC_Dda                       4.24e-08  [+1(2.12e-08)]
+r_pncC_Dda                       4.24e-08  [+1(2.12e-08)]
+f_ppdA1_Dda                      3.33e-08  [+1(1.67e-08)]
+r_ppdA1_Dda                      3.33e-08  [+1(1.67e-08)]
+f_ppdA2_Dda                      5.38e-08  [+1(2.69e-08)]
+r_ppdA2_Dda                      5.38e-08  [+1(2.69e-08)]
+f_ligB_Dda                       4.62e-07  [+1(2.31e-07)]
+r_ligB_Dda                       4.62e-07  [+1(2.31e-07)]
+f_hofM_Dda                       4.29e-06  [+1(2.14e-06)]
+r_hofM_Dda                       4.29e-06  [+1(2.14e-06)]
+f_radC_Pwa                       1.57e-08  [+1(7.84e-09)]
+r_radC_Pwa                       1.57e-08  [+1(7.84e-09)]
+f_ligB_21A_Pwa                   9.89e-07  [+1(4.95e-07)]
+r_ligB_21A_Pwa                   9.89e-07  [+1(4.95e-07)]
+f_ycaI_Pwa                       3.06e-05  [+1(1.53e-05)]
+r_ycaI_Pwa                       3.06e-05  [+1(1.53e-05)]
+f_pncC_Pwa                       1.65e-07  [+1(8.26e-08)]
+r_pncC_Pwa                       1.65e-07  [+1(8.26e-08)]
+f_rmuC_Pwa                       6.80e-07  [+1(3.40e-07)]
+r_rmuC_Pwa                       6.80e-07  [+1(3.40e-07)]
+f_sbcD_Pwa                       1.38e-08  [+1(6.88e-09)]
+r_sbcD_Pwa                       1.38e-08  [+1(6.88e-09)]
+f_Dda3937_RS20875                9.02e-07  [+1(4.51e-07)]
+r_Dda3937_RS20875                9.02e-07  [+1(4.51e-07)]
+f_rnz_Dda                        2.52e-07  [+1(1.26e-07)]
+r_rnz_Dda                        2.52e-07  [+1(1.26e-07)]
+f_ybeL_3-2                       1.57e-08  [+1(7.84e-09)]
+r_ybeL_3-2                       1.57e-08  [+1(7.84e-09)]
+f_rlmJ_SCRI1043                  2.95e-08  [+1(1.47e-08)]
+r_rlmJ_SCRI1043                  2.95e-08  [+1(1.47e-08)]
+f_glrK_3-2                       2.27e-07  [+1(1.13e-07)]
+r_glrK_3-2                       2.27e-07  [+1(1.13e-07)]
+f_glrK_Pwa163                    7.62e-08  [+1(3.81e-08)]
+r_glrK_Pwa163                    7.62e-08  [+1(3.81e-08)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

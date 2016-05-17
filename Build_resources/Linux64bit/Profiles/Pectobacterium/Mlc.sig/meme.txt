@@ -1,0 +1,306 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.10.1 (Release date: Wed Mar 25 11:40:43 2015 +1000)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme-suite.org .
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme-suite.org .
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+f_ptsH_Pat21A_Pca3-2     1.0000     23  r_ptsH_Pat21A_Pca3-2     1.0000     23  
+f_manX_Pat21A_Pca3-2     1.0000     23  r_manX_Pat21A_Pca3-2     1.0000     23  
+f_manX_PwaSCC3193        1.0000     23  r_manX_PwaSCC3193        1.0000     23  
+f_mlc_Pat21A_Pca3-2_PwaS 1.0000     23  r_mlc_Pat21A_Pca3-2_PwaS 1.0000     23  
+f_mlc_Dda3937            1.0000     23  r_mlc_Dda3937            1.0000     23  
+f_ptsG_Pat21A_Pca3-2_Dda 1.0000     23  r_ptsG_Pat21A_Pca3-2_Dda 1.0000     23  
+f_hexA1_Pca3-2           1.0000     23  r_hexA1_Pca3-2           1.0000     23  
+f_hexA1_Pat21A           1.0000     23  r_hexA1_Pat21A           1.0000     23  
+f_ptsH_Dda3937_PwaSCC319 1.0000     23  r_ptsH_Dda3937_PwaSCC319 1.0000     23  
+f_pecT_PwaSCC3193        1.0000     23  r_pecT_PwaSCC3193        1.0000     23  
+f_pecT_Dda3937           1.0000     23  r_pecT_Dda3937           1.0000     23  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme -nmotifs 1 -dna -text -pal -revcomp /private/var/folders/1k/4vs0wmnd75371kbm6p5jbmxr0000gn/T/TemporaryItems/alignment.tmp 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=            8    maxw=           23    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=       22    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=             506    N=              22
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.405 C 0.095 G 0.095 T 0.405 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.404 C 0.096 G 0.096 T 0.404 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1 MEME	width =  23  sites =  22  llr = 318  E-value = 1.9e-092
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  2118::::624242:5aaa2998
+pos.-specific     C  :::::::5:513214::::::::
+probability       G  ::::::::412315:5:::::::
+matrix            T  8992aaa5:242426::::8112
+
+         bits    3.4                        
+                 3.0                        
+                 2.7                        
+                 2.4                        
+Relative         2.0                        
+Entropy          1.7                        
+(20.8 bits)      1.4     ** *       * **    
+                 1.0  ** ******   ****** ** 
+                 0.7 ********** * **********
+                 0.3 ********** * **********
+                 0.0 -----------------------
+
+Multilevel           TTTATTTCACAGAGTGAAATAAA
+consensus            A  T   TG TCT CA   A  T
+sequence                                    
+                                            
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                     Site        
+-------------            ------  ----- ---------            -----------------------
+r_hexA1_Pca3-2               +      1  1.80e-10          . TTTATTTCGCAAGGTGAAATAAA           
+f_hexA1_Pca3-2               -      1  1.80e-10          . TTTATTTCGCAAGGTGAAATAAA           
+r_pecT_PwaSCC3193            -      1  4.36e-10          . TTTATTTCGCAGGATGAAATAAA           
+f_pecT_PwaSCC3193            +      1  4.36e-10          . TTTATTTCGCAGGATGAAATAAA           
+r_mlc_Pat21A_Pca3-2_PwaS     +      1  6.11e-09          . TATTTTTCACGCTGCAAAATAAA           
+f_mlc_Pat21A_Pca3-2_PwaS     -      1  6.11e-09          . TATTTTTCACGCTGCAAAATAAA           
+r_hexA1_Pat21A               +      1  1.37e-08          . TTTATTTCGTAGTATGAAATAAA           
+f_hexA1_Pat21A               -      1  1.37e-08          . TTTATTTCGTAGTATGAAATAAA           
+r_ptsH_Dda3937_PwaSCC319     -      1  1.11e-07          . ATTATTTTGATGCGTGAAATTAA           
+f_ptsH_Dda3937_PwaSCC319     +      1  1.11e-07          . ATTATTTTGATGCGTGAAATTAA           
+r_ptsH_Pat21A_Pca3-2         -      1  1.11e-07          . ATTATTTTGATGCGTGAAATTAA           
+f_ptsH_Pat21A_Pca3-2         +      1  1.11e-07          . ATTATTTTGATGCGTGAAATTAA           
+r_ptsG_Pat21A_Pca3-2_Dda     +      1  1.22e-07          . ATTTTTACGCAGAGTAAAATAAA           
+f_ptsG_Pat21A_Pca3-2_Dda     -      1  1.22e-07          . ATTTTTACGCAGAGTAAAATAAA           
+r_mlc_Dda3937                +      1  1.22e-07          . TATTTTTTACGCTGTAAAATAAA           
+f_mlc_Dda3937                -      1  1.22e-07          . TATTTTTTACGCTGTAAAATAAA           
+r_manX_Pat21A_Pca3-2         +      1  4.97e-07          . ATTTTTTCGATAAGTAAAATAAA           
+f_manX_Pat21A_Pca3-2         -      1  4.97e-07          . ATTTTTTCGATAAGTAAAATAAA           
+r_manX_PwaSCC3193            -      1  2.07e-06          . TTTATTTTAGTTATCGAAAAAAT           
+f_manX_PwaSCC3193            +      1  2.07e-06          . TTTATTTTAGTTATCGAAAAAAT           
+r_pecT_Dda3937               -      1  2.38e-06          . TTTATTTTAGATAATAAAATAAA           
+f_pecT_Dda3937               +      1  2.38e-06          . TTTATTTTAGATAATAAAATAAA           
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+r_hexA1_Pca3-2                    1.8e-10  [+1]
+f_hexA1_Pca3-2                    1.8e-10  [-1]
+r_pecT_PwaSCC3193                 4.4e-10  [-1]
+f_pecT_PwaSCC3193                 4.4e-10  [+1]
+r_mlc_Pat21A_Pca3-2_PwaS          6.1e-09  [+1]
+f_mlc_Pat21A_Pca3-2_PwaS          6.1e-09  [-1]
+r_hexA1_Pat21A                    1.4e-08  [+1]
+f_hexA1_Pat21A                    1.4e-08  [-1]
+r_ptsH_Dda3937_PwaSCC319          1.1e-07  [-1]
+f_ptsH_Dda3937_PwaSCC319          1.1e-07  [+1]
+r_ptsH_Pat21A_Pca3-2              1.1e-07  [-1]
+f_ptsH_Pat21A_Pca3-2              1.1e-07  [+1]
+r_ptsG_Pat21A_Pca3-2_Dda          1.2e-07  [+1]
+f_ptsG_Pat21A_Pca3-2_Dda          1.2e-07  [-1]
+r_mlc_Dda3937                     1.2e-07  [+1]
+f_mlc_Dda3937                     1.2e-07  [-1]
+r_manX_Pat21A_Pca3-2                5e-07  [+1]
+f_manX_Pat21A_Pca3-2                5e-07  [-1]
+r_manX_PwaSCC3193                 2.1e-06  [-1]
+f_manX_PwaSCC3193                 2.1e-06  [+1]
+r_pecT_Dda3937                    2.4e-06  [-1]
+f_pecT_Dda3937                    2.4e-06  [+1]
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=23 seqs=22
+r_hexA1_Pca3-2           (    1) TTTATTTCGCAAGGTGAAATAAA  1 
+f_hexA1_Pca3-2           (    1) TTTATTTCGCAAGGTGAAATAAA  1 
+r_pecT_PwaSCC3193        (    1) TTTATTTCGCAGGATGAAATAAA  1 
+f_pecT_PwaSCC3193        (    1) TTTATTTCGCAGGATGAAATAAA  1 
+r_mlc_Pat21A_Pca3-2_PwaS (    1) TATTTTTCACGCTGCAAAATAAA  1 
+f_mlc_Pat21A_Pca3-2_PwaS (    1) TATTTTTCACGCTGCAAAATAAA  1 
+r_hexA1_Pat21A           (    1) TTTATTTCGTAGTATGAAATAAA  1 
+f_hexA1_Pat21A           (    1) TTTATTTCGTAGTATGAAATAAA  1 
+r_ptsH_Dda3937_PwaSCC319 (    1) ATTATTTTGATGCGTGAAATTAA  1 
+f_ptsH_Dda3937_PwaSCC319 (    1) ATTATTTTGATGCGTGAAATTAA  1 
+r_ptsH_Pat21A_Pca3-2     (    1) ATTATTTTGATGCGTGAAATTAA  1 
+f_ptsH_Pat21A_Pca3-2     (    1) ATTATTTTGATGCGTGAAATTAA  1 
+r_ptsG_Pat21A_Pca3-2_Dda (    1) ATTTTTACGCAGAGTAAAATAAA  1 
+f_ptsG_Pat21A_Pca3-2_Dda (    1) ATTTTTACGCAGAGTAAAATAAA  1 
+r_mlc_Dda3937            (    1) TATTTTTTACGCTGTAAAATAAA  1 
+f_mlc_Dda3937            (    1) TATTTTTTACGCTGTAAAATAAA  1 
+r_manX_Pat21A_Pca3-2     (    1) ATTTTTTCGATAAGTAAAATAAA  1 
+f_manX_Pat21A_Pca3-2     (    1) ATTTTTTCGATAAGTAAAATAAA  1 
+r_manX_PwaSCC3193        (    1) TTTATTTTAGTTATCGAAAAAAT  1 
+f_manX_PwaSCC3193        (    1) TTTATTTTAGTTATCGAAAAAAT  1 
+r_pecT_Dda3937           (    1) TTTATTTTAGATAATAAAATAAA  1 
+f_pecT_Dda3937           (    1) TTTATTTTAGATAATAAAATAAA  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 23 n= 22 bayes= 1.41504 E= 1.9e-092 
+   -83  -1110  -1110     94 
+  -215  -1110  -1110    117 
+  -215  -1110  -1110    117 
+    94  -1110  -1110    -83 
+ -1110  -1110  -1110    131 
+ -1110  -1110  -1110    131 
+  -315  -1110  -1110    124 
+ -1110    250  -1110     17 
+    55  -1110    209  -1110 
+  -115    250     -8   -115 
+   -15     -8     92    -15 
+  -115    173    173   -115 
+   -15     92     -8    -15 
+  -115     -8    250   -115 
+ -1111    209  -1114     55 
+    17  -1114    250  -1111 
+   124  -1114  -1114   -315 
+   131  -1114  -1114  -1111 
+   131  -1114  -1114  -1111 
+   -83  -1114  -1114     94 
+   117  -1114  -1114   -215 
+   117  -1114  -1114   -215 
+    94  -1114  -1114    -83 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 23 nsites= 22 E= 1.9e-092 
+ 0.227273  0.000000  0.000000  0.772727 
+ 0.090909  0.000000  0.000000  0.909091 
+ 0.090909  0.000000  0.000000  0.909091 
+ 0.772727  0.000000  0.000000  0.227273 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.000000  0.000000  0.000000  1.000000 
+ 0.045455  0.000000  0.000000  0.954545 
+ 0.000000  0.545455  0.000000  0.454545 
+ 0.590909  0.000000  0.409091  0.000000 
+ 0.181818  0.545455  0.090909  0.181818 
+ 0.363635  0.090908  0.181817  0.363635 
+ 0.181817  0.318180  0.318181  0.181818 
+ 0.363636  0.181818  0.090909  0.363636 
+ 0.181817  0.090908  0.545454  0.181817 
+ 0.000000  0.409090  0.000000  0.590908 
+ 0.454544  0.000000  0.545454  0.000000 
+ 0.954544  0.000000  0.000000  0.045454 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.999999  0.000000  0.000000  0.000000 
+ 0.227272  0.000000  0.000000  0.772726 
+ 0.909090  0.000000  0.000000  0.090908 
+ 0.909090  0.000000  0.000000  0.090908 
+ 0.772726  0.000000  0.000000  0.227272 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+[TA]TT[AT]TTT[CT][AG]C[AT][GC][AT]G[TC][GA]AAA[TA]AA[AT]
+--------------------------------------------------------------------------------
+
+
+
+
+Time  0.13 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+f_ptsH_Pat21A_Pca3-2             2.23e-07  [+1(1.11e-07)]
+r_ptsH_Pat21A_Pca3-2             2.23e-07  [+1(1.11e-07)]
+f_manX_Pat21A_Pca3-2             9.93e-07  [+1(4.97e-07)]
+r_manX_Pat21A_Pca3-2             9.93e-07  [+1(4.97e-07)]
+f_manX_PwaSCC3193                4.14e-06  [+1(2.07e-06)]
+r_manX_PwaSCC3193                4.14e-06  [+1(2.07e-06)]
+f_mlc_Pat21A_Pca3-2_PwaS         1.22e-08  [+1(6.11e-09)]
+r_mlc_Pat21A_Pca3-2_PwaS         1.22e-08  [+1(6.11e-09)]
+f_mlc_Dda3937                    2.45e-07  [+1(1.22e-07)]
+r_mlc_Dda3937                    2.45e-07  [+1(1.22e-07)]
+f_ptsG_Pat21A_Pca3-2_Dda         2.45e-07  [+1(1.22e-07)]
+r_ptsG_Pat21A_Pca3-2_Dda         2.45e-07  [+1(1.22e-07)]
+f_hexA1_Pca3-2                   3.60e-10  [+1(1.80e-10)]
+r_hexA1_Pca3-2                   3.60e-10  [+1(1.80e-10)]
+f_hexA1_Pat21A                   2.74e-08  [+1(1.37e-08)]
+r_hexA1_Pat21A                   2.74e-08  [+1(1.37e-08)]
+f_ptsH_Dda3937_PwaSCC319         2.23e-07  [+1(1.11e-07)]
+r_ptsH_Dda3937_PwaSCC319         2.23e-07  [+1(1.11e-07)]
+f_pecT_PwaSCC3193                8.72e-10  [+1(4.36e-10)]
+r_pecT_PwaSCC3193                8.72e-10  [+1(4.36e-10)]
+f_pecT_Dda3937                   4.75e-06  [+1(2.38e-06)]
+r_pecT_Dda3937                   4.75e-06  [+1(2.38e-06)]
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: Ptushka.local
+
+********************************************************************************

@@ -1,0 +1,2 @@
+HexR regulates various genes from the central carbohydrate metabolism. It’s regulon isn’t well defined in Enterobacteriaceae, so use this profile with caution.
+The profile was built starting with RegPrecise data for P. atrosepticum SCRI 1043 and adding sites from P. carotovorum and Dickeya dadantii. With this threshold, some false positive sites could be expected.
