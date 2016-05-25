@@ -23,8 +23,11 @@ At the moment SigmoID is known to work on OS X (10.8 and up), 64-bit and 32-bit 
 
 Full list of platform-specific system requirements is located at Xojo site: http://developer.xojo.com/system-requirements 
 
-Additional info and usage instructions are in the help file accessible from SigmoID.
-
 Compiled applications for all supported platforms are located on the Releases page.
 
-As supporting four different systems (and different versions of those) isn't simple, we'd be grateful for reporting any problems via the Issues page here.
+Additional info and usage instructions are in the [help file](https://github.com/nikolaichik/SigmoID/blob/master/Help/help_en.html) accessible from SigmoID.
+
+There is also a paper describing SigmoID:
+Nikolaichik Y, Damienikan AU. (2016) SigmoID: a user-friendly tool for improving bacterial genome annotation through analysis of transcription control signals. PeerJ 4:e2056 https://doi.org/10.7717/peerj.2056
+
+As supporting four different systems (and different versions of those) isn't simple, we'd be grateful for reporting any problems via the [Issues page](https://github.com/nikolaichik/SigmoID/issues).
