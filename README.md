@@ -25,7 +25,7 @@ Full list of platform-specific system requirements is located at Xojo site: http
 
 Compiled applications for all supported platforms are located on the Releases page.
 
-Additional info and usage instructions are in the [help file](https://github.com/nikolaichik/SigmoID/blob/master/Help/help_en.html) accessible from SigmoID.
+Additional info and usage instructions are in the help file accessible from SigmoID.
 
 There is also a paper describing SigmoID:
 Nikolaichik Y, Damienikan AU. (2016) SigmoID: a user-friendly tool for improving bacterial genome annotation through analysis of transcription control signals. PeerJ 4:e2056 https://doi.org/10.7717/peerj.2056
