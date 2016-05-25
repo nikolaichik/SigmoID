@@ -1,7 +1,4 @@
-SigmoID
-=======
-
-This is a simple GUI written in Xojo to ease annotation of sigma-factor and transcription factor binding sites in bacterial genome sequences.
+__SigmoID__ is an application written in Xojo with important additions in python to ease annotation of sigma-factor and transcription factor binding sites in bacterial genome sequences.
 Functions:
 - visualise binding site alignments with sequence logo;
 - integrated access to RegPrecise and RegulonDB
