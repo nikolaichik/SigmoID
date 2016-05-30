@@ -596,6 +596,7 @@ End
 		      If sh.errorCode=0 OR sh.errorCode=3 then 'TransTerm returns error code when run without all args
 		        dim s As string
 		        s=nthfield((Sh.Result),EndOfLine.Unix,1)
+		        s=replaceall(s,EndOfLine,"") 'otherwise an extra line on some Windows machines
 		        if instr(s,"TransTermHP")>0 then
 		          WriteToSTDOUT (s)
 		        else
@@ -3102,16 +3103,34 @@ End
 		      
 		      'determine the default length parameter
 		      tis=logofile.OpenAsTextFile
+		      dim minlength, maxlength, currentL, gapNo as integer
+		      maxlength=0
 		      if tis<>nil then
 		        dim aline As string
 		        while not tis.EOF
 		          aLine=tis.readLine
 		          if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
-		            HmmGenSettingsWin.AlignmentLength=str(len(aline))
+		            if maxlength=0 then
+		              maxlength=len(aline)
+		              minlength=maxlength
+		            end if
+		            gapNo=CountFields(aline, "-")
+		            if GapNo>1 then              'gapped alignment
+		              currentL=maxlength-gapNo+1
+		              if CurrentL<minlength then
+		                minlength=CurrentL
+		              end if
+		            end if
+		            'there may be gaps in some seqs. In this case nhmmer treats site length correctly, 
+		            'while hmmgen expects fixed length and hence may set the site borders a bit off.
+		            'in his case the logo may not be correct too!
+		            
 		            '(may also check for seq validity here)
 		            exit
 		          end if
 		        wend
+		        HmmGenSettingsWin.AlignmentLength=str(maxlength)
+		        HmmGenSettingsWin.minAlignmentLength=str(minlength)
 		        tis.Close
 		      end
 		      

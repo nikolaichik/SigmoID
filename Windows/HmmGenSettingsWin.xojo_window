@@ -23,7 +23,7 @@ Begin Window HmmGenSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "HmmGen Settings"
+   Title           =   "#kHmmGenSettings"
    Visible         =   False
    Width           =   400
    Begin PushButton RunButton
@@ -685,7 +685,11 @@ End
 		    opt=opt+" -i"
 		  end if
 		  
-		  opt=opt+" -L "+me.AlignmentLength
+		  if me.minAlignmentLength<>me.AlignmentLength then
+		    opt=opt+" -L "+me.minAlignmentLength+":"+me.AlignmentLength 'gapped alignment, match lengths may differ
+		  else
+		    opt=opt+" -L "+me.AlignmentLength
+		  end if
 		  
 		  if PalindromicBox.Value then
 		    opt=opt+" -p"
@@ -780,6 +784,10 @@ End
 
 	#tag Property, Flags = &h0
 		Shared AlignmentLength As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		minAlignmentLength As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
