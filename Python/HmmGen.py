@@ -27,6 +27,22 @@ class MySeqFeature(SeqFeature):
         return out
 
 
+def wrong_promoter_strand(up_feature, hit_feature, down_feature):
+    if 'regulatory_class' in hit_feature.qualifiers.keys() and \
+       hit_feature.qualifiers['regulatory_class'][0] == 'promoter' and \
+       up_feature.location.start < \
+       hit_feature.location.start < \
+       hit_feature.location.end < \
+       down_feature.location.start:
+        if hit_feature.strand == -1 and \
+           hit_feature.strand != up_feature.strand:
+            return True
+        elif hit_feature.strand == 1 and \
+             hit_feature.strand != down_feature.strand:
+            return True
+        else:
+            return False
+
 def is_within_feature(list_of_features, index, some_hit):
     # 'index' is for feature's index within 'list_of_features'
     if (list_of_features[index].location.start <
@@ -212,9 +228,9 @@ def createparser():
     parser.add_argument('-L', '--length',
                         default=False,
                         help='final feature\'s length in genbank file',
-                        metavar='<integer>',
+                        metavar='<int>/<int:int>',
                         required=False,
-                        type=int)
+                        type=str)
     parser.add_argument('-q', '--qual',
                         default='',
                         metavar='<key#"value">',
@@ -257,7 +273,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.18 (April 17, 2016)')
+                        version='%(prog)s 2.19 (June 1, 2016)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -271,7 +287,13 @@ enter = args.parse_args()
 arguments = sys.argv[1:0]
 max_eval = enter.eval
 if enter.length is not False:
-    enter.max_length = enter.length
+    enter.length = enter.length.split(':')
+    if len(enter.length) == 1:
+        enter.min_length = False
+        enter.max_length = int(enter.length[0])
+    else:
+        enter.min_length = int(enter.length[0])
+        enter.max_length = int(enter.length[1])
 try:
     from Bio import SeqIO
 except ImportError:
@@ -295,7 +317,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.18 (April 17, 2016)'
+print '\nHmmGen 2.19 (June 1, 2016)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -309,7 +331,7 @@ nhmm_parser(file_path, allign_list)
 nhmm_prog(file_path, prog)
 prog[2] = prog[2].replace('\r', '')
 records = SeqIO.parse(input_handle, 'genbank')
-allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA']
+allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
 total = 0
 for record in records:
     print '\n' + "-"*50 + "\nCONTIG: " + record.id
@@ -344,11 +366,23 @@ for record in records:
             ali_from = allign[9]
             ali_to = allign[10]
             ali_diff = ali_to - ali_from
-            if enter.length is not False:
+            if enter.length is not False and \
+               not enter.min_length:
                 if hmm_to < enter.max_length:
                     end = (enter.max_length-hmm_to)+ali_to
                 else:
                     end = ali_to
+                if hmm_from > 1:
+
+                    start = ali_from-(hmm_from-1)
+                else:
+                    start = ali_from
+            elif enter.length is not False and \
+                 enter.min_length is not False:
+                if enter.min_length < hmm_to < enter.max_length:
+                    end = (enter.max_length-hmm_to)+ali_to
+                elif hmm_to <= enter.min_length:
+                    end = (enter.min_length-hmm_to)+ali_to
                 if hmm_from > 1:
 
                     start = ali_from-(hmm_from-1)
@@ -369,7 +403,8 @@ for record in records:
             ali_from = allign[10]
             ali_to = allign[9]
             ali_diff = ali_to - ali_from
-            if enter.length is not False:
+            if enter.length is not False and \
+               not enter.min_length:
                 if hmm_from > 1:
                     end = (hmm_from-1)+ali_to
                 else:
@@ -378,6 +413,16 @@ for record in records:
                     start = ali_from-(enter.max_length-hmm_to)
                 else:
                     start = ali_from
+            elif enter.length is not False and \
+                 enter.min_length is not False:
+                if hmm_from > 1:
+                    end = (hmm_from-1)+ali_to
+                else:
+                    end = ali_to
+                if enter.min_length < hmm_to < enter.max_length:
+                    start = ali_from-(enter.max_length-hmm_to)
+                elif hmm_to <= enter.min_length:
+                    start = ali_from-(enter.min_length-hmm_to)
         start_pos = SeqFeature.ExactPosition(start-1)
         end_pos = SeqFeature.ExactPosition(end)
         feature_location = FeatureLocation(start_pos, end_pos)
@@ -430,7 +475,10 @@ for record in records:
         for i in reversed(xrange(len(hit_list))):
             i = len(hit_list)-1-i
             for n in xrange(len(allowed_features_list)-1):
-                if is_within_feature(allowed_features_list, n, hit_list[i]):
+                if is_within_feature(allowed_features_list, n, hit_list[i]) or \
+                   wrong_promoter_strand(allowed_features_list[n],
+                                         hit_list[i],
+                                         allowed_features_list[n+1]):
                     hit_list.pop(i)
                     break
         for i in reversed(xrange(len(record.features))):
