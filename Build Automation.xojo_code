@@ -3,7 +3,7 @@
 				Begin BuildProjectStep Build
 				End
 				Begin CopyFilesBuildStep CopyResources32bit
-					AppliesTo = 1
+					AppliesTo = 2
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vUHJvZmlsZXMv
@@ -32,13 +32,13 @@
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
-					AppliesTo = 1
+					AppliesTo = 2
 					Destination = 0
 					Subdirectory = 
 					FolderItem = Li4vU2lnbW9JRC5zaA==
 				End
 				Begin CopyFilesBuildStep CopyResources64bit
-					AppliesTo = 2
+					AppliesTo = 1
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==

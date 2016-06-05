@@ -55,7 +55,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -241,7 +240,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Value           =   3
       Visible         =   True
@@ -357,7 +355,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -374,7 +371,6 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -394,7 +390,6 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -414,7 +409,6 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -486,7 +480,7 @@ Begin Window GenomeWin
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   "Search..."
+      CueText         =   "#kSearch..."
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
@@ -524,7 +518,6 @@ Begin Window GenomeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -649,9 +642,9 @@ End
 		  ViewViewDetails.Enable
 		  
 		  if TMdisplay.visible then
-		    ViewViewDetails.text = "Hide details"
+		    ViewViewDetails.text = kHideDetails
 		  else
-		    ViewViewDetails.text = "Show details"
+		    ViewViewDetails.text = kViewDetails
 		  end if
 		  
 		  GenomeFind.enabled=true
@@ -669,6 +662,7 @@ End
 		  FileSaveGenomeAs.Enabled=true
 		  FileExportFeatureTable.enabled=true
 		  FileExportSequence.enabled=true
+		  FileExportProteinSequences.enabled=true
 		  
 		  FileSaveAlignmentSelection.visible=false
 		  FileSaveLogo.visible=false
@@ -1012,6 +1006,14 @@ End
 	#tag MenuHandler
 		Function FileExportFeatureTable() As Boolean Handles FileExportFeatureTable.Action
 			gbk2tbl
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileExportProteinSequences() As Boolean Handles FileExportProteinSequences.Action
+			gbk2protein
 			Return True
 			
 		End Function
@@ -2016,9 +2018,9 @@ End
 		      ViewViewDetails.Enable
 		      
 		      if TMdisplay.visible then
-		        ViewViewDetails.text = "Hide details"
+		        ViewViewDetails.text = kHideDetails
 		      else
-		        ViewViewDetails.text = "Show details"
+		        ViewViewDetails.text = kViewDetails
 		      end if
 		      
 		      GenomeFind.enabled=true
@@ -2035,6 +2037,8 @@ End
 		      FileSaveGenomeAs.Enabled=true
 		      FileExportFeatureTable.enabled=true
 		      FileExportSequence.enabled=true
+		      FileExportProteinSequences.enabled=true
+		      
 		      
 		      FileSaveAlignmentSelection.visible=false
 		      FileSaveLogo.visible=false
@@ -2596,6 +2600,86 @@ End
 		    if s<> NIL then
 		      s.Writeline ">"+GenomeFile.Name
 		      s.write Genome.Sequence
+		      s.close
+		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		    end if
+		    
+		    'gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
+		    '
+		    'cli="python "+gbk2tblPath+" "+GenomeFile.ShellPath+" -f > "+outFile.ShellPath
+		    '
+		    'sh=New Shell
+		    'sh.mode=0
+		    'sh.TimeOut=-1
+		    'sh.execute cli
+		    '
+		    'If sh.errorCode=0 then
+		    'LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		    '
+		    'else
+		    'LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error Code: "+Str(sh.errorCode)+EndofLine)
+		    'LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    '
+		    'end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub gbk2protein()
+		  dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+		  Dim sh As Shell
+		  dim outfile As folderitem
+		  dim n,u as integer
+		  dim ft as GBFeature
+		  
+		  separTransl="/translation="+chr(34)
+		  separProtID="/protein_id="+chr(34)
+		  separGene="/gene="+chr(34)
+		  separProd="/product="+chr(34)
+		  separ2=chr(34)
+		  Dim dlg as New SaveAsDialog
+		  dlg.InitialDirectory=genomefile.Parent
+		  dlg.promptText="Select a name for Fasta file to export protein sequences to."
+		  dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".fasta"
+		  dlg.Title="Export protein sequences in Fasta format"
+		  dlg.Filter=FileTypes.Fasta
+		  outfile=dlg.ShowModalwithin(self)
+		  if outfile<>nil then
+		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting each protein sequence annotated in this genome in Fasta format...")
+		    LogoWin.STDOUT.Refresh(false)
+		    Logowin.show
+		    
+		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
+		    if s<> NIL then
+		      u=ubound(Genome.Features)
+		      for n=1 to u
+		        ft=Genome.Features(n)
+		        if left(ft.featuretext,3)="CDS" then
+		          TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
+		          TitleLine=">"+NthField(TitleLine,separ2,1)
+		          prot=NthField(ft.FeatureText,separGene,2)                  'Gene
+		          prot=NthField(prot,separ2,1)
+		          if prot<>"" then
+		            TitleLine=TitleLine+" "+prot
+		          end if
+		          prot=NthField(ft.FeatureText,separProd,2)                  'Product
+		          prot=NthField(prot,separ2,1)
+		          TitleLine=TitleLine+" "+prot
+		          TitleLine=replaceall(TitleLine,EndOfLine," ")
+		          
+		          prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
+		          prot=trim(NthField(prot,separ2,1))
+		          if prot<>"" then
+		            s.Writeline TitleLine                                      'Write >Title
+		            s.write prot+EndOfLine.unix                                'and AA seq
+		          end if
+		        end if
+		      next
+		      
 		      s.close
 		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
 		    end if

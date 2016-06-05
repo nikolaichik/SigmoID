@@ -94,7 +94,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FileConvertSigFilestoFolders
          SpecialMenu = 0
-         Text = "Convert Sig Files to Folders..."
+         Text = "#kConvertSig"
          Index = -2147483648
          AutoEnable = False
          Visible = False
@@ -104,6 +104,13 @@ Begin Menu MainMenuBar
          Text = "#kExportSequence"
          Index = -2147483648
          AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem FileExportProteinSequences
+         SpecialMenu = 0
+         Text = "#kExportProteinSequences"
+         Index = -2147483648
+         AutoEnable = True
          Visible = True
       End
       Begin MenuItem FileExportFeatureTable
@@ -291,7 +298,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem ViewMEMEresults
          SpecialMenu = 0
-         Text = "MEME Data"
+         Text = "#kMEMEData"
          Index = -2147483648
          AutoEnable = False
          Visible = True
@@ -609,7 +616,7 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomePrintMap
          SpecialMenu = 0
-         Text = "Print Map..."
+         Text = "#kPrintMap"
          Index = -2147483648
          AutoEnable = True
          Visible = True
