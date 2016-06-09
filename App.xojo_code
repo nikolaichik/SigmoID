@@ -771,7 +771,10 @@ Inherits Application
 		59. Find minimal score searches for revComplement sites, which is not nice
 		60. Need to wrap the code for the textChanged event of TermGenSettingsWin
 		   inside "try catch", as the user may enter anything here 
-		   (and add smth similar in other windows that have file selection field) 
+		   (and add smth similar in other windows that have file selection field)
+		61. With RegPrecise4 API access gives slightly different output from the one on the site (no gene names in fasta headers for TFBS seqs) 
+		62. Extend Binding Sites function should work with gapped sites too
+		63. Localise standard dialogues
 		
 		64-bit issues:
 		1. [Workarounds added] VirtualVolume is broken

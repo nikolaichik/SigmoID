@@ -182,7 +182,7 @@ Protected Class cSeqObject
 		      dim lin as new CurveShape
 		      avgDepth=0
 		      avgDepth=ReadDepth1(n)
-		      lin.BorderColor=&cFF000000
+		      lin.BorderColor=&cFF000000   'Red
 		      lin.Order=0
 		      lin.x=lastx
 		      lin.x2=n/bpPerPixel
@@ -300,7 +300,7 @@ Protected Class cSeqObject
 		      dim lin as new CurveShape
 		      avgDepth=0
 		      avgDepth=ReadDepth2(n)
-		      lin.BorderColor=&c66330000
+		      lin.BorderColor=&c66330000   'Brown
 		      lin.Order=0
 		      lin.x=lastx
 		      lin.x2=n/bpPerPixel
@@ -351,7 +351,7 @@ Protected Class cSeqObject
 		      dim lin as new CurveShape
 		      avgDepth=0
 		      avgDepth=ReadDepth3(n)
-		      lin.BorderColor=&c00804000
+		      lin.BorderColor=&c00804000    'Green
 		      lin.Order=0
 		      lin.x=lastx
 		      lin.x2=n/bpPerPixel
@@ -402,7 +402,7 @@ Protected Class cSeqObject
 		      dim lin as new CurveShape
 		      avgDepth=0
 		      avgDepth=ReadDepth4(n)
-		      lin.BorderColor=&c0080FF00
+		      lin.BorderColor=&c0080FF00   'Blue
 		      lin.Order=0
 		      lin.x=lastx
 		      lin.x2=n/bpPerPixel

@@ -23,15 +23,15 @@ Begin Window TermGenSettingsWin
    MinWidth        =   300
    Placement       =   0
    Resizeable      =   False
-   Title           =   "TermGen Settings"
+   Title           =   "#kTermGenSettings"
    Visible         =   False
-   Width           =   484
+   Width           =   550
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Run!"
+      Caption         =   "#kRun"
       Default         =   True
       Enabled         =   True
       Height          =   20
@@ -39,7 +39,7 @@ Begin Window TermGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   384
+      Left            =   440
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -55,14 +55,14 @@ Begin Window TermGenSettingsWin
       Top             =   262
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton CancelButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   True
-      Caption         =   "Cancel"
+      Caption         =   "#kCancel"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -70,7 +70,7 @@ Begin Window TermGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   292
+      Left            =   338
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -86,12 +86,12 @@ Begin Window TermGenSettingsWin
       Top             =   262
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin CheckBox GenomeBrowserCheckBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Show hits in genome browser"
+      Caption         =   "#kShowHitsInBrowser"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -118,7 +118,7 @@ Begin Window TermGenSettingsWin
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   436
+      Width           =   502
    End
    Begin TextField ConfidenceField
       AcceptTabs      =   False
@@ -184,8 +184,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Confidence score:"
+      Text            =   "#kConfidenceScore"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -214,7 +213,7 @@ Begin Window TermGenSettingsWin
       HelpTag         =   "Stem must be n nucleotides long"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   186
+      Left            =   243
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -256,7 +255,7 @@ Begin Window TermGenSettingsWin
       HelpTag         =   "Loop portion of the hairpin must be at least n long"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   186
+      Left            =   243
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -298,7 +297,7 @@ Begin Window TermGenSettingsWin
       HelpTag         =   "Total extent of hairpin <= n NT long"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   432
+      Left            =   498
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -340,7 +339,7 @@ Begin Window TermGenSettingsWin
       HelpTag         =   "The loop portion can be no longer than n"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   432
+      Left            =   498
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -387,8 +386,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   31
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Minimal stem length:"
+      Text            =   "#kMinimalStemLength"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -398,7 +396,7 @@ Begin Window TermGenSettingsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   154
+      Width           =   220
    End
    Begin Label Label5
       AutoDeactivate  =   True
@@ -422,8 +420,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   32
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Minimal loop length:"
+      Text            =   "#kMinimalLoopLength"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -433,7 +430,7 @@ Begin Window TermGenSettingsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   154
+      Width           =   220
    End
    Begin Label Label6
       AutoDeactivate  =   True
@@ -446,7 +443,7 @@ Begin Window TermGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   230
+      Left            =   276
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -457,8 +454,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   33
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Maximal hairpin length:"
+      Text            =   "#kMaximalHairpinLength"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -468,7 +464,7 @@ Begin Window TermGenSettingsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   190
+      Width           =   220
    End
    Begin Label Label7
       AutoDeactivate  =   True
@@ -481,7 +477,7 @@ Begin Window TermGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   230
+      Left            =   276
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -492,18 +488,17 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   34
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Maximal loop length:"
+      Text            =   "#kMaximalLoopLength"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   112
+      Top             =   114
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   190
+      Width           =   220
    End
    Begin TextField GenomeField
       AcceptTabs      =   False
@@ -545,7 +540,7 @@ Begin Window TermGenSettingsWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   279
+      Width           =   335
    End
    Begin Label Label8
       AutoDeactivate  =   True
@@ -569,8 +564,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   36
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Genome:"
+      Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -587,7 +581,7 @@ Begin Window TermGenSettingsWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Choose"
+      Caption         =   "#kChoose"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -595,7 +589,7 @@ Begin Window TermGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   384
+      Left            =   440
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -611,7 +605,7 @@ Begin Window TermGenSettingsWin
       Top             =   177
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
 End
 #tag EndWindow
@@ -834,7 +828,7 @@ End
 		  dim f as folderitem
 		  
 		  'need to wrap this inside "try catch", as the user may enter anything here
-		   
+		  
 		  f = GetFolderItem(me.text,FolderItem.PathTypeShell)
 		  If f<>nil AND f.Exists Then
 		    RunButton.enabled=true

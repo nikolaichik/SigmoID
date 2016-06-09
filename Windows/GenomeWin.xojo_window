@@ -1387,6 +1387,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeGetCRtags() As Boolean Handles GenomeGetCRtags.Action
+			CRtagWin.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeGoto() As Boolean Handles GenomeGoto.Action
 			GoToWin.parent=self
 			GoToWin.ShowModalWithin(self)
@@ -3246,7 +3254,9 @@ End
 		  'create and populate the form object
 		  form = New Dictionary
 		  form.Value("seqdb") = "uniprotkb"
+		  'form.Value("seqdb") = "uniprotrefprot"
 		  form.Value("algo") = "phmmer"
+		  'form.Value("seqdb_ranges") = "17277318..17420758" 'trying taxonomy restriction a la the browser version: doesn't work!
 		  form.Value("seq") = theSeq
 		  UniprotSocket.SetFormData(form)
 		  UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")

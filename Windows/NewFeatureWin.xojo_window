@@ -158,8 +158,8 @@ Begin Window NewFeatureWin
       Selectable      =   False
       TabIndex        =   12
       TabPanelIndex   =   0
-      Text            =   "Left Coordinate:"
-      TextAlign       =   0
+      Text            =   "#kLeftCoordinate"
+      TextAlign       =   1
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -168,7 +168,7 @@ Begin Window NewFeatureWin
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   112
+      Width           =   131
    End
    Begin TextField fStartField
       AcceptTabs      =   False
@@ -187,7 +187,7 @@ Begin Window NewFeatureWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   134
+      Left            =   153
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -265,7 +265,7 @@ Begin Window NewFeatureWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   292
+      Left            =   264
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -276,8 +276,8 @@ Begin Window NewFeatureWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
-      Text            =   "Right Coordinate:"
-      TextAlign       =   0
+      Text            =   "#kRightCoordinate"
+      TextAlign       =   1
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -286,12 +286,12 @@ Begin Window NewFeatureWin
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   126
+      Width           =   154
    End
    Begin CheckBox ComplementBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Complement"
+      Caption         =   "#kComplement"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -318,12 +318,12 @@ Begin Window NewFeatureWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   136
+      Width           =   242
    End
    Begin CheckBox AddGeneBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Add Gene"
+      Caption         =   "#kAddGene"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -332,7 +332,7 @@ Begin Window NewFeatureWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   303
+      Left            =   264
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -350,7 +350,7 @@ Begin Window NewFeatureWin
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   100
+      Width           =   154
    End
    Begin TextField GeneNameField
       AcceptTabs      =   False
@@ -411,7 +411,7 @@ Begin Window NewFeatureWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   93
+      Left            =   112
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -430,7 +430,7 @@ Begin Window NewFeatureWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   84
+      Top             =   82
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -468,7 +468,7 @@ Begin Window NewFeatureWin
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   100
+      Width           =   91
    End
    Begin Label Label4
       AutoDeactivate  =   True
@@ -481,7 +481,7 @@ Begin Window NewFeatureWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   292
+      Left            =   264
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -492,7 +492,7 @@ Begin Window NewFeatureWin
       Selectable      =   False
       TabIndex        =   21
       TabPanelIndex   =   0
-      Text            =   "Feature Type:"
+      Text            =   "#kFeatureType"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -502,7 +502,7 @@ Begin Window NewFeatureWin
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   95
+      Width           =   123
    End
    Begin ComboBox FeatureTypeCombo
       AutoComplete    =   False
@@ -599,7 +599,7 @@ End
 		  else
 		    for n=1 to m
 		      if ParentWin.Genome.Features(n).start>leftC then
-		         NewFeatureNo=n-1
+		        NewFeatureNo=n-1
 		        exit
 		      end if
 		    next

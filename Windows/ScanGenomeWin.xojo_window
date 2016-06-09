@@ -23,7 +23,7 @@ Begin Window ScanGenomeWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "nhmmer Settings"
+   Title           =   "#kScanGenomeTitle"
    Visible         =   False
    Width           =   406
    Begin Label Label3
@@ -48,8 +48,7 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Genome:"
+      Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -59,7 +58,7 @@ Begin Window ScanGenomeWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   61
+      Width           =   67
    End
    Begin TextField GenomeField
       AcceptTabs      =   False
@@ -101,14 +100,14 @@ Begin Window ScanGenomeWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   201
+      Width           =   191
    End
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Run!"
+      Caption         =   "#kRun"
       Default         =   True
       Enabled         =   False
       Height          =   20
@@ -116,7 +115,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   306
+      Left            =   296
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -132,7 +131,7 @@ Begin Window ScanGenomeWin
       Top             =   454
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton CancelButt
       AutoDeactivate  =   True
@@ -147,7 +146,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   214
+      Left            =   194
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -163,14 +162,14 @@ Begin Window ScanGenomeWin
       Top             =   454
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton SelectGenomeButt
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Choose"
+      Caption         =   "#kChoose"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -178,7 +177,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   306
+      Left            =   296
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -194,12 +193,12 @@ Begin Window ScanGenomeWin
       Top             =   421
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin CheckBox TerminatorCheckBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Scan for terminators"
+      Caption         =   "#kScan4terminators"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -306,7 +305,7 @@ Begin Window ScanGenomeWin
       Bevel           =   4
       Bold            =   False
       ButtonType      =   0
-      Caption         =   "Select All"
+      Caption         =   "#kSelectAll"
       CaptionAlign    =   3
       CaptionDelta    =   0
       CaptionPlacement=   1
@@ -341,7 +340,7 @@ Begin Window ScanGenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   100
+      Width           =   120
    End
    Begin BevelButton DeselectAllButton
       AcceptFocus     =   True
@@ -350,7 +349,7 @@ Begin Window ScanGenomeWin
       Bevel           =   4
       Bold            =   False
       ButtonType      =   0
-      Caption         =   "Deselect All"
+      Caption         =   "#kDeselectAll"
       CaptionAlign    =   3
       CaptionDelta    =   0
       CaptionPlacement=   1
@@ -366,7 +365,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   99
+      Left            =   119
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -385,7 +384,7 @@ Begin Window ScanGenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   100
+      Width           =   120
    End
    Begin BevelButton BevelButton3
       AcceptFocus     =   True

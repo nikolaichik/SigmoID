@@ -23,15 +23,15 @@ Begin Window RegulonSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Regulon Settings"
+   Title           =   "#kRegulonSettings"
    Visible         =   False
-   Width           =   416
+   Width           =   468
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "List!"
+      Caption         =   "#kList"
       Default         =   True
       Enabled         =   True
       Height          =   20
@@ -39,7 +39,7 @@ Begin Window RegulonSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   316
+      Left            =   348
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -55,7 +55,7 @@ Begin Window RegulonSettingsWin
       Top             =   432
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   100
    End
    Begin PushButton CancelButton
       AutoDeactivate  =   True
@@ -70,7 +70,7 @@ Begin Window RegulonSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   224
+      Left            =   236
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -86,12 +86,12 @@ Begin Window RegulonSettingsWin
       Top             =   432
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   100
    End
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Operon end"
+      Caption         =   "#kOperonEnd"
       Enabled         =   True
       Height          =   102
       HelpTag         =   ""
@@ -114,11 +114,11 @@ Begin Window RegulonSettingsWin
       Top             =   304
       Underline       =   False
       Visible         =   True
-      Width           =   376
+      Width           =   428
       Begin CheckBox TerminatorBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Terminator"
+         Caption         =   "#kTerminator"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -150,7 +150,7 @@ Begin Window RegulonSettingsWin
       Begin CheckBox EndGapBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Gap at least"
+         Caption         =   "#kGapAtLeast"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -259,7 +259,7 @@ Begin Window RegulonSettingsWin
       Begin CheckBox StrictBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "strictly the first one"
+         Caption         =   "#kStrictly1st"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -292,7 +292,7 @@ Begin Window RegulonSettingsWin
    Begin GroupBox ThresholdsBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Regulon(s) to list"
+      Caption         =   "#kRegulons2list"
       Enabled         =   True
       Height          =   58
       HelpTag         =   "Thresholds to use with uncalibrated profile"
@@ -315,18 +315,18 @@ Begin Window RegulonSettingsWin
       Top             =   20
       Underline       =   False
       Visible         =   True
-      Width           =   376
+      Width           =   428
       Begin RadioButton SingleRegulonButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Single:"
+         Caption         =   "#kSingle"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   248
+         Left            =   286
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -348,7 +348,7 @@ Begin Window RegulonSettingsWin
       Begin RadioButton AllRegulonsButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "All"
+         Caption         =   "#kAll"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -382,7 +382,7 @@ Begin Window RegulonSettingsWin
          BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
-         CueText         =   "TF name"
+         CueText         =   "#kTFname"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -392,7 +392,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   319
+         Left            =   371
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -421,7 +421,7 @@ Begin Window RegulonSettingsWin
    Begin GroupBox GroupBox2
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Operon start"
+      Caption         =   "#kOperonStart"
       Enabled         =   True
       Height          =   94
       HelpTag         =   ""
@@ -444,11 +444,11 @@ Begin Window RegulonSettingsWin
       Top             =   198
       Underline       =   False
       Visible         =   True
-      Width           =   376
+      Width           =   428
       Begin CheckBox StartDistanceBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Max binding site distance from 1st gene:"
+         Caption         =   "#kMaxTFBSdistance"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -475,7 +475,7 @@ Begin Window RegulonSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   293
+         Width           =   343
       End
       Begin TextField StartDistanceField
          AcceptTabs      =   False
@@ -495,7 +495,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   333
+         Left            =   385
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -531,7 +531,7 @@ Begin Window RegulonSettingsWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   369
+         Left            =   421
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -557,7 +557,7 @@ Begin Window RegulonSettingsWin
       Begin CheckBox PalindromicBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Palindromic binding site "
+         Caption         =   "#kPalindromicSite"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -584,13 +584,13 @@ Begin Window RegulonSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   348
+         Width           =   400
       End
    End
    Begin GroupBox GroupBox3
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "List operons with several regulators"
+      Caption         =   "#kListOperons"
       Enabled         =   True
       Height          =   84
       HelpTag         =   ""
@@ -613,11 +613,11 @@ Begin Window RegulonSettingsWin
       Top             =   90
       Underline       =   False
       Visible         =   True
-      Width           =   376
+      Width           =   428
       Begin RadioButton SingleOperonButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "as one operon with many regulators "
+         Caption         =   "#kAsOneOperon"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -641,12 +641,12 @@ Begin Window RegulonSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   334
+         Width           =   345
       End
       Begin RadioButton SingleRegulatorButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "as many ""operons"", each with single regulator"
+         Caption         =   "#kAsManyOperons"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""

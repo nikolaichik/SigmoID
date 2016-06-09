@@ -23,9 +23,9 @@ Begin Window ExtendSitesWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Extend Binding Sites"
+   Title           =   "#kExtendBindingSites"
    Visible         =   False
-   Width           =   390
+   Width           =   502
    Begin Label Label1
       AutoDeactivate  =   True
       Bold            =   False
@@ -48,8 +48,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Extend sites in the opened alignment by the specified number of base pairs to the left and to the right. Results will appear in the log field."
+      Text            =   "#kExtendSitesDesc"
       TextAlign       =   1
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -59,7 +58,7 @@ Begin Window ExtendSitesWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   350
+      Width           =   462
    End
    Begin Label Label2
       AutoDeactivate  =   True
@@ -72,7 +71,7 @@ Begin Window ExtendSitesWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   60
+      Left            =   132
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -83,14 +82,13 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Left:"
+      Text            =   "#kLeft"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   94
+      Top             =   96
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -107,7 +105,7 @@ Begin Window ExtendSitesWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   243
+      Left            =   278
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -118,14 +116,13 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Right:"
+      Text            =   "#kRight"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   94
+      Top             =   96
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -148,7 +145,7 @@ Begin Window ExtendSitesWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   106
+      Left            =   178
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -167,7 +164,7 @@ Begin Window ExtendSitesWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   92
+      Top             =   94
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -190,7 +187,7 @@ Begin Window ExtendSitesWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   290
+      Left            =   325
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -209,7 +206,7 @@ Begin Window ExtendSitesWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   92
+      Top             =   94
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -220,7 +217,7 @@ Begin Window ExtendSitesWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Extend!"
+      Caption         =   "#kExtend"
       Default         =   True
       Enabled         =   True
       Height          =   20
@@ -228,7 +225,7 @@ Begin Window ExtendSitesWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   290
+      Left            =   392
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -244,7 +241,7 @@ Begin Window ExtendSitesWin
       Top             =   186
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton PushButton2
       AutoDeactivate  =   True
@@ -259,7 +256,7 @@ Begin Window ExtendSitesWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   198
+      Left            =   290
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -275,7 +272,7 @@ Begin Window ExtendSitesWin
       Top             =   186
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin TextField GenomeField
       AcceptTabs      =   False
@@ -317,7 +314,7 @@ Begin Window ExtendSitesWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   178
+      Width           =   280
    End
    Begin Label Label4
       AutoDeactivate  =   True
@@ -330,7 +327,7 @@ Begin Window ExtendSitesWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   0
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -341,8 +338,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Genome:"
+      Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -352,14 +348,14 @@ Begin Window ExtendSitesWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   64
+      Width           =   94
    End
    Begin PushButton SelectGenomeButt
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Choose"
+      Caption         =   "#kChoose"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -367,7 +363,7 @@ Begin Window ExtendSitesWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   290
+      Left            =   392
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -383,7 +379,7 @@ Begin Window ExtendSitesWin
       Top             =   141
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
 End
 #tag EndWindow

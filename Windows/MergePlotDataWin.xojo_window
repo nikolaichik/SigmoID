@@ -23,7 +23,7 @@ Begin Window MergePlotDataWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Extend Binding Sites"
+   Title           =   "#kMergePlotData"
    Visible         =   False
    Width           =   604
    Begin Label Label1
@@ -32,7 +32,7 @@ Begin Window MergePlotDataWin
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   57
+      Height          =   44
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -48,7 +48,7 @@ Begin Window MergePlotDataWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      Text            =   "Select two files with depth data for mate reads mapped to one strand produced by samtools, then select the destination file."
+      Text            =   "#kMergePlotWinDesc"
       TextAlign       =   1
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -139,7 +139,7 @@ Begin Window MergePlotDataWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   100
+      Left            =   140
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -162,7 +162,7 @@ Begin Window MergePlotDataWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   392
+      Width           =   352
    End
    Begin Label Label4
       AutoDeactivate  =   True
@@ -186,7 +186,7 @@ Begin Window MergePlotDataWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
-      Text            =   "Data file 1:"
+      Text            =   "#kDataFile1"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -196,14 +196,14 @@ Begin Window MergePlotDataWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   64
+      Width           =   116
    End
    Begin PushButton SelectData1butt
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Choose"
+      Caption         =   "#kChoose"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -246,7 +246,7 @@ Begin Window MergePlotDataWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   100
+      Left            =   140
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -269,7 +269,7 @@ Begin Window MergePlotDataWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   392
+      Width           =   352
    End
    Begin Label Label5
       AutoDeactivate  =   True
@@ -293,7 +293,7 @@ Begin Window MergePlotDataWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
-      Text            =   "Data file 2:"
+      Text            =   "#kDataFile2"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -303,14 +303,14 @@ Begin Window MergePlotDataWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   68
+      Width           =   116
    End
    Begin PushButton SelectData2butt
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Choose"
+      Caption         =   "#kChoose"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -353,7 +353,7 @@ Begin Window MergePlotDataWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   100
+      Left            =   140
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -376,7 +376,7 @@ Begin Window MergePlotDataWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   392
+      Width           =   352
    End
    Begin Label Label6
       AutoDeactivate  =   True
@@ -400,7 +400,7 @@ Begin Window MergePlotDataWin
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
-      Text            =   "Merged file:"
+      Text            =   "#kMergedFile"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -410,14 +410,14 @@ Begin Window MergePlotDataWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   77
+      Width           =   116
    End
    Begin PushButton SelectOutFileButt
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Choose"
+      Caption         =   "#kChoose"
       Default         =   False
       Enabled         =   True
       Height          =   20

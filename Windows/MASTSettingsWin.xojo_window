@@ -23,7 +23,7 @@ Begin Window MASTSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "MAST Settings"
+   Title           =   "#kMASTSettings"
    Visible         =   False
    Width           =   534
    Begin TextField OptionsField
@@ -90,7 +90,7 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      Text            =   "More options:"
+      Text            =   "#kMoreOptions"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -124,7 +124,7 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      Text            =   "Genome:"
+      Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -134,7 +134,7 @@ Begin Window MASTSettingsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   61
+      Width           =   90
    End
    Begin TextField GenomeField
       AcceptTabs      =   False
@@ -183,7 +183,7 @@ Begin Window MASTSettingsWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Run!"
+      Caption         =   "#kRun"
       Default         =   True
       Enabled         =   False
       Height          =   20
@@ -191,7 +191,7 @@ Begin Window MASTSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   434
+      Left            =   424
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -207,7 +207,7 @@ Begin Window MASTSettingsWin
       Top             =   293
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton CancelButton
       AutoDeactivate  =   True
@@ -222,7 +222,7 @@ Begin Window MASTSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   346
+      Left            =   322
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -238,14 +238,14 @@ Begin Window MASTSettingsWin
       Top             =   293
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton PushButton3
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Choose"
+      Caption         =   "#kChoose"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -293,7 +293,7 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
-      Text            =   "MEME and MAST will be run sequentially"
+      Text            =   "#kMEMEmastRunDesc"
       TextAlign       =   1
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -308,7 +308,7 @@ Begin Window MASTSettingsWin
    Begin CheckBox PvalueCheck
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "p-value cutoff:"
+      Caption         =   "#kPvalueCutoff"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -317,7 +317,7 @@ Begin Window MASTSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   115
+      Left            =   94
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -335,7 +335,7 @@ Begin Window MASTSettingsWin
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   121
+      Width           =   157
    End
    Begin TextField PvalueField
       AcceptTabs      =   False
@@ -410,7 +410,7 @@ Begin Window MASTSettingsWin
       Begin CheckBox MaskWithinORFCheckBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Mask hits within ORFs"
+         Caption         =   "#kIgnoreWithinORF"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -437,12 +437,12 @@ Begin Window MASTSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   239
+         Width           =   428
       End
       Begin CheckBox AddAnnotationCheckBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Add annotation to the genome"
+         Caption         =   "#kAddAnnotation2genome"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -469,12 +469,12 @@ Begin Window MASTSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   239
+         Width           =   429
       End
       Begin CheckBox ShowHitsCheckBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Show hits in browser"
+         Caption         =   "#kShowHitsInBrowser"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -501,7 +501,7 @@ Begin Window MASTSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   237
+         Width           =   454
       End
    End
 End

@@ -9,7 +9,7 @@ Begin Window HmmGenSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   372
+   Height          =   349
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,13 +25,13 @@ Begin Window HmmGenSettingsWin
    Resizeable      =   True
    Title           =   "#kHmmGenSettings"
    Visible         =   False
-   Width           =   400
+   Width           =   450
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Run!"
+      Caption         =   "#kRun"
       Default         =   True
       Enabled         =   True
       Height          =   20
@@ -39,12 +39,12 @@ Begin Window HmmGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   300
-      LockBottom      =   True
+      Left            =   340
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -52,10 +52,10 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   332
+      Top             =   309
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton CancelButton
       AutoDeactivate  =   True
@@ -70,12 +70,12 @@ Begin Window HmmGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   208
-      LockBottom      =   True
+      Left            =   238
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -83,15 +83,15 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   332
+      Top             =   309
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin CheckBox IntergenicBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Ignore sites within ORFs"
+      Caption         =   "#kIgnoreWithinORF"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -118,7 +118,7 @@ Begin Window HmmGenSettingsWin
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   352
+      Width           =   402
    End
    Begin Label Label4
       AutoDeactivate  =   True
@@ -132,27 +132,27 @@ Begin Window HmmGenSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
+      LockRight       =   False
+      LockTop         =   True
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      Text            =   "Feature to add:"
+      Text            =   "#kFeature2add"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   148
+      Top             =   147
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   104
+      Width           =   143
    End
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
@@ -177,14 +177,14 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   184
+      Top             =   174
       Underline       =   False
       Visible         =   True
-      Width           =   360
+      Width           =   410
       Begin CheckBox AddQualifierBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Add qualifier"
+         Caption         =   "#kAddQualifier"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -194,11 +194,11 @@ Begin Window HmmGenSettingsWin
          InitialParent   =   "GroupBox1"
          Italic          =   False
          Left            =   29
-         LockBottom      =   True
+         LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   True
-         LockTop         =   False
+         LockTop         =   True
          Scope           =   0
          State           =   1
          TabIndex        =   0
@@ -207,11 +207,11 @@ Begin Window HmmGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   199
+         Top             =   189
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   115
+         Width           =   381
       End
       Begin TextField KeyField
          AcceptTabs      =   False
@@ -236,8 +236,8 @@ Begin Window HmmGenSettingsWin
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   False
+         LockRight       =   False
+         LockTop         =   True
          Mask            =   ""
          Password        =   False
          ReadOnly        =   False
@@ -250,7 +250,7 @@ Begin Window HmmGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   231
+         Top             =   221
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -264,7 +264,7 @@ Begin Window HmmGenSettingsWin
          BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
-         CueText         =   "protein name"
+         CueText         =   "#kProteinName"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -278,9 +278,9 @@ Begin Window HmmGenSettingsWin
          LimitText       =   0
          LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   True
+         LockLeft        =   False
          LockRight       =   True
-         LockTop         =   False
+         LockTop         =   True
          Mask            =   ""
          Password        =   False
          ReadOnly        =   False
@@ -293,17 +293,17 @@ Begin Window HmmGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   231
+         Top             =   221
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   203
+         Width           =   253
       End
    End
    Begin CheckBox PalindromicBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Palindromic site "
+      Caption         =   "#kPalindromicSite"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -326,11 +326,11 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   118
+      Top             =   116
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   136
+      Width           =   164
    End
    Begin ComboBox FeatureCombo
       AutoComplete    =   False
@@ -344,13 +344,13 @@ Begin Window HmmGenSettingsWin
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
-      Left            =   136
+      Left            =   166
       ListIndex       =   0
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -358,16 +358,16 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   148
+      Top             =   147
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   244
+      Width           =   264
    End
    Begin CheckBox NextLocusBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Use next locus_tag"
+      Caption         =   "#kUseNext"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -376,7 +376,7 @@ Begin Window HmmGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   222
+      Left            =   188
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -394,12 +394,12 @@ Begin Window HmmGenSettingsWin
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   158
+      Width           =   242
    End
    Begin GroupBox ThresholdsBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Threshold"
+      Caption         =   "#kThreshold"
       Enabled         =   True
       Height          =   58
       HelpTag         =   "Thresholds to use with uncalibrated profile"
@@ -410,7 +410,7 @@ Begin Window HmmGenSettingsWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       TabIndex        =   21
@@ -422,18 +422,18 @@ Begin Window HmmGenSettingsWin
       Top             =   20
       Underline       =   False
       Visible         =   True
-      Width           =   360
+      Width           =   410
       Begin RadioButton EvalueButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "E-value"
+         Caption         =   "#kEvalue"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   241
+         Left            =   271
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -450,12 +450,12 @@ Begin Window HmmGenSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   85
+         Width           =   105
       End
       Begin RadioButton BitScoreButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Bit score"
+         Caption         =   "#kBitScore"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -479,7 +479,7 @@ Begin Window HmmGenSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   85
+         Width           =   112
       End
       Begin TextField EvalueField
          AcceptTabs      =   False
@@ -499,7 +499,7 @@ Begin Window HmmGenSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   329
+         Left            =   379
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -542,7 +542,7 @@ Begin Window HmmGenSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   116
+         Left            =   145
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -571,7 +571,7 @@ Begin Window HmmGenSettingsWin
    Begin CheckBox GenomeBrowserCheckBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Show hits in genome browser"
+      Caption         =   "#kShowHitsInBrowser"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -581,11 +581,11 @@ Begin Window HmmGenSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Scope           =   0
       State           =   1
       TabIndex        =   22
@@ -594,11 +594,11 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   282
+      Top             =   277
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   352
+      Width           =   410
    End
 End
 #tag EndWindow
@@ -685,10 +685,10 @@ End
 		    opt=opt+" -i"
 		  end if
 		  
-		  if me.minAlignmentLength<>me.AlignmentLength then
-		    opt=opt+" -L "+me.minAlignmentLength+":"+me.AlignmentLength 'gapped alignment, match lengths may differ
+		  if LogoWin.minAlignmentLength<>LogoWin.AlignmentLength then
+		    opt=opt+" -L "+LogoWin.minAlignmentLength+":"+LogoWin.AlignmentLength 'gapped alignment, match lengths may differ
 		  else
-		    opt=opt+" -L "+me.AlignmentLength
+		    opt=opt+" -L "+LogoWin.AlignmentLength
 		  end if
 		  
 		  if PalindromicBox.Value then
@@ -781,14 +781,6 @@ End
 		End Function
 	#tag EndMethod
 
-
-	#tag Property, Flags = &h0
-		Shared AlignmentLength As string
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		minAlignmentLength As string
-	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		OKPressed As boolean

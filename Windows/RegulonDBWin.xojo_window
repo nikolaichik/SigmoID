@@ -49,7 +49,7 @@ Begin Window RegulonDBWin
       Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "TF name	Number of sites	Genes controlled	Site width"
+      InitialValue    =   "#kTFname	#kNumberOfSites	#kGenesControlled	#kSiteWidth"
       Italic          =   False
       Left            =   0
       LockBottom      =   True
@@ -194,7 +194,6 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -210,7 +209,7 @@ Begin Window RegulonDBWin
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Evidence confidence level"
+      Caption         =   "#kEvidenceConfidenceLevel"
       Enabled         =   True
       Height          =   56
       HelpTag         =   ""
@@ -237,7 +236,7 @@ Begin Window RegulonDBWin
       Begin RadioButton ConfirmedRadio
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Confirmed"
+         Caption         =   "#kConfirmed"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -261,19 +260,19 @@ Begin Window RegulonDBWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   100
+         Width           =   126
       End
       Begin RadioButton WeakRadio
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Weak"
+         Caption         =   "#kWeak"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   557
+         Left            =   580
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -290,19 +289,19 @@ Begin Window RegulonDBWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   100
+         Width           =   77
       End
       Begin RadioButton StrongRadio
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Strong"
+         Caption         =   "#kStrong"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   447
+         Left            =   476
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -325,7 +324,7 @@ Begin Window RegulonDBWin
    Begin GroupBox GroupBox2
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Dataset"
+      Caption         =   "#kDataset"
       Enabled         =   True
       Height          =   56
       HelpTag         =   ""
@@ -352,7 +351,7 @@ Begin Window RegulonDBWin
       Begin RadioButton TFBSRadio
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "TF binding sites"
+         Caption         =   "#kTFbindingsites"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -381,7 +380,7 @@ Begin Window RegulonDBWin
       Begin RadioButton PromotersRadio
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Promoters"
+         Caption         =   "#kPromoters"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -443,7 +442,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -463,7 +461,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0

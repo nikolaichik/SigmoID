@@ -23,7 +23,7 @@ Begin Window MEMESettingsWin
    MinWidth        =   300
    Placement       =   0
    Resizeable      =   True
-   Title           =   "HmmGen Settings"
+   Title           =   "#kMEMESettings"
    Visible         =   False
    Width           =   310
    Begin PushButton RunButton
@@ -31,7 +31,7 @@ Begin Window MEMESettingsWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Run!"
+      Caption         =   "#kRun"
       Default         =   True
       Enabled         =   True
       Height          =   20
@@ -39,7 +39,7 @@ Begin Window MEMESettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   210
+      Left            =   200
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -55,7 +55,7 @@ Begin Window MEMESettingsWin
       Top             =   240
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton CancelButton
       AutoDeactivate  =   True
@@ -70,7 +70,7 @@ Begin Window MEMESettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   118
+      Left            =   98
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -86,7 +86,7 @@ Begin Window MEMESettingsWin
       Top             =   240
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin Label Label4
       AutoDeactivate  =   True
@@ -110,8 +110,7 @@ Begin Window MEMESettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Number of motifs to find:"
+      Text            =   "#kNumberOfMotifs2find"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -121,12 +120,12 @@ Begin Window MEMESettingsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   194
+      Width           =   146
    End
    Begin CheckBox PalindromicBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Palindromic site "
+      Caption         =   "#kPalindromicSite"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -153,10 +152,9 @@ Begin Window MEMESettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   136
+      Width           =   270
    End
    Begin PopupMenu MotifNoPopup
-      AutoComplete    =   "False"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -168,7 +166,7 @@ Begin Window MEMESettingsWin
       InitialParent   =   ""
       InitialValue    =   "1\n2\n3\n4\n5"
       Italic          =   False
-      Left            =   226
+      Left            =   178
       ListIndex       =   2
       LockBottom      =   False
       LockedInPosition=   False
@@ -184,14 +182,13 @@ Begin Window MEMESettingsWin
       TextUnit        =   0
       Top             =   154
       Underline       =   False
-      UseFocusRing    =   "False"
       Visible         =   True
-      Width           =   64
+      Width           =   112
    End
    Begin GroupBox ThresholdsBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Site width"
+      Caption         =   "#kSiteWidth"
       Enabled         =   True
       Height          =   58
       HelpTag         =   ""
@@ -312,7 +309,7 @@ Begin Window MEMESettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   40
+         Left            =   26
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -323,8 +320,7 @@ Begin Window MEMESettingsWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "min:"
+         Text            =   "#kMin"
          TextAlign       =   2
          TextColor       =   &c00000000
          TextFont        =   "System"
@@ -334,7 +330,7 @@ Begin Window MEMESettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   56
+         Width           =   77
       End
       Begin Label Label2
          AutoDeactivate  =   True
@@ -347,7 +343,7 @@ Begin Window MEMESettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   152
+         Left            =   150
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -358,24 +354,23 @@ Begin Window MEMESettingsWin
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "max:"
+         Text            =   "#kMax"
          TextAlign       =   2
          TextColor       =   &c00000000
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   46
+         Top             =   48
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   75
+         Width           =   85
       End
    End
    Begin CheckBox GivenStrandBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Search given strand only"
+      Caption         =   "#kSearchTop"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -402,10 +397,9 @@ Begin Window MEMESettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   214
+      Width           =   270
    End
    Begin PopupMenu MotifsPerSeqPopup
-      AutoComplete    =   "False"
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -415,7 +409,7 @@ Begin Window MEMESettingsWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "Zero or one\nOne\nAny number"
+      InitialValue    =   "#kMotifNo"
       Italic          =   False
       Left            =   178
       ListIndex       =   0
@@ -433,7 +427,6 @@ Begin Window MEMESettingsWin
       TextUnit        =   0
       Top             =   186
       Underline       =   False
-      UseFocusRing    =   "False"
       Visible         =   True
       Width           =   112
    End
@@ -459,8 +452,7 @@ Begin Window MEMESettingsWin
       Selectable      =   False
       TabIndex        =   25
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Motifs per sequence:"
+      Text            =   "#kMotifsPerSequence"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"

@@ -48,8 +48,7 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Genome:"
+      Text            =   "#kGenome_"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -71,7 +70,7 @@ Begin Window RegPreciseWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "(select a genome)"
+      InitialValue    =   "#kSelectGenome"
       Italic          =   False
       Left            =   94
       ListIndex       =   0
@@ -115,7 +114,7 @@ Begin Window RegPreciseWin
       Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "Regulator	Effector	Pathway"
+      InitialValue    =   "#kRegulator	#kEffector	#kPathway"
       Italic          =   False
       Left            =   0
       LockBottom      =   True
@@ -177,7 +176,6 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0

@@ -23,13 +23,13 @@ Begin Window ProfileWizardWin
    MinWidth        =   64
    Placement       =   1
    Resizeable      =   False
-   Title           =   "Profile Wizard"
+   Title           =   "#kProfileWizard"
    Visible         =   False
    Width           =   628
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Search Thresholds"
+      Caption         =   "#kSearchThresholds"
       Enabled         =   True
       Height          =   172
       HelpTag         =   ""
@@ -75,7 +75,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
-         Text            =   "nhmmer trusted cutoff:"
+         Text            =   "#kTrusted1"
          TextAlign       =   0
          TextColor       =   &c00000000
          TextFont        =   "System"
@@ -152,7 +152,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
-         Text            =   "nhmmer gathering threshold:"
+         Text            =   "#kGathering1"
          TextAlign       =   0
          TextColor       =   &c00000000
          TextFont        =   "System"
@@ -229,7 +229,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         Text            =   "nhmmer noise cutoff:"
+         Text            =   "#kNoise1"
          TextAlign       =   0
          TextColor       =   &c00000000
          TextFont        =   "System"
@@ -392,7 +392,7 @@ Begin Window ProfileWizardWin
       Begin CheckBox WithinORFBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Ignore sites within ORFs"
+         Caption         =   "#kIgnoreWithinORF"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -534,7 +534,7 @@ Begin Window ProfileWizardWin
       Begin CheckBox PalindromicBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Palindromic site"
+         Caption         =   "#kPalindromicSite"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -585,7 +585,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
-         Text            =   "Qualifier:"
+         Text            =   "#kQualifier"
          TextAlign       =   0
          TextColor       =   &c00000000
          TextFont        =   "System"
@@ -643,7 +643,7 @@ Begin Window ProfileWizardWin
       Begin CheckBox NextLocusBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Use next locus_tag"
+         Caption         =   "#kUseNext"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -733,7 +733,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   535
+      Left            =   525
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -749,7 +749,7 @@ Begin Window ProfileWizardWin
       Top             =   366
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton CancelButton
       AutoDeactivate  =   True
@@ -764,7 +764,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   443
+      Left            =   423
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -780,7 +780,7 @@ Begin Window ProfileWizardWin
       Top             =   366
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin BevelButton BevelButton1
       AcceptFocus     =   True

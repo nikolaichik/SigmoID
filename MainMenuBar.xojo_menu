@@ -621,6 +621,13 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem GenomeGetCRtags
+         SpecialMenu = 0
+         Text = "Get CR tags"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
    End
    Begin MenuItem WindowMenu
       SpecialMenu = 0

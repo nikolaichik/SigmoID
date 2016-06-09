@@ -23,7 +23,7 @@ Begin Window nhmmerSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "nhmmer Settings"
+   Title           =   "#kHMMgenSettings"
    Visible         =   False
    Width           =   566
    Begin TextField OptionsField
@@ -43,7 +43,7 @@ Begin Window nhmmerSettingsWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   289
+      Left            =   339
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -66,7 +66,7 @@ Begin Window nhmmerSettingsWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   254
+      Width           =   204
    End
    Begin Label Label1
       AutoDeactivate  =   True
@@ -79,7 +79,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   176
+      Left            =   216
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -90,17 +90,17 @@ Begin Window nhmmerSettingsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      Text            =   "More options:"
+      Text            =   "#kMoreOptions"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   207
+      Top             =   205
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   101
+      Width           =   111
    End
    Begin Label Label3
       AutoDeactivate  =   True
@@ -124,17 +124,17 @@ Begin Window nhmmerSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      Text            =   "Genome:"
+      Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   249
+      Top             =   252
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   61
+      Width           =   69
    End
    Begin TextField GenomeField
       AcceptTabs      =   False
@@ -183,7 +183,7 @@ Begin Window nhmmerSettingsWin
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Run!"
+      Caption         =   "#kRun"
       Default         =   True
       Enabled         =   False
       Height          =   20
@@ -191,7 +191,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   466
+      Left            =   456
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -207,7 +207,7 @@ Begin Window nhmmerSettingsWin
       Top             =   313
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton CancelButton
       AutoDeactivate  =   True
@@ -222,7 +222,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   378
+      Left            =   354
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -238,12 +238,12 @@ Begin Window nhmmerSettingsWin
       Top             =   313
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin GroupBox MaskingBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Masking"
+      Caption         =   "#kMasking"
       Enabled         =   True
       Height          =   147
       HelpTag         =   "Positions selected in the logo above will be masked according to the algorithm chosen"
@@ -270,7 +270,7 @@ Begin Window nhmmerSettingsWin
       Begin RadioButton wpb
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Henikoff position-based weights"
+         Caption         =   "#kHenikoffPositionWeights"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -294,7 +294,7 @@ Begin Window nhmmerSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   254
+         Width           =   309
       End
       Begin RadioButton wgsc
          AutoDeactivate  =   True
@@ -323,15 +323,15 @@ Begin Window nhmmerSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   254
+         Width           =   309
       End
       Begin RadioButton wblosum
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Henikoff simple filter weights:"
+         Caption         =   "#kHenikoffSimpleWeights"
          Enabled         =   True
          Height          =   20
-         HelpTag         =   ""
+         HelpTag         =   "Henikoff simple filter weights"
          Index           =   -2147483648
          InitialParent   =   "MaskingBox"
          Italic          =   False
@@ -352,12 +352,12 @@ Begin Window nhmmerSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   224
+         Width           =   237
       End
       Begin RadioButton wnone
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "don't do any relative weighting; set all to 1"
+         Caption         =   "#kNoWeighting"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -401,7 +401,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "MaskingBox"
          Italic          =   False
-         Left            =   460
+         Left            =   473
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -430,7 +430,7 @@ Begin Window nhmmerSettingsWin
    Begin GroupBox CutoffBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Use profile cutoffs"
+      Caption         =   "#kUseProfileCutoffs"
       Enabled         =   True
       Height          =   118
       HelpTag         =   "Use score tresholds stored in the profile"
@@ -457,7 +457,7 @@ Begin Window nhmmerSettingsWin
       Begin RadioButton gaButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Gathering"
+         Caption         =   "#kGathering"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -481,12 +481,12 @@ Begin Window nhmmerSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   93
+         Width           =   116
       End
       Begin RadioButton ncButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Noise"
+         Caption         =   "#kNoise"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -510,7 +510,7 @@ Begin Window nhmmerSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   93
+         Width           =   116
       End
       Begin Label GAvalue
          AutoDeactivate  =   True
@@ -523,7 +523,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "CutoffBox"
          Italic          =   False
-         Left            =   136
+         Left            =   149
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -557,7 +557,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "CutoffBox"
          Italic          =   False
-         Left            =   136
+         Left            =   149
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -591,7 +591,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "CutoffBox"
          Italic          =   False
-         Left            =   136
+         Left            =   149
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -617,7 +617,7 @@ Begin Window nhmmerSettingsWin
       Begin RadioButton tcButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Trusted"
+         Caption         =   "#kTrusted"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -641,13 +641,13 @@ Begin Window nhmmerSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   93
+         Width           =   116
       End
    End
    Begin CheckBox MaxCheck
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Max sensitivity"
+      Caption         =   "#kMaxSensitivity"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -656,7 +656,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   184
+      Left            =   216
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -674,12 +674,12 @@ Begin Window nhmmerSettingsWin
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   137
+      Width           =   170
    End
    Begin CheckBox Null2check
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Bias correction"
+      Caption         =   "#kBiasCorrection"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -688,7 +688,7 @@ Begin Window nhmmerSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   378
+      Left            =   387
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -706,14 +706,14 @@ Begin Window nhmmerSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   136
+      Width           =   168
    End
    Begin PushButton PushButton3
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Choose"
+      Caption         =   "#kChoose"
       Default         =   False
       Enabled         =   True
       Height          =   20
@@ -742,7 +742,7 @@ Begin Window nhmmerSettingsWin
    Begin GroupBox ThresholdsBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Threshold"
+      Caption         =   "#kThreshold"
       Enabled         =   False
       Height          =   93
       HelpTag         =   "Thresholds to use with uncalibrated profile"
@@ -765,11 +765,11 @@ Begin Window nhmmerSettingsWin
       Top             =   144
       Underline       =   False
       Visible         =   True
-      Width           =   144
+      Width           =   184
       Begin RadioButton EvalueButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "E-value"
+         Caption         =   "#kEvalue"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -793,12 +793,12 @@ Begin Window nhmmerSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   85
+         Width           =   115
       End
       Begin RadioButton BitScoreButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Bit score"
+         Caption         =   "#kBitScore"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -822,7 +822,7 @@ Begin Window nhmmerSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   85
+         Width           =   115
       End
       Begin TextField EvalueField
          AcceptTabs      =   False
@@ -842,7 +842,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   116
+         Left            =   155
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -885,7 +885,7 @@ Begin Window nhmmerSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   116
+         Left            =   155
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -914,7 +914,7 @@ Begin Window nhmmerSettingsWin
    Begin CheckBox AddAnnotationCheckBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Add annotation to the genome"
+      Caption         =   "#kAddAnnotation2genome"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
@@ -941,7 +941,7 @@ Begin Window nhmmerSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   301
+      Width           =   526
    End
 End
 #tag EndWindow

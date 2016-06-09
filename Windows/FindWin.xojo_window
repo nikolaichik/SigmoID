@@ -23,7 +23,7 @@ Begin Window FindWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Go to..."
+   Title           =   "Find"
    Visible         =   False
    Width           =   212
    Begin PushButton OKButton

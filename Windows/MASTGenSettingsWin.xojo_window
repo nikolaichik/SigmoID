@@ -9,7 +9,7 @@ Begin Window MASTGenSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   414
+   Height          =   358
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -23,49 +23,15 @@ Begin Window MASTGenSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "MastGen Settings"
+   Title           =   "#kMastGenSettings"
    Visible         =   False
-   Width           =   400
-   Begin Label Label3
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      Text            =   "Acceptable match lengths:"
-      TextAlign       =   2
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   150
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   190
-   End
+   Width           =   448
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "Run!"
+      Caption         =   "#kRun"
       Default         =   True
       Enabled         =   True
       Height          =   20
@@ -73,7 +39,7 @@ Begin Window MASTGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   300
+      Left            =   338
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -86,10 +52,10 @@ Begin Window MASTGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   374
+      Top             =   318
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton CancelButton
       AutoDeactivate  =   True
@@ -104,7 +70,7 @@ Begin Window MASTGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   208
+      Left            =   236
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -117,15 +83,15 @@ Begin Window MASTGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   374
+      Top             =   318
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin CheckBox IntergenicBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Consider intergenic regions only"
+      Caption         =   "#kIgnoreWithinORF"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -152,7 +118,7 @@ Begin Window MASTGenSettingsWin
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   352
+      Width           =   400
    End
    Begin Label Label4
       AutoDeactivate  =   True
@@ -176,17 +142,17 @@ Begin Window MASTGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      Text            =   "Feature to add:"
+      Text            =   "#kFeature2add"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   190
+      Top             =   152
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   104
+      Width           =   117
    End
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
@@ -211,14 +177,14 @@ Begin Window MASTGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   226
+      Top             =   184
       Underline       =   False
       Visible         =   True
-      Width           =   360
+      Width           =   408
       Begin CheckBox AddQualifierBox
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Add qualifier"
+         Caption         =   "#kAddQualifier"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -241,11 +207,11 @@ Begin Window MASTGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   241
+         Top             =   199
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   115
+         Width           =   340
       End
       Begin TextField KeyField
          AcceptTabs      =   False
@@ -284,7 +250,7 @@ Begin Window MASTGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   273
+         Top             =   231
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -298,7 +264,7 @@ Begin Window MASTGenSettingsWin
          BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
-         CueText         =   "protein name"
+         CueText         =   "#kProteinName"
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -327,17 +293,17 @@ Begin Window MASTGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   273
+         Top             =   231
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   203
+         Width           =   251
       End
    End
    Begin CheckBox PalindromicBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Palindromic site "
+      Caption         =   "#kPalindromicSite"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -364,49 +330,7 @@ Begin Window MASTGenSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   136
-   End
-   Begin TextField LengthField
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
-      Bold            =   False
-      Border          =   True
-      CueText         =   "min:max"
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   222
-      LimitText       =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   18
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   148
-      Underline       =   False
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   158
+      Width           =   156
    End
    Begin ComboBox FeatureCombo
       AutoComplete    =   False
@@ -420,7 +344,7 @@ Begin Window MASTGenSettingsWin
       Index           =   -2147483648
       InitialValue    =   ""
       Italic          =   False
-      Left            =   136
+      Left            =   138
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -434,16 +358,16 @@ Begin Window MASTGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   190
+      Top             =   150
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   244
+      Width           =   290
    End
    Begin CheckBox NextLocusBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Use next locus_tag"
+      Caption         =   "#kUseNext"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -452,7 +376,7 @@ Begin Window MASTGenSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   222
+      Left            =   188
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -466,16 +390,16 @@ Begin Window MASTGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   116
+      Top             =   118
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   158
+      Width           =   240
    End
    Begin GroupBox ThresholdsBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Threshold"
+      Caption         =   "#kThreshold"
       Enabled         =   True
       Height          =   58
       HelpTag         =   "Thresholds to use with uncalibrated profile"
@@ -498,18 +422,18 @@ Begin Window MASTGenSettingsWin
       Top             =   20
       Underline       =   False
       Visible         =   True
-      Width           =   360
+      Width           =   408
       Begin RadioButton PvalueButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "p-value"
+         Caption         =   "#kPvalueCutoff"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   187
+         Left            =   203
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -526,12 +450,12 @@ Begin Window MASTGenSettingsWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   76
+         Width           =   158
       End
       Begin RadioButton BitScoreButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "Score"
+         Caption         =   "#kScore"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -555,7 +479,7 @@ Begin Window MASTGenSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   85
+         Width           =   81
       End
       Begin TextField PvalueField
          AcceptTabs      =   False
@@ -575,7 +499,7 @@ Begin Window MASTGenSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   268
+         Left            =   360
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -598,7 +522,7 @@ Begin Window MASTGenSettingsWin
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   101
+         Width           =   57
       End
       Begin TextField BitScoreField
          AcceptTabs      =   False
@@ -618,7 +542,7 @@ Begin Window MASTGenSettingsWin
          Index           =   -2147483648
          InitialParent   =   "ThresholdsBox"
          Italic          =   False
-         Left            =   101
+         Left            =   112
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -637,7 +561,7 @@ Begin Window MASTGenSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   45
+         Top             =   46
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -647,7 +571,7 @@ Begin Window MASTGenSettingsWin
    Begin CheckBox GenomeBrowserCheckBox
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Show hits in genome browser"
+      Caption         =   "#kShowHitsInBrowser"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -670,11 +594,11 @@ Begin Window MASTGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   324
+      Top             =   282
       Underline       =   False
       Value           =   True
       Visible         =   True
-      Width           =   352
+      Width           =   400
    End
 End
 #tag EndWindow
@@ -772,8 +696,11 @@ End
 		  'opt=opt+" -L "+me.lengthField.CueText
 		  'end if
 		  
-		  opt=opt+" -L 20 "
-		  
+		  if LogoWin.minAlignmentLength<>LogoWin.AlignmentLength then
+		    opt=opt+" -L "+LogoWin.minAlignmentLength+":"+LogoWin.AlignmentLength 'gapped alignment, match lengths may differ
+		  else
+		    opt=opt+" -L "+LogoWin.AlignmentLength
+		  end if
 		  
 		  if PalindromicBox.Value then
 		    opt=opt+" -p"
@@ -895,17 +822,6 @@ End
 		  end if
 		  
 		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events LengthField
-	#tag Event
-		Sub TextChange()
-		  'if me.text="" then
-		  'RunButton.enabled=false
-		  'ELSE
-		  'RunButton.enabled=true
-		  'END IF
 		End Sub
 	#tag EndEvent
 #tag EndEvents

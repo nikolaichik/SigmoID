@@ -23,7 +23,7 @@ Begin Window PlotScaleMaxWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Go to..."
+   Title           =   "#kPlotScaleWinTitle"
    Visible         =   False
    Width           =   332
    Begin PushButton OKButton
@@ -39,7 +39,7 @@ Begin Window PlotScaleMaxWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   232
+      Left            =   222
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -55,7 +55,7 @@ Begin Window PlotScaleMaxWin
       Top             =   120
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin PushButton CancelButton
       AutoDeactivate  =   True
@@ -70,7 +70,7 @@ Begin Window PlotScaleMaxWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   140
+      Left            =   120
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -86,7 +86,7 @@ Begin Window PlotScaleMaxWin
       Top             =   120
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   90
    End
    Begin TextField PlotMaxField
       AcceptTabs      =   False
@@ -152,7 +152,7 @@ Begin Window PlotScaleMaxWin
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
-      Text            =   "Set maximal value to be shown on the plots. Leave the field empty to remove the limit."
+      Text            =   "#kPlotScaleWinDesc"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"

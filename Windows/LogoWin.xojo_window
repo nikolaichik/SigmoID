@@ -2811,11 +2811,11 @@ End
 		      nhmmerSettingsWin.AddAnnotationCheckBox.HelpTag="Annotation will be added with the HmmGen.py script"
 		      nhmmerSettingsWin.MaskingBox.enabled=false
 		      'nhmmerSettingsWin.CutoffBox.enabled=true
-		      'nhmmerSettingsWin.ThresholdsBox.enabled=false
 		      nhmmerSettingsWin.BitScoreField.enabled=true
 		      nhmmerSettingsWin.BitScoreButton.enabled=false
 		      nhmmerSettingsWin.EvalueButton.enabled=false
 		      'nhmmerSettingsWin.CutOffBox.enabled=false
+		      'nhmmerSettingsWin.ThresholdsBox.enabled=false
 		      nhmmerSettingsWin.ThresholdsBox.enabled=true
 		      
 		      nhmmerSettingsWin.BitScoreField.text=""
@@ -2972,7 +2972,7 @@ End
 		        switchName=NthField(theOption," ",1)
 		        select case switchName
 		        case "-L"
-		          HmmGenSettingsWin.AlignmentLength=NthField(theOption," ",2)
+		          AlignmentLength=NthField(theOption," ",2)
 		        case "-p"
 		          HmmGenSettingsWin.PalindromicBox.value=true
 		          palindromic=true
@@ -3000,7 +3000,7 @@ End
 		      MastGenSettingsWin.IntergenicBox.value=HmmGenSettingsWin.IntergenicBox.value
 		      MastGenSettingsWin.AddQualifierBox.value=HmmGenSettingsWin.AddQualifierBox.value
 		      MastGenSettingsWin.NextLocusBox.value=HmmGenSettingsWin.NextLocusBox.value
-		      MastGenSettingsWin.lengthField.text=HmmGenSettingsWin.AlignmentLength
+		      'MastGenSettingsWin.lengthField.text=AlignmentLength
 		      MastGenSettingsWin.FeatureCombo.Text=HmmGenSettingsWin.FeatureCombo.Text
 		      MastGenSettingsWin.KeyField.text=HmmGenSettingsWin.KeyField.text
 		      MastGenSettingsWin.ValueField.text=HmmGenSettingsWin.ValueField.text
@@ -3129,8 +3129,8 @@ End
 		            exit
 		          end if
 		        wend
-		        HmmGenSettingsWin.AlignmentLength=str(maxlength)
-		        HmmGenSettingsWin.minAlignmentLength=str(minlength)
+		        AlignmentLength=str(maxlength)
+		        minAlignmentLength=str(minlength)
 		        tis.Close
 		      end
 		      
@@ -4129,6 +4129,10 @@ End
 
 
 	#tag Property, Flags = &h0
+		AlignmentLength As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		alimaskTmp As folderitem
 	#tag EndProperty
 
@@ -4226,6 +4230,10 @@ End
 
 	#tag Property, Flags = &h0
 		MEMEtmp As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		minAlignmentLength As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

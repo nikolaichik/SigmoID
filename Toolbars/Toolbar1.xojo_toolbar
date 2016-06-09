@@ -1,31 +1,31 @@
 #tag Toolbar
 Begin Toolbar Toolbar1
 	Begin ToolButton LoadAlignmentTool
-		Caption = "Load Alignment"
+		Caption = "#kOpenProfile"
 		HelpTag = ""
 		Style = 4
 		Icon = 1658368511
 	End
 	Begin ToolButton SearchTool
-		Caption = "Search"
+		Caption = "#kSearch_"
 		HelpTag = ""
 		Style = 0
 		Icon = 771960727
 	End
 	Begin ToolButton HmmGenTool
-		Caption = "PostProcess"
+		Caption = "#kPostProcess"
 		HelpTag = ""
 		Style = 0
 		Icon = 416061439
 	End
 	Begin ToolButton TermGenTool
-		Caption = "Terminators"
+		Caption = "#kTerminatorSearch"
 		HelpTag = ""
 		Style = 0
 		Icon = 2141093887
 	End
 	Begin ToolButton PalindromiseTool
-		Caption = "Palindromise"
+		Caption = "#kPalindromise"
 		HelpTag = ""
 		Style = 0
 		Enabled = False
@@ -37,7 +37,7 @@ Begin Toolbar Toolbar1
 		Style = 6
 	End
 	Begin ToolButton SettingsTool
-		Caption = "Settings"
+		Caption = "#kSettings"
 		HelpTag = ""
 		Style = 0
 		Icon = 1056832050
