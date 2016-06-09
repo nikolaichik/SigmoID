@@ -46,6 +46,21 @@ def qualifiers_function(qualifiers, var):
                 var[qual_var[number][0]] = value_list
     return var
 
+def wrong_promoter_strand(up_feature, hit_feature, down_feature):
+    if 'regulatory_class' in hit_feature.qualifiers.keys() and \
+       hit_feature.qualifiers['regulatory_class'][0] == 'promoter' and \
+       up_feature.location.start < \
+       hit_feature.location.start < \
+       hit_feature.location.end < \
+       down_feature.location.start:
+        if hit_feature.strand == -1 and \
+           hit_feature.strand != up_feature.strand:
+            return True
+        elif hit_feature.strand == 1 and \
+             hit_feature.strand != down_feature.strand:
+            return True
+        else:
+            return False
 
 def is_within_feature(list_of_features, index, some_hit):
     # 'index' is for feature's index within 'list_of_features'
@@ -255,7 +270,7 @@ qualifier = {'CHECK': 'CHECKED!'}
 qualifiers_function(enter.qual, qualifier)
 allign_list = mast_parser(file_path)
 records = SeqIO.parse(input_handle, 'genbank')
-allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA']
+allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
 total = 0
 for record in records:
     print '\n' + "-"*50 + "\nCONTIG: " + record.id
@@ -327,7 +342,10 @@ for record in records:
         for i in reversed(xrange(len(hit_list))):
             i = len(hit_list)-1-i
             for n in xrange(len(allowed_features_list)-1):
-                if is_within_feature(allowed_features_list, n, hit_list[i]):
+                if is_within_feature(allowed_features_list, n, hit_list[i]) or \
+                   wrong_promoter_strand(allowed_features_list[n],
+                                         hit_list[i],
+                                         allowed_features_list[n+1]):
                     hit_list.pop(i)
                     break
 
