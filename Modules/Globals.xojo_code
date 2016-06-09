@@ -665,6 +665,94 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetCRtags(SearchResRaw as string, SearchResTable as string, CRs as string) As string
+		  // Add Critical Residues (CRs) according to Sahota and Stormo (2010; doi:10.1093/bioinformatics/btq501) to hmmsearch output 
+		  ' CRs should be in the format "2,3,7,9,11,13,14,21"
+		  ' requires an alignment table (example below) in addition to standard hmmsearch output to simplify things a bit.
+		  ' the dot denotes a 'gap' in the position where an insertion relative to the hmm occurred:
+		  ' such dots should be skipped, but the the sequence with lowercase letter in this position 
+		  ' has the actual insertion and should be ignored (its tag is likely to be invalid)
+		  ' the target should also have no dashes (gaps) within the CR range
+		  ' also, seqs with duplicate domains should probably be ignored (like OA04_28280 in the sample)
+		  
+		  '# STOCKHOLM 1.0
+		  '
+		  '#=GS OA04_12200/36-82   DE [subseq from] acrR AcrAB operon repressor
+		  '#=GS OA04_28280/12-54   DE [subseq from] transcriptional regulator, TetR family
+		  '#=GS OA04_28280/249-295 DE [subseq from] transcriptional regulator, TetR family
+		  '#=GS OA04_32680/23-68   DE [subseq from] HTH-type transcriptional regulator TcmR
+		  '
+		  '
+		  'OA04_12200/36-82           ILDTAL.RVFSEHGVSATSLSDIATAAGVTRGAIYWHFKNKAEIFDEI
+		  '#=GR OA04_12200/36-82   PP 9*****.**************************************996
+		  'OA04_28280/12-54           ILDAAE.KVLLRDGVHRFTLDAVAAEAGISKGGLVYSFPSKDLL----
+		  '#=GR OA04_28280/12-54   PP 9*****.**********************************966....
+		  'OA04_28280/249-295         IVETAM.NIIKRDGIGALTHRAVANEAHVPLGSTTYHFKSLDDMLNAV
+		  '#=GR OA04_21850/18-62   PP 9*****.*********************************998875..
+		  'OA04_43270/21-62           --EAAFsQLSAERSFASLSLREVAREAGIAPTSFYRHFRDVDEL----
+		  '#=GR OA04_43270/21-62   PP ..555415679***************************986665....
+		  
+		  
+		  dim CRarray(0) as integer
+		  dim TableArray(0) as string
+		  dim AlignmentArray(0) as string
+		  Dim ProtNames(0) as string
+		  'Dim CRtags as string
+		  Dim CRtags(0) as string
+		  dim Alignments, hitSeq, CRtag as string
+		  dim m,n,o,p as integer
+		  
+		  
+		  // Store CR positions
+		  m=CountFields(CRs,",")
+		  for n=1 to m
+		    CRarray.Append(Val(NthField(CRs,",",n)))
+		  next
+		  
+		  // Get the second part of the table containing the actual alignments:
+		  TableArray=SearchResTable.Split("#=GS")
+		  Alignments=TableArray(UBound(TableArray)) 'we only need the last item:
+		  n=instr(Alignments,EndOfLine.UNIX)
+		  Alignments=Right(alignments, len(Alignments)-n)
+		  AlignmentArray=Alignments.Split(EndOfLine.UNIX) 'every second item isn't needed
+		  
+		  // Extract CR tag
+		  m=ubound(AlignmentArray)-4
+		  o=ubound(CRarray)
+		  for n=1 to m step 2
+		    hitseq=AlignmentArray(n)
+		    'CRtag=NthField(hitSeq,"/",1)+" "  'sequence name followed by space
+		    ProtNames.Append(NthField(hitSeq,"/",1))
+		    hitseq=NthField(hitSeq," ",countfields(hitseq," ")) 'the seq goes after the last space
+		    hitSeq=ReplaceAll(hitseq,".","") 'removing 'gaps' resulting from insertions in other seqs 
+		    'the check for gaps/insertions within CR range should go here
+		    
+		    CRtag=""
+		    for p=1 to o
+		      CRtag=CRtag+mid(hitseq,CRarray(p),1)
+		    next
+		    
+		    'CRtags=CRtags+CRtag+","
+		    CRtags.append(CRtag)
+		  next
+		  
+		  'return CRtags
+		  
+		  // Add CR tags to hmmsearch output
+		  ' title lines of the alignments part of hmmsearch results look like this:
+		  ' >> AIK13051.1  acrR putative acrAB operon repressor
+		  m=ubound(CRtags)
+		  for n=1 to m
+		    SearchResRaw=Replaceall(SearchResRaw, ">> "+ProtNames(n), ">"+CRtags(n)+"> "+ProtNames(n))
+		  next
+		  
+		  Return SearchResRaw
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetLocus_tag(FeatureText as string) As string
 		  'extract locus_tag from feature text
 		  
