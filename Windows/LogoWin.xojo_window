@@ -129,7 +129,7 @@ Begin Window LogoWin
       TabIndex        =   4
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   1000
       Begin Canvas LogoCanvas
@@ -165,7 +165,7 @@ Begin Window LogoWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFFFF00FF
          Bold            =   False
          Border          =   True
          DataField       =   ""
@@ -1597,10 +1597,10 @@ End
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
 		    ViewMEMEresults.checked=false
-		    'LogoCanvas.visible=false
+		    LogoCanvas.visible=false
 		    'LogoCanvas.Enabled=false
-		    'Informer.visible=true
-		    'Informer.enabled=true
+		    Informer.visible=true
+		    Informer.enabled=true
 		    Informer.text=Sequences
 		    Informer.ReadOnly=false
 		    TopPanel.Value=0
@@ -1743,8 +1743,8 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Sub DownshiftLog(boo as boolean)
+	#tag Method, Flags = &h0
+		Sub DownshiftLog(boo as boolean)
 		  if boo then
 		    if STDOUT.top=0 then
 		      TopPanel.left=0
@@ -2926,7 +2926,7 @@ End
 		        inStream.close
 		      else
 		        'meme data is optional, so the warning goes to the log:
-		        WriteToSTDOUT(LineEnd+"No MEME data is present in this .sig file")
+		        WriteToSTDOUT(EndOfLine+"No MEME data is present in this .sig file")
 		        MEMEdata=""
 		      end if
 		      
@@ -3174,9 +3174,7 @@ End
 		  'end if
 		  
 		  
-		  if LengthsDiffer then
-		    logowin.ChangeView("Sequences")
-		  end if
+		  
 		  
 		  RegulonID=0
 		  RegulogID=0
@@ -4492,13 +4490,18 @@ End
 		Sub MouseDrag(X As Integer, Y As Integer)
 		  if Y<>DragStartY then
 		    dim deltaY as integer = Y-DragStartY
-		    UpperPaneHeight=UpperPaneHeight+deltaY
-		    'LogoCanvas.Height=UpperPaneHeight
-		    'Informer.height=UpperPaneHeight
-		    TopPanel.Height=UpperPaneHeight
-		    STDOUT.height=STDOUT.height-deltaY
-		    STDOUT.top=STDOUT.top+deltaY
-		    me.top=me.top+deltaY
+		    if UpperPaneHeight+deltaY<10 then
+		      ChangeView("HideViewer")
+		    else
+		      UpperPaneHeight=UpperPaneHeight+deltaY
+		      'LogoCanvas.Height=UpperPaneHeight
+		      'Informer.height=UpperPaneHeight
+		      TopPanel.Height=UpperPaneHeight
+		      STDOUT.height=STDOUT.height-deltaY
+		      STDOUT.top=STDOUT.top+deltaY
+		      me.top=me.top+deltaY
+		    end if
+		    
 		    
 		  end if
 		  
@@ -4668,6 +4671,12 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
+	#tag ViewProperty
+		Name="AlignmentLength"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
 	#tag ViewProperty
 		Name="BackColor"
 		Visible=true
@@ -4858,6 +4867,12 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="minAlignmentLength"
+		Group="Behavior"
+		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MinHeight"

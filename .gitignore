@@ -8,7 +8,7 @@ Debug*.exe
 Debug*/Debug*.exe
 Debug*/Debug*\ Libs
 *.rbuistate
-*.obsolete
+*.obsolete*
 *.xojo_uistate
 >>>>>>> FETCH_HEAD
 

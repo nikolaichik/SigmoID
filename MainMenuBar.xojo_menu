@@ -628,6 +628,34 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem GenomeCRtagfilteredsearch
+         SpecialMenu = 0
+         Text = "CR tag filtered search..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeDeNovoTFBSinference
+         SpecialMenu = 0
+         Text = "de novo TFBS inference"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeRunMEMEtwice
+         SpecialMenu = 0
+         Text = "Run MEME twice"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeRedundantSeqs
+         SpecialMenu = 0
+         Text = "Redundant Seqs"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
    End
    Begin MenuItem WindowMenu
       SpecialMenu = 0

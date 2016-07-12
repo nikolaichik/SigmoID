@@ -194,6 +194,7 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -442,6 +443,7 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -461,6 +463,7 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -1372,7 +1375,7 @@ End
 		  
 		  'extract Fasta formatted protein seq
 		  'the seq is within the <pre> tag, but there are two of those, so we're searching for "<pre>>"
-		  'content supposedly has the ISO-8859-1 encoding, but Xojo gets line ends wrongx
+		  'content supposedly has the ISO-8859-1 encoding, but Xojo gets line ends wrong
 		  
 		  if httpStatus>=200 AND httpStatus<300 then 'successful
 		    ProteinFasta=defineEncoding(NthField(Content,"<pre>>",2),Encodings.ISOLatin1)

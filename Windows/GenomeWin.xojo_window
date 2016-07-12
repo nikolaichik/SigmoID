@@ -1387,14 +1387,6 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function GenomeGetCRtags() As Boolean Handles GenomeGetCRtags.Action
-			CRtagWin.show
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
 		Function GenomeGoto() As Boolean Handles GenomeGoto.Action
 			GoToWin.parent=self
 			GoToWin.ShowModalWithin(self)
@@ -1936,13 +1928,13 @@ End
 		      if Downstream<>"" then
 		        dim newfeat,scar as string
 		        newfeat=Upstream+Downstream
-		        scar=LineEnd+"/gene="+chr(34)+chr(34)
+		        scar=EndOfLine.unix+"/gene="+chr(34)+chr(34)
 		        f.FeatureText=replaceall(newfeat,scar,"")
 		      end if
 		    else
 		      
 		      if geneLoc=0 then 'adding new name
-		        f.FeatureText=Upstream+lineend+"/gene="+chr(34)+EditGeneWin.GeneNameField.text+chr(34)
+		        f.FeatureText=Upstream+EndOfLine.unix+"/gene="+chr(34)+EditGeneWin.GeneNameField.text+chr(34)
 		        
 		      else
 		        f.FeatureText=Upstream+EditGeneWin.GeneNameField.text+Downstream
@@ -1954,7 +1946,7 @@ End
 		    
 		    if EditGeneWin.EditWholeLocus.value then 'edit gene name for all features with the same locus_tag
 		      'get locus_tag:
-		      featureArr()=split(f.FeatureText,lineend)
+		      featureArr()=split(f.FeatureText,EndOfLine.unix)
 		      for n=0 to UBound(featureArr)
 		        if instr(featureArr(n),"locus_tag")>0 then
 		          locus_tag=featureArr(n)
@@ -2126,6 +2118,53 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ExportProteins(outfile as folderitem)
+		  'dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+		  dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+		  
+		  dim n,u as integer
+		  dim ft as GBFeature
+		  
+		  separTransl="/translation="+chr(34)
+		  separProtID="/protein_id="+chr(34)
+		  separGene="/gene="+chr(34)
+		  separProd="/product="+chr(34)
+		  separ2=chr(34)
+		  
+		  Dim s as TextOutputStream=TextOutputStream.Create(outfile)
+		  if s<> NIL then
+		    u=ubound(Genome.Features)
+		    for n=1 to u
+		      ft=Genome.Features(n)
+		      if left(ft.featuretext,3)="CDS" then
+		        TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
+		        TitleLine=">"+NthField(TitleLine,separ2,1)
+		        prot=NthField(ft.FeatureText,separGene,2)                  'Gene
+		        prot=NthField(prot,separ2,1)
+		        if prot<>"" then
+		          TitleLine=TitleLine+" "+prot
+		        end if
+		        prot=NthField(ft.FeatureText,separProd,2)                  'Product
+		        prot=NthField(prot,separ2,1)
+		        TitleLine=TitleLine+" "+prot
+		        TitleLine=replaceall(TitleLine,EndOfLine," ")
+		        
+		        prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
+		        prot=trim(NthField(prot,separ2,1))
+		        if prot<>"" then
+		          s.Writeline TitleLine                                      'Write >Title
+		          s.write prot+EndOfLine.unix                                'and AA seq
+		        end if
+		      end if
+		    next
+		    
+		    s.close
+		    
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ExtractFragment(FragmentStart as integer, FragmentEnd as integer)
 		  dim m,n,p,p1,p2,p3,p4,p5,u as integer
 		  dim FragmentFeature, ft as GBFeature
@@ -2195,7 +2234,7 @@ End
 		      #endif
 		      
 		      'feature description parsing:
-		      cf1=nthfield(CurrentFeature,cLineEnd,1)
+		      cf1=nthfield(CurrentFeature,EndOfLine.unix,1)
 		      name=trim(leftb(cf1,16))      'feature name
 		      
 		      'handle the new Genbank 2015 format (Feature table v. 10.4):
@@ -2423,7 +2462,7 @@ End
 		  dim p,p1,p2,p3,p4,p5 as integer
 		  
 		  'get coordinates:
-		  cf1=nthfield(FeatureText,cLineEnd,1)
+		  cf1=nthfield(FeatureText,EndOfLine.unix,1)
 		  name=trim(leftb(cf1,16))      'feature name
 		  if InStrB(17,cf1,"complement")>0 then
 		    Feature.complement=true
@@ -2638,17 +2677,13 @@ End
 
 	#tag Method, Flags = &h0
 		Sub gbk2protein()
-		  dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
-		  Dim sh As Shell
+		  'dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+		  'Dim sh As Shell
 		  dim outfile As folderitem
 		  dim n,u as integer
 		  dim ft as GBFeature
 		  
-		  separTransl="/translation="+chr(34)
-		  separProtID="/protein_id="+chr(34)
-		  separGene="/gene="+chr(34)
-		  separProd="/product="+chr(34)
-		  separ2=chr(34)
+		  
 		  Dim dlg as New SaveAsDialog
 		  dlg.InitialDirectory=genomefile.Parent
 		  dlg.promptText="Select a name for Fasta file to export protein sequences to."
@@ -2661,55 +2696,28 @@ End
 		    LogoWin.STDOUT.Refresh(false)
 		    Logowin.show
 		    
-		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
-		    if s<> NIL then
-		      u=ubound(Genome.Features)
-		      for n=1 to u
-		        ft=Genome.Features(n)
-		        if left(ft.featuretext,3)="CDS" then
-		          TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
-		          TitleLine=">"+NthField(TitleLine,separ2,1)
-		          prot=NthField(ft.FeatureText,separGene,2)                  'Gene
-		          prot=NthField(prot,separ2,1)
-		          if prot<>"" then
-		            TitleLine=TitleLine+" "+prot
-		          end if
-		          prot=NthField(ft.FeatureText,separProd,2)                  'Product
-		          prot=NthField(prot,separ2,1)
-		          TitleLine=TitleLine+" "+prot
-		          TitleLine=replaceall(TitleLine,EndOfLine," ")
-		          
-		          prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
-		          prot=trim(NthField(prot,separ2,1))
-		          if prot<>"" then
-		            s.Writeline TitleLine                                      'Write >Title
-		            s.write prot+EndOfLine.unix                                'and AA seq
-		          end if
-		        end if
-		      next
-		      
-		      s.close
-		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
-		    end if
-		    
-		    'gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
-		    '
-		    'cli="python "+gbk2tblPath+" "+GenomeFile.ShellPath+" -f > "+outFile.ShellPath
-		    '
-		    'sh=New Shell
-		    'sh.mode=0
-		    'sh.TimeOut=-1
-		    'sh.execute cli
-		    '
-		    'If sh.errorCode=0 then
-		    'LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
-		    '
-		    'else
-		    'LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error Code: "+Str(sh.errorCode)+EndofLine)
-		    'LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
-		    '
-		    'end if
+		    ExportProteins(outfile)
+		    LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
 		  end if
+		  
+		  'gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
+		  '
+		  'cli="python "+gbk2tblPath+" "+GenomeFile.ShellPath+" -f > "+outFile.ShellPath
+		  '
+		  'sh=New Shell
+		  'sh.mode=0
+		  'sh.TimeOut=-1
+		  'sh.execute cli
+		  '
+		  'If sh.errorCode=0 then
+		  'LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		  '
+		  'else
+		  'LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error Code: "+Str(sh.errorCode)+EndofLine)
+		  'LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		  '
+		  'end if
+		  
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
@@ -3259,7 +3267,7 @@ End
 		  'form.Value("seqdb_ranges") = "17277318..17420758" 'trying taxonomy restriction a la the browser version: doesn't work!
 		  form.Value("seq") = theSeq
 		  UniprotSocket.SetFormData(form)
-		  UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
+		  'UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
 		  UniprotSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
 		  Exception err
@@ -3366,6 +3374,7 @@ End
 		  If f <> nil AND f.exists then
 		    Stre=f.OpenAsTextFile
 		    s=stre.readall
+		    s=ReplaceLineEndings(s,EndOfLine.Unix)
 		    Stre.Close
 		  End if
 		  
@@ -3386,34 +3395,36 @@ End
 		    st=instrb(s,"FEATURES             Location/Qualifiers")+41
 		    's0=LineEnd+"BASE COUNT "  'this long in order to terminate parsing properly
 		    
-		    LineEnd=EndOfLine.unix
-		    s0=LineEnd+"ORIGIN"
+		    'LineEnd=EndOfLine.unix
+		    'cLineEnd=EndOfLine.unix
+		    
+		    s0=EndOfLine.unix+"ORIGIN"
 		    '^
 		    '|
 		    'SHOULD USE "origin" INSTEAD OF "BASE COUNT"
 		    en=instrb(s,s0)-1
 		    'line ends may vary wildly, so checking if platform-specific line ends are indeed used
-		    cLineEnd=LineEnd
-		    if en=-1 then  'line ends are different or this may be not a genebank file
-		      s0=LF+"ORIGIN"
-		      en=instrb(s,s0)-1
-		      if en >= 0 then
-		        'set the correct line ends for further use:
-		        cLineEnd=LF
-		      else
-		        s0=CR+"ORIGIN"
-		        en=instrb(s,s0)-1
-		        if en > 0 then 'set the correct line ends for further use:
-		          cLineEnd=CR
-		        else
-		          msgbox "Problem trying to read GenBank format! Annotated features may not be available."
-		        end if
-		      end
-		    end
-		    if cLineEnd="" then
-		      cLineEnd=EndOfLine  'seems to be set wrong for some files
-		    end if
-		    LineEnd=cLineEnd
+		    'cLineEnd=LineEnd
+		    'if en=-1 then  'line ends are different or this may be not a genebank file
+		    's0=LF+"ORIGIN"
+		    'en=instrb(s,s0)-1
+		    'if en >= 0 then
+		    ''set the correct line ends for further use:
+		    'cLineEnd=LF
+		    'else
+		    's0=CR+"ORIGIN"
+		    'en=instrb(s,s0)-1
+		    'if en > 0 then 'set the correct line ends for further use:
+		    'cLineEnd=CR
+		    'else
+		    'msgbox "Problem trying to read GenBank format! Annotated features may not be available."
+		    'end if
+		    'end
+		    'end
+		    'if cLineEnd="" then
+		    'cLineEnd=EndOfLine  'seems to be set wrong for some files
+		    'end if
+		    'LineEnd=cLineEnd
 		    
 		    features=midb(s,st,en-st+1)
 		    
@@ -3439,7 +3450,8 @@ End
 		    
 		    'First remove the blocks of 21 spaces:
 		    features=ReplaceAll(features,"                     ","")
-		    Separator=cLineEnd+"     "
+		    'Separator=cLineEnd+"     "
+		    Separator=EndOfLine.unix+"     "
 		    m=countfields(features,Separator)
 		    currentFeature=""
 		    w.Genome.features(0)=new GBfeature(w.Genome.baselineY)   'this will store map title/sequence size
@@ -3453,7 +3465,7 @@ End
 		      currentFeature=featureArray(n)
 		      
 		      'feature description parsing:
-		      cf1=nthfield(currentFeature,cLineEnd,1)
+		      cf1=nthfield(currentFeature,EndOfLine.unix,1)
 		      name=trim(leftb(cf1,16))      'feature name
 		      
 		      if name ="source" then
@@ -3504,7 +3516,6 @@ End
 		      
 		    next 'n
 		    
-		    's=DefineEncoding ("",Encodings.ASCII)
 		    w.FormattedSequence=trim(rightb(s,len(s)-instrb(s,"ORIGIN")-7))
 		    w.Genome.sequence=CleanUp(w.FormattedSequence)
 		    
@@ -3802,13 +3813,13 @@ End
 		    if Downstream<>"" then
 		      dim newfeat,scar as string
 		      newfeat=Upstream+Downstream
-		      scar=LineEnd+"/gene="+chr(34)+chr(34)
+		      scar=EndOfLine.unix+"/gene="+chr(34)+chr(34)
 		      feature.FeatureText=replaceall(newfeat,scar,"")
 		    end if
 		  else
 		    
 		    if geneLoc=0 then 'adding new name
-		      feature.FeatureText=Upstream+lineend+"/gene="+chr(34)+newGeneName+chr(34)
+		      feature.FeatureText=Upstream+EndOfLine.unix+"/gene="+chr(34)+newGeneName+chr(34)
 		      
 		    else
 		      feature.FeatureText=Upstream+newGeneName+Downstream
@@ -3938,25 +3949,25 @@ End
 		  if stream<>nil then
 		    'write the header:
 		    stream.Write(RTrim(Genome.Description))
-		    stream.Write(LineEnd)
+		    stream.Write(EndOfLine.unix)
 		    'write source:
 		    if gbkSource<>"" then
 		      dim aline as string
-		      'aline="     "+NthField(gbkSource,LineEnd,1)
-		      aline=NthField(gbkSource,LineEnd,1)
+		      'aline="     "+NthField(gbkSource,EndOfLine.unix,1)
+		      aline=NthField(gbkSource,EndOfLine.unix,1)
 		      'write feature coordinates:
 		      stream.WriteLine(aline)
-		      for m=2 to CountFields(gbkSource,LineEnd)
-		        aline="                     "+NthField(gbkSource,LineEnd,m)
+		      for m=2 to CountFields(gbkSource,EndOfLine.unix)
+		        aline="                     "+NthField(gbkSource,EndOfLine.unix,m)
 		        stream.WriteLine(aline)
 		      next
 		    end if
 		    'write features
 		    for n=1 to ubound(genome.features)
 		      'write feature coordinates:
-		      stream.WriteLine("     "+NthField(genome.features(n).FeatureText,LineEnd,1))
-		      for m=2 to CountFields(genome.features(n).FeatureText,LineEnd)
-		        stream.WriteLine("                     "+NthField(genome.features(n).FeatureText,LineEnd,m))
+		      stream.WriteLine("     "+NthField(genome.features(n).FeatureText,EndOfLine.unix,1))
+		      for m=2 to CountFields(genome.features(n).FeatureText,EndOfLine.unix)
+		        stream.WriteLine("                     "+NthField(genome.features(n).FeatureText,EndOfLine.unix,m))
 		      next
 		    next 'n
 		    

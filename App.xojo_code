@@ -10,6 +10,8 @@ Inherits Application
 
 	#tag Event
 		Sub EnableMenuItems()
+		  
+		  
 		  FileMakeSigFile.visible=false
 		  FileConvertSigFilestoFolders.visible=false
 		  
@@ -152,6 +154,11 @@ Inherits Application
 		    AlignmentMEME.Visible=false
 		  #endif
 		  
+		  
+		  //Determine and store CPU core number
+		  CPUcores=CountCPUcores
+		  
+		  
 		End Sub
 	#tag EndEvent
 
@@ -166,7 +173,11 @@ Inherits Application
 		      end if
 		    case "Fasta"
 		      logowin.LoadAlignment(item)
-		      logowin.ChangeView("Logo")
+		      if LengthsDiffer then
+		        logowin.ChangeView("Sequences")
+		      else
+		        logowin.ChangeView("Logo")
+		      end if
 		      logowin.title="SigmoID: "+item.DisplayName
 		    case "SigmoidFile"
 		      logowin.LoadAlignment(item)
@@ -412,6 +423,148 @@ Inherits Application
 			
 			Return True
 			end if
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeCRtagfilteredsearch() As Boolean Handles GenomeCRtagfilteredsearch.Action
+			FilteredSearchWin.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeDeNovoTFBSinference() As Boolean Handles GenomeDeNovoTFBSinference.Action
+			
+			deNovoWin.show
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeGetCRtags() As Boolean Handles GenomeGetCRtags.Action
+			CRtagWin.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeRedundantSeqs() As Boolean Handles GenomeRedundantSeqs.Action
+			RedundantSeqWin.show
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeRunMEMEtwice() As Boolean Handles GenomeRunMEMEtwice.Action
+			// Runs MEME twice (in zoops and anr modes), each time looking for five motifs.
+			'  Results are stored in two subfolders within selected location.
+			
+			Dim MEMEf As FolderItem
+			
+			Dim OutF as folderitem
+			
+			Dim dlg As New SelectFolderDialog
+			dlg.ActionButtonCaption = "Select"
+			dlg.Title = "Select Folder for MEME Output"
+			dlg.PromptText = "Select a folder to store MEME results"
+			'dlg.InitialDirectory = Profile_f.parent
+			
+			OutF = dlg.ShowModal
+			If OutF <> Nil Then
+			
+			dim opt as string
+			dim ErrCode as integer
+			
+			'copy alignment out of virtual volume:
+			dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
+			if alignment_tmp<>NIL then
+			if alignment_tmp.Exists then
+			alignment_tmp.Delete
+			end if
+			LogoWin.LogoFile.CopyFileTo alignment_tmp
+			
+			else
+			msgbox "Can't create temporary file!"
+			'return -1
+			end if
+			
+			opt=" -p " + str(CPUcores)  'for parallelised meme
+			
+			opt=opt+" -dna -minw 17"+" -maxw 23"
+			
+			'[-pal]            force palindromes (requires -dna)
+			'if PalindromicBox.Value then
+			opt=opt+" -pal"
+			'end if
+			
+			'[-revcomp]        allow sites on + or - DNA strands
+			'if GivenStrandBox.Value then
+			'else
+			opt=opt+" -revcomp"
+			'end if
+			
+			'[-nmotifs <nmotifs>]    maximum number of motifs to find
+			opt=opt+" -nmotifs 5"'+MotifNoPopup.Text
+			
+			
+			
+			'Run MEME in Zero or One per sequence' mode:
+			MEMEf=OutF.child("Zoops")
+			FixPath4Windows(MEMEf)
+			
+			if MEMEf<>NIL then
+			if MEMEf.Exists then
+			MEMEf.Delete
+			end if
+			
+			LogoWin.show
+			LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME in zoops mode...")
+			
+			ErrCode=MEME(alignment_tmp, MEMEf, opt+" -mod zoops")
+			If ErrCode=0 then
+			LogoWin.WriteToSTDOUT (" done."+EndofLine)
+			end if
+			
+			
+			'Run MEME in Zero or One per sequence' mode:
+			MEMEf=OutF.child("Anr")
+			FixPath4Windows(MEMEf)
+			
+			if MEMEf<>NIL then
+			if MEMEf.Exists then
+			MEMEf.Delete
+			end if
+			
+			LogoWin.show
+			LogoWin.WriteToSTDOUT ("Running MEME in anr mode...")
+			
+			ErrCode=MEME(alignment_tmp, MEMEf, opt+" -mod anr")
+			If ErrCode=0 then
+			LogoWin.WriteToSTDOUT (" done."+EndofLine)
+			end if
+			
+			LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
+			
+			
+			else
+			msgbox "Can't create MEME output folder!"
+			'return -1
+			end if
+			
+			
+			
+			
+			
+			
+			else
+			
+			End If
+			End If
 			Return True
 			
 		End Function
@@ -775,6 +928,7 @@ Inherits Application
 		61. With RegPrecise4 API access gives slightly different output from the one on the site (no gene names in fasta headers for TFBS seqs) 
 		62. Extend Binding Sites function should work with gapped sites too
 		63. Localise standard dialogues
+		64. Main window bug: quickly dragging the separator all the way up hides it with no way to bring back 
 		
 		64-bit issues:
 		1. [Workarounds added] VirtualVolume is broken
@@ -791,14 +945,24 @@ Inherits Application
 	#tag EndNote
 
 	#tag Note, Name = next version
+		Major features for 2.0:
+		
+		1. Automated de novo TFBS inference
+		2. TomTom (or the like) check of the new profile vs existing ones
+		3. Hmmsearch/tfastx check for TF presence in the genome before TFBS search. (requires inclusion of TF sequence in the profile)
+		4. Work around RegPrecise limitation for checking the TF (either download all TF seqs to avoid SQL query or find another way to get the TF seq)
+		
+		Minor features
 		1. Get regulated gene list for each regulator in RegPrecise
 		   and display that data in the table
 		2. Automate thresholding/calibrated profile construction
-		3. Incorporate TF verification in TFBS search (may need to modify .sig files)
-		4. Add hmmsearch to scan for domains
-		5. Add export of binding sites for a given regulator (or all of them)
+		3. Add hmmsearch to scan for domains?
+		4. Add export of binding sites for a given regulator (or all of them)
 		   in Fasta format (with scores and downstream gene info)
-		6. RemoveSites function
+		5. RemoveSites function
+		6. Scolling and selection in the detail view
+		
+		
 		
 	#tag EndNote
 
