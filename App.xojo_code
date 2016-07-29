@@ -155,8 +155,6 @@ Inherits Application
 		  #endif
 		  
 		  
-		  //Determine and store CPU core number
-		  CPUcores=CountCPUcores
 		  
 		  
 		End Sub
@@ -493,7 +491,9 @@ Inherits Application
 			'return -1
 			end if
 			
+			if CPUcores>1 then
 			opt=" -p " + str(CPUcores)  'for parallelised meme
+			end if
 			
 			opt=opt+" -dna -minw 17"+" -maxw 23"
 			

@@ -495,6 +495,24 @@ Begin Window deNovoWin
       Visible         =   True
       Width           =   140
    End
+   Begin mHTTPSocket hts2
+      Address         =   ""
+      BytesAvailable  =   0
+      BytesLeftToSend =   0
+      Handle          =   0
+      httpProxyAddress=   ""
+      httpProxyPort   =   0
+      Index           =   -2147483648
+      IsConnected     =   False
+      LastErrorCode   =   0
+      LocalAddress    =   ""
+      LockedInPosition=   False
+      Port            =   0
+      RemoteAddress   =   ""
+      Scope           =   0
+      TabPanelIndex   =   0
+      yield           =   False
+   End
 End
 #tag EndWindow
 
@@ -650,6 +668,10 @@ End
 
 	#tag Property, Flags = &h1
 		Protected OutF As folderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		phmmerRes As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -894,6 +916,12 @@ End
 		            // Filter phmmer results
 		            if res<>"" then
 		              FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
+		              
+		              hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
+		              
+		              LogoWin.WriteToSTDOUT (" "+str(hitcount)+" filtered hits found.")
+		              
+		              
 		            else
 		              logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!")
 		            end if
@@ -906,6 +934,11 @@ End
 		      
 		      if hitcount>100 then
 		        LogoWin.WriteToSTDOUT (" Warning! Over 100 ("+str(hitcount)+") filtered hits.")
+		        if hitCount>300 then
+		          LogoWin.WriteToSTDOUT (" Only the first 300 will be processed.")
+		        end if
+		      else
+		        LogoWin.WriteToSTDOUT (str(hitcount)+" filtered hits.")
 		      end if
 		      
 		      
@@ -932,7 +965,6 @@ End
 		          if resfile.exists then
 		            'load existing data
 		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"a fasta file presumably with genome fragments exists in the working directory and will be reused."+EndOfLine.unix)
-		            LogoWin.WriteToSTDOUT ("MEME will not be run – check that results from the previous run are indeed present."+EndOfLine.unix)
 		            instream=resFile.OpenAsTextFile
 		            if instream<>nil then
 		              res=instream.ReadAll
@@ -950,13 +982,19 @@ End
 		            
 		            if FragmentsForAhitF<>Nil then
 		              LogoWin.WriteToSTDOUT (EndOfLine.unix+"Extracting promoter fragments for the hit and neighbour operons..."+EndOfLine.unix)
+		              
+		              
+		              
+		              //add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
+		              
+		              
 		              DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
 		              if dataForMeme<>"" then
 		                // Remove extra (repetitive/too close) seqs
 		                ' leave one seq per species,
 		                ' or one seq per genus if too many seqs
 		                
-		                // Save unfilterd UPS fragments
+		                // Save unfiltered UPS fragments
 		                resfile=Fasta_files.child(ProtNames(n)+"_unfiltered.fasta")
 		                if resfile<>nil then
 		                  OutStream = TextOutputStream.Create(resFile)
@@ -993,12 +1031,7 @@ End
 		                else
 		                  LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a file to store superpromoters around the genes coding for "+ProtNames(n)+".")
 		                  
-		                  
-		                  
 		                end if
-		                
-		                
-		                
 		                
 		              end if
 		            else
@@ -1006,41 +1039,28 @@ End
 		            end if
 		            
 		            
-		            
-		            
-		            
-		            
-		            
-		            
-		            // Run MEME in two modes
-		            dim memeF,f1 as folderitem
-		            memeF=MEME_results.child(ProtNames(n))
-		            memeF.createAsFolder
-		            
-		            
-		            
-		            
-		            
-		            
-		            If memeF <> Nil Then
+		          end if
+		          
+		          
+		          
+		          // Run MEME in two modes
+		          dim memeF,f1 as folderitem
+		          
+		          memeF=MEME_results.child(ProtNames(n))
+		          
+		          If memeF <> Nil Then
+		            if memeF.Exists then
+		              LogoWin.WriteToSTDOUT ("MEME results folder exists, so MEME will not be run. remove this folder ("+memeF.shellpath+") and re-run this procedure if you want to re-generate the  results"+EndOfLine.unix)
+		              
+		            else
+		              memeF.createAsFolder
 		              
 		              dim opt as string
 		              dim ErrCode as integer
 		              
-		              ''copy alignment out of virtual volume:
-		              'dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
-		              'if alignment_tmp<>NIL then
-		              'if alignment_tmp.Exists then
-		              'alignment_tmp.Delete
-		              'end if
-		              'LogoWin.LogoFile.CopyFileTo alignment_tmp
-		              '
-		              'else
-		              'msgbox "Can't create temporary file!"
-		              ''return -1
-		              'end if
-		              
-		              opt=" -p " + str(CPUcores)  'for parallelised meme
+		              if CPUcores>1 then
+		                opt=" -p " + str(CPUcores)  'for parallelised meme
+		              end if
 		              
 		              opt=opt+" -dna -minw 17"+" -maxw 23"
 		              
@@ -1069,7 +1089,7 @@ End
 		                  f1.Delete
 		                end if
 		                
-		                LogoWin.show
+		                'LogoWin.show
 		                LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Running MEME in zoops mode...")
 		                
 		                ErrCode=MEME(resfile, f1, opt+" -mod zoops")
@@ -1079,15 +1099,7 @@ End
 		                
 		                If ErrCode=0 then
 		                  LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
-		                  'dim inpath, outpath As string
-		                  '
-		                  'inpath=f1.child("meme.xml").ShellPath
-		                  'outpath=f1.child("meme.html").ShellPath
-		                  ''meme_xml_to_html should be in the same location with meme
-		                  'cli=MEMEpath+"_xml_to_html "+inpath+" "+outpath
-		                  '
-		                  'sh.execute cli
-		                  'not checking for errors, since html output isn't critical
+		                  
 		                  
 		                else
 		                  
@@ -1103,26 +1115,12 @@ End
 		                    f1.Delete
 		                  end if
 		                  
-		                  LogoWin.show
+		                  'LogoWin.show
 		                  LogoWin.WriteToSTDOUT (EndofLine.unix+"Running MEME in anr mode...")
 		                  
 		                  ErrCode=MEME(resfile, f1, opt+" -mod anr")
 		                  If ErrCode=0 then
-		                    ''convert xml output to html:
-		                    '
-		                    'dim inpath, outpath As string
-		                    '
-		                    'inpath=f1.child("meme.xml").ShellPath
-		                    'outpath=f1.child("meme.html").ShellPath
-		                    ''meme_xml_to_html should be in the same location with meme
-		                    'cli=MEMEpath+"_xml_to_html "+inpath+" "+outpath
-		                    '
-		                    'sh=New Shell
-		                    'sh.mode=0
-		                    'sh.TimeOut=-1
-		                    'sh.execute cli
-		                    ''not checking for errors, since html output isn't critical
-		                    '
+		                    
 		                    LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
 		                  else
 		                    
@@ -1137,26 +1135,12 @@ End
 		                end if
 		                
 		                
-		                
-		                
-		                
-		                
 		              else
 		                
 		              End If
 		            End If
 		            
-		            
-		            
-		            
-		            
-		            
-		            
-		            
 		          end if
-		          
-		          
-		          
 		        else
 		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a folder to store genome fragments for "+ProtNames(n)+".")
 		        end if
@@ -1303,7 +1287,7 @@ End
 #tag Events HmmList
 	#tag Event
 		Sub Open()
-		  me.ColumnWidths="0,100,100,180,*,0" 'checkboxes hidden for now
+		  me.ColumnWidths="0,100,100,200,*,0" 'checkboxes hidden for now
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		  
 		  me.Heading(1)="Name"
@@ -1348,6 +1332,18 @@ End
 		  for k=0 to HmmList.ListCount-1
 		    HmmList.CellCheck(k,0) = false
 		  next
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events hts2
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		  
+		  if httpStatus>=200 AND httpStatus<300 then 'successful
+		    PhmmerRes=defineEncoding(Content,Encodings.ASCII)
+		  else
+		    MsgBox "Problems connecting to HMMER server (HTTP status code "+str(httpStatus)+")"
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1523,6 +1519,11 @@ End
 		Group="ID"
 		Type="String"
 		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="phmmerRes"
+		Group="Behavior"
+		Type="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Placement"

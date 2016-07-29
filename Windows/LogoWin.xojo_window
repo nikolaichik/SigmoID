@@ -1743,8 +1743,8 @@ End
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Sub DownshiftLog(boo as boolean)
+	#tag Method, Flags = &h0
+		Sub DownshiftLog(boo as boolean)
 		  if boo then
 		    if STDOUT.top=0 then
 		      TopPanel.left=0
@@ -4669,6 +4669,11 @@ End
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
+		Name="AlignmentLength"
+		Group="Behavior"
+		Type="String"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="BackColor"
 		Visible=true
 		Group="Appearance"
@@ -4858,6 +4863,11 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="minAlignmentLength"
+		Group="Behavior"
+		Type="string"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MinHeight"

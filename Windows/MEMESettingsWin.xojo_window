@@ -110,6 +110,7 @@ Begin Window MEMESettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kNumberOfMotifs2find"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -320,6 +321,7 @@ Begin Window MEMESettingsWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kMin"
          TextAlign       =   2
          TextColor       =   &c00000000
@@ -354,6 +356,7 @@ Begin Window MEMESettingsWin
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kMax"
          TextAlign       =   2
          TextColor       =   &c00000000
@@ -452,6 +455,7 @@ Begin Window MEMESettingsWin
       Selectable      =   False
       TabIndex        =   25
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kMotifsPerSequence"
       TextAlign       =   0
       TextColor       =   &c00000000

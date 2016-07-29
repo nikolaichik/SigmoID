@@ -94,7 +94,7 @@ Begin Window RedundantSeqWin
       LimitText       =   0
       LineHeight      =   0.0
       LineSpacing     =   1.0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
@@ -133,7 +133,7 @@ Begin Window RedundantSeqWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   500
+      Left            =   438
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -149,7 +149,7 @@ Begin Window RedundantSeqWin
       Top             =   500
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   142
    End
    Begin PushButton PushButton2
       AutoDeactivate  =   True
@@ -165,11 +165,11 @@ Begin Window RedundantSeqWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -201,11 +201,11 @@ Begin Window RedundantSeqWin
       Italic          =   False
       Left            =   206
       LimitText       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -242,7 +242,7 @@ End
 #tag Events PushButton2
 	#tag Event
 		Sub Action()
-		  outArea.text=GetRegSeq1(InArea.text)
+		  outArea.text=GetRegSeq2(InArea.text)
 		  
 		End Sub
 	#tag EndEvent

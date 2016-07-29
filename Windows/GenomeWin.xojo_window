@@ -2126,6 +2126,52 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ExportProteins(Outfile as folderitem)
+		  dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+		  
+		  dim n,u as integer
+		  dim ft as GBFeature
+		  
+		  separTransl="/translation="+chr(34)
+		  separProtID="/protein_id="+chr(34)
+		  separGene="/gene="+chr(34)
+		  separProd="/product="+chr(34)
+		  separ2=chr(34)
+		  
+		  Dim s as TextOutputStream=TextOutputStream.Create(outfile)
+		  if s<> NIL then
+		    u=ubound(Genome.Features)
+		    for n=1 to u
+		      ft=Genome.Features(n)
+		      if left(ft.featuretext,3)="CDS" then
+		        TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
+		        TitleLine=">"+NthField(TitleLine,separ2,1)
+		        prot=NthField(ft.FeatureText,separGene,2)                  'Gene
+		        prot=NthField(prot,separ2,1)
+		        if prot<>"" then
+		          TitleLine=TitleLine+" "+prot
+		        end if
+		        prot=NthField(ft.FeatureText,separProd,2)                  'Product
+		        prot=NthField(prot,separ2,1)
+		        TitleLine=TitleLine+" "+prot
+		        TitleLine=replaceall(TitleLine,EndOfLine," ")
+		        
+		        prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
+		        prot=trim(NthField(prot,separ2,1))
+		        if prot<>"" then
+		          s.Writeline TitleLine                                      'Write >Title
+		          s.write prot+EndOfLine.unix                                'and AA seq
+		        end if
+		      end if
+		    next
+		    
+		    s.close
+		    
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ExtractFragment(FragmentStart as integer, FragmentEnd as integer)
 		  dim m,n,p,p1,p2,p3,p4,p5,u as integer
 		  dim FragmentFeature, ft as GBFeature
