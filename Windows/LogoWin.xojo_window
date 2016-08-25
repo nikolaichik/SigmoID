@@ -2023,7 +2023,7 @@ End
 		  baseX= -3
 		  baseY=150
 		  'read data from the file into array
-		  ReadLogoData
+		  'ReadLogoData
 		  
 		  '#if targetlinux then
 		  LogoPic=new Picture (30*(ubound(logodata)+1),170,32)
@@ -3077,21 +3077,11 @@ End
 		      tis.Close
 		      'RegPrecise data may contain gaps like this:
 		      'TACAGAT-(17)-TTCAGAT-(13)-ATCTGTA-(23)-GTCTGTA
-		      'need to fill the gaps with Ns, but for now just display the warning:
+		      'filling the gaps with Ns:
 		      if instr(sequences,"-(")>0 then
-		        'msgbox "The binding site data may contain gaps. Please replace them with Ns."
-		        dim Ns, gap as string
-		        dim n, m, gapSize as integer
-		        While instr(sequences,"-(")>0 AND instr(sequences,")-")>0
-		          'this assumes there are no -( and )- in sequence names
-		          gapSize=val(NthField(sequences,"-(",2))
-		          'fill the gap:
-		          Ns=""
-		          for m=1 to gapSize
-		            Ns=Ns+"N"
-		          next
-		          sequences=replaceall(sequences,"-("+str(gapSize)+")-",Ns)
-		        wend
+		        
+		        sequences=FillGaps(sequences)
+		        
 		        
 		        'write the seqs back to LogoFile:
 		        dim tos as TextOutputStream
@@ -4672,6 +4662,7 @@ End
 		Name="AlignmentLength"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="BackColor"
@@ -4868,6 +4859,7 @@ End
 		Name="minAlignmentLength"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MinHeight"
