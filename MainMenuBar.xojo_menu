@@ -422,6 +422,13 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem RegulonRegPreciseTFFamilies
+         SpecialMenu = 0
+         Text = "RegPrecise TF Families"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem FileListAllRegulonDBdata
          SpecialMenu = 0
          Text = "#kRegulonDBregulons"

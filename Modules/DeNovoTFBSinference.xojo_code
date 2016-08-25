@@ -4,7 +4,7 @@ Protected Module DeNovoTFBSinference
 		Function ConvertIDtoGenPept(ncbiID as string) As string
 		  // Requires a valid NCBI ID (e.g. the one returned by UniProt2ncbi_ID)
 		  //
-		  // Returns correct ID for the protein sequence in GenPept
+		  // Returns correct ID (currently gi, may break in September 2016) for the protein sequence in GenPept
 		  
 		  // The response from NCBI should look like this:
 		  '<eSearchResult>
@@ -197,6 +197,7 @@ Protected Module DeNovoTFBSinference
 		  dim CRarray(0) as integer
 		  dim TableArray(0) as string
 		  dim AlignmentArray(0) as string
+		  dim ProtName As string
 		  dim currentCDS as string
 		  dim Alignments, hitSeq,currethit,CDStmp, CRtag, CRtagRegion as string
 		  dim m,n,o,p,q,r,fst,CRlen as integer
@@ -225,8 +226,11 @@ Protected Module DeNovoTFBSinference
 		  o=ubound(CRarray)
 		  for n=1 to m step 2
 		    hitseq=AlignmentArray(n)
-		    'CRtag=NthField(hitSeq,"/",1)+" "  'sequence name followed by space
-		    ProtNames.Append(NthField(hitSeq,"/",1))
+		    ProtName=NthField(hitSeq,"/",1)
+		    if InStr(ProtName,"|")>0 then
+		      ProtName=NthField(ProtName,"|",2)
+		    end if
+		    ProtNames.Append(ProtName)
 		    hitseq=NthField(hitSeq," ",countfields(hitseq," ")) 'the seq goes after the last space
 		    hitSeq=ReplaceAll(hitseq,".","") 'removing 'gaps' resulting from insertions in other seqs 
 		    
@@ -237,6 +241,7 @@ Protected Module DeNovoTFBSinference
 		      dim currentHit As string=hitseq
 		      q=0
 		      if left(hitSeq, 1)="-" then 
+		        'hitSeq=Replace(hitSeq,"-","x")
 		        r=len(hitSeq)
 		        for q=2 to r     'trim left end
 		          if mid(hitSeq,q,1)<>"-" then exit
@@ -254,16 +259,43 @@ Protected Module DeNovoTFBSinference
 		      'get extended hit
 		      CDStmp=NthField(CDSseqs,ProtNames(ubound(ProtNames)),2)'precaution for paralogues
 		      dim hitpos as integer = instr(CDStmp,currenthit)
+		      dim gapPos,leftPartStart, rightPartStart as integer
+		      dim leftPart, rightPart, leftExt, rightExt as string
 		      if hitpos=0 then
 		        'zero should be due to gap(s) in the central part of the hit region
 		        'these can probably be tolerated if located outside of the CR tag region,
 		        'so we are replacing 'em with small 'x' here 
-		        'This may leave C terminus truncated, but that shouldn't be a problem
+		        'This may leave C terminus truncated, and this could be a problem 
 		        
-		        currenthit=ReplaceAll(currenthit,"-","x")
+		        'An example of a complex situation (CR tag positions are marked by astericks:
+		        '                            *        ***                  **                           
+		        ' ----VINQIIDDMARGHIP--SPLPSQNALAEMYNISRTTVRHILAHLRDCGVLT---------
+		        '(a warning should be issued if CR tag positions are in non-conserved part of the HTH like in this example)
 		        
+		        
+		        'and if the left end was truncated, we get completely wrong tag here!
+		        'so, we extend the left end by required number of residues first:
+		        gapPos=instr(currenthit,"-")
+		        leftPart=nthfield(currentHit,"-",1)
+		        leftPartStart=instr(CDStmp,leftPart)
+		        leftExt=mid(CDStmp,leftPartStart-q,q)
+		        currenthit=leftext+currentHit
+		        
+		        'extend the right end
+		        rightPart=nthfield(currentHit,"-",countfields(currentHit,"-"))
+		        rightPartStart=instr(CDStmp,rightPart)
+		        rightExt=mid(CDStmp,rightPartStart+len(rightPart),len(hitseq)-len(currenthit))
+		        
+		        'replace dashes so that phmmer doesn't bark at them later
+		        currenthit=ReplaceAll(currenthit,"-","x")+rightExt
 		      else
 		        currenthit=mid(CDStmp,hitpos-q,len(hitSeq))
+		        if len(currentHit)<len(hitSeq) then
+		          'extend the right end
+		          rightPartStart=instr(CDStmp,currenthit)
+		          rightExt=mid(CDStmp,rightPartStart+len(currenthit),len(hitseq)-len(currenthit))
+		          currenthit=currenthit+rightExt
+		        end if
 		        
 		      end if
 		      
@@ -434,16 +466,25 @@ Protected Module DeNovoTFBSinference
 		  
 		  dim DownstreamSize as Integer = 50 ' <-- adjust this/ make configurable!
 		  
+		  'if InStr(UniProtID,"_")>0 then
+		  ''this should be Ensembl ID which is actually a locus_tag directly usable in NCBI system
+		  'tempID1=UniProtID
+		  'else
 		  tempID1 = UniProt2ncbi_ID(UniProtID)
+		  'end if
+		  
 		  if tempID1="" then
+		    
 		    LogoWin.WriteToSTDOUT("Can't find NCBI reference for UniProt entry "+UniProtID+EndOfLine.UNIX)
 		    return ""
+		    
 		  end if
 		  tempID=ConvertIDtoGenPept(tempID1)
 		  if tempID="" then
 		    LogoWin.WriteToSTDOUT("Can't get GenPept ID for NCBI reference "+tempID1+EndOfLine.UNIX)
 		    return ""
 		  end if
+		  
 		  
 		  Entry=FetchGenPeptEntry(tempID)
 		  
@@ -2015,9 +2056,9 @@ Protected Module DeNovoTFBSinference
 		  ' so genus-based filtering is also required.
 		  
 		  
-		  // Check if any filtering is actually required (don't do anything with less than 20 seqs)
+		  // Check if any filtering is actually required (don't do anything with less than 30 seqs)
 		  
-		  if countfields(inSeqs,">")<20 then
+		  if countfields(inSeqs,">")<30 then
 		    return inSeqs
 		  end if
 		  
@@ -2346,6 +2387,7 @@ Protected Module DeNovoTFBSinference
 		- re-using the data from previous run
 		- databases to use (primary and fallback)
 		- number of CPU cores (threads) to use for MEME run
+		- MEME motif widths (currently minw=16, maxw=23)
 		
 	#tag EndNote
 
@@ -2373,7 +2415,7 @@ Protected Module DeNovoTFBSinference
 		12. when comparing motifs, look for CR tag similarity too?
 		13. Require hit motif to be present in the query genome region!
 		14. phmmer search vs local genome-specific DB. Combine fragments from this search with the ones from UniProt search (10+10?)
-		
+		15. Add other DBs for phmmer search: Ensembl Genomes (when there are too few filtered hits)
 		
 		bugs:
 		[fixed] For LysR family ArgP, SftR, AIK14141, AIK14426 with a gap in CR tag region 

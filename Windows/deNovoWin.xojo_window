@@ -1062,7 +1062,7 @@ End
 		                opt=" -p " + str(CPUcores)  'for parallelised meme
 		              end if
 		              
-		              opt=opt+" -dna -minw 17"+" -maxw 23"
+		              opt=opt+" -dna -minw 16"+" -maxw 23"        ' <-- should be configurable!
 		              
 		              '[-pal]            force palindromes (requires -dna)
 		              'if PalindromicBox.Value then
@@ -1139,6 +1139,9 @@ End
 		                
 		              End If
 		            End If
+		            
+		          else
+		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a folder to store MEME results for "+ProtNames(n)+".")
 		            
 		          end if
 		        else
@@ -1524,6 +1527,7 @@ End
 		Name="phmmerRes"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Placement"

@@ -631,6 +631,31 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function FillGaps(sequences as String) As string
+		  'RegPrecise data may contain gaps like this:
+		  'TACAGAT-(17)-TTCAGAT-(13)-ATCTGTA-(23)-GTCTGTA
+		  'filling the gaps with Ns:
+		  if instr(sequences,"-(")>0 then
+		    'msgbox "The binding site data may contain gaps. Please replace them with Ns."
+		    dim Ns, gap as string
+		    dim m, gapSize as integer
+		    While instr(sequences,"-(")>0 AND instr(sequences,")-")>0
+		      'this assumes there are no -( and )- in sequence names
+		      gapSize=val(NthField(sequences,"-(",2))
+		      'fill the gap:
+		      Ns=""
+		      for m=1 to gapSize
+		        Ns=Ns+"N"
+		      next
+		      sequences=replaceall(sequences,"-("+str(gapSize)+")-",Ns)
+		    wend
+		  end if
+		  
+		  return sequences
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub FixPath4Windows(aFile as folderitem)
 		  #if TargetWin32
 		    'a workaround for shellpath glitch
@@ -916,7 +941,8 @@ Protected Module Globals
 		          FastaHeader=""
 		          FastaSequence=site.value("sequence")
 		          FastaHeader=">"+site.value("geneLocusTag")
-		          FastaHeader=FastaHeader+" VIMSSId="+site.value("geneVIMSSId")
+		          FastaHeader=FastaHeader+" geneVIMSSId="+site.value("geneVIMSSId")
+		          FastaHeader=FastaHeader+" regulonId="+site.value("regulonId")
 		          FastaHeader=FastaHeader+" Pos="+site.value("position")
 		          FastaHeader=FastaHeader+" Score="+site.value("score")
 		          AllFasta=AllFasta+FastaHeader+EndOfLine+FastaSequence+EndOfLine
@@ -939,8 +965,27 @@ Protected Module Globals
 		    
 		  else
 		    'single site is of no use for SigmoID!
-		    logowin.WriteToSTDOUT("RegPrecise contains just one site for this regulator. Just ignore it!")
-		    return ""
+		    logowin.WriteToSTDOUT("RegPrecise contains just one site for this regulator. Just ignore it!"+EndOfLine.UNIX)
+		    Try
+		      FastaSequence=""
+		      FastaHeader=""
+		      FastaSequence=sites.value("sequence")
+		      FastaHeader=">"+sites.value("geneLocusTag")
+		      FastaHeader=FastaHeader+" geneVIMSSId="+sites.value("geneVIMSSId")
+		      FastaHeader=FastaHeader+" regulonId="+sites.value("regulonId")
+		      FastaHeader=FastaHeader+" Pos="+sites.value("position")
+		      FastaHeader=FastaHeader+" Score="+sites.value("score")
+		      AllFasta=AllFasta+FastaHeader+EndOfLine+FastaSequence+EndOfLine
+		    Catch err As KeyNotFoundException
+		      if FastaSequence<>"" AND FastaHeader <>"" then
+		        'there's a problem with one of the JSON keys, but it's not fatal
+		        AllFasta=AllFasta+FastaHeader+EndOfLine+FastaSequence+EndOfLine
+		      else
+		        'Serious JSON error
+		        MsgBox("There was a problem parsing RegPrecise data. Sequence number "+str(n)+" was skipped")
+		      end if
+		    End Try
+		    return AllFasta
 		  end if
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:JSON2Fasta")
@@ -959,6 +1004,240 @@ Protected Module Globals
 		  else
 		    return log(numbr)/ln2
 		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MakeLogoPic(logoData as string) As picture
+		  'Information content per position as defined by Schneider et al, 1986
+		  '
+		  ' Ii=2+sum(Fb,i*log2(Fb,i)),
+		  '
+		  'where i is the position within site, b refers to each of the four bases,
+		  'and Fb,i is the frequency of each base at that position
+		  
+		  dim replicas, baseX, currentX,letterData as integer
+		  dim entropy, maxentropy, LetterHeight, baseY, nextY,freq As double
+		  dim posarray(4),letterName, Acount, Ccount, Gcount, Tcount as string
+		  dim totalEntropy as double=0
+		  
+		  
+		  baseX= -3
+		  baseY=150
+		  
+		  
+		  dim Acounter(0) as integer
+		  dim Ccounter(0) as integer
+		  dim Gcounter(0) as integer
+		  dim Tcounter(0) as integer
+		  dim tis as TextInputStream
+		  dim Arow, Achar as string
+		  dim n,n2, SeqLen as integer
+		  dim LogoDatarr(-1) as string
+		  
+		  LogoDatarr=split(logoData,EndOfLine.UNIX)
+		  
+		  'determine seqlength
+		  RegPreciseTFcollectionsWin.siteLength=0
+		  for n=0 to ubound(logodatarr)-1
+		    Arow=trim(LogoDatarr(n)) 'trimming just in case
+		    Achar=left(Arow,1)
+		    if Achar<>">" then
+		      SeqLen=len(Arow)
+		      RegPreciseTFcollectionsWin.siteLength=SeqLen
+		      exit
+		    end if
+		    
+		  next
+		  
+		  
+		  
+		  
+		  Redim Acounter(SeqLen)
+		  Redim Ccounter(SeqLen)
+		  Redim Gcounter(SeqLen)
+		  Redim Tcounter(SeqLen)
+		  
+		  dim LogoPic as new Picture (30*(SeqLen+1),170,32)
+		  LogoPic.Transparent=1
+		  
+		  for n=0 to ubound(logodatarr)-1
+		    Arow=trim(LogoDatarr(n))
+		    Achar=left(Arow,1)
+		    if Achar<>">" AND len(Arow)>0 then
+		      replicas=replicas+1
+		      if len(Arow)<>SeqLen then
+		        'logowin.WriteToSTDOUT "The sequences are of different lengths!"+EndOfLine.UNIX
+		        'WriteToSTDOUT "Can't draw the logo for unaligned sequences, hence just showing them."+EndOfLine.UNIX
+		        'LengthsDiffer=true
+		        'MEMEdata=""
+		        'LogoWin.LogoWinToolbar.Item(4).Enabled=false 'disable 'Palindromise' for unaligned data
+		        
+		        
+		        'should probably return a dummy picture
+		        'however, RegPrecise is cheating here: it shows alignment with extra bases deleted!
+		        'LogoPic.graphics.TextUnit=FontUnits.pixel
+		        LogoPic.graphics.TextSize=48
+		        LogoPic.graphics.ForeColor=&c99999900
+		        LogoPic.graphics.DrawString("(TFBS lengths differ)",2,120)
+		        LengthsDiffer=true
+		        RegPreciseTFcollectionsWin.siteLength=0
+		        exit
+		      else
+		        LengthsDiffer=false
+		      end if
+		      
+		      for n2=1 to SeqLen
+		        Achar=mid(Arow,n2,1)
+		        select case Achar
+		        case "A"
+		          Acounter(n2)=Acounter(n2)+1
+		        case "C"
+		          Ccounter(n2)=Ccounter(n2)+1
+		        case "G"
+		          Gcounter(n2)=Gcounter(n2)+1
+		        case "T"
+		          Tcounter(n2)=Tcounter(n2)+1
+		        case "N"
+		          'do nothing
+		        case "-"
+		          'do nothing
+		        case else
+		          msgbox "Unexpected non-nucleotide character in input (only ACGTN- allowed)."
+		          return LogoPic
+		        end select
+		      next
+		    end if
+		    
+		  next
+		  
+		  if not LengthsDiffer then
+		    for n=1 to SeqLen
+		      'combine letter names with counts for sorting
+		      if Acounter(n)=0 AND Ccounter(n)=0 AND Gcounter(n)=0 AND Tcounter(n)=0 then
+		        'some sites (e.g. in RegPrecise) have all 'N' positions
+		        entropy=0
+		      else
+		        posarray(1)=format(Acounter(n),"000")+"A"
+		        posarray(2)=format(Ccounter(n),"000")+"C"
+		        posarray(3)=format(Gcounter(n),"000")+"G"
+		        posarray(4)=format(Tcounter(n),"000")+"T"
+		        posarray.Sort
+		        entropy=2
+		        freq=Acounter(n)/replicas
+		        entropy=entropy+freq*log2(freq)
+		        freq=Ccounter(n)/replicas
+		        entropy=entropy+freq*log2(freq)
+		        freq=Gcounter(n)/replicas
+		        entropy=entropy+freq*log2(freq)
+		        freq=Tcounter(n)/replicas
+		        entropy=entropy+freq*log2(freq)
+		      end if
+		      
+		      totalEntropy=totalEntropy+entropy
+		      
+		      'lowest letter
+		      letterData=val(posarray(1))
+		      letterName=right(posarray(1),1)
+		      LetterHeight=70*entropy*letterData/replicas
+		      NextY=baseY-letterheight
+		      CurrentX=baseX+n*30
+		      select case letterName
+		      case "A"
+		        LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "C"
+		        LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "G"
+		        LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "T"
+		        LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      end select
+		      
+		      'second lowest letter
+		      letterData=val(posarray(2))
+		      letterName=right(posarray(2),1)
+		      LetterHeight=70*entropy*letterData/replicas
+		      NextY=NextY-LetterHeight
+		      select case letterName
+		      case "A"
+		        LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "C"
+		        LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "G"
+		        LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "T"
+		        LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      end select
+		      
+		      'third lowest letter
+		      letterData=val(posarray(3))
+		      letterName=right(posarray(3),1)
+		      LetterHeight=70*entropy*letterData/replicas
+		      NextY=NextY-LetterHeight
+		      select case letterName
+		      case "A"
+		        LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "C"
+		        LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "G"
+		        LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "T"
+		        LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      end select
+		      
+		      'topmost letter
+		      letterData=val(posarray(4))
+		      letterName=right(posarray(4),1)
+		      LetterHeight=70*entropy*letterData/replicas
+		      NextY=NextY-LetterHeight
+		      select case letterName
+		      case "A"
+		        LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "C"
+		        LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "G"
+		        LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      case "T"
+		        LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		      end select
+		      
+		    next
+		    
+		    'draw rulers
+		    'horisontal:
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY+3,baseX+30*(n),BaseY+3)
+		    for n=1 to Seqlen
+		      LogoPic.graphics.DrawLine(baseX+15+30*n,BaseY+3,baseX+15+30*n,BaseY+7)
+		    next
+		    for n=5 to Seqlen step 5
+		      LogoPic.graphics.DrawString(str(n),baseX+10+30*n,baseY+20)
+		    next
+		    
+		    'vertical:
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY+3,baseX+25,BaseY-140)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY-140,baseX+18,BaseY-140)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY-70,baseX+18,BaseY-70)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY,baseX+18,BaseY)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY-105,baseX+21,BaseY-105)
+		    LogoPic.graphics.DrawLine(baseX+25,BaseY-35,baseX+21,BaseY-35)
+		    
+		    LogoPic.graphics.DrawString("0",6,baseY+5)
+		    LogoPic.graphics.DrawString("1",6,baseY-65)
+		    LogoPic.graphics.DrawString("2",6,baseY-135)
+		  end if
+		  
+		  'return LogoPic
+		  
+		  'scale the picture down to 35 pixel heigh and stretch it horisontally a bit
+		  dim LogoPicScaled as new Picture (LogoPic.width*50/170,35,32)
+		  LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPic.width*50/170,35,0,0,LogoPic.width,LogoPic.Height)
+		  
+		  LogoPicScaled.Transparent=1
+		  RegPreciseTFcollectionsWin.InfoBits=totalEntropy
+		  return LogoPicScaled
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:MakeLogoPic")
 		End Function
 	#tag EndMethod
 
@@ -2449,6 +2728,11 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CPUcores"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CR"

@@ -409,7 +409,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   198
+      Left            =   238
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -428,7 +428,7 @@ Begin Window ScanGenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   208
+      Width           =   168
    End
 End
 #tag EndWindow
