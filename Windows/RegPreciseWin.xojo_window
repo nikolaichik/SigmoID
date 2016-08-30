@@ -48,6 +48,7 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -176,6 +177,7 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -745,7 +747,7 @@ End
 #tag Events Label2
 	#tag Event
 		Sub Open()
-		  me.text=kGenome+":"
+		  'me.text=kGenome+":"
 		End Sub
 	#tag EndEvent
 #tag EndEvents

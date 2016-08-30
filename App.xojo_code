@@ -761,6 +761,9 @@ Inherits Application
 		          dlg.SuggestedFileName=SigFolder.displayname+".sig"
 		          dlg.Title="Save .sig file"
 		          dlg.Filter=FileTypes.Sig_file
+		          dlg.CancelButtonCaption=kCancel
+		          dlg.ActionButtonCaption=kSave
+		          
 		          SigFile=dlg.ShowModal()
 		          If SigFile <> Nil then
 		            if SigFile.exists then

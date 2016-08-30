@@ -128,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -851,6 +852,8 @@ End
 			dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".hmm"
 			dlg.Title="Export hmm Profile"
 			dlg.Filter=FileTypes.Text
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			HmmFile=dlg.ShowModalwithin(self)
 			if HmmFile<>nil then
 			dim StockholmFile as FolderItem = SpecialFolder.Temporary.child("stock")
@@ -887,6 +890,8 @@ End
 			dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".sto"
 			dlg.Title="Export alignment in Stockholm format"
 			dlg.Filter=FileTypes.Text
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			StockholmFile=dlg.ShowModalwithin(self)
 			if StockholmFile<>nil then
 			Stockholm(LogoFile,StockholmFile,"")
@@ -940,6 +945,8 @@ End
 			dlg.SuggestedFileName=NthField(LogoFile.Name,".",1)+"_short.fasta"
 			dlg.Title="Save subrange of the alignment"
 			'dlg.Filter=FileTypes1.Text  //defined as a file type in FileTypes1 File Type Set
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			outfile=dlg.ShowModal()
 			If outfile <> Nil then
 			dim instream as TextInputStream
@@ -1114,6 +1121,8 @@ End
 			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 			dlg.Title="Save genome file"
 			dlg.Filter=FileTypes.genbank
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			outfile=dlg.ShowModal()
 			if outfile<>nil then
 			MastGenSettingsWin.ReadOptions
@@ -1251,6 +1260,8 @@ End
 			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 			dlg.Title="Save genome file"
 			dlg.Filter=FileTypes.genbank
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			outfile=dlg.ShowModal()
 			if outfile<>nil then
 			HmmGenSettingsWin.ReadOptions
@@ -3865,6 +3876,8 @@ End
 		        dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 		        dlg.Title="Save genome file"
 		        dlg.Filter=FileTypes.genbank
+		        dlg.CancelButtonCaption=kCancel
+		        dlg.ActionButtonCaption=kSave
 		        outfile=dlg.ShowModal()
 		        if outfile<>nil then
 		          HmmGenSettingsWin.ReadOptions
@@ -3981,6 +3994,8 @@ End
 		      dlg.SuggestedFileName=NthField(LogoFile.Name,".",1)+".Png"
 		      dlg.Title="Save Logo"
 		      'dlg.Filter=FileTypes1.Text  //defined as a file type in FileTypes1 file type set
+		      dlg.CancelButtonCaption=kCancel
+		      dlg.ActionButtonCaption=kSave
 		      f=dlg.ShowModal()
 		      If f <> Nil then
 		        LogoPic.Save(f, Picture.SaveAsPNG)

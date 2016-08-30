@@ -434,6 +434,7 @@ Protected Class GBFeature
 			Name="protein_id"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="RightTrunc"

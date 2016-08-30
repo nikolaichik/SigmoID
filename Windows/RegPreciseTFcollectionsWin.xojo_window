@@ -263,13 +263,13 @@ Begin Window RegPreciseTFcollectionsWin
       Cancel          =   False
       Caption         =   "#kExportSelected"
       Default         =   False
-      Enabled         =   True
+      Enabled         =   False
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   493
+      Left            =   484
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -285,7 +285,7 @@ Begin Window RegPreciseTFcollectionsWin
       Top             =   382
       Underline       =   False
       Visible         =   True
-      Width           =   191
+      Width           =   200
    End
    Begin BevelButton BevelButton3
       AcceptFocus     =   True
@@ -969,7 +969,7 @@ End
 #tag Events Label2
 	#tag Event
 		Sub Open()
-		  me.text=kGenome+":"
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1123,12 +1123,176 @@ End
 #tag Events ExportButton
 	#tag Event
 		Sub Action()
-		  'make tmp folder
+		  Dim dlg as New SaveAsDialog
+		  dim outfile as folderitem
 		  
-		  'write meme files to tmp folder
+		  'dlg.InitialDirectory=genomefile.Parent
+		  dlg.promptText=kTFfamilyExportDesc
+		  'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".meme"
+		  dlg.SuggestedFileName="Untitled.meme"
+		  dlg.Title=kExportProfiles
+		  dlg.Filter=FileTypes.meme
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  outfile=dlg.ShowModalwithin(self)
+		  if outfile<>nil then
+		    LogoWin.WriteToSTDOUT (EndofLine+kExportingProfiles)
+		    LogoWin.STDOUT.Refresh(false)
+		    Logowin.show
+		    
+		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
+		    if s<> NIL then
+		      s.Write
+		      
+		      
+		      
+		      // make tmp folder
+		      dim TFfamily_tmp as FolderItem = SpecialFolder.Temporary.child("TFfamily_tmp")
+		      if TFfamily_tmp <> nil then
+		        TFfamily_tmp.CreateAsFolder
+		      else 
+		        msgbox "Can't create tmp folder"
+		        return
+		      end if
+		      
+		      // write 'sites' files to tmp folder
+		      ' (simple text files named a la regulogID.txt
+		      ' regulogID will be used as motif ID and will be added to RegPrecise URL when converting 
+		      
+		      dim m,n as integer
+		      dim fastaLines(-1) as string
+		      dim sitesFile as folderitem
+		      dim tos as TextOutputStream
+		      dim RegulonID as string
+		      
+		      for n=0 to CollectionList.ListCount-1
+		        if CollectionList.CellCheck(n,0) then
+		          sitesFile=TFfamily_tmp.Child(CollectionList.Cell(n,6)+".txt")
+		          if sitesFile<>nil then
+		            tos=TextOutputStream.Create(sitesFile)
+		            if tos <>nil then
+		              fastaLines=split(CollectionList.Cell(n,7), endofline.UNIX)
+		              for m=0 to ubound(fastaLines)-1
+		                if left(fastaLines(m),1)<>">" then
+		                  tos.Writeline fastaLines(m)
+		                  
+		                end if
+		              next
+		              tos.close
+		            else
+		              msgbox "can't write to tmp file"
+		            end if
+		          else
+		            msgbox "Can't create tmp file"
+		          end if
+		          
+		          
+		        end if
+		      next
+		      
+		      // add sites.map file to the same folder pairing motif ID with its name
+		      ' (one space separated pair per line)
+		      dim sitesMap as folderitem
+		      
+		      sitesMap=TFfamily_tmp.Child("sites.map")
+		      if sitesMap<>nil then
+		        tos=TextOutputStream.Create(sitesMap)
+		        if tos<>nil then
+		          for n=0 to CollectionList.ListCount-1
+		            if CollectionList.CellCheck(n,0) then
+		              tos.writeline CollectionList.Cell(n,6)+" "+Replace(CollectionList.Cell(n,1)," – ","_")
+		            end if
+		          next
+		          tos.close
+		        else
+		          msgbox "can't write to sites.map file"
+		        end if
+		        
+		      else
+		        msgbox "Can't create the sites.map file"
+		      end if
+		      
+		      // convert all tmp files to a single minimal meme file
+		      ' sites2meme command should look like 
+		      ' sites2meme -map /Users/Home/Desktop/sites2meme_test/sites.map -url http://regprecise.lbl.gov/Services/rest/sites?regulogId=MOTIF_NAME /Users/Home/Desktop/sites2meme_test
+		      
+		      ' sample output is like this:
+		      'MEME version 4
+		      '
+		      'ALPHABET= ACGT
+		      '
+		      'strands: + -
+		      '
+		      'Background letter frequencies (from uniform background):
+		      'A 0.25000 C 0.25000 G 0.25000 T 0.25000 
+		      '
+		      'MOTIF site1 TfbS
+		      '
+		      'letter-probability matrix: alength= 4 w= 7 nsites= 14 E= 0
+		      '0.714286      0.214286      0.071429      0.000000    
+		      '0.714286      0.000000      0.285714      0.000000    
+		      '0.000000      0.000000      1.000000      0.000000    
+		      '0.000000      0.000000      1.000000      0.000000    
+		      '0.000000      0.000000      0.000000      1.000000    
+		      '0.000000      1.000000      0.000000      0.000000    
+		      '0.928571      0.000000      0.071429      0.000000    
+		      '
+		      'URL http://regprecise.lbl.gov/Services/rest/sites?regulogId=site1
+		      '
+		      'MOTIF site2 RegR
+		      '
+		      'letter-probability matrix: alength= 4 w= 7 nsites= 14 E= 0
+		      '0.500000      0.428571      0.071429      0.000000    
+		      '0.714286      0.000000      0.285714      0.000000    
+		      '0.000000      0.000000      1.000000      0.000000    
+		      '0.000000      0.000000      1.000000      0.000000    
+		      '0.000000      0.000000      0.000000      1.000000    
+		      '0.000000      1.000000      0.000000      0.000000    
+		      '0.785714      0.000000      0.214286      0.000000    
+		      '
+		      'URL http://regprecise.lbl.gov/Services/rest/sites?regulogId=site2
+		      
+		      // modify the resulting meme file removing motif ID from the header but adding family name instead 
+		      ' (motif ID remains in the URL anyway)
+		      ' so, 
+		      ' MOTIF site1 TfbS
+		      ' should become
+		      ' MOTIF TfbS LacI-family
+		      
+		      dim sites2memePath as string
+		      #if targetWin32
+		        sites2memePath=nthfield(MEMEpath,"/meme.exe",1)+"/sites2meme"
+		      #else
+		        sites2memePath=left(MEMEpath,len(MEMEpath)-4)+"sites2meme"
+		      #endif
+		      
+		      dim cli as string
+		      cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
+		      cli=sites2memePath+" "+"-url http://regprecise.lbl.gov/Services/rest/sites?regulogId=MOTIF_NAME"
+		      cli=sites2memePath+" "+TFfamily_tmp.ShellPath
+		      
+		      dim sh As Shell
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      sh.execute cli
+		      
+		      
+		      If sh.errorCode=0 then
+		        'write the file
+		        s.Write sh.Result
+		        s.close
+		        LogoWin.WriteToSTDOUT (" Done!")
+		        
+		      else
+		        msgbox sh.result
+		      end if
+		    end if
+		  end if
 		  
-		  'convert all tmp files to a single minimal meme file
-		  '(meme2meme; prompt for family name)
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseTFcollectionsWin:ExportButton")
+		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1250,6 +1414,11 @@ End
 		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="InfoBits"
+		Group="Behavior"
+		Type="double"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Interfaces"
 		Visible=true
 		Group="ID"
@@ -1363,6 +1532,11 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="siteLength"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SocketTask"

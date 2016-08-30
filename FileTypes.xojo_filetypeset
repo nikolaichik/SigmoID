@@ -116,4 +116,18 @@
 		Imported=True
 	#tag EndFileType
 
+	#tag FileType
+		CodeName=MEME
+		Extension=.meme;.MEME
+		Flags=&h0
+		MacCreator=
+		MacType=
+		Name=MEME
+		UTI=
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=True
+	#tag EndFileType
+
 #tag EndFileTypeSet

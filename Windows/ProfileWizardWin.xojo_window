@@ -75,6 +75,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kTrusted1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -152,6 +153,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kGathering1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -229,6 +231,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kNoise1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -349,6 +352,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "MAST p-value threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -443,6 +447,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Feature to add:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -585,6 +590,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kQualifier"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -958,6 +964,8 @@ End
 		    dlg.SuggestedFileName=trim(ValueField.Text)+".sig"
 		    dlg.filter = "Sig_file"
 		    dlg.InitialDirectory = Profile_f
+		    dlg.CancelButtonCaption=kCancel
+		    dlg.ActionButtonCaption=kSave
 		    
 		    SigFile=dlg.ShowModal
 		    If SigFile <> Nil then
@@ -1253,6 +1261,8 @@ End
 		    dlg.SuggestedFileName=trim(ValueField.Text)+".sig"
 		    dlg.filter = "Sig_file"
 		    dlg.InitialDirectory = Profile_f
+		    dlg.CancelButtonCaption=kCancel
+		    dlg.ActionButtonCaption=kSave
 		    
 		    SigFile=dlg.ShowModal
 		    If SigFile <> Nil then
