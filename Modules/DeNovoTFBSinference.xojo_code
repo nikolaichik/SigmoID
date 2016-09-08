@@ -2046,9 +2046,9 @@ Protected Module DeNovoTFBSinference
 		Function RemoveRedundantSeqs(inSeqs as string, genusSpecific as boolean) As string
 		  // There are still empty seqs (NNN) = remove these first and before this method!!!
 		  
-		  // SOmetimes there are too long seqs (over 2k) – these should probably be removed too.
+		  // Sometimes there are too long seqs (over 2k) – these should probably be removed too.
 		  
-		  // Clustering according to homology should performed
+		  // Clustering according to homology should be performed
 		  '  At the moment, we only filter seqs according to species names (leaving one representative for a species)
 		  
 		  ' Filtering according to species name doesn't help much if original search 

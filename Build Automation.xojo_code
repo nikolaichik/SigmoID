@@ -3,7 +3,7 @@
 				Begin BuildProjectStep Build
 				End
 				Begin CopyFilesBuildStep CopyResources32bit
-					AppliesTo = 2
+					AppliesTo = 1
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vUHJvZmlsZXMv
@@ -33,13 +33,13 @@
 					FolderItem = Li4vVEZfSE1Ncy8=
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
-					AppliesTo = 2
+					AppliesTo = 1
 					Destination = 0
 					Subdirectory = 
 					FolderItem = Li4vU2lnbW9JRC5zaA==
 				End
 				Begin CopyFilesBuildStep CopyResources64bit
-					AppliesTo = 1
+					AppliesTo = 0
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==
@@ -66,6 +66,7 @@
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvUHJvZmlsZXMv
 					FolderItem = Li4vVEZfSE1Ncy8=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvY2QtaGl0LWVzdA==
 				End
 			End
 			Begin BuildStepList Mac OS X
@@ -99,6 +100,7 @@
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9jZC1oaXQtZXN0
 				End
 			End
 			Begin BuildStepList Windows

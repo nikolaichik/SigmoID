@@ -990,11 +990,12 @@ End
 		              
 		              DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
 		              if dataForMeme<>"" then
+		                
 		                // Remove extra (repetitive/too close) seqs
 		                ' leave one seq per species,
 		                ' or one seq per genus if too many seqs
 		                
-		                // Save unfiltered UPS fragments
+		                ' Save unfiltered UPS fragments
 		                resfile=Fasta_files.child(ProtNames(n)+"_unfiltered.fasta")
 		                if resfile<>nil then
 		                  OutStream = TextOutputStream.Create(resFile)
@@ -1012,20 +1013,58 @@ End
 		                  
 		                end if
 		                
-		                DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
-		                DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
+		                
+		                
 		                
 		                LogoWin.WriteToSTDOUT (" Done extracting genome fragments."+EndOfLine.unix)
 		                
 		                // Save UPS fragments used for MEME run
-		                resfile=Fasta_files.child(ProtNames(n)+".fasta")
-		                if resfile<>nil then
-		                  OutStream = TextOutputStream.Create(resFile)
-		                  if outStream<>Nil then
-		                    outstream.Write(DataForMeme)
-		                    outstream.close
-		                    'LogoWin.WriteToSTDOUT (" Done.")
+		                
+		                dim resfile2 as folderitem
+		                resfile2=Fasta_files.child(ProtNames(n)+".fasta")
+		                if resfile2<>nil then
+		                  'run cd-hit if present
+		                  dim CDhit as folderitem
+		                  
+		                  
+		                  #if TargetWindows
+		                    CDhit=Resources_f.child("cd-hit-est.exe")
+		                  #else
+		                    CDhit=Resources_f.child("cd-hit-est")
+		                  #endif
+		                  
+		                  if CDhit<>nil AND CDhit.exists then
+		                    'dim cli as string
+		                    cli=CDhit.ShellPath+" -i " + resFile.ShellPath + " -o "+ resFile2.ShellPath + " -d 100"
 		                    
+		                    sh=New Shell
+		                    sh.mode=0
+		                    sh.TimeOut=-1
+		                    sh.execute cli
+		                    
+		                    If sh.errorCode <> 0 then
+		                      msgbox "Problem running CD-Hit"
+		                    end if
+		                    
+		                    
+		                    
+		                    
+		                    
+		                    
+		                    
+		                  else
+		                    'use genus/species filtering if cd-hit isn't present
+		                    DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
+		                    DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
+		                    
+		                    
+		                    OutStream = TextOutputStream.Create(resFile2)
+		                    if outStream<>Nil then
+		                      outstream.Write(DataForMeme)
+		                      outstream.close
+		                      'LogoWin.WriteToSTDOUT (" Done.")
+		                      
+		                    end if
 		                  end if
 		                  
 		                else

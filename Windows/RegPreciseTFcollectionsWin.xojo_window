@@ -58,7 +58,7 @@ Begin Window RegPreciseTFcollectionsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   83
+      Width           =   93
    End
    Begin PopupMenu GenomesPopup
       AutoDeactivate  =   True
@@ -72,7 +72,7 @@ Begin Window RegPreciseTFcollectionsWin
       InitialParent   =   ""
       InitialValue    =   "#kSelectTFfam"
       Italic          =   False
-      Left            =   94
+      Left            =   113
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -89,7 +89,7 @@ Begin Window RegPreciseTFcollectionsWin
       Top             =   20
       Underline       =   False
       Visible         =   True
-      Width           =   659
+      Width           =   640
    End
    Begin Listbox CollectionList
       AutoDeactivate  =   True
@@ -419,6 +419,40 @@ Begin Window RegPreciseTFcollectionsWin
       Visible         =   True
       Width           =   140
    End
+   Begin Label ProgressLabel
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   71
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      Text            =   ""
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   382
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   388
+   End
 End
 #tag EndWindow
 
@@ -589,10 +623,11 @@ End
 		        
 		        if ubound(GenomeStatsArray)=-1 then
 		          GenomeStatsArray.append genomes(n)
-		          GenomeString=JSONItem(genomes(n)).Value("name")+" ("+JSONItem(genomes(n)).Value("tfCount")+" TFs)"
+		          GenomeString=JSONItem(genomes(n)).Value("name")+" ("+JSONItem(genomes(n)).Value("tfCount")+" TFs, "+JSONItem(genomes(n)).Value("tfRegulogCount")+" regulogs, "+JSONItem(genomes(n)).Value("tfSiteCount")+" TFBSs)"
 		          GenomesPopup.AddRow(genomestring)
 		        else
-		          GenomeString=JSONItem(genomes(n)).Value("name")+" ("+JSONItem(genomes(n)).Value("tfCount")+" TFs)"
+		          GenomeString=JSONItem(genomes(n)).Value("name")+" ("+JSONItem(genomes(n)).Value("tfCount")+" TFs, "+JSONItem(genomes(n)).Value("tfRegulogCount")+" regulogs, "+JSONItem(genomes(n)).Value("tfSiteCount")+" TFBSs)"
+		          
 		          if GenomesPopup.list(GenomesPopup.ListCount-1)<>GenomeString then 'RegPrecise bug: every item in JSON is duplicated! 
 		            GenomeStatsArray.append genomes(n)
 		            GenomesPopup.AddRow(genomestring)
@@ -678,6 +713,21 @@ End
 		  '
 		  'return ubound(strains)
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function CountSelRows() As integer
+		  dim lb as Listbox=RegPreciseTFcollectionsWin.CollectionList
+		  dim n, CheckedRows as integer
+		  
+		  for n=0 to lb.ListCount-1
+		    if lb.CellCheck(n,0) then
+		      CheckedRows=CheckedRows+1
+		    end if
+		  next
+		  
+		  return CheckedRows
 		End Function
 	#tag EndMethod
 
@@ -794,6 +844,10 @@ End
 		          
 		          'add picture to the last row as variant, so it is sorted properly 
 		          CollectionList.RowTag(collectionlist.LastIndex)=p
+		          
+		          'Update progress text
+		          ProgressLabel.Text="Loading profiles: "+str(CollectionList.ListCount)
+		          
 		        end if
 		      end if
 		      
@@ -1045,6 +1099,14 @@ End
 		  Return True
 		End Function
 	#tag EndEvent
+	#tag Event
+		Sub CellAction(row As Integer, column As Integer)
+		  if column=0 then
+		    ProgressLabel.Text=str(CountSelRows)+" profiles selected"
+		  end if
+		  
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events RegPreciseSocket
 	#tag Event
@@ -1125,11 +1187,14 @@ End
 		Sub Action()
 		  Dim dlg as New SaveAsDialog
 		  dim outfile as folderitem
+		  dim FamilyName as string
+		  
+		  FamilyName=NthField(GenomesPopup.Text," ",1)
 		  
 		  'dlg.InitialDirectory=genomefile.Parent
 		  dlg.promptText=kTFfamilyExportDesc
 		  'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".meme"
-		  dlg.SuggestedFileName="Untitled.meme"
+		  dlg.SuggestedFileName=FamilyName+"_RegPrecise.meme"
 		  dlg.Title=kExportProfiles
 		  dlg.Filter=FileTypes.meme
 		  dlg.CancelButtonCaption=kCancel
@@ -1158,6 +1223,9 @@ End
 		      // write 'sites' files to tmp folder
 		      ' (simple text files named a la regulogID.txt
 		      ' regulogID will be used as motif ID and will be added to RegPrecise URL when converting 
+		      
+		      ' for palindromic sites, rev. complements should probably be added here
+		      ' as RegPrecise ignores site symmetry (currently, sites are written as they are) 
 		      
 		      dim m,n as integer
 		      dim fastaLines(-1) as string
@@ -1311,6 +1379,8 @@ End
 		  for k=0 to CollectionList.ListCount-1
 		    CollectionList.CellCheck(k,0) = false
 		  next
+		  ProgressLabel.Text=""
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1322,6 +1392,9 @@ End
 		  for k=0 to CollectionList.ListCount-1
 		    CollectionList.CellCheck(k,0) = true
 		  next
+		  
+		  ProgressLabel.Text=str(CountSelRows)+" profiles selected"
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
