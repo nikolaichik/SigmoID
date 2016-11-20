@@ -397,6 +397,63 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function DeleteEntireFolder(theFolder as folderitem, continueIfErrors as Boolean = false) As integer
+		  // From LR with no modifications
+		  
+		  dim returnCode, lastErr, itemCount as integer
+		  dim files(), dirs() as FolderItem
+		  
+		  // Collect the folder‘s contents first.
+		  // This is faster than collecting them in reverse order and deleting them right away!
+		  itemCount = theFolder.Count
+		  for i as integer = 1 to itemCount
+		    dim f as FolderItem
+		    f = theFolder.TrueItem( i )
+		    if f <> nil then
+		      if f.Directory then
+		        dirs.Append f
+		      else
+		        files.Append f
+		      end if
+		    end if
+		  next
+		  
+		  // Now delete the files
+		  for each f as FolderItem in files
+		    f.Delete
+		    lastErr = f.LastErrorCode   // Check if an error occurred
+		    if lastErr <> 0 then
+		      if continueIfErrors then
+		        if returnCode = 0 then returnCode = lastErr
+		      else
+		        // Return the error code if any. This will cancel the deletion.
+		        return lastErr
+		      end if
+		    end if
+		  next
+		  
+		  // Now delete the directories
+		  for each f as FolderItem in dirs
+		    lastErr = DeleteEntireFolder( f, continueIfErrors )
+		    if lastErr <> 0 then
+		      if continueIfErrors then
+		        if returnCode = 0 then returnCode = lastErr
+		      else
+		        // Return the error code if any. This will cancel the deletion.
+		        return lastErr
+		      end if
+		    end if
+		  next
+		  
+		  if returnCode = 0 then
+		    // We‘re done without error, so the folder should be empty and we can delete it.
+		    theFolder.Delete
+		    returnCode = theFolder.LastErrorCode
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DrawRuler(width as integer, baseY as integer, bp as integer) As Group2D
 		  'Routine to draw  the ruler on linear maps
 		  
@@ -940,7 +997,7 @@ Protected Module Globals
 		          FastaSequence=""
 		          FastaHeader=""
 		          FastaSequence=site.value("sequence")
-		          FastaHeader=">"+site.value("geneLocusTag")
+		          FastaHeader=">"+site.value("geneLocusTag")   'this key is missing quite often in RegPrecise data
 		          FastaHeader=FastaHeader+" geneVIMSSId="+site.value("geneVIMSSId")
 		          FastaHeader=FastaHeader+" regulonId="+site.value("regulonId")
 		          FastaHeader=FastaHeader+" Pos="+site.value("position")
@@ -951,8 +1008,10 @@ Protected Module Globals
 		            'there's a problem with one of the JSON keys, but it's not fatal
 		            AllFasta=AllFasta+FastaHeader+EndOfLine+FastaSequence+EndOfLine
 		          else
-		            'Serious JSON error
-		            MsgBox("There was a problem parsing RegPrecise data. Sequence number "+str(n)+" was skipped")
+		            'JSON error, missing keys occur quite often with RegPrecise data 
+		            
+		            'Log the error: 
+		            LogoWin.WriteToSTDOUT("There was a problem parsing RegPrecise data. Sequence number "+str(n)+" was skipped"+EndOfLine.unix)
 		          end if
 		        End Try
 		        
@@ -2182,6 +2241,32 @@ Protected Module Globals
 		  outstream.close
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TemporaryFolder() As FolderItem
+		  // On Linux, SpecialFolder.Temporary returns /tmp/ (the same for all users!)
+		  // this creates permission conflicts with temporary files on multi-user machines
+		  
+		  #if TargetLinux
+		    dim userName as string=SpecialFolder.UserHome '/tmp/UserHome/
+		    userName=NthField(userName,"/",2)
+		    
+		    dim tmpF as folderitem=SpecialFolder.Temporary.Child(userName)
+		    if tmpF<>Nil then
+		      if NOT tmpF.Exists then
+		        tmpf.CreateAsFolder
+		      end if
+		      return tmpF
+		    end if
+		    
+		  #else
+		    return SpecialFolder.Temporary
+		  #endif
+		  
+		  Exception Err
+		    ExceptionHandler(err,"Globals:TemporaryFolder")
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

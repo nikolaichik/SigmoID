@@ -297,7 +297,7 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FindByID(obj_id as Ptr) As NSControl
+		Shared Function FindByID(obj_id as Ptr) As NSControl
 		  return ControlMap.Lookup(obj_id, nil)
 		End Function
 	#tag EndMethod

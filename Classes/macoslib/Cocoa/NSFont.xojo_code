@@ -28,7 +28,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function BoldSystemFontOfSize(size as double = 0.0) As NSFont
+		Shared Function BoldSystemFontOfSize(size as double = 0.0) As NSFont
 		  #if TargetMacOS
 		    declare function boldSystemFontOfSize lib CocoaLib selector "boldSystemFontOfSize:" (Cls as Ptr, size as single) as Ptr
 		    
@@ -95,7 +95,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ControlContentFontOfSize(size as double = 0.0) As NSFont
+		Shared Function ControlContentFontOfSize(size as double = 0.0) As NSFont
 		  #if TargetMacOS
 		    declare function controlContentFontOfSize lib CocoaLib selector "controlContentFontOfSize:" (Cls as Ptr, size as single) as Ptr
 		    
@@ -190,7 +190,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FontWithDescriptor(descriptor as NSFontDescriptor, transform as NSAffineTransform) As NSFont
+		Shared Function FontWithDescriptor(descriptor as NSFontDescriptor, transform as NSAffineTransform) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function fontWithDescriptor lib CocoaLib selector "fontWithDescriptor:textTransform:" (obj_id as Ptr, fontDescriptor as Ptr, transform as Ptr) as Ptr
@@ -211,7 +211,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FontWithDescriptor(descriptor as NSFontDescriptor, size as Single) As NSFont
+		Shared Function FontWithDescriptor(descriptor as NSFontDescriptor, size as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function fontWithDescriptor lib CocoaLib selector "fontWithDescriptor:size:" (obj_id as Ptr, fontDescriptor as Ptr, size as Single) as Ptr
@@ -232,7 +232,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FontWithName(name as String, matrix as NSFontMatrix) As NSFont
+		Shared Function FontWithName(name as String, matrix as NSFontMatrix) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function fontWithName lib CocoaLib selector "fontWithName:matrix:" (obj_id as Ptr, fontName as CFStringRef, byRef matrix as NSFontMatrix) as Ptr
@@ -253,7 +253,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FontWithName(name as String, size as Single) As NSFont
+		Shared Function FontWithName(name as String, size as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function fontWithName lib CocoaLib selector "fontWithName:size:" (obj_id as Ptr, fontName as CFStringRef, size as Single) as Ptr
@@ -328,7 +328,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LabelFont(fontSize as Single) As NSFont
+		Shared Function LabelFont(fontSize as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function labelFontOfSize lib CocoaLib selector "labelFontOfSize:" (obj_id as Ptr, fontSize as Single) as Ptr
@@ -348,7 +348,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LabelFontSize() As Single
+		Shared Function LabelFontSize() As Single
 		  
 		  #if TargetMacOS
 		    declare function labelFontSize lib CocoaLib selector "labelFontSize" (obj_id as Ptr) as Single
@@ -403,7 +403,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MenuBarFont(fontSize as Single) As NSFont
+		Shared Function MenuBarFont(fontSize as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function menuBarFontOfSize lib CocoaLib selector "menuBarFontOfSize:" (obj_id as Ptr, fontSize as Single) as Ptr
@@ -423,7 +423,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MenuFont(fontSize as Single) As NSFont
+		Shared Function MenuFont(fontSize as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function menuFontOfSize lib CocoaLib selector "menuFontOfSize:" (obj_id as Ptr, fontSize as Single) as Ptr
@@ -443,7 +443,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MessageFont(fontSize as Single) As NSFont
+		Shared Function MessageFont(fontSize as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function messageFontOfSize lib CocoaLib selector "messageFontOfSize:" (obj_id as Ptr, fontSize as Single) as Ptr
@@ -489,7 +489,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PaletteFont(fontSize as Single) As NSFont
+		Shared Function PaletteFont(fontSize as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function paletteFontOfSize lib CocoaLib selector "paletteFontOfSize:" (obj_id as Ptr, fontSize as Single) as Ptr
@@ -608,7 +608,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub SetUserFixedPitchFont(aFont as NSFont)
+		Shared Sub SetUserFixedPitchFont(aFont as NSFont)
 		  
 		  #if TargetMacOS
 		    declare sub setUserFixedPitchFont lib CocoaLib selector "setUserFixedPitchFont:" (obj_id as Ptr, aFont as Ptr)
@@ -627,7 +627,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub SetUserFont(aFont as NSFont)
+		Shared Sub SetUserFont(aFont as NSFont)
 		  
 		  #if TargetMacOS
 		    declare sub setUserFont lib CocoaLib selector "setUserFont:" (obj_id as Ptr, aFont as Ptr)
@@ -646,7 +646,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SmallSystemFontSize() As double
+		Shared Function SmallSystemFontSize() As double
 		  #if TargetMacOS
 		    declare function smallSystemFontSize lib CocoaLib selector "smallSystemFontSize" (Cls as Ptr) as single
 		    
@@ -656,7 +656,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SystemFontOfSize(size as double = 0.0) As NSFont
+		Shared Function SystemFontOfSize(size as double = 0.0) As NSFont
 		  #if TargetMacOS
 		    declare function systemFontOfSize lib CocoaLib selector "systemFontOfSize:" (Cls as Ptr, size as single) as Ptr
 		    
@@ -673,7 +673,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SystemFontSize() As double
+		Shared Function SystemFontSize() As double
 		  #if TargetMacOS
 		    declare function systemFontSize lib CocoaLib selector "systemFontSize" (Cls as Ptr) as single
 		    
@@ -683,7 +683,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SystemFontSizeForControlSize(controlSize as NSControlSize) As Single
+		Shared Function SystemFontSizeForControlSize(controlSize as NSControlSize) As Single
 		  
 		  #if TargetMacOS
 		    declare function systemFontSizeForControlSize lib CocoaLib selector "systemFontSizeForControlSize:" (obj_id as Ptr, controlSize as NSControlSize) as Single
@@ -716,7 +716,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function TitleBarFont(fontSize as Single) As NSFont
+		Shared Function TitleBarFont(fontSize as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function titleBarFontOfSize lib CocoaLib selector "titleBarFontOfSize:" (obj_id as Ptr, fontSize as Single) as Ptr
@@ -736,7 +736,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ToolTipsFont(fontSize as Single) As NSFont
+		Shared Function ToolTipsFont(fontSize as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function toolTipsFontOfSize lib CocoaLib selector "toolTipsFontOfSize:" (obj_id as Ptr, fontSize as Single) as Ptr
@@ -782,7 +782,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UserFixedPitchFont(fontSIze as Single) As NSFont
+		Shared Function UserFixedPitchFont(fontSIze as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function userFixedPitchFontOfSize lib CocoaLib selector "userFixedPitchFontOfSize:" (obj_id as Ptr, fontSize as Single) as Ptr
@@ -802,7 +802,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UserFont(fontSIze as Single) As NSFont
+		Shared Function UserFont(fontSIze as Single) As NSFont
 		  
 		  #if TargetMacOS
 		    declare function userFontOfSize lib CocoaLib selector "userFontOfSize:" (obj_id as Ptr, fontSize as Single) as Ptr

@@ -29,7 +29,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithAddress(address as String) As NSHost
+		Shared Function CreateWithAddress(address as String) As NSHost
 		  
 		  #if targetMacOS
 		    declare function hostWithAddress lib CocoaLib selector "hostWithAddress:" (class_id as Ptr, address as CFStringRef) as Ptr
@@ -47,7 +47,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithName(name as String) As NSHost
+		Shared Function CreateWithName(name as String) As NSHost
 		  
 		  #if targetMacOS
 		    declare function hostWithName lib CocoaLib selector "hostWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
@@ -65,7 +65,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CurrentHost() As NSHost
+		Shared Function CurrentHost() As NSHost
 		  #if targetMacOS
 		    declare function currentHost lib CocoaLib selector "currentHost" (class_id as Ptr) as Ptr
 		    
@@ -76,7 +76,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetByAddress(address as String) As NSHost
+		Shared Function GetByAddress(address as String) As NSHost
 		  #if targetMacOS
 		    declare function hostWithAddress lib CocoaLib selector "hostWithAddress:" (class_id as Ptr, address as CFStringRef) as Ptr
 		    
@@ -91,7 +91,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetByName(name as String) As NSHost
+		Shared Function GetByName(name as String) As NSHost
 		  #if targetMacOS
 		    declare function hostWithName lib CocoaLib selector "hostWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
 		    

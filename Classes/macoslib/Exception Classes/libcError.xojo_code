@@ -9,7 +9,7 @@ Inherits OSError
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ErrorMessage(code as Integer) As String
+		Shared Function ErrorMessage(code as Integer) As String
 		  #if targetLinux
 		    soft declare function strerror Lib libc.libc (errcode as Integer)  as Ptr
 		    
@@ -28,7 +28,7 @@ Inherits OSError
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetErrorCode() As Integer
+		Shared Function GetErrorCode() As Integer
 		  #if TargetLinux
 		    soft declare function libcErrorCode lib libc.libc alias "__errno_location" () as Ptr
 		    

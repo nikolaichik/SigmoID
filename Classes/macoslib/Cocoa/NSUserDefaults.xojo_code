@@ -194,7 +194,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StandardUserDefaults() As NSUserDefaults
+		Shared Function StandardUserDefaults() As NSUserDefaults
 		  #if TargetMacOS
 		    declare function standardUserDefaults lib CocoaLib selector "standardUserDefaults" (Cls as Ptr) as Ptr
 		    

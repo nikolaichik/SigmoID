@@ -67,6 +67,7 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvUHJvZmlsZXMv
 					FolderItem = Li4vVEZfSE1Ncy8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvY2QtaGl0LWVzdA==
+					FolderItem = Li4vVEZfZmFtaWxpZXMv
 				End
 			End
 			Begin BuildStepList Mac OS X
@@ -101,6 +102,7 @@
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9jZC1oaXQtZXN0
+					FolderItem = Li4vVEZfZmFtaWxpZXMv
 				End
 			End
 			Begin BuildStepList Windows
@@ -139,6 +141,7 @@
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
+					FolderItem = Li4vVEZfZmFtaWxpZXMv
 				End
 			End
 #tag EndBuildAutomation

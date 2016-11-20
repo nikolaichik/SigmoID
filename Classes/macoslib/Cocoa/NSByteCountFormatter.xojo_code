@@ -2,7 +2,7 @@
 Class NSByteCountFormatter
 Inherits NSFormatter
 	#tag Method, Flags = &h0
-		 Shared Function ByteCount(byteCount as Int64) As NSString
+		Shared Function ByteCount(byteCount as Int64) As NSString
 		  #if targetMacOS
 		    declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as UInt64) as CFStringRef
 		    
@@ -12,7 +12,7 @@ Inherits NSFormatter
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ByteCountWithStyle(byteCount as Int64, countStyle as CountStyle) As NSString
+		Shared Function ByteCountWithStyle(byteCount as Int64, countStyle as CountStyle) As NSString
 		  #if targetMacOS
 		    declare function stringFromByteCount lib CocoaLib selector "stringFromByteCount:countStyle:" (obj_id as Ptr, byteCount as UInt64, countStyle as CountStyle) as CFStringRef
 		    

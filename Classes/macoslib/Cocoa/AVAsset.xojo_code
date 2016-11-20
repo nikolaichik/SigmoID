@@ -2,7 +2,7 @@
 Class AVAsset
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function AssetWithURL(URL As NSURL) As AVAsset
+		Shared Function AssetWithURL(URL As NSURL) As AVAsset
 		  dim r as AVAsset
 		  
 		  #if TargetCocoa

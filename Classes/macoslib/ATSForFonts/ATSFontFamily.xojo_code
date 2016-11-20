@@ -1,7 +1,7 @@
 #tag Class
 Class ATSFontFamily
 	#tag Method, Flags = &h0
-		 Shared Function FindFromName(name as String) As ATSFontFamily
+		Shared Function FindFromName(name as String) As ATSFontFamily
 		  #if targetMacOS
 		    soft declare function ATSFontFamilyFindFromName lib CarbonLib (iName as CFStringRef, iOptions as UInt32) as UInt32
 		    

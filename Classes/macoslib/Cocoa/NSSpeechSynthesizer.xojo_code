@@ -2,7 +2,7 @@
 Class NSSpeechSynthesizer
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function AttributesForVoice(theVoice as string) As NSDictionary
+		Shared Function AttributesForVoice(theVoice as string) As NSDictionary
 		  
 		  #if TargetMacOS
 		    declare function attributesForVoice lib CocoaLib selector "attributesForVoice:" (Cls as Ptr, voice as CFStringRef) as Ptr
@@ -17,7 +17,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function AvailableVoices() As NSArray
+		Shared Function AvailableVoices() As NSArray
 		  
 		  #if TargetMacOS
 		    declare function availableVoices lib CocoaLib selector "availableVoices" (Cls as Ptr) as Ptr
@@ -62,7 +62,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultVoice() As String
+		Shared Function DefaultVoice() As String
 		  
 		  #if TargetMacOS
 		    declare function defaultVoice lib CocoaLib selector "defaultVoice" (Cls as Ptr) as CFStringRef
@@ -270,7 +270,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IsAnyApplicationSpeaking() As Boolean
+		Shared Function IsAnyApplicationSpeaking() As Boolean
 		  
 		  #if TargetMacOS
 		    declare function isAnyApplicationSpeaking lib CocoaLib selector "isAnyApplicationSpeaking" (Cls as Ptr) as Boolean

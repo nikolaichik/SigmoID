@@ -129,7 +129,7 @@ Inherits NSString
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create() As NSMutableString
+		Shared Function Create() As NSMutableString
 		  
 		  #if TargetMacOS
 		    declare function string_ lib CocoaLib selector "string" (class_id as Ptr) as Ptr
@@ -147,7 +147,7 @@ Inherits NSString
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithCapacity(capacity as UInt32) As NSMutableString
+		Shared Function CreateWithCapacity(capacity as UInt32) As NSMutableString
 		  
 		  #if TargetMacOS
 		    declare function stringWithCapacity lib CocoaLib selector "stringWithCapacity" (class_id as Ptr, capacity as UInt32) as Ptr
@@ -167,7 +167,7 @@ Inherits NSString
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithString(aString as NSString) As NSMutableString
+		Shared Function CreateWithString(aString as NSString) As NSMutableString
 		  
 		  #if TargetMacOS
 		    declare function stringWithString lib CocoaLib selector "stringWithString:" (class_id as Ptr, aString as Ptr) as Ptr
@@ -192,7 +192,7 @@ Inherits NSString
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithString(characters as String) As NSMutableString
+		Shared Function CreateWithString(characters as String) As NSMutableString
 		  
 		  #if TargetMacOS
 		    declare function stringWithCharacters lib CocoaLib selector "stringWithCharacters:length:" (class_id as Ptr, chars as Ptr, length as UInt32) as Ptr

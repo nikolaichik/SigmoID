@@ -517,7 +517,7 @@ End
 		  next
 		  
 		  self.hide
-		  RegPreciseTFcollectionsWin.ProgressLabel.Text=str(RegPreciseTFcollectionsWin.CountSelRows)+" profiles selected"
+		  RegPreciseTFcollectionsWin.EnableButtons
 		  RegPreciseTFcollectionsWin.Show
 		  
 		  

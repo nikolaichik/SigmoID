@@ -65,7 +65,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ProcessInfo() As NSProcessInfo
+		Shared Function ProcessInfo() As NSProcessInfo
 		  #if targetMacOS
 		    declare function defaultCenter lib CocoaLib selector "processInfo" (class_id as Ptr) as Ptr
 		    

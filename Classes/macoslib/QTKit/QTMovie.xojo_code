@@ -59,7 +59,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadFromFolderItem(f as FolderItem) As QTMovie
+		Shared Function LoadFromFolderItem(f as FolderItem) As QTMovie
 		  if f = nil then
 		    return nil
 		  end if
@@ -69,7 +69,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LoadFromPath(path as String) As QTMovie
+		Shared Function LoadFromPath(path as String) As QTMovie
 		  #if targetCocoa
 		    declare function initWithFile lib QTKit.Framework selector "initWithFile:error:" (obj_id as Ptr, fileName as CFStringRef, ByRef errorPtr as Ptr) as Ptr
 		    
@@ -88,7 +88,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MakeFileType(uti as String) As FileType
+		Shared Function MakeFileType(uti as String) As FileType
 		  'dim f as new FileType
 		  'f.MacType = UTI.OSType(uti)
 		  'f.Extensions = UTI.
@@ -182,7 +182,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UTIs() As UTI()
+		Shared Function UTIs() As UTI()
 		  #if targetCocoa
 		    declare function movieTypesWithOptions lib QTKit.framework selector "movieTypesWithOptions:" (class_id as Ptr, types as Integer) as Ptr
 		    

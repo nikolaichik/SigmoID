@@ -11,7 +11,7 @@ Protected Class UTI
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromExtension(tag as String, conformsTo as String = "") As String
+		Shared Function CreateFromExtension(tag as String, conformsTo as String = "") As String
 		  #if targetMacOS
 		    return CreateUTI(tag, UTTagClassFilenameExtension, conformsTo)
 		  #endif
@@ -19,7 +19,7 @@ Protected Class UTI
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromFile(f as FolderItem) As String
+		Shared Function CreateFromFile(f as FolderItem) As String
 		  
 		  #if TargetMacOS
 		    soft declare function LSCopyItemAttribute lib "Carbon.framework" ( inItem as ptr, inRoles as UInt32, inAttributeName as CFStringRef, byref outValue as integer) as integer
@@ -53,7 +53,7 @@ Protected Class UTI
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromMIMEType(tag as String, conformsTo as String = "") As String
+		Shared Function CreateFromMIMEType(tag as String, conformsTo as String = "") As String
 		  #if targetMacOS
 		    return CreateUTI(tag, UTTagClassMIMEType, conformsTo)
 		  #endif
@@ -61,7 +61,7 @@ Protected Class UTI
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromOSType(tag as OSType, conformsTo as String = "") As String
+		Shared Function CreateFromOSType(tag as OSType, conformsTo as String = "") As String
 		  #if targetMacOS
 		    declare function UTCreateStringForOSType lib CarbonLib (inOSType as OSType) as CFStringRef
 		    
@@ -71,7 +71,7 @@ Protected Class UTI
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPasteboardType(tag as String, conformsTo as String = "") As String
+		Shared Function CreateFromPasteboardType(tag as String, conformsTo as String = "") As String
 		  #if targetMacOS
 		    static tagClass as Ptr = Resolve("kUTTagClassNSPboardType")
 		    

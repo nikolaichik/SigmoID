@@ -45,7 +45,7 @@ Class ATSFont
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FindFromName(name as String) As ATSFont
+		Shared Function FindFromName(name as String) As ATSFont
 		  #if targetMacOS
 		    soft declare function ATSFontFindFromName lib CarbonLib (iName as CFStringRef, iOptions as UInt32) as UInt32
 		    
@@ -62,7 +62,7 @@ Class ATSFont
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FindFromPostScriptName(name as String) As ATSFont
+		Shared Function FindFromPostScriptName(name as String) As ATSFont
 		  #if targetMacOS
 		    soft declare function ATSFontFindFromPostScriptName lib CarbonLib (iName as CFStringRef, iOptions as UInt32) as UInt32
 		    

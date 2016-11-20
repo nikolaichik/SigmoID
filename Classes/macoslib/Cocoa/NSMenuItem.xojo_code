@@ -45,7 +45,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromMenuItem(mi as MenuItem) As NSMenuItem
+		Shared Function CreateFromMenuItem(mi as MenuItem) As NSMenuItem
 		  #if TargetMacOS
 		    
 		    dim nsm as NSMenuItem
@@ -75,7 +75,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateSeparatorItem() As NSMenuItem
+		Shared Function CreateSeparatorItem() As NSMenuItem
 		  #if TargetMacOS
 		    declare function separatorItem lib CocoaLib selector "separatorItem" ( Cls as Ptr ) as Ptr
 		    

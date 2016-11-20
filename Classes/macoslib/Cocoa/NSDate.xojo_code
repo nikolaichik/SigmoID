@@ -118,7 +118,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DateSince(seconds as Double, sinceDate as NSDate) As NSDate
+		Shared Function DateSince(seconds as Double, sinceDate as NSDate) As NSDate
 		  //# Creates and returns an NSDate object set to a given number of seconds from the specified date.
 		  
 		  #if targetMacOS
@@ -144,7 +144,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DateSince1970(seconds as Double) As NSDate
+		Shared Function DateSince1970(seconds as Double) As NSDate
 		  //# Creates and returns an NSDate object set to the given number of seconds from the first instant of 1 January 1970, GMT.
 		  
 		  #if targetMacOS
@@ -162,7 +162,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DateSinceNow(seconds as Double) As NSDate
+		Shared Function DateSinceNow(seconds as Double) As NSDate
 		  //# Creates and returns an NSDate object set to a given number of seconds from the current date and time.
 		  
 		  #if targetMacOS
@@ -180,7 +180,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DateSinceReference(seconds as Double) As NSDate
+		Shared Function DateSinceReference(seconds as Double) As NSDate
 		  //# Creates and returns an NSDate object set to a given number of seconds from the first instant of 1 January 2001, GMT.
 		  
 		  #if targetMacOS
@@ -246,7 +246,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DistantFuture() As NSDate
+		Shared Function DistantFuture() As NSDate
 		  //# Creates and returns an NSDate object representing a date in the distant future.
 		  
 		  #if targetMacOS
@@ -262,7 +262,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DistantPast() As NSDate
+		Shared Function DistantPast() As NSDate
 		  //# Creates and returns an NSDate object representing a date in the distant past.
 		  
 		  #if targetMacOS
@@ -351,7 +351,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Now() As NSDate
+		Shared Function Now() As NSDate
 		  //# Creates and returns a new date set to the current date and time.
 		  
 		  #if targetMacOS

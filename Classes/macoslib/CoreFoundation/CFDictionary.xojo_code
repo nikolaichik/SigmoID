@@ -39,7 +39,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CFDictionaryGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -96,7 +96,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromDictionary(dict as Dictionary) As CFDictionary
+		Shared Function CreateFromDictionary(dict as Dictionary) As CFDictionary
 		  #if TargetMacOS
 		    dim md as new CFMutableDictionary
 		    
@@ -122,7 +122,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFDictionary
+		Shared Function CreateFromPListFile(file as FolderItem) As CFDictionary
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
@@ -139,7 +139,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFDictionary
+		Shared Function CreateFromPListString(plistString as String) As CFDictionary
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )

@@ -135,7 +135,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create() As NSCountedSet
+		Shared Function Create() As NSCountedSet
 		  //# Creates and returns an empty set.
 		  
 		  #if TargetMacOS
@@ -152,7 +152,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithArray(anArray as NSArray) As NSCountedSet
+		Shared Function CreateWithArray(anArray as NSArray) As NSCountedSet
 		  //# Creates and returns a set containing a uniqued collection of the objects contained in a given array.
 		  
 		  #if TargetMacOS
@@ -175,7 +175,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithCapacity(numItems as UInt32) As NSCountedSet
+		Shared Function CreateWithCapacity(numItems as UInt32) As NSCountedSet
 		  //# Creates and returns a mutable set with a given initial capacity.
 		  
 		  #if TargetMacOS
@@ -194,7 +194,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObject(anObject as NSObject) As NSCountedSet
+		Shared Function CreateWithObject(anObject as NSObject) As NSCountedSet
 		  //# Creates and returns a set that contains a single given object.
 		  
 		  #if TargetMacOS
@@ -217,7 +217,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObjects(objects() as NSObject) As NSCountedSet
+		Shared Function CreateWithObjects(objects() as NSObject) As NSCountedSet
 		  //# Creates and returns a set containing the objects in a given argument list.
 		  
 		  #if TargetMacOS
@@ -251,7 +251,7 @@ Inherits NSMutableSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithSet(aSet as NSSet) As NSCountedSet
+		Shared Function CreateWithSet(aSet as NSSet) As NSCountedSet
 		  //# Creates and returns a set containing the objects from another set.
 		  
 		  #if TargetMacOS

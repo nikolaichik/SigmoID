@@ -26,7 +26,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function AlphanumericCharacterSet() As NSCharacterSet
+		Shared Function AlphanumericCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing the characters in the categories Letters, Marks, and Numbers.
 		  
 		  #if TargetMacOS
@@ -60,7 +60,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CapitalizedLetterCharacterSet() As NSCharacterSet
+		Shared Function CapitalizedLetterCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing the characters in the category of Titlecase Letters.
 		  
 		  #if TargetMacOS
@@ -90,7 +90,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CharacterSetWithBitmapRepresentation(data as NSData) As NSCharacterSet
+		Shared Function CharacterSetWithBitmapRepresentation(data as NSData) As NSCharacterSet
 		  //# Returns a character set containing characters determined by a given bitmap representation.
 		  
 		  #if TargetMacOS
@@ -114,7 +114,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CharacterSetWithRange(aRange as Cocoa.NSRange) As NSCharacterSet
+		Shared Function CharacterSetWithRange(aRange as Cocoa.NSRange) As NSCharacterSet
 		  //# Returns a character set containing characters with Unicode values in a given range.
 		  
 		  #if TargetMacOS
@@ -141,7 +141,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ControlCharacterSet() As NSCharacterSet
+		Shared Function ControlCharacterSet() As NSCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function controlCharacterSet lib CocoaLib selector "controlCharacterSet" (obj_id as Ptr) as Ptr
@@ -156,7 +156,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromFile(file as FolderItem) As NSCharacterSet
+		Shared Function CreateFromFile(file as FolderItem) As NSCharacterSet
 		  //# Returns a character set read from the bitmap representation stored in the file a given path.
 		  
 		  #if TargetMacOS
@@ -176,7 +176,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromString(theString as String) As NSCharacterSet
+		Shared Function CreateFromString(theString as String) As NSCharacterSet
 		  //# Returns a character set containing the characters in a given string.
 		  
 		  #if TargetMacOS
@@ -189,7 +189,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DecimalDigitCharacterSet() As NSCharacterSet
+		Shared Function DecimalDigitCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing the characters in the category of Decimal Numbers.
 		  
 		  #if TargetMacOS
@@ -205,7 +205,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DecomposableCharacterSet() As NSCharacterSet
+		Shared Function DecomposableCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing all individual Unicode characters that can also be represented as composed character sequences.
 		  
 		  //@Return: A character set containing all individual Unicode characters that can also be represented as composed character sequences _
@@ -243,7 +243,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IllegalCharacterSet() As NSCharacterSet
+		Shared Function IllegalCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing values in the category of Non-Characters or that have not yet been defined in version 3.2 of the Unicode standard.
 		  
 		  #if TargetMacOS
@@ -294,7 +294,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LetterCharacterSet() As NSCharacterSet
+		Shared Function LetterCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing the characters in the categories Letters and Marks.
 		  
 		  #if TargetMacOS
@@ -324,7 +324,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LowercaseLetterCharacterSet() As NSCharacterSet
+		Shared Function LowercaseLetterCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing the characters in the category of Lowercase Letters.
 		  
 		  #if TargetMacOS
@@ -348,7 +348,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewlineCharacterSet() As NSCharacterSet
+		Shared Function NewlineCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing the newline characters.
 		  
 		  #if TargetMacOS
@@ -364,7 +364,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NonBaseCharacterSet() As NSCharacterSet
+		Shared Function NonBaseCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing the characters in the category of Marks.
 		  
 		  #if TargetMacOS
@@ -380,7 +380,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PunctuationCharacterSet() As NSCharacterSet
+		Shared Function PunctuationCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing the characters in the category of Punctuation.
 		  
 		  #if TargetMacOS
@@ -396,7 +396,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SymbolCharacterSet() As NSCharacterSet
+		Shared Function SymbolCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing the characters in the category of Symbols.
 		  
 		  #if TargetMacOS
@@ -412,7 +412,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UppercaseLetterCharacterSet() As NSCharacterSet
+		Shared Function UppercaseLetterCharacterSet() As NSCharacterSet
 		  //@ Returns a character set containing the characters in the categories of Uppercase Letters and Titlecase Letters.
 		  
 		  #if TargetMacOS
@@ -428,7 +428,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function WhitespaceAndNewlineCharacterSet() As NSCharacterSet
+		Shared Function WhitespaceAndNewlineCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing only the whitespace characters space (U+0020) and tab (U+0009) and the newline and nextline characters (U+000A–U+000D, U+0085).
 		  
 		  #if TargetMacOS
@@ -444,7 +444,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function WhitespaceCharacterSet() As NSCharacterSet
+		Shared Function WhitespaceCharacterSet() As NSCharacterSet
 		  //# Returns a character set containing only the in-line whitespace characters space (U+0020) and tab (U+0009).
 		  
 		  #if TargetMacOS

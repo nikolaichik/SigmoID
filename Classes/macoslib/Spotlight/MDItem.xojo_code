@@ -59,7 +59,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    
 		    soft declare function MDItemGetTypeID lib CarbonLib () as Integer
@@ -73,7 +73,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromFile(file as FolderItem) As MDItem
+		Shared Function CreateFromFile(file as FolderItem) As MDItem
 		  //# Creates a MDItem for a given file
 		  
 		  #if TargetMacOS

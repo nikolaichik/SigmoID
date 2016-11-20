@@ -2,7 +2,7 @@
 Class NSConnection
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function NSConnectionReplyMode() As String
+		Shared Function NSConnectionReplyMode() As String
 		  
 		  return Cocoa.StringConstant("NSConnectionReplyMode")
 		  

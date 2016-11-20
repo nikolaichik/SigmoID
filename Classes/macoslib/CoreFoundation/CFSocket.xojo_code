@@ -22,7 +22,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if TargetMacOS
 		    declare function TypeID lib CarbonLib alias "CFSocketGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -126,7 +126,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IP4Address(ip4address as String, port as UInt16) As CFData
+		Shared Function IP4Address(ip4address as String, port as UInt16) As CFData
 		  // struct sockaddr_in
 		  
 		  'TODO: turn into subclasses: CFSocketIP4Address, etc.
@@ -201,7 +201,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UnixDomainAddress(unixPath as String) As CFData
+		Shared Function UnixDomainAddress(unixPath as String) As CFData
 		  // struct sockaddr_un
 		  
 		  if unixPath.Encoding <> nil then

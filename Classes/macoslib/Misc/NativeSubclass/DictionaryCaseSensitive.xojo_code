@@ -593,7 +593,7 @@ Inherits Dictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function VariantArrayToStringArray(vArr() As Variant, valueForNonString As String = "") As String()
+		Shared Function VariantArrayToStringArray(vArr() As Variant, valueForNonString As String = "") As String()
 		  // Convenience method.
 		  // Pulls the string values out of a Variant array.
 		  // Where the variant <> TypeString, will use the valueForNonString value instead.

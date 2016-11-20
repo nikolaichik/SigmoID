@@ -74,7 +74,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function BookmarkData(bookmarkFileURL as NSURL, byRef error as CFError) As NSData
+		Shared Function BookmarkData(bookmarkFileURL as NSURL, byRef error as CFError) As NSData
 		  
 		  #if targetMacOS
 		    declare function bookmarkDataWithContentsOfURL lib CocoaLib selector "bookmarkDataWithContentsOfURL:error:" _
@@ -246,7 +246,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create(URLString as String, baseURL as NSURL) As NSURL
+		Shared Function Create(URLString as String, baseURL as NSURL) As NSURL
 		  
 		  #if targetMacOS
 		    declare function URLWithString lib CocoaLib selector "URLWithString:relativeToURL:" (class_id as Ptr, URLString as CFStringRef, baseURL as Ptr) as Ptr
@@ -270,7 +270,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromPasteboard(pboard as NSPasteboard) As NSURL
+		Shared Function CreateFromPasteboard(pboard as NSPasteboard) As NSURL
 		  
 		  #if targetMacOS
 		    declare function URLFromPasteboard lib CocoaLib selector "URLFromPasteboard:" (class_id as Ptr, pboard as Ptr) as Ptr
@@ -290,7 +290,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithBookmark(bookmarkData as NSData, options as UInt32, relativeURL as NSURL, isStale as Boolean, byRef error as CFError) As NSURL
+		Shared Function CreateWithBookmark(bookmarkData as NSData, options as UInt32, relativeURL as NSURL, isStale as Boolean, byRef error as CFError) As NSURL
 		  
 		  #if targetMacOS
 		    declare function URLByResolvingBookmarkData lib CocoaLib selector "URLByResolvingBookmarkData:options:relativeToURL:bookmarkDataIsStale:error:" _
@@ -328,7 +328,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithFile(file as FolderItem) As NSURL
+		Shared Function CreateWithFile(file as FolderItem) As NSURL
 		  
 		  #if targetMacOS
 		    declare function fileURLWithPath lib CocoaLib selector "fileURLWithPath:isDirectory:" (class_id as Ptr, path as CFStringRef, isDir as Boolean) as Ptr
@@ -348,7 +348,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithString(URLString as String) As NSURL
+		Shared Function CreateWithString(URLString as String) As NSURL
 		  
 		  #if targetMacOS
 		    declare function URLWithString lib CocoaLib selector "URLWithString:" (class_id as Ptr, URLString as CFStringRef) as Ptr
@@ -557,7 +557,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function ResourceValues(keys as NSArray, bookmarkData as NSData) As NSDictionary
+		Shared Function ResourceValues(keys as NSArray, bookmarkData as NSData) As NSDictionary
 		  
 		  #if targetMacOS
 		    declare function resourceValuesForKeys lib CocoaLib selector "resourceValuesForKeys:fromBookmarkData:" _
@@ -653,7 +653,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function WriteBookmark(bookmarkData as NSData, bookmarkFileURL as NSURL, options as UInt32, byRef error as CFError) As Boolean
+		Shared Function WriteBookmark(bookmarkData as NSData, bookmarkFileURL as NSURL, options as UInt32, byRef error as CFError) As Boolean
 		  
 		  #if targetMacOS
 		    declare function writeBookmarkData lib CocoaLib selector "writeBookmarkData:toURL:options:error:" _

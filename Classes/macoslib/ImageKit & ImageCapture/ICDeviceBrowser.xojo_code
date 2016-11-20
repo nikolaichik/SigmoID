@@ -20,7 +20,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Create() As ICDeviceBrowser
+		Shared Function Create() As ICDeviceBrowser
 		  #if TargetMacOS
 		    dim result as ICDeviceBrowser
 		    RequireFramework  IKLib

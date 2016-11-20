@@ -9,7 +9,7 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function CFErrorGetTypeID lib CarbonLib () as UInt32
 		    
@@ -43,7 +43,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub RaiseExceptionAndRelease(CFErrorRef As Ptr)
+		Shared Sub RaiseExceptionAndRelease(CFErrorRef As Ptr)
 		  // Added by Kem Tekinay.
 		  
 		  // This convenience method is really here as a demonstration of the right way to handle the CFErrorRef

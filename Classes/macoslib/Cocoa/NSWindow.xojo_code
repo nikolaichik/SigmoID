@@ -394,7 +394,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ContentRect(windowFrame as Cocoa.NSRect, styleMask as UInt32) As Cocoa.NSRect
+		Shared Function ContentRect(windowFrame as Cocoa.NSRect, styleMask as UInt32) As Cocoa.NSRect
 		  
 		  #if TargetCocoa
 		    declare function contentRectForFrameRect lib CocoaLib selector "contentRectForFrameRect:styleMask:" _
@@ -507,7 +507,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultDepthLimit() As Integer
+		Shared Function DefaultDepthLimit() As Integer
 		  
 		  #if TargetCocoa
 		    declare function defaultDepthLimit lib CocoaLib selector "defaultDepthLimit" (class_id as Ptr) as Integer
@@ -888,7 +888,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FrameRect(windowContentRect as Cocoa.NSRect, styleMask as UInt32) As Cocoa.NSRect
+		Shared Function FrameRect(windowContentRect as Cocoa.NSRect, styleMask as UInt32) As Cocoa.NSRect
 		  
 		  #if TargetCocoa
 		    declare function frameRectForContentRect lib CocoaLib selector "frameRectForContentRect:styleMask:" _
@@ -1057,7 +1057,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MinFrameWidth(windowTitle as String, styleMask as UInt32) As Single
+		Shared Function MinFrameWidth(windowTitle as String, styleMask as UInt32) As Single
 		  
 		  #if TargetCocoa
 		    declare function minFrameWidthWithTitle lib CocoaLib selector "minFrameWidthWithTitle:styleMask:" _
@@ -1087,7 +1087,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceBitsPerSample() As String
+		Shared Function NSDeviceBitsPerSample() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceBitsPerSample")
 		  return name
@@ -1096,7 +1096,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceColorSpaceName() As String
+		Shared Function NSDeviceColorSpaceName() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceColorSpaceName")
 		  return name
@@ -1105,7 +1105,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceIsPrinter() As String
+		Shared Function NSDeviceIsPrinter() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceIsPrinter")
 		  return name
@@ -1114,7 +1114,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceIsScreen() As String
+		Shared Function NSDeviceIsScreen() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceIsScreen")
 		  return name
@@ -1123,7 +1123,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceResolution() As String
+		Shared Function NSDeviceResolution() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceResolution")
 		  return name
@@ -1132,7 +1132,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDeviceSize() As String
+		Shared Function NSDeviceSize() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSDeviceSize")
 		  return name
@@ -1331,7 +1331,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub RemoveFrame(frameName as String)
+		Shared Sub RemoveFrame(frameName as String)
 		  
 		  #if TargetCocoa
 		    declare sub removeFrameUsingName lib CocoaLib selector "removeFrameUsingName:" (class_id as Ptr, frameName as CFStringRef)
@@ -1549,7 +1549,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function StandardWindowButton(windowButtonKind as NSWindowButton, styleMask as UInt32) As Ptr
+		Shared Function StandardWindowButton(windowButtonKind as NSWindowButton, styleMask as UInt32) As Ptr
 		  
 		  #if TargetCocoa
 		    declare function standardWindowButton lib CocoaLib selector "standardWindowButton:forStyleMask:" _
@@ -1696,7 +1696,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function WindowNumberAtPoint(point as NSPoint, startingBelowWinNumber as Integer) As Integer
+		Shared Function WindowNumberAtPoint(point as NSPoint, startingBelowWinNumber as Integer) As Integer
 		  
 		  #if TargetCocoa
 		    declare function windowNumberAtPoint lib CocoaLib selector "windowNumberAtPoint:belowWindowWithWindowNumber:" _
@@ -1713,7 +1713,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function WindowNumbers(options as UInt32) As Integer()
+		Shared Function WindowNumbers(options as UInt32) As Integer()
 		  
 		  #if TargetCocoa
 		    declare function windowNumbersWithOptions lib CocoaLib selector "windowNumbersWithOptions:" (class_id as Ptr, options as UInt32) as Ptr

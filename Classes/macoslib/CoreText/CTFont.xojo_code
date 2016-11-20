@@ -9,7 +9,7 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CTFontGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -19,7 +19,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithName(name as String, size as Double = 0.0) As CTFont
+		Shared Function CreateWithName(name as String, size as Double = 0.0) As CTFont
 		  'CTFontRef CTFontCreateWithName (
 		  'CFStringRef name,
 		  'CGFloat size,

@@ -429,6 +429,13 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem RegulonTomTom
+         SpecialMenu = 0
+         Text = "TomTom..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem FileListAllRegulonDBdata
          SpecialMenu = 0
          Text = "#kRegulonDBregulons"

@@ -18,13 +18,14 @@ Protected Module DeNovoTFBSinference
 		  '<QueryTranslation/>
 		  '</eSearchResult>
 		  
-		  Const URLstart as string="http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=protein&term="
+		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=protein&term="
 		  Dim Separ1 as string="<Id>"
 		  Dim Separ2 as string="</Id>"
 		  dim GenPeptID, theURL as string
 		  
 		  
-		  dim hts as new HTTPSocket
+		  dim hts as new HTTPSecureSocket
+		  hts.Secure = True
 		  dim res as string
 		  dim outfile as folderitem
 		  
@@ -55,6 +56,8 @@ Protected Module DeNovoTFBSinference
 		      
 		      
 		    end if
+		  else
+		    msgbox "eutils error "+str(hts.HTTPStatusCode)
 		  end if
 		  
 		  hts.close
@@ -67,14 +70,15 @@ Protected Module DeNovoTFBSinference
 	#tag Method, Flags = &h0
 		Function FetchGenBankEntryFragment(EntryID as string, entryStart as integer, entryEnd as integer) As string
 		  
-		  Const URLstart as string="http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id="
+		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id="
 		  Const URLend as string="&rettype=gb&seq_start=" 
 		  Dim Separ1 as string="reference id="+chr(34)
 		  Dim Separ2 as string=chr(34)
 		  dim theURL as string
 		  
 		  
-		  dim hts as new HTTPSocket
+		  dim hts as new HTTPSecureSocket
+		  hts.Secure = True
 		  dim res as string
 		  
 		  
@@ -100,6 +104,8 @@ Protected Module DeNovoTFBSinference
 		      LogoWin.WriteToSTDOUT (EndOfLine)
 		      
 		    end if
+		  else
+		    msgbox "eutils error "+str(hts.HTTPStatusCode)
 		  end if
 		  
 		  hts.close
@@ -114,14 +120,15 @@ Protected Module DeNovoTFBSinference
 		Function FetchGenPeptEntry(Entry as string) As string
 		  
 		  
-		  Const URLstart as string="http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
+		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
 		  Const URLend as string="&rettype=gp" 
 		  Dim Separ1 as string="reference id="+chr(34)
 		  Dim Separ2 as string=chr(34)
 		  dim theURL as string
 		  
 		  
-		  dim hts as new HTTPSocket
+		  dim hts as new HTTPSecureSocket
+		  hts.Secure = True
 		  dim res as string
 		  dim outfile as folderitem
 		  
@@ -149,6 +156,8 @@ Protected Module DeNovoTFBSinference
 		      LogoWin.WriteToSTDOUT (EndOfLine)
 		      
 		    end if
+		  else
+		    msgbox "eutils error "+str(hts.HTTPStatusCode)
 		  end if
 		  
 		  hts.close
@@ -466,6 +475,8 @@ Protected Module DeNovoTFBSinference
 		  
 		  dim DownstreamSize as Integer = 50 ' <-- adjust this/ make configurable!
 		  
+		  'Ensembl ID are quite a mess and don't map to anything properly, so we are not using these :(
+		  
 		  'if InStr(UniProtID,"_")>0 then
 		  ''this should be Ensembl ID which is actually a locus_tag directly usable in NCBI system
 		  'tempID1=UniProtID
@@ -556,8 +567,12 @@ Protected Module DeNovoTFBSinference
 		    if gbFile<>Nil then
 		      dim OutStream As TextOutputStream
 		      OutStream = TextOutputStream.Create(gbFile)
-		      OutStream.Write(Entry)
-		      OutStream.Close
+		      if OutStream<>Nil then
+		        OutStream.Write(Entry)
+		        OutStream.Close
+		      else
+		        LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+EndOfLine.UNIX+gbFile.ShellPath+EndOfLine.unix)
+		      End If
 		    End If
 		  End If
 		  
@@ -652,7 +667,7 @@ Protected Module DeNovoTFBSinference
 		  eSeq.sequence=CleanUp(trim(rightb(Entry,len(Entry)-instrb(Entry,"ORIGIN")-7)))
 		  
 		  if len(eSeq.sequence)<LengthLimit then
-		    return "Genome piece coding for "+UniProtID+" is too short. Skipping it. "+EndOfLine.UNIX
+		    return "Genome piece coding for "+UniProtID+" is too short ("+str(len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX
 		  end if
 		  
 		  // Now find operons and the gaps in between:
@@ -1963,7 +1978,6 @@ Protected Module DeNovoTFBSinference
 		  dim hts as new HTTPSocket
 		  dim res as string
 		  
-		  hts.Yield=true  'allow background activities while waiting
 		  
 		  'configure request
 		  'hts.SetRequestHeader("Expect:","")
@@ -1985,6 +1999,7 @@ Protected Module DeNovoTFBSinference
 		  hts.SetRequestHeader("Content-type","text/plain")
 		  'Content-type is reset when setting form data, hence the result is always returned as html 
 		  
+		  hts.Yield=true  'allow background activities while waiting
 		  
 		  'UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
@@ -2010,6 +2025,8 @@ Protected Module DeNovoTFBSinference
 		    hts.SetRequestHeader("Expect","")
 		    hts.SetRequestHeader("Accept","text/plain")
 		    hts.SetRequestHeader("Content-type","text/plain")
+		    hts.Yield=true  'allow background activities while waiting
+		    
 		    res=hts.Get(theURL,0)
 		    
 		    'res=hts.Get(theURL,300)
@@ -2066,9 +2083,9 @@ Protected Module DeNovoTFBSinference
 		  // write to the log
 		  
 		  if genusSpecific then
-		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing seqs from redundant genera... " )
+		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing redundant seqs within genera... " )
 		  else
-		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing seqs from redundant species... ")
+		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing redundant seqs within species... ")
 		  end if
 		  
 		  // group seqs according to species names

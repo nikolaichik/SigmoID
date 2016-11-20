@@ -11,7 +11,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreatesWithVisualFormat(aFormat as String, options as UInt32, metrics as NSDictionary, views as NSDictionary) As NSLayoutConstraint()
+		Shared Function CreatesWithVisualFormat(aFormat as String, options as UInt32, metrics as NSDictionary, views as NSDictionary) As NSLayoutConstraint()
 		  
 		  #if TargetMacOS
 		    declare function constraintsWithVisualFormat lib CocoaLib selector "constraintsWithVisualFormat:options:metrics:views:" _
@@ -60,7 +60,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithItem(view1 as NSView, attrib1 as NSLayoutAttribute, relation as NSLayoutRelation, view2 as NSView, attrib2 as NSLayoutAttribute, multiplier as Single, constant as Single) As NSLayoutConstraint
+		Shared Function CreateWithItem(view1 as NSView, attrib1 as NSLayoutAttribute, relation as NSLayoutRelation, view2 as NSView, attrib2 as NSLayoutAttribute, multiplier as Single, constant as Single) As NSLayoutConstraint
 		  
 		  #if TargetMacOS
 		    declare function constraintWithItem lib CocoaLib selector "constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:" _

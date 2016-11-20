@@ -36,7 +36,7 @@ Inherits NSNotificationCenter
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CenterForType(centerType as String) As NSDistributedNotificationCenter
+		Shared Function CenterForType(centerType as String) As NSDistributedNotificationCenter
 		  //# Returns the distributed notification center for a particular notification center type.
 		  
 		  #if TargetMacOS
@@ -51,7 +51,7 @@ Inherits NSNotificationCenter
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultCenter() As NSDistributedNotificationCenter
+		Shared Function DefaultCenter() As NSDistributedNotificationCenter
 		  //# Returns the default distributed notification center, representing the local notification center for the computer.
 		  
 		  #if TargetMacOS
@@ -64,7 +64,7 @@ Inherits NSNotificationCenter
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLocalNotificationCenterType() As String
+		Shared Function NSLocalNotificationCenterType() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSLocalNotificationCenterType")
 		  return name

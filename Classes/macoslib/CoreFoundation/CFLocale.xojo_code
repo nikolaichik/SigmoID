@@ -9,7 +9,7 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
-		 Shared Function AvailableIdentifiers() As String()
+		Shared Function AvailableIdentifiers() As String()
 		  #if targetMacOS
 		    //added in 10.4
 		    soft declare function CFLocaleCopyAvailableLocaleIdentifiers lib CarbonLib () as Ptr
@@ -21,7 +21,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    soft declare function TypeID lib CarbonLib alias "CFLocaleGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -40,7 +40,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Create(localeIdentifier as String) As CFLocale
+		Shared Function Create(localeIdentifier as String) As CFLocale
 		  #if targetMacOS
 		    soft declare function CFLocaleCreate lib CarbonLib (allocator as Ptr, localeIdentifier as CFStringRef) as Ptr
 		    
@@ -51,7 +51,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateCanonicalLanguageIdentifierFromString(langIdentifier as String) As String
+		Shared Function CreateCanonicalLanguageIdentifierFromString(langIdentifier as String) As String
 		  #if targetMacOS
 		    soft declare function CFLocaleCreateCanonicalLanguageIdentifierFromString lib CarbonLib (allocator as Ptr, langIdentifier as CFStringRef) as CFStringRef
 		    
@@ -61,7 +61,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateCanonicalLocaleIdentifierFromString(localeIdentifier as String) As String
+		Shared Function CreateCanonicalLocaleIdentifierFromString(localeIdentifier as String) As String
 		  #if targetMacOS
 		    soft declare function CFLocaleCreateCanonicalLocaleIdentifierFromString lib CarbonLib (allocator as Ptr, localeIdentifier as CFStringRef) as CFStringRef
 		    
@@ -97,7 +97,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ISOCommonCurrencyCodes() As String()
+		Shared Function ISOCommonCurrencyCodes() As String()
 		  #if targetMacOS
 		    //added in 10.5
 		    soft declare function CFLocaleCopyCommonISOCurrencyCodes lib CarbonLib () as Ptr
@@ -109,7 +109,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ISOCountryCodes() As String()
+		Shared Function ISOCountryCodes() As String()
 		  #if targetMacOS
 		    //added in 10.4
 		    soft declare function CFLocaleCopyISOCountryCodes lib CarbonLib () as Ptr
@@ -121,7 +121,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ISOCurrencyCodes() As String()
+		Shared Function ISOCurrencyCodes() As String()
 		  #if targetMacOS
 		    //added in 10.4
 		    soft declare function CFLocaleCopyISOCurrencyCodes lib CarbonLib () as Ptr
@@ -133,7 +133,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PreferredLanguages() As String()
+		Shared Function PreferredLanguages() As String()
 		  #if targetMacOS
 		    //added in 10.5
 		    soft declare function CFLocaleCopyPreferredLanguages lib CarbonLib () as Ptr
@@ -145,7 +145,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SystemLocale() As CFLocale
+		Shared Function SystemLocale() As CFLocale
 		  #if targetMacOS
 		    soft declare function CFLocaleGetSystem lib CarbonLib () as Ptr
 		    return new CFLocale(CFLocaleGetSystem(), false)
@@ -155,7 +155,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UserLocale() As CFLocale
+		Shared Function UserLocale() As CFLocale
 		  #if targetMacOS
 		    soft declare function CFLocaleCopyCurrent lib CarbonLib () as Ptr
 		    return new CFLocale(CFLocaleCopyCurrent(), true)

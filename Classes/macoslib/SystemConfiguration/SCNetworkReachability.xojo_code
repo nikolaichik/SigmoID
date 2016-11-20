@@ -22,7 +22,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib SystemConfiguration.framework alias "SCNetworkReachabilityGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -41,7 +41,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithAddress(address as String) As SCNetworkReachability
+		Shared Function CreateWithAddress(address as String) As SCNetworkReachability
 		  #if targetMacOS
 		    declare function SCNetworkReachabilityCreateWithAddress lib SystemConfiguration.framework (allocator as Ptr, ByRef address as sockaddr) as Ptr
 		    
@@ -63,7 +63,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithName(name as String) As SCNetworkReachability
+		Shared Function CreateWithName(name as String) As SCNetworkReachability
 		  #if targetMacOS
 		    declare function SCNetworkReachabilityCreateWithName lib SystemConfiguration.framework (allocator as ptr, nodename as CString) as Ptr
 		    

@@ -48,6 +48,7 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kTFfamily"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -145,6 +146,7 @@ Begin Window RegPreciseTFcollectionsWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -441,6 +443,7 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -729,6 +732,39 @@ End
 		  
 		  return CheckedRows
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EnableButtons()
+		  
+		  if collectionList.SelCount=1 then
+		    'RegulonLogoButton.Enabled=true
+		    RegulogLogoButton.Enabled=true
+		    InfoButton.Enabled=true
+		  else
+		    'RegulonLogoButton.Enabled=false
+		    RegulogLogoButton.Enabled=false
+		    InfoButton.Enabled=false
+		  end if
+		  
+		  dim sr as integer=CountSelRows
+		  
+		  if sr=1 then
+		    DeselectAllButton.enabled=true
+		    ExportButton.Enabled=true
+		  else
+		    DeselectAllButton.enabled=true
+		    ExportButton.Enabled=true
+		  end if
+		  
+		  if sr=collectionList.ListCount then
+		    SelectAllButton.enabled=false
+		  else
+		    SelectAllButton.enabled=true
+		  end if
+		  
+		  ProgressLabel.Text=str(CountSelRows)+" profiles selected"
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1041,29 +1077,7 @@ End
 #tag Events CollectionList
 	#tag Event
 		Sub Change()
-		  if me.SelCount=1 then
-		    'RegulonLogoButton.Enabled=true
-		    RegulogLogoButton.Enabled=true
-		    InfoButton.Enabled=true
-		  else
-		    'RegulonLogoButton.Enabled=false
-		    RegulogLogoButton.Enabled=false
-		    InfoButton.Enabled=false
-		  end if
-		  
-		  if me.SelCount>=1 then
-		    DeselectAllButton.enabled=true
-		    ExportButton.Enabled=true
-		  else
-		    DeselectAllButton.enabled=true
-		    ExportButton.Enabled=true
-		  end if
-		  
-		  if me.SelCount=me.ListCount then
-		    SelectAllButton.enabled=false
-		  else
-		    SelectAllButton.enabled=true
-		  end if
+		  EnableButtons
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -1090,10 +1104,23 @@ End
 	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
 		  ' LogoPix array isn't initialised initially (and some elements may be nil afterwards)
+		  dim hpos,colWidth, offset as double
+		  dim ws as string
+		  dim p as picture
+		  
+		  // calculate logo column width 
+		  ' column widths are currently set as
+		  ' 20, 300, 80, 60, 80, *, 0, 0, 0
+		  
+		  ws=me.ColumnWidths
+		  colWidth=me.width-val(NthField(ws,",",1))-val(NthField(ws,",",2))-val(NthField(ws,",",3))-val(NthField(ws,",",4))-val(NthField(ws,",",5))
+		  
 		  
 		  if Column=5 then
 		    if row<=me.lastindex then
-		      g.DrawPicture(me.rowtag(row), 0, 0) 
+		      p=me.rowtag(row)
+		      offset=(colWidth-p.Width)/2 
+		      g.DrawPicture(p, offset, 0)  'pic is centered for proper alignment
 		    end if
 		  end if
 		  Return True
@@ -1102,10 +1129,16 @@ End
 	#tag Event
 		Sub CellAction(row As Integer, column As Integer)
 		  if column=0 then
-		    ProgressLabel.Text=str(CountSelRows)+" profiles selected"
+		    
+		    EnableButtons
 		  end if
 		  
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
+		  EnableButtons
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events RegPreciseSocket
@@ -1207,13 +1240,18 @@ End
 		    
 		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
 		    if s<> NIL then
-		      s.Write
-		      
 		      
 		      
 		      // make tmp folder
 		      dim TFfamily_tmp as FolderItem = SpecialFolder.Temporary.child("TFfamily_tmp")
 		      if TFfamily_tmp <> nil then
+		        
+		        
+		        'the folder may be there from the previous run, we have delete it!
+		        if TFfamily_tmp.Exists then
+		          dim i as integer
+		          i=deleteEntireFolder(TFfamily_tmp) 'return code isn't handled yet
+		        end if
 		        TFfamily_tmp.CreateAsFolder
 		      else 
 		        msgbox "Can't create tmp folder"
@@ -1282,7 +1320,7 @@ End
 		      
 		      // convert all tmp files to a single minimal meme file
 		      ' sites2meme command should look like 
-		      ' sites2meme -map /Users/Home/Desktop/sites2meme_test/sites.map -url http://regprecise.lbl.gov/Services/rest/sites?regulogId=MOTIF_NAME /Users/Home/Desktop/sites2meme_test
+		      ' sites2meme -map /Users/Home/Desktop/sites2meme_test/sites.map -url http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME /Users/Home/Desktop/sites2meme_test
 		      
 		      ' sample output is like this:
 		      'MEME version 4
@@ -1305,7 +1343,7 @@ End
 		      '0.000000      1.000000      0.000000      0.000000    
 		      '0.928571      0.000000      0.071429      0.000000    
 		      '
-		      'URL http://regprecise.lbl.gov/Services/rest/sites?regulogId=site1
+		      'URL http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site1
 		      '
 		      'MOTIF site2 RegR
 		      '
@@ -1318,14 +1356,7 @@ End
 		      '0.000000      1.000000      0.000000      0.000000    
 		      '0.785714      0.000000      0.214286      0.000000    
 		      '
-		      'URL http://regprecise.lbl.gov/Services/rest/sites?regulogId=site2
-		      
-		      // modify the resulting meme file removing motif ID from the header but adding family name instead 
-		      ' (motif ID remains in the URL anyway)
-		      ' so, 
-		      ' MOTIF site1 TfbS
-		      ' should become
-		      ' MOTIF TfbS LacI-family
+		      'URL http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site2
 		      
 		      dim sites2memePath as string
 		      #if targetWin32
@@ -1336,8 +1367,8 @@ End
 		      
 		      dim cli as string
 		      cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
-		      cli=sites2memePath+" "+"-url http://regprecise.lbl.gov/Services/rest/sites?regulogId=MOTIF_NAME"
-		      cli=sites2memePath+" "+TFfamily_tmp.ShellPath
+		      cli=cli+" "+"-url http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
+		      cli=cli+" "+TFfamily_tmp.ShellPath
 		      
 		      dim sh As Shell
 		      sh=New Shell
@@ -1347,8 +1378,31 @@ End
 		      
 		      
 		      If sh.errorCode=0 then
+		        // modify the meme output removing motif ID from the header but adding family name instead 
+		        ' (motif ID remains in the URL anyway)
+		        ' so, 
+		        ' MOTIF site1 TfbS
+		        ' should become
+		        ' MOTIF TfbS LacI-family
+		        
+		        dim memeArr() as string
+		        memeArr=split(sh.Result,EndOfLine)
+		        
+		        
+		        for n=0 to UBound(memeArr)
+		          if left(memeArr(n),6)="MOTIF " then
+		            dim a4,aftr as string
+		            a4=memeArr(n)
+		            memeArr(n)="MOTIF "+NthField(memeArr(n)," ",3)+" "+FamilyName+"-family"
+		            aftr=memeArr(n)
+		            beep
+		          end if
+		        next
+		        
 		        'write the file
-		        s.Write sh.Result
+		        for n=0 to UBound(memeArr)
+		          s.WriteLine memeArr(n)
+		        next
 		        s.close
 		        LogoWin.WriteToSTDOUT (" Done!")
 		        
@@ -1368,6 +1422,7 @@ End
 	#tag Event
 		Sub Action()
 		  SelectTFBSWindow.show
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1379,8 +1434,8 @@ End
 		  for k=0 to CollectionList.ListCount-1
 		    CollectionList.CellCheck(k,0) = false
 		  next
-		  ProgressLabel.Text=""
 		  
+		  EnableButtons
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1393,8 +1448,7 @@ End
 		    CollectionList.CellCheck(k,0) = true
 		  next
 		  
-		  ProgressLabel.Text=str(CountSelRows)+" profiles selected"
-		  
+		  EnableButtons
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1445,7 +1499,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

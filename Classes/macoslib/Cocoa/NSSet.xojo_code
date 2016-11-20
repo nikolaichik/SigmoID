@@ -168,7 +168,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create() As NSSet
+		Shared Function Create() As NSSet
 		  
 		  #if TargetMacOS
 		    declare function set_ lib CocoaLib selector "set" (class_id as Ptr) as Ptr
@@ -184,7 +184,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithArray(anArray as NSArray) As NSSet
+		Shared Function CreateWithArray(anArray as NSArray) As NSSet
 		  
 		  #if TargetMacOS
 		    declare function setWithArray lib CocoaLib selector "setWithArray:" (class_id as Ptr, anArray as Ptr) as Ptr
@@ -207,7 +207,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObject(anObject as NSObject) As NSSet
+		Shared Function CreateWithObject(anObject as NSObject) As NSSet
 		  
 		  #if TargetMacOS
 		    declare function setWithObject lib CocoaLib selector "setWithObject:" (class_id as Ptr, anObject as Ptr) as Ptr
@@ -230,7 +230,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObjects(objects() as NSObject) As NSSet
+		Shared Function CreateWithObjects(objects() as NSObject) As NSSet
 		  
 		  #if TargetMacOS
 		    declare function setWithObjects lib CocoaLib selector "setWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
@@ -264,7 +264,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithSet(aSet as NSSet) As NSSet
+		Shared Function CreateWithSet(aSet as NSSet) As NSSet
 		  
 		  #if TargetMacOS
 		    declare function setWithSet lib CocoaLib selector "setWithSet:" (class_id as Ptr, aSet as Ptr) as Ptr

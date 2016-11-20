@@ -520,25 +520,18 @@ Begin Window GenomeWin
       Visible         =   False
       Width           =   200
    End
-   Begin mHTTPSocket BLASTSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
+   Begin sHTTPSocket BLASTSocket
+      CertificateFile =   
+      CertificatePassword=   ""
+      CertificateRejectionFile=   
+      ConnectionType  =   3
       Enabled         =   True
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
+      Secure          =   False
       TabPanelIndex   =   0
-      yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   False
@@ -691,8 +684,10 @@ End
 		    EditCopy.enabled=true
 		    'enable copying of protein sequence, but only if a CDS is selected
 		    if SelFeatureNo>0 then
-		      if seq.Features(SelFeatureNo).type="CDS" then
-		        EditCopyTranslation.enabled=true
+		      if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
+		        if seq.Features(SelFeatureNo).type="CDS" then
+		          EditCopyTranslation.enabled=true
+		        end if
 		      end if
 		    end if
 		  else
@@ -975,6 +970,7 @@ End
 			' Copies protein sequence if a CDS is selected, otherwise copies DNA seq
 			
 			if AnythingSelected then
+			if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
 			if SelFeatureNo>0 then
 			if seq.Features(SelFeatureNo).type="CDS" then
 			CopyAA
@@ -986,6 +982,7 @@ End
 			end if
 			else
 			CopyDNA
+			end if
 			end if
 			
 			
@@ -1552,7 +1549,7 @@ End
 	#tag Method, Flags = &h0
 		Sub BLASTNsearch(GeneName as string)
 		  
-		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLstart as String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Put&QUERY="
 		  dim URLend as string= "&PROGRAM=blastn&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto&DATABASE="
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
@@ -1576,8 +1573,12 @@ End
 		  if BLASTorganism<>"" then
 		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
 		  end if
+		  #if DebugBuild
+		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  #endif
 		  
 		  CDDsearch=false
+		  BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  ProgressShow
 		  
@@ -1585,7 +1586,7 @@ End
 		  
 		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
 		  
-		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'https://blast.ncbi.nlm.nih.gov/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
 		  
 		  
@@ -1598,7 +1599,7 @@ End
 	#tag Method, Flags = &h0
 		Sub BLASTPsearch(ProtName as string)
 		  
-		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLstart as String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Put&QUERY="
 		  const URLend as string= "&PROGRAM=blastp&HITLIST_SIZE=100&CDD_SEARCH=true&DATABASE="
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
@@ -1628,8 +1629,12 @@ End
 		  if BLASTorganism<>"" then
 		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
 		  end if
+		  #if DebugBuild
+		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  #endif
 		  
 		  CDDsearch=false
+		  BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  'ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
 		  'ProgressWheel1.Visible=true
@@ -1640,7 +1645,7 @@ End
 		  
 		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
 		  
-		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'https://blast.ncbi.nlm.nih.gov/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
 		  
 		  Exception err
@@ -1651,7 +1656,7 @@ End
 	#tag Method, Flags = &h0
 		Sub BLASTXsearch(GeneName as string)
 		  
-		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLstart as String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Put&QUERY="
 		  dim URLend as string= "&PROGRAM=blastx&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto&DATABASE="
 		  
 		  
@@ -1680,14 +1685,19 @@ End
 		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
 		  end if
 		  
+		  #if DebugBuild
+		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  #endif
+		  
 		  'CDDsearch=false
+		  BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  
 		  
 		  
 		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
 		  
-		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'https://blast.ncbi.nlm.nih.gov/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:BLASTPsearch")
@@ -1696,7 +1706,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub CDsearch(ProtName as string)
-		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?DATABASE=cdd&SERVICE=rpsblast&PROGRAM=blastp&CMD=Put&CDD_SEARCH=true&QUERY="
+		  const URLstart as String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?DATABASE=cdd&SERVICE=rpsblast&PROGRAM=blastp&CMD=Put&CDD_SEARCH=true&QUERY="
 		  const URLend as string= "%0A%0A" 'protein seq is supposed to end with two newline chars, but works fine without those
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
@@ -1721,7 +1731,12 @@ End
 		  
 		  'format the CDD request:
 		  theURL=URLstart+theSeq'+URLend
+		  #if DebugBuild
+		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  #endif
+		  
 		  CDDsearch=true
+		  BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  
 		  
@@ -2077,8 +2092,10 @@ End
 		        EditCopy.enabled=true
 		        'enable copying of protein sequence, but only if a CDS is selected
 		        if SelFeatureNo>0 then
-		          if seq.Features(SelFeatureNo).type="CDS" then
-		            EditCopyTranslation.enabled=true
+		          if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
+		            if seq.Features(SelFeatureNo).type="CDS" then
+		              EditCopyTranslation.enabled=true
+		            end if
 		          end if
 		        end if
 		      else
@@ -3574,6 +3591,8 @@ End
 		    msgbox kInvalidGenbankFile
 		    return
 		  end 'if instrb(s,"LOCUS       ")>0
+		  
+		  w.selFeatureNo=0
 		  
 		  SetScrollbar
 		  
@@ -6699,6 +6718,8 @@ End
 		  
 		  'this socket should process all requests to BLAST servers, including CD search
 		  
+		  ' NCBI asks to specify contact details by adding two fields:
+		  ' &EMAIL=' field (and the '&TOOL=' for distributed software
 		  
 		  if CDDsearch then  'CDD search
 		    //get CDD search RID using hidden, but almost documented data in BLAST output that looks like:
@@ -6709,7 +6730,10 @@ End
 		    ltag="<input name="+chr(34)+"RID"+chr(34)+" value="+chr(34)
 		    RID=NthField(content,ltag,2)
 		    RID=NthField(RID,chr(34),1)
-		    theURL="http://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get"
+		    theURL="https://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get"
+		    #if DebugBuild
+		      theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		    #endif
 		  else
 		    
 		    //get the Request ID for blastp/n/x from result that looks like this:
@@ -6719,9 +6743,14 @@ End
 		    'QBlastInfoEnd
 		    '-->
 		    
+		    
+		    
 		    RID=NthField(content,"RID = ",2)
 		    RID=NthField(RID,EndOfLine.UNIX,1)
-		    theURL="http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?RID="+RID+"&CMD=Get"
+		    theURL="https://blast.ncbi.nlm.nih.gov/Blast.cgi?RID="+RID+"&CMD=Get"
+		    #if DebugBuild
+		      theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		    #endif
 		  end if
 		  
 		  'now load the URL:
@@ -7066,7 +7095,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

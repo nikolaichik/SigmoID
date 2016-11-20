@@ -21,7 +21,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CurrentApplication() As NSRunningApplication
+		Shared Function CurrentApplication() As NSRunningApplication
 		  #if targetMacOS
 		    declare function currentApplication lib CocoaLib selector "currentApplication" (class_id as Ptr) as Ptr
 		    
@@ -74,7 +74,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RunningApplication(pid as Integer) As NSRunningApplication
+		Shared Function RunningApplication(pid as Integer) As NSRunningApplication
 		  
 		  #if targetMacOS
 		    declare function runningApplicationWithProcessIdentifier lib CocoaLib selector "runningApplicationWithProcessIdentifier:" _
@@ -95,7 +95,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RunningApplication(bundleIdentifier as String) As NSRunningApplication
+		Shared Function RunningApplication(bundleIdentifier as String) As NSRunningApplication
 		  
 		  #if targetMacOS
 		    declare function runningApplicationsWithBundleIdentifier lib CocoaLib selector "runningApplicationsWithBundleIdentifier:" _
@@ -128,7 +128,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub TerminateAutomaticallyTerminableApplications()
+		Shared Sub TerminateAutomaticallyTerminableApplications()
 		  
 		  #if targetMacOS
 		    declare sub terminateAutomaticallyTerminableApplications lib CocoaLib selector "terminateAutomaticallyTerminableApplications" (class_id as Ptr)

@@ -23,7 +23,7 @@ Class FSEventStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CopyUUIDForDevice(dev as UInt32) As String
+		Shared Function CopyUUIDForDevice(dev as UInt32) As String
 		  
 		  #if TargetMacOS
 		    declare function FSEventsCopyUUIDForDevice lib CarbonLib ( dev as UInt32 ) as Ptr
@@ -40,7 +40,7 @@ Class FSEventStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromListOfFolderItems(forFolders() as FolderItem, options as integer, latencyInSeconds as double, fromID as UInt64 = 0) As FSEventStream
+		Shared Function CreateFromListOfFolderItems(forFolders() as FolderItem, options as integer, latencyInSeconds as double, fromID as UInt64 = 0) As FSEventStream
 		  
 		  #if TargetMacOS
 		    dim paths() as string
@@ -56,7 +56,7 @@ Class FSEventStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromListOfPaths(forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As FSEventStream
+		Shared Function CreateFromListOfPaths(forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As FSEventStream
 		  #if TargetMacOS
 		    declare function FSEventStreamCreate lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
 		    
@@ -81,7 +81,7 @@ Class FSEventStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromListOfPathsForDevice(device as FolderItem, forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As FSEventStream
+		Shared Function CreateFromListOfPathsForDevice(device as FolderItem, forPaths() as string, options as integer, latencyInSeconds as double = 3.0, fromID as UInt64 = 0) As FSEventStream
 		  #if TargetMacOS
 		    declare function FSEventStreamCreateRelativeToDevice lib CarbonLib (alloc as Ptr, callback as Ptr, context as Ptr, device as UInt32, Paths as Ptr, sinceWhen as UInt64, latency as double, flags as UInt32) as Ptr
 		    
@@ -197,7 +197,7 @@ Class FSEventStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FSEventsGetLastEventIdForDeviceBeforeTime(dev as Int32, beforeDate as Date) As UInt64
+		Shared Function FSEventsGetLastEventIdForDeviceBeforeTime(dev as Int32, beforeDate as Date) As UInt64
 		  #if TargetMacOS
 		    declare function FSEventsGetLastEventIdForDeviceBeforeTime lib CarbonLib (dev as Int32, time as double) as UInt64
 		    
@@ -327,7 +327,7 @@ Class FSEventStream
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SystemLatestEventID() As UInt64
+		Shared Function SystemLatestEventID() As UInt64
 		  #if TargetMacOS
 		    declare Function FSEventsGetCurrentEventId lib CarbonLib ( ) as UInt64
 		    

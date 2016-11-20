@@ -115,7 +115,7 @@ Inherits NSIndexSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create() As NSMutableIndexSet
+		Shared Function Create() As NSMutableIndexSet
 		  
 		  #if targetMacOS
 		    declare function indexSet lib CocoaLib selector "indexSet" (class_id as Ptr) as Ptr
@@ -133,7 +133,7 @@ Inherits NSIndexSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithIndex(index as UInt32) As NSMutableIndexSet
+		Shared Function CreateWithIndex(index as UInt32) As NSMutableIndexSet
 		  
 		  #if targetMacOS
 		    declare function indexSetWithIndex lib CocoaLib selector "indexSetWithIndex:" (class_id as Ptr, index as UInt32) as Ptr
@@ -153,7 +153,7 @@ Inherits NSIndexSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithRange(range as Cocoa.NSRange) As NSMutableIndexSet
+		Shared Function CreateWithRange(range as Cocoa.NSRange) As NSMutableIndexSet
 		  
 		  #if targetMacOS
 		    declare function indexSetWithIndexesInRange lib CocoaLib selector "indexSetWithIndexesInRange:" (class_id as Ptr, range as Cocoa.NSRange) as Ptr

@@ -2,7 +2,7 @@
 Class NSCalendar
 Inherits NSObject
 	#tag Method, Flags = &h1000
-		 Shared Function AutoupdatingCurrentCalendar() As NSCalendar
+		Shared Function AutoupdatingCurrentCalendar() As NSCalendar
 		  //# Returns the current logical calendar for the current user.
 		  
 		  #if TargetMacOS
@@ -103,7 +103,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CurrentCalendar() As NSCalendar
+		Shared Function CurrentCalendar() As NSCalendar
 		  //# Returns the logical calendar for the current user.
 		  
 		  //@ The returned calendar is formed from the settings for the current user’s chosen system locale _

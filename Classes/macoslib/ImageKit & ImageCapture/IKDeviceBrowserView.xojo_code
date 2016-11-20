@@ -308,7 +308,7 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub ShowBrowserAccessoryView(YesNo as Boolean)
+		Shared Sub ShowBrowserAccessoryView(YesNo as Boolean)
 		  //# Set the preference to show/hide the browser accessory view.
 		  
 		  //@ This shared method must be invoke BEFORE you instantiate an IKDeviceBrowserView as it modifies the

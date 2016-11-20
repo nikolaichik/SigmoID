@@ -571,6 +571,9 @@ End
 		              case "DESC  "
 		                DESC=NthField(aLine,"DESC  ",2)
 		              end select
+		              if inStream.EOF then
+		                exit
+		              end if
 		            wend
 		            
 		          end if
@@ -627,7 +630,14 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CountSeqs(inData as string) As string
+		  return str(CountFields(inData, ">")-1)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RunCheck()
+		  msgbox "1"
 		  RunButton.Enabled=true
 		  
 		  if HmmList.SelCount=0 then
@@ -635,20 +645,31 @@ End
 		    return
 		  end if
 		  
+		  msgbox "2"
+		  
+		  
 		  if outF=nil then
 		    RunButton.Enabled=false
 		    return
 		  end if
+		  
+		  msgbox "3"
+		  
 		  
 		  if NOT OutF.exists then
 		    RunButton.Enabled=false
 		    return
 		  end if 
 		  
+		  msgbox "4"
+		  
 		  if LogoWin.GenomeFile=nil then
 		    RunButton.Enabled=false
 		    return
 		  end if
+		  
+		  msgbox "5"
+		  
 		  
 		End Sub
 	#tag EndMethod
@@ -708,6 +729,7 @@ End
 		  dim hmmPath as string
 		  dim CDSfile as folderitem
 		  dim resFile as folderitem
+		  dim resfile2 as folderitem
 		  dim instream as TextInputStream
 		  dim outStream as TextOutputStream
 		  
@@ -757,7 +779,7 @@ End
 		    end if
 		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		    
-		    cli="/usr/local/bin/hmmsearch --cut_ga -A "+alignmentsFile.ShellPath+" "+hmmPath+" "+CDSfile.ShellPath
+		    cli="/usr/local/bin/hmmsearch --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+hmmPath+" "+CDSfile.ShellPath
 		    
 		    sh.execute cli
 		    If sh.errorCode=0 then
@@ -878,7 +900,7 @@ End
 		      ' issue a warning if there's less than 10 or over 100 seqs.
 		      hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
 		      if hitcount<10 then
-		        LogoWin.WriteToSTDOUT (" Warning! Less then 10 ("+str(hitcount)+") filtered hits.")
+		        LogoWin.WriteToSTDOUT (" Warning! Too few ("+str(hitcount)+") filtered hits.")
 		        if FallBackCheck.value then
 		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running search vs full UniProt...")
 		          
@@ -970,7 +992,7 @@ End
 		              res=instream.ReadAll
 		              instream.close
 		            end if
-		            
+		            resfile2=Fasta_files.child(ProtNames(n)+".fasta")
 		          else
 		            
 		            dim FragmentsForAhitF As folderitem
@@ -1020,44 +1042,56 @@ End
 		                
 		                // Save UPS fragments used for MEME run
 		                
-		                dim resfile2 as folderitem
-		                resfile2=Fasta_files.child(ProtNames(n)+".fasta")
+		                
+		                resfile2=Fasta_files.child(ProtNames(n)+"_CDhit_filtered.fasta")
+		                LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" genome fragments extracted.")
 		                if resfile2<>nil then
-		                  'run cd-hit if present
-		                  dim CDhit as folderitem
 		                  
-		                  
-		                  #if TargetWindows
-		                    CDhit=Resources_f.child("cd-hit-est.exe")
-		                  #else
-		                    CDhit=Resources_f.child("cd-hit-est")
-		                  #endif
-		                  
-		                  if CDhit<>nil AND CDhit.exists then
-		                    'dim cli as string
-		                    cli=CDhit.ShellPath+" -i " + resFile.ShellPath + " -o "+ resFile2.ShellPath + " -d 100"
+		                  if countfields(DataForMeme,">")>30 then 'too many seqs - reduce the number!
 		                    
-		                    sh=New Shell
-		                    sh.mode=0
-		                    sh.TimeOut=-1
-		                    sh.execute cli
+		                    'run cd-hit if present
+		                    dim CDhit as folderitem
 		                    
-		                    If sh.errorCode <> 0 then
-		                      msgbox "Problem running CD-Hit"
+		                    
+		                    #if TargetWindows
+		                      CDhit=Resources_f.child("cd-hit-est.exe")
+		                    #else
+		                      CDhit=Resources_f.child("cd-hit-est")
+		                    #endif
+		                    
+		                    if CDhit<>nil AND CDhit.exists then
+		                      'dim cli as string
+		                      cli=CDhit.ShellPath+" -i " + resFile.ShellPath + " -o "+ resFile2.ShellPath + " -d 100  -c 0.8 -n 5 -G 0 -aS 0.1 -aL 0.1"
+		                      
+		                      sh=New Shell
+		                      sh.mode=0
+		                      sh.TimeOut=-1
+		                      sh.execute cli
+		                      
+		                      If sh.errorCode <> 0 then
+		                        msgbox "Problem running CD-Hit"
+		                      else
+		                        'read CDhit filtered data
+		                        'dim inStream as TextInputStream
+		                        InStream = resFile2.OpenAsTextFile
+		                        if inStream<>NIl then
+		                          DataForMeme=InStream.ReadAll
+		                          LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments left after CD-hit-est clustering.")
+		                          
+		                          inStream.close
+		                        End If
+		                      end if
+		                      
 		                    end if
 		                    
-		                    
-		                    
-		                    
-		                    
-		                    
-		                    
-		                  else
-		                    'use genus/species filtering if cd-hit isn't present
+		                    'use genus and then species filtering anyway, as cd-hit filtering is far from perfect
 		                    DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
+		                    'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant species.")
+		                    
 		                    DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
+		                    'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant genera.")
 		                    
-		                    
+		                    resfile2=Fasta_files.child(ProtNames(n)+".fasta")
 		                    OutStream = TextOutputStream.Create(resFile2)
 		                    if outStream<>Nil then
 		                      outstream.Write(DataForMeme)
@@ -1065,12 +1099,16 @@ End
 		                      'LogoWin.WriteToSTDOUT (" Done.")
 		                      
 		                    end if
-		                  end if
+		                    
+		                  else 'countfields(DataForMeme,">")>30
+		                    resfile2=resFile
+		                    
+		                  end if 'countfields(DataForMeme,">")>30
 		                  
-		                else
+		                else 'resfile2<>nil
 		                  LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a file to store superpromoters around the genes coding for "+ProtNames(n)+".")
 		                  
-		                end if
+		                end if 'resfile2<>nil
 		                
 		              end if
 		            else
@@ -1089,7 +1127,7 @@ End
 		          
 		          If memeF <> Nil Then
 		            if memeF.Exists then
-		              LogoWin.WriteToSTDOUT ("MEME results folder exists, so MEME will not be run. remove this folder ("+memeF.shellpath+") and re-run this procedure if you want to re-generate the  results"+EndOfLine.unix)
+		              LogoWin.WriteToSTDOUT ("MEME results folder exists, so MEME will not be run. Remove this folder ("+memeF.shellpath+") and re-run this procedure if you want to re-generate the  results"+EndOfLine.unix)
 		              
 		            else
 		              memeF.createAsFolder
@@ -1123,61 +1161,68 @@ End
 		              f1=memeF.child("Zoops")
 		              FixPath4Windows(MEMEf)
 		              
-		              if f1<>NIL then
-		                if f1.Exists then
-		                  f1.Delete
-		                end if
-		                
-		                'LogoWin.show
-		                LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Running MEME in zoops mode...")
-		                
-		                ErrCode=MEME(resfile, f1, opt+" -mod zoops")
-		                'sh=New Shell
-		                'sh.mode=0
-		                'sh.TimeOut=-1
-		                
-		                If ErrCode=0 then
-		                  LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
-		                  
-		                  
-		                else
-		                  
-		                end if
-		                
-		                
-		                'Run MEME in Zero or One per sequence' mode:
-		                f1=memeF.child("Anr")
-		                FixPath4Windows(f1)
-		                
+		              if resfile2<>Nil then
 		                if f1<>NIL then
 		                  if f1.Exists then
 		                    f1.Delete
 		                  end if
 		                  
 		                  'LogoWin.show
-		                  LogoWin.WriteToSTDOUT (EndofLine.unix+"Running MEME in anr mode...")
+		                  LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Running MEME in zoops mode...")
 		                  
-		                  ErrCode=MEME(resfile, f1, opt+" -mod anr")
+		                  ErrCode=MEME(resfile2, f1, opt+" -mod zoops")
+		                  'sh=New Shell
+		                  'sh.mode=0
+		                  'sh.TimeOut=-1
+		                  
 		                  If ErrCode=0 then
-		                    
 		                    LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
+		                    
+		                    
 		                  else
 		                    
 		                  end if
 		                  
-		                  LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
 		                  
+		                  'Run MEME in Zero or One per sequence' mode:
+		                  f1=memeF.child("Anr")
+		                  FixPath4Windows(f1)
+		                  
+		                  if f1<>NIL then
+		                    if f1.Exists then
+		                      f1.Delete
+		                    end if
+		                    
+		                    'LogoWin.show
+		                    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running MEME in anr mode...")
+		                    
+		                    ErrCode=MEME(resfile2, f1, opt+" -mod anr")
+		                    If ErrCode=0 then
+		                      
+		                      LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
+		                    else
+		                      
+		                    end if
+		                    
+		                    LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
+		                    
+		                    
+		                  else
+		                    msgbox "Can't create MEME output folder!"
+		                    'return -1
+		                  end if
 		                  
 		                else
-		                  msgbox "Can't create MEME output folder!"
-		                  'return -1
-		                end if
-		                
-		                
+		                  
+		                End If
+		                resfile2=new FolderItem
 		              else
+		                LogoWin.WriteToSTDOUT (EndofLine.unix+"Not running MEME for" + resfile2.Name + " (empty file)")
 		                
 		              End If
-		            End If
+		              
+		            end if
+		            
 		            
 		          else
 		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a folder to store MEME results for "+ProtNames(n)+".")
@@ -1231,6 +1276,13 @@ End
 		  
 		  
 		  Exception err
+		    
+		    if err isa IOException then
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"IOException has occurred.")
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
+		    end if
 		    ExceptionHandler(err,"deNovoWin:RunButton")
 		End Sub
 	#tag EndEvent

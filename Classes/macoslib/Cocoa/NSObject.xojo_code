@@ -2,7 +2,7 @@
 Class NSObject
 Implements objHasVariantValue
 	#tag Method, Flags = &h0
-		 Shared Function Allocate(class_id as Ptr) As Ptr
+		Shared Function Allocate(class_id as Ptr) As Ptr
 		  
 		  #if TargetMacOS
 		    declare function alloc lib CocoaLib selector "alloc" (class_id as Ptr) as Ptr
@@ -15,7 +15,7 @@ Implements objHasVariantValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Allocate(NSClassName as String) As Ptr
+		Shared Function Allocate(NSClassName as String) As Ptr
 		  
 		  return NSObject.Allocate( Cocoa.NSClassFromString(NSClassName))
 		End Function
@@ -87,7 +87,7 @@ Implements objHasVariantValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Initialize(obj_id as Ptr) As Ptr
+		Shared Function Initialize(obj_id as Ptr) As Ptr
 		  #if TargetMacOS
 		    declare function init lib CocoaLib selector "init" (id as Ptr) as Ptr
 		    

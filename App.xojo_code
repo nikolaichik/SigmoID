@@ -326,7 +326,7 @@ Inherits Application
 
 	#tag MenuHandler
 		Function FileOpen() As Boolean Handles FileOpen.Action
-			'just open file in genome browser and display 9 kb of it
+			'open genbank file in genome browser and display 9 kb of it
 			
 			if GenomeWin.SaveCheck then 'save changes in the open file if any
 			
@@ -663,6 +663,14 @@ Inherits Application
 		End Function
 	#tag EndMenuHandler
 
+	#tag MenuHandler
+		Function RegulonTomTom() As Boolean Handles RegulonTomTom.Action
+			TomTomWin.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
 
 	#tag Method, Flags = &h0
 		Sub MakeSigFile(SigFolder as folderitem)
@@ -942,6 +950,8 @@ Inherits Application
 		62. Extend Binding Sites function should work with gapped sites too
 		63. Localise standard dialogues
 		64. Main window bug: quickly dragging the separator all the way up hides it with no way to bring back 
+		65. Cache the data loaded from RegPrecise to the disk and reload 'em next time (having checked that version is current)
+		66. When editing a feature, after pressing OK check for a change of gene name (and update it)
 		
 		64-bit issues:
 		1. [Workarounds added] VirtualVolume is broken

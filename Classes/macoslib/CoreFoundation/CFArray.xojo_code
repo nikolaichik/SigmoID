@@ -23,7 +23,7 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CoreFoundation.framework alias "CFArrayGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -74,7 +74,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromObjectsArray(theArray as variant) As CFArray
+		Shared Function CreateFromObjectsArray(theArray as variant) As CFArray
 		  
 		  #if TargetMacOS
 		    dim cfma as new CFMutableArray
@@ -131,7 +131,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFArray
+		Shared Function CreateFromPListFile(file as FolderItem) As CFArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListFile(file, CoreFoundation.kCFPropertyListImmutable))
 		  #else
@@ -142,7 +142,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFArray
+		Shared Function CreateFromPListString(plistString as String) As CFArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListString(plistString, CoreFoundation.kCFPropertyListImmutable))
 		  #else

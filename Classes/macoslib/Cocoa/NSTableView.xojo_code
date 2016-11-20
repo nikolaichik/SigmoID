@@ -144,7 +144,7 @@ Inherits NSControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FindByID(obj_id as Ptr) As NSTableView
+		Shared Function FindByID(obj_id as Ptr) As NSTableView
 		  dim c as NSControl = NSControl.FindByID(obj_id)
 		  if c isA NSTableView then
 		    return NSTableView(c)

@@ -2,21 +2,21 @@
 Protected Class ResourceItem
 Inherits ResourceForkReplacement.ResourceAccessor
 	#tag Method, Flags = &h0
-		 Shared Function ByID(resFileRef as Integer, type as String, id as Integer) As ResourceItem
+		Shared Function ByID(resFileRef as Integer, type as String, id as Integer) As ResourceItem
 		  if resFileRef = 0 then return nil
 		  return new ResourceItem (resFileRef, type, id)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ByIndex(resFileRef as Integer, type as String, idx_0 as Integer) As ResourceItem
+		Shared Function ByIndex(resFileRef as Integer, type as String, idx_0 as Integer) As ResourceItem
 		  if resFileRef = 0 then return nil
 		  return new ResourceItem (resFileRef, type, 0, idx_0)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ByName(resFileRef as Integer, type as String, name as String) As ResourceItem
+		Shared Function ByName(resFileRef as Integer, type as String, name as String) As ResourceItem
 		  if resFileRef = 0 then return nil
 		  return new ResourceItem (resFileRef, type, 0, -1, name)
 		End Function
