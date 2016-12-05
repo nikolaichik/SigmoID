@@ -84,7 +84,7 @@ else:
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.13 (March 12, 2016))'
+print '\nTermGen 1.14 (December 5, 2016))'
 print "="*50
 output_args = ''
 for arg in range(1, len(sys.argv)):
