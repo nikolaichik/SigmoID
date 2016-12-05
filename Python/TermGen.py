@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.13 (March 12, 2016)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.14 (December 5, 2016)')
     return parser
 
 args = createParser()
@@ -64,9 +64,9 @@ else:
     name = name.split('.')[0]
 cwd = os.path.abspath(os.path.dirname(__file__))
 if platform.system() != 'Windows':
-    renamed_cwd = cwd.replace(' ', '\ ')
-    renamed_cwd = cwd.replace('(', '\(')
-    renamed_cwd = cwd.replace(')', '\)')
+    renamed_cwd = cwd.replace(' ', '\\ ')
+    renamed_cwd = renamed_cwd.replace('(', '\(')
+    renamed_cwd = renamed_cwd.replace(')', '\)')
 else:
     renamed_cwd = ''
     expterm_cwd = ''
@@ -171,7 +171,6 @@ else:
                                                                                         enter.confidence, additional_options,
                                                                                         expterm_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
-    print 'CMD:', transterm_cmd
 os.system(transterm_cmd)
 
 
