@@ -1156,7 +1156,7 @@ End
 			
 			dlg.promptText="Select a text file with data to plot"
 			dlg.Title="Open file with data to plot"
-			dlg.Filter=FileTypes.AllFiles
+			dlg.Filter="FileTypes.Text;FileTypes.WIG"
 			infile=dlg.ShowModal()
 			
 			if infile<> Nil then
@@ -1170,8 +1170,14 @@ End
 			
 			
 			
+			
 			if UBound(self.Genome.ReadDepth1)<1 then     'Loading first track
 			InStream = infile.OpenAsTextFile
+			if infile.Type="WIG" then     'Rockhopper/IGV track: drop first two lines
+			aLine=trim(InStream.readLine)
+			aLine=trim(InStream.readLine)
+			end if
+			
 			aLine=trim(InStream.readLine)
 			if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools)
 			instream.close
@@ -2970,7 +2976,11 @@ End
 		    end if
 		  else
 		    ProgressHide
-		    LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+") getting phmmer results.")+EndOfLine.Unix
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+		    
 		  end if
 		  
 		  

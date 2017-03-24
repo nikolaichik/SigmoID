@@ -142,6 +142,7 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kFeature2add"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -683,6 +684,7 @@ End
 		  end if
 		  if IntergenicBox.value then
 		    opt=opt+" -i"
+		    opt=opt+" -b 50" 'allow 50 bp within frame
 		  end if
 		  
 		  if LogoWin.minAlignmentLength<>LogoWin.AlignmentLength then
@@ -956,7 +958,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

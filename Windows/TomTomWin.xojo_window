@@ -646,27 +646,27 @@ End
 	#tag Method, Flags = &h0
 		Sub SetDefaults()
 		  'Resources_f=GetFolderItem("").Child("SigmoID Resources")
-		  msgbox "0"
+		  'msgbox "0"
 		  if Resources_f<>Nil then
 		    if Resources_f.exists then
-		      msgbox("Resources are at "+Resources_f.shellpath)
+		      'msgbox("Resources are at "+Resources_f.shellpath)
 		    else 
-		      msgbox "No Resources_f!"
+		      'msgbox "No Resources_f!"
 		      Resources_f=GetFolderItem("").Child("SigmoID Resources")
 		    end if
 		    TFfamFolder=Resources_f.child("TF_families")
-		    msgbox("1"+TFfamFolder.shellpath)
+		    'msgbox("1"+TFfamFolder.shellpath)
 		    if TFfamFolder<>Nil then
-		      msgbox "2"
+		      'msgbox "2"
 		      if TFfamFolder.Exists then
-		        msgbox "2.1"
-		        msgbox TFfamFolder.Name
-		        msgbox "2.2"
-		        msgbox TFfamFolder.NativePath
+		        'msgbox "2.1"
+		        'msgbox TFfamFolder.Name
+		        'msgbox "2.2"
+		        'msgbox TFfamFolder.NativePath
 		        TFfamPathField.text=TFfamFolder.ShellPath
-		        msgbox "3"
+		        'msgbox "3"
 		      else
-		        msgbox "No TFfamFolder!"
+		        'msgbox "No TFfamFolder!"
 		        
 		      end if
 		      
@@ -677,7 +677,7 @@ End
 		      
 		    end if
 		  else
-		    msgbox "Resources_f is Nil!"
+		    'msgbox "Resources_f is Nil!"
 		  end if
 		  Exception err
 		    
@@ -733,9 +733,15 @@ End
 #tag Events RunButton
 	#tag Event
 		Sub Action()
+		  self.hide
+		  
+		  logowin.WriteToSTDOUT(EndOfLine.unix+"Running TomTom...")
+		  
 		  RunTomTom(MEMEresFolder)
 		  
-		  self.hide
+		  logowin.WriteToSTDOUT(" Done!")
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

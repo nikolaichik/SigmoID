@@ -980,6 +980,287 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function HTTPerror(StatusCode as integer) As string
+		  dim ErrName, Desc As String
+		  
+		  select case StatusCode
+		  case 100 
+		    ErrName="Continue"
+		    Desc="The server has received the request headers and the client should proceed to send the request body (in the case of a request for which a body needs to be sent; for example, a POST request). Sending a large request body to a server after a request has been rejected for inappropriate headers would be inefficient. To have a server check the request's headers, a client must send Expect: 100-continue as a header in its initial request and receive a 100 Continue status code in response before sending the body. The response 417 Expectation Failed indicates the request should not be continued."
+		  case 101 
+		    ErrName="Switching Protocols"
+		    Desc="The requester has asked the server to switch protocols and the server has agreed to do so."
+		  case 102 
+		    ErrName="Processing (WebDAV; RFC 2518)"
+		    Desc="A WebDAV request may contain many sub-requests involving file operations, requiring a long time to complete the request. This code indicates that the server has received and is processing the request, but no response is available yet.[6] This prevents the client from timing out and assuming the request was lost."
+		    
+		    '2xx Success
+		    '
+		    'This class of status codes indicates the action requested by the client was received, understood, accepted, and processed successfully.[2]
+		    '
+		    '200 OK
+		    'Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request, the response will contain an entity describing or containing the result of the action.[7]
+		    '201 Created
+		    'The request has been fulfilled, resulting in the creation of a new resource.[8]
+		    '202 Accepted
+		    'The request has been accepted for processing, but the processing has not been completed. The request might or might not be eventually acted upon, and may be disallowed when processing occurs.[9]
+		    '203 Non-Authoritative Information (since HTTP/1.1)
+		    'The server is a transforming proxy (e.g. a Web accelerator) that received a 200 OK from its origin, but is returning a modified version of the origin's response.[10][11]
+		    '204 No Content
+		    'The server successfully processed the request and is not returning any content.[12]
+		    '205 Reset Content
+		    'The server successfully processed the request, but is not returning any content. Unlike a 204 response, this response requires that the requester reset the document view.[13]
+		    '206 Partial Content (RFC 7233)
+		    'The server is delivering only part of the resource (byte serving) due to a range header sent by the client. The range header is used by HTTP clients to enable resuming of interrupted downloads, or split a download into multiple simultaneous streams.[14]
+		    '207 Multi-Status (WebDAV; RFC 4918)
+		    'The message body that follows is an XML message and can contain a number of separate response codes, depending on how many sub-requests were made.[15]
+		    '208 Already Reported (WebDAV; RFC 5842)
+		    'The members of a DAV binding have already been enumerated in a previous reply to this request, and are not being included again.[16]
+		    '226 IM Used (RFC 3229)
+		    'The server has fulfilled a request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.[17]
+		    
+		    
+		  case 300 
+		    ErrName="Multiple Choices"
+		    Desc="Indicates multiple options for the resource from which the client may choose (via agent-driven content negotiation). For example, this code could be used to present multiple video format options, to list files with different filename extensions, or to suggest word-sense disambiguation."
+		  case 301 
+		    ErrName="Moved Permanently"
+		    Desc="This and all future requests should be directed to the given URI."
+		  case 302 
+		    ErrName="Found"
+		    Desc="This is an example of industry practice contradicting the standard. The HTTP/1.0 specification (RFC 1945) required the client to perform a temporary redirect (the original describing phrase was 'Moved Temporarily'), but popular browsers implemented 302 with the functionality of a 303 See Other. Therefore, HTTP/1.1 added status codes 303 and 307 to distinguish between the two behaviours. However, some Web applications and frameworks use the 302 status code as if it were the 303."
+		  case 303 
+		    ErrName="See Other (since HTTP/1.1)"
+		    Desc="The response to the request can be found under another URI using a GET method. When received in response to a POST (or PUT/DELETE), the client should presume that the server has received the data and should issue a redirect with a separate GET message."
+		  case 304 
+		    ErrName="Not Modified (RFC 7232)"
+		    Desc="Indicates that the resource has not been modified since the version specified by the request headers If-Modified-Since or If-None-Match. In such case, there is no need to retransmit the resource since the client still has a previously-downloaded copy."
+		  case 305 
+		    ErrName="Use Proxy (since HTTP/1.1)"
+		    Desc="The requested resource is available only through a proxy, the address for which is provided in the response. Many HTTP clients (such as Mozilla[26] and Internet Explorer) do not correctly handle responses with this status code, primarily for security reasons."
+		  case 306 
+		    ErrName="Switch Proxy"
+		    Desc="No longer used. Originally meant 'Subsequent requests should use the specified proxy'."
+		  case 307 
+		    ErrName="Temporary Redirect (since HTTP/1.1)"
+		    Desc="In this case, the request should be repeated with another URI; however, future requests should still use the original URI. In contrast to how 302 was historically implemented, the request method is not allowed to be changed when reissuing the original request. For example, a POST request should be repeated using another POST request."
+		  case 308 
+		    ErrName="Permanent Redirect (RFC 7538)"
+		    Desc="The request and all future requests should be repeated using another URI. 307 and 308 parallel the behaviors of 302 and 301, but do not allow the HTTP method to change. So, for example, submitting a form to a permanently redirected resource may continue smoothly."
+		    
+		    
+		  case 400 
+		    ErrName="Bad Request"
+		    Desc="The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, too large size, invalid request message framing, or deceptive request routing)."
+		  case 401 
+		    ErrName="Unauthorized (RFC 7235)"
+		    Desc="Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource. See Basic access authentication and Digest access authentication.[33] 401 semantically means 'unauthenticated', i.e. the user does not have the necessary credentials. Note: Some sites issue HTTP 401 when an IP address is banned from the website (usually the website domain) and that specific address is refused permission to access a website."
+		  case 402 
+		    ErrName="Payment Required"
+		    Desc="Reserved for future use. The original intention was that this code might be used as part of some form of digital cash or micropayment scheme, but that has not happened, and this code is not usually used. Google Developers API uses this status if a particular developer has exceeded the daily limit on requests."
+		  case 403 
+		    ErrName="Forbidden"
+		    Desc="The request was valid, but the server is refusing action. The user might not have the necessary permissions for a resource."
+		  case 404 
+		    ErrName="Not Found"
+		    Desc="The requested resource could not be found but may be available in the future. Subsequent requests by the client are permissible."
+		  case 405 
+		    ErrName="Method Not Allowed"
+		    Desc="A request method is not supported for the requested resource; for example, a GET request on a form that requires data to be presented via POST, or a PUT request on a read-only resource."
+		  case 406 
+		    ErrName="Not Acceptable"
+		    Desc="The requested resource is capable of generating only content not acceptable according to the Accept headers sent in the request.[37] See Content negotiation."
+		  case 407 
+		    ErrName="Proxy Authentication Required (RFC 7235)"
+		    Desc="The client must first authenticate itself with the proxy."
+		  case 408 
+		    ErrName="Request Time-out"
+		    Desc="The server timed out waiting for the request. According to HTTP specifications: 'The client did not produce a request within the time that the server was prepared to wait. The client MAY repeat the request without modifications at any later time'."
+		  case 409 
+		    ErrName="Conflict"
+		    Desc="Indicates that the request could not be processed because of conflict in the request, such as an edit conflict between multiple simultaneous updates."
+		  case 410 
+		    ErrName="Gone"
+		    Desc="Indicates that the resource requested is no longer available and will not be available again. This should be used when a resource has been intentionally removed and the resource should be purged. Upon receiving a 410 status code, the client should not request the resource in the future. Clients such as search engines should remove the resource from their indices. Most use cases do not require clients and search engines to purge the resource, and a '404 Not Found' may be used instead."
+		  case 411 
+		    ErrName="Length Required"
+		    Desc="The request did not specify the length of its content, which is required by the requested resource."
+		  case 412 
+		    ErrName="Precondition Failed (RFC 7232)"
+		    Desc="The server does not meet one of the preconditions that the requester put on the request."
+		  case 413 
+		    ErrName="Payload Too Large (RFC 7231)"
+		    Desc="The request is larger than the server is willing or able to process. Previously called 'Request Entity Too Large'."
+		  case 414 
+		    ErrName="URI Too Long (RFC 7231)"
+		    Desc="The URI provided was too long for the server to process. Often the result of too much data being encoded as a query-string of a GET request, in which case it should be converted to a POST request Called 'Request-URI Too Long' previously."
+		  case 415 
+		    ErrName="Unsupported Media Type"
+		    Desc="The request entity has a media type which the server or resource does not support. For example, the client uploads an image as image/svg+xml, but the server requires that images use a different format."
+		  case 416 
+		    ErrName="Range Not Satisfiable (RFC 7233)"
+		    Desc="The client has asked for a portion of the file (byte serving), but the server cannot supply that portion. For example, if the client asked for a part of the file that lies beyond the end of the file. Called 'Requested Range Not Satisfiable' previously."
+		  case 417 
+		    ErrName="Expectation Failed"
+		    Desc="The server cannot meet the requirements of the Expect request-header field."
+		  case 418 
+		    ErrName="I'm a teapot (RFC 2324)"
+		    Desc="This code was defined in 1998 as one of the traditional IETF April Fools' jokes, in RFC 2324, Hyper Text Coffee Pot Control Protocol, and is not expected to be implemented by actual HTTP servers. The RFC specifies this code should be returned by teapots requested to brew coffee. This HTTP status is used as an Easter egg in some websites, including Google.com."
+		  case 421 
+		    ErrName="Misdirected Request (RFC 7540)"
+		    Desc="The request was directed at a server that is not able to produce a response (for example because a connection reuse)."
+		  case 422 
+		    ErrName="Unprocessable Entity (WebDAV; RFC 4918)"
+		    Desc="The request was well-formed but was unable to be followed due to semantic errors."
+		  case 423 
+		    ErrName="Locked (WebDAV; RFC 4918)"
+		    Desc="The resource that is being accessed is locked."
+		  case 424 
+		    ErrName="Failed Dependency (WebDAV; RFC 4918)"
+		    Desc="The request failed due to failure of a previous request (e.g., a PROPPATCH)."
+		  case 426 
+		    ErrName="Upgrade Required"
+		    Desc="The client should switch to a different protocol such as TLS/1.0, given in the Upgrade header field."
+		  case 428 
+		    ErrName="Precondition Required (RFC 6585)"
+		    Desc="The origin server requires the request to be conditional. Intended to prevent the 'lost update' problem, where a client GETs a resource's state, modifies it, and PUTs it back to the server, when meanwhile a third party has modified the state on the server, leading to a conflict."
+		  case 429 
+		    ErrName="Too Many Requests (RFC 6585)"
+		    Desc="The user has sent too many requests in a given amount of time. Intended for use with rate-limiting schemes."
+		  case 431 
+		    ErrName="Request Header Fields Too Large (RFC 6585)"
+		    Desc="The server is unwilling to process the request because either an individual header field, or all the header fields collectively, are too large."
+		  case 451 
+		    ErrName="Unavailable For Legal Reasons (RFC 7725)"
+		    Desc="A server operator has received a legal demand to deny access to a resource or to a set of resources that includes the requested resource. The code 451 was chosen as a reference to the novel Fahrenheit 451."
+		    
+		  case 500 
+		    ErrName="Internal Server Error"
+		    Desc="A generic error message, given when an unexpected condition was encountered and no more specific message is suitable."
+		  case 501 
+		    ErrName="Not Implemented"
+		    Desc="The server either does not recognize the request method, or it lacks the ability to fulfill the request. Usually this implies future availability (e.g., a new feature of a web-service API)."
+		  case 502 
+		    ErrName="Bad Gateway"
+		    Desc="The server was acting as a gateway or proxy and received an invalid response from the upstream server."
+		  case 503 
+		    ErrName="Service Unavailable"
+		    Desc="The server is currently unavailable (because it is overloaded or down for maintenance). Generally, this is a temporary state."
+		  case 504 
+		    ErrName="Gateway Time-out"
+		    Desc="The server was acting as a gateway or proxy and did not receive a timely response from the upstream server."
+		  case 505 
+		    ErrName="HTTP Version Not Supported"
+		    Desc="The server does not support the HTTP protocol version used in the request."
+		  case 506 
+		    ErrName="Variant Also Negotiates (RFC 2295)"
+		    Desc="Transparent content negotiation for the request results in a circular reference."
+		  case 507 
+		    ErrName="Insufficient Storage (WebDAV; RFC 4918)"
+		    Desc="The server is unable to store the representation needed to complete the request."
+		  case 508 
+		    ErrName="Loop Detected (WebDAV; RFC 5842)"
+		    Desc="The server detected an infinite loop while processing the request (sent in lieu of 208 Already Reported)."
+		  case 510 
+		    ErrName="Not Extended (RFC 2774)"
+		    Desc="Further extensions to the request are required for the server to fulfill it."
+		  case 511 
+		    ErrName="Network Authentication Required (RFC 6585)"
+		    Desc="The client needs to authenticate to gain network access. Intended for use by intercepting proxies used to control access to the network (e.g., 'captive portals' used to require agreement to Terms of Service before granting full Internet access via a Wi-Fi hotspot)."
+		    
+		    
+		    'Unofficial codes[edit]
+		    'The following codes are not specified by any standard.
+		    '
+		    '103 Checkpoint
+		    'Used in the resumable requests proposal to resume aborted PUT or POST requests.[65]
+		    '103 Early Hints
+		    'Used to return some response headers before entire HTTP response.[66][67]
+		    '420 Method Failure (Spring Framework)
+		    'A deprecated response used by the Spring Framework when a method has failed.[68]
+		    '420 Enhance Your Calm (Twitter)
+		    'Returned by version 1 of the Twitter Search and Trends API when the client is being rate limited; versions 1.1 and later use the 429 Too Many Requests response code instead.[69]
+		    '450 Blocked by Windows Parental Controls (Microsoft)
+		    'The Microsoft extension code indicated when Windows Parental Controls are turned on and are blocking access to the given webpage.[70]
+		    '498 Invalid Token (Esri)
+		    'Returned by ArcGIS for Server. Code 498 indicates an expired or otherwise invalid token.[71]
+		    '499 Token Required (Esri)
+		    'Returned by ArcGIS for Server. Code 499 indicates that a token is required but was not submitted.[71]
+		    '509 Bandwidth Limit Exceeded (Apache Web Server/cPanel)
+		    'The server has exceeded the bandwidth specified by the server administrator; this is often used by shared hosting providers to limit the bandwidth of customers.[72]
+		    '530 Site is frozen
+		    'Used by the Pantheon web platform to indicate a site that has been frozen due to inactivity.[73]
+		    '598 (Informal convention) Network read timeout error
+		    'Used by some HTTP proxies to signal a network read timeout behind the proxy to a client in front of the proxy.[74][75]
+		    '599 (Informal convention) Network connect timeout error
+		    'Used to indicate when the connection to the network times out.[76][citation needed]
+		    'Internet Information Services[edit]
+		    'The Internet Information Services expands the 4xx error space to signal errors with the client's request.
+		    '
+		    '440 Login Time-out
+		    'The client's session has expired and must log in again.[77]
+		    '449 Retry With
+		    'The server cannot honour the request because the user has not provided the required information.[78]
+		    '451 Redirect
+		    'Used in Exchange ActiveSync when either a more efficient server is available or the server cannot access the users' mailbox.[79] The client is expected to re-run the HTTP AutoDiscover operation to find a more appropriate server.[80]
+		    'nginx[edit]
+		    'The nginx web server software expands the 4xx error space to signal issues with the client's request.[81][82] These are only used for logging purposes, no actual response is sent with these codes.
+		    '
+		    '444 No Response
+		    'Used to indicate that the server has returned no information to the client and closed the connection.
+		    '495 SSL Certificate Error
+		    'An expansion of the 400 Bad Request response code, used when the client has provided an invalid client certificate.
+		    '496 SSL Certificate Required
+		    'An expansion of the 400 Bad Request response code, used when a client certificate is required but not provided.
+		    '497 HTTP Request Sent to HTTPS Port
+		    'An expansion of the 400 Bad Request response code, used when the client has made a HTTP request to a port listening for HTTPS requests.
+		    '499 Client Closed Request
+		    'Used when the client has closed the request before the server could send a response.
+		    'Cloudflare[edit]
+		    'Cloudflare's reverse proxy service expands the 5xx series of errors space to signal issues with the origin server.[83]
+		    '
+		    '520 Unknown Error
+		    'The 520 error is used as a "catch-all response for when the origin server returns something unexpected", listing connection resets, large headers, and empty or invalid responses as common triggers.
+		    '521 Web Server Is Down
+		    'The origin server has refused the connection from Cloudflare.
+		    '522 Connection Timed Out
+		    'Cloudflare could not negotiate a TCP handshake with the origin server.
+		    '523 Origin Is Unreachable
+		    'Cloudflare could not reach the origin server; for example, if the DNS records for the origin server are incorrect.
+		    '524 A Timeout Occurred
+		    'Cloudflare was able to complete a TCP connection to the origin server, but did not receive a timely HTTP response.
+		    '525 SSL Handshake Failed
+		    'Cloudflare could not negotiate a SSL/TLS handshake with the origin server.
+		    '526 Invalid SSL Certificate
+		    'Cloudflare could not validate the SSL/TLS certificate that the origin server presented.
+		    '527 Railgun Error
+		    'Error 527 indicates that the requests timeout or failed after the WAN connection has been established
+		  else
+		    ErrName="Unknown HTTP error"
+		  end
+		  
+		  Dim d as New MessageDialog  //declare the MessageDialog object
+		  Dim b as MessageDialogButton //for handling the result
+		  d.icon=MessageDialog.GraphicCaution   //display warning icon
+		  d.ActionButton.Caption=kClose
+		  d.CancelButton.Visible=false     //hide the Cancel button
+		  'd.CancelButton.Caption=kCancel
+		  d.AlternateActionButton.Visible=false   //show the "Don't Save" button
+		  
+		  
+		  d.Message=kHTTPerror+str(StatusCode)+": "+ErrName
+		  d.Explanation=Desc
+		  
+		  dim ret as string
+		  ret=EndOfLine.unix+d.message+EndOfLine.unix+desc+EndOfLine.unix
+		  
+		  b=d.ShowModal     //display the dialog
+		  
+		  return ret
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function JSON2Fasta(JSONin as JSONItem) As string
 		  dim sites,site as JSONItem
 		  dim FastaHeader, FastaSequence, AllFasta as string
@@ -2249,7 +2530,7 @@ Protected Module Globals
 		  // this creates permission conflicts with temporary files on multi-user machines
 		  
 		  #if TargetLinux
-		    dim userName as string=SpecialFolder.UserHome '/tmp/UserHome/
+		    dim userName as string=SpecialFolder.UserHome.name '/tmp/UserHome/
 		    userName=NthField(userName,"/",2)
 		    
 		    dim tmpF as folderitem=SpecialFolder.Temporary.Child(userName)

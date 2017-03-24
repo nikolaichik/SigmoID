@@ -128,7 +128,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -815,7 +814,10 @@ End
 		    end if
 		    
 		  else
-		    WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")+EndOfLine.Unix
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
 		  end if
 		  
 		  
@@ -2614,6 +2616,9 @@ End
 		    '-E <float or integer>, --eval <float or integer>
 		    'threshold E-Value.
 		    '-i, --insert          don't add features inside CDS
+		    '-b <integer>, --boundary <integer>
+		    'set allowed length boundary for hits being within
+		    'features
 		    '-d, --duplicate       no duplicate features with the same location and the
 		    'same protein_bind qualifier value
 		    '-v, --version         show program's version number and exit
@@ -3252,7 +3257,11 @@ End
 		      WriteToSTDOUT("no response in 15 sec.")
 		    end if
 		  else
-		    WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+		    
 		  end if
 		  
 		  

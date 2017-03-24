@@ -221,7 +221,7 @@ Begin Window deNovoWin
       Top             =   323
       Underline       =   False
       Visible         =   True
-      Width           =   838
+      Width           =   408
       Begin RadioButton RadioButton1
          AutoDeactivate  =   True
          Bold            =   False
@@ -249,7 +249,7 @@ Begin Window deNovoWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   798
+         Width           =   368
       End
       Begin RadioButton RefProtBut
          AutoDeactivate  =   True
@@ -278,7 +278,7 @@ Begin Window deNovoWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   798
+         Width           =   368
       End
       Begin CheckBox FallBackCheck
          AutoDeactivate  =   True
@@ -310,7 +310,7 @@ Begin Window deNovoWin
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   777
+         Width           =   347
       End
    End
    Begin Listbox HmmList
@@ -513,6 +513,220 @@ Begin Window deNovoWin
       TabPanelIndex   =   0
       yield           =   False
    End
+   Begin GroupBox GroupBox2
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "MEME settings"
+      Enabled         =   True
+      Height          =   123
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   450
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   323
+      Underline       =   False
+      Visible         =   True
+      Width           =   408
+      Begin CheckBox PalindromicBox
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "Palindromic"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   470
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         State           =   1
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   351
+         Underline       =   False
+         Value           =   True
+         Visible         =   True
+         Width           =   100
+      End
+      Begin Label Label1
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   470
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         Text            =   "Minimal motif width:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   383
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   148
+      End
+      Begin Label Label4
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   470
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         Text            =   "Maximal motif width:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   415
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   161
+      End
+      Begin TextField MinWidthField
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   643
+         LimitText       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "16"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   383
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   80
+      End
+      Begin TextField MaxWidthField
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   643
+         LimitText       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "23"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   413
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   80
+      End
+   End
 End
 #tag EndWindow
 
@@ -637,7 +851,6 @@ End
 
 	#tag Method, Flags = &h0
 		Sub RunCheck()
-		  msgbox "1"
 		  RunButton.Enabled=true
 		  
 		  if HmmList.SelCount=0 then
@@ -645,30 +858,20 @@ End
 		    return
 		  end if
 		  
-		  msgbox "2"
-		  
-		  
 		  if outF=nil then
 		    RunButton.Enabled=false
 		    return
 		  end if
-		  
-		  msgbox "3"
-		  
 		  
 		  if NOT OutF.exists then
 		    RunButton.Enabled=false
 		    return
 		  end if 
 		  
-		  msgbox "4"
-		  
 		  if LogoWin.GenomeFile=nil then
 		    RunButton.Enabled=false
 		    return
 		  end if
-		  
-		  msgbox "5"
 		  
 		  
 		End Sub
@@ -787,7 +990,7 @@ End
 		      
 		      instream=alignmentsFile.OpenAsTextFile
 		      
-		      if instream<>nil then
+		      if instream<>nil then         'save hmmsearch results
 		        table=trim(instream.ReadAll)
 		        instream.close
 		        hmmSearchRes=GetCRtags(sh.Result,Table,CRtagPositions)
@@ -798,6 +1001,9 @@ End
 		        if resFile<>Nil then
 		          OutStream = TextOutputStream.Create(resFile)
 		          if outStream<>Nil then
+		            outstream.Writeline("HMM file used: "+hmmPath)
+		            outstream.Writeline("CRtag positions used: " +CRtagPositions)
+		            outstream.Writeline(EndOfLine.unix)
 		            outstream.Write(hmmSearchRes)
 		            outstream.close
 		            
@@ -982,7 +1188,7 @@ End
 		      // Extract promoter regions from the target operon and its two neighbours
 		      
 		      if res<>"" then
-		        resfile=Fasta_files.child(ProtNames(n)+".fasta")
+		        resfile=Fasta_files.child(ProtNames(n)+"_unfiltered.fasta")
 		        if resFile<>Nil then
 		          if resfile.exists then
 		            'load existing data
@@ -1139,12 +1345,14 @@ End
 		                opt=" -p " + str(CPUcores)  'for parallelised meme
 		              end if
 		              
-		              opt=opt+" -dna -minw 16"+" -maxw 23"        ' <-- should be configurable!
+		              opt=opt+" -dna -minw "+ trim(MinWidthField.text)
+		              opt=opt+" -maxw "+ trim(MaxWidthField.text)
+		              
 		              
 		              '[-pal]            force palindromes (requires -dna)
-		              'if PalindromicBox.Value then
-		              opt=opt+" -pal"
-		              'end if
+		              if PalindromicBox.Value then
+		                opt=opt+" -pal"
+		              end if
 		              
 		              '[-revcomp]        allow sites on + or - DNA strands
 		              'if GivenStrandBox.Value then
@@ -1436,7 +1644,11 @@ End
 		  if httpStatus>=200 AND httpStatus<300 then 'successful
 		    PhmmerRes=defineEncoding(Content,Encodings.ASCII)
 		  else
-		    MsgBox "Problems connecting to HMMER server (HTTP status code "+str(httpStatus)+")"
+		    
+		    dim httpErr as String = HTTPerror(httpStatus)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+		    
 		  end if
 		End Sub
 	#tag EndEvent

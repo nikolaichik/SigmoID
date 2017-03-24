@@ -130,4 +130,18 @@
 		Imported=True
 	#tag EndFileType
 
+	#tag FileType
+		CodeName=WIG
+		Extension=.wig
+		Flags=&h0
+		MacCreator=
+		MacType=
+		Name=WIG
+		UTI=
+		UTIConformsTo=
+		Description=
+		MimeType=
+		Imported=True
+	#tag EndFileType
+
 #tag EndFileTypeSet

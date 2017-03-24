@@ -57,7 +57,7 @@ Protected Module DeNovoTFBSinference
 		      
 		    end if
 		  else
-		    msgbox "eutils error "+str(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
 		  end if
 		  
 		  hts.close
@@ -105,7 +105,7 @@ Protected Module DeNovoTFBSinference
 		      
 		    end if
 		  else
-		    msgbox "eutils error "+str(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
 		  end if
 		  
 		  hts.close
@@ -157,7 +157,7 @@ Protected Module DeNovoTFBSinference
 		      
 		    end if
 		  else
-		    msgbox "eutils error "+str(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
 		  end if
 		  
 		  hts.close
@@ -241,7 +241,8 @@ Protected Module DeNovoTFBSinference
 		    end if
 		    ProtNames.Append(ProtName)
 		    hitseq=NthField(hitSeq," ",countfields(hitseq," ")) 'the seq goes after the last space
-		    hitSeq=ReplaceAll(hitseq,".","") 'removing 'gaps' resulting from insertions in other seqs 
+		    hitSeq=ReplaceAll(hitseq,".","") 'removing gaps resulting from insertions in other seqs: probably not the wise thing to do! 
+		    
 		    
 		    
 		    'extending hits to equal lengths at ends (if necessary)
@@ -267,9 +268,24 @@ Protected Module DeNovoTFBSinference
 		      
 		      'get extended hit
 		      CDStmp=NthField(CDSseqs,ProtNames(ubound(ProtNames)),2)'precaution for paralogues
-		      dim hitpos as integer = instr(CDStmp,currenthit)
 		      dim gapPos,leftPartStart, rightPartStart as integer
 		      dim leftPart, rightPart, leftExt, rightExt as string
+		      
+		      'if the left end was truncated, we get completely wrong tag here!
+		      'so, we extend the left end by required number of residues first:
+		      gapPos=instr(currenthit,"-")
+		      leftPart=nthfield(currentHit,"-",1)
+		      leftPartStart=instr(CDStmp,leftPart)
+		      leftExt=mid(CDStmp,leftPartStart-q,q)
+		      currenthit=leftext+currentHit
+		      
+		      'extend the right end
+		      rightPart=nthfield(currentHit,"-",countfields(currentHit,"-"))
+		      rightPartStart=instr(CDStmp,rightPart)
+		      rightExt=mid(CDStmp,rightPartStart+len(rightPart),len(hitseq)-len(currenthit))
+		      
+		      'replace dashes so that phmmer doesn't bark at them later
+		      dim hitpos as integer = instr(CDStmp,currenthit)
 		      if hitpos=0 then
 		        'zero should be due to gap(s) in the central part of the hit region
 		        'these can probably be tolerated if located outside of the CR tag region,
@@ -281,30 +297,15 @@ Protected Module DeNovoTFBSinference
 		        ' ----VINQIIDDMARGHIP--SPLPSQNALAEMYNISRTTVRHILAHLRDCGVLT---------
 		        '(a warning should be issued if CR tag positions are in non-conserved part of the HTH like in this example)
 		        
-		        
-		        'and if the left end was truncated, we get completely wrong tag here!
-		        'so, we extend the left end by required number of residues first:
-		        gapPos=instr(currenthit,"-")
-		        leftPart=nthfield(currentHit,"-",1)
-		        leftPartStart=instr(CDStmp,leftPart)
-		        leftExt=mid(CDStmp,leftPartStart-q,q)
-		        currenthit=leftext+currentHit
-		        
-		        'extend the right end
-		        rightPart=nthfield(currentHit,"-",countfields(currentHit,"-"))
-		        rightPartStart=instr(CDStmp,rightPart)
-		        rightExt=mid(CDStmp,rightPartStart+len(rightPart),len(hitseq)-len(currenthit))
-		        
-		        'replace dashes so that phmmer doesn't bark at them later
 		        currenthit=ReplaceAll(currenthit,"-","x")+rightExt
 		      else
-		        currenthit=mid(CDStmp,hitpos-q,len(hitSeq))
-		        if len(currentHit)<len(hitSeq) then
-		          'extend the right end
-		          rightPartStart=instr(CDStmp,currenthit)
-		          rightExt=mid(CDStmp,rightPartStart+len(currenthit),len(hitseq)-len(currenthit))
-		          currenthit=currenthit+rightExt
-		        end if
+		        'currenthit=mid(CDStmp,hitpos-q,len(hitSeq))
+		        'if len(currentHit)<len(hitSeq) then
+		        ''extend the right end
+		        'rightPartStart=instr(CDStmp,currenthit)
+		        'rightExt=mid(CDStmp,rightPartStart+len(currenthit),len(hitseq)-len(currenthit))
+		        'currenthit=currenthit+rightExt
+		        'end if
 		        
 		      end if
 		      
@@ -318,6 +319,32 @@ Protected Module DeNovoTFBSinference
 		    else
 		      hmmSearchMatches.Append hitseq
 		    end
+		    
+		    
+		    'gaps in the modelbefore the CRtag region should be corrected for, e.g
+		    'XRE_superfamily  1 rLrelReer....gLtqeelAellGisrstlsryEnGrrkPsqevlkklakaLgvsldel 56
+		    '                   rL+++ e++    gL+qe +A+++G+++s + +++nG    +  ++ +lak L+vs++e+
+		    '     ABO40696.1 18 RLKAIYEKKknelGLSQESVADKMGMGQSGVGALFNGINALNAYNAALLAKILNVSVEEF 77
+		    ' 
+		    CRtagRegion=left(hitSeq,fst)
+		    
+		    if strcomp(CRtagRegion,Uppercase(CRtagRegion),0)<>0 then
+		      dim p2 as integer =1
+		      dim gapChars as integer
+		      dim ch as string
+		      for p2=1 to len(CRtagRegion)
+		        ch =mid(CRtagRegion,p2,1)
+		        if strcomp(ch,Uppercase(ch),0)<>0 then
+		          gapChars=gapChars+1
+		        end if
+		      next
+		      
+		      hitseq=Right(hitseq,len(hitseq)-gapChars)
+		      hmmSearchMatches(ubound(hmmSearchMatches))=hitseq
+		      
+		    end if
+		    
+		    
 		    
 		    
 		    
@@ -562,6 +589,9 @@ Protected Module DeNovoTFBSinference
 		    GBfileName=replace(FastaName,">","")
 		    GBfileName=replaceall(GBfileName,"|","_")
 		    GBfileName=replaceall(GBfileName,":","_")
+		    if len(GBfileName)>100 then          'some names may be too long
+		      GBfileName=left(GBfileName,100)
+		    End If
 		    GBfileName=replaceall(GBfileName," ","_")+".gb"
 		    gbFile=FragmentsFolder.Child(GBfileName)
 		    if gbFile<>Nil then
@@ -948,6 +978,12 @@ Protected Module DeNovoTFBSinference
 		  return regseq
 		  
 		  Exception err
+		    if err isa IOException then
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"IOException has occurred.")
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
+		    end if
 		    ExceptionHandler(err,"SeqRetrieval:GetRegSeq")
 		End Function
 	#tag EndMethod
@@ -1991,8 +2027,14 @@ Protected Module DeNovoTFBSinference
 		  'form.Value("seqdb_ranges") = "17277318..17420758" 'trying taxonomy restriction a la the browser version: doesn't work!
 		  form.Value("seq") = query
 		  
+		  form.Value("E") = "0.0001"
+		  form.Value("domE") = "0.1"
+		  
+		  'domain thresholds don't seem to work 
+		  'weak domain hits could be reported alongside the proper ones (and berofe them!)
+		  'this breaks CR tag filtering!
 		  form.Value("incE") = "0.0001"
-		  form.Value("incdomE") = "0.0001"
+		  form.Value("incdomE") = "0.1"
 		  
 		  hts.SetFormData(form)
 		  hts.SetRequestHeader("Accept","text/plain")
@@ -2050,7 +2092,10 @@ Protected Module DeNovoTFBSinference
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    return res
 		  else
-		    beep
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
 		  end if
 		  
 		  'UniprotShell.execute command
@@ -2253,6 +2298,11 @@ Protected Module DeNovoTFBSinference
 		      
 		      
 		    end if
+		  else
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
 		  end if
 		  
 		  hts.close
@@ -2318,6 +2368,7 @@ Protected Module DeNovoTFBSinference
 		    ' PP     7****************************************************97
 		    ' TARGET IFSQRENEILYWASMGKTYPEIALILDIKISTVKFHIGNVVKKLGVLNAKHAIRL
 		    ' ----------------------------------------------------------------------------------------------------------------
+		    ' ================================================================================================================
 		    
 		    // as there seems to be no way to specify proper cut-offs via the API, there will be 
 		    '  multi-domain results that look like:
@@ -2341,24 +2392,39 @@ Protected Module DeNovoTFBSinference
 		    ' PP     5667789********************************9986
 		    ' TARGET LRAASDAFAEHGYHRTSMADIATAVGITSGALYRHFRTKQELL
 		    ' ----------------------------------------------------------------------------------------------------------------
+		    ' ================================================================================================================
 		    
 		    
 		    o=ubound(CRarray)
 		    CRtag=""
+		    dim unsp as integer                      'holds correction for unspecific domain hits
 		    if n+9>ubound(ResArray) then exit
-		    hitseq=NthField(ResArray(n+9)," ",2)
+		    dim tst as string=ResArray(n+5)
+		    if instr(ResArray(n+5),"e-")=0 then      'spurious unspecific domain hit!
+		      unsp=8
+		      if n+17>ubound(ResArray) then exit
+		      hitseq=NthField(ResArray(n+17)," ",2)
+		      'need to adjust for Query-start!
+		      QueryStart=Val(NthField(ResArray(n+13),chr(9),5))-1 'correction if starting not from pos.1
+		    else                                    'proper hit
+		      unsp=0
+		      hitseq=NthField(ResArray(n+9)," ",2)   
+		      'need to adjust for Query-start!
+		      QueryStart=Val(NthField(ResArray(n+5),chr(9),5))-1 'correction if starting not from pos.1
+		    end if
 		    
-		    'need to adjust for Query-start!
-		    QueryStart=Val(NthField(ResArray(n+5),chr(9),5))-1 'correction if starting not from pos.1
+		    
 		    for p=1 to o
 		      CRtag=CRtag+mid(hitseq,CRarray(p)-QueryStart,1)
 		    next
 		    if CRtag=CRtagFilter then
 		      'move this hit to filtered array:
-		      for q=1 to 10
+		      filteredArray.append(ResArray(n+1))
+		      for q=2+unsp to 10+unsp
 		        filteredArray.append(ResArray(n+q))
-		        
 		      next
+		      
+		      
 		      filteredArray.append(hitSeparator)
 		    end if
 		    'end if

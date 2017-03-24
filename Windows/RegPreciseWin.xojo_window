@@ -464,7 +464,10 @@ End
 		      
 		      
 		    else
-		      LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		      
+		      dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		      LogoWin.WriteToSTDOUT (httpErr)
+		      
 		      LogoWin.show
 		    end if
 		    
