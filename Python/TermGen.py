@@ -13,7 +13,7 @@ def createParser():
              usage='\n%(prog)s <input_file> <output_file> [options]',
              description='''This script allows to add terminators to a genbank file according to TransTerm HP results.
     Requires Biopython 1.64 (or newer)''',
-             epilog='''(c) Aliaksandr Damienikan, 2015.''')
+             epilog='''(c) Aliaksandr Damienikan, 2015-2017.''')
     parser.add_argument('input_file',
                        help='''path to input Genbank file.''')
     parser.add_argument('output_file',
@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.14 (December 5, 2016)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.15 (March 25, 2017)')
     return parser
 
 args = createParser()
@@ -58,10 +58,24 @@ win_cwd = os.getcwd()
 win_cwd = win_cwd.replace('\\\\', '\\')
 if platform.system() == 'Windows':
     name = enter.input_file.split('\\')[-1]
-    name = name.split('.')[0]
+    fusedname = '' # this is done for avoiding problems below with fasta file creation & TransTerm command line 
+    for part in name.split('.'):
+        if part != name.split('.')[-1]:
+            if part != name.split('.')[0]:
+                fusedname += '.' + part
+            else:
+                fusedname += part
 else:
     name = enter.input_file.split('/')[-1]
-    name = name.split('.')[0]
+    fusedname = '' # this is done for avoiding problems below with fasta file creation & TransTerm command line
+    for part in name.split('.'):
+        print part
+        if part != name.split('.')[-1]:
+            if part != name.split('.')[0]:
+                fusedname += '.' + part
+            else:
+                fusedname += part
+    print fusedname
 cwd = os.path.abspath(os.path.dirname(__file__))
 if platform.system() != 'Windows':
     renamed_cwd = cwd.replace(' ', '\\ ')
@@ -84,7 +98,7 @@ else:
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.14 (December 5, 2016))'
+print '\nTermGen 1.15 (March 25, 2017)'
 print "="*50
 output_args = ''
 for arg in range(1, len(sys.argv)):
@@ -96,9 +110,9 @@ print '\nCreating .fasta file...'
 input_gbk = open(enter.input_file, 'r')
 gbk = SeqIO.parse(input_gbk, 'genbank')
 if platform.system() != 'Windows':
-    output_fasta = open('%s/%s.fasta' % (cwd, name), 'w')
+    output_fasta = open('%s/%s.fasta' % (cwd, fusedname), 'w')
 else:
-    output_fasta = open('%s\%s.fasta' % (win_cwd, name), 'w')
+    output_fasta = open('%s\%s.fasta' % (win_cwd, fusedname), 'w')
 SeqIO.write(gbk, output_fasta, 'fasta')
 output_fasta.close()
 input_gbk.close()
@@ -137,10 +151,14 @@ os.system(ptt_converter)
 
 # sets paths for TransTerm HP input files
 if platform.system() != 'Windows':
-    fasta_file = '%s/%s.fasta' % (renamed_cwd, name)
+    fasta_name = fusedname.replace(' ', '\\ ')
+    fasta_name = fasta_name.replace('(', '\(')
+    fasta_name = fasta_name.replace(')', '\)')
+    fasta_file = '%s/%s.fasta' % (renamed_cwd, fasta_name)
     ptt_file = '%s/%s.ptt' % (renamed_cwd, id)
 else:
-    fasta_file = '%s.fasta' % (name)
+    fasta_name = fusedname.replace(' ', '^ ')
+    fasta_file = '%s.fasta' % (fasta_name)
     ptt_file = '%s.ptt' % (id)
 
 # sets directory for output and executes TransTerm HP
@@ -428,8 +446,8 @@ input_gbk.close()
 terms_out.close()
 #deleting temporary ptt and fasta files
 if platform.system() != 'Windows':
-    os.remove('%s/%s.fasta' % (cwd, name))
+    os.remove('%s/%s.fasta' % (cwd, fusedname))
     os.remove('%s/%s.ptt' % (cwd, id))
 else:
-    os.remove('%s.fasta' % (name))
+    os.remove('%s.fasta' % (fusedname))
     os.remove('%s.ptt' % (id))
