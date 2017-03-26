@@ -1,6 +1,7 @@
 import sys
 import argparse
 import time
+import Bio
 from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
 
@@ -20,10 +21,11 @@ class MySeqFeature(SeqFeature):
         for qual_key in sorted(self.qualifiers):
             out += " Key: %s, Value: %s\n" % (qual_key,
                                               self.qualifiers[qual_key])
-        if len(self._sub_features) != 0:
-            out += "Sub-Features\n"
-            for sub_feature in self._sub_features:
-                out += "%s\n" % sub_feature
+        if Bio.__version__ != '1.68': # to avoid problems with diff biopython versions
+            if len(self._sub_features) != 0:
+                out += "Sub-Features\n"
+                for sub_feature in self._sub_features:
+                    out += "%s\n" % sub_feature
         return out
 
 
@@ -43,6 +45,7 @@ def wrong_promoter_strand(up_feature, hit_feature, down_feature):
         else:
             return False
 
+
 def is_within_feature(list_of_features, index, some_hit):
     # 'index' is for feature's index within 'list_of_features'
     if (list_of_features[index].location.start <
@@ -58,10 +61,29 @@ def is_within_feature(list_of_features, index, some_hit):
             list_of_features[index].strand == +1 and \
             list_of_features[index].strand != 
                 list_of_features[index+1].strand):
-        # checking if hit is within other features
+        # checking if hit is within other features or is between two convergent ones.
         return True
     else:
         return False
+
+
+def is_within_boundary(list_of_features, index, some_hit):
+    for feature in list_of_features[index:]:
+        if (feature.location.start - list_of_features[index].location.end) < (enter.boundary+1):
+            if (list_of_features[index].location.start+enter.boundary > \
+                  some_hit.location.end > \
+                  list_of_features[index].location.start and \
+                  list_of_features[index].strand == +1) or \
+                     (list_of_features[index].location.end-enter.boundary < \
+                      some_hit.location.start < \
+                      list_of_features[index].location.end and \
+                      list_of_features[index].strand == -1):
+                return True
+            else:
+                return False
+        else:
+            return False
+
 
 def is_divergent(feature_1, feature_2):
     if feature_1.strand == -1 and \
@@ -69,6 +91,7 @@ def is_divergent(feature_1, feature_2):
         return True
     else:
        return False
+
 
 def qualifiers_function(qualifiers, var):
     qual_var = []
@@ -218,7 +241,7 @@ def createparser():
              description='''This script allows to add features to a genbank \
                             file according to nhmmer results.\
                             Requires Biopython 1.64 (or newer)''',
-             epilog='(c) Aliaksandr Damienikan, 2014-2016.')
+             epilog='(c) Aliaksandr Damienikan, 2014-2017.')
     parser.add_argument('report_file',
                         help='path to nhmmer report file produced with \
                               -tblout option.')
@@ -264,6 +287,11 @@ def createparser():
                         const=True,
                         default=False,
                         help='''don't add features inside CDS''')
+    parser.add_argument('-b', '--boundary',
+                        type=int,
+                        default=0,
+                        metavar='<integer>',
+                        help='''set allowed length boundary for hits being within features''')
     parser.add_argument('-d', '--duplicate',
                         action='store_const',
                         const=True,
@@ -273,7 +301,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.19 (June 1, 2016)')
+                        version='%(prog)s 2.21 (March 25, 2017)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -317,7 +345,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.19 (June 1, 2016)'
+print '\nHmmGen 2.21 (March 25, 2017)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
@@ -475,8 +503,15 @@ for record in records:
         for i in reversed(xrange(len(hit_list))):
             i = len(hit_list)-1-i
             for n in xrange(len(allowed_features_list)-1):
-                if is_within_feature(allowed_features_list, n, hit_list[i]) or \
-                   wrong_promoter_strand(allowed_features_list[n],
+                if (
+                    is_within_feature(allowed_features_list,
+                                      n,
+                                      hit_list[i]) and \
+                    not is_within_boundary(allowed_features_list,
+                                           n,
+                                           hit_list[i])
+                    ) or \
+                    wrong_promoter_strand(allowed_features_list[n],
                                          hit_list[i],
                                          allowed_features_list[n+1]):
                     hit_list.pop(i)
@@ -509,9 +544,7 @@ for record in records:
                             allowed_features_list[0].location.start:
                         cds_down = allowed_features_list[-1]
                         break
-                if (enter.palindromic and
-                        cds_up.strand == cds_down.strand) or \
-                        not enter.palindromic:
+                if not enter.palindromic:
                     if hit.strand == int('-1'):
                         try:
                             individual_qualifiers['gene'] = \
@@ -554,6 +587,46 @@ for record in records:
                         record.features.pop(i)
                         if hit.strand == cds_up.strand:
                             record.features.insert(i, new_feature)
+                elif enter.palindromic and \
+                        cds_up.strand == cds_down.strand:
+                    if cds_up.strand == 1: # then cds_down is (+) too and couldn't be regulated
+                        try:
+                            individual_qualifiers['gene'] = \
+                                cds_up.qualifiers['gene']
+                        except KeyError:
+                            pass
+                        try:
+                            individual_qualifiers['locus_tag'] = \
+                                cds_up.qualifiers['locus_tag']
+                        except KeyError:
+                            pass
+                        individual_qualifiers.update(hit.qualifiers)
+                        new_feature = MySeqFeature(
+                                          location=hit.location,
+                                          type=hit.type,
+                                          strand=hit.strand,
+                                          qualifiers=individual_qualifiers)
+                        record.features.pop(i)
+                        record.features.insert(i, new_feature)
+                    if cds_down.strand == -1: # then cds_up is (-) too and couldn't be regulated
+                        try:
+                            individual_qualifiers['gene'] = \
+                                cds_down.qualifiers['gene']
+                        except KeyError:
+                            pass
+                        try:
+                            individual_qualifiers['locus_tag'] = \
+                                cds_down.qualifiers['locus_tag']
+                        except KeyError:
+                            pass
+                        individual_qualifiers.update(hit.qualifiers)
+                        new_feature = MySeqFeature(
+                                          location=hit.location,
+                                          type=hit.type,
+                                          strand=hit.strand,
+                                          qualifiers=individual_qualifiers)
+                        record.features.pop(i)
+                        record.features.insert(i, new_feature)
                 elif enter.palindromic and cds_up.strand != cds_down.strand:
                     if hit.strand == int('-1'):
                         try:
@@ -617,7 +690,31 @@ for record in records:
                         if hit.strand == cds_up.strand or \
                            not enter.insert:
                             record.features.insert(i, new_feature)
-
+                if enter.boundary != 0:    
+                    for n in xrange(len(allowed_features_list)):
+                        if is_within_boundary(allowed_features_list, n, hit) and \
+                           (allowed_features_list[n].strand == hit.strand or \
+                            (enter.palindromic and 
+                               ((hit.strand != cds_up.strand and hit.strand == -1) or \
+                                 (hit.strand != cds_down.strand and hit.strand == +1)))):
+                            try:
+                                individual_qualifiers['gene'] = \
+                                    allowed_features_list[n].qualifiers['gene']
+                            except KeyError:
+                                pass
+                            try:
+                                individual_qualifiers['locus_tag'] = \
+                                allowed_features_list[n].qualifiers['locus_tag']
+                            except KeyError:
+                                pass
+                            individual_qualifiers.update(hit.qualifiers)
+                            new_feature = MySeqFeature(
+                                              location=hit.location,
+                                              type=hit.type,
+                                              strand=hit.strand,
+                                              qualifiers=individual_qualifiers)
+                            record.features.pop(i)
+                            record.features.insert(i, new_feature)
     if enter.palindromic:
         try:
             first_cds = allowed_features_list[0]
@@ -639,7 +736,7 @@ for record in records:
                         break
                     elif hit.location.end < \
                             allowed_features_list[0].location.start:
-                        cds_down = allowed_features_list[-1]
+                        cds_down = allowed_features_list[-1] # for circular chromosomes
                         break
                 for c in xrange(len(allowed_features_list)):
                     if allowed_features_list[c].location.start > \
@@ -648,7 +745,7 @@ for record in records:
                         break
                     elif hit.location.start > \
                             allowed_features_list[-1].location.end:
-                        cds_up = allowed_features_list[0]
+                        cds_up = allowed_features_list[0] # for circular chromosomes
                         break
                 if 'CHECK' in record.features[i+1].qualifiers.keys() and \
                         (hit.location.start ==
@@ -678,6 +775,9 @@ for record in records:
                             del record.features[i+1]
                         elif hit.strand != cds_up.strand:
                             del record.features[i]  # delets "hit"'''
+                    elif not is_divergent(cds_down, cds_up) and \
+                         cds_up.strand != cds_down.strand:
+                         del record.features[i+1]
 
     if enter.duplicate is True:
         for i in reversed(xrange(1, len(record.features))):
