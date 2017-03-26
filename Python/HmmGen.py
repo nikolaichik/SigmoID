@@ -1,6 +1,7 @@
 import sys
 import argparse
 import time
+import Bio
 from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
 
@@ -20,10 +21,11 @@ class MySeqFeature(SeqFeature):
         for qual_key in sorted(self.qualifiers):
             out += " Key: %s, Value: %s\n" % (qual_key,
                                               self.qualifiers[qual_key])
-        if len(self._sub_features) != 0:
-            out += "Sub-Features\n"
-            for sub_feature in self._sub_features:
-                out += "%s\n" % sub_feature
+        if Bio.__version__ != '1.68': # to avoid problems with diff biopython versions
+            if len(self._sub_features) != 0:
+                out += "Sub-Features\n"
+                for sub_feature in self._sub_features:
+                    out += "%s\n" % sub_feature
         return out
 
 
@@ -239,7 +241,7 @@ def createparser():
              description='''This script allows to add features to a genbank \
                             file according to nhmmer results.\
                             Requires Biopython 1.64 (or newer)''',
-             epilog='(c) Aliaksandr Damienikan, 2014-2016.')
+             epilog='(c) Aliaksandr Damienikan, 2014-2017.')
     parser.add_argument('report_file',
                         help='path to nhmmer report file produced with \
                               -tblout option.')
@@ -299,7 +301,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.20 (January 27, 2017)')
+                        version='%(prog)s 2.21 (March 25, 2017)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -343,7 +345,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.20 (January 27, 2017)'
+print '\nHmmGen 2.21 (March 25, 2017)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):

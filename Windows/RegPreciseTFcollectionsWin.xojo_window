@@ -48,7 +48,6 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kTFfamily"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -146,7 +145,6 @@ Begin Window RegPreciseTFcollectionsWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -443,7 +441,6 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -751,9 +748,13 @@ End
 		  
 		  if sr=1 then
 		    DeselectAllButton.enabled=true
-		    ExportButton.Enabled=true
 		  else
 		    DeselectAllButton.enabled=true
+		  end if
+		  
+		  if sr=0 then
+		    ExportButton.Enabled=false
+		  else
 		    ExportButton.Enabled=true
 		  end if
 		  
@@ -896,8 +897,87 @@ End
 		    
 		    CollectionList.Enabled=true
 		  else
-		    'A problem with JSON
+		    'A single item in JSON
 		    
+		    if JSONItem(regulators).Value("regulationType")="TF" then 'exclude the RNAs for now
+		      regulatorArray.append regulators
+		      dim s1, s2, s3, s4, s6, s7 as string
+		      s1=JSONItem(regulators).Value("regulatorName")+" – "+JSONItem(regulators).Value("taxonName")
+		      regulogID=JSONItem(regulators).Value("regulogId")
+		      s6=regulogID
+		      'get the data for the regulon (number of regulons,TFBSs and the actual TFBS seqs) 
+		      
+		      
+		      
+		      dim res as string
+		      dim jsn as new JSONItem
+		      dim hts as new HTTPSocket
+		      hts.Yield=true
+		      res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulogId="+regulogID,0)
+		      
+		      if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		        if res<>"" then
+		          JSN.load(res)
+		          '--> WriteToSTDOUT("got the data for "+TFname+".")
+		          dim RegPreciseTemp as FolderItem
+		          dim OutStream As TextOutputStream
+		          
+		          RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		          if RegPreciseTemp<>nil then
+		            if RegPreciseTemp.Exists then
+		              
+		              ' the file being created may not be used in the end
+		              
+		              
+		              #if TargetLinux 
+		                RegPreciseTemp.delete 'SpecialFolder.Trash returns NIL in Linux
+		              #else 
+		                RegPreciseTemp.MoveFileTo(SpecialFolder.Trash)
+		              #endif
+		              RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		            end if
+		            
+		            
+		            fa=JSON2Fasta(JSN)
+		            fa=FillGaps(fa)
+		            s7=fa
+		            'logopix.Append MakeLogoPic(fa)
+		            
+		            s2=countRegulons(regulogID)      ' Regulon #
+		            
+		            s3=str(countFields(fa,">")-1)  ' TFBS #
+		            
+		            if fa<>"" then
+		              OutStream = TextOutputStream.Create(RegPreciseTemp)
+		              outstream.Write(fa)
+		              outstream.close
+		              '--> LoadAlignment(RegPreciseTemp)
+		              '--> logowin.ChangeView("Logo")
+		              '--> me.title="SigmoID: "+TFname+" (RegPrecise)"
+		              
+		              
+		              
+		            end if
+		          end if
+		        else
+		          logowin.WriteToSTDOUT("no response in 15 sec.")
+		        end if
+		      else
+		        logowin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		      end if
+		      
+		      Dim p as picture = MakeLogoPic(fa)
+		      Dim reg() As String = Array("",s1, s2, s3, Str(InfoBits),"", s6, s7, str(Sitelength))  'first column contains checkboxes
+		      CollectionList.AddRow(reg)
+		      
+		      'add picture to the last row as variant, so it is sorted properly 
+		      CollectionList.RowTag(collectionlist.LastIndex)=p
+		      
+		      'Update progress text
+		      ProgressLabel.Text="Loading profiles: "+str(CollectionList.ListCount)
+		      
+		    end if
+		    CollectionList.Enabled=true
 		  end if
 		  
 		  ProgressWheel1.Visible=false
@@ -1362,13 +1442,19 @@ End
 		      #if targetWin32
 		        sites2memePath=nthfield(MEMEpath,"/meme.exe",1)+"/sites2meme"
 		      #else
-		        sites2memePath=left(MEMEpath,len(MEMEpath)-4)+"sites2meme"
+		        MEMEpath=trim(MEMEpath)
+		        if right(MEMEpath,1)="'" then
+		          sites2memePath=left(MEMEpath,len(MEMEpath)-5)+"sites2meme'"
+		        else
+		          sites2memePath=left(MEMEpath,len(MEMEpath)-4)+"sites2meme" 
+		        end if
 		      #endif
 		      
 		      dim cli as string
 		      cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
 		      cli=cli+" "+"-url http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
 		      cli=cli+" "+TFfamily_tmp.ShellPath
+		      
 		      
 		      dim sh As Shell
 		      sh=New Shell
@@ -1408,6 +1494,7 @@ End
 		        
 		      else
 		        msgbox sh.result
+		        Msgbox "Command line was: <"+cli+">"
 		      end if
 		    end if
 		  end if

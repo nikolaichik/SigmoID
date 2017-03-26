@@ -2594,8 +2594,24 @@ Protected Module Globals
 		    
 		    dim genomefilepath as string
 		    
-		    GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34) 'need the quotes to include gbk format anyway
+		    if instr(LogoWin.GenomeFile.nativepath," ")=0 then
+		      'Other illegal symbols should be checked too!
+		      GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34) 'need the quotes to include gbk format anyway
+		    else
+		      'Fasta can't hadle paths with white space/non-ASCII characters, so we move and rename the library (genome) file
+		      dim genome_tmp as folderitem = SpecialFolder.Temporary.child("genome_tmp.gb")
+		      if genome_tmp<>NIL then
+		        if genome_tmp.Exists then
+		          genome_tmp.Delete
+		        end if
+		        LogoWin.GenomeFile.CopyFileTo genome_tmp
+		        GenomeFilePath=chr(34)+genome_tmp.nativepath+" 1"+chr(34)
+		        
+		      end if
+		    end if
+		    
 		    'tfastx36 [-options] query_file library_file [ktup]
+		    
 		    cli=tfastxPath+fastaOptions+TFfastaFile.shellpath+" "+GenomeFilePath
 		    
 		    sh=New Shell

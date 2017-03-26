@@ -541,9 +541,9 @@ End
 		  
 		  
 		  
-		  if PvalueCheck.Value=true AND PvalueField.text="" then
-		    RunButton.enabled=false
-		  end if
+		  'if PvalueCheck.Value=true AND PvalueField.text="" then
+		  'RunButton.enabled=false
+		  'end if
 		  
 		End Sub
 	#tag EndMethod
@@ -558,6 +558,9 @@ End
 		    if val(PvalueField.text)>0 then    'if cutoff isn't entered, run without it
 		      PNO=PNO+" -mt "+trim(PvalueField.text)
 		      MASTGenSettingsWin.PvalueField.text=PvalueField.text
+		    else
+		      PNO=PNO+" -mt "+trim(PvalueField.CueText)
+		      MASTGenSettingsWin.PvalueField.text=PvalueField.CueText
 		    end if
 		  end if
 		  
@@ -643,18 +646,18 @@ End
 #tag Events MaskWithinORFCheckBox
 	#tag Event
 		Sub Action()
-		  if me.value then
-		    AddAnnotationCheckBox.value=false
-		  end if
+		  'if me.value then
+		  'AddAnnotationCheckBox.value=false
+		  'end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events AddAnnotationCheckBox
 	#tag Event
 		Sub Action()
-		  if me.value then
-		    MaskWithinORFCheckBox.value=false
-		  end if
+		  'if me.value then
+		  'MaskWithinORFCheckBox.value=false
+		  'end if
 		  
 		End Sub
 	#tag EndEvent
@@ -715,7 +718,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

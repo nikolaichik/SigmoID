@@ -128,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -459,7 +460,24 @@ End
 		      WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
 		      allProgsFine=false
 		    else
-		      WriteToSTDOUT (Sh.Result)
+		      WriteToSTDOUT (trim (Sh.Result))
+		      
+		      'check BioPython:
+		      f=resources_f.child("BioPythonVersion.py")
+		      if f<>Nil then
+		        if f.exists then
+		          cli="python "+f.ShellPath
+		          sh=New Shell
+		          sh.mode=0
+		          sh.TimeOut=-1
+		          sh.execute cli
+		          If sh.errorCode=0 then
+		            WriteToSTDOUT (" with Biopython "+Sh.Result)
+		          end if
+		          
+		        end if
+		      end if
+		      
 		    end if
 		  else
 		    WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)

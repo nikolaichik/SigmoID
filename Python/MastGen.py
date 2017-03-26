@@ -2,6 +2,7 @@ import sys
 import ast
 import argparse
 import time
+import Bio
 from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
 
@@ -11,22 +12,21 @@ class MySeqFeature(SeqFeature):
         out = "type: %s\n" % self.type
         if self.strand == 1:
             out += "location: [%s:%s](%s)\n" % (self.location.start+1,
-                                                self.location.end,
-                                                '+')
+                                                self.location.end, '+')
         if self.strand == -1:
             out += "location: [%s:%s](%s)\n" % (self.location.start+1,
-                                                self.location.end,
-                                                '-')
+                                                self.location.end, '-')
         if self.id and self.id != "<unknown id>":
             out += "id: %s\n" % self.id
         out += "qualifiers:\n"
         for qual_key in sorted(self.qualifiers):
             out += " Key: %s, Value: %s\n" % (qual_key,
                                               self.qualifiers[qual_key])
-        if len(self._sub_features) != 0:
-            out += "Sub-Features\n"
-            for sub_feature in self._sub_features:
-                out += "%s\n" % sub_feature
+        if Bio.__version__ != '1.68': # to avoid problems with diff biopython versions
+            if len(self._sub_features) != 0:
+                out += "Sub-Features\n"
+                for sub_feature in self._sub_features:
+                    out += "%s\n" % sub_feature
         return out
 
 
@@ -225,7 +225,7 @@ def createparser():
                                 value')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 1.9 (April 17, 2016)')
+                        version='%(prog)s 1.11 (March 26, 2017)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -259,7 +259,7 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nMastGen 1.9 (April 17, 2016)'
+print '\nMastGen 1.11 (March 26, 2017)'
 print "="*50
 print 'Options used:\n'
 for arg in range(1, len(sys.argv)):
