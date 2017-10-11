@@ -12,6 +12,7 @@ Debug*/Debug*\ Libs
 *.xojo_uistate
 >>>>>>> FETCH_HEAD
 
+*.DS_Store
 
 *.pyc
 
