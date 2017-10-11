@@ -820,7 +820,7 @@ End
 		  dim jsn as new JSONItem
 		  dim hts as new HTTPSocket
 		  hts.Yield=true
-		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/release",5)
+		  res=hts.Get("https://regprecise.lbl.gov/Services/rest/release",5)
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    
 		    if Res="" then
@@ -1310,6 +1310,17 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeTFfamilySearch() As Boolean Handles GenomeTFfamilySearch.Action
+			dim boo as boolean
+			
+			boo=HmmSearch
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function RegPreciseCompareScores() As Boolean Handles RegPreciseCompareScores.Action
 			'run nhmmer, then hmmgen, then convert hits to fasta string
 			'and feed it to the actual comparison routine
@@ -1365,6 +1376,14 @@ End
 			
 			WriteToSTDOUT("__0,5,1,6__:"+EndOfLine)
 			WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(0,5,1,6)+EndOfLine)
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function Untitled() As Boolean Handles Untitled.Action
 			
 			Return True
 			
@@ -2827,6 +2846,78 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function hmmsearch() As boolean
+		  'returns true if completed without errors
+		  
+		  hmmSearchSettingsWin.ShowModalWithin(self)
+		  if hmmSearchSettings="" then
+		    return false
+		    
+		  end if
+		  
+		  dim cli as string
+		  Dim sh As Shell
+		  
+		  
+		  if GenomeFile=Nil then
+		    WriteToSTDOUT("Please select a file to search first.")
+		    return false
+		  end if
+		  
+		  'export protein fastas:
+		  dim CDSfasta as folderitem
+		  CDSfasta=SpecialFolder.Temporary.child("CDS.fasta")
+		  
+		  if CDSfasta<>nil then
+		    GenomeWin.ExportProteins(CDSfasta)
+		    cli=""
+		    
+		    
+		    FixPath4Windows(CDSfasta)
+		    
+		    dim genomefilepath as string
+		    #if TargetWin32
+		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		    #else
+		      GenomeFilePath=GenomeFile.shellpath
+		    #endif
+		    
+		    dim modelFile as string
+		    modelFile=hmmSearchSettingsWin.PopupFiles(hmmSearchSettingsWin.PfamPopup.ListIndex-1)
+		    
+		    dim HmmSearchPath as string = replace(nhmmerPath,"/nhmmer","/hmmsearch")
+		    
+		    cli=HmmSearchPath+" "+modelFile+" "+CDSfasta.ShellPath+" "+hmmSearchSettings ' +" -o "+nhmmerResultFile.shellpath
+		    
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      'LogoWinToolbar.Item(2).Enabled=true
+		      LastSearch="hmmsearch"
+		      return true
+		    else
+		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "hmmsearch error code: "+Str(sh.errorCode)
+		      WriteToSTDOUT (EndofLine+"hmmsearch command line was: "+cli+EndofLine)
+		      'LogoWinToolbar.Item(2).Enabled=false
+		      return false
+		    end if
+		  end if
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:nhmmer")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub LoadAlignment(tmpfile as folderitem)
 		  
 		  if tmpfile<> nil then
@@ -2929,8 +3020,8 @@ End
 		      else
 		        msgbox "Can't read SigmoID file options"
 		      end if
-		      HmmGenSettingsWin.EvalueField.enabled=false
-		      HmmGenSettingsWin.EvalueButton.enabled=false
+		      'HmmGenSettingsWin.EvalueField.enabled=false
+		      'HmmGenSettingsWin.EvalueButton.enabled=false
 		      
 		      
 		      if vv<>Nil then
@@ -3230,9 +3321,9 @@ End
 		  dim hts as new HTTPSocket
 		  hts.Yield=true
 		  if isregulog then
-		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulogId="+ID,0)
+		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulogId="+ID,0)
 		  else
-		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,0)
+		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,0)
 		  end if
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    if res<>"" then

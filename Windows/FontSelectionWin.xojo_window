@@ -79,6 +79,7 @@ Begin Window FontSelectionWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kFontSelInfo"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -140,6 +141,7 @@ Begin Window FontSelectionWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kFFexample"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -264,6 +266,7 @@ Begin Window FontSelectionWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kFFexample"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -299,6 +302,7 @@ Begin Window FontSelectionWin
       Selectable      =   False
       TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kFixed"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -333,6 +337,7 @@ Begin Window FontSelectionWin
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kProportional"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -461,7 +466,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

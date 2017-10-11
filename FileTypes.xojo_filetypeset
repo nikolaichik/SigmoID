@@ -1,7 +1,6 @@
 #tag FileTypeSet
 	#tag FileType
 		CodeName=Sig_file
-		DocIcon=Sigmoid.xojo_resources;&h0
 		Extension=.sig
 		Flags=&h5
 		MacCreator=SgId
@@ -16,7 +15,6 @@
 
 	#tag FileType
 		CodeName=Text
-		DocIcon=Sigmoid.xojo_resources;&h141C
 		Extension=.text;.txt;.sto;.hmm
 		Flags=&h2
 		MacCreator=????
@@ -31,7 +29,6 @@
 
 	#tag FileType
 		CodeName=AllFiles
-		DocIcon=Sigmoid.xojo_resources;&h6C08
 		Extension=.*
 		Flags=&h2
 		MacCreator=????
@@ -46,7 +43,6 @@
 
 	#tag FileType
 		CodeName=Folder
-		DocIcon=Sigmoid.xojo_resources;&hC3F4
 		Extension=
 		Flags=&h2
 		MacCreator=MACS
@@ -61,7 +57,6 @@
 
 	#tag FileType
 		CodeName=Sig_Prefs
-		DocIcon=Sigmoid.xojo_resources;&hC400
 		Extension=.plist;.ini
 		Flags=&h2
 		MacCreator=SgId

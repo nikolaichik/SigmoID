@@ -48,6 +48,7 @@ Begin Window About
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kAboutText"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -82,6 +83,7 @@ Begin Window About
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "1.0 alpha 1"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -144,6 +146,7 @@ Begin Window About
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "SigmoID"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -178,6 +181,7 @@ Begin Window About
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "SigmoID includes the following open source software:\n- nhmmer, hmmbuild and alimask from the HMMER package (http://hmmer.org);\n- meme and mast from the MEME Suite (http://MEME-suite.org/);\n- TransTerm HP (http://transterm.cbcb.umd.edu);\n- tfastx from the FASTA package (http://fasta.bioch.virginia.edu/fasta_www2/fasta_list2.shtml);\n- RBCustomTabPanel (https://github.com/alexrestrepo/RBCustomTabPanel);\n- MacOSLib (https://github.com/macoslib)."
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -318,7 +322,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

@@ -31,7 +31,7 @@ Begin Window NewFeatureWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &cFFFF00FF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -158,7 +158,6 @@ Begin Window NewFeatureWin
       Selectable      =   False
       TabIndex        =   12
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kLeftCoordinate"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -176,7 +175,7 @@ Begin Window NewFeatureWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFF00FF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -218,7 +217,7 @@ Begin Window NewFeatureWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFF00FF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -277,7 +276,6 @@ Begin Window NewFeatureWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kRightCoordinate"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -359,7 +357,7 @@ Begin Window NewFeatureWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFF00FF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -401,7 +399,7 @@ Begin Window NewFeatureWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFF00FF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -460,7 +458,6 @@ Begin Window NewFeatureWin
       Selectable      =   False
       TabIndex        =   20
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "locus_tag:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -495,7 +492,6 @@ Begin Window NewFeatureWin
       Selectable      =   False
       TabIndex        =   21
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kFeatureType"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -979,7 +975,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

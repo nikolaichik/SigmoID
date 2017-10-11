@@ -68,43 +68,10 @@ Inherits Application
 
 	#tag Event
 		Sub Open()
+		  SetLinuxIcon
 		  
-		  #if TargetMacOS then 'Bundle ↠ Contents ↠ Resources
-		    
-		    #if DebugBuild then
-		      #If XojoVersion < 2015.03 Then
-		        msgbox "Running with Xojo "+str(XojoVersion)
-		      #endif
-		      resources_f=GetFolderItem("SigmoID.debug.app")
-		    #else
-		      resources_f=GetFolderItem("SigmoID.app")
-		    #endif
-		    resources_f=resources_f.Child("Contents").Child("Resources")
-		    '#elseif TargetLinux then
-		    ''#if DebugBuild then
-		    'resources_f=GetFolderItem("").Child("Resources")
-		    ''#else
-		    ''resources_f=GetFolderItem("").Child("Resources")
-		    ''#endif
-		  #else
-		    #If XojoVersion >= 2015.03 Then
-		      'folders now include app name
-		      #if DebugBuild then
-		        resources_f=GetFolderItem("").Child("DebugSigmoID Resources")
-		      #else
-		        resources_f=GetFolderItem("").Child("SigmoID Resources")
-		      #endif
-		      if resources_f=NIL then
-		        msgbox "Can't access Resources folder!"
-		      end if
-		      
-		    #else
-		      resources_f=GetFolderItem("").Child("Resources")
-		      if resources_f=NIL then
-		        msgbox "Can't access Resources folder!"
-		      end if
-		    #endif
-		  #endif
+		  
+		  GetResources_f
 		  
 		  
 		  'initialise array for reverse-complementation (and complementation):
@@ -974,6 +941,10 @@ Inherits Application
 		2. TomTom (or the like) check of the new profile vs existing ones
 		3. Hmmsearch/tfastx check for TF presence in the genome before TFBS search. (requires inclusion of TF sequence in the profile)
 		4. Work around RegPrecise limitation for checking the TF (either download all TF seqs to avoid SQL query or find another way to get the TF seq)
+		5. Display anchor motifs a la RegPrecise ones (per family)
+		6. User-configurable settings for de novo inference procedure
+		7. Reuse genome fragments already extracted: store all IDs (so multiple server access is excluded)
+		[? and settings, so things are rerun if settings change]
 		
 		Minor features
 		1. Get regulated gene list for each regulator in RegPrecise

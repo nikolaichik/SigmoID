@@ -142,7 +142,6 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kFeature2add"
       TextAlign       =   0
       TextColor       =   &c00000000

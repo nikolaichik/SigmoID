@@ -48,7 +48,6 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -177,21 +176,15 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
-      httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
       LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   True
@@ -350,6 +343,8 @@ End
 		  #if DebugBuild then 
 		    FastaButton.Enabled=true
 		  #endif
+		  
+		  'RegPreciseSocket.Secure=true
 		End Sub
 	#tag EndEvent
 
@@ -414,7 +409,7 @@ End
 		    
 		    hts.Yield=true
 		    
-		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
+		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
 		    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		      if res<>"" then
 		        JSN0.load(res)
@@ -571,7 +566,7 @@ End
 	#tag Method, Flags = &h0
 		Sub GetVersion()
 		  SocketTask="release"
-		  RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/release")
+		  RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/release")
 		  
 		End Sub
 	#tag EndMethod
@@ -598,7 +593,7 @@ End
 		  else
 		    'get the data from RegPrecise
 		    SocketTask="genomes"
-		    RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/genomeStats")
+		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/genomeStats")
 		  end if
 		  
 		  Exception err
@@ -612,12 +607,12 @@ End
 		  if me.title="RegPrecise: regulons" then
 		    'regulons
 		    SocketTask="regulons"
-		    RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/regulons?genomeId="+GenomeID)
+		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulons?genomeId="+GenomeID)
 		    
 		  else
 		    'regulogs
 		    SocketTask="regulogs"
-		    RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/regulogs?genomeId="+GenomeID)
+		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulogs?genomeId="+GenomeID)
 		    
 		  end if
 		  

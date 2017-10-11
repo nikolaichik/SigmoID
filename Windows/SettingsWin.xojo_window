@@ -115,7 +115,6 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   2
       Visible         =   True
@@ -274,7 +273,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   3
             TabPanelIndex   =   2
-            TabStop         =   True
             Text            =   "Organism (optional)"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -309,7 +307,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   4
             TabPanelIndex   =   2
-            TabStop         =   True
             Text            =   "Protein database"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -344,7 +341,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   5
             TabPanelIndex   =   2
-            TabStop         =   True
             Text            =   "Nucleotide database"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -450,7 +446,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   3
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "nhmmer:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -485,7 +480,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   4
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "alimask:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -563,7 +557,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   11
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "hmmbuild:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -641,7 +634,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   13
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "MEME:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -719,7 +711,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   15
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "MAST:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -797,7 +788,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   17
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "tfastx:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -876,7 +866,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Profile Folder:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -942,7 +931,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "#kProfileFolderPath"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -1374,7 +1362,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

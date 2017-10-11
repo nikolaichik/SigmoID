@@ -23,7 +23,7 @@ Begin Window nhmmerSettingsWin
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
-   Title           =   "#kHMMgenSettings"
+   Title           =   "#knHMMerSettings"
    Visible         =   False
    Width           =   566
    Begin TextField OptionsField
@@ -486,7 +486,7 @@ Begin Window nhmmerSettingsWin
       Begin RadioButton ncButton
          AutoDeactivate  =   True
          Bold            =   False
-         Caption         =   "#kNoise"
+         Caption         =   "#kNoise1"
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
@@ -1109,6 +1109,30 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events gaButton
+	#tag Event
+		Sub Action()
+		  HmmGenSettingsWin.BitScoreField.Text=GAvalue.text
+		  HmmGenSettingsWin.BitScoreButton.Value=true
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ncButton
+	#tag Event
+		Sub Action()
+		  HmmGenSettingsWin.BitScoreField.Text=NCvalue.text
+		  HmmGenSettingsWin.BitScoreButton.Value=true
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events tcButton
+	#tag Event
+		Sub Action()
+		  HmmGenSettingsWin.BitScoreField.Text=TCvalue.text
+		  HmmGenSettingsWin.BitScoreButton.Value=true
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events PushButton3
 	#tag Event
 		Sub Action()
@@ -1132,6 +1156,8 @@ End
 		  if me.Text<>"" then
 		    CutoffBox.Enabled=false
 		    EvalueButton.enabled=true
+		    HmmGenSettingsWin.EvalueField.Text=me.text
+		    HmmGenSettingsWin.EvalueButton.Value=true
 		  else
 		    EvalueButton.enabled=false
 		    if BitScoreField.text="" then
@@ -1148,6 +1174,7 @@ End
 		  if me.Text<>"" then
 		    CutoffBox.Enabled=false
 		    BitScoreButton.enabled=true
+		    HmmGenSettingsWin.BitScoreField.Text=me.text
 		  else
 		    BitScoreButton.enabled=false
 		    if EvalueField.text="" then
@@ -1206,7 +1233,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

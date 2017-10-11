@@ -2011,7 +2011,7 @@ Protected Module DeNovoTFBSinference
 		  'query should preferably be in the fasta format 
 		  
 		  dim command, theURL as string
-		  dim hts as new HTTPSocket
+		  dim hts as new HTTPSecureSocket
 		  dim res as string
 		  
 		  
@@ -2045,7 +2045,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  'UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
-		  res=hts.Post("http://www.ebi.ac.uk/Tools/hmmer/search/phmmer",0)
+		  res=hts.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer",0)
 		  
 		  if hts.HTTPStatusCode=302 then 'redirect: issue a request to retrieve results
 		    'just extract the redirect URL from a single <a> tag of the response
@@ -2063,7 +2063,7 @@ Protected Module DeNovoTFBSinference
 		    '
 		    'wend
 		    'res=deNovoWin.phmmerRes
-		    hts=new HTTPSocket
+		    hts=new HTTPSecureSocket
 		    hts.SetRequestHeader("Expect","")
 		    hts.SetRequestHeader("Accept","text/plain")
 		    hts.SetRequestHeader("Content-type","text/plain")
@@ -2261,7 +2261,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  'aUniprot ID looks like A0A0B2TCH0_PECCA
 		  
-		  Const URLstart as string="http://www.ebi.ac.uk/ebisearch/ws/rest/uniprot/entry/"
+		  Const URLstart as string="https://www.ebi.ac.uk/ebisearch/ws/rest/uniprot/entry/"
 		  Const URLend as string="/xref/coding_release" 
 		  Dim Separ1 as string="reference id="+chr(34)
 		  Dim Separ2 as string=chr(34)

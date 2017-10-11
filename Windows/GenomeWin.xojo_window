@@ -55,7 +55,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -241,7 +240,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Value           =   3
       Visible         =   True
@@ -357,7 +355,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -370,65 +367,35 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   194
    End
-   Begin mHTTPSocket TIGRSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Enabled         =   True
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
+   Begin sHTTPSocket TIGRSocket
+      CertificatePassword=   ""
+      ConnectionType  =   3
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
+      Secure          =   False
       TabPanelIndex   =   0
-      yield           =   False
    End
-   Begin mHTTPSocket SPSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Enabled         =   True
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
+   Begin sHTTPSocket SPSocket
+      CertificatePassword=   ""
+      ConnectionType  =   3
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
+      Secure          =   False
       TabPanelIndex   =   0
-      yield           =   False
    End
-   Begin mHTTPSocket UniProtSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Enabled         =   True
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
+   Begin sHTTPSocket UniProtSocket
+      CertificatePassword=   ""
+      ConnectionType  =   3
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
+      Secure          =   False
       TabPanelIndex   =   0
-      yield           =   False
    End
    Begin Cocoa.NSSearchField NSSearchField1
       AcceptFocus     =   True
@@ -486,7 +453,7 @@ Begin Window GenomeWin
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   "#kSearch..."
+      CueText         =   "#kSearch"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
@@ -525,7 +492,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -655,6 +621,7 @@ End
 		  GenomeAddPlot.enabled=true
 		  GenomeMergePlotData.enabled=true
 		  
+		  GenomeTFfamilySearch.enabled=true
 		  
 		  FileSaveCheckedSites.Visible=true
 		  FileSaveCheckedSites.Enabled=true
@@ -1457,6 +1424,98 @@ End
 			ExtractFragment(1,10000)
 			TextMap(0,0)
 			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeTFfamilySearch() As Boolean Handles GenomeTFfamilySearch.Action
+			dim boo as boolean
+			
+			if HmmSearch then
+			
+			
+			if hmmSearchSettingsWin.AddAnnotationCheckBox.value then
+			'only add annotation if hmmsearch completed OK
+			Dim gbkFile as folderitem
+			Dim dlg as New SaveAsDialog
+			dlg.InitialDirectory=GenomeFile.Parent
+			dlg.promptText="Select where to save the modified GenBank file"
+			dlg.SuggestedFileName=NthField(GenomeFile.displayname,".",1)+"_2"+".gbk"
+			dlg.Title="Save .gbk file"
+			dlg.Filter=FileTypes.GenBank
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
+			
+			gbkFile=dlg.ShowModal()
+			If gbkFile <> Nil then
+			'run annotation script:
+			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
+			
+			'This script adds feature notes (with TF family names) to a GenBank file based
+			'on hmmsearch results.
+			'
+			'positional arguments:
+			'hmmsearch_result  path to hmmsearch result file.
+			'input_file        path to input Genbank file.
+			'output_file       path to output Genbank file.
+			'
+			'optional arguments:
+			'-h, --help        show this help message and exit
+			'-f , --family     Adds the name of protein family in GenBank file
+			
+			dim cli as string
+			Dim sh As Shell
+			
+			sh=New Shell
+			sh.mode=0
+			sh.TimeOut=-1
+			
+			logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running the ProtFamily script..."+EndofLine)
+			dim GenomeFilePath,outFilePath as string
+			#if TargetWin32
+			'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+			FixPath4Windows(outfile)
+			GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+			outFilePath=chr(34)+gbkFile.ShellPath+chr(34)
+			#else
+			GenomeFilePath=GenomeFile.shellpath
+			outFilePath=gbkFile.ShellPath
+			#endif
+			
+			dim protFamilyPath as string
+			protFamilyPath=replace(logoWin.hmmGenPath,"hmmGen.py","ProtFamily.py")
+			
+			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
+			cli="python "+protFamilyPath+" "+hmmsearchResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" -f "+TFfamilyDesc
+			
+			sh=New Shell
+			sh.mode=0
+			sh.TimeOut=-1
+			sh.execute cli
+			If sh.errorCode=0 then
+			
+			LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+			LogoWin.WriteToSTDOUT (EndofLine.unix+"Genbank file with added TF family notes written to "+gbkFile.ShellPath+EndofLine)
+			else
+			LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily error code: "+Str(sh.errorCode)+EndofLine)
+			LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+			LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily command line was: "+cli+EndofLine)
+			return false
+			end if
+			
+			'WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
+			
+			
+			
+			end if
+			end if
+			end if
+			
+			Return True
+			
+			Exception err
+			ExceptionHandler(err,"GenomeWin:GenomeTFfamilySearch")
 			
 		End Function
 	#tag EndMenuHandler
@@ -3261,7 +3320,7 @@ End
 		  SPSocket.SetFormData(form)
 		  'SPSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
-		  SPSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
+		  SPSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -3303,7 +3362,7 @@ End
 		  TIGRSocket.SetFormData(form)
 		  'TIGRSocket.Post("http://hmmer.janelia.org/search/hmmscan")
 		  'change to the EBI address
-		  TIGRSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/hmmscan")
+		  TIGRSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -3350,10 +3409,97 @@ End
 		  UniprotSocket.SetFormData(form)
 		  UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
-		  UniprotSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
+		  UniprotSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function hmmsearch() As boolean
+		  'returns true if completed without errors
+		  
+		  hmmSearchSettingsWin.ShowModalWithin(self)
+		  if hmmSearchSettings="" then
+		    return false
+		    
+		  end if
+		  
+		  logowin.show
+		  dim cli as string
+		  Dim sh As Shell
+		  
+		  
+		  if GenomeFile=Nil then
+		    logoWin.WriteToSTDOUT("Please select a file to search first.")
+		    return false
+		  else
+		    logoWin.WriteToSTDOUT("Exporting protein seqs..."+EndOfLine.UNIX)
+		    
+		  end if
+		  
+		  'export protein fastas:
+		  dim CDSfasta as folderitem
+		  CDSfasta=SpecialFolder.Temporary.child("CDS.fasta")
+		  
+		  if CDSfasta<>nil then
+		    ExportProteins(CDSfasta)
+		    cli=""
+		    
+		    
+		    FixPath4Windows(CDSfasta)
+		    
+		    dim genomefilepath as string
+		    #if TargetWin32
+		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		    #else
+		      GenomeFilePath=GenomeFile.shellpath
+		    #endif
+		    
+		    dim modelFile as string
+		    modelFile=hmmSearchSettingsWin.PopupFiles(hmmSearchSettingsWin.PfamPopup.ListIndex-1)
+		    
+		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
+		    
+		    cli=HmmSearchPath+" "+hmmSearchSettings
+		    if hmmSearchSettingsWin.AddAnnotationCheckBox.Value then
+		      hmmsearchResultFile=SpecialFolder.Temporary.child("hmmsearch.result")
+		      
+		      if hmmsearchResultFile<>nil then
+		        cli=cli +" -o "+hmmsearchResultFile.shellpath
+		      else
+		        return false
+		      end if
+		    end if
+		    cli=cli+" "+modelFile+" "+CDSfasta.ShellPath
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      'LogoWinToolbar.Item(2).Enabled=true
+		      logoWin.LastSearch="hmmsearch" 'not used
+		      
+		      return true
+		    else
+		      logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "hmmsearch error code: "+Str(sh.errorCode)
+		      logoWin.WriteToSTDOUT (EndofLine+"hmmsearch command line was: "+cli+EndofLine)
+		      'LogoWinToolbar.Item(2).Enabled=false
+		      return false
+		    end if
+		  end if
+		  
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:hmmsearch")
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -4726,7 +4872,7 @@ End
 		    buffer=new Picture(MapCanvas.width*seq.map.objects.scale, Mapcanvas.Height*seq.map.objects.scale,Screen(0).depth)
 		  else
 		    buffer=new Picture(MapCanvas.width, Mapcanvas.Height,Screen(0).depth)
-		    'buffer=newPicture(MapCanvas.width*4, Mapcanvas.Height*4,Screen(0).depth)
+		    'buffer=New Picture(MapCanvas.width*4, Mapcanvas.Height*4,Screen(0).depth)
 		  end
 		  
 		  if buffer<>Nil then
@@ -5086,6 +5232,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		hmmsearchResultFile As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		HScrollBarCodeLock As Boolean
 	#tag EndProperty
 
@@ -5351,6 +5501,10 @@ End
 
 	#tag Property, Flags = &h0
 		TextMapPic As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TFfamilyDesc As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -6458,7 +6612,7 @@ End
 		  UUID=NthField(UUID,"/score",1)
 		  'UUID correctness should be verified!
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
+		  theURL="https://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
 		  'now simply load the corrected URL:
 		  
 		  TFSearchViewer.LoadURL(theURL)
@@ -6509,8 +6663,8 @@ End
 		  UUID=NthField(Content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  'theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
-		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
+		  'theURL="https://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
+		  theURL="https://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
 		  
 		  'now simply load the corrected URL:
 		  if TMdisplay.Visible then
@@ -6574,7 +6728,7 @@ End
 		  UUID=NthField(content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
+		  theURL="https://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
 		  
 		  'now simply load the corrected URL:
 		  if TMdisplay.Visible then
@@ -7593,6 +7747,12 @@ End
 		Name="TextMapPic"
 		Group="Behavior"
 		Type="Picture"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TFfamilyDesc"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

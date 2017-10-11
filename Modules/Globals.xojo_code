@@ -17,7 +17,7 @@ Protected Module Globals
 		    dim aControl as control
 		    'const kBaseTextSizeIfZero = 12
 		    
-		    'dpi = screenDPI
+		    'dpi = screen DPI
 		    'if dpi < 10 then exit
 		    
 		    'scalingFactor = (96/dpi)  'factor to scale from mac 96 dpi pixel size to windows equivalent size per inch
@@ -805,6 +805,47 @@ Protected Module Globals
 		  
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub GetResources_f()
+		  #if TargetMacOS then 'Bundle ↠ Contents ↠ Resources
+		    
+		    #if DebugBuild then
+		      #If XojoVersion < 2015.03 Then
+		        msgbox "Running with Xojo "+str(XojoVersion)
+		      #endif
+		      resources_f=GetFolderItem("SigmoID.debug.app")
+		    #else
+		      resources_f=GetFolderItem("SigmoID.app")
+		    #endif
+		    resources_f=resources_f.Child("Contents").Child("Resources")
+		    '#elseif TargetLinux then
+		    ''#if DebugBuild then
+		    'resources_f=GetFolderItem("").Child("Resources")
+		    ''#else
+		    ''resources_f=GetFolderItem("").Child("Resources")
+		    ''#endif
+		  #else
+		    #If XojoVersion >= 2015.03 Then
+		      'folders now include app name
+		      #if DebugBuild then
+		        resources_f=GetFolderItem("").Child("DebugSigmoID Resources")
+		      #else
+		        resources_f=GetFolderItem("").Child("SigmoID Resources")
+		      #endif
+		      if resources_f=NIL then
+		        msgbox "Can't access Resources folder!"
+		      end if
+		      
+		    #else
+		      resources_f=GetFolderItem("").Child("Resources")
+		      if resources_f=NIL then
+		        msgbox "Can't access Resources folder!"
+		      end if
+		    #endif
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1915,14 +1956,14 @@ Protected Module Globals
 		Sub RegulonInfo(ID as integer, IsRegulog as boolean)
 		  'Get RegPrecise web pages for a regulon (regulog)
 		  
-		  'http://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id=12127
-		  'http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=1307
+		  'https://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id=12127
+		  'https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=1307
 		  
 		  WebBrowserWin.show
 		  If IsRegulog then
-		    WebBrowserWin.LoadPage("http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id="+str(ID))
+		    WebBrowserWin.LoadPage("https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id="+str(ID))
 		  else
-		    WebBrowserWin.LoadPage("http://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id="+str(ID))
+		    WebBrowserWin.LoadPage("https://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id="+str(ID))
 		  end if
 		  
 		End Sub
@@ -2033,7 +2074,7 @@ Protected Module Globals
 		  dim pic as picture
 		  
 		  
-		  pic=newPicture(20,20,1)
+		  pic=New Picture(20,20,1)
 		  n=FontCount-1
 		  For i=0 to n
 		    CurrentFont=Font(i)
@@ -2235,6 +2276,72 @@ Protected Module Globals
 		  #endif
 		  
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetLinuxIcon()
+		  #if TargetLinux
+		    ' For Gnome and related window managers launcher icon is set via the .desktop file
+		    ' for user-specific apps this dir is used:
+		    ' ~/.local/share/applications
+		    
+		    dim desktopText,appPath,iconPath as string
+		    
+		    dim f as folderitem
+		    
+		    // find the paths:
+		    f=GetFolderItem("")
+		    appPath=f.ShellPath+"/SigmoID"
+		    iconPath=f.ShellPath+"/appicon_128.png"
+		    
+		    f=SpecialFolder.UserHome
+		    f=f.child(".local")
+		    if f<>NIL then
+		      if f.exists then
+		        f=f.child("share")
+		        if f<>NIL then
+		          if f.exists then
+		            f=f.child("applications")
+		            if f<>NIL then
+		              if f.exists then
+		                f=f.child("sigmoid.desktop")
+		                if f<>NIL then
+		                  if f.exists then f.Delete
+		                  dim tos as TextOutputStream
+		                  tos=textOutputStream.Create(f)
+		                  if f<>nil then
+		                    tos.Writeline "[Desktop Entry]"
+		                    tos.Writeline "Version=2.0"
+		                    tos.Writeline "Name=SigmoID"
+		                    tos.Writeline "Comment=Analyse/find transcription factor binding sites"
+		                    tos.Writeline "Comment[ru]=Анализ и поиск сайтов связывания транскрипционных факторов"
+		                    tos.Writeline "Comment[be]=Аналіз і пошук сайтаў звязвання транскрыпцыйных фактараў"
+		                    tos.Writeline "Terminal=false"
+		                    tos.Writeline "Type=Application"
+		                    tos.Writeline "Categories=GNOME;GTK;Application;"
+		                    tos.Writeline "Exec="+appPath
+		                    tos.Writeline "Icon="+iconPath
+		                    tos.close
+		                  end if
+		                  
+		                  
+		                  
+		                end if
+		              else
+		                return
+		              end if
+		            end if
+		          else
+		            return
+		          end if
+		        end if
+		      else
+		        return
+		      end if
+		    end if
+		    'GetFolderItem("SigmoID.debug.app")  
+		  #endif
 		End Sub
 	#tag EndMethod
 
@@ -2957,6 +3064,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		hmmSearchSettings As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		LengthsDiffer As boolean
 	#tag EndProperty
 
@@ -3142,6 +3253,12 @@ Protected Module Globals
 			Name="hmmBuildPath"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="hmmSearchSettings"
+			Group="Behavior"
+			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty

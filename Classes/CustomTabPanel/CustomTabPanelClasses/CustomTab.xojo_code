@@ -4,7 +4,7 @@ Protected Class CustomTab
 		Function alphaTabPicture(alpha as Single) As Picture
 		  if self.alphaTabPicture <> nil then Return self.alphaTabPicture
 		  
-		  dim tmp as Picture = NewPicture(tabPicture.Width, tabPicture.Height, 32)
+		  dim tmp as Picture = New Picture(tabPicture.Width, tabPicture.Height, 32)
 		  
 		  if alpha > 1.0 then alpha = 1.0
 		  dim maskColor as Color = rgb(255 - alpha * 255, 255 - alpha * 255, 255 - alpha * 255)
@@ -85,7 +85,7 @@ Protected Class CustomTab
 		  
 		  //create the tabPicture, which will hold the composed Picture
 		  alphaTabPicture = nil
-		  tabPicture=NewPicture(tabW, tabBackground.Height,32)
+		  tabPicture=New Picture(tabW, tabBackground.Height,32)
 		  tabPicture.graphics.TextSize=11
 		  tabPicture.graphics.TextFont="System"
 		  
@@ -104,7 +104,7 @@ Protected Class CustomTab
 		    hitOverlay=nil
 		  end if
 		  
-		  hitOverlay=NewPicture(tabPicture.Width,tabPicture.Height,32)
+		  hitOverlay=New Picture(tabPicture.Width,tabPicture.Height,32)
 		  hitOverlay.mask.graphics.ForeColor=&c888888
 		  hitOverlay.mask.graphics.FillRect 0,0,hitOverlay.Width,hitOverlay.Height
 		  
@@ -115,7 +115,7 @@ Protected Class CustomTab
 		  dim iconOffset, iconW, closeW as Integer
 		  
 		  //create picture
-		  tabData=NewPicture(width,height,32)
+		  tabData=New Picture(width,height,32)
 		  tabData.graphics.TextSize=11
 		  tabData.graphics.TextFont="System"
 		  
@@ -177,7 +177,7 @@ Protected Class CustomTab
 		  
 		  //create the tabPicture, which will hold the composed Picture
 		  alphaTabPicture = nil
-		  tabPicture=NewPicture(tabBackground.Height, tabW, 32)
+		  tabPicture=New Picture(tabBackground.Height, tabW, 32)
 		  tabPicture.graphics.TextSize=11
 		  tabPicture.graphics.TextFont="System"
 		  
@@ -196,7 +196,7 @@ Protected Class CustomTab
 		    hitOverlay=nil
 		  end if
 		  
-		  hitOverlay=NewPicture(tabPicture.Width,tabPicture.Height,32)
+		  hitOverlay=New Picture(tabPicture.Width,tabPicture.Height,32)
 		  hitOverlay.mask.graphics.ForeColor=&c888888
 		  hitOverlay.mask.graphics.FillRect 0,0,hitOverlay.Width,hitOverlay.Height
 		  
@@ -208,7 +208,7 @@ Protected Class CustomTab
 		  dim tabData as Picture
 		  
 		  //create a temporary picture with the tab appearance, this picture will be rotated 90ºCW or CCW
-		  tabData=NewPicture(height,width,32)
+		  tabData=New Picture(height,width,32)
 		  tabData.graphics.TextSize=11
 		  tabData.graphics.TextFont="System"
 		  
@@ -248,7 +248,7 @@ Protected Class CustomTab
 		  tabData.graphics.DrawString caption, iconOffset, (tabData.Height+tabData.Graphics.TextAscent)/2, tabw,true
 		  
 		  //now, create the tabData picture
-		  self.tabData=NewPicture(tabPicture.Width, tabPicture.Height, 32)
+		  self.tabData=New Picture(tabPicture.Width, tabPicture.Height, 32)
 		  
 		  //and draw the rotated tab onto it
 		  dim pms as new PixmapShape(tabData)

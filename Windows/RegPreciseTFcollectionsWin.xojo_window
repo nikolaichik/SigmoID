@@ -146,19 +146,14 @@ Begin Window RegPreciseTFcollectionsWin
       BytesAvailable  =   0
       BytesLeftToSend =   0
       Handle          =   0
-      httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
       LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   True
@@ -537,7 +532,7 @@ End
 		    
 		    hts.Yield=true
 		    
-		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
+		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
 		    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		      if res<>"" then
 		        JSN0.load(res)
@@ -659,7 +654,7 @@ End
 		  'DOESN'T WORK! REST response is different
 		  
 		  ' have to use this call:
-		  ' http://regprecise.lbl.gov/Services/rest/regulons?regulogId=621
+		  ' https://regprecise.lbl.gov/Services/rest/regulons?regulogId=621
 		  
 		  dim strains(0) as string
 		  dim lines(-1) as string
@@ -673,7 +668,7 @@ End
 		  dim jsn1 as new JSONItem
 		  dim hts as new HTTPSocket
 		  hts.Yield=true
-		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulons?regulogId="+regulogID,0)
+		  res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulons?regulogId="+regulogID,0)
 		  
 		  // result shouls be like this:
 		  ' {"regulon":[{"effector":"Bacillibactin; Fe-Bacillibactin","genomeId":"52","genomeName":"Bacillus subtilis subsp. subtilis str. 168","pathway":"Iron homeostasis","regulationType":"TF","regulatorFamily":"AraC","regulatorName":"Btr","regulogId":"1368","regulonId":"12715"},
@@ -822,7 +817,7 @@ End
 		          dim jsn as new JSONItem
 		          dim hts as new HTTPSocket
 		          hts.Yield=true
-		          res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulogId="+regulogID,0)
+		          res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulogId="+regulogID,0)
 		          
 		          if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		            if res<>"" then
@@ -913,7 +908,7 @@ End
 		      dim jsn as new JSONItem
 		      dim hts as new HTTPSocket
 		      hts.Yield=true
-		      res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulogId="+regulogID,0)
+		      res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulogId="+regulogID,0)
 		      
 		      if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		        if res<>"" then
@@ -991,7 +986,7 @@ End
 	#tag Method, Flags = &h0
 		Sub GetVersion()
 		  SocketTask="release"
-		  RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/release")
+		  RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/release")
 		  
 		End Sub
 	#tag EndMethod
@@ -1019,7 +1014,7 @@ End
 		  'else
 		  'get the data from RegPrecise
 		  SocketTask="TFfamilies"
-		  RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/regulogCollectionStats?collectionType=tfFam")
+		  RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulogCollectionStats?collectionType=tfFam")
 		  'end if
 		  
 		  Exception err
@@ -1049,7 +1044,7 @@ End
 		  'effector - effector molecule or environmental signal of a regulator
 		  'pathway - metabolic pathway or biological process controlled by a regulator
 		  
-		  RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/regulogs?collectionType=tfFam&collectionId="+GenomeID)
+		  RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulogs?collectionType=tfFam&collectionId="+GenomeID)
 		  
 		  
 		  
@@ -1400,7 +1395,7 @@ End
 		      
 		      // convert all tmp files to a single minimal meme file
 		      ' sites2meme command should look like 
-		      ' sites2meme -map /Users/Home/Desktop/sites2meme_test/sites.map -url http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME /Users/Home/Desktop/sites2meme_test
+		      ' sites2meme -map /Users/Home/Desktop/sites2meme_test/sites.map -url https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME /Users/Home/Desktop/sites2meme_test
 		      
 		      ' sample output is like this:
 		      'MEME version 4
@@ -1423,7 +1418,7 @@ End
 		      '0.000000      1.000000      0.000000      0.000000    
 		      '0.928571      0.000000      0.071429      0.000000    
 		      '
-		      'URL http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site1
+		      'URL https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site1
 		      '
 		      'MOTIF site2 RegR
 		      '
@@ -1436,7 +1431,7 @@ End
 		      '0.000000      1.000000      0.000000      0.000000    
 		      '0.785714      0.000000      0.214286      0.000000    
 		      '
-		      'URL http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site2
+		      'URL https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site2
 		      
 		      dim sites2memePath as string
 		      #if targetWin32
@@ -1452,7 +1447,7 @@ End
 		      
 		      dim cli as string
 		      cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
-		      cli=cli+" "+"-url http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
+		      cli=cli+" "+"-url https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
 		      cli=cli+" "+TFfamily_tmp.ShellPath
 		      
 		      

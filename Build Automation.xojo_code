@@ -32,6 +32,7 @@
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
+					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbHkucHk=
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
 					AppliesTo = 1
@@ -70,6 +71,8 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvY2QtaGl0LWVzdA==
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
+					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbHkucHk=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvaG1tc2VhcmNo
 				End
 			End
 			Begin BuildStepList Mac OS X
@@ -106,6 +109,8 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9jZC1oaXQtZXN0
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9obW1zZWFyY2g=
+					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbHkucHk=
 				End
 			End
 			Begin BuildStepList Windows
@@ -146,6 +151,7 @@
 					FolderItem = Li4vVEZfSE1Ncy8=
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
+					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbHkucHk=
 				End
 			End
 #tag EndBuildAutomation

@@ -48,6 +48,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "This command will scan the folder you select for files named 'meme.txt' and use these to run TomTom vs motif libraries located in the specified folder."
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -186,6 +187,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Query folder:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -293,6 +295,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "TF library folder:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -400,6 +403,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "TomTom options:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -507,6 +511,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Background model:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -557,6 +562,7 @@ End
 	#tag Event
 		Sub Open()
 		  SetDefaults
+		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 
@@ -645,39 +651,26 @@ End
 
 	#tag Method, Flags = &h0
 		Sub SetDefaults()
-		  'Resources_f=GetFolderItem("").Child("SigmoID Resources")
-		  'msgbox "0"
+		  GetResources_f
+		  
 		  if Resources_f<>Nil then
 		    if Resources_f.exists then
-		      'msgbox("Resources are at "+Resources_f.shellpath)
-		    else 
-		      'msgbox "No Resources_f!"
-		      Resources_f=GetFolderItem("").Child("SigmoID Resources")
-		    end if
-		    TFfamFolder=Resources_f.child("TF_families")
-		    'msgbox("1"+TFfamFolder.shellpath)
-		    if TFfamFolder<>Nil then
-		      'msgbox "2"
-		      if TFfamFolder.Exists then
-		        'msgbox "2.1"
-		        'msgbox TFfamFolder.Name
-		        'msgbox "2.2"
-		        'msgbox TFfamFolder.NativePath
-		        TFfamPathField.text=TFfamFolder.ShellPath
-		        'msgbox "3"
-		      else
-		        'msgbox "No TFfamFolder!"
+		      TFfamFolder=Resources_f.child("TF_families")
+		      if TFfamFolder<>Nil then
+		        if TFfamFolder.Exists then
+		          TFfamPathField.text=TFfamFolder.ShellPath
+		        end if
 		        
+		        TomTomOptionsField.text="-no-ssc -incomplete-scores -min-overlap 14 -internal"
+		        BGmodelField.text=""
+		        
+		        MemeResPathField.text=""
 		      end if
-		      
-		      TomTomOptionsField.text="-no-ssc -incomplete-scores -min-overlap 14 -internal"
-		      BGmodelField.text=""
-		      
-		      MemeResPathField.text=""
-		      
+		    else
+		      msgbox "Resources_f doesn't exist!"
 		    end if
 		  else
-		    'msgbox "Resources_f is Nil!"
+		    msgbox "Resources_f is Nil!"
 		  end if
 		  Exception err
 		    
@@ -803,10 +796,10 @@ End
 		Sub TextChange()
 		  if not FieldsLocked then
 		    Dim f as FolderItem
-		    f=New FolderItem(trim(me.text))
+		    f=New FolderItem(trim(me.text),Folderitem.PathTypeShell)
 		    if f<>nil then
 		      if f.exists then
-		        TFfamFolder=New FolderItem(trim(me.text))
+		        TFfamFolder=New FolderItem(trim(me.text),Folderitem.PathTypeShell)
 		      else
 		        beep
 		      end if

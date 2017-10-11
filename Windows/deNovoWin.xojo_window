@@ -110,6 +110,7 @@ Begin Window deNovoWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kOutFolder"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -497,21 +498,27 @@ Begin Window deNovoWin
    End
    Begin mHTTPSocket hts2
       Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Handle          =   0
+      BytesAvailable  =   "0"
+      BytesLeftToSend =   "0"
+      CertificateFile =   
+      CertificatePassword=   ""
+      CertificateRejectionFile=   
+      ConnectionType  =   3
+      Enabled         =   True
+      Handle          =   "0"
       httpProxyAddress=   ""
-      httpProxyPort   =   0
+      httpProxyPort   =   "0"
       Index           =   -2147483648
-      IsConnected     =   False
-      LastErrorCode   =   0
+      IsConnected     =   "False"
+      LastErrorCode   =   "0"
       LocalAddress    =   ""
       LockedInPosition=   False
-      Port            =   0
+      Port            =   "0"
       RemoteAddress   =   ""
       Scope           =   0
+      Secure          =   False
       TabPanelIndex   =   0
-      yield           =   False
+      yield           =   "False"
    End
    Begin GroupBox GroupBox2
       AutoDeactivate  =   True
@@ -594,6 +601,7 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Minimal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -628,6 +636,7 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Maximal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -1057,7 +1066,10 @@ End
 		      
 		      query =">"+ProtNames(n)+EndOfLine.unix+HmmSearchMatches(n)
 		      
-		      resFile=phmmer_results.child(ProtNames(n)+".raw")
+		      dim theProtName as string=replaceall(ProtNames(N),":","_") 'OS X precaution
+		      'resFile=phmmer_results.child(ProtNames(n)+".raw")
+		      resFile=phmmer_results.child(theProtName+".raw")
+		      
 		      if resFile<>Nil then
 		        if resfile.exists then
 		          'load existing data
@@ -1079,7 +1091,7 @@ End
 		          
 		          if res<>"" then
 		            'save raw phmmer results
-		            resFile=phmmer_results.child(ProtNames(n)+".raw")
+		            resFile=phmmer_results.child(theProtName+".raw")
 		            if resFile<>Nil then
 		              OutStream = TextOutputStream.Create(resFile)
 		              if outStream<>Nil then
@@ -1100,11 +1112,13 @@ End
 		      if res<>"" then
 		        FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
 		      else
-		        logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!")
+		        logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!"+EndOfLine.UNIX)
 		      end if
 		      
 		      ' issue a warning if there's less than 10 or over 100 seqs.
 		      hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
+		      if hitcount<0 then hitcount=0
+		      
 		      if hitcount<10 then
 		        LogoWin.WriteToSTDOUT (" Warning! Too few ("+str(hitcount)+") filtered hits.")
 		        if FallBackCheck.value then
@@ -1127,7 +1141,7 @@ End
 		              
 		              if res<>"" then
 		                'save raw phmmer results
-		                resFile=phmmer_results.child(ProtNames(n)+".UniProt_raw")
+		                resFile=phmmer_results.child(theProtName+".UniProt_raw")
 		                if resFile<>Nil then
 		                  OutStream = TextOutputStream.Create(resFile)
 		                  if outStream<>Nil then
@@ -1171,7 +1185,7 @@ End
 		      
 		      
 		      'save CR tag filtered phmmer results
-		      resFile=phmmer_results.child(ProtNames(n)+".filtered")
+		      resFile=phmmer_results.child(theProtName+".filtered")
 		      if resFile<>Nil then
 		        OutStream = TextOutputStream.Create(resFile)
 		        if outStream<>Nil then
@@ -1188,7 +1202,7 @@ End
 		      // Extract promoter regions from the target operon and its two neighbours
 		      
 		      if res<>"" then
-		        resfile=Fasta_files.child(ProtNames(n)+"_unfiltered.fasta")
+		        resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
 		        if resFile<>Nil then
 		          if resfile.exists then
 		            'load existing data
@@ -1198,12 +1212,12 @@ End
 		              res=instream.ReadAll
 		              instream.close
 		            end if
-		            resfile2=Fasta_files.child(ProtNames(n)+".fasta")
+		            resfile2=Fasta_files.child(theProtName+".fasta")
 		          else
 		            
 		            dim FragmentsForAhitF As folderitem
 		            
-		            FragmentsForAhitF=Genome_fragments.child(ProtNames(n))
+		            FragmentsForAhitF=Genome_fragments.child(theProtName)
 		            if NOT FragmentsForAhitF.exists then
 		              FragmentsForAhitF.createAsFolder
 		            end if
@@ -1224,7 +1238,7 @@ End
 		                ' or one seq per genus if too many seqs
 		                
 		                ' Save unfiltered UPS fragments
-		                resfile=Fasta_files.child(ProtNames(n)+"_unfiltered.fasta")
+		                resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
 		                if resfile<>nil then
 		                  OutStream = TextOutputStream.Create(resFile)
 		                  if outStream<>Nil then
