@@ -1375,7 +1375,7 @@ End
 		  
 		  'extract Fasta formatted protein seq
 		  'the seq is within the <pre> tag, but there are two of those, so we're searching for "<pre>>"
-		  'content supposedly has the ISO-8859-1 encoding, but Xojo gets line ends wrong
+		  'content supposedly has the ISO-8859-1 encoding, but Xojo gets line ends wrongx
 		  
 		  if httpStatus>=200 AND httpStatus<300 then 'successful
 		    ProteinFasta=defineEncoding(NthField(Content,"<pre>>",2),Encodings.ISOLatin1)

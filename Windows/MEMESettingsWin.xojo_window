@@ -523,8 +523,59 @@ End
 
 	#tag Method, Flags = &h0
 		Function MEMEhtml() As integer
-		  dim opt as string
-		  dim ErrCode as integer
+		  'Standard MEME run with result display in browser
+		  
+		  'USAGE:
+		  'meme    <dataset> [optional arguments]
+		  
+		  'available options:
+		  '[-o <output dir>]    name of directory for output files
+		  'will not replace existing directory
+		  '[-oc <output dir>]    name of directory for output files
+		  'will replace existing directory
+		  '[-text]            output in text format (default is HTML)
+		  '[-dna]            sequences use DNA alphabet
+		  '[-protein]        sequences use protein alphabet
+		  '[-mod oops|zoops|anr]    distribution of motifs
+		  '[-nmotifs <nmotifs>]    maximum number of motifs to find
+		  '[-evt <ev>]        stop if motif E-value greater than <evt>
+		  '[-nsites <sites>]    number of sites for each motif
+		  '[-minsites <minsites>]    minimum number of sites for each motif
+		  '[-maxsites <maxsites>]    maximum number of sites for each motif
+		  '[-wnsites <wnsites>]    weight on expected number of sites
+		  '[-w <w>]        motif width
+		  '[-minw <minw>]        minimum motif width
+		  '[-maxw <maxw>]        maximum motif width
+		  '[-nomatrim]        do not adjust motif width using multiple
+		  'alignment
+		  '[-wg <wg>]        gap opening cost for multiple alignments
+		  '[-ws <ws>]        gap extension cost for multiple alignments
+		  '[-noendgaps]        do not count end gaps in multiple alignments
+		  '[-bfile <bfile>]    name of background Markov model file
+		  '[-revcomp]        allow sites on + or - DNA strands
+		  '[-pal]            force palindromes (requires -dna)
+		  '[-maxiter <maxiter>]    maximum EM iterations to run
+		  '[-distance <distance>]    EM convergence criterion
+		  '[-psp <pspfile>]    name of positional priors file
+		  '[-prior dirichlet|dmix|mega|megap|addone]
+		  'type of prior to use
+		  '[-b <b>]        strength of the prior
+		  '[-plib <plib>]        name of Dirichlet prior file
+		  '[-spfuzz <spfuzz>]    fuzziness of sequence to theta mapping
+		  '[-spmap uni|pam]    starting point seq to theta mapping type
+		  '[-cons <cons>]        consensus sequence to start EM from
+		  '[-heapsize <hs>]    size of heaps for widths where substring
+		  'search occurs
+		  '[-x_branch]        perform x-branching
+		  '[-w_branch]        perform width branching
+		  '[-allw]            include all motif widths from min to max
+		  '[-bfactor <bf>]        branching factor for branching search
+		  '[-maxsize <maxsize>]    maximum dataset size in characters
+		  '[-nostatus]        do not print progress reports to terminal
+		  '[-p <np>]        use parallel version with <np> processors
+		  '[-time <t>]        quit before <t> CPU seconds consumed
+		  '[-sf <sf>]        print <sf> as name of sequence file
+		  '[-V]            verbose mode
 		  
 		  'copy alignment out of virtual volume:
 		  dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
@@ -539,36 +590,6 @@ End
 		    return -1
 		  end if
 		  
-		  opt=" -p " + str(CPUcores)  'for parallelised meme
-		  
-		  opt=opt+" -dna -minw "+str(MinField.text)+" -maxw "+str(MaxField.text)
-		  
-		  '[-pal]            force palindromes (requires -dna)
-		  if PalindromicBox.Value then
-		    opt=opt+" -pal"
-		  end if
-		  
-		  '[-revcomp]        allow sites on + or - DNA strands
-		  if GivenStrandBox.Value then
-		  else
-		    opt=opt+" -revcomp"
-		  end if
-		  
-		  '[-nmotifs <nmotifs>]    maximum number of motifs to find
-		  opt=opt+" -nmotifs "+MotifNoPopup.Text
-		  
-		  '[-mod oops|zoops|anr]    distribution of motifs
-		  select case MotifsPerSeqPopup.ListIndex
-		  case 0      'zero or one
-		    opt=opt+" -mod zoops"
-		  case 1      'one
-		    opt=opt+" -mod oops"
-		  case 2      'any number
-		    opt=opt+" -mod anr"
-		  end select
-		  
-		  
-		  
 		  
 		  'create a tmp file to store MEME results:
 		  LogoWin.MEMEtmp=SpecialFolder.Temporary.child("MEMEoutdir")
@@ -578,13 +599,121 @@ End
 		    if LogoWin.MEMEtmp.Exists then
 		      LogoWin.MEMEtmp.Delete
 		    end if
+		    'actual conversion
+		    dim cli as string
+		    Dim sh As Shell
 		    
+		    ''need to set MEME_BIN_DIRS for the bundled meme version
+		    'dim MEME_BIN_DIRS as string
+		    '#if targetWin32
+		    ''MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
+		    'dim ff as folderitem
+		    'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		    'if ff<>NIL AND ff.exists then
+		    ''it's already there
+		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'else
+		    'ff=resources_f.child("meme_xml_to_html")
+		    'if ff<>NIL AND ff.exists then
+		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'end if
+		    'ff=resources_f.child("meme.exe")
+		    'if ff<>NIL AND ff.exists then
+		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'end if
+		    'end if
+		    '
+		    ''need to copy the dlls too!
+		    '
+		    '
+		    '
+		    '#elseif targetLinux
+		    'MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
+		    'if instr(MEME_BIN_DIRS," ")>0 then
+		    'moved2tmp=true
+		    ''MEME_BIN_DIRS should not have white space, so moving the script to /tmp
+		    'dim ff as folderitem
+		    'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		    'if ff<>NIL AND ff.exists then
+		    ''it's already there
+		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'else
+		    'ff=resources_f.child("meme_xml_to_html")
+		    'if ff<>NIL AND ff.exists then
+		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'end if
+		    'ff=resources_f.child("meme")
+		    'if ff<>NIL AND ff.exists then
+		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'end if
+		    'end if
+		    'end if
+		    '
+		    '#else
+		    'MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
+		    '#endif
+		    
+		    '#if TargetLinux
+		    'if moved2tmp then
+		    'cli="/tmp/meme"+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    'else
+		    'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    'end if
+		    '
+		    '#elseif TargetWin32
+		    'cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    '#else
+		    'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    '#endif
+		    
+		    #if TargetWin32
+		      cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath
+		    #else
+		      cli=MEMEpath+" "+alignment_tmp.ShellPath
+		    #endif
+		    
+		    
+		    cli=cli+" -dna -minw "+str(MinField.text)+" -maxw "+str(MaxField.text)
+		    
+		    '[-pal]            force palindromes (requires -dna)
+		    if PalindromicBox.Value then
+		      cli=cli+" -pal"
+		    end if
+		    
+		    '[-revcomp]        allow sites on + or - DNA strands
+		    if GivenStrandBox.Value then
+		    else
+		      cli=cli+" -revcomp"
+		    end if
+		    
+		    '[-nmotifs <nmotifs>]    maximum number of motifs to find
+		    cli=cli+" -nmotifs "+MotifNoPopup.Text
+		    
+		    '[-mod oops|zoops|anr]    distribution of motifs
+		    select case MotifsPerSeqPopup.ListIndex
+		    case 0      'zero or one
+		      cli=cli+" -mod zoops"
+		    case 1      'one
+		      cli=cli+" -mod oops"
+		    case 2      'any number
+		      cli=cli+" -mod anr"
+		    end select
+		    
+		    
+		    '[-oc <output dir>]    name of directory for output files
+		    'will replace existing directory
+		    cli=cli+" -oc "+LogoWin.MEMEtmp.ShellPath
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
 		    LogoWin.show
 		    LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
-		    
-		    ErrCode=MEME(alignment_tmp, LogoWin.MEMEtmp,opt)
-		    If ErrCode=0 then
-		      LogoWin.WriteToSTDOUT (" done."+EndofLine)
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		      
 		      'open the result in the browser:
 		      dim res as FolderItem
@@ -593,9 +722,11 @@ End
 		        WebBrowserWin.LoadPage(res)
 		        WebBrowserWin.show
 		      end if
-		      return ErrCode
+		      return sh.errorCode
 		    else
-		      return ErrCode
+		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "MEME error code: "+Str(sh.errorCode)
+		      return sh.errorCode
 		    end if
 		    
 		  else

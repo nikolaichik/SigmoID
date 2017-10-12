@@ -31,11 +31,8 @@
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
-<<<<<<< HEAD
-=======
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
 					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbHkucHk=
->>>>>>> Version2
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
 					AppliesTo = 1
@@ -44,11 +41,7 @@
 					FolderItem = Li4vU2lnbW9JRC5zaA==
 				End
 				Begin CopyFilesBuildStep CopyResources64bit
-<<<<<<< HEAD
-					AppliesTo = 2
-=======
 					AppliesTo = 0
->>>>>>> Version2
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==
@@ -75,14 +68,11 @@
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvUHJvZmlsZXMv
 					FolderItem = Li4vVEZfSE1Ncy8=
-<<<<<<< HEAD
-=======
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvY2QtaGl0LWVzdA==
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
 					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbHkucHk=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvaG1tc2VhcmNo
->>>>>>> Version2
 				End
 			End
 			Begin BuildStepList Mac OS X
@@ -116,14 +106,11 @@
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
-<<<<<<< HEAD
-=======
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9jZC1oaXQtZXN0
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9obW1zZWFyY2g=
 					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbHkucHk=
->>>>>>> Version2
 				End
 			End
 			Begin BuildStepList Windows
@@ -162,12 +149,9 @@
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
-<<<<<<< HEAD
-=======
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
 					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbHkucHk=
->>>>>>> Version2
 				End
 			End
 #tag EndBuildAutomation

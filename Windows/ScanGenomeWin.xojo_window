@@ -340,7 +340,7 @@ Begin Window ScanGenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   140
+      Width           =   120
    End
    Begin BevelButton DeselectAllButton
       AcceptFocus     =   True
@@ -365,7 +365,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   139
+      Left            =   119
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -384,7 +384,7 @@ Begin Window ScanGenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   140
+      Width           =   120
    End
    Begin BevelButton BevelButton3
       AcceptFocus     =   True
@@ -409,11 +409,7 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-<<<<<<< HEAD
-      Left            =   279
-=======
       Left            =   238
->>>>>>> Version2
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -432,11 +428,7 @@ Begin Window ScanGenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-<<<<<<< HEAD
-      Width           =   128
-=======
       Width           =   168
->>>>>>> Version2
    End
 End
 #tag EndWindow
@@ -520,14 +512,14 @@ End
 		            nhmmerSettingsWin.ReadOptions
 		            if NOT LogoWin.nhmmer then
 		              'exit on error
-		              LogoWin.WriteToSTDOUT(EndOfLine+"Genome scan interrupted due to nhmmer error")
+		              LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to nhmmer error")
 		              return
 		            end if
 		            HmmGenSettingsWin.ReadOptions
 		            LogoWin.outfile=GenomeScanOut
 		            if NOT LogoWin.HmmGen then
 		              'exit on error
-		              LogoWin.WriteToSTDOUT(EndOfLine+"Genome scan interrupted due to HmmGen.py script error")
+		              LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to HmmGen.py script error")
 		              return
 		            end if
 		            HitCount=HitCount+LogoWin.LastHitNo

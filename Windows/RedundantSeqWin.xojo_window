@@ -94,11 +94,7 @@ Begin Window RedundantSeqWin
       LimitText       =   0
       LineHeight      =   0.0
       LineSpacing     =   1.0
-<<<<<<< HEAD
-      LockBottom      =   False
-=======
       LockBottom      =   True
->>>>>>> Version2
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
@@ -137,11 +133,7 @@ Begin Window RedundantSeqWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-<<<<<<< HEAD
-      Left            =   500
-=======
       Left            =   438
->>>>>>> Version2
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -157,11 +149,7 @@ Begin Window RedundantSeqWin
       Top             =   500
       Underline       =   False
       Visible         =   True
-<<<<<<< HEAD
-      Width           =   80
-=======
       Width           =   142
->>>>>>> Version2
    End
    Begin PushButton PushButton2
       AutoDeactivate  =   True
@@ -177,19 +165,11 @@ Begin Window RedundantSeqWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-<<<<<<< HEAD
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-=======
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
->>>>>>> Version2
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -221,19 +201,11 @@ Begin Window RedundantSeqWin
       Italic          =   False
       Left            =   206
       LimitText       =   0
-<<<<<<< HEAD
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-=======
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
->>>>>>> Version2
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -270,11 +242,7 @@ End
 #tag Events PushButton2
 	#tag Event
 		Sub Action()
-<<<<<<< HEAD
-		  outArea.text=GetRegSeq1(InArea.text)
-=======
 		  outArea.text=GetRegSeq2(InArea.text)
->>>>>>> Version2
 		  
 		End Sub
 	#tag EndEvent

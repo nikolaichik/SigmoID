@@ -350,11 +350,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function CountCPUcores() As integer
-<<<<<<< HEAD
-		  // returns number of CPU cores
-=======
 		  // returns number of CPU cores (threads)
->>>>>>> Version2
 		  ' (not sure if this works with Windows)
 		  
 		  dim cli as string
@@ -367,9 +363,6 @@ Protected Module Globals
 		  cli="python -c 'import multiprocessing as mp; print mp.cpu_count()'"
 		  sh.execute cli
 		  If sh.errorCode=0 then
-<<<<<<< HEAD
-		    return Val(sh.result)
-=======
 		    dim CPUs As Integer = Val(sh.result)
 		    if CPUs>1 then
 		      sh.execute MEMEpath+" -p 2"
@@ -383,15 +376,11 @@ Protected Module Globals
 		    else
 		      return 1
 		    end if
->>>>>>> Version2
 		  else
 		    return 1
 		  End If
 		  
-<<<<<<< HEAD
-=======
 		  
->>>>>>> Version2
 		  '
 		  '#if TargetMacOS
 		  '
@@ -408,8 +397,6 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-<<<<<<< HEAD
-=======
 		Function DeleteEntireFolder(theFolder as folderitem, continueIfErrors as Boolean = false) As integer
 		  // From LR with no modifications
 		  
@@ -467,7 +454,6 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
->>>>>>> Version2
 		Function DrawRuler(width as integer, baseY as integer, bp as integer) As Group2D
 		  'Routine to draw  the ruler on linear maps
 		  
@@ -1035,7 +1021,7 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function HTTPerror(StatusCode as integer) As string
+		Function HTTPerror(StatusCode as integer, ShowDialog as boolean) As string
 		  dim ErrName, Desc As String
 		  
 		  select case StatusCode
@@ -1294,6 +1280,7 @@ Protected Module Globals
 		    ErrName="Unknown HTTP error"
 		  end
 		  
+		  
 		  Dim d as New MessageDialog  //declare the MessageDialog object
 		  Dim b as MessageDialogButton //for handling the result
 		  d.icon=MessageDialog.GraphicCaution   //display warning icon
@@ -1302,14 +1289,15 @@ Protected Module Globals
 		  'd.CancelButton.Caption=kCancel
 		  d.AlternateActionButton.Visible=false   //show the "Don't Save" button
 		  
-		  
 		  d.Message=kHTTPerror+str(StatusCode)+": "+ErrName
 		  d.Explanation=Desc
 		  
+		  If ShowDialog then
+		    b=d.ShowModal     //display the dialog
+		  End If
+		  
 		  dim ret as string
 		  ret=EndOfLine.unix+d.message+EndOfLine.unix+desc+EndOfLine.unix
-		  
-		  b=d.ShowModal     //display the dialog
 		  
 		  return ret
 		End Function
@@ -3042,11 +3030,11 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		CodonList As string
+		cLineEnd As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		CPUcores As integer = 1
+		CodonList As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3087,6 +3075,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		LF As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		LineEnd As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3221,16 +3213,16 @@ Protected Module Globals
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="cLineEnd"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="CodonList"
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="CPUcores"
-			Group="Behavior"
-			InitialValue="1"
-			Type="integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CPUcores"
@@ -3292,6 +3284,12 @@ Protected Module Globals
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LF"
+			Group="Behavior"
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LineEnd"
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"

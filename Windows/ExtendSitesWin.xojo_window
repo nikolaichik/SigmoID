@@ -71,7 +71,7 @@ Begin Window ExtendSitesWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   80
+      Left            =   132
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -83,7 +83,7 @@ Begin Window ExtendSitesWin
       TabIndex        =   1
       TabPanelIndex   =   0
       Text            =   "#kLeft"
-      TextAlign       =   2
+      TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -92,7 +92,7 @@ Begin Window ExtendSitesWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   95
+      Width           =   34
    End
    Begin Label Label3
       AutoDeactivate  =   True
@@ -105,7 +105,7 @@ Begin Window ExtendSitesWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   248
+      Left            =   278
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -117,7 +117,7 @@ Begin Window ExtendSitesWin
       TabIndex        =   2
       TabPanelIndex   =   0
       Text            =   "#kRight"
-      TextAlign       =   2
+      TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
@@ -126,7 +126,7 @@ Begin Window ExtendSitesWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   73
+      Width           =   38
    End
    Begin TextField LeftField
       AcceptTabs      =   False
@@ -414,33 +414,33 @@ End
 		    seq=instream2.ReadAll
 		    if instr(seq,"ORIGIN")>0 then 'Genbank file
 		      
-		      'LineEnd=EndOfLine
-		      s0=EndOfLine.unix+"ORIGIN"
+		      LineEnd=EndOfLine
+		      s0=LineEnd+"ORIGIN"
 		      '^
 		      '|
 		      'SHOULD USE "origin" INSTEAD OF "BASE COUNT"
 		      en=instrb(seq,s0)-1
 		      'line ends may vary wildly, so checking if platform-specific line ends are indeed used
-		      'cLineEnd=LineEnd
-		      'if en=-1 then  'line ends are different or this may be not a genebank file
-		      's0=LF+"ORIGIN"
-		      'en=instrb(seq,s0)-1
-		      'if en >= 0 then
-		      ''set the correct line ends for further use:
-		      'cLineEnd=LF
-		      'else
-		      's0=CR+"ORIGIN"
-		      'en=instrb(seq,s0)-1
-		      'if en > 0 then 'set the correct line ends for further use:
-		      'cLineEnd=CR
-		      'else
-		      'msgbox "Problem trying to read GenBank format!"
-		      'end if
-		      'end
-		      'end
-		      'if cLineEnd="" then
-		      'cLineEnd=EndOfLine  'seems to be set wrong for some files
-		      'end if
+		      cLineEnd=LineEnd
+		      if en=-1 then  'line ends are different or this may be not a genebank file
+		        s0=LF+"ORIGIN"
+		        en=instrb(seq,s0)-1
+		        if en >= 0 then
+		          'set the correct line ends for further use:
+		          cLineEnd=LF
+		        else
+		          s0=CR+"ORIGIN"
+		          en=instrb(seq,s0)-1
+		          if en > 0 then 'set the correct line ends for further use:
+		            cLineEnd=CR
+		          else
+		            msgbox "Problem trying to read GenBank format!"
+		          end if
+		        end
+		      end
+		      if cLineEnd="" then
+		        cLineEnd=EndOfLine  'seems to be set wrong for some files
+		      end if
 		      
 		      
 		      seq=rightb(seq,len(seq)-instrb(seq,"ORIGIN")-7)

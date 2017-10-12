@@ -130,7 +130,7 @@ Begin Window LogoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   1000
       Begin Canvas LogoCanvas
@@ -166,7 +166,7 @@ Begin Window LogoWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFF00FF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          DataField       =   ""
@@ -833,7 +833,7 @@ End
 		    
 		  else
 		    
-		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
 		    LogoWin.WriteToSTDOUT (httpErr)
 		    
 		  end if
@@ -1647,10 +1647,10 @@ End
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
 		    ViewMEMEresults.checked=false
-		    LogoCanvas.visible=false
+		    'LogoCanvas.visible=false
 		    'LogoCanvas.Enabled=false
-		    Informer.visible=true
-		    Informer.enabled=true
+		    'Informer.visible=true
+		    'Informer.enabled=true
 		    Informer.text=Sequences
 		    Informer.ReadOnly=false
 		    TopPanel.Value=0
@@ -3051,7 +3051,7 @@ End
 		        inStream.close
 		      else
 		        'meme data is optional, so the warning goes to the log:
-		        WriteToSTDOUT(EndOfLine+"No MEME data is present in this .sig file")
+		        WriteToSTDOUT(LineEnd+"No MEME data is present in this .sig file")
 		        MEMEdata=""
 		      end if
 		      
@@ -3289,7 +3289,9 @@ End
 		  'end if
 		  
 		  
-		  
+		  if LengthsDiffer then
+		    logowin.ChangeView("Sequences")
+		  end if
 		  
 		  RegulonID=0
 		  RegulogID=0
@@ -3365,7 +3367,7 @@ End
 		    end if
 		  else
 		    
-		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode, true)
 		    LogoWin.WriteToSTDOUT (httpErr)
 		    
 		    
@@ -4613,18 +4615,13 @@ End
 		Sub MouseDrag(X As Integer, Y As Integer)
 		  if Y<>DragStartY then
 		    dim deltaY as integer = Y-DragStartY
-		    if UpperPaneHeight+deltaY<10 then
-		      ChangeView("HideViewer")
-		    else
-		      UpperPaneHeight=UpperPaneHeight+deltaY
-		      'LogoCanvas.Height=UpperPaneHeight
-		      'Informer.height=UpperPaneHeight
-		      TopPanel.Height=UpperPaneHeight
-		      STDOUT.height=STDOUT.height-deltaY
-		      STDOUT.top=STDOUT.top+deltaY
-		      me.top=me.top+deltaY
-		    end if
-		    
+		    UpperPaneHeight=UpperPaneHeight+deltaY
+		    'LogoCanvas.Height=UpperPaneHeight
+		    'Informer.height=UpperPaneHeight
+		    TopPanel.Height=UpperPaneHeight
+		    STDOUT.height=STDOUT.height-deltaY
+		    STDOUT.top=STDOUT.top+deltaY
+		    me.top=me.top+deltaY
 		    
 		  end if
 		  

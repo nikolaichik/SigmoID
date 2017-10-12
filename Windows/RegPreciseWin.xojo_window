@@ -177,15 +177,21 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
+      httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
+      IsConnected     =   False
       LastErrorCode   =   0
+      LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
+      RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
+      yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   True
@@ -461,7 +467,7 @@ End
 		      
 		    else
 		      
-		      dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		      dim httpErr as String = HTTPerror(hts.HTTPStatusCode, true)
 		      LogoWin.WriteToSTDOUT (httpErr)
 		      
 		      LogoWin.show

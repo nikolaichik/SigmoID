@@ -8,15 +8,11 @@ Debug*.exe
 Debug*/Debug*.exe
 Debug*/Debug*\ Libs
 *.rbuistate
-<<<<<<< HEAD
-=======
 *.obsolete
->>>>>>> Version2
 *.obsolete*
 *.xojo_uistate
 >>>>>>> FETCH_HEAD
 
-*.DS_Store
 
 *.pyc
 

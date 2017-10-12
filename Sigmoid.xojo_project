@@ -469,27 +469,14 @@ Picture=RegulonDB16;Pix/RegulonDB16.png;&h7F9D6FFF;&h1F038CB3;false;0;&h0
 Folder=Toolbars;Toolbars;&h6C5E7FF;&h0;false
 Toolbar=PrefsToolbar;Toolbars/PrefsToolbar.xojo_toolbar;&h7E7C8FFF;&h6C5E7FF;false
 Toolbar=Toolbar1;Toolbars/Toolbar1.xojo_toolbar;&h47C78CF3;&h6C5E7FF;false
-<<<<<<< HEAD
-Window=NewFeatureWin;Windows/NewFeatureWin.xojo_window;&h1ACA37FF;&h2250E847;false
-Window=FilteredSearchWin;Windows/FilteredSearchWin.xojo_window;&h41B87FFF;&h2250E847;false
-Window=deNovoWin;Windows/deNovoWin.xojo_window;&h69E4E7FF;&h2250E847;false
-Window=RedundantSeqWin;Windows/RedundantSeqWin.xojo_window;&h1AF3A7FF;&h63A9EFFF;false
-=======
 Class=sHTTPSocket;Classes/sHTTPSocket.xojo_code;&h410FE7FF;&h47302C04;false
->>>>>>> Version2
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=2
 MinorVersion=0
-<<<<<<< HEAD
-SubVersion=1
-NonRelease=208
-Release=3
-=======
 SubVersion=0
 NonRelease=252
 Release=0
->>>>>>> Version2
 InfoVersion=
 LongVersion=2.0.0
 ShortVersion=2.0.0
@@ -516,7 +503,4 @@ UseGDIPlus=True
 UseBuildsFolder=True
 IsWebProject=False
 LinuxBuildArchitecture=1
-<<<<<<< HEAD
-=======
 OptimizationLevel=0
->>>>>>> Version2

@@ -122,11 +122,6 @@ Inherits Application
 		  #endif
 		  
 		  
-<<<<<<< HEAD
-		  //Determine and store CPU core number
-		  CPUcores=CountCPUcores
-=======
->>>>>>> Version2
 		  
 		  
 		End Sub
@@ -463,13 +458,9 @@ Inherits Application
 			'return -1
 			end if
 			
-<<<<<<< HEAD
-			opt=" -p " + str(CPUcores)  'for parallelised meme
-=======
 			if CPUcores>1 then
 			opt=" -p " + str(CPUcores)  'for parallelised meme
 			end if
->>>>>>> Version2
 			
 			opt=opt+" -dna -minw 17"+" -maxw 23"
 			
@@ -926,11 +917,8 @@ Inherits Application
 		62. Extend Binding Sites function should work with gapped sites too
 		63. Localise standard dialogues
 		64. Main window bug: quickly dragging the separator all the way up hides it with no way to bring back 
-<<<<<<< HEAD
-=======
 		65. Cache the data loaded from RegPrecise to the disk and reload 'em next time (having checked that version is current)
 		66. When editing a feature, after pressing OK check for a change of gene name (and update it)
->>>>>>> Version2
 		
 		64-bit issues:
 		1. [Workarounds added] VirtualVolume is broken
@@ -953,13 +941,10 @@ Inherits Application
 		2. TomTom (or the like) check of the new profile vs existing ones
 		3. Hmmsearch/tfastx check for TF presence in the genome before TFBS search. (requires inclusion of TF sequence in the profile)
 		4. Work around RegPrecise limitation for checking the TF (either download all TF seqs to avoid SQL query or find another way to get the TF seq)
-<<<<<<< HEAD
-=======
 		5. Display anchor motifs a la RegPrecise ones (per family)
 		6. User-configurable settings for de novo inference procedure
 		7. Reuse genome fragments already extracted: store all IDs (so multiple server access is excluded)
 		[? and settings, so things are rerun if settings change]
->>>>>>> Version2
 		
 		Minor features
 		1. Get regulated gene list for each regulator in RegPrecise
