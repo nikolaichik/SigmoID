@@ -1803,7 +1803,9 @@ Protected Module Globals
 		    #If XojoVersion >= 2015.03 Then
 		      'folders now include app name
 		      #if DebugBuild then
-		        pf=GetFolderItem("").Child("DebugSigmoID Resources").Child("Profiles").Child("Pectobacterium")
+		        pf=GetFolderItem("").Child("DebugSigmoID Resources")
+		        pf=pf.Child("Profiles").Child("Pectobacterium")
+		        pf=pf.Child("Pectobacterium")
 		      #else
 		        pf=GetFolderItem("").Child("SigmoID Resources").Child("Profiles").Child("Pectobacterium")
 		      #endif
