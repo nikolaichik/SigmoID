@@ -103,28 +103,28 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DragPboard() As NSPasteboard
+		Shared Function DragPboard() As NSPasteboard
 		  static name as String = Cocoa.StringConstant ("NSDragPboard")
 		  return WithName (name)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FindPboard() As NSPasteboard
+		Shared Function FindPboard() As NSPasteboard
 		  static name as String = Cocoa.StringConstant ("NSFindPboard")
 		  return WithName (name)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FontPboard() As NSPasteboard
+		Shared Function FontPboard() As NSPasteboard
 		  static name as String = Cocoa.StringConstant ("NSFontPboard")
 		  return WithName (name)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GeneralPasteboard() As NSPasteboard
+		Shared Function GeneralPasteboard() As NSPasteboard
 		  
 		  #if targetMacOS
 		    declare function generalPasteboard lib CocoaLib selector "generalPasteboard" (obj_id as Ptr) as Ptr
@@ -150,7 +150,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetPasteboard() As NSPasteboard
+		Shared Function GetPasteboard() As NSPasteboard
 		  
 		  #if targetMacOS
 		    declare function pasteboardWithUniqueName lib CocoaLib selector "pasteboardWithUniqueName" (obj_id as Ptr) as Ptr
@@ -168,7 +168,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetPasteboard(file as FolderItem) As NSPasteboard
+		Shared Function GetPasteboard(file as FolderItem) As NSPasteboard
 		  
 		  #if targetMacOS
 		    declare function pasteboardByFilteringFile lib CocoaLib selector "pasteboardByFilteringFile:" (obj_id as Ptr, fileName as CFStringRef) as Ptr
@@ -191,7 +191,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetPasteboard(pasteboard as NSPasteboard) As NSPasteboard
+		Shared Function GetPasteboard(pasteboard as NSPasteboard) As NSPasteboard
 		  
 		  #if targetMacOS
 		    declare function pasteboardByFilteringTypesInPasteboard lib CocoaLib selector "pasteboardByFilteringTypesInPasteboard:" (obj_id as Ptr, pasteboard as Ptr) as Ptr
@@ -215,7 +215,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetPasteboard(name as String) As NSPasteboard
+		Shared Function GetPasteboard(name as String) As NSPasteboard
 		  
 		  #if targetMacOS
 		    declare function pasteboardWithName lib CocoaLib selector "pasteboardWithName:" (obj_id as Ptr, name as CFStringRef) as Ptr
@@ -233,7 +233,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GetPasteboard(data as String, type as String) As NSPasteboard
+		Shared Function GetPasteboard(data as String, type as String) As NSPasteboard
 		  
 		  #if targetMacOS
 		    declare function pasteboardByFilteringData lib CocoaLib selector "pasteboardByFilteringData:ofType:" (obj_id as Ptr, data as Ptr, type as CFStringRef) as Ptr
@@ -307,7 +307,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDragPboard() As NSPasteboard
+		Shared Function NSDragPboard() As NSPasteboard
 		  
 		  static name as String = Cocoa.StringConstant ("NSDragPboard")
 		  return GetPasteboard(name)
@@ -316,7 +316,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFindPboard() As NSPasteboard
+		Shared Function NSFindPboard() As NSPasteboard
 		  
 		  static name as String = Cocoa.StringConstant ("NSFindPboard")
 		  return GetPasteboard(name)
@@ -325,7 +325,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontPboard() As NSPasteboard
+		Shared Function NSFontPboard() As NSPasteboard
 		  
 		  static name as String = Cocoa.StringConstant ("NSFontPboard")
 		  return GetPasteboard(name)
@@ -334,7 +334,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSGeneralPboard() As NSPasteboard
+		Shared Function NSGeneralPboard() As NSPasteboard
 		  
 		  static name as String = Cocoa.StringConstant ("NSGeneralPboard")
 		  return GetPasteboard(name)
@@ -343,7 +343,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeColor() As String
+		Shared Function NSPasteboardTypeColor() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeColor")
 		  return name
@@ -352,7 +352,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeFindPanelSearchOptions() As String
+		Shared Function NSPasteboardTypeFindPanelSearchOptions() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeFindPanelSearchOptions")
 		  return name
@@ -361,7 +361,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeFont() As String
+		Shared Function NSPasteboardTypeFont() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeFont")
 		  return name
@@ -370,7 +370,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeHTML() As String
+		Shared Function NSPasteboardTypeHTML() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeHTML")
 		  return name
@@ -379,7 +379,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeMultipleTextSelection() As String
+		Shared Function NSPasteboardTypeMultipleTextSelection() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeMultipleTextSelection")
 		  return name
@@ -388,7 +388,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypePDF() As String
+		Shared Function NSPasteboardTypePDF() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypePDF")
 		  return name
@@ -397,7 +397,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypePNG() As String
+		Shared Function NSPasteboardTypePNG() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypePNG")
 		  return name
@@ -406,7 +406,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeRTF() As String
+		Shared Function NSPasteboardTypeRTF() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeRTF")
 		  return name
@@ -415,7 +415,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeRTFD() As String
+		Shared Function NSPasteboardTypeRTFD() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeRTFD")
 		  return name
@@ -424,7 +424,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeRuler() As String
+		Shared Function NSPasteboardTypeRuler() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeRuler")
 		  return name
@@ -433,7 +433,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeSound() As String
+		Shared Function NSPasteboardTypeSound() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeSound")
 		  return name
@@ -442,7 +442,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeString() As String
+		Shared Function NSPasteboardTypeString() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeString")
 		  return name
@@ -451,7 +451,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeTabularText() As String
+		Shared Function NSPasteboardTypeTabularText() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeTabularText")
 		  return name
@@ -460,7 +460,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardTypeTIFF() As String
+		Shared Function NSPasteboardTypeTIFF() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardTypeTIFF")
 		  return name
@@ -469,7 +469,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardURLReadingContentsConformToTypesKey() As String
+		Shared Function NSPasteboardURLReadingContentsConformToTypesKey() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardURLReadingContentsConformToTypesKey")
 		  return name
@@ -478,7 +478,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPasteboardURLReadingFileURLsOnlyKey() As String
+		Shared Function NSPasteboardURLReadingFileURLsOnlyKey() As String
 		  
 		  static name as String = Cocoa.StringConstant ("NSPasteboardURLReadingFileURLsOnlyKey")
 		  return name
@@ -547,7 +547,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RulerPboard() As NSPasteboard
+		Shared Function RulerPboard() As NSPasteboard
 		  static name as String = Cocoa.StringConstant ("NSRulerPboard")
 		  'return WithName (name)
 		  return GetPasteboard(name)

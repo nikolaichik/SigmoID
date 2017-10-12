@@ -24,7 +24,7 @@ Class PowerSource
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function List() As PowerSource()
+		Shared Function List() As PowerSource()
 		  #if targetMacOS
 		    soft declare function IOPSCopyPowerSourcesInfo lib IOKit () as Ptr
 		    soft declare function IOPSCopyPowerSourcesList lib IOKit (blob as Ptr) as Ptr

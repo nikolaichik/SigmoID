@@ -2,7 +2,7 @@
 Class NSParagraphStyle
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function Default() As NSParagraphStyle
+		Shared Function Default() As NSParagraphStyle
 		  //# Returns the default paragraph style
 		  
 		  #if TargetMacOS

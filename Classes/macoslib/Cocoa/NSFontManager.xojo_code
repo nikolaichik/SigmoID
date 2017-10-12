@@ -505,7 +505,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SharedManager() As NSFontManager
+		Shared Function SharedManager() As NSFontManager
 		  #if targetMacOS
 		    declare function m_sharedFontManager lib CocoaLib selector "sharedFontManager" (Cls as Ptr) as Ptr
 		    

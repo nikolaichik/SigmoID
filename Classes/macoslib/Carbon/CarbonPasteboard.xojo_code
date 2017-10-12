@@ -16,7 +16,7 @@ Class CarbonPasteboard
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Clipboard() As CarbonPasteboard
+		Shared Function Clipboard() As CarbonPasteboard
 		  return new CarbonPasteboard()
 		End Function
 	#tag EndMethod
@@ -81,7 +81,7 @@ Class CarbonPasteboard
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DragPasteboard(dragHandle as Integer) As CarbonPasteboard
+		Shared Function DragPasteboard(dragHandle as Integer) As CarbonPasteboard
 		  #if TargetMacOS
 		    
 		    declare function GetDragPasteboard lib CarbonLib (dragRef as Integer, ByRef pbRefOut as Integer) as Integer
@@ -102,7 +102,7 @@ Class CarbonPasteboard
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FindPasteboard() As CarbonPasteboard
+		Shared Function FindPasteboard() As CarbonPasteboard
 		  return new CarbonPasteboard("com.apple.pasteboard.find")
 		End Function
 	#tag EndMethod
@@ -328,7 +328,7 @@ Class CarbonPasteboard
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UniquePasteboard() As CarbonPasteboard
+		Shared Function UniquePasteboard() As CarbonPasteboard
 		  #if TargetMacOS
 		    
 		    declare function PasteboardCreate lib CarbonLib (name as Ptr, ByRef ref as Integer) as Integer

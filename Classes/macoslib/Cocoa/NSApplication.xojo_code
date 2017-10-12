@@ -67,7 +67,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function App() As NSApplication
+		Shared Function App() As NSApplication
 		  #if TargetMacOS
 		    
 		    declare function sharedApplication_ lib CocoaLib selector "sharedApplication" (class_id as Ptr) as Ptr
@@ -471,7 +471,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSEventTrackingRunLoopMode() As String
+		Shared Function NSEventTrackingRunLoopMode() As String
 		  
 		  return Cocoa.StringConstant("NSEventTrackingRunLoopMode")
 		  
@@ -479,7 +479,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSModalPanelRunLoopMode() As String
+		Shared Function NSModalPanelRunLoopMode() As String
 		  
 		  return Cocoa.StringConstant("NSModalPanelRunLoopMode")
 		  

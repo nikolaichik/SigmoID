@@ -230,7 +230,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SoundNamed(soundName As NSString) As NSSound
+		Shared Function SoundNamed(soundName As NSString) As NSSound
 		  dim r as NSSound
 		  
 		  #if TargetMacOS

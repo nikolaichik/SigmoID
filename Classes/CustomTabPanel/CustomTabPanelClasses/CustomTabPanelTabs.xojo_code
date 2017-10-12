@@ -802,7 +802,7 @@ Inherits canvas
 		  //grayout if not enabled...
 		  if not me.Active or not me.Enabled then
 		    dim tmp as Picture
-		    tmp=NewPicture(Width,Height,32)
+		    tmp=New Picture(Width,Height,32)
 		    tmp.mask.graphics.ForeColor=&c888888
 		    tmp.mask.graphics.FillRect 0,0,Width,Height
 		    

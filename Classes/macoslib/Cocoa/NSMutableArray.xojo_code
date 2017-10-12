@@ -195,7 +195,7 @@ Inherits NSArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create() As NSMutableArray
+		Shared Function Create() As NSMutableArray
 		  
 		  #if TargetMacOS
 		    declare function array_ lib CocoaLib selector "array" (class_id as Ptr) as Ptr
@@ -211,7 +211,7 @@ Inherits NSArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithArray(anArray as NSArray) As NSMutableArray
+		Shared Function CreateWithArray(anArray as NSArray) As NSMutableArray
 		  
 		  #if TargetMacOS
 		    declare function arrayWithArray lib CocoaLib selector "arrayWithArray:" (class_id as Ptr, anArray as Ptr) as Ptr
@@ -235,7 +235,7 @@ Inherits NSArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithCapacity(capacity as UInt32) As NSMutableArray
+		Shared Function CreateWithCapacity(capacity as UInt32) As NSMutableArray
 		  
 		  #if TargetMacOS
 		    declare function arrayWithCapacity lib CocoaLib selector "arrayWithCapacity:" (class_id as Ptr, capacity as UInt32) as Ptr
@@ -255,7 +255,7 @@ Inherits NSArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithFile(file as FolderItem) As NSMutableArray
+		Shared Function CreateWithFile(file as FolderItem) As NSMutableArray
 		  
 		  #if TargetMacOS
 		    declare function arrayWithContentsOfFile lib CocoaLib selector "arrayWithContentsOfFile:" (class_id as Ptr, aPath as CFStringRef) as Ptr
@@ -276,7 +276,7 @@ Inherits NSArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObject(anObject as NSObject) As NSMutableArray
+		Shared Function CreateWithObject(anObject as NSObject) As NSMutableArray
 		  
 		  #if TargetMacOS
 		    declare function arrayWithObject lib CocoaLib selector "arrayWithObject:" (class_id as Ptr, anObject as Ptr) as Ptr
@@ -297,7 +297,7 @@ Inherits NSArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithObjects(objects() as NSObject) As NSMutableArray
+		Shared Function CreateWithObjects(objects() as NSObject) As NSMutableArray
 		  
 		  #if TargetMacOS
 		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
@@ -332,7 +332,7 @@ Inherits NSArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithURL(aURL as NSURL) As NSMutableArray
+		Shared Function CreateWithURL(aURL as NSURL) As NSMutableArray
 		  
 		  #if TargetMacOS
 		    declare function arrayWithContentsOfURL lib CocoaLib selector "arrayWithContentsOfURL:" (class_id as Ptr, aURL as Ptr) as Ptr

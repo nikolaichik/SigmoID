@@ -110,6 +110,10 @@ Begin Window deNovoWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+<<<<<<< HEAD
+=======
+      TabStop         =   True
+>>>>>>> Version2
       Text            =   "#kOutFolder"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -221,7 +225,11 @@ Begin Window deNovoWin
       Top             =   323
       Underline       =   False
       Visible         =   True
+<<<<<<< HEAD
       Width           =   838
+=======
+      Width           =   408
+>>>>>>> Version2
       Begin RadioButton RadioButton1
          AutoDeactivate  =   True
          Bold            =   False
@@ -249,7 +257,11 @@ Begin Window deNovoWin
          Underline       =   False
          Value           =   False
          Visible         =   True
+<<<<<<< HEAD
          Width           =   798
+=======
+         Width           =   368
+>>>>>>> Version2
       End
       Begin RadioButton RefProtBut
          AutoDeactivate  =   True
@@ -278,7 +290,11 @@ Begin Window deNovoWin
          Underline       =   False
          Value           =   True
          Visible         =   True
+<<<<<<< HEAD
          Width           =   798
+=======
+         Width           =   368
+>>>>>>> Version2
       End
       Begin CheckBox FallBackCheck
          AutoDeactivate  =   True
@@ -310,7 +326,11 @@ Begin Window deNovoWin
          Underline       =   False
          Value           =   True
          Visible         =   True
+<<<<<<< HEAD
          Width           =   777
+=======
+         Width           =   347
+>>>>>>> Version2
       End
    End
    Begin Listbox HmmList
@@ -495,6 +515,249 @@ Begin Window deNovoWin
       Visible         =   True
       Width           =   140
    End
+<<<<<<< HEAD
+=======
+   Begin mHTTPSocket hts2
+      Address         =   ""
+      BytesAvailable  =   "0"
+      BytesLeftToSend =   "0"
+      CertificateFile =   
+      CertificatePassword=   ""
+      CertificateRejectionFile=   
+      ConnectionType  =   3
+      Enabled         =   True
+      Handle          =   "0"
+      httpProxyAddress=   ""
+      httpProxyPort   =   "0"
+      Index           =   -2147483648
+      IsConnected     =   "False"
+      LastErrorCode   =   "0"
+      LocalAddress    =   ""
+      LockedInPosition=   False
+      Port            =   "0"
+      RemoteAddress   =   ""
+      Scope           =   0
+      Secure          =   False
+      TabPanelIndex   =   0
+      yield           =   "False"
+   End
+   Begin GroupBox GroupBox2
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "MEME settings"
+      Enabled         =   True
+      Height          =   123
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   450
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   323
+      Underline       =   False
+      Visible         =   True
+      Width           =   408
+      Begin CheckBox PalindromicBox
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "Palindromic"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   470
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         State           =   1
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   351
+         Underline       =   False
+         Value           =   True
+         Visible         =   True
+         Width           =   100
+      End
+      Begin Label Label1
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   470
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "Minimal motif width:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   383
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   148
+      End
+      Begin Label Label4
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   470
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "Maximal motif width:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   415
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   161
+      End
+      Begin TextField MinWidthField
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   643
+         LimitText       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "16"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   383
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   80
+      End
+      Begin TextField MaxWidthField
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   643
+         LimitText       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "23"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   413
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   80
+      End
+   End
+>>>>>>> Version2
 End
 #tag EndWindow
 
@@ -553,6 +816,12 @@ End
 		              case "DESC  "
 		                DESC=NthField(aLine,"DESC  ",2)
 		              end select
+<<<<<<< HEAD
+=======
+		              if inStream.EOF then
+		                exit
+		              end if
+>>>>>>> Version2
 		            wend
 		            
 		          end if
@@ -609,6 +878,15 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+<<<<<<< HEAD
+=======
+		Function CountSeqs(inData as string) As string
+		  return str(CountFields(inData, ">")-1)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+>>>>>>> Version2
 		Sub RunCheck()
 		  RunButton.Enabled=true
 		  
@@ -632,6 +910,10 @@ End
 		    return
 		  end if
 		  
+<<<<<<< HEAD
+=======
+		  
+>>>>>>> Version2
 		End Sub
 	#tag EndMethod
 
@@ -653,6 +935,13 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+<<<<<<< HEAD
+=======
+		phmmerRes As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+>>>>>>> Version2
 		phmmer_results As FolderItem
 	#tag EndProperty
 
@@ -686,6 +975,10 @@ End
 		  dim hmmPath as string
 		  dim CDSfile as folderitem
 		  dim resFile as folderitem
+<<<<<<< HEAD
+=======
+		  dim resfile2 as folderitem
+>>>>>>> Version2
 		  dim instream as TextInputStream
 		  dim outStream as TextOutputStream
 		  
@@ -735,7 +1028,11 @@ End
 		    end if
 		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		    
+<<<<<<< HEAD
 		    cli="/usr/local/bin/hmmsearch --cut_ga -A "+alignmentsFile.ShellPath+" "+hmmPath+" "+CDSfile.ShellPath
+=======
+		    cli="/usr/local/bin/hmmsearch --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+hmmPath+" "+CDSfile.ShellPath
+>>>>>>> Version2
 		    
 		    sh.execute cli
 		    If sh.errorCode=0 then
@@ -743,7 +1040,11 @@ End
 		      
 		      instream=alignmentsFile.OpenAsTextFile
 		      
+<<<<<<< HEAD
 		      if instream<>nil then
+=======
+		      if instream<>nil then         'save hmmsearch results
+>>>>>>> Version2
 		        table=trim(instream.ReadAll)
 		        instream.close
 		        hmmSearchRes=GetCRtags(sh.Result,Table,CRtagPositions)
@@ -754,6 +1055,12 @@ End
 		        if resFile<>Nil then
 		          OutStream = TextOutputStream.Create(resFile)
 		          if outStream<>Nil then
+<<<<<<< HEAD
+=======
+		            outstream.Writeline("HMM file used: "+hmmPath)
+		            outstream.Writeline("CRtag positions used: " +CRtagPositions)
+		            outstream.Writeline(EndOfLine.unix)
+>>>>>>> Version2
 		            outstream.Write(hmmSearchRes)
 		            outstream.close
 		            
@@ -807,7 +1114,14 @@ End
 		      
 		      query =">"+ProtNames(n)+EndOfLine.unix+HmmSearchMatches(n)
 		      
+<<<<<<< HEAD
 		      resFile=phmmer_results.child(ProtNames(n)+".raw")
+=======
+		      dim theProtName as string=replaceall(ProtNames(N),":","_") 'OS X precaution
+		      'resFile=phmmer_results.child(ProtNames(n)+".raw")
+		      resFile=phmmer_results.child(theProtName+".raw")
+		      
+>>>>>>> Version2
 		      if resFile<>Nil then
 		        if resfile.exists then
 		          'load existing data
@@ -829,7 +1143,11 @@ End
 		          
 		          if res<>"" then
 		            'save raw phmmer results
+<<<<<<< HEAD
 		            resFile=phmmer_results.child(ProtNames(n)+".raw")
+=======
+		            resFile=phmmer_results.child(theProtName+".raw")
+>>>>>>> Version2
 		            if resFile<>Nil then
 		              OutStream = TextOutputStream.Create(resFile)
 		              if outStream<>Nil then
@@ -847,6 +1165,7 @@ End
 		      end if
 		      
 		      // Filter phmmer results
+<<<<<<< HEAD
 		      FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
 		      
 		      
@@ -854,6 +1173,20 @@ End
 		      hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
 		      if hitcount<10 then
 		        LogoWin.WriteToSTDOUT (" Warning! Less then 10 ("+str(hitcount)+") filtered hits.")
+=======
+		      if res<>"" then
+		        FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
+		      else
+		        logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!"+EndOfLine.UNIX)
+		      end if
+		      
+		      ' issue a warning if there's less than 10 or over 100 seqs.
+		      hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
+		      if hitcount<0 then hitcount=0
+		      
+		      if hitcount<10 then
+		        LogoWin.WriteToSTDOUT (" Warning! Too few ("+str(hitcount)+") filtered hits.")
+>>>>>>> Version2
 		        if FallBackCheck.value then
 		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running search vs full UniProt...")
 		          
@@ -874,7 +1207,11 @@ End
 		              
 		              if res<>"" then
 		                'save raw phmmer results
+<<<<<<< HEAD
 		                resFile=phmmer_results.child(ProtNames(n)+".UniProt_raw")
+=======
+		                resFile=phmmer_results.child(theProtName+".UniProt_raw")
+>>>>>>> Version2
 		                if resFile<>Nil then
 		                  OutStream = TextOutputStream.Create(resFile)
 		                  if outStream<>Nil then
@@ -891,6 +1228,15 @@ End
 		            // Filter phmmer results
 		            if res<>"" then
 		              FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
+<<<<<<< HEAD
+=======
+		              
+		              hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
+		              
+		              LogoWin.WriteToSTDOUT (" "+str(hitcount)+" filtered hits found.")
+		              
+		              
+>>>>>>> Version2
 		            else
 		              logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!")
 		            end if
@@ -903,11 +1249,23 @@ End
 		      
 		      if hitcount>100 then
 		        LogoWin.WriteToSTDOUT (" Warning! Over 100 ("+str(hitcount)+") filtered hits.")
+<<<<<<< HEAD
+=======
+		        if hitCount>300 then
+		          LogoWin.WriteToSTDOUT (" Only the first 300 will be processed.")
+		        end if
+		      else
+		        LogoWin.WriteToSTDOUT (str(hitcount)+" filtered hits.")
+>>>>>>> Version2
 		      end if
 		      
 		      
 		      'save CR tag filtered phmmer results
+<<<<<<< HEAD
 		      resFile=phmmer_results.child(ProtNames(n)+".filtered")
+=======
+		      resFile=phmmer_results.child(theProtName+".filtered")
+>>>>>>> Version2
 		      if resFile<>Nil then
 		        OutStream = TextOutputStream.Create(resFile)
 		        if outStream<>Nil then
@@ -924,37 +1282,69 @@ End
 		      // Extract promoter regions from the target operon and its two neighbours
 		      
 		      if res<>"" then
+<<<<<<< HEAD
 		        resfile=Fasta_files.child(ProtNames(n)+".fasta")
+=======
+		        resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
+>>>>>>> Version2
 		        if resFile<>Nil then
 		          if resfile.exists then
 		            'load existing data
 		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"a fasta file presumably with genome fragments exists in the working directory and will be reused."+EndOfLine.unix)
+<<<<<<< HEAD
 		            LogoWin.WriteToSTDOUT ("MEME will not be run – check that results from the previous run are indeed present."+EndOfLine.unix)
+=======
+>>>>>>> Version2
 		            instream=resFile.OpenAsTextFile
 		            if instream<>nil then
 		              res=instream.ReadAll
 		              instream.close
 		            end if
+<<<<<<< HEAD
 		            
+=======
+		            resfile2=Fasta_files.child(theProtName+".fasta")
+>>>>>>> Version2
 		          else
 		            
 		            dim FragmentsForAhitF As folderitem
 		            
+<<<<<<< HEAD
 		            FragmentsForAhitF=Genome_fragments.child(ProtNames(n))
+=======
+		            FragmentsForAhitF=Genome_fragments.child(theProtName)
+>>>>>>> Version2
 		            if NOT FragmentsForAhitF.exists then
 		              FragmentsForAhitF.createAsFolder
 		            end if
 		            
 		            if FragmentsForAhitF<>Nil then
 		              LogoWin.WriteToSTDOUT (EndOfLine.unix+"Extracting promoter fragments for the hit and neighbour operons..."+EndOfLine.unix)
+<<<<<<< HEAD
 		              DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
 		              if dataForMeme<>"" then
+=======
+		              
+		              
+		              
+		              //add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
+		              
+		              
+		              DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
+		              if dataForMeme<>"" then
+		                
+>>>>>>> Version2
 		                // Remove extra (repetitive/too close) seqs
 		                ' leave one seq per species,
 		                ' or one seq per genus if too many seqs
 		                
+<<<<<<< HEAD
 		                // Save unfilterd UPS fragments
 		                resfile=Fasta_files.child(ProtNames(n)+"_unfiltered.fasta")
+=======
+		                ' Save unfiltered UPS fragments
+		                resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
+>>>>>>> Version2
 		                if resfile<>nil then
 		                  OutStream = TextOutputStream.Create(resFile)
 		                  if outStream<>Nil then
@@ -971,12 +1361,18 @@ End
 		                  
 		                end if
 		                
+<<<<<<< HEAD
 		                DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
 		                DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
+=======
+		                
+		                
+>>>>>>> Version2
 		                
 		                LogoWin.WriteToSTDOUT (" Done extracting genome fragments."+EndOfLine.unix)
 		                
 		                // Save UPS fragments used for MEME run
+<<<<<<< HEAD
 		                resfile=Fasta_files.child(ProtNames(n)+".fasta")
 		                if resfile<>nil then
 		                  OutStream = TextOutputStream.Create(resFile)
@@ -996,6 +1392,76 @@ End
 		                
 		                
 		                
+=======
+		                
+		                
+		                resfile2=Fasta_files.child(ProtNames(n)+"_CDhit_filtered.fasta")
+		                LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" genome fragments extracted.")
+		                if resfile2<>nil then
+		                  
+		                  if countfields(DataForMeme,">")>30 then 'too many seqs - reduce the number!
+		                    
+		                    'run cd-hit if present
+		                    dim CDhit as folderitem
+		                    
+		                    
+		                    #if TargetWindows
+		                      CDhit=Resources_f.child("cd-hit-est.exe")
+		                    #else
+		                      CDhit=Resources_f.child("cd-hit-est")
+		                    #endif
+		                    
+		                    if CDhit<>nil AND CDhit.exists then
+		                      'dim cli as string
+		                      cli=CDhit.ShellPath+" -i " + resFile.ShellPath + " -o "+ resFile2.ShellPath + " -d 100  -c 0.8 -n 5 -G 0 -aS 0.1 -aL 0.1"
+		                      
+		                      sh=New Shell
+		                      sh.mode=0
+		                      sh.TimeOut=-1
+		                      sh.execute cli
+		                      
+		                      If sh.errorCode <> 0 then
+		                        msgbox "Problem running CD-Hit"
+		                      else
+		                        'read CDhit filtered data
+		                        'dim inStream as TextInputStream
+		                        InStream = resFile2.OpenAsTextFile
+		                        if inStream<>NIl then
+		                          DataForMeme=InStream.ReadAll
+		                          LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments left after CD-hit-est clustering.")
+		                          
+		                          inStream.close
+		                        End If
+		                      end if
+		                      
+		                    end if
+		                    
+		                    'use genus and then species filtering anyway, as cd-hit filtering is far from perfect
+		                    DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
+		                    'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant species.")
+		                    
+		                    DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
+		                    'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant genera.")
+		                    
+		                    resfile2=Fasta_files.child(ProtNames(n)+".fasta")
+		                    OutStream = TextOutputStream.Create(resFile2)
+		                    if outStream<>Nil then
+		                      outstream.Write(DataForMeme)
+		                      outstream.close
+		                      'LogoWin.WriteToSTDOUT (" Done.")
+		                      
+		                    end if
+		                    
+		                  else 'countfields(DataForMeme,">")>30
+		                    resfile2=resFile
+		                    
+		                  end if 'countfields(DataForMeme,">")>30
+		                  
+		                else 'resfile2<>nil
+		                  LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a file to store superpromoters around the genes coding for "+ProtNames(n)+".")
+		                  
+		                end if 'resfile2<>nil
+>>>>>>> Version2
 		                
 		              end if
 		            else
@@ -1003,6 +1469,7 @@ End
 		            end if
 		            
 		            
+<<<<<<< HEAD
 		            
 		            
 		            
@@ -1020,10 +1487,28 @@ End
 		            
 		            
 		            If memeF <> Nil Then
+=======
+		          end if
+		          
+		          
+		          
+		          // Run MEME in two modes
+		          dim memeF,f1 as folderitem
+		          
+		          memeF=MEME_results.child(ProtNames(n))
+		          
+		          If memeF <> Nil Then
+		            if memeF.Exists then
+		              LogoWin.WriteToSTDOUT ("MEME results folder exists, so MEME will not be run. Remove this folder ("+memeF.shellpath+") and re-run this procedure if you want to re-generate the  results"+EndOfLine.unix)
+		              
+		            else
+		              memeF.createAsFolder
+>>>>>>> Version2
 		              
 		              dim opt as string
 		              dim ErrCode as integer
 		              
+<<<<<<< HEAD
 		              ''copy alignment out of virtual volume:
 		              'dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
 		              'if alignment_tmp<>NIL then
@@ -1045,6 +1530,20 @@ End
 		              'if PalindromicBox.Value then
 		              opt=opt+" -pal"
 		              'end if
+=======
+		              if CPUcores>1 then
+		                opt=" -p " + str(CPUcores)  'for parallelised meme
+		              end if
+		              
+		              opt=opt+" -dna -minw "+ trim(MinWidthField.text)
+		              opt=opt+" -maxw "+ trim(MaxWidthField.text)
+		              
+		              
+		              '[-pal]            force palindromes (requires -dna)
+		              if PalindromicBox.Value then
+		                opt=opt+" -pal"
+		              end if
+>>>>>>> Version2
 		              
 		              '[-revcomp]        allow sites on + or - DNA strands
 		              'if GivenStrandBox.Value then
@@ -1061,6 +1560,7 @@ End
 		              f1=memeF.child("Zoops")
 		              FixPath4Windows(MEMEf)
 		              
+<<<<<<< HEAD
 		              if f1<>NIL then
 		                if f1.Exists then
 		                  f1.Delete
@@ -1095,11 +1595,15 @@ End
 		                f1=memeF.child("Anr")
 		                FixPath4Windows(f1)
 		                
+=======
+		              if resfile2<>Nil then
+>>>>>>> Version2
 		                if f1<>NIL then
 		                  if f1.Exists then
 		                    f1.Delete
 		                  end if
 		                  
+<<<<<<< HEAD
 		                  LogoWin.show
 		                  LogoWin.WriteToSTDOUT (EndofLine.unix+"Running MEME in anr mode...")
 		                  
@@ -1121,10 +1625,25 @@ End
 		                    ''not checking for errors, since html output isn't critical
 		                    '
 		                    LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
+=======
+		                  'LogoWin.show
+		                  LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Running MEME in zoops mode...")
+		                  
+		                  ErrCode=MEME(resfile2, f1, opt+" -mod zoops")
+		                  'sh=New Shell
+		                  'sh.mode=0
+		                  'sh.TimeOut=-1
+		                  
+		                  If ErrCode=0 then
+		                    LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
+		                    
+		                    
+>>>>>>> Version2
 		                  else
 		                    
 		                  end if
 		                  
+<<<<<<< HEAD
 		                  LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
 		                  
 		                  
@@ -1154,6 +1673,53 @@ End
 		          
 		          
 		          
+=======
+		                  
+		                  'Run MEME in Zero or One per sequence' mode:
+		                  f1=memeF.child("Anr")
+		                  FixPath4Windows(f1)
+		                  
+		                  if f1<>NIL then
+		                    if f1.Exists then
+		                      f1.Delete
+		                    end if
+		                    
+		                    'LogoWin.show
+		                    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running MEME in anr mode...")
+		                    
+		                    ErrCode=MEME(resfile2, f1, opt+" -mod anr")
+		                    If ErrCode=0 then
+		                      
+		                      LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
+		                    else
+		                      
+		                    end if
+		                    
+		                    LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
+		                    
+		                    
+		                  else
+		                    msgbox "Can't create MEME output folder!"
+		                    'return -1
+		                  end if
+		                  
+		                else
+		                  
+		                End If
+		                resfile2=new FolderItem
+		              else
+		                LogoWin.WriteToSTDOUT (EndofLine.unix+"Not running MEME for" + resfile2.Name + " (empty file)")
+		                
+		              End If
+		              
+		            end if
+		            
+		            
+		          else
+		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a folder to store MEME results for "+ProtNames(n)+".")
+		            
+		          end if
+>>>>>>> Version2
 		        else
 		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a folder to store genome fragments for "+ProtNames(n)+".")
 		        end if
@@ -1202,6 +1768,16 @@ End
 		  
 		  
 		  Exception err
+<<<<<<< HEAD
+=======
+		    
+		    if err isa IOException then
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"IOException has occurred.")
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
+		    end if
+>>>>>>> Version2
 		    ExceptionHandler(err,"deNovoWin:RunButton")
 		End Sub
 	#tag EndEvent
@@ -1300,7 +1876,11 @@ End
 #tag Events HmmList
 	#tag Event
 		Sub Open()
+<<<<<<< HEAD
 		  me.ColumnWidths="0,100,100,180,*,0" 'checkboxes hidden for now
+=======
+		  me.ColumnWidths="0,100,100,200,*,0" 'checkboxes hidden for now
+>>>>>>> Version2
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		  
 		  me.Heading(1)="Name"
@@ -1348,6 +1928,25 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+<<<<<<< HEAD
+=======
+#tag Events hts2
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		  
+		  if httpStatus>=200 AND httpStatus<300 then 'successful
+		    PhmmerRes=defineEncoding(Content,Encodings.ASCII)
+		  else
+		    
+		    dim httpErr as String = HTTPerror(httpStatus)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+		    
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+>>>>>>> Version2
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="BackColor"
@@ -1522,6 +2121,15 @@ End
 		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
+<<<<<<< HEAD
+=======
+		Name="phmmerRes"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+>>>>>>> Version2
 		Name="Placement"
 		Visible=true
 		Group="Behavior"

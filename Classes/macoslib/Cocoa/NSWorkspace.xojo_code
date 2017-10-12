@@ -2,7 +2,7 @@
 Class NSWorkspace
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function ApplicationFile(appName as String) As FolderItem
+		Shared Function ApplicationFile(appName as String) As FolderItem
 		  
 		  #if targetMacOS
 		    declare function fullPathForApplication lib CocoaLib selector "fullPathForApplication:" (obj_id as Ptr, appName as CFStringRef) as CFStringRef
@@ -24,7 +24,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ApplicationURL(bundleID as String) As NSURL
+		Shared Function ApplicationURL(bundleID as String) As NSURL
 		  
 		  #if targetMacOS
 		    declare function URLForApplicationWithBundleIdentifier lib CocoaLib selector "URLForApplicationWithBundleIdentifier:" _
@@ -43,7 +43,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ApplicationURLForFileURL(fileURL as NSURL) As NSURL
+		Shared Function ApplicationURLForFileURL(fileURL as NSURL) As NSURL
 		  
 		  #if targetMacOS
 		    declare function URLForApplicationToOpenURL lib CocoaLib selector "URLForApplicationToOpenURL:" (obj_id as Ptr, aURL as Ptr) as Ptr
@@ -67,7 +67,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function BundleFile(bundleID as String) As FolderItem
+		Shared Function BundleFile(bundleID as String) As FolderItem
 		  
 		  #if targetMacOS
 		    declare function absolutePathForAppBundleWithIdentifier lib CocoaLib selector "absolutePathForAppBundleWithIdentifier:" _
@@ -98,7 +98,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DesktopImageURL(aScreen as NSScreen) As NSURL
+		Shared Function DesktopImageURL(aScreen as NSScreen) As NSURL
 		  
 		  #if targetMacOS
 		    declare function desktopImageURLForScreen lib CocoaLib selector "desktopImageURLForScreen:" (obj_id as Ptr, aScreen as Ptr) as Ptr
@@ -122,7 +122,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub DuplicateURLs(URLs() as NSURL)
+		Shared Sub DuplicateURLs(URLs() as NSURL)
 		  
 		  #if targetMacOS
 		    declare sub duplicateURLs lib CocoaLib selector "duplicateURLs:completionHandler:" (obj_id as Ptr, URLs as Ptr, handler as Ptr)
@@ -140,7 +140,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FileInfo(file as FolderItem, byRef appName as String, byRef fileType as String) As Boolean
+		Shared Function FileInfo(file as FolderItem, byRef appName as String, byRef fileType as String) As Boolean
 		  
 		  #if targetMacOS
 		    declare function getInfoForFile lib CocoaLib selector "getInfoForFile:application:type:" _
@@ -164,7 +164,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FileSystemInfo(mountPoint as FolderItem, byRef isRemovable as Boolean, byRef isWritable as Boolean, byRef isUnmountable as Boolean, byRef description as String, byRef type as String) As Boolean
+		Shared Function FileSystemInfo(mountPoint as FolderItem, byRef isRemovable as Boolean, byRef isWritable as Boolean, byRef isUnmountable as Boolean, byRef description as String, byRef type as String) As Boolean
 		  
 		  #if targetMacOS
 		    declare function getFileSystemInfoForPath lib CocoaLib selector "getFileSystemInfoForPath:isRemovable:isWritable:isUnmountable:description:type:" _
@@ -197,7 +197,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FileTypeIcon(fileType as String) As NSImage
+		Shared Function FileTypeIcon(fileType as String) As NSImage
 		  
 		  #if targetMacOS
 		    declare function iconForFileType lib CocoaLib selector "iconForFileType:" (obj_id as Ptr, fileType as CFStringRef) as Ptr
@@ -215,7 +215,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FinderLabelColors() As NSArray
+		Shared Function FinderLabelColors() As NSArray
 		  // Returns the corresponding array of file label colors for the file labels.
 		  
 		  #if TargetMacOS
@@ -231,7 +231,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FinderLabels() As NSArray
+		Shared Function FinderLabels() As NSArray
 		  // Returns the array of file labels as strings.
 		  
 		  #if TargetMacOS
@@ -247,7 +247,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FrontmostApplication() As NSRunningApplication
+		Shared Function FrontmostApplication() As NSRunningApplication
 		  // Returns the frontmost app, which is the app that receives key events.
 		  
 		  #if TargetMacOS
@@ -447,7 +447,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub HideOtherApplications()
+		Shared Sub HideOtherApplications()
 		  //Hides all applications other than the sender.
 		  
 		  #if TargetCocoa
@@ -459,7 +459,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IconForFile(f as FolderItem) As NSImage
+		Shared Function IconForFile(f as FolderItem) As NSImage
 		  #if TargetMacOS
 		    declare function iconForFile lib CocoaLib selector "iconForFile:" (obj_id as Ptr, fullPath as CFStringRef) as Ptr
 		    
@@ -476,7 +476,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IconForFile(f as FolderItem, theIcon as NSImage, options as integer = 0) As Boolean
+		Shared Function IconForFile(f as FolderItem, theIcon as NSImage, options as integer = 0) As Boolean
 		  #if TargetMacOS
 		    declare function setIconForFile lib CocoaLib selector "setIcon:forFile:options:" (obj_id as Ptr, img as Ptr, fullPath as CFStringRef, opt as integer) as boolean
 		    
@@ -492,7 +492,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IconForFiles(files() as FolderItem) As NSImage
+		Shared Function IconForFiles(files() as FolderItem) As NSImage
 		  
 		  #if targetMacOS
 		    declare function iconForFiles lib CocoaLib selector "iconForFiles:" (obj_id as Ptr, fullPaths as Ptr) as Ptr
@@ -519,7 +519,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IsFilePackage(file as FolderItem) As Boolean
+		Shared Function IsFilePackage(file as FolderItem) As Boolean
 		  
 		  #if targetMacOS
 		    declare function isFilePackageAtPath lib CocoaLib selector "isFilePackageAtPath:" (obj_id as Ptr, fullPath as CFStringRef) as Boolean
@@ -536,7 +536,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IsValidExtension(fileExtension as String, UTIname as String) As Boolean
+		Shared Function IsValidExtension(fileExtension as String, UTIname as String) As Boolean
 		  
 		  #if targetMacOS
 		    declare function filenameExtension lib CocoaLib selector "filenameExtension:isValidForType:" _
@@ -553,7 +553,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LaunchApplication(aURL as NSURL, options as UInt32, configuration as NSDictionary, byRef error as NSError) As NSRunningApplication
+		Shared Function LaunchApplication(aURL as NSURL, options as UInt32, configuration as NSDictionary, byRef error as NSError) As NSRunningApplication
 		  
 		  #if targetMacOS
 		    declare function launchApplicationAtURL lib CocoaLib selector "launchApplicationAtURL:options:configuration:error:" _
@@ -593,7 +593,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LaunchApplication(appName as String) As Boolean
+		Shared Function LaunchApplication(appName as String) As Boolean
 		  
 		  #if targetMacOS
 		    declare function launchApplication lib CocoaLib selector "launchApplication:" (obj_id as Ptr, appName as CFStringRef) as Boolean
@@ -608,7 +608,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LaunchApplication(appName as String, showIcon as Boolean, autolaunch as Boolean) As Boolean
+		Shared Function LaunchApplication(appName as String, showIcon as Boolean, autolaunch as Boolean) As Boolean
 		  
 		  #if targetMacOS
 		    declare function launchApplication lib CocoaLib selector "launchApplication:showIcon:autolaunch:" _
@@ -626,7 +626,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NotificationCenter() As NSNotificationCenter
+		Shared Function NotificationCenter() As NSNotificationCenter
 		  
 		  #if TargetMacOS
 		    declare function notificationCenter lib CocoaLib selector "notificationCenter" (obj_id as Ptr) as Ptr
@@ -642,7 +642,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSApplicationFileType() As String
+		Shared Function NSApplicationFileType() As String
 		  
 		  return Cocoa.StringConstant("NSApplicationFileType")
 		  
@@ -650,7 +650,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDirectoryFileType() As String
+		Shared Function NSDirectoryFileType() As String
 		  
 		  return Cocoa.StringConstant("NSDirectoryFileType")
 		  
@@ -658,7 +658,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFilesystemFileType() As String
+		Shared Function NSFilesystemFileType() As String
 		  
 		  return Cocoa.StringConstant("NSFilesystemFileType")
 		  
@@ -666,7 +666,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPlainFileType() As String
+		Shared Function NSPlainFileType() As String
 		  
 		  return Cocoa.StringConstant("NSPlainFileType")
 		  
@@ -674,7 +674,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSShellCommandFileType() As String
+		Shared Function NSShellCommandFileType() As String
 		  
 		  return Cocoa.StringConstant("NSShellCommandFileType")
 		  
@@ -688,21 +688,21 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceApplicationKey() As NSString
+		Shared Function NSWorkspaceApplicationKey() As NSString
 		  return NSStringConstant("NSWorkspaceApplicationKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceCompressOperation() As NSString
+		Shared Function NSWorkspaceCompressOperation() As NSString
 		  return NSStringConstant("NSWorkspaceCompressOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceCopyOperation() As NSString
+		Shared Function NSWorkspaceCopyOperation() As NSString
 		  
 		  return NSStringConstant("NSWorkspaceCopyOperation")
 		  
@@ -710,7 +710,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDecompressOperation() As String
+		Shared Function NSWorkspaceDecompressOperation() As String
 		  
 		  return NSStringConstant("NSWorkspaceDecompressOperation")
 		  
@@ -718,126 +718,126 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDecryptOperation() As NSString
+		Shared Function NSWorkspaceDecryptOperation() As NSString
 		  return NSStringConstant("NSWorkspaceDecryptOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDesktopImageAllowClippingKey() As NSString
+		Shared Function NSWorkspaceDesktopImageAllowClippingKey() As NSString
 		  return NSStringConstant("NSWorkspaceDesktopImageAllowClippingKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDesktopImageFillColorKey() As NSString
+		Shared Function NSWorkspaceDesktopImageFillColorKey() As NSString
 		  return NSStringConstant("NSWorkspaceDesktopImageFillColorKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDesktopImageScalingKey() As NSString
+		Shared Function NSWorkspaceDesktopImageScalingKey() As NSString
 		  return NSStringConstant("NSWorkspaceDesktopImageScalingKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDestroyOperation() As NSString
+		Shared Function NSWorkspaceDestroyOperation() As NSString
 		  return NSStringConstant("NSWorkspaceDestroyOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceDuplicateOperation() As NSString
+		Shared Function NSWorkspaceDuplicateOperation() As NSString
 		  return NSStringConstant("NSWorkspaceDuplicateOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceEncryptOperation() As NSString
+		Shared Function NSWorkspaceEncryptOperation() As NSString
 		  return NSStringConstant("NSWorkspaceEncryptOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLaunchConfigurationAppleEvent() As NSString
+		Shared Function NSWorkspaceLaunchConfigurationAppleEvent() As NSString
 		  return NSStringConstant("NSWorkspaceLaunchConfigurationAppleEvent")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLaunchConfigurationArchitecture() As NSString
+		Shared Function NSWorkspaceLaunchConfigurationArchitecture() As NSString
 		  return NSStringConstant("NSWorkspaceLaunchConfigurationArchitecture")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLaunchConfigurationArguments() As NSString
+		Shared Function NSWorkspaceLaunchConfigurationArguments() As NSString
 		  return NSStringConstant("NSWorkspaceLaunchConfigurationArguments")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLaunchConfigurationEnvironment() As NSString
+		Shared Function NSWorkspaceLaunchConfigurationEnvironment() As NSString
 		  return NSStringConstant("NSWorkspaceLaunchConfigurationEnvironment")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceLinkOperation() As NSString
+		Shared Function NSWorkspaceLinkOperation() As NSString
 		  return NSStringConstant("NSWorkspaceLinkOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceMoveOperation() As NSString
+		Shared Function NSWorkspaceMoveOperation() As NSString
 		  return NSStringConstant("NSWorkspaceMoveOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceRecycleOperation() As NSString
+		Shared Function NSWorkspaceRecycleOperation() As NSString
 		  return NSStringConstant("NSWorkspaceRecycleOperation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceVolumeLocalizedNameKey() As NSString
+		Shared Function NSWorkspaceVolumeLocalizedNameKey() As NSString
 		  return NSStringConstant("NSWorkspaceVolumeLocalizedNameKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceVolumeOldLocalizedNameKey() As NSString
+		Shared Function NSWorkspaceVolumeOldLocalizedNameKey() As NSString
 		  return NSStringConstant("NSWorkspaceVolumeOldLocalizedNameKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceVolumeOldURLKey() As NSString
+		Shared Function NSWorkspaceVolumeOldURLKey() As NSString
 		  return NSStringConstant("NSWorkspaceVolumeOldURLKey")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWorkspaceVolumeURLKey() As NSString
+		Shared Function NSWorkspaceVolumeURLKey() As NSString
 		  
 		  return NSStringConstant("NSWorkspaceVolumeURLKey")
 		  
@@ -845,7 +845,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function OpenFile(file as FolderItem) As Boolean
+		Shared Function OpenFile(file as FolderItem) As Boolean
 		  
 		  #if TargetMacOS
 		    declare function openFile_ lib CocoaLib selector "openFile:" (id as Ptr, fullPath as CFStringRef) as Boolean
@@ -859,7 +859,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function OpenFile(file as FolderItem, fromImage as NSImage, point as Cocoa.NSPoint, inView as NSView) As Boolean
+		Shared Function OpenFile(file as FolderItem, fromImage as NSImage, point as Cocoa.NSPoint, inView as NSView) As Boolean
 		  
 		  #if targetMacOS
 		    declare function openFile lib CocoaLib selector "openFile:fromImage:at:inView:" _
@@ -892,7 +892,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function OpenFile(file as FolderItem, withApp as String) As Boolean
+		Shared Function OpenFile(file as FolderItem, withApp as String) As Boolean
 		  
 		  #if targetMacOS
 		    declare function openFile lib CocoaLib selector "openFile:withApplication:" (obj_id as Ptr, fullPath as CFStringRef, appName as CFStringRef) as Boolean
@@ -910,7 +910,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function OpenFile(file as FolderItem, withApp as String, deactivate as Boolean) As Boolean
+		Shared Function OpenFile(file as FolderItem, withApp as String, deactivate as Boolean) As Boolean
 		  
 		  #if targetMacOS
 		    declare function openFile lib CocoaLib selector "openFile:withApplication:andDeactivate:" _
@@ -936,7 +936,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function OpenURL(aURL as NSURL) As Boolean
+		Shared Function OpenURL(aURL as NSURL) As Boolean
 		  
 		  #if targetMacOS
 		    declare function openURL lib CocoaLib selector "openURL:" (obj_id as Ptr, aURL as Ptr) as Boolean
@@ -956,7 +956,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PerformCopy(sourceDir as FolderItem, destDir as FolderItem, itemNames() as String) As Boolean
+		Shared Function PerformCopy(sourceDir as FolderItem, destDir as FolderItem, itemNames() as String) As Boolean
 		  if sourceDir = Nil OR destDir = Nil then
 		    return false
 		  end if
@@ -967,7 +967,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PerformDestroy(sourceDir as FolderItem, itemNames() as String) As Boolean
+		Shared Function PerformDestroy(sourceDir as FolderItem, itemNames() as String) As Boolean
 		  if sourceDir = Nil or itemNames = Nil then
 		    return false
 		  end if
@@ -978,7 +978,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PerformFileOperation(operation as String, sourceDir as FolderItem, destDir as FolderItem, fileNames() as String, byRef tag as Integer) As Boolean
+		Shared Function PerformFileOperation(operation as String, sourceDir as FolderItem, destDir as FolderItem, fileNames() as String, byRef tag as Integer) As Boolean
 		  
 		  #if targetMacOS
 		    declare function performFileOperation lib CocoaLib selector "performFileOperation:source:destination:files:tag:" _
@@ -1013,7 +1013,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PerformMove(sourceDir as FolderItem, destDir as FolderItem, itemNames() as String) As Boolean
+		Shared Function PerformMove(sourceDir as FolderItem, destDir as FolderItem, itemNames() as String) As Boolean
 		  if sourceDir = Nil or itemNames = Nil then
 		    return false
 		  end if
@@ -1024,7 +1024,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PerformMoveToTrash(sourceDir as FolderItem, itemNames() as String) As Boolean
+		Shared Function PerformMoveToTrash(sourceDir as FolderItem, itemNames() as String) As Boolean
 		  if sourceDir = Nil then
 		    return false
 		  end if
@@ -1073,7 +1073,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub RecycleURLs(URLs() as NSURL)
+		Shared Sub RecycleURLs(URLs() as NSURL)
 		  
 		  #if targetMacOS
 		    declare sub recycleURLs lib CocoaLib selector "recycleURLs:completionHandler:" (obj_id as Ptr, URLs as Ptr, handler as Ptr)
@@ -1125,7 +1125,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RevealFiles(files() as FolderItem) As Boolean
+		Shared Function RevealFiles(files() as FolderItem) As Boolean
 		  #if TargetMacOS
 		    // Available in OS X v10.6 and later.
 		    //
@@ -1156,7 +1156,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub RevealFileURLs(fileURLs() as NSURL)
+		Shared Sub RevealFileURLs(fileURLs() as NSURL)
 		  #if targetMacOS
 		    declare sub activateFileViewerSelectingURLs lib CocoaLib selector "activateFileViewerSelectingURLs:" (obj_id as Ptr, fileURLs as Ptr)
 		    declare function respondsToSelector lib "Cocoa" selector "respondsToSelector:" (obj as Ptr, sel as Ptr) as Boolean
@@ -1177,7 +1177,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function RunningApplications() As NSRunningApplication()
+		Shared Function RunningApplications() As NSRunningApplication()
 		  #if TargetMacOS
 		    declare function runningApplications lib CocoaLib selector "runningApplications" (obj_id as Ptr) as Ptr
 		    
@@ -1195,7 +1195,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SelectFile(f as FolderItem) As Boolean
+		Shared Function SelectFile(f as FolderItem) As Boolean
 		  #if targetCocoa
 		    declare function selectFile lib CocoaLib selector "selectFile:inFileViewerRootedAtPath:" (obj_id as Ptr, fullPath as CFStringRef, rootFullPath as CFStringRef) as Boolean
 		    
@@ -1207,7 +1207,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SetDesktopImageURL(aScreen as NSScreen, options as NSDictionary, byRef error as NSError, assigns aURL as NSURL) As Boolean
+		Shared Function SetDesktopImageURL(aScreen as NSScreen, options as NSDictionary, byRef error as NSError, assigns aURL as NSURL) As Boolean
 		  
 		  #if targetMacOS
 		    declare function setDesktopImageURL lib CocoaLib selector "setDesktopImageURL:forScreen:options:error:" _
@@ -1265,7 +1265,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ShowSearchResults(queryString as String) As Boolean
+		Shared Function ShowSearchResults(queryString as String) As Boolean
 		  
 		  #if targetMacOS
 		    declare function showSearchResultsForQueryString lib CocoaLib selector "showSearchResultsForQueryString:" _
@@ -1281,7 +1281,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UnmountAndEjectDevice(device as FolderItem) As Boolean
+		Shared Function UnmountAndEjectDevice(device as FolderItem) As Boolean
 		  
 		  #if TargetMacOS
 		    declare function unmountAndEjectDeviceAtPath lib CocoaLib selector "unmountAndEjectDeviceAtPath:" (ws as Ptr, path as CFStringRef) as Boolean
@@ -1299,7 +1299,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UnmountAndEjectDevice(deviceURL as NSURL, byRef error as NSError) As Boolean
+		Shared Function UnmountAndEjectDevice(deviceURL as NSURL, byRef error as NSError) As Boolean
 		  
 		  #if TargetMacOS
 		    declare function unmountAndEjectDeviceAtURL lib CocoaLib selector "unmountAndEjectDeviceAtURL:error:" _
@@ -1329,7 +1329,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function URLForApplicationWithBundleIdentifier(bundleIdentifier as String) As NSURL
+		Shared Function URLForApplicationWithBundleIdentifier(bundleIdentifier as String) As NSURL
 		  
 		  #if TargetMacOS
 		    dim url as NSURL
@@ -1344,7 +1344,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function URLForAppToOpenURL(url as CFURL) As CFURL
+		Shared Function URLForAppToOpenURL(url as CFURL) As CFURL
 		  #if TargetMacOS
 		    declare function getapp lib CocoaLib selector "URLForApplicationToOpenURL:" (id as Ptr, url as Ptr) as Ptr
 		    
@@ -1360,7 +1360,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UTIConformsTo(UTI as string, ConformsTo as String) As Boolean
+		Shared Function UTIConformsTo(UTI as string, ConformsTo as String) As Boolean
 		  
 		  #if TargetMacOS
 		    declare function type_conformsToType lib CocoaLib selector "type:conformsToType:" (ws as Ptr, UTI1 as CFStringRef, UTI2 as CFStringRef) as Boolean
@@ -1377,7 +1377,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UTILocalizedDescription(UTI as String) As String
+		Shared Function UTILocalizedDescription(UTI as String) As String
 		  
 		  #if targetMacOS
 		    declare function localizedDescriptionForType lib CocoaLib selector "localizedDescriptionForType:" (obj_id as Ptr, typeName as CFStringRef) as CFStringRef
@@ -1392,7 +1392,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UTIOfFile(file as FolderItem, byRef error as NSError) As String
+		Shared Function UTIOfFile(file as FolderItem, byRef error as NSError) As String
 		  
 		  #if targetMacOS
 		    declare function typeOfFile lib CocoaLib selector "typeOfFile:error:" (obj_id as Ptr, absoluteFilePath as CFStringRef, byRef error as Ptr) as CFStringRef
@@ -1414,7 +1414,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UTIPreferredFilenameExtension(UTI as String) As String
+		Shared Function UTIPreferredFilenameExtension(UTI as String) As String
 		  
 		  #if targetMacOS
 		    declare function preferredFilenameExtensionForType lib CocoaLib selector "preferredFilenameExtensionForType:" (obj_id as Ptr, typeName as CFStringRef) as CFStringRef

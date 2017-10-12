@@ -23,7 +23,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create(domain as String, code as Integer, userInfo as NSDictionary) As NSError
+		Shared Function Create(domain as String, code as Integer, userInfo as NSDictionary) As NSError
 		  //# Creates and initializes an NSError object for a given domain and code with a given userInfo dictionary.
 		  
 		  //@param domain: The error domain—this can be one of the predefined NSError domains, or an arbitrary string describing a custom domain. domain must not be nil. _
@@ -54,7 +54,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSErrorFailingURLStringKey() As String
+		Shared Function NSErrorFailingURLStringKey() As String
 		  // The corresponding value is the URL that caused the error. This key is only present in the NSURLErrorDomain.
 		  //@Deprecated: This constant is deprecated in OS X v10.6, and is superseded by NSURLErrorFailingURLStringErrorKey.
 		  
@@ -64,7 +64,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFilePathErrorKey() As String
+		Shared Function NSFilePathErrorKey() As String
 		  // Contains the file path of the error.
 		  return Cocoa.StringConstant("NSFilePathErrorKey")
 		  
@@ -72,7 +72,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSHelpAnchorErrorKey() As String
+		Shared Function NSHelpAnchorErrorKey() As String
 		  //# The corresponding value is an NSString containing the localized help corresponding to the help button.
 		  //@sys: Available in OS X v10.6 and later.
 		  return Cocoa.StringConstant("NSHelpAnchorErrorKey")
@@ -81,7 +81,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLocalizedDescriptionKey() As String
+		Shared Function NSLocalizedDescriptionKey() As String
 		  //# The corresponding value is a localized string representation of the error that, if present, will be returned by localizedDescription.
 		  return Cocoa.StringConstant("NSLocalizedDescriptionKey")
 		  
@@ -89,7 +89,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLocalizedFailureReasonErrorKey() As String
+		Shared Function NSLocalizedFailureReasonErrorKey() As String
 		  
 		  return Cocoa.StringConstant("NSLocalizedFailureReasonErrorKey")
 		  
@@ -97,7 +97,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLocalizedRecoveryOptionsErrorKey() As String
+		Shared Function NSLocalizedRecoveryOptionsErrorKey() As String
 		  
 		  return Cocoa.StringConstant("NSLocalizedRecoveryOptionsErrorKey")
 		  
@@ -105,7 +105,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLocalizedRecoverySuggestionErrorKey() As String
+		Shared Function NSLocalizedRecoverySuggestionErrorKey() As String
 		  
 		  return Cocoa.StringConstant("NSLocalizedRecoverySuggestionErrorKey")
 		  
@@ -113,7 +113,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSMachErrorDomain() As String
+		Shared Function NSMachErrorDomain() As String
 		  
 		  return Cocoa.StringConstant("NSMachErrorDomain")
 		  
@@ -121,7 +121,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSOSStatusErrorDomain() As String
+		Shared Function NSOSStatusErrorDomain() As String
 		  
 		  return Cocoa.StringConstant("NSOSStatusErrorDomain")
 		  
@@ -129,7 +129,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPOSIXErrorDomain() As String
+		Shared Function NSPOSIXErrorDomain() As String
 		  
 		  return Cocoa.StringConstant("NSPOSIXErrorDomain")
 		  
@@ -137,7 +137,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSRecoveryAttempterErrorKey() As String
+		Shared Function NSRecoveryAttempterErrorKey() As String
 		  
 		  return Cocoa.StringConstant("NSRecoveryAttempterErrorKey")
 		  
@@ -145,7 +145,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSStringEncodingErrorKey() As String
+		Shared Function NSStringEncodingErrorKey() As String
 		  
 		  return Cocoa.StringConstant("NSStringEncodingErrorKey")
 		  
@@ -153,7 +153,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlyingErrorKey() As String
+		Shared Function NSUnderlyingErrorKey() As String
 		  
 		  return Cocoa.StringConstant("NSUnderlyingErrorKey")
 		  
@@ -161,7 +161,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSURLErrorFailingURLErrorKey() As String
+		Shared Function NSURLErrorFailingURLErrorKey() As String
 		  
 		  return Cocoa.StringConstant("NSURLErrorFailingURLErrorKey")
 		  
@@ -169,7 +169,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSURLErrorFailingURLPeerTrustErrorKey() As String
+		Shared Function NSURLErrorFailingURLPeerTrustErrorKey() As String
 		  
 		  return Cocoa.StringConstant("NSURLErrorFailingURLPeerTrustErrorKey")
 		  
@@ -177,7 +177,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSURLErrorFailingURLStringErrorKey() As String
+		Shared Function NSURLErrorFailingURLStringErrorKey() As String
 		  //# The corresponding value is an NSString object for the URL which caused a load to fail. This key is only present in the NSURLErrorDomain.
 		  //@ This constant supersedes NSErrorFailingURLStringKey, which was deprecated in OS X v10.6. Both constants refer to the same value for backward-compatibility, but this symbol name has a better prefix.
 		  //@sys: Available in OS X v10.6 and later.
@@ -187,7 +187,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSURLErrorKey() As String
+		Shared Function NSURLErrorKey() As String
 		  //# The corresponding value is an NSURL object.
 		  return Cocoa.StringConstant("NSURLErrorKey")
 		  

@@ -86,7 +86,7 @@ Class WindowGroup
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DocumentClassWindowGroup() As WindowGroup
+		Shared Function DocumentClassWindowGroup() As WindowGroup
 		  return WindowGroupOfClass(kDocumentWindowClass)
 		End Function
 	#tag EndMethod
@@ -274,7 +274,7 @@ Class WindowGroup
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function WindowGroupOfClass(windowClass as UInt32) As WindowGroup
+		Shared Function WindowGroupOfClass(windowClass as UInt32) As WindowGroup
 		  #if targetMacOS
 		    soft declare function GetWindowGroupOfClass lib CarbonLib (windowClass as UInt32) as Ptr
 		    

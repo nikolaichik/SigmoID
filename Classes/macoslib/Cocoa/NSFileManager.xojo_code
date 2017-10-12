@@ -69,7 +69,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultManager() As NSFileManager
+		Shared Function DefaultManager() As NSFileManager
 		  //# Returns the DefaultManager.
 		  
 		  #if TargetMacOS

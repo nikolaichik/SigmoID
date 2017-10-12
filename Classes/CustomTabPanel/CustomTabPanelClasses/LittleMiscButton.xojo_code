@@ -7,7 +7,7 @@ Protected Class LittleMiscButton
 		  self.over=over
 		  down=clicked
 		  
-		  pic=NewPicture(data.Width,data.Height,32)
+		  pic=New Picture(data.Width,data.Height,32)
 		  pic.graphics.DrawPicture(data,0,0)
 		End Sub
 	#tag EndMethod

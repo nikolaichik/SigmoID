@@ -35,7 +35,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function EscapedPattern(forString As NSString) As NSString
+		Shared Function EscapedPattern(forString As NSString) As NSString
 		  #if TargetCocoa
 		    
 		    if forString = nil then
@@ -62,7 +62,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function EscapedTemplate(forString As NSString) As NSString
+		Shared Function EscapedTemplate(forString As NSString) As NSString
 		  #if TargetCocoa
 		    
 		    if forString = nil then

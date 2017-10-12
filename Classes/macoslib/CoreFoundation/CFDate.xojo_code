@@ -26,7 +26,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CFDateGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -71,7 +71,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFDate
+		Shared Function CreateFromPListFile(file as FolderItem) As CFDate
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
@@ -88,7 +88,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFDate
+		Shared Function CreateFromPListString(plistString as String) As CFDate
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
@@ -105,7 +105,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CurrentAbsoluteTime() As Double
+		Shared Function CurrentAbsoluteTime() As Double
 		  // Current date & time - including fractional seconds (versus the Date class which only
 		  //   returns full seconds)
 		  //

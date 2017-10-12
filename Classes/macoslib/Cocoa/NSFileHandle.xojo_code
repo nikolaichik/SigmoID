@@ -53,7 +53,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewReadHandle(path as String) As NSFileHandle
+		Shared Function NewReadHandle(path as String) As NSFileHandle
 		  //opens an existing file for reading.
 		  #if targetMacOS
 		    declare function fileHandleForReadingAtPath lib CocoaLib selector "fileHandleForReadingAtPath:" (class_id as Ptr, path as CFStringRef) as Ptr
@@ -64,7 +64,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewReadWriteHandle(path as String) As NSFileHandle
+		Shared Function NewReadWriteHandle(path as String) As NSFileHandle
 		  //opens an existing file for reading/writing.
 		  #if targetMacOS
 		    declare function fileHandleForUpdatingAtPath lib CocoaLib selector "fileHandleForUpdatingAtPath:" (class_id as Ptr, path as CFStringRef) as Ptr
@@ -75,7 +75,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewWriteHandle(path as String) As NSFileHandle
+		Shared Function NewWriteHandle(path as String) As NSFileHandle
 		  //opens an existing file for writing.
 		  #if targetMacOS
 		    declare function fileHandleForWritingAtPath lib CocoaLib selector "fileHandleForWritingAtPath:" (class_id as Ptr, path as CFStringRef) as Ptr
@@ -86,7 +86,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Null() As NSFileHandle
+		Shared Function Null() As NSFileHandle
 		  //this method returns the NSFileHandle representation of /dev/null.
 		  
 		  #if targetMacOS
@@ -134,7 +134,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Stderr() As NSFileHandle
+		Shared Function Stderr() As NSFileHandle
 		  #if targetMacOS
 		    declare function fileHandleWithStandardError lib CocoaLib selector "fileHandleWithStandardError" (class_id as Ptr) as Ptr
 		    
@@ -144,7 +144,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Stdin() As NSFileHandle
+		Shared Function Stdin() As NSFileHandle
 		  #if targetMacOS
 		    declare function fileHandleWithStandardInput lib CocoaLib selector "fileHandleWithStandardInput" (class_id as Ptr) as Ptr
 		    
@@ -154,7 +154,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Stdout() As NSFileHandle
+		Shared Function Stdout() As NSFileHandle
 		  #if targetMacOS
 		    declare function fileHandleWithStandardOutput lib CocoaLib selector "fileHandleWithStandardOutput" (class_id as Ptr) as Ptr
 		    

@@ -8,6 +8,10 @@ Debug*.exe
 Debug*/Debug*.exe
 Debug*/Debug*\ Libs
 *.rbuistate
+<<<<<<< HEAD
+=======
+*.obsolete
+>>>>>>> Version2
 *.obsolete*
 *.xojo_uistate
 >>>>>>> FETCH_HEAD
@@ -19,3 +23,5 @@ Debug*/Debug*\ Libs
 Help/index copy.html
 
 Modules/CRtagWin.xojo_window.obsolete_20160609_072013
+
+.DS_Store

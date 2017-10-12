@@ -58,7 +58,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file As FolderItem, mutability As Integer) As CFPropertyList
+		Shared Function CreateFromPListFile(file As FolderItem, mutability As Integer) As CFPropertyList
 		  // Added by Kem Tekinay.
 		  // Convenience method to return a property list from a PList file.
 		  // Classes that are CFPropertyList should override this to return their type.
@@ -83,7 +83,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String, mutability As Integer) As CFPropertyList
+		Shared Function CreateFromPListString(plistString as String, mutability As Integer) As CFPropertyList
 		  // Added by Kem Tekinay.
 		  // Convenience method to return a property list from a PList string.
 		  // Classes that are CFPropertyList should override this to return their type.
@@ -127,7 +127,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FromHandle(handle as Integer) As CFType
+		Shared Function FromHandle(handle as Integer) As CFType
 		  // This is an alternative constructor for "foreign" CFType objects.
 		  //
 		  // It can be used to access existing CFType objects, e.g. those from MBS plugins,
@@ -166,7 +166,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewObject(ref as CFTypeRef, hasOwnership as Boolean, mutability as Integer = kCFPropertyListImmutable) As CFType
+		Shared Function NewObject(ref as CFTypeRef, hasOwnership as Boolean, mutability as Integer = kCFPropertyListImmutable) As CFType
 		  // This function never returns nil on Mac OS X (but always nil on other platforms)
 		  //
 		  // hasOwnership: pass true if ref comes from a OS's CF... call and has just been retained. The constructor will release it then.
@@ -400,7 +400,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function TypeDescription(id as UInt32) As String
+		Shared Function TypeDescription(id as UInt32) As String
 		  #if TargetMacOS
 		    declare function CFCopyTypeIDDescription lib CarbonLib (id as UInt32) as CFStringRef
 		    

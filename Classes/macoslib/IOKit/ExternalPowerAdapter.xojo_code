@@ -27,7 +27,7 @@ Class ExternalPowerAdapter
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Details() As ExternalPowerAdapter
+		Shared Function Details() As ExternalPowerAdapter
 		  dim d as CFDictionary = CopyExternalPowerAdapterDetails
 		  if d <> nil then
 		    dim adapter as new ExternalPowerAdapter

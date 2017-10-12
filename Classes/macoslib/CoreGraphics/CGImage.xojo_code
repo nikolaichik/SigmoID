@@ -9,7 +9,7 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CGImageGetTypeID" () as UInt32
 		    
@@ -217,7 +217,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewCGImage(p as Picture) As CGImage
+		Shared Function NewCGImage(p as Picture) As CGImage
 		  if p is nil then
 		    return nil
 		  end if

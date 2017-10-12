@@ -57,7 +57,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function DeepestScreen() As NSScreen
+		Shared Function DeepestScreen() As NSScreen
 		  
 		  #if TargetMacOS
 		    declare function deepestScreen lib CocoaLib selector "deepestScreen" (class_id as Ptr) as Ptr
@@ -73,7 +73,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function MainScreen() As NSScreen
+		Shared Function MainScreen() As NSScreen
 		  
 		  #if TargetMacOS
 		    declare function mainScreen lib CocoaLib selector "mainScreen" (class_id as Ptr) as Ptr
@@ -89,7 +89,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Screens() As NSScreen()
+		Shared Function Screens() As NSScreen()
 		  
 		  #if TargetMacOS
 		    declare function screens lib CocoaLib selector "screens" (class_id as Ptr) as Ptr

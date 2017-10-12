@@ -17,7 +17,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function TypeVideo() As String
+		Shared Function TypeVideo() As String
 		  static type as String = Resolve("QTMediaTypeVideo")
 		  return type
 		End Function

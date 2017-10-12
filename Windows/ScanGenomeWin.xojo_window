@@ -409,7 +409,11 @@ Begin Window ScanGenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
+<<<<<<< HEAD
       Left            =   279
+=======
+      Left            =   238
+>>>>>>> Version2
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -428,7 +432,11 @@ Begin Window ScanGenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
+<<<<<<< HEAD
       Width           =   128
+=======
+      Width           =   168
+>>>>>>> Version2
    End
 End
 #tag EndWindow
@@ -698,7 +706,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

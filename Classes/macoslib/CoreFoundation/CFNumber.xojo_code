@@ -16,7 +16,7 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CFNumberGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -61,7 +61,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFNumber
+		Shared Function CreateFromPListFile(file as FolderItem) As CFNumber
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListImmutable )
@@ -78,7 +78,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFNumber
+		Shared Function CreateFromPListString(plistString as String) As CFNumber
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListImmutable )
@@ -95,7 +95,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NaN() As CFNumber
+		Shared Function NaN() As CFNumber
 		  const kCFNumberNaN = "kCFNumberNaN"
 		  static v as CFNumber = SpecialValue(kCFNumberNaN)
 		  return v
@@ -103,7 +103,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NegativeInfinity() As CFNumber
+		Shared Function NegativeInfinity() As CFNumber
 		  const kCFNumberNegativeInfinity = "kCFNumberNegativeInfinity"
 		  static v as CFNumber = SpecialValue(kCFNumberNegativeInfinity)
 		  return v
@@ -153,7 +153,7 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PositiveInfinity() As CFNumber
+		Shared Function PositiveInfinity() As CFNumber
 		  const kCFNumberPositiveInfinity = "kCFNumberPositiveInfinity"
 		  static v as CFNumber = SpecialValue(kCFNumberPositiveInfinity)
 		  return v

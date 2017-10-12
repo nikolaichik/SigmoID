@@ -30,7 +30,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function InputDevices() As QTCaptureDevice()
+		Shared Function InputDevices() As QTCaptureDevice()
 		  #if targetMacOS
 		    declare function inputDevices lib QTKit.framework selector "inputDevices" (class_id as Ptr) as Ptr
 		    

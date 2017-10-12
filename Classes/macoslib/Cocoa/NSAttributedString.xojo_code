@@ -215,7 +215,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromAttachment(attachment as NSTextAttachment) As NSAttributedString
+		Shared Function CreateFromAttachment(attachment as NSTextAttachment) As NSAttributedString
 		  //# Creates an attributed string with an attachment.
 		  
 		  #if TargetMacOS
@@ -239,7 +239,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromDocFormat(data as NSData, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromDocFormat(data as NSData, byRef docAttributes as NSDictionary) As NSAttributedString
 		  //# Initializes and returns a new NSAttributedString object from Microsoft Word format data contained in the given NSData object.
 		  
 		  #if targetMacOS
@@ -273,7 +273,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromFile(file as FolderItem, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromFile(file as FolderItem, byRef docAttributes as NSDictionary) As NSAttributedString
 		  //# Initializes a new attribute string object from RTF or RTFD data contained in the file at the given path.
 		  
 		  #if targetMacOS
@@ -304,7 +304,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromHTML(data as NSData, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromHTML(data as NSData, byRef docAttributes as NSDictionary) As NSAttributedString
 		  //# Initializes and returns a new NSAttributedString object from HTML contained in the given data object.
 		  
 		  #if targetMacOS
@@ -338,7 +338,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromHTML(data as NSData, options as NSDictionary, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromHTML(data as NSData, options as NSDictionary, byRef docAttributes as NSDictionary) As NSAttributedString
 		  
 		  #if targetMacOS
 		    declare function initWithHTML lib CocoaLib selector "initWithHTML:options:documentAttributes:" _
@@ -379,7 +379,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromHTML(HTMLdata as NSData, baseURL as NSURL = nil) As NSAttributedString
+		Shared Function CreateFromHTML(HTMLdata as NSData, baseURL as NSURL = nil) As NSAttributedString
 		  
 		  #if TargetMacOS
 		    declare function initWithHTML lib CocoaLib selector "initWithHTML:documentAttributes:" ( id as Ptr, data as Ptr, docAttr as Ptr) as Ptr
@@ -403,7 +403,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromHTML(data as NSData, baseURL as NSURL, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromHTML(data as NSData, baseURL as NSURL, byRef docAttributes as NSDictionary) As NSAttributedString
 		  
 		  #if targetMacOS
 		    declare function initWithHTML lib CocoaLib selector "initWithHTML:baseURL:documentAttributes:" _
@@ -444,7 +444,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromRTF(RTFdata as NSData) As NSAttributedString
+		Shared Function CreateFromRTF(RTFdata as NSData) As NSAttributedString
 		  #if TargetMacOS
 		    declare function initWithRTF lib CocoaLib selector "initWithRTF:documentAttributes:" ( id as Ptr, data as Ptr, docAttr as Ptr) as Ptr
 		    
@@ -461,7 +461,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromRTF(data as NSData, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromRTF(data as NSData, byRef docAttributes as NSDictionary) As NSAttributedString
 		  //# Initializes a new attributed string object by decoding the stream of RTF commands and data contained in the given data object.
 		  
 		  #if targetMacOS
@@ -495,7 +495,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromRTFD(RTFDdata as NSData) As NSAttributedString
+		Shared Function CreateFromRTFD(RTFDdata as NSData) As NSAttributedString
 		  //# Initializes a new attributed string object by decoding the stream of RTFD commands and data contained in the given data object.
 		  
 		  #if TargetMacOS
@@ -514,7 +514,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromRTFD(data as NSData, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromRTFD(data as NSData, byRef docAttributes as NSDictionary) As NSAttributedString
 		  //# Initializes a new attributed string object by decoding the stream of RTFD commands and data contained in the given data object.
 		  
 		  #if targetMacOS
@@ -548,7 +548,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromRTFD(wrapper as NSFileWrapper, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromRTFD(wrapper as NSFileWrapper, byRef docAttributes as NSDictionary) As NSAttributedString
 		  //# Initializes a new attributed string object from the specified file wrapper containing an RTFD document.
 		  
 		  #if targetMacOS
@@ -582,19 +582,19 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromString_NoAttributes(text as String) As NSAttributedString
+		Shared Function CreateFromString_NoAttributes(text as String) As NSAttributedString
 		  return new NSAttributedString (text)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromString_WithAttributes(text as String, attr as NSDictionary) As NSAttributedString
+		Shared Function CreateFromString_WithAttributes(text as String, attr as NSDictionary) As NSAttributedString
 		  return new NSAttributedString (text, attr)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromURL(aURL as NSURL, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromURL(aURL as NSURL, byRef docAttributes as NSDictionary) As NSAttributedString
 		  //# Initializes a new attributed string object from the data at the given URL.
 		  
 		  #if targetMacOS
@@ -628,7 +628,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateFromURL(aURL as NSURL, options as NSDictionary, byRef docAttributes as NSDictionary) As NSAttributedString
+		Shared Function CreateFromURL(aURL as NSURL, options as NSDictionary, byRef docAttributes as NSDictionary) As NSAttributedString
 		  //# Initializes a new NSAttributedString object from the contents of the given URL.
 		  
 		  #if targetMacOS
@@ -906,637 +906,637 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSAttachmentAttributeName() As Ptr
+		Shared Function NSAttachmentAttributeName() As Ptr
 		  return ResolveSymbol("NSAttachmentAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSAuthorDocumentAttribute() As Ptr
+		Shared Function NSAuthorDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSAuthorDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBackgroundColorAttributeName() As Ptr
+		Shared Function NSBackgroundColorAttributeName() As Ptr
 		  return ResolveSymbol("NSBackgroundColorAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBackgroundColorDocumentAttribute() As Ptr
+		Shared Function NSBackgroundColorDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSBackgroundColorDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBaselineOffsetAttributeName() As Ptr
+		Shared Function NSBaselineOffsetAttributeName() As Ptr
 		  return ResolveSymbol("NSBaselineOffsetAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBaseURLDocumentOption() As Ptr
+		Shared Function NSBaseURLDocumentOption() As Ptr
 		  return ResolveSymbol("NSBaseURLDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSBottomMarginDocumentAttribute() As Ptr
+		Shared Function NSBottomMarginDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSBottomMarginDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCategoryDocumentAttribute() As Ptr
+		Shared Function NSCategoryDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSCategoryDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCharacterEncodingDocumentAttribute() As Ptr
+		Shared Function NSCharacterEncodingDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSCharacterEncodingDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCharacterEncodingDocumentOption() As Ptr
+		Shared Function NSCharacterEncodingDocumentOption() As Ptr
 		  return ResolveSymbol("NSCharacterEncodingDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCharacterShapeAttributeName() As Ptr
+		Shared Function NSCharacterShapeAttributeName() As Ptr
 		  return ResolveSymbol("NSCharacterShapeAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCocoaVersionDocumentAttribute() As Ptr
+		Shared Function NSCocoaVersionDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSCocoaVersionDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCommentDocumentAttribute() As Ptr
+		Shared Function NSCommentDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSCommentDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCompanyDocumentAttribute() As Ptr
+		Shared Function NSCompanyDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSCompanyDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSConvertedDocumentAttribute() As Ptr
+		Shared Function NSConvertedDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSConvertedDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCopyrightDocumentAttribute() As Ptr
+		Shared Function NSCopyrightDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSCopyrightDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCreationTimeDocumentAttribute() As Ptr
+		Shared Function NSCreationTimeDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSCreationTimeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSCursorAttributeName() As Ptr
+		Shared Function NSCursorAttributeName() As Ptr
 		  return ResolveSymbol("NSCursorAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDefaultAttributesDocumentOption() As Ptr
+		Shared Function NSDefaultAttributesDocumentOption() As Ptr
 		  return ResolveSymbol("NSDefaultAttributesDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDefaultTabIntervalDocumentAttribute() As Ptr
+		Shared Function NSDefaultTabIntervalDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSDefaultTabIntervalDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDocFormatTextDocumentType() As Ptr
+		Shared Function NSDocFormatTextDocumentType() As Ptr
 		  return ResolveSymbol("NSDocFormatTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDocumentTypeDocumentAttribute() As Ptr
+		Shared Function NSDocumentTypeDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSDocumentTypeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSDocumentTypeDocumentOption() As Ptr
+		Shared Function NSDocumentTypeDocumentOption() As Ptr
 		  return ResolveSymbol("NSDocumentTypeDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSEditorDocumentAttribute() As Ptr
+		Shared Function NSEditorDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSEditorDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSExcludedElementsDocumentAttribute() As Ptr
+		Shared Function NSExcludedElementsDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSExcludedElementsDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSExpansionAttributeName() As Ptr
+		Shared Function NSExpansionAttributeName() As Ptr
 		  return ResolveSymbol("NSExpansionAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFileTypeDocumentAttribute() As Ptr
+		Shared Function NSFileTypeDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSFileTypeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFileTypeDocumentOption() As Ptr
+		Shared Function NSFileTypeDocumentOption() As Ptr
 		  return ResolveSymbol("NSFileTypeDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSFontAttributeName() As Ptr
+		Shared Function NSFontAttributeName() As Ptr
 		  return ResolveSymbol("NSFontAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSForegroundColorAttributeName() As Ptr
+		Shared Function NSForegroundColorAttributeName() As Ptr
 		  return ResolveSymbol("NSForegroundColorAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSGlyphInfoAttributeName() As Ptr
+		Shared Function NSGlyphInfoAttributeName() As Ptr
 		  return ResolveSymbol("NSGlyphInfoAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSHTMLTextDocumentType() As Ptr
+		Shared Function NSHTMLTextDocumentType() As Ptr
 		  return ResolveSymbol("NSHTMLTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSHyphenationFactorDocumentAttribute() As Ptr
+		Shared Function NSHyphenationFactorDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSHyphenationFactorDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSKernAttributeName() As Ptr
+		Shared Function NSKernAttributeName() As Ptr
 		  return ResolveSymbol("NSKernAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSKeywordsDocumentAttribute() As Ptr
+		Shared Function NSKeywordsDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSKeywordsDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLeftMarginDocumentAttribute() As Ptr
+		Shared Function NSLeftMarginDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSLeftMarginDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLigatureAttributeName() As Ptr
+		Shared Function NSLigatureAttributeName() As Ptr
 		  return ResolveSymbol("NSLigatureAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSLinkAttributeName() As Ptr
+		Shared Function NSLinkAttributeName() As Ptr
 		  return ResolveSymbol("NSLinkAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSMacSimpleTextDocumentType() As Ptr
+		Shared Function NSMacSimpleTextDocumentType() As Ptr
 		  return ResolveSymbol("NSMacSimpleTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSManagerDocumentAttribute() As Ptr
+		Shared Function NSManagerDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSManagerDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSMarkedClauseSegmentAttributeName() As Ptr
+		Shared Function NSMarkedClauseSegmentAttributeName() As Ptr
 		  return ResolveSymbol("NSMarkedClauseSegmentAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSModificationTimeDocumentAttribute() As Ptr
+		Shared Function NSModificationTimeDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSModificationTimeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSObliquenessAttributeName() As Ptr
+		Shared Function NSObliquenessAttributeName() As Ptr
 		  return ResolveSymbol("NSObliquenessAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSOfficeOpenXMLTextDocumentType() As Ptr
+		Shared Function NSOfficeOpenXMLTextDocumentType() As Ptr
 		  return ResolveSymbol("NSOfficeOpenXMLTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSOpenDocumentTextDocumentType() As Ptr
+		Shared Function NSOpenDocumentTextDocumentType() As Ptr
 		  return ResolveSymbol("NSOpenDocumentTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPaperSizeDocumentAttribute() As Ptr
+		Shared Function NSPaperSizeDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSPaperSizeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSParagraphStyleAttributeName() As Ptr
+		Shared Function NSParagraphStyleAttributeName() As Ptr
 		  return ResolveSymbol("NSParagraphStyleAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPlainTextDocumentType() As Ptr
+		Shared Function NSPlainTextDocumentType() As Ptr
 		  return ResolveSymbol("NSPlainTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSPrefixSpacesDocumentAttribute() As Ptr
+		Shared Function NSPrefixSpacesDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSPrefixSpacesDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSReadOnlyDocumentAttribute() As Ptr
+		Shared Function NSReadOnlyDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSReadOnlyDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSRightMarginDocumentAttribute() As Ptr
+		Shared Function NSRightMarginDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSRightMarginDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSRTFDTextDocumentType() As Ptr
+		Shared Function NSRTFDTextDocumentType() As Ptr
 		  return ResolveSymbol("NSRTFDTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSRTFTextDocumentType() As Ptr
+		Shared Function NSRTFTextDocumentType() As Ptr
 		  return ResolveSymbol("NSRTFTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSShadowAttributeName() As Ptr
+		Shared Function NSShadowAttributeName() As Ptr
 		  return ResolveSymbol("NSShadowAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSSpellingStateAttributeName() As Ptr
+		Shared Function NSSpellingStateAttributeName() As Ptr
 		  return ResolveSymbol("NSSpellingStateAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSStrikethroughColorAttributeName() As Ptr
+		Shared Function NSStrikethroughColorAttributeName() As Ptr
 		  return ResolveSymbol("NSStrikethroughColorAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSStrikethroughStyleAttributeName() As Ptr
+		Shared Function NSStrikethroughStyleAttributeName() As Ptr
 		  return ResolveSymbol("NSStrikethroughStyleAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSStrokeColorAttributeName() As Ptr
+		Shared Function NSStrokeColorAttributeName() As Ptr
 		  return ResolveSymbol("NSStrokeColorAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSStrokeWidthAttributeName() As Ptr
+		Shared Function NSStrokeWidthAttributeName() As Ptr
 		  return ResolveSymbol("NSStrokeWidthAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSSubjectDocumentAttribute() As Ptr
+		Shared Function NSSubjectDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSSubjectDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSSuperscriptAttributeName() As Ptr
+		Shared Function NSSuperscriptAttributeName() As Ptr
 		  return ResolveSymbol("NSSuperscriptAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextEncodingNameDocumentAttribute() As Ptr
+		Shared Function NSTextEncodingNameDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSTextEncodingNameDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextEncodingNameDocumentOption() As Ptr
+		Shared Function NSTextEncodingNameDocumentOption() As Ptr
 		  return ResolveSymbol("NSTextEncodingNameDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextLayoutSectionOrientation() As Ptr
+		Shared Function NSTextLayoutSectionOrientation() As Ptr
 		  return ResolveSymbol("NSTextLayoutSectionOrientation")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextLayoutSectionRange() As Ptr
+		Shared Function NSTextLayoutSectionRange() As Ptr
 		  return ResolveSymbol("NSTextLayoutSectionRange")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextLayoutSectionsAttribute() As Ptr
+		Shared Function NSTextLayoutSectionsAttribute() As Ptr
 		  return ResolveSymbol("NSTextLayoutSectionsAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTextSizeMultiplierDocumentOption() As Ptr
+		Shared Function NSTextSizeMultiplierDocumentOption() As Ptr
 		  return ResolveSymbol("NSTextSizeMultiplierDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTimeoutDocumentOption() As Ptr
+		Shared Function NSTimeoutDocumentOption() As Ptr
 		  return ResolveSymbol("NSTimeoutDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTitleDocumentAttribute() As Ptr
+		Shared Function NSTitleDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSTitleDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSToolTipAttributeName() As Ptr
+		Shared Function NSToolTipAttributeName() As Ptr
 		  return ResolveSymbol("NSToolTipAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSTopMarginDocumentAttribute() As Ptr
+		Shared Function NSTopMarginDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSTopMarginDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineColorAttributeName() As Ptr
+		Shared Function NSUnderlineColorAttributeName() As Ptr
 		  return ResolveSymbol("NSUnderlineColorAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternDash() As Ptr
+		Shared Function NSUnderlinePatternDash() As Ptr
 		  return ResolveSymbol("NSUnderlinePatternDash")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternDashDot() As Ptr
+		Shared Function NSUnderlinePatternDashDot() As Ptr
 		  return ResolveSymbol("NSUnderlinePatternDashDot")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternDashDotDot() As Ptr
+		Shared Function NSUnderlinePatternDashDotDot() As Ptr
 		  return ResolveSymbol("NSUnderlinePatternDashDotDot")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternDot() As Ptr
+		Shared Function NSUnderlinePatternDot() As Ptr
 		  return ResolveSymbol("NSUnderlinePatternDot")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlinePatternSolid() As Ptr
+		Shared Function NSUnderlinePatternSolid() As Ptr
 		  return ResolveSymbol("NSUnderlinePatternSolid")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleAttributeName() As Ptr
+		Shared Function NSUnderlineStyleAttributeName() As Ptr
 		  return ResolveSymbol("NSUnderlineStyleAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleDouble() As Ptr
+		Shared Function NSUnderlineStyleDouble() As Ptr
 		  return ResolveSymbol("NSUnderlineStyleDouble")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleNone() As Ptr
+		Shared Function NSUnderlineStyleNone() As Ptr
 		  return ResolveSymbol("NSUnderlineStyleNone")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleSingle() As Ptr
+		Shared Function NSUnderlineStyleSingle() As Ptr
 		  return ResolveSymbol("NSUnderlineStyleSingle")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSUnderlineStyleThick() As Ptr
+		Shared Function NSUnderlineStyleThick() As Ptr
 		  return ResolveSymbol("NSUnderlineStyleThick")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSVerticalGlyphFormAttributeName() As Ptr
+		Shared Function NSVerticalGlyphFormAttributeName() As Ptr
 		  return ResolveSymbol("NSVerticalGlyphFormAttributeName")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSViewModeDocumentAttribute() As Ptr
+		Shared Function NSViewModeDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSViewModeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSViewSizeDocumentAttribute() As Ptr
+		Shared Function NSViewSizeDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSViewSizeDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSViewZoomDocumentAttribute() As Ptr
+		Shared Function NSViewZoomDocumentAttribute() As Ptr
 		  return ResolveSymbol("NSViewZoomDocumentAttribute")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWebArchiveTextDocumentType() As Ptr
+		Shared Function NSWebArchiveTextDocumentType() As Ptr
 		  return ResolveSymbol("NSWebArchiveTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWebPreferencesDocumentOption() As Ptr
+		Shared Function NSWebPreferencesDocumentOption() As Ptr
 		  return ResolveSymbol("NSWebPreferencesDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWebResourceLoadDelegateDocumentOption() As Ptr
+		Shared Function NSWebResourceLoadDelegateDocumentOption() As Ptr
 		  return ResolveSymbol("NSWebResourceLoadDelegateDocumentOption")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWordMLTextDocumentType() As Ptr
+		Shared Function NSWordMLTextDocumentType() As Ptr
 		  return ResolveSymbol("NSWordMLTextDocumentType")
 		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NSWritingDirectionAttributeName() As Ptr
+		Shared Function NSWritingDirectionAttributeName() As Ptr
 		  return ResolveSymbol("NSWritingDirectionAttributeName")
 		  
 		End Function
@@ -1816,7 +1816,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function TextTypes() As String()
+		Shared Function TextTypes() As String()
 		  //# Returns an array of UTI strings identifying the file types supported by the NSAttributedString, either directly or through a user-installed filter service.
 		  
 		  #if TargetMacOS
@@ -1835,7 +1835,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function TextUnfilteredTypes() As String()
+		Shared Function TextUnfilteredTypes() As String()
 		  //# Returns an array of UTI strings identifying the file types supported directly by the NSAttributedString.
 		  
 		  #if TargetMacOS

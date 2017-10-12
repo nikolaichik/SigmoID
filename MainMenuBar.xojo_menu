@@ -422,6 +422,20 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem RegulonRegPreciseTFFamilies
+         SpecialMenu = 0
+         Text = "RegPrecise TF Families"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem RegulonTomTom
+         SpecialMenu = 0
+         Text = "TomTom..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem FileListAllRegulonDBdata
          SpecialMenu = 0
          Text = "#kRegulonDBregulons"
@@ -516,6 +530,13 @@ Begin Menu MainMenuBar
       Begin MenuItem GenomeScanGenome
          SpecialMenu = 0
          Text = "#kScanGenome"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeTFfamilySearch
+         SpecialMenu = 0
+         Text = "#kTFfamilySearch"
          Index = -2147483648
          AutoEnable = True
          Visible = True

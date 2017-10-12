@@ -178,19 +178,14 @@ Begin Window RegPreciseWin
       BytesAvailable  =   0
       BytesLeftToSend =   0
       Handle          =   0
-      httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
       LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   True
@@ -349,6 +344,8 @@ End
 		  #if DebugBuild then 
 		    FastaButton.Enabled=true
 		  #endif
+		  
+		  'RegPreciseSocket.Secure=true
 		End Sub
 	#tag EndEvent
 
@@ -413,7 +410,7 @@ End
 		    
 		    hts.Yield=true
 		    
-		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
+		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
 		    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		      if res<>"" then
 		        JSN0.load(res)
@@ -463,7 +460,10 @@ End
 		      
 		      
 		    else
-		      LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		      
+		      dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		      LogoWin.WriteToSTDOUT (httpErr)
+		      
 		      LogoWin.show
 		    end if
 		    
@@ -567,7 +567,7 @@ End
 	#tag Method, Flags = &h0
 		Sub GetVersion()
 		  SocketTask="release"
-		  RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/release")
+		  RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/release")
 		  
 		End Sub
 	#tag EndMethod
@@ -594,7 +594,7 @@ End
 		  else
 		    'get the data from RegPrecise
 		    SocketTask="genomes"
-		    RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/genomeStats")
+		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/genomeStats")
 		  end if
 		  
 		  Exception err
@@ -608,12 +608,12 @@ End
 		  if me.title="RegPrecise: regulons" then
 		    'regulons
 		    SocketTask="regulons"
-		    RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/regulons?genomeId="+GenomeID)
+		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulons?genomeId="+GenomeID)
 		    
 		  else
 		    'regulogs
 		    SocketTask="regulogs"
-		    RegPreciseSocket.Get("http://regprecise.lbl.gov/Services/rest/regulogs?genomeId="+GenomeID)
+		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulogs?genomeId="+GenomeID)
 		    
 		  end if
 		  
@@ -746,7 +746,7 @@ End
 #tag Events Label2
 	#tag Event
 		Sub Open()
-		  me.text=kGenome+":"
+		  'me.text=kGenome+":"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -927,7 +927,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

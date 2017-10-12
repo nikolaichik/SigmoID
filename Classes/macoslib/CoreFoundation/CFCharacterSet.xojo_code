@@ -9,7 +9,7 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    soft declare function TypeID lib CarbonLib alias "CFCharacterSetGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID

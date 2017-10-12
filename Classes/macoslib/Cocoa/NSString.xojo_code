@@ -47,7 +47,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function AvailableStringEncodings() As NSStringEncoding()
+		Shared Function AvailableStringEncodings() As NSStringEncoding()
 		  
 		  #if TargetMacOS
 		    declare function availableStringEncodings lib CocoaLib selector "availableStringEncodings" (class_id as Ptr) as Ptr
@@ -408,7 +408,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create() As NSString
+		Shared Function Create() As NSString
 		  
 		  #if TargetMacOS
 		    declare function string_ lib CocoaLib selector "string" (class_id as Ptr) as Ptr
@@ -426,7 +426,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithString(aString as NSString) As NSString
+		Shared Function CreateWithString(aString as NSString) As NSString
 		  
 		  #if TargetMacOS
 		    declare function stringWithString lib CocoaLib selector "stringWithString:" (class_id as Ptr, aString as Ptr) as Ptr
@@ -451,7 +451,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithString(aString as String) As NSString
+		Shared Function CreateWithString(aString as String) As NSString
 		  
 		  #if TargetMacOS
 		    declare function stringWithString lib CocoaLib selector "stringWithString:" (class_id as Ptr, aString as CFStringRef) as Ptr
@@ -824,7 +824,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function LocalizedNameOfStringEncoding(anEncoding as NSStringEncoding) As String
+		Shared Function LocalizedNameOfStringEncoding(anEncoding as NSStringEncoding) As String
 		  
 		  #if TargetMacOS
 		    declare function localizedNameOfStringEncoding lib CocoaLib selector "localizedNameOfStringEncoding:" _

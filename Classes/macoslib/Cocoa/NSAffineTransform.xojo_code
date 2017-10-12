@@ -39,7 +39,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Create() As NSAffineTransform
+		Shared Function Create() As NSAffineTransform
 		  
 		  #if TargetMacOS
 		    declare function transform lib CocoaLib selector "transform" (obj_id as Ptr) as Ptr

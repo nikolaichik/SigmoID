@@ -20,7 +20,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultCenter() As NSNotificationCenter
+		Shared Function DefaultCenter() As NSNotificationCenter
 		  #if targetCocoa
 		    declare function defaultCenter lib CocoaLib selector "defaultCenter" (class_id as Ptr) as Ptr
 		    

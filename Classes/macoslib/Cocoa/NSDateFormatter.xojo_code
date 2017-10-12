@@ -77,7 +77,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function LocalizedDateFormat(template as String, locale as NSLocale) As String
+		Shared Function LocalizedDateFormat(template as String, locale as NSLocale) As String
 		  //# Returns a localized date format string representing the given date format components arranged appropriately for the specified locale.
 		  
 		  #if TargetMacOS
@@ -100,7 +100,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function LocalizedString(aDate as NSDate, dateStyle as NSDateFormatterStyle, timeStyle as NSDateFormatterStyle) As String
+		Shared Function LocalizedString(aDate as NSDate, dateStyle as NSDateFormatterStyle, timeStyle as NSDateFormatterStyle) As String
 		  //# Returns string representation of a given date formatted for the current locale using the specified date and time styles.
 		  
 		  #if TargetMacOS

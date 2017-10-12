@@ -8,7 +8,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewPipe() As NSPipe
+		Shared Function NewPipe() As NSPipe
 		  //pipe may return nil if there is a problem creating the pipe or either NSFileHandle object endpoint.  So
 		  //we use a shared method that can return nil instead of a constructor.
 		  

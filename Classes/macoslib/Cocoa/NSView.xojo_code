@@ -666,7 +666,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function FocusView() As NSView
+		Shared Function FocusView() As NSView
 		  
 		  #if TargetMacOS then
 		    declare function focusView lib CocoaLib selector "focusView" (obj_id as Ptr) as Ptr

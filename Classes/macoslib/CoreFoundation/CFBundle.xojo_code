@@ -9,7 +9,7 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
-		 Shared Function Application() As CFBundle
+		Shared Function Application() As CFBundle
 		  // returns this app's main bundle
 		  
 		  static app as new CFBundle
@@ -18,7 +18,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CoreFoundation.framework alias "CFBundleGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -189,7 +189,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewCFBundleFromID(bundleIdentifier as String) As CFBundle
+		Shared Function NewCFBundleFromID(bundleIdentifier as String) As CFBundle
 		  #if targetMacOS
 		    declare function CFBundleGetBundleWithIdentifier lib CoreFoundation.framework (bundleID as CFStringRef) as CFTypeRef
 		    
@@ -202,7 +202,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewCFBundleFromURL(theURL as CFURL) As CFBundle
+		Shared Function NewCFBundleFromURL(theURL as CFURL) As CFBundle
 		  #if targetMacOS
 		    soft declare function CFBundleCreate lib CoreFoundation.framework (allocator as Ptr, bundleURL as CFTypeRef) as CFTypeRef
 		    
@@ -219,7 +219,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewCFBundlesFromFolder(folderURL as CFURL) As CFArray
+		Shared Function NewCFBundlesFromFolder(folderURL as CFURL) As CFArray
 		  #if targetMacOS
 		    if folderURL <> nil then
 		      soft declare function CFBundleCreateBundlesFromDirectory lib CoreFoundation.framework (allocator as Ptr, folderURL as CFTypeRef, bundleType as Ptr) as CFTypeRef

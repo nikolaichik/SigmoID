@@ -154,7 +154,8 @@ Begin Window MEMESettingsWin
       Visible         =   True
       Width           =   270
    End
-   Begin PopupMenu MotifNoPopup
+   Begin ComboBox MotifNoPopup
+      AutoComplete    =   False
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -182,6 +183,7 @@ Begin Window MEMESettingsWin
       TextUnit        =   0
       Top             =   154
       Underline       =   False
+      UseFocusRing    =   True
       Visible         =   True
       Width           =   112
    End
@@ -740,7 +742,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

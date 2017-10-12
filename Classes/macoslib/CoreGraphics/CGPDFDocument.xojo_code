@@ -24,7 +24,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CGPDFDocumentGetTypeID" () as UInt32
 		    
@@ -35,7 +35,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Create(url as CFURL) As CGPDFDocument
+		Shared Function Create(url as CFURL) As CGPDFDocument
 		  if url = nil then
 		    return nil
 		  end if
@@ -52,7 +52,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Create(provider as CGDataProvider) As CGPDFDocument
+		Shared Function Create(provider as CGDataProvider) As CGPDFDocument
 		  if provider = nil then
 		    return nil
 		  end if

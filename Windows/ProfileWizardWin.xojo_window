@@ -958,6 +958,8 @@ End
 		    dlg.SuggestedFileName=trim(ValueField.Text)+".sig"
 		    dlg.filter = "Sig_file"
 		    dlg.InitialDirectory = Profile_f
+		    dlg.CancelButtonCaption=kCancel
+		    dlg.ActionButtonCaption=kSave
 		    
 		    SigFile=dlg.ShowModal
 		    If SigFile <> Nil then
@@ -1253,6 +1255,8 @@ End
 		    dlg.SuggestedFileName=trim(ValueField.Text)+".sig"
 		    dlg.filter = "Sig_file"
 		    dlg.InitialDirectory = Profile_f
+		    dlg.CancelButtonCaption=kCancel
+		    dlg.ActionButtonCaption=kSave
 		    
 		    SigFile=dlg.ShowModal
 		    If SigFile <> Nil then
@@ -1598,7 +1602,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

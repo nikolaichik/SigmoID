@@ -33,7 +33,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DataFromTXTRecordDictionary(dict as NSDictionary) As NSData
+		Shared Function DataFromTXTRecordDictionary(dict as NSDictionary) As NSData
 		  
 		  #if TargetMacOS
 		    declare function m_dataFromTXTRecordDictionary lib CocoaLib selector "dataFromTXTRecordDictionary:" ( Cls as Ptr, data as ptr ) as Ptr
@@ -247,7 +247,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DictionaryFromTXTRecordData(data as NSData) As NSDictionary
+		Shared Function DictionaryFromTXTRecordData(data as NSData) As NSDictionary
 		  
 		  #if TargetMacOS
 		    declare function m_dictionaryFromTXTRecordData lib CocoaLib selector "dictionaryFromTXTRecordData:" ( Cls as Ptr, data as ptr ) as Ptr
@@ -379,7 +379,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function InitForPublishing(name as String, domain as string, type as string, port as integer) As NSNetService
+		Shared Function InitForPublishing(name as String, domain as string, type as string, port as integer) As NSNetService
 		  
 		  #if TargetMacOS
 		    declare function initWithDomain lib CocoaLib selector "initWithDomain:type:name:port:" ( id as Ptr, domain as CFStringRef, type as CFStringRef, name as CFStringRef, port as Integer ) as Ptr
@@ -401,7 +401,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function InitForResolving(name as String, domain as string, type as string) As NSNetService
+		Shared Function InitForResolving(name as String, domain as string, type as string) As NSNetService
 		  
 		  #if TargetMacOS
 		    declare function initWithDomain lib CocoaLib selector "initWithDomain:type:name:" ( id as Ptr, domain as CFStringRef, type as CFStringRef, name as CFStringRef ) as Ptr

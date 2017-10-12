@@ -7,7 +7,7 @@ Protected Class ResourceChainSaver
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CurResFile() As Integer
+		Shared Function CurResFile() As Integer
 		  #if TargetMacOS
 		    
 		    declare function CurResFile lib CarbonLib () as Integer

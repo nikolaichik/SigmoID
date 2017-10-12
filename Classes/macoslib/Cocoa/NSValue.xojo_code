@@ -39,7 +39,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithBytes(data as MemoryBlock, objc_type as String) As NSValue
+		Shared Function CreateWithBytes(data as MemoryBlock, objc_type as String) As NSValue
 		  
 		  #if targetMacOS
 		    declare function valueWithBytes lib CocoaLib selector "valueWithBytes:objCType:" (class_id as Ptr, value as Ptr, type as CString) as Ptr
@@ -57,7 +57,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithPoint(aPoint as Cocoa.NSPoint) As NSValue
+		Shared Function CreateWithPoint(aPoint as Cocoa.NSPoint) As NSValue
 		  
 		  #if targetMacOS
 		    declare function valueWithPoint lib CocoaLib selector "valueWithPoint:" (class_id as Ptr, aPoint as Cocoa.NSPoint) as Ptr
@@ -75,7 +75,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithRange(aRange as Cocoa.NSRange) As NSValue
+		Shared Function CreateWithRange(aRange as Cocoa.NSRange) As NSValue
 		  
 		  #if targetMacOS
 		    declare function valueWithRange lib CocoaLib selector "valueWithRange:" (class_id as Ptr, aRange as Cocoa.NSRange) as Ptr
@@ -93,7 +93,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithRect(aRect as Cocoa.NSRect) As NSValue
+		Shared Function CreateWithRect(aRect as Cocoa.NSRect) As NSValue
 		  
 		  #if targetMacOS
 		    declare function valueWithRect lib CocoaLib selector "valueWithRect:" (class_id as Ptr, aRect as Cocoa.NSRect) as Ptr
@@ -111,7 +111,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithSize(aSize as Cocoa.NSSize) As NSValue
+		Shared Function CreateWithSize(aSize as Cocoa.NSSize) As NSValue
 		  
 		  #if targetMacOS
 		    declare function valueWithSize lib CocoaLib selector "valueWithSize:" (class_id as Ptr, aSize as Cocoa.NSSize) as Ptr

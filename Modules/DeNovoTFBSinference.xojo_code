@@ -4,7 +4,11 @@ Protected Module DeNovoTFBSinference
 		Function ConvertIDtoGenPept(ncbiID as string) As string
 		  // Requires a valid NCBI ID (e.g. the one returned by UniProt2ncbi_ID)
 		  //
+<<<<<<< HEAD
 		  // Returns correct ID for the protein sequence in GenPept
+=======
+		  // Returns correct ID (currently gi, may break in September 2016) for the protein sequence in GenPept
+>>>>>>> Version2
 		  
 		  // The response from NCBI should look like this:
 		  '<eSearchResult>
@@ -18,30 +22,55 @@ Protected Module DeNovoTFBSinference
 		  '<QueryTranslation/>
 		  '</eSearchResult>
 		  
+<<<<<<< HEAD
 		  Const URLstart as string="http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=protein&term="
+=======
+		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=protein&term="
+>>>>>>> Version2
 		  Dim Separ1 as string="<Id>"
 		  Dim Separ2 as string="</Id>"
 		  dim GenPeptID, theURL as string
 		  
 		  
+<<<<<<< HEAD
 		  dim hts as new HTTPSocket
+=======
+		  dim hts as new HTTPSecureSocket
+		  hts.Secure = True
+>>>>>>> Version2
 		  dim res as string
 		  dim outfile as folderitem
 		  
 		  
 		  LogoWin.WriteToSTDOUT ("Looking for GenPept ID @NCBI... ")
+<<<<<<< HEAD
 		  LogoWin.show
+=======
+		  'LogoWin.show
+>>>>>>> Version2
 		  
 		  hts.Yield=true  'allow background activities while waiting
 		  hts.SetRequestHeader("Content-Type:","text/plain")
 		  
 		  theURL=URLstart+ncbiID
 		  
+<<<<<<< HEAD
 		  res=hts.Get(theURL,0)  'adjust timeout?
 		  
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    if Res="" then
 		      LogoWin.WriteToSTDOUT ("no response from NCBI in 15 seconds"+EndOfLine)
+=======
+		  res=hts.Get(theURL,60)  'adjust timeout?
+		  
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if Res="" then
+		      if hts.ErrorCode=-1 then
+		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		      end if
+>>>>>>> Version2
 		    else
 		      GenPeptID=NthField(res,separ1,2)
 		      GenPeptID=NthField(GenPeptID,separ2,1)
@@ -51,6 +80,11 @@ Protected Module DeNovoTFBSinference
 		      
 		      
 		    end if
+<<<<<<< HEAD
+=======
+		  else
+		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
+>>>>>>> Version2
 		  end if
 		  
 		  hts.close
@@ -63,35 +97,65 @@ Protected Module DeNovoTFBSinference
 	#tag Method, Flags = &h0
 		Function FetchGenBankEntryFragment(EntryID as string, entryStart as integer, entryEnd as integer) As string
 		  
+<<<<<<< HEAD
 		  Const URLstart as string="http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id="
+=======
+		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id="
+>>>>>>> Version2
 		  Const URLend as string="&rettype=gb&seq_start=" 
 		  Dim Separ1 as string="reference id="+chr(34)
 		  Dim Separ2 as string=chr(34)
 		  dim theURL as string
 		  
 		  
+<<<<<<< HEAD
 		  dim hts as new HTTPSocket
+=======
+		  dim hts as new HTTPSecureSocket
+		  hts.Secure = True
+>>>>>>> Version2
 		  dim res as string
 		  
 		  
 		  LogoWin.WriteToSTDOUT ("Getting the GenBank entry fragment... ")
+<<<<<<< HEAD
 		  LogoWin.show
+=======
+		  'LogoWin.show
+>>>>>>> Version2
 		  
 		  hts.Yield=true  'allow background activities while waiting
 		  hts.SetRequestHeader("Content-Type:","text/plain")
 		  
 		  theURL=URLstart+EntryID+URLend+str(entryStart)+"&seq_stop="+str(entryEnd)
+<<<<<<< HEAD
 		  res=DefineEncoding(hts.Get(theURL,0), Encodings.ASCII)  'no encoding is set
 		  
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    if Res="" then
 		      LogoWin.WriteToSTDOUT ("no response from NCBI in 15 seconds"+EndOfLine)
+=======
+		  res=DefineEncoding(hts.Get(theURL,60), Encodings.ASCII)  'no encoding is set
+		  
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if Res="" then
+		      if hts.ErrorCode=-1 then
+		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		      end if
+>>>>>>> Version2
 		    else
 		      'LogoWin.WriteToSTDOUT (EndOfLine)
 		      LogoWin.WriteToSTDOUT (" OK")'(res)
 		      LogoWin.WriteToSTDOUT (EndOfLine)
 		      
 		    end if
+<<<<<<< HEAD
+=======
+		  else
+		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
+>>>>>>> Version2
 		  end if
 		  
 		  hts.close
@@ -106,37 +170,67 @@ Protected Module DeNovoTFBSinference
 		Function FetchGenPeptEntry(Entry as string) As string
 		  
 		  
+<<<<<<< HEAD
 		  Const URLstart as string="http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
+=======
+		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
+>>>>>>> Version2
 		  Const URLend as string="&rettype=gp" 
 		  Dim Separ1 as string="reference id="+chr(34)
 		  Dim Separ2 as string=chr(34)
 		  dim theURL as string
 		  
 		  
+<<<<<<< HEAD
 		  dim hts as new HTTPSocket
+=======
+		  dim hts as new HTTPSecureSocket
+		  hts.Secure = True
+>>>>>>> Version2
 		  dim res as string
 		  dim outfile as folderitem
 		  
 		  
 		  LogoWin.WriteToSTDOUT ("Getting the GenPept entry... ")
+<<<<<<< HEAD
 		  LogoWin.show
+=======
+		  'LogoWin.show
+>>>>>>> Version2
 		  
 		  hts.Yield=true  'allow background activities while waiting
 		  hts.SetRequestHeader("Content-Type:","text/plain")
 		  
 		  theURL=URLstart+Entry+URLend
 		  
+<<<<<<< HEAD
 		  res=DefineEncoding(hts.Get(theURL,0), Encodings.ASCII)  'no encoding is set
 		  
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    if Res="" then
 		      LogoWin.WriteToSTDOUT ("no response from NCBI in 15 seconds"+EndOfLine)
+=======
+		  res=DefineEncoding(hts.Get(theURL,60), Encodings.ASCII)  'no encoding is set
+		  
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if Res="" then
+		      if hts.ErrorCode=-1 then
+		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		      end if
+>>>>>>> Version2
 		    else
 		      'LogoWin.WriteToSTDOUT (EndOfLine)
 		      LogoWin.WriteToSTDOUT "OK" '(res)
 		      LogoWin.WriteToSTDOUT (EndOfLine)
 		      
 		    end if
+<<<<<<< HEAD
+=======
+		  else
+		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
+>>>>>>> Version2
 		  end if
 		  
 		  hts.close
@@ -185,6 +279,10 @@ Protected Module DeNovoTFBSinference
 		  dim CRarray(0) as integer
 		  dim TableArray(0) as string
 		  dim AlignmentArray(0) as string
+<<<<<<< HEAD
+=======
+		  dim ProtName As string
+>>>>>>> Version2
 		  dim currentCDS as string
 		  dim Alignments, hitSeq,currethit,CDStmp, CRtag, CRtagRegion as string
 		  dim m,n,o,p,q,r,fst,CRlen as integer
@@ -213,10 +311,21 @@ Protected Module DeNovoTFBSinference
 		  o=ubound(CRarray)
 		  for n=1 to m step 2
 		    hitseq=AlignmentArray(n)
+<<<<<<< HEAD
 		    'CRtag=NthField(hitSeq,"/",1)+" "  'sequence name followed by space
 		    ProtNames.Append(NthField(hitSeq,"/",1))
 		    hitseq=NthField(hitSeq," ",countfields(hitseq," ")) 'the seq goes after the last space
 		    hitSeq=ReplaceAll(hitseq,".","") 'removing 'gaps' resulting from insertions in other seqs 
+=======
+		    ProtName=NthField(hitSeq,"/",1)
+		    if InStr(ProtName,"|")>0 then
+		      ProtName=NthField(ProtName,"|",2)
+		    end if
+		    ProtNames.Append(ProtName)
+		    hitseq=NthField(hitSeq," ",countfields(hitseq," ")) 'the seq goes after the last space
+		    hitSeq=ReplaceAll(hitseq,".","") 'removing gaps resulting from insertions in other seqs: probably not the wise thing to do! 
+		    
+>>>>>>> Version2
 		    
 		    
 		    'extending hits to equal lengths at ends (if necessary)
@@ -225,6 +334,10 @@ Protected Module DeNovoTFBSinference
 		      dim currentHit As string=hitseq
 		      q=0
 		      if left(hitSeq, 1)="-" then 
+<<<<<<< HEAD
+=======
+		        'hitSeq=Replace(hitSeq,"-","x")
+>>>>>>> Version2
 		        r=len(hitSeq)
 		        for q=2 to r     'trim left end
 		          if mid(hitSeq,q,1)<>"-" then exit
@@ -241,17 +354,56 @@ Protected Module DeNovoTFBSinference
 		      
 		      'get extended hit
 		      CDStmp=NthField(CDSseqs,ProtNames(ubound(ProtNames)),2)'precaution for paralogues
+<<<<<<< HEAD
+=======
+		      dim gapPos,leftPartStart, rightPartStart as integer
+		      dim leftPart, rightPart, leftExt, rightExt as string
+		      
+		      'if the left end was truncated, we get completely wrong tag here!
+		      'so, we extend the left end by required number of residues first:
+		      gapPos=instr(currenthit,"-")
+		      leftPart=nthfield(currentHit,"-",1)
+		      leftPartStart=instr(CDStmp,leftPart)
+		      leftExt=mid(CDStmp,leftPartStart-q,q)
+		      currenthit=leftext+currentHit
+		      
+		      'extend the right end
+		      rightPart=nthfield(currentHit,"-",countfields(currentHit,"-"))
+		      rightPartStart=instr(CDStmp,rightPart)
+		      rightExt=mid(CDStmp,rightPartStart+len(rightPart),len(hitseq)-len(currenthit))
+		      
+		      'replace dashes so that phmmer doesn't bark at them later
+>>>>>>> Version2
 		      dim hitpos as integer = instr(CDStmp,currenthit)
 		      if hitpos=0 then
 		        'zero should be due to gap(s) in the central part of the hit region
 		        'these can probably be tolerated if located outside of the CR tag region,
 		        'so we are replacing 'em with small 'x' here 
+<<<<<<< HEAD
 		        'This may leave C terminus truncated, but that shouldn't be a problem
 		        
 		        currenthit=ReplaceAll(currenthit,"-","x")
 		        
 		      else
 		        currenthit=mid(CDStmp,hitpos-q,len(hitSeq))
+=======
+		        'This may leave C terminus truncated, and this could be a problem 
+		        
+		        'An example of a complex situation (CR tag positions are marked by astericks:
+		        '                            *        ***                  **                           
+		        ' ----VINQIIDDMARGHIP--SPLPSQNALAEMYNISRTTVRHILAHLRDCGVLT---------
+		        '(a warning should be issued if CR tag positions are in non-conserved part of the HTH like in this example)
+		        
+		        currenthit=ReplaceAll(currenthit,"-","x")+rightExt
+		      else
+		        'currenthit=mid(CDStmp,hitpos-q,len(hitSeq))
+		        'if len(currentHit)<len(hitSeq) then
+		        ''extend the right end
+		        'rightPartStart=instr(CDStmp,currenthit)
+		        'rightExt=mid(CDStmp,rightPartStart+len(currenthit),len(hitseq)-len(currenthit))
+		        'currenthit=currenthit+rightExt
+		        'end if
+>>>>>>> Version2
 		        
 		      end if
 		      
@@ -261,12 +413,45 @@ Protected Module DeNovoTFBSinference
 		      next
 		      
 		      hmmSearchMatches.Append currenthit
+<<<<<<< HEAD
 		      
+=======
+		      hitseq=currenthit
+>>>>>>> Version2
 		    else
 		      hmmSearchMatches.Append hitseq
 		    end
 		    
 		    
+<<<<<<< HEAD
+=======
+		    'gaps in the modelbefore the CRtag region should be corrected for, e.g
+		    'XRE_superfamily  1 rLrelReer....gLtqeelAellGisrstlsryEnGrrkPsqevlkklakaLgvsldel 56
+		    '                   rL+++ e++    gL+qe +A+++G+++s + +++nG    +  ++ +lak L+vs++e+
+		    '     ABO40696.1 18 RLKAIYEKKknelGLSQESVADKMGMGQSGVGALFNGINALNAYNAALLAKILNVSVEEF 77
+		    ' 
+		    CRtagRegion=left(hitSeq,fst)
+		    
+		    if strcomp(CRtagRegion,Uppercase(CRtagRegion),0)<>0 then
+		      dim p2 as integer =1
+		      dim gapChars as integer
+		      dim ch as string
+		      for p2=1 to len(CRtagRegion)
+		        ch =mid(CRtagRegion,p2,1)
+		        if strcomp(ch,Uppercase(ch),0)<>0 then
+		          gapChars=gapChars+1
+		        end if
+		      next
+		      
+		      hitseq=Right(hitseq,len(hitseq)-gapChars)
+		      hmmSearchMatches(ubound(hmmSearchMatches))=hitseq
+		      
+		    end if
+		    
+		    
+		    
+		    
+>>>>>>> Version2
 		    
 		    
 		    
@@ -276,10 +461,18 @@ Protected Module DeNovoTFBSinference
 		    
 		    'checking for gaps/insertions within CR range
 		    CRtagRegion=mid(hitSeq,fst,CRlen)
+<<<<<<< HEAD
+=======
+		    
+>>>>>>> Version2
 		    if strcomp(CRtagRegion,Uppercase(CRtagRegion),0)=0 then
 		      'no problems
 		      CRtag=""
 		      for p=1 to o
+<<<<<<< HEAD
+=======
+		        'CRtag=CRtag+mid(hitseq,CRarray(p),1)
+>>>>>>> Version2
 		        CRtag=CRtag+mid(hitseq,CRarray(p),1)
 		      next
 		      
@@ -318,7 +511,11 @@ Protected Module DeNovoTFBSinference
 		  
 		  // GenBank files are saved to specified  folder
 		  
+<<<<<<< HEAD
 		  
+=======
+		  // The limit of 300 sequences is hard-coded (should be an option)
+>>>>>>> Version2
 		  
 		  
 		  dim ResArray(0) as string
@@ -330,6 +527,12 @@ Protected Module DeNovoTFBSinference
 		  
 		  m=UBound(ResArray)-1
 		  
+<<<<<<< HEAD
+=======
+		  if m>300 then
+		    m=300           '<-- this limit should be user configurable
+		  end if
+>>>>>>> Version2
 		  'if m>100 then
 		  'Dim d as New MessageDialog                  //declare the MessageDialog object
 		  'Dim b as MessageDialogButton                //for handling the result
@@ -389,6 +592,17 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+<<<<<<< HEAD
+=======
+		Sub GetPhmmerResult(sender As HTTPSocket, URL as String, HTTPStatus as Integer, Headers as InternetHeaders, Content as String)
+		  // delegate method to handle HTTPSocket.PageReceived event
+		  
+		  return 
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+>>>>>>> Version2
 		Function GetRegSeq(UniProtID as string, FragmentsFolder as folderitem) As String
 		  // Given a UniProt ID, find the corresponding gene
 		  // and get regulatory regions for it and two neighbour operons
@@ -409,10 +623,27 @@ Protected Module DeNovoTFBSinference
 		  
 		  dim DownstreamSize as Integer = 50 ' <-- adjust this/ make configurable!
 		  
+<<<<<<< HEAD
 		  tempID1 = UniProt2ncbi_ID(UniProtID)
 		  if tempID1="" then
 		    LogoWin.WriteToSTDOUT("Can't find NCBI reference for UniProt entry "+UniProtID+EndOfLine.UNIX)
 		    return ""
+=======
+		  'Ensembl ID are quite a mess and don't map to anything properly, so we are not using these :(
+		  
+		  'if InStr(UniProtID,"_")>0 then
+		  ''this should be Ensembl ID which is actually a locus_tag directly usable in NCBI system
+		  'tempID1=UniProtID
+		  'else
+		  tempID1 = UniProt2ncbi_ID(UniProtID)
+		  'end if
+		  
+		  if tempID1="" then
+		    
+		    LogoWin.WriteToSTDOUT("Can't find NCBI reference for UniProt entry "+UniProtID+EndOfLine.UNIX)
+		    return ""
+		    
+>>>>>>> Version2
 		  end if
 		  tempID=ConvertIDtoGenPept(tempID1)
 		  if tempID="" then
@@ -420,6 +651,10 @@ Protected Module DeNovoTFBSinference
 		    return ""
 		  end if
 		  
+<<<<<<< HEAD
+=======
+		  
+>>>>>>> Version2
 		  Entry=FetchGenPeptEntry(tempID)
 		  
 		  'get Locus_tag to be used later. The line to look for:
@@ -485,13 +720,28 @@ Protected Module DeNovoTFBSinference
 		    GBfileName=replace(FastaName,">","")
 		    GBfileName=replaceall(GBfileName,"|","_")
 		    GBfileName=replaceall(GBfileName,":","_")
+<<<<<<< HEAD
+=======
+		    if len(GBfileName)>100 then          'some names may be too long
+		      GBfileName=left(GBfileName,100)
+		    End If
+>>>>>>> Version2
 		    GBfileName=replaceall(GBfileName," ","_")+".gb"
 		    gbFile=FragmentsFolder.Child(GBfileName)
 		    if gbFile<>Nil then
 		      dim OutStream As TextOutputStream
 		      OutStream = TextOutputStream.Create(gbFile)
+<<<<<<< HEAD
 		      OutStream.Write(Entry)
 		      OutStream.Close
+=======
+		      if OutStream<>Nil then
+		        OutStream.Write(Entry)
+		        OutStream.Close
+		      else
+		        LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+EndOfLine.UNIX+gbFile.ShellPath+EndOfLine.unix)
+		      End If
+>>>>>>> Version2
 		    End If
 		  End If
 		  
@@ -537,7 +787,11 @@ Protected Module DeNovoTFBSinference
 		    cf1=nthfield(currentFeature,EndOfLine.unix,1)
 		    name=trim(leftb(cf1,16))      'feature name
 		    
+<<<<<<< HEAD
 		    if name ="gene" then 'we don't need anything else here
+=======
+		    if name="gene" OR name="rRNA" OR name="tRNA" then 'we don't need anything else here
+>>>>>>> Version2
 		      NewFeature=new GBfeature(eSeq.baselineY)
 		      NewFeature.featureText=currentFeature 'for debugging only
 		      
@@ -586,7 +840,11 @@ Protected Module DeNovoTFBSinference
 		  eSeq.sequence=CleanUp(trim(rightb(Entry,len(Entry)-instrb(Entry,"ORIGIN")-7)))
 		  
 		  if len(eSeq.sequence)<LengthLimit then
+<<<<<<< HEAD
 		    return "Genome piece coding for "+UniProtID+" is too short. Skipping it. "+EndOfLine.UNIX
+=======
+		    return "Genome piece coding for "+UniProtID+" is too short ("+str(len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX
+>>>>>>> Version2
 		  end if
 		  
 		  // Now find operons and the gaps in between:
@@ -669,7 +927,11 @@ Protected Module DeNovoTFBSinference
 		      rightC=eSeq.Features(TFno).start+DownstreamSize
 		      leftC=eSeq.Features(TFno-1).start-DownstreamSize
 		      SeqLen=rightC-LeftC
+<<<<<<< HEAD
 		      if SeqLen<(UpstreamSize+2*DownstreamSize) then
+=======
+		      if SeqLen<2*(UpstreamSize+DownstreamSize) then
+>>>>>>> Version2
 		        upStreamSeq=mid(eSeq.sequence,leftC,SeqLen)
 		      else
 		        'intergenic seq too long - get two separate pieces
@@ -689,6 +951,10 @@ Protected Module DeNovoTFBSinference
 		        if eSeq.Features(n).complement=eSeq.Features(n-1).complement then
 		          rightC=eSeq.Features(n).start+DownstreamSize
 		          leftC=rightC-DownstreamSize-UpstreamSize
+<<<<<<< HEAD
+=======
+		          SeqLen=rightC-LeftC
+>>>>>>> Version2
 		          if LeftC<eSeq.Features(n-1).Finish then
 		            SeqLen=SeqLen-eSeq.Features(n-1).Finish+LeftC
 		            leftC=eSeq.Features(n-1).Finish
@@ -700,8 +966,13 @@ Protected Module DeNovoTFBSinference
 		          SeqLen=rightC-LeftC
 		          
 		          
+<<<<<<< HEAD
 		          if SeqLen<(UpstreamSize+2*DownstreamSize) then
 		            downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+=======
+		          if SeqLen<2*(UpstreamSize+DownstreamSize) then
+		            upStreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+>>>>>>> Version2
 		          else
 		            'intergenic seq too long - get two separate pieces
 		            
@@ -714,6 +985,7 @@ Protected Module DeNovoTFBSinference
 		      end if
 		      
 		      '...and look for sequence upstream of the previous operon
+<<<<<<< HEAD
 		      n=TFno-1
 		      if n>1 then
 		        while eSeq.Features(n).complement=eSeq.Features(n-1).complement AND eSeq.Features(n).start-eSeq.Features(n-1).finish<operonGap
@@ -732,6 +1004,33 @@ Protected Module DeNovoTFBSinference
 		          leftC=eSeq.Features(n-1).start-DownstreamSize
 		          SeqLen=rightC-LeftC
 		          upStreamSeq2=mid(eSeq.sequence,leftC,SeqLen)
+=======
+		      '(only if orientation is the same! if it's divergent, the reg. seq of prev. operon is already there!
+		      if n>1 then
+		        n=n-1
+		        if eSeq.Features(n).complement=false then
+		          if n>1 then
+		            while eSeq.Features(n).complement=eSeq.Features(n-1).complement AND eSeq.Features(n).start-eSeq.Features(n-1).finish<operonGap
+		              n=n-1
+		              if n<2 then exit
+		            wend
+		          end if
+		          if n>1 then
+		            if eSeq.Features(n).complement=eSeq.Features(n-1).complement then
+		              rightC=eSeq.Features(n).start+DownstreamSize
+		              leftC=eSeq.Features(n-1).finish
+		              SeqLen=rightC-LeftC
+		              upStreamSeq2=mid(eSeq.sequence,leftC,SeqLen)
+		            else
+		              
+		              rightC=eSeq.Features(n).start+DownstreamSize
+		              leftC=eSeq.Features(n-1).start-DownstreamSize
+		              SeqLen=rightC-LeftC
+		              upStreamSeq2=mid(eSeq.sequence,leftC,SeqLen)
+		            end if
+		          end if
+		          
+>>>>>>> Version2
 		        end if
 		      end if
 		    end if
@@ -744,7 +1043,11 @@ Protected Module DeNovoTFBSinference
 		      'next gene is opposite to TF: check for operon start
 		      n=TFno+1
 		      if n<m then
+<<<<<<< HEAD
 		        while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n).start-eSeq.Features(n+1).finish<operonGap
+=======
+		        while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).finish-eSeq.Features(n).start<operonGap
+>>>>>>> Version2
 		          n=n+1
 		          if n>=m then exit
 		        wend
@@ -766,7 +1069,11 @@ Protected Module DeNovoTFBSinference
 		            SeqLen=rightC-LeftC
 		            
 		            
+<<<<<<< HEAD
 		            if SeqLen<(UpstreamSize+2*DownstreamSize) then
+=======
+		            if SeqLen<2*(UpstreamSize+DownstreamSize) then
+>>>>>>> Version2
 		              downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
 		            else
 		              'intergenic seq too long - get two separate pieces
@@ -784,7 +1091,11 @@ Protected Module DeNovoTFBSinference
 		      
 		    else
 		      'next gene has the same orientation: extract the intergenic sequence
+<<<<<<< HEAD
 		      SeqLen=450
+=======
+		      'SeqLen=450
+>>>>>>> Version2
 		      n=TFno
 		      while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).start-eSeq.Features(n).finish<operonGap
 		        n=n+1
@@ -804,13 +1115,31 @@ Protected Module DeNovoTFBSinference
 		      end if
 		      if n<m then
 		        if eSeq.Features(n).complement=eSeq.Features(n+1).complement then
+<<<<<<< HEAD
 		          'same orientation
 		          rightC=eSeq.Features(n+1).start+DownstreamSize
 		          leftC=rightC-DownstreamSize-UpstreamSize
+=======
+		          'same orientation (both genes on top strand)
+		          rightC=eSeq.Features(n+1).start+DownstreamSize
+		          leftC=rightC-DownstreamSize-UpstreamSize
+		          SeqLen=rightC-LeftC
+>>>>>>> Version2
 		          if LeftC<eSeq.Features(n).Finish then
 		            SeqLen=SeqLen-eSeq.Features(n).Finish+LeftC
 		            leftC=eSeq.Features(n).Finish
 		          end if
+<<<<<<< HEAD
+=======
+		          
+		          'rightC=eSeq.Features(n+1).finish
+		          'leftC=eSeq.Features(n).start-DownstreamSize
+		          'SeqLen=rightC-LeftC
+		          'if seqlen>DownstreamSize+UpstreamSize then
+		          'SeqLen=DownstreamSize+UpstreamSize
+		          'end if
+		          
+>>>>>>> Version2
 		          downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
 		        else
 		          'divergent operons
@@ -819,7 +1148,11 @@ Protected Module DeNovoTFBSinference
 		          leftC=eSeq.Features(n).start-DownstreamSize
 		          SeqLen=rightC-LeftC
 		          
+<<<<<<< HEAD
 		          if SeqLen<(UpstreamSize+2*DownstreamSize) then
+=======
+		          if SeqLen<2*(UpstreamSize+DownstreamSize) then
+>>>>>>> Version2
 		            downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
 		          else
 		            'intergenic seq too long - get two separate pieces
@@ -850,6 +1183,15 @@ Protected Module DeNovoTFBSinference
 		  return regseq
 		  
 		  Exception err
+<<<<<<< HEAD
+=======
+		    if err isa IOException then
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"IOException has occurred.")
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
+		    end if
+>>>>>>> Version2
 		    ExceptionHandler(err,"SeqRetrieval:GetRegSeq")
 		End Function
 	#tag EndMethod
@@ -1219,6 +1561,7 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+<<<<<<< HEAD
 		Function MEME(inFile as folderitem, outFolder as folderitem, options as string) As integer
 		  'Standard MEME run with result display in browser
 		  
@@ -1358,6 +1701,639 @@ Protected Module DeNovoTFBSinference
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  sh.execute cli
+=======
+		Function GetRegSeq2(Entry As string) As string
+		  // Given a UniProt ID, find the corresponding gene
+		  // and get regulatory regions for it and two neighbour operons
+		  
+		  dim tempID, tempID1 as string 
+		  'dim Entry as string
+		  dim gbID as string
+		  dim COO as string 
+		  dim FastaName as string
+		  dim qualifier as string
+		  dim leftCOO, rightCOO as integer
+		  
+		  dim operonGap as integer = 100     ' <-- adjust this/ make configurable!
+		  
+		  dim LengthLimit as integer = 30000 ' <-- adjust this/ make configurable!
+		  
+		  dim UpstreamSize as Integer = 400  ' <-- adjust this/ make configurable!
+		  
+		  dim DownstreamSize as Integer = 50 ' <-- adjust this/ make configurable!
+		  
+		  'tempID1 = UniProt2ncbi_ID(UniProtID)
+		  'if tempID1="" then
+		  'LogoWin.WriteToSTDOUT("Can't find NCBI reference for UniProt entry "+UniProtID+EndOfLine.UNIX)
+		  'return ""
+		  'end if
+		  'tempID=ConvertIDtoGenPept(tempID1)
+		  'if tempID="" then
+		  'LogoWin.WriteToSTDOUT("Can't get GenPept ID for NCBI reference "+tempID1+EndOfLine.UNIX)
+		  'return ""
+		  'end if
+		  
+		  'Entry=FetchGenPeptEntry(tempID)
+		  
+		  'get Locus_tag to be used later. The line to look for:
+		  '/locus_tag="OI69_02845"
+		  '
+		  '(some) WGS seqs don't have the "gene" and "locus_tag" qualifiers
+		  'we just skip those for now
+		  
+		  Dim Separ1 as string="/locus_tag="+chr(34)
+		  Dim Separ2 as string=chr(34)
+		  Dim LocusTag As string
+		  LocusTag=NthField(Entry,separ1,2)
+		  LocusTag=NthField(LocusTag,separ2,1)
+		  
+		  if LocusTag="" then
+		    return "Error extracting locus_tag from GenPept entry "+ConvertEncoding(tempID,Encodings.UTF8)+EndOfLine.unix+EndOfLine.unix
+		  end if
+		  
+		  '//assemble the name string:
+		  'qualifier=NthField(Entry,"/gene="+chr(34),2)
+		  'qualifier=NthField(qualifier,chr(34),1)         'gene
+		  'if qualifier<>"" then
+		  'FastaName=">"+qualifier+"|"+LocusTag+"|"
+		  'else
+		  'FastaName=">"+LocusTag+"|"
+		  'end if
+		  'qualifier=NthField(Entry,"ACCESSION   ",2)      'accession
+		  'qualifier=trim(NthField(qualifier,"VERSION     ",1))
+		  'FastaName=FastaName+qualifier+"|"
+		  'qualifier=NthField(Entry,"/organism="+chr(34),2)
+		  'qualifier=NthField(qualifier,chr(34),1)         'organism name
+		  'qualifier=replace(qualifier,EndOfLine.unix,"")  'name cleanup
+		  'qualifier=replace(qualifier,"                     "," ")
+		  'FastaName=FastaName+qualifier+" "
+		  'qualifier=NthField(Entry,"/strain="+chr(34),2)
+		  'qualifier=NthField(qualifier,chr(34),1)         'strain
+		  'FastaName=FastaName+qualifier
+		  '
+		  '//Get GB entry ID and TF gene coordinates
+		  '' GenPept entry should have a line like this:
+		  '' /coded_by="JSXC01000011.1:16659..17396"
+		  '
+		  'Separ1="/coded_by="+chr(34)
+		  'Dim TFcoord as string = NthField(Entry,separ1,2)
+		  'TFcoord=NthField(TFcoord,separ2,1)
+		  'gbID=NthField(TFcoord,":",1)
+		  'gbID=Replace(gbID,"complement(","")
+		  'COO=NthField(TFcoord,":",2)
+		  'COO=ReplaceAll(COO,">","")  'very rare cases of partial ORFs 
+		  'COO=ReplaceAll(COO,"<","")
+		  '
+		  'leftCOO=val(NthField(COO,"..",1))-20000
+		  'if leftCOO<0 then leftCOO=1
+		  'rightCOO=val(NthField(COO,"..",2))+20000
+		  '
+		  '// Get the required GenBank entry fragment
+		  'Entry=FetchGenBankEntryFragment(gbID,leftCOO,rightCOO)
+		  
+		  'dim GBfileName As String
+		  'dim gbFile as FolderItem
+		  'If FragmentsFolder <> Nil Then
+		  ''save the genBank entry to a file:
+		  'GBfileName=replace(FastaName,">","")
+		  'GBfileName=replaceall(GBfileName,"|","_")
+		  'GBfileName=replaceall(GBfileName,":","_")
+		  'GBfileName=replaceall(GBfileName," ","_")+".gb"
+		  'gbFile=FragmentsFolder.Child(GBfileName)
+		  'if gbFile<>Nil then
+		  'dim OutStream As TextOutputStream
+		  'OutStream = TextOutputStream.Create(gbFile)
+		  'OutStream.Write(Entry)
+		  'OutStream.Close
+		  'End If
+		  'End If
+		  
+		  // load the sequence into a seq object
+		  dim eSeq as new cSeqObject
+		  dim  s0, features,Separator,currentFeature,gbkSource,cf1,name,coord as string
+		  dim en,st,m,n as integer
+		  dim featureArray(0) as string
+		  dim NewFeature as GBFeature
+		  
+		  '****************Opening Genbank file******************
+		  '
+		  'Genebank file - sequence starts after "ORIGIN"
+		  'the entry starts with "LOCUS       ";
+		  'description and references follow down to
+		  '"FEATURES             Location/Qualifiers",
+		  'after which the feature list goes
+		  'the sequence starts right after "ORIGIN      <cr>        1 "
+		  
+		  'first get the feature table:
+		  st=instrb(Entry,"FEATURES             Location/Qualifiers")+41
+		  
+		  s0=EndOfLine.unix+"ORIGIN"
+		  en=instrb(Entry,s0)-1
+		  features=midb(Entry,st,en-st+1)
+		  
+		  'now parse the feature table.
+		  'every new feature is identified as the line having 5 rather than 21 leading spaces
+		  
+		  'First remove the blocks of 21 spaces:
+		  features=ReplaceAll(features,"                     ","")
+		  Separator=EndOfLine.unix+"     "
+		  m=countfields(features,Separator)
+		  currentFeature=""
+		  features=ConvertEncoding(features,Encodings.ASCII)
+		  
+		  featureArray=Split(features,Separator)
+		  'gbkSource=""
+		  for n=0 to m-1
+		    currentFeature=featureArray(n)
+		    
+		    'feature description parsing:
+		    cf1=nthfield(currentFeature,EndOfLine.unix,1)
+		    name=trim(leftb(cf1,16))      'feature name
+		    
+		    if name="gene" OR name="rRNA" OR name="tRNA" then
+		      NewFeature=new GBfeature(eSeq.baselineY)
+		      NewFeature.featureText=currentFeature 'for debugging only
+		      
+		      'now check the direction and coorginates:
+		      cf1=replace((cf1),"<","")  'remove markers of truncated genes to simplify coordinate parsing
+		      cf1=replace((cf1),">","")
+		      if InStrB(17,cf1,"complement")>0 then
+		        NewFeature.complement=true
+		        'gene            complement(2659..4155)
+		        if InStrB(27,cf1,"order")>0 OR InStrB(27,cf1,"join")>0 then
+		          'split feature:
+		          'misc_feature    complement(order(3576182..3576235,3576263..3576322,
+		          '3576341..3576409,3576467..3576532))
+		          'CDS             complement(join(2497077..2497340,2497344..2497514))
+		          NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",3))
+		          NewFeature.finish=val(nthFieldB(cf1,"..",countfieldsB(cf1,"..")))  'replacement to correct for partial features
+		        else
+		          coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
+		          NewFeature.start=val(nthFieldB(coord,"..",2))
+		          'NewFeature.finish=val(replace((nthFieldB(coord,"..",1)),"<",""))  'replacement to correct for partial features
+		          NewFeature.finish=val(nthFieldB(coord,"..",1))  'replacement to correct for partial features
+		        end if
+		      else
+		        if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then
+		          'split feature:
+		          'misc_feature    order(343373..343441,343469..343537,343652..343720,
+		          '343799..343867,343925..343984)
+		          'CDS             join(843475..843549,843551..844573)
+		          
+		          NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",2))
+		          'splitCoords=NthFieldB(currentFeature,")",1)
+		          'NewFeature.finish=val(nthFieldB(splitCoords,"..",CountFieldsB(splitCoords,"..") ))
+		          NewFeature.finish=val(nthFieldB(cf1,"..",CountFieldsB(cf1,"..")))
+		        else
+		          'NewFeature.complement=false false is the default
+		          coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
+		          NewFeature.start=val(NthFieldB(coord,"..",1))
+		          NewFeature.finish=val(nthFieldB(coord,"..",2))
+		        end if
+		      end if
+		      eSeq.features.Append NewFeature
+		    end if
+		    
+		  next 'n
+		  
+		  eSeq.sequence=CleanUp(trim(rightb(Entry,len(Entry)-instrb(Entry,"ORIGIN")-7)))
+		  
+		  'if len(eSeq.sequence)<LengthLimit then
+		  'return "Genome piece coding for "+UniProtID+" is too short. Skipping it. "+EndOfLine.UNIX
+		  'end if
+		  
+		  // Now find operons and the gaps in between:
+		  
+		  'Find the gene coding for the TF:
+		  dim TFno as integer
+		  m=ubound(eSeq.Features)
+		  
+		  LocusTag = trim(RedundantSeqWin.TextField1.text)
+		  
+		  LocusTag="/locus_tag="+chr(34)+LocusTag
+		  
+		  
+		  for n=1 to m
+		    if instr(eSeq.Features(n).FeatureText,LocusTag)>0 then
+		      TFno=n
+		      exit
+		    end if
+		  next
+		  
+		  if TFno<1 OR TFno>m then
+		    return "Error extracting intergenic sequences. GenBank file problem?"+EndOfLine.unix
+		    
+		  end if
+		  
+		  'check TF gene orientation:
+		  dim leftC, rightC as integer
+		  dim SeqLen as integer
+		  dim downStreamSeq, upStreamSeq,upStreamSeq2, regSeq as string
+		  
+		  if eSeq.Features(TFno).complement=true then 'complement
+		    'correct start and finish, flip the complement boolean
+		    'reverse feature order(and reverse the seq)
+		    m=ubound(eSeq.Features)
+		    dim eSeqlength as integer = len(eSeq.sequence)
+		    for n=1 to m
+		      'read all of the feature properties:
+		      eSeq.Features(n).complement=NOT(eSeq.Features(n).complement) 
+		      eSeq.Features(n).start=2+eSeqlength-eSeq.Features(n).start  '2 is a necessary correction
+		      eSeq.Features(n).finish=2+eSeqlength-eSeq.Features(n).finish  
+		      
+		      
+		      
+		    next
+		    eSeq.Sequence=ReverseComplement(eSeq.Sequence)
+		    'reverse feature array
+		    
+		    dim rSeq(0) as GBFeature
+		    redim rSeq(m)
+		    
+		    for n=m downto 1
+		      rSeq(n)=new GBFeature(100)
+		      rSeq(n).complement=eSeq.Features(m-n+1).complement
+		      rSeq(n).start=eSeq.Features(m-n+1).start
+		      rSeq(n).finish=eSeq.Features(m-n+1).finish
+		      rSeq(n).featuretext=eSeq.Features(m-n+1).featuretext
+		    next
+		    
+		    'copy the values back to the original object
+		    for n=1 to m
+		      eSeq.Features(n).complement=rSeq(n).complement
+		      eSeq.Features(n).start=rSeq(n).start
+		      eSeq.Features(n).finish=rSeq(n).finish
+		      eSeq.Features(n).featuretext=rSeq(n).featuretext
+		    next 
+		    
+		    'find the TF gene again:
+		    for n=1 to m
+		      if instr(eSeq.Features(n).FeatureText,LocusTag)>0 then
+		        TFno=n
+		        exit
+		      end if
+		    next
+		  end if                                     
+		  
+		  
+		  'checking upstream gene(s):
+		  upStreamSeq2=""
+		  upstreamSeq=""
+		  if TFno>1 then
+		    
+		    if eSeq.Features(TFno-1).complement=true then
+		      'previous gene is opposite to TF: simply get the whole intergenic piece 
+		      'including the first 50 bp of each ORF
+		      rightC=eSeq.Features(TFno).start+DownstreamSize
+		      leftC=eSeq.Features(TFno-1).start-DownstreamSize
+		      SeqLen=rightC-LeftC
+		      if SeqLen<2*(UpstreamSize+DownstreamSize) then
+		        upStreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+		      else
+		        'intergenic seq too long - get two separate pieces
+		        
+		        upStreamSeq=mid(eSeq.sequence,leftC,UpstreamSize+DownstreamSize)+"NNN"
+		        upStreamSeq=upStreamSeq+mid(eSeq.sequence,rightC-UpstreamSize-DownstreamSize,UpstreamSize+DownstreamSize)
+		        
+		      end if
+		    else
+		      'previous gene has the same orientation: extract the sequence in front of the TF gene...
+		      n=TFno
+		      while eSeq.Features(n).complement=eSeq.Features(n-1).complement AND eSeq.Features(n).start-eSeq.Features(n-1).finish<operonGap
+		        n=n-1
+		        if n<2 then exit
+		      wend
+		      if n>1 then
+		        if eSeq.Features(n).complement=eSeq.Features(n-1).complement then
+		          rightC=eSeq.Features(n).start+DownstreamSize
+		          leftC=rightC-DownstreamSize-UpstreamSize
+		          SeqLen=rightC-LeftC
+		          if LeftC<eSeq.Features(n-1).Finish then
+		            SeqLen=SeqLen-eSeq.Features(n-1).Finish+LeftC
+		            leftC=eSeq.Features(n-1).Finish
+		          end if
+		          upStreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+		        else
+		          rightC=eSeq.Features(n).start+DownstreamSize
+		          leftC=eSeq.Features(n-1).start-DownstreamSize
+		          SeqLen=rightC-LeftC
+		          
+		          
+		          if SeqLen<2*(UpstreamSize+DownstreamSize) then
+		            'downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+		            upStreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+		          else
+		            'intergenic seq too long - get two separate pieces
+		            
+		            upStreamSeq=mid(eSeq.sequence,leftC,UpstreamSize+DownstreamSize)+"NNN"
+		            upStreamSeq=upStreamSeq+mid(eSeq.sequence,rightC-UpstreamSize-DownstreamSize,UpstreamSize+DownstreamSize)
+		            
+		          end if
+		          
+		        end if
+		      end if
+		      
+		      '...and look for sequence upstream of the previous operon
+		      '(only if orientation is the same! if it's divergent, the reg. seq of prev. operon is already there!
+		      
+		      if n>1 then
+		        n=n-1
+		        if eSeq.Features(n).complement=false then
+		          
+		          if n>1 then
+		            while eSeq.Features(n).complement=eSeq.Features(n-1).complement AND eSeq.Features(n).start-eSeq.Features(n-1).finish<operonGap
+		              n=n-1
+		              if n<2 then exit
+		            wend
+		          end if
+		          if n>1 then
+		            if eSeq.Features(n).complement=eSeq.Features(n-1).complement then
+		              rightC=eSeq.Features(n).start+DownstreamSize
+		              leftC=eSeq.Features(n-1).finish
+		              SeqLen=rightC-LeftC
+		              upStreamSeq2=mid(eSeq.sequence,leftC,SeqLen)
+		            else
+		              
+		              rightC=eSeq.Features(n).start+DownstreamSize
+		              leftC=eSeq.Features(n-1).start-DownstreamSize
+		              SeqLen=rightC-LeftC
+		              upStreamSeq2=mid(eSeq.sequence,leftC,SeqLen)
+		            end if
+		          end if
+		          
+		        end if
+		      end if
+		    end if
+		  end if
+		  
+		  'checking downstream gene(s):
+		  
+		  if TFno<m then
+		    if eSeq.Features(TFno+1).complement=true then
+		      'next gene is opposite to TF: check for operon start
+		      n=TFno+1
+		      if n<m then
+		        while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).finish-eSeq.Features(n).start<operonGap
+		          n=n+1
+		          if n>=m then exit
+		        wend
+		        if n<m then
+		          
+		          'add length limits here!
+		          
+		          if eSeq.Features(n).complement=eSeq.Features(n+1).complement then
+		            rightC=eSeq.Features(n+1).finish
+		            leftC=eSeq.Features(n).start-DownstreamSize
+		            SeqLen=rightC-LeftC
+		            if seqlen>DownstreamSize+UpstreamSize then
+		              SeqLen=DownstreamSize+UpstreamSize
+		            end if
+		            downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+		          else
+		            rightC=eSeq.Features(n+1).start+DownstreamSize
+		            leftC=eSeq.Features(n).start-DownstreamSize
+		            SeqLen=rightC-LeftC
+		            
+		            
+		            if SeqLen<2*(UpstreamSize+DownstreamSize) then
+		              downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+		            else
+		              'intergenic seq too long - get two separate pieces
+		              
+		              downstreamSeq=mid(eSeq.sequence,leftC,UpstreamSize+DownstreamSize)+"NNN"
+		              downstreamSeq=downstreamSeq+mid(eSeq.sequence,rightC-UpstreamSize-DownstreamSize,UpstreamSize+DownstreamSize)
+		              
+		            end if
+		            
+		            
+		          end if
+		        end if
+		      end if
+		      
+		      
+		    else
+		      'next gene has the same orientation: extract the intergenic sequence
+		      'SeqLen=450
+		      n=TFno
+		      while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).start-eSeq.Features(n).finish<operonGap
+		        n=n+1
+		        if n>=m then exit
+		      wend
+		      
+		      if n<m-1 then
+		        if eSeq.Features(n+1).complement=true then
+		          'we have a converging operon here, go further to its start:
+		          n=n+1
+		          while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).start-eSeq.Features(n).finish<operonGap
+		            n=n+1
+		            if n>=m then exit
+		          wend
+		        end if
+		        
+		      end if
+		      if n<m then
+		        if eSeq.Features(n).complement=eSeq.Features(n+1).complement then
+		          'same orientation (both genes on top strand)
+		          rightC=eSeq.Features(n+1).start+DownstreamSize
+		          leftC=rightC-DownstreamSize-UpstreamSize
+		          SeqLen=rightC-LeftC
+		          if LeftC<eSeq.Features(n).Finish then
+		            SeqLen=SeqLen-eSeq.Features(n).Finish+LeftC
+		            leftC=eSeq.Features(n).Finish
+		          end if
+		          
+		          'rightC=eSeq.Features(n+1).finish
+		          'leftC=eSeq.Features(n).start-DownstreamSize
+		          'SeqLen=rightC-LeftC
+		          'if seqlen>DownstreamSize+UpstreamSize then
+		          'SeqLen=DownstreamSize+UpstreamSize
+		          'end if
+		          
+		          
+		          downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+		        else
+		          'divergent operons
+		          
+		          rightC=eSeq.Features(n+1).start+DownstreamSize
+		          leftC=eSeq.Features(n).start-DownstreamSize
+		          SeqLen=rightC-LeftC
+		          
+		          if SeqLen<2*(UpstreamSize+DownstreamSize) then
+		            downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+		          else
+		            'intergenic seq too long - get two separate pieces
+		            
+		            downstreamSeq=mid(eSeq.sequence,leftC,UpstreamSize+DownstreamSize)+"NNN"
+		            downstreamSeq=downstreamSeq+mid(eSeq.sequence,rightC-UpstreamSize-DownstreamSize,UpstreamSize+DownstreamSize)
+		            
+		          end if
+		          
+		          
+		          
+		          
+		        end if
+		      end if
+		    end if
+		  end if
+		  
+		  regSeq=FastaName+EndOfLine.unix
+		  if len(upStreamSeq2)>20 then
+		    if upStreamSeq2<>upStreamSeq then
+		      RegSeq=RegSeq+upStreamSeq2+"NNN"
+		      
+		    end if
+		  end if
+		  
+		  RegSeq=RegSeq+upStreamSeq+"NNN"+downStreamSeq
+		  
+		  return regseq
+		  
+		  Exception err
+		    ExceptionHandler(err,"SeqRetrieval:GetRegSeq")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MEME(inFile as folderitem, outFolder as folderitem, options as string) As integer
+		  'Standard MEME run with result display in browser
+		  
+		  'USAGE:
+		  'meme    <dataset> [optional arguments]
+		  
+		  'available options:
+		  '[-o <output dir>]    name of directory for output files
+		  'will not replace existing directory
+		  '[-oc <output dir>]    name of directory for output files
+		  'will replace existing directory
+		  '[-text]            output in text format (default is HTML)
+		  '[-dna]            sequences use DNA alphabet
+		  '[-protein]        sequences use protein alphabet
+		  '[-mod oops|zoops|anr]    distribution of motifs
+		  '[-nmotifs <nmotifs>]    maximum number of motifs to find
+		  '[-evt <ev>]        stop if motif E-value greater than <evt>
+		  '[-nsites <sites>]    number of sites for each motif
+		  '[-minsites <minsites>]    minimum number of sites for each motif
+		  '[-maxsites <maxsites>]    maximum number of sites for each motif
+		  '[-wnsites <wnsites>]    weight on expected number of sites
+		  '[-w <w>]        motif width
+		  '[-minw <minw>]        minimum motif width
+		  '[-maxw <maxw>]        maximum motif width
+		  '[-nomatrim]        do not adjust motif width using multiple
+		  'alignment
+		  '[-wg <wg>]        gap opening cost for multiple alignments
+		  '[-ws <ws>]        gap extension cost for multiple alignments
+		  '[-noendgaps]        do not count end gaps in multiple alignments
+		  '[-bfile <bfile>]    name of background Markov model file
+		  '[-revcomp]        allow sites on + or - DNA strands
+		  '[-pal]            force palindromes (requires -dna)
+		  '[-maxiter <maxiter>]    maximum EM iterations to run
+		  '[-distance <distance>]    EM convergence criterion
+		  '[-psp <pspfile>]    name of positional priors file
+		  '[-prior dirichlet|dmix|mega|megap|addone]
+		  'type of prior to use
+		  '[-b <b>]        strength of the prior
+		  '[-plib <plib>]        name of Dirichlet prior file
+		  '[-spfuzz <spfuzz>]    fuzziness of sequence to theta mapping
+		  '[-spmap uni|pam]    starting point seq to theta mapping type
+		  '[-cons <cons>]        consensus sequence to start EM from
+		  '[-heapsize <hs>]    size of heaps for widths where substring
+		  'search occurs
+		  '[-x_branch]        perform x-branching
+		  '[-w_branch]        perform width branching
+		  '[-allw]            include all motif widths from min to max
+		  '[-bfactor <bf>]        branching factor for branching search
+		  '[-maxsize <maxsize>]    maximum dataset size in characters
+		  '[-nostatus]        do not print progress reports to terminal
+		  '[-p <np>]        use parallel version with <np> processors
+		  '[-time <t>]        quit before <t> CPU seconds consumed
+		  '[-sf <sf>]        print <sf> as name of sequence file
+		  '[-V]            verbose mode
+		  
+		  
+		  
+		  
+		  
+		  'actual conversion
+		  dim cli as string
+		  Dim sh As Shell
+		  
+		  ''need to set MEME_BIN_DIRS for the bundled meme version
+		  'dim MEME_BIN_DIRS as string
+		  '#if targetWin32
+		  ''MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
+		  'dim ff as folderitem
+		  'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		  'if ff<>NIL AND ff.exists then
+		  ''it's already there
+		  'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		  'else
+		  'ff=resources_f.child("meme_xml_to_html")
+		  'if ff<>NIL AND ff.exists then
+		  'ff.copyfileto(SpecialFolder.Temporary)
+		  'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		  'end if
+		  'ff=resources_f.child("meme.exe")
+		  'if ff<>NIL AND ff.exists then
+		  'ff.copyfileto(SpecialFolder.Temporary)
+		  'end if
+		  'end if
+		  '
+		  ''need to copy the dlls too!
+		  '
+		  '
+		  '
+		  '#elseif targetLinux
+		  'MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
+		  'if instr(MEME_BIN_DIRS," ")>0 then
+		  'moved2tmp=true
+		  ''MEME_BIN_DIRS should not have white space, so moving the script to /tmp
+		  'dim ff as folderitem
+		  'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		  'if ff<>NIL AND ff.exists then
+		  ''it's already there
+		  'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		  'else
+		  'ff=resources_f.child("meme_xml_to_html")
+		  'if ff<>NIL AND ff.exists then
+		  'ff.copyfileto(SpecialFolder.Temporary)
+		  'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		  'end if
+		  'ff=resources_f.child("meme")
+		  'if ff<>NIL AND ff.exists then
+		  'ff.copyfileto(SpecialFolder.Temporary)
+		  'end if
+		  'end if
+		  'end if
+		  '
+		  '#else
+		  'MEME_BIN_DIRS=nthfield(MEMEpath,"/meme",1)
+		  '#endif
+		  
+		  '#if TargetLinux
+		  'if moved2tmp then
+		  'cli="/tmp/meme"+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		  'else
+		  'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		  'end if
+		  '
+		  '#elseif TargetWin32
+		  'cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		  '#else
+		  'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		  '#endif
+		  
+		  #if TargetWin32
+		    cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+infile.ShellPath
+		  #else
+		    cli=MEMEpath+" "+infile.ShellPath
+		  #endif
+		  cli=cli+" -oc "+outFolder.ShellPath+Options
+		  
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+>>>>>>> Version2
 		  
 		  'return sh.errorCode
 		  If sh.errorCode=0 then
@@ -1385,10 +2361,16 @@ Protected Module DeNovoTFBSinference
 		  'query should preferably be in the fasta format 
 		  
 		  dim command, theURL as string
+<<<<<<< HEAD
 		  dim hts as new HTTPSocket
 		  dim res as string
 		  
 		  hts.Yield=true  'allow background activities while waiting
+=======
+		  dim hts as new HTTPSecureSocket
+		  dim res as string
+		  
+>>>>>>> Version2
 		  
 		  'configure request
 		  'hts.SetRequestHeader("Expect:","")
@@ -1402,18 +2384,37 @@ Protected Module DeNovoTFBSinference
 		  'form.Value("seqdb_ranges") = "17277318..17420758" 'trying taxonomy restriction a la the browser version: doesn't work!
 		  form.Value("seq") = query
 		  
+<<<<<<< HEAD
 		  form.Value("incE") = "0.0001"
 		  form.Value("incdomE") = "0.0001"
+=======
+		  form.Value("E") = "0.0001"
+		  form.Value("domE") = "0.1"
+		  
+		  'domain thresholds don't seem to work 
+		  'weak domain hits could be reported alongside the proper ones (and berofe them!)
+		  'this breaks CR tag filtering!
+		  form.Value("incE") = "0.0001"
+		  form.Value("incdomE") = "0.1"
+>>>>>>> Version2
 		  
 		  hts.SetFormData(form)
 		  hts.SetRequestHeader("Accept","text/plain")
 		  hts.SetRequestHeader("Content-type","text/plain")
 		  'Content-type is reset when setting form data, hence the result is always returned as html 
 		  
+<<<<<<< HEAD
 		  
 		  'UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
 		  res=hts.Post("http://www.ebi.ac.uk/Tools/hmmer/search/phmmer",0)
+=======
+		  hts.Yield=true  'allow background activities while waiting
+		  
+		  'UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
+		  'change to the EBI address
+		  res=hts.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer",0)
+>>>>>>> Version2
 		  
 		  if hts.HTTPStatusCode=302 then 'redirect: issue a request to retrieve results
 		    'just extract the redirect URL from a single <a> tag of the response
@@ -1423,17 +2424,59 @@ Protected Module DeNovoTFBSinference
 		    'we want text format:
 		    theURL=theURL+"?output=text"
 		    
+<<<<<<< HEAD
 		    hts=new HTTPSocket
 		    hts.SetRequestHeader("Accept","text/plain")
 		    hts.SetRequestHeader("Content-type","text/plain")
 		    res=hts.Get(theURL,0)
 		    
+=======
+		    'deNovoWin.phmmerRes=""
+		    'deNovoWin.hts2.SetRequestHeader("Accept","text/plain")
+		    'deNovoWin.hts2.SetRequestHeader("Content-type","text/plain")
+		    'deNovoWin.hts2.Get(theURL)
+		    'while deNovoWin.phmmerRes=""
+		    '
+		    'wend
+		    'res=deNovoWin.phmmerRes
+		    hts=new HTTPSecureSocket
+		    hts.SetRequestHeader("Expect","")
+		    hts.SetRequestHeader("Accept","text/plain")
+		    hts.SetRequestHeader("Content-type","text/plain")
+		    hts.Yield=true  'allow background activities while waiting
+		    
+		    res=hts.Get(theURL,0)
+		    
+		    'res=hts.Get(theURL,300)
+		    'if hts.ErrorCode=-1 then
+		    'logowin.WriteToSTDOUT("No responce in five minutes"+EndOfLine.UNIX)
+		    '
+		    'end if
+		    'res=hts.Get(theURL,120)
+		    'if hts.ErrorCode=-1 then
+		    'logowin.WriteToSTDOUT("No responce in two more minutes"+EndOfLine.UNIX)
+		    '
+		    'end if
+		    'end if
+		    'AddHandler hts2.PageReceived , AddressOf GetPhmmerResult
+		    ''res=
+		    'hts2.Get(theURL)
+		    
+		    
+>>>>>>> Version2
 		  end if
 		  
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    return res
 		  else
+<<<<<<< HEAD
 		    beep
+=======
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+>>>>>>> Version2
 		  end if
 		  
 		  'UniprotShell.execute command
@@ -1446,9 +2489,15 @@ Protected Module DeNovoTFBSinference
 		Function RemoveRedundantSeqs(inSeqs as string, genusSpecific as boolean) As string
 		  // There are still empty seqs (NNN) = remove these first and before this method!!!
 		  
+<<<<<<< HEAD
 		  // SOmetimes there are too long seqs (over 2k) – these should probably be removed too.
 		  
 		  // Clustering according to homology should performed
+=======
+		  // Sometimes there are too long seqs (over 2k) – these should probably be removed too.
+		  
+		  // Clustering according to homology should be performed
+>>>>>>> Version2
 		  '  At the moment, we only filter seqs according to species names (leaving one representative for a species)
 		  
 		  ' Filtering according to species name doesn't help much if original search 
@@ -1456,9 +2505,15 @@ Protected Module DeNovoTFBSinference
 		  ' so genus-based filtering is also required.
 		  
 		  
+<<<<<<< HEAD
 		  // Check if any filtering is actually required (don't do anything with less than 20 seqs)
 		  
 		  if countfields(inSeqs,">")<20 then
+=======
+		  // Check if any filtering is actually required (don't do anything with less than 30 seqs)
+		  
+		  if countfields(inSeqs,">")<30 then
+>>>>>>> Version2
 		    return inSeqs
 		  end if
 		  
@@ -1466,9 +2521,15 @@ Protected Module DeNovoTFBSinference
 		  // write to the log
 		  
 		  if genusSpecific then
+<<<<<<< HEAD
 		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing seqs from redundant genera... " )
 		  else
 		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing seqs from redundant species... ")
+=======
+		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing redundant seqs within genera... " )
+		  else
+		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing redundant seqs within species... ")
+>>>>>>> Version2
 		  end if
 		  
 		  // group seqs according to species names
@@ -1599,7 +2660,11 @@ Protected Module DeNovoTFBSinference
 		  
 		  'aUniprot ID looks like A0A0B2TCH0_PECCA
 		  
+<<<<<<< HEAD
 		  Const URLstart as string="http://www.ebi.ac.uk/ebisearch/ws/rest/uniprot/entry/"
+=======
+		  Const URLstart as string="https://www.ebi.ac.uk/ebisearch/ws/rest/uniprot/entry/"
+>>>>>>> Version2
 		  Const URLend as string="/xref/coding_release" 
 		  Dim Separ1 as string="reference id="+chr(34)
 		  Dim Separ2 as string=chr(34)
@@ -1612,18 +2677,34 @@ Protected Module DeNovoTFBSinference
 		  
 		  
 		  LogoWin.WriteToSTDOUT ("Contacting EBI for protein ID usable @NCBI... ")
+<<<<<<< HEAD
 		  LogoWin.show
+=======
+		  'LogoWin.show
+>>>>>>> Version2
 		  
 		  hts.Yield=true  'allow background activities while waiting
 		  hts.SetRequestHeader("Content-Type:","text/plain")
 		  
 		  theURL=URLstart+UniProtID+URLend
 		  
+<<<<<<< HEAD
 		  res=hts.Get(theURL,0)  'adjust timeout?
 		  
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    if Res="" then
 		      LogoWin.WriteToSTDOUT ("no response from EBI in 15 seconds"+EndOfLine)
+=======
+		  res=hts.Get(theURL,60)  'adjust timeout?
+		  
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if Res="" then
+		      if hts.ErrorCode=-1 then
+		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		      end if
+>>>>>>> Version2
 		    else
 		      ncbiID=NthField(res,separ1,2)
 		      ncbiID=NthField(ncbiID,separ2,1)
@@ -1632,6 +2713,14 @@ Protected Module DeNovoTFBSinference
 		      
 		      
 		    end if
+<<<<<<< HEAD
+=======
+		  else
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+>>>>>>> Version2
 		  end if
 		  
 		  hts.close
@@ -1697,6 +2786,10 @@ Protected Module DeNovoTFBSinference
 		    ' PP     7****************************************************97
 		    ' TARGET IFSQRENEILYWASMGKTYPEIALILDIKISTVKFHIGNVVKKLGVLNAKHAIRL
 		    ' ----------------------------------------------------------------------------------------------------------------
+<<<<<<< HEAD
+=======
+		    ' ================================================================================================================
+>>>>>>> Version2
 		    
 		    // as there seems to be no way to specify proper cut-offs via the API, there will be 
 		    '  multi-domain results that look like:
@@ -1720,23 +2813,56 @@ Protected Module DeNovoTFBSinference
 		    ' PP     5667789********************************9986
 		    ' TARGET LRAASDAFAEHGYHRTSMADIATAVGITSGALYRHFRTKQELL
 		    ' ----------------------------------------------------------------------------------------------------------------
+<<<<<<< HEAD
+=======
+		    ' ================================================================================================================
+>>>>>>> Version2
 		    
 		    
 		    o=ubound(CRarray)
 		    CRtag=""
+<<<<<<< HEAD
 		    hitseq=NthField(ResArray(n+9)," ",2)
 		    
 		    'need to adjust for Query-start!
 		    QueryStart=Val(NthField(ResArray(n+5),chr(9),5))-1 'correction if starting not from pos.1
+=======
+		    dim unsp as integer                      'holds correction for unspecific domain hits
+		    if n+9>ubound(ResArray) then exit
+		    dim tst as string=ResArray(n+5)
+		    if instr(ResArray(n+5),"e-")=0 then      'spurious unspecific domain hit!
+		      unsp=8
+		      if n+17>ubound(ResArray) then exit
+		      hitseq=NthField(ResArray(n+17)," ",2)
+		      'need to adjust for Query-start!
+		      QueryStart=Val(NthField(ResArray(n+13),chr(9),5))-1 'correction if starting not from pos.1
+		    else                                    'proper hit
+		      unsp=0
+		      hitseq=NthField(ResArray(n+9)," ",2)   
+		      'need to adjust for Query-start!
+		      QueryStart=Val(NthField(ResArray(n+5),chr(9),5))-1 'correction if starting not from pos.1
+		    end if
+		    
+		    
+>>>>>>> Version2
 		    for p=1 to o
 		      CRtag=CRtag+mid(hitseq,CRarray(p)-QueryStart,1)
 		    next
 		    if CRtag=CRtagFilter then
 		      'move this hit to filtered array:
+<<<<<<< HEAD
 		      for q=1 to 10
 		        filteredArray.append(ResArray(n+q))
 		        
 		      next
+=======
+		      filteredArray.append(ResArray(n+1))
+		      for q=2+unsp to 10+unsp
+		        filteredArray.append(ResArray(n+q))
+		      next
+		      
+		      
+>>>>>>> Version2
 		      filteredArray.append(hitSeparator)
 		    end if
 		    'end if
@@ -1782,11 +2908,20 @@ Protected Module DeNovoTFBSinference
 		- re-using the data from previous run
 		- databases to use (primary and fallback)
 		- number of CPU cores (threads) to use for MEME run
+<<<<<<< HEAD
+=======
+		- MEME motif widths (currently minw=16, maxw=23)
+>>>>>>> Version2
 		
 	#tag EndNote
 
 	#tag Note, Name = Possible improvements
+<<<<<<< HEAD
 		1. Async sockets? Synchronous ones hang way too often
+=======
+		1. Async sockets? Synchronous ones hang way too often. Alternatively, add reasonable (2-3-5 minutes) 
+		   socket timeouts (configurable option) and use other ways to get the result (curl/wget? storing failed URLs and repeating retrieval of them in the end of current search or on the next run) 
+>>>>>>> Version2
 		2. Threads for: 
 		- phmmer searches
 		- sequence retrieval
@@ -1795,6 +2930,30 @@ Protected Module DeNovoTFBSinference
 		- motif size (min, max)
 		- palindromic
 		- number of motifs? 
+<<<<<<< HEAD
+=======
+		4. The sequences from the query genome aren't used at the moment for running MEME. 
+		   Add an option to add those (and make it default for cases with few seqs)
+		5. TomTom integration!
+		
+		6. Check for repeated tags within a TF family (and display a warning/stop processing if any are found).
+		7. log all socket errors (both EBI and NCBI servers)
+		8. Check for sequence number after filtering and add some seqs back if there are less than mininum (10?)
+		9. An option to run a search for a single TF (could be useful on its own and for re-run with adjusted parameters if the defaults change)
+		10. A function to work with a folder with genome fragments (useful if standard search fails)
+		11. A MEME E-value cut-off? (can improve run times) Alternatively, ignore hits with E-value significantly (x3?) lower that the top one
+		12. when comparing motifs, look for CR tag similarity too?
+		13. Require hit motif to be present in the query genome region!
+		14. phmmer search vs local genome-specific DB. Combine fragments from this search with the ones from UniProt search (10+10?)
+		15. Add other DBs for phmmer search: Ensembl Genomes (when there are too few filtered hits)
+		
+		bugs:
+		[fixed] For LysR family ArgP, SftR, AIK14141, AIK14426 with a gap in CR tag region 
+		(actually, at the last tag position: QSSQ-, QSSR-, PSSQ-, QPSM-) 
+		are processed, although obviously should be left out.
+		2. Short seq filter misses short seqs (check LK07_57640, ABR66_04785) .gb seqs saved but not fasta?
+		3. CR tags with gaps at ends are missed (should be fixed, but recheck the results with wrong fasta files removed!)
+>>>>>>> Version2
 		
 	#tag EndNote
 
@@ -1816,6 +2975,13 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+<<<<<<< HEAD
+=======
+		hts2 As httpsocket
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+>>>>>>> Version2
 		ProtNames(0) As string
 	#tag EndProperty
 

@@ -9,7 +9,7 @@ Inherits CFType
 
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    declare function TypeID lib CarbonLib alias "CGColorSpaceGetTypeID" () as UInt32
 		    
@@ -20,7 +20,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithName(name as String) As CGColorSpace
+		Shared Function CreateWithName(name as String) As CGColorSpace
 		  #if TargetMacOS
 		    
 		    soft declare function CGColorSpaceCreateWithName lib CarbonLib (name as CFStringRef) as Ptr
@@ -40,7 +40,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DeviceRGB() As CGColorSpace
+		Shared Function DeviceRGB() As CGColorSpace
 		  #if TargetMacOS
 		    
 		    declare function CGColorSpaceCreateDeviceRGB lib CarbonLib () as Ptr
@@ -53,13 +53,13 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GenericGray() As CGColorSpace
+		Shared Function GenericGray() As CGColorSpace
 		  return CreateWithName(ColorspaceGenericGray)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function GenericRGB() As CGColorSpace
+		Shared Function GenericRGB() As CGColorSpace
 		  return CreateWithName(ColorspaceGenericRGB)
 		End Function
 	#tag EndMethod

@@ -64,7 +64,7 @@ Inherits CFDictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFMutableDictionary
+		Shared Function CreateFromPListFile(file as FolderItem) As CFMutableDictionary
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListFile( file, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )
@@ -81,7 +81,7 @@ Inherits CFDictionary
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFMutableDictionary
+		Shared Function CreateFromPListString(plistString as String) As CFMutableDictionary
 		  #if TargetMacOS
 		    
 		    dim plist as CFPropertyList = CFType.CreateFromPListString( plistString, CoreFoundation.kCFPropertyListMutableContainersAndLeaves )

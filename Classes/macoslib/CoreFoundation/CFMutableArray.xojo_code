@@ -41,7 +41,7 @@ Inherits CFArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListFile(file as FolderItem) As CFMutableArray
+		Shared Function CreateFromPListFile(file as FolderItem) As CFMutableArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListFile(file, CoreFoundation.kCFPropertyListMutableContainersAndLeaves))
 		  #else
@@ -52,7 +52,7 @@ Inherits CFArray
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromPListString(plistString as String) As CFMutableArray
+		Shared Function CreateFromPListString(plistString as String) As CFMutableArray
 		  #if TargetMacOS
 		    return MakeFromPList(CFType.CreateFromPListString(plistString, CoreFoundation.kCFPropertyListMutableContainersAndLeaves))
 		  #else

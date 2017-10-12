@@ -8,7 +8,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultSession() As ODSession
+		Shared Function DefaultSession() As ODSession
 		  
 		  #if TargetMacOS
 		    declare function defaultSession lib "OpenDirectory" selector "defaultSession" (Cls as Ptr) as Ptr

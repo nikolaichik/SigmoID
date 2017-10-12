@@ -128,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -459,7 +460,24 @@ End
 		      WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
 		      allProgsFine=false
 		    else
-		      WriteToSTDOUT (Sh.Result)
+		      WriteToSTDOUT (trim (Sh.Result))
+		      
+		      'check BioPython:
+		      f=resources_f.child("BioPythonVersion.py")
+		      if f<>Nil then
+		        if f.exists then
+		          cli="python "+f.ShellPath
+		          sh=New Shell
+		          sh.mode=0
+		          sh.TimeOut=-1
+		          sh.execute cli
+		          If sh.errorCode=0 then
+		            WriteToSTDOUT (" with Biopython "+Sh.Result)
+		          end if
+		          
+		        end if
+		      end if
+		      
 		    end if
 		  else
 		    WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
@@ -802,7 +820,7 @@ End
 		  dim jsn as new JSONItem
 		  dim hts as new HTTPSocket
 		  hts.Yield=true
-		  res=hts.Get("http://regprecise.lbl.gov/Services/rest/release",5)
+		  res=hts.Get("https://regprecise.lbl.gov/Services/rest/release",5)
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    
 		    if Res="" then
@@ -814,7 +832,10 @@ End
 		    end if
 		    
 		  else
-		    WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")+EndOfLine.Unix
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
 		  end if
 		  
 		  
@@ -851,6 +872,8 @@ End
 			dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".hmm"
 			dlg.Title="Export hmm Profile"
 			dlg.Filter=FileTypes.Text
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			HmmFile=dlg.ShowModalwithin(self)
 			if HmmFile<>nil then
 			dim StockholmFile as FolderItem = SpecialFolder.Temporary.child("stock")
@@ -887,6 +910,8 @@ End
 			dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".sto"
 			dlg.Title="Export alignment in Stockholm format"
 			dlg.Filter=FileTypes.Text
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			StockholmFile=dlg.ShowModalwithin(self)
 			if StockholmFile<>nil then
 			Stockholm(LogoFile,StockholmFile,"")
@@ -940,6 +965,8 @@ End
 			dlg.SuggestedFileName=NthField(LogoFile.Name,".",1)+"_short.fasta"
 			dlg.Title="Save subrange of the alignment"
 			'dlg.Filter=FileTypes1.Text  //defined as a file type in FileTypes1 File Type Set
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			outfile=dlg.ShowModal()
 			If outfile <> Nil then
 			dim instream as TextInputStream
@@ -1114,6 +1141,8 @@ End
 			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 			dlg.Title="Save genome file"
 			dlg.Filter=FileTypes.genbank
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			outfile=dlg.ShowModal()
 			if outfile<>nil then
 			MastGenSettingsWin.ReadOptions
@@ -1251,6 +1280,8 @@ End
 			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 			dlg.Title="Save genome file"
 			dlg.Filter=FileTypes.genbank
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			outfile=dlg.ShowModal()
 			if outfile<>nil then
 			HmmGenSettingsWin.ReadOptions
@@ -1275,6 +1306,17 @@ End
 	#tag MenuHandler
 		Function GenomeTerminatorSearch() As Boolean Handles GenomeTerminatorSearch.Action
 			TermGenSearch
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeTFfamilySearch() As Boolean Handles GenomeTFfamilySearch.Action
+			dim boo as boolean
+			
+			boo=HmmSearch
+			
+			Return True
+			
 		End Function
 	#tag EndMenuHandler
 
@@ -1334,6 +1376,14 @@ End
 			
 			WriteToSTDOUT("__0,5,1,6__:"+EndOfLine)
 			WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(0,5,1,6)+EndOfLine)
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function Untitled() As Boolean Handles Untitled.Action
 			
 			Return True
 			
@@ -2023,7 +2073,7 @@ End
 		  baseX= -3
 		  baseY=150
 		  'read data from the file into array
-		  ReadLogoData
+		  'ReadLogoData
 		  
 		  '#if targetlinux then
 		  LogoPic=new Picture (30*(ubound(logodata)+1),170,32)
@@ -2603,6 +2653,9 @@ End
 		    '-E <float or integer>, --eval <float or integer>
 		    'threshold E-Value.
 		    '-i, --insert          don't add features inside CDS
+		    '-b <integer>, --boundary <integer>
+		    'set allowed length boundary for hits being within
+		    'features
 		    '-d, --duplicate       no duplicate features with the same location and the
 		    'same protein_bind qualifier value
 		    '-v, --version         show program's version number and exit
@@ -2793,6 +2846,78 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function hmmsearch() As boolean
+		  'returns true if completed without errors
+		  
+		  hmmSearchSettingsWin.ShowModalWithin(self)
+		  if hmmSearchSettings="" then
+		    return false
+		    
+		  end if
+		  
+		  dim cli as string
+		  Dim sh As Shell
+		  
+		  
+		  if GenomeFile=Nil then
+		    WriteToSTDOUT("Please select a file to search first.")
+		    return false
+		  end if
+		  
+		  'export protein fastas:
+		  dim CDSfasta as folderitem
+		  CDSfasta=SpecialFolder.Temporary.child("CDS.fasta")
+		  
+		  if CDSfasta<>nil then
+		    GenomeWin.ExportProteins(CDSfasta)
+		    cli=""
+		    
+		    
+		    FixPath4Windows(CDSfasta)
+		    
+		    dim genomefilepath as string
+		    #if TargetWin32
+		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		    #else
+		      GenomeFilePath=GenomeFile.shellpath
+		    #endif
+		    
+		    dim modelFile as string
+		    modelFile=hmmSearchSettingsWin.PopupFiles(hmmSearchSettingsWin.PfamPopup.ListIndex-1)
+		    
+		    dim HmmSearchPath as string = replace(nhmmerPath,"/nhmmer","/hmmsearch")
+		    
+		    cli=HmmSearchPath+" "+modelFile+" "+CDSfasta.ShellPath+" "+hmmSearchSettings ' +" -o "+nhmmerResultFile.shellpath
+		    
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      'LogoWinToolbar.Item(2).Enabled=true
+		      LastSearch="hmmsearch"
+		      return true
+		    else
+		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "hmmsearch error code: "+Str(sh.errorCode)
+		      WriteToSTDOUT (EndofLine+"hmmsearch command line was: "+cli+EndofLine)
+		      'LogoWinToolbar.Item(2).Enabled=false
+		      return false
+		    end if
+		  end if
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:nhmmer")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub LoadAlignment(tmpfile as folderitem)
 		  
 		  if tmpfile<> nil then
@@ -2895,8 +3020,8 @@ End
 		      else
 		        msgbox "Can't read SigmoID file options"
 		      end if
-		      HmmGenSettingsWin.EvalueField.enabled=false
-		      HmmGenSettingsWin.EvalueButton.enabled=false
+		      'HmmGenSettingsWin.EvalueField.enabled=false
+		      'HmmGenSettingsWin.EvalueButton.enabled=false
 		      
 		      
 		      if vv<>Nil then
@@ -3077,21 +3202,11 @@ End
 		      tis.Close
 		      'RegPrecise data may contain gaps like this:
 		      'TACAGAT-(17)-TTCAGAT-(13)-ATCTGTA-(23)-GTCTGTA
-		      'need to fill the gaps with Ns, but for now just display the warning:
+		      'filling the gaps with Ns:
 		      if instr(sequences,"-(")>0 then
-		        'msgbox "The binding site data may contain gaps. Please replace them with Ns."
-		        dim Ns, gap as string
-		        dim n, m, gapSize as integer
-		        While instr(sequences,"-(")>0 AND instr(sequences,")-")>0
-		          'this assumes there are no -( and )- in sequence names
-		          gapSize=val(NthField(sequences,"-(",2))
-		          'fill the gap:
-		          Ns=""
-		          for m=1 to gapSize
-		            Ns=Ns+"N"
-		          next
-		          sequences=replaceall(sequences,"-("+str(gapSize)+")-",Ns)
-		        wend
+		        
+		        sequences=FillGaps(sequences)
+		        
 		        
 		        'write the seqs back to LogoFile:
 		        dim tos as TextOutputStream
@@ -3204,9 +3319,9 @@ End
 		  dim hts as new HTTPSocket
 		  hts.Yield=true
 		  if isregulog then
-		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulogId="+ID,0)
+		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulogId="+ID,0)
 		  else
-		    res=hts.Get("http://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,0)
+		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,0)
 		  end if
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    if res<>"" then
@@ -3249,7 +3364,11 @@ End
 		      WriteToSTDOUT("no response in 15 sec.")
 		    end if
 		  else
-		    WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+		    
 		  end if
 		  
 		  
@@ -3873,6 +3992,8 @@ End
 		        dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
 		        dlg.Title="Save genome file"
 		        dlg.Filter=FileTypes.genbank
+		        dlg.CancelButtonCaption=kCancel
+		        dlg.ActionButtonCaption=kSave
 		        outfile=dlg.ShowModal()
 		        if outfile<>nil then
 		          HmmGenSettingsWin.ReadOptions
@@ -3989,6 +4110,8 @@ End
 		      dlg.SuggestedFileName=NthField(LogoFile.Name,".",1)+".Png"
 		      dlg.Title="Save Logo"
 		      'dlg.Filter=FileTypes1.Text  //defined as a file type in FileTypes1 file type set
+		      dlg.CancelButtonCaption=kCancel
+		      dlg.ActionButtonCaption=kSave
 		      f=dlg.ShowModal()
 		      If f <> Nil then
 		        LogoPic.Save(f, Picture.SaveAsPNG)
@@ -4730,7 +4853,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

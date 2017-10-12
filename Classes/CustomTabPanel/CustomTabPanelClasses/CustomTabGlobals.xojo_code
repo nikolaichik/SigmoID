@@ -7,7 +7,7 @@ Protected Module CustomTabGlobals
 		  case NORTH, EAST, WEST
 		    
 		    if leftTabPic(0) = nil then
-		      leftTabPic(0)=NewPicture(leftTabOutline.Width,leftTabOutline.Height,32)
+		      leftTabPic(0)=New Picture(leftTabOutline.Width,leftTabOutline.Height,32)
 		    End If
 		    leftTabPic(0).mask.graphics.DrawPicture leftTabOutlineMask,0,0
 		    leftTabPic(0).graphics.DrawPicture leftTabOutline,0,0
@@ -16,7 +16,7 @@ Protected Module CustomTabGlobals
 		  case SOUTH
 		    
 		    if leftTabPic(1) = nil then
-		      leftTabPic(1)=NewPicture(leftTabOutlineS.Width, leftTabOutlineS.Height,32)
+		      leftTabPic(1)=New Picture(leftTabOutlineS.Width, leftTabOutlineS.Height,32)
 		    End If
 		    leftTabPic(1).mask.graphics.DrawPicture leftTabOutlineMaskS,0,0
 		    leftTabPic(1).graphics.DrawPicture leftTabOutlineS,0,0
@@ -33,7 +33,7 @@ Protected Module CustomTabGlobals
 		  case NORTH, EAST, WEST
 		    
 		    if rightTabPic(0) = nil then
-		      rightTabPic(0)=NewPicture(rightTabOutline.Width, rightTabOutline.Height,32)
+		      rightTabPic(0)=New Picture(rightTabOutline.Width, rightTabOutline.Height,32)
 		    End If
 		    rightTabPic(0).mask.graphics.DrawPicture rightTabOutlineMask,0,0
 		    rightTabPic(0).graphics.DrawPicture rightTabOutline,0,0
@@ -42,7 +42,7 @@ Protected Module CustomTabGlobals
 		  case SOUTH
 		    
 		    if rightTabPic(1) = nil then
-		      rightTabPic(1)=NewPicture(rightTabOutlineS.Width, rightTabOutlineS.Height,32)
+		      rightTabPic(1)=New Picture(rightTabOutlineS.Width, rightTabOutlineS.Height,32)
 		    End If
 		    rightTabPic(1).mask.graphics.DrawPicture rightTabOutlineMaskS,0,0
 		    rightTabPic(1).graphics.DrawPicture rightTabOutlineS,0,0
@@ -58,7 +58,7 @@ Protected Module CustomTabGlobals
 		  dim ratio as single
 		  dim a,b,xoff,yoff as integer
 		  if pic <> nil then
-		    p=newpicture(w,h,32)
+		    p=New Picture(w,h,32)
 		    if pic.width<=w and pic.height<=h then
 		      
 		      p.graphics.drawpicture pic,(w-pic.width)/2,(h-pic.height)/2
@@ -94,7 +94,7 @@ Protected Module CustomTabGlobals
 		  
 		  dim tmp as Picture
 		  dim result as Integer
-		  tmp=NewPicture(2,2,32)
+		  tmp=New Picture(2,2,32)
 		  
 		  tmp.graphics.TextSize=size
 		  tmp.graphics.TextFont=fontName

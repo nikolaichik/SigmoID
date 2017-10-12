@@ -10,7 +10,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DoubleClickInterval() As Double
+		Shared Function DoubleClickInterval() As Double
 		  //# Returns the system-wide double-click time interval in seconds
 		  // To convert it to Ticks, multiply the value by 60.
 		  
@@ -71,7 +71,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function MouseLocation() As NSPoint
+		Shared Function MouseLocation() As NSPoint
 		  #if TargetMacOS
 		    declare function mouseLocation lib CocoaLib selector "mouseLocation" (id as Ptr) as NSPoint
 		    

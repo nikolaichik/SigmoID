@@ -23,7 +23,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithName(name as String) As NSPrinter
+		Shared Function CreateWithName(name as String) As NSPrinter
 		  
 		  #if targetMacOS
 		    declare function printerWithName lib CocoaLib selector "printerWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
@@ -41,7 +41,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateWithType(type as String) As NSPrinter
+		Shared Function CreateWithType(type as String) As NSPrinter
 		  
 		  #if targetMacOS
 		    declare function printerWithType lib CocoaLib selector "printerWithType:" (class_id as Ptr, type as CFStringRef) as Ptr
@@ -69,7 +69,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Get(name as String) As NSPrinter
+		Shared Function Get(name as String) As NSPrinter
 		  #if targetMacOS
 		    declare function printerWithName lib CocoaLib selector "printerWithName:" (class_id as Ptr, name as CFStringRef) as Ptr
 		    
@@ -110,7 +110,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Names() As String()
+		Shared Function Names() As String()
 		  #if targetMacOS
 		    declare function printerNames lib CocoaLib selector "printerNames" (class_id as Ptr) as Ptr
 		    
@@ -211,7 +211,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Types() As String()
+		Shared Function Types() As String()
 		  #if targetMacOS
 		    declare function printerTypes lib CocoaLib selector "printerTypes" (class_id as Ptr) as Ptr
 		    

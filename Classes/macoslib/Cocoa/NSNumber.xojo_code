@@ -157,7 +157,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithBoolean(value as Boolean) As NSNumber
+		Shared Function CreateWithBoolean(value as Boolean) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithBool lib CocoaLib selector "numberWithBool:" (class_id as Ptr, value as Boolean) as Ptr
@@ -175,7 +175,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithBytes(data as MemoryBlock, objc_type as String) As NSNumber
+		Shared Function CreateWithBytes(data as MemoryBlock, objc_type as String) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function valueWithBytes lib CocoaLib selector "valueWithBytes:objCType:" (class_id as Ptr, value as Ptr, type as CString) as Ptr
@@ -193,7 +193,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithDouble(value as Double) As NSNumber
+		Shared Function CreateWithDouble(value as Double) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithDouble lib CocoaLib selector "numberWithDouble:" (class_id as Ptr, value as Double) as Ptr
@@ -211,7 +211,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithInt16(value as Int16) As NSNumber
+		Shared Function CreateWithInt16(value as Int16) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithShort lib CocoaLib selector "numberWithShort:" (class_id as Ptr, value as Int16) as Ptr
@@ -229,7 +229,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithInt32(value as Int32) As NSNumber
+		Shared Function CreateWithInt32(value as Int32) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithLong lib CocoaLib selector "numberWithLong:" (class_id as Ptr, value as Int32) as Ptr
@@ -247,7 +247,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithInt64(value as Int64) As NSNumber
+		Shared Function CreateWithInt64(value as Int64) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithLongLong lib CocoaLib selector "numberWithLongLong:" (class_id as Ptr, value as Int64) as Ptr
@@ -265,7 +265,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithInt8(value as Int8) As NSNumber
+		Shared Function CreateWithInt8(value as Int8) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithChar lib CocoaLib selector "numberWithChar:" (class_id as Ptr, value as Int8) as Ptr
@@ -283,7 +283,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithInteger(value as Integer) As NSNumber
+		Shared Function CreateWithInteger(value as Integer) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithInt lib CocoaLib selector "numberWithInt:" (class_id as Ptr, value as Integer) as Ptr
@@ -301,7 +301,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithSingle(value as Single) As NSNumber
+		Shared Function CreateWithSingle(value as Single) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithFloat lib CocoaLib selector "numberWithFloat:" (class_id as Ptr, value as Single) as Ptr
@@ -319,7 +319,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithUInt16(value as UInt16) As NSNumber
+		Shared Function CreateWithUInt16(value as UInt16) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithUnsignedShort lib CocoaLib selector "numberWithUnsignedShort:" (class_id as Ptr, value as UInt16) as Ptr
@@ -337,7 +337,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithUInt32(value as UInt32) As NSNumber
+		Shared Function CreateWithUInt32(value as UInt32) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithUnsignedLong lib CocoaLib selector "numberWithUnsignedLong:" (class_id as Ptr, value as UInt32) as Ptr
@@ -355,7 +355,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithUInt64(value as UInt64) As NSNumber
+		Shared Function CreateWithUInt64(value as UInt64) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithUnsignedLongLong lib CocoaLib selector "numberWithUnsignedLongLong:" (class_id as Ptr, value as UInt64) as Ptr
@@ -373,7 +373,7 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithUInt8(value as UInt8) As NSNumber
+		Shared Function CreateWithUInt8(value as UInt8) As NSNumber
 		  
 		  #if targetMacOS
 		    declare function numberWithUnsignedChar lib CocoaLib selector "numberWithUnsignedChar:" (class_id as Ptr, value as UInt8) as Ptr

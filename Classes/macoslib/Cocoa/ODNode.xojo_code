@@ -8,7 +8,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromSessionAndName(session as ODSession, nodeName as String) As ODNode
+		Shared Function CreateFromSessionAndName(session as ODSession, nodeName as String) As ODNode
 		  
 		  #if TargetMacOS
 		    declare function nodeWithSession lib "OpenDirectory" selector "nodeWithSession:name:error:" (Cls as Ptr, session as Ptr, name as CFStringRef, byref err as Ptr) as Ptr
@@ -32,7 +32,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromSessionAndType(session as ODSession, kODNodeType_constant as integer) As ODNode
+		Shared Function CreateFromSessionAndType(session as ODSession, kODNodeType_constant as integer) As ODNode
 		  
 		  #if TargetMacOS
 		    declare function nodeWithSession lib "OpenDirectory" selector "nodeWithSession:type:error:" (Cls as Ptr, session as Ptr, type as integer, byref err as Ptr) as Ptr

@@ -138,7 +138,7 @@ def createParser():
                         const='On',
                         default='Off',
                         help='''combines operons that are common for several regulators''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.13 (February 21)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.14 (January 27, 2017)')
     return parser
 
 args = createParser()
@@ -171,8 +171,11 @@ for record in genome:
             cds_list.append(feature)
 for n in range(len(all_features)):
     if all_features[n].type == 'gene':
+        print all_features[n]
         for cds in cds_list:
-            if all_features[n].qualifiers['locus_tag'] == cds.qualifiers['locus_tag']:
+            if 'locus_tag' in all_features[n].qualifiers.keys() and \
+                   all_features[n].qualifiers['locus_tag'] == \
+                   cds.qualifiers['locus_tag']:
                 all_features[n] = cds
                 break
 for feature in all_features:
@@ -493,7 +496,7 @@ for up_operon in operon_list:
     if is_divergon == True:
         operon_list[operon_list.index(up_operon)] = divergon
 operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index==indel for indel in intodel)]
-operon_out = 'OperOn 1.13 (February 21)\n'+('='*50)+'\n\n'
+operon_out = 'OperOn 1.14 (January 27, 2017)\n'+('='*50)+'\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 regulator_counter = []
 intodel = []

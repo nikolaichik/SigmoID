@@ -367,62 +367,35 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   194
    End
-   Begin mHTTPSocket TIGRSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
+   Begin sHTTPSocket TIGRSocket
+      CertificatePassword=   ""
+      ConnectionType  =   3
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
+      Secure          =   False
       TabPanelIndex   =   0
-      yield           =   False
    End
-   Begin mHTTPSocket SPSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
+   Begin sHTTPSocket SPSocket
+      CertificatePassword=   ""
+      ConnectionType  =   3
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
+      Secure          =   False
       TabPanelIndex   =   0
-      yield           =   False
    End
-   Begin mHTTPSocket UniProtSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
+   Begin sHTTPSocket UniProtSocket
+      CertificatePassword=   ""
+      ConnectionType  =   3
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
+      Secure          =   False
       TabPanelIndex   =   0
-      yield           =   False
    End
    Begin Cocoa.NSSearchField NSSearchField1
       AcceptFocus     =   True
@@ -480,7 +453,7 @@ Begin Window GenomeWin
       BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
-      CueText         =   "#kSearch..."
+      CueText         =   "#kSearch"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
@@ -514,24 +487,17 @@ Begin Window GenomeWin
       Visible         =   False
       Width           =   200
    End
-   Begin mHTTPSocket BLASTSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
+   Begin sHTTPSocket BLASTSocket
+      CertificateFile =   
+      CertificatePassword=   ""
+      CertificateRejectionFile=   
+      ConnectionType  =   3
       Index           =   -2147483648
       InitialParent   =   ""
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
       LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
+      Secure          =   False
       TabPanelIndex   =   0
-      yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   False
@@ -655,6 +621,7 @@ End
 		  GenomeAddPlot.enabled=true
 		  GenomeMergePlotData.enabled=true
 		  
+		  GenomeTFfamilySearch.enabled=true
 		  
 		  FileSaveCheckedSites.Visible=true
 		  FileSaveCheckedSites.Enabled=true
@@ -684,8 +651,10 @@ End
 		    EditCopy.enabled=true
 		    'enable copying of protein sequence, but only if a CDS is selected
 		    if SelFeatureNo>0 then
-		      if seq.Features(SelFeatureNo).type="CDS" then
-		        EditCopyTranslation.enabled=true
+		      if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
+		        if seq.Features(SelFeatureNo).type="CDS" then
+		          EditCopyTranslation.enabled=true
+		        end if
 		      end if
 		    end if
 		  else
@@ -968,6 +937,7 @@ End
 			' Copies protein sequence if a CDS is selected, otherwise copies DNA seq
 			
 			if AnythingSelected then
+			if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
 			if SelFeatureNo>0 then
 			if seq.Features(SelFeatureNo).type="CDS" then
 			CopyAA
@@ -979,6 +949,7 @@ End
 			end if
 			else
 			CopyDNA
+			end if
 			end if
 			
 			
@@ -1089,6 +1060,8 @@ End
 			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".fasta"
 			dlg.Title="Save selected sites"
 			dlg.Filter=FileTypes.Fasta
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
 			outfile=dlg.ShowModalwithin(self)
 			if outfile<>nil then
 			outstream = TextOutputStream.Create(outfile)
@@ -1150,7 +1123,7 @@ End
 			
 			dlg.promptText="Select a text file with data to plot"
 			dlg.Title="Open file with data to plot"
-			dlg.Filter=FileTypes.AllFiles
+			dlg.Filter="FileTypes.Text;FileTypes.WIG"
 			infile=dlg.ShowModal()
 			
 			if infile<> Nil then
@@ -1164,8 +1137,14 @@ End
 			
 			
 			
+			
 			if UBound(self.Genome.ReadDepth1)<1 then     'Loading first track
 			InStream = infile.OpenAsTextFile
+			if infile.Type="WIG" then     'Rockhopper/IGV track: drop first two lines
+			aLine=trim(InStream.readLine)
+			aLine=trim(InStream.readLine)
+			end if
+			
 			aLine=trim(InStream.readLine)
 			if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools)
 			instream.close
@@ -1442,6 +1421,98 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeTFfamilySearch() As Boolean Handles GenomeTFfamilySearch.Action
+			dim boo as boolean
+			
+			if HmmSearch then
+			
+			
+			if hmmSearchSettingsWin.AddAnnotationCheckBox.value then
+			'only add annotation if hmmsearch completed OK
+			Dim gbkFile as folderitem
+			Dim dlg as New SaveAsDialog
+			dlg.InitialDirectory=GenomeFile.Parent
+			dlg.promptText="Select where to save the modified GenBank file"
+			dlg.SuggestedFileName=NthField(GenomeFile.displayname,".",1)+"_2"+".gbk"
+			dlg.Title="Save .gbk file"
+			dlg.Filter=FileTypes.GenBank
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
+			
+			gbkFile=dlg.ShowModal()
+			If gbkFile <> Nil then
+			'run annotation script:
+			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
+			
+			'This script adds feature notes (with TF family names) to a GenBank file based
+			'on hmmsearch results.
+			'
+			'positional arguments:
+			'hmmsearch_result  path to hmmsearch result file.
+			'input_file        path to input Genbank file.
+			'output_file       path to output Genbank file.
+			'
+			'optional arguments:
+			'-h, --help        show this help message and exit
+			'-f , --family     Adds the name of protein family in GenBank file
+			
+			dim cli as string
+			Dim sh As Shell
+			
+			sh=New Shell
+			sh.mode=0
+			sh.TimeOut=-1
+			
+			logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running the ProtFamily script..."+EndofLine)
+			dim GenomeFilePath,outFilePath as string
+			#if TargetWin32
+			'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+			FixPath4Windows(outfile)
+			GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+			outFilePath=chr(34)+gbkFile.ShellPath+chr(34)
+			#else
+			GenomeFilePath=GenomeFile.shellpath
+			outFilePath=gbkFile.ShellPath
+			#endif
+			
+			dim protFamilyPath as string
+			protFamilyPath=replace(logoWin.hmmGenPath,"hmmGen.py","ProtFamily.py")
+			
+			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
+			cli="python "+protFamilyPath+" "+hmmsearchResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" -f "+TFfamilyDesc
+			
+			sh=New Shell
+			sh.mode=0
+			sh.TimeOut=-1
+			sh.execute cli
+			If sh.errorCode=0 then
+			
+			LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+			LogoWin.WriteToSTDOUT (EndofLine.unix+"Genbank file with added TF family notes written to "+gbkFile.ShellPath+EndofLine)
+			else
+			LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily error code: "+Str(sh.errorCode)+EndofLine)
+			LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+			LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily command line was: "+cli+EndofLine)
+			return false
+			end if
+			
+			'WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
+			
+			
+			
+			end if
+			end if
+			end if
+			
+			Return True
+			
+			Exception err
+			ExceptionHandler(err,"GenomeWin:GenomeTFfamilySearch")
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function RegPreciseCompareScores() As Boolean Handles RegPreciseCompareScores.Action
 			'run nhmmer, then hmmgen, then convert hits to fasta string
 			'and feed it to the actual comparison routine
@@ -1535,7 +1606,7 @@ End
 	#tag Method, Flags = &h0
 		Sub BLASTNsearch(GeneName as string)
 		  
-		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLstart as String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Put&QUERY="
 		  dim URLend as string= "&PROGRAM=blastn&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto&DATABASE="
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
@@ -1559,8 +1630,12 @@ End
 		  if BLASTorganism<>"" then
 		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
 		  end if
+		  #if DebugBuild
+		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  #endif
 		  
 		  CDDsearch=false
+		  BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  ProgressShow
 		  
@@ -1568,7 +1643,7 @@ End
 		  
 		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
 		  
-		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'https://blast.ncbi.nlm.nih.gov/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
 		  
 		  
@@ -1581,7 +1656,7 @@ End
 	#tag Method, Flags = &h0
 		Sub BLASTPsearch(ProtName as string)
 		  
-		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLstart as String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Put&QUERY="
 		  const URLend as string= "&PROGRAM=blastp&HITLIST_SIZE=100&CDD_SEARCH=true&DATABASE="
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
@@ -1611,8 +1686,12 @@ End
 		  if BLASTorganism<>"" then
 		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
 		  end if
+		  #if DebugBuild
+		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  #endif
 		  
 		  CDDsearch=false
+		  BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  'ProgressWheel1.top=BLASTSearchViewer.top+SPSearchViewer.Height/3
 		  'ProgressWheel1.Visible=true
@@ -1623,7 +1702,7 @@ End
 		  
 		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
 		  
-		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'https://blast.ncbi.nlm.nih.gov/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
 		  
 		  Exception err
@@ -1634,7 +1713,7 @@ End
 	#tag Method, Flags = &h0
 		Sub BLASTXsearch(GeneName as string)
 		  
-		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Put&QUERY="
+		  const URLstart as String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Put&QUERY="
 		  dim URLend as string= "&PROGRAM=blastx&HITLIST_SIZE=100&AUTO_FORMAT=Fullauto&DATABASE="
 		  
 		  
@@ -1663,14 +1742,19 @@ End
 		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
 		  end if
 		  
+		  #if DebugBuild
+		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  #endif
+		  
 		  'CDDsearch=false
+		  BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  
 		  
 		  
 		  '&DATABASE=nr&HITLIST_SIZE=10&FILTER=L&EXPECT=10&FORMAT_TYPE=HTML&PROGRAM=blastn&CLIENT=web&SERVICE=plain&NCBI_GI=on&PAGE=Nucleotides&CMD=Put
 		  
-		  'http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?\
+		  'https://blast.ncbi.nlm.nih.gov/Blast.cgi?\
 		  'CMD=Put&QUERY=MKN&DATABASE=nr&PROGRAM=blastp&FILTER=L&HITLIST_SZE=500
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:BLASTPsearch")
@@ -1679,7 +1763,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub CDsearch(ProtName as string)
-		  const URLstart as String = "http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?DATABASE=cdd&SERVICE=rpsblast&PROGRAM=blastp&CMD=Put&CDD_SEARCH=true&QUERY="
+		  const URLstart as String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?DATABASE=cdd&SERVICE=rpsblast&PROGRAM=blastp&CMD=Put&CDD_SEARCH=true&QUERY="
 		  const URLend as string= "%0A%0A" 'protein seq is supposed to end with two newline chars, but works fine without those
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string
@@ -1704,7 +1788,12 @@ End
 		  
 		  'format the CDD request:
 		  theURL=URLstart+theSeq'+URLend
+		  #if DebugBuild
+		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  #endif
+		  
 		  CDDsearch=true
+		  BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  
 		  
@@ -2060,8 +2149,10 @@ End
 		        EditCopy.enabled=true
 		        'enable copying of protein sequence, but only if a CDS is selected
 		        if SelFeatureNo>0 then
-		          if seq.Features(SelFeatureNo).type="CDS" then
-		            EditCopyTranslation.enabled=true
+		          if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
+		            if seq.Features(SelFeatureNo).type="CDS" then
+		              EditCopyTranslation.enabled=true
+		            end if
 		          end if
 		        end if
 		      else
@@ -2118,8 +2209,12 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+<<<<<<< HEAD
 		Sub ExportProteins(outfile as folderitem)
 		  'dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+=======
+		Sub ExportProteins(Outfile as folderitem)
+>>>>>>> Version2
 		  dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
 		  
 		  dim n,u as integer
@@ -2637,6 +2732,9 @@ End
 		  dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".fasta"
 		  dlg.Title="Export sequence in Fasta format"
 		  dlg.Filter=FileTypes.Fasta
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  
 		  outfile=dlg.ShowModalwithin(self)
 		  if outfile<>nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting sequence in Fasta format...")
@@ -2690,6 +2788,8 @@ End
 		  dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".fasta"
 		  dlg.Title="Export protein sequences in Fasta format"
 		  dlg.Filter=FileTypes.Fasta
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
 		  outfile=dlg.ShowModalwithin(self)
 		  if outfile<>nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting each protein sequence annotated in this genome in Fasta format...")
@@ -2752,6 +2852,8 @@ End
 		  dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
 		  dlg.Title="Export Sequin feature table (.tbl)"
 		  dlg.Filter=FileTypes.Table
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
 		  outfile=dlg.ShowModalwithin(self)
 		  if outfile<>nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting Sequin feature table (takes a while)...")
@@ -2899,7 +3001,11 @@ End
 		    end if
 		  else
 		    ProgressHide
-		    LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+") getting phmmer results.")+EndOfLine.Unix
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+		    
 		  end if
 		  
 		  
@@ -3180,7 +3286,7 @@ End
 		  SPSocket.SetFormData(form)
 		  'SPSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
-		  SPSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
+		  SPSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -3222,7 +3328,7 @@ End
 		  TIGRSocket.SetFormData(form)
 		  'TIGRSocket.Post("http://hmmer.janelia.org/search/hmmscan")
 		  'change to the EBI address
-		  TIGRSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/hmmscan")
+		  TIGRSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -3269,10 +3375,97 @@ End
 		  UniprotSocket.SetFormData(form)
 		  'UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
-		  UniprotSocket.Post("http://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
+		  UniprotSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function hmmsearch() As boolean
+		  'returns true if completed without errors
+		  
+		  hmmSearchSettingsWin.ShowModalWithin(self)
+		  if hmmSearchSettings="" then
+		    return false
+		    
+		  end if
+		  
+		  logowin.show
+		  dim cli as string
+		  Dim sh As Shell
+		  
+		  
+		  if GenomeFile=Nil then
+		    logoWin.WriteToSTDOUT("Please select a file to search first.")
+		    return false
+		  else
+		    logoWin.WriteToSTDOUT("Exporting protein seqs..."+EndOfLine.UNIX)
+		    
+		  end if
+		  
+		  'export protein fastas:
+		  dim CDSfasta as folderitem
+		  CDSfasta=SpecialFolder.Temporary.child("CDS.fasta")
+		  
+		  if CDSfasta<>nil then
+		    ExportProteins(CDSfasta)
+		    cli=""
+		    
+		    
+		    FixPath4Windows(CDSfasta)
+		    
+		    dim genomefilepath as string
+		    #if TargetWin32
+		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		    #else
+		      GenomeFilePath=GenomeFile.shellpath
+		    #endif
+		    
+		    dim modelFile as string
+		    modelFile=hmmSearchSettingsWin.PopupFiles(hmmSearchSettingsWin.PfamPopup.ListIndex-1)
+		    
+		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
+		    
+		    cli=HmmSearchPath+" "+hmmSearchSettings
+		    if hmmSearchSettingsWin.AddAnnotationCheckBox.Value then
+		      hmmsearchResultFile=SpecialFolder.Temporary.child("hmmsearch.result")
+		      
+		      if hmmsearchResultFile<>nil then
+		        cli=cli +" -o "+hmmsearchResultFile.shellpath
+		      else
+		        return false
+		      end if
+		    end if
+		    cli=cli+" "+modelFile+" "+CDSfasta.ShellPath
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      'LogoWinToolbar.Item(2).Enabled=true
+		      logoWin.LastSearch="hmmsearch" 'not used
+		      
+		      return true
+		    else
+		      logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "hmmsearch error code: "+Str(sh.errorCode)
+		      logoWin.WriteToSTDOUT (EndofLine+"hmmsearch command line was: "+cli+EndofLine)
+		      'LogoWinToolbar.Item(2).Enabled=false
+		      return false
+		    end if
+		  end if
+		  
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:hmmsearch")
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -3523,6 +3716,8 @@ End
 		    msgbox kInvalidGenbankFile
 		    return
 		  end 'if instrb(s,"LOCUS       ")>0
+		  
+		  w.selFeatureNo=0
 		  
 		  SetScrollbar
 		  
@@ -4646,7 +4841,7 @@ End
 		    buffer=new Picture(MapCanvas.width*seq.map.objects.scale, Mapcanvas.Height*seq.map.objects.scale,Screen(0).depth)
 		  else
 		    buffer=new Picture(MapCanvas.width, Mapcanvas.Height,Screen(0).depth)
-		    'buffer=newPicture(MapCanvas.width*4, Mapcanvas.Height*4,Screen(0).depth)
+		    'buffer=New Picture(MapCanvas.width*4, Mapcanvas.Height*4,Screen(0).depth)
 		  end
 		  
 		  if buffer<>Nil then
@@ -5006,6 +5201,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		hmmsearchResultFile As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		HScrollBarCodeLock As Boolean
 	#tag EndProperty
 
@@ -5271,6 +5470,10 @@ End
 
 	#tag Property, Flags = &h0
 		TextMapPic As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TFfamilyDesc As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -6378,7 +6581,7 @@ End
 		  UUID=NthField(UUID,"/score",1)
 		  'UUID correctness should be verified!
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
+		  theURL="https://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
 		  'now simply load the corrected URL:
 		  
 		  TFSearchViewer.LoadURL(theURL)
@@ -6429,8 +6632,8 @@ End
 		  UUID=NthField(Content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  'theURL="http://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
-		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
+		  'theURL="https://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
+		  theURL="https://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
 		  
 		  'now simply load the corrected URL:
 		  if TMdisplay.Visible then
@@ -6494,7 +6697,7 @@ End
 		  UUID=NthField(content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  theURL="http://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
+		  theURL="https://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
 		  
 		  'now simply load the corrected URL:
 		  if TMdisplay.Visible then
@@ -6648,6 +6851,8 @@ End
 		  
 		  'this socket should process all requests to BLAST servers, including CD search
 		  
+		  ' NCBI asks to specify contact details by adding two fields:
+		  ' &EMAIL=' field (and the '&TOOL=' for distributed software
 		  
 		  if CDDsearch then  'CDD search
 		    //get CDD search RID using hidden, but almost documented data in BLAST output that looks like:
@@ -6658,7 +6863,10 @@ End
 		    ltag="<input name="+chr(34)+"RID"+chr(34)+" value="+chr(34)
 		    RID=NthField(content,ltag,2)
 		    RID=NthField(RID,chr(34),1)
-		    theURL="http://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get"
+		    theURL="https://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get"
+		    #if DebugBuild
+		      theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		    #endif
 		  else
 		    
 		    //get the Request ID for blastp/n/x from result that looks like this:
@@ -6668,9 +6876,14 @@ End
 		    'QBlastInfoEnd
 		    '-->
 		    
+		    
+		    
 		    RID=NthField(content,"RID = ",2)
 		    RID=NthField(RID,EndOfLine.UNIX,1)
-		    theURL="http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?RID="+RID+"&CMD=Get"
+		    theURL="https://blast.ncbi.nlm.nih.gov/Blast.cgi?RID="+RID+"&CMD=Get"
+		    #if DebugBuild
+		      theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		    #endif
 		  end if
 		  
 		  'now load the URL:
@@ -7015,7 +7228,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
@@ -7504,6 +7716,12 @@ End
 		Name="TextMapPic"
 		Group="Behavior"
 		Type="Picture"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TFfamilyDesc"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

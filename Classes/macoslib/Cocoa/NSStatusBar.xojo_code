@@ -56,7 +56,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SystemStatusBar() As NSStatusBar
+		Shared Function SystemStatusBar() As NSStatusBar
 		  
 		  #if TargetMacOS
 		    declare function systemStatusBar lib CocoaLib selector "systemStatusBar" (obj_id as Ptr) as Ptr

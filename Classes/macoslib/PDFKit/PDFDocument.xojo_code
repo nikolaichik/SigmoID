@@ -2,7 +2,7 @@
 Protected Class PDFDocument
 Inherits NSObject
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromFolderItem(f as FolderItem) As PDFDocument
+		Shared Function CreateFromFolderItem(f as FolderItem) As PDFDocument
 		  
 		  #if TargetMacOS
 		    return CreateFromURL( new NSURL( f ))
@@ -12,7 +12,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CreateFromURL(url as NSURL) As PDFDocument
+		Shared Function CreateFromURL(url as NSURL) As PDFDocument
 		  
 		  #if TargetMacOS
 		    RequireFramework  "Quartz.framework"

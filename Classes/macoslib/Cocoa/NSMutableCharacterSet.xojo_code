@@ -42,7 +42,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function AlphanumericCharacterSet() As NSMutableCharacterSet
+		Shared Function AlphanumericCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function alphanumericCharacterSet lib CocoaLib selector "alphanumericCharacterSet" (obj_id as Ptr) as Ptr
@@ -58,7 +58,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CapitalizedLetterCharacterSet() As NSMutableCharacterSet
+		Shared Function CapitalizedLetterCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function capitalizedLetterCharacterSet lib CocoaLib selector "capitalizedLetterCharacterSet" (obj_id as Ptr) as Ptr
@@ -74,7 +74,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CharacterSetWithBitmapRepresentation(data as NSData) As NSMutableCharacterSet
+		Shared Function CharacterSetWithBitmapRepresentation(data as NSData) As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function characterSetWithBitmapRepresentation lib CocoaLib selector "characterSetWithBitmapRepresentation:" (obj_id as Ptr, data as Ptr) as Ptr
@@ -98,7 +98,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CharacterSetWithCharactersInString(aString as String) As NSMutableCharacterSet
+		Shared Function CharacterSetWithCharactersInString(aString as String) As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function characterSetWithCharactersInString lib CocoaLib selector "characterSetWithCharactersInString:" (obj_id as Ptr, aString as CFStringRef) as Ptr
@@ -116,7 +116,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CharacterSetWithContentsOfFile(file as FolderItem) As NSMutableCharacterSet
+		Shared Function CharacterSetWithContentsOfFile(file as FolderItem) As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function characterSetWithContentsOfFile lib CocoaLib selector "characterSetWithContentsOfFile:" (obj_id as Ptr, path as CFStringRef) as Ptr
@@ -136,7 +136,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function CharacterSetWithRange(aRange as Cocoa.NSRange) As NSMutableCharacterSet
+		Shared Function CharacterSetWithRange(aRange as Cocoa.NSRange) As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function characterSetWithRange lib CocoaLib selector "characterSetWithRange:" (obj_id as Ptr, aRange as Cocoa.NSRange) as Ptr
@@ -172,7 +172,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ControlCharacterSet() As NSMutableCharacterSet
+		Shared Function ControlCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function controlCharacterSet lib CocoaLib selector "controlCharacterSet" (obj_id as Ptr) as Ptr
@@ -183,7 +183,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DecimalDigitCharacterSet() As NSMutableCharacterSet
+		Shared Function DecimalDigitCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function decimalDigitCharacterSet lib CocoaLib selector "decimalDigitCharacterSet" (obj_id as Ptr) as Ptr
@@ -199,7 +199,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DecomposableCharacterSet() As NSMutableCharacterSet
+		Shared Function DecomposableCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function decomposableCharacterSet lib CocoaLib selector "decomposableCharacterSet" (obj_id as Ptr) as Ptr
@@ -235,7 +235,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function IllegalCharacterSet() As NSMutableCharacterSet
+		Shared Function IllegalCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function illegalCharacterSet lib CocoaLib selector "illegalCharacterSet" (obj_id as Ptr) as Ptr
@@ -284,7 +284,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LetterCharacterSet() As NSMutableCharacterSet
+		Shared Function LetterCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function letterCharacterSet lib CocoaLib selector "letterCharacterSet" (obj_id as Ptr) as Ptr
@@ -300,7 +300,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function LowercaseLetterCharacterSet() As NSMutableCharacterSet
+		Shared Function LowercaseLetterCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function lowercaseLetterCharacterSet lib CocoaLib selector "lowercaseLetterCharacterSet" (obj_id as Ptr) as Ptr
@@ -316,7 +316,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NewlineCharacterSet() As NSMutableCharacterSet
+		Shared Function NewlineCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function newlineCharacterSet lib CocoaLib selector "newlineCharacterSet" (obj_id as Ptr) as Ptr
@@ -332,7 +332,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function NonBaseCharacterSet() As NSMutableCharacterSet
+		Shared Function NonBaseCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function nonBaseCharacterSet lib CocoaLib selector "nonBaseCharacterSet" (obj_id as Ptr) as Ptr
@@ -348,7 +348,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function PunctuationCharacterSet() As NSMutableCharacterSet
+		Shared Function PunctuationCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function punctuationCharacterSet lib CocoaLib selector "punctuationCharacterSet" (obj_id as Ptr) as Ptr
@@ -410,7 +410,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function SymbolCharacterSet() As NSMutableCharacterSet
+		Shared Function SymbolCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function symbolCharacterSet lib CocoaLib selector "symbolCharacterSet" (obj_id as Ptr) as Ptr
@@ -446,7 +446,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function UppercaseLetterCharacterSet() As NSMutableCharacterSet
+		Shared Function UppercaseLetterCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function uppercaseLetterCharacterSet lib CocoaLib selector "uppercaseLetterCharacterSet" (obj_id as Ptr) as Ptr
@@ -462,7 +462,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function WhitespaceAndNewlineCharacterSet() As NSMutableCharacterSet
+		Shared Function WhitespaceAndNewlineCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function whitespaceAndNewlineCharacterSet lib CocoaLib selector "whitespaceAndNewlineCharacterSet" (obj_id as Ptr) as Ptr
@@ -478,7 +478,7 @@ Inherits NSCharacterSet
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function WhitespaceCharacterSet() As NSMutableCharacterSet
+		Shared Function WhitespaceCharacterSet() As NSMutableCharacterSet
 		  
 		  #if TargetMacOS
 		    declare function whitespaceCharacterSet lib CocoaLib selector "whitespaceCharacterSet" (obj_id as Ptr) as Ptr

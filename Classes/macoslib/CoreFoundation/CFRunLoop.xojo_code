@@ -38,7 +38,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInt32
 		  #if targetMacOS
 		    soft declare function TypeID lib CarbonLib alias "CFRunLoopGetTypeID" () as UInt32
 		    static id as UInt32 = TypeID
@@ -58,7 +58,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Current() As CFRunLoop
+		Shared Function Current() As CFRunLoop
 		  #if targetMacOS
 		    soft declare function CFRunLoopGetCurrent lib CarbonLib () as Ptr
 		    const hasOwnership = false
@@ -68,7 +68,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function DefaultMode() As Ptr
+		Shared Function DefaultMode() As Ptr
 		  dim p as Ptr = Carbon.Bundle.DataPointerNotRetained(kCFRunLoopDefaultMode)
 		  if p <> nil then
 		    return p.Ptr(0)
@@ -79,7 +79,7 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Function Main() As CFRunLoop
+		Shared Function Main() As CFRunLoop
 		  #if targetMacOS
 		    //Available in Mac OS X v10.5 and later.
 		    soft declare function CFRunLoopGetMain lib CarbonLib () as Ptr

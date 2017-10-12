@@ -34,7 +34,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithAttributes(attribs as NSDictionary) As NSGraphicsContext
+		Shared Function CreateWithAttributes(attribs as NSDictionary) As NSGraphicsContext
 		  
 		  #if TargetMacOS
 		    declare function graphicsContextWithAttributes lib CocoaLib selector "graphicsContextWithAttributes:" (class_id as Ptr, attribs as Ptr) as Ptr
@@ -58,7 +58,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithBitmapImageRep(bitmapRep as NSBitmapImageRep) As NSGraphicsContext
+		Shared Function CreateWithBitmapImageRep(bitmapRep as NSBitmapImageRep) As NSGraphicsContext
 		  
 		  #if TargetMacOS
 		    declare function graphicsContextWithBitmapImageRep lib CocoaLib selector "graphicsContextWithBitmapImageRep:" (class_id as Ptr, attribs as Ptr) as Ptr
@@ -82,7 +82,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithGraphicsPort(g as Graphics, initialFlippedState as Boolean = false) As NSGraphicsContext
+		Shared Function CreateWithGraphicsPort(g as Graphics, initialFlippedState as Boolean = false) As NSGraphicsContext
 		  
 		  #if TargetMacOS
 		    declare function graphicsContextWithGraphicsPort lib CocoaLib selector "graphicsContextWithGraphicsPort:flipped:" _
@@ -105,7 +105,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithGraphicsPort(graphicsPort as Ptr, initialFlippedState as Boolean) As NSGraphicsContext
+		Shared Function CreateWithGraphicsPort(graphicsPort as Ptr, initialFlippedState as Boolean) As NSGraphicsContext
 		  
 		  #if TargetMacOS
 		    declare function graphicsContextWithGraphicsPort lib CocoaLib selector "graphicsContextWithGraphicsPort:flipped:" _
@@ -128,7 +128,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithWindow(aWindow as NSWindow) As NSGraphicsContext
+		Shared Function CreateWithWindow(aWindow as NSWindow) As NSGraphicsContext
 		  
 		  #if TargetMacOS
 		    declare function graphicsContextWithWindow lib CocoaLib selector "graphicsContextWithWindow:" (class_id as Ptr, aWindow as Ptr) as Ptr
@@ -152,7 +152,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function CreateWithWindow(aWindow as Window) As NSGraphicsContext
+		Shared Function CreateWithWindow(aWindow as Window) As NSGraphicsContext
 		  
 		  #if TargetMacOS
 		    declare function graphicsContextWithWindow lib CocoaLib selector "graphicsContextWithWindow:" (class_id as Ptr, aWindow as Ptr) as Ptr
@@ -189,7 +189,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub GraphicsState(assigns state as Integer)
+		Shared Sub GraphicsState(assigns state as Integer)
 		  
 		  #if targetMacOS
 		    declare sub setGraphicsState lib CocoaLib selector "setGraphicsState:" (class_id as Ptr, state as Integer)
@@ -204,7 +204,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub RestoreState()
+		Shared Sub RestoreState()
 		  #if targetMacOS
 		    declare sub restoreGraphicsState lib CocoaLib selector "restoreGraphicsState" (class_id as Ptr)
 		    
@@ -227,7 +227,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub SaveState()
+		Shared Sub SaveState()
 		  #if targetMacOS
 		    declare sub saveGraphicsState lib CocoaLib selector "saveGraphicsState" (class_id as Ptr)
 		    

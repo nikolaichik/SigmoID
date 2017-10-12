@@ -2,7 +2,7 @@
 Class NSPopover
 Inherits NSResponder
 	#tag Method, Flags = &h0
-		 Shared Function Available() As Boolean
+		Shared Function Available() As Boolean
 		  return IsLion
 		End Function
 	#tag EndMethod

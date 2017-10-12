@@ -21,7 +21,7 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		 Shared Function Create(aName as String, anObject as NSObject, anUserInfo as NSDictionary = nil) As NSNotification
+		Shared Function Create(aName as String, anObject as NSObject, anUserInfo as NSDictionary = nil) As NSNotification
 		  //# Returns a new notification object with a specified name and object.
 		  
 		  #if TargetMacOS
