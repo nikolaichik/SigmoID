@@ -1804,11 +1804,12 @@ Protected Module Globals
 		      'folders now include app name
 		      #if DebugBuild then
 		        pf=GetFolderItem("").Child("DebugSigmoID Resources")
-		        pf=pf.Child("Profiles").Child("Pectobacterium")
-		        pf=pf.Child("Pectobacterium")
+		        
 		      #else
-		        pf=GetFolderItem("").Child("SigmoID Resources").Child("Profiles").Child("Pectobacterium")
+		        pf=GetFolderItem("").Child("SigmoID Resources")
 		      #endif
+		      pf=pf.Child("Profiles")
+		      pf=pf.Child("Pectobacterium")
 		      if resources_f=NIL then
 		        msgbox "Can't access Profiles folder!"
 		      end if
