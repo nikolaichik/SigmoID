@@ -2538,8 +2538,11 @@ Protected Module Globals
 		    
 		  end select
 		  
-		  
-		  msgbox "Server error: "+msg
+		  if ErrNo=-999 then
+		    'ignoring this spurious error type
+		  else
+		    msgbox "Server error: "+msg
+		  end if
 		End Sub
 	#tag EndMethod
 

@@ -55,7 +55,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -241,9 +240,8 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
-      Value           =   3
+      Value           =   2
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -288,28 +286,6 @@ Begin Window GenomeWin
          TabStop         =   True
          Top             =   359
          Visible         =   True
-         Width           =   1041
-      End
-      Begin HTMLViewer TFSearchViewer
-         AutoDeactivate  =   True
-         Enabled         =   False
-         Height          =   391
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "BrowserPagePanel"
-         Left            =   27
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Renderer        =   1
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   3
-         TabStop         =   True
-         Top             =   359
-         Visible         =   False
          Width           =   1041
       End
       Begin HTMLViewer BLASTSearchViewer
@@ -357,7 +333,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -370,25 +345,11 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   194
    End
-   Begin sHTTPSocket TIGRSocket
-      CertificateFile =   
-      CertificatePassword=   ""
-      CertificateRejectionFile=   
-      ConnectionType  =   3
-      Enabled         =   True
-      Index           =   -2147483648
-      InitialParent   =   ""
-      LockedInPosition=   False
-      Scope           =   0
-      Secure          =   False
-      TabPanelIndex   =   0
-   End
    Begin sHTTPSocket SPSocket
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -401,7 +362,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -504,7 +464,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -587,7 +546,6 @@ End
 		Sub Close()
 		  BLASTSearchViewer.close
 		  SPSearchViewer.close
-		  TFSearchViewer.close
 		  UPSearchViewer.close
 		  
 		End Sub
@@ -899,6 +857,12 @@ End
 		  #endif
 		  
 		  MapCanvas.SetFocus
+		  
+		  
+		  'set the required secureHTTPsocket option:
+		  SPSocket.Secure=true
+		  UniProtSocket.Secure=true
+		  BLASTSocket.Secure=true
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:Open")
 		End Sub
@@ -1814,7 +1778,7 @@ End
 		  #endif
 		  
 		  CDDsearch=true
-		  BLASTSocket.Secure = True
+		  'BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  
 		  
@@ -2692,8 +2656,6 @@ End
 		    tab2find="SProt"
 		  elseif instr(TabName,"UniProt")>0 then
 		    tab2find="UniProt"
-		  elseif instr(TabName,"TIGRFAM")>0 then
-		    tab2find="TIGRFAM"
 		  elseif instr(TabName,"BLAST")>0 then
 		    tab2find="BLAST"
 		  elseif instr(TabName,"CDD:")>0 then
@@ -3324,6 +3286,8 @@ End
 		  
 		  SPSocket.SetRequestHeader("Expect:","")
 		  SPSocket.SetRequestHeader("Accept:","text/html")
+		  'SPSocket.SetRequestHeader("Accept:","text/xml")
+		  
 		  Dim form As Dictionary
 		  'create and populate the form object
 		  form = New Dictionary
@@ -3334,48 +3298,6 @@ End
 		  'SPSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
 		  SPSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub HmmerSearchTIGRFAM(ProtName as string)
-		  dim theSeq, command, UUID, theURL as string
-		  
-		  
-		  'name the search tab:
-		  FindTab(ProtName+":TIGRFAM")
-		  BrowserTabs.RePaint
-		  
-		  'get the seq to search with:
-		  if Seq.Features(ContextFeature).complement  then
-		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
-		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
-		    theSeq=gcodes(gCodeNo).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
-		  else
-		    FeatureLeft=Seq.Features(ContextFeature).start
-		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
-		    theSeq=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
-		  end
-		  
-		  'We want html results, but there's a bug in hmmer REST API with this format, hence a workaround
-		  'First, launch the search to get the UUID:
-		  'curl -L -H 'Expect:' -H 'Accept:text/plain' -F seqdb=swissprot  -F algo=phmmer -F seq=MSFAITY  http://hmmer.janelia.org/search/phmmer
-		  
-		  'command="curl -L -H 'Expect:' -H 'Accept:text/html' -F hmmdb=tigrfam -F seq="+theSeq+" http://hmmer.janelia.org/search/hmmscan"
-		  'TIGRShell.execute command
-		  TIGRSocket.SetRequestHeader("Expect:","")
-		  TIGRSocket.SetRequestHeader("Accept:","text/html")
-		  Dim form As Dictionary
-		  'create and populate the form object
-		  form = New Dictionary
-		  form.Value("hmmdb") = "tigrfam"
-		  form.Value("seq") = theSeq
-		  TIGRSocket.SetFormData(form)
-		  'TIGRSocket.Post("http://hmmer.janelia.org/search/hmmscan")
-		  'change to the EBI address
-		  TIGRSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/hmmscan")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -5979,8 +5901,6 @@ End
 		      base.Append mItem(kHmmerSearchSwissprot,boo)
 		      boo=NOT UniProtSocket.IsConnected
 		      base.Append mItem(kHmmerSearchUniprot,boo)
-		      'boo=NOT TIGRSocket.IsConnected
-		      'base.Append mItem(kHmmerSearchTigrfam,boo)    'disabled as TIGRfam is included in CDD
 		      base.Append mItem(kCDsearch,true)
 		      base.Append mItem(kBLASTPsearch+BLASTpDB,true)
 		    else
@@ -6049,8 +5969,6 @@ End
 		    HmmerSearchUniProt(ContextProteinName)
 		  case kHmmerSearchSwissProt
 		    HmmerSearchSwissProt(ContextProteinName)
-		  case kHmmerSearchTIGRFAM
-		    HmmerSearchTIGRFAM(ContextProteinName)
 		  case kBLASTPsearch+BLASTpDB
 		    BLASTPsearch(ContextProteinName)
 		  case kCDsearch
@@ -6444,9 +6362,6 @@ End
 		  elseif instr(TabName,"UniProt")>0 then
 		    UPSearchViewer.Visible=true
 		    BrowserPagePanel.value=1
-		  elseif instr(TabName,"TIGRFAM")>0 then
-		    TFSearchViewer.Visible=true
-		    BrowserPagePanel.value=2
 		  elseif instr(TabName,"BLAST")>0 OR instr(TabName,"CDD:")>0 then
 		    BLASTSearchViewer.Visible=true
 		    BrowserPagePanel.value=3
@@ -6485,8 +6400,6 @@ End
 		  'SPSearchViewer.Visible=false
 		  'elseif instr(TabName,"UniProt")>0 then
 		  'UPSearchViewer.Visible=false
-		  'elseif instr(TabName,"TIGRFAM")>0 then
-		  'TFSearchViewer.Visible=false
 		  'end if
 		  '
 		  
@@ -6565,29 +6478,18 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events TFSearchViewer
-	#tag Event
-		Sub DocumentBegin(URL as String)
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Error(errorNumber as Integer, errorMessage as String)
-		  if errorMessage<>"" then
-		    SocketError(errorNumber, errorMessage)
-		  else
-		    SocketError errorNumber
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events BLASTSearchViewer
 	#tag Event
 		Sub Error(errorNumber as Integer, errorMessage as String)
 		  if errorMessage<>"" then
-		    SocketError(errorNumber, errorMessage)
+		    if errorNumber<>-999 then
+		      SocketError(errorNumber, errorMessage)
+		    else
+		      SocketError errorNumber
+		    end if
 		  else
-		    SocketError errorNumber
+		    'The operation couldn’t be completed. (NSURLErrorDomain error -999.)
+		    'This error can be safely ignored
 		  end if
 		End Sub
 	#tag EndEvent
@@ -6613,64 +6515,12 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events TIGRSocket
-	#tag Event
-		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
-		  dim UUID,theURL as string
-		  
-		  'get the UUID from text result that look like this:
-		  '<p>This item has moved <a href="http;//hmmer.janelia.org/results/72FE0A78-DA87-11E4-AAA3-3AF1F19B2471/score">here</a>
-		  
-		  UUID=NthField(Content,"/results/",2)
-		  UUID=NthField(UUID,"/score",1)
-		  'UUID correctness should be verified!
-		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  theURL="https://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
-		  'now simply load the corrected URL:
-		  
-		  TFSearchViewer.LoadURL(theURL)
-		  'ProgressHide
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:TIGRSocket")
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Connected()
-		  dim theURL,blankpath as string
-		  dim f as FolderItem
-		  
-		  
-		  f=resources_f.child("blank.html")
-		  if f<>Nil then
-		    if f.exists then
-		      blankpath=f.ShellPath
-		      theURL="file://"+blankpath
-		    end if
-		  end if
-		  
-		  if TMdisplay.Visible then
-		    TMdisplay.Visible=false
-		    TMdisplayAdjustment
-		  end if
-		  TFSearchViewer.LoadURL(theURL)
-		  'ProgressWheel1.top=SPSearchViewer.top+SPSearchViewer.Height/3
-		  'ProgressWheel1.Visible=true
-		  'ProgressWheel1.Enabled=true
-		  
-		  
-		  
-		  
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:SPSocket")
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events SPSocket
 	#tag Event
 		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
 		  dim UUID,theURL as string
 		  
-		  'get the UUID from text result that look like this:
+		  'get the UUID from text result that looks like this:
 		  'href="/results/62A7A0BC-D3DE-11E4-A3D4-5D4A59DEE9FE/score">Score</a></li><li class="taxlink "><a :
 		  
 		  UUID=NthField(Content,"/results/",2)

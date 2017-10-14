@@ -3,7 +3,7 @@
 				Begin BuildProjectStep Build
 				End
 				Begin CopyFilesBuildStep CopyResources32bit
-					AppliesTo = 1
+					AppliesTo = 3
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vUHJvZmlsZXMv

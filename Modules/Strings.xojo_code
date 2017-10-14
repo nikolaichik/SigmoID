@@ -544,11 +544,6 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"phmmer-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 SwissProt"
 	#tag EndConstant
 
-	#tag Constant, Name = kHmmerSearchTIGRFAM, Type = String, Dynamic = True, Default = \"Hmmscan TIGRFAMs", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x98\xD1\x81\xD0\xBA\xD0\xB0\xD1\x82\xD1\x8C \xD0\xB2 TIGRFAM hmmscan\xE2\x80\x99\xD0\xBE\xD0\xBC"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x83\xD0\xBA\xD0\xB0\xD1\x86\xD1\x8C \xD1\x83 TIGRFAM hmmscan\xE2\x80\x99\xD0\xB0\xD0\xBC"
-	#tag EndConstant
-
 	#tag Constant, Name = kHmmerSearchUniprot, Type = String, Dynamic = True, Default = \"Query UniProtKB with phmmer", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"phmmer-\xD0\xBF\xD0\xBE\xD0\xB8\xD1\x81\xD0\xBA \xD0\xB2 UniProtKB"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"phmmer-\xD0\xBF\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA \xD1\x83 UniProtKB"
