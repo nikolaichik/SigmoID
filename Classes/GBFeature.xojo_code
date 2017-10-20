@@ -173,12 +173,21 @@ Protected Class GBFeature
 		    linshape.colour=&cCC666600
 		    hasArrow=false
 		    ArrowInit
+		  case "mobile_element"   'lavender
+		    linshape.colour=&cCC66FF00
+		    hasArrow=false
+		    ArrowInit
+		  case "repeat_region"   'orchid
+		    linshape.colour=&c6666FF00
+		    hasArrow=true
+		    ArrowInit
 		  else
 		    linshape.colour=&cC0C0C0   'gray
 		    'color=&cC0C0C0
 		    'hasArrow=false
 		    ArrowInit
 		  end select
+		  
 		  
 		  linShape.BorderColor=BorderColor 'circShape.BorderColor
 		  linShape.Border=100
