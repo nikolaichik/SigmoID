@@ -110,7 +110,6 @@ Begin Window deNovoWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kOutFolder"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -500,9 +499,6 @@ Begin Window deNovoWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      CertificatePassword=   ""
-      ConnectionType  =   "3"
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -514,7 +510,6 @@ Begin Window deNovoWin
       Port            =   0
       RemoteAddress   =   ""
       Scope           =   0
-      Secure          =   "False"
       TabPanelIndex   =   0
       yield           =   False
    End
@@ -599,7 +594,6 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Minimal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -634,7 +628,6 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Maximal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -988,8 +981,9 @@ End
 		      alignmentsFile.Delete
 		    end if
 		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
+		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
-		    cli="/usr/local/bin/hmmsearch --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+hmmPath+" "+CDSfile.ShellPath
+		    cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+hmmPath+" "+CDSfile.ShellPath
 		    
 		    sh.execute cli
 		    If sh.errorCode=0 then

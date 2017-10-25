@@ -137,7 +137,6 @@ Protected Module Globals
 		  ge=ReplaceAllB(Ge,EndOfLine.unix,"")
 		  ge=ReplaceAllB(Ge,"//","")
 		  
-		  'ConvertEncoding to ASCII
 		  return Uppercase(Ge)
 		  
 		  

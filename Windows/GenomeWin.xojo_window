@@ -6084,7 +6084,7 @@ End
 		      ftR=mid(seq.Features(PointedFeature).FeatureText,trC+16)
 		      trC=instr(ftR,"/")
 		      if trC>0 then
-		        ttip=ftL+right(ftR,len(ftR)-trC)
+		        ttip=ftL+right(ftR,len(ftR)-trC+1)
 		      else
 		        ttip=ftL
 		      end if

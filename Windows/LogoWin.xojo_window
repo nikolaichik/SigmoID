@@ -128,7 +128,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   0
       Visible         =   True
@@ -2888,7 +2887,7 @@ End
 		    
 		    dim HmmSearchPath as string = replace(nhmmerPath,"/nhmmer","/hmmsearch")
 		    
-		    cli=HmmSearchPath+" "+modelFile+" "+CDSfasta.ShellPath+" "+hmmSearchSettings ' +" -o "+nhmmerResultFile.shellpath
+		    cli=HmmSearchPath+" "+hmmSearchSettings+" "+modelFile+" "+CDSfasta.ShellPath ' +" -o "+nhmmerResultFile.shellpath
 		    
 		    
 		    sh=New Shell
@@ -2996,13 +2995,43 @@ End
 		        
 		        inStream.close
 		        
-		        'read profile calibration values
+		        'read CRtag and profile calibration values
 		        dim aline As string
+		        TF_HMM=""
+		        CRtag=""
+		        SeedProteinID=""
+		        SeedProteinSeq=""
+		        
 		        InStream = f.OpenAsTextFile
 		        while not InStream.EOF
 		          aLine=InStream.readLine
 		          dim score as string
-		          if left(aLine,7)="#=GF GA" then
+		          if left(aLine,6)="TF_HMM" then
+		            dim l As integer
+		            dim ht as string
+		            ht=trim(NthField(aline," ",2))
+		            for l=0 to ProfileWizardWin.TFhmmPopup.ListCount-1
+		              if ProfileWizardWin.TFhmmPopup.List(l)=ht then
+		                TF_HMM=ht
+		                ProfileWizardWin.TFhmmPopup.ListIndex=l
+		                exit
+		              end if
+		            next
+		            
+		          elseif left(aLine,6)="CRtag " then 'space to distinguish from CRtagCoords
+		            CRtag=right(aline,len(aline)-6)
+		            ProfileWizardWin.CRtagSeqField.text=CRtag
+		          elseif left(aLine,11)="CRtagCoords" then
+		            CRtagCoords=right(aline,len(aline)-12)
+		            ProfileWizardWin.CRtagField.text=CRtagCoords
+		          elseif left(aLine,10)="protein_id" then
+		            SeedProteinID=trim(NthField(aline," ",2))
+		            ProfileWizardWin.SeedProteinArea.text=">"+SeedProteinID+EndOfLine.Unix
+		          elseif left(aLine,12)="seed_protein" then
+		            SeedProteinSeq=trim(NthField(aline," ",2))
+		            ProfileWizardWin.SeedProteinArea.text=ProfileWizardWin.SeedProteinArea.text+SeedProteinSeq
+		            ProfileWizardWin.SeedProteinArea.Italic=false
+		          elseif left(aLine,7)="#=GF GA" then
 		            score=trim(NthField(aline," ",3))
 		            nhmmerSettingsWin.GAvalue.text="("+score+")"
 		            ProfileWizardWin.GatheringField.text=score
@@ -3089,7 +3118,7 @@ End
 		      ProfileWizardWin.WithinORFBox.value=False
 		      HmmGenSettingsWin.AddQualifierBox.value=True
 		      HmmGenSettingsWin.NextLocusBox.value=False
-		      ProfileWizardWin.NextLocusBox.value=False
+		      'ProfileWizardWin.NextLocusBox.value=False
 		      OptionsNo=countFields(ProfileSettings,"HmmGen.")
 		      for n=1 to OptionsNo
 		        theOption=NthField(ProfileSettings,"HmmGen.",n+1)
@@ -3105,9 +3134,9 @@ End
 		        case "-i"
 		          HmmGenSettingsWin.IntergenicBox.value=true
 		          ProfileWizardWin.WithinORFBox.value=true
-		        case "-n"
-		          HmmGenSettingsWin.NextLocusBox.value=false
-		          ProfileWizardWin.NextLocusBox.value=false
+		          'case "-n"
+		          'HmmGenSettingsWin.NextLocusBox.value=false
+		          'ProfileWizardWin.NextLocusBox.value=false
 		        case "-f"
 		          HmmGenSettingsWin.FeatureCombo.Text=NthField(theOption," ",2)
 		          ProfileWizardWin.FeatureCombo.Text=NthField(theOption," ",2)
@@ -3178,7 +3207,7 @@ End
 		        ProfileWizardWin.TrustedField.text=""
 		        ProfileWizardWin.PalindromicBox.value=false
 		        ProfileWizardWin.WithinORFBox.value=True
-		        ProfileWizardWin.NextLocusBox.value=False
+		        'ProfileWizardWin.NextLocusBox.value=False
 		        if Not SeqsChanged then 'otherwise editing the same profile twice leads to HmmGen.py error 
 		          ProfileWizardWin.ValueField.text=""
 		        end if
@@ -3746,6 +3775,149 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function MatchingTFpresent() As boolean
+		  ' searches the genome with hmmsearch,
+		  ' returns true if there's a hit with the specified CRtag
+		  
+		  'hmmSearchSettingsWin.ShowModalWithin(self)
+		  'if hmmSearchSettings="" then
+		  'return false
+		  '
+		  'end if
+		  '
+		  'logowin.show
+		  dim cli as string
+		  Dim sh As Shell
+		  dim instream as TextInputStream
+		  
+		  
+		  if GenomeFile=Nil then
+		    logoWin.WriteToSTDOUT("Please select a file to search first.")
+		    return false
+		  else
+		    logoWin.WriteToSTDOUT("Exporting protein seqs..."+EndOfLine.UNIX)
+		    
+		  end if
+		  
+		  'export protein fastas:
+		  dim CDSfasta as folderitem
+		  CDSfasta=SpecialFolder.Temporary.child("CDS.fasta")
+		  
+		  instream=CDSfasta.OpenAsTextFile
+		  
+		  if instream<>nil then
+		    CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
+		    instream.close
+		  end if
+		  
+		  
+		  if CDSfasta<>nil then
+		    if CDSfasta.exists then
+		      LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"An existing CDS sequences file was found at "+CDSfasta.shellpath+" and will be reused.")
+		      
+		    else
+		      LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Exporting CDS sequences...")
+		      GenomeWin.ExportProteins(CDSfasta)
+		      LogoWin.WriteToSTDOUT (" OK")
+		    end if
+		    
+		    instream=CDSfasta.OpenAsTextFile
+		    
+		    if instream<>nil then
+		      CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
+		    end if
+		    instream.close
+		    
+		    cli=""
+		    
+		    
+		    FixPath4Windows(CDSfasta)
+		    
+		    dim genomefilepath as string
+		    #if TargetWin32
+		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		    #else
+		      GenomeFilePath=GenomeFile.shellpath
+		    #endif
+		    
+		    dim modelFile as string
+		    modelFile=Resources_f.Child("TF_HMMs").Child(TF_HMM).ShellPath
+		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
+		    
+		    'some settings are required here, at least to set threshold
+		    
+		    cli=HmmSearchPath    '+" "+hmmSearchSettings
+		    
+		    
+		    'if hmmSearchSettingsWin.AddAnnotationCheckBox.Value then
+		    'hmmsearchResultFile=SpecialFolder.Temporary.child("hmmsearch.result")
+		    '
+		    'if hmmsearchResultFile<>nil then
+		    'cli=cli +" -o "+hmmsearchResultFile.shellpath
+		    'else
+		    'return false
+		    'end if
+		    ''end if
+		    'cli=cli+" "+modelFile+" "+CDSfasta.ShellPath
+		    
+		    dim alignmentsFile as folderitem = SpecialFolder.Temporary.Child("alignments.table")
+		    if alignmentsFile<>nil then
+		      if alignmentsFile.exists then
+		        alignmentsFile.Delete
+		      end if
+		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
+		      HmmSearchPath = replace(nhmmerPath,"nhmmer","hmmsearch")
+		      
+		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+modelFile+" "+CDSfasta.ShellPath
+		      
+		      
+		      
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      sh.execute cli
+		      If sh.errorCode=0 then
+		        logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		        'LogoWinToolbar.Item(2).Enabled=true
+		        'logoWin.LastSearch="hmmsearch" 'not used
+		        
+		        // check for correct CRtag here!!!
+		        LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
+		        
+		        instream = alignmentsFile.OpenAsTextFile
+		        
+		        if instream<>nil then         'save hmmsearch results
+		          dim table as string=trim(instream.ReadAll)
+		          instream.close
+		          dim hmmSearchRes as string = GetCRtags(sh.Result,Table,CRtagCoords)
+		          if instr(hmmSearchRes,">"+CRtag+">")>0 then
+		            return true
+		          else
+		            return false
+		          end if
+		        else
+		          return false
+		        end if
+		      else
+		        logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		        MsgBox "hmmsearch error code: "+Str(sh.errorCode)
+		        logoWin.WriteToSTDOUT (EndofLine+"hmmsearch command line was: "+cli+EndofLine)
+		        'LogoWinToolbar.Item(2).Enabled=false
+		        return false
+		      end if
+		    end if
+		  end if
+		  
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:MatchingTFpresent")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MEMEconvert() As integer
 		  'Converts current alignment to minimal MEME format
 		  
@@ -3984,32 +4156,53 @@ End
 		  nhmmerSettingsWin.EnableRun
 		  nhmmerSettingsWin.ShowModalWithin(self)
 		  'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
+		  
+		  'need a pref checkbox to enable CRtag-filtered search
+		  
 		  if nhmmerOptions <> "" then
-		    if nhmmer then
-		      if nhmmerSettingsWin.AddAnnotationCheckBox.value then
+		    
+		    'check if the orthologous TF with matching CRtag is present in the genome
+		    
+		    if CRtag="" then
+		      me.WriteToSTDOUT "No CRtag data in this profile. Please make sure that the TF able to recognise these sites is actually encoded in the genome."+EndOfLine.unix
+		    else
+		      if MatchingTFpresent then
 		        
-		        Dim dlg as New SaveAsDialog
-		        dlg.InitialDirectory=genomefile.Parent
-		        dlg.promptText="Select where to save the modified genome file"
-		        dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-		        dlg.Title="Save genome file"
-		        dlg.Filter=FileTypes.genbank
-		        dlg.CancelButtonCaption=kCancel
-		        dlg.ActionButtonCaption=kSave
-		        outfile=dlg.ShowModal()
-		        if outfile<>nil then
-		          HmmGenSettingsWin.ReadOptions
-		          if HmmGen then
-		            if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		              if ubound(GenomeWin.HmmHitDescriptions)>0 then
-		                GenomeWin.opengenbankfile(outFile)
-		                genomeWin.ShowHit
-		                WriteToSTDOUT (" done."+EndofLine)
+		        
+		        
+		        
+		        if nhmmer then
+		          if nhmmerSettingsWin.AddAnnotationCheckBox.value then
+		            
+		            Dim dlg as New SaveAsDialog
+		            dlg.InitialDirectory=genomefile.Parent
+		            dlg.promptText="Select where to save the modified genome file"
+		            dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		            dlg.Title="Save genome file"
+		            dlg.Filter=FileTypes.genbank
+		            dlg.CancelButtonCaption=kCancel
+		            dlg.ActionButtonCaption=kSave
+		            outfile=dlg.ShowModal()
+		            if outfile<>nil then
+		              HmmGenSettingsWin.ReadOptions
+		              if HmmGen then
+		                if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		                  if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		                    GenomeWin.opengenbankfile(outFile)
+		                    genomeWin.ShowHit
+		                    WriteToSTDOUT (" done."+EndofLine)
+		                  end if
+		                end if
 		              end if
 		            end if
 		          end if
 		        end if
+		        
+		      else
+		        me.WriteToSTDOUT "No TF with matching CRtag could be found."+EndOfLine.unix
+		        
 		      end if
+		      
 		    end if
 		  end if
 		End Sub
@@ -4263,6 +4456,14 @@ End
 		CheckState As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		CRtag As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CRtagCoords As string
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected CurrentX As Integer
 	#tag EndProperty
@@ -4415,6 +4616,14 @@ End
 		ScanningGenome As boolean
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		SeedProteinID As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SeedProteinSeq As String
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected SelArray1(0) As Integer
 	#tag EndProperty
@@ -4441,6 +4650,10 @@ End
 
 	#tag Property, Flags = &h0
 		TermGenPath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TF_HMM As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

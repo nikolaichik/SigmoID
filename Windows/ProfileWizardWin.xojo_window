@@ -9,7 +9,7 @@ Begin Window ProfileWizardWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   574
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,7 +25,7 @@ Begin Window ProfileWizardWin
    Resizeable      =   False
    Title           =   "#kProfileWizard"
    Visible         =   False
-   Width           =   628
+   Width           =   665
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
       Bold            =   False
@@ -40,7 +40,7 @@ Begin Window ProfileWizardWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       TabIndex        =   0
@@ -52,7 +52,7 @@ Begin Window ProfileWizardWin
       Top             =   20
       Underline       =   False
       Visible         =   True
-      Width           =   275
+      Width           =   312
       Begin Label Label1
          AutoDeactivate  =   True
          Bold            =   False
@@ -85,7 +85,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   175
+         Width           =   227
       End
       Begin TextField TrustedField
          AcceptTabs      =   False
@@ -105,12 +105,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   233
+         Left            =   270
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -162,7 +162,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   197
+         Width           =   227
       End
       Begin TextField GatheringField
          AcceptTabs      =   False
@@ -182,12 +182,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   233
+         Left            =   270
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -229,7 +229,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         Text            =   "#kNoise1"
+         Text            =   "#kNoise"
          TextAlign       =   0
          TextColor       =   &c00000000
          TextFont        =   "System"
@@ -239,7 +239,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   175
+         Width           =   227
       End
       Begin TextField NoiseField
          AcceptTabs      =   False
@@ -259,12 +259,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   233
+         Left            =   270
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -302,12 +302,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   233
+         Left            =   270
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -359,7 +359,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   175
+         Width           =   227
       End
    End
    Begin GroupBox GroupBox3
@@ -372,10 +372,10 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   299
+      Left            =   336
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
@@ -401,10 +401,10 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   307
+         Left            =   344
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
+         LockLeft        =   False
          LockRight       =   True
          LockTop         =   True
          Scope           =   0
@@ -432,11 +432,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   307
+         Left            =   344
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Multiline       =   False
          Scope           =   0
@@ -468,11 +468,11 @@ Begin Window ProfileWizardWin
          InitialParent   =   "GroupBox3"
          InitialValue    =   ""
          Italic          =   False
-         Left            =   423
+         Left            =   460
          ListIndex       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
+         LockLeft        =   False
          LockRight       =   True
          LockTop         =   True
          Scope           =   0
@@ -506,11 +506,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   369
+         Left            =   406
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
+         LockLeft        =   False
          LockRight       =   True
          LockTop         =   True
          Mask            =   ""
@@ -543,11 +543,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   307
+         Left            =   344
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          State           =   0
@@ -574,11 +574,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   307
+         Left            =   344
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
+         LockLeft        =   False
+         LockRight       =   True
          LockTop         =   True
          Multiline       =   False
          Scope           =   0
@@ -615,7 +615,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   506
+         Left            =   543
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -640,38 +640,6 @@ Begin Window ProfileWizardWin
          Visible         =   True
          Width           =   101
       End
-      Begin CheckBox NextLocusBox
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kUseNext"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   " -n, --name            \ndon't pick 'locus_tag' and 'gene' qualifiers from the next CDS feature.\nChecking this will remove the -n option"
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox3"
-         Italic          =   False
-         Left            =   452
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         State           =   0
-         TabIndex        =   8
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   56
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         Width           =   157
-      End
    End
    Begin TextArea InfoArea
       AcceptTabs      =   False
@@ -685,7 +653,7 @@ Begin Window ProfileWizardWin
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   150
+      Height          =   135
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -698,7 +666,7 @@ Begin Window ProfileWizardWin
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Multiline       =   True
       ReadOnly        =   False
@@ -714,11 +682,11 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   204
+      Top             =   393
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   603
+      Width           =   640
    End
    Begin PushButton SaveButton
       AutoDeactivate  =   True
@@ -733,7 +701,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   525
+      Left            =   562
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -746,7 +714,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   366
+      Top             =   540
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -764,7 +732,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   423
+      Left            =   460
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -777,7 +745,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   366
+      Top             =   540
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -806,11 +774,11 @@ Begin Window ProfileWizardWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   12
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       MenuValue       =   0
       Scope           =   0
       TabIndex        =   6
@@ -820,11 +788,309 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   366
+      Top             =   540
       Underline       =   False
       Value           =   False
       Visible         =   True
       Width           =   89
+   End
+   Begin PopupMenu TFhmmPopup
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   158
+      ListIndex       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   202
+      Underline       =   False
+      Visible         =   True
+      Width           =   494
+   End
+   Begin Label Label7
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   12
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      Text            =   "TF family HMM:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   204
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   134
+   End
+   Begin Label Label8
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   12
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      Text            =   "CRtag coords:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   234
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   112
+   End
+   Begin TextField CRtagField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   126
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   234
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   198
+   End
+   Begin Label Label9
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   12
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      Text            =   "protein_id and sequence of the protein used to seed the profile (fasta format):"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   262
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   640
+   End
+   Begin TextArea SeedProteinArea
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   True
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   100
+      HelpTag         =   ""
+      HideSelection   =   True
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   12
+      LimitText       =   0
+      LineHeight      =   0.0
+      LineSpacing     =   1.0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Multiline       =   True
+      ReadOnly        =   False
+      Scope           =   0
+      ScrollbarHorizontal=   False
+      ScrollbarVertical=   True
+      Styled          =   True
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ">protein_id\nsequence"
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   287
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   640
+   End
+   Begin Label Label10
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   336
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      Text            =   "CRtag sequence:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   234
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   128
+   End
+   Begin TextField CRtagSeqField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   476
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   234
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   176
    End
 End
 #tag EndWindow
@@ -856,7 +1122,23 @@ End
 		    SaveButton.enabled=false
 		    return
 		  end
+		  
 		  if len(InfoArea.text)<10 then
+		    SaveButton.enabled=false
+		    return
+		  end
+		  
+		  if len(SeedProteinArea.text)<50 then
+		    SaveButton.enabled=false
+		    return
+		  end
+		  
+		  if len(CRtagField.text)<10 then
+		    SaveButton.enabled=false
+		    return
+		  end
+		  
+		  if TFhmmPopup.text="" then
 		    SaveButton.enabled=false
 		    return
 		  end
@@ -1373,6 +1655,46 @@ End
 		            if f2<>nil then
 		              dim outstream As TextOutputStream
 		              outstream = TextOutputStream.Create(f2)
+		              
+		              outstream.WriteLine("////")
+		              outstream.WriteLine("// TF family and critical residue tag settings")
+		              outstream.WriteLine("////")
+		              outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// TF family HMM file name")
+		              outstream.WriteLine("TF_HMM "+trim(TFhmmPopup.Text))
+		              'outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// CRtag coordinates")
+		              outstream.WriteLine("CRtagCoords "+trim(CRtagField.text))
+		              'outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// CRtag sequence")
+		              outstream.WriteLine("CRtag "+trim(CRtagSeqField.text))
+		              
+		              
+		              'get seed protein name and sequence
+		              dim proteinID, proteinSeq as string
+		              dim lineBreakC as integer
+		              proteinSeq=trim(SeedProteinArea.text)
+		              lineBreakC=instr(proteinSeq,EndOfLine.Unix)
+		              if lineBreakC=0 then
+		                msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
+		                return
+		              End If
+		              proteinID=NthField(proteinSeq,EndOfLine.Unix,1)
+		              proteinID=right(proteinID,len(proteinID)-1) 'remove the > sign
+		              proteinSeq=CleanUp(right(proteinSeq,len(proteinSeq)-lineBreakC))
+		              
+		              outstream.WriteLine("// protein_id of the TF used to seed the profile")
+		              outstream.WriteLine("protein_id "+proteinID)
+		              'outstream.WriteLine(Endofline)
+		              
+		              outstream.WriteLine("// seed protein sequence (single line)")
+		              outstream.WriteLine("Seed_protein "+proteinSeq)
+		              outstream.WriteLine(Endofline)
+		              'outstream.WriteLine(Endofline)
+		              
 		              outstream.WriteLine("////")
 		              outstream.WriteLine("// nhmmer options")
 		              outstream.WriteLine("////")
@@ -1393,6 +1715,7 @@ End
 		              outstream.WriteLine("// use the gathering threshold from the calibrated profile")
 		              outstream.WriteLine("nhmmer.--cut_ga")
 		              outstream.WriteLine(Endofline)
+		              outstream.WriteLine(Endofline)
 		              
 		              outstream.WriteLine("////")
 		              outstream.WriteLine("// HmmGen options")
@@ -1409,11 +1732,11 @@ End
 		                outstream.WriteLine(Endofline)
 		              end if
 		              
-		              if NOT NextLocusBox.value then
-		                outstream.WriteLine("// don't pick up locus_tag from next locus")
-		                outstream.WriteLine("HmmGen.-n")
-		                outstream.WriteLine(Endofline)
-		              end if
+		              'if NOT NextLocusBox.value then
+		              'outstream.WriteLine("// don't pick up locus_tag from next locus")
+		              'outstream.WriteLine("HmmGen.-n")
+		              'outstream.WriteLine(Endofline)
+		              'end if
 		              
 		              if WithinORFBox.value then
 		                outstream.WriteLine("// ignore sites inside ORFs (and risk missing some real ones!)")
@@ -1553,6 +1876,112 @@ End
 		    me.Caption="Lock"
 		  end if
 		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TFhmmPopup
+	#tag Event
+		Sub Open()
+		  dim l,m,n as integer
+		  dim f as folderitem
+		  dim hmmPath, fName, aLine,lineStart as string
+		  dim inStream as TextInputStream
+		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
+		  
+		  'redim PopupFiles(-1)
+		  'f=Profile_f
+		  f=Resources_f.Child("TF_HMMs")
+		  if f<>Nil then
+		    if f.exists then
+		      
+		      m=f.Count
+		      for n=1 to m
+		        'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
+		        'msgbox dis
+		        
+		        if right(f.Item(n).name,4)=".hmm" then
+		          hmmPath = f.Item(n).ShellPath
+		          fName = f.Item(n).DisplayName
+		          'fName = left(fName,len(fName)-4) 'drop the extension
+		          '
+		          ''get HMM info
+		          'instream=f.Item(n).OpenAsTextFile
+		          '
+		          'if instream<>nil then
+		          'aNAME=""
+		          'ACC=""
+		          'DESC=""
+		          'while (aNAME="" OR ACC="" OR DESC="")
+		          'aLine=inStream.ReadLine
+		          'lineStart=left(aline,6)
+		          'select case lineStart
+		          'case "NAME  "
+		          'aNAME=NthField(aLine,"NAME  ",2)
+		          'case "ACC   "
+		          'ACC=NthField(aLine,"ACC   ",2)
+		          'case "DESC  "
+		          'DESC=NthField(aLine,"DESC  ",2)
+		          'end select
+		          'if inStream.EOF then
+		          'exit
+		          'end if
+		          'wend
+		          '
+		          'end if
+		          
+		          me.AddRow(fName)
+		          
+		          
+		          
+		        end if
+		        
+		        
+		        
+		      next
+		      
+		    end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"ProfileWizardWin:TFhmmPopup:open")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SeedProteinArea
+	#tag Event
+		Sub Open()
+		  me.Italic=true
+		  me.TextColor=&c99999900 'gray
+		  me.text=">protein_id"+EndOfLine.UNIX+"sequence"
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  if me.text=(">protein_id"+EndOfLine.UNIX+"sequence") then
+		    me.Italic=false
+		    me.TextColor=&c00000000
+		    me.text=""
+		  end if
+		  
+		  return false
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  EnableSave
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  if me.text=(">protein_id"+EndOfLine.UNIX+"sequence") then
+		    me.Italic=false
+		    me.TextColor=&c00000000
+		    me.text=""
+		  end if
+		  
+		  'return false
+		  
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
