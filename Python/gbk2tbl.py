@@ -27,7 +27,7 @@ def createParser():
                         action='store_const',
                         const=True,
                         help='''adds translation qualifier to CDS features in .tbl''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.2 (July 1, 2015)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.3 (October 28, 2017)')
     return parser
 
 args = createParser()
@@ -77,7 +77,7 @@ for record in genbank_file:
                                         loci = advalue
                                         break
                                     break
-                            qualifiers += '\n\t\t\t%s\t%s' % (key, 'gnl|'+enter.prefix+'|'+loci+'|gb|'+value)
+                            qualifiers += '\n\t\t\t%s\t%s' % (key, 'gnl|'+enter.prefix+'|'+loci)
                         else:
                             qualifiers += '\n\t\t\t%s\t%s' % (key, value)    
                     if key != 'protein_id' and key !='translation':
