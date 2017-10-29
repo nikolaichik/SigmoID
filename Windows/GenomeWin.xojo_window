@@ -55,6 +55,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -240,6 +241,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   359
       Value           =   2
       Visible         =   True
@@ -333,6 +335,7 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -350,6 +353,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -362,6 +366,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -464,6 +469,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -1464,7 +1470,7 @@ End
 			protFamilyPath=replace(logoWin.hmmGenPath,"hmmGen.py","ProtFamily.py")
 			
 			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
-			cli="python "+protFamilyPath+" "+hmmsearchResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" -f "+TFfamilyDesc
+			cli=pythonPath+protFamilyPath+" "+hmmsearchResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" -f "+TFfamilyDesc
 			
 			sh=New Shell
 			sh.mode=0
@@ -2727,23 +2733,7 @@ End
 		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
 		    end if
 		    
-		    'gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
-		    '
-		    'cli="python "+gbk2tblPath+" "+GenomeFile.ShellPath+" -f > "+outFile.ShellPath
-		    '
-		    'sh=New Shell
-		    'sh.mode=0
-		    'sh.TimeOut=-1
-		    'sh.execute cli
-		    '
-		    'If sh.errorCode=0 then
-		    'LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
-		    '
-		    'else
-		    'LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error Code: "+Str(sh.errorCode)+EndofLine)
-		    'LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
-		    '
-		    'end if
+		    
 		  end if
 		  
 		  Exception err
@@ -2809,23 +2799,7 @@ End
 		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
 		    end if
 		    
-		    'gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
-		    '
-		    'cli="python "+gbk2tblPath+" "+GenomeFile.ShellPath+" -f > "+outFile.ShellPath
-		    '
-		    'sh=New Shell
-		    'sh.mode=0
-		    'sh.TimeOut=-1
-		    'sh.execute cli
-		    '
-		    'If sh.errorCode=0 then
-		    'LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
-		    '
-		    'else
-		    'LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error Code: "+Str(sh.errorCode)+EndofLine)
-		    'LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
-		    '
-		    'end if
+		    
 		  end if
 		  
 		  Exception err
@@ -2880,7 +2854,7 @@ End
 		      GenomeFilePath=GenomeFile.shellpath
 		      outFilePath=outFile.ShellPath
 		    #endif
-		    cli="python "+gbk2tblPath+" "+GenomeFilePath+" -p BSU > "+outFile.ShellPath
+		    cli=pythonPath+gbk2tblPath+" "+GenomeFilePath+" -p BSU > "+outFile.ShellPath
 		    
 		    sh=New Shell
 		    sh.mode=0
@@ -3738,9 +3712,7 @@ End
 		  Logowin.show
 		  LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running the OperOn script..."+EndofLine)
 		  
-		  'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		  'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		  cli="python "+LogoWin.OperOnPath+" "+GenomeFile.ShellPath+" "+OperOnOptions
+		  cli=pythonPath+LogoWin.OperOnPath+" "+GenomeFile.ShellPath+" "+OperOnOptions
 		  
 		  sh=New Shell
 		  sh.mode=0

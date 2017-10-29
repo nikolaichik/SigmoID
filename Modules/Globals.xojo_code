@@ -359,7 +359,7 @@ Protected Module Globals
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  
-		  cli="python -c 'import multiprocessing as mp; print mp.cpu_count()'"
+		  cli=pythonPath+"-c 'import multiprocessing as mp; print mp.cpu_count()'"
 		  sh.execute cli
 		  If sh.errorCode=0 then
 		    dim CPUs As Integer = Val(sh.result)
@@ -3157,6 +3157,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		ProportionalFont As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		pythonPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

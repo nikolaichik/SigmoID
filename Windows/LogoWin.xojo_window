@@ -399,7 +399,7 @@ End
 		  'if f<>Nil then
 		  'if f.exists then
 		  '#if targetwin32
-		  'weblogopath="python "+f.ShellPath
+		  'weblogopath=pythonPath+f.ShellPath
 		  '#else
 		  'weblogopath=f.ShellPath
 		  '#endif
@@ -455,6 +455,21 @@ End
 		  sh.TimeOut=-1
 		  sh.execute cli
 		  If sh.errorCode=0 then
+		    if instr(sh.result,"Python 3")>0 then
+		      WriteToSTDOUT ("Your system defaults to Python 3. Looking for Python 2...")
+		      cli="python2 --version"
+		      sh=New Shell
+		      sh.execute cli
+		      If sh.errorCode=0 then
+		        pythonPath="python2 "
+		      else
+		        pythonPath=""
+		        WriteToSTDOUT ("Can't find working Python 2 command. Python scripts won't work. ")
+		      End If
+		    else
+		      pythonPath="python "
+		    End If
+		    
 		    if instr(Sh.Result,"command not found")>0 then
 		      WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
 		      allProgsFine=false
@@ -465,7 +480,7 @@ End
 		      f=resources_f.child("BioPythonVersion.py")
 		      if f<>Nil then
 		        if f.exists then
-		          cli="python "+f.ShellPath
+		          cli=pythonPath+f.ShellPath
 		          sh=New Shell
 		          sh.mode=0
 		          sh.TimeOut=-1
@@ -700,9 +715,9 @@ End
 		  'hmmgen
 		  WriteToSTDOUT ("Checking the HmmGen script... ")
 		  #if TargetWin32
-		    cli="python "+chr(34)+hmmGenPath+chr(34)+" -v"
+		    cli=pythonPath+chr(34)+hmmGenPath+chr(34)+" -v"
 		  #else
-		    cli="python "+hmmGenPath+" -v"
+		    cli=pythonPath+hmmGenPath+" -v"
 		  #endif
 		  sh=New Shell
 		  sh.mode=0
@@ -729,9 +744,9 @@ End
 		  'mastgen
 		  WriteToSTDOUT ("Checking the MastGen script... ")
 		  #if TargetWin32
-		    cli="python "+chr(34)+MastGenPath+chr(34)+" -v"
+		    cli=pythonPath+chr(34)+MastGenPath+chr(34)+" -v"
 		  #else
-		    cli="python "+MastGenPath+" -v"
+		    cli=pythonPath+MastGenPath+" -v"
 		  #endif
 		  sh=New Shell
 		  sh.mode=0
@@ -757,9 +772,9 @@ End
 		  'TermGen
 		  WriteToSTDOUT ("Checking the TermGen script... ")
 		  #if TargetWin32
-		    cli="python "+chr(34)+TermGenPath+chr(34)+" -v"
+		    cli=pythonPath+chr(34)+TermGenPath+chr(34)+" -v"
 		  #else
-		    cli="python "+TermGenPath+" -v"
+		    cli=pythonPath+TermGenPath+" -v"
 		  #endif
 		  sh=New Shell
 		  sh.mode=0
@@ -786,9 +801,9 @@ End
 		  'OperOn
 		  WriteToSTDOUT ("Checking the OperOn script... ")
 		  #if TargetWin32
-		    cli="python "+chr(34)+OperOnPath+chr(34)+" -v"
+		    cli=pythonPath+chr(34)+OperOnPath+chr(34)+" -v"
 		  #else
-		    cli="python "+OperOnPath+" -v"
+		    cli=pythonPath+OperOnPath+" -v"
 		  #endif
 		  sh=New Shell
 		  sh.mode=0
@@ -2675,9 +2690,8 @@ End
 		        GenomeFilePath=GenomeFile.shellpath
 		        outFilePath=outFile.ShellPath
 		      #endif
-		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		      cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
+		      
+		      cli=pythonPath+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
 		      
 		      sh=New Shell
 		      sh.mode=0
@@ -3486,9 +3500,7 @@ End
 		        GenomeFilePath=GenomeFile.shellpath
 		      #endif
 		      
-		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		      cli="python "+MastGenPath+" "+MASTResultFile.ShellPath+" "+GenomeFilePath+" "+outFile.ShellPath+" "+HmmGenOptions
+		      cli=pythonPath+MastGenPath+" "+MASTResultFile.ShellPath+" "+GenomeFilePath+" "+outFile.ShellPath+" "+HmmGenOptions
 		      
 		      sh=New Shell
 		      sh.mode=0
@@ -4367,10 +4379,8 @@ End
 		    if outfile<>nil then
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running TermGen script..."+EndofLine)
 		      
-		      'cli="python /Users/Home/HmmGen.py "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
-		      'cli="python "+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFile.ShellPath+" -L "+str(LogoLength)+" "+HmmGenOptions+outFile.ShellPath
 		      FixPath4Windows(outfile)
-		      cli="python "+TermGenPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+TermGenOptions
+		      cli=pythonPath+TermGenPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+TermGenOptions
 		      
 		      sh=New Shell
 		      sh.mode=0
@@ -5046,6 +5056,16 @@ End
 		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="CRtag"
+		Group="Behavior"
+		Type="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CRtagCoords"
+		Group="Behavior"
+		Type="string"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Frame"
 		Visible=true
 		Group="Appearance"
@@ -5292,6 +5312,16 @@ End
 		Type="boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="SeedProteinID"
+		Group="Behavior"
+		Type="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="SeedProteinSeq"
+		Group="Behavior"
+		Type="String"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Sequences"
 		Group="Behavior"
 		Type="string"
@@ -5315,6 +5345,11 @@ End
 		Group="Behavior"
 		Type="String"
 		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TF_HMM"
+		Group="Behavior"
+		Type="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"
