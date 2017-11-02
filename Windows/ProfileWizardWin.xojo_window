@@ -1386,11 +1386,11 @@ End
 		                outstream.WriteLine(Endofline)
 		              end if
 		              
-		              if NOT NextLocusBox.value then
-		                outstream.WriteLine("// don't pick up locus_tag from next locus")
-		                outstream.WriteLine("HmmGen.-n")
-		                outstream.WriteLine(Endofline)
-		              end if
+		              'if NOT NextLocusBox.value then
+		              'outstream.WriteLine("// don't pick up locus_tag from next locus")
+		              'outstream.WriteLine("HmmGen.-n")
+		              'outstream.WriteLine(Endofline)
+		              'end if
 		              
 		              if WithinORFBox.value then
 		                outstream.WriteLine("// ignore sites inside ORFs (and risk missing some real ones!)")

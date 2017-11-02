@@ -55,7 +55,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -241,7 +240,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Value           =   2
       Visible         =   True
@@ -335,7 +333,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -353,7 +350,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -366,7 +362,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -469,7 +464,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -1550,8 +1544,10 @@ End
 		  
 		  
 		  'get selection coords
-		  fStart=seq.SelStart+GBrowseShift
-		  fEnd=fStart+seq.SelLength-1
+		  'fStart=seq.SelStart+GBrowseShift
+		  'fEnd=fStart+seq.SelLength-1
+		  fStart=val(nthField(SelRange.Text,"-",1))
+		  fEnd=val(nthField(SelRange.Text,"-",2))
 		  NewFeatureWin.fStartField.text=str(fStart)
 		  NewFeatureWin.fEndField.text=str(fEnd)
 		  
@@ -1603,7 +1599,7 @@ End
 		  dim theSeq, command, UUID, theURL as string
 		  
 		  'name the search tab:
-		  FindTab("BLASTN:"+GeneName)
+		  FindTab("GB:"+GeneName)
 		  BrowserTabs.RePaint
 		  
 		  'get the seq to search with:
@@ -1654,7 +1650,7 @@ End
 		  
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
-		  FindTab("BLASTP:"+ProtName)
+		  FindTab("GB:"+ProtName)
 		  BrowserTabs.RePaint
 		  
 		  ProgressShow
@@ -1712,7 +1708,7 @@ End
 		  dim theSeq, command, UUID, theURL as string
 		  
 		  'name the search tab:
-		  FindTab("BLASTX:"+GeneName)
+		  FindTab("GB:"+GeneName)
 		  BrowserTabs.RePaint
 		  
 		  ProgressShow
@@ -2384,13 +2380,28 @@ End
 		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p5-12)
 		          FragmentFeature.protein_id=nthField(coord,chr(34),1)
 		        end if
-		        
+		      elseif name="mobile_element" then
+		        'proper annotation should look like:
+		        '/mobile_element_type="insertion sequence: ISPcc1"
+		        coord=replace(CurrentFeature,": ", ":") 'remove extra space to save space ))
+		        if instr(coord,"/mobile_element_type=")>0 then
+		          coord=nthfield(CurrentFeature,"/mobile_element_type="+Chr(34),2)
+		          coord=nthField(coord,chr(34),1)
+		          coord=trim(nthField(coord,":",2)) 'remove mobile element type from display:
+		          FragmentFeature.name=coord
+		        else 'otherwise, look for a note
+		          if instr(coord,"/note=")>0 then
+		            coord=nthfield(coord,"/note="+Chr(34),2)
+		            FragmentFeature.name=nthField(coord,chr(34),1)
+		          else
+		            FragmentFeature.name="mobile element" 'no proper featureformatting, so just a generic name
+		          end if
+		        end if
 		        
 		      elseif name="operon" then
-		        dim s2 as string
-		        s2=nthField(CurrentFeature,"/operon=",2)
-		        s2=nthField(s2,chr(34),2)
-		        FragmentFeature.name=s2+" operon"
+		        coord=nthField(CurrentFeature,"/operon=",2)
+		        coord=nthField(coord,chr(34),2)
+		        FragmentFeature.name=coord+" operon"
 		      elseif name="promoter" then
 		        FragmentFeature.name=""
 		      elseif name="regulatory" then
@@ -2620,6 +2631,24 @@ End
 		        Feature.name=nthField(coord,chr(34),1)
 		      end if
 		    end if
+		  elseif name="mobile_element" then
+		    'proper annotation should look like:
+		    '/mobile_element_type="insertion sequence: ISPcc1"
+		    coord=replace(FeatureText,": ", ":") 'remove extra space to save space ))
+		    if instr(coord,"/mobile_element_type=")>0 then
+		      coord=nthfield(FeatureText,"/mobile_element_type="+Chr(34),2)
+		      coord=nthField(coord,chr(34),1)
+		      coord=trim(nthField(coord,":",2)) 'remove mobile element type from display:
+		      Feature.name=coord
+		    else 'otherwise, look for a note
+		      if instr(coord,"/note=")>0 then
+		        coord=nthfield(coord,"/note="+Chr(34),2)
+		        Feature.name=nthField(coord,chr(34),1)
+		      else
+		        Feature.name="mobile element" 'no proper featureformatting, so just a generic name
+		      end if
+		    end if
+		    
 		  elseif name="promoter" then
 		    Feature.name=""
 		  elseif name="protein_bind" then
@@ -2658,12 +2687,12 @@ End
 		  dim tab2find,caption as string
 		  t=-1
 		  
-		  if instr(TabName,"SProt")>0 then
-		    tab2find="SProt"
-		  elseif instr(TabName,"UniProt")>0 then
-		    tab2find="UniProt"
-		  elseif instr(TabName,"BLAST")>0 then
-		    tab2find="BLAST"
+		  if instr(TabName,"SP:")>0 then
+		    tab2find="SP:"
+		  elseif instr(TabName,"UP:")>0 then
+		    tab2find="UP:"
+		  elseif instr(TabName,"GB:")>0 then
+		    tab2find="GB:"
 		  elseif instr(TabName,"CDD:")>0 then
 		    tab2find="CDD:"
 		  end if
@@ -2671,9 +2700,9 @@ End
 		  
 		  
 		  if BrowserTabs.tabCount>0 then
-		    if Tab2find="BLAST" or tab2find="CDD" then
+		    if Tab2find="GB:" or tab2find="CDD:" then
 		      for n=0 to BrowserTabs.tabCount-1
-		        if instr(BrowserTabs.tabs(n).caption,"BLAST")>0 OR instr(BrowserTabs.tabs(n).caption,"CDD:")>0 then
+		        if instr(BrowserTabs.tabs(n).caption,"GB:")>0 OR instr(BrowserTabs.tabs(n).caption,"CDD:")>0 then
 		          t=n
 		          exit
 		        end if
@@ -3213,7 +3242,7 @@ End
 		  
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
-		  FindTab("SProt:"+ProtName)
+		  FindTab("SP:"+ProtName)
 		  BrowserTabs.RePaint
 		  
 		  'get the seq to search with:
@@ -3283,7 +3312,7 @@ End
 		  
 		  
 		  'name the search tab:
-		  FindTab("UniProt:"+ProtName)
+		  FindTab("UP:"+ProtName)
 		  BrowserTabs.RePaint
 		  
 		  ProgressShow
@@ -6328,10 +6357,10 @@ End
 		  
 		  Tabname=BrowserTabs.tabs(tabIndex).caption
 		  
-		  if instr(TabName,"SProt")>0 then
+		  if instr(TabName,"SP:")>0 then
 		    SPSearchViewer.Visible=true
 		    BrowserPagePanel.value=0
-		  elseif instr(TabName,"UniProt")>0 then
+		  elseif instr(TabName,"UP:")>0 then
 		    UPSearchViewer.Visible=true
 		    BrowserPagePanel.value=1
 		  elseif instr(TabName,"BLAST")>0 OR instr(TabName,"CDD:")>0 then

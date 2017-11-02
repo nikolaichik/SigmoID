@@ -4177,6 +4177,32 @@ End
 		    
 		    if CRtag="" then
 		      me.WriteToSTDOUT "No CRtag data in this profile. Please make sure that the TF able to recognise these sites is actually encoded in the genome."+EndOfLine.unix
+		      if nhmmer then
+		        if nhmmerSettingsWin.AddAnnotationCheckBox.value then
+		          
+		          Dim dlg as New SaveAsDialog
+		          dlg.InitialDirectory=genomefile.Parent
+		          dlg.promptText="Select where to save the modified genome file"
+		          dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		          dlg.Title="Save genome file"
+		          dlg.Filter=FileTypes.genbank
+		          dlg.CancelButtonCaption=kCancel
+		          dlg.ActionButtonCaption=kSave
+		          outfile=dlg.ShowModal()
+		          if outfile<>nil then
+		            HmmGenSettingsWin.ReadOptions
+		            if HmmGen then
+		              if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		                if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		                  GenomeWin.opengenbankfile(outFile)
+		                  genomeWin.ShowHit
+		                  WriteToSTDOUT (" done."+EndofLine)
+		                end if
+		              end if
+		            end if
+		          end if
+		        end if
+		      end if
 		    else
 		      if MatchingTFpresent then
 		        
@@ -4214,8 +4240,9 @@ End
 		        me.WriteToSTDOUT "No TF with matching CRtag could be found."+EndOfLine.unix
 		        
 		      end if
-		      
 		    end if
+		    
+		    
 		  end if
 		End Sub
 	#tag EndMethod

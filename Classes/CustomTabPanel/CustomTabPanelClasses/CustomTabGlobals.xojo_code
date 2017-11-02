@@ -98,6 +98,7 @@ Protected Module CustomTabGlobals
 		  
 		  tmp.graphics.TextSize=size
 		  tmp.graphics.TextFont=fontName
+		  'tmp.graphics.Bold=true
 		  
 		  result=tmp.Graphics.StringWidth(caption)
 		  Return result

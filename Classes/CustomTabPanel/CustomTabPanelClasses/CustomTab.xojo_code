@@ -245,7 +245,7 @@ Protected Class CustomTab
 		  //draw caption
 		  tabData.graphics.ForeColor=&c000000
 		  tabW=height-(leftTabOutline.Width+iconw+7+closeW+rightTabOutline.Width)
-		  tabData.graphics.DrawString caption, iconOffset, (tabData.Height+tabData.Graphics.TextAscent)/2, tabw,true
+		  tabData.graphics.DrawString caption, iconOffset, (tabData.Height+tabData.Graphics.TextAscent)/2, tabw+4,true
 		  
 		  //now, create the tabData picture
 		  self.tabData=New Picture(tabPicture.Width, tabPicture.Height, 32)
