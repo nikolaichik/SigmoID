@@ -36,23 +36,34 @@ Inherits NSMutableSet
 		  #if targetMacOS
 		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
+		    
+		    #if Target64Bit
+		      dim uboundObject as Integer = objects.ubound
+		      dim objectCount as Integer = uboundObject+1
+		      if uboundObject > -1 then
+		        
+		        dim m as new MemoryBlock(SizeOfPointer*objectCount)
+		        for i as integer = 0 to uboundObject
+		          m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
+		        next
+		        super.Constructor(initWithObjects(Allocate("NSCountedSet"), m, objectCount), NSCountedSet.hasOwnership)
+		      end if
+		    #else
+		      dim uboundObject as UInt32 = objects.ubound
+		      dim objectCount as UInt32 = uboundObject+1
+		      if uboundObject > -1 then
+		        
+		        dim m as new MemoryBlock(SizeOfPointer*objectCount)
+		        for i as integer = 0 to uboundObject
+		          m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		        next
+		        
+		        super.Constructor(initWithObjects(Allocate("NSCountedSet"), m, objectCount), NSCountedSet.hasOwnership)
+		      end if
 		    #endif
 		    
-		    dim uboundObject as UInt32 = objects.ubound
-		    dim objectCount as UInt32 = uboundObject+1
-		    if uboundObject > -1 then
-		      
-		      dim m as new MemoryBlock(SizeOfPointer*objectCount)
-		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
-		      next
-		      
-		      super.Constructor(initWithObjects(Allocate("NSCountedSet"), m, objectCount), NSCountedSet.hasOwnership)
-		    end if
+		    
+		    
 		    
 		  #else
 		    #pragma unused objects
@@ -223,26 +234,42 @@ Inherits NSMutableSet
 		  #if TargetMacOS
 		    declare function setWithObjects lib CocoaLib selector "setWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
+		    
+		    #if Target64Bit
+		      
+		      dim uboundObject as integer = objects.ubound
+		      dim objectCount as integer = uboundObject+1
+		      if uboundObject > -1 then
+		        
+		        dim m as new MemoryBlock(SizeOfPointer*objectCount)
+		        for i as integer = 0 to uboundObject
+		          m.UInt32Value(i*SizeOfPointer) = UInt64(objects(i).id)
+		        next
+		        
+		        dim setRef as Ptr = setWithObjects(ClassRef, m, objectCount)
+		        if setRef <> nil then
+		          return new NSCountedSet(setRef)
+		        end if
+		      end if
+		    #else
+		      
+		      dim uboundObject as UInt32 = objects.ubound
+		      dim objectCount as UInt32 = uboundObject+1
+		      if uboundObject > -1 then
+		        
+		        dim m as new MemoryBlock(SizeOfPointer*objectCount)
+		        for i as integer = 0 to uboundObject
+		          m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		        next
+		        
+		        dim setRef as Ptr = setWithObjects(ClassRef, m, objectCount)
+		        if setRef <> nil then
+		          return new NSCountedSet(setRef)
+		        end if
+		      end if
 		    #endif
 		    
-		    dim uboundObject as UInt32 = objects.ubound
-		    dim objectCount as UInt32 = uboundObject+1
-		    if uboundObject > -1 then
-		      
-		      dim m as new MemoryBlock(SizeOfPointer*objectCount)
-		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
-		      next
-		      
-		      dim setRef as Ptr = setWithObjects(ClassRef, m, objectCount)
-		      if setRef <> nil then
-		        return new NSCountedSet(setRef)
-		      end if
-		    end if
+		    
 		    
 		  #else
 		    #pragma unused objects

@@ -126,9 +126,16 @@ Inherits NSObject
 		  //Puts the file pointer at the end of the file referenced by the NSFileHandle and returns the new file offset.
 		  
 		  #if targetMacOS
-		    declare function seekToFileOffset lib CocoaLib (obj_id as Ptr) as UInt64
 		    
-		    return seekToFileOffset(self)
+		    #if Target64Bit
+		      declare function seekToEndOfFile lib CocoaLib selector "seekToEndOfFile" (obj_id as Ptr) as UInt64
+		      
+		    #else
+		      declare function seekToEndOfFile lib CocoaLib (obj_id as Ptr) as UInt64
+		      
+		    #endif
+		    
+		    return seekToEndOfFile(self)
 		  #endif
 		End Function
 	#tag EndMethod
@@ -188,10 +195,16 @@ Inherits NSObject
 		  
 		  
 		  #if targetMacOS
-		    declare sub truncateFileAtOffset lib CocoaLib (obj_id as Ptr, offset as UInt64)
-		    
-		    truncateFileAtOffset(self, offset)
+		    #if Target32Bit
+		      declare sub truncateFileAtOffset lib CocoaLib (obj_id as Ptr, offset as UInt64)
+		      
+		      truncateFileAtOffset(self, offset)
+		    #else
+		      declare sub truncateFileAtOffset lib CocoaLib selector "truncateFileAtOffset:" (obj_id as Ptr, offset as UInt64)
+		      truncateFileAtOffset(self, offset)
+		    #endif
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 

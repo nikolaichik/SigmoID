@@ -2243,7 +2243,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ExtractFragment(FragmentStart as integer, FragmentEnd as integer)
-		  dim m,n,p,p1,p2,p3,p4,p5,u as integer
+		  dim n,m,u as integer
 		  dim FragmentFeature, ft as GBFeature
 		  dim s,CurrentFeature,cf1, name,coord as string
 		  
@@ -2322,6 +2322,7 @@ End
 		        FragmentFeature.type=replaceall(r_class,chr(34),"")
 		        if FragmentFeature.type="other" then
 		          'try to catch riboswitches
+		          '(finally added as regulatory_class in 2017)
 		          if instr(CurrentFeature,"/note="+chr(34)+"riboswitch")>0 then
 		            FragmentFeature.type="riboswitch"
 		          end if
@@ -2345,89 +2346,7 @@ End
 		      FragmentFeature.length=abs(FragmentFeature.start-FragmentFeature.finish)+1 'may just leave the negative here and remove the complement boolean altogether
 		      
 		      'now try to guess a name:
-		      p= instrb(CurrentFeature,"/gene=")
-		      p1=instrb(CurrentFeature,"/product=")
-		      p2=instrb(CurrentFeature,"/function=")
-		      p3=instrb(CurrentFeature,"/note=")
-		      p4=instrb(CurrentFeature,"/locus_tag=")
-		      p5=instrb(CurrentFeature,"/protein_id=")
-		      if name="gene" then
-		        if p>0 then        'use gene name if available
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p-6)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        else               'gene name not there – use locus_tag
-		          if p4>0 then
-		            coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
-		            FragmentFeature.name=nthField(coord,chr(34),1)
-		          end if
-		        end if
-		      elseif name="CDS" then
-		        if p1>0 then 'use /product
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p1-9)
-		          coord=replaceall(coord,EndOfLine.Unix," ")
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        elseif p5>0 then        'protein_id if available
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p5-12)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        else               'protein_id not there – use locus_tag
-		          if p4>0 then
-		            coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
-		            FragmentFeature.name=nthField(coord,chr(34),1)
-		          end if
-		        end if
-		        'store protein_id:
-		        if p5>0 then        'protein_id if available
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p5-12)
-		          FragmentFeature.protein_id=nthField(coord,chr(34),1)
-		        end if
-		      elseif name="mobile_element" then
-		        'proper annotation should look like:
-		        '/mobile_element_type="insertion sequence: ISPcc1"
-		        coord=replace(CurrentFeature,": ", ":") 'remove extra space to save space ))
-		        if instr(coord,"/mobile_element_type=")>0 then
-		          coord=nthfield(CurrentFeature,"/mobile_element_type="+Chr(34),2)
-		          coord=nthField(coord,chr(34),1)
-		          coord=trim(nthField(coord,":",2)) 'remove mobile element type from display:
-		          FragmentFeature.name=coord
-		        else 'otherwise, look for a note
-		          if instr(coord,"/note=")>0 then
-		            coord=nthfield(coord,"/note="+Chr(34),2)
-		            FragmentFeature.name=nthField(coord,chr(34),1)
-		          else
-		            FragmentFeature.name="mobile element" 'no proper featureformatting, so just a generic name
-		          end if
-		        end if
-		        
-		      elseif name="operon" then
-		        coord=nthField(CurrentFeature,"/operon=",2)
-		        coord=nthField(coord,chr(34),2)
-		        FragmentFeature.name=coord+" operon"
-		      elseif name="promoter" then
-		        FragmentFeature.name=""
-		      elseif name="regulatory" then
-		        FragmentFeature.name=""
-		      elseif name="protein_bind" then
-		        FragmentFeature.name=""
-		      else
-		        if p1>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p1-9)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        elseif p2>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p2-10)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        elseif p3>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p3-6)
-		          coord=nthField(coord,chr(34),1)
-		          FragmentFeature.name=nthField(coord,EndOfLine,1)
-		        elseif p4>0 then
-		          coord=rightb(CurrentFeature,lenb(CurrentFeature)-p4-11)
-		          FragmentFeature.name=nthField(coord,chr(34),1)
-		        else
-		          FragmentFeature.name=""
-		        end if
-		      end if
-		      
-		      'FragmentFeature.Init
+		      GetFeatureName(FragmentFeature,CurrentFeature)
 		      
 		      seq.features.append FragmentFeature
 		    else
@@ -2551,7 +2470,6 @@ End
 		  Feature.FeatureText=FeatureText
 		  
 		  dim cf1,coord,splitCoords,name as string
-		  dim p,p1,p2,p3,p4,p5 as integer
 		  
 		  'get coordinates:
 		  cf1=nthfield(FeatureText,cLineEnd,1)
@@ -2605,76 +2523,8 @@ End
 		  Feature.length=abs(Feature.start-Feature.finish)+1 'may just leave the negative here and remove the complement boolean altogether
 		  
 		  'now try to guess a name:
-		  p= instrb(FeatureText,"/gene=")
-		  p1=instrb(FeatureText,"/product=")
-		  p2=instrb(FeatureText,"/function=")
-		  p3=instrb(FeatureText,"/note=")
-		  p4=instrb(FeatureText,"/locus_tag=")
-		  p5=instrb(FeatureText,"/protein_id=")
-		  if name="gene" then
-		    if p>0 then        'use gene name if available
-		      coord=rightb(FeatureText,lenb(FeatureText)-p-6)
-		      Feature.name=nthField(coord,chr(34),1)
-		    else               'gene name not there – use locus_tag
-		      if p4>0 then
-		        coord=rightb(FeatureText,lenb(FeatureText)-p4-11)
-		        Feature.name=nthField(coord,chr(34),1)
-		      end if
-		    end if
-		  elseif name="CDS" then
-		    if p5>0 then        'use protein_id if available
-		      coord=rightb(FeatureText,lenb(FeatureText)-p5-12)
-		      Feature.name=nthField(coord,chr(34),1)
-		    else               'protein_id not there – use locus_tag
-		      if p4>0 then
-		        coord=rightb(FeatureText,lenb(FeatureText)-p4-11)
-		        Feature.name=nthField(coord,chr(34),1)
-		      end if
-		    end if
-		  elseif name="mobile_element" then
-		    'proper annotation should look like:
-		    '/mobile_element_type="insertion sequence: ISPcc1"
-		    coord=replace(FeatureText,": ", ":") 'remove extra space to save space ))
-		    if instr(coord,"/mobile_element_type=")>0 then
-		      coord=nthfield(FeatureText,"/mobile_element_type="+Chr(34),2)
-		      coord=nthField(coord,chr(34),1)
-		      coord=trim(nthField(coord,":",2)) 'remove mobile element type from display:
-		      Feature.name=coord
-		    else 'otherwise, look for a note
-		      if instr(coord,"/note=")>0 then
-		        coord=nthfield(coord,"/note="+Chr(34),2)
-		        Feature.name=nthField(coord,chr(34),1)
-		      else
-		        Feature.name="mobile element" 'no proper featureformatting, so just a generic name
-		      end if
-		    end if
-		    
-		  elseif name="promoter" then
-		    Feature.name=""
-		  elseif name="protein_bind" then
-		    Feature.name=""
-		  elseif name="regulatory" then
-		    Feature.name=""
-		  else
-		    if p>0 then
-		      coord=rightb(FeatureText,lenb(FeatureText)-p-6)
-		      Feature.name=nthField(coord,chr(34),1)
-		    elseif p1>0 then
-		      coord=rightb(FeatureText,lenb(FeatureText)-p1-9)
-		      Feature.name=nthField(coord,chr(34),1)
-		    elseif p2>0 then
-		      coord=rightb(FeatureText,lenb(FeatureText)-p2-10)
-		      Feature.name=nthField(coord,chr(34),1)
-		    elseif p3>0 then
-		      coord=rightb(FeatureText,lenb(FeatureText)-p3-6)
-		      Feature.name=nthField(coord,chr(34),1)
-		    elseif p4>0 then
-		      coord=rightb(FeatureText,lenb(FeatureText)-p4-11)
-		      Feature.name=nthField(coord,chr(34),1)
-		    else
-		      Feature.name=""
-		    end if
-		  end if
+		  GetFeatureName(Feature,FeatureText)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -3028,6 +2878,101 @@ End
 		  
 		  
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub GetFeatureName(feature As GBFeature, featureText As string)
+		  dim m,n,p,p1,p2,p3,p4,p5 as integer
+		  dim name,coord as string
+		  
+		  name=trim(left(nthfield(FeatureText,EndOfLine.Unix,1),16))      'feature name
+		  
+		  'now try to guess a name:
+		  p= instrb(featureText,"/gene=")
+		  p1=instrb(featureText,"/product=")
+		  p2=instrb(featureText,"/function=")
+		  p3=instrb(featureText,"/note=")
+		  p4=instrb(featureText,"/locus_tag=")
+		  p5=instrb(featureText,"/protein_id=")
+		  if name="gene" then
+		    if p>0 then        'use gene name if available
+		      coord=rightb(featureText,lenb(featureText)-p-6)
+		      feature.name=nthField(coord,chr(34),1)
+		    else               'gene name not there – use locus_tag
+		      if p4>0 then
+		        coord=rightb(featureText,lenb(featureText)-p4-11)
+		        feature.name=nthField(coord,chr(34),1)
+		      end if
+		    end if
+		  elseif name="CDS" then
+		    if p1>0 then 'use /product
+		      coord=rightb(featureText,lenb(featureText)-p1-9)
+		      coord=replaceall(coord,EndOfLine.Unix," ")
+		      feature.name=nthField(coord,chr(34),1)
+		    elseif p5>0 then        'protein_id if available
+		      coord=rightb(featureText,lenb(featureText)-p5-12)
+		      feature.name=nthField(coord,chr(34),1)
+		    else               'protein_id not there – use locus_tag
+		      if p4>0 then
+		        coord=rightb(featureText,lenb(featureText)-p4-11)
+		        feature.name=nthField(coord,chr(34),1)
+		      end if
+		    end if
+		    'store protein_id:
+		    if p5>0 then        'protein_id if available
+		      coord=rightb(featureText,lenb(featureText)-p5-12)
+		      feature.protein_id=nthField(coord,chr(34),1)
+		    end if
+		  elseif name="mobile_element" then
+		    'proper annotation should look like:
+		    '/mobile_element_type="insertion sequence: ISPcc1"
+		    coord=replace(featureText,": ", ":") 'remove extra space to save space ))
+		    if instr(coord,"/mobile_element_type=")>0 then
+		      coord=nthfield(featureText,"/mobile_element_type="+Chr(34),2)
+		      coord=nthField(coord,chr(34),1)
+		      coord=trim(nthField(coord,":",2)) 'remove mobile element type from display:
+		      feature.name=coord
+		    else 'otherwise, look for a note
+		      if instr(coord,"/note=")>0 then
+		        coord=nthfield(coord,"/note="+Chr(34),2)
+		        feature.name=nthField(coord,chr(34),1)
+		      else
+		        feature.name="mobile element" 'no proper feature formatting, so just a generic name
+		      end if
+		    end if
+		    
+		  elseif name="operon" then
+		    coord=nthField(featureText,"/operon=",2)
+		    coord=nthField(coord,chr(34),2)
+		    feature.name=coord+" operon"
+		  elseif name="promoter" then
+		    feature.name=""
+		  elseif name="regulatory" then
+		    feature.name=""
+		  elseif name="protein_bind" then
+		    feature.name=""
+		  elseif name="regulatory" then
+		    Feature.name=""
+		  else
+		    if p1>0 then
+		      coord=rightb(featureText,lenb(featureText)-p1-9)
+		      feature.name=nthField(coord,chr(34),1)
+		    elseif p2>0 then
+		      coord=rightb(featureText,lenb(featureText)-p2-10)
+		      feature.name=nthField(coord,chr(34),1)
+		    elseif p3>0 then
+		      coord=rightb(featureText,lenb(featureText)-p3-6)
+		      coord=nthField(coord,chr(34),1)
+		      feature.name=nthField(coord,EndOfLine,1)
+		    elseif p4>0 then
+		      coord=rightb(featureText,lenb(featureText)-p4-11)
+		      feature.name=nthField(coord,chr(34),1)
+		    else
+		      feature.name=""
+		    end if
+		  end if
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -6363,7 +6308,7 @@ End
 		  elseif instr(TabName,"UP:")>0 then
 		    UPSearchViewer.Visible=true
 		    BrowserPagePanel.value=1
-		  elseif instr(TabName,"BLAST")>0 OR instr(TabName,"CDD:")>0 then
+		  elseif instr(TabName,"GB:")>0 OR instr(TabName,"CDD:")>0 then
 		    BLASTSearchViewer.Visible=true
 		    BrowserPagePanel.value=3
 		  end if

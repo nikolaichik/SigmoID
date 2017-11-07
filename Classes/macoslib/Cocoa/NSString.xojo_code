@@ -57,12 +57,19 @@ Inherits NSObject
 		    dim rb_array() as NSStringEncoding
 		    
 		    dim m as MemoryBlock = availableStringEncodings(ClassRef)
-		    
-		    dim offset as UInt32 = 0
-		    while m.UInt32Value(offset) <> 0
-		      rb_array.append NSStringEncoding(m.UInt32Value(offset))
-		      offset = offset + sizeOfUInt32
-		    wend
+		    #if Target64Bit
+		      dim offset as UInt64 = 0
+		      while m.UInt64Value(offset) <> 0
+		        rb_array.append NSStringEncoding(m.UInt64Value(offset))
+		        offset = offset + sizeOfInteger
+		      wend
+		    #else
+		      dim offset as UInt32 = 0
+		      while m.UInt32Value(offset) <> 0
+		        rb_array.append NSStringEncoding(m.UInt32Value(offset))
+		        offset = offset + sizeOfUInt32
+		      wend
+		    #endif
 		    
 		    return rb_array
 		    

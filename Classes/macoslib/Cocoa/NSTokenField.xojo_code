@@ -1263,8 +1263,11 @@ Inherits NSControl
 			  #if TargetMacOS
 			    declare sub setTokenStyle lib CocoaLib selector "setTokenStyle::" (id as Ptr, newValue as integer)
 			    
-			    setTokenStyle( me.id, Int32( value ) )
-			    
+			    #if Target32Bit
+			      setTokenStyle( me.id, Int32( value ) )
+			    #else
+			      setTokenStyle( me.id, Integer( value ) )
+			    #endif
 			  #else
 			    #pragma unused value
 			  #endif

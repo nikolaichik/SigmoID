@@ -227,7 +227,7 @@ Class FSEventStream
 		    dim mb2, mb3 as MemoryBlock
 		    'dim p as Ptr
 		    dim arp() as string
-		    dim arf() as int32
+		    dim arf() as integer
 		    dim arid() as UInt64
 		    dim f as FolderItem
 		    

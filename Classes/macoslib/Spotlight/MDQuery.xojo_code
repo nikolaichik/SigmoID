@@ -14,7 +14,14 @@ Inherits CFType
 		    
 		    soft declare function MDQueryGetTypeID lib CarbonLib () as Integer
 		    
-		    static id as UInt32 = UInt32(MDQueryGetTypeID)
+		    #if Target32Bit
+		      static id as UInt32 = UInt32(MDQueryGetTypeID)
+		      
+		    #else
+		      static id as UInteger = MDQueryGetTypeID
+		      
+		    #endif
+		    
 		    return id
 		  #endif
 		  

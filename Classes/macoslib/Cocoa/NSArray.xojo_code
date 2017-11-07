@@ -143,29 +143,55 @@ Inherits NSObject
 		  //# Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 		  
 		  #if targetMacOS
-		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
 		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
+		    #if Target64Bit
+		      declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInteger) as Ptr
+		      
+		      dim uboundObject as UInteger = objects.ubound
+		      dim objectCount as UInteger = uboundObject+1
+		      if uboundObject > -1 then
+		        
+		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		        for i as integer = 0 to uboundObject
+		          m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
+		        next
+		        
+		        super.Constructor(initWithObjects(Allocate("NSArray"), m, objectCount), NSArray.hasOwnership)
+		      else
+		        dim n as NilObjectException
+		        n.Message = "NSArray.Constructor: NSObject argument cannot be nil."
+		        raise n
+		      end if
+		    #else
+		      
+		      declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
+		      dim uboundObject as UInt32 = objects.ubound
+		      dim objectCount as UInt32 = uboundObject+1
+		      if uboundObject > -1 then
+		        
+		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		        for i as integer = 0 to uboundObject
+		          'm.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		          
+		          #if Target32Bit
+		            m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		          #endif
+		          
+		          #if Target64Bit //On 32bits platform, a UInt64 cannot be casted to a Ptr
+		            m.UInt64Value = UInt64(objects(i).id)
+		          #endif
+		          
+		          
+		          
+		        next
+		        
+		        super.Constructor(initWithObjects(Allocate("NSArray"), m, objectCount), NSArray.hasOwnership)
+		      else
+		        dim n as NilObjectException
+		        n.Message = "NSArray.Constructor: NSObject argument cannot be nil."
+		        raise n
+		      end if
 		    #endif
-		    
-		    dim uboundObject as UInt32 = objects.ubound
-		    dim objectCount as UInt32 = uboundObject+1
-		    if uboundObject > -1 then
-		      
-		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
-		      next
-		      
-		      super.Constructor(initWithObjects(Allocate("NSArray"), m, objectCount), NSArray.hasOwnership)
-		    else
-		      dim n as NilObjectException
-		      n.Message = "NSArray.Constructor: NSObject argument cannot be nil."
-		      raise n
-		    end if
 		    
 		  #else
 		    #pragma unused objects
@@ -408,29 +434,45 @@ Inherits NSObject
 		  //# Creates and returns an array containing the objects in the argument list.
 		  
 		  #if TargetMacOS
-		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
-		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
-		    #endif
-		    
-		    dim uboundObject as UInt32 = objects.ubound
-		    dim objectCount as UInt32 = uboundObject+1
-		    if uboundObject > -1 then
+		    #if Target64Bit
+		      declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInteger) as Ptr
 		      
-		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		      for i as integer = 0 to uboundObject
-		        m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
-		      next
-		      
-		      dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
-		      
-		      if arrayRef <> nil then
-		        return new NSArray(arrayRef)
+		      dim uboundObject as Integer = objects.ubound
+		      dim objectCount as Integer = uboundObject+1
+		      if uboundObject > -1 then
+		        
+		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		        for i as UInteger = 0 to uboundObject
+		          m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
+		        next
+		        
+		        dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
+		        
+		        if arrayRef <> nil then
+		          return new NSArray(arrayRef)
+		        end if
 		      end if
-		    end if
+		    #else
+		      
+		      declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
+		      
+		      dim uboundObject as UInt32 = objects.ubound
+		      dim objectCount as UInt32 = uboundObject+1
+		      
+		      if uboundObject > -1 then
+		        
+		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		        for i as integer = 0 to uboundObject
+		          m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
+		        next
+		        
+		        dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
+		        
+		        if arrayRef <> nil then
+		          return new NSArray(arrayRef)
+		        end if
+		      end if
+		    #endif
 		    
 		  #else
 		    #pragma unused objects

@@ -436,7 +436,7 @@ Begin Window NewFeatureWin
       Visible         =   True
       Width           =   128
    End
-   Begin Label Label3
+   Begin Label LocusTagLabel
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -669,6 +669,7 @@ End
 		  dim m,n as integer
 		  dim oldFtTxt, newFtTxt, aline, featuretype as string 
 		  dim enableSave as boolean = true
+		  dim LocusTagRequired as boolean
 		  
 		  
 		  'Generate feature line:
@@ -678,6 +679,19 @@ End
 		  'opt=opt+" -q "+chr(34)+"regulatory_class"+chr(34)+"#"+chr(34)+"promoter"
 		  '
 		  'end if
+		  
+		  'check if Locus_tag and gene qualifiers are required for the selected feature
+		  dim ftt as string = trim(FeatureTypeCombo.text)
+		  if ftt="CDS" OR ftt="gene" OR ftt="rRNA" OR ftt="tRNA" OR ftt="ncRNA" OR ftt="misc_RNA" then
+		    AddGeneBox.value=true
+		    GeneNameField.enabled=true
+		    LocusTagRequired=true
+		  else
+		    AddGeneBox.value=false
+		    GeneNameField.enabled=false
+		    LocusTagRequired=false
+		  end if
+		  
 		  newFtTxt=trim(FeatureTypeCombo.Text)
 		  featureType=newFtTxt
 		  if newFtTxt="promoter" OR newFtTxt="terminator" OR newFtTxt="attenuator" then
@@ -702,8 +716,10 @@ End
 		    newFtTxt=newFtTxt+EndOfLine+"/regulatory_class="+chr(34)+"attenuator"+chr(34)
 		  end select
 		  
-		  'add locus-tag line
-		  newFtTxt=newFtTxt+EndOfLine+"/locus_tag="+Chr(34)+trim(LocusTagField.text)+chr(34)
+		  'add locus_tag line
+		  if LocusTagRequired then
+		    newFtTxt=newFtTxt+EndOfLine+"/locus_tag="+Chr(34)+trim(LocusTagField.text)+chr(34)
+		  end if
 		  
 		  'add gene line
 		  if AddGeneBox.value then
@@ -731,18 +747,6 @@ End
 		    end if
 		  next
 		  
-		  'geneBox should be checked for some features only
-		  dim ftt as string = trim(FeatureTypeCombo.text)
-		  if ftt="CDS" OR ftt="gene" OR ftt="rRNA" OR ftt="tRNA" OR ftt="ncRNA" OR ftt="misc_RNA" then
-		    AddGeneBox.value=true
-		    GeneNameField.enabled=true
-		  else
-		    AddGeneBox.value=false
-		    GeneNameField.enabled=false
-		  end if
-		  
-		  
-		  
 		  FeatureTextField.text=newFtTxt
 		  
 		  
@@ -761,11 +765,22 @@ End
 		    fEndField.BackColor=&cFFFFFF00
 		  end if
 		  
-		  if len(trim(LocusTagField.text))<7 then
-		    enableSave=false
-		    LocusTagField.BackColor=&cFFFF6600
+		  if LocusTagRequired then
+		    LocusTagField.enabled=true
+		    LocusTagLabel.enabled=true
+		    GeneNameField.enabled=true
+		    if len(trim(LocusTagField.text))<7 then
+		      enableSave=false
+		      LocusTagField.BackColor=&cFFFF6600
+		    else
+		      LocusTagField.BackColor=&cFFFFFF00
+		    end if
 		  else
+		    LocusTagField.Enabled=false
+		    LocusTagLabel.enabled=false
+		    GeneNameField.enabled=false
 		    LocusTagField.BackColor=&cFFFFFF00
+		    LocusTagField.text=""
 		  end if
 		  
 		  if len(trim(FeatureTypeCombo.text))<3 then

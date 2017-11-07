@@ -330,24 +330,20 @@ Inherits Application
 		Function FileOpenAlignment() As Boolean Handles FileOpenAlignment.Action
 			dim tmpfile as folderitem
 			
-			'#if Target64Bit
-			'64 bit compiler has VirtualVolumes badly broken, hence we switch to folders here 
-			'Dim dlg as New SelectFolderDialog
-			'dlg.promptText="Select an alignment folder"
-			''dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
-			'dlg.Title="Open alignment"
-			''dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
-			'dlg.ActionButtonCaption="Select"
-			'tmpfile=dlg.ShowModal 'within(self)
+			
 			
 			'#Else
 			Dim dlg as New OpenDialog
 			dlg.promptText="Select an alignment file"
 			dlg.Title="Open alignment"
+			#If XojoVersion < 2017.02
 			#if Target64Bit
 			'64 bit compiler has VirtualVolumes badly broken, hence we just can't open .sig files
 			'and they are converted to folders that could be only opened from the toolbar
 			dlg.Filter=FileTypes.Fasta' + FileTypes.Sig_file
+			#else
+			dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
+			#endif
 			#else
 			dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
 			#endif
@@ -937,20 +933,23 @@ Inherits Application
 	#tag Note, Name = next version
 		Major features for 2.0:
 		
-		1. Automated de novo TFBS inference
-		2. TomTom (or the like) check of the new profile vs existing ones
-		3. Hmmsearch/tfastx check for TF presence in the genome before TFBS search. (requires inclusion of TF sequence in the profile)
+		1. +-Automated de novo TFBS inference
+		2. +-TomTom (or the like) check of the new profile vs existing ones
+		3. +Hmmsearch/tfastx check for TF presence in the genome before TFBS search. (requires inclusion of TF sequence in the profile)
 		4. Work around RegPrecise limitation for checking the TF (either download all TF seqs to avoid SQL query or find another way to get the TF seq)
 		5. Display anchor motifs a la RegPrecise ones (per family)
 		6. User-configurable settings for de novo inference procedure
 		7. Reuse genome fragments already extracted: store all IDs (so multiple server access is excluded)
 		[? and settings, so things are rerun if settings change]
+		8. Add prefs for search servers
+		9. Add pref for user email (NCBI servers don't really work without)
+		10. Proper Linus handling of .sig files
 		
 		Minor features
 		1. Get regulated gene list for each regulator in RegPrecise
 		   and display that data in the table
 		2. Automate thresholding/calibrated profile construction
-		3. Add hmmsearch to scan for domains?
+		3. +Add hmmsearch to scan for domains
 		4. Add export of binding sites for a given regulator (or all of them)
 		   in Fasta format (with scores and downstream gene info)
 		5. RemoveSites function

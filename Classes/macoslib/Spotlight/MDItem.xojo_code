@@ -64,7 +64,13 @@ Inherits CFType
 		    
 		    soft declare function MDItemGetTypeID lib CarbonLib () as Integer
 		    
-		    static id as UInt32 = UInt32(MDItemGetTypeID)
+		    #if Target32Bit
+		      static id as UInt32 = UInt32(MDItemGetTypeID)
+		      
+		    #else
+		      static id as UInteger = MDItemGetTypeID
+		      
+		    #endif
 		    return id
 		  #endif
 		  

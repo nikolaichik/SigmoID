@@ -429,18 +429,22 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
+		      
 		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
-		      for i as integer = 0 to n
-		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		      next
+		      #if Target64Bit
+		        dim n as Integer = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		        next
+		      #else
+		        
+		        dim n as UInt32 = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        next
+		      #Endif
 		    end if
 		    
 		    return retArray
@@ -465,18 +469,21 @@ Inherits NSImageRep
 		      if arrayRef <> nil then
 		        dim ns_array as new NSArray(arrayRef)
 		        
-		        #if RBVersion > 2013.01
-		          #if Target64Bit
-		            #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		          #endif
-		        #endif
+		        
 		        
 		        dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		        dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
+		        #if Target64Bit
+		          dim n as Integer = arrayRange.length-1
+		          for i as integer = 0 to n
+		            retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		          next
+		        #else
+		          dim n as UInt32 = arrayRange.length-1
+		          for i as integer = 0 to n
+		            retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		          next
+		        #endif
 		      end if
 		    end if
 		    
@@ -506,18 +513,21 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
+		      
 		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
-		      for i as integer = 0 to n
-		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		      next
+		      #if Target64Bit
+		        dim n as Integer = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		        next
+		      #else
+		        dim n as UInt32 = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        next
+		      #endif
 		    end if
 		    
 		    return retArray
@@ -554,10 +564,19 @@ Inherits NSImageRep
 		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
-		      for i as integer = 0 to n
-		        retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		      next
+		      #if Target64Bit
+		        dim n as Integer = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		        next
+		      #else
+		        dim n as UInt32 = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
+		        next
+		      #endif
+		      
+		      
 		    end if
 		    
 		    return retArray
@@ -1009,19 +1028,23 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
+		      
 		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      dim n as UInt32 = arrayRange.length-1
-		      for i as integer = 0 to n
-		        retArray.append Ptr(m.UInt32Value(i*SizeOfPointer))
-		      next
+		      #if Target64Bit
+		        dim n as Integer = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		        next
+		      #else
+		        dim n as UInt32 = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append Ptr(m.UInt32Value(i*SizeOfPointer))
+		        next
+		      #endif
 		    end if
+		    
 		    
 		    return retArray
 		    
