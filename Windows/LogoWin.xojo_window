@@ -275,6 +275,7 @@ End
 		    AlignmentConvertToHmm.enabled=true
 		    AlignmentConvertToMEME.enabled=true
 		    AlignmentConverttoStockholm.enabled=true
+		    GenomeRepeatSearch.Enabled=true
 		    
 		  else
 		    ViewAlignmentInfo.enabled=false
@@ -296,7 +297,7 @@ End
 		        palindromic=true
 		        LogoWinToolbar.Item(4).Enabled=true
 		      end if
-		      
+		      GenomeRepeatSearch.Enabled=true
 		      ViewSequences.enabled=true
 		      AlignmentExtendBindingSites.enabled=true
 		      AlignmentConvertToHmm.enabled=true
@@ -1313,6 +1314,75 @@ End
 			end if
 			end if
 			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeRepeatSearch() As Boolean Handles GenomeRepeatSearch.Action
+			if GenomeFile<>Nil then
+			RepeatSearchSettingsWin.GenomeField.text=GenomeFile.ShellPath
+			
+			RepeatSearchSettingsWin.RunButton.Enabled=true
+			else
+			'#if Debugbuild
+			'GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
+			'#else
+			RepeatSearchSettingsWin.RunButton.Enabled=false
+			'#endif
+			end if
+			RepeatSearchSettingsWin.EnableRun
+			RepeatSearchSettingsWin.ShowModalWithin(self)
+			'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
+			
+			'set nhmmer options:
+			
+			nhmmeroptions=" --max"                     '--max
+			
+			dim RSW as RepeatSearchSettingsWin = RepeatSearchSettingsWin
+			
+			if RSW.EvalueButton.Value then
+			if val(RSW.EvalueField.text)>0 then    'if cutoff isn't entered, run without it
+			nhmmeroptions=nhmmeroptions+" -E "+trim(RSW.EvalueField.text)
+			end if
+			elseif RSW.BitScoreButton.value then
+			if val(RSW.BitScoreField.text)>0 then    'if cutoff isn't entered, run without it
+			nhmmeroptions=nhmmeroptions+" -T "+trim(RSW.BitScoreField.text)
+			end if
+			end if
+			
+			
+			
+			if nhmmerOptions <> "" then
+			if nhmmer then
+			if RepeatSearchSettingsWin.GenomeBrowserCheckBox.value then
+			Dim dlg as New SaveAsDialog
+			dlg.InitialDirectory=genomefile.Parent
+			dlg.promptText="Select where to save the modified genome file"
+			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+			dlg.Title="Save genome file"
+			dlg.Filter=FileTypes.genbank
+			dlg.CancelButtonCaption=kCancel
+			dlg.ActionButtonCaption=kSave
+			outfile=dlg.ShowModal()
+			if outfile<>nil then
+			RepeatSearchSettingsWin.ReadOptions
+			
+			if HmmGen then
+			if RepeatSearchSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+			if ubound(GenomeWin.HmmHitDescriptions)>0 then
+			GenomeWin.opengenbankfile(outFile)
+			genomeWin.ShowHit
+			WriteToSTDOUT (" done."+EndofLine)
+			end if
+			end if
+			end if
+			end if
+			end if
+			end if
+			end if
+			Return True
+			
 			
 		End Function
 	#tag EndMenuHandler
@@ -5086,11 +5156,13 @@ End
 		Name="CRtag"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="CRtagCoords"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Frame"
@@ -5342,11 +5414,13 @@ End
 		Name="SeedProteinID"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SeedProteinSeq"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Sequences"
@@ -5377,6 +5451,7 @@ End
 		Name="TF_HMM"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

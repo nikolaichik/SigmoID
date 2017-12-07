@@ -541,6 +541,13 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem GenomeRepeatSearch
+         SpecialMenu = 0
+         Text = "Repeat Search..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledItem5
          SpecialMenu = 0
          Text = "-"

@@ -55,6 +55,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -240,6 +241,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   359
       Value           =   2
       Visible         =   True
@@ -333,6 +335,7 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -350,6 +353,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -362,6 +366,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -464,6 +469,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -1733,7 +1739,7 @@ End
 		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
 		  #endif
 		  
-		  'CDDsearch=false
+		  CDDsearch=false
 		  BLASTSocket.Secure = True
 		  BLASTSocket.Post(theURL)
 		  
@@ -2455,6 +2461,77 @@ End
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:ExtractFragment")
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function fasta2html(fastaResult as String) As string
+		  // Convert local result of protein fasta search vs EcoGene proteins 
+		  // to simple html with Ecogene links
+		  
+		  
+		  dim res as string
+		  dim outfile as folderitem
+		  
+		  
+		  //convert plain text into simple html:
+		  dim resHtml as string
+		  dim HitSeparator as string = EndOfLine.Unix+">>"
+		  dim hrefLeft as string = "<a href="+chr(34)+"http://ecogene.org/?q=gene/"
+		  dim hrefRight as string = "</a>"
+		  dim hrefMid as string = chr(34)+">"
+		  dim protID, hitData as string
+		  dim HmmerHitArray(-1) as string 
+		  dim n, u as integer
+		  
+		  'split the result file into single hit array
+		  HmmerHitArray=split(res,HitSeparator)
+		  u=UBound(HmmerHitArray)-2
+		  
+		  'convert protein names to links:
+		  'link sample:
+		  '<a href="http://ecogene.org/?q=gene/EG30013">EcoGene_ID</a>
+		  for n=1 to u 'skip the zero and last elements, as they aren't hits
+		    protID=NthField(HmmerHitArray(n)," ",1)
+		    hitData=right(HmmerHitArray(n),len(HmmerHitArray(n))-len(protID))
+		    HmmerHitArray(n)=hrefLeft+protID+hrefMid+protID+hrefRight+hitData
+		  next
+		  
+		  'Join the hits back into a single file adding html header and footer
+		  resHtml="<html><body><pre>"+join(HmmerHitArray,HitSeparator)+"</pre></body></html>"
+		  
+		  ''write the html to temp file:
+		  '
+		  'outfile = SpecialFolder.Temporary.child("HmmerResult.html")      'place to save
+		  'if outfile<>nil then
+		  'FixPath4Windows(outfile)
+		  'if outfile.exists then
+		  'outfile.Delete
+		  'end if
+		  '
+		  'dim stream as TextOutputStream = TextOutputStream.Create(outfile)
+		  'if stream<>nil then
+		  'stream.Write(resHtml)
+		  'stream.close
+		  '
+		  'return outfile  ' <-- proper converted output
+		  '
+		  'else
+		  'msgbox "Can't write temporary file"
+		  'return outfile  ' <-- nil
+		  'end if
+		  'else
+		  'msgbox "Can't write temporary file"
+		  'return outfile  ' <-- nil
+		  'end if
+		  '
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
