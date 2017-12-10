@@ -129,7 +129,7 @@ Begin Window LogoWin
       TabIndex        =   4
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   1000
       Begin Canvas LogoCanvas
@@ -1335,6 +1335,8 @@ End
 			RepeatSearchSettingsWin.ShowModalWithin(self)
 			'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
 			
+			
+			if hmmgenOptions <> "" then
 			'set nhmmer options:
 			
 			nhmmeroptions=" --max"                     '--max
@@ -1381,6 +1383,8 @@ End
 			end if
 			end if
 			end if
+			end if
+			
 			Return True
 			
 			

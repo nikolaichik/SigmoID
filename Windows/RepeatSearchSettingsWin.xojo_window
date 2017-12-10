@@ -9,7 +9,7 @@ Begin Window RepeatSearchSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   466
+   Height          =   490
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -52,7 +52,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   426
+      Top             =   450
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -83,7 +83,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   426
+      Top             =   450
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -118,7 +118,7 @@ Begin Window RepeatSearchSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   402
+      Width           =   206
    End
    Begin Label Label4
       AutoDeactivate  =   True
@@ -148,7 +148,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   174
+      Top             =   206
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -177,7 +177,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   206
+      Top             =   238
       Underline       =   False
       Visible         =   True
       Width           =   410
@@ -218,7 +218,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   233
+         Top             =   265
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -261,7 +261,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   267
+         Top             =   299
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -304,7 +304,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   267
+         Top             =   299
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -347,7 +347,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   301
+         Top             =   333
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -390,7 +390,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   301
+         Top             =   333
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -423,7 +423,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   174
+      Top             =   206
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -627,7 +627,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   394
+      Top             =   418
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -659,7 +659,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   233
+      Top             =   265
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -693,7 +693,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   349
+      Top             =   381
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -735,7 +735,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   347
+      Top             =   379
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -767,7 +767,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   349
+      Top             =   381
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -806,35 +806,170 @@ Begin Window RepeatSearchSettingsWin
       Visible         =   True
       Width           =   410
    End
+   Begin CheckBox PalindromicBox
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "#kPalindromicSite"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   238
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   28
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   142
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   192
+   End
+   Begin CheckBox PartialBox
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "Allow partials with lengths down to"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   29
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   174
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   341
+   End
+   Begin TextField PartialPercentField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   373
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   30
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "70"
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   174
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   26
+   End
+   Begin Label Label5
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   411
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   31
+      TabPanelIndex   =   0
+      Text            =   "%"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   174
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   19
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Event
 		Sub Activate()
-		  'if LengthField.text="" then
-		  'RunButton.enabled=false
-		  'ELSE
-		  'RunButton.enabled=true
-		  'END IF
 		  
 		  'put the value used by hmmer in threshold box here:
-		  if nhmmerSettingsWin.BitScoreButton.value AND nhmmerSettingsWin.BitScoreButton.enabled then
-		    me.BitScoreButton.value=true
-		    me.BitScoreField.text=nhmmerSettingsWin.BitScoreField.text
-		  elseif nhmmerSettingsWin.EvalueButton.value AND nhmmerSettingsWin.EvalueButton.enabled  then
-		    me.EvalueButton.value=true
-		    me.EvalueField.text=nhmmerSettingsWin.EvalueField.text
-		  elseif nhmmerSettingsWin.tcButton.value then
-		    me.BitScoreButton.value=true
-		    me.BitScoreField.text=unbracket(nhmmerSettingsWin.TCvalue.text)
-		  elseif nhmmerSettingsWin.gaButton.value then
-		    me.BitScoreButton.value=true
-		    me.BitScoreField.text=unbracket(nhmmerSettingsWin.GAvalue.text)
-		  elseif nhmmerSettingsWin.ncButton.value then
-		    me.BitScoreButton.value=true
-		    me.BitScoreField.text=unbracket(nhmmerSettingsWin.NCvalue.text)
-		  end
+		  'if nhmmerSettingsWin.BitScoreButton.value AND nhmmerSettingsWin.BitScoreButton.enabled then
+		  'me.BitScoreButton.value=true
+		  'me.BitScoreField.text=nhmmerSettingsWin.BitScoreField.text
+		  'elseif nhmmerSettingsWin.EvalueButton.value AND nhmmerSettingsWin.EvalueButton.enabled  then
+		  'me.EvalueButton.value=true
+		  'me.EvalueField.text=nhmmerSettingsWin.EvalueField.text
+		  'elseif nhmmerSettingsWin.tcButton.value then
+		  'me.BitScoreButton.value=true
+		  'me.BitScoreField.text=unbracket(nhmmerSettingsWin.TCvalue.text)
+		  'elseif nhmmerSettingsWin.gaButton.value then
+		  'me.BitScoreButton.value=true
+		  'me.BitScoreField.text=unbracket(nhmmerSettingsWin.GAvalue.text)
+		  'elseif nhmmerSettingsWin.ncButton.value then
+		  'me.BitScoreButton.value=true
+		  'me.BitScoreField.text=unbracket(nhmmerSettingsWin.NCvalue.text)
+		  'end
 		  
 		  RunCheck
 		  
@@ -949,16 +1084,27 @@ End
 		    'opt=opt+" -b 50" 'allow 50 bp within frame // inappropriate for anything but TFBS
 		  end if
 		  
-		  if LogoWin.minAlignmentLength<>LogoWin.AlignmentLength then
-		    opt=opt+" -L "+LogoWin.minAlignmentLength+":"+LogoWin.AlignmentLength 'gapped alignment, match lengths may differ
+		  if PartialBox.value then
+		    dim PartPerCent As integer
+		    PartPerCent=val(PartialPercentField.text)
+		    if PartPerCent>30 AND PartPerCent<=100 then
+		      opt=opt+" -L "+str(ceil(val(LogoWin.AlignmentLength)*PartPerCent/100))+":"+LogoWin.AlignmentLength
+		    else
+		      MsgBox "Partial matches must be in the interval 30-100%."
+		      return
+		    end if
 		  else
-		    opt=opt+" -L "+LogoWin.AlignmentLength
+		    if LogoWin.minAlignmentLength<>LogoWin.AlignmentLength then
+		      opt=opt+" -L "+LogoWin.minAlignmentLength+":"+LogoWin.AlignmentLength 'gapped alignment, match lengths may differ
+		    else
+		      opt=opt+" -L "+LogoWin.AlignmentLength
+		    end if
 		  end if
 		  
-		  'if PalindromicBox.Value then
-		  'opt=opt+" -p"
-		  'end if
-		  '
+		  if PalindromicBox.Value then
+		    opt=opt+" -p"
+		  end if
+		  
 		  'if NOT NextLocusBox.value then
 		  'opt=opt+" -n"
 		  'end if
@@ -1056,7 +1202,7 @@ End
 #tag Events CancelButton
 	#tag Event
 		Sub Action()
-		  LogoWin.nhmmeroptions=""
+		  LogoWin.hmmgenoptions=""
 		  self.OKPressed=false
 		  self.hide
 		  
@@ -1217,6 +1363,28 @@ End
 		    GenomeField.text=LogoWin.Genomefile.shellpath
 		    'EnableRun
 		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PalindromicBox
+	#tag Event
+		Sub Action()
+		  if me.value then
+		    LogoWin.palindromic=true
+		    LogoWin.LogoWinToolbar.Item(4).Enabled=false
+		  else
+		    LogoWin.palindromic=false
+		    LogoWin.LogoWinToolbar.Item(4).Enabled=true
+		  end if
+		  
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PartialPercentField
+	#tag Event
+		Sub TextChange()
+		  RunCheck
 		End Sub
 	#tag EndEvent
 #tag EndEvents
