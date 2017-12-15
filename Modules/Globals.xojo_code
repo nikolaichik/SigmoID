@@ -369,7 +369,7 @@ Protected Module Globals
 		        LogoWin.WriteToSTDOUT(EndOfLine.unix+"Parallel MEME not configured (refer to install.html from MEME Suite docs for proper installation)."+EndOfLine.unix)
 		        return 1
 		      else
-		        LogoWin.WriteToSTDOUT(str(CPUs)+" CPU cores detected. All of them will be used for running MEME."+EndOfLine.unix+EndOfLine.unix)
+		        LogoWin.WriteToSTDOUT(str(CPUs)+" CPU cores detected. All of them will be used for running MEME."+EndOfLine.unix)
 		        return CPUs
 		      end if
 		    else
@@ -3388,6 +3388,11 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="pythonPath"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

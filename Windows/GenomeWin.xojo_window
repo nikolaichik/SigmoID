@@ -55,7 +55,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -241,7 +240,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Value           =   2
       Visible         =   True
@@ -335,7 +333,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -353,7 +350,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -366,7 +362,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -469,7 +464,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -1798,18 +1792,24 @@ End
 		  Dim C as  Clipboard
 		  C=new Clipboard
 		  
-		  dim fl,fr,gbs as integer
-		  
-		  fl=FeatureLeft
-		  fr=FeatureRight
-		  gbs=GBrowseShift
-		  
-		  
-		  if FeatureLeft>0 then
-		    if topstrand then
-		      c.Text=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
-		    else
-		      c.Text=gcodes(gCodeNo).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		  if SelProtTranslation<>"" then
+		    'use translation from feature table is available
+		    c.Text=SelProtTranslation
+		  else
+		    
+		    dim fl,fr,gbs as integer
+		    
+		    fl=FeatureLeft
+		    fr=FeatureRight
+		    gbs=GBrowseShift
+		    
+		    
+		    if FeatureLeft>0 then
+		      if topstrand then
+		        c.Text=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		      else
+		        c.Text=gcodes(gCodeNo).Translate(ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)))
+		      end if
 		    end if
 		  end if
 		  
@@ -3668,8 +3668,8 @@ End
 		            'misc_feature    complement(order(3576182..3576235,3576263..3576322,
 		            '3576341..3576409,3576467..3576532))
 		            'CDS             complement(join(2497077..2497340,2497344..2497514))
-		            NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",3))
-		            NewFeature.finish=val(nthFieldB(cf1,"..",countfieldsB(cf1,"..")))  'replacement to correct for partial features
+		            NewFeature.start=val(nthFieldB(cf1,"..",countfieldsB(cf1,"..")))  'replacement to correct for partial features
+		            NewFeature.finish=val(nthfieldB(nthfieldB(cf1,"..",1),"(",3))
 		          else
 		            coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
 		            NewFeature.start=val(nthFieldB(coord,"..",2))
@@ -5434,6 +5434,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
+		Protected SelProtTranslation As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
 		Protected SelStart As integer
 	#tag EndProperty
 
@@ -5903,6 +5907,11 @@ End
 		  if ContextFeature>0 then
 		    if seq.Features(ContextFeature).type="CDS" then
 		      base.Append mItem(kCopyProtein)
+		      'extract translation from feature table if present
+		      '(takes care of frameshifts)
+		      SelProtTranslation=nthfield(seq.Features(ContextFeature).FeatureText,"/translation="+Chr(34),2)
+		      SelProtTranslation=nthfield(SelProtTranslation,chr(34),1)
+		      SelProtTranslation=ReplaceAll(SelProtTranslation,EndOfLine.unix,"")
 		    else
 		      base.Append mItem(kCopyDNA)
 		    end if

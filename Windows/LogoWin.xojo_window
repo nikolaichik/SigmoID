@@ -371,7 +371,6 @@ End
 		  'PathsChanged=true
 		  'ReadPrefs
 		  
-		  settingsWin.hide  'read prefs
 		  
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then
@@ -498,6 +497,8 @@ End
 		    WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
 		    allProgsFine=false
 		  end if
+		  
+		  settingsWin.hide  'read prefs
 		  
 		  'weblogo
 		  'WriteToSTDOUT ("Looking for weblogo... ")
