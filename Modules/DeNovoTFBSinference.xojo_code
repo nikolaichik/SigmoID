@@ -71,7 +71,8 @@ Protected Module DeNovoTFBSinference
 		Function FetchGenBankEntryFragment(EntryID as string, entryStart as integer, entryEnd as integer) As string
 		  
 		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id="
-		  Const URLend as string="&rettype=gb&seq_start=" 
+		  Const URLend as string="&rettype=gbwithparts&retmode=text&seq_start=" 
+		  
 		  Dim Separ1 as string="reference id="+chr(34)
 		  Dim Separ2 as string=chr(34)
 		  dim theURL as string
@@ -88,7 +89,7 @@ Protected Module DeNovoTFBSinference
 		  hts.Yield=true  'allow background activities while waiting
 		  hts.SetRequestHeader("Content-Type:","text/plain")
 		  
-		  theURL=URLstart+EntryID+URLend+str(entryStart)+"&seq_stop="+str(entryEnd)
+		  theURL=URLstart+EntryID+URLend+str(entryStart)+"&seq_stop="+str(entryEnd)+DevInfo
 		  res=DefineEncoding(hts.Get(theURL,60), Encodings.ASCII)  'no encoding is set
 		  
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
@@ -2516,6 +2517,10 @@ Protected Module DeNovoTFBSinference
 
 	#tag Property, Flags = &h0
 		CRtags(0) As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		DevInfo As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

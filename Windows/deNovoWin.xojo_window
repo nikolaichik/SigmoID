@@ -110,6 +110,7 @@ Begin Window deNovoWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kOutFolder"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -499,6 +500,7 @@ Begin Window deNovoWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -594,6 +596,7 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Minimal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -628,6 +631,7 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Maximal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -1034,7 +1038,7 @@ End
 		  dim query, res, filteredRes As string
 		  dim n as integer
 		  
-		  LogoWin.WriteToSTDOUT (EndofLine.unix+"Running online Uniprot searches.")
+		  LogoWin.WriteToSTDOUT (EndofLine.unix+"Running online search and genome fragment retrieval.")
 		  
 		  if ubound(ProtNames)>10 then
 		    LogoWin.WriteToSTDOUT (" Relax and have a cup of coffee. Or two..."+EndofLine.unix)
@@ -1431,7 +1435,7 @@ End
 		                End If
 		                resfile2=new FolderItem
 		              else
-		                LogoWin.WriteToSTDOUT (EndofLine.unix+"Not running MEME for" + resfile2.Name + " (empty file)")
+		                LogoWin.WriteToSTDOUT (EndofLine.unix+"Not running MEME (empty file)")
 		                
 		              End If
 		              

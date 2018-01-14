@@ -383,6 +383,17 @@ End
 		    msgbox "A problem with the HmmGen.py script (it's Nil!)"
 		  end if
 		  
+		  f=resources_f.child("RepeatGen.py")
+		  if f<>Nil then
+		    if f.exists then
+		      RepeatGenPath=f.ShellPath
+		    else
+		      msgbox "Can't find the RepeatGen.py script!"
+		    end if
+		  else
+		    msgbox "A problem with the RepeatGen.py script (it's Nil!)"
+		  end if
+		  
 		  f=resources_f.child("MastGen.py")
 		  if f<>Nil then
 		    if f.exists then
@@ -448,7 +459,7 @@ End
 		  'check for the command line tools:
 		  
 		  'python
-		  WriteToSTDOUT ("Checking python... ")
+		  dim pythonCheckString as string = "Checking python and scripts... "+EndofLine.unix
 		  cli="python --version"
 		  sh=New Shell
 		  sh.mode=0
@@ -474,7 +485,7 @@ End
 		      WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
 		      allProgsFine=false
 		    else
-		      WriteToSTDOUT (trim (Sh.Result))
+		      pythonCheckString=pythonCheckString+trim (Sh.Result)
 		      
 		      'check BioPython:
 		      f=resources_f.child("BioPythonVersion.py")
@@ -486,7 +497,7 @@ End
 		          sh.TimeOut=-1
 		          sh.execute cli
 		          If sh.errorCode=0 then
-		            WriteToSTDOUT (" with Biopython "+Sh.Result)
+		            pythonCheckString=pythonCheckString+" with Biopython "+Sh.Result
 		          end if
 		          
 		        end if
@@ -500,222 +511,12 @@ End
 		  
 		  settingsWin.hide  'read prefs
 		  
-		  'weblogo
-		  'WriteToSTDOUT ("Looking for weblogo... ")
-		  'cli=WebLogoPath+" --version"
-		  'sh=New Shell
-		  'sh.mode=0
-		  'sh.TimeOut=-1
-		  'sh.execute cli
-		  'If sh.errorCode=0 then
-		  'if instr(Sh.Result,"command not found")>0 then
-		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
-		  'WriteToSTDOUT Sh.result+EndOfLine
-		  ''allProgsFine=false
-		  'WebLogoAvailable=false
-		  'else
-		  'WriteToSTDOUT (Sh.Result)
-		  'WebLogoAvailable=true
-		  'end if
-		  'else
-		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
-		  'WriteToSTDOUT Sh.result+EndOfLine
-		  'WebLogoAvailable=false
-		  'allProgsFine=false
-		  'end if
+		  WriteToSTDOUT EndOfLine.UNIX+pythonCheckString
 		  
-		  'nhmmer
-		  WriteToSTDOUT ("Looking for nhmmer... ")
-		  #if TargetWin32
-		    cli=chr(34)+nhmmerPath+chr(34)+" -h"
-		  #else
-		    cli=nhmmerPath+" -h"
-		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute cli
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield(s,EndOfLine.Unix,1),"nhmmer")>0 then
-		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
-		      s=nthfield((S),"HMMER",2)
-		      s=trim(nthfield((S),";",1)) 'that will result in smth like "3.1b1 (May 2013)"
-		      WriteToSTDOUT (s+EndOfLine.unix)
-		      nhmmerVersion=trim(nthfield((S),"(",1))
-		    else
-		      WriteToSTDOUT ("No nhmmer found at "+nhmmerPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
-		      allProgsFine=false
-		    end if
-		  else
-		    WriteToSTDOUT ("No nhmmer found at "+nhmmerPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
-		    allProgsFine=false
-		  end if
-		  
-		  'hmmbuild
-		  WriteToSTDOUT ("Looking for hmmbuild... ")
-		  #if TargetWin32
-		    cli=chr(34)+hmmBuildPath+chr(34)+" -h"
-		  #else
-		    cli=hmmBuildPath+" -h"
-		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute cli
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield(s,EndOfLine.Unix,1),"hmmbuild")>0 then
-		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
-		      s=nthfield((S),"HMMER",2)
-		      s=nthfield((S),";",1) 'that will result in smth like "3.1b1 (May 2013)"
-		      WriteToSTDOUT (trim(s))
-		      nhmmerVersion=trim(nthfield((S),"(",1))
-		    else
-		      WriteToSTDOUT ("No hmmbuild found at "+hmmbuildPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
-		      allProgsFine=false
-		    end if
-		  else
-		    WriteToSTDOUT ("No hmmbuild found at "+hmmbuildPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
-		    allProgsFine=false
-		  end if
-		  
-		  
-		  'alimask
-		  WriteToSTDOUT (EndofLine.unix+"Looking for alimask...")
-		  #if TargetWin32
-		    cli=chr(34)+alimaskPath+chr(34)+" -h"
-		  #else
-		    cli=alimaskPath+" -h"
-		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute cli
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine.Unix,1),"alimask")>0 then
-		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
-		      s=nthfield((S),"HMMER",2)
-		      s=nthfield((S),";",1)
-		      WriteToSTDOUT (s)
-		      
-		    else
-		      WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine.unix)
-		      allProgsFine=false
-		    end if
-		  else
-		    WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine.unix)
-		    allProgsFine=false
-		  end if
-		  
-		  'transterm
-		  WriteToSTDOUT (EndofLine.unix+"Looking for TransTerm... ")
-		  #if TargetWin32
-		    f=resources_f.child("transterm.exe")
-		  #else
-		    f=resources_f.child("transterm")
-		  #endif
-		  if f<>Nil then
-		    if f.exists then
-		      #if TargetWin32
-		        cli=chr(34)+f.ShellPath+chr(34)+" -h"
-		      #else
-		        cli=f.ShellPath+" -h"
-		      #endif
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute cli
-		      If sh.errorCode=0 OR sh.errorCode=3 then 'TransTerm returns error code when run without all args
-		        dim s As string
-		        s=nthfield((Sh.Result),EndOfLine.Unix,1)
-		        s=replaceall(s,EndOfLine,"") 'otherwise an extra line on some Windows machines
-		        if instr(s,"TransTermHP")>0 then
-		          WriteToSTDOUT (s)
-		        else
-		          WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
-		          allProgsFine=false
-		        end if
-		      else
-		        WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
-		        allProgsFine=false
-		      end if
-		    else
-		      WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
-		      allProgsFine=false
-		    end if
-		  else
-		    WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
-		    allProgsFine=false
-		  end if
-		  
-		  
-		  'MEME
-		  WriteToSTDOUT (EndofLine.unix+"Looking for MEME... ")
-		  #if TargetWin32
-		    cli=chr(34)+memePath+chr(34)+" -version"
-		  #else
-		    cli=memePath+" -version"
-		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute cli
-		  If sh.errorCode=0 then
-		    WriteToSTDOUT (Sh.Result)
-		  else
-		    WriteToSTDOUT ("No MEME found at "+memePath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
-		    allProgsFine=false
-		  end if
-		  
-		  'MAST
-		  WriteToSTDOUT ("Looking for MAST... ")
-		  #if TargetWin32
-		    cli=chr(34)+MASTPath+chr(34)+" -version"
-		  #else
-		    cli=MASTPath+" -version"
-		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute cli
-		  If sh.errorCode=0 then
-		    WriteToSTDOUT (Sh.Result)
-		    MASTVersion=trim(Sh.Result)
-		  else
-		    WriteToSTDOUT ("No MAST found at "+MASTPath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
-		    allProgsFine=false
-		  end if
-		  
-		  'tfastx
-		  WriteToSTDOUT ("Looking for tfastx... ")
-		  #if TargetWin32
-		    cli=chr(34)+tfastxPath+chr(34)
-		  #else
-		    cli=tfastxPath
-		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute cli
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(s,"TFASTX")>0 then
-		      s=nthfield((Sh.Result)," version: ",2)
-		      s=nthfield((S),EndOfLine.Unix,1)
-		      WriteToSTDOUT (s+EndOfLine.UNIX)
-		    else
-		      WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine.unix)
-		      allProgsFine=false
-		    end if
-		  else
-		    WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine.unix)
-		    allProgsFine=false
-		  end if
+		  // Check python scripts
+		  'WriteToSTDOUT ("Checking python scripts... "+EndOfLine.UNIX)
 		  
 		  'hmmgen
-		  WriteToSTDOUT ("Checking the HmmGen script... ")
 		  #if TargetWin32
 		    cli=pythonPath+chr(34)+hmmGenPath+chr(34)+" -v"
 		  #else
@@ -743,8 +544,36 @@ End
 		    allProgsFine=false
 		  end if
 		  
+		  'RepeatGen
+		  #if TargetWin32
+		    cli=pythonPath+chr(34)+RepeatGenPath+chr(34)+" -v"
+		  #else
+		    cli=pythonPath+RepeatGenPath+" -v"
+		  #endif
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  hmmg=false
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"RepeatGen")>0 then
+		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
+		        WriteToSTDOUT (s)
+		        hmmg=true
+		        'else
+		        'msgbox str(CountFields(Sh.Result,EndOfLine))
+		      End If
+		    end if
+		  end if
+		  if Not hmmg then
+		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
+		    WriteToSTDOUT (EndOfLine.Unix)
+		    allProgsFine=false
+		  end if
+		  
 		  'mastgen
-		  WriteToSTDOUT ("Checking the MastGen script... ")
+		  'WriteToSTDOUT ("Checking the MastGen script... ")
 		  #if TargetWin32
 		    cli=pythonPath+chr(34)+MastGenPath+chr(34)+" -v"
 		  #else
@@ -772,7 +601,7 @@ End
 		  end if
 		  
 		  'TermGen
-		  WriteToSTDOUT ("Checking the TermGen script... ")
+		  'WriteToSTDOUT ("Checking the TermGen script... ")
 		  #if TargetWin32
 		    cli=pythonPath+chr(34)+TermGenPath+chr(34)+" -v"
 		  #else
@@ -801,7 +630,7 @@ End
 		  end if
 		  
 		  'OperOn
-		  WriteToSTDOUT ("Checking the OperOn script... ")
+		  'WriteToSTDOUT ("Checking the OperOn script... ")
 		  #if TargetWin32
 		    cli=pythonPath+chr(34)+OperOnPath+chr(34)+" -v"
 		  #else
@@ -828,6 +657,257 @@ End
 		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
+		  
+		  'ptt_converter
+		  dim ptt_converterPath as string
+		  ptt_converterPath=Replace(HmmGenPath, "hmmgen.py", "ptt_converter.py")
+		  #if TargetWin32
+		    cli=pythonPath+chr(34)+ptt_converterPath+chr(34)+" -v"
+		  #else
+		    cli=pythonPath+ptt_converterPath+" -v"
+		  #endif
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  hmmg=false
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"converter")>0 then
+		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
+		        WriteToSTDOUT (s)
+		        hmmg=true
+		        'else
+		        'msgbox str(CountFields(Sh.Result,EndOfLine))
+		      End If
+		    end if
+		  end if
+		  if Not hmmg then
+		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
+		    WriteToSTDOUT (EndOfLine.Unix)
+		    allProgsFine=false
+		  end if
+		  
+		  
+		  
+		  
+		  
+		  'weblogo
+		  'WriteToSTDOUT ("Looking for weblogo... ")
+		  'cli=WebLogoPath+" --version"
+		  'sh=New Shell
+		  'sh.mode=0
+		  'sh.TimeOut=-1
+		  'sh.execute cli
+		  'If sh.errorCode=0 then
+		  'if instr(Sh.Result,"command not found")>0 then
+		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
+		  'WriteToSTDOUT Sh.result+EndOfLine
+		  ''allProgsFine=false
+		  'WebLogoAvailable=false
+		  'else
+		  'WriteToSTDOUT (Sh.Result)
+		  'WebLogoAvailable=true
+		  'end if
+		  'else
+		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
+		  'WriteToSTDOUT Sh.result+EndOfLine
+		  'WebLogoAvailable=false
+		  'allProgsFine=false
+		  'end if
+		  
+		  WriteToSTDOUT EndOfLine.UNIX+"Checking command line programs..."+EndOfLine.UNIX
+		  'nhmmer
+		  'WriteToSTDOUT ("Looking for nhmmer... ")
+		  #if TargetWin32
+		    cli=chr(34)+nhmmerPath+chr(34)+" -h"
+		  #else
+		    cli=nhmmerPath+" -h"
+		  #endif
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(nthfield(s,EndOfLine.Unix,1),"nhmmer")>0 then
+		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
+		      s=nthfield((S),"HMMER",2)
+		      s=trim(nthfield((S),";",1)) 'that will result in smth like "3.1b1 (May 2013)"
+		      WriteToSTDOUT ("nhmmer "+s+EndOfLine.unix)
+		      nhmmerVersion=trim(nthfield((S),"(",1))
+		    else
+		      WriteToSTDOUT ("No nhmmer found at "+nhmmerPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
+		      allProgsFine=false
+		    end if
+		  else
+		    WriteToSTDOUT ("No nhmmer found at "+nhmmerPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
+		  'hmmbuild
+		  'WriteToSTDOUT ("Looking for hmmbuild... ")
+		  #if TargetWin32
+		    cli=chr(34)+hmmBuildPath+chr(34)+" -h"
+		  #else
+		    cli=hmmBuildPath+" -h"
+		  #endif
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(nthfield(s,EndOfLine.Unix,1),"hmmbuild")>0 then
+		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
+		      s=nthfield((S),"HMMER",2)
+		      s=nthfield((S),";",1) 'that will result in smth like "3.1b1 (May 2013)"
+		      WriteToSTDOUT ("hmmbuild "+trim(s)+EndofLine.unix)
+		      'nhmmerVersion=trim(nthfield((S),"(",1))
+		    else
+		      WriteToSTDOUT ("No hmmbuild found at "+hmmbuildPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
+		      allProgsFine=false
+		    end if
+		  else
+		    WriteToSTDOUT ("No hmmbuild found at "+hmmbuildPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
+		  
+		  'alimask
+		  'WriteToSTDOUT (EndofLine.unix+"Looking for alimask...")
+		  #if TargetWin32
+		    cli=chr(34)+alimaskPath+chr(34)+" -h"
+		  #else
+		    cli=alimaskPath+" -h"
+		  #endif
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(nthfield((Sh.Result),EndOfLine.Unix,1),"alimask")>0 then
+		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
+		      s=nthfield((S),"HMMER",2)
+		      s=nthfield((S),";",1)
+		      WriteToSTDOUT ("alimask "+s+EndofLine.unix)
+		      
+		    else
+		      WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine.unix)
+		      allProgsFine=false
+		    end if
+		  else
+		    WriteToSTDOUT ("No alimask found at "+alimaskPath+". Please install it or correct the path in the settings."+EndOfLine.unix)
+		    allProgsFine=false
+		  end if
+		  
+		  'transterm
+		  'WriteToSTDOUT (EndofLine.unix+"Looking for TransTerm... ")
+		  #if TargetWin32
+		    f=resources_f.child("transterm.exe")
+		  #else
+		    f=resources_f.child("transterm")
+		  #endif
+		  if f<>Nil then
+		    if f.exists then
+		      #if TargetWin32
+		        cli=chr(34)+f.ShellPath+chr(34)+" -h"
+		      #else
+		        cli=f.ShellPath+" -h"
+		      #endif
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      sh.execute cli
+		      If sh.errorCode=0 OR sh.errorCode=3 then 'TransTerm returns error code when run without all args
+		        dim s As string
+		        s=nthfield((Sh.Result),EndOfLine.Unix,1)
+		        s=replaceall(s,EndOfLine,"") 'otherwise an extra line on some Windows machines
+		        if instr(s,"TransTermHP")>0 then
+		          WriteToSTDOUT (s+EndofLine.unix)
+		        else
+		          WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
+		          allProgsFine=false
+		        end if
+		      else
+		        WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
+		        allProgsFine=false
+		      end if
+		    else
+		      WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
+		      allProgsFine=false
+		    end if
+		  else
+		    WriteToSTDOUT ("No transterm found at "+f.ShellPath+". Please copy it alongside with the 'expterm.dat' file into the expected place."+EndOfLine.unix)
+		    allProgsFine=false
+		  end if
+		  
+		  
+		  'MEME
+		  'WriteToSTDOUT (EndofLine.unix+"Looking for MEME... ")
+		  #if TargetWin32
+		    cli=chr(34)+memePath+chr(34)+" -version"
+		  #else
+		    cli=memePath+" -version"
+		  #endif
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    WriteToSTDOUT ("meme "+Sh.Result)
+		  else
+		    WriteToSTDOUT ("No MEME found at "+memePath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
+		  'MAST
+		  'WriteToSTDOUT ("Looking for MAST... ")
+		  #if TargetWin32
+		    cli=chr(34)+MASTPath+chr(34)+" -version"
+		  #else
+		    cli=MASTPath+" -version"
+		  #endif
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    WriteToSTDOUT ("mast "+Sh.Result)
+		    MASTVersion=trim(Sh.Result)
+		  else
+		    WriteToSTDOUT ("No MAST found at "+MASTPath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
+		  'tfastx
+		  'WriteToSTDOUT ("Looking for tfastx... ")
+		  #if TargetWin32
+		    cli=chr(34)+tfastxPath+chr(34)
+		  #else
+		    cli=tfastxPath
+		  #endif
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    dim s As string=Sh.Result
+		    if instr(s,"TFASTX")>0 then
+		      s=nthfield((Sh.Result)," version: ",2)
+		      s=nthfield((S),EndOfLine.Unix,1)
+		      WriteToSTDOUT ("tfastx "+s+EndOfLine.UNIX)
+		    else
+		      WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine.unix)
+		      allProgsFine=false
+		    end if
+		  else
+		    WriteToSTDOUT ("No tfastx found at "+tfastxPath+". Please install it from http://faculty.virginia.edu/wrpearson/fasta/CURRENT/ or correct the path in the settings."+EndOfLine.unix)
+		    allProgsFine=false
+		  end if
+		  
+		  
 		  
 		  WriteToSTDOUT ("Accessing RegPrecise... ")
 		  me.Show
@@ -1369,9 +1449,9 @@ End
 			dlg.ActionButtonCaption=kSave
 			outfile=dlg.ShowModal()
 			if outfile<>nil then
-			RepeatSearchSettingsWin.ReadOptions
+			'RepeatSearchSettingsWin.ReadOptions
 			
-			if HmmGen then
+			if RepeatGen then
 			if RepeatSearchSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
 			if ubound(GenomeWin.HmmHitDescriptions)>0 then
 			GenomeWin.opengenbankfile(outFile)
@@ -4387,6 +4467,205 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function RepeatGen() As boolean
+		  'This function is virtually identical to the HmmGen function (only the script name is changed)
+		  
+		  dim HitName as string
+		  if GenomeFile<> nil then
+		    dim cli as string
+		    Dim sh As Shell
+		    
+		    'usage:
+		    'HmmGen <report_file>  <input_file> <output_file> [options]
+		    '
+		    'This script allows to add features to a genbank file according to nhmmer
+		    'results. Requires Biopython 1.64 (or newer)
+		    '
+		    'positional arguments:
+		    'report_file           path to nhmmer report file produced with -tblout
+		    'option.
+		    'input_file            path to input Genbank file.
+		    'output_file           path to output Genbank file.
+		    '
+		    'optional arguments:
+		    '-h, --help            show this help message and exit
+		    '-L <integer> or <integer>:<integer>, --length <integer> or <integer>:<integer>
+		    'maximal and minimal allowed length of profile to
+		    'genome alignment.
+		    '-q [<key#"value"> [<key#"value"> ...]], --qual [<key#"value"> [<key#"value"> ...]]
+		    'add this qualifier to each annotated feature.
+		    '-p, --palindromic     filter palindromic sites.
+		    '-n, --name            don't pick 'locus_tag' and 'gene' qualifiers from the
+		    'next CDS feature.
+		    '-E <float or integer>, --eval <float or integer>
+		    'threshold E-Value.
+		    '-i, --insert          don't add features inside CDS
+		    '-b <integer>, --boundary <integer>
+		    'set allowed length boundary for hits being within
+		    'features
+		    '-d, --duplicate       no duplicate features with the same location and the
+		    'same protein_bind qualifier value
+		    '-v, --version         show program's version number and exit
+		    '-f <"feature key">, --feature <"feature key">
+		    'feature key to add (promoter, protein_bind etc.)
+		    
+		    
+		    
+		    if outfile<>nil then
+		      WriteToSTDOUT (EndofLine+EndofLine+"Running the HmmGen script..."+EndofLine)
+		      dim GenomeFilePath,outFilePath as string
+		      #if TargetWin32
+		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		        FixPath4Windows(outfile)
+		        GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		        outFilePath=chr(34)+outFile.ShellPath+chr(34)
+		      #else
+		        GenomeFilePath=GenomeFile.shellpath
+		        outFilePath=outFile.ShellPath
+		      #endif
+		      
+		      cli=pythonPath+RepeatGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
+		      
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      sh.execute cli
+		      If sh.errorCode=0 then
+		        'store hit number for genome scan:
+		        dim LastHitStr as string
+		        LastHitStr=NthField(Sh.Result,"Features added:",3)
+		        LastHitStr=NthField(LastHitStr,"CPU time:",1)
+		        LastHitNo=Val(LastHitStr)
+		        
+		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        
+		        
+		        dim ms,t1 as double
+		        ms=microseconds
+		        
+		        'display the hits in the browser:
+		        if HmmGenSettingsWin.GenomeBrowserCheckBox.value then
+		          
+		          
+		          redim GenomeWin.HmmHits(0)
+		          redim GenomeWin.HmmHitDescriptions(0)
+		          redim genomeWin.HmmHitNames(0)
+		          
+		          dim m,n,o,colonPos as integer
+		          dim currentHit,HitInfo, hits2sort(0),hitloc as string
+		          
+		          'sort the hits according to genome position:
+		          m=CountFields(sh.result,"location: [")
+		          for n=2 to m
+		            currentHit=nthfield(sh.result,"location: [",n)
+		            colonPos=instrb(currenthit,":")
+		            hitloc=nthfield(currentHit,":",1)
+		            if lenb(hitLoc)<8 then 'assuming genome length is less than 100Mb
+		              for o=0 to 8-lenb(hitLoc)
+		                hitloc="0"+hitloc
+		              next
+		            end if
+		            hitloc=hitloc+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
+		            hits2sort.append hitloc'+midb(currenthit,colonpos,lenb(currentHit)-colonpos)
+		            'nthfield(sh.result,"location: [",n)
+		          next
+		          hits2sort.Sort
+		          m=ubound(hits2sort)
+		          for n=1 to m
+		            while left(hits2sort(n),1)="0"
+		              hits2sort(n)=right(hits2sort(n),lenb(hits2sort(n))-1)
+		            wend
+		          next
+		          
+		          'add sorted hits and their info into genome browser arrays:
+		          'hmmgen result:
+		          '2233715:2233745](-)
+		          'qualifiers:
+		          'Key: bound_moiety, Value: ['HrpL alternative sigma factor']
+		          'Key: gene, Value: ['hrpJ']
+		          'Key: inference, Value: ['profile:nhmmer:3.1b1']
+		          'Key: locus_tag, Value: ['OA04_20620']
+		          'Key: note, Value: nhmmer score 12.8 E-value 1.2
+		          'Key: regulatory_class, Value: ['promoter']
+		          'type: regulatory
+		          
+		          for n=1 to ubound(hits2sort)
+		            currentHit=hits2sort(n)
+		            GenomeWin.HmmHits.append(val(nthfield(currentHit,":",1)))
+		            HitInfo=nthfield(currentHit,"]",1)+" ("+right(nthfield(currentHit,")",1),1)+") "
+		            HitInfo=HitInfo+nthfield(nthfield(currentHit,"bound_moiety, Value: ['",2),"']",1)
+		            HitInfo=HitInfo+" "+NthField(nthfield(currentHit,"nhmmer ",2),Endofline,1)
+		            HitName=""
+		            if instr(currenthit,"Key: gene")>0 then
+		              'extract gene name
+		              Hitname=nthfield(currentHit,"Key: gene, Value: ['",2)
+		              Hitname=nthfield(HitName,"']",1)+" "
+		            end if
+		            'add locus_tag
+		            Hitname=Hitname+nthfield(nthfield(currentHit,"Key: locus_tag, Value: ['",2),"']",1)+" "
+		            
+		            Hitinfo=Replace(HitInfo,"score ","Score=")
+		            Hitinfo=Replace(HitInfo,"E-value ","E-value=")
+		            genomeWin.HmmHitDescriptions.append HitInfo
+		            genomeWin.HmmHitNames.append HitName
+		            
+		          next
+		          
+		          'initialise array to select/deselect hits:
+		          redim genomeWin.HmmHitChecked(ubound(hits2sort))
+		          for n=1 to ubound(hits2sort)
+		            genomeWin.HmmHitChecked(n)=true
+		          next
+		          genomeWin.AnyHitDeselected=false
+		        end if
+		        
+		        
+		        
+		        if Ubound(genomeWin.HmmHits)>0 then
+		          if NOT ScanningGenome then
+		            WriteToSTDOUT (EndofLine.unix+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
+		          end if
+		          
+		          WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
+		          
+		          'Set the genome map scrollbar:
+		          Genomewin.SetScrollbar
+		          
+		          'Display the hit:
+		          genomeWin.CurrentHit=1
+		          Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
+		          s0.Enabled=false 'first hit: there's no previous one
+		          Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
+		          s1.Title="1/"+str(UBound(genomeWin.HmmHits))
+		          Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
+		          if Ubound(genomeWin.HmmHits)>1 then
+		            s2.enabled=true
+		          else
+		            s2.enabled=false
+		          end if
+		          
+		        end if
+		        return true
+		      else
+		        WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(sh.errorCode)+EndofLine)
+		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+"HmmGen command line was: "+cli+EndofLine)
+		        return false
+		      end if
+		    else
+		      return false
+		    end if
+		    
+		  end if
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:HmmGen")
+		    
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Sub SaveHMM()
 		  msgbox "Not implemented yet"
@@ -4722,6 +5001,10 @@ End
 
 	#tag Property, Flags = &h0
 		RegulonID As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		RepeatGenPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

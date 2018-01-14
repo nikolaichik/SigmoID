@@ -1748,11 +1748,19 @@ Protected Module Globals
 		  SettingsWin.hmmBuildPathField.text=hmmBuildPath
 		  SettingsWin.MEMEPathField.text=MEMEpath
 		  SettingsWin.MASTPathField.text=MASTpath
+		  SettingsWin.APIKeyField.text=API_Key
 		  
 		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
 		  BLASTorganism=Prefs.value("BLASTorganism","")
+		  API_Key=Prefs.value("API_Key","")
+		  
+		  'feedback info for NCBI
+		  DevInfo = "&tool=SigmoID&email=nikolaichik@bsu.by"
+		  if API_Key<>"" then 'without API_Key, only 3 requests to eutils per second are allowed
+		    DevInfo=DevInfo+API_Key
+		  end if
 		  
 		  'HMMER server scripts don't work in IE on Windows
 		  'and with older WebKit on 32-bit Linux,
@@ -3023,6 +3031,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		API_Key As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		BLASTnDB As string
 	#tag EndProperty
 
@@ -3393,6 +3405,7 @@ Protected Module Globals
 			Name="pythonPath"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

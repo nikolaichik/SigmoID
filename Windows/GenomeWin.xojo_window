@@ -2093,7 +2093,7 @@ End
 		      ViewViewDetails.Visible=true
 		      
 		      if ubound(Genome.ReadDepth1)>0 then
-		        GenomeRemovePlots.enabled=false
+		        GenomeRemovePlots.enabled=true
 		      end if
 		      GenomeMergePlotData.enabled=true
 		      
@@ -3015,6 +3015,22 @@ End
 		        feature.name=nthField(coord,chr(34),1)
 		      else
 		        feature.name="mobile element" 'no proper feature formatting, so just a generic name
+		      end if
+		    end if
+		    
+		  elseif name="repeat_region" then
+		    'proper annotation should look like:
+		    '/mobile_element_type="insertion sequence: ISPcc1"
+		    if instr(featureText,"/rpt_family=")>0 then
+		      coord=nthfield(featureText,"rpt_family="+Chr(34),2)
+		      coord=nthField(coord,chr(34),1)
+		      feature.name=coord
+		    else 'otherwise, look for a note
+		      if instr(coord,"/note=")>0 then
+		        coord=nthfield(coord,"/note="+Chr(34),2)
+		        feature.name=nthField(coord,chr(34),1)
+		      else
+		        feature.name="repeat_region" 'no proper feature formatting, so just a generic name
 		      end if
 		    end if
 		    

@@ -844,9 +844,9 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9F\xD0\xB0\xD0\xBA\xD0\xB0\xD0\xB7\xD0\xB2\xD0\xB0\xD1\x86\xD1\x8C \xD0\xBD\xD0\xB0\xD0\xB7\xD0\xB2\xD1\x83"
 	#tag EndConstant
 
-	#tag Constant, Name = kNCBIserver, Type = String, Dynamic = True, Default = \"NCBI BLAST server", Scope = Public
-		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA1\xD0\xB5\xD1\x80\xD0\xB2\xD0\xB5\xD1\x80 NCBI BLAST"
-		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA1\xD0\xB5\xD1\x80\xD0\xB2\xD0\xB5\xD1\x80 NCBI BLAST"
+	#tag Constant, Name = kNCBIserver, Type = String, Dynamic = True, Default = \"NCBI servers", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA1\xD0\xB5\xD1\x80\xD0\xB2\xD0\xB5\xD1\x80\xD1\x8B NCBI"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA1\xD0\xB5\xD1\x80\xD0\xB2\xD0\xB5\xD1\x80\xD1\x8B NCBI"
 	#tag EndConstant
 
 	#tag Constant, Name = kNew, Type = String, Dynamic = True, Default = \"New", Scope = Public
