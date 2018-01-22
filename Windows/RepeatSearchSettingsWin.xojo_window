@@ -9,11 +9,11 @@ Begin Window RepeatSearchSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   490
+   Height          =   530
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
-   MaxHeight       =   524
+   MaxHeight       =   624
    MaximizeButton  =   True
    MaxWidth        =   32000
    MenuBar         =   0
@@ -52,7 +52,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   450
+      Top             =   490
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -83,7 +83,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   450
+      Top             =   490
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -132,11 +132,11 @@ Begin Window RepeatSearchSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -148,7 +148,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   206
+      Top             =   246
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -165,11 +165,11 @@ Begin Window RepeatSearchSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
@@ -177,7 +177,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   238
+      Top             =   278
       Underline       =   False
       Visible         =   True
       Width           =   410
@@ -201,11 +201,11 @@ Begin Window RepeatSearchSettingsWin
          Italic          =   False
          Left            =   30
          LimitText       =   0
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   False
-         LockTop         =   True
+         LockTop         =   False
          Mask            =   ""
          Password        =   False
          ReadOnly        =   False
@@ -218,7 +218,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   265
+         Top             =   305
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -244,11 +244,11 @@ Begin Window RepeatSearchSettingsWin
          Italic          =   False
          Left            =   30
          LimitText       =   0
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   False
-         LockTop         =   True
+         LockTop         =   False
          Mask            =   ""
          Password        =   False
          ReadOnly        =   False
@@ -261,7 +261,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   299
+         Top             =   339
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -287,11 +287,11 @@ Begin Window RepeatSearchSettingsWin
          Italic          =   False
          Left            =   167
          LimitText       =   0
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   False
+         LockLeft        =   True
          LockRight       =   True
-         LockTop         =   True
+         LockTop         =   False
          Mask            =   ""
          Password        =   False
          ReadOnly        =   False
@@ -304,7 +304,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   299
+         Top             =   339
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -330,11 +330,11 @@ Begin Window RepeatSearchSettingsWin
          Italic          =   False
          Left            =   30
          LimitText       =   0
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   False
-         LockTop         =   True
+         LockTop         =   False
          Mask            =   ""
          Password        =   False
          ReadOnly        =   False
@@ -347,7 +347,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   333
+         Top             =   373
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -373,11 +373,11 @@ Begin Window RepeatSearchSettingsWin
          Italic          =   False
          Left            =   167
          LimitText       =   0
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   False
+         LockLeft        =   True
          LockRight       =   True
-         LockTop         =   True
+         LockTop         =   False
          Mask            =   ""
          Password        =   False
          ReadOnly        =   False
@@ -390,7 +390,7 @@ Begin Window RepeatSearchSettingsWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   333
+         Top             =   373
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -411,11 +411,11 @@ Begin Window RepeatSearchSettingsWin
       Italic          =   False
       Left            =   166
       ListIndex       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
+      LockRight       =   False
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -423,7 +423,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   206
+      Top             =   246
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -627,7 +627,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   418
+      Top             =   458
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -647,11 +647,11 @@ Begin Window RepeatSearchSettingsWin
       Italic          =   False
       Left            =   167
       ListIndex       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   23
       TabPanelIndex   =   0
@@ -659,7 +659,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   265
+      Top             =   305
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -677,11 +677,11 @@ Begin Window RepeatSearchSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -693,7 +693,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   381
+      Top             =   421
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -718,11 +718,11 @@ Begin Window RepeatSearchSettingsWin
       Italic          =   False
       Left            =   93
       LimitText       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -735,7 +735,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   379
+      Top             =   419
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -755,11 +755,11 @@ Begin Window RepeatSearchSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   350
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   26
       TabPanelIndex   =   0
@@ -767,7 +767,7 @@ Begin Window RepeatSearchSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   381
+      Top             =   421
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -838,14 +838,12 @@ Begin Window RepeatSearchSettingsWin
       Visible         =   True
       Width           =   192
    End
-   Begin CheckBox PartialBox
+   Begin GroupBox GroupBox2
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Allow partials with lengths down to"
-      DataField       =   ""
-      DataSource      =   ""
+      Caption         =   "Partial matches"
       Enabled         =   True
-      Height          =   20
+      Height          =   58
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -854,97 +852,241 @@ Begin Window RepeatSearchSettingsWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      State           =   0
-      TabIndex        =   29
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   174
-      Underline       =   False
-      Value           =   False
-      Visible         =   True
-      Width           =   341
-   End
-   Begin TextField PartialPercentField
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
-      Bold            =   False
-      Border          =   True
-      CueText         =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   373
-      LimitText       =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
       Scope           =   0
-      TabIndex        =   30
+      TabIndex        =   34
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "70"
-      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   174
       Underline       =   False
-      UseFocusRing    =   True
       Visible         =   True
-      Width           =   26
-   End
-   Begin Label Label5
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   411
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   31
-      TabPanelIndex   =   0
-      Text            =   "%"
-      TextAlign       =   0
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   174
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   19
+      Width           =   410
+      Begin TextField HMMPartialPercentField
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   374
+         LimitText       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "90"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   198
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   26
+      End
+      Begin Label Label6
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   405
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         Text            =   "%"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   198
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   19
+      End
+      Begin Label Label5
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   189
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         Text            =   "%"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   198
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   19
+      End
+      Begin TextField PartialPercentField
+         AcceptTabs      =   False
+         Alignment       =   0
+         AutoDeactivate  =   True
+         AutomaticallyCheckSpelling=   False
+         BackColor       =   &cFFFFFF00
+         Bold            =   False
+         Border          =   True
+         CueText         =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Format          =   ""
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   159
+         LimitText       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Mask            =   ""
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "70"
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   198
+         Underline       =   False
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   26
+      End
+      Begin Label Label7
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   29
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         Text            =   "Target coverage:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   200
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   118
+      End
+      Begin Label Label8
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   244
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   5
+         TabPanelIndex   =   0
+         Text            =   "HMM coverage:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   198
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   118
+      End
    End
 End
 #tag EndWindow
@@ -1072,7 +1214,6 @@ End
 		  dim featureType as string
 		  
 		  opt="-d " 'remove duplicates of the same site at the same position (happen when two or more profiles are used for the same TF and rarely with palindromic sites)
-		  opt=opt+"-n " 'don't pick 'locus_tag' and 'gene' qualifiers from the next CDS feature
 		  
 		  if BitScoreButton.value then
 		    opt=opt+"-S "+str(BitScoreField.text)
@@ -1084,22 +1225,34 @@ End
 		    'opt=opt+" -b 50" 'allow 50 bp within frame // inappropriate for anything but TFBS
 		  end if
 		  
-		  if PartialBox.value then
-		    dim PartPerCent As integer
-		    PartPerCent=val(PartialPercentField.text)
-		    if PartPerCent>30 AND PartPerCent<=100 then
-		      opt=opt+" -L "+str(ceil(val(LogoWin.AlignmentLength)*PartPerCent/100))+":"+LogoWin.AlignmentLength
-		    else
-		      MsgBox "Partial matches must be in the interval 30-100%."
-		      return
-		    end if
+		  'if PartialBox.value then
+		  
+		  'setting allowed model coverage and match length:
+		  
+		  opt=opt+" -a "+LogoWin.AlignmentLength
+		  dim PartPerCent As integer
+		  PartPerCent=val(PartialPercentField.text)
+		  if PartPerCent>=30 AND PartPerCent<=100 then 'May some people want less than 30%?  
+		    opt=opt+" -L "+str(ceil(val(LogoWin.AlignmentLength)*PartPerCent/100))+":"+LogoWin.AlignmentLength
 		  else
-		    if LogoWin.minAlignmentLength<>LogoWin.AlignmentLength then
-		      opt=opt+" -L "+LogoWin.minAlignmentLength+":"+LogoWin.AlignmentLength 'gapped alignment, match lengths may differ
-		    else
-		      opt=opt+" -L "+LogoWin.AlignmentLength
-		    end if
+		    MsgBox "Partial matches must be in the interval 30-100%."
+		    return
 		  end if
+		  dim HMMPartPerCent As integer
+		  HMMPartPerCent=val(HMMPartialPercentField.text)
+		  if HMMPartPerCent>=30 AND HMMPartPerCent<=100 then 'May some people want less than 30%?  
+		    opt=opt+" -c "+str(HMMPartPerCent/100)
+		  else
+		    MsgBox "Partial matches must be in the interval 30-100%."
+		    return
+		  end if
+		  'else
+		  'if LogoWin.minAlignmentLength<>LogoWin.AlignmentLength then
+		  'opt=opt+" -L "+LogoWin.minAlignmentLength+":"+LogoWin.AlignmentLength 'gapped alignment, match lengths may differ
+		  'else
+		  'opt=opt+" -L "+LogoWin.AlignmentLength
+		  'end if
+		  'end if
 		  
 		  if PalindromicBox.Value then
 		    opt=opt+" -p"
@@ -1324,12 +1477,12 @@ End
 #tag Events FeatureTypeCombo
 	#tag Event
 		Sub Open()
-		  Me.AddRow("tandem")
-		  Me.AddRow("direct")
+		  Me.AddRow("dispersed")
 		  Me.AddRow("inverted")
+		  Me.AddRow("direct")
+		  Me.AddRow("tandem")
 		  Me.AddRow("flanking")
 		  Me.AddRow("nested")
-		  Me.AddRow("dispersed")
 		  Me.AddRow("terminal")
 		  Me.AddRow("long_terminal_repeat")
 		  Me.AddRow("other")
@@ -1378,6 +1531,13 @@ End
 		  end if
 		  
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events HMMPartialPercentField
+	#tag Event
+		Sub TextChange()
+		  RunCheck
 		End Sub
 	#tag EndEvent
 #tag EndEvents
