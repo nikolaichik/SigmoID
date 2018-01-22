@@ -110,7 +110,6 @@ Begin Window deNovoWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kOutFolder"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -500,7 +499,6 @@ Begin Window deNovoWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -596,7 +594,6 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Minimal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -631,7 +628,6 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Maximal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -848,8 +844,177 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CDHitClustering(infile as folderitem, outfile as folderitem) As string
+		  dim CDhit as folderitem
+		  dim instream as TextInputStream
+		  dim outstream as TextOutputStream
+		  dim sh as shell
+		  dim outSeqs as string
+		  
+		  
+		  #if TargetWindows
+		    CDhit=Resources_f.child("cd-hit-est.exe")
+		  #else
+		    CDhit=Resources_f.child("cd-hit-est")
+		  #endif
+		  
+		  if CDhit<>nil AND CDhit.exists then
+		    dim cli as string
+		    cli=CDhit.ShellPath+" -i " + infile.ShellPath + " -o "+ outfile.ShellPath + " -d 100  -c 0.8 -n 5 -G 0 -aS 0.1 -aL 0.1"
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    sh.execute cli
+		    
+		    If sh.errorCode <> 0 then
+		      msgbox "Problem running CD-Hit"
+		      return ""
+		    else
+		      'read CDhit filtered data
+		      'dim inStream as TextInputStream
+		      InStream = outfile.OpenAsTextFile
+		      if inStream<>NIl then
+		        outSeqs=InStream.ReadAll
+		        inStream.close
+		        LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(outSeqs)+" fragments left after CD-hit-est clustering.")
+		        
+		        return outSeqs
+		      End If
+		    end if
+		  else
+		    return ""
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CountSeqs(inData as string) As string
 		  return str(CountFields(inData, ">")-1)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MeshClustering(infile as folderitem, outfile as folderitem) As string
+		  //***********************************************************************
+		  'Relacement of CD-Hit by a new program:
+		  'MeShClust: an intelligent tool for clustering DNA sequences
+		  'Benjamin T. James, Brian B. Luczak, Hani Z. Girgis
+		  'doi: https://doi.org/10.1101/207720
+		  '
+		  'seems to self-adjust to the level of similarity and perform a bit better
+		  '
+		  'this code expects meshclust v. 0.1.0
+		  //***********************************************************************
+		  
+		  
+		  dim MeshClust as folderitem
+		  dim MeshClustTemp as folderitem
+		  dim instream as TextInputStream
+		  dim outstream as TextOutputStream
+		  dim infilePath as string
+		  dim outfilePath as string
+		  dim outSeqs as string
+		  dim sh as shell
+		  
+		  infilePath=infile.ShellPath
+		  outfilePath=outfile.ShellPath
+		  
+		  
+		  #if TargetWindows 'not likely to happen
+		    MeshClust=Resources_f.child("meshclust.exe")
+		  #else
+		    MeshClust=Resources_f.child("meshclust")
+		  #endif
+		  
+		  if MeshClust<>nil AND MeshClust.exists then
+		    dim cli as string
+		    MeshClustTemp= SpecialFolder.Temporary.child("meshclust.out")
+		    if meshClustTemp <> nil then
+		      cli=MeshClust.ShellPath + " " + infilePath + " --output "+ MeshClustTemp.ShellPath
+		      
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      sh.execute cli
+		      
+		      If sh.errorCode <> 0 then
+		        msgbox "Problem running MeShClust"
+		        return ""
+		      else
+		        'MeshClust only writes cluster data, but doesn't export cluster representatives, 
+		        'so we have to process cluster info here 
+		        
+		        'first, read all input seqs:
+		        dim inputSeqs as string
+		        InStream = infile.OpenAsTextFile
+		        if inStream<>NIl then
+		          inputSeqs=InStream.ReadAll
+		          instream.close
+		        else
+		          return ""
+		        end if
+		        
+		        InStream = MeshClustTemp.OpenAsTextFile
+		        dim clusters as string
+		        
+		        if inStream<>NIl then
+		          clusters=InStream.ReadAll
+		          
+		          if countfields(clusters,"*")<10 then 'look for iterations with more clusters
+		            instream.close
+		            dim n as integer
+		            dim iterFile as FolderItem
+		            dim iterName as string
+		            'cycle through MeshClust iterations (numbered 0-14)
+		            'to find the one with reasonable (10-30) seq number:
+		            for n=0 to 14 
+		              itername=MeshClustTemp.ShellPath+str(n)
+		              iterfile=GetFolderItem(itername,FolderItem.PathTypeShell)
+		              InStream = iterfile.OpenAsTextFile
+		              if inStream<>NIl then
+		                clusters=InStream.ReadAll
+		                if countfields(clusters,"*")<30 then
+		                  instream.close
+		                  InStream = iterfile.OpenAsTextFile 'reopen the stream
+		                  exit                               'the desired iteration is being streamed
+		                end if
+		                instream.close
+		              end if
+		            next
+		          else
+		            instream.close
+		            InStream = MeshClustTemp.OpenAsTextFile 'reopen the stream
+		          end if
+		          
+		          dim aLine, theSeq as string
+		          dim seqStart, seqEnd as integer
+		          while Not instream.EOF
+		            aLine=InStream.ReadLine
+		            if right(aLine,1)="*" then 'cluster centre
+		              aline=">"+NthField(aline,">",2)
+		              aline=NthField(aline," ",1) 'seq title
+		              seqStart=instr(inputSeqs,aline)
+		              seqEnd=instr(seqStart+1,inputSeqs,">")-1
+		              theSeq=mid(inputSeqs,seqStart,seqEnd-seqstart)
+		              outSeqs=outSeqs+theSeq+EndOfLine.UNIX
+		            end if
+		          wend
+		          inStream.close
+		          LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(outSeqs)+" fragments left after MeShClust clustering.")
+		          OutStream = TextOutputStream.Create(outfile)
+		          if OutStream<>NIL then
+		            OutStream.Write(outSeqs)
+		            OutStream.Close
+		            return outSeqs
+		          end if
+		          
+		        End If
+		      end if
+		    end if
+		  else
+		    return ""
+		  end if
 		End Function
 	#tag EndMethod
 
@@ -1266,38 +1431,11 @@ End
 		                  if countfields(DataForMeme,">")>30 then 'too many seqs - reduce the number!
 		                    
 		                    'run cd-hit if present
-		                    dim CDhit as folderitem
-		                    
-		                    
-		                    #if TargetWindows
-		                      CDhit=Resources_f.child("cd-hit-est.exe")
-		                    #else
-		                      CDhit=Resources_f.child("cd-hit-est")
-		                    #endif
-		                    
-		                    if CDhit<>nil AND CDhit.exists then
-		                      'dim cli as string
-		                      cli=CDhit.ShellPath+" -i " + resFile.ShellPath + " -o "+ resFile2.ShellPath + " -d 100  -c 0.8 -n 5 -G 0 -aS 0.1 -aL 0.1"
-		                      
-		                      sh=New Shell
-		                      sh.mode=0
-		                      sh.TimeOut=-1
-		                      sh.execute cli
-		                      
-		                      If sh.errorCode <> 0 then
-		                        msgbox "Problem running CD-Hit"
-		                      else
-		                        'read CDhit filtered data
-		                        'dim inStream as TextInputStream
-		                        InStream = resFile2.OpenAsTextFile
-		                        if inStream<>NIl then
-		                          DataForMeme=InStream.ReadAll
-		                          LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments left after CD-hit-est clustering.")
-		                          
-		                          inStream.close
-		                        End If
-		                      end if
-		                      
+		                    dim clustered as string
+		                    'clustered=CDHitClustering(resFile,resFile2)
+		                    clustered=MeshClustering(resFile,resFile2)
+		                    if clustered<>"" then 'empty string can be returned in case of an error
+		                      DataForMeme=clustered
 		                    end if
 		                    
 		                    'use genus and then species filtering anyway, as cd-hit filtering is far from perfect

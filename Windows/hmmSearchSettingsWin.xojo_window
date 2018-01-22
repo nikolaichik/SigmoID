@@ -385,7 +385,7 @@ Begin Window hmmSearchSettingsWin
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "#kThreshold"
-      Enabled         =   False
+      Enabled         =   True
       Height          =   93
       HelpTag         =   "Thresholds to use with uncalibrated profile"
       Index           =   -2147483648
@@ -462,7 +462,7 @@ Begin Window hmmSearchSettingsWin
          TextUnit        =   0
          Top             =   94
          Underline       =   False
-         Value           =   True
+         Value           =   False
          Visible         =   True
          Width           =   115
       End
@@ -652,6 +652,12 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Activate()
+		  EnableRun
+		End Sub
+	#tag EndEvent
+
 	#tag Event
 		Function CancelClose(appQuitting as Boolean) As Boolean
 		  if not appQuitting then
@@ -976,6 +982,7 @@ End
 		      inStream.close
 		    end if
 		  end if
+		  EnableRun
 		End Sub
 	#tag EndEvent
 #tag EndEvents
