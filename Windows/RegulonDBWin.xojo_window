@@ -1109,7 +1109,7 @@ End
 		  dim TFname as string
 		  
 		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  tmpfile=SpecialFolder.Temporary.child("RegulonDBtmp.fasta")
+		  tmpfile=TemporaryFolder.child("RegulonDBtmp.fasta")
 		  if tmpfile<>nil then
 		    if tmpfile.Exists then
 		      #if TargetLinux
@@ -1117,7 +1117,7 @@ End
 		      #else
 		        tmpfile.MoveFileTo(SpecialFolder.Trash)
 		      #endif
-		      tmpfile=SpecialFolder.Temporary.child("RegulonDBtmp.fasta")
+		      tmpfile=TemporaryFolder.child("RegulonDBtmp.fasta")
 		    end if
 		    dim OutStream As TextOutputStream
 		    OutStream = TextOutputStream.Create(tmpfile)

@@ -48,6 +48,7 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kTFfamily"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -145,15 +146,21 @@ Begin Window RegPreciseTFcollectionsWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
+      httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
+      IsConnected     =   False
       LastErrorCode   =   0
+      LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
+      RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
+      yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   True
@@ -436,6 +443,7 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -826,7 +834,7 @@ End
 		              dim RegPreciseTemp as FolderItem
 		              dim OutStream As TextOutputStream
 		              
-		              RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		              RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
 		              if RegPreciseTemp<>nil then
 		                if RegPreciseTemp.Exists then
 		                  
@@ -838,7 +846,7 @@ End
 		                  #else 
 		                    RegPreciseTemp.MoveFileTo(SpecialFolder.Trash)
 		                  #endif
-		                  RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		                  RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
 		                end if
 		                
 		                
@@ -917,7 +925,7 @@ End
 		          dim RegPreciseTemp as FolderItem
 		          dim OutStream As TextOutputStream
 		          
-		          RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		          RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
 		          if RegPreciseTemp<>nil then
 		            if RegPreciseTemp.Exists then
 		              
@@ -929,7 +937,7 @@ End
 		              #else 
 		                RegPreciseTemp.MoveFileTo(SpecialFolder.Trash)
 		              #endif
-		              RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		              RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
 		            end if
 		            
 		            
@@ -1318,7 +1326,7 @@ End
 		      
 		      
 		      // make tmp folder
-		      dim TFfamily_tmp as FolderItem = SpecialFolder.Temporary.child("TFfamily_tmp")
+		      dim TFfamily_tmp as FolderItem = TemporaryFolder.child("TFfamily_tmp")
 		      if TFfamily_tmp <> nil then
 		        
 		        

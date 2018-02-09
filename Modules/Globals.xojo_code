@@ -2703,7 +2703,7 @@ Protected Module Globals
 		  
 		  
 		  'get the temp file and write the query into it:
-		  dim TFfastaFile as folderitem = SpecialFolder.Temporary.child("TF.fasta")
+		  dim TFfastaFile as folderitem = TemporaryFolder.child("TF.fasta")
 		  if TFfastaFile<>nil then
 		    dim outstream As TextOutputStream
 		    outstream = TextOutputStream.Create(TFfastaFile)
@@ -2721,7 +2721,7 @@ Protected Module Globals
 		      GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34) 'need the quotes to include gbk format anyway
 		    else
 		      'Fasta can't hadle paths with white space/non-ASCII characters, so we move and rename the library (genome) file
-		      dim genome_tmp as folderitem = SpecialFolder.Temporary.child("genome_tmp.gb")
+		      dim genome_tmp as folderitem = TemporaryFolder.child("genome_tmp.gb")
 		      if genome_tmp<>NIL then
 		        if genome_tmp.Exists then
 		          genome_tmp.Delete
@@ -3214,6 +3214,11 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="API_Key"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BLASTnDB"

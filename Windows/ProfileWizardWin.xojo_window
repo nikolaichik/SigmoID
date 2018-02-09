@@ -75,6 +75,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kTrusted1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -152,6 +153,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kGathering1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -229,6 +231,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kNoise"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -349,6 +352,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "MAST p-value threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -443,6 +447,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Feature to add:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -585,6 +590,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kQualifier"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -847,6 +853,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "TF family HMM:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -881,6 +888,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "CRtag coords:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -957,6 +965,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "protein_id and sequence of the protein used to seed the profile (fasta format):"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -1038,6 +1047,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "CRtag sequence:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -1270,24 +1280,24 @@ End
 		      
 		      
 		      'cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
-		      dim stock as FolderItem = SpecialFolder.Temporary.child("stock")
+		      dim stock as FolderItem = TemporaryFolder.child("stock")
 		      if stock <> nil then
 		        dim AlignmentFile,rcAlignmentFile as FolderItem
 		        'copy alignment to temp (for weblogo)
 		        
-		        AlignmentFile=SpecialFolder.Temporary.Child(LogoWin.LogoFile.DisplayName)
+		        AlignmentFile=TemporaryFolder.Child(LogoWin.LogoFile.DisplayName)
 		        
 		        'CopyFileTo fails if the target exists, hence this check:
 		        If AlignmentFile <> Nil then
 		          if AlignmentFile.exists then
 		            if AlignmentFile.ShellPath<>LogoWin.LogoFile.ShellPath then
 		              AlignmentFile.delete
-		              LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
+		              LogoWin.LogoFile.CopyFileTo(TemporaryFolder)
 		            else
 		              'the file is already there
 		            end if
 		          else
-		            LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
+		            LogoWin.LogoFile.CopyFileTo(TemporaryFolder)
 		          End If
 		        End If
 		        
@@ -1310,7 +1320,7 @@ End
 		            if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
 		              'looks like the seqs are palindromised already
 		            else
-		              rcAlignmentFile=SpecialFolder.Temporary.child("rcAliFile")
+		              rcAlignmentFile=TemporaryFolder.child("rcAliFile")
 		              RevCompAlignment(AlignmentFile,rcAlignmentFile)
 		              AlignmentFile.Delete
 		              AlignmentFile=rcAlignmentFile
@@ -1425,7 +1435,7 @@ End
 		              
 		              'Save MEME data
 		              if LogoWin.MEMEconvert=0 then
-		                file2copy=SpecialFolder.Temporary.child("meme.txt")                     'meme.txt
+		                file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
 		                if file2copy<>Nil AND file2copy.exists then
 		                  'CopyFileToVV(file2copy,SigFileVV)
 		                  file2copy.CopyFileTo(SigFile) 
@@ -1460,7 +1470,7 @@ End
 		              
 		              'build hmm:
 		              'need a real file for hmmbuild output:
-		              f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
+		              f2 = TemporaryFolder.child(basename+".hmm")      'place to save
 		              if f2<>nil then
 		                FixPath4Windows(f2)
 		                if hmmbuild(stock.ShellPath,f2.ShellPath) then
@@ -1574,24 +1584,24 @@ End
 		      
 		      
 		      'cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
-		      dim stock as FolderItem = SpecialFolder.Temporary.child("stock")
+		      dim stock as FolderItem = TemporaryFolder.child("stock")
 		      if stock <> nil then
 		        dim AlignmentFile,rcAlignmentFile as FolderItem
 		        'copy alignment to temp (for weblogo)
 		        
-		        AlignmentFile=SpecialFolder.Temporary.Child(LogoWin.LogoFile.DisplayName)
+		        AlignmentFile=TemporaryFolder.Child(LogoWin.LogoFile.DisplayName)
 		        
 		        'CopyFileTo fails if the target exists, hence this check:
 		        If AlignmentFile <> Nil then
 		          if AlignmentFile.exists then
 		            if AlignmentFile.ShellPath<>LogoWin.LogoFile.ShellPath then
 		              AlignmentFile.delete
-		              LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
+		              LogoWin.LogoFile.CopyFileTo(TemporaryFolder)
 		            else
 		              'the file is already there
 		            end if
 		          else
-		            LogoWin.LogoFile.CopyFileTo(SpecialFolder.Temporary)
+		            LogoWin.LogoFile.CopyFileTo(TemporaryFolder)
 		          End If
 		        End If
 		        
@@ -1614,7 +1624,7 @@ End
 		            if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
 		              'looks like the seqs are palindromised already
 		            else
-		              rcAlignmentFile=SpecialFolder.Temporary.child("rcAliFile")
+		              rcAlignmentFile=TemporaryFolder.child("rcAliFile")
 		              RevCompAlignment(AlignmentFile,rcAlignmentFile)
 		              AlignmentFile.Delete
 		              AlignmentFile=rcAlignmentFile
@@ -1771,7 +1781,7 @@ End
 		              
 		              'Save MEME data
 		              if LogoWin.MEMEconvert=0 then
-		                file2copy=SpecialFolder.Temporary.child("meme.txt")                     'meme.txt
+		                file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
 		                if file2copy<>Nil AND file2copy.exists then
 		                  CopyFileToVV(file2copy,SigFileVV)
 		                  
@@ -1806,7 +1816,7 @@ End
 		              
 		              'build hmm:
 		              'need a real file for hmmbuild output:
-		              f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
+		              f2 = TemporaryFolder.child(basename+".hmm")      'place to save
 		              if f2<>nil then
 		                FixPath4Windows(f2)
 		                if hmmbuild(stock.ShellPath,f2.ShellPath) then

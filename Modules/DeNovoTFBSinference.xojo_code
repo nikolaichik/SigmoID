@@ -1914,19 +1914,19 @@ Protected Module DeNovoTFBSinference
 		  '#if targetWin32
 		  ''MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
 		  'dim ff as folderitem
-		  'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		  'ff=TemporaryFolder.child("meme_xml_to_html")
 		  'if ff<>NIL AND ff.exists then
 		  ''it's already there
-		  'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		  'MEME_BIN_DIRS=TemporaryFolder.ShellPath
 		  'else
 		  'ff=resources_f.child("meme_xml_to_html")
 		  'if ff<>NIL AND ff.exists then
-		  'ff.copyfileto(SpecialFolder.Temporary)
-		  'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		  'ff.copyfileto(TemporaryFolder)
+		  'MEME_BIN_DIRS=TemporaryFolder.ShellPath
 		  'end if
 		  'ff=resources_f.child("meme.exe")
 		  'if ff<>NIL AND ff.exists then
-		  'ff.copyfileto(SpecialFolder.Temporary)
+		  'ff.copyfileto(TemporaryFolder)
 		  'end if
 		  'end if
 		  '
@@ -1940,19 +1940,19 @@ Protected Module DeNovoTFBSinference
 		  'moved2tmp=true
 		  ''MEME_BIN_DIRS should not have white space, so moving the script to /tmp
 		  'dim ff as folderitem
-		  'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		  'ff=TemporaryFolder.child("meme_xml_to_html")
 		  'if ff<>NIL AND ff.exists then
 		  ''it's already there
-		  'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		  'MEME_BIN_DIRS=TemporaryFolder.ShellPath
 		  'else
 		  'ff=resources_f.child("meme_xml_to_html")
 		  'if ff<>NIL AND ff.exists then
-		  'ff.copyfileto(SpecialFolder.Temporary)
-		  'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		  'ff.copyfileto(TemporaryFolder)
+		  'MEME_BIN_DIRS=TemporaryFolder.ShellPath
 		  'end if
 		  'ff=resources_f.child("meme")
 		  'if ff<>NIL AND ff.exists then
-		  'ff.copyfileto(SpecialFolder.Temporary)
+		  'ff.copyfileto(TemporaryFolder)
 		  'end if
 		  'end if
 		  'end if
@@ -1969,13 +1969,13 @@ Protected Module DeNovoTFBSinference
 		  'end if
 		  '
 		  '#elseif TargetWin32
-		  'cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		  'cli=TemporaryFolder.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		  '#else
 		  'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		  '#endif
 		  
 		  #if TargetWin32
-		    cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+infile.ShellPath
+		    cli=TemporaryFolder.child("meme.exe").ShellPath+" "+infile.ShellPath
 		  #else
 		    cli=MEMEpath+" "+infile.ShellPath
 		  #endif
@@ -2546,6 +2546,11 @@ Protected Module DeNovoTFBSinference
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DevInfo"
+			Group="Behavior"
+			Type="string"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

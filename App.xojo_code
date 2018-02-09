@@ -374,7 +374,7 @@ Inherits Application
 			tmpfile=dlg.ShowModal 'within(self)
 			
 			if tmpfile<>nil then
-			convertedFasta=SpecialFolder.Temporary.child("converted.fasta")
+			convertedFasta=TemporaryFolder.child("converted.fasta")
 			if convertedFasta<>nil then
 			RegulonDB2fasta(tmpfile,convertedFasta)
 			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
@@ -442,7 +442,7 @@ Inherits Application
 			dim ErrCode as integer
 			
 			'copy alignment out of virtual volume:
-			dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
+			dim alignment_tmp as folderitem = TemporaryFolder.child("alignment.tmp")
 			if alignment_tmp<>NIL then
 			if alignment_tmp.Exists then
 			alignment_tmp.Delete
@@ -708,14 +708,14 @@ Inherits Application
 		    else
 		      
 		      'cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
-		      dim stock as FolderItem = SpecialFolder.Temporary.child("stock")
+		      dim stock as FolderItem = TemporaryFolder.child("stock")
 		      if stock <> nil then
 		        dim AlignmentFile,rcAlignmentFile as FolderItem
 		        'check if the site is marked as palindromic
 		        if options.InStr("HmmGen.-p")>0 then 'reverse complement every site
 		          AlignmentFile= SigFolder.child(sigfolder.displayname+".fasta")
 		          if AlignmentFile<>Nil AND AlignmentFile.Exists then
-		            rcAlignmentFile=SpecialFolder.Temporary.child("rcAliFile")
+		            rcAlignmentFile=TemporaryFolder.child("rcAliFile")
 		            RevCompAlignment(AlignmentFile,rcAlignmentFile)
 		            AlignmentFile=rcAlignmentFile
 		          end if
@@ -815,7 +815,7 @@ Inherits Application
 		              'build hmm:
 		              'need a real file for hmmbuild output:
 		              dim f2 as folderitem
-		              f2 = SpecialFolder.Temporary.child(basename+".hmm")      'place to save
+		              f2 = TemporaryFolder.child(basename+".hmm")      'place to save
 		              if f2<>nil then
 		                FixPath4Windows(f2)
 		                if hmmbuild(stock.ShellPath,f2.ShellPath) then

@@ -972,7 +972,7 @@ End
 			dlg.ActionButtonCaption=kSave
 			HmmFile=dlg.ShowModalwithin(self)
 			if HmmFile<>nil then
-			dim StockholmFile as FolderItem = SpecialFolder.Temporary.child("stock")
+			dim StockholmFile as FolderItem = TemporaryFolder.child("stock")
 			if StockholmFile <> nil then
 			Stockholm(LogoFile,StockholmFile,"")
 			if hmmbuild(StockholmFile.shellpath,HmmFile.shellpath) then
@@ -1123,7 +1123,7 @@ End
 			if SeqsChanged then
 			dim TFname as string
 			TFname=nthfield(ProfileWizardWin.ValueField.Text," ",1)
-			dim BSfastaFile as folderitem = SpecialFolder.Temporary.child(TFname+".fasta")
+			dim BSfastaFile as folderitem = TemporaryFolder.child(TFname+".fasta")
 			if BSfastaFile<>nil then
 			dim outstream As TextOutputStream
 			outstream = TextOutputStream.Create(BSfastaFile)
@@ -1197,8 +1197,8 @@ End
 			dim memefile as FolderItem
 			memefile=LogoFile.parent.child("MEME.txt")
 			if memefile<>NIL and memefile.Exists then
-			memefile.CopyFileTo(SpecialFolder.Temporary)
-			MEMEtmp=SpecialFolder.Temporary.child("MEME.txt")
+			memefile.CopyFileTo(TemporaryFolder)
+			MEMEtmp=TemporaryFolder.child("MEME.txt")
 			if memetmp<>nil then
 			memeResultAvailable=true
 			WriteToSTDOUT (EndofLine+"MEME results from the .sig file will be used.")
@@ -1670,7 +1670,7 @@ End
 		  Dim sh As Shell
 		  
 		  'get the temp file to store the output
-		  alimaskTmp=SpecialFolder.Temporary.child("alimaskTmp")
+		  alimaskTmp=TemporaryFolder.child("alimaskTmp")
 		  
 		  if ubound(SelArray1)>0 then
 		    for n=1 to ubound(SelArray1)
@@ -1771,7 +1771,7 @@ End
 		    if SeqsChanged then
 		      dim TFname as string
 		      TFname=nthfield(ProfileWizardWin.ValueField.Text," ",1)
-		      dim BSfastaFile as folderitem = SpecialFolder.Temporary.child(TFname+".fasta")
+		      dim BSfastaFile as folderitem = TemporaryFolder.child(TFname+".fasta")
 		      if BSfastaFile<>nil then
 		        dim outstream As TextOutputStream
 		        outstream = TextOutputStream.Create(BSfastaFile)
@@ -3034,7 +3034,7 @@ End
 		  
 		  'export protein fastas:
 		  dim CDSfasta as folderitem
-		  CDSfasta=SpecialFolder.Temporary.child("CDS.fasta")
+		  CDSfasta=TemporaryFolder.child("CDS.fasta")
 		  
 		  if CDSfasta<>nil then
 		    GenomeWin.ExportProteins(CDSfasta)
@@ -3530,7 +3530,7 @@ End
 		      dim RegPreciseTemp as FolderItem
 		      dim OutStream As TextOutputStream
 		      
-		      RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		      RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
 		      if RegPreciseTemp<>nil then
 		        if RegPreciseTemp.Exists then
 		          #if TargetLinux 
@@ -3538,7 +3538,7 @@ End
 		          #else 
 		            RegPreciseTemp.MoveFileTo(SpecialFolder.Trash)
 		          #endif
-		          RegPreciseTemp=SpecialFolder.Temporary.child("RegPreciseTemp")
+		          RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
 		        end if
 		        dim fa as string
 		        fa=JSON2Fasta(JSN)
@@ -3805,7 +3805,7 @@ End
 		  seqin=tis.ReadAll
 		  tis.Close
 		  
-		  outfile=SpecialFolder.Temporary.child("FastaFile")
+		  outfile=TemporaryFolder.child("FastaFile")
 		  if outfile<>nil then
 		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
 		    if s<> NIL then
@@ -3828,7 +3828,7 @@ End
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT (EndofLine+Sh.Result)
 		    'write results to a temporary file for MastGen.py:
-		    MASTResultFile=SpecialFolder.Temporary.child("mast.table")
+		    MASTResultFile=TemporaryFolder.child("mast.table")
 		    
 		    if MASTResultFile<>nil then
 		      Dim tos as TextOutputStream
@@ -3968,7 +3968,7 @@ End
 		  
 		  'export protein fastas:
 		  dim CDSfasta as folderitem
-		  CDSfasta=SpecialFolder.Temporary.child("CDS.fasta")
+		  CDSfasta=TemporaryFolder.child("CDS.fasta")
 		  
 		  instream=CDSfasta.OpenAsTextFile
 		  
@@ -4018,7 +4018,7 @@ End
 		    
 		    
 		    'if hmmSearchSettingsWin.AddAnnotationCheckBox.Value then
-		    'hmmsearchResultFile=SpecialFolder.Temporary.child("hmmsearch.result")
+		    'hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")
 		    '
 		    'if hmmsearchResultFile<>nil then
 		    'cli=cli +" -o "+hmmsearchResultFile.shellpath
@@ -4028,7 +4028,7 @@ End
 		    ''end if
 		    'cli=cli+" "+modelFile+" "+CDSfasta.ShellPath
 		    
-		    dim alignmentsFile as folderitem = SpecialFolder.Temporary.Child("alignments.table")
+		    dim alignmentsFile as folderitem = TemporaryFolder.Child("alignments.table")
 		    if alignmentsFile<>nil then
 		      if alignmentsFile.exists then
 		        alignmentsFile.Delete
@@ -4089,7 +4089,7 @@ End
 		  'Converts current alignment to minimal MEME format
 		  
 		  'copy alignment out of virtual volume:
-		  dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
+		  dim alignment_tmp as folderitem = TemporaryFolder.child("alignment.tmp")
 		  if alignment_tmp<>NIL then
 		    if alignment_tmp.Exists then
 		      alignment_tmp.Delete
@@ -4103,7 +4103,7 @@ End
 		  
 		  
 		  'create a tmp file to store MEME results:
-		  MEMEtmp=SpecialFolder.Temporary.child("MEME.txt")
+		  MEMEtmp=TemporaryFolder.child("MEME.txt")
 		  FixPath4Windows(MEMEtmp)
 		  
 		  if MEMEtmp<>NIL then
@@ -4168,7 +4168,7 @@ End
 		    return false
 		  end if
 		  'get the temp file to save nhmmer result table
-		  nhmmerResultFile=SpecialFolder.Temporary.child("nhmmer.table")
+		  nhmmerResultFile=TemporaryFolder.child("nhmmer.table")
 		  
 		  if nhmmerResultFile<>nil then
 		    cli=""
@@ -4187,8 +4187,8 @@ End
 		    #endif
 		    
 		    if SigFileOpened then
-		      HmmFile.CopyFileTo(SpecialFolder.Temporary)
-		      dim HmmFileTmp as folderitem = SpecialFolder.Temporary.child(HmmFile.DisplayName)
+		      HmmFile.CopyFileTo(TemporaryFolder)
+		      dim HmmFileTmp as folderitem = TemporaryFolder.child(HmmFile.DisplayName)
 		      cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+GenomeFilePath
 		    else
 		      if masked then
@@ -4404,7 +4404,7 @@ End
 
 	#tag Method, Flags = &h1
 		Protected Sub Palindromise()
-		  PalindromeLogoFile=SpecialFolder.Temporary.child("LogoPalindrome")
+		  PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
 		  
 		  'since we change data, that's not the .sig any more!
 		  SigFileOpened=false
@@ -5684,6 +5684,11 @@ End
 		Name="RegulonID"
 		Group="Behavior"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="RepeatGenPath"
+		Group="Behavior"
+		Type="string"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Resizeable"

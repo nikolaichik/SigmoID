@@ -48,6 +48,7 @@ Begin Window ScanGenomeWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -493,7 +494,7 @@ End
 		  m=f.Count
 		  Sigcount=0
 		  dim GenomeScanOut as new FolderItem
-		  GenomeScanOut = SpecialFolder.Temporary.child("GenomeScanOut")
+		  GenomeScanOut = TemporaryFolder.child("GenomeScanOut")
 		  time= Microseconds
 		  'HmmGenSettingsWin.EvalueField.text="300"        'workaround for bitscore threshold not available
 		  Dim f2 as FolderItem=GetSaveFolderItem("????","hmm_out.gbk")
@@ -524,7 +525,7 @@ End
 		            end if
 		            HitCount=HitCount+LogoWin.LastHitNo
 		            dim tmpfile as folderitem
-		            tmpfile=SpecialFolder.Temporary.child("GenomeScanIn")
+		            tmpfile=TemporaryFolder.child("GenomeScanIn")
 		            if tmpfile.Exists then
 		              tmpfile.Delete
 		            End If

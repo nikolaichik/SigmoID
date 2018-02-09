@@ -578,7 +578,7 @@ End
 		  '[-V]            verbose mode
 		  
 		  'copy alignment out of virtual volume:
-		  dim alignment_tmp as folderitem = SpecialFolder.Temporary.child("alignment.tmp")
+		  dim alignment_tmp as folderitem = TemporaryFolder.child("alignment.tmp")
 		  if alignment_tmp<>NIL then
 		    if alignment_tmp.Exists then
 		      alignment_tmp.Delete
@@ -592,7 +592,7 @@ End
 		  
 		  
 		  'create a tmp file to store MEME results:
-		  LogoWin.MEMEtmp=SpecialFolder.Temporary.child("MEMEoutdir")
+		  LogoWin.MEMEtmp=TemporaryFolder.child("MEMEoutdir")
 		  FixPath4Windows(LogoWin.MEMEtmp)
 		  
 		  if LogoWin.MEMEtmp<>NIL then
@@ -608,19 +608,19 @@ End
 		    '#if targetWin32
 		    ''MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
 		    'dim ff as folderitem
-		    'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		    'ff=TemporaryFolder.child("meme_xml_to_html")
 		    'if ff<>NIL AND ff.exists then
 		    ''it's already there
-		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'MEME_BIN_DIRS=TemporaryFolder.ShellPath
 		    'else
 		    'ff=resources_f.child("meme_xml_to_html")
 		    'if ff<>NIL AND ff.exists then
-		    'ff.copyfileto(SpecialFolder.Temporary)
-		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'ff.copyfileto(TemporaryFolder)
+		    'MEME_BIN_DIRS=TemporaryFolder.ShellPath
 		    'end if
 		    'ff=resources_f.child("meme.exe")
 		    'if ff<>NIL AND ff.exists then
-		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'ff.copyfileto(TemporaryFolder)
 		    'end if
 		    'end if
 		    '
@@ -634,19 +634,19 @@ End
 		    'moved2tmp=true
 		    ''MEME_BIN_DIRS should not have white space, so moving the script to /tmp
 		    'dim ff as folderitem
-		    'ff=SpecialFolder.Temporary.child("meme_xml_to_html")
+		    'ff=TemporaryFolder.child("meme_xml_to_html")
 		    'if ff<>NIL AND ff.exists then
 		    ''it's already there
-		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'MEME_BIN_DIRS=TemporaryFolder.ShellPath
 		    'else
 		    'ff=resources_f.child("meme_xml_to_html")
 		    'if ff<>NIL AND ff.exists then
-		    'ff.copyfileto(SpecialFolder.Temporary)
-		    'MEME_BIN_DIRS=SpecialFolder.Temporary.ShellPath
+		    'ff.copyfileto(TemporaryFolder)
+		    'MEME_BIN_DIRS=TemporaryFolder.ShellPath
 		    'end if
 		    'ff=resources_f.child("meme")
 		    'if ff<>NIL AND ff.exists then
-		    'ff.copyfileto(SpecialFolder.Temporary)
+		    'ff.copyfileto(TemporaryFolder)
 		    'end if
 		    'end if
 		    'end if
@@ -663,13 +663,13 @@ End
 		    'end if
 		    '
 		    '#elseif TargetWin32
-		    'cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
+		    'cli=TemporaryFolder.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		    '#else
 		    'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		    '#endif
 		    
 		    #if TargetWin32
-		      cli=SpecialFolder.Temporary.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath
+		      cli=TemporaryFolder.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath
 		    #else
 		      cli=MEMEpath+" "+alignment_tmp.ShellPath
 		    #endif

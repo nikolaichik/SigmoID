@@ -110,6 +110,7 @@ Begin Window deNovoWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kOutFolder"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -499,6 +500,7 @@ Begin Window deNovoWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -594,6 +596,7 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Minimal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -628,6 +631,7 @@ Begin Window deNovoWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Maximal motif width:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -929,7 +933,7 @@ End
 		  
 		  if MeshClust<>nil AND MeshClust.exists then
 		    dim cli as string
-		    MeshClustTemp= SpecialFolder.Temporary.child("meshclust.out")
+		    MeshClustTemp= TemporaryFolder.child("meshclust.out")
 		    if meshClustTemp <> nil then
 		      cli=MeshClust.ShellPath + " " + infilePath + " --output "+ MeshClustTemp.ShellPath
 		      
@@ -1144,7 +1148,7 @@ End
 		    
 		  end if
 		  
-		  alignmentsFile=SpecialFolder.Temporary.Child("alignments.table")
+		  alignmentsFile=TemporaryFolder.Child("alignments.table")
 		  if alignmentsFile<>nil then
 		    if alignmentsFile.exists then
 		      alignmentsFile.Delete
