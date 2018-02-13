@@ -121,39 +121,39 @@ Protected Class GBFeature
 		  s=me.type
 		  Select case s
 		  case "CDS"
-		    linshape.colour= &c66FFFF00 'light blue
+		    linshape.colour=CDScolour
 		    hasArrow=true
 		    ArrowInit
 		  case "sig_peptide"
-		    linshape.colour= &c0080FF00 'dark blue
+		    linshape.colour=sig_peptideColour
 		    hasArrow=true
 		    ArrowInit
 		  case "rRNA"
-		    linshape.colour=&cFF00FF00  'magenta
+		    linshape.colour=rRNAcolour
 		    hasArrow=true
 		    ArrowInit
 		  case "tRNA"
-		    linshape.colour=&cFF66FF00  'light magenta
+		    linshape.colour=tRNAcolour
 		    hasArrow=true
 		    ArrowInit
 		  case "ncRNA"
-		    linshape.colour=&cCC66FF00  'dark magenta
+		    linshape.colour=ncRNAcolour
 		    hasArrow=true
 		    ArrowInit
 		  case "protein_bind"
-		    linshape.colour=&c66CCFF00  'blue
+		    linshape.colour=protein_bindColour
 		    hasArrow=true
 		    ArrowInit
 		  case "gene"
-		    linshape.colour=&c66FF6600  'light green
+		    linshape.colour=geneColour
 		    hasArrow=true
 		    ArrowInit
 		  case "operon"
-		    linshape.colour=&cFFFF9900   'yellow 
+		    linshape.colour=operonColour
 		    hasArrow=true
 		    ArrowInit
 		  case "promoter"
-		    linshape.colour=&c33993300   'green
+		    linshape.colour=promoterColour
 		    'if length<35 then
 		    PromoterInit
 		    'else
@@ -161,28 +161,28 @@ Protected Class GBFeature
 		    'ArrowInit
 		    'end
 		  case "terminator"  'dark red
-		    linshape.colour=&cCC000000
-		    'color=&cE8378F
+		    linshape.colour=terminatorColour
+		    
 		    hasArrow=false
 		    ArrowInit
 		  case "attenuator"   'pink
-		    linshape.colour=&cFF666600
+		    linshape.colour=attenuatorColour
 		    hasArrow=false
 		    ArrowInit
 		  case "riboswitch"   'dirty pink
-		    linshape.colour=&cCC666600
+		    linshape.colour=riboswitchColour
 		    hasArrow=false
 		    ArrowInit
 		  case "mobile_element"   'lavender
-		    linshape.colour=&cCC66FF00
+		    linshape.colour=mobile_elementColour
 		    hasArrow=false
 		    ArrowInit
 		  case "repeat_region"   'orchid
-		    linshape.colour=&c6666FF00
+		    linshape.colour=repeat_regionColour
 		    hasArrow=true
 		    ArrowInit
 		  else
-		    linshape.colour=&cC0C0C0   'gray
+		    linshape.colour=otherColour   'gray
 		    'color=&cC0C0C0
 		    'hasArrow=false
 		    ArrowInit

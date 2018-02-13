@@ -55,7 +55,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -241,7 +240,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Value           =   2
       Visible         =   True
@@ -335,7 +333,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -353,7 +350,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -366,7 +362,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -469,7 +464,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -768,7 +762,7 @@ End
 		  
 		  
 		  
-		  SelColor=HighlightColor 'RGB(191,204,242) 'mac oldfashioned blue
+		  SelColor=HighlightColour 'RGB(191,204,242) 'mac oldfashioned blue
 		  
 		  'Editor.TextFont=FixedFont
 		  'Editor.TextSize=12
@@ -850,10 +844,10 @@ End
 		  
 		  
 		  
-		  HighlightColour=HighlightColor 'set to default until features are read
-		  #if TargetWin32
-		    HighlightColour=&c66CCFF00
-		  #endif
+		  'HighlightColour=HighlightColor 'set to default until features are read
+		  '#if TargetWin32
+		  'HighlightColour=&c66CCFF00
+		  '#endif
 		  
 		  FeatureBox.visible=false 'show later if required
 		  
@@ -4223,7 +4217,7 @@ End
 		      FeatureLeft=n-GBrowseShift
 		      FeatureRight=n-GBrowseShift+len(query)
 		      
-		      HighlightColour=HighlightColor        'return to default color
+		      'HighlightColour=HighlightColor        'return to default color
 		      TextMap(FeatureLeft,FeatureRight)
 		      
 		      'add selection highlight:
@@ -4256,7 +4250,7 @@ End
 		      dim fl,fr as integer
 		      fl=FeatureLeft
 		      fr=FeatureRight
-		      HighlightColour=HighlightColor        'return to default color
+		      'HighlightColour=HighlightColor        'return to default color
 		      TextMap(FeatureLeft,FeatureRight)
 		      
 		      'add selection highlight:
@@ -4594,10 +4588,10 @@ End
 		Sub SkimHits()
 		  'skimming through the hits
 		  
-		  HighlightColour=HighlightColor 'reset to avoid feature colours
-		  #if TargetWin32
-		    HighlightColour=&c66CCFF00
-		  #endif
+		  'HighlightColour=HighlightColor 'reset to avoid feature colours
+		  '#if TargetWin32
+		  'HighlightColour=&c66CCFF00
+		  '#endif
 		  
 		  
 		  if Keyboard.AsynckeyDown(&h7C) OR Keyboard.AsynckeyDown(&h7B) then
@@ -5189,10 +5183,6 @@ End
 
 	#tag Property, Flags = &h0
 		GraphExists As boolean = false
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		HighlightColour As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

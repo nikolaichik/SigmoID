@@ -19,5 +19,17 @@ Begin Toolbar PrefsToolbar
 		Style = 2
 		Icon = 1159022591
 	End
+	Begin ToolButton ColorButt
+		Caption = "Colors"
+		HelpTag = ""
+		Style = 2
+		Icon = 1726322687
+	End
+	Begin ToolButton FontsButt
+		Caption = "Fonts"
+		HelpTag = ""
+		Style = 2
+		Icon = 1503078399
+	End
 End
 #tag EndToolbar

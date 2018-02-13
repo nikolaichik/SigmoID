@@ -128,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -5268,7 +5269,7 @@ End
 		  g.FillRect(0,0,g.width,g.height)
 		  
 		  'draw selrect:
-		  g.ForeColor=HighlightColor
+		  g.ForeColor=HighlightColour
 		  
 		  for n=1 to ubound(SelArray1)
 		    g.fillRect(SelArray1(n),0,SelArray2(n)-SelArray1(n),me.height)
@@ -5689,6 +5690,7 @@ End
 		Name="RepeatGenPath"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Resizeable"

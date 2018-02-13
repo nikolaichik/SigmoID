@@ -1838,6 +1838,57 @@ Protected Module Globals
 		    SettingsWin.ProfileFolderLabel.text=Profile_f.NativePath
 		  end if
 		  LogoWin.BuildTBButtonMenu
+		  
+		  
+		  // Colours
+		  Dim intColor As Int32 = Val(Prefs.value("CDScolour",&c66FFFF00)) ' Can also use UInt32
+		  CDScolour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("sig_peptideColour",&c0080FF00)) ' Can also use UInt32
+		  sig_peptideColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("rRNAcolour",&cFF00FF00)) 'magenta
+		  rRNAcolour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("tRNAcolour",&cFF66FF00)) 'light magenta
+		  tRNAcolour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("ncRNAcanvas",&cCC00CC00)) 'dark magenta
+		  ncRNAcolour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("protein_bindColour",&c66CCFF00)) 'blue
+		  protein_bindColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("geneColour",&c66FF6600)) 'light green
+		  geneColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("operonColour",&cFFFF9900)) 'yellow
+		  operonColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("promoterColour",&c33993300)) 'green
+		  promoterColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("terminatorColour",&cCC000000)) 'dark red
+		  terminatorColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("attenuatorColour",&cFF666600)) 'pink
+		  attenuatorColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("riboswitchColour",&cCC666600)) 'dirty pink
+		  riboswitchColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("mobile_elementColour",&cCC66FF00)) 'lavender
+		  mobile_elementColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("repeat_regionColour",&c6666FF00)) 'orchid
+		  repeat_regionColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("otherColour",&cC0C0C0)) 'gray
+		  otherColour = Color(intColor)
+		  
+		  intColor = Val(Prefs.value("HighlightColour",HighlightColor)) 'defaults to system setting (not set properly on some Linux distros)
+		  highlightColour = Color(intColor)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -3035,6 +3086,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		attenuatorColour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		BLASTnDB As string
 	#tag EndProperty
 
@@ -3044,6 +3099,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		BLASTpDB As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CDScolour As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3076,6 +3135,14 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		gCodes(30) As gCode
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		geneColour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		highlightColour As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3123,6 +3190,14 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		mobile_elementColour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ncRNAcolour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		nhmmerPath As string
 	#tag EndProperty
 
@@ -3131,11 +3206,19 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		operonColour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ORFMinLength As Integer = 50
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		ORFStarts As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		otherColour As color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3168,11 +3251,23 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		promoterColour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ProportionalFont As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		protein_bindColour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		pythonPath As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		repeat_regionColour As color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3184,7 +3279,27 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		riboswitchColour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		rRNAcolour As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		sig_peptideColour As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		terminatorColour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		tfastxPath As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		tRNAcolour As color
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3219,6 +3334,13 @@ Protected Module Globals
 			Name="API_Key"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="attenuatorColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BLASTnDB"
@@ -3237,6 +3359,12 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CDScolour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="cLineEnd"
@@ -3276,6 +3404,12 @@ Protected Module Globals
 			Name="gCodeNo"
 			Group="Behavior"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="geneColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="hmmBuildPath"
@@ -3355,10 +3489,22 @@ Protected Module Globals
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="mobile_elementColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
 			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ncRNAcolour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="nhmmerPath"
@@ -3373,6 +3519,12 @@ Protected Module Globals
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="operonColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="ORFMinLength"
 			Group="Behavior"
 			InitialValue="50"
@@ -3383,6 +3535,12 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="otherColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PathsChanged"
@@ -3401,10 +3559,22 @@ Protected Module Globals
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="promoterColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="ProportionalFont"
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="protein_bindColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="pythonPath"
@@ -3413,10 +3583,40 @@ Protected Module Globals
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="repeat_regionColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="riboswitchColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="rRNAcolour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="sig_peptideColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="terminatorColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="tfastxPath"
@@ -3430,6 +3630,12 @@ Protected Module Globals
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="tRNAcolour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WebLogoPath"
