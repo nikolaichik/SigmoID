@@ -116,7 +116,7 @@ Begin Window SettingsWin
       TabIndex        =   17
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   3
+      Value           =   4
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -2126,6 +2126,325 @@ Begin Window SettingsWin
             Width           =   34
          End
       End
+      Begin PopupMenu PropFontSizeMenu
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   490
+         ListIndex       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   10
+         TabPanelIndex   =   5
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   101
+         Underline       =   False
+         Visible         =   True
+         Width           =   50
+      End
+      Begin PopupMenu PropFontSelMenu
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   268
+         ListIndex       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   11
+         TabPanelIndex   =   5
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   101
+         Underline       =   False
+         Visible         =   True
+         Width           =   220
+      End
+      Begin PopupMenu FixedFontSelMenu
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   20
+         ListIndex       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   12
+         TabPanelIndex   =   5
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   101
+         Underline       =   False
+         Visible         =   True
+         Width           =   220
+      End
+      Begin Label Label30
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   50
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   13
+         TabPanelIndex   =   5
+         Text            =   "#kFontSelInfo"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   20
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   516
+      End
+      Begin Label Label31
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   268
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   14
+         TabPanelIndex   =   5
+         Text            =   "#kProportional"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   82
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   220
+      End
+      Begin Label Label32
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   15
+         TabPanelIndex   =   5
+         Text            =   "#kFixed"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   82
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   220
+      End
+      Begin GroupBox GroupBox7
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "#kSample"
+         Enabled         =   True
+         Height          =   81
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   18
+         TabPanelIndex   =   5
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   129
+         Underline       =   False
+         Visible         =   True
+         Width           =   220
+         Begin Label FixedSampleText
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   51
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox7"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   True
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   0
+            TabPanelIndex   =   5
+            Text            =   "#kFFexample"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   152
+            Transparent     =   True
+            Underline       =   False
+            Visible         =   True
+            Width           =   200
+         End
+      End
+      Begin GroupBox GroupBox8
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "#kSample"
+         Enabled         =   True
+         Height          =   81
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   268
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   19
+         TabPanelIndex   =   5
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   129
+         Underline       =   False
+         Visible         =   True
+         Width           =   220
+         Begin Label PropSampleText
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   51
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox8"
+            Italic          =   False
+            Left            =   279
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   True
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   0
+            TabPanelIndex   =   5
+            Text            =   "#kFFexample"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   152
+            Transparent     =   True
+            Underline       =   False
+            Visible         =   True
+            Width           =   200
+         End
+      End
    End
    Begin PushButton DefaultPathsButton
       AutoDeactivate  =   True
@@ -2191,6 +2510,7 @@ End
 		  AdjustLayout4linux(me)
 		  PathsChanged=true
 		  ReadPrefs
+		  'Call SetDefaultFonts(false) 'duplicate, but needed at start due to event order
 		  'alimaskPathField.text=Prefs.value("alimaskpath","/usr/local/bin/alimask")
 		  'nhmmerPathField.text=Prefs.value("nhmmerpath","/usr/local/bin/nhmmer")
 		  'hmmbuildPathField.text=Prefs.value("hmmbuildpath","/usr/local/bin/hmmbuild")
@@ -2237,6 +2557,16 @@ End
 		  SetDefaultColours
 		  
 		  
+		  'if NthField(ff,";",1)<>"" AND NthField(ff,";",2)<>"" then
+		  'OKButt.Enabled=true
+		  'else
+		  'OKButt.Enabled=false
+		  'end
+		  
+		  Exception err
+		    ExceptionHandler(err,"SettingsWin:Open")
+		    
+		    
 		End Sub
 	#tag EndEvent
 
@@ -2372,6 +2702,18 @@ End
 		  Prefs.value("repeat_regionColour")=str(repeat_regionCanvas.backdrop.RGBSurface.Pixel(1,1))
 		  Prefs.value("otherColour")=str(otherCanvas.backdrop.RGBSurface.Pixel(1,1))
 		  
+		  
+		  //Fonts
+		  FixedFont=FixedFontSelMenu.text
+		  ProportionalFont=PropFontSelMenu.text
+		  ProportionalFontSize=Val(PropFontSizeMenu.text)
+		  
+		  Prefs.value("FixedFont")=FixedFont
+		  Prefs.value("ProportionalFont")=ProportionalFont
+		  Prefs.value("ProportionalFontSize")=ProportionalFontSize
+		  
+		  
+		  self.close
 		  
 		  Prefs.Sync
 		  
@@ -2881,6 +3223,41 @@ End
 	#tag Event
 		Sub Open()
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PropFontSizeMenu
+	#tag Event
+		Sub Open()
+		  PropFontSizeMenu.addrow "10"
+		  PropFontSizeMenu.addrow "11"
+		  PropFontSizeMenu.addrow "12"
+		  PropFontSizeMenu.addrow "13"
+		  PropFontSizeMenu.addrow "14"
+		  
+		  PropFontSizeMenu.ListIndex=0
+		  
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Change()
+		  PropSampleText.TextSize=val(me.text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PropFontSelMenu
+	#tag Event
+		Sub Change()
+		  PropSampleText.TextFont=me.text
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events FixedFontSelMenu
+	#tag Event
+		Sub Change()
+		  FixedSampleText.TextFont=me.text
 		End Sub
 	#tag EndEvent
 #tag EndEvents

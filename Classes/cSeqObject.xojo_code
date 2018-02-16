@@ -81,9 +81,9 @@ Protected Class cSeqObject
 		      pos=features(l).start+features(l).length/2
 		    end
 		    u.TextFont=ProportionalFont
-		    u.TextSize=10
+		    u.TextSize=ProportionalFontSize
 		    p.Graphics.TextFont=ProportionalFont
-		    p.Graphics.TextSize=10
+		    p.Graphics.TextSize=ProportionalFontSize
 		    u.Text=features(l).Name
 		    u.X=(ceil(pos/bpPerPixel))'*me.Lscale
 		    u.Y=features(l).baselineY+features(l).linShape.y+4

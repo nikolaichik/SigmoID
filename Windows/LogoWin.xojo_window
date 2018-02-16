@@ -5356,13 +5356,13 @@ End
 #tag Events Informer
 	#tag Event
 		Sub Open()
-		  if FixedFont="" then
-		    dim ff as string
-		    ff=SetDefaultFonts(true)
-		    FixedFont=NthField(ff,";",1)
-		  end if
-		  
-		  me.TextFont=FixedFont
+		  'if FixedFont="" then
+		  'dim ff as string
+		  'ff=SetDefaultFonts(true)
+		  'FixedFont=NthField(ff,";",1)
+		  'end if
+		  '
+		  'me.TextFont=FixedFont
 		End Sub
 	#tag EndEvent
 	#tag Event

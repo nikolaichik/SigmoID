@@ -1889,6 +1889,40 @@ Protected Module Globals
 		  intColor = Val(Prefs.value("HighlightColour",HighlightColor)) 'defaults to system setting (not set properly on some Linux distros)
 		  highlightColour = Color(intColor)
 		  
+		  // Fonts
+		  
+		  dim ff,FFont,PFont as string
+		  
+		  ff=SetDefaultFonts(true)
+		  
+		  FFont=NthField(ff,";",1)
+		  PFont=NthField(ff,";",2)
+		  
+		  FixedFont=Prefs.value("FixedFont",FFont)
+		  ProportionalFont=Prefs.value("ProportionalFont",PFont)
+		  ProportionalFontSize=Prefs.value("ProportionalFontSize",10)
+		  
+		  dim n as integer
+		  for n=0 to SettingsWin.FixedFontSelMenu.ListCount-1
+		    if SettingsWin.FixedFontSelMenu.list(n)=FixedFont then
+		      SettingsWin.FixedFontSelMenu.listIndex=n
+		      exit
+		    end if
+		  next
+		  for n=0 to SettingsWin.PropFontSelMenu.ListCount-1
+		    if SettingsWin.PropFontSelMenu.list(n)=ProportionalFont then
+		      SettingsWin.PropFontSelMenu.listIndex=n
+		      exit
+		    end if
+		  next
+		  for n=0 to SettingsWin.PropFontSizeMenu.ListCount-1
+		    if SettingsWin.PropFontSizeMenu.list(n)=str(ProportionalFontSize) then
+		      SettingsWin.PropFontSizeMenu.listIndex=n
+		      exit
+		    end if
+		  next
+		  
+		  LogoWin.Informer.TextFont=FixedFont
 		End Sub
 	#tag EndMethod
 
@@ -2156,7 +2190,7 @@ Protected Module Globals
 		    for n=1 to m-1
 		      CurrentFont=NthField(FixedFonts,";",n)
 		      if FromFontSelWin then
-		        FontSelectionWin.FixedFontSelMenu.addrow CurrentFont
+		        SettingsWin.FixedFontSelMenu.addrow CurrentFont
 		      end if
 		      #if TargetMacOS then
 		        if CurrentFont="Lucida Console" then
@@ -2182,7 +2216,7 @@ Protected Module Globals
 		    'app.NeedFixedFont=true
 		    'end
 		  else
-		    MsgBox "At least one fixed width font is required for proper work of the programme.  Please install such a font and run the programme again."
+		    MsgBox "At least one fixed width font is required for proper work of SigmoID.  Please install such a font and run SigmoID again."
 		    quit
 		  end
 		  
@@ -2195,7 +2229,7 @@ Protected Module Globals
 		    for n=1 to m-1
 		      CurrentFont=NthField(PropFonts,";",n)
 		      if FromFontSelWin then
-		        FontSelectionWin.PropFontSelMenu.addrow CurrentFont
+		        SettingsWin.PropFontSelMenu.addrow CurrentFont
 		      end if
 		      if CurrentFont="Arial" then
 		        PF="Arial"
@@ -2209,7 +2243,7 @@ Protected Module Globals
 		    'app.NeedFixedFont=true
 		    'end
 		  else
-		    MsgBox "At least one proportional font is required for proper work of the programme.  Please install such a font and run the programme again."
+		    MsgBox "At least one proportional font is required for proper work of SigmoID.  Please install such a font and run SigmoID again."
 		    quit
 		  end
 		  
@@ -3256,6 +3290,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		ProportionalFont As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ProportionalFontSize As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

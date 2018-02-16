@@ -398,7 +398,6 @@ Window=ExtendSitesWin;Windows/ExtendSitesWin.xojo_window;&h25CF912B;&h2250E847;f
 Window=FeaturePropertiesWin;Windows/FeaturePropertiesWin.xojo_window;&hC5F1C391;&h2250E847;false
 Window=FilteredSearchWin;Windows/FilteredSearchWin.xojo_window;&h41B87FFF;&h2250E847;false
 Window=FindWin;Windows/FindWin.xojo_window;&h3689142A;&h2250E847;false
-Window=FontSelectionWin;Windows/FontSelectionWin.xojo_window;&hBE739285;&h2250E847;false
 Window=GenomeWin;Windows/GenomeWin.xojo_window;&h6B632B0A;&h2250E847;false
 Window=GoToWin;Windows/GoToWin.xojo_window;&h76C35565;&h2250E847;false
 Window=HelpWin;Windows/HelpWin.xojo_window;&h4FC937FF;&h2250E847;false

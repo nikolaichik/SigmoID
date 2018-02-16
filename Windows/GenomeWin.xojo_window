@@ -711,10 +711,10 @@ End
 		  #endif
 		  
 		  'Get the default fonts:
-		  dim ff as string
-		  ff=SetDefaultFonts(true)
-		  FixedFont=NthField(ff,";",1)
-		  ProportionalFont=NthField(ff,";",2)
+		  'dim ff as string
+		  'ff=SetDefaultFonts(true)
+		  'FixedFont=NthField(ff,";",1)
+		  'ProportionalFont=NthField(ff,";",2)
 		  
 		  'Set detail view display and the sizes of dependent controls
 		  TextMapPic=new picture(Screen(0).Width,me.Height)
