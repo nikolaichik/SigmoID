@@ -9,7 +9,7 @@ Begin Window deNovoWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   530
+   Height          =   450
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,7 +25,7 @@ Begin Window deNovoWin
    Resizeable      =   True
    Title           =   "de novo TFBS inference "
    Visible         =   True
-   Width           =   878
+   Width           =   1022
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
@@ -39,7 +39,7 @@ Begin Window deNovoWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   768
+      Left            =   912
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -52,7 +52,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   490
+      Top             =   410
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -70,7 +70,7 @@ Begin Window deNovoWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   666
+      Left            =   810
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -83,7 +83,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   490
+      Top             =   410
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -110,14 +110,13 @@ Begin Window deNovoWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kOutFolder"
       TextAlign       =   2
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   458
+      Top             =   378
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -159,11 +158,11 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   456
+      Top             =   376
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   621
+      Width           =   765
    End
    Begin PushButton ChooseButton
       AutoDeactivate  =   True
@@ -178,7 +177,7 @@ Begin Window deNovoWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   768
+      Left            =   912
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -191,135 +190,17 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   457
+      Top             =   377
       Underline       =   False
       Visible         =   True
       Width           =   90
-   End
-   Begin GroupBox GroupBox1
-      AutoDeactivate  =   True
-      Bold            =   False
-      Caption         =   "Protein database to search"
-      Enabled         =   True
-      Height          =   123
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   323
-      Underline       =   False
-      Visible         =   True
-      Width           =   408
-      Begin RadioButton RadioButton1
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "UniProt (full)"
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   40
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   359
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         Width           =   368
-      End
-      Begin RadioButton RefProtBut
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "UniProt Reference Proteins"
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   40
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   1
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   391
-         Underline       =   False
-         Value           =   True
-         Visible         =   True
-         Width           =   368
-      End
-      Begin CheckBox FallBackCheck
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "Look in full UniProt if less than 10 hits"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   61
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         State           =   1
-         TabIndex        =   2
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   417
-         Underline       =   False
-         Value           =   True
-         Visible         =   True
-         Width           =   347
-      End
    End
    Begin Listbox HmmList
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
       Border          =   False
-      ColumnCount     =   5
+      ColumnCount     =   7
       ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
@@ -332,7 +213,7 @@ Begin Window deNovoWin
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   289
+      Height          =   356
       HelpTag         =   "The genome will be searched with all the profiles checked"
       Hierarchical    =   False
       Index           =   -2147483648
@@ -360,376 +241,16 @@ Begin Window deNovoWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   878
+      Width           =   1022
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin BevelButton BevelButton3
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
-      Bold            =   False
-      ButtonType      =   0
-      Caption         =   ""
-      CaptionAlign    =   3
-      CaptionDelta    =   0
-      CaptionPlacement=   1
-      Enabled         =   False
-      HasBackColor    =   False
-      HasMenu         =   0
-      Height          =   22
-      HelpTag         =   ""
-      Icon            =   0
-      IconAlign       =   0
-      IconDX          =   0
-      IconDY          =   0
+   Begin nSocket hts2
       Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   279
-      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      MenuValue       =   0
-      Scope           =   0
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   289
-      Underline       =   False
-      Value           =   False
-      Visible         =   True
-      Width           =   600
-   End
-   Begin BevelButton SelectAllButton
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
-      Bold            =   False
-      ButtonType      =   0
-      Caption         =   "#kSelectAll"
-      CaptionAlign    =   3
-      CaptionDelta    =   0
-      CaptionPlacement=   1
-      Enabled         =   True
-      HasBackColor    =   False
-      HasMenu         =   0
-      Height          =   22
-      HelpTag         =   ""
-      Icon            =   0
-      IconAlign       =   0
-      IconDX          =   0
-      IconDY          =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      MenuValue       =   0
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   289
-      Underline       =   False
-      Value           =   False
-      Visible         =   True
-      Width           =   140
-   End
-   Begin BevelButton DeselectAllButton
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
-      Bold            =   False
-      ButtonType      =   0
-      Caption         =   "#kDeselectAll"
-      CaptionAlign    =   3
-      CaptionDelta    =   0
-      CaptionPlacement=   1
-      Enabled         =   True
-      HasBackColor    =   False
-      HasMenu         =   0
-      Height          =   22
-      HelpTag         =   ""
-      Icon            =   0
-      IconAlign       =   0
-      IconDX          =   0
-      IconDY          =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   139
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      MenuValue       =   0
-      Scope           =   0
-      TabIndex        =   9
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   289
-      Underline       =   False
-      Value           =   False
-      Visible         =   True
-      Width           =   140
-   End
-   Begin mHTTPSocket hts2
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Enabled         =   True
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
-      Index           =   -2147483648
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
-      LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
       Scope           =   0
       TabPanelIndex   =   0
-      yield           =   False
-   End
-   Begin GroupBox GroupBox2
-      AutoDeactivate  =   True
-      Bold            =   False
-      Caption         =   "MEME settings"
-      Enabled         =   True
-      Height          =   123
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   450
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   10
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   323
-      Underline       =   False
-      Visible         =   True
-      Width           =   408
-      Begin CheckBox PalindromicBox
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "Palindromic"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox2"
-         Italic          =   False
-         Left            =   470
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         State           =   1
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   351
-         Underline       =   False
-         Value           =   True
-         Visible         =   True
-         Width           =   100
-      End
-      Begin Label Label1
-         AutoDeactivate  =   True
-         Bold            =   False
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox2"
-         Italic          =   False
-         Left            =   470
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Multiline       =   False
-         Scope           =   0
-         Selectable      =   False
-         TabIndex        =   1
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "Minimal motif width:"
-         TextAlign       =   0
-         TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   383
-         Transparent     =   True
-         Underline       =   False
-         Visible         =   True
-         Width           =   148
-      End
-      Begin Label Label4
-         AutoDeactivate  =   True
-         Bold            =   False
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox2"
-         Italic          =   False
-         Left            =   470
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Multiline       =   False
-         Scope           =   0
-         Selectable      =   False
-         TabIndex        =   2
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "Maximal motif width:"
-         TextAlign       =   0
-         TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   415
-         Transparent     =   True
-         Underline       =   False
-         Visible         =   True
-         Width           =   161
-      End
-      Begin TextField MinWidthField
-         AcceptTabs      =   False
-         Alignment       =   0
-         AutoDeactivate  =   True
-         AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
-         Bold            =   False
-         Border          =   True
-         CueText         =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Format          =   ""
-         Height          =   22
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox2"
-         Italic          =   False
-         Left            =   643
-         LimitText       =   0
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Mask            =   ""
-         Password        =   False
-         ReadOnly        =   False
-         Scope           =   0
-         TabIndex        =   3
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "16"
-         TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   383
-         Underline       =   False
-         UseFocusRing    =   True
-         Visible         =   True
-         Width           =   80
-      End
-      Begin TextField MaxWidthField
-         AcceptTabs      =   False
-         Alignment       =   0
-         AutoDeactivate  =   True
-         AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
-         Bold            =   False
-         Border          =   True
-         CueText         =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Format          =   ""
-         Height          =   22
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox2"
-         Italic          =   False
-         Left            =   643
-         LimitText       =   0
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Mask            =   ""
-         Password        =   False
-         ReadOnly        =   False
-         Scope           =   0
-         TabIndex        =   4
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "23"
-         TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   413
-         Underline       =   False
-         UseFocusRing    =   True
-         Visible         =   True
-         Width           =   80
-      End
+      ValidateCertificates=   False
    End
 End
 #tag EndWindow
@@ -754,7 +275,7 @@ End
 		  dim f as folderitem
 		  dim hmmPath, fName, aLine,lineStart as string
 		  dim inStream as TextInputStream
-		  dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
+		  dim aNAME, ACC, DESC, CRtag, CRtagFileName, PAL, mWIDTH as string
 		  
 		  'f=Profile_f
 		  f=Resources_f.Child("TF_HMMs")
@@ -769,16 +290,26 @@ End
 		        if right(f.Item(n).name,4)=".hmm" then
 		          hmmPath = f.Item(n).ShellPath
 		          fName = f.Item(n).DisplayName
-		          fName = left(fName,len(fName)-4) 'drop the .sig part
+		          fName = left(fName,len(fName)-4) 'drop the extension
 		          
-		          'get HMM info
+		          //get HMM info
+		          'standard PFAM models must be modified for SigmoID 
+		          'by adding three lines with TFBS related info like this:
+		          'CRTAG 41,43,44,45,47,48,49,51,52,55
+		          'PAL   no
+		          'WIDTH 16-22
+		          
 		          instream=f.Item(n).OpenAsTextFile
 		          
 		          if instream<>nil then
 		            aNAME=""
 		            ACC=""
 		            DESC=""
-		            while (aNAME="" OR ACC="" OR DESC="")
+		            CRtag=""
+		            PAL=""
+		            mWIDTH=""
+		            
+		            while (aNAME="" OR ACC="" OR DESC="" OR CRTAG="" OR PAL="" OR mWIDTH="")
 		              aLine=inStream.ReadLine
 		              lineStart=left(aline,6)
 		              select case lineStart
@@ -788,6 +319,12 @@ End
 		                ACC=NthField(aLine,"ACC   ",2)
 		              case "DESC  "
 		                DESC=NthField(aLine,"DESC  ",2)
+		              case "CRTAG "
+		                CRtag=NthField(aLine,"CRTAG ",2)
+		              case "PAL   "
+		                PAL=NthField(aLine,"PAL   ",2)
+		              case "WIDTH "
+		                mWIDTH=NthField(aLine,"WIDTH ",2)
 		              end select
 		              if inStream.EOF then
 		                exit
@@ -796,44 +333,42 @@ End
 		            
 		          end if
 		          
-		          'find matching CRtag file:
-		          CRtagFileName=fName+".CRtag"
-		          CRtag=""
-		          for l=1 to m
-		            if f.Item(l).name=CRtagFilename then
-		              instream=f.Item(l).OpenAsTextFile
-		              
-		              if instream<>nil then
-		                CRtag=trim(inStream.ReadAll)
-		                instream.close
-		                exit
-		              end if
-		            end if
-		          next
-		          if CRtag="" then
-		            MsgBox "Can't find CR tag file for "+aName+".hmm"
-		            return
-		          end if
+		          ''find matching CRtag file:
+		          'CRtagFileName=fName+".CRtag"
+		          'CRtag=""
+		          'for l=1 to m
+		          'if f.Item(l).name=CRtagFilename then
+		          'instream=f.Item(l).OpenAsTextFile
+		          '
+		          'if instream<>nil then
+		          'CRtag=trim(inStream.ReadAll)
+		          'instream.close
+		          'exit
+		          'end if
+		          'end if
+		          'next
+		          'if CRtag="" then
+		          'MsgBox "Can't find CR tag file for "+aName+".hmm"
+		          'return
+		          'end if
 		          
-		          'me.Heading(1)="Name"
-		          'me.Heading(2)="Accession"
-		          'me.Heading(3)="CR tag residues"
-		          'me.Heading(4)="Description"
+		          
 		          
 		          
 		          HmmList.AddRow
 		          HmmList.Cell(HmmList.LastIndex, 1) = aNAME
 		          HmmList.Cell(HmmList.LastIndex, 2) = ACC
 		          HmmList.Cell(HmmList.LastIndex, 3) = CRtag
-		          HmmList.Cell(HmmList.LastIndex, 4) = DESC
-		          HmmList.Cell(HmmList.LastIndex, 5) = hmmPath
-		          
+		          HmmList.Cell(HmmList.LastIndex, 4) = Pal
+		          HmmList.Cell(HmmList.LastIndex, 5) = mWidth
+		          HmmList.Cell(HmmList.LastIndex, 6) = DESC
+		          HmmList.Cell(HmmList.LastIndex, 7) = hmmPath
 		          HmmList.CellCheck(HmmList.LastIndex,0) = false
 		          
+		          
+		          
+		          
 		        end if
-		        
-		        
-		        
 		      next
 		      HmmList.SortedColumn=1
 		      HmmList.ColumnsortDirection(1)=ListBox.SortAscending
@@ -841,6 +376,9 @@ End
 		      
 		    end if
 		  end if
+		  
+		  
+		  self.height=HmmList.RowHeight*HmmList.ListCount+110
 		  
 		  Exception err
 		    ExceptionHandler(err,"deNovoWin:BuildHmmArray")
@@ -1023,6 +561,134 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function phmmerTextSearch(query as string, DB as string) As string
+		  'DB should be one of:
+		  ' uniprotrefprot, uniprotkb, swissprot, pdb, rp15, rp35, rp55, rp75, ensemblgenomes, 
+		  ' (ensembl - eukaryote only, qfo - Quest for Orthologs)
+		  
+		  'query should preferably be in the fasta format 
+		  
+		  dim command,theURL as string
+		  dim hts as new HTTPSecureSocket
+		  dim res as string
+		  
+		  
+		  'configure request
+		  'hts.SetRequestHeader("Expect:","")
+		  
+		  Dim form As Dictionary
+		  'create and populate the form object
+		  form = New Dictionary
+		  form.Value("seqdb") = DB
+		  'form.Value("seqdb") = "uniprotrefprot"
+		  form.Value("algo") = "phmmer"
+		  'form.Value("seqdb_ranges") = "17277318..17420758" 'trying taxonomy restriction a la the browser version: doesn't work!
+		  form.Value("seq") = query
+		  
+		  form.Value("E") = "0.0001"
+		  form.Value("domE") = "0.1"
+		  
+		  'domain thresholds don't seem to work 
+		  'weak domain hits could be reported alongside the proper ones (and berofe them!)
+		  'this breaks CR tag filtering!
+		  form.Value("incE") = "0.0001"
+		  form.Value("incdomE") = "0.1"
+		  
+		  hts.SetFormData(form)
+		  hts.SetRequestHeader("Accept","text/plain")
+		  hts.SetRequestHeader("Content-type","text/plain")
+		  'Content-type is reset when setting form data, hence the result is always returned as html 
+		  
+		  hts.Yield=true  'allow background activities while waiting
+		  
+		  'UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
+		  'change to the EBI address
+		  res=hts.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer",0)
+		  
+		  'phmmerRes=""
+		  'hts2.ClearRequestHeaders
+		  'hts2.RequestHeader("Accept") = "text/plain"
+		  'hts2.RequestHeader("Content-type") = "text/plain"
+		  'Dim data As Xojo.Core.MemoryBlock
+		  'Dim FormData As String
+		  'FormData="seqdb="+DB
+		  'FormData=FormData+"&algo=phmmer&seq="+query
+		  'FormData=FormData+"&E0.0001&domE=0.1&incE=0.0001&incdomE=0.1"
+		  'data = Xojo.Core.TextEncoding.UTF8.ConvertTextToData(FormData.toText)
+		  'hts2.SetRequestContent(data, "application/x-www-form-urlencoded")
+		  'theURL="https://www.ebi.ac.uk/Tools/hmmer/search/phmmer"
+		  'hts2.Send("POST",theURL.toText)
+		  'while deNovoWin.phmmerRes=""
+		  'app.DoEvents
+		  'wend
+		  'res=deNovoWin.phmmerRes
+		  if hts.HTTPStatusCode=302 then 'redirect: issue a request to retrieve results
+		    'just extract the redirect URL from a single <a> tag of the response
+		    theURL=NthField(res,"<a href="+chr(34),2)
+		    theURL=NthField(theURL,chr(34),1)
+		    
+		    'we want text format:
+		    theURL=DefineEncoding(theURL+"?output=text",Encodings.ASCII) 'encoding has to be set for later conversion to text
+		    
+		    phmmerRes=""
+		    hts2.ClearRequestHeaders
+		    hts2.RequestHeader("Accept") = "text/plain"
+		    hts2.RequestHeader("Content-type") = "text/plain"
+		    hts2.Send("GET",theURL.toText)
+		    
+		    
+		    while deNovoWin.phmmerRes=""
+		      App.DoEvents
+		    wend
+		    res=deNovoWin.phmmerRes
+		    'dim hts3 as new HTTPSecureSocket
+		    '
+		    'hts3=new HTTPSecureSocket
+		    'hts3.SetRequestHeader("Expect","")
+		    'hts3.SetRequestHeader("Accept","text/plain")
+		    'hts3.SetRequestHeader("Content-type","text/plain")
+		    'hts3.Yield=true  'allow background activities while waiting
+		    '
+		    ''res=hts.Get(theURL,0)
+		    'res=hts3.Get(theURL,300)
+		    'if hts3.ErrorCode=-1 then
+		    'logowin.WriteToSTDOUT("No response from HMMer serverin five minutes"+EndOfLine.UNIX)
+		    '
+		    'end if
+		    'res=hts.Get(theURL,300)
+		    'if hts.ErrorCode=-1 then
+		    'logowin.WriteToSTDOUT("No responce in five minutes"+EndOfLine.UNIX)
+		    '
+		    'end if
+		    'res=hts.Get(theURL,120)
+		    'if hts.ErrorCode=-1 then
+		    'logowin.WriteToSTDOUT("No responce in two more minutes"+EndOfLine.UNIX)
+		    '
+		    'end if
+		    'end if
+		    'AddHandler hts2.PageReceived , AddressOf GetPhmmerResult
+		    ''res=
+		    'hts2.Get(theURL)
+		    
+		    
+		  end if
+		  
+		  'if hts2.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		  return res
+		  'else
+		  '
+		  'dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
+		  'LogoWin.WriteToSTDOUT (httpErr)
+		  '
+		  'end if
+		  
+		  'UniprotShell.execute command
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RunCheck()
 		  RunButton.Enabled=true
 		  
@@ -1057,6 +723,10 @@ End
 
 	#tag Property, Flags = &h0
 		Fasta_files As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		hts2res As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1223,11 +893,8 @@ End
 		    else
 		      
 		      
-		      if RefProtBut.Value then
-		        LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Searching Uniprot Reference Proteins with "+ProtNames(n)+"...")
-		      else
-		        LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Searching Uniprot (full) with "+ProtNames(n)+"...")
-		      end if
+		      LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Searching Uniprot Reference Proteins with "+ProtNames(n)+"...")
+		      
 		      
 		      query =">"+ProtNames(n)+EndOfLine.unix+HmmSearchMatches(n)
 		      
@@ -1248,11 +915,8 @@ End
 		          
 		        else
 		          'run phmmer search vs primary DB
-		          if RefProtBut.Value then
-		            res=phmmerTextSearch(query, "uniprotrefprot")
-		          else
-		            res=phmmerTextSearch(query, "uniprotkb")
-		          end if
+		          res=phmmerTextSearch(query, "uniprotrefprot")
+		          
 		          
 		          if res<>"" then
 		            'save raw phmmer results
@@ -1286,58 +950,57 @@ End
 		      
 		      if hitcount<10 then
 		        LogoWin.WriteToSTDOUT (" Warning! Too few ("+str(hitcount)+") filtered hits.")
-		        if FallBackCheck.value then
-		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running search vs full UniProt...")
-		          
-		          resFile=phmmer_results.child(ProtNames(n)+".UniProt_raw")
-		          if resFile<>Nil then
-		            if resfile.exists then
-		              'load existing data
-		              LogoWin.WriteToSTDOUT (EndOfLine.unix+"phmmer results file exists in the working directory and will be reused"+EndOfLine.unix)
-		              instream=resFile.OpenAsTextFile
-		              if instream<>nil then
-		                res=instream.ReadAll
-		                instream.close
-		              end if
-		              
-		            else
-		              'run phmmer search vs fallback DB
-		              res=phmmerTextSearch(query, "uniprotkb")
-		              
-		              if res<>"" then
-		                'save raw phmmer results
-		                resFile=phmmer_results.child(theProtName+".UniProt_raw")
-		                if resFile<>Nil then
-		                  OutStream = TextOutputStream.Create(resFile)
-		                  if outStream<>Nil then
-		                    outstream.Write(res)
-		                    outstream.close
-		                    
-		                  end if
-		                end if
-		                
-		              end if
+		        LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running search vs full UniProt...")
+		        
+		        resFile=phmmer_results.child(ProtNames(n)+".UniProt_raw")
+		        if resFile<>Nil then
+		          if resfile.exists then
+		            'load existing data
+		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"phmmer results file exists in the working directory and will be reused"+EndOfLine.unix)
+		            instream=resFile.OpenAsTextFile
+		            if instream<>nil then
+		              res=instream.ReadAll
+		              instream.close
 		            end if
 		            
+		          else
+		            'run phmmer search vs fallback DB
+		            res=phmmerTextSearch(query, "uniprotkb")
 		            
-		            // Filter phmmer results
 		            if res<>"" then
-		              FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
+		              'save raw phmmer results
+		              resFile=phmmer_results.child(theProtName+".UniProt_raw")
+		              if resFile<>Nil then
+		                OutStream = TextOutputStream.Create(resFile)
+		                if outStream<>Nil then
+		                  outstream.Write(res)
+		                  outstream.close
+		                  
+		                end if
+		              end if
 		              
-		              hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
-		              
-		              LogoWin.WriteToSTDOUT (" "+str(hitcount)+" filtered hits found.")
-		              
-		              
-		            else
-		              logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!")
 		            end if
-		            hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
 		          end if
 		          
 		          
+		          // Filter phmmer results
+		          if res<>"" then
+		            FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
+		            
+		            hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
+		            
+		            LogoWin.WriteToSTDOUT (" "+str(hitcount)+" filtered hits found.")
+		            
+		            
+		          else
+		            logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!")
+		          end if
+		          hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
 		        end if
+		        
+		        
 		      end if
+		      
 		      
 		      if hitcount>100 then
 		        LogoWin.WriteToSTDOUT (" Warning! Over 100 ("+str(hitcount)+") filtered hits.")
@@ -1497,20 +1160,19 @@ End
 		                opt=" -p " + str(CPUcores)  'for parallelised meme
 		              end if
 		              
-		              opt=opt+" -dna -minw "+ trim(MinWidthField.text)
-		              opt=opt+" -maxw "+ trim(MaxWidthField.text)
-		              
-		              
-		              '[-pal]            force palindromes (requires -dna)
-		              if PalindromicBox.Value then
+		              if HmmList.Cell(HmmList.ListIndex,4)="yes" then
 		                opt=opt+" -pal"
 		              end if
 		              
+		              dim mWidth as string=HmmList.Cell(HmmList.ListIndex,5)
+		              
+		              opt=opt+" -dna -minw "+ trim(nthfield(mWidth,"-",1))
+		              opt=opt+" -maxw "+ trim(nthfield(mWidth,"-",2))
+		              
+		              
 		              '[-revcomp]        allow sites on + or - DNA strands
-		              'if GivenStrandBox.Value then
-		              'else
 		              opt=opt+" -revcomp"
-		              'end if
+		              
 		              
 		              '[-nmotifs <nmotifs>]    maximum number of motifs to find
 		              opt=opt+" -nmotifs 5"'+MotifNoPopup.Text
@@ -1724,32 +1386,30 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events RadioButton1
-	#tag Event
-		Sub Action()
-		  hmmlist.SetFocus
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events RefProtBut
-	#tag Event
-		Sub Action()
-		  hmmlist.SetFocus
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events HmmList
 	#tag Event
 		Sub Open()
-		  me.ColumnWidths="0,100,100,200,*,0" 'checkboxes hidden for now
+		  me.ColumnWidths="0,110,85,205,80,85,*,0" 'checkboxes hidden for now
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		  
 		  me.Heading(1)="Name"
 		  me.Heading(2)="Accession"
 		  me.Heading(3)="CR tag residues"
-		  me.Heading(4)="Description"
-		  'column 5 stores file path
+		  me.Heading(4)="Palindrome"
+		  me.Heading(5)="TFBS width"
+		  me.Heading(6)="Description"
 		  
+		  'column 7 stores file path
+		  
+		  me.GridLinesHorizontal = ListBox.BorderThinDotted
+		  'me.GridLinesVertical = ListBox.BorderThinSolid
+		  
+		  me.ColumnAlignment(4) = ListBox.AlignCenter
+		  me.ColumnAlignment(5) = ListBox.AlignCenter
+		  
+		  me.ColumnType(3) = ListBox.TypeEditable
+		  me.ColumnType(4) = ListBox.TypeEditable
+		  me.ColumnType(5) = ListBox.TypeEditable
 		  
 		  BuildHmmArray
 		  
@@ -1763,38 +1423,18 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Change()
+		  // 
+		  
 		  RunCheck
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events SelectAllButton
-	#tag Event
-		Sub Action()
-		  dim k as integer
-		  
-		  for k=0 to HmmList.ListCount-1
-		    HmmList.CellCheck(k,0) = true
-		  next
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events DeselectAllButton
-	#tag Event
-		Sub Action()
-		  dim k as integer
-		  
-		  for k=0 to HmmList.ListCount-1
-		    HmmList.CellCheck(k,0) = false
-		  next
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events hts2
 	#tag Event
-		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		Sub PageReceived(URL as Text, HTTPStatus as Integer, Content as xojo.Core.MemoryBlock)
 		  
 		  if httpStatus>=200 AND httpStatus<300 then 'successful
-		    PhmmerRes=defineEncoding(Content,Encodings.ASCII)
+		    PhmmerRes=Xojo.Core.TextEncoding.ASCII.ConvertDataToText(Content)
 		  else
 		    
 		    dim httpErr as String = HTTPerror(httpStatus,true)
@@ -1803,6 +1443,17 @@ End
 		    
 		  end if
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Error(err as RuntimeException)
+		  'beep
+		  PhmmerRes=err.Message+" "
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function AuthenticationRequired(Realm as Text, ByRef Name as Text, ByRef Password as Text) As Boolean
+		  beep
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
@@ -1883,6 +1534,12 @@ End
 		Group="Size"
 		InitialValue="400"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="hts2res"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ImplicitInstance"
