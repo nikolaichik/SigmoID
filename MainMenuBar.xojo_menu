@@ -569,6 +569,20 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem UntitledSeparator10
+         SpecialMenu = 0
+         Text = "-"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeGenomeStatistics
+         SpecialMenu = 0
+         Text = "#kGenomeStatistics"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledItem6
          SpecialMenu = 0
          Text = "-"
