@@ -408,6 +408,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem LogoFromPWMtest
+         SpecialMenu = 0
+         Text = "Logo From PWM test"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
    End
    Begin MenuItem RegPreciseMenu
       SpecialMenu = 0
