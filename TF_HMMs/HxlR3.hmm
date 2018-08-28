@@ -9,6 +9,9 @@ MM    no
 CONS  yes
 CS    yes
 MAP   yes
+CRTAG 30,32,33,34,36,37
+PAL   yes
+WIDTH 16-23
 DATE  Sat Apr 23 00:42:00 2016
 NSEQ  13
 EFFN  1.317139

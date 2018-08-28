@@ -147,6 +147,40 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CleanUpReg(inp as string) As string
+		  'Remove not IUPAC nucleotides characters from input string, aprox. five time slower then CleanUp method, but complete
+		  
+		  #pragma disableBackgroundTasks
+		  #pragma NilObjectChecking False
+		  #pragma StackOverflowChecking False
+		  
+		  dim StringLen, i as Integer
+		  dim StringPool,raw as String
+		  dim ClearString as New RegEx
+		  ClearString.Options.CaseSensitive = false
+		  ClearString.Options.ReplaceAllMatches = true
+		  ClearString.SearchPattern = "[^ACGTNRYSWKMBDHVEFHILP-]"
+		  ClearString.ReplacementPattern = ""
+		  
+		  inp=ConvertEncoding(inp, Encodings.ASCII)
+		  StringLen = len(inp)
+		  
+		  If StringLen> 3500 then 'if string longer then 3500 char., make and proceed with substrings 
+		    for i=1 to StringLen step 3500
+		      StringPool=StringPool+ClearString.replace(inp.mid(i,3500))
+		    next i
+		    inp=StringPool
+		  else
+		    inp=ClearString.replace(inp)
+		  end
+		  return Uppercase(inp)
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:CleanUpReg")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CompareScores(SigmoIDhits as string, TrainingData as string) As double
 		  'Sigmoid gives a fasta file with headers like this:
 		  '>2469306:2469325 (-) AscG Score=11.5 E-value=1.6
@@ -462,8 +496,11 @@ Protected Module Globals
 		  dim n,m as integer
 		  dim pixperbp,x as double
 		  'dim p as new picture (1,1,32)
-		  
-		  pixPerbp=width/bp
+		  if bp=0 then
+		    pixPerbp=0
+		  else
+		    pixPerbp=width/bp
+		  end if
 		  
 		  'draw seqline:
 		  dim rect as New RectShape
@@ -3450,6 +3487,12 @@ Protected Module Globals
 			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="highlightColour"
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="Color"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="hmmBuildPath"
 			Group="Behavior"
 			Type="string"
@@ -3607,6 +3650,11 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ProportionalFontSize"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="protein_bindColour"

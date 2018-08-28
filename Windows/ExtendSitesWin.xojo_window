@@ -48,6 +48,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kExtendSitesDesc"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -82,6 +83,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kLeft"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -116,6 +118,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kRight"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -133,7 +136,7 @@ Begin Window ExtendSitesWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -175,7 +178,7 @@ Begin Window ExtendSitesWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -279,7 +282,7 @@ Begin Window ExtendSitesWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -338,6 +341,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -403,8 +407,9 @@ End
 	#tag Event
 		Sub Action()
 		  dim instream, instream2 as TextInputStream
-		  dim aLine,title, seq,seqRevSeq,site, newsite,s0 as string
+		  dim aLine,title, seq,seqRevSeq,site, newsite,s0, targetSeq, seqname as string
 		  dim sitecount,sitepos, leftExt, rightExt, en, n As integer
+		  dim isMultiFasta as boolean 
 		  
 		  InStream = LogoWin.logofile.OpenAsTextFile
 		  InStream2 = LogoWin.genomefile.OpenAsTextFile
@@ -444,11 +449,27 @@ End
 		      
 		      
 		      seq=rightb(seq,len(seq)-instrb(seq,"ORIGIN")-7)
+		      
+		    else
+		      if instr(seq,">")>0 then 'MultiFasta (NB! no proper format check!)
+		        
+		        isMultiFasta=true
+		        
+		      end if
 		    end if
-		    seq=CleanUp(seq)
 		    
 		    InStream2.close
-		    seqRevSeq=seq+ReverseComplement(seq)
+		    
+		    if isMultiFasta then
+		      'MultiFasta should be clean!
+		    else
+		      seqRevSeq=seq+ReverseComplement(seq)
+		      seq=CleanUp(seq)
+		      targetSeq=seqRevSeq
+		    end if
+		    
+		    
+		    
 		    leftExt=val(LeftField.Text)
 		    rightExt=val(RightField.Text)
 		  else
@@ -462,21 +483,36 @@ End
 		      if left(aLine,1)=">" then
 		        LogoWin.WriteToSTDOUT (aline+EndofLine)
 		        title=aline
+		        if isMultiFasta then 'find the proper target among many
+		          if instr(aline," ")>0 then 'meme truncates names at first space
+		            seqname=NthField(aline," ",1)
+		          else
+		            seqname=aline
+		          end if
+		          seqname=NthField(seqname,"_site_",1) 'meme adds site numbers
+		          targetSeq=NthField(seq,seqname,2)
+		          targetSeq=NthField(targetSeq,">",1)
+		          targetSeq=targetSeq+ReverseComplement(CleanUp(targetSeq)) 'rather rough: some chars from the title may remain, but that shouldn't be a problem
+		          
+		        end if
 		      else
 		        site=trim(aline)
 		        if instr(site,"N")>0 then
 		          msgbox "Sites with redundant bases are not currently supported by this function"
 		          return
 		        end if
-		        sitecount=CountFields(seqRevSeq,site)-1
+		        
+		        
+		        
+		        sitecount=CountFields(targetSeq,site)-1
 		        if sitecount>0 then
 		          if sitecount>1 then
 		            LogoWin.WriteToSTDOUT (str(sitecount)+" sites found:"+EndofLine)
 		          end if
 		          sitepos=0
 		          for n=1 to sitecount
-		            sitepos=instr(sitepos+1,seqRevSeq,site)
-		            newsite=mid(seqRevSeq,sitepos-leftExt, leftExt+len(site)+rightExt)
+		            sitepos=instr(sitepos+1,targetSeq,site)
+		            newsite=mid(targetSeq,sitepos-leftExt, leftExt+len(site)+rightExt)
 		            LogoWin.WriteToSTDOUT (newsite+EndofLine)
 		          next
 		        else

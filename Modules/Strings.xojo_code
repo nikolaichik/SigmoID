@@ -494,6 +494,11 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x93\xD0\xB5\xD0\xBD\xD0\xBE\xD0\xBC"
 	#tag EndConstant
 
+	#tag Constant, Name = kGenomeStatistics, Type = String, Dynamic = True, Default = \"Genome Statistics", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA1\xD1\x82\xD0\xB0\xD1\x82\xD0\xB8\xD1\x81\xD1\x82\xD0\xB8\xD0\xBA\xD0\xB0 \xD0\xB3\xD0\xB5\xD0\xBD\xD0\xBE\xD0\xBC\xD0\xB0"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"C\xD1\x82\xD0\xB0\xD1\x82\xD1\x8B\xD1\x81\xD1\x82\xD1\x8B\xD0\xBA\xD0\xB0 \xD0\xB3\xD0\xB5\xD0\xBD\xD0\xBE\xD0\xBC\xD1\x83"
+	#tag EndConstant
+
 	#tag Constant, Name = kGenome_, Type = String, Dynamic = True, Default = \"Genome:", Scope = Public
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x93\xD0\xB5\xD0\xBD\xD0\xBE\xD0\xBC:"
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x93\xD0\xB5\xD0\xBD\xD0\xBE\xD0\xBC:"

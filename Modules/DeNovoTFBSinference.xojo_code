@@ -172,7 +172,8 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function GetCRtags(SearchResRaw as string, SearchResTable as string, CRs as string) As string
-		  // Add Critical Residues (CRs) according to Sahota and Stormo (2010; doi:10.1093/bioinformatics/btq501) to hmmsearch output 
+		  // Add Critical Residues (CRs) according to Sahota and Stormo (2010; doi:10.1093/bioinformatics/btq501) 
+		  ' to hmmsearch output 
 		  ' CRs should be in the format "2,3,7,9,11,13,14,21"
 		  ' requires an alignment table (example below) in addition to standard hmmsearch output to simplify things a bit.
 		  ' the dot denotes a 'gap' in the position where an insertion relative to the hmm occurred:
@@ -2004,108 +2005,6 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function phmmerTextSearch(query as string, DB as string) As string
-		  'DB should be one of:
-		  ' uniprot
-		  ' uniprotrefprot
-		  
-		  'query should preferably be in the fasta format 
-		  
-		  dim command, theURL as string
-		  dim hts as new HTTPSecureSocket
-		  dim res as string
-		  
-		  
-		  'configure request
-		  'hts.SetRequestHeader("Expect:","")
-		  
-		  Dim form As Dictionary
-		  'create and populate the form object
-		  form = New Dictionary
-		  form.Value("seqdb") = DB
-		  'form.Value("seqdb") = "uniprotrefprot"
-		  form.Value("algo") = "phmmer"
-		  'form.Value("seqdb_ranges") = "17277318..17420758" 'trying taxonomy restriction a la the browser version: doesn't work!
-		  form.Value("seq") = query
-		  
-		  form.Value("E") = "0.0001"
-		  form.Value("domE") = "0.1"
-		  
-		  'domain thresholds don't seem to work 
-		  'weak domain hits could be reported alongside the proper ones (and berofe them!)
-		  'this breaks CR tag filtering!
-		  form.Value("incE") = "0.0001"
-		  form.Value("incdomE") = "0.1"
-		  
-		  hts.SetFormData(form)
-		  hts.SetRequestHeader("Accept","text/plain")
-		  hts.SetRequestHeader("Content-type","text/plain")
-		  'Content-type is reset when setting form data, hence the result is always returned as html 
-		  
-		  hts.Yield=true  'allow background activities while waiting
-		  
-		  'UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
-		  'change to the EBI address
-		  res=hts.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer",0)
-		  
-		  if hts.HTTPStatusCode=302 then 'redirect: issue a request to retrieve results
-		    'just extract the redirect URL from a single <a> tag of the response
-		    theURL=NthField(res,"<a href="+chr(34),2)
-		    theURL=NthField(theURL,chr(34),1)
-		    
-		    'we want text format:
-		    theURL=theURL+"?output=text"
-		    
-		    'deNovoWin.phmmerRes=""
-		    'deNovoWin.hts2.SetRequestHeader("Accept","text/plain")
-		    'deNovoWin.hts2.SetRequestHeader("Content-type","text/plain")
-		    'deNovoWin.hts2.Get(theURL)
-		    'while deNovoWin.phmmerRes=""
-		    '
-		    'wend
-		    'res=deNovoWin.phmmerRes
-		    hts=new HTTPSecureSocket
-		    hts.SetRequestHeader("Expect","")
-		    hts.SetRequestHeader("Accept","text/plain")
-		    hts.SetRequestHeader("Content-type","text/plain")
-		    hts.Yield=true  'allow background activities while waiting
-		    
-		    res=hts.Get(theURL,0)
-		    
-		    'res=hts.Get(theURL,300)
-		    'if hts.ErrorCode=-1 then
-		    'logowin.WriteToSTDOUT("No responce in five minutes"+EndOfLine.UNIX)
-		    '
-		    'end if
-		    'res=hts.Get(theURL,120)
-		    'if hts.ErrorCode=-1 then
-		    'logowin.WriteToSTDOUT("No responce in two more minutes"+EndOfLine.UNIX)
-		    '
-		    'end if
-		    'end if
-		    'AddHandler hts2.PageReceived , AddressOf GetPhmmerResult
-		    ''res=
-		    'hts2.Get(theURL)
-		    
-		    
-		  end if
-		  
-		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		    return res
-		  else
-		    
-		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
-		    LogoWin.WriteToSTDOUT (httpErr)
-		    
-		  end if
-		  
-		  'UniprotShell.execute command
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function RemoveRedundantSeqs(inSeqs as string, genusSpecific as boolean) As string
 		  // There are still empty seqs (NNN) = remove these first and before this method!!!
 		  
@@ -2262,9 +2161,12 @@ Protected Module DeNovoTFBSinference
 		  
 		  'aUniprot ID looks like A0A0B2TCH0_PECCA
 		  
+		  'Sample request:
+		  'http://www.ebi.ac.uk/ebisearch/ws/rest/uniprot/entry/P53_HUMAN/xref/coding_release
+		  
 		  Const URLstart as string="https://www.ebi.ac.uk/ebisearch/ws/rest/uniprot/entry/"
-		  Const URLend as string="/xref/coding_release" 
-		  Dim Separ1 as string="reference id="+chr(34)
+		  Const URLend as string="/xref/coding_release" 'alternative: emblrelease_standard
+		  Dim Separ1 as string="reference id="+chr(34)  
 		  Dim Separ2 as string=chr(34)
 		  dim ncbiID, theURL as string
 		  
@@ -2316,8 +2218,86 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function UniProt2ncbi_ID1(UniProtID as string) As string
+		  'As UniProt IDs are unusable with NCBI, this method returns 
+		  'an ID that can be found in GenPept.
+		  
+		  'aUniprot ID looks like A0A0B2TCH0_PECCA
+		  
+		  'Const URLstart as string="https://www.ebi.ac.uk/ebisearch/ws/rest/uniprot/entry/"
+		  'Const URLend as string="/xref/coding_release" 
+		  Dim Separ1 as string=" id="+chr(34)    'used to be "reference id="
+		  Dim Separ2 as string=chr(34)
+		  dim ncbiID, theURL as string
+		  
+		  
+		  dim hts as new HTTPSocket
+		  dim res as string
+		  dim outfile as folderitem
+		  
+		  
+		  LogoWin.WriteToSTDOUT ("Contacting EBI for protein ID usable @NCBI... ")
+		  'LogoWin.show
+		  
+		  hts.Yield=true  'allow background activities while waiting
+		  hts.SetRequestHeader("Content-Type:","text/plain")
+		  hts.SetRequestHeader("Accept","text/plain")
+		  
+		  
+		  'configure request
+		  'hts.SetRequestHeader("Expect:","")
+		  
+		  Dim form As Dictionary
+		  'create and populate the form object
+		  form = New Dictionary
+		  form.Value("from") = "ACC" 'Uniprot ID
+		  form.Value("to") = "EMBL_ID" 'EMBL/GB/DDBJ ID
+		  form.Value("query") = UniProtID
+		  
+		  form.Value("format") = "tab"   '?
+		  
+		  hts.SetFormData(form)
+		  
+		  theURL="https://www.uniprot.org/uploadlists"
+		  
+		  'res=hts.post(theURL,60)  'adjust timeout?
+		  GenomeWin.EBIsocket.post(theURL) 
+		  
+		  'if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		  'if Res="" then
+		  'if hts.ErrorCode=-1 then
+		  'logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		  'else
+		  'LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		  'end if
+		  'else
+		  'ncbiID=NthField(res,separ1,2)
+		  'ncbiID=NthField(ncbiID,separ2,1)
+		  'LogoWin.WriteToSTDOUT (ncbiID)
+		  'LogoWin.WriteToSTDOUT (EndOfLine)
+		  '
+		  '
+		  'end if
+		  'else
+		  '
+		  'dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
+		  'LogoWin.WriteToSTDOUT (httpErr)
+		  '
+		  'end if
+		  '
+		  'hts.close
+		  'return ncbiID
+		  
+		  Exception err
+		    ExceptionHandler(err,"SeqRetrieval:UniProt2ncbi_ID")
+		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function WebGetCRtags(SearchResRaw as string, CRpos as string,CRtagFilter as string) As string
-		  // Add Critical Residues (CRs) according to Sahota and Stormo (2010; doi:10.1093/bioinformatics/btq501) to hmmsearch output 
+		  // Add Critical Residues (CRs) according to Sahota and Stormo (2010; doi:10.1093/bioinformatics/btq501)
+		  ' to hmmsearch output 
 		  ' CRs should be in the format "2,3,7,9,11,13,14,21"
 		  ' This method is similar to GetCRtags, but processes results returned by the EBI HMMER server,
 		  ' which doesn't return the nice aligned table, so we have to parse the textual output.
@@ -2551,6 +2531,7 @@ Protected Module DeNovoTFBSinference
 			Name="DevInfo"
 			Group="Behavior"
 			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

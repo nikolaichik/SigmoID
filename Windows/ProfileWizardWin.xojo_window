@@ -93,7 +93,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -171,7 +171,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "10"
@@ -249,7 +249,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -292,7 +292,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "1e-6"
@@ -498,7 +498,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -608,7 +608,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "protein name"
@@ -652,7 +652,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -906,7 +906,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -983,7 +983,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -1065,7 +1065,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -1154,6 +1154,11 @@ End
 		  end
 		End Sub
 	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		CRtags(0) As string
+	#tag EndProperty
 
 
 #tag EndWindowCode
@@ -1894,6 +1899,7 @@ End
 		  dim l,m,n as integer
 		  dim f as folderitem
 		  dim hmmPath, fName, aLine,lineStart as string
+		  dim CRtagFileName as string
 		  dim inStream as TextInputStream
 		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
 		  
@@ -1911,34 +1917,21 @@ End
 		        if right(f.Item(n).name,4)=".hmm" then
 		          hmmPath = f.Item(n).ShellPath
 		          fName = f.Item(n).DisplayName
-		          'fName = left(fName,len(fName)-4) 'drop the extension
-		          '
-		          ''get HMM info
-		          'instream=f.Item(n).OpenAsTextFile
-		          '
-		          'if instream<>nil then
-		          'aNAME=""
-		          'ACC=""
-		          'DESC=""
-		          'while (aNAME="" OR ACC="" OR DESC="")
-		          'aLine=inStream.ReadLine
-		          'lineStart=left(aline,6)
-		          'select case lineStart
-		          'case "NAME  "
-		          'aNAME=NthField(aLine,"NAME  ",2)
-		          'case "ACC   "
-		          'ACC=NthField(aLine,"ACC   ",2)
-		          'case "DESC  "
-		          'DESC=NthField(aLine,"DESC  ",2)
-		          'end select
-		          'if inStream.EOF then
-		          'exit
-		          'end if
-		          'wend
-		          '
-		          'end if
+		          
 		          
 		          me.AddRow(fName)
+		          
+		          //get CRtag
+		          CRtagFileName=replace(fName,".hmm",".CRtag")
+		          for l=1 to m
+		            'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
+		            'msgbox dis
+		            
+		            if f.Item(l).name=CRtagFileName then
+		              inStream=TextInputStream.Open(f.Item(l))
+		              CRtags.Append inStream.ReadLine
+		            end if
+		          next
 		          
 		          
 		          
@@ -1955,6 +1948,11 @@ End
 		    ExceptionHandler(err,"ProfileWizardWin:TFhmmPopup:open")
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Change()
+		  CRtagField.text=CRtags(me.ListIndex+1)
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events SeedProteinArea
 	#tag Event
@@ -1966,9 +1964,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
+		  me.Italic=false
+		  me.TextColor=&c00000000
 		  if me.text=(">protein_id"+EndOfLine.UNIX+"sequence") then
-		    me.Italic=false
-		    me.TextColor=&c00000000
 		    me.text=""
 		  end if
 		  
@@ -1983,9 +1981,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  me.Italic=false
+		  me.TextColor=&c00000000
 		  if me.text=(">protein_id"+EndOfLine.UNIX+"sequence") then
-		    me.Italic=false
-		    me.TextColor=&c00000000
 		    me.text=""
 		  end if
 		  

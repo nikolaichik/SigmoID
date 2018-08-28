@@ -128,7 +128,7 @@ Begin Window deNovoWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""

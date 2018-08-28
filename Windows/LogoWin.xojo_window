@@ -40,7 +40,7 @@ Begin Window LogoWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -145,7 +145,7 @@ Begin Window LogoWin
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "TopPanel"
-         Left            =   1001
+         Left            =   0
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
@@ -166,7 +166,7 @@ Begin Window LogoWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          DataField       =   ""
@@ -209,6 +209,34 @@ Begin Window LogoWin
          Visible         =   False
          Width           =   1000
       End
+   End
+   Begin ScrollBar HScrollBar
+      AcceptFocus     =   True
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   11
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LineStep        =   1
+      LiveScroll      =   False
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Maximum         =   100
+      Minimum         =   0
+      PageStep        =   20
+      Scope           =   0
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   0
+      Value           =   0
+      Visible         =   False
+      Width           =   1000
    End
 End
 #tag EndWindow
@@ -1772,6 +1800,9 @@ End
 		    if SeqsChanged then
 		      dim TFname as string
 		      TFname=nthfield(ProfileWizardWin.ValueField.Text," ",1)
+		      if TFname="" then 
+		        TFname="TrfX"
+		      end if
 		      dim BSfastaFile as folderitem = TemporaryFolder.child(TFname+".fasta")
 		      if BSfastaFile<>nil then
 		        dim outstream As TextOutputStream
@@ -1802,6 +1833,7 @@ End
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
 		    ViewMEMEresults.checked=false
+		    ControlAdjust
 		    'LogoCanvas.visible=true
 		    'LogoCanvas.Enabled=true
 		    'Informer.visible=false
@@ -1810,25 +1842,33 @@ End
 		    TopPanel.visible=true
 		    LogoCanvas.visible=true
 		    DownshiftLog true
+		    
 		  case "Sequences"
-		    ViewLogo.Checked=false
-		    ViewAlignmentInfo.checked=false
-		    ViewHideViewer.Checked=false
-		    ViewHmmerSettings.Checked=false
-		    ViewHmmProfile.Checked=false
-		    ViewMEMEresults.checked=false
-		    'LogoCanvas.visible=false
-		    'LogoCanvas.Enabled=false
-		    'Informer.visible=true
-		    'Informer.enabled=true
-		    Informer.text=Sequences
-		    Informer.ReadOnly=false
-		    TopPanel.Value=0
-		    informer.visible=true
-		    TopPanel.visible=true
-		    DownshiftLog true
-		    ViewSequences.Checked=true
-		    informer.SetFocus
+		    if ViewSequences.Checked=false then
+		      ViewLogo.Checked=false
+		      ViewAlignmentInfo.checked=false
+		      ViewHideViewer.Checked=false
+		      ViewHmmerSettings.Checked=false
+		      ViewHmmProfile.Checked=false
+		      ViewMEMEresults.checked=false
+		      Informer.text=Sequences
+		      Informer.ReadOnly=false
+		      TopPanel.Value=0
+		      informer.visible=true
+		      TopPanel.visible=true
+		      DownshiftLog true
+		      ViewSequences.Checked=true
+		      informer.SetFocus
+		      HScrollBar.Visible=False
+		      TopPanel.left=0 
+		      TopPanel.height=splitter.top
+		      splitter.left=0
+		      STDOUT.top=splitter.top+splitter.height
+		    else
+		      ViewSequences.Checked=true
+		    end
+		    
+		    
 		  case "AlignmentInfo"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
@@ -1842,10 +1882,8 @@ End
 		    TopPanel.value=0
 		    informer.visible=true
 		    TopPanel.visible=true
-		    'LogoCanvas.visible=false
-		    'LogoCanvas.Enabled=false
-		    'Informer.visible=true
-		    'Informer.enabled=true
+		    HScrollBar.Visible=False
+		    TopPanel.height=splitter.top
 		    DownshiftLog true
 		    informer.SetFocus
 		  case "HideViewer"
@@ -1873,12 +1911,9 @@ End
 		      ViewHmmerSettings.Checked=false
 		      ViewHmmProfile.Checked=false
 		      ViewMEMEresults.checked=false
-		      'LogoCanvas.visible=false
-		      'LogoCanvas.Enabled=false
-		      'Informer.visible=false
-		      'Informer.enabled=false
 		      TopPanel.visible=false
 		      DownshiftLog false
+		      HScrollBar.Visible=false
 		    else
 		      ViewHideViewer.Checked=false
 		      
@@ -1916,10 +1951,8 @@ End
 		    TopPanel.visible=true
 		    TopPanel.Value=0
 		    informer.visible=true
-		    'LogoCanvas.visible=false
-		    'LogoCanvas.Enabled=false
-		    'Informer.visible=true
-		    'Informer.enabled=true
+		    HScrollBar.Visible=False
+		    TopPanel.height=splitter.top
 		    DownshiftLog true
 		  case "HmmProfile"
 		    ViewLogo.Checked=false
@@ -1934,10 +1967,8 @@ End
 		    TopPanel.Value=0
 		    TopPanel.visible=true
 		    informer.visible=true
-		    'LogoCanvas.visible=false
-		    'LogoCanvas.Enabled=false
-		    'Informer.visible=true
-		    'Informer.enabled=true
+		    HScrollBar.Visible=False
+		    TopPanel.height=splitter.top
 		    DownshiftLog true
 		  case "MEMEresults"
 		    ViewLogo.Checked=false
@@ -1952,14 +1983,123 @@ End
 		    TopPanel.Value=0
 		    TopPanel.visible=true
 		    informer.visible=true
-		    'LogoCanvas.visible=false
-		    'LogoCanvas.Enabled=false
-		    'Informer.visible=true
-		    'Informer.enabled=true
+		    HScrollBar.Visible=False
+		    TopPanel.height=splitter.top
 		    DownshiftLog true
 		  end select
 		  
 		  EMI
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function CleanedProfileCopy(tmpfile as folderItem) As folderItem
+		  ' removes restricted characters (CleanUpReg) in file, creates a copy in OS temporary location, works fast if length of RawRead string  doesn't exceed 10000 characters
+		  
+		  'dim FileLocation as folderitem = TemporaryFolder.child(tmpfile.Name)
+		  ''dim FileLocation2 as folderitem = TemporaryFolder.child("1"+tmpfile.Name)
+		  'dim tos as new TextOutputStream
+		  'dim tis as TextInputStream
+		  'dim stream as BinaryStream
+		  'dim RawRead, Seq, Achar as String
+		  '
+		  ''two temporary files needed to awoid IOexception (file remains locked for some reason!)
+		  'tis=TextInputStream.Open(tmpfile)
+		  'if FileLocation<>Nil then
+		  'if FileLocation.exists then
+		  'FileLocation.Delete
+		  'if FileLocation.exists then
+		  'FileLocation = TemporaryFolder.child("1"+tmpfile.Name)
+		  'if FileLocation<>Nil then
+		  'if FileLocation.exists then
+		  'FileLocation.Delete
+		  'end if
+		  'end if
+		  'end if
+		  'If FileLocation.LastErrorCode > 0 Then
+		  'MsgBox("Error "+Str(FileLocation.LastErrorCode)+" trying to delete tmp file")
+		  'end if
+		  'end if
+		  'tos = TextOutputStream.Create(FileLocation) 
+		  
+		  'stream = BinaryStream.Create(FileLocation, True) // Overwrite if exists
+		  
+		  'end if
+		  
+		  dim FileLocation as folderitem = TemporaryFolder.child("1"+tmpfile.Name)
+		  dim tos as TextOutputStream
+		  dim tis as TextInputStream
+		  dim RawRead, Seq, Achar as String
+		  
+		  tis=TextInputStream.Open(tmpfile)
+		  tos = TextOutputStream.Create(FileLocation) 
+		  
+		  
+		  tos.Delimiter = EndOfLine.Unix
+		  Do
+		    RawRead=Trim(tis.ReadLine)
+		    Achar=Left(RawRead,1)
+		    if Achar=">" then
+		      if len(Seq)>0 then
+		        Seq=CleanUpReg(Seq)
+		        tos.WriteLine(Seq)
+		        'stream.Write(Seq+EndOfLine.UNIX)
+		        Seq=""
+		      end if
+		      tos.WriteLine(RawRead)
+		      'stream.Write(RawRead+EndOfLine.UNIX)
+		    else
+		      Seq=Seq+RawRead
+		    end if
+		  Loop until tis.EOF
+		  if len(Seq)>0 then
+		    Seq=CleanUpReg(Seq)
+		    tos.WriteLine(Seq)
+		    'stream.Write(Seq+EndOfLine.UNIX)
+		    Seq=""
+		  end
+		  tos.close
+		  'stream.close
+		  tis.close
+		  return FileLocation
+		  
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ControlAdjust()
+		  'adjusts control positions when alignment file loads
+		  if LogoPic<>nil then
+		    HScrollBarLast=0
+		    HScrollBar.value=0
+		    LogoCanvas.left=0
+		    splitter.left=0
+		    TopPanel.height=175
+		    
+		    if LogoPic.width>LogoWin.width then
+		      HScrollBar.Visible=true
+		      HScrollBar.top=TopPanel.height
+		      LogoCanvas.Width=Logopic.width
+		    else
+		      HScrollBar.Visible=false
+		      LogoCanvas.width=LogoWin.width
+		    end
+		    
+		    if HScrollBar.visible=true then
+		      STDOUT.top=LogoCanvas.Height+HScrollBar.Height+splitter.Height
+		      STDOUT.height=Logowin.height-(LogoCanvas.Height+hscrollbar.height+splitter.height)
+		      Splitter.top=LogoCanvas.Height+HScrollBar.Height
+		    else
+		      STDOUT.top=LogoCanvas.Height+splitter.Height
+		      STDOUT.height=Logowin.height-(splitter.height+LogoCanvas.Height)
+		      Splitter.top=LogoCanvas.Height
+		    end
+		    
+		  end
+		  
+		  
 		End Sub
 	#tag EndMethod
 
@@ -1969,8 +2109,8 @@ End
 		    if STDOUT.top=0 then
 		      TopPanel.left=0
 		      Splitter.left=0
-		      STDOUT.top=UpperPaneHeight+5
-		      STDOUT.height=self.Height-UpperPaneHeight-5
+		      STDOUT.top=TopPanel.Height+5
+		      STDOUT.height=self.Height-TopPanel.Height-5
 		    else
 		      'already down
 		    end if
@@ -3349,7 +3489,10 @@ End
 		      nhmmerSettingsWin.AddAnnotationCheckBox.value=false
 		      nhmmerSettingsWin.AddAnnotationCheckBox.enabled=false
 		      nhmmerSettingsWin.AddAnnotationCheckBox.HelpTag="This option is enabled only for calibrated profiles"
-		      LogoFile=tmpfile
+		      'clear from restricted characters
+		      
+		      LogoFile=CleanedProfileCopy(tmpfile)
+		      'LogoFile=tmpfile
 		      HmmGenSettingsWin.PalindromicBox.value=False
 		      HmmGenSettingsWin.IntergenicBox.value=True
 		      HmmGenSettingsWin.AddQualifierBox.value=True
@@ -3386,12 +3529,8 @@ End
 		      
 		    end if
 		    
-		    
-		    
-		    
-		    
-		    
-		    
+		    'removes line breaks and not allowed symbols, makes a copy in /tmp, then sets path to Logofile
+		    'CleanedProfileCopy
 		    
 		    'store the seqs
 		    dim tis as TextInputStream
@@ -3487,6 +3626,10 @@ End
 		  end if
 		  'end if
 		  
+		  'HScrollBar.value=0
+		  'LogoCanvas.left=0
+		  
+		  ControlAdjust 'adjust controls for new profile's logo
 		  
 		  if LengthsDiffer then
 		    logowin.ChangeView("Sequences")
@@ -4888,6 +5031,10 @@ End
 		Protected HmmProfile As string
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		HScrollBarLast As Integer
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected Info As string
 	#tag EndProperty
@@ -5056,10 +5203,6 @@ End
 		Protected totalEntropy As Double
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected UpperPaneHeight As Integer = 175
-	#tag EndProperty
-
 	#tag Property, Flags = &h0
 		Weblogo_out As string
 	#tag EndProperty
@@ -5162,12 +5305,14 @@ End
 		        tmpfile=dlg.ShowModalwithin(self)
 		        if tmpfile<>Nil then
 		          LoadAlignment(tmpFile)
+		          ChangeView("Sequences") 'a workaround for invisible logo
 		          ChangeView("Logo")
 		          logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		        end if
 		      else
 		        if tmpfile<>Nil then
 		          LoadAlignment(tmpFile)
+		          ChangeView("Sequences") 'a workaround for invisible logo
 		          ChangeView("Logo")
 		          logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		        end if
@@ -5224,16 +5369,12 @@ End
 		Sub MouseDrag(X As Integer, Y As Integer)
 		  if Y<>DragStartY then
 		    dim deltaY as integer = Y-DragStartY
-		    UpperPaneHeight=UpperPaneHeight+deltaY
-		    'LogoCanvas.Height=UpperPaneHeight
-		    'Informer.height=UpperPaneHeight
-		    TopPanel.Height=UpperPaneHeight
+		    TopPanel.Height=TopPanel.Height+deltaY
 		    STDOUT.height=STDOUT.height-deltaY
 		    STDOUT.top=STDOUT.top+deltaY
+		    HScrollBar.top=HScrollBar.top+deltaY
 		    me.top=me.top+deltaY
-		    
 		  end if
-		  
 		  
 		End Sub
 	#tag EndEvent
@@ -5251,6 +5392,7 @@ End
 		  g.FillOval(me.width/2,1,3,3)
 		  g.FillOval(me.width/2-7,1,3,3)
 		  g.FillOval(me.width/2+7,1,3,3)
+		  Splitter.Width=Logowin.Width
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -5279,6 +5421,20 @@ End
 		    g.fillRect(FirstX,0,LastX-FirstX,me.height)
 		  end if
 		  g.DrawPicture(LogoPic,10,0)
+		  if logoPic<>nil then
+		    HScrollbar.Maximum = g.Width-LogoWin.Width
+		    if LogoPic.width>LogoWin.width then
+		      
+		      HScrollBar.Visible=true
+		      HScrollBar.top=LogoCanvas.Height
+		    else
+		      HScrollBar.Visible=false
+		    end
+		    
+		    if logopic.width< logowin.Width then
+		      LogoCanvas.left=0
+		    end
+		  end if
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:LogoCanvas:Paint")
@@ -5322,7 +5478,6 @@ End
 		    lastX=(ceil((X+7)/30)-1)*30+7
 		    if lastx<37 then lastx=37
 		    self.Invalidate(false)
-		    'me.refresh
 		    
 		  end if
 		End Sub
@@ -5396,6 +5551,23 @@ End
 	#tag Event
 		Sub LostFocus()
 		  InformerHasFocus=false
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events HScrollBar
+	#tag Event
+		Sub ValueChanged()
+		  Dim delta As Integer
+		  delta = HScrollBarLast - Me.Value
+		  LogoCanvas.left=LogoCanvas.left+delta
+		  HScrollBarLast = Me.Value
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  #if TargetLinux
+		    me.Height=17
+		  #endif
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -5514,6 +5686,11 @@ End
 		Group="Behavior"
 		Type="string"
 		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HScrollBarLast"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ImplicitInstance"

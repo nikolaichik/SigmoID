@@ -128,6 +128,7 @@ Begin Window RegPreciseTFcollectionsWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   1
+      ShowDropIndicator=   "False"
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True

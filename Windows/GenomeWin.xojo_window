@@ -55,6 +55,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -240,6 +241,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   359
       Value           =   2
       Visible         =   True
@@ -333,6 +335,7 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -350,6 +353,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -362,6 +366,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -422,7 +427,7 @@ Begin Window GenomeWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   "#kSearch"
@@ -464,6 +469,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -519,6 +525,18 @@ Begin Window GenomeWin
       UseFocusRing    =   False
       Visible         =   True
       Width           =   1067
+   End
+   Begin sHTTPSocket EBISocket
+      CertificateFile =   
+      CertificatePassword=   ""
+      CertificateRejectionFile=   
+      ConnectionType  =   3
+      Enabled         =   True
+      Index           =   -2147483648
+      LockedInPosition=   False
+      Scope           =   0
+      Secure          =   False
+      TabPanelIndex   =   0
    End
 End
 #tag EndWindow
@@ -1338,6 +1356,14 @@ End
 			else
 			Search4text(query)
 			end if
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeGenomeStatistics() As Boolean Handles GenomeGenomeStatistics.Action
+			GenomeStats
+			Return True
 			
 		End Function
 	#tag EndMenuHandler
@@ -2833,6 +2859,132 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub GenomeStats()
+		  // Calculate various genome stats:
+		  // nucleotide content,
+		  // genome feature counts and percentage
+		  
+		  dim fType, fText, s, cf1, splitCoords, coord, name, splitFC, interval as string
+		  dim types(0) as string
+		  dim counts(0), lengths(0) as integer
+		  dim m,n,u,o,p, start, finish, GeneCount, GeneLengths, PseudoCount, PseudoLengths, ftLength, intervals as integer
+		  dim ft as GBFeature
+		  
+		  // initialise major feature types and their counts
+		  types.Append "gene"
+		  types.Append "CDS"
+		  types.Append "tRNA"
+		  types.Append "rRNA"
+		  counts.Append 0
+		  counts.Append 0
+		  counts.Append 0
+		  counts.Append 0
+		  lengths.Append 0
+		  lengths.Append 0
+		  lengths.Append 0
+		  lengths.Append 0
+		  
+		  
+		  LogoWin.WriteToSTDOUT (EndofLine+"Calculating statistics for this genome...")
+		  LogoWin.STDOUT.Refresh(false)
+		  Logowin.show
+		  
+		  u=ubound(Genome.Features)
+		  for n=1 to u
+		    fText=Genome.Features(n).FeatureText
+		    'if left(ftext,4)="gene" then
+		    fType=NthField(ftext," ",1)
+		    ftLength=0
+		    'get coordinates:
+		    cf1=nthfield(ftext,cLineEnd,1)
+		    if InStrB(17,cf1,"complement")>0 then
+		      'Feature.complement=true
+		      if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then 'split feature: sum all intervals
+		        'example:
+		        'misc_feature    complement(order(3576182..3576235,3576263..3576322,
+		        '3576341..3576409,3576467..3576532))
+		        splitFC=nthfield(cf1,"(",3)
+		        splitFC=nthfield(splitFC,")",1)
+		        intervals=CountFields(splitFC,",")
+		        for m=1 to intervals
+		          interval=NthField(splitFC,",",m)
+		          ftLength=ftLength+abs(val(nthfield(interval,"..",1))-val(nthfield(interval,"..",2)))+1
+		        next
+		      else
+		        coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
+		        ftLength=abs(val(nthfield(coord,"..",1))-val(nthfield(coord,"..",2)))+1
+		      end if
+		    else
+		      if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then   'split feature: sum all intervals
+		        'example:
+		        'misc_feature    order(343373..343441,343469..343537,343652..343720,
+		        '343799..343867,343925..343984)
+		        splitFC=nthfield(cf1,"(",2)
+		        splitFC=nthfield(splitFC,")",1)
+		        intervals=CountFields(splitFC,",")
+		        for m=1 to intervals
+		          interval=NthField(splitFC,",",m)
+		          ftLength=ftLength+abs(val(nthfield(interval,"..",1))-val(nthfield(interval,"..",2)))+1
+		        next
+		        
+		      else
+		        'Feature.complement=false false is the default
+		        name=trim(leftb(cf1,16))
+		        coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
+		        ftLength=abs(val(nthfield(coord,"..",1))-val(nthfield(coord,"..",2)))+1
+		        
+		      end if
+		    end if
+		    
+		    
+		    if instr(ftext,"/pseudo")>0 then                           'pseudogenes are counted separately
+		      PseudoCount=PseudoCount+1
+		      PseudoLengths=PseudoLengths+ftLength
+		    else
+		      
+		      o=ubound(types)
+		      for p=1 to o
+		        if fType=types(p) then
+		          exit
+		        end if
+		      next
+		      if p>o then
+		        'new feature type
+		        types.Append fType
+		        counts.append 1
+		        lengths.Append ftLength
+		        beep
+		      else
+		        counts(p)=counts(p)+1
+		        lengths(p)=lengths(p)+ftLength
+		      end if
+		      
+		    end if
+		    'end if   'left(ftext,4)="gene" then
+		    
+		  next
+		  
+		  Dim GenomeLength as integer = len(Genome.Sequence)
+		  LogoWin.WriteToSTDOUT (EndofLine+"Genome length: "+str(GenomeLength)+" bp")
+		  LogoWin.WriteToSTDOUT (EndofLine+"Feature stats:")
+		  LogoWin.WriteToSTDOUT (EndofLine+"Feature"+chr(9)+"Count"+chr(9)+"Cumulative length"+chr(9)+"% of genome length")
+		  for n=1 to UBound(types)
+		    LogoWin.WriteToSTDOUT (EndofLine+types(n)+chr(9)+str(counts(n))+chr(9)+str(lengths(n))+chr(9)+str(100*lengths(n)/GenomeLength))
+		  next
+		  
+		  
+		  'LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		  
+		  // Calculate nucleotide content 
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetCheckedHits() As string
 		  dim n as integer
 		  dim hits as string
@@ -3716,7 +3868,9 @@ End
 		    next 'n
 		    
 		    's=DefineEncoding ("",Encodings.ASCII)
-		    w.FormattedSequence=trim(rightb(s,len(s)-instrb(s,"ORIGIN")-7))
+		    
+		    w.FormattedSequence=trim(rightb(s,len(s)-instrb(s,"ORIGIN")-7)) 
+		    'w.FormattedSequence=trim(rightb(s,lenb(s)-instrb(s,"ORIGIN")-7)) предлагаю вариант на замену
 		    w.Genome.sequence=CleanUp(w.FormattedSequence)
 		    
 		  else
@@ -4877,7 +5031,9 @@ End
 		    'Map4.Append seq.map.objects
 		    'map4.Scale=4
 		    //draw the graph
-		    buffer.graphics.drawPicture seq.map,dX,dY
+		    if len(seq.Sequence)>0 then                'avoid crash with latest Xojo during dummy map initialisation 
+		      buffer.graphics.drawPicture seq.map,dX,dY
+		    end if
 		    'buffer.graphics.drawPicture seq.map,dX,dY,sourceW,sourceH,minX,minY,sourceW,sourceH
 		    
 		    'buffer.graphics.drawPicture Map4,dx,dy,buffer.Width,buffer.Height
@@ -6942,6 +7098,95 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events EBISocket
+	#tag Event
+		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
+		  dim NCBIid as string
+		  ncbiID=NthField(content,"'",2)
+		  'ncbiID=NthField(ncbiID,separ2,1)
+		  'LogoWin.WriteToSTDOUT (ncbiID)
+		  'LogoWin.WriteToSTDOUT (EndOfLine)
+		  
+		  
+		  
+		  
+		  'dim RID,theURL,ltag as string
+		  '
+		  ''this socket should process all requests to BLAST servers, including CD search
+		  '
+		  '' NCBI asks to specify contact details by adding two fields:
+		  '' &EMAIL=' field (and the '&TOOL=' for distributed software
+		  '
+		  'if CDDsearch then  'CDD search
+		  '//get CDD search RID using hidden, but almost documented data in BLAST output that looks like:
+		  ''<input name="RID" value="UB0V1HJK014" type="hidden" />
+		  ''<input name="CDD_RID" value="data_cache_seq:641743590" type="hidden" />
+		  ''<input name="CDD_SEARCH_STATE" type="hidden" value="4" />
+		  '
+		  'ltag="<input name="+chr(34)+"RID"+chr(34)+" value="+chr(34)
+		  'RID=NthField(content,ltag,2)
+		  'RID=NthField(RID,chr(34),1)
+		  'theURL="https://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get"
+		  '#if DebugBuild
+		  'theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  '#endif
+		  'else
+		  '
+		  '//get the Request ID for blastp/n/x from result that looks like this:
+		  ''<!--QBlastInfoBegin
+		  ''RID = UB0V1HJK014
+		  ''RTOE = 17
+		  ''QBlastInfoEnd
+		  ''-->
+		  '
+		  '
+		  '
+		  'RID=NthField(content,"RID = ",2)
+		  'RID=NthField(RID,EndOfLine.UNIX,1)
+		  'theURL="https://blast.ncbi.nlm.nih.gov/Blast.cgi?RID="+RID+"&CMD=Get"
+		  '#if DebugBuild
+		  'theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  '#endif
+		  'end if
+		  '
+		  ''now load the URL:
+		  'BLASTSearchViewer.LoadURL(theURL)
+		  ''ProgressHide
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Connected()
+		  'dim theURL,blankpath as string
+		  'dim f as FolderItem
+		  '
+		  'if TMdisplay.Visible then
+		  'TMdisplay.Visible=false
+		  'TMdisplayAdjustment
+		  'end if
+		  '
+		  'f=resources_f.child("blank.html")
+		  'if f<>Nil then
+		  'if f.exists then
+		  'blankpath=f.ShellPath
+		  'theURL="file://"+blankpath
+		  'end if
+		  'end if
+		  'BLASTSearchViewer.LoadURL(theURL) 'blank page to remove previous result
+		  '
+		  '
+		  '
+		  '
+		  '
+		  'Exception err
+		  'ExceptionHandler(err,"GenomeWin:BlastSocket")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Error(code as integer)
+		  SocketError Code
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="AnyHitDeselected"
@@ -7221,12 +7466,6 @@ End
 		Group="Position"
 		InitialValue="400"
 		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HighlightColour"
-		Group="Behavior"
-		InitialValue="&c000000"
-		Type="Color"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="HScrollBarCodeLock"
