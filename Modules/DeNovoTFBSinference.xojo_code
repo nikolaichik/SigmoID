@@ -227,6 +227,9 @@ Protected Module DeNovoTFBSinference
 		  
 		  // Get the second part of the table containing the actual alignments:
 		  TableArray=SearchResTable.Split("#=GS")
+		  if Ubound(TableArray)=-1 then
+		    return ""                    ' empty result, probably wrong HMM/CDS combination
+		  end if
 		  Alignments=TableArray(UBound(TableArray)) 'we only need the last item:
 		  n=instr(Alignments,EndOfLine.UNIX)
 		  Alignments=Right(alignments, len(Alignments)-n)

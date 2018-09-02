@@ -769,7 +769,7 @@ End
 		  
 		  
 		  
-		  dim cli, hmmSearchRes, CRtagPositions, table, currentHit as string
+		  dim cli, hmmSearchRes, table, currentHit as string
 		  dim dataForMeme as string
 		  dim sh as shell
 		  dim hmmPath as string
@@ -785,7 +785,7 @@ End
 		  
 		  CDSseqs=""
 		  
-		  hmmPath=HmmList.Cell(HmmList.ListIndex,5)
+		  hmmPath=HmmList.Cell(HmmList.ListIndex,7)
 		  CRtagPositions=HmmList.Cell(HmmList.ListIndex,3)
 		  
 		  // Run hmmsearch and screen the output for CR tags.
@@ -806,67 +806,28 @@ End
 		      LogoWin.WriteToSTDOUT (" OK")
 		    end if
 		    
-		    'store the CDSs as a string for possible further use:
-		    instream=CDSfile.OpenAsTextFile
-		    
-		    if instream<>nil then
-		      CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
-		      instream.close
-		    end if
 		  else
 		    msgbox "Can't create a file to store CDS sequences, have to abort search"
 		    
 		  end if
 		  
-		  alignmentsFile=TemporaryFolder.Child("alignments.table")
-		  if alignmentsFile<>nil then
-		    if alignmentsFile.exists then
-		      alignmentsFile.Delete
+		  // Find family TFs with hmmsearch
+		  hmmSearchRes=HMMsearchWithCRtags(CDSfile,hmmpath)
+		  
+		  'save HmmSearch results (with CR tags), just in case:
+		  resFile=OutF.child("hmmsearch_result_withCRtags.txt")
+		  if resFile<>Nil then
+		    OutStream = TextOutputStream.Create(resFile)
+		    if outStream<>Nil then
+		      outstream.Writeline(EndOfLine.unix)
+		      outstream.Write(hmmSearchRes)
+		      outstream.close
+		      
 		    end if
-		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
-		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
-		    cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+hmmPath+" "+CDSfile.ShellPath
-		    
-		    sh.execute cli
-		    If sh.errorCode=0 then
-		      LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
-		      
-		      instream=alignmentsFile.OpenAsTextFile
-		      
-		      if instream<>nil then         'save hmmsearch results
-		        table=trim(instream.ReadAll)
-		        instream.close
-		        hmmSearchRes=GetCRtags(sh.Result,Table,CRtagPositions)
-		        'LogoWin.WriteToSTDOUT EndofLine.unix+hmmSearchRes
-		        
-		        'save HmmSearch results (with CR tags), just in case:
-		        resFile=OutF.child("hmmsearch_result_withCRtags.txt")
-		        if resFile<>Nil then
-		          OutStream = TextOutputStream.Create(resFile)
-		          if outStream<>Nil then
-		            outstream.Writeline("HMM file used: "+hmmPath)
-		            outstream.Writeline("CRtag positions used: " +CRtagPositions)
-		            outstream.Writeline(EndOfLine.unix)
-		            outstream.Write(hmmSearchRes)
-		            outstream.close
-		            
-		          end if
-		          
-		        end if
-		        
-		      end if
-		      
-		      
-		      
-		    else
-		      LogoWin.WriteToSTDOUT sh.Result
-		      
-		    End If
-		  else
-		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Can't create temporary file, have to abort search.")
-		    return
 		  end if
+		  
+		  
 		  
 		  // Run phmmer searches and filter out results without the CR tag
 		  

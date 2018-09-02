@@ -1057,6 +1057,62 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function HMMsearchWithCRtags(CDSfile as folderitem, HMMfilePath as string) As string
+		  dim HmmResultFile as folderitem
+		  dim hmmSearchRes, cli, table as string
+		  dim instream as TextInputStream
+		  dim sh as new shell
+		  
+		  
+		  'store the CDSs as a string for further use:
+		  instream=CDSfile.OpenAsTextFile
+		  
+		  if instream<>nil then
+		    CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
+		    instream.close
+		  end if
+		  
+		  HmmResultFile=TemporaryFolder.Child("alignments.table")
+		  if HmmResultFile<>nil then
+		    if HmmResultFile.exists then
+		      HmmResultFile.Delete
+		    end if
+		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
+		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
+		    
+		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
+		    
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
+		      
+		      instream=HmmResultFile.OpenAsTextFile
+		      
+		      if instream<>nil then         'save hmmsearch results
+		        table=trim(instream.ReadAll)
+		        instream.close
+		        'hmmSearchRes="HMM file used: "+HMMfilePath+EndOfLine
+		        hmmSearchRes=hmmSearchRes+"CRtag positions: " +CRtagPositions+EndOfLine
+		        hmmSearchRes=hmmSearchRes+GetCRtags(sh.Result,Table,CRtagPositions)
+		        
+		        return HmmSearchRes
+		      end if
+		      
+		      
+		      
+		    else
+		      LogoWin.WriteToSTDOUT sh.Result
+		      return ""
+		    End If
+		  else
+		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Can't create temporary file, have to abort search.")
+		    return ""
+		  end if
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function HTTPerror(StatusCode as integer, ShowDialog as boolean) As string
 		  dim ErrName, Desc As String
 		  
@@ -1427,6 +1483,183 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function LogoFromPWM(PWMdata as string) As picture
+		  // Expects raw PWM data without header/trailer like this:
+		  ' 0.166667 0.000000 0.000000 0.833333
+		  ' 0.000000 0.833333 0.166667 0.000000
+		  ' 0.000000 0.000000 1.000000 0.000000
+		  ' 0.000000 1.000000 0.000000 0.000000
+		  
+		  ' no empty lines before/after the PWM!
+		  
+		  // Information content per position as defined by Schneider et al, 1986
+		  '
+		  ' Ii=2+sum(Fb,i*log2(Fb,i)),
+		  '
+		  'where i is the position within site, b refers to each of the four bases,
+		  'and Fb,i is the frequency of each base at that position
+		  
+		  
+		  dim baseX, currentX as integer
+		  dim entropy, LetterHeight, baseY, nextY,letterData As double
+		  dim posarray(4),letterName as string
+		  dim PWMarr(-1) as string
+		  dim LogoPic As picture
+		  
+		  dim totalEntropy as double=0
+		  
+		  baseX= -3
+		  baseY=150
+		  
+		  
+		  dim n, SeqLen as integer
+		  
+		  
+		  // PWM data can have different column separators, so some precautions are required
+		  
+		  PWMdata=ReplaceAll(PWMdata,chr(9), " ")
+		  while instr(PWMdata,"  ")>0
+		    PWMdata=ReplaceAll(PWMdata,"  ", " ")
+		  wend
+		  PWMdata=trim(PWMdata)
+		  
+		  'LogoData is an array of base counts at numbered positions
+		  
+		  'determine PWM length
+		  PWMarr=split(PWMdata,EndOfLine)
+		  SeqLen=UBound(PWMarr)+1
+		  
+		  
+		  
+		  
+		  
+		  LogoPic=new Picture (30*(SeqLen+1),170,32)
+		  LogoPic.Transparent=1
+		  
+		  dim pA, pC, pG, pT As Double
+		  
+		  for n=0 to SeqLen-1
+		    pA=val(NthField(trim(PWMarr(n))," ",1))
+		    pC=val(NthField(trim(PWMarr(n))," ",2))
+		    pG=val(NthField(trim(PWMarr(n))," ",3))
+		    pT=val(NthField(trim(PWMarr(n))," ",4))
+		    
+		    'combine letter names with frequencies for sorting
+		    posarray(1)=str(pA*1000000)+"A"
+		    posarray(2)=str(pC*1000000)+"C"
+		    posarray(3)=str(pG*1000000)+"G"
+		    posarray(4)=str(pT*1000000)+"T"
+		    posarray.Sort
+		    
+		    entropy=2
+		    entropy=entropy+pA*log2(pA)
+		    entropy=entropy+pC*log2(pC)
+		    entropy=entropy+pG*log2(pG)
+		    entropy=entropy+pT*log2(pT)
+		    
+		    totalEntropy=totalEntropy+entropy
+		    
+		    
+		    'lowest letter
+		    letterData=val(posarray(1))/1000000
+		    letterName=right(posarray(1),1)
+		    LetterHeight=70*entropy*letterData
+		    NextY=baseY-letterheight
+		    CurrentX=baseX+(n+1)*30
+		    select case letterName
+		    case "A"
+		      LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "C"
+		      LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "G"
+		      LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "T"
+		      LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    end select
+		    
+		    'second lowest letter
+		    letterData=val(posarray(2))/1000000
+		    letterName=right(posarray(2),1)
+		    LetterHeight=70*entropy*letterData
+		    NextY=NextY-LetterHeight
+		    select case letterName
+		    case "A"
+		      LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "C"
+		      LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "G"
+		      LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "T"
+		      LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    end select
+		    
+		    'third lowest letter
+		    letterData=val(posarray(3))/1000000
+		    letterName=right(posarray(3),1)
+		    LetterHeight=70*entropy*letterData
+		    NextY=NextY-LetterHeight
+		    select case letterName
+		    case "A"
+		      LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "C"
+		      LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "G"
+		      LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "T"
+		      LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    end select
+		    
+		    'topmost letter
+		    letterData=val(posarray(4))/1000000
+		    letterName=right(posarray(4),1)
+		    LetterHeight=70*entropy*letterData
+		    NextY=NextY-LetterHeight
+		    select case letterName
+		    case "A"
+		      LogoPic.graphics.DrawPicture(A2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "C"
+		      LogoPic.graphics.DrawPicture(C2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "G"
+		      LogoPic.graphics.DrawPicture(G2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    case "T"
+		      LogoPic.graphics.DrawPicture(T2,CurrentX,NextY,30,LetterHeight,0,0,120,140)
+		    end select
+		    
+		  next
+		  
+		  'draw rulers
+		  'horisontal:
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY+3,baseX+30*(n+1),BaseY+3)
+		  for n=1 to Seqlen
+		    LogoPic.graphics.DrawLine(baseX+15+30*n,BaseY+3,baseX+15+30*n,BaseY+7)
+		  next
+		  for n=5 to Seqlen step 5
+		    LogoPic.graphics.DrawString(str(n),baseX+10+30*n,baseY+20)
+		  next
+		  
+		  'vertical:
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY+3,baseX+25,BaseY-140)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY-140,baseX+18,BaseY-140)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY-70,baseX+18,BaseY-70)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY,baseX+18,BaseY)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY-105,baseX+21,BaseY-105)
+		  LogoPic.graphics.DrawLine(baseX+25,BaseY-35,baseX+21,BaseY-35)
+		  
+		  LogoPic.graphics.DrawString("0",6,baseY+5)
+		  LogoPic.graphics.DrawString("1",6,baseY-65)
+		  LogoPic.graphics.DrawString("2",6,baseY-135)
+		  
+		  LocalMotifCollectionsWin.InfoBits=totalEntropy
+		  
+		  
+		  return LogoPic
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:DrawLogo")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MakeLogoPic(logoData as string) As picture
 		  'Information content per position as defined by Schneider et al, 1986
 		  '
@@ -1436,7 +1669,7 @@ Protected Module Globals
 		  'and Fb,i is the frequency of each base at that position
 		  
 		  dim replicas, baseX, currentX,letterData as integer
-		  dim entropy, maxentropy, LetterHeight, baseY, nextY,freq As double
+		  dim entropy, LetterHeight, baseY, nextY,freq As double
 		  dim posarray(4),letterName, Acount, Ccount, Gcount, Tcount as string
 		  dim totalEntropy as double=0
 		  
@@ -3190,6 +3423,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		CR As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CRtagPositions As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
