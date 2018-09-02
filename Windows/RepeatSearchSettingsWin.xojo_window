@@ -142,6 +142,7 @@ Begin Window RepeatSearchSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kFeature2add"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -186,7 +187,7 @@ Begin Window RepeatSearchSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "bound_moiety"
@@ -229,7 +230,7 @@ Begin Window RepeatSearchSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "bound_moiety"
@@ -272,7 +273,7 @@ Begin Window RepeatSearchSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -315,7 +316,7 @@ Begin Window RepeatSearchSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "bound_moiety"
@@ -358,7 +359,7 @@ Begin Window RepeatSearchSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -519,7 +520,7 @@ Begin Window RepeatSearchSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -562,7 +563,7 @@ Begin Window RepeatSearchSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -687,6 +688,7 @@ Begin Window RepeatSearchSettingsWin
       Selectable      =   False
       TabIndex        =   24
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -704,7 +706,7 @@ Begin Window RepeatSearchSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -794,6 +796,7 @@ Begin Window RepeatSearchSettingsWin
       Selectable      =   False
       TabIndex        =   27
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Search genome for repeats/mobile elements. The proper profile must be loaded in the main window."
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -870,7 +873,7 @@ Begin Window RepeatSearchSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -930,6 +933,7 @@ Begin Window RepeatSearchSettingsWin
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "%"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -964,6 +968,7 @@ Begin Window RepeatSearchSettingsWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "%"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -981,7 +986,7 @@ Begin Window RepeatSearchSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -1041,6 +1046,7 @@ Begin Window RepeatSearchSettingsWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Target coverage:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -1075,6 +1081,7 @@ Begin Window RepeatSearchSettingsWin
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "HMM coverage:"
          TextAlign       =   0
          TextColor       =   &c00000000

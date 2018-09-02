@@ -75,7 +75,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kTrusted1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -153,7 +152,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kGathering1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -231,7 +229,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kNoise"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -352,7 +349,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "MAST p-value threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -447,7 +443,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Feature to add:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -590,7 +585,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kQualifier"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -853,7 +847,6 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "TF family HMM:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -888,7 +881,6 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "CRtag coords:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -965,7 +957,6 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "protein_id and sequence of the protein used to seed the profile (fasta format):"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -1047,7 +1038,6 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "CRtag sequence:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -1246,13 +1236,69 @@ End
 		    'temporary workaround for 64-bit VirtualVolume Linux-only bug
 		    Dim SigFile As FolderItem
 		    Dim dlg As New SaveAsDialog
+		    Dim f, CDSFile as folderitem
+		    Dim hmmSearchRes, CRtag, hmmFile2find, hmmPath, ProtName as string
+		    dim m,n as integer
+		    
 		    
 		    LogoWin.show
+		    
+		    // Get CRtag sequence
+		    ' write CDS seq to the tmp file
+		    dim outStream as TextOutputStream
+		    CDSFile=TemporaryFolder.child("CDSfile.fa")
+		    if resFile<>Nil then
+		      OutStream = TextOutputStream.Create(CDSFile)
+		      if outStream<>Nil then
+		        outstream.Write(SeedProteinArea.text)
+		        outstream.close
+		      end if
+		    end if
+		    
+		    'find HMM file path:
+		    hmmFile2find=TFhmmPopup.Text
+		    
+		    f=Resources_f.Child("TF_HMMs")
+		    if f<>Nil then
+		      if f.exists then
+		        
+		        m=f.Count
+		        for n=1 to m
+		          'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
+		          'msgbox dis
+		          
+		          if right(f.Item(n).name,4)=".hmm" then
+		            if f.Item(n).DisplayName=hmmFile2find then
+		              hmmPath = f.Item(n).ShellPath
+		              exit
+		            end if
+		            
+		          end if
+		        next
+		        
+		        if hmmpath="" then
+		          msgbox "Can't find the HMM file"
+		        end if
+		        
+		      end if
+		    end if
+		    
+		    
+		    
+		    'extract CRtag:
+		    hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
+		    CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		    
+		    // Guess protein name 
+		    'assume the name goes first in the fasta title line
+		    ProtName=NthField(SeedProteinArea.text, ">",2)
+		    ProtName=NthField(ProtName, " ", 1)   'should be separated by space...
+		    ProtName=NthField(ProtName, EndOfLine, 1)   '... or EndOfLine
 		    
 		    dlg.ActionButtonCaption = "Save"
 		    dlg.Title = "Save .sig File"
 		    dlg.PromptText = "Save calibrated profile with postprocessing settings"
-		    dlg.SuggestedFileName=trim(ValueField.Text)+".sig"
+		    dlg.SuggestedFileName=CRtag+"_"+ProtName+".sig"
 		    dlg.filter = "Sig_file"
 		    dlg.InitialDirectory = Profile_f
 		    dlg.CancelButtonCaption=kCancel
@@ -1542,18 +1588,76 @@ End
 		  #else
 		    Dim SigFile As FolderItem
 		    Dim dlg As New SaveAsDialog
+		    Dim f, CDSFile as folderitem
+		    Dim hmmSearchRes, CRtag, hmmFile2find, hmmPath, ProtName as string
+		    dim m,n as integer
 		    Dim SigFileVV As VirtualVolume
 		    
+		    
+		    
 		    LogoWin.show
+		    
+		    // Get CRtag sequence
+		    ' write CDS seq to the tmp file
+		    dim outStream as TextOutputStream
+		    CDSFile=TemporaryFolder.child("CDSfile.fa")
+		    if CDSFile<>Nil then
+		      OutStream = TextOutputStream.Create(CDSFile)
+		      if outStream<>Nil then
+		        outstream.Write(SeedProteinArea.text)
+		        outstream.close
+		      end if
+		    end if
+		    
+		    'find HMM file path:
+		    hmmFile2find=TFhmmPopup.Text
+		    
+		    f=Resources_f.Child("TF_HMMs")
+		    if f<>Nil then
+		      if f.exists then
+		        
+		        m=f.Count
+		        for n=1 to m
+		          'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
+		          'msgbox dis
+		          
+		          if right(f.Item(n).name,4)=".hmm" then
+		            if f.Item(n).DisplayName=hmmFile2find then
+		              hmmPath = f.Item(n).ShellPath
+		              exit
+		            end if
+		            
+		          end if
+		        next
+		        
+		        if hmmpath="" then
+		          msgbox "Can't find the HMM file"
+		        end if
+		        
+		      end if
+		    end if
+		    
+		    
+		    
+		    'extract CRtag:
+		    hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
+		    CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		    
+		    // Guess protein name 
+		    'assume the name goes first in the fasta title line
+		    ProtName=NthField(SeedProteinArea.text, ">",2)
+		    ProtName=NthField(ProtName, " ", 1)   'should be separated by space...
+		    ProtName=NthField(ProtName, EndOfLine, 1)   '... or EndOfLine
 		    
 		    dlg.ActionButtonCaption = "Save"
 		    dlg.Title = "Save .sig File"
 		    dlg.PromptText = "Save calibrated profile with postprocessing settings"
-		    dlg.SuggestedFileName=trim(ValueField.Text)+".sig"
+		    dlg.SuggestedFileName=CRtag+"_"+ProtName+".sig"
 		    dlg.filter = "Sig_file"
 		    dlg.InitialDirectory = Profile_f
 		    dlg.CancelButtonCaption=kCancel
 		    dlg.ActionButtonCaption=kSave
+		    
 		    
 		    SigFile=dlg.ShowModal
 		    If SigFile <> Nil then
@@ -1668,7 +1772,7 @@ End
 		            
 		            dim f2 as folderitem =SigFileVV.Root.child(basename+".options")
 		            if f2<>nil then
-		              dim outstream As TextOutputStream
+		              'dim outstream As TextOutputStream
 		              outstream = TextOutputStream.Create(f2)
 		              
 		              outstream.WriteLine("////")
@@ -1898,7 +2002,7 @@ End
 		Sub Open()
 		  dim l,m,n as integer
 		  dim f as folderitem
-		  dim hmmPath, fName, aLine,lineStart as string
+		  dim hmmPath, fName, aLine, lineStart, hmm, CRtag as string
 		  dim CRtagFileName as string
 		  dim inStream as TextInputStream
 		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
@@ -1918,20 +2022,14 @@ End
 		          hmmPath = f.Item(n).ShellPath
 		          fName = f.Item(n).DisplayName
 		          
-		          
 		          me.AddRow(fName)
 		          
-		          //get CRtag
-		          CRtagFileName=replace(fName,".hmm",".CRtag")
-		          for l=1 to m
-		            'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
-		            'msgbox dis
-		            
-		            if f.Item(l).name=CRtagFileName then
-		              inStream=TextInputStream.Open(f.Item(l))
-		              CRtags.Append inStream.ReadLine
-		            end if
-		          next
+		          // Get CRtag residue positions
+		          inStream=TextInputStream.Open(f.Item(n))
+		          hmm=inStream.ReadAll
+		          CRtag=NthField(hmm,"CRtag ",2)
+		          CRtag=NthField(CRtag,EndOfLine,1)
+		          CRtags.Append CRtag
 		          
 		          
 		          
@@ -1951,6 +2049,7 @@ End
 	#tag Event
 		Sub Change()
 		  CRtagField.text=CRtags(me.ListIndex+1)
+		  CRtagPositions=CRtags(me.ListIndex+1)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

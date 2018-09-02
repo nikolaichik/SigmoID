@@ -93,7 +93,7 @@ Begin Window PlotScaleMaxWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -152,6 +152,7 @@ Begin Window PlotScaleMaxWin
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kPlotScaleWinDesc"
       TextAlign       =   0
       TextColor       =   &c00000000

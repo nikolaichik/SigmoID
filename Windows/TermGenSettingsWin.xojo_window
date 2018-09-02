@@ -125,7 +125,7 @@ Begin Window TermGenSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   "76"
@@ -184,6 +184,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kConfidenceScore"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -201,7 +202,7 @@ Begin Window TermGenSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   "4"
@@ -243,7 +244,7 @@ Begin Window TermGenSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   "3"
@@ -285,7 +286,7 @@ Begin Window TermGenSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   "59"
@@ -327,7 +328,7 @@ Begin Window TermGenSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   "13"
@@ -386,6 +387,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   31
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kMinimalStemLength"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -420,6 +422,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   32
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kMinimalLoopLength"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -454,6 +457,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   33
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kMaximalHairpinLength"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -488,6 +492,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   34
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kMaximalLoopLength"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -505,7 +510,7 @@ Begin Window TermGenSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -564,6 +569,7 @@ Begin Window TermGenSettingsWin
       Selectable      =   False
       TabIndex        =   36
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000

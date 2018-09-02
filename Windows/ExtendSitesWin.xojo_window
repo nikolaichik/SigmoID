@@ -48,7 +48,6 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kExtendSitesDesc"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -83,7 +82,6 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kLeft"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -118,7 +116,6 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kRight"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -341,7 +338,6 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -464,8 +460,7 @@ End
 		      'MultiFasta should be clean!
 		    else
 		      seqRevSeq=seq+ReverseComplement(seq)
-		      seq=CleanUp(seq)
-		      targetSeq=seqRevSeq
+		      targetSeq=CleanUp(seqRevSeq)
 		    end if
 		    
 		    

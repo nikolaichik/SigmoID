@@ -66,7 +66,7 @@ Begin Window ScanGenomeWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -285,6 +285,7 @@ Begin Window ScanGenomeWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   "False"
       TabIndex        =   19
       TabPanelIndex   =   0
       TabStop         =   True

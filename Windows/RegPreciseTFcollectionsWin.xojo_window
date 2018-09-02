@@ -23,7 +23,7 @@ Begin Window RegPreciseTFcollectionsWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "RegPrecise TF Collections"
+   Title           =   "kRegPreciseTFCollections"
    Visible         =   False
    Width           =   800
    Begin Label Label2
@@ -48,7 +48,6 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kTFfamily"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -128,7 +127,6 @@ Begin Window RegPreciseTFcollectionsWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   1
-      ShowDropIndicator=   "False"
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
@@ -147,7 +145,6 @@ Begin Window RegPreciseTFcollectionsWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -444,7 +441,6 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -461,6 +457,12 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Activate()
+		  EnableButtons
+		End Sub
+	#tag EndEvent
+
 	#tag Event
 		Sub EnableMenuItems()
 		  if CollectionList.SelCount=1 then
@@ -1076,7 +1078,7 @@ End
 		  LogoWin.RegulogID=Val(RegulogID)
 		  LogoWin.IsRegulog=true
 		  
-		  'we already have these data in the listboh, but still.
+		  'we already have these data in the listbox, but still.
 		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
 		  HmmGenSettingsWin.ValueField.text=TFname
 		  MASTGenSettingsWin.ValueField.text=TFname
@@ -1255,7 +1257,7 @@ End
 		      'beep
 		    End Select
 		  else
-		    MsgBox "Problems connecting to RegPrecise (HTTP status code "+str(httpStatus)+")"
+		    MsgBox "Can't connect to RegPrecise (HTTP status code "+str(httpStatus)+")"
 		  end if
 		  
 		  Exception err
@@ -1512,6 +1514,7 @@ End
 #tag Events BevelButton3
 	#tag Event
 		Sub Action()
+		  SelectTFBSWindow.parentwin=self
 		  SelectTFBSWindow.show
 		  
 		End Sub

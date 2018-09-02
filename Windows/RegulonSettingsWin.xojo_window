@@ -184,7 +184,7 @@ Begin Window RegulonSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "protein name"
@@ -244,6 +244,7 @@ Begin Window RegulonSettingsWin
          Selectable      =   False
          TabIndex        =   5
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kbp"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -379,7 +380,7 @@ Begin Window RegulonSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "#kTFname"
@@ -482,7 +483,7 @@ Begin Window RegulonSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "protein name"
@@ -542,6 +543,7 @@ Begin Window RegulonSettingsWin
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kbp"
          TextAlign       =   0
          TextColor       =   &c00000000

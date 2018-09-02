@@ -617,6 +617,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function RegulonLocalMotifCollections() As Boolean Handles RegulonLocalMotifCollections.Action
+			LocalMotifCollectionsWin.show
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function RegulonRegPreciseTFFamilies() As Boolean Handles RegulonRegPreciseTFFamilies.Action
 			'RegPreciseWin.title="RegPrecise: regulons"
 			RegPreciseTFcollectionsWin.LoadFamilies

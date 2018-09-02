@@ -31,7 +31,7 @@ Begin Window MASTSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -90,6 +90,7 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kMoreOptions"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -124,6 +125,7 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -141,7 +143,7 @@ Begin Window MASTSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -293,6 +295,7 @@ Begin Window MASTSettingsWin
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kMEMEmastRunDesc"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -342,7 +345,7 @@ Begin Window MASTSettingsWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   "0.000001"

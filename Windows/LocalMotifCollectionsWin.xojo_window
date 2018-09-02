@@ -1,5 +1,5 @@
 #tag Window
-Begin Window RegPreciseWin
+Begin Window LocalMotifCollectionsWin
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
@@ -7,9 +7,9 @@ Begin Window RegPreciseWin
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
-   FullScreenButton=   False
+   FullScreenButton=   True
    HasBackColor    =   False
-   Height          =   400
+   Height          =   422
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -23,9 +23,9 @@ Begin Window RegPreciseWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "RegPrecise"
+   Title           =   "Local Motif Collections"
    Visible         =   False
-   Width           =   672
+   Width           =   800
    Begin Label Label2
       AutoDeactivate  =   True
       Bold            =   False
@@ -37,7 +37,7 @@ Begin Window RegPreciseWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   8
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -48,8 +48,7 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "#kGenome_"
+      Text            =   "#kTFfamily"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -59,9 +58,9 @@ Begin Window RegPreciseWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   62
+      Width           =   93
    End
-   Begin PopupMenu GenomesPopup
+   Begin PopupMenu TFfamilyPopup
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -71,9 +70,9 @@ Begin Window RegPreciseWin
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "#kSelectGenome"
+      InitialValue    =   "#kSelectMotifCollection"
       Italic          =   False
-      Left            =   94
+      Left            =   113
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -90,14 +89,14 @@ Begin Window RegPreciseWin
       Top             =   20
       Underline       =   False
       Visible         =   True
-      Width           =   558
+      Width           =   640
    End
-   Begin Listbox RegulatorList
+   Begin Listbox CollectionList
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
       Bold            =   False
       Border          =   False
-      ColumnCount     =   3
+      ColumnCount     =   6
       ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
@@ -115,7 +114,7 @@ Begin Window RegPreciseWin
       Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "#kRegulator	#kEffector	#kPathway"
+      InitialValue    =   " 	TF	#kSites	#kInfoBits	#kLogo"
       Italic          =   False
       Left            =   0
       LockBottom      =   True
@@ -128,7 +127,6 @@ Begin Window RegPreciseWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   1
-      ShowDropIndicator=   "False"
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
@@ -139,88 +137,16 @@ Begin Window RegPreciseWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   672
+      Width           =   800
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
-   End
-   Begin PushButton RegulonLogoButton
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "#kRegulonLogo"
-      Default         =   False
-      Enabled         =   False
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   404
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   360
-      Underline       =   False
-      Visible         =   True
-      Width           =   118
-   End
-   Begin mHTTPSocket RegPreciseSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Enabled         =   True
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      IsConnected     =   False
-      LastErrorCode   =   0
-      LocalAddress    =   ""
-      LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
-      Scope           =   0
-      TabPanelIndex   =   0
-      yield           =   False
-   End
-   Begin ProgressWheel ProgressWheel1
-      AutoDeactivate  =   True
-      Enabled         =   False
-      Height          =   16
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   292
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   -58
-      Visible         =   True
-      Width           =   88
    End
    Begin PushButton RegulogLogoButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "#kRegulogLogo"
+      Caption         =   "#kOpen_"
       Default         =   True
       Enabled         =   False
       Height          =   20
@@ -228,7 +154,7 @@ Begin Window RegPreciseWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   534
+      Left            =   696
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -241,10 +167,10 @@ Begin Window RegPreciseWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   360
+      Top             =   382
       Underline       =   False
       Visible         =   True
-      Width           =   118
+      Width           =   84
    End
    Begin BevelButton InfoButton
       AcceptFocus     =   True
@@ -284,50 +210,191 @@ Begin Window RegPreciseWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   358
+      Top             =   382
       Underline       =   False
       Value           =   False
       Visible         =   True
       Width           =   22
    End
-   Begin PushButton FastaButton
+   Begin BevelButton BevelButton3
+      AcceptFocus     =   True
+      AutoDeactivate  =   True
+      BackColor       =   &c00000000
+      Bevel           =   4
+      Bold            =   False
+      ButtonType      =   0
+      Caption         =   "#kSelectByQuality"
+      CaptionAlign    =   3
+      CaptionDelta    =   0
+      CaptionPlacement=   1
+      Enabled         =   True
+      HasBackColor    =   False
+      HasMenu         =   0
+      Height          =   22
+      HelpTag         =   ""
+      Icon            =   0
+      IconAlign       =   0
+      IconDX          =   0
+      IconDY          =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   278
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      MenuValue       =   0
+      Scope           =   0
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   348
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   522
+   End
+   Begin BevelButton DeselectAllButton
+      AcceptFocus     =   True
+      AutoDeactivate  =   True
+      BackColor       =   &c00000000
+      Bevel           =   4
+      Bold            =   False
+      ButtonType      =   0
+      Caption         =   "#kDeselectAll"
+      CaptionAlign    =   3
+      CaptionDelta    =   0
+      CaptionPlacement=   1
+      Enabled         =   True
+      HasBackColor    =   False
+      HasMenu         =   0
+      Height          =   22
+      HelpTag         =   ""
+      Icon            =   0
+      IconAlign       =   0
+      IconDX          =   0
+      IconDY          =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   138
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      MenuValue       =   0
+      Scope           =   0
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   348
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   140
+   End
+   Begin BevelButton SelectAllButton
+      AcceptFocus     =   True
+      AutoDeactivate  =   True
+      BackColor       =   &c00000000
+      Bevel           =   4
+      Bold            =   False
+      ButtonType      =   0
+      Caption         =   "#kSelectAll"
+      CaptionAlign    =   3
+      CaptionDelta    =   0
+      CaptionPlacement=   1
+      Enabled         =   True
+      HasBackColor    =   False
+      HasMenu         =   0
+      Height          =   22
+      HelpTag         =   ""
+      Icon            =   0
+      IconAlign       =   0
+      IconDX          =   0
+      IconDY          =   0
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      MenuValue       =   0
+      Scope           =   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   348
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   140
+   End
+   Begin Label ProgressLabel
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "#kCheckTF"
-      Default         =   False
-      Enabled         =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   217
+      Left            =   71
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
+      Multiline       =   False
       Scope           =   0
-      TabIndex        =   11
+      Selectable      =   False
+      TabIndex        =   15
       TabPanelIndex   =   0
-      TabStop         =   True
+      Text            =   ""
+      TextAlign       =   0
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   360
+      Top             =   382
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   175
+      Width           =   388
    End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Event
+		Sub Activate()
+		  EnableButtons
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub EnableMenuItems()
-		  if RegulatorList.SelCount=1 then
+		  if CollectionList.SelCount=1 then
 		    RegPreciseRegulonInfo.enabled=true
 		    RegPreciseRegulonInfo.Text=kRegulonInfo
 		    RegulonShowLogo.Enabled=true
@@ -348,11 +415,7 @@ End
 	#tag Event
 		Sub Open()
 		  AdjustLayout4linux(me)
-		  #if DebugBuild then 
-		    FastaButton.Enabled=true
-		  #endif
 		  
-		  'RegPreciseSocket.Secure=true
 		End Sub
 	#tag EndEvent
 
@@ -377,14 +440,6 @@ End
 		End Function
 	#tag EndMenuHandler
 
-	#tag MenuHandler
-		Function RegulonShowLogo() As Boolean Handles RegulonShowLogo.Action
-			RegulonLogo
-			
-			
-		End Function
-	#tag EndMenuHandler
-
 
 	#tag Method, Flags = &h0
 		Sub CheckTF()
@@ -399,7 +454,7 @@ End
 		    
 		    logowin.show
 		    
-		    TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		    TFname=CollectionList.Cell(CollectionList.ListIndex,0)
 		    for n=0 to UBound(regulatorArray)
 		      if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
 		        RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
@@ -467,10 +522,7 @@ End
 		      
 		      
 		    else
-		      
-		      dim httpErr as String = HTTPerror(hts.HTTPStatusCode, true)
-		      LogoWin.WriteToSTDOUT (httpErr)
-		      
+		      LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
 		      LogoWin.show
 		    end if
 		    
@@ -485,146 +537,118 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FillRegulatorList(JSONin as JSONItem)
-		  'Populates the RegulatorList and stores regulator JSONs in an array
-		  'the popup and array indices are the same
+		Function countRegulons(regulogID as string) As string
+		  'expects fasta file from RegPrecise with regulog TFBS seqs
 		  
-		  dim regulators as JSONItem
-		  dim n as integer
-		  
-		  RegulatorList.DeleteAllRows
-		  
-		  redim regulatorArray(-1)
-		  regulators=JSONin.Value("regulon")
-		  if regulators.IsArray then
-		    for n=0 to regulators.Count-1
-		      if regulators(n) isa JSONItem then
-		        'should contain smth like:
-		        '{"effector":"Tyrosine; Phenylalanine","genomeId":"356",
-		        '"genomeName":"Erwinia carotovora subsp. atroseptica SCRI1043",
-		        '"pathway":"Aromatic amino acid metabolism","regulationType":"TF","regulatorFamily":"TyrR",
-		        '"regulatorName":"TyrR","regulogId":"1118","regulonId":"10175"}
-		        
-		        if JSONItem(regulators(n)).Value("regulationType")="TF" then 'exclude the RNAs for now
-		          regulatorArray.append regulators(n)
-		          dim s1, s2, s3 as string
-		          s1=JSONItem(regulators(n)).Value("regulatorName")
-		          s2=JSONItem(regulators(n)).Value("effector")
-		          s3=JSONItem(regulators(n)).Value("pathway")
-		          Dim reg() As String = Array(s1, s2, s3)
-		          regulatorList.AddRow(reg)
-		        end if
-		      end if
-		      
-		    next
-		    
-		    'sort the list:
-		    regulatorList.ColumnsortDirection(0)=ListBox.SortAscending
-		    regulatorList.SortedColumn=0   //first column is the sort column
-		    regulatorList.Sort
-		    
-		    RegulatorList.Enabled=true
-		  else
-		    'A problem with JSON
-		    
-		  end if
+		  'simply counts the number of different strain names 
+		  'in fasta headers (RegPrecise gives these in square brackets)
 		  
 		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub GenomeStats2array(JSONin as JSONItem)
-		  'Populates the GenomesPopup and stores genome JSONs in an array
-		  'the popup and array indices are the same
+		  'DOESN'T WORK! REST response is different
 		  
-		  dim genomes as JSONItem
-		  dim GenomeString as string
-		  dim n as integer
+		  ' have to use this call:
+		  ' https://regprecise.lbl.gov/Services/rest/regulons?regulogId=621
 		  
-		  GenomesPopup.DeleteAllRows
+		  dim strains(0) as string
+		  dim lines(-1) as string
+		  dim aName as string
+		  dim strainKnown as Boolean
+		  dim n,m as integer
 		  
-		  redim GenomeStatsArray(-1)
-		  genomes=JSONin.Value("genomeStat")
-		  if genomes.IsArray then
-		    for n=0 to genomes.Count-1
-		      if genomes(n) isa JSONItem then
-		        'should contain smth like:
-		        '{"genomeId":"601","name":"Acetobacter pasteurianus IFO 3283-01","rnaRegulonCount":"0","rnaSiteCount":"0","taxonomyId":"634452","tfRegulonCount":"6","tfSiteCount":"16"}
-		        GenomeStatsArray.append genomes(n)
-		        GenomeString=JSONItem(genomes(n)).Value("name")+" ("+JSONItem(genomes(n)).Value("tfRegulonCount")+" regulons)"
-		        GenomesPopup.AddRow(genomestring)
-		      end if
-		      
-		    next
-		    GenomesPopup.Enabled=true
-		    
-		  else
-		    'A problem with JSON
-		    
-		  end if
 		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:GenomeStats2array")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub GetVersion()
-		  SocketTask="release"
-		  RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/release")
+		  dim res as string
+		  dim jsn as new JSONItem
+		  dim jsn1 as new JSONItem
+		  dim hts as new HTTPSocket
+		  hts.Yield=true
+		  res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulons?regulogId="+regulogID,0)
 		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub LoadGenomes()
-		  dim gnms as string
-		  dim f as folderitem
-		  dim tis as TextInputStream
+		  // result shouls be like this:
+		  ' {"regulon":[{"effector":"Bacillibactin; Fe-Bacillibactin","genomeId":"52","genomeName":"Bacillus subtilis subsp. subtilis str. 168","pathway":"Iron homeostasis","regulationType":"TF","regulatorFamily":"AraC","regulatorName":"Btr","regulogId":"1368","regulonId":"12715"},
+		  ' ,{"effector":"Bacillibactin; Fe-Bacillibactin","genomeId":"60","genomeName":"Bacillus clausii KSM-K16","pathway":"Iron homeostasis","regulationType":"TF","regulatorFamily":"AraC","regulatorName":"Btr","regulogId":"1368","regulonId":"12711"}]}
 		  
-		  'loading the JSON from disk rather than retrieving it from the net:
-		  f=Resources_f.child("genomeStats.JSON")
-		  if f<>Nil then
-		    tis=f.OpenAsTextFile
-		    if tis<>nil then
-		      gnms=tis.ReadAll
-		      tis.Close
-		      
-		      dim JSN as new JSONItem
-		      JSN.load(gnms)
-		      
-		      GenomeStats2array(JSN)
+		  ' internal JSON may not be an array (in case of single item)
+		  
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    JSN.load(res)
+		    JSN1=JSN.Value("regulon")
+		    if JSN1.IsArray then
+		      return str(JSN1.Count)
+		    else
+		      return "1"
 		    end if
-		  else
-		    'get the data from RegPrecise
-		    SocketTask="genomes"
-		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/genomeStats")
-		  end if
-		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:LoadGenomes")
 		    
-		End Sub
+		  else
+		    return "0"
+		    
+		    
+		  end if
+		  'lines=split(regulogTFBSs,EndOfLine.UNIX)
+		  '
+		  'for m=0 to UBound(lines)-1
+		  'aName=NthField(lines(n),"[",2)
+		  'strainKnown=false
+		  'for n=1 to ubound(strains)
+		  'if strains(n)=aName then
+		  'strainKnown=true
+		  'exit
+		  'end if
+		  'next
+		  'if NOT strainKnown then
+		  'strains.Append aName
+		  'end if
+		  'next
+		  '
+		  'return ubound(strains)
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub LoadRegulators(GenomeID as string)
-		  if me.title="RegPrecise: regulons" then
-		    'regulons
-		    SocketTask="regulons"
-		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulons?genomeId="+GenomeID)
-		    
+		Function CountSelRows() As integer
+		  dim lb as Listbox=RegPreciseTFcollectionsWin.CollectionList
+		  dim n, CheckedRows as integer
+		  
+		  for n=0 to lb.ListCount-1
+		    if lb.CellCheck(n,0) then
+		      CheckedRows=CheckedRows+1
+		    end if
+		  next
+		  
+		  return CheckedRows
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EnableButtons()
+		  
+		  if collectionList.SelCount=1 then
+		    'RegulonLogoButton.Enabled=true
+		    RegulogLogoButton.Enabled=true
+		    InfoButton.Enabled=true
 		  else
-		    'regulogs
-		    SocketTask="regulogs"
-		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulogs?genomeId="+GenomeID)
-		    
+		    'RegulonLogoButton.Enabled=false
+		    RegulogLogoButton.Enabled=false
+		    InfoButton.Enabled=false
+		  end if
+		  
+		  dim sr as integer=CountSelRows
+		  
+		  if sr=1 then
+		    DeselectAllButton.enabled=true
+		  else
+		    DeselectAllButton.enabled=true
 		  end if
 		  
 		  
+		  
+		  if sr=collectionList.ListCount then
+		    SelectAllButton.enabled=false
+		  else
+		    SelectAllButton.enabled=true
+		  end if
+		  
+		  ProgressLabel.Text=str(CountSelRows)+" profiles selected"
 		End Sub
 	#tag EndMethod
 
@@ -633,25 +657,17 @@ End
 		  dim RegulogID,RegulonID, TFname as string
 		  dim n as integer
 		  
-		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
-		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
-		  'therefore, a full search of the regulator array is required
 		  
-		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  for n=0 to UBound(regulatorArray)
-		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
-		      exit
-		    end if
-		    
-		  next
+		  TFname=CollectionList.Cell(CollectionList.ListIndex,1)
+		  TFname=NthField(TFname," – ",1)
+		  RegulogID=CollectionList.cell(CollectionList.ListIndex,6)
 		  
 		  
 		  
-		  LogoWin.RegulonID=Val(RegulonID)
 		  LogoWin.RegulogID=Val(RegulogID)
 		  LogoWin.IsRegulog=true
+		  
+		  'we already have these data in the listbox, but still.
 		  LogoWin.LoadRegpreciseData(RegulogID,TFname,true)
 		  HmmGenSettingsWin.ValueField.text=TFname
 		  MASTGenSettingsWin.ValueField.text=TFname
@@ -670,62 +686,15 @@ End
 	#tag Method, Flags = &h0
 		Sub RegulonInfo()
 		  'get the ID:
-		  dim RegulonID, TFname as string
-		  dim n as integer
+		  dim RegulogID As string
 		  
-		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  for n=0 to UBound(regulatorArray)
-		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		      exit
-		    end if
-		    
-		  next
+		  RegulogID=CollectionList.cell(CollectionList.ListIndex,6)
 		  
 		  'open the RegPrecise page:
-		  RegulonInfo(val(RegulonID),false)
+		  RegulonInfo(val(RegulogID),true)
 		  
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:RegPreciseRegulonInfo")
-		    
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub RegulonLogo()
-		  dim RegulonID,RegulogID, TFname as string
-		  dim n as integer
-		  
-		  'RegulonID=regulatorArray(RegulatorList.ListIndex).Value("regulonId")
-		  'as regulator list can be reordered by sorting, we can't use row number to get the ID,
-		  'therefore, a full search of the regulator array is required
-		  
-		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  for n=0 to UBound(regulatorArray)
-		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		      RegulogID=JSONitem(regulatorArray(n)).Value("regulogId")
-		      exit
-		    end if
-		    
-		  next
-		  
-		  
-		  
-		  LogoWin.RegulonID=Val(RegulonID)
-		  LogoWin.RegulogID=Val(RegulogID)
-		  LogoWin.IsRegulog=false
-		  LogoWin.LoadRegpreciseData(RegulonID,TFname,false)
-		  HmmGenSettingsWin.ValueField.text=TFname
-		  MASTGenSettingsWin.ValueField.text=TFname
-		  ProfileWizardWin.ValueField.text=TFname
-		  LogoWin.show
-		  
-		  Exception err
-		    if err isa IOException then
-		      msgbox "A problem creating/reading temporaty file. Please try to clean your temp folder"
-		    end if
-		    ExceptionHandler(err,"RegPreciseWin:RegulonLogoButton.Action")
 		    
 		End Sub
 	#tag EndMethod
@@ -736,11 +705,23 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		InfoBits As double
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected LogoPix(-1) As Picture
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		RegPreciseVersion As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		RegulatorArray(-1) As JSONItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		siteLength As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -753,108 +734,165 @@ End
 #tag Events Label2
 	#tag Event
 		Sub Open()
-		  'me.text=kGenome+":"
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events GenomesPopup
+#tag Events TFfamilyPopup
 	#tag Event
 		Sub Change()
-		  'GenomeStatsArray contain JSONs like this:
-		  '{"genomeId":"601","name":"Acetobacter pasteurianus IFO 3283-01","rnaRegulonCount":"0","rnaSiteCount":"0","taxonomyId":"634452","tfRegulonCount":"6","tfSiteCount":"16"}
+		  dim m,n as integer
+		  dim f, CollectionFile as folderitem
 		  
 		  
+		  CollectionList.DeleteAllRows
 		  
-		  LoadRegulators(GenomeStatsArray(me.ListIndex).Value("genomeId"))
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events RegulatorList
-	#tag Event
-		Sub Change()
-		  if me.SelCount=1 then
-		    RegulonLogoButton.Enabled=true
-		    RegulogLogoButton.Enabled=true
-		    InfoButton.Enabled=true
-		  else
-		    RegulonLogoButton.Enabled=false
-		    RegulogLogoButton.Enabled=false
-		    InfoButton.Enabled=false
+		  ' find the file
+		  f=Resources_f.Child("TF_families")
+		  if f<>nil then
+		    m=f.Count
+		    for n=1 to m
+		      if f.Item(n).name=me.Text+".meme" then
+		        CollectionFile=f.Item(n)
+		        exit
+		      end if
+		    next
 		  end if
 		  
-		  'if me.SelCount>=1 then
-		  'DeselectAllButton.enabled=true
-		  'SearchButton.Enabled=true
-		  'else
-		  'DeselectAllButton.enabled=true
-		  'SearchButton.Enabled=true
-		  'end if
+		  'read motifs into an array
+		  dim tis as TextInputStream
+		  dim motifs, motifArray(-1), motifName, nSites, PWMdata, URL, siteLen as string
+		  dim LEloc as integer
 		  
-		  'if me.SelCount=me.ListCount then
-		  'SelectAllButton.enabled=false
-		  'else
-		  'SelectAllButton.enabled=true
-		  'end if
+		  tis=CollectionFile.OpenAsTextFile
+		  if tis<>nil then
+		    motifs=tis.ReadAll
+		    tis.Close
+		  end if
+		  
+		  motifArray=motifs.Split("MOTIF ")
+		  
+		  'fill in CollectionList
+		  m=UBound(motifArray)
+		  for n=1 to m
+		    motifName=NthField(motifArray(n)," ",1)
+		    nSites=str(val(NthField(motifArray(n),"nsites=",2)))
+		    PWMdata=NthField(motifArray(n),"nsites=",2)               'get closer to the data
+		    LEloc=instr(PWMdata,EndOfLine)
+		    PWMdata=right(PWMdata,len(PWMdata)-LEloc)                 'still has trailing lines
+		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine) 'remove empty lines
+		    URL=trim(NthField(PWMdata,"URL",2))
+		    LEloc=instr(PWMdata,"URL")
+		    PWMdata=left(PWMdata,LEloc-1)
+		    sitelen=str(CountFields(PWMdata,EndOfLine))
+		    
+		    Dim p as picture = LogoFromPWM(PWMdata)
+		    Dim reg() As String = Array("",motifName,nSites,str(InfoBits),"", URL,siteLen)  'first column contains checkboxes
+		    CollectionList.AddRow(reg)
+		    
+		    'scale the picture down to 35 pixel heigh and stretch it horisontally a bit
+		    dim LogoPicScaled as new Picture (p.width*50/170,35,32)
+		    LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
+		    LogoPicScaled.Transparent=1
+		    
+		    'add picture to the last row as variant, so it is sorted properly 
+		    CollectionList.RowTag(collectionlist.LastIndex)=LogoPicScaled
+		    
+		  next
+		  CollectionList.Enabled=true
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  me.ColumnWidths="14%,43%,43%"
+		  // Load the TF family names
+		  
+		  dim m,n as integer
+		  dim f as folderitem
+		  
+		  f=Resources_f.Child("TF_families")
+		  if f<>nil then
+		    m=f.Count
+		    for n=1 to m
+		      if f.Item(n).name<>".DS_Store" then
+		        'if f.Item(n).Directory then
+		        ''skip folder
+		        'else
+		        if right(f.Item(n).DisplayName,5)=".meme" then
+		          me.AddRow nthfield(f.Item(n).Name,".meme",1) 'drop the extension
+		        end if
+		      end if
+		    next
+		  end if
+		  
+		  me.Enabled=true
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events RegulonLogoButton
+#tag Events CollectionList
 	#tag Event
-		Sub Action()
-		  RegulonLogo
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events RegPreciseSocket
-	#tag Event
-		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
-		  
-		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
-		  dim JSN as new JSONItem
-		  
-		  if httpStatus>=200 AND httpStatus<300 then 'successful
-		    JSN.load(content)
-		    
-		    Select case SocketTask
-		    case "release"
-		      
-		      RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
-		    case "genomes"
-		      'populate the GenomesPopup:
-		      GenomeStats2array(JSN)
-		    case "regulons"
-		      'populate the RegulatorList:
-		      FillRegulatorList(JSN)
-		    case "regulogs"
-		      'populate the RegulatorList:
-		      beep
-		    End Select
-		  else
-		    MsgBox "Can't connect to RegPrecise (HTTP status code "+str(httpStatus)+")"
-		  end if
-		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:RegPreciseSocket.pagereceived")
-		    
+		Sub Change()
+		  EnableButtons
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub Connected()
-		  if SocketTask<>"release" then
-		    ProgressWheel1.top=RegulatorList.top+RegulatorList.Height/3
-		    ProgressWheel1.Visible=true
-		    ProgressWheel1.Enabled=true
-		  end if
+		Sub Open()
+		  // CollectionList columns are:
+		  ' 0 - Checkbox
+		  ' 1 - Motif collection Name
+		  ' 2 - Number of sites used to build the motif 
+		  ' 3 - Information content (bits)
+		  ' 4 - Logo picture
+		  ' 5 (invisible) – Motif source URL
+		  ' 6 (invisible) – TFBS length
 		  
+		  me.ColumnWidths="20,300,50,70,*,0,0" 'the last column just stores the file path 
+		  me.ColumnType(0)=Listbox.TypeCheckbox
+		  me.DefaultRowHeight=39  'LogoPic.Height=35
+		  'me.ColumnSortDirection(-1)=ListBox.HeaderTypes.NotSortable 'disable sorting of all the columns
 		  
 		  
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
+		  dim colWidth, offset as double
+		  dim ws as string
+		  dim p as picture
+		  
+		  // Logo centering doesn't seem appropriate here
+		  
+		  // calculate logo column width 
+		  ' column widths are currently set as
+		  ' 20,300,60,40,*,0
+		  
+		  'ws=me.ColumnWidths
+		  'colWidth=me.width-val(NthField(ws,",",1))-val(NthField(ws,",",2))-val(NthField(ws,",",3))-val(NthField(ws,",",4))
+		  
+		  
+		  if Column=4 then
+		    if row<=me.lastindex then
+		      p=me.rowtag(row)
+		      'offset=(colWidth-p.Width)/2 
+		      g.DrawPicture(p, offset, 0)  'pic is centered for proper alignment (currently disabled)
+		    end if
+		  end if
+		  Return True
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub CellAction(row As Integer, column As Integer)
+		  if column=0 then
+		    
+		    EnableButtons
+		  end if
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
+		  EnableButtons
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events RegulogLogoButton
@@ -876,14 +914,44 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Action()
-		  RegulonInfo
+		  WebBrowserWin.show
+		  WebBrowserWin.LoadPage(CollectionList.cell(CollectionList.ListIndex,5))
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events FastaButton
+#tag Events BevelButton3
 	#tag Event
 		Sub Action()
-		  checkTF
+		  SelectTFBSWindow.parentwin=self
+		  SelectTFBSWindow.show
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DeselectAllButton
+	#tag Event
+		Sub Action()
+		  dim k as integer
+		  
+		  for k=0 to CollectionList.ListCount-1
+		    CollectionList.CellCheck(k,0) = false
+		  next
+		  
+		  EnableButtons
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SelectAllButton
+	#tag Event
+		Sub Action()
+		  dim k as integer
+		  
+		  for k=0 to CollectionList.ListCount-1
+		    CollectionList.CellCheck(k,0) = true
+		  next
+		  
+		  EnableButtons
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -973,6 +1041,11 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="InfoBits"
+		Group="Behavior"
+		Type="double"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Interfaces"
@@ -1088,6 +1161,11 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="siteLength"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SocketTask"

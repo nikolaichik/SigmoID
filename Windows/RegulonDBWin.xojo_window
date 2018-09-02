@@ -1355,7 +1355,7 @@ End
 		    end if
 		    
 		  else
-		    MsgBox "Problems connecting to RegulonDB (HTTP status code "+str(httpStatus)+")"
+		    MsgBox "Can't connect to RegulonDB (HTTP status code "+str(httpStatus)+")"
 		  end if
 		  
 		End Sub
@@ -1387,7 +1387,7 @@ End
 		    
 		    tfastx(ProteinFasta)
 		  else
-		    MsgBox "Problems connecting to RegulonDB (HTTP status code "+str(httpStatus)+")"
+		    MsgBox "Can't connect to RegulonDB (HTTP status code "+str(httpStatus)+")"
 		  end if
 		End Sub
 	#tag EndEvent

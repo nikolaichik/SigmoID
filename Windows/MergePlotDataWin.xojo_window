@@ -48,6 +48,7 @@ Begin Window MergePlotDataWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kMergePlotWinDesc"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -127,7 +128,7 @@ Begin Window MergePlotDataWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -186,6 +187,7 @@ Begin Window MergePlotDataWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kDataFile1"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -234,7 +236,7 @@ Begin Window MergePlotDataWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -293,6 +295,7 @@ Begin Window MergePlotDataWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kDataFile2"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -341,7 +344,7 @@ Begin Window MergePlotDataWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFF00FFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -400,6 +403,7 @@ Begin Window MergePlotDataWin
       Selectable      =   False
       TabIndex        =   16
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kMergedFile"
       TextAlign       =   2
       TextColor       =   &c00000000

@@ -120,7 +120,7 @@ Begin Window SelectTFBSWindow
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -191,7 +191,7 @@ Begin Window SelectTFBSWindow
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -262,7 +262,7 @@ Begin Window SelectTFBSWindow
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -339,7 +339,7 @@ Begin Window SelectTFBSWindow
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -448,6 +448,11 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Property, Flags = &h0
+		ParentWin As Window
+	#tag EndProperty
+
+
 #tag EndWindowCode
 
 #tag Events CancelButton
@@ -460,27 +465,49 @@ End
 #tag Events OKButton
 	#tag Event
 		Sub Action()
-		  dim lb as Listbox=RegPreciseTFcollectionsWin.CollectionList
+		  dim lb as Listbox
+		  if ParentWin.Title=kRegPreciseTFCollections then
+		    lb=RegPreciseTFcollectionsWin.CollectionList
+		  else
+		    lb=LocalMotifCollectionsWin.CollectionList
+		  end if
 		  dim n, TFBSno, siteLen as integer
 		  dim bits as double
 		  dim CheckTheRow as Boolean
 		  
 		  for n=0 to lb.ListCount-1
-		    // CollectionList columns are:
-		    ' 0 - Checkbox
-		    ' 1 - Regulog Name
-		    ' 2 - Number of regulons in the regulog
-		    ' 3 - Number of TFBSs in the regulog
-		    ' 4 - Information (bits)
-		    ' 5 - Logo picture
-		    ' 6 (invisible) – RegulogID
-		    ' 7 (invisible) - TFBS seqs (in fasta format)
-		    ' 8 - TFBS length.
+		    
 		    CheckTheRow = true
 		    
-		    TFBSno=val(lb.Cell(n,3))
-		    bits=val(lb.Cell(n,4))
-		    siteLen=val(lb.Cell(n,8)) 
+		    if ParentWin.Title=kRegPreciseTFCollections then
+		      // CollectionList columns are:
+		      ' 0 - Checkbox
+		      ' 1 - Regulog Name
+		      ' 2 - Number of regulons in the regulog
+		      ' 3 - Number of TFBSs in the regulog
+		      ' 4 - Information (bits)
+		      ' 5 - Logo picture
+		      ' 6 (invisible) – RegulogID
+		      ' 7 (invisible) - TFBS seqs (in fasta format)
+		      ' 8 - TFBS length.
+		      TFBSno=val(lb.Cell(n,3))
+		      bits=val(lb.Cell(n,4))
+		      siteLen=val(lb.Cell(n,8)) 
+		    else                      'Local Collections
+		      // CollectionList columns are:
+		      ' 0 - Checkbox
+		      ' 1 - Motif collection Name
+		      ' 2 - Number of sites used to build the motif 
+		      ' 3 - Information content (bits)
+		      ' 4 - Logo picture
+		      ' 5 (invisible) – Motif source URL
+		      ' 6 (invisible) – TFBS length
+		      
+		      TFBSno=val(lb.Cell(n,2))
+		      bits=val(lb.Cell(n,3))
+		      siteLen=val(lb.Cell(n,6))
+		      
+		    end if
 		    
 		    if Val(BitsField.text)>bits then
 		      CheckTheRow = false
@@ -517,8 +544,7 @@ End
 		  next
 		  
 		  self.hide
-		  RegPreciseTFcollectionsWin.EnableButtons
-		  RegPreciseTFcollectionsWin.Show
+		  ParentWin.Show
 		  
 		  
 		End Sub

@@ -142,6 +142,7 @@ Begin Window HmmGenSettingsWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kFeature2add"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -218,7 +219,7 @@ Begin Window HmmGenSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "bound_moiety"
@@ -261,7 +262,7 @@ Begin Window HmmGenSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   "#kProteinName"
@@ -486,7 +487,7 @@ Begin Window HmmGenSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -529,7 +530,7 @@ Begin Window HmmGenSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
+         BackColor       =   &cFF00FFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
