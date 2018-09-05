@@ -23,7 +23,7 @@ Begin Window RegPreciseTFcollectionsWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "kRegPreciseTFCollections"
+   Title           =   "#kRegPreciseTFCollections"
    Visible         =   False
    Width           =   800
    Begin Label Label2
@@ -752,10 +752,10 @@ End
 		  
 		  dim sr as integer=CountSelRows
 		  
-		  if sr=1 then
+		  if sr>=1 then
 		    DeselectAllButton.enabled=true
 		  else
-		    DeselectAllButton.enabled=true
+		    DeselectAllButton.enabled=false
 		  end if
 		  
 		  if sr=0 then
@@ -1181,7 +1181,7 @@ End
 		  
 		  me.ColumnWidths="20,300,80,60,80,*,0,0,0" 'three last columns just store the data 
 		  me.ColumnType(0)=Listbox.TypeCheckbox
-		  me.DefaultRowHeight=39  'LogoPic.Height=35
+		  me.DefaultRowHeight=49  'LogoPic.Height=45
 		  'me.ColumnSortDirection(-1)=ListBox.HeaderTypes.NotSortable 'disable sorting of all the columns
 		  
 		  

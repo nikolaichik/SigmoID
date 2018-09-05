@@ -48,7 +48,7 @@ Begin Window LocalMotifCollectionsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      Text            =   "#kTFfamily"
+      Text            =   "#kTFBScollection"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -382,6 +382,37 @@ Begin Window LocalMotifCollectionsWin
       Visible         =   True
       Width           =   388
    End
+   Begin PushButton ExportButton
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "#kExportSelected"
+      Default         =   False
+      Enabled         =   False
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   484
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   382
+      Underline       =   False
+      Visible         =   True
+      Width           =   200
+   End
 End
 #tag EndWindow
 
@@ -606,7 +637,7 @@ End
 
 	#tag Method, Flags = &h0
 		Function CountSelRows() As integer
-		  dim lb as Listbox=RegPreciseTFcollectionsWin.CollectionList
+		  dim lb as Listbox=self.CollectionList
 		  dim n, CheckedRows as integer
 		  
 		  for n=0 to lb.ListCount-1
@@ -634,13 +665,17 @@ End
 		  
 		  dim sr as integer=CountSelRows
 		  
-		  if sr=1 then
+		  if sr>=1 then
 		    DeselectAllButton.enabled=true
 		  else
-		    DeselectAllButton.enabled=true
+		    DeselectAllButton.enabled=false
 		  end if
 		  
-		  
+		  if sr=0 then
+		    ExportButton.Enabled=false
+		  else
+		    ExportButton.Enabled=true
+		  end if
 		  
 		  if sr=collectionList.ListCount then
 		    SelectAllButton.enabled=false
@@ -781,22 +816,35 @@ End
 		    LEloc=instr(PWMdata,EndOfLine)
 		    PWMdata=right(PWMdata,len(PWMdata)-LEloc)                 'still has trailing lines
 		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine) 'remove empty lines
-		    URL=trim(NthField(PWMdata,"URL",2))
-		    LEloc=instr(PWMdata,"URL")
-		    PWMdata=left(PWMdata,LEloc-1)
+		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
+		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
+		    if instr(PWMdata,"URL")>0 then                            'standard meme files don't have URLs
+		      URL=trim(NthField(PWMdata,"URL",2))
+		      LEloc=instr(PWMdata,"URL")
+		      PWMdata=left(PWMdata,LEloc-1)
+		    end if
 		    sitelen=str(CountFields(PWMdata,EndOfLine))
 		    
 		    Dim p as picture = LogoFromPWM(PWMdata)
 		    Dim reg() As String = Array("",motifName,nSites,str(InfoBits),"", URL,siteLen)  'first column contains checkboxes
 		    CollectionList.AddRow(reg)
 		    
-		    'scale the picture down to 35 pixel heigh and stretch it horisontally a bit
-		    dim LogoPicScaled as new Picture (p.width*50/170,35,32)
-		    LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
+		    ''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
+		    'dim LogoPicScaled as new Picture (p.width*50/170,35,32)
+		    'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
+		    'LogoPicScaled.Transparent=1
+		    
+		    'scale the picture down to 45 pixel heigh and stretch it horisontally a bit
+		    dim LogoPicScaled as new Picture (p.width*50/170,45,32)
+		    LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,45,0,0,p.width,p.Height)
 		    LogoPicScaled.Transparent=1
+		    
 		    
 		    'add picture to the last row as variant, so it is sorted properly 
 		    CollectionList.RowTag(collectionlist.LastIndex)=LogoPicScaled
+		    
+		    'Update progress text
+		    ProgressLabel.Text="Loading profiles: "+str(CollectionList.ListCount)
 		    
 		  next
 		  CollectionList.Enabled=true
@@ -848,7 +896,7 @@ End
 		  
 		  me.ColumnWidths="20,300,50,70,*,0,0" 'the last column just stores the file path 
 		  me.ColumnType(0)=Listbox.TypeCheckbox
-		  me.DefaultRowHeight=39  'LogoPic.Height=35
+		  me.DefaultRowHeight=49  'LogoPic.Height=45
 		  'me.ColumnSortDirection(-1)=ListBox.HeaderTypes.NotSortable 'disable sorting of all the columns
 		  
 		  
@@ -898,7 +946,9 @@ End
 #tag Events RegulogLogoButton
 	#tag Event
 		Sub Action()
-		  RegulogLogo
+		  msgbox "Opening motifs in MEME format in the main window isn't implemented yet ((("
+		  
+		  'RegulogLogo
 		  
 		End Sub
 	#tag EndEvent
@@ -952,6 +1002,216 @@ End
 		  next
 		  
 		  EnableButtons
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ExportButton
+	#tag Event
+		Sub Action()
+		  Dim dlg as New SaveAsDialog
+		  dim outfile as folderitem
+		  dim FamilyName as string
+		  
+		  FamilyName=NthField(TFfamilyPopup.Text," ",1)
+		  
+		  'dlg.InitialDirectory=genomefile.Parent
+		  dlg.promptText=kTFfamilyExportDesc
+		  'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".meme"
+		  dlg.SuggestedFileName=FamilyName+"_RegPrecise.meme"
+		  dlg.Title=kExportProfiles
+		  dlg.Filter=FileTypes.meme
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  outfile=dlg.ShowModalwithin(self)
+		  if outfile<>nil then
+		    LogoWin.WriteToSTDOUT (EndofLine+kExportingProfiles)
+		    LogoWin.STDOUT.Refresh(false)
+		    Logowin.show
+		    
+		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
+		    if s<> NIL then
+		      
+		      
+		      // make tmp folder
+		      dim TFfamily_tmp as FolderItem = TemporaryFolder.child("TFfamily_tmp")
+		      if TFfamily_tmp <> nil then
+		        
+		        
+		        'the folder may be there from the previous run, we have delete it!
+		        if TFfamily_tmp.Exists then
+		          dim i as integer
+		          i=deleteEntireFolder(TFfamily_tmp) 'return code isn't handled yet
+		        end if
+		        TFfamily_tmp.CreateAsFolder
+		      else 
+		        msgbox "Can't create tmp folder"
+		        return
+		      end if
+		      
+		      // write 'sites' files to tmp folder
+		      ' (simple text files named a la regulogID.txt
+		      ' regulogID will be used as motif ID and will be added to RegPrecise URL when converting 
+		      
+		      ' for palindromic sites, rev. complements should probably be added here
+		      ' as RegPrecise ignores site symmetry (currently, sites are written as they are) 
+		      
+		      dim m,n as integer
+		      dim fastaLines(-1) as string
+		      dim sitesFile as folderitem
+		      dim tos as TextOutputStream
+		      dim RegulonID as string
+		      
+		      for n=0 to CollectionList.ListCount-1
+		        if CollectionList.CellCheck(n,0) then
+		          sitesFile=TFfamily_tmp.Child(CollectionList.Cell(n,6)+".txt")
+		          if sitesFile<>nil then
+		            tos=TextOutputStream.Create(sitesFile)
+		            if tos <>nil then
+		              fastaLines=split(CollectionList.Cell(n,7), endofline.UNIX)
+		              for m=0 to ubound(fastaLines)-1
+		                if left(fastaLines(m),1)<>">" then
+		                  tos.Writeline fastaLines(m)
+		                  
+		                end if
+		              next
+		              tos.close
+		            else
+		              msgbox "can't write to tmp file"
+		            end if
+		          else
+		            msgbox "Can't create tmp file"
+		          end if
+		          
+		          
+		        end if
+		      next
+		      
+		      // add sites.map file to the same folder pairing motif ID with its name
+		      ' (one space separated pair per line)
+		      dim sitesMap as folderitem
+		      
+		      sitesMap=TFfamily_tmp.Child("sites.map")
+		      if sitesMap<>nil then
+		        tos=TextOutputStream.Create(sitesMap)
+		        if tos<>nil then
+		          for n=0 to CollectionList.ListCount-1
+		            if CollectionList.CellCheck(n,0) then
+		              tos.writeline CollectionList.Cell(n,6)+" "+Replace(CollectionList.Cell(n,1)," – ","_")
+		            end if
+		          next
+		          tos.close
+		        else
+		          msgbox "can't write to sites.map file"
+		        end if
+		        
+		      else
+		        msgbox "Can't create the sites.map file"
+		      end if
+		      
+		      // convert all tmp files to a single minimal meme file
+		      ' sites2meme command should look like 
+		      ' sites2meme -map /Users/Home/Desktop/sites2meme_test/sites.map -url https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME /Users/Home/Desktop/sites2meme_test
+		      
+		      ' sample output is like this:
+		      'MEME version 4
+		      '
+		      'ALPHABET= ACGT
+		      '
+		      'strands: + -
+		      '
+		      'Background letter frequencies (from uniform background):
+		      'A 0.25000 C 0.25000 G 0.25000 T 0.25000 
+		      '
+		      'MOTIF site1 TfbS
+		      '
+		      'letter-probability matrix: alength= 4 w= 7 nsites= 14 E= 0
+		      '0.714286      0.214286      0.071429      0.000000    
+		      '0.714286      0.000000      0.285714      0.000000    
+		      '0.000000      0.000000      1.000000      0.000000    
+		      '0.000000      0.000000      1.000000      0.000000    
+		      '0.000000      0.000000      0.000000      1.000000    
+		      '0.000000      1.000000      0.000000      0.000000    
+		      '0.928571      0.000000      0.071429      0.000000    
+		      '
+		      'URL https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site1
+		      '
+		      'MOTIF site2 RegR
+		      '
+		      'letter-probability matrix: alength= 4 w= 7 nsites= 14 E= 0
+		      '0.500000      0.428571      0.071429      0.000000    
+		      '0.714286      0.000000      0.285714      0.000000    
+		      '0.000000      0.000000      1.000000      0.000000    
+		      '0.000000      0.000000      1.000000      0.000000    
+		      '0.000000      0.000000      0.000000      1.000000    
+		      '0.000000      1.000000      0.000000      0.000000    
+		      '0.785714      0.000000      0.214286      0.000000    
+		      '
+		      'URL https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site2
+		      
+		      dim sites2memePath as string
+		      #if targetWin32
+		        sites2memePath=nthfield(MEMEpath,"/meme.exe",1)+"/sites2meme"
+		      #else
+		        MEMEpath=trim(MEMEpath)
+		        if right(MEMEpath,1)="'" then
+		          sites2memePath=left(MEMEpath,len(MEMEpath)-5)+"sites2meme'"
+		        else
+		          sites2memePath=left(MEMEpath,len(MEMEpath)-4)+"sites2meme" 
+		        end if
+		      #endif
+		      
+		      dim cli as string
+		      cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
+		      cli=cli+" "+"-url https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
+		      cli=cli+" "+TFfamily_tmp.ShellPath
+		      
+		      
+		      dim sh As Shell
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      sh.execute cli
+		      
+		      
+		      If sh.errorCode=0 then
+		        // modify the meme output removing motif ID from the header but adding family name instead 
+		        ' (motif ID remains in the URL anyway)
+		        ' so, 
+		        ' MOTIF site1 TfbS
+		        ' should become
+		        ' MOTIF TfbS LacI-family
+		        
+		        dim memeArr() as string
+		        memeArr=split(sh.Result,EndOfLine)
+		        
+		        
+		        for n=0 to UBound(memeArr)
+		          if left(memeArr(n),6)="MOTIF " then
+		            dim a4,aftr as string
+		            a4=memeArr(n)
+		            memeArr(n)="MOTIF "+NthField(memeArr(n)," ",3)+" "+FamilyName+"-family"
+		            aftr=memeArr(n)
+		            beep
+		          end if
+		        next
+		        
+		        'write the file
+		        for n=0 to UBound(memeArr)
+		          s.WriteLine memeArr(n)
+		        next
+		        s.close
+		        LogoWin.WriteToSTDOUT (" Done!")
+		        
+		      else
+		        msgbox sh.result
+		        Msgbox "Command line was: <"+cli+">"
+		      end if
+		    end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseTFcollectionsWin:ExportButton")
+		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents

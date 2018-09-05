@@ -1880,9 +1880,9 @@ Protected Module Globals
 		  
 		  'return LogoPic
 		  
-		  'scale the picture down to 35 pixel heigh and stretch it horisontally a bit
-		  dim LogoPicScaled as new Picture (LogoPic.width*50/170,35,32)
-		  LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPic.width*50/170,35,0,0,LogoPic.width,LogoPic.Height)
+		  'scale the picture down to 45 pixel heigh and stretch it horisontally a bit
+		  dim LogoPicScaled as new Picture (LogoPic.width*50/170,45,32)
+		  LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPic.width*50/170,45,0,0,LogoPic.width,LogoPic.Height)
 		  
 		  LogoPicScaled.Transparent=1
 		  RegPreciseTFcollectionsWin.InfoBits=totalEntropy
@@ -3700,6 +3700,11 @@ Protected Module Globals
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CRtagPositions"
+			Group="Behavior"
+			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FixedFont"
