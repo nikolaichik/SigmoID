@@ -48,7 +48,6 @@ Begin Window RegPreciseWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -128,7 +127,6 @@ Begin Window RegPreciseWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   1
-      ShowDropIndicator=   "False"
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
@@ -178,7 +176,6 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -348,9 +345,7 @@ End
 	#tag Event
 		Sub Open()
 		  AdjustLayout4linux(me)
-		  #if DebugBuild then 
-		    FastaButton.Enabled=true
-		  #endif
+		  
 		  
 		  'RegPreciseSocket.Secure=true
 		End Sub
@@ -388,96 +383,139 @@ End
 
 	#tag Method, Flags = &h0
 		Sub CheckTF()
-		  'This mentod is restricted to DebugBuild only due to Xojo database licensing restriction
-		  'You may fully enable it if if you have the Database license 
+		  'This method was restricted to DebugBuild only due to Xojo database licensing restriction
+		  
+		  'As AA seq retrieval from MicrobesOnline via MySQL seems to be broken as of September 2018, switched to plain html request instead.
+		  'Additional benefit: no database license required 
 		  
 		  
-		  #if DebugBuild then
-		    dim RegulonID, vimssId, ProteinFasta as string
-		    dim TFname as string
-		    dim n as integer
-		    
-		    logowin.show
-		    
-		    TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		    for n=0 to UBound(regulatorArray)
-		      if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		        RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		        exit
-		      end if
-		      
-		    next
-		    
-		    logowin.WriteToSTDOUT("Getting protein ID from RegPrecise... ")
-		    
-		    dim res as string
-		    dim jsn as new JSONItem
-		    dim jsn0 as new JSONItem
-		    dim hts as new HTTPSocket
-		    
-		    hts.Yield=true
-		    
-		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
-		    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		      if res<>"" then
-		        JSN0.load(res)
-		        'should contain smth like:
-		        '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
-		        
-		        JSN=JSN0.value("regulator")
-		        ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
-		        vimssId=JSN.Value("vimssId")
-		        LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
-		        
-		      end if
-		      
-		      logowin.WriteToSTDOUT("Getting protein sequence from MicrobesOnline... ")
-		      
-		      ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
-		      
-		      Dim db As New MySQLCommunityServer
-		      db.Host = "pub.microbesonline.org"
-		      'db.Port = 3306
-		      db.DatabaseName = "genomics"
-		      db.UserName = "guest"
-		      db.Password = "guest"
-		      If db.Connect Then
-		        // Use the database
-		        
-		        Dim rs As RecordSet
-		        rs = db.SQLSelect("select * from AASeq where locusId="+vimssId)
-		        
-		        If db.Error Then
-		          MsgBox("Error: " + db.ErrorMessage)
-		          Return
-		        End If
-		        
-		        If rs <> Nil Then
-		          ProteinFasta=ProteinFasta+EndOfLine.UNIX+rs.Field("sequence").StringValue
-		          tfastx(ProteinFasta)
-		          rs.Close
-		        End If
-		        db.Close
-		        
-		        
-		      Else
-		        // Connection error
-		        MsgBox(db.ErrorMessage)
-		      End If
-		      
-		      
-		    else
-		      
-		      dim httpErr as String = HTTPerror(hts.HTTPStatusCode, true)
-		      LogoWin.WriteToSTDOUT (httpErr)
-		      
-		      LogoWin.show
+		  dim RegulonID, vimssId, ProteinFasta as string
+		  dim TFname as string
+		  dim n as integer
+		  
+		  logowin.show
+		  
+		  TFname=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  for n=0 to UBound(regulatorArray)
+		    if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
+		      RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
+		      exit
 		    end if
 		    
-		  #else
-		    MsgBox "This method is currently disabled due to database licensing issue. Should hopefully be fixed sometime..."
+		  next
+		  
+		  logowin.WriteToSTDOUT("Getting protein ID from RegPrecise... ")
+		  
+		  dim res as string
+		  dim jsn as new JSONItem
+		  dim jsn0 as new JSONItem
+		  dim hts as new HTTPSocket
+		  
+		  hts.Yield=true
+		  
+		  res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if res<>"" then
+		      JSN0.load(res)
+		      'should contain smth like:
+		      '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		      
+		      JSN=JSN0.value("regulator")
+		      ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
+		      vimssId=JSN.Value("vimssId")
+		      LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
+		      
+		    end if
 		    
-		  #endif
+		    logowin.WriteToSTDOUT("Getting protein sequence from MicrobesOnline... ")
+		    
+		    ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
+		    
+		    ' html alternative:
+		    ' http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=606816&disp=4
+		    
+		    dim URL As string 
+		    URL="http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
+		    
+		    
+		    hts = new HTTPSocket
+		    
+		    hts.Yield=true  'allow background activities while waiting
+		    hts.SetRequestHeader("Content-Type:","text/plain")
+		    
+		    res=hts.Get(URL,60)  'adjust timeout?
+		    
+		    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		      if Res="" then
+		        if hts.ErrorCode=-1 then
+		          logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		        else
+		          LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		        end if
+		      else
+		        'parse the server response
+		        dim pseq as string
+		        pseq=NthField(res,">Protein<",2)
+		        pseq=NthField(pseq,")",2)
+		        pseq=NthField(pseq,"</pre>",1)
+		        pseq=trim(replaceall(pseq,"�",""))           'cleanup just in case
+		        ProteinFasta=ProteinFasta+EndOfLine.UNIX+pseq
+		        tfastx(ProteinFasta)
+		        
+		        
+		        
+		      end if
+		    else
+		      
+		      dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
+		      LogoWin.WriteToSTDOUT (httpErr)
+		      
+		    end if
+		    
+		    
+		    
+		    
+		    
+		    'Dim db As New MySQLCommunityServer
+		    'db.Host = "pub.microbesonline.org"
+		    ''db.Port = 3306
+		    'db.DatabaseName = "genomics"
+		    'db.UserName = "guest"
+		    'db.Password = "guest"
+		    'If db.Connect Then
+		    '// Use the database
+		    '
+		    'Dim rs As RecordSet
+		    'rs = db.SQLSelect("select * from AASeq where locusId="+vimssId)
+		    '
+		    'If db.Error Then
+		    'MsgBox("Error: " + db.ErrorMessage)
+		    'Return
+		    'End If
+		    '
+		    'If rs <> Nil Then
+		    'ProteinFasta=ProteinFasta+EndOfLine.UNIX+rs.Field("sequence").StringValue
+		    'tfastx(ProteinFasta)
+		    'rs.Close
+		    'End If
+		    'db.Close
+		    
+		    
+		    'Else
+		    '// Connection error
+		    'MsgBox(db.ErrorMessage)
+		    'End If
+		    
+		    
+		  else
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode, true)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+		    LogoWin.show
+		  end if
+		  
+		  
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:CheckTF")
 		    
@@ -776,10 +814,12 @@ End
 		    RegulonLogoButton.Enabled=true
 		    RegulogLogoButton.Enabled=true
 		    InfoButton.Enabled=true
+		    FastaButton.Enabled=true
 		  else
 		    RegulonLogoButton.Enabled=false
 		    RegulogLogoButton.Enabled=false
 		    InfoButton.Enabled=false
+		    FastaButton.Enabled=false
 		  end if
 		  
 		  'if me.SelCount>=1 then
