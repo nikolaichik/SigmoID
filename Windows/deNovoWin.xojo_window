@@ -110,6 +110,7 @@ Begin Window deNovoWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kOutFolder"
       TextAlign       =   2
       TextColor       =   &c00000000

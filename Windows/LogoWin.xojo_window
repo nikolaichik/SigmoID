@@ -2387,7 +2387,7 @@ End
 		  #endif
 		  WriteToSTDOUT ("Information content of this site is "+str(totalEntropy)+" bits."+EndofLine)
 		  LogoCanvas.Invalidate(false) 'there are problems updating the logo pic when scanning genome
-		  me.refresh(false) 'needed if logo of the same size is drawn and to remove selection
+		  self.refresh(false) 'needed if logo of the same size is drawn and to remove selection
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:DrawLogo")
@@ -3516,7 +3516,7 @@ End
 		        MastSettingsWin.PvalueField.text=""
 		        ProfileWizardWin.MASTField.text=""
 		      end if
-		      
+		      ChangeView("Logo")
 		    else
 		      SigFileOpened=false
 		      MEMEdata=""
@@ -3666,7 +3666,9 @@ End
 		  ControlAdjust 'adjust controls for new profile's logo
 		  
 		  if LengthsDiffer then
-		    logowin.ChangeView("Sequences")
+		    me.ChangeView("Sequences")
+		  else
+		    me.ChangeView("Logo")
 		  end if
 		  
 		  RegulonID=0
@@ -3698,6 +3700,7 @@ End
 		  hts.Yield=true
 		  if isregulog then
 		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulogId="+ID,0)
+		    
 		  else
 		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,0)
 		  end if
