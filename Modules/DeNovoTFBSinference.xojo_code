@@ -222,6 +222,9 @@ Protected Module DeNovoTFBSinference
 		  for n=1 to m
 		    CRarray.Append(Val(NthField(CRs,",",n)))
 		  next
+		  if ubound(CRarray)<1 then
+		    return ""                 'hmmsearch failed
+		  end if
 		  fst=CRarray(1)
 		  CRlen=CRarray(m)-fst+1
 		  

@@ -1606,12 +1606,43 @@ End
 		Sub Action()
 		  'Single profile only for now!
 		  
-		  Dim dlg as New SaveAsDialog
 		  dim outfile as folderitem
+		  dim FFile, HMMfile as folderitem
+		  dim HMMfilePath as string
+		  dim hmmSearchRes as string
+		  dim tos as TextOutputStream
 		  dim FamilyName as string
+		  dim hts as HTTPSocket
+		  dim res as string
+		  dim jsn as new JSONItem
+		  dim jsn0 as new JSONItem
+		  dim ProteinFasta, vimssId as string
+		  dim uTags(0), uRegulons(0) As string
 		  
+		  
+		  // HMM file matching the collection is needed.
+		  '  for now, choosing one is up to the user
+		  
+		  Dim dlg2 as New OpenDialog
+		  dlg2.InitialDirectory=Resources_f.child("TF_HMMs")          'only these are meaningful
+		  dlg2.promptText="Select hmm file with the model matching this TF family"
+		  'dlg2.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		  dlg2.Title="Open HMM"
+		  dlg2.Filter=FileTypes.All
+		  dlg2.CancelButtonCaption=kCancel
+		  dlg2.ActionButtonCaption=kOpen_
+		  HMMfile=dlg2.ShowModal()
+		  if HMMfile<>nil then
+		    if HMMfile.exists then
+		      HMMfilePath=HMMfile.ShellPath
+		    end if
+		  end if
+		  
+		  
+		  //ask for output file
+		  
+		  Dim dlg as New SaveAsDialog
 		  FamilyName=NthField(GenomesPopup.Text," ",1)
-		  
 		  'dlg.InitialDirectory=genomefile.Parent
 		  dlg.promptText=kTFfamilyExportDesc
 		  'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".meme"
@@ -1656,33 +1687,172 @@ End
 		      dim m,n as integer
 		      dim fastaLines(-1) as string
 		      dim sitesFile as folderitem
-		      dim tos as TextOutputStream
-		      dim RegulonID as string
+		       
+		      dim RegulogID,RegulonID as string
+		      dim RegulonIDs(0), TFs(0), CRtags(0) as string
+		      DIM RegulonsJSON, Regulon, regs As JSONItem
+		      
 		      
 		      for n=0 to CollectionList.ListCount-1
 		        if CollectionList.CellCheck(n,0) then
-		          sitesFile=TFfamily_tmp.Child(CollectionList.Cell(n,6)+".txt")
-		          if sitesFile<>nil then
-		            tos=TextOutputStream.Create(sitesFile)
-		            if tos <>nil then
-		              'fastaLines=split(CollectionList.Cell(n,7), endofline.UNIX)
-		              'for m=0 to ubound(fastaLines)-1
-		              'if left(fastaLines(m),1)<>">" then
-		              tos.Write  CollectionList.Cell(n,7) 'line fastaLines(m)
-		              
-		              'end if
-		              'next
-		              tos.close
-		            else
-		              msgbox "can't write to tmp file"
-		            end if
-		          else
-		            msgbox "Can't create tmp file"
+		          
+		          //check if orthologous TFs actually have the same CRtag:
+		          
+		          'get all regulons belonging to the regulog:
+		          hts = new HTTPSocket
+		          
+		          hts.Yield=true
+		          
+		          RegulogID=CollectionList.Cell(n,6)
+		          res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulons?regulogId="+RegulogID,0)
+		          
+		          RegulonsJSON=new JSONItem(res) 'Convert RegPrecise string to JSON
+		          regs=RegulonsJSON.value("regulon")
+		          if regs.IsArray then
+		            for n=0 to regs.Count-1
+		              if regs(n) isa JSONItem then
+		                RegulonIDs.append JSONItem(regs(n)).Value("regulonId")
+		              end if
+		            next
 		          end if
 		          
 		          
+		          
+		          'get the seqs of TFs controlling each regulon:
+		          redim TFs(UBound(RegulonIDs))
+		          for n=1 to UBound(RegulonIDs)
+		            
+		            
+		            hts = new HTTPSocket
+		            
+		            hts.Yield=true
+		            
+		            res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+RegulonIDs(n),0)
+		            if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		              if res<>"" then
+		                JSN0.load(res)
+		                'should contain smth like:
+		                '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		                JSN=JSN0.value("regulator")
+		                ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
+		                vimssId=JSN.Value("vimssId")
+		                
+		              end if
+		              
+		              logowin.WriteToSTDOUT("Getting protein sequence from MicrobesOnline... ")
+		              
+		              ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
+		              
+		              ' html alternative:
+		              ' http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=606816&disp=4
+		              
+		              dim URL As string 
+		              URL="http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
+		              
+		              
+		              hts = new HTTPSocket
+		              
+		              hts.Yield=true  'allow background activities while waiting
+		              hts.SetRequestHeader("Content-Type:","text/plain")
+		              
+		              res=hts.Get(URL,60)  'adjust timeout?
+		              
+		              if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		                if Res="" then
+		                  if hts.ErrorCode=-1 then
+		                    logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		                  else
+		                    LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		                  end if
+		                  
+		                  ProteinFasta=""
+		                else
+		                  'parse the server response
+		                  dim pseq as string
+		                  pseq=NthField(res,">Protein<",2)
+		                  pseq=NthField(pseq,")",2)
+		                  pseq=NthField(pseq,"</pre>",1)
+		                  pseq=trim(replaceall(pseq,"�",""))           'cleanup just in case
+		                  ProteinFasta=ProteinFasta+EndOfLine.UNIX+pseq
+		                  'tfastx(ProteinFasta)
+		                  
+		                  
+		                  
+		                end if
+		              else
+		                
+		                dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
+		                LogoWin.WriteToSTDOUT (httpErr)
+		                
+		                ProteinFasta=""
+		              end if
+		              
+		              
+		              
+		              
+		              
+		            end if
+		            TFs(n)=ProteinFasta
+		          next
+		          
+		          'Extract CRtags from each TF
+		          redim CRtags(UBound(RegulonIDs))
+		          for n=1 to UBound(RegulonIDs)
+		            'make the file for hmmsearch
+		            
+		            FFile=TemporaryFolder.Child("CDS.fasta")
+		            if FFile<>nil then
+		              tos=TextOutputStream.Create(FFile)
+		              if tos <>nil then
+		                tos.Write TFs(n)
+		                
+		              end if
+		              tos.close 
+		            end if
+		            
+		            
+		            
+		            
+		            'need to set CRtagPositions b4 calling HMMsearchWithCRtags!!!
+		            
+		            
+		            hmmSearchRes=HMMsearchWithCRtags(FFile,HMMfilePath)
+		            CRtags(n)=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		            
+		          next
+		          
+		          'check for different CRtags 
+		          uTags.append CRtags(1)
+		          uRegulons.append TFs(1)        '<--- need an array of TF IDs rather than TF seqs here!!!
+		          for n=2 to UBound(CRtags)
+		            dim NewTag as boolean=true
+		            for m=1 to UBound(uTags)
+		              if uTags(m)=CRtags(n) then
+		                uRegulons(m)=uRegulons(m)+";"+regulonIDs(m)
+		                NewTag=false
+		                exit
+		              end if
+		            next
+		            if NewTag then
+		              uTags.Append CRtags(n)
+		              uRegulons.append RegulonIDs(n)
+		            end if
+		          next
+		          
 		        end if
 		      next
+		      
+		      
+		      'write sig files to the previously selected folder
+		      
+		      
+		      
+		      
+		      
+		      
+		      
+		      
+		      
 		      
 		      // add sites.map file to the same folder pairing motif ID with its name
 		      ' (one space separated pair per line)
@@ -1698,23 +1868,23 @@ End
 		      ' 7 (invisible) - TFBS seqs (in fasta format)
 		      ' 8 (invisible) - TFBS length.
 		      
-		      sitesMap=TFfamily_tmp.Child("sites.map")
-		      if sitesMap<>nil then
-		        tos=TextOutputStream.Create(sitesMap)
-		        if tos<>nil then
-		          for n=0 to CollectionList.ListCount-1
-		            if CollectionList.CellCheck(n,0) then
-		              tos.writeline CollectionList.Cell(n,6)+" "+Replace(CollectionList.Cell(n,1)," – ","_")
-		            end if
-		          next
-		          tos.close
-		        else
-		          msgbox "can't write to sites.map file"
-		        end if
-		        
-		      else
-		        msgbox "Can't create the sites.map file"
-		      end if
+		      'sitesMap=TFfamily_tmp.Child("sites.map")
+		      'if sitesMap<>nil then
+		      'tos=TextOutputStream.Create(sitesMap)
+		      'if tos<>nil then
+		      'for n=0 to CollectionList.ListCount-1
+		      'if CollectionList.CellCheck(n,0) then
+		      'tos.writeline CollectionList.Cell(n,6)+" "+Replace(CollectionList.Cell(n,1)," – ","_")
+		      'end if
+		      'next
+		      'tos.close
+		      'else
+		      'msgbox "can't write to sites.map file"
+		      'end if
+		      '
+		      'else
+		      'msgbox "Can't create the sites.map file"
+		      'end if
 		      
 		      // convert all tmp files to a single minimal meme file
 		      ' sites2meme command should look like 
@@ -1756,64 +1926,64 @@ End
 		      '
 		      'URL https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site2
 		      
-		      dim sites2memePath as string
-		      #if targetWin32
-		        sites2memePath=nthfield(MEMEpath,"/meme.exe",1)+"/sites2meme"
-		      #else
-		        MEMEpath=trim(MEMEpath)
-		        if right(MEMEpath,1)="'" then
-		          sites2memePath=left(MEMEpath,len(MEMEpath)-5)+"sites2meme'"
-		        else
-		          sites2memePath=left(MEMEpath,len(MEMEpath)-4)+"sites2meme" 
-		        end if
-		      #endif
-		      
-		      dim cli as string
-		      cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
-		      cli=cli+" "+"-url https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
-		      cli=cli+" "+TFfamily_tmp.ShellPath
-		      
-		      
-		      dim sh As Shell
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute cli
-		      
-		      
-		      If sh.errorCode=0 then
-		        // modify the meme output removing motif ID from the header but adding family name instead 
-		        ' (motif ID remains in the URL anyway)
-		        ' so, 
-		        ' MOTIF site1 TfbS
-		        ' should become
-		        ' MOTIF TfbS LacI-family
-		        
-		        dim memeArr() as string
-		        memeArr=split(sh.Result,EndOfLine)
-		        
-		        
-		        for n=0 to UBound(memeArr)
-		          if left(memeArr(n),6)="MOTIF " then
-		            dim a4,aftr as string
-		            a4=memeArr(n)
-		            memeArr(n)="MOTIF "+NthField(memeArr(n)," ",3)+" "+FamilyName+"-family"
-		            aftr=memeArr(n)
-		            beep
-		          end if
-		        next
-		        
-		        'write the file
-		        for n=0 to UBound(memeArr)
-		          s.WriteLine memeArr(n)
-		        next
-		        s.close
-		        LogoWin.WriteToSTDOUT (" Done!")
-		        
-		      else
-		        msgbox sh.result
-		        Msgbox "Command line was: <"+cli+">"
-		      end if
+		      'dim sites2memePath as string
+		      '#if targetWin32
+		      'sites2memePath=nthfield(MEMEpath,"/meme.exe",1)+"/sites2meme"
+		      '#else
+		      'MEMEpath=trim(MEMEpath)
+		      'if right(MEMEpath,1)="'" then
+		      'sites2memePath=left(MEMEpath,len(MEMEpath)-5)+"sites2meme'"
+		      'else
+		      'sites2memePath=left(MEMEpath,len(MEMEpath)-4)+"sites2meme" 
+		      'end if
+		      '#endif
+		      '
+		      'dim cli as string
+		      'cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
+		      'cli=cli+" "+"-url https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
+		      'cli=cli+" "+TFfamily_tmp.ShellPath
+		      '
+		      '
+		      'dim sh As Shell
+		      'sh=New Shell
+		      'sh.mode=0
+		      'sh.TimeOut=-1
+		      'sh.execute cli
+		      '
+		      '
+		      'If sh.errorCode=0 then
+		      '// modify the meme output removing motif ID from the header but adding family name instead 
+		      '' (motif ID remains in the URL anyway)
+		      '' so, 
+		      '' MOTIF site1 TfbS
+		      '' should become
+		      '' MOTIF TfbS LacI-family
+		      '
+		      'dim memeArr() as string
+		      'memeArr=split(sh.Result,EndOfLine)
+		      '
+		      '
+		      'for n=0 to UBound(memeArr)
+		      'if left(memeArr(n),6)="MOTIF " then
+		      'dim a4,aftr as string
+		      'a4=memeArr(n)
+		      'memeArr(n)="MOTIF "+NthField(memeArr(n)," ",3)+" "+FamilyName+"-family"
+		      'aftr=memeArr(n)
+		      'beep
+		      'end if
+		      'next
+		      '
+		      ''write the file
+		      'for n=0 to UBound(memeArr)
+		      's.WriteLine memeArr(n)
+		      'next
+		      's.close
+		      'LogoWin.WriteToSTDOUT (" Done!")
+		      '
+		      'else
+		      'msgbox sh.result
+		      'Msgbox "Command line was: <"+cli+">"
+		      'end if
 		    end if
 		  end if
 		  
