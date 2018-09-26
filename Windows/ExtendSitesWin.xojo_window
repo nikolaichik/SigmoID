@@ -48,6 +48,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kExtendSitesDesc"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -82,6 +83,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kLeft"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -116,6 +118,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kRight"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -133,7 +136,7 @@ Begin Window ExtendSitesWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -175,7 +178,7 @@ Begin Window ExtendSitesWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -279,7 +282,7 @@ Begin Window ExtendSitesWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -338,6 +341,7 @@ Begin Window ExtendSitesWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -493,8 +497,8 @@ End
 		      else
 		        site=trim(aline)
 		        if instr(site,"N")>0 then
-		          msgbox "Sites with redundant bases are not currently supported by this function"
-		          return
+		          LogoWin.WriteToSTDOUT ("Sites with redundant bases are not currently supported by this function")
+		          'return
 		        end if
 		        
 		        

@@ -1,6 +1,53 @@
 #tag Module
 Protected Module DeNovoTFBSinference
 	#tag Method, Flags = &h0
+		Function Bits2thresholds(IC as double) As string
+		  // Estimate nhmmer thresholds from profile information content (IC, bits)
+		  '  Coefficients derived from linear regression of threshold values of manually calibrated profiles
+		  '
+		  '  Trusted cutoff:
+		  '  TC=0.73IC-6.02
+		  '
+		  '  Noise cutoff:
+		  '  NC=0.28IC+2.52
+		  ' 
+		  ' return format intended for both the hmm and options file and looks like this:
+		  ' // Trusted cutoff. Bit score per-sequence cutoff, set according to the lowest scores seen for true homologous sequences that were above the GA gathering thresholds, when gathering members of the alignment
+		  ' #=GF TC 8.5 8.5
+		  '
+		  ' // Gathering threshold. Bit score per-sequence cutoff used in gathering the members of the alignment
+		  ' #=GF GA 7.9 7.9
+		  '
+		  ' //Noise cutoff. Bit score per-sequence cutoff, set according to the highest scores seen for unrelated sequences
+		  ' #=GF NC 7.6 7.6
+		  
+		  // Re-evaluate the coefficients with carefully calibrated v.2 profiles!
+		  
+		  Dim TC, NC, GA as double
+		  
+		  Const Atc as double = 0.73
+		  Const Btc as double = -6.02
+		  Const Anc as double = 0.28
+		  Const Bnc as double = 2.52
+		  
+		  TC = Atc*IC + Btc  'Trusted
+		  
+		  NC = Anc*IC + Bnc  'Noise
+		  
+		  GA= (TC+NC)/2      'Gathering
+		  
+		  'return str(TC)+";"+str(GA)+";"+str(NC)  ' TC;GA;NC
+		  
+		  dim cutoffs as string  
+		  cutoffs="#=GF TC "+str(TC)+" "+str(TC)+Endofline
+		  cutoffs=cutoffs+"#=GF GA "+str(GA)+" "+str(GA)+Endofline
+		  cutoffs=cutoffs+"#=GF NC "+str(NC)+" "+str(NC)+Endofline
+		  
+		  return cutoffs
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ConvertIDtoGenPept(ncbiID as string) As string
 		  // Requires a valid NCBI ID (e.g. the one returned by UniProt2ncbi_ID)
 		  //
@@ -398,6 +445,51 @@ Protected Module DeNovoTFBSinference
 		  Exception err
 		    ExceptionHandler(err,"Globals:GetCRtags")
 		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetHmmFromFamilyName(familyName as string) As FolderItem
+		  // Family names and the matching file names are hard coded here
+		  
+		  dim TF_HMMs, hmmFile as folderitem
+		  dim hmmFileName as string
+		  
+		  select case familyName
+		  case "OmpR"
+		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
+		  else
+		    'can't find the proper .hmm file, so asking the user to choose it
+		    Dim dlg2 as New OpenDialog
+		    dlg2.InitialDirectory=Resources_f.child("TF_HMMs")          'only these are meaningful
+		    dlg2.promptText="Select hmm file with the model matching this TF family"
+		    'dlg2.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		    dlg2.Title="Open HMM"
+		    dlg2.Filter=FileTypes.All
+		    dlg2.CancelButtonCaption=kCancel
+		    dlg2.ActionButtonCaption=kOpen_
+		    HMMfile=dlg2.ShowModal()
+		    
+		  end select
+		  
+		  if hmmFileName<>"" then
+		    TF_HMMs=Resources_f.Child("TF_HMMs")
+		    
+		    if TF_HMMs=Nil then
+		      msgbox "Can't find TF_HMMs folder"
+		    end if
+		    
+		    HMMfile=TF_HMMs.Child(hmmFileName)
+		    
+		  end if
+		  
+		  if HMMfile=nil then 
+		    msgbox "Can't open the hmm file"
+		  end if
+		  
+		  return HMMfile
+		  
+		  
 		End Function
 	#tag EndMethod
 
@@ -2007,6 +2099,52 @@ Protected Module DeNovoTFBSinference
 		    ExceptionHandler(err,"SeqRetrieval:MEME")
 		    
 		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PalindromicFamily(FamilyName as string, TFname as string) As boolean
+		  // Guess if the profile should be palindromic
+		  '  Based solely on family name,
+		  '  in case of known exceptions TF name is taken into account 
+		  
+		  // These names must match file names in TF_families folder exactly!
+		  
+		  
+		  'drop extension
+		  FamilyName=replace(FamilyName,".hmm","")
+		  
+		  
+		  Select case FamilyName
+		  case "Trans_reg_C"               'PF00486
+		    return false 'all direct repeats
+		    
+		  case "CitT"                      'PF12431
+		    'Similar to Trans_reg_C; these two are often treated as one "Response regulator" family
+		    return false 'all direct repeats
+		    
+		  case "HTH_DeoR"                  'PF08220
+		    return false 'all direct repeats
+		    
+		  case "LuxR"                      'PF00196
+		    if TFname="MalT" then 'The only exception with direct repeats
+		      return false
+		    else
+		      return true
+		    end if
+		    
+		  case "GntR"            'PF00392
+		    'TFBS for some members are palindromic
+		    dim GntRdirect as string = ""            '<-- fill this string with RegPrecise data
+		    if instr(GntRdirect,TFname)>0 then
+		      return false
+		    else
+		      return true
+		    End 
+		    
+		  else
+		    return true
+		  End Select
 		End Function
 	#tag EndMethod
 

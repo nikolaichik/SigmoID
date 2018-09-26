@@ -40,7 +40,7 @@ Begin Window LogoWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -165,7 +165,7 @@ Begin Window LogoWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          DataField       =   ""
@@ -1018,7 +1018,7 @@ End
 
 	#tag MenuHandler
 		Function AlignmentConvertToMEME() As Boolean Handles AlignmentConvertToMEME.Action
-			dim d as integer = MEMEconvert
+			dim d as integer = MEMEconvert(logoFile,self.palindromic)
 			
 			
 		End Function
@@ -1234,14 +1234,14 @@ End
 			else
 			WriteToSTDOUT (EndofLine+"No MEME result file in the .sig, so have to run MEME...")
 			
-			if MEMEconvert = 0 then
+			if MEMEconvert(LogoFile,self.palindromic) = 0 then
 			memeResultAvailable=true
 			end if
 			
 			end if
 			
 			else
-			if MEMEconvert = 0 then
+			if MEMEconvert(LogoFile,self.palindromic) = 0 then
 			memeResultAvailable=true
 			end if
 			
@@ -3577,7 +3577,7 @@ End
 		      'filling the gaps with Ns:
 		      if instr(sequences,"-(")>0 then
 		        
-		        sequences=FillGaps(sequences)
+		        sequences=FillGaps(sequences, false)
 		        
 		        
 		        'write the seqs back to LogoFile:
@@ -4262,74 +4262,6 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:MatchingTFpresent")
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function MEMEconvert() As integer
-		  'Converts current alignment to minimal MEME format
-		  
-		  'copy alignment out of virtual volume:
-		  dim alignment_tmp as folderitem = TemporaryFolder.child("alignment.tmp")
-		  if alignment_tmp<>NIL then
-		    if alignment_tmp.Exists then
-		      alignment_tmp.Delete
-		    end if
-		    LogoFile.CopyFileTo alignment_tmp
-		    
-		  else
-		    msgbox "Can't create temporary file!"
-		    return -1
-		  end if
-		  
-		  
-		  'create a tmp file to store MEME results:
-		  MEMEtmp=TemporaryFolder.child("MEME.txt")
-		  FixPath4Windows(MEMEtmp)
-		  
-		  if MEMEtmp<>NIL then
-		    if MEMEtmp.Exists then
-		      MEMEtmp.Delete
-		    end if
-		    'actual conversion
-		    dim cli as string
-		    Dim sh As Shell
-		    
-		    cli=MEMEpath+" -nmotifs 1 -dna -text "
-		    if Palindromic then
-		      cli=cli+"-pal -revcomp "
-		    end if
-		    cli=cli+alignment_tmp.ShellPath
-		    cli=cli+" > "+MEMEtmp.ShellPath
-		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
-		    WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
-		    sh.execute cli
-		    If sh.errorCode=0 then
-		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      
-		      'print the result in the log pane:
-		      'dim res as FolderItem
-		      dim InStream As  TextInputStream
-		      'res=MEMEtmp.child("meme.txt")
-		      InStream = MEMEtmp.OpenAsTextFile
-		      if InStream<>NIL then
-		        WriteToSTDOUT (EndofLine+InStream.ReadAll)
-		      end if
-		      InStream.close
-		      return sh.errorCode
-		    else
-		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "MEME error code: "+Str(sh.errorCode)
-		      return sh.errorCode
-		    end if
-		    
-		  else
-		    msgbox "Can't create temporary folder!"
-		    return -1
-		  end if
 		End Function
 	#tag EndMethod
 

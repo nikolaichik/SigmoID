@@ -55,6 +55,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -240,6 +241,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   359
       Value           =   2
       Visible         =   True
@@ -333,6 +335,7 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -350,6 +353,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -362,6 +366,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -422,7 +427,7 @@ Begin Window GenomeWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   "#kSearch"
@@ -464,6 +469,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -525,6 +531,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0

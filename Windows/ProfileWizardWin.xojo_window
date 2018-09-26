@@ -92,7 +92,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -169,7 +169,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   "10"
@@ -246,7 +246,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -289,7 +289,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   "1e-6"
@@ -493,7 +493,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -602,7 +602,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   "protein name"
@@ -646,7 +646,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -898,7 +898,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -974,7 +974,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -1055,7 +1055,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -1437,9 +1437,10 @@ End
 		              outstream.WriteLine("////")
 		              outstream.WriteLine(Endofline)
 		              
-		              outstream.WriteLine("// the alignment length")
-		              outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))
-		              outstream.WriteLine(Endofline)
+		              'not used any more:
+		              'outstream.WriteLine("// the alignment length")
+		              'outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))
+		              'outstream.WriteLine(Endofline)
 		              
 		              if PalindromicBox.value then
 		                outstream.WriteLine("// the site is palindromic")
@@ -1485,7 +1486,7 @@ End
 		              end if
 		              
 		              'Save MEME data
-		              if LogoWin.MEMEconvert=0 then
+		              if MEMEconvert(LogoWin.Logofile,LogoWin.palindromic)=0 then
 		                file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
 		                if file2copy<>Nil AND file2copy.exists then
 		                  'CopyFileToVV(file2copy,SigFileVV)
@@ -1841,9 +1842,10 @@ End
 		              outstream.WriteLine("////")
 		              outstream.WriteLine(Endofline)
 		              
-		              outstream.WriteLine("// the alignment length")
-		              outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))
-		              outstream.WriteLine(Endofline)
+		              'not used any more:
+		              'outstream.WriteLine("// the alignment length")
+		              'outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))
+		              'outstream.WriteLine(Endofline)
 		              
 		              if PalindromicBox.value then
 		                outstream.WriteLine("// the site is palindromic")
@@ -1889,7 +1891,7 @@ End
 		              end if
 		              
 		              'Save MEME data
-		              if LogoWin.MEMEconvert=0 then
+		              if MEMEconvert(LogoWin.Logofile,LogoWin.palindromic)=0 then
 		                file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
 		                if file2copy<>Nil AND file2copy.exists then
 		                  CopyFileToVV(file2copy,SigFileVV)

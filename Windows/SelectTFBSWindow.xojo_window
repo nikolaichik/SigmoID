@@ -120,7 +120,7 @@ Begin Window SelectTFBSWindow
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -191,7 +191,7 @@ Begin Window SelectTFBSWindow
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -262,7 +262,7 @@ Begin Window SelectTFBSWindow
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -322,6 +322,7 @@ Begin Window SelectTFBSWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "max:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -339,7 +340,7 @@ Begin Window SelectTFBSWindow
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -399,6 +400,7 @@ Begin Window SelectTFBSWindow
          Selectable      =   False
          TabIndex        =   3
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "min:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -722,6 +724,11 @@ End
 		Group="ID"
 		Type="String"
 		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ParentWin"
+		Group="Behavior"
+		Type="Window"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Placement"

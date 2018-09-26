@@ -128,7 +128,7 @@ Begin Window deNovoWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -247,6 +247,7 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0

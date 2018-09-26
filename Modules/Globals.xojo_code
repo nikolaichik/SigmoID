@@ -703,6 +703,128 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Fasta2IC(logoData as string) As Double
+		  // Calculate Information content from alignment data
+		  ' (simlified version of MakeLogoPic)
+		  
+		  'Information content per position as defined by Schneider et al, 1986
+		  '
+		  ' Ii=2+sum(Fb,i*log2(Fb,i)),
+		  '
+		  'where i is the position within site, b refers to each of the four bases,
+		  'and Fb,i is the frequency of each base at that position
+		  
+		  dim replicas, currentX,letterData as integer
+		  dim entropy, freq As double
+		  dim Acount, Ccount, Gcount, Tcount as string
+		  dim totalEntropy as double=0
+		  
+		  
+		  dim Acounter(0) as integer
+		  dim Ccounter(0) as integer
+		  dim Gcounter(0) as integer
+		  dim Tcounter(0) as integer
+		  dim Arow, Achar as string
+		  dim n,n2, SeqLen as integer
+		  dim LogoDatarr(-1) as string
+		  
+		  LogoDatarr=split(logoData,EndOfLine.UNIX)
+		  
+		  'determine seqlength
+		  RegPreciseTFcollectionsWin.siteLength=0
+		  for n=0 to ubound(logodatarr)-1
+		    Arow=trim(LogoDatarr(n)) 'trimming just in case
+		    Achar=left(Arow,1)
+		    if Achar<>">" then
+		      SeqLen=len(Arow)
+		      RegPreciseTFcollectionsWin.siteLength=SeqLen
+		      exit
+		    end if
+		    
+		  next
+		  
+		  
+		  
+		  
+		  Redim Acounter(SeqLen)
+		  Redim Ccounter(SeqLen)
+		  Redim Gcounter(SeqLen)
+		  Redim Tcounter(SeqLen)
+		  
+		  dim LogoPic as new Picture (30*(SeqLen+1),170,32)
+		  LogoPic.Transparent=1
+		  
+		  for n=0 to ubound(logodatarr)-1
+		    Arow=trim(LogoDatarr(n))
+		    Achar=left(Arow,1)
+		    if Achar<>">" AND len(Arow)>0 then
+		      replicas=replicas+1
+		      if len(Arow)<>SeqLen then
+		        logowin.WriteToSTDOUT "The sequences are of different lengths!"+EndOfLine.UNIX
+		        
+		        LengthsDiffer=true
+		        RegPreciseTFcollectionsWin.siteLength=0
+		        exit
+		      else
+		        LengthsDiffer=false
+		      end if
+		      
+		      for n2=1 to SeqLen
+		        Achar=mid(Arow,n2,1)
+		        select case Achar
+		        case "A"
+		          Acounter(n2)=Acounter(n2)+1
+		        case "C"
+		          Ccounter(n2)=Ccounter(n2)+1
+		        case "G"
+		          Gcounter(n2)=Gcounter(n2)+1
+		        case "T"
+		          Tcounter(n2)=Tcounter(n2)+1
+		        case "N"
+		          'do nothing
+		        case "-"
+		          'do nothing
+		        case else
+		          msgbox "Unexpected non-nucleotide character in input (only ACGTN- allowed)."
+		          return 0
+		        end select
+		      next
+		    end if
+		    
+		  next
+		  
+		  if not LengthsDiffer then
+		    for n=1 to SeqLen
+		       'combine letter names with counts for sorting
+		      if Acounter(n)=0 AND Ccounter(n)=0 AND Gcounter(n)=0 AND Tcounter(n)=0 then
+		        'some sites (e.g. in RegPrecise) have all 'N' positions
+		        entropy=0
+		      else
+		        entropy=2
+		        freq=Acounter(n)/replicas
+		        entropy=entropy+freq*log2(freq)
+		        freq=Ccounter(n)/replicas
+		        entropy=entropy+freq*log2(freq)
+		        freq=Gcounter(n)/replicas
+		        entropy=entropy+freq*log2(freq)
+		        freq=Tcounter(n)/replicas
+		        entropy=entropy+freq*log2(freq)
+		      end if
+		      
+		      totalEntropy=totalEntropy+entropy
+		      
+		    next
+		    
+		  end if
+		  
+		  return totalEntropy
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:Fasta2IC")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub FastaButtonsCheck()
 		  
 		  if RegPreciseWin.RegulatorList.SelCount=1 then
@@ -724,7 +846,7 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FillGaps(sequences as String) As string
+		Function FillGaps(sequences as String, fixDashes as boolean) As string
 		  'RegPrecise data may contain gaps like this:
 		  'TACAGAT-(17)-TTCAGAT-(13)-ATCTGTA-(23)-GTCTGTA
 		  'filling the gaps with Ns:
@@ -742,6 +864,19 @@ Protected Module Globals
 		      next
 		      sequences=replaceall(sequences,"-("+str(gapSize)+")-",Ns)
 		    wend
+		  end if
+		  
+		  if FixDashes then
+		    // Another gap case:
+		    '  >OB0833(bceA) Score=7.9 Pos=-115 [Oceanobacillus iheyensis HTE831]
+		    '  TGTGAC-----TGTCAC
+		    '
+		    '  Latest MEME versions don't like dashes, so replacin 'em with Ns
+		    
+		    sequences=replaceall(sequences,"=-","%%") 'save minus signs
+		    sequences=replaceall(sequences,"-","N")   'fix dashes
+		    sequences=replaceall(sequences,"%%","=-") 'save minus signs
+		    
 		  end if
 		  
 		  return sequences
@@ -1890,6 +2025,76 @@ Protected Module Globals
 		  
 		  Exception err
 		    ExceptionHandler(err,"Globals:MakeLogoPic")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MEMEconvert(FastaFile as folderitem, Palindromic as boolean) As integer
+		  'Converts alignment (fasta format) to minimal MEME format
+		  'results written to MEME.txt in the TemporaryFolder
+		  
+		  'copy alignment out of virtual volume:
+		  dim alignment_tmp as folderitem = TemporaryFolder.child("alignment.tmp")
+		  if alignment_tmp<>NIL then
+		    if alignment_tmp.Exists then
+		      alignment_tmp.Delete
+		    end if
+		    FastaFile.CopyFileTo alignment_tmp
+		    
+		  else
+		    msgbox "Can't create temporary file!"
+		    return -1
+		  end if
+		  
+		  
+		  'create a file to store MEME results:
+		  dim MEMEtmp as folderitem
+		  MEMEtmp=TemporaryFolder.child("MEME.txt")
+		  FixPath4Windows(MEMEtmp)
+		  
+		  if MEMEtmp<>NIL then
+		    if MEMEtmp.Exists then
+		      MEMEtmp.Delete
+		    end if
+		    'actual conversion
+		    dim cli as string
+		    Dim sh As Shell
+		    
+		    cli=MEMEpath+" -nmotifs 1 -dna -text "
+		    if Palindromic then            
+		      cli=cli+"-pal -revcomp "
+		    end if
+		    cli=cli+alignment_tmp.ShellPath
+		    cli=cli+" > "+MEMEtmp.ShellPath
+		    
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    Logowin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      Logowin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      
+		      'print the result in the log pane:
+		      'dim res as FolderItem
+		      dim InStream As  TextInputStream
+		      'res=MEMEtmp.child("meme.txt")
+		      InStream = MEMEtmp.OpenAsTextFile
+		      if InStream<>NIL then
+		        Logowin.WriteToSTDOUT (EndofLine+InStream.ReadAll)
+		      end if
+		      InStream.close
+		      return sh.errorCode
+		    else
+		      Logowin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      MsgBox "MEME error code: "+Str(sh.errorCode)
+		      return sh.errorCode
+		    end if
+		    
+		  else
+		    msgbox "Can't create temporary folder!"
+		    return -1
+		  end if
 		End Function
 	#tag EndMethod
 
