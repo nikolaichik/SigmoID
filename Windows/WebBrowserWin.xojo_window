@@ -31,7 +31,7 @@ Begin Window WebBrowserWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -265,6 +265,11 @@ End
 		  
 		  return me
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub Error(errorNumber as Integer, errorMessage as String)
+		  beep
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events SegmentedControl1

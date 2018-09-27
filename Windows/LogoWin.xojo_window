@@ -1020,6 +1020,23 @@ End
 		Function AlignmentConvertToMEME() As Boolean Handles AlignmentConvertToMEME.Action
 			dim d as integer = MEMEconvert(logoFile,self.palindromic)
 			
+			if d=0 then
+			dim MEMEtmp as folderitem
+			MEMEtmp=TemporaryFolder.child("MEME.txt")
+			FixPath4Windows(MEMEtmp)
+			
+			if MEMEtmp<>NIL then
+			if MEMEtmp.Exists then
+			
+			dim tis as TextInputStream
+			tis=TextInputStream.Open(MEMEtmp)
+			if tis <>nil then
+			WriteToSTDOUT(tis.ReadAll)
+			end if
+			end if
+			end if
+			end if
+			
 			
 		End Function
 	#tag EndMenuHandler
@@ -3237,7 +3254,7 @@ End
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
+		    WriteToSTDOUT (EndofLine+"Running hmmsearch...")
 		    sh.execute cli
 		    If sh.errorCode=0 then
 		      WriteToSTDOUT (EndofLine+Sh.Result)

@@ -1169,7 +1169,7 @@ Protected Module Globals
 		  Dim sh As Shell
 		  
 		  'Usage: hmmbuild [-options] <hmmfile_out> <msafile>
-		  cli=hmmbuildpath+" "+outfilepath+" "+infilepath
+		  cli=hmmbuildpath+" --dna "+outfilepath+" "+infilepath
 		  
 		  
 		  
@@ -1212,14 +1212,14 @@ Protected Module Globals
 		    if HmmResultFile.exists then
 		      HmmResultFile.Delete
 		    end if
-		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
+		    'LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    
 		    sh.execute cli
 		    If sh.errorCode=0 then
-		      LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
+		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		      
 		      instream=HmmResultFile.OpenAsTextFile
 		      
@@ -1574,8 +1574,8 @@ Protected Module Globals
 		    return AllFasta
 		    
 		  else
-		    'single site is of no use for SigmoID!
-		    logowin.WriteToSTDOUT("RegPrecise contains just one site for this regulator. Just ignore it!"+EndOfLine.UNIX)
+		    'single site is of little use for SigmoID!
+		    'logowin.WriteToSTDOUT("RegPrecise contains just one site for this regulator. Just ignore it!"+EndOfLine.UNIX)
 		    Try
 		      FastaSequence=""
 		      FastaHeader=""
@@ -2073,17 +2073,17 @@ Protected Module Globals
 		    Logowin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
 		    sh.execute cli
 		    If sh.errorCode=0 then
-		      Logowin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      Logowin.WriteToSTDOUT (" OK") '(EndofLine+Sh.Result)
 		      
 		      'print the result in the log pane:
 		      'dim res as FolderItem
-		      dim InStream As  TextInputStream
-		      'res=MEMEtmp.child("meme.txt")
-		      InStream = MEMEtmp.OpenAsTextFile
-		      if InStream<>NIL then
-		        Logowin.WriteToSTDOUT (EndofLine+InStream.ReadAll)
-		      end if
-		      InStream.close
+		      'dim InStream As  TextInputStream
+		      ''res=MEMEtmp.child("meme.txt")
+		      'InStream = MEMEtmp.OpenAsTextFile
+		      'if InStream<>NIL then
+		      'Logowin.WriteToSTDOUT (EndofLine+InStream.ReadAll)
+		      'end if
+		      'InStream.close
 		      return sh.errorCode
 		    else
 		      Logowin.WriteToSTDOUT (EndofLine+Sh.Result)
@@ -2533,9 +2533,9 @@ Protected Module Globals
 		  
 		  WebBrowserWin.show
 		  If IsRegulog then
-		    WebBrowserWin.LoadPage("https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id="+str(ID))
+		    WebBrowserWin.LoadPage("http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id="+str(ID))
 		  else
-		    WebBrowserWin.LoadPage("https://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id="+str(ID))
+		    WebBrowserWin.LoadPage("http://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id="+str(ID))
 		  end if
 		  
 		End Sub
