@@ -1669,12 +1669,6 @@ End
 		    return
 		  end if
 		  
-		  // write 'sites' files to tmp folder
-		  ' (simple text files named a la regulogID.txt
-		  ' regulogID will be used as motif ID and will be added to RegPrecise URL when converting 
-		  
-		  ' for palindromic sites, rev. complements should probably be added here
-		  ' as RegPrecise ignores site symmetry (currently, sites are written as they are) 
 		  
 		  dim m,n,p,q,r,s as integer  ' For..Next counters
 		  dim fastaLines(-1) as string
@@ -1685,7 +1679,7 @@ End
 		  DIM RegulonsJSON, Regulon, regs As JSONItem
 		  
 		  
-		  for n=0 to CollectionList.ListCount-1
+		  for n=0 to CollectionList.ListCount-1 'cycle through checked regulogs only
 		    TFname=""
 		    if CollectionList.CellCheck(n,0) then
 		      
@@ -1695,6 +1689,9 @@ End
 		      hts = new HTTPSocket
 		      
 		      hts.Yield=true
+		      
+		      'TFname=CollectionList.Cell(n,1)
+		      'TFname=replace(TFname, " - ","_")
 		      
 		      RegulogID=CollectionList.Cell(n,6)
 		      res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulons?regulogId="+RegulogID,0)
@@ -1706,25 +1703,24 @@ End
 		        for m=0 to regs.Count-1
 		          if regs(m) isa JSONItem then
 		            RegulonIDs.append JSONItem(regs(m)).Value("regulonId")
-		            if TFname="" then
-		              TFname=JSONItem(regs(m)).Value("regulatorName")        '<-- not checked!
-		            end
+		            'if TFname="" then
+		            'TFname=JSONItem(regs(m)).Value("regulatorName")
+		            'end
 		          end if
 		        next
 		      end if
 		      
 		      
 		      
-		      'get the seqs of TFs controlling each regulon:
+		      // get the seqs of TFs controlling each regulon:
+		      
 		      redim TFs(UBound(RegulonIDs))
 		      logowin.WriteToSTDOUT("Getting protein sequence from MicrobesOnline... ")
 		      for m=1 to UBound(RegulonIDs)
 		        
-		        
+		        'RegPrecise is linked to protein seqs via microbesOnline, so we have to get vimssId first
 		        hts = new HTTPSocket
-		        
 		        hts.Yield=true
-		        
 		        res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+RegulonIDs(m),0)
 		        if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		          if res<>"" then
@@ -1738,25 +1734,15 @@ End
 		          end if
 		          
 		          
-		          
-		          
-		          
-		          ///////
-		          
-		          
-		          
-		          
-		          
-		          
-		          
-		          ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
+		          ' now get the actual protein seq
+		          ' mysql -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
+		          ' (mysql access seem to be broken lately)
 		          
 		          ' html alternative:
 		          ' http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=606816&disp=4
 		          
 		          dim URL As string 
 		          URL="http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
-		          
 		          
 		          hts = new HTTPSocket
 		          
@@ -2205,30 +2191,58 @@ End
 		                  
 		                  
 		                  // Assemble and write info file:
-		                  '  Should collect all info available from RegPrecise,
+		                  '  Collect info available from RegPrecise,
 		                  '  add analysis/stats of CRtags/TFBSs
-		                  
-		                  '  Just a placeholder for now: store regulog JSON    
 		                  
 		                  
 		                  hts = new HTTPSocket
 		                  
 		                  hts.Yield=true
 		                  dim RegPreciseInfo as string
+		                  dim JSN2 as new JSONItem
 		                  RegPreciseInfo=hts.Get("http://regprecise.lbl.gov/Services/rest/regulog?regulogId="+RegulogID,0)
-		                  'if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		                  'if res<>"" then
-		                  'JSN0.load(res)
-		                  ''should contain smth like:
-		                  ''{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
-		                  'JSN=JSN0.value("regulator")
-		                  'ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
-		                  'vimssId=JSN.Value("vimssId")
-		                  '
-		                  'end if
-		                  'End If
+		                  ' sample result:
+		                  '{"effector":"BceS, sensor histidine kinase (bacitracin)","pathway":"Bacitracin resistance","regulationType":"TF",
+		                  '"regulatorFamily":"OmpR","regulatorName":"BceR","regulogId":"1339","taxonName":"Bacillales"}
 		                  
-		                  'dim f2 as FolderItem
+		                  JSN2.load(RegPreciseInfo)
+		                  'JSN3=JSN2.value("regulog")
+		                  RegPreciseInfo=DefineEncoding(RegPreciseInfo,Encodings.ASCII)
+		                  RegPreciseInfo="   This profile is built with RegPrecise (version "+RegPreciseWin.RegPreciseVersion+") data for "
+		                  RegPreciseInfo=RegPreciseInfo+TFname+" ("+JSN2.Value("regulatorFamily")+" family) from "+JSN2.Value("taxonName")+". "
+		                  RegPreciseInfo=RegPreciseInfo+TFname+" is involved in "+JSN2.Value("pathway")+" and responds to "+JSN2.Value("effector")+"."+EndOfLine.UNIX
+		                  RegPreciseInfo=RegPreciseInfo+"   RegPrecise regulog (ID "+str(RegulogID)+") includes "+CollectionList.Cell(n,2)+" regulons and "+CollectionList.Cell(n,3)+" inferred binding sites. "
+		                  
+		                  'assemble and then append basic CR tag stats
+		                  dim CRtagStats as string
+		                  if ubound(uTags)=1 then
+		                    CRtagStats=" All regulog members TFs have the same CR tag."
+		                  else
+		                    CRtagStats=" Regulog member TFs have "+str(ubound(uTags))+" variants of CR tags:"+EndOfLine.UNIX
+		                    dim w as Integer
+		                    for w=1 to ubound(uTags)
+		                      dim regCount as integer = CountFields(uRegulons(w),";")
+		                      dim siteCount as integer = CountFields(TFBSs(w),">")-1
+		                      if regCount=1 then
+		                        CRtagStats=CRtagStats+str(uTags(w))+" ("+"1 TF, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
+		                      else
+		                        CRtagStats=CRtagStats+str(uTags(w))+" ("+str(RegCount)+" TFs, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
+		                        
+		                      end if
+		                    next
+		                  End If
+		                  
+		                  dim regCount as integer = CountFields(uRegulons(r),";")
+		                  dim siteCount as integer = CountFields(TFBSs(r),">")-1
+		                  if regCount=1 then
+		                    CRtagStats=CRtagStats+EndOfLine.UNIX+"   This profile includes the data for the TF with CR tag "+uTags(r)+"."
+		                  else
+		                    CRtagStats=CRtagStats+EndOfLine.UNIX+"   This profile includes the data for TFs with CR tag "+uTags(r)+"."
+		                    
+		                  end if
+		                  RegPreciseInfo=RegPreciseInfo+CRtagStats  
+		                  
+		                  
 		                  f2=SigFileVV.Root.child(basename+".info")
 		                  
 		                  if f2<>nil then
@@ -2238,7 +2252,7 @@ End
 		                  end if
 		                  
 		                  
-		                  'Save MEME data
+		                  // Save MEME data
 		                  if MEMEconvert(AlignmentFile,PalindromicSite)=0 then
 		                    file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
 		                    if file2copy<>Nil AND file2copy.exists then
@@ -2252,41 +2266,19 @@ End
 		                    end if
 		                  end
 		                  
-		                  'generate logodata and save it:
-		                  'dim weblogo_out as string = weblogo(AlignmentFile)
-		                  'f2=SigFileVV.Root.child(basename+".logodata")
-		                  'if weblogo_out <>"" then
-		                  'if f2<>nil then
-		                  'outstream = TextOutputStream.Create(f2)
-		                  'outstream.Write(weblogo_out)
-		                  'outstream.Close
-		                  'else
-		                  'msgbox "Can't write logo data file."
-		                  'return
-		                  'end if
-		                  'else
-		                  'LogoWin.WriteToSTDOUT (EndofLine+"Conversion to .sig file aborted because of a weblogo problem")
-		                  'return
-		                  'end if
 		                  
-		                  
+		                  // build and save the hmm:
 		                  Stockholm(AlignmentFile,stock, cutoffs)
 		                  
-		                  
-		                  'build hmm:
-		                  'need a real file for hmmbuild output:
 		                  f2 = TemporaryFolder.child(basename+".hmm")      'place to save
 		                  if f2<>nil then
 		                    FixPath4Windows(f2)
 		                    if hmmbuild(stock.ShellPath,f2.ShellPath) then
 		                      if f2.exists then
-		                        if f2<>Nil then
-		                          CopyFileToVV(f2,SigFileVV)
-		                          logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath+EndOfLine.UNIX)
-		                          LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
-		                        else
-		                          beep
-		                        end if
+		                        CopyFileToVV(f2,SigFileVV)
+		                        logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath+EndOfLine.UNIX)
+		                        LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
+		                        
 		                      else
 		                        beep
 		                      end if

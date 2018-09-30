@@ -2056,11 +2056,32 @@ Protected Module Globals
 		    if MEMEtmp.Exists then
 		      MEMEtmp.Delete
 		    end if
+		    
+		    
+		    'find motif width (required to prevent MEME from cutting off motif edges)
+		    dim tis as TextInputStream
+		    dim ml as integer
+		    dim aline as string
+		    
+		    tis=FastaFile.OpenAsTextFile
+		    
+		    if tis<>nil then
+		      while not tis.EOF
+		        aLine=tis.readLine
+		        if left(aLine,1)="A" OR left(aLine,1)="C" OR left(aLine,1)="G" OR left(aLine,1)="T"  then
+		          ml=len(aline)
+		          exit
+		        end if
+		      wend
+		    end if
+		    
+		    
+		    
 		    'actual conversion
 		    dim cli as string
 		    Dim sh As Shell
 		    
-		    cli=MEMEpath+" -nmotifs 1 -dna -text "
+		    cli=MEMEpath+" -nmotifs 1 -dna -text -w "+str(ml)+" "
 		    if Palindromic then            
 		      cli=cli+"-pal -revcomp "
 		    end if
@@ -2070,7 +2091,7 @@ Protected Module Globals
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    Logowin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
+		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
 		    sh.execute cli
 		    If sh.errorCode=0 then
 		      Logowin.WriteToSTDOUT (" OK") '(EndofLine+Sh.Result)

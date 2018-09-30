@@ -1206,6 +1206,7 @@ End
 #tag Events InfoArea
 	#tag Event
 		Sub Open()
+		  me.TextFont=FixedFont
 		  me.Italic=true
 		  me.TextColor=&c99999900 'gray
 		  me.text="Profile info"
