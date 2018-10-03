@@ -458,6 +458,28 @@ Protected Module DeNovoTFBSinference
 		  select case familyName
 		  case "OmpR"
 		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
+		  case "LuxR"
+		    hmmFileName="GerE.hmm"
+		  case "GntR/MocR"
+		    hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		  case "GntR/Others"
+		    hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		  case "HxlR"
+		    hmmFileName="HxlR.hmm"
+		  case "LacI"
+		    hmmFileName="LacI.hmm"
+		  case "LysR"
+		    hmmFileName="LysR.hmm"
+		  case "MarR"
+		    hmmFileName="MarR_Superfamily.hmm"
+		  case "TetR"
+		    hmmFileName="TetR.hmm"
+		  case "XRE"
+		    hmmFileName="XRE_superfamily.hmm"
+		  case ""
+		    hmmFileName=""
+		  case ""
+		    hmmFileName=""
 		  else
 		    'can't find the proper .hmm file, so asking the user to choose it
 		    Dim dlg2 as New OpenDialog
@@ -2108,15 +2130,15 @@ Protected Module DeNovoTFBSinference
 		  '  Based solely on family name,
 		  '  in case of known exceptions TF name is taken into account 
 		  
-		  // These names must match file names in TF_families folder exactly!
-		  
+		  // These names must match RegPrecise family names exactly!
+		  ' the alternative would be using file names in TF_families folder
 		  
 		  'drop extension
 		  FamilyName=replace(FamilyName,".hmm","")
 		  
 		  
 		  Select case FamilyName
-		  case "Trans_reg_C"               'PF00486
+		  case "OmpR"               'PF00486
 		    return false 'all direct repeats
 		    
 		  case "CitT"                      'PF12431
@@ -2133,15 +2155,22 @@ Protected Module DeNovoTFBSinference
 		      return true
 		    end if
 		    
-		  case "GntR"            'PF00392
-		    'TFBS for some members are palindromic
+		  case "GntR/Others"            'PF00392
+		    'TFBS for most, but not all members are palindromic
 		    dim GntRdirect as string = ""            '<-- fill this string with RegPrecise data
 		    if instr(GntRdirect,TFname)>0 then
 		      return false
 		    else
 		      return true
 		    End 
-		    
+		  case "GntR/MocR"            'PF00392
+		    'TFBS for most members are not palindromic
+		    dim GntRpal as string = ""            '<-- fill this string with RegPrecise data
+		    if instr(GntRpal,TFname)>0 then
+		      return true
+		    else
+		      return false
+		    End 
 		  else
 		    return true
 		  End Select

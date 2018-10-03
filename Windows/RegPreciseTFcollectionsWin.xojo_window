@@ -1658,7 +1658,7 @@ End
 		  if TFfamily_tmp <> nil then
 		    
 		    
-		    'the folder may be there from the previous run, we have delete it!
+		    'the folder may be there from the previous run, we have to delete it!
 		    if TFfamily_tmp.Exists then
 		      dim i as integer
 		      i=deleteEntireFolder(TFfamily_tmp) 'return code isn't handled yet
@@ -1690,8 +1690,8 @@ End
 		      
 		      hts.Yield=true
 		      
-		      'TFname=CollectionList.Cell(n,1)
-		      'TFname=replace(TFname, " - ","_")
+		      TFname=CollectionList.Cell(n,1)
+		      TFname=replace(TFname," – ","_")
 		      
 		      RegulogID=CollectionList.Cell(n,6)
 		      res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulons?regulogId="+RegulogID,0)
@@ -1708,6 +1708,8 @@ End
 		            'end
 		          end if
 		        next
+		      else
+		        RegulonIDs.append regs.Value("regulonId")
 		      end if
 		      
 		      
@@ -1723,68 +1725,87 @@ End
 		        hts.Yield=true
 		        res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+RegulonIDs(m),0)
 		        if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		          if res<>"" then
-		            JSN0.load(res)
-		            'should contain smth like:
-		            '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
-		            JSN=JSN0.value("regulator")
-		            ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
-		            vimssId=JSN.Value("vimssId")
-		            
-		          end if
-		          
-		          
-		          ' now get the actual protein seq
-		          ' mysql -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
-		          ' (mysql access seem to be broken lately)
-		          
-		          ' html alternative:
-		          ' http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=606816&disp=4
-		          
-		          dim URL As string 
-		          URL="http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
-		          
-		          hts = new HTTPSocket
-		          
-		          hts.Yield=true  'allow background activities while waiting
-		          hts.SetRequestHeader("Content-Type:","text/plain")
-		          
-		          res=hts.Get(URL,60)  'adjust timeout?
-		          
-		          if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		            if Res="" then
-		              if hts.ErrorCode=-1 then
-		                logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		          if res="null" then
+		            'API error, quite frequent. really no way to get this protein from RegPrecise/MicrobesOnline
+		            LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Incorrect response from RegPrecise. Can't get the sequence of the TF controlling the regulon with ID "+RegulonIDs(m)+". The sig file will have no CR tag and should be corrected manually."+EndOfLine.UNIX)
+		            ProteinFasta=""
+		          else
+		            if res<>"" then
+		              
+		              JSN0.load(res)
+		              'should contain smth like:
+		              '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		              JSN=JSN0.value("regulator")
+		              
+		              
+		              'Have to add a check for array here, these errors happen in RegPrecise too often!
+		              'use the first item from the array and drop the second one?
+		              'example of problematic JSON:
+		              '{"regulator":[{"locusTag":"GALLO_1056","name":"Rgg","regulatorFamily":"XRE","regulonId":"37986","vimssId":"10395756"},{"locusTag":"GALLO_1054","name":"Rgg","regulatorFamily":"XRE","regulonId":"37986","vimssId":"10395754"}]}
+		              
+		              if JSN.IsArray then
+		                ProteinFasta=">"+JSONItem(JSN(0)).Value("name")+" locus_tag="+JSONItem(JSN(0)).Value("locusTag")+" regulonId="+JSONItem(JSN(0)).Value("regulonId")+" vimssId="+JSONItem(JSN(0)).Value("vimssId")
+		                vimssId=JSONItem(JSN(0)).Value("vimssId")
 		              else
-		                LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		                ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
+		                vimssId=JSN.Value("vimssId")
 		              end if
 		              
-		              ProteinFasta=""
-		            else
-		              'parse the server response
-		              dim pseq as string
-		              pseq=NthField(res,">Protein<",2)
-		              pseq=NthField(pseq,")",2)
-		              pseq=NthField(pseq,"</pre>",1)
-		              pseq=trim(replaceall(pseq,"�",""))           'cleanup just in case
-		              ProteinFasta=ProteinFasta+EndOfLine.UNIX+pseq
-		              'tfastx(ProteinFasta)
-		              
-		              logowin.WriteToSTDOUT(vimssId+" ")
-		              
 		            end if
-		          else
 		            
-		            dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
-		            LogoWin.WriteToSTDOUT (httpErr)
 		            
-		            ProteinFasta=""
+		            ' now get the actual protein seq
+		            ' mysql -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
+		            ' (mysql access seem to be broken lately)
+		            
+		            ' html alternative:
+		            ' http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=606816&disp=4
+		            
+		            dim URL As string 
+		            URL="http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
+		            
+		            hts = new HTTPSocket
+		            
+		            hts.Yield=true  'allow background activities while waiting
+		            hts.SetRequestHeader("Content-Type:","text/plain")
+		            
+		            res=hts.Get(URL,60)  'adjust timeout?
+		            
+		            if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		              if Res="" then
+		                if hts.ErrorCode=-1 then
+		                  logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		                else
+		                  LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		                end if
+		                
+		                ProteinFasta=""
+		              else
+		                'parse the server response
+		                dim pseq as string
+		                pseq=NthField(res,">Protein<",2)
+		                pseq=NthField(pseq,")",2)
+		                pseq=NthField(pseq,"</pre>",1)
+		                pseq=trim(replaceall(pseq,"�",""))           'cleanup just in case
+		                ProteinFasta=ProteinFasta+EndOfLine.UNIX+pseq
+		                'tfastx(ProteinFasta)
+		                
+		                logowin.WriteToSTDOUT(vimssId+" ")
+		                
+		              end if
+		            else
+		              
+		              dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
+		              LogoWin.WriteToSTDOUT (httpErr)
+		              
+		              ProteinFasta=""
+		            end if
+		            
+		            
+		            
+		            
+		            
 		          end if
-		          
-		          
-		          
-		          
-		          
 		        end if
 		        TFs(m)=ProteinFasta
 		      next
@@ -1798,40 +1819,58 @@ End
 		      redim CRtags(UBound(RegulonIDs))
 		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		      for m=1 to UBound(RegulonIDs)
-		        'make the file for hmmsearch
-		        
-		        FFile=TemporaryFolder.Child("CDS.fasta")
-		        if FFile<>nil then
-		          tos=TextOutputStream.Create(FFile)
-		          if tos <>nil then
-		            tos.Write TFs(m)
-		            
-		          end if
-		          tos.close 
-		        end if
-		        
-		        'set CRtagPositions b4 calling HMMsearchWithCRtags:
-		        dim tis as textinputstream
-		        tis=HMMfile.OpenAsTextFile
-		        
-		        if tis<>nil then
+		        if TFs(m)<>"" then
+		          'make the file for hmmsearch
 		          
-		          while CRTAG=""
-		            aLine=tis.ReadLine     'hmmfile
-		            if left(aline,6)="CRTAG " then
-		              CRtag=NthField(aLine,"CRTAG ",2)
-		              exit
+		          FFile=TemporaryFolder.Child("CDS.fasta")
+		          if FFile<>nil then
+		            tos=TextOutputStream.Create(FFile)
+		            if tos <>nil then
+		              tos.Write TFs(m)
+		              
 		            end if
-		          wend
-		          CRtagPositions=CRtag
+		            tos.close 
+		          end if
+		          
+		          'set CRtagPositions b4 calling HMMsearchWithCRtags:
+		          dim tis as textinputstream
+		          tis=HMMfile.OpenAsTextFile
+		          
+		          if tis<>nil then
+		            
+		            while CRTAG=""
+		              aLine=tis.ReadLine     'hmmfile
+		              if left(aline,6)="CRTAG " then
+		                CRtag=NthField(aLine,"CRTAG ",2)
+		                exit
+		              end if
+		            wend
+		            CRtagPositions=CRtag
+		          else
+		            return
+		          end if
+		          tis.close
+		          
+		          
+		          hmmSearchRes=HMMsearchWithCRtags(FFile,HMMfilePath)
+		          CRtags(m)=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		          
+		          if CRtags(m)="" then
+		            'smth wrong with the TF, try to print useful info
+		            'TF title line looks like this:
+		            '>Rgg locus_tag=SGO_0496 regulonId=37987 vimssId=3788810
+		            dim TFdata as string
+		            TFdata=nthfield(TFs(m),"locus_tag=",2)
+		            TFdata=nthfield(TFdata," vimssId=",1)
+		            TFdata="locus_tag="+TFdata
+		            
+		            LogoWin.WriteToSTDOUT(EndOfLine+"hmmsearch failed, most likely the TF ("+TFdata+") is from another family.") 
+		            
+		            CRtags(m)="errorGettingCRtag"
+		          end if
 		        else
-		          return
+		          CRtags(m)="no_CRtag"   
 		        end if
-		        tis.close
-		        
-		        
-		        hmmSearchRes=HMMsearchWithCRtags(FFile,HMMfilePath)
-		        CRtags(m)=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
 		        
 		      next m
 		      LogoWin.WriteToSTDOUT (" OK"+EndOfLine.unix)
@@ -1911,42 +1950,13 @@ End
 		          end if
 		          
 		          
-		          ''Get info for:
-		          'res=""
-		          'jsn = new JSONItem
-		          'hts = new HTTPSocket
-		          'hts.Yield=true
-		          '
-		          'res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,0)
-		          '
-		          'if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		          'if res<>"" then
-		          'JSN.load(res)
-		          'Logowin.WriteToSTDOUT("got the data for regulon ID "+ID+".")
-		          'dim fa as string
-		          'fa=JSON2Fasta(JSN)
-		          'if fa<>"" then
-		          'TFBSs(n)=TFBSs(n)+fa
-		          '
-		          'end if
-		          '
-		          'else
-		          'Logowin.WriteToSTDOUT("no response in 15 sec.")
-		          'end if
-		          'else
-		          'dim httpErr as String = HTTPerror(hts.HTTPStatusCode, true)
-		          'LogoWin.WriteToSTDOUT (httpErr)
-		          'end if
-		          '
 		          
 		          
-		          
-		          
-		        next
+		        next s
 		        
 		        
 		        
-		      next
+		      next r
 		      
 		      
 		      
@@ -1965,8 +1975,8 @@ End
 		      for r=1 to UBound(uTags)
 		        'Generate profile name 
 		        Dim ProfileBaseName as string
-		        TFname=NthField(TFs(r)," ",1)
-		        TFname=NthField(TFname,">",2)
+		        'TFname=NthField(TFs(r)," ",1)
+		        'TFname=NthField(TFname,">",2)
 		        ProfileBaseName=uTags(r)+"_"+TFname  
 		        
 		        SigFile=ExportFolder.child(ProfileBaseName+".sig")  'CRtag_TFname.sig  <---not sure which ProfileName!
@@ -2019,7 +2029,7 @@ End
 		            ' we guess from family name here, which is far from being safe
 		            
 		            
-		            PalindromicSite=palindromicFamily(HMMfile.Name,TFname)
+		            PalindromicSite=palindromicFamily(FamilyName,TFname)
 		            if PalindromicSite then 'reverse complement every site
 		              
 		              if AlignmentFile<>Nil AND AlignmentFile.Exists then
@@ -2097,7 +2107,7 @@ End
 		                  'outstream.WriteLine(Endofline)
 		                  
 		                  outstream.WriteLine("// CRtag sequence")
-		                  outstream.WriteLine("CRtag "+uTags(n))
+		                  outstream.WriteLine("CRtag "+uTags(r))
 		                  
 		                  
 		                  'get seed protein name and sequence
@@ -2108,10 +2118,11 @@ End
 		                  
 		                  proteinSeq=TFs(1)
 		                  lineBreakC=instr(proteinSeq,EndOfLine.Unix)
-		                  if lineBreakC=0 then
-		                    msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
-		                    return
-		                  End If
+		                  'the check for null protein disabled since this is too frequent. The .sig will be incomplete and has to be corrected manually
+		                  'if lineBreakC=0 then
+		                  'msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
+		                  'return
+		                  'End If
 		                  proteinID=NthField(proteinSeq,EndOfLine.Unix,1)
 		                  proteinID=right(proteinID,len(proteinID)-1) 'remove the > sign
 		                  proteinSeq=CleanUp(right(proteinSeq,len(proteinSeq)-lineBreakC))
@@ -2211,7 +2222,7 @@ End
 		                  RegPreciseInfo="   This profile is built with RegPrecise (version "+RegPreciseWin.RegPreciseVersion+") data for "
 		                  RegPreciseInfo=RegPreciseInfo+TFname+" ("+JSN2.Value("regulatorFamily")+" family) from "+JSN2.Value("taxonName")+". "
 		                  RegPreciseInfo=RegPreciseInfo+TFname+" is involved in "+JSN2.Value("pathway")+" and responds to "+JSN2.Value("effector")+"."+EndOfLine.UNIX
-		                  RegPreciseInfo=RegPreciseInfo+"   RegPrecise regulog (ID "+str(RegulogID)+") includes "+CollectionList.Cell(n,2)+" regulons and "+CollectionList.Cell(n,3)+" inferred binding sites. "
+		                  RegPreciseInfo=RegPreciseInfo+"   RegPrecise regulog (ID "+str(RegulogID)+") includes "+CollectionList.Cell(n,2)+" regulons and "+CollectionList.Cell(n,3)+" inferred binding sites."
 		                  
 		                  'assemble and then append basic CR tag stats
 		                  dim CRtagStats as string
@@ -2240,7 +2251,42 @@ End
 		                    CRtagStats=CRtagStats+EndOfLine.UNIX+"   This profile includes the data for TFs with CR tag "+uTags(r)+"."
 		                    
 		                  end if
-		                  RegPreciseInfo=RegPreciseInfo+CRtagStats  
+		                  
+		                  RegPreciseInfo=RegPreciseInfo+CRtagStats 
+		                  
+		                  //**********************************
+		                  ' need to include species info here!
+		                  //**********************************
+		                  
+		                  if regCount=1 then
+		                    RegPreciseInfo=RegPreciseInfo+" The sites belong to the genome of "
+		                  else
+		                    RegPreciseInfo=RegPreciseInfo+" The sites belong to the following genomes:"+EndOfLine
+		                    
+		                  end if
+		                  dim w as integer
+		                  for w=1 to regCount
+		                    res=""
+		                    jsn = new JSONItem
+		                    hts = new HTTPSocket
+		                    hts.Yield=true
+		                    
+		                    res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulon?regulonId="+NthField(uRegulons(r),";",w),0)
+		                    
+		                    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		                      if res<>"" then
+		                        JSN.load(res)
+		                        RegPreciseInfo=RegPreciseInfo+JSN.Value("genomeName")+" (regulonId="+JSN.Value("regulonId")+")"+EndOfLine
+		                        
+		                      end if
+		                    else
+		                      dim httpErr as String = HTTPerror(hts.HTTPStatusCode, true)
+		                      LogoWin.WriteToSTDOUT (httpErr)
+		                    end if
+		                  next
+		                  
+		                  
+		                   
 		                  
 		                  
 		                  f2=SigFileVV.Root.child(basename+".info")

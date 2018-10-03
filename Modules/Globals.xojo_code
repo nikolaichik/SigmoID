@@ -795,7 +795,7 @@ Protected Module Globals
 		  
 		  if not LengthsDiffer then
 		    for n=1 to SeqLen
-		       'combine letter names with counts for sorting
+		      'combine letter names with counts for sorting
 		      if Acounter(n)=0 AND Ccounter(n)=0 AND Gcounter(n)=0 AND Tcounter(n)=0 then
 		        'some sites (e.g. in RegPrecise) have all 'N' positions
 		        entropy=0

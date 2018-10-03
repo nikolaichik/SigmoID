@@ -48,7 +48,6 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "This command will scan the folder you select for files named 'meme.txt' and use these to run TomTom vs motif libraries located in the specified folder."
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -187,7 +186,6 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Query folder:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -295,7 +293,6 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "TF library folder:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -403,7 +400,6 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "TomTom options:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -511,7 +507,6 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Background model:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -686,7 +681,7 @@ End
 		  dim m,n as integer
 		  dim libstring as string
 		  
-		  LibFolder=Resources_f.child("TF_families")
+		  LibFolder=TFfamFolder 'Resources_f.child("TF_families")
 		  
 		  if LibFolder<>Nil then
 		    if LibFolder.exists then
@@ -750,6 +745,11 @@ End
 #tag Events MemeResPathField
 	#tag Event
 		Sub TextChange()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
 		  if not FieldsLocked then
 		    Dim f as FolderItem
 		    f=New FolderItem(trim(me.text))
@@ -764,6 +764,8 @@ End
 		    end if
 		    
 		  end if
+		  
+		  CheckRunButton
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -794,6 +796,15 @@ End
 #tag Events TFfamPathField
 	#tag Event
 		Sub TextChange()
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  if trim(me.text)="" then 
+		    TFfamFolder=Nil
+		    return
+		  end if
 		  if not FieldsLocked then
 		    Dim f as FolderItem
 		    f=New FolderItem(trim(me.text),Folderitem.PathTypeShell)
@@ -808,6 +819,8 @@ End
 		    end if
 		    
 		  end if
+		  
+		  CheckRunButton
 		End Sub
 	#tag EndEvent
 #tag EndEvents

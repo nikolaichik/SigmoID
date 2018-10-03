@@ -1,3 +1,12 @@
+MEME version 4.11.2
+
+ALPHABET= ACGT
+
+strands: +-
+
+Background letter frequencies (from unknown source):
+ A 0.287 C 0.213 G 0.213 T 0.287
+
 MOTIF AglR LacI-Family
 --------------------------------------------------------------------------------
 letter-probability matrix: alength= 4 w= 20 nsites= 24 E= 1.9e-136 
