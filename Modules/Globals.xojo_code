@@ -2108,7 +2108,7 @@ Protected Module Globals
 		      return sh.errorCode
 		    else
 		      Logowin.WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "MEME error code: "+Str(sh.errorCode)
+		      Logowin.WriteToSTDOUT ("MEME error code: "+Str(sh.errorCode)+EndofLine)
 		      return sh.errorCode
 		    end if
 		    
@@ -2116,6 +2116,47 @@ Protected Module Globals
 		    msgbox "Can't create temporary folder!"
 		    return -1
 		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MotifLengthsDiffer(AlignmentData as string) As boolean
+		  // Check for variable motif lengths in fasta formatted data
+		  
+		  dim n as integer
+		  dim datarr(-1) as string
+		  dim aRow, aChar as string
+		  dim LengthsDiffer as boolean
+		  dim SeqLen as integer
+		  
+		  datarr=AlignmentData.split(EndOfLine.unix)
+		  
+		  
+		  'determine seqlength
+		  for n=0 to ubound(datarr)-1
+		    Arow=trim(datarr(n)) 'trimming just in case
+		    Achar=left(Arow,1)
+		    if Achar<>">" then
+		      SeqLen=len(Arow)
+		      exit
+		    end if
+		    
+		  next
+		  
+		  
+		  LengthsDiffer=false
+		  for n=0 to ubound(datarr)-1
+		    Arow=trim(datarr(n))
+		    Achar=left(Arow,1)
+		    if Achar<>">" AND len(Arow)>0 then
+		      if len(Arow)<>SeqLen then
+		        LengthsDiffer=true
+		        exit
+		      end if
+		    end if
+		  next
+		  
+		  return LengthsDiffer
 		End Function
 	#tag EndMethod
 
@@ -3197,6 +3238,9 @@ Protected Module Globals
 		  dim InStream As TextInputStream
 		  dim OutStream As TextOutputStream
 		  dim aline as string
+		  dim dupCount as integer = 1
+		  dim blocks(0) as string
+		  dim n as integer
 		  
 		  OutStream = TextOutputStream.Create(StockholmFile)
 		  InStream = AlignmentFile.OpenAsTextFile
@@ -3215,6 +3259,22 @@ Protected Module Globals
 		      aline=ReplaceAll(aline,chr(9),"_")          'hmmbuild doesn't like tabs
 		      aline=aline+xtra                            'equalise lengths
 		      block=mid(aline,1,60)+" "                   'this long to distinguish duplicates from RegPrecise
+		      'handle possible duplicates:
+		      for n=1 to UBound(blocks)
+		        if blocks(n)=block then
+		          if len(str(dupCount))=1 then
+		            block=left(block,58)+"|"+str(dupCount)+" " 'need a symbol not present in normal headers, hence the "|"
+		          elseif len(str(dupCount))=2 then            'highly unlikely
+		            block=left(block,57)+"|"+str(dupCount)+" "
+		          else                                        'smth wrong!
+		            msgbox "Too many duplicate names! Stockholm conversion failed"
+		            return
+		          end if
+		          dupCount=dupCount+1
+		          exit
+		        end if
+		      next
+		      blocks.Append block
 		    else
 		      outstream.writeline block+aline
 		      block=""

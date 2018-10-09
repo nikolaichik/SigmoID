@@ -1623,6 +1623,8 @@ End
 		  dim uTags(0), uRegulons(0) As string    'Unique CRtags and matching Regulon ID lists
 		  dim PalindromicSite as boolean
 		  dim aline,CRTAG as string
+		  dim CRtagStatArray(0) as string
+		  dim regulogStats, integralCRtagStats As string
 		  
 		  // HMM file matching the collection is needed.
 		  '  for now, the file names are hard linked to family names
@@ -1678,6 +1680,8 @@ End
 		  dim RegulonIDs(0), TFs(0), CRtags(0) as string
 		  DIM RegulonsJSON, Regulon, regs As JSONItem
 		  
+		  'initiate TF stats (tab separated, one TF per line) string to print after saving according to this header:
+		  dim stats as string = "RegulogName    CRtag#    CRtagLength    VariablePositions#    CRtags(numberOfSites)    genomes#    genomesWithoutCRtag#"+EndOfLine.UNIX
 		  
 		  for n=0 to CollectionList.ListCount-1 'cycle through checked regulogs only
 		    TFname=""
@@ -1692,6 +1696,8 @@ End
 		      
 		      TFname=CollectionList.Cell(n,1)
 		      TFname=replace(TFname," – ","_")
+		      TFname=replace(TFname,"/","_")   'avoid path problems
+		      
 		      
 		      RegulogID=CollectionList.Cell(n,6)
 		      res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulons?regulogId="+RegulogID,0)
@@ -1699,6 +1705,7 @@ End
 		      RegulonsJSON=new JSONItem(res) 'Convert RegPrecise string to JSON
 		      regs=RegulonsJSON.value("regulon")
 		      redim RegulonIDs(0)
+		      redim CRtagStatArray(0)
 		      if regs.IsArray then
 		        for m=0 to regs.Count-1
 		          if regs(m) isa JSONItem then
@@ -1717,7 +1724,7 @@ End
 		      // get the seqs of TFs controlling each regulon:
 		      
 		      redim TFs(UBound(RegulonIDs))
-		      logowin.WriteToSTDOUT("Getting protein sequence from MicrobesOnline... ")
+		      logowin.WriteToSTDOUT(EndOfLine.UNIX+"MicrobesOnline: getting protein sequence with ID ")
 		      for m=1 to UBound(RegulonIDs)
 		        
 		        'RegPrecise is linked to protein seqs via microbesOnline, so we have to get vimssId first
@@ -1731,26 +1738,31 @@ End
 		            ProteinFasta=""
 		          else
 		            if res<>"" then
-		              
-		              JSN0.load(res)
-		              'should contain smth like:
-		              '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
-		              JSN=JSN0.value("regulator")
-		              
-		              
-		              'Have to add a check for array here, these errors happen in RegPrecise too often!
-		              'use the first item from the array and drop the second one?
-		              'example of problematic JSON:
-		              '{"regulator":[{"locusTag":"GALLO_1056","name":"Rgg","regulatorFamily":"XRE","regulonId":"37986","vimssId":"10395756"},{"locusTag":"GALLO_1054","name":"Rgg","regulatorFamily":"XRE","regulonId":"37986","vimssId":"10395754"}]}
-		              
-		              if JSN.IsArray then
-		                ProteinFasta=">"+JSONItem(JSN(0)).Value("name")+" locus_tag="+JSONItem(JSN(0)).Value("locusTag")+" regulonId="+JSONItem(JSN(0)).Value("regulonId")+" vimssId="+JSONItem(JSN(0)).Value("vimssId")
-		                vimssId=JSONItem(JSN(0)).Value("vimssId")
-		              else
-		                ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
-		                vimssId=JSN.Value("vimssId")
-		              end if
-		              
+		              Try
+		                JSN0.load(res)
+		                'should contain smth like:
+		                '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		                JSN=JSN0.value("regulator")
+		                
+		                
+		                'Have to add a check for array here, these errors happen in RegPrecise too often!
+		                'use the first item from the array and drop the second one?
+		                'example of problematic JSON:
+		                '{"regulator":[{"locusTag":"GALLO_1056","name":"Rgg","regulatorFamily":"XRE","regulonId":"37986","vimssId":"10395756"},{"locusTag":"GALLO_1054","name":"Rgg","regulatorFamily":"XRE","regulonId":"37986","vimssId":"10395754"}]}
+		                
+		                if JSN.IsArray then
+		                  ProteinFasta=">"+JSONItem(JSN(0)).Value("name")+" locus_tag="+JSONItem(JSN(0)).Value("locusTag")+" regulonId="+JSONItem(JSN(0)).Value("regulonId")+" vimssId="+JSONItem(JSN(0)).Value("vimssId")
+		                  vimssId=JSONItem(JSN(0)).Value("vimssId")
+		                else
+		                  ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
+		                  vimssId=JSN.Value("vimssId")
+		                end if
+		              Catch err As KeyNotFoundException
+		                
+		                LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Can't get the TF controlling regulon with ID="+str(RegulonIDs(m))+". Skipping this regulon...")
+		                exit for m
+		                
+		              End Try
 		            end if
 		            
 		            
@@ -1790,7 +1802,7 @@ End
 		                ProteinFasta=ProteinFasta+EndOfLine.UNIX+pseq
 		                'tfastx(ProteinFasta)
 		                
-		                logowin.WriteToSTDOUT(vimssId+" ")
+		                logowin.WriteToSTDOUT(" "+vimssId)
 		                
 		              end if
 		            else
@@ -1916,6 +1928,7 @@ End
 		      reDim INFO(Ub)
 		      Dim ID as string
 		      
+		      Logowin.WriteToSTDOUT("Getting data for regulon with ID")
 		      for r=1 to Ub
 		        
 		        for s=1 to CountFields(uRegulons(r),";")
@@ -1932,7 +1945,7 @@ End
 		          if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		            if res<>"" then
 		              JSN.load(res)
-		              Logowin.WriteToSTDOUT("got the data for regulon ID "+ID+"."+EndOfLine)
+		              Logowin.WriteToSTDOUT(" "+ID)
 		              dim fa as string
 		              fa=JSON2Fasta(JSN)
 		              if fa<>"" then
@@ -1955,8 +1968,14 @@ End
 		        next s
 		        
 		        
-		        
 		      next r
+		      Logowin.WriteToSTDOUT("."+EndOfLine)
+		      
+		      
+		      
+		      
+		      //Need to remove duplicate names/seqs that RegPrecise has a lot of!!!
+		      
 		      
 		      
 		      
@@ -1972,6 +1991,7 @@ End
 		      
 		      LogoWin.show
 		      
+		      dim ICarr(0) as string
 		      for r=1 to UBound(uTags)
 		        'Generate profile name 
 		        Dim ProfileBaseName as string
@@ -1985,7 +2005,7 @@ End
 		            'a virtualVolume problem
 		            #if TargetLinux
 		              'SpecialFolder.Trash returns NIL in Linux, hence we can't do this properly here
-		              msgbox "Can't overwrithe the existing .sig file. Please remove it or save the new file with a different name"
+		              msgbox "Can't overwrite the existing .sig file. Please remove it or save the new file with a different name"
 		              return
 		            #else
 		              dim fn as string = sigfile.ShellPath
@@ -1994,15 +2014,38 @@ End
 		            #endif
 		          end if
 		          
-		          
-		          
+		          'remove diplicates if present (these do happen in RegPrecise)
+		          dim fSplit(0) As string
+		          dim aSeq as string
+		          dim w,y as integer
+		          if CountFields(TFBSs(r),">")>2 then
+		            fSplit=TFBSs(r).split(">")
+		            for w=UBound(fSplit) downto 1
+		              aSeq=fSplit(w)
+		              for y=1 to w-1
+		                if aSeq=fSplit(y) then
+		                  fSplit.Remove(w)
+		                  exit
+		                end if
+		              next
+		            next
+		            
+		          End If
 		          
 		          'Calculate Info Content
 		          dim IC As double
 		          IC=Fasta2IC(TFBSs(r))
+		          ICarr.append str(IC) 'append IC to the stats array
+		          
 		          'Guess the hmm cutoffs
 		          dim cutoffs as string
 		          cutoffs=Bits2thresholds(IC)
+		          
+		          'Check for variable motif length
+		          if MotifLengthsDiffer(TFBSs(r)) then
+		            LogoWin.WriteToSTDOUT("Motifs are unaligned, can't build the hmm."+EndOfLine.unix)
+		            exit for r
+		          End If
 		          
 		          'convert the alignment to Stockholm format (for building the hmm
 		          dim stock as FolderItem = TemporaryFolder.child("stock")
@@ -2227,18 +2270,24 @@ End
 		                  'assemble and then append basic CR tag stats
 		                  dim CRtagStats as string
 		                  if ubound(uTags)=1 then
-		                    CRtagStats=" All regulog members TFs have the same CR tag."
+		                    CRtagStats=" All regulog member TFs have the same CR tag."
+		                    dim siteCount as integer = CountFields(TFBSs(1),">")-1
+		                    if r=1 then
+		                      CRtagStatArray.append str(uTags(1))+" ("+"1 genome, "+str(siteCount)+" binding sites)"+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
+		                    End If
 		                  else
 		                    CRtagStats=" Regulog member TFs have "+str(ubound(uTags))+" variants of CR tags:"+EndOfLine.UNIX
-		                    dim w as Integer
 		                    for w=1 to ubound(uTags)
 		                      dim regCount as integer = CountFields(uRegulons(w),";")
 		                      dim siteCount as integer = CountFields(TFBSs(w),">")-1
 		                      if regCount=1 then
-		                        CRtagStats=CRtagStats+str(uTags(w))+" ("+"1 TF, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
+		                        CRtagStats=CRtagStats+str(uTags(w))+" ("+"1 genome, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
 		                      else
-		                        CRtagStats=CRtagStats+str(uTags(w))+" ("+str(RegCount)+" TFs, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
+		                        CRtagStats=CRtagStats+str(uTags(w))+" ("+str(RegCount)+" genomes, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
 		                        
+		                      end if
+		                      if r=1 then
+		                        CRtagStatArray.append NthField(CRtagStats,EndOfLine.UNIX,w+1)+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
 		                      end if
 		                    next
 		                  End If
@@ -2264,7 +2313,7 @@ End
 		                    RegPreciseInfo=RegPreciseInfo+" The sites belong to the following genomes:"+EndOfLine
 		                    
 		                  end if
-		                  dim w as integer
+		                  
 		                  for w=1 to regCount
 		                    res=""
 		                    jsn = new JSONItem
@@ -2286,7 +2335,7 @@ End
 		                  next
 		                  
 		                  
-		                   
+		                  
 		                  
 		                  
 		                  f2=SigFileVV.Root.child(basename+".info")
@@ -2310,6 +2359,8 @@ End
 		                    else
 		                      'this file is optional
 		                    end if
+		                  else
+		                    'have to handle cases when only one seq is left and hence meme returns an error
 		                  end
 		                  
 		                  
@@ -2357,14 +2408,98 @@ End
 		          'cancelled
 		        end if
 		        
+		         
+		        
+		        
+		        'may need to add representative CRtag (meaning the one built from most sites) here
+		        'representative .sigs (a (possibly) mixed CRtag profile fully matching the original regulon) could be written to a separate folder
+		        
 		        
 		        
 		      next r  'uTags
 		      
+		      ' use CRtagStatArray to assemble CRtag stats strings
+		      ' array items should contain items formatted like this:
+		      ' LSAKSYSSLQ (4 genomes, 12 binding sites)TFname;InfoBits
+		      ' convert to tab-separated strings with the following fields:
+		      ' CRtag TFname GenomesPresentIn# TFBS# InfoBits
+		      dim s2p,si As string
+		      for m =1 to UBound(CRtagStatArray)
+		        si=NthField(CRtagStatArray(m),")",2)
+		        si=NthField(si,";",1)                                   'TFname
+		        s2p=NthField(CRtagStatArray(m)," (",1)+chr(9)+si+chr(9) 'CRtag+TFname
+		        si=NthField(CRtagStatArray(m),"(",2)
+		        si=NthField(si," genome",1)                              'GenomesPresentIn#
+		        s2p=s2p+si+chr(9)
+		        si=NthField(CRtagStatArray(m),", ",2)                   
+		        si=NthField(si," binding",1)                            'TFBS#
+		        s2p=s2p+si+chr(9)
+		        'si=NthField(CRtagStatArray(m),";",2)                   'InfoBits                  
+		        s2p=s2p+ICarr(m)+EndOfLine.UNIX
+		        integralCRtagStats=integralCRtagStats+s2p
+		      next
+		      
+		      
+		      // Collect regulog stats:
+		      'count missing CR tags
+		      dim noCRtag As integer
+		      for m =1 to UBound(CRtags)
+		        if CRtags(m)="no_CRtag" OR CRtags(m)="[indel within CR tag region]" OR CRtags(m)="errorGettingCRtag" then
+		          noCRtag=noCRtag+1
+		        end if
+		      next
+		      
+		      'count variable positions
+		      dim varPos as Integer = 0
+		      if UBound(uTags)>1 then
+		        dim AAarr(-1) as string
+		        dim aChar As string
+		        m=1
+		        while  uTags(m)="no_CRtag" OR uTags(m)="[indel within CR tag region]" OR uTags(m)="errorGettingCRtag"
+		          m=m+1
+		          if m>UBound(uTags) then exit
+		        wend
+		        if m<UBound(uTags) then
+		          AAarr=split(uTags(m),"")
+		          for m=m to UBound(uTags)
+		            for p=0 to UBound(AAarr)
+		              if uTags(m)<>"no_CRtag" AND uTags(m)<>"[indel within CR tag region]" AND uTags(m)<>"errorGettingCRtag" then
+		                aChar=mid(uTags(m),p+1,1)
+		                if instr(AAarr(p),aChar)=0 then
+		                  AAarr(p)=AAarr(p)+aChar
+		                end if
+		              end if
+		            next 'p
+		          next 'm
+		        end if
+		        
+		        for p=0 to UBound(AAarr)
+		          if len(AAarr(p))>1 then
+		            varPos=varPos+1
+		          end if
+		        next
+		        
+		      end if
+		      
+		      'assemble regulog info line
+		      'RegulogName    genomes#    genomesWithoutCRtag#    CRtag#    VariablePositions#
+		      regulogStats=regulogStats+CollectionList.Cell(n,1)+chr(9)+str(ubound(RegulonIDs))+chr(9)+str(noCRtag)+chr(9)+str(ubound(uTags))+chr(9)+str(VarPos)+EndOfLine.UNIX
+		      
+		      
+		      
+		      
+		      
 		    end if 'CollectionList.CellCheck
 		  next n  'CollectionList.ListCount
 		  
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+EndOfLine.UNIX+"Regulog statistics:"+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT("RegulogName"+chr(9)+"genomes#"+chr(9)+"genomesWithoutCRtag#"+chr(9)+"CRtag#"+chr(9)+"VariablePositions#"+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT(regulogStats)
 		  
+		  
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"CR tag statistics:"+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT("CRtag"+chr(9)+"TFname"+chr(9)+"GenomesPresentIn#"+chr(9)+"TFBS#"+chr(9)+"InfoBits"+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT(integralCRtagStats)
 		  
 		  
 		  Exception err
