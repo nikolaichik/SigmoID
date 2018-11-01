@@ -1625,6 +1625,11 @@ End
 		  dim aline,CRTAG as string
 		  dim CRtagStatArray(0) as string
 		  dim regulogStats, integralCRtagStats As string
+		  dim IdenticalCRRegulogCount, nonIdenticalCRRegulogCount, noCRtagRegulogCount as integer
+		  dim CRtagVariants as string
+		  dim TFCount, noCRtagTFCount as integer
+		  dim CRtagVariantCount(0) As integer
+		  
 		  
 		  // HMM file matching the collection is needed.
 		  '  for now, the file names are hard linked to family names
@@ -1670,6 +1675,28 @@ End
 		    msgbox "Can't create tmp folder"
 		    return
 		  end if
+		  
+		  
+		  'set CRtagPositions b4 calling HMMsearchWithCRtags:
+		  dim tis as textinputstream
+		  tis=HMMfile.OpenAsTextFile
+		  
+		  if tis<>nil then
+		    
+		    while CRTAG=""
+		      aLine=tis.ReadLine     'hmmfile
+		      if left(aline,6)="CRTAG " then
+		        CRtag=trim(NthField(aLine,"CRTAG ",2))
+		        exit
+		      end if
+		    wend
+		    CRtagPositions=CRtag
+		  else
+		    return
+		  end if
+		  tis.close
+		  
+		  redim CRtagVariantCount(CountFields(CRtag,",")-1) 
 		  
 		  
 		  dim m,n,p,q,r,s as integer  ' For..Next counters
@@ -1844,24 +1871,24 @@ End
 		            tos.close 
 		          end if
 		          
-		          'set CRtagPositions b4 calling HMMsearchWithCRtags:
-		          dim tis as textinputstream
-		          tis=HMMfile.OpenAsTextFile
-		          
-		          if tis<>nil then
-		            
-		            while CRTAG=""
-		              aLine=tis.ReadLine     'hmmfile
-		              if left(aline,6)="CRTAG " then
-		                CRtag=NthField(aLine,"CRTAG ",2)
-		                exit
-		              end if
-		            wend
-		            CRtagPositions=CRtag
-		          else
-		            return
-		          end if
-		          tis.close
+		          ''set CRtagPositions b4 calling HMMsearchWithCRtags:
+		          'dim tis as textinputstream
+		          'tis=HMMfile.OpenAsTextFile
+		          '
+		          'if tis<>nil then
+		          '
+		          'while CRTAG=""
+		          'aLine=tis.ReadLine     'hmmfile
+		          'if left(aline,6)="CRTAG " then
+		          'CRtag=NthField(aLine,"CRTAG ",2)
+		          'exit
+		          'end if
+		          'wend
+		          'CRtagPositions=CRtag
+		          'else
+		          'return
+		          'end if
+		          'tis.close
 		          
 		          
 		          hmmSearchRes=HMMsearchWithCRtags(FFile,HMMfilePath)
@@ -2078,7 +2105,7 @@ End
 		              if AlignmentFile<>Nil AND AlignmentFile.Exists then
 		                'check if the alignment is already RC'd
 		                dim firstLine,thirdLine as string
-		                dim tis as TextInputStream
+		                'dim tis as TextInputStream
 		                tis=AlignmentFile.OpenAsTextFile
 		                if tis<>nil then
 		                  firstLine=tis.readLine
@@ -2272,8 +2299,13 @@ End
 		                  if ubound(uTags)=1 then
 		                    CRtagStats=" All regulog member TFs have the same CR tag."
 		                    dim siteCount as integer = CountFields(TFBSs(1),">")-1
+		                    dim regCount as integer = CountFields(uRegulons(1),";")
 		                    if r=1 then
-		                      CRtagStatArray.append str(uTags(1))+" ("+"1 genome, "+str(siteCount)+" binding sites)"+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
+		                      if regCount=1 then
+		                        CRtagStatArray.append str(uTags(1))+" (1 genome, "+str(siteCount)+" binding sites)"+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
+		                      else
+		                        CRtagStatArray.append str(uTags(1))+" ("+str(RegCount)+" genomes, "+str(siteCount)+" binding sites)"+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
+		                      End If
 		                    End If
 		                  else
 		                    CRtagStats=" Regulog member TFs have "+str(ubound(uTags))+" variants of CR tags:"+EndOfLine.UNIX
@@ -2281,7 +2313,7 @@ End
 		                      dim regCount as integer = CountFields(uRegulons(w),";")
 		                      dim siteCount as integer = CountFields(TFBSs(w),">")-1
 		                      if regCount=1 then
-		                        CRtagStats=CRtagStats+str(uTags(w))+" ("+"1 genome, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
+		                        CRtagStats=CRtagStats+str(uTags(w))+" (1 genome, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
 		                      else
 		                        CRtagStats=CRtagStats+str(uTags(w))+" ("+str(RegCount)+" genomes, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
 		                        
@@ -2408,7 +2440,7 @@ End
 		          'cancelled
 		        end if
 		        
-		         
+		        
 		        
 		        
 		        'may need to add representative CRtag (meaning the one built from most sites) here
@@ -2446,6 +2478,9 @@ End
 		      for m =1 to UBound(CRtags)
 		        if CRtags(m)="no_CRtag" OR CRtags(m)="[indel within CR tag region]" OR CRtags(m)="errorGettingCRtag" then
 		          noCRtag=noCRtag+1
+		          noCRtagTFCount=noCRtagTFCount+1
+		        else
+		          TFCount=TFCount+1
 		        end if
 		      next
 		      
@@ -2471,13 +2506,17 @@ End
 		              end if
 		            next 'p
 		          next 'm
+		          
+		          
+		          
 		        end if
 		        
 		        for p=0 to UBound(AAarr)
 		          if len(AAarr(p))>1 then
 		            varPos=varPos+1
+		            CRtagVariantCount(p)=CRtagVariantCount(p)+len(AAarr(p))-1 'Increment variable positions counters
 		          end if
-		        next
+		        next 'p
 		        
 		      end if
 		      
@@ -2485,6 +2524,13 @@ End
 		      'RegulogName    genomes#    genomesWithoutCRtag#    CRtag#    VariablePositions#
 		      regulogStats=regulogStats+CollectionList.Cell(n,1)+chr(9)+str(ubound(RegulonIDs))+chr(9)+str(noCRtag)+chr(9)+str(ubound(uTags))+chr(9)+str(VarPos)+EndOfLine.UNIX
 		      
+		      'IdenticalCRRegulogCount, nonIdenticalCRRegulogCount
+		      if ubound(uTags)>1 then
+		        nonIdenticalCRRegulogCount=nonIdenticalCRRegulogCount+1
+		      elseif ubound(uTags)=1 then 
+		        IdenticalCRRegulogCount=IdenticalCRRegulogCount+1 'this also includes cases when CR tag wasn't detected
+		      end if
+		      'dim TFCount, noCRtagTFCount as integer
 		      
 		      
 		      
@@ -2492,14 +2538,28 @@ End
 		    end if 'CollectionList.CellCheck
 		  next n  'CollectionList.ListCount
 		  
-		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+EndOfLine.UNIX+"Regulog statistics:"+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"__Regulog statistics__"+EndOfLine.UNIX)
 		  LogoWin.WriteToSTDOUT("RegulogName"+chr(9)+"genomes#"+chr(9)+"genomesWithoutCRtag#"+chr(9)+"CRtag#"+chr(9)+"VariablePositions#"+EndOfLine.UNIX)
 		  LogoWin.WriteToSTDOUT(regulogStats)
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"__Regulon level stats__"+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT("TFs with CR tag determined: "+str(TFCount)+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT("TFs without CR tag determined: "+str(noCRtagTFCount)+EndOfLine.UNIX)
 		  
 		  
-		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"CR tag statistics:"+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+EndOfLine.UNIX+"Regulogs combining TFs with the same CR tag: "+str(IdenticalCRRegulogCount)+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT("Regulogs combining TFs with different CR tags: "+str(nonIdenticalCRRegulogCount)+EndOfLine.UNIX)
+		  'LogoWin.WriteToSTDOUT("Regulogs without determined CR tags: "+str(noCRtagRegulogCount)+EndOfLine.UNIX+EndOfLine.UNIX)
+		  
+		  
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"__CR tag statistics__"+EndOfLine.UNIX)
 		  LogoWin.WriteToSTDOUT("CRtag"+chr(9)+"TFname"+chr(9)+"GenomesPresentIn#"+chr(9)+"TFBS#"+chr(9)+"InfoBits"+EndOfLine.UNIX)
 		  LogoWin.WriteToSTDOUT(integralCRtagStats)
+		  
+		  for p=0 to ubound(CRtagVariantCount)
+		    CRtagVariants=CRtagVariants+str(CRtagVariantCount(p))+" "
+		  next p
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+EndOfLine.UNIX+"Number of alternative AA variants at each CR tag position: "+CRtagVariants+EndOfLine.UNIX)
+		  
 		  
 		  
 		  Exception err
