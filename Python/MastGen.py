@@ -23,6 +23,8 @@ class MySeqFeature(SeqFeature):
             out += " Key: %s, Value: %s\n" % (qual_key,
                                               self.qualifiers[qual_key])
         if Bio.__version__ != '1.68': # to avoid problems with diff biopython versions
+            if not hasattr(self, "_sub_features"):
+                self._sub_features = []
             if len(self._sub_features) != 0:
                 out += "Sub-Features\n"
                 for sub_feature in self._sub_features:
@@ -225,7 +227,7 @@ def createparser():
                                 value')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 1.11 (March 26, 2017)')
+                        version='%(prog)s 1.12 (October 29, 2018)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
