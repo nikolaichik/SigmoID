@@ -128,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   1
       Visible         =   True
@@ -1860,7 +1861,9 @@ End
 		        outstream = TextOutputStream.Create(BSfastaFile)
 		        outstream.write(trim(Informer.text))
 		        outstream.close
+		        SeqsChanged=false
 		        LoadAlignment(BSfastaFile)
+		        
 		        if LengthsDiffer then
 		          logowin.ChangeView("Sequences")
 		          return
@@ -3281,6 +3284,10 @@ End
 		Sub LoadAlignment(tmpfile as folderitem)
 		  
 		  if tmpfile<> nil then
+		    TF_HMM=""
+		    CRtag=""
+		    SeedProteinID=""
+		    SeedProteinSeq=""
 		    
 		    dim vv as VirtualVolume
 		    vv=tmpfile.openAsVirtualVolume
@@ -3358,10 +3365,6 @@ End
 		        
 		        'read CRtag and profile calibration values
 		        dim aline As string
-		        TF_HMM=""
-		        CRtag=""
-		        SeedProteinID=""
-		        SeedProteinSeq=""
 		        
 		        InStream = f.OpenAsTextFile
 		        while not InStream.EOF

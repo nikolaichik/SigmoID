@@ -55,7 +55,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -241,7 +240,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Value           =   2
       Visible         =   True
@@ -335,7 +333,6 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -353,7 +350,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -366,7 +362,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -469,7 +464,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -531,7 +525,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -3728,6 +3721,7 @@ End
 		  
 		  If f <> nil AND f.exists then
 		    Stre=f.OpenAsTextFile
+		    stre.Encoding=Encodings.ASCII   'Otherwise encoding can happen to be anything
 		    s=stre.readall
 		    Stre.Close
 		  End if
@@ -4490,7 +4484,24 @@ End
 		      'set the scrollbar:
 		      HScrollBar.value=n 'Extracts fragment too
 		    else
-		      Search4text(query)
+		      if countfields(query,"-")=2 then 'putative seq range
+		        dim leftI, rightI as integer
+		        if isNumeric(NthField(query,"-",1)) then
+		          leftI=val(NthField(query,"-",1))
+		          if isNumeric(NthField(query,"-",2)) then
+		            rightI=val(NthField(query,"-",2))
+		            
+		            'select sequence range:
+		            SelectSeqRange(leftI,rightI)
+		          else
+		            Search4text(query)
+		          end if
+		        else
+		          Search4text(query)
+		        end if
+		      else
+		        Search4text(query)
+		      end if
 		    end if
 		  else
 		    beep
@@ -4575,6 +4586,35 @@ End
 		  
 		  'add selection highlight:
 		  UpdateMapCanvasSelection
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SelectSeqRange(leftI as integer, rightI as integer)
+		  dim n,coord as integer
+		  
+		  'deselect other things
+		  DeselectShapes(Seq.map)
+		  
+		  
+		  'set the scrollbar:
+		  HScrollBar.value=leftI '(leftI+rightI)/2
+		  
+		  topstrand=true
+		  
+		  FeatureLeft=leftI-GBrowseShift
+		  FeatureRight=rightI-GBrowseShift+1
+		  
+		  'HighlightColour=HighlightColor        'return to default color
+		  TextMap(FeatureLeft,FeatureRight)
+		  
+		  'add selection highlight:
+		  UpdateMapCanvasSelection
+		  
+		  SearchPosition=leftI
+		  
+		  
+		  
 		End Sub
 	#tag EndMethod
 
