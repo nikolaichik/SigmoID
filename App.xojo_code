@@ -617,6 +617,23 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function RegulonCollecTF() As Boolean Handles RegulonCollecTF.Action
+			
+			
+			CollecTFwin.CollecTFfile=Resources_f.child("collectf_export.tsv")
+			
+			if CollecTFWin.CollecTFfile<>Nil and CollecTFWin.CollecTFfile.Exists then
+			CollecTFWin.show
+			CollecTFWin.FillRegulatorList(CollecTFWin.CollecTFfile)
+			else
+			LogoWin.WriteToSTDOUT("CollecTF data file is missing")
+			end if
+			
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function RegulonLocalMotifCollections() As Boolean Handles RegulonLocalMotifCollections.Action
 			LocalMotifCollectionsWin.show
 			Return True

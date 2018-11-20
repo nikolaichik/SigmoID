@@ -450,6 +450,13 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem RegulonCollecTF
+         SpecialMenu = 0
+         Text = "CollecTF..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator4
          SpecialMenu = 0
          Text = "-"

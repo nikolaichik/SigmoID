@@ -389,6 +389,7 @@ Folder=Classes;Classes;&h47302C04;&h0;false
 Class=nSocket;Classes/nSocket.xojo_code;&h747497FF;&h47302C04;false
 Window=About;Windows/About.xojo_window;&hB7052ABB;&h2250E847;false
 Window=CRtagWin;Windows/CRtagWin.xojo_window;&h6B208FFF;&h2250E847;false
+Window=CollecTFWin;Windows/CollecTFWin.xojo_window;&h71F7A7FF;&h2250E847;false
 Window=deNovoWin;Windows/deNovoWin.xojo_window;&h69E4E7FF;&h2250E847;false
 Window=EditGeneWin;Windows/EditGeneWin.xojo_window;&h6980BFFF;&h2250E847;false
 Window=ExtendSitesWin;Windows/ExtendSitesWin.xojo_window;&h25CF912B;&h2250E847;false

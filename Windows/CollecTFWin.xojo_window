@@ -1,5 +1,5 @@
 #tag Window
-Begin Window RegulonDBWin
+Begin Window CollecTFWin
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
@@ -23,7 +23,7 @@ Begin Window RegulonDBWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "E. coli regulons (RegulonDB)"
+   Title           =   "CollecTF"
    Visible         =   False
    Width           =   678
    Begin Listbox RegulatorList
@@ -33,7 +33,7 @@ Begin Window RegulonDBWin
       Border          =   False
       ColumnCount     =   5
       ColumnsResizable=   True
-      ColumnWidths    =   ""
+      ColumnWidths    =   "*,70,70,70"
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
@@ -44,7 +44,7 @@ Begin Window RegulonDBWin
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   391
+      Height          =   468
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -68,7 +68,7 @@ Begin Window RegulonDBWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   77
+      Top             =   0
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -194,7 +194,7 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      Text            =   ""
+      Text            =   "CollecTF December 17, 2015 release"
       TextAlign       =   1
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -205,238 +205,6 @@ Begin Window RegulonDBWin
       Underline       =   False
       Visible         =   True
       Width           =   279
-   End
-   Begin GroupBox GroupBox1
-      AutoDeactivate  =   True
-      Bold            =   False
-      Caption         =   "#kEvidenceConfidenceLevel"
-      Enabled         =   True
-      Height          =   56
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   318
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   13
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   9
-      Underline       =   False
-      Visible         =   True
-      Width           =   350
-      Begin RadioButton ConfirmedRadio
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kConfirmed"
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   338
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   35
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         Width           =   126
-      End
-      Begin RadioButton WeakRadio
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kWeak"
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   580
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   2
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   35
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         Width           =   77
-      End
-      Begin RadioButton StrongRadio
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kStrong"
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   476
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   1
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   35
-         Underline       =   False
-         Value           =   True
-         Visible         =   True
-         Width           =   100
-      End
-   End
-   Begin GroupBox GroupBox2
-      AutoDeactivate  =   True
-      Bold            =   False
-      Caption         =   "#kDataset"
-      Enabled         =   True
-      Height          =   56
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   12
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   14
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   9
-      Underline       =   False
-      Visible         =   True
-      Width           =   280
-      Begin RadioButton TFBSRadio
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kTFbindingsites"
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox2"
-         Italic          =   False
-         Left            =   32
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   35
-         Underline       =   False
-         Value           =   True
-         Visible         =   True
-         Width           =   130
-      End
-      Begin RadioButton PromotersRadio
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kPromoters"
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox2"
-         Italic          =   False
-         Left            =   185
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   1
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   35
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         Width           =   100
-      End
-   End
-   Begin PushButton FastaButton
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "#kCheckTF"
-      Default         =   False
-      Enabled         =   False
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   345
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   15
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   480
-      Underline       =   False
-      Visible         =   True
-      Width           =   175
    End
    Begin mHTTPSocket RegulonDBSocket
       Address         =   ""
@@ -514,13 +282,6 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function RegulonCheckTF() As Boolean Handles RegulonCheckTF.Action
-			
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
 		Function RegulonGetRegPreciseTFseqs() As Boolean Handles RegulonGetRegPreciseTFseqs.Action
 			'just run tfasty/tfastx
 			
@@ -533,13 +294,13 @@ End
 			if instr(TF_name,"-")>0 then
 			LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
 			end if
-			if TFBSRadio.value then 'TF
+			'if TFBSRadio.value then 'TF
 			theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
 			theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
-			else                    'sigma
-			theURL="http://regulondb.ccg.unam.mx/sigmulon?term="+TF_ID
-			theURL=theURL+"&organism=ECK12&format=jsp&type=sigmulon"
-			end if
+			'else                    'sigma
+			'theURL="http://regulondb.ccg.unam.mx/sigmulon?term="+TF_ID
+			'theURL=theURL+"&organism=ECK12&format=jsp&type=sigmulon"
+			'end if
 			
 			dim res as string
 			dim hts as new HTTPSocket
@@ -601,40 +362,22 @@ End
 
 
 	#tag Method, Flags = &h0
-		Sub CheckTF()
-		  'just run tfasty/tfastx
-		  
-		  'get the ID:
-		  logowin.show
-		  logowin.WriteToSTDOUT("Contacting RegulonDB... ")
-		  dim TF_ID, theURL as string
-		  TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
-		  TF_name=RegulatorList.Cell(RegulatorList.ListIndex,0)
-		  if instr(TF_name,"-")>0 then
-		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
-		  end if
-		  if TFBSRadio.value then 'TF
-		    theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
-		    theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
-		  else                    'sigma
-		    theURL="http://regulondb.ccg.unam.mx/sigmulon?term="+TF_ID
-		    theURL=theURL+"&organism=ECK12&format=jsp&type=sigmulon"
-		  end if
-		  
-		  
-		  RegulonDBSocket.Get(theURL)
-		  if RegulonDBSocket.ErrorCode<>0 then
-		    SocketError RegulonDBSocket.ErrorCode
-		  end if
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub FillRegulatorList(RegulonDBfile as folderitem)
 		  
 		  'tab-sepaprated columns:
 		  '# Columns:
+		  '1 TF name
+		  '2 TF_accession
+		  '3 genome_accession
+		  '4 organism
+		  '5 site_start
+		  '6 site_end
+		  '7 site_strand
+		  '8 sequence
+		  '9  mode (repressor/activator)
+		  '10 experimental_evidence
+		  '11 regulated genes (locus_tags)
+		  
 		  '# (1) Transcription Factor (TF) identifier assigned by RegulonDB
 		  '# (2) TF name
 		  '# (3) TF binding site (TF-bs) identifier assigned by RegulonDB
@@ -692,17 +435,11 @@ End
 		  dim linecount, n, GeneNo, Confidence,currentConfidence as integer
 		  dim newgene, isPromoterSet as boolean
 		  dim aTF, currentTF, TFdata, TF_ID as string
+		  dim TFBSname as string
+		  dim anOrg, currentOrg as string
 		  dim siteSeq, conf as string
 		  
 		  
-		  'Evidence confidence level:
-		  if WeakRadio.Value then
-		    Confidence=0
-		  elseif StrongRadio.value then
-		    Confidence=1
-		  else
-		    confidence=2 'confirmed
-		  end if
 		  
 		  tis=RegulonDBfile.OpenAsTextFile
 		  
@@ -712,350 +449,105 @@ End
 		    redim regulatorArray(-1)
 		    
 		    
-		    'skip the header, but get version number:
-		    while not tis.EOF
-		      aLine=tis.readLine
-		      if instr(aline,"# Release:")>0 then
-		        RegulonDBVersion=NthField(aline,"# Release: ",2)
-		        RegulonDBVersion=replace(RegulonDBVersion," Date: "," (")
-		        RegulonDBVersion=RegulonDBVersion+")"
-		        exit
-		      end if
-		    wend
-		    while not tis.EOF
-		      aLine=tis.readLine
-		      if instr(aline,"Evidence confidence level")>0 then
-		        exit
-		      end if
-		    wend
+		    aLine=tis.readLine 'skip header line
 		    
-		    if PromotersRadio.value then
-		      isPromoterSet=true
-		    end if
 		    
 		    minlen=100
 		    while not tis.EOF
 		      aLine=tis.readLine
-		      if len(aline)>60 then 'skip empty lines
-		        BSarr()=split(aline,tab)
-		        BSarr.Insert(0,"") 'zero based array correction
+		      
+		      BSarr()=split(aline,tab)
+		      BSarr.Insert(0,"") 'zero based array correction
+		      
+		      
+		      
+		      siteSeq=BSarr(8)
+		      
+		      if siteSeq<>"" then 'filter out empty sites
 		        
 		        
-		        if isPromoterSet then
-		          siteSeq=BSarr(6)
-		        else
-		          siteSeq=BSarr(12)
-		        end if
-		        if siteSeq<>"" then 'filter out empty sites
+		        'if currentConfidence>=Confidence then
+		        aTF=BSarr(2)
+		        anOrg=BSarr(1)+" "+BSarr(4)
+		        if aTF<>currentTF then 'new TF
+		          'First, fill the table and array with the data for the previous TF:
+		          'MinLen=MinLen-20 '10 bases added by RegulonDB on each side
+		          'MaxLen=maxLen-20
+		          GeneNo=UBound(geneArr)+1
 		          
-		          'check confidence:
-		          if isPromoterSet then
-		            conf=BSarr(8)
-		          else
-		            conf=BSarr(14)
-		          end if
-		          
-		          if conf="Confirmed" then
-		            currentConfidence=2
-		          elseif conf="Strong" then
-		            currentConfidence=1
-		          else
-		            currentConfidence=0 'Weak
-		          end if
-		          
-		          if currentConfidence>=Confidence then
-		            aTF=BSarr(2)
-		            if aTF<>currentTF then 'new TF
-		              'First, fill the table and array with the data for the previous TF:
-		              MinLen=MinLen-20 '10 bases added by RegulonDB on each side
-		              MaxLen=maxLen-20
-		              GeneNo=UBound(geneArr)+1
-		              
-		              if GeneNo>0 then
-		                RegulatorArray.Append TFdata
-		                'RegulatorList columns are:
-		                'TF name    Number of sites    Genes controlled    Site width    RegulonDB_TF_ID
-		                dim reg() as string
-		                if MinLen=MaxLen then
-		                  reg=array(currentTF, str(linecount), str(GeneNo), str(minLen), TF_ID)
-		                else
-		                  reg=array(currentTF, str(linecount), str(GeneNo), str(minLen)+"-"+str(maxLen), TF_ID)
-		                end if
-		                RegulatorList.AddRow(reg)
-		              end if
-		              
-		              'reinitialise counters and accumulators
-		              currentTF=aTF
-		              linecount=0
-		              MinLen=100
-		              MaxLen=0
-		              redim geneArr(-1)
-		              TFdata=""
-		              TF_ID=BSarr(1)
-		            end if
-		            
-		            linecount=linecount+1
-		            
-		            currentGene=BSarr(8)
-		            newgene=true
-		            for n=0 to UBound(genearr)
-		              if currentGene=genearr(n) then
-		                newgene=false
-		                exit
-		              end if
-		            next
-		            if newgene then
-		              geneArr.append(currentGene)
-		            end if
-		            
-		            'BSarr(8)+"_"+BSarr(11) gives unique name
-		            
-		            tline=">"+BSarr(8)+"_"+BSarr(11)+" "+BSarr(10)+" "+BSarr(9)+" "+BSarr(1)+" "+BSarr(2)+" "+BSarr(3)+" "+BSarr(4)+" "+BSarr(5)+" "+BSarr(6)+" "+BSarr(7)+" "+BSarr(13)+" "+BSarr(14)
-		            
-		            theSeq=BSarr(12)
-		            
-		            if lenb(theSeq)<minLen then
-		              minLen=lenb(theSeq)
-		            end if
-		            
-		            if lenb(theSeq)>maxLen then
-		              maxLen=lenb(theSeq)
-		            end if
-		            
-		            TFdata=TFdata+tline+EndOfLine.Unix
-		            'RC should be an option
-		            if BSarr(6)="forward" then
-		              TFdata=TFdata+theSeq+EndOfLine.Unix
+		          if GeneNo>0 then
+		            RegulatorArray.Append TFdata
+		            'RegulatorList columns are:
+		            'TF name    Number of sites    Genes controlled    Site width    RegulonDB_TF_ID
+		            dim reg() as string
+		            if MinLen=MaxLen then
+		              reg=array(currentOrg, str(linecount), str(GeneNo), str(minLen), TF_ID)
 		            else
-		              TFdata=TFdata+ReverseComplement(theSeq)+EndOfLine.Unix
+		              reg=array(currentOrg, str(linecount), str(GeneNo), str(minLen)+"-"+str(maxLen), TF_ID)
 		            end if
+		            RegulatorList.AddRow(reg)
 		          end if
 		          
+		          'reinitialise counters and accumulators
+		          currentTF=aTF
+		          currentOrg=anOrg
+		          linecount=0
+		          MinLen=100
+		          MaxLen=0
+		          redim geneArr(-1)
+		          TFdata=""
+		          TF_ID=BSarr(2)
 		        end if
-		      end if
-		    wend
-		    'add the last TF
-		    MinLen=MinLen-20 '10 bases added by RegulonDB on each side
-		    MaxLen=maxLen-20
-		    GeneNo=UBound(geneArr)+1
-		    if GeneNo>0 then
-		      RegulatorArray.Append TFdata
-		      'RegulatorList columns are:
-		      'TF name    Number of sites    Genes controlled    Site width
-		      dim reg() as string
-		      if MinLen=MaxLen then
-		        reg=array(currentTF, str(linecount), str(GeneNo), str(minLen), TF_ID)
-		      else
-		        reg=array(currentTF, str(linecount), str(GeneNo), str(minLen)+"-"+str(maxLen), TF_ID)
-		      end if
-		      RegulatorList.AddRow(reg)
-		    end if
-		    
-		    
-		  end if
-		  RegulonDBinfoLabel.text="RegulonDB "+RegulonDBVersion+". "+str(RegulatorList.ListCount)+" TFs."
-		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub FillRegulatorList2(RegulonDBfile as folderitem)
-		  
-		  'tab-sepaprated columns:
-		  '# Columns:
-		  '# (1) Transcription Factor (TF) identifier assigned by RegulonDB
-		  '# (2) TF name
-		  '# (3) TF binding site (TF-bs) identifier assigned by RegulonDB
-		  '# (4) TF-bs left end position in the genome
-		  '# (5) TF-bs right end position in the genome
-		  '# (6) DNA strand where the  TF-bs is located
-		  '# (7) TF-Gene interaction identifier assigned by RegulonDB (related to the "TF gene interactions" file)
-		  '# (8) Transcription unit regulated by the TF
-		  '# (9) Gene expression effect caused by the TF bound to the  TF-bs (+ activation, - repression, +- dual, ? unknown)
-		  '# (10) Promoter name
-		  '# (11) Center position of TF-bs, relative to Transcription Start Site
-		  '# (12) TF-bs sequence (upper case)
-		  '# (13) Evidence that supports the existence of the TF-bs
-		  '# (14) Evidence confidence level (Confirmed, Strong, Weak)
-		  'ECK125140816    AccB    ECK120011222    0    0    forward    ECK120032360    accBC    -    accBp
-		  'ECK120015994    AcrR    ECK120018491    484933    484956    reverse    ECK120033472    acrAB    -    acrAp    -22.5    gcgttagattTACATACATTTGTGAATGTATGTAccatagcacg    [BCE|W|Binding of cellular extracts],[GEA|W|Gene expression analysis]
-		  
-		  
-		  'This is the version modofied for promoters
-		  
-		  'Promoter set:
-		  '# Columns:
-		  '# (1) Promoter identifier assigned by RegulonDB
-		  '# (2) Promoter Name
-		  '# (3) DNA strand where the promoter is located
-		  '# (4) Genome map position of Transcription Start Site (+1)
-		  '# (5) Sigma Factor that recognize the promoter
-		  '# (6) Promoter Sequence (+1 upper case)
-		  '# (7) Evidence that supports the existence of the promoter
-		  '# (8) Evidence confidence level (Confirmed, Strong, Weak)
-		  
-		  
-		  dim tis as TextInputStream
-		  dim tos as TextOutputStream
-		  dim BSarr() as string
-		  dim tab as string = chr(9)
-		  dim aline, tline as string
-		  dim theSeq, aGene, currentGene, geneArr() as string
-		  dim linecount, n, GeneNo, Confidence,currentConfidence as integer
-		  dim newgene, isPromoterSet as boolean
-		  dim aTF, currentTF, TFdata, TF_ID as string
-		  dim siteSeq, conf as string
-		  
-		  
-		  'Evidence confidence level:
-		  if WeakRadio.Value then
-		    Confidence=0
-		  elseif StrongRadio.value then
-		    Confidence=1
-		  else
-		    confidence=2 'confirmed
-		  end if
-		  
-		  tis=RegulonDBfile.OpenAsTextFile
-		  
-		  if tis<>nil then
-		    'reinitialise the list and the array
-		    RegulatorList.DeleteAllRows
-		    redim regulatorArray(-1)
-		    
-		    
-		    'skip the header, but get version number:
-		    while not tis.EOF
-		      aLine=tis.readLine
-		      if instr(aline,"# Release:")>0 then
-		        RegulonDBVersion=NthField(aline,"# Release: ",2)
-		        RegulonDBVersion=replace(RegulonDBVersion," Date: "," (")
-		        RegulonDBVersion=RegulonDBVersion+")"
-		        exit
-		      end if
-		    wend
-		    while not tis.EOF
-		      aLine=tis.readLine
-		      if instr(aline,"Evidence confidence level")>0 then
-		        exit
-		      end if
-		    wend
-		    
-		    if PromotersRadio.value then
-		      isPromoterSet=true
-		    end if
-		    
-		    minlen=100
-		    while not tis.EOF
-		      aLine=tis.readLine
-		      if len(aline)>60 then 'skip empty lines
-		        BSarr()=split(aline,tab)
-		        BSarr.Insert(0,"") 'zero based array correction
 		        
+		        linecount=linecount+1
 		        
-		        if isPromoterSet then
-		          siteSeq=BSarr(6)
+		        currentGene=BSarr(11)
+		        newgene=true
+		        for n=0 to UBound(genearr)
+		          if currentGene=genearr(n) then
+		            newgene=false
+		            exit
+		          end if
+		        next
+		        if newgene then
+		          geneArr.append(currentGene)
+		        end if
+		        
+		        'BSarr(11)+"_"+BSarr(5) gives unique name
+		        
+		        if CountFields(BSarr(11),",")>1 then
+		          TFBSname=nthField(BSarr(11),",",1)
 		        else
-		          siteSeq=BSarr(12)
+		          TFBSname=BSarr(11)
 		        end if
-		        if siteSeq<>"" then 'filter out empty sites
-		          
-		          'check confidence:
-		          if isPromoterSet then
-		            conf=BSarr(8)
-		          else
-		            conf=BSarr(14)
-		          end if
-		          
-		          if conf="Confirmed" then
-		            currentConfidence=2
-		          elseif conf="Strong" then
-		            currentConfidence=1
-		          else
-		            currentConfidence=0 'Weak
-		          end if
-		          
-		          if currentConfidence>=Confidence then
-		            
-		            aTF=BSarr(5)
-		            if aTF<>"" then
-		              if aTF<>currentTF then 'new TF
-		                'First, fill the table and array with the data for the previous TF:
-		                MinLen=MinLen-20 '10 bases added by RegulonDB on each side
-		                MaxLen=maxLen-20
-		                GeneNo=UBound(geneArr)+1
-		                
-		                if GeneNo>0 then
-		                  RegulatorArray.Append TFdata
-		                  'RegulatorList columns are:
-		                  'TF name    Number of sites    Genes controlled    Site width    RegulonDB_TF_ID
-		                  dim reg() as string
-		                  if MinLen=MaxLen then
-		                    reg=array(currentTF, str(linecount), str(GeneNo), str(minLen), TF_ID)
-		                  else
-		                    reg=array(currentTF, str(linecount), str(GeneNo), str(minLen)+"-"+str(maxLen), TF_ID)
-		                  end if
-		                  RegulatorList.AddRow(reg)
-		                end if
-		                
-		                'reinitialise counters and accumulators
-		                currentTF=aTF
-		                linecount=0
-		                MinLen=100
-		                MaxLen=0
-		                redim geneArr(-1)
-		                TFdata=""
-		                TF_ID=BSarr(1)
-		              end if
-		              
-		              linecount=linecount+1
-		              
-		              currentGene=BSarr(2)
-		              if right(currentGene,1)<>"p" then 'drop the number
-		                currentGene=left(currentGene,lenb(currentGene)-1)
-		              end if
-		              newgene=true
-		              for n=0 to UBound(genearr)
-		                if currentGene=genearr(n) then
-		                  newgene=false
-		                  exit
-		                end if
-		              next
-		              if newgene then
-		                geneArr.append(currentGene)
-		              end if
-		              
-		              'BSarr(2) is supposedly unique
-		              tline=">"+BSarr(2)+" "+BSarr(5)+" "+BSarr(3)+" "+BSarr(4)+" "+BSarr(7)+" "+BSarr(8)
-		              theSeq=BSarr(6)
-		              
-		              if lenb(theSeq)<minLen then
-		                minLen=lenb(theSeq)
-		              end if
-		              
-		              if lenb(theSeq)>maxLen then
-		                maxLen=lenb(theSeq)
-		              end if
-		              
-		              TFdata=TFdata+tline+EndOfLine.Unix
-		              'RC should be an option
-		              'if BSarr(6)="forward" then
-		              TFdata=TFdata+theSeq+EndOfLine.Unix
-		              'else
-		              'TFdata=TFdata+ReverseComplement(theSeq)+EndOfLine.Unix
-		              'end if
-		              
-		            end if
-		          end if
-		          
+		        tline=">"+TFBSname+"_"+BSarr(5)+"-"+BSarr(6)+"("+BSarr(7)+ ")"+BSarr(1)+" "+BSarr(2)+" "+BSarr(4)+" "+BSarr(3)+" "+BSarr(9)+" "+BSarr(11)+" | "+BSarr(10)
+		        
+		        theSeq=BSarr(8)
+		        
+		        if lenb(theSeq)<minLen then
+		          minLen=lenb(theSeq)
 		        end if
+		        
+		        if lenb(theSeq)>maxLen then
+		          maxLen=lenb(theSeq)
+		        end if
+		        
+		        TFdata=TFdata+tline+EndOfLine.Unix
+		        TFdata=TFdata+theSeq+EndOfLine.Unix
+		        
+		        'end if
+		        
+		        
+		        
+		        
+		        
+		        
+		        
+		        
 		      end if
 		    wend
+		    
 		    'add the last TF
-		    MinLen=MinLen-20 '10 bases added by RegulonDB on each side
-		    MaxLen=maxLen-20
 		    GeneNo=UBound(geneArr)+1
 		    if GeneNo>0 then
 		      RegulatorArray.Append TFdata
@@ -1063,16 +555,16 @@ End
 		      'TF name    Number of sites    Genes controlled    Site width
 		      dim reg() as string
 		      if MinLen=MaxLen then
-		        reg=array(currentTF, str(linecount), str(GeneNo), str(minLen), TF_ID)
+		        reg=array(currentOrg, str(linecount), str(GeneNo), str(minLen), TF_ID)
 		      else
-		        reg=array(currentTF, str(linecount), str(GeneNo), str(minLen)+"-"+str(maxLen), TF_ID)
+		        reg=array(currentOrg, str(linecount), str(GeneNo), str(minLen)+"-"+str(maxLen), TF_ID)
 		      end if
 		      RegulatorList.AddRow(reg)
 		    end if
 		    
 		    
 		  end if
-		  RegulonDBinfoLabel.text="RegulonDB "+RegulonDBVersion+". "+str(RegulatorList.ListCount)+" TFs."
+		  
 		  
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
@@ -1085,13 +577,7 @@ End
 		  dim TF_ID, theURL as string
 		  TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
 		  
-		  if TFBSRadio.value then 'TF
-		    theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
-		    theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
-		  else                    'sigma
-		    theURL="http://regulondb.ccg.unam.mx/sigmulon?term="+TF_ID
-		    theURL=theURL+"&organism=ECK12&format=jsp&type=sigmulon"
-		  end if
+		  theURL="http://collectf.umbc.edu/browse/search_terms/?search-term="+TF_ID
 		  
 		  WebBrowserWin.show
 		  WebBrowserWin.LoadPage(theURL)
@@ -1178,15 +664,15 @@ End
 
 
 	#tag Property, Flags = &h0
+		CollecTFfile As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CollecTFVersion As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		RegulatorArray(-1) As string
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		RegulonDBfile As folderitem
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		RegulonDBVersion As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1203,16 +689,10 @@ End
 		    LogoButton.Enabled=true
 		    InfoButton.Enabled=true
 		    InfoButton.HelpTag=""
-		    if LogoWin.GenomeFile<>nil then
-		      FastaButton.Enabled=true
-		    else
-		      FastaButton.Enabled=false
-		    end if
 		  else
 		    LogoButton.Enabled=false
 		    InfoButton.Enabled=false
 		    InfoButton.HelpTag="Select a single TF to enable this button"
-		    FastaButton.Enabled=false
 		  end if
 		  
 		  'if me.SelCount>=1 then
@@ -1251,74 +731,13 @@ End
 		    me.Icon=SystemIcons.Info(20,20)
 		    me.Caption=""
 		  #endif
+		  
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Action()
 		  RegulonInfo
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events ConfirmedRadio
-	#tag Event
-		Sub Action()
-		  if TFBSRadio.value then
-		    FillRegulatorList(RegulonDBfile)
-		  else
-		    FillRegulatorList2(RegulonDBfile)
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events WeakRadio
-	#tag Event
-		Sub Action()
-		  if TFBSRadio.value then
-		    FillRegulatorList(RegulonDBfile)
-		  else
-		    FillRegulatorList2(RegulonDBfile)
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events StrongRadio
-	#tag Event
-		Sub Action()
-		  if TFBSRadio.value then
-		    FillRegulatorList(RegulonDBfile)
-		  else
-		    FillRegulatorList2(RegulonDBfile)
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events TFBSRadio
-	#tag Event
-		Sub Action()
-		  if ConfirmedRadio.value then
-		    StrongRadio.value=true
-		  end if
-		  ConfirmedRadio.Enabled=false
-		  RegulonDBfile=Resources_f.child("RegulonDB").child("BindingSiteSet.txt")
-		  FillRegulatorList(RegulonDBfile)
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PromotersRadio
-	#tag Event
-		Sub Action()
-		  ConfirmedRadio.Enabled=true
-		  RegulonDBfile=Resources_f.child("RegulonDB").child("PromoterSet.txt")
-		  FillRegulatorList2(RegulonDBfile)
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events FastaButton
-	#tag Event
-		Sub Action()
-		  CheckTF
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1420,6 +839,12 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CollecTFVersion"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Composite"
@@ -1585,12 +1010,6 @@ End
 			"3 - Parent Window Screen"
 			"4 - Stagger"
 		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="RegulonDBVersion"
-		Group="Behavior"
-		Type="String"
-		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Resizeable"
