@@ -3391,6 +3391,7 @@ End
 		          elseif left(aLine,10)="protein_id" then
 		            SeedProteinID=trim(NthField(aline," ",2))
 		            ProfileWizardWin.SeedProteinArea.text=">"+SeedProteinID+EndOfLine.Unix
+		            ProfileWizardWin.SeedProteinArea.TextColor=&c00000000
 		          elseif left(aLine,12)="seed_protein" then
 		            SeedProteinSeq=trim(NthField(aline," ",2))
 		            ProfileWizardWin.SeedProteinArea.text=ProfileWizardWin.SeedProteinArea.text+SeedProteinSeq

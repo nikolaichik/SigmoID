@@ -1649,8 +1649,9 @@ Protected Module Strings
 	#tag EndConstant
 
 	#tag Constant, Name = kSiteWidth, Type = String, Dynamic = True, Default = \"Site width", Scope = Public
-		#Tag Instance, Platform = Any, Language = Default, Definition  = \"\xD0\xA8\xD0\xB8\xD1\x80\xD0\xB8\xD0\xBD\xD0\xB0 \xD1\x81\xD0\xB0\xD0\xB9\xD1\x82\xD0\xB0"
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA8\xD0\xB8\xD1\x80\xD0\xB8\xD0\xBD\xD0\xB0 \xD1\x81\xD0\xB0\xD0\xB9\xD1\x82\xD0\xB0"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA8\xD1\x8B\xD1\x80\xD1\x8B\xD0\xBD\xD1\x8F \xD1\x81\xD0\xB0\xD0\xB9\xD1\x82\xD1\x83"
+		#Tag Instance, Platform = Any, Language = Default, Definition  = \"Site width"
 	#tag EndConstant
 
 	#tag Constant, Name = kSize, Type = String, Dynamic = True, Default = \"Size:", Scope = Public

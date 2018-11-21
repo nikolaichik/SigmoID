@@ -378,53 +378,6 @@ End
 		  '10 experimental_evidence
 		  '11 regulated genes (locus_tags)
 		  
-		  '# (1) Transcription Factor (TF) identifier assigned by RegulonDB
-		  '# (2) TF name
-		  '# (3) TF binding site (TF-bs) identifier assigned by RegulonDB
-		  '# (4) TF-bs left end position in the genome
-		  '# (5) TF-bs right end position in the genome
-		  '# (6) DNA strand where the  TF-bs is located
-		  '# (7) TF-Gene interaction identifier assigned by RegulonDB (related to the "TF gene interactions" file)
-		  '# (8) Transcription unit regulated by the TF
-		  '# (9) Gene expression effect caused by the TF bound to the  TF-bs (+ activation, - repression, +- dual, ? unknown)
-		  '# (10) Promoter name
-		  '# (11) Center position of TF-bs, relative to Transcription Start Site
-		  '# (12) TF-bs sequence (upper case)
-		  '# (13) Evidence that supports the existence of the TF-bs
-		  '# (14) Evidence confidence level (Confirmed, Strong, Weak)
-		  'ECK125140816    AccB    ECK120011222    0    0    forward    ECK120032360    accBC    -    accBp
-		  'ECK120015994    AcrR    ECK120018491    484933    484956    reverse    ECK120033472    acrAB    -    acrAp    -22.5    gcgttagattTACATACATTTGTGAATGTATGTAccatagcacg    [BCE|W|Binding of cellular extracts],[GEA|W|Gene expression analysis]
-		  
-		  'Some 'sites' are empty!
-		  
-		  'We convert some of the available info into fasta title, changing the order slightly:
-		  '# (8) Transcription unit regulated by the TF
-		  '# (11) Center position of TF-bs, relative to Transcription Start Site
-		  '# (10) Promoter name
-		  '# (9) Gene expression effect caused by the TF bound to the  TF-bs (+ activation, - repression, +- dual, ? unknown)
-		  '# (1) Transcription Factor (TF) identifier assigned by RegulonDB
-		  '# (2) TF name
-		  '# (3) TF binding site (TF-bs) identifier assigned by RegulonDB
-		  '# (4) TF-bs left end position in the genome
-		  '# (5) TF-bs right end position in the genome
-		  '# (6) DNA strand where the  TF-bs is located
-		  '# (7) TF-Gene interaction identifier assigned by RegulonDB (related to the "TF gene interactions" file)
-		  '# (13) Evidence that supports the existence of the TF-bs
-		  '# (14) Evidence confidence level (Confirmed, Strong, Weak)
-		  
-		  'Evidence confidence level added in version 9
-		  
-		  'Promoter set:
-		  '# Columns:
-		  '# (1) Promoter identifier assigned by RegulonDB
-		  '# (2) Promoter Name
-		  '# (3) DNA strand where the promoter is located
-		  '# (4) Genome map position of Transcription Start Site (+1)
-		  '# (5) Sigma Factor that recognize the promoter
-		  '# (6) Promoter Sequence (+1 upper case)
-		  '# (7) Evidence that supports the existence of the promoter
-		  '# (8) Evidence confidence level (Confirmed, Strong, Weak)
-		  
 		  
 		  dim tis as TextInputStream
 		  dim tos as TextOutputStream
@@ -465,14 +418,10 @@ End
 		      
 		      if siteSeq<>"" then 'filter out empty sites
 		        
-		        
-		        'if currentConfidence>=Confidence then
 		        aTF=BSarr(2)
 		        anOrg=BSarr(1)+" "+BSarr(4)
 		        if aTF<>currentTF then 'new TF
 		          'First, fill the table and array with the data for the previous TF:
-		          'MinLen=MinLen-20 '10 bases added by RegulonDB on each side
-		          'MaxLen=maxLen-20
 		          GeneNo=UBound(geneArr)+1
 		          
 		          if GeneNo>0 then
@@ -520,8 +469,7 @@ End
 		        else
 		          TFBSname=BSarr(11)
 		        end if
-		        tline=">"+TFBSname+"_"+BSarr(5)+"-"+BSarr(6)+"("+BSarr(7)+ ")"+BSarr(1)+" "+BSarr(2)+" "+BSarr(4)+" "+BSarr(3)+" "+BSarr(9)+" "+BSarr(11)+" | "+BSarr(10)
-		        
+		        tline=">"+TFBSname+"_"+BSarr(5)+"-"+BSarr(6)+"("+BSarr(7)+ ") "+BSarr(1)+" ProteinID:"+BSarr(2)+" "+BSarr(4)+" GenomeAccession:"+BSarr(3)+" "+BSarr(9)+" "+BSarr(11)+" | "+BSarr(10)
 		        theSeq=BSarr(8)
 		        
 		        if lenb(theSeq)<minLen then
@@ -534,15 +482,6 @@ End
 		        
 		        TFdata=TFdata+tline+EndOfLine.Unix
 		        TFdata=TFdata+theSeq+EndOfLine.Unix
-		        
-		        'end if
-		        
-		        
-		        
-		        
-		        
-		        
-		        
 		        
 		      end if
 		    wend

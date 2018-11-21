@@ -75,7 +75,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kTrusted1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -153,7 +152,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kGathering1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -231,7 +229,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kNoise"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -352,7 +349,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "MAST p-value threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -447,7 +443,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "Feature to add:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -590,7 +585,6 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
-         TabStop         =   True
          Text            =   "#kQualifier"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -853,7 +847,6 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "TF family HMM:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -888,7 +881,6 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "CRtag coords:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -965,7 +957,6 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "protein_id and sequence of the protein used to seed the profile (fasta format):"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -1047,7 +1038,6 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "CRtag sequence:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -1299,6 +1289,7 @@ End
 		    'extract CRtag:
 		    hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
 		    CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		    CRtagField.text=CRtag
 		    
 		    // Guess protein name 
 		    'assume the name goes first in the fasta title line
@@ -1654,6 +1645,7 @@ End
 		    'extract CRtag:
 		    hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
 		    CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		    CRtagField.text=CRtag
 		    
 		    // Guess protein name 
 		    'assume the name goes first in the fasta title line
@@ -2014,8 +2006,9 @@ End
 	#tag Event
 		Sub Open()
 		  dim l,m,n as integer
-		  dim f as folderitem
-		  dim hmmPath, fName, aLine, lineStart, hmm, CRtag as string
+		  dim f, CDSFile as folderitem
+		  dim OutStream as TextOutputStream
+		  dim hmmPath, fName, aLine, lineStart, hmm, CRtag, hmmSearchRes as string
 		  dim CRtagFileName as string
 		  dim inStream as TextInputStream
 		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
@@ -2044,6 +2037,24 @@ End
 		          CRtag=NthField(CRtag,EndOfLine,1)
 		          CRtags.Append CRtag
 		          
+		          if SeedProteinArea.TextColor=&c99999900 then 'placefiller
+		          else                                                                             'hopefully, proper protein sequence
+		            ' write CDS seq to the tmp file
+		            CDSFile=TemporaryFolder.child("CDSfile.fa")
+		            if CDSFile<>Nil then
+		              OutStream = TextOutputStream.Create(CDSFile)
+		              if outStream<>Nil then
+		                outstream.Write(SeedProteinArea.text)
+		                outstream.close
+		              end if
+		            end if
+		            
+		            'extract CRtagresidues :
+		            hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
+		            CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		            CRtagSeqField.text=CRtag
+		          end if
+		          
 		          
 		          
 		        end if
@@ -2063,6 +2074,41 @@ End
 		Sub Change()
 		  CRtagField.text=CRtags(me.ListIndex+1)
 		  CRtagPositions=CRtags(me.ListIndex+1)
+		  
+		  dim f, CDSFile as folderitem
+		  dim OutStream as TextOutputStream
+		  dim hmmPath, CRtag, hmmSearchRes as string
+		  dim CRtagFileName as string
+		  dim inStream as TextInputStream
+		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
+		  
+		  'redim PopupFiles(-1)
+		  'f=Profile_f
+		  f=Resources_f.Child("TF_HMMs")
+		  f=f.Child(me.Text)
+		  hmmPath = f.ShellPath
+		  if f<>Nil then
+		    
+		    
+		    
+		    if SeedProteinArea.TextColor=&c99999900 then 'placefiller
+		    else                                                                             'hopefully, proper protein sequence
+		      ' write CDS seq to the tmp file
+		      CDSFile=TemporaryFolder.child("CDSfile.fa")
+		      if CDSFile<>Nil then
+		        OutStream = TextOutputStream.Create(CDSFile)
+		        if outStream<>Nil then
+		          outstream.Write(SeedProteinArea.text)
+		          outstream.close
+		        end if
+		      end if
+		      
+		      'extract CRtagresidues :
+		      hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
+		      CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		      CRtagSeqField.text=CRtag
+		    end if
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
