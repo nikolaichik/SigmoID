@@ -78,8 +78,10 @@ Begin Window GenomeWin
       Scope           =   0
       Segments        =   "\nbr_prev_icon16\nFalse\r                      \n\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
+      TabIndex        =   2
       TabPanelIndex   =   0
       Top             =   0
+      Transparent     =   True
       Visible         =   True
       Width           =   177
    End
@@ -110,6 +112,7 @@ Begin Window GenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   True
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -139,6 +142,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   205
+      Transparent     =   True
       Value           =   0
       Visible         =   True
       Width           =   1067
@@ -158,8 +162,10 @@ Begin Window GenomeWin
       Scope           =   0
       Segments        =   "+\n\nFalse\r-\n\nFalse"
       SelectionType   =   2
+      TabIndex        =   5
       TabPanelIndex   =   0
       Top             =   0
+      Transparent     =   True
       Visible         =   True
       Width           =   41
    End
@@ -241,6 +247,7 @@ Begin Window GenomeWin
       TabIndex        =   10
       TabPanelIndex   =   0
       Top             =   359
+      Transparent     =   True
       Value           =   2
       Visible         =   True
       Width           =   1041
@@ -333,6 +340,7 @@ Begin Window GenomeWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -454,6 +462,7 @@ Begin Window GenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   -54
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   False
       Visible         =   False
@@ -489,6 +498,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   -89
+      Transparent     =   True
       Visible         =   False
       Width           =   24
    End
@@ -785,9 +795,9 @@ End
 		    SelRange.height=SelRange.height+5
 		  #endif
 		  
-		  me.graphics.TextFont=FixedFont
-		  me.graphics.TextSize=12
-		  TextHeight=me.graphics.textheight
+		  'me.graphics.TextFont=FixedFont
+		  'me.graphics.TextSize=12
+		  'TextHeight=me.graphics.textheight
 		  
 		  'Editor.SetFocus 'necessary on Win32 only - othervise the focus goes to the scrollbar
 		  '#if debugBuild then
@@ -5012,7 +5022,6 @@ End
 
 	#tag Method, Flags = &h0
 		Sub updateMapCanvas()
-		  dim buffer as picture
 		  dim mapbounds As String
 		  dim maxX, maxY,sourceW,sourceh,minX, minY as integer
 		  
@@ -5031,67 +5040,29 @@ End
 		    return
 		  end if
 		  
-		  'dim map4 as New Group2d
-		  
-		  'from RB example
-		  
 		  //create a picture we can draw to offscreen
 		  if seq.map.objects.scale>1 then
-		    buffer=new Picture(MapCanvas.width*seq.map.objects.scale, Mapcanvas.Height*seq.map.objects.scale,Screen(0).depth)
+		    MapCanvasPicture=new Picture(MapCanvas.width*seq.map.objects.scale, Mapcanvas.Height*seq.map.objects.scale,Screen(0).depth)
 		  else
-		    buffer=new Picture(MapCanvas.width, Mapcanvas.Height,Screen(0).depth)
-		    'buffer=New Picture(MapCanvas.width*4, Mapcanvas.Height*4,Screen(0).depth)
+		    MapCanvasPicture=new Picture(MapCanvas.width, Mapcanvas.Height,Screen(0).depth)
 		  end
 		  
-		  if buffer<>Nil then
+		  if MapCanvasPicture<>Nil then
 		    //set the foreColor
-		    buffer.graphics.foreColor=RGB(255,255,255) 'white
+		    MapCanvasPicture.graphics.foreColor=RGB(255,255,255) 'white
 		    //draw the background
-		    buffer.graphics.fillRect 0,0,buffer.width,buffer.height
+		    MapCanvasPicture.graphics.fillRect 0,0,MapCanvasPicture.width,MapCanvasPicture.height
 		    
-		    //check for scrollbar values and offset picture appropriately
-		    'if seq.map.objects.scale<=1 then
-		    'dx=0
-		    'dy=0
-		    'else
-		    'dx=(ORFmapCanvas.width-ORFMap1.width)*ORFScrollerH.value/ORFScrollerH.Maximum
-		    
-		    
-		    'dx=(MapCanvas.width-sourceW)*MapScrollerH.value/MapScrollerH.Maximum
-		    'dx=-MapCanvas.width*MapScrollerH.value*seq.map.objects.scale/MapScrollerH.Maximum
-		    'dy=-MapCanvas.height*MapScrollerV.value*seq.map.objects.scale/MapScrollerV.Maximum
-		    'dy=(MapCanvas.height-sourceH)*MapScrollerV.value/MapScrollerV.Maximum
-		    'if MapScrollerH.Maximum=0 then
-		    'dx=0
-		    'end if
-		    
-		    'end
-		    
-		    //Anti-alias the map:
-		    'Map4.Append seq.map.objects
-		    'map4.Scale=4
 		    //draw the graph
 		    if len(seq.Sequence)>0 then                'avoid crash with latest Xojo during dummy map initialisation 
-		      buffer.graphics.drawPicture seq.map,dX,dY
+		      MapCanvasPicture.graphics.drawPicture seq.map,dX,dY
 		    end if
-		    'buffer.graphics.drawPicture seq.map,dX,dY,sourceW,sourceH,minX,minY,sourceW,sourceH
-		    
-		    'buffer.graphics.drawPicture Map4,dx,dy,buffer.Width,buffer.Height
-		    '.graphics.DrawObject Map4
-		    
-		    
-		    'Mapcanvas.graphics.drawPicture seq.map,dX,dY
-		    '//draw the buffer to the canvas
-		    Mapcanvas.graphics.drawPicture buffer,0,0
-		    'Mapcanvas.graphics.drawPicture buffer,LmapDx,lMapDy
-		    
-		    'Mapcanvas.graphics.drawPicture buffer,dX,dY
 		    
 		  else
 		    msgbox "Not enough memory to load/create picture"
 		  end
 		  
-		  
+		  MapCanvas.Invalidate
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:UpdateMapCanvas")
 		End Sub
@@ -5457,6 +5428,10 @@ End
 		Protected MapCanvasPict As picture
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		MapCanvasPicture As Picture
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected MapMode As string
 	#tag EndProperty
@@ -5745,7 +5720,7 @@ End
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  
-		  UpdateMapCanvas
+		  g.DrawPicture(MapCanvasPicture,0,0)
 		  
 		End Sub
 	#tag EndEvent
@@ -6420,6 +6395,13 @@ End
 	#tag Event
 		Sub Deactivate()
 		  'ToolTip.hide
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  if MapCanvasPicture=nil then
+		    MapCanvasPicture=new Picture(me.width, me.Height,Screen(0).depth)
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
