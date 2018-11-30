@@ -62,6 +62,7 @@ Begin Window RegulonDBWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   1
+      ShowDropIndicator=   False
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
@@ -194,6 +195,7 @@ Begin Window RegulonDBWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -442,6 +444,7 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -461,6 +464,7 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0

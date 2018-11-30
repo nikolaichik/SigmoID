@@ -115,6 +115,7 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   4
       Visible         =   True
@@ -213,7 +214,7 @@ Begin Window SettingsWin
             Alignment       =   0
             AutoDeactivate  =   True
             AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFF00FFFF
+            BackColor       =   &c00FFFFFF
             Bold            =   False
             Border          =   True
             CueText         =   "Enter organism name or NCBI ID"
@@ -273,6 +274,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   3
             TabPanelIndex   =   2
+            TabStop         =   True
             Text            =   "Organism (optional)"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -307,6 +309,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   4
             TabPanelIndex   =   2
+            TabStop         =   True
             Text            =   "Protein database"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -341,6 +344,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   5
             TabPanelIndex   =   2
+            TabStop         =   True
             Text            =   "Nucleotide database"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -358,7 +362,7 @@ Begin Window SettingsWin
             Alignment       =   0
             AutoDeactivate  =   True
             AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFF00FFFF
+            BackColor       =   &c00FFFFFF
             Bold            =   False
             Border          =   True
             CueText         =   "API Key from your NCBI account allows more requests"
@@ -418,6 +422,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   7
             TabPanelIndex   =   2
+            TabStop         =   True
             Text            =   "API Key"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -463,7 +468,7 @@ Begin Window SettingsWin
             Alignment       =   0
             AutoDeactivate  =   True
             AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFF00FFFF
+            BackColor       =   &c00FFFFFF
             Bold            =   False
             Border          =   True
             CueText         =   "value"
@@ -523,6 +528,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   3
             TabPanelIndex   =   1
+            TabStop         =   True
             Text            =   "nhmmer:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -557,6 +563,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   4
             TabPanelIndex   =   1
+            TabStop         =   True
             Text            =   "alimask:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -574,7 +581,7 @@ Begin Window SettingsWin
             Alignment       =   0
             AutoDeactivate  =   True
             AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFF00FFFF
+            BackColor       =   &c00FFFFFF
             Bold            =   False
             Border          =   True
             CueText         =   "value"
@@ -634,6 +641,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   11
             TabPanelIndex   =   1
+            TabStop         =   True
             Text            =   "hmmbuild:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -651,7 +659,7 @@ Begin Window SettingsWin
             Alignment       =   0
             AutoDeactivate  =   True
             AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFF00FFFF
+            BackColor       =   &c00FFFFFF
             Bold            =   False
             Border          =   True
             CueText         =   "value"
@@ -711,6 +719,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   13
             TabPanelIndex   =   1
+            TabStop         =   True
             Text            =   "MEME:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -728,7 +737,7 @@ Begin Window SettingsWin
             Alignment       =   0
             AutoDeactivate  =   True
             AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFF00FFFF
+            BackColor       =   &c00FFFFFF
             Bold            =   False
             Border          =   True
             CueText         =   "value"
@@ -788,6 +797,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   15
             TabPanelIndex   =   1
+            TabStop         =   True
             Text            =   "MAST:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -805,7 +815,7 @@ Begin Window SettingsWin
             Alignment       =   0
             AutoDeactivate  =   True
             AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFF00FFFF
+            BackColor       =   &c00FFFFFF
             Bold            =   False
             Border          =   True
             CueText         =   "value"
@@ -865,6 +875,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   17
             TabPanelIndex   =   1
+            TabStop         =   True
             Text            =   "tfastx:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -882,7 +893,7 @@ Begin Window SettingsWin
             Alignment       =   0
             AutoDeactivate  =   True
             AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFF00FFFF
+            BackColor       =   &c00FFFFFF
             Bold            =   False
             Border          =   True
             CueText         =   "value"
@@ -943,6 +954,7 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   3
+         TabStop         =   True
          Text            =   "Profile Folder:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -1008,6 +1020,7 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   3
+         TabStop         =   True
          Text            =   "#kProfileFolderPath"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -1156,6 +1169,7 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   4
+         TabStop         =   True
          Text            =   "Selection highlight colour:"
          TextAlign       =   2
          TextColor       =   &c00000000
@@ -1245,6 +1259,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   1
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "CDS:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1307,6 +1322,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   3
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "sig_peptide:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1369,6 +1385,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   5
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "rRNA:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1431,6 +1448,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   7
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "ncRNA:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1493,6 +1511,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   9
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "protein_bind:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1555,6 +1574,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   11
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "gene:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1617,6 +1637,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   13
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "promoter:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1679,6 +1700,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   15
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "terminator:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1741,6 +1763,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   17
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "attenuator:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1803,6 +1826,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   19
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "riboswitch:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1865,6 +1889,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   21
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "operon:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1927,6 +1952,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   23
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "tRNA:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1961,6 +1987,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   24
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "mobile_element:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2023,6 +2050,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   26
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "repeat_region:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2085,6 +2113,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   28
             TabPanelIndex   =   4
+            TabStop         =   True
             Text            =   "all other features:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2241,6 +2270,7 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   13
          TabPanelIndex   =   5
+         TabStop         =   True
          Text            =   "#kFontSelInfo"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -2275,6 +2305,7 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   14
          TabPanelIndex   =   5
+         TabStop         =   True
          Text            =   "#kProportional"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -2309,6 +2340,7 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   15
          TabPanelIndex   =   5
+         TabStop         =   True
          Text            =   "#kFixed"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -2370,6 +2402,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   0
             TabPanelIndex   =   5
+            TabStop         =   True
             Text            =   "#kFFexample"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -2432,6 +2465,7 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   0
             TabPanelIndex   =   5
+            TabStop         =   True
             Text            =   "#kFFexample"
             TextAlign       =   0
             TextColor       =   &c00000000

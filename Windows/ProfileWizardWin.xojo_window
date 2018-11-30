@@ -75,6 +75,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kTrusted1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -92,7 +93,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -152,6 +153,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kGathering1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -169,7 +171,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   "10"
@@ -229,6 +231,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kNoise"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -246,7 +249,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -289,7 +292,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   "1e-6"
@@ -349,6 +352,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "MAST p-value threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -443,6 +447,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Feature to add:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -493,7 +498,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -585,6 +590,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kQualifier"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -602,7 +608,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   "protein name"
@@ -646,7 +652,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &c00FFFFFF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -847,6 +853,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "TF family HMM:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -881,6 +888,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "CRtag coords:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -898,7 +906,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &c00FFFFFF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -957,6 +965,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "protein_id and sequence of the protein used to seed the profile (fasta format):"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -974,7 +983,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &c00FFFFFF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -1038,6 +1047,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "CRtag sequence:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -1055,7 +1065,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &c00FFFFFF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       CueText         =   ""

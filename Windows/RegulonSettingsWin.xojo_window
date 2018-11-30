@@ -184,7 +184,7 @@ Begin Window RegulonSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   "protein name"
@@ -380,7 +380,7 @@ Begin Window RegulonSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   "#kTFname"
@@ -483,7 +483,7 @@ Begin Window RegulonSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   "protein name"
