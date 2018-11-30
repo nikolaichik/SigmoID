@@ -31,7 +31,7 @@ Begin Window WebBrowserWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &c00FFFFFF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -106,6 +106,7 @@ Begin Window WebBrowserWin
       Segments        =   "\nbr_prev_icon16\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   4
       Visible         =   True
       Width           =   54

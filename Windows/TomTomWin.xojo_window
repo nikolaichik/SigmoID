@@ -48,6 +48,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "This command will scan the folder you select for files named 'meme.txt' and use these to run TomTom vs motif libraries located in the specified folder."
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -127,7 +128,7 @@ Begin Window TomTomWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -186,6 +187,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Query folder:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -234,7 +236,7 @@ Begin Window TomTomWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -293,6 +295,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "TF library folder:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -341,7 +344,7 @@ Begin Window TomTomWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -400,6 +403,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "TomTom options:"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -448,7 +452,7 @@ Begin Window TomTomWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -507,6 +511,7 @@ Begin Window TomTomWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Background model:"
       TextAlign       =   2
       TextColor       =   &c00000000

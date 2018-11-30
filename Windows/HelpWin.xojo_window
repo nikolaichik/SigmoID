@@ -64,6 +64,7 @@ Begin Window HelpWin
       Segments        =   "\nbr_prev_icon16\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   4
       Visible         =   True
       Width           =   54
@@ -105,6 +106,7 @@ Begin Window HelpWin
       Segments        =   "\nhome2x\nFalse"
       SelectionType   =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   4
       Visible         =   True
       Width           =   27

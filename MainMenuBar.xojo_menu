@@ -555,6 +555,13 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem GenomeScanCr
+         SpecialMenu = 0
+         Text = "Scan Genome (CRtag)..."
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem GenomeTFfamilySearch
          SpecialMenu = 0
          Text = "#kTFfamilySearch"

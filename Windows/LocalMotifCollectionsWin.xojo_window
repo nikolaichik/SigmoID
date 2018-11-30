@@ -48,6 +48,7 @@ Begin Window LocalMotifCollectionsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kTFBScollection"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -127,6 +128,7 @@ Begin Window LocalMotifCollectionsWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   1
+      ShowDropIndicator=   False
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
@@ -370,6 +372,7 @@ Begin Window LocalMotifCollectionsWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000
