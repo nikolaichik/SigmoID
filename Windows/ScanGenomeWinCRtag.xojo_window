@@ -48,6 +48,7 @@ Begin Window ScanGenomeWinCRtag
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -284,6 +285,7 @@ Begin Window ScanGenomeWinCRtag
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   False
       TabIndex        =   19
       TabPanelIndex   =   0
       TabStop         =   True
@@ -448,8 +450,7 @@ End
 		  dim froot,f,f2, fitemn, fitemk as folderitem
 		  dim aName, sigfolpath, temp, profilespath as string
 		  
-		  froot=GetFolderItem("SigmoID.app")
-		  froot=froot.Parent.Parent
+		  froot=GetFolderItem("").Parent
 		  
 		  f2=froot.child("TF_HMMs") 
 		  f=froot.child("RegPreciseExport") 
