@@ -31,7 +31,7 @@ Begin Window EditGeneWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -190,6 +190,7 @@ Begin Window EditGeneWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGeneName"
       TextAlign       =   2
       TextColor       =   &c00000000

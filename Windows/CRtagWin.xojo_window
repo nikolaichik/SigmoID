@@ -48,6 +48,7 @@ Begin Window CRtagWin
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "hmmsearch result:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -65,7 +66,7 @@ Begin Window CRtagWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -129,6 +130,7 @@ Begin Window CRtagWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Result table:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -146,7 +148,7 @@ Begin Window CRtagWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -210,6 +212,7 @@ Begin Window CRtagWin
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "CR tag positions:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -227,7 +230,7 @@ Begin Window CRtagWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -348,6 +351,7 @@ Begin Window CRtagWin
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "CR tag:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -365,7 +369,7 @@ Begin Window CRtagWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       CueText         =   ""

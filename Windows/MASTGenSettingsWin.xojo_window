@@ -219,7 +219,7 @@ Begin Window MASTGenSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   "bound_moiety"
@@ -262,7 +262,7 @@ Begin Window MASTGenSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   "#kProteinName"
@@ -487,7 +487,7 @@ Begin Window MASTGenSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -530,7 +530,7 @@ Begin Window MASTGenSettingsWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFF00FFFF
+         BackColor       =   &c00FFFFFF
          Bold            =   False
          Border          =   True
          CueText         =   ""

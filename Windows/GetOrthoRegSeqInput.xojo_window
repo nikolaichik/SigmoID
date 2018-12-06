@@ -1,15 +1,15 @@
 #tag Window
-Begin Window PlotScaleMaxWin
+Begin Window GetOrthoRegSeqInput
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   False
-   Frame           =   8
+   Frame           =   0
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   154
+   Height          =   156
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -23,137 +23,33 @@ Begin Window PlotScaleMaxWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "#kPlotScaleWinTitle"
-   Visible         =   False
-   Width           =   332
-   Begin PushButton OKButton
+   Title           =   "Genbank files to download"
+   Visible         =   True
+   Width           =   370
+   Begin Label ResArrayCount
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "#kOK"
-      Default         =   True
+      DataField       =   ""
+      DataSource      =   ""
       Enabled         =   True
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   222
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   120
-      Underline       =   False
-      Visible         =   True
-      Width           =   90
-   End
-   Begin PushButton CancelButton
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   True
-      Caption         =   "#kCancel"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   120
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   1
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   120
-      Underline       =   False
-      Visible         =   True
-      Width           =   90
-   End
-   Begin TextField PlotMaxField
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &c00FFFFFF
-      Bold            =   False
-      Border          =   True
-      CueText         =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LimitText       =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   86
-      Underline       =   False
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   292
-   End
-   Begin Label Label1
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   54
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
+      Left            =   198
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
-      Multiline       =   True
+      Multiline       =   False
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   3
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "#kPlotScaleWinDesc"
+      Text            =   "Untitled"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -163,104 +59,250 @@ Begin Window PlotScaleMaxWin
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   292
+      Width           =   100
+   End
+   Begin PushButton PushButton1
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "OK"
+      Default         =   True
+      Enabled         =   True
+      Height          =   34
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   34
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   102
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Label Text1
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   34
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Input number of files to process:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   53
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   213
+   End
+   Begin Label Text2
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   34
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Total number of gbk files:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   20
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   172
+   End
+   Begin TextField GbkCountInput
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   27
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   248
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   0
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "300"
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   52
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   80
    End
 End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Activate()
-		  PlotMaxField.SetFocus
+	#tag Method, Flags = &h0
+		Function getinput(m as integer) As integer
 		  
-		  if GenomeWin.Genome.PlotScaleMax>0 then
-		    PlotMaxField.text=str(GenomeWin.Genome.PlotScaleMax)
-		    PlotMaxField.SelectAll
-		  else
-		    PlotMaxField.text=""
-		  end if
-		  
-		  
-		End Sub
-	#tag EndEvent
+		  self.arrayUbound=m
+		  self.ResArrayCount.Text=str(m)
+		  self.ShowModal()
+		  return self.filesToDownload
+		End Function
+	#tag EndMethod
 
-	#tag Event
-		Sub Open()
-		  AdjustLayout4linux(me)
-		End Sub
-	#tag EndEvent
+	#tag Method, Flags = &h0
+		Function runcheck() As boolean
+		  dim gbknumb as integer
+		  dim isnum as Boolean
+		  isnum=IsNumeric(GbkCountInput.Text)
+		  
+		  if isnum=true then
+		    gbknumb=val(GbkCountInput.Text)
+		    if gbknumb<20 or gbknumb>self.arrayUbound then
+		      MsgBox("Enter a numbe between 20 and "+str(self.ResArrayCount.Text))
+		      return false
+		    else
+		      self.filesToDownload=gbknumb
+		      return true
+		    end
+		  else
+		    MsgBox("Enter a number")
+		  end
+		End Function
+	#tag EndMethod
 
 
 	#tag Property, Flags = &h0
-		Parent As GenomeWin
+		arrayUbound As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		filesToDownload As Integer
 	#tag EndProperty
 
 
 #tag EndWindowCode
 
-#tag Events OKButton
+#tag Events PushButton1
 	#tag Event
 		Sub Action()
-		  dim n as integer
-		  
-		  if len(PlotMaxField.text)>0 then
-		    n=val(PlotMaxField.text)
-		    if n>0 then
-		      GenomeWin.Genome.PlotScaleMax=n
-		    else
-		      GenomeWin.Genome.PlotScaleMax=-1
-		    end if
-		  else
-		    GenomeWin.Genome.PlotScaleMax=-1
-		  end if
-		  
-		  Genomewin.MapScrollUpdate
-		  
-		  close
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events CancelButton
-	#tag Event
-		Sub Action()
-		  close
-		  
+		  if runcheck=true then
+		    self.hide
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
+		Name="arrayUbound"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="BackColor"
 		Visible=true
-		Group="Appearance"
+		Group="Background"
 		InitialValue="&hFFFFFF"
 		Type="Color"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Backdrop"
 		Visible=true
-		Group="Appearance"
+		Group="Background"
 		Type="Picture"
 		EditorType="Picture"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="CloseButton"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Composite"
-		Group="Appearance"
+		Group="OS X (Carbon)"
 		InitialValue="False"
 		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="filesToDownload"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Frame"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="0"
 		Type="Integer"
 		EditorType="Enum"
@@ -280,7 +322,7 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="FullScreen"
-		Group="Appearance"
+		Group="Behavior"
 		InitialValue="False"
 		Type="Boolean"
 		EditorType="Boolean"
@@ -288,7 +330,7 @@ End
 	#tag ViewProperty
 		Name="FullScreenButton"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="False"
 		Type="Boolean"
 		EditorType="Boolean"
@@ -296,21 +338,21 @@ End
 	#tag ViewProperty
 		Name="HasBackColor"
 		Visible=true
-		Group="Appearance"
+		Group="Background"
 		InitialValue="False"
 		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Height"
 		Visible=true
-		Group="Position"
+		Group="Size"
 		InitialValue="400"
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ImplicitInstance"
 		Visible=true
-		Group="Appearance"
+		Group="Behavior"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
@@ -324,29 +366,28 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"
-		Visible=true
-		Group="Appearance"
+		Group="Behavior"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MacProcID"
-		Group="Appearance"
+		Group="OS X (Carbon)"
 		InitialValue="0"
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MaxHeight"
 		Visible=true
-		Group="Position"
+		Group="Size"
 		InitialValue="32000"
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MaximizeButton"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
@@ -354,20 +395,21 @@ End
 	#tag ViewProperty
 		Name="MaxWidth"
 		Visible=true
-		Group="Position"
+		Group="Size"
 		InitialValue="32000"
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MenuBar"
 		Visible=true
-		Group="Appearance"
+		Group="Menus"
 		Type="MenuBar"
 		EditorType="MenuBar"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MenuBarVisible"
-		Group="Appearance"
+		Visible=true
+		Group="Deprecated"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
@@ -375,14 +417,14 @@ End
 	#tag ViewProperty
 		Name="MinHeight"
 		Visible=true
-		Group="Position"
+		Group="Size"
 		InitialValue="64"
 		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MinimizeButton"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
@@ -390,7 +432,7 @@ End
 	#tag ViewProperty
 		Name="MinWidth"
 		Visible=true
-		Group="Position"
+		Group="Size"
 		InitialValue="64"
 		Type="Integer"
 	#tag EndViewProperty
@@ -404,7 +446,7 @@ End
 	#tag ViewProperty
 		Name="Placement"
 		Visible=true
-		Group="Position"
+		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
 		EditorType="Enum"
@@ -419,7 +461,7 @@ End
 	#tag ViewProperty
 		Name="Resizeable"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
@@ -434,14 +476,14 @@ End
 	#tag ViewProperty
 		Name="Title"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="Untitled"
 		Type="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Visible"
 		Visible=true
-		Group="Appearance"
+		Group="Behavior"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
@@ -449,7 +491,7 @@ End
 	#tag ViewProperty
 		Name="Width"
 		Visible=true
-		Group="Position"
+		Group="Size"
 		InitialValue="600"
 		Type="Integer"
 	#tag EndViewProperty

@@ -48,6 +48,7 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kTFfamily"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -127,6 +128,7 @@ Begin Window RegPreciseTFcollectionsWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   1
+      ShowDropIndicator=   False
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
@@ -145,6 +147,7 @@ Begin Window RegPreciseTFcollectionsWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -441,6 +444,7 @@ Begin Window RegPreciseTFcollectionsWin
       Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   0
       TextColor       =   &c00000000

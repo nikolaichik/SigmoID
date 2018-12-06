@@ -1,5 +1,5 @@
 #tag Window
-Begin Window ScanGenomeWin
+Begin Window ScanGenomeWinCRtag
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
@@ -438,104 +438,204 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Open()
-		  BuildSigArray
+		  BuildSigArrayCR
 		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h1, Description = 4275696C645369674172726179
-		Protected Sub BuildSigArray()
-		  dim m,n as integer
-		  dim f as folderitem
-		  dim aName as string
+		Protected Sub BuildSigArrayCR()
+		  dim m,n,k,k1 as integer
+		  dim froot,f,f2, fitemn, fitemk as folderitem
+		  dim aName, sigfolpath, temp, profilespath as string
 		  
-		  f=Profile_f
-		  m=f.Count
+		  froot=GetFolderItem("").Parent
+		  
+		  f2=froot.child("TF_HMMs") 
+		  f=froot.child("RegPreciseExport") 
+		  if not f.Exists then
+		    MsgBox("Folder with sig profiles not found, check path: "+str(f.NativePath))
+		    exit
+		  end 
+		  m=f2.Count
+		  
 		  for n=1 to m
-		    'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
-		    'msgbox dis
-		    #if Target64Bit 
-		      if right(f.Item(n).name,4)=".sig" then
-		        aName = f.Item(n).DisplayName
-		        aName = left(aName,len(aName)-4) 'drop the .sig part
-		        SigList.AddRow
-		        SigList.Cell(SigList.LastIndex, 1) = aName
-		        SigList.CellCheck(SigList.LastIndex,0) = true
-		      end if
-		    #else
-		      if f.Item(n).Type="SigmoidFile" then
-		        aName = f.Item(n).DisplayName
-		        aName = left(aName,len(aName)-4) 'drop the .sig part
-		        SigList.AddRow
-		        SigList.Cell(SigList.LastIndex, 1) = aName
-		        SigList.CellCheck(SigList.LastIndex,0) = true
-		      end if
-		    #endif
+		    if f2.item(n).Visible=True then
+		      fitemn=f2.item(n)
+		      #if Target64Bit 
+		        if right(fitemn.Name,4)=".hmm" then 
+		          aName = Replaceall(fitemn.DisplayName, ".hmm","")
+		          if InStr(aName,"_")>0 then
+		            aName=NthField(aName,"_",1) 
+		          end
+		          if InStr(aname, "GerE")>0 then
+		            aName="LuxR"
+		          end
+		          for k=1 to f.Count
+		            if f.Item(k).Directory=false then
+		              Continue 
+		            end
+		            fitemk=f.item(k)
+		            temp= fitemk.DisplayName
+		            if instr(temp, aName)>0 then
+		              if sigfolpath="" then
+		                sigfolpath=fitemk.NativePath
+		              else
+		                sigfolpath=sigfolpath+";"+fitemk.NativePath
+		              end
+		            end
+		          next
+		          SigList.AddRow
+		          SigList.Cell(SigList.LastIndex, 3)= fitemn.NativePath
+		          SigList.Cell(SigList.LastIndex, 1) = fitemn.DisplayName
+		          siglist.Cell(SigList.LastIndex,2)=sigfolpath
+		          SigList.CellCheck(SigList.LastIndex,0) = true
+		          sigfolpath=""
+		        end if
+		        '#else
+		        'if f.Item(n).Type="SigmoidFile" then
+		        'aName = f.Item(n).DisplayName
+		        'aName = left(aName,len(aName)-4) 'drop the .sig part
+		        'SigList.AddRow
+		        'SigList.Cell(SigList.LastIndex, 1) = aName
+		        'SigList.CellCheck(SigList.LastIndex,0) = true
+		        'end if
+		      #endif
+		    end
 		  next
 		  SigList.SortedColumn=1
 		  SigList.ColumnsortDirection(1)=ListBox.SortAscending
 		  SigList.sort
 		  
 		  Exception err
-		    ExceptionHandler(err,"ScanGenomeWin:BuildSigArray")
+		    ExceptionHandler(err,"ScanGenomeWinCR:BuildSigArrayCR")
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ScanGenome()
+		Sub ScanGenomeCR()
 		  dim k,l,m,n,SigCount,HitCount as integer
 		  dim time as double
-		  dim f as folderitem
-		  dim infileName as string
+		  dim f,f3 as folderitem
+		  dim infileName, crtags(-1), sigtagbase(-1), sigpathbase(-1), protdescr(-1),notfound(-1), summary(-1), hmmsearch, hmmsearchcopy, fname, summstring as string
+		  dim cdsfile as FolderItem
+		  dim count1 as Integer
 		  
+		  cdsfile=TemporaryFolder.child("gbkProtexport.fasta") 'getting converted gbk file 
 		  Logowin.ScanningGenome=true 'to prevent file writing messages
 		  infileName=logowin.genomefile.displayname
-		  f=Profile_f
-		  m=f.Count
+		  
 		  Sigcount=0
+		  dim checked as integer = 0
 		  dim GenomeScanOut as new FolderItem
 		  GenomeScanOut = TemporaryFolder.child("GenomeScanOut")
 		  time= Microseconds
 		  'HmmGenSettingsWin.EvalueField.text="300"        'workaround for bitscore threshold not available
 		  Dim f2 as FolderItem=GetSaveFolderItem("????","hmm_out.gbk")
 		  If f2 <> nil then
-		    for n=1 to m
-		      'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
-		      'msgbox dis
-		      if f.Item(n).Type="SigmoidFile" OR (f.Item(n).Directory AND right(f.Item(n).Name,4)=".sig") then
-		        for k=0 to SigList.ListCount-1
-		          if SigList.CellCheck(k,0) = true AND f.Item(n).DisplayName=SigList.Cell(k,1)+".sig" then
-		            'Scan the genome!
-		            LogoWin.LoadAlignment f.Item(n)
-		            logowin.ChangeView("Logo")
-		            app.DoEvents  'otherwise logo picture isn't updated
-		            nhmmerSettingsWin.GenomeField.text=LogoWin.GenomeFile.ShellPath
-		            nhmmerSettingsWin.ReadOptions
-		            if NOT LogoWin.nhmmer then
-		              'exit on error
-		              LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to nhmmer error")
-		              return
-		            end if
-		            HmmGenSettingsWin.ReadOptions
-		            LogoWin.outfile=GenomeScanOut
-		            if NOT LogoWin.HmmGen then
-		              'exit on error
-		              LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to HmmGen.py script error")
-		              return
-		            end if
-		            HitCount=HitCount+LogoWin.LastHitNo
-		            dim tmpfile as folderitem
-		            tmpfile=TemporaryFolder.child("GenomeScanIn")
-		            if tmpfile.Exists then
-		              tmpfile.Delete
-		            End If
-		            GenomeScanOut.CopyFileTo tmpfile
-		            LogoWin.genomefile=tmpfile
-		            SigCount=SigCount+1
-		          end if
+		    
+		    for k=0 to SigList.ListCount-1
+		      if SigList.CellCheck(k,0) = true then
+		        count1 =0 'counting proteins without crtag in base
+		        redim crtags(-1)
+		        redim protdescr(-1) 
+		        redim sigtagbase(-1)
+		        redim sigpathbase(-1)
+		        redim notfound(-1)
+		        hmmsearch=HMMsearchWithCRtagsCR(cdsfile, str(SigList.Cell(k,3)))
+		        hmmsearchcopy=hmmsearch
+		        dim rx1 as new RegEx
+		        dim rx2 as new RegEx
+		        rx1.SearchPattern = "(?<=^\>)(.*)(?=\>)" ' find a crtag in hmmsearch output, mask for strings like: >CRTAG>
+		        dim match as RegExMatch = rx1.Search(hmmsearchcopy)
+		        dim matchstring, matchstring2 as string = " "
+		        dim c1 as integer = 0
+		        ' making array from crtags, that hmmsearch has found
+		        'while matchs isa Object 'loop
+		        while matchstring<>"" 
+		          try
+		            matchstring=match.SubExpressionString(0)
+		          catch NilObjectException ' some strange thing with cycle, sometimes gets loop
+		          end try
+		          Crtags.append(matchstring)
+		          rx2.SearchPattern = "(?<="+trim(matchstring)+">)\s*\S*\s*\S*" ' getting protein description for given crtag 
+		          dim match2 as RegExMatch = rx2.search(hmmsearchcopy)
+		          try 
+		            matchstring2=match2.SubExpressionString(0)
+		          catch NilObjectException
+		            c1=c1+1 'count exceptions
+		          end try
+		          protdescr.Append(matchstring2) ' creating array with protein description
+		          hmmsearchcopy=Replace(hmmsearchcopy, matchstring, "del")
+		          hmmsearchcopy=Replace(hmmsearchcopy, ">del>", "")
+		          match = rx1.Search(hmmsearchcopy) 
+		          try
+		            matchstring=match.SubExpressionString(0)
+		          catch NilObjectException
+		            exit
+		          end try
+		        wend
+		        dim apath as string=Siglist.Cell(k,2)
+		        dim ftest as FolderItem
+		        if instr(apath, ";")>0 then
+		          apath=NthField(apath, ";", 1) 'multiple pathes for one hmm family is allowed, but not done yet, process first  
+		        end
+		        f=getfolderitem(apath, FolderItem.PathTypeNative)
+		        for j as integer = 1 to f.count
+		          if f.Item(j).Visible<>True then Continue
+		          ftest=f.Item(j)
+		          fname = ftest.DisplayName
+		          if right(fname,4)<>".sig" or instr(fname,"[indel")>0 or instr(fname,"error")>0 or InStr(fname,"no_CRtag")>0 then Continue
+		          sigtagbase.append(NthField(fname,"_",1))
+		          sigpathbase.append(ftest.ShellPath)
 		        next
-		      end if
+		        
+		        for j1 as integer =0 to ubound(crtags)
+		          dim index as integer
+		          index=sigtagbase.indexof(crtags(j1))
+		          if index>-1 then
+		            f3=getfolderitem(sigpathbase(index))
+		            if f3.Exists then 
+		              LogoWin.LoadAlignment f3
+		              logowin.ChangeView("Logo")
+		              app.DoEvents  'otherwise logo picture isn't updated
+		              nhmmerSettingsWin.GenomeField.text=LogoWin.GenomeFile.ShellPath
+		              nhmmerSettingsWin.ReadOptions
+		              if NOT LogoWin.nhmmer then
+		                'exit on error
+		                LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to nhmmer error")
+		                return
+		              end if
+		              HmmGenSettingsWin.ReadOptions
+		              LogoWin.outfile=GenomeScanOut
+		              if NOT LogoWin.HmmGen then
+		                'exit on error
+		                LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to HmmGen.py script error")
+		                return
+		              end if
+		              HitCount=HitCount+LogoWin.LastHitNo
+		              dim tmpfile as folderitem
+		              tmpfile=TemporaryFolder.child("GenomeScanIn")
+		              if tmpfile.Exists then
+		                tmpfile.Delete
+		              End If
+		              GenomeScanOut.CopyFileTo tmpfile
+		              LogoWin.genomefile=tmpfile
+		              SigCount=SigCount+1
+		            else
+		              LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Model path not found"+EndOfLine.UNIX)
+		              Continue
+		            end if
+		          else
+		            notfound.append(protdescr(j1))
+		            count1=count1+1
+		          end
+		        next
+		        ' summary stats
+		        summstring=Endofline.Unix+"For the model "+str(SigList.Cell(k,3))+" total tags count is: "+str(ubound(crtags)+1)+", CRtags that were not processed: "+str(count1)+Endofline.Unix+"Details of proteins with tags that were not found in base: "+str(join(notfound, ";"))+EndOfLine.Unix
+		        summary.Append(summstring)
+		      end
 		    next
 		    
 		    if f2.Exists then
@@ -564,17 +664,22 @@ End
 		    else
 		      timestring= str(sec)+" seconds "
 		    End If
+		    dim sum as Integer = summary.Ubound
+		    logowin.WriteToSTDOUT(Endofline.unix+"Summary: "+endofline.UNIX)
+		    for i1 as Integer=0 to sum
+		      logowin.WriteToSTDOUT(str(summary(i1)))
+		    next
 		    
-		    
-		    logowin.WriteToSTDOUT(EndOfLine+EndOfLine+timestring+"spent scanning "+infileName+" with "+str(SigCount)+" profiles.")
+		    logowin.WriteToSTDOUT(EndOfLine+EndOfLine+timestring+"spent scanning "+infileName+" with "+str(SigCount)+" profiles." )
 		    logowin.WriteToSTDOUT(EndOfLine+str(HitCount)+" sites added to feature table.")
 		    logowin.WriteToSTDOUT(EndOfLine+"Modified GenBank file written to "+f2.ShellPath+endofline)
 		    Logowin.ScanningGenome=false
-		    
+		    LogoWin.Refresh
+		    //'next
 		  End If
 		  
 		  Exception err
-		    ExceptionHandler(err,"ScanGenomeWin:ScanGenome")
+		    ExceptionHandler(err,"ScanGenomeWinCRtag:ScanGenomeCR")
 		End Sub
 	#tag EndMethod
 
@@ -591,7 +696,7 @@ End
 		Sub Action()
 		  
 		  self.hide
-		  self.ScanGenome
+		  self.ScanGenomeCR
 		  
 		End Sub
 	#tag EndEvent
@@ -607,6 +712,7 @@ End
 	#tag Event
 		Sub Action()
 		  LogoWin.GenomeFile=GetOpenFolderItem("")
+		  gbk2fasta(LogoWin.GenomeFile)
 		  if LogoWin.GenomeFile<> Nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+LogoWin.GenomeFile.shellpath+" loaded.")
 		    if LogoWin.Logofile<>nil then
@@ -624,9 +730,9 @@ End
 #tag Events SigList
 	#tag Event
 		Sub Open()
-		  me.ColumnWidths="30,*"
+		  me.ColumnCount=4
+		  me.ColumnWidths="30,80,0,0"
 		  me.ColumnType(0)=Listbox.TypeCheckbox
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

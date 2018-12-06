@@ -94,7 +94,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -173,7 +173,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   "10"
@@ -252,7 +252,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -296,7 +296,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   "1e-6"
@@ -506,7 +506,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   ""
@@ -618,7 +618,7 @@ Begin Window ProfileWizardWin
          Alignment       =   0
          AutoDeactivate  =   True
          AutomaticallyCheckSpelling=   False
-         BackColor       =   &c00FFFFFF
+         BackColor       =   &cFFFFFF00
          Bold            =   False
          Border          =   True
          CueText         =   "protein name"
@@ -663,7 +663,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &c00FFFFFF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -922,7 +922,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &c00FFFFFF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -1000,7 +1000,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   True
-      BackColor       =   &c00FFFFFF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       DataField       =   ""
@@ -1083,7 +1083,7 @@ Begin Window ProfileWizardWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &c00FFFFFF
+      BackColor       =   &cFFFFFF00
       Bold            =   False
       Border          =   True
       CueText         =   ""

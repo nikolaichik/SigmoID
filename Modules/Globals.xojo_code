@@ -897,6 +897,221 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub gbk2fasta(f as folderItem)
+		  dim stre as textInputStream
+		  dim s,s0,features,currentFeature, cf1,name,coord,start,finish,Separator,splitCoords,leftC,FeatureArray(-1) as string
+		  dim en,st,l,m,n,p,p1,p2,p3,p4,p5 as integer
+		  dim t as double
+		  dim exitParsing as boolean
+		  dim NewFeature as GBFeature
+		  app.Genome=new cSeqObject
+		  
+		  
+		  If f <> nil AND f.exists then
+		    Stre=f.OpenAsTextFile
+		    s=stre.readall
+		    Stre.Close
+		  End if
+		  
+		  if instrb(s,"LOCUS       ")>0 then
+		    'w.gbopened=true
+		    '
+		    '
+		    '****************Opening Genbank file******************
+		    '
+		    'Genebank file - sequence starts after "ORIGIN"
+		    'the entry starts with "LOCUS       ";
+		    'description and references follow down to
+		    '"FEATURES             Location/Qualifiers",
+		    'after which the feature list goes
+		    'the sequence starts right after "ORIGIN      <cr>        1 "
+		    
+		    'first get the feature table:
+		    st=instrb(s,"FEATURES             Location/Qualifiers")+41
+		    's0=LineEnd+"BASE COUNT "  'this long in order to terminate parsing properly
+		    
+		    LineEnd=EndOfLine.unix
+		    s0=LineEnd+"ORIGIN"
+		    '^
+		    '|
+		    'SHOULD USE "origin" INSTEAD OF "BASE COUNT"
+		    en=instrb(s,s0)-1
+		    'line ends may vary wildly, so checking if platform-specific line ends are indeed used
+		    cLineEnd=LineEnd
+		    if en=-1 then  'line ends are different or this may be not a genebank file
+		      s0=LF+"ORIGIN"
+		      en=instrb(s,s0)-1
+		      if en >= 0 then
+		        'set the correct line ends for further use:
+		        cLineEnd=LF
+		      else
+		        s0=CR+"ORIGIN"
+		        en=instrb(s,s0)-1
+		        if en > 0 then 'set the correct line ends for further use:
+		          cLineEnd=CR
+		        else
+		          msgbox "Problem trying to read GenBank format! Annotated features may not be available."
+		        end if
+		      end
+		    end
+		    if cLineEnd="" then
+		      cLineEnd=EndOfLine  'seems to be set wrong for some files
+		    end if
+		    LineEnd=cLineEnd
+		    
+		    features=midb(s,st,en-st+1)
+		    
+		    'get genetic code number
+		    dim tt As string
+		    if instr(features,"/transl_table=")>0 then
+		      tt=NthField(features,"/transl_table=",2)
+		      tt=trim(NthField(tt,EndOfLine.unix,1))
+		      if len(tt)<3 then
+		        gCodeNo=val(tt)
+		      else
+		        gCodeNo=1
+		      end if
+		    else
+		      gCodeNo=1 'can't get the translation table – using the universal code
+		    end if
+		    
+		    'save description:
+		    app.Genome.Description=leftb(s,st)
+		    
+		    'now parse the feature table.
+		    'every new feature is identified as the line having 5 rather than 21 leading spaces
+		    
+		    'First remove the blocks of 21 spaces:
+		    features=ReplaceAll(features,"                     ","")
+		    Separator=cLineEnd+"     "
+		    m=countfields(features,Separator)
+		    currentFeature=""
+		    app.Genome.features(0)=new GBfeature(app.Genome.baselineY)   'this will store map title/sequence size
+		    
+		    
+		    features=ConvertEncoding(features,Encodings.ASCII)
+		    
+		    featureArray=Split(features,Separator)
+		    app.gbkSource=""
+		    for n=0 to m-1
+		      currentFeature=featureArray(n)
+		      
+		      'feature description parsing:
+		      cf1=nthfield(currentFeature,cLineEnd,1)
+		      name=trim(leftb(cf1,16))      'feature name
+		      
+		      if name ="source" then
+		        'store source separately
+		        app.gbkSource=currentFeature
+		      else
+		        NewFeature=new GBfeature(app.Genome.baselineY)
+		        NewFeature.featureText=currentFeature
+		        'now check the direction and coorginates:
+		        cf1=replace((cf1),"<","")  'remove markers of truncated genes to simplify coordinate parsing
+		        cf1=replace((cf1),">","")
+		        if InStrB(17,cf1,"complement")>0 then
+		          NewFeature.complement=true
+		          'gene            complement(2659..4155)
+		          if InStrB(27,cf1,"order")>0 OR InStrB(27,cf1,"join")>0 then
+		            'split feature:
+		            'misc_feature    complement(order(3576182..3576235,3576263..3576322,
+		            '3576341..3576409,3576467..3576532))
+		            'CDS             complement(join(2497077..2497340,2497344..2497514))
+		            NewFeature.start=val(nthFieldB(cf1,"..",countfieldsB(cf1,"..")))  'replacement to correct for partial features
+		            NewFeature.finish=val(nthfieldB(nthfieldB(cf1,"..",1),"(",3))
+		          else
+		            coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
+		            NewFeature.start=val(nthFieldB(coord,"..",2))
+		            'NewFeature.finish=val(replace((nthFieldB(coord,"..",1)),"<",""))  'replacement to correct for partial features
+		            NewFeature.finish=val(nthFieldB(coord,"..",1))  'replacement to correct for partial features
+		          end if
+		        else
+		          if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then
+		            'split feature:
+		            'misc_feature    order(343373..343441,343469..343537,343652..343720,
+		            '343799..343867,343925..343984)
+		            'CDS             join(843475..843549,843551..844573)
+		            
+		            NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",2))
+		            'splitCoords=NthFieldB(currentFeature,")",1)
+		            'NewFeature.finish=val(nthFieldB(splitCoords,"..",CountFieldsB(splitCoords,"..") ))
+		            NewFeature.finish=val(nthFieldB(cf1,"..",CountFieldsB(cf1,"..")))
+		          else
+		            'NewFeature.complement=false false is the default
+		            coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
+		            NewFeature.start=val(NthFieldB(coord,"..",1))
+		            NewFeature.finish=val(nthFieldB(coord,"..",2))
+		          end if
+		        end if
+		        App.Genome.features.Append NewFeature
+		      end if
+		      
+		    next 'n
+		    
+		    's=DefineEncoding ("",Encodings.ASCII)
+		    
+		    app.FormattedSequence=trim(rightb(s,len(s)-instrb(s,"ORIGIN")-7)) 
+		    'w.FormattedSequence=trim(rightb(s,lenb(s)-instrb(s,"ORIGIN")-7)) предлагаю вариант на замену
+		    app.Genome.sequence=CleanUp(app.FormattedSequence)
+		    
+		  else
+		    msgbox kInvalidGenbankFile
+		    return
+		  end 'if instrb(s,"LOCUS       ")>0
+		  
+		  
+		  
+		  dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+		  
+		  dim n1,u1 as integer
+		  dim ft as GBFeature
+		  
+		  separTransl="/translation="+chr(34)
+		  separProtID="/protein_id="+chr(34)
+		  separGene="/gene="+chr(34)
+		  separProd="/product="+chr(34)
+		  separ2=chr(34)
+		  dim outfile as FolderItem
+		  outfile = TemporaryFolder.child("gbkProtexport.fasta")
+		  if outfile.Exists then outfile.Delete
+		  
+		  Dim s1 as TextOutputStream=TextOutputStream.Create(outfile)
+		  if s1<> NIL then
+		    u1=ubound(app.Genome.Features)
+		    for n1=1 to u1
+		      ft=app.Genome.Features(n1)
+		      if left(ft.featuretext,3)="CDS" then
+		        TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
+		        TitleLine=">"+NthField(TitleLine,separ2,1)
+		        prot=NthField(ft.FeatureText,separGene,2)                  'Gene
+		        prot=NthField(prot,separ2,1)
+		        if prot<>"" then
+		          TitleLine=TitleLine+" "+prot
+		        end if
+		        prot=NthField(ft.FeatureText,separProd,2)                  'Product
+		        prot=NthField(prot,separ2,1)
+		        TitleLine=TitleLine+" "+prot
+		        TitleLine=replaceall(TitleLine,EndOfLine," ")
+		        
+		        prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
+		        prot=trim(NthField(prot,separ2,1))
+		        if prot<>"" then
+		          s1.Writeline TitleLine                                      'Write >Title
+		          s1.write prot+EndOfLine.unix                                'and AA seq
+		        end if
+		      end if
+		    next
+		    
+		    s1.close
+		    
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"App:gbk2fasta")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub GeneticCodesInit()
 		  'this routine fills in all the translation tables for all versions of genetic codes, as well as starts and stops.
 		  
@@ -1218,6 +1433,86 @@ Protected Module Globals
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    
 		    sh.execute cli
+		    If sh.errorCode=0 then
+		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
+		      
+		      instream=HmmResultFile.OpenAsTextFile
+		      
+		      if instream<>nil then         'save hmmsearch results
+		        table=trim(instream.ReadAll)
+		        instream.close
+		        'hmmSearchRes="HMM file used: "+HMMfilePath+EndOfLine
+		        hmmSearchRes=hmmSearchRes+"CRtag positions: " +CRtagPositions+EndOfLine
+		        hmmSearchRes=hmmSearchRes+GetCRtags(sh.Result,Table,CRtagPositions)
+		        
+		        return HmmSearchRes
+		      end if
+		      
+		      
+		      
+		    else
+		      LogoWin.WriteToSTDOUT sh.Result
+		      return ""
+		    End If
+		  else
+		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Can't create temporary file, have to abort search.")
+		    return ""
+		  end if
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function HMMsearchWithCRtagsCR(CDSfile as folderitem, HMMfilePath as string) As string
+		  dim HmmResultFile as folderitem
+		  dim hmmSearchRes, cli, table, aline as string
+		  dim instream, tis as TextInputStream
+		  dim sh as new shell
+		  dim CRTAG as string = ""
+		  dim f as FolderItem 
+		  
+		  'if  ScanGenomeWin.firstrun=0 then
+		  'f= GetFolderItem ("/home/aither/Sources/Sigmoid-archive/Sigmoid-04-09-18/TF_HMMs/TF_HMMs/GerE.hmm")
+		  'ScanGenomeWin.firstrun=1
+		  'else
+		  f= GetFolderItem (HMMfilePath, FolderItem.PathTypeNative)
+		  'end
+		  tis=f.OpenAsTextFile
+		  if tis<>nil then
+		    while CRTAG=""
+		      aLine=tis.ReadLine     'hmmfile
+		      if left(aline,6)="CRTAG " then
+		        CRtag=NthField(aLine,"CRTAG ",2)
+		        exit
+		      end if
+		    wend
+		    CRtagPositions=CRtag
+		  end if
+		  tis.close
+		  
+		  'store the CDSs as a string for further use:
+		  instream=CDSfile.OpenAsTextFile
+		  
+		  if instream<>nil then
+		    CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
+		    instream.close
+		  end if
+		  
+		  HmmResultFile=TemporaryFolder.Child("alignments.table")
+		  if HmmResultFile<>nil then
+		    if HmmResultFile.exists then
+		      HmmResultFile.Delete
+		    end if
+		    'LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
+		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
+		    if instr(HMMfilePath, " ")>0 then
+		      HMMfilePath=chr(34)+HMMfilePath+chr(34)
+		    end
+		    
+		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
+		    
+		    sh.execute cli
+		    //LogoWin.WriteToSTDOUT (EndofLine.UNIX+str(sh.Result)+EndOfLine.UNIX)
 		    If sh.errorCode=0 then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		      

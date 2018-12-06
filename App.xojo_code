@@ -534,6 +534,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeScanCr() As Boolean Handles GenomeScanCr.Action
+			ScanGenomeCR
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeScanGenome() As Boolean Handles GenomeScanGenome.Action
 			ScanGenome
 			Return True
@@ -896,6 +904,12 @@ Inherits Application
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h1
+		Protected Sub ScanGenomeCR()
+		  ScanGenomeWinCRtag.show
+		End Sub
+	#tag EndMethod
+
 
 	#tag Note, Name = 2 do
 		2. Verify native/WebKit HTMLViewer on win
@@ -985,6 +999,19 @@ Inherits Application
 	#tag EndNote
 
 
+	#tag Property, Flags = &h0
+		FormattedSequence As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		gbkSource As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Genome As cSeqObject
+	#tag EndProperty
+
+
 	#tag Constant, Name = kEditClear, Type = String, Dynamic = False, Default = \"&Delete", Scope = Public
 		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"&Delete"
 		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"&Delete"
@@ -1001,6 +1028,18 @@ Inherits Application
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="FormattedSequence"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="gbkSource"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
 #tag EndClass
