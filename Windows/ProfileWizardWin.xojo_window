@@ -50,6 +50,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   312
@@ -75,6 +76,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kTrusted1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -125,6 +127,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   54
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -152,6 +155,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kGathering1"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -202,6 +206,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   88
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -229,6 +234,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kNoise"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -279,6 +285,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   120
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -322,6 +329,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   152
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -349,6 +357,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   7
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "MAST p-value threshold:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -386,6 +395,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   316
@@ -416,6 +426,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   88
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -443,6 +454,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "Feature to add:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -483,6 +495,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   120
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -526,6 +539,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   152
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -558,6 +572,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   56
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -585,6 +600,7 @@ Begin Window ProfileWizardWin
          Selectable      =   False
          TabIndex        =   6
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kQualifier"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -635,6 +651,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   152
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -683,6 +700,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   393
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -715,6 +733,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   540
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -746,6 +765,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   540
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -789,6 +809,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   540
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -821,6 +842,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   202
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   494
@@ -847,6 +869,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   8
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "TF family HMM:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -881,6 +904,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   9
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "CRtag coords:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -930,6 +954,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   234
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -957,6 +982,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "protein_id and sequence of the protein used to seed the profile (fasta format):"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -1011,6 +1037,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   287
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -1038,6 +1065,7 @@ Begin Window ProfileWizardWin
       Selectable      =   False
       TabIndex        =   13
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "CRtag sequence:"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -1087,6 +1115,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   234
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -1302,7 +1331,7 @@ End
 		    dlg.PromptText = "Save calibrated profile with postprocessing settings"
 		    dlg.SuggestedFileName=CRtag+"_"+ProtName+".sig"
 		    dlg.filter = "Sig_file"
-		    dlg.InitialDirectory = Profile_f
+		    'dlg.InitialDirectory = Profile_f
 		    dlg.CancelButtonCaption=kCancel
 		    dlg.ActionButtonCaption=kSave
 		    

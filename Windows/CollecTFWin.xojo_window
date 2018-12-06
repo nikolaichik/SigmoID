@@ -62,6 +62,7 @@ Begin Window CollecTFWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   1
+      ShowDropIndicator=   False
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
@@ -69,6 +70,7 @@ Begin Window CollecTFWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -94,6 +96,7 @@ Begin Window CollecTFWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   -58
+      Transparent     =   False
       Visible         =   True
       Width           =   94
    End
@@ -124,6 +127,7 @@ Begin Window CollecTFWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   480
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   126
@@ -167,6 +171,7 @@ Begin Window CollecTFWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   478
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -194,6 +199,7 @@ Begin Window CollecTFWin
       Selectable      =   False
       TabIndex        =   11
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "CollecTF December 17, 2015 release"
       TextAlign       =   1
       TextColor       =   &c00000000
@@ -549,8 +555,10 @@ End
 		      logowin.Title="SigmoID: "+TFname+" (RegulonDB)"
 		      logowin.LoadAlignment(tmpfile)
 		      if LengthsDiffer then
+		        LogoWin.show
 		        logowin.ChangeView("Sequences")
 		      else
+		        LogoWin.show
 		        logowin.ChangeView("Logo")
 		      end if
 		      HmmGenSettingsWin.ValueField.text=TFname
@@ -590,7 +598,8 @@ End
 		    
 		  end if
 		  
-		  LogoWin.show
+		  
+		  
 		  
 		  Exception err
 		    if err isa IOException then

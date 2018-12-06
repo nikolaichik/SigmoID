@@ -77,6 +77,7 @@ Begin Window LogoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -128,8 +129,8 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
+      Transparent     =   False
       Value           =   1
       Visible         =   True
       Width           =   1000
@@ -204,6 +205,7 @@ Begin Window LogoWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   0
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   False
@@ -234,6 +236,7 @@ Begin Window LogoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
+      Transparent     =   False
       Value           =   0
       Visible         =   False
       Width           =   1000
@@ -1101,7 +1104,7 @@ End
 			
 			Dim dlg as New SaveAsDialog
 			Dim outfile as FolderItem
-			dlg.InitialDirectory=Profile_f
+			'dlg.InitialDirectory=Profile_f
 			'dlg.promptText="Prompt Text"
 			
 			dlg.SuggestedFileName=NthField(LogoFile.Name,".",1)+"_short.fasta"
