@@ -544,6 +544,9 @@ Protected Module DeNovoTFBSinference
 		  m=ubound(ResArray)-1
 		  
 		  dim gbkcount as integer = Val(deNovoWin.Proteins2processField.text)
+		  if m<gbkcount then
+		    gbkcount=m
+		  end if
 		  
 		  z=m mod 300
 		  
