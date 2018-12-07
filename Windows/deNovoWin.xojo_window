@@ -53,6 +53,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -84,6 +85,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -110,6 +112,7 @@ Begin Window deNovoWin
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kOutFolder"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -159,6 +162,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -191,6 +195,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   372
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -213,7 +218,7 @@ Begin Window deNovoWin
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   253
+      Height          =   334
       HelpTag         =   "The genome will be searched with all the profiles checked"
       Hierarchical    =   False
       Index           =   -2147483648
@@ -221,7 +226,7 @@ Begin Window deNovoWin
       InitialValue    =   ""
       Italic          =   False
       Left            =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
@@ -231,6 +236,7 @@ Begin Window deNovoWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   False
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
@@ -238,6 +244,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -252,185 +259,83 @@ Begin Window deNovoWin
       TabPanelIndex   =   0
       ValidateCertificates=   False
    End
-   Begin CheckBox Palindromicbox
+   Begin Label Label1
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Palindromic"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   22
+      Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   285
-      LockBottom      =   True
+      Left            =   44
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   False
+      LockTop         =   True
+      Multiline       =   False
       Scope           =   0
-      State           =   0
+      Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Number of proteins with the same CR tag to process:"
+      TextAlign       =   0
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   321
+      Top             =   346
+      Transparent     =   False
       Underline       =   False
-      Value           =   False
       Visible         =   True
-      Width           =   100
+      Width           =   393
    End
-   Begin GroupBox GroupBox1
+   Begin TextField Proteins2processField
+      AcceptTabs      =   False
+      Alignment       =   0
       AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFFFF00
       Bold            =   False
-      Caption         =   "Meme settings"
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
       Enabled         =   True
-      Height          =   89
+      Format          =   ""
+      Height          =   22
       HelpTag         =   ""
       Index           =   -2147483648
-      InitialParent   =   ""
       Italic          =   False
-      Left            =   49
-      LockBottom      =   True
+      Left            =   476
+      LimitText       =   0
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
+      LockRight       =   False
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "300"
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   267
+      Top             =   346
+      Transparent     =   False
       Underline       =   False
+      UseFocusRing    =   True
       Visible         =   True
-      Width           =   346
-      Begin TextField MinWidthField
-         AcceptTabs      =   False
-         Alignment       =   0
-         AutoDeactivate  =   True
-         AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
-         Bold            =   False
-         Border          =   True
-         CueText         =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Format          =   ""
-         Height          =   27
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   69
-         LimitText       =   0
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Mask            =   ""
-         Password        =   False
-         ReadOnly        =   False
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   ""
-         TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   320
-         Underline       =   False
-         UseFocusRing    =   True
-         Visible         =   True
-         Width           =   80
-      End
-      Begin Label Label1
-         AutoDeactivate  =   True
-         Bold            =   False
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   23
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   94
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Multiline       =   False
-         Scope           =   0
-         Selectable      =   False
-         TabIndex        =   2
-         TabPanelIndex   =   0
-         Text            =   "Motif's min and max width"
-         TextAlign       =   0
-         TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   299
-         Transparent     =   True
-         Underline       =   False
-         Visible         =   True
-         Width           =   176
-      End
-      Begin TextField MaxWidthField
-         AcceptTabs      =   False
-         Alignment       =   0
-         AutoDeactivate  =   True
-         AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFFFF00
-         Bold            =   False
-         Border          =   True
-         CueText         =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Format          =   ""
-         Height          =   27
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   188
-         LimitText       =   0
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Mask            =   ""
-         Password        =   False
-         ReadOnly        =   False
-         Scope           =   0
-         TabIndex        =   3
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   ""
-         TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   320
-         Underline       =   False
-         UseFocusRing    =   True
-         Visible         =   True
-         Width           =   80
-      End
+      Width           =   80
    End
 End
 #tag EndWindow
@@ -444,6 +349,7 @@ End
 
 	#tag Event
 		Sub Open()
+		  AdjustLayout4linux(me)
 		  RunCheck
 		End Sub
 	#tag EndEvent
@@ -559,7 +465,7 @@ End
 		  end if
 		  
 		  
-		  self.height=HmmList.RowHeight*HmmList.ListCount+110
+		  'self.height=HmmList.RowHeight*HmmList.ListCount+110
 		  
 		  Exception err
 		    ExceptionHandler(err,"deNovoWin:BuildHmmArray")
@@ -980,6 +886,8 @@ End
 		  else
 		    MsgBox("hmm path was not found")
 		  end Select
+		  
+		  
 		  try
 		    instream=BaseLocation.OpenAsTextFile
 		  catch e as NilObjectException
@@ -1273,7 +1181,7 @@ End
 		            if crIndex>0 then
 		              filteredRes=CrBaseECodes(crindex)
 		            else
-		              LogoWin.WriteToSTDOUT (EndOfLine.unix+"CrTag: "+Crtags(n)+"was not found in the local base, seqCode: "+theProtName+EndOfLine.unix)
+		              LogoWin.WriteToSTDOUT (EndOfLine.unix+"CrTag "+Crtags(n)+" was not found in the local base (protein seq accession "+theProtName+")"+EndOfLine.unix)
 		              continue for n
 		            end if
 		            
@@ -1377,16 +1285,18 @@ End
 		            dim ErrCode as integer
 		            
 		            if CPUcores>1 then
-		              'opt=" -p " + str(CPUcores)  'for parallelised meme //masked for meme to work 
-		              opt=" -p 2"
+		              opt=" -p " + str(CPUcores)  'for parallelised meme
+		              'opt=" -p 2"
 		            end if
 		            
-		            opt=opt+" -dna -minw "+ trim(MinWidthField.text)
-		            opt=opt+" -maxw "+ trim(MaxWidthField.text)
+		            dim mWidth as string=HmmList.Cell(HmmList.ListIndex,5) 'motif widths are stored in the table (and can be changed here)
+		            
+		            opt=opt+" -dna -minw "+ trim(nthfield(mWidth,"-",1))
+		            opt=opt+" -maxw "+ trim(nthfield(mWidth,"-",2))
 		            
 		            
 		            '[-pal]            force palindromes (requires -dna)
-		            if PalindromicBox.Value then
+		            if HmmList.Cell(HmmList.ListIndex,4)="yes" then
 		              opt=opt+" -pal"
 		            end if
 		            
@@ -1676,6 +1586,27 @@ End
 		Function AuthenticationRequired(Realm as Text, ByRef Name as Text, ByRef Password as Text) As Boolean
 		  beep
 		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events Proteins2processField
+	#tag Event
+		Sub TextChange()
+		  dim p2p as integer
+		  
+		  p2p=val(me.text)
+		  
+		  if p2p<30 then
+		    me.text="30"
+		    msgbox "30 is the minimal number here"
+		  end if
+		  
+		  if p2p>1000 then
+		    me.text="1000"
+		    msgbox "1000 is the maximal number here. Please think if you really want to fetch this many seqs. It's slow and doesn't really help."
+		  end if
+		  
+		  
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior

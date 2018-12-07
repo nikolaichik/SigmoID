@@ -130,7 +130,7 @@ Protected Module DeNovoTFBSinference
 		  dim res as string
 		  
 		  
-		  LogoWin.WriteToSTDOUT ("Getting the GenBank entry fragment... ")
+		  LogoWin.WriteToSTDOUT ("Getting the GenBank entry "+EntryID+" fragment... ")
 		  'LogoWin.show
 		  
 		  hts.Yield=true  'allow background activities while waiting
@@ -180,7 +180,7 @@ Protected Module DeNovoTFBSinference
 		  dim outfile as folderitem
 		  
 		  
-		  LogoWin.WriteToSTDOUT ("Getting the GenPept entry... ")
+		  LogoWin.WriteToSTDOUT ("Getting GenPept entries... ")
 		  'LogoWin.show
 		  
 		  hts.Yield=true  'allow background activities while waiting
@@ -542,14 +542,13 @@ Protected Module DeNovoTFBSinference
 		  ResArray=split(eCodes,",")
 		  
 		  m=ubound(ResArray)-1
-		  dim win as new GetOrthoRegSeqInput
-		  dim gbkcount as integer = win.getinput(m)
-		  win.close
+		  
+		  dim gbkcount as integer = Val(deNovoWin.Proteins2processField.text)
 		  
 		  z=m mod 300
 		  
 		  if gbkcount>300 then
-		    LogoWin.WriteToSTDOUT("Processing UniProt hits "+"..."+EndOfLine.unix)
+		    LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    k=gbkcount\300
 		    for i=1 to k
@@ -577,7 +576,7 @@ Protected Module DeNovoTFBSinference
 		    
 		    return MultiFasta
 		  else
-		    LogoWin.WriteToSTDOUT("Processing UniProt hits "+"..."+EndOfLine.unix)
+		    LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    UniProtID=trim(NthField(eCodes,","+Resarray(gbkcount),1))
 		    SingleFasta=GetRegSeq(UniProtID,EntryFragmentsF)
