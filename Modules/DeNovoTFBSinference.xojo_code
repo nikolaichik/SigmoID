@@ -608,7 +608,7 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetRegSeq(UniProtID as string, FragmentsFolder as folderitem) As String
+		Function GetRegSeq(UniProtIDs as string, FragmentsFolder as folderitem) As String
 		  // Given a UniProt ID, find the corresponding gene
 		  // and get regulatory regions for it and two neighbour operons
 		  'Using Xojo.Core
@@ -623,7 +623,7 @@ Protected Module DeNovoTFBSinference
 		  dim leftCOO, rightCOO, i, k as integer
 		  dim entryarray(-1) as string
 		  dim OutStream As TextOutputStream
-		  
+		  dim UniProtId(-1) as String 
 		  dim operonGap as integer = 100     ' <-- adjust this/ make configurable!
 		  
 		  dim LengthLimit as integer = 30000 ' <-- adjust this/ make configurable!
@@ -650,7 +650,7 @@ Protected Module DeNovoTFBSinference
 		  '
 		  'end if
 		  'tempID=ConvertIDtoGenPept(tempID1)
-		  tempID=UniProtID
+		  tempID=UniProtIDs
 		  if tempID="" then
 		    LogoWin.WriteToSTDOUT("Can't get GenPept ID for NCBI reference "+tempID1+EndOfLine.UNIX)
 		    return ""
@@ -659,7 +659,8 @@ Protected Module DeNovoTFBSinference
 		  
 		  Entry=FetchGenPeptEntry(tempID)
 		  entryarray=entry.split("//"+EndOfLine.UNIX)
-		  k=UBound(entryarray)
+		  UniProtId=UniProtIDs.Split(",")
+		  k=UBound(entryarray)-1 'last entry always empty line, so not count it
 		  
 		  'get Locus_tag to be used later. The line to look for:
 		  '/locus_tag="OI69_02845"
@@ -678,7 +679,7 @@ Protected Module DeNovoTFBSinference
 		      
 		      if LocusTag="" then
 		        'return "Error extracting locus_tag from GenPept entry "+ConvertEncoding(tempID,Encodings.UTF8)+EndOfLine.unix+EndOfLine.unix
-		        LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniprotID+EndOfLine.unix+EndOfLine.unix)
+		        LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniprotID(i)+EndOfLine.unix+EndOfLine.unix)
 		        Continue for i
 		      end if
 		      
@@ -694,7 +695,7 @@ Protected Module DeNovoTFBSinference
 		      'qualifier=NthField(Entry,"ACCESSION   ",2)      'accession
 		      qualifier=NthField(entryarray(i),"ACCESSION   ",2)      'accession
 		      qualifier=trim(NthField(qualifier,"VERSION     ",1))
-		      UniProtID=qualifier
+		      'UniProtID=qualifier
 		      FastaName=FastaName+qualifier+"|"
 		      'qualifier=NthField(Entry,"/organism="+chr(34),2)
 		      qualifier=NthField(entryarray(i),"/organism="+chr(34),2)
@@ -851,7 +852,7 @@ Protected Module DeNovoTFBSinference
 		      
 		      if len(eSeq.sequence)<LengthLimit then
 		        'return "Genome piece coding for "+UniProtID+" is too short ("+str(len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX
-		        LogoWin.WriteToSTDOUT("Genome piece coding for "+UniprotID+" is too short ("+str(len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX)
+		        LogoWin.WriteToSTDOUT("Genome piece coding for "+UniprotID(i)+" is too short ("+str(len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX)
 		        continue for i
 		      end if
 		      
