@@ -551,7 +551,7 @@ Protected Module DeNovoTFBSinference
 		  z=m mod 300
 		  
 		  if gbkcount>300 then
-		    LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
+		    'LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    k=gbkcount\300
 		    for i=1 to k
@@ -579,7 +579,7 @@ Protected Module DeNovoTFBSinference
 		    
 		    return MultiFasta
 		  else
-		    LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
+		    'LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    UniProtID=trim(NthField(eCodes,","+Resarray(gbkcount),1))
 		    SingleFasta=GetRegSeq(UniProtID,EntryFragmentsF)
