@@ -53,6 +53,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   490
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -84,6 +85,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   490
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -115,6 +117,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   142
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -179,6 +182,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   278
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   410
@@ -220,6 +224,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   305
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -263,6 +268,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   339
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -306,6 +312,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   339
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -349,6 +356,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   373
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -392,6 +400,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   373
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -425,6 +434,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   246
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -454,6 +464,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   76
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   410
@@ -481,6 +492,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   103
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -510,6 +522,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   104
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -553,6 +566,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   102
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -596,6 +610,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   102
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -629,6 +644,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   458
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -661,6 +677,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   305
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -738,6 +755,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   419
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -770,6 +788,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   421
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -836,6 +855,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   142
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -865,6 +885,7 @@ Begin Window RepeatSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   174
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   410
@@ -906,6 +927,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   198
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -1019,6 +1041,7 @@ Begin Window RepeatSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   198
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -1239,18 +1262,18 @@ End
 		  opt=opt+" -a "+LogoWin.AlignmentLength
 		  dim PartPerCent As integer
 		  PartPerCent=val(PartialPercentField.text)
-		  if PartPerCent>=30 AND PartPerCent<=100 then 'May some people want less than 30%?  
+		  if PartPerCent>=10 AND PartPerCent<=100 then 'May someone want less than 10%?  
 		    opt=opt+" -L "+str(ceil(val(LogoWin.AlignmentLength)*PartPerCent/100))+":"+LogoWin.AlignmentLength
 		  else
-		    MsgBox "Partial matches must be in the interval 30-100%."
+		    MsgBox "Partial matches must be in the interval 10-100%."
 		    return
 		  end if
 		  dim HMMPartPerCent As integer
 		  HMMPartPerCent=val(HMMPartialPercentField.text)
-		  if HMMPartPerCent>=30 AND HMMPartPerCent<=100 then 'May some people want less than 30%?  
+		  if HMMPartPerCent>=10 AND HMMPartPerCent<=100 then 'May someone want less than 10%?  
 		    opt=opt+" -c "+str(HMMPartPerCent/100)
 		  else
-		    MsgBox "Partial matches must be in the interval 30-100%."
+		    MsgBox "Partial matches must be in the interval 10-100%."
 		    return
 		  end if
 		  'else
