@@ -3088,121 +3088,17 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub SetDefaultPaths()
-		  'set defaults:
+		  'set default paths
 		  dim f as folderitem
+		  dim pth as string
 		  
-		  #if TargetWin32
-		    f=resources_f.child("tfastx.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        tfastxPath=chr(34)+f.ShellPath+chr(34)
-		      end if
-		    end if
-		    f=resources_f.child("alimask.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        alimaskpath=chr(34)+f.ShellPath+chr(34)
-		      end if
-		    end if
-		    f=resources_f.child("nhmmer.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        nhmmerpath=chr(34)+f.ShellPath+chr(34)
-		      end if
-		    end if
-		    f=resources_f.child("hmmBuild.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        hmmBuildPath=chr(34)+f.ShellPath+chr(34)
-		      end if
-		    end if
-		    f=resources_f.child("meme.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        MEMEpath=chr(34)+f.ShellPath+chr(34)
-		      end if
-		    end if
-		    f=resources_f.child("mast.exe")
-		    if f<>Nil then
-		      if f.exists then
-		        MASTpath=chr(34)+f.ShellPath+chr(34)
-		      end if
-		    end if
-		  #elseif TargetLinux
-		    f=resources_f.child("tfastx")
-		    if f<>Nil then
-		      if f.exists then
-		        tfastxPath="'"+f.NativePath+"'"
-		      end if
-		    end if
-		    f=resources_f.child("alimask")
-		    if f<>Nil then
-		      if f.exists then
-		        alimaskpath="'"+f.NativePath+"'"
-		      end if
-		    end if
-		    f=resources_f.child("hmmbuild")
-		    if f<>Nil then
-		      if f.exists then
-		        hmmBuildPath="'"+f.NativePath+"'"
-		      end if
-		    end if
-		    f=resources_f.child("meme")
-		    if f<>Nil then
-		      if f.exists then
-		        MEMEpath="'"+f.NativePath+"'"
-		      end if
-		    end if
-		    f=resources_f.child("mast")
-		    if f<>Nil then
-		      if f.exists then
-		        MASTpath="'"+f.NativePath+"'"
-		      end if
-		    end if
-		    f=resources_f.child("nhmmer")
-		    if f<>Nil then
-		      if f.exists then
-		        nhmmerpath="'"+f.NativePath+"'"
-		      end if
-		    end if
-		  #else
-		    f=resources_f.child("tfastx")
-		    if f<>Nil then
-		      if f.exists then
-		        tfastxPath=f.ShellPath
-		      end if
-		    end if
-		    f=resources_f.child("alimask")
-		    if f<>Nil then
-		      if f.exists then
-		        alimaskpath=f.ShellPath
-		      end if
-		    end if
-		    f=resources_f.child("nhmmer")
-		    if f<>Nil then
-		      if f.exists then
-		        nhmmerpath=f.ShellPath
-		      end if
-		    end if
-		    f=resources_f.child("hmmbuild")
-		    if f<>Nil then
-		      if f.exists then
-		        hmmBuildPath=f.ShellPath
-		      end if
-		    end if
-		    f=resources_f.child("meme")
-		    if f<>Nil then
-		      if f.exists then
-		        MEMEpath=f.ShellPath
-		      end if
-		    end if
-		    f=resources_f.child("mast")
-		    if f<>Nil then
-		      if f.exists then
-		        MASTpath=f.ShellPath
-		      end if
-		    end if
-		  #endif
+		  tfastxPath=SystemPath("tfastx")  
+		  alimaskpath=SystemPath("alimask")
+		  nhmmerpath=SystemPath("nhmmer")
+		  hmmBuildPath=SystemPath("hmmbuild")
+		  MEMEpath=SystemPath("meme")
+		  MASTpath=SystemPath("mast")
+		  
 		  
 		  
 		End Sub
@@ -3580,6 +3476,56 @@ Protected Module Globals
 		  outstream.close
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SystemPath(appName as string) As string
+		  'find path to properly installed app
+		  
+		  dim f as folderitem
+		  dim pth as string
+		  
+		  #if TargetWin32 'only look for included apps, locally installed must be manually configured
+		    f=resources_f.child(appName+".exe")
+		    if f<>Nil then
+		      if f.exists then
+		        return chr(34)+f.ShellPath+chr(34)
+		      else
+		        Return ""
+		      end if
+		    else
+		      Return ""
+		    end if
+		  #endif
+		  
+		  dim cli as string
+		  Dim sh As Shell
+		  
+		  sh=New Shell
+		  sh.mode=0
+		  
+		  'assume bash is the normal user shell
+		  'execute bash with login scripts to set the same env as in terminal
+		  'command must be in single quotes
+		  sh.Execute("bash --login -c '"+"which "+appName+"'")
+		  
+		  if sh.ErrorCode = 0 then
+		    pth=trim(sh.Result)
+		  else
+		    pth=""
+		  end if
+		  if pth="" then 
+		    f=resources_f.child(appName)
+		    if f<>Nil then
+		      if f.exists then
+		        return "'"+f.NativePath+"'"
+		      end if
+		    end if
+		  else
+		    return pth
+		  end if
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

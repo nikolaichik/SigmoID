@@ -53,6 +53,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -84,6 +85,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -160,6 +162,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -192,6 +195,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   372
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -240,6 +244,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -326,6 +331,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   346
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -1166,7 +1172,7 @@ End
 		          end if
 		          
 		          if FragmentsForAhitF<>Nil then
-		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Extracting promoter fragments for the hit and neighbour operons..."+EndOfLine.unix)
+		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons..."+EndOfLine.unix)
 		            
 		            
 		            
