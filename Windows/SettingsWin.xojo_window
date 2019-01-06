@@ -9,7 +9,7 @@ Begin Window SettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   320
+   Height          =   354
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -52,7 +52,8 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   280
+      Top             =   314
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -83,7 +84,8 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   280
+      Top             =   314
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -100,7 +102,7 @@ Begin Window SettingsWin
    Begin PagePanel PagePanel1
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   268
+      Height          =   302
       HelpTag         =   "All searches will be restricted to sequences from this organism"
       Index           =   -2147483648
       InitialParent   =   ""
@@ -115,9 +117,9 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Value           =   4
+      Transparent     =   False
+      Value           =   0
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -144,6 +146,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   20
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -174,6 +177,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   56
+            Transparent     =   False
             Underline       =   False
             Visible         =   True
             Width           =   343
@@ -205,6 +209,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   88
+            Transparent     =   False
             Underline       =   False
             Visible         =   True
             Width           =   343
@@ -247,6 +252,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   120
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -395,6 +401,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   154
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -441,7 +448,7 @@ Begin Window SettingsWin
          Bold            =   False
          Caption         =   "#kPaths"
          Enabled         =   True
-         Height          =   247
+         Height          =   281
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -460,6 +467,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   6
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -501,6 +509,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   40
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -535,7 +544,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   42
+            Top             =   41
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -570,7 +579,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   76
+            Top             =   75
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -614,6 +623,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   75
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -648,7 +658,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   110
+            Top             =   109
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -692,6 +702,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   108
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -726,7 +737,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   144
+            Top             =   143
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -770,6 +781,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   142
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -804,7 +816,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   178
+            Top             =   177
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -848,6 +860,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   176
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -876,19 +889,19 @@ Begin Window SettingsWin
             TabIndex        =   17
             TabPanelIndex   =   1
             TabStop         =   True
-            Text            =   "tfastx:"
+            Text            =   "TomTom:"
             TextAlign       =   0
             TextColor       =   &c00000000
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   212
+            Top             =   211
             Transparent     =   False
             Underline       =   False
             Visible         =   True
             Width           =   80
          End
-         Begin TextField tfastxPathField
+         Begin TextField TomTomPathField
             AcceptTabs      =   False
             Alignment       =   0
             AutoDeactivate  =   True
@@ -926,6 +939,86 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   210
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin Label Label33
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   19
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "tfastx:"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   245
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   80
+         End
+         Begin TextField tfastxPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &c00FFFFFF
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   20
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "/usr/local/bin/tfastx"
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   244
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -994,6 +1087,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   84
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   172
@@ -1057,6 +1151,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   199
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -1084,6 +1179,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   226
+            Transparent     =   False
             Underline       =   False
             Value           =   True
             Visible         =   True
@@ -1113,6 +1209,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   226
+            Transparent     =   False
             Underline       =   False
             Value           =   False
             Visible         =   True
@@ -1206,6 +1303,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   45
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -2182,6 +2280,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   50
@@ -2213,6 +2312,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2244,6 +2344,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2377,6 +2478,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   129
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2440,6 +2542,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   129
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2494,11 +2597,11 @@ Begin Window SettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
@@ -2506,7 +2609,8 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   280
+      Top             =   314
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   161
@@ -2859,6 +2963,14 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events MASTPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TomTomPathField
 	#tag Event
 		Sub TextChange()
 		  PathsChanged=true

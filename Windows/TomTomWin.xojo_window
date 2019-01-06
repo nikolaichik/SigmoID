@@ -88,6 +88,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   228
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -119,6 +120,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   228
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -160,6 +162,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   79
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -227,6 +230,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   81
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -268,6 +272,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   113
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -335,6 +340,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   115
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -376,6 +382,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   181
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -443,6 +450,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   228
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -484,6 +492,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   147
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -551,6 +560,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   149
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -598,17 +608,7 @@ End
 		  ' and run TomTom with each of these vs all *.meme files in the library folder 
 		  ' For each query file, results will be written to the same folder where the query (meme.txt) file resides 
 		  
-		  dim TomTomPath as string
 		  dim n,m as integer
-		  
-		  'a bit of cheating here assuming tomtom is in the same location as meme
-		  #if targetWindows
-		    TomTomPath=ReplaceAll(TomTomPath,"/meme.exe","/tomtom.exe")
-		  #else
-		    TomTomPath=ReplaceAll(MEMEpath,"/meme/","_meme_")
-		    TomTomPath=ReplaceAll(TomTomPath,"/meme","/tomtom")
-		    TomTomPath=ReplaceAll(TomTomPath,"_meme_","/meme/")
-		  #endif
 		  
 		  m=inFolder.Count
 		  for n=1 to m

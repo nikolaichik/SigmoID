@@ -2571,6 +2571,7 @@ Protected Module Globals
 		    hmmbuildpath=Prefs.value("hmmbuildpath",hmmbuildpath)
 		    MEMEpath=Prefs.value("MEMEpath",MEMEpath)
 		    MASTpath=Prefs.value("MASTpath",MASTpath)
+		    TomTomPath=Prefs.value("TomTomPath",TomTomPath)
 		    PathsChanged=false
 		  end if
 		  
@@ -2580,6 +2581,7 @@ Protected Module Globals
 		  SettingsWin.hmmBuildPathField.text=hmmBuildPath
 		  SettingsWin.MEMEPathField.text=MEMEpath
 		  SettingsWin.MASTPathField.text=MASTpath
+		  SettingsWin.TomTomPathField.text=TomTomPath
 		  SettingsWin.APIKeyField.text=API_Key
 		  
 		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
@@ -3098,6 +3100,7 @@ Protected Module Globals
 		  hmmBuildPath=SystemPath("hmmbuild")
 		  MEMEpath=SystemPath("meme")
 		  MASTpath=SystemPath("mast")
+		  TomTomPath=SystemPath("tomtom")
 		  
 		  
 		  
@@ -4021,6 +4024,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		MeshClustPath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		minLen As Integer
 	#tag EndProperty
 
@@ -4135,6 +4142,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		tfastxPath As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TomTomPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

@@ -749,8 +749,9 @@ End
 		  'end if
 		  
 		  WriteToSTDOUT EndOfLine.UNIX+"Checking command line programs..."+EndOfLine.UNIX
-		  'nhmmer
-		  'WriteToSTDOUT ("Looking for nhmmer... ")
+		  
+		  // nhmmer
+		  
 		  #if TargetWin32
 		    cli=chr(34)+nhmmerPath+chr(34)+" -h"
 		  #else
@@ -777,8 +778,8 @@ End
 		    allProgsFine=false
 		  end if
 		  
-		  'hmmbuild
-		  'WriteToSTDOUT ("Looking for hmmbuild... ")
+		  // hmmbuild
+		  
 		  #if TargetWin32
 		    cli=chr(34)+hmmBuildPath+chr(34)+" -h"
 		  #else
@@ -806,8 +807,8 @@ End
 		  end if
 		  
 		  
-		  'alimask
-		  'WriteToSTDOUT (EndofLine.unix+"Looking for alimask...")
+		  // alimask
+		  
 		  #if TargetWin32
 		    cli=chr(34)+alimaskPath+chr(34)+" -h"
 		  #else
@@ -834,8 +835,8 @@ End
 		    allProgsFine=false
 		  end if
 		  
-		  'transterm
-		  'WriteToSTDOUT (EndofLine.unix+"Looking for TransTerm... ")
+		  // TransTerm
+		  
 		  #if TargetWin32
 		    f=resources_f.child("transterm.exe")
 		  #else
@@ -876,8 +877,8 @@ End
 		  end if
 		  
 		  
-		  'MEME
-		  'WriteToSTDOUT (EndofLine.unix+"Looking for MEME... ")
+		  // MEME
+		  
 		  #if TargetWin32
 		    cli=chr(34)+memePath+chr(34)+" -version"
 		  #else
@@ -894,8 +895,8 @@ End
 		    allProgsFine=false
 		  end if
 		  
-		  'MAST
-		  'WriteToSTDOUT ("Looking for MAST... ")
+		  // MAST
+		  
 		  #if TargetWin32
 		    cli=chr(34)+MASTPath+chr(34)+" -version"
 		  #else
@@ -913,8 +914,75 @@ End
 		    allProgsFine=false
 		  end if
 		  
-		  'tfastx
-		  'WriteToSTDOUT ("Looking for tfastx... ")
+		  
+		  // TomTom
+		  
+		  #if TargetWin32
+		    cli=chr(34)+TomTomPath+chr(34)+" -version"
+		  #else
+		    cli=TomTomPath+" -version"
+		  #endif
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute cli
+		  If sh.errorCode=0 then
+		    WriteToSTDOUT ("tomtom "+Sh.Result)
+		  else
+		    WriteToSTDOUT ("No TomTom found at "+TomTomPath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
+		    allProgsFine=false
+		  end if
+		  
+		  
+		  
+		  // MeShClust
+		  
+		  dim MeshClust as folderitem
+		  #if TargetWindows 'not likely to happen
+		    MeshClust=Resources_f.child("meshclust.exe")
+		  #else
+		    MeshClust=Resources_f.child("meshclust")
+		  #endif
+		  
+		  if MeshClust<>nil then
+		    if MeshClust.exists then
+		      MeshClustPath=MeshClust.ShellPath
+		    else
+		      MeshClustPath=""
+		    end if
+		  else
+		    MeshClustPath=""
+		  end if
+		  
+		  if MeshClustPath<>"" then
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    sh.execute MeshClustPath
+		    If sh.errorCode=1 then 'running meshclust without args produces this error and help info
+		      dim s As string=sh.Result
+		      if instr(s,"meshclust")>0 then
+		        s=nthfield(s,"version ",2)
+		        s=nthfield(s,EndOfLine.Unix,1)
+		        WriteToSTDOUT ("MeShClust "+s+EndOfLine.UNIX)
+		      else
+		        WriteToSTDOUT ("No MeShClust found at "+MeshClustPath+". Please install it from https://github.com/TulsaBioinformaticsToolsmith/MeShClust or correct the path in the settings."+EndOfLine.unix)
+		        allProgsFine=false
+		      end if
+		    else
+		      WriteToSTDOUT ("No MeShClust found at "+MeshClustPath+". Please install it from https://github.com/TulsaBioinformaticsToolsmith/MeShClust or correct the path in the settings."+EndOfLine.unix)
+		      allProgsFine=false
+		    end if
+		  else
+		    WriteToSTDOUT ("No MeShClust found. Please install it from https://github.com/TulsaBioinformaticsToolsmith/MeShClust or correct the path in the settings."+EndOfLine.unix)
+		    allProgsFine=false
+		  end if
+		  
+		  
+		  
+		  
+		  // tfastx
+		  
 		  #if TargetWin32
 		    cli=chr(34)+tfastxPath+chr(34)
 		  #else
@@ -924,7 +992,7 @@ End
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  sh.execute cli
-		  If sh.errorCode=0 then
+		  If sh.errorCode=0 then 
 		    dim s As string=Sh.Result
 		    if instr(s,"TFASTX")>0 then
 		      s=nthfield((Sh.Result)," version: ",2)
@@ -940,6 +1008,7 @@ End
 		  end if
 		  
 		  
+		  // RegPrecise
 		  
 		  WriteToSTDOUT ("Accessing RegPrecise... ")
 		  me.Show

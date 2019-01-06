@@ -253,6 +253,7 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -530,14 +531,11 @@ End
 		  'MeShClust: an intelligent tool for clustering DNA sequences
 		  'Benjamin T. James, Brian B. Luczak, Hani Z. Girgis
 		  'doi: https://doi.org/10.1101/207720
-		  '
+		  'https://github.com/TulsaBioinformaticsToolsmith/MeShClust
 		  'seems to self-adjust to the level of similarity and perform a bit better
-		  '
-		  'this code expects meshclust v. 0.1.0
 		  //***********************************************************************
 		  
 		  
-		  dim MeshClust as folderitem
 		  dim MeshClustTemp as folderitem
 		  dim instream as TextInputStream
 		  dim outstream as TextOutputStream
@@ -549,18 +547,11 @@ End
 		  infilePath=infile.ShellPath
 		  outfilePath=outfile.ShellPath
 		  
-		  
-		  #if TargetWindows 'not likely to happen
-		    MeshClust=Resources_f.child("meshclust.exe")
-		  #else
-		    MeshClust=Resources_f.child("meshclust")
-		  #endif
-		  
-		  if MeshClust<>nil AND MeshClust.exists then
+		  if MeshClustPath<>"" then
 		    dim cli as string
 		    MeshClustTemp= TemporaryFolder.child("meshclust.out")
 		    if meshClustTemp <> nil then
-		      cli=MeshClust.ShellPath + " " + infilePath + " --output "+ MeshClustTemp.ShellPath
+		      cli=MeshClustPath + " " + infilePath + " --output "+ MeshClustTemp.ShellPath
 		      
 		      sh=New Shell
 		      sh.mode=0
