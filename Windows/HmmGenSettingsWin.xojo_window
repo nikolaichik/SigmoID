@@ -53,6 +53,7 @@ Begin Window HmmGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   309
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -84,6 +85,7 @@ Begin Window HmmGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   309
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -115,6 +117,7 @@ Begin Window HmmGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   86
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -179,6 +182,7 @@ Begin Window HmmGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   174
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   410
@@ -209,6 +213,7 @@ Begin Window HmmGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   189
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -252,6 +257,7 @@ Begin Window HmmGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   221
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -295,6 +301,7 @@ Begin Window HmmGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   221
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -328,6 +335,7 @@ Begin Window HmmGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   116
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -360,6 +368,7 @@ Begin Window HmmGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   147
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -392,6 +401,7 @@ Begin Window HmmGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   116
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -421,6 +431,7 @@ Begin Window HmmGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   410
@@ -448,6 +459,7 @@ Begin Window HmmGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   47
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -477,6 +489,7 @@ Begin Window HmmGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   48
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -520,6 +533,7 @@ Begin Window HmmGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   46
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -563,6 +577,7 @@ Begin Window HmmGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   46
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -596,6 +611,7 @@ Begin Window HmmGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   277
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True

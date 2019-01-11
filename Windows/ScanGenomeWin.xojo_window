@@ -98,6 +98,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   420
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -130,6 +131,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -161,6 +163,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -192,6 +195,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   421
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -223,6 +227,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -246,6 +251,7 @@ Begin Window ScanGenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   396
+      Transparent     =   False
       Visible         =   True
       Width           =   406
    End
@@ -293,6 +299,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -339,6 +346,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -383,6 +391,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -427,6 +436,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True

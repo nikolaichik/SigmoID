@@ -2743,6 +2743,10 @@ Protected Module DeNovoTFBSinference
 		ProtNames(0) As string
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		TTshellArray(-1) As TTshell
+	#tag EndProperty
+
 
 	#tag ViewBehavior
 		#tag ViewProperty

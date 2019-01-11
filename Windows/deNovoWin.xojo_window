@@ -119,11 +119,11 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   378
+      Top             =   377
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   111
+      Width           =   103
    End
    Begin TextField OutputField
       AcceptTabs      =   False
@@ -253,7 +253,6 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -271,7 +270,7 @@ Begin Window deNovoWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   44
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -289,7 +288,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   346
+      Top             =   347
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -312,7 +311,7 @@ Begin Window deNovoWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   476
+      Left            =   425
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -337,6 +336,47 @@ Begin Window deNovoWin
       UseFocusRing    =   True
       Visible         =   True
       Width           =   80
+   End
+   Begin CheckBox RunTomTomBox
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "Run TomTom"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   "Experimental option. Avoid on machines with 1-2 processor cores."
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   600
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   347
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   402
+   End
+   Begin Timer TTtimer
+      Index           =   -2147483648
+      LockedInPosition=   False
+      Mode            =   2
+      Period          =   500
+      Scope           =   0
+      TabPanelIndex   =   0
    End
 End
 #tag EndWindow
@@ -525,6 +565,29 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub GetTTlibString()
+		  Dim LibFolder as FolderItem
+		  dim m,n as integer
+		  
+		  LibFolder=Resources_f.child("TF_families")
+		  
+		  if LibFolder<>Nil then
+		    if LibFolder.exists then
+		      m=LibFolder.Count
+		      for n=1 to m
+		        
+		        if right(LibFolder.Item(n).Name,5)=".meme" then
+		          TTlibstring=TTlibstring+" "+LibFolder.Item(n).ShellPath
+		          
+		        end if
+		      next
+		    end if
+		  end if
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MeshClustering(infile as folderitem, outfile as folderitem) As string
 		  //***********************************************************************
 		  'Relacement of CD-Hit by a new program:
@@ -583,25 +646,35 @@ End
 		          
 		          if countfields(clusters,"*")<10 then 'look for iterations with more clusters
 		            instream.close
-		            dim n as integer
-		            dim iterFile as FolderItem
-		            dim iterName as string
-		            'cycle through MeshClust iterations (numbered 0-14)
-		            'to find the one with reasonable (10-30) seq number:
-		            for n=0 to 14 
-		              itername=MeshClustTemp.ShellPath+str(n)
-		              iterfile=GetFolderItem(itername,FolderItem.PathTypeShell)
-		              InStream = iterfile.OpenAsTextFile
-		              if inStream<>NIl then
-		                clusters=InStream.ReadAll
-		                if countfields(clusters,"*")<30 then
-		                  instream.close
-		                  InStream = iterfile.OpenAsTextFile 'reopen the stream
-		                  exit                               'the desired iteration is being streamed
-		                end if
-		                instream.close
-		              end if
-		            next
+		            
+		            'Meshclust doesn't save previous iterations any more, so we just return the input data
+		            InStream = infile.OpenAsTextFile
+		            if inStream<>NIl then
+		              outSeqs=InStream.ReadAll
+		              instream.close
+		              return outSeqs
+		            end if
+		            
+		            '
+		            'dim n as integer
+		            'dim iterFile as FolderItem
+		            'dim iterName as string
+		            ''cycle through MeshClust iterations (numbered 0-14)
+		            ''to find the one with reasonable (10-30) seq number:
+		            'for n=0 to 14 
+		            'itername=MeshClustTemp.ShellPath+str(n)
+		            'iterfile=GetFolderItem(itername,FolderItem.PathTypeShell)
+		            'InStream = iterfile.OpenAsTextFile
+		            'if inStream<>NIl then
+		            'clusters=InStream.ReadAll
+		            'if countfields(clusters,"*")<30 then
+		            'instream.close
+		            'InStream = iterfile.OpenAsTextFile 'reopen the stream
+		            'exit                               'the desired iteration is being streamed
+		            'end if
+		            'instream.close
+		            'end if
+		            'next
 		          else
 		            instream.close
 		            InStream = MeshClustTemp.OpenAsTextFile 'reopen the stream
@@ -827,6 +900,10 @@ End
 		TomTom_results As FolderItem
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		TTthreadsRunning As Integer
+	#tag EndProperty
+
 
 #tag EndWindowCode
 
@@ -861,6 +938,8 @@ End
 		  dim instream as TextInputStream
 		  dim outStream as TextOutputStream
 		  dim theProtName as string
+		  redim TTshellArray(-1)
+		  dim ttt,ttt2 as TTshell
 		  
 		  dim phmmerSearchSeparator as string = "================================================================================================================"
 		  dim hitCount,crIndex as integer
@@ -871,13 +950,9 @@ End
 		  CRtagPositions=HmmList.Cell(HmmList.ListIndex,3)
 		  hmmName=HmmList.Cell(HmmList.ListIndex,1)
 		  
-		  select case  hmmName
-		  case "Trans_reg_C"
-		    BaseLocation=BaseLocation.Child("CRtagBase").Child("Trans_Reg_C")
-		  else
-		    MsgBox("hmm path was not found")
-		  end Select
+		  if RunTomTomBox.Value then GetTTlibString  'assemble motif library path for running TomTom later
 		  
+		  BaseLocation=BaseLocation.Child("CRtagBase").Child(hmmName+".crtag")
 		  
 		  try
 		    instream=BaseLocation.OpenAsTextFile
@@ -1151,8 +1226,9 @@ End
 		          if instream<>nil then
 		            res=instream.ReadAll
 		            instream.close
+		            DataForMeme=res
 		          end if
-		          resfile2=Fasta_files.child(theProtName+".fasta")
+		          'resfile2=Fasta_files.child(theProtName+".fasta")
 		        else
 		          
 		          dim FragmentsForAhitF As folderitem
@@ -1162,101 +1238,112 @@ End
 		            FragmentsForAhitF.createAsFolder
 		          end if
 		          
-		          if FragmentsForAhitF<>Nil then
-		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons..."+EndOfLine.unix)
-		            
-		            
-		            
-		            //add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
-		            crIndex=CrBaseTags.indexof(Crtags(n))
-		            if crIndex>0 then
-		              filteredRes=CrBaseECodes(crindex)
-		            else
-		              LogoWin.WriteToSTDOUT (EndOfLine.unix+"CrTag "+Crtags(n)+" was not found in the local base (protein seq accession "+theProtName+")"+EndOfLine.unix)
-		              continue for n
-		            end if
-		            
-		            
-		            DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
-		            if dataForMeme<>"" then
-		              
-		              // Remove extra (repetitive/too close) seqs
-		              ' leave one seq per species,
-		              ' or one seq per genus if too many seqs
-		              
-		              ' Save unfiltered UPS fragments
-		              resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
-		              if resfile<>nil then
-		                OutStream = TextOutputStream.Create(resFile)
-		                if outStream<>Nil then
-		                  outstream.Write(DataForMeme)
-		                  outstream.close
-		                  'LogoWin.WriteToSTDOUT (" Done.")
-		                  
-		                end if
-		                
-		              else
-		                LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a file to store superpromoters around the genes coding for "+ProtNames(n)+".")
-		                
-		                
-		                
-		              end if
-		              
-		              
-		              
-		              
-		              LogoWin.WriteToSTDOUT (" Done extracting genome fragments."+EndOfLine.unix)
-		              
-		              // Save UPS fragments used for MEME run
-		              
-		              
-		              resfile2=Fasta_files.child(ProtNames(n)+"_CDhit_filtered.fasta")
-		              LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" genome fragments extracted.")
-		              if resfile2<>nil then
-		                
-		                if countfields(DataForMeme,">")>30 then 'too many seqs - reduce the number!
-		                  
-		                  'run cd-hit if present
-		                  dim clustered as string
-		                  'clustered=CDHitClustering(resFile,resFile2)
-		                  clustered=MeshClustering(resFile,resFile2)
-		                  if clustered<>"" then 'empty string can be returned in case of an error
-		                    DataForMeme=clustered
-		                  end if
-		                  
-		                  'use genus and then species filtering anyway, as cd-hit filtering is far from perfect
-		                  DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
-		                  'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant species.")
-		                  
-		                  DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
-		                  'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant genera.")
-		                  
-		                  resfile2=Fasta_files.child(ProtNames(n)+".fasta")
-		                  OutStream = TextOutputStream.Create(resFile2)
-		                  if outStream<>Nil then
-		                    outstream.Write(DataForMeme)
-		                    outstream.close
-		                    'LogoWin.WriteToSTDOUT (" Done.")
-		                    
-		                  end if
-		                  
-		                else 'countfields(DataForMeme,">")>30
-		                  resfile2=resFile
-		                  
-		                end if 'countfields(DataForMeme,">")>30
-		                
-		              else 'resfile2<>nil
-		                LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a file to store superpromoters around the genes coding for "+ProtNames(n)+".")
-		                
-		              end if 'resfile2<>nil
-		              
-		            end if
-		          else
+		          if FragmentsForAhitF=Nil then
 		            MsgBox "Can't create a folder "+FragmentsForAhitF.ShellPath+"to store genome fragments"
+		            return
 		          end if
 		          
 		          
+		          
+		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons..."+EndOfLine.unix)
+		          
+		          
+		          
+		          //add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
+		          crIndex=CrBaseTags.indexof(Crtags(n))
+		          if crIndex>0 then
+		            filteredRes=CrBaseECodes(crindex)
+		          else
+		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"CrTag "+Crtags(n)+" was not found in the local base (protein seq accession "+theProtName+")"+EndOfLine.unix)
+		            continue for n
+		          end if
+		          DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
 		        end if
+		        
+		        
+		        
+		        if dataForMeme<>"" then
+		          
+		          // Remove extra (repetitive/too close) seqs
+		          ' leave one seq per species,
+		          ' or one seq per genus if too many seqs
+		          
+		          ' Save unfiltered UPS fragments
+		          resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
+		          if resfile<>nil then
+		            OutStream = TextOutputStream.Create(resFile)
+		            if outStream<>Nil then
+		              outstream.Write(DataForMeme)
+		              outstream.close
+		              'LogoWin.WriteToSTDOUT (" Done.")
+		              
+		            end if
+		            
+		          else
+		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a file to store superpromoters around the genes coding for "+ProtNames(n)+".")
+		            
+		            
+		            
+		          end if
+		          
+		          
+		          
+		          
+		          LogoWin.WriteToSTDOUT (" Done extracting genome fragments."+EndOfLine.unix)
+		          
+		          // Save UPS fragments used for MEME run
+		          
+		          
+		          
+		          
+		          
+		          
+		          LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" genome fragments extracted.")
+		          
+		          
+		          resfile2=Fasta_files.child(ProtNames(n)+"_CDhit_filtered.fasta")
+		          
+		          if resfile2<>nil then
+		            
+		            if countfields(DataForMeme,">")>30 then 'too many seqs - reduce the number!
+		              
+		              'run cd-hit if present
+		              dim clustered as string
+		              'clustered=CDHitClustering(resFile,resFile2)
+		              clustered=MeshClustering(resFile,resFile2)
+		              if clustered<>"" then 'empty string can be returned in case of an error
+		                DataForMeme=clustered
+		              end if
+		              
+		              'use genus and then species filtering anyway, as cd-hit filtering is far from perfect
+		              DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
+		              'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant species.")
+		              
+		              DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
+		              'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant genera.")
+		              
+		              resfile2=Fasta_files.child(ProtNames(n)+".fasta")
+		              OutStream = TextOutputStream.Create(resFile2)
+		              if outStream<>Nil then
+		                outstream.Write(DataForMeme)
+		                outstream.close
+		                'LogoWin.WriteToSTDOUT (" Done.")
+		                
+		              end if
+		              
+		            else 'countfields(DataForMeme,">")>30
+		              resfile2=resFile
+		              
+		            end if 'countfields(DataForMeme,">")>30
+		            
+		          else 'resfile2<>nil
+		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a file to store superpromoters around the genes coding for "+ProtNames(n)+".")
+		            
+		          end if 'resfile2<>nil
+		          
+		        end if
+		        
+		        
 		        
 		        
 		        
@@ -1319,13 +1406,15 @@ End
 		                'sh=New Shell
 		                'sh.mode=0
 		                'sh.TimeOut=-1
-		                
+		                dim zclean, aclean as boolean 
 		                If ErrCode=0 then
 		                  LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
 		                  
-		                  
+		                  'create TomTom thread
+		                  ttt = new TTshell(f1.child("meme.txt"))
+		                  zclean=true
 		                else
-		                  
+		                  zclean=false
 		                end if
 		                
 		                
@@ -1345,8 +1434,22 @@ End
 		                  If ErrCode=0 then
 		                    
 		                    LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
+		                    'create TomTom thread
+		                    ttt2 = new TTshell(f1.child("meme.txt"))
+		                    aclean=true
 		                  else
+		                    aclean=false
+		                  end if
+		                  
+		                  if RunTomTomBox.Value then 
+		                    'launch TomTom threads
+		                    TTshellArray.Append ttt
+		                    TTshellArray(UBound(TTshellArray)).RunTomTom
+		                    TTshellArray.Append ttt2
+		                    TTshellArray(UBound(TTshellArray)).RunTomTom
 		                    
+		                    ttt = new TTshell(f1.child("meme.txt")) 'remove reference to array element
+		                    ttt2 = new TTshell(f1.child("meme.txt"))
 		                  end if
 		                  
 		                  LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
@@ -1399,24 +1502,27 @@ End
 		  end if
 		  
 		  LogoWin.WriteToSTDOUT (EndofLine.unix+"All searches completed."+EndofLine.unix)
+		  '
+		  'LogoWin.WriteToSTDOUT (EndofLine.unix+"TomTomThreadArray size: "+str(Ubound(TTthreadArray))+EndofLine.unix)
+		  '
+		  '
+		  if RunTomTomBox.Value then 
+		    dim tc as integer
+		    for n=0 to UBound(TTshellArray)
+		      if TTshellArray(n).finished=false then
+		        tc=tc+1
+		      end if
+		    next
+		    
+		    if tc>0 then
+		      TTthreadsRunning=tc
+		      LogoWin.WriteToSTDOUT (EndofLine.unix+str(TC)+" TomTom tasks are still running. Don't quit SigmoID or repeat de novo search until these threads are finished."+EndofLine.unix)
+		      TTtimer.Enabled=true
+		    end if
+		  end if
 		  
-		  
-		  
-		  
-		  // Report all errors!
-		  ' phmmer searches fail too often: report http error codes and save the server response anyway
-		  ' same with NCBI server
 		  
 		  // Reutilise data from incomplete searches!
-		  
-		  
-		  
-		  
-		  
-		  // Compare MEME results with known motifs (TomTom)
-		  
-		  
-		  // Write final output files
 		  
 		  
 		  
@@ -1597,6 +1703,33 @@ End
 		  end if
 		  
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TTtimer
+	#tag Event
+		Sub Action()
+		  dim n,tc as integer
+		  for n=0 to UBound(TTshellArray)
+		    if TTshellArray(n).finished=false then
+		      tc=tc+1
+		    end if
+		  next
+		  
+		  if tc<TTthreadsRunning then
+		    TTthreadsRunning=tc
+		    if tc=0 then
+		      LogoWin.WriteToSTDOUT (EndofLine.unix+"All TomTom tasks finished."+EndofLine.unix)
+		      me.Enabled=false
+		    else
+		      if tc=1 then
+		        LogoWin.WriteToSTDOUT (EndofLine.unix+"1 TomTom task is still running..."+EndofLine.unix)
+		      else
+		        LogoWin.WriteToSTDOUT (EndofLine.unix+str(TC)+" TomTom tasks are still running..."+EndofLine.unix)
+		      end if
+		      
+		    end if
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1835,6 +1968,11 @@ End
 		Visible=true
 		Group="Size"
 		InitialValue="600"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ThreadCounter"
+		Group="Behavior"
 		Type="Integer"
 	#tag EndViewProperty
 #tag EndViewBehavior

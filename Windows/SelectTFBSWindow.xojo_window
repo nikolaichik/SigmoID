@@ -53,6 +53,7 @@ Begin Window SelectTFBSWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   230
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -84,6 +85,7 @@ Begin Window SelectTFBSWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   230
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -112,6 +114,7 @@ Begin Window SelectTFBSWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   13
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   152
@@ -153,6 +156,7 @@ Begin Window SelectTFBSWindow
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   49
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -183,6 +187,7 @@ Begin Window SelectTFBSWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   13
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   186
@@ -224,6 +229,7 @@ Begin Window SelectTFBSWindow
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   49
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -254,6 +260,7 @@ Begin Window SelectTFBSWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   108
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   350
@@ -295,6 +302,7 @@ Begin Window SelectTFBSWindow
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   144
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -373,6 +381,7 @@ Begin Window SelectTFBSWindow
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   144
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -441,6 +450,7 @@ Begin Window SelectTFBSWindow
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   198
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True

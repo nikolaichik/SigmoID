@@ -53,6 +53,7 @@ Begin Window RegulonSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   432
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   100
@@ -84,6 +85,7 @@ Begin Window RegulonSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   432
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   100
@@ -112,6 +114,7 @@ Begin Window RegulonSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   304
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   428
@@ -142,6 +145,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   331
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -174,6 +178,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   365
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -217,6 +222,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   363
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -284,6 +290,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   331
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -314,6 +321,7 @@ Begin Window RegulonSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   428
@@ -341,6 +349,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   47
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -370,6 +379,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   47
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -413,6 +423,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   46
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -443,6 +454,7 @@ Begin Window RegulonSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   198
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   428
@@ -473,6 +485,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   225
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -516,6 +529,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   223
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -583,6 +597,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   257
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -613,6 +628,7 @@ Begin Window RegulonSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   90
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   428
@@ -640,6 +656,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   118
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -669,6 +686,7 @@ Begin Window RegulonSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   142
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True

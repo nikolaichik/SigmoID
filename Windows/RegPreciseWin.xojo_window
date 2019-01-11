@@ -88,6 +88,7 @@ Begin Window RegPreciseWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   558
@@ -136,6 +137,7 @@ Begin Window RegPreciseWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   52
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -170,6 +172,7 @@ Begin Window RegPreciseWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   360
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   118
@@ -212,6 +215,7 @@ Begin Window RegPreciseWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   -58
+      Transparent     =   False
       Visible         =   True
       Width           =   88
    End
@@ -242,6 +246,7 @@ Begin Window RegPreciseWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   360
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   118
@@ -285,6 +290,7 @@ Begin Window RegPreciseWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   358
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -317,6 +323,7 @@ Begin Window RegPreciseWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   360
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   175

@@ -63,6 +63,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   205
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -175,6 +176,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   250
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -207,6 +209,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   313
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -238,6 +241,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   313
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -266,6 +270,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   14
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   330
@@ -293,6 +298,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   38
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -322,6 +328,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   70
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -351,6 +358,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   102
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -380,6 +388,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   134
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -423,6 +432,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   100
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -453,6 +463,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   14
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   184
@@ -480,6 +491,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   71
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -509,6 +521,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -643,6 +656,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   41
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -676,6 +690,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   173
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -708,6 +723,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   172
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -740,6 +756,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   251
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -768,6 +785,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   144
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   184
@@ -795,6 +813,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   205
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -824,6 +843,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   172
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -867,6 +887,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   204
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -910,6 +931,7 @@ Begin Window nhmmerSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   170
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -943,6 +965,7 @@ Begin Window nhmmerSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   284
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True

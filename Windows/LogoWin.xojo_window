@@ -5037,6 +5037,7 @@ End
 		  STDOUT.AppendText(txt)
 		  STDOUT.ScrollPosition=STDOUT.LineNumAtCharPos(len(STDOUT.text))
 		  STDOUT.refresh(false)
+		  App.DoEvents  'seems to be required as of Xojo 2018, otherwise STDout isn't updated
 		End Sub
 	#tag EndMethod
 

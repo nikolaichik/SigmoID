@@ -63,6 +63,7 @@ Begin Window WebBrowserWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   5
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -105,9 +106,11 @@ Begin Window WebBrowserWin
       Scope           =   0
       Segments        =   "\nbr_prev_icon16\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   4
+      Transparent     =   False
       Visible         =   True
       Width           =   54
    End
@@ -129,6 +132,7 @@ Begin Window WebBrowserWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   8
+      Transparent     =   False
       Visible         =   False
       Width           =   16
    End

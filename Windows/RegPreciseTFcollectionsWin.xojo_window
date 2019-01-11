@@ -88,6 +88,7 @@ Begin Window RegPreciseTFcollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   840
@@ -136,6 +137,7 @@ Begin Window RegPreciseTFcollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   52
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -181,6 +183,7 @@ Begin Window RegPreciseTFcollectionsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   20
+      Transparent     =   False
       Visible         =   True
       Width           =   16
    End
@@ -211,6 +214,7 @@ Begin Window RegPreciseTFcollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   560
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   84
@@ -254,6 +258,7 @@ Begin Window RegPreciseTFcollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   560
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -286,6 +291,7 @@ Begin Window RegPreciseTFcollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   560
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   200
@@ -329,6 +335,7 @@ Begin Window RegPreciseTFcollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   526
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -373,6 +380,7 @@ Begin Window RegPreciseTFcollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   526
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -417,6 +425,7 @@ Begin Window RegPreciseTFcollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   526
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -484,6 +493,7 @@ Begin Window RegPreciseTFcollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   560
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   254

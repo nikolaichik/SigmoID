@@ -63,6 +63,7 @@ Begin Window hmmSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   228
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -130,6 +131,7 @@ Begin Window hmmSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   291
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -161,6 +163,7 @@ Begin Window hmmSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   291
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -189,6 +192,7 @@ Begin Window hmmSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   66
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   184
@@ -216,6 +220,7 @@ Begin Window hmmSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   123
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -245,6 +250,7 @@ Begin Window hmmSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   153
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -379,6 +385,7 @@ Begin Window hmmSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   93
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -409,6 +416,7 @@ Begin Window hmmSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   66
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   184
@@ -436,6 +444,7 @@ Begin Window hmmSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   127
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -465,6 +474,7 @@ Begin Window hmmSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   94
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -508,6 +518,7 @@ Begin Window hmmSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   126
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -551,6 +562,7 @@ Begin Window hmmSearchSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   92
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -584,6 +596,7 @@ Begin Window hmmSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   262
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -616,6 +629,7 @@ Begin Window hmmSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   196
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -648,6 +662,7 @@ Begin Window hmmSearchSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   496

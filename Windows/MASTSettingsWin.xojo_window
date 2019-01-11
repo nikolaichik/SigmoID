@@ -63,6 +63,7 @@ Begin Window MASTSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   104
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -175,6 +176,7 @@ Begin Window MASTSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   136
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -207,6 +209,7 @@ Begin Window MASTSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   293
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -238,6 +241,7 @@ Begin Window MASTSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   293
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -269,6 +273,7 @@ Begin Window MASTSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   138
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -335,6 +340,7 @@ Begin Window MASTSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   66
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -378,6 +384,7 @@ Begin Window MASTSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   64
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -407,6 +414,7 @@ Begin Window MASTSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   170
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   494
@@ -437,6 +445,7 @@ Begin Window MASTSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   209
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -469,6 +478,7 @@ Begin Window MASTSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   241
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -501,6 +511,7 @@ Begin Window MASTSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   177
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True

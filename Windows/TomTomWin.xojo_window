@@ -637,7 +637,7 @@ End
 		        If sh.errorCode=0 then
 		          'OK
 		        else
-		          msgbox "Error running TomTom"
+		          msgbox "Error running TomTom: "+sh.result
 		        end if
 		        sh.Close
 		      end if

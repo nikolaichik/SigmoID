@@ -63,9 +63,11 @@ Begin Window HelpWin
       Scope           =   0
       Segments        =   "\nbr_prev_icon16\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   4
+      Transparent     =   False
       Visible         =   True
       Width           =   54
    End
@@ -87,6 +89,7 @@ Begin Window HelpWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   8
+      Transparent     =   False
       Visible         =   False
       Width           =   16
    End
@@ -105,9 +108,11 @@ Begin Window HelpWin
       Scope           =   0
       Segments        =   "\nhome2x\nFalse"
       SelectionType   =   2
+      TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   4
+      Transparent     =   False
       Visible         =   True
       Width           =   27
    End

@@ -4145,11 +4145,19 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ThreadCount As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		TomTomPath As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		tRNAcolour As color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TTlibString As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -4506,6 +4514,18 @@ Protected Module Globals
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WebLogoPath"
+			Group="Behavior"
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MeshClustPath"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TomTomPath"
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"
