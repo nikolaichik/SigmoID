@@ -79,11 +79,10 @@ Begin Window GenomeWin
       Scope           =   0
       Segments        =   "\nbr_prev_icon16\nFalse\r                      \n\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
-      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
-      Transparent     =   True
+      Transparent     =   "True"
       Visible         =   True
       Width           =   177
    End
@@ -114,7 +113,7 @@ Begin Window GenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -144,7 +143,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   205
-      Transparent     =   True
+      Transparent     =   "True"
       Value           =   0
       Visible         =   True
       Width           =   1067
@@ -164,11 +163,10 @@ Begin Window GenomeWin
       Scope           =   0
       Segments        =   "+\n\nFalse\r-\n\nFalse"
       SelectionType   =   2
-      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
-      Transparent     =   True
+      Transparent     =   "True"
       Visible         =   True
       Width           =   41
    End
@@ -251,7 +249,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   359
-      Transparent     =   True
+      Transparent     =   "True"
       Value           =   2
       Visible         =   True
       Width           =   1041
@@ -468,7 +466,7 @@ Begin Window GenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   -54
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   False
       Visible         =   False
@@ -505,7 +503,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   -89
-      Transparent     =   True
+      Transparent     =   "True"
       Visible         =   False
       Width           =   24
    End

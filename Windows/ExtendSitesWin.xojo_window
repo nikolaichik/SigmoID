@@ -168,7 +168,7 @@ Begin Window ExtendSitesWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   94
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -211,7 +211,7 @@ Begin Window ExtendSitesWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   94
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -244,7 +244,7 @@ Begin Window ExtendSitesWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   186
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -276,7 +276,7 @@ Begin Window ExtendSitesWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   186
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -318,7 +318,7 @@ Begin Window ExtendSitesWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   140
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -386,7 +386,7 @@ Begin Window ExtendSitesWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   141
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90

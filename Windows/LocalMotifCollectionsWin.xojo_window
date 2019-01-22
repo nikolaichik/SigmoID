@@ -88,7 +88,7 @@ Begin Window LocalMotifCollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   640
@@ -137,7 +137,7 @@ Begin Window LocalMotifCollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   52
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -172,7 +172,7 @@ Begin Window LocalMotifCollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   382
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   84
@@ -216,7 +216,7 @@ Begin Window LocalMotifCollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   382
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -261,7 +261,7 @@ Begin Window LocalMotifCollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   348
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -306,7 +306,7 @@ Begin Window LocalMotifCollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   348
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -351,7 +351,7 @@ Begin Window LocalMotifCollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   348
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -419,7 +419,7 @@ Begin Window LocalMotifCollectionsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   382
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   200

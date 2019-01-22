@@ -539,7 +539,14 @@ Protected Module DeNovoTFBSinference
 		  dim UniProtID, MultiFasta, SingleFasta, entryprep, temparr(-1), thound as string
 		  dim EntryFragmentsF as FolderItem
 		  
-		  ResArray=split(eCodes,",")
+		  if instr(ecodes,",")>0 then
+		    ResArray=split(eCodes,",") 'if only one tag, then exception, fix
+		    ResArray.Shuffle 'random distribution of EMBLcodes to prevent non using the rest and masking from shearch
+		    ecodes=join(ResArray,",")
+		  else
+		    singleCodeTags=singleCodeTags+1
+		    return ""
+		  end
 		  
 		  m=ubound(ResArray)-1
 		  
@@ -2744,6 +2751,10 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		singleCodeTags As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		TTshellArray(-1) As TTshell
 	#tag EndProperty
 
@@ -2780,6 +2791,11 @@ Protected Module DeNovoTFBSinference
 			Visible=true
 			Group="ID"
 			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="singleCodeTags"
+			Group="Behavior"
+			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"

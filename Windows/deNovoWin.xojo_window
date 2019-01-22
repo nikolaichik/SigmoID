@@ -53,7 +53,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -85,7 +85,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -162,7 +162,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -195,7 +195,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   372
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -244,7 +244,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -253,6 +253,7 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -331,7 +332,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   346
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -364,13 +365,14 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   347
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
       Width           =   402
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -1956,6 +1958,11 @@ End
 		Type="String"
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="TTthreadsRunning"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Visible"
 		Visible=true
 		Group="Behavior"
@@ -1968,11 +1975,6 @@ End
 		Visible=true
 		Group="Size"
 		InitialValue="600"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ThreadCounter"
-		Group="Behavior"
 		Type="Integer"
 	#tag EndViewProperty
 #tag EndViewBehavior

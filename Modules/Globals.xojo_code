@@ -4354,6 +4354,12 @@ Protected Module Globals
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="MeshClustPath"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="minLen"
 			Group="Behavior"
 			Type="Integer"
@@ -4500,6 +4506,17 @@ Protected Module Globals
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="ThreadCount"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TomTomPath"
+			Group="Behavior"
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Top"
 			Visible=true
 			Group="Position"
@@ -4513,19 +4530,13 @@ Protected Module Globals
 			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="WebLogoPath"
-			Group="Behavior"
-			Type="string"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="MeshClustPath"
+			Name="TTlibString"
 			Group="Behavior"
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TomTomPath"
+			Name="WebLogoPath"
 			Group="Behavior"
 			Type="string"
 			EditorType="MultiLineEditor"

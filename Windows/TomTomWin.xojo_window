@@ -88,7 +88,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   228
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -120,7 +120,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   228
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -162,7 +162,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   79
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -230,7 +230,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   81
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -272,7 +272,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   113
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -340,7 +340,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   115
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -382,7 +382,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   181
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -450,7 +450,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   228
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -492,7 +492,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   147
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -560,7 +560,7 @@ Begin Window TomTomWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   149
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90

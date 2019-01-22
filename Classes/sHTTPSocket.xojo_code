@@ -26,13 +26,6 @@ Inherits HTTPSecureSocket
 			Group="Behavior"
 			InitialValue="3"
 			Type="Integer"
-			EditorType="Enum"
-			#tag EnumValues
-				"1 - SSLv23"
-				"3 - TLSv1"
-				"4 - TLSv11"
-				"5 - TLSv12"
-			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

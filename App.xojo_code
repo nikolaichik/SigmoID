@@ -164,6 +164,13 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CRtagbase(index as Integer) As Boolean Handles CRtagbase.Action
+			CRtagBaseConstructor.Show
+			return true
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function EditPreferences() As Boolean Handles EditPreferences.Action
 			SettingsWin.show
 			Return True

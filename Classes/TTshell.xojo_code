@@ -52,48 +52,6 @@ Inherits shell
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Index"
-			Visible=true
-			Group="ID"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
-			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Left"
-			Visible=true
-			Group="Position"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Top"
-			Visible=true
-			Group="Position"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TimeOut"
-			Visible=true
-			Type="Integer"
-			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Mode"
-			Visible=true
-			Type="Integer"
-			EditorType="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Arguments"
 			Visible=true
 			Type="String"
@@ -112,28 +70,51 @@ Inherits shell
 			EditorType="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ErrorCode"
+			Name="Finished"
 			Group="Behavior"
+			InitialValue="false"
+			Type="boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Result"
-			Group="Behavior"
+			Name="Left"
+			Visible=true
+			Group="Position"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Mode"
+			Visible=true
+			Type="Integer"
+			EditorType="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="PID"
-			Group="Behavior"
+			Name="Super"
+			Visible=true
+			Group="ID"
+			Type="String"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TimeOut"
+			Visible=true
 			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="IsRunning"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Finished"
-			Group="Behavior"
+			Name="Top"
+			Visible=true
+			Group="Position"
 			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior
