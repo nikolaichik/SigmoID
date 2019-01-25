@@ -53,7 +53,7 @@ Begin Window PlotScaleMaxWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   120
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -85,7 +85,7 @@ Begin Window PlotScaleMaxWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   120
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -127,7 +127,7 @@ Begin Window PlotScaleMaxWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   86
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True

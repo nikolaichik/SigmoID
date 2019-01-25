@@ -53,7 +53,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   262
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -85,7 +85,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   262
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -117,7 +117,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   212
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -160,7 +160,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -238,7 +238,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   78
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -281,7 +281,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   112
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -324,7 +324,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   78
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -367,7 +367,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   112
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -550,7 +550,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   178
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -618,7 +618,7 @@ Begin Window TermGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   177
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90

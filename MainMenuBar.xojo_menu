@@ -726,6 +726,13 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem Crtagbase
+         SpecialMenu = 0
+         Text = "Create CRtag base"
+         Index = 0
+         AutoEnable = True
+         Visible = True
+      End
    End
    Begin MenuItem WindowMenu
       SpecialMenu = 0

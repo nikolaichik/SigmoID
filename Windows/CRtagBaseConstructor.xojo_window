@@ -9,7 +9,7 @@ Begin Window CRtagBaseConstructor
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   530
+   Height          =   400
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,38 +25,7 @@ Begin Window CRtagBaseConstructor
    Resizeable      =   True
    Title           =   "Untitled"
    Visible         =   True
-   Width           =   878
-   Begin PushButton runbutton
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "Start"
-      Default         =   False
-      Enabled         =   False
-      Height          =   37
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   730
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   455
-      Underline       =   False
-      Visible         =   True
-      Width           =   90
-   End
+   Width           =   600
    Begin Listbox hmmlist
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -75,7 +44,7 @@ Begin Window CRtagBaseConstructor
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   289
+      Height          =   200
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -93,8 +62,7 @@ Begin Window CRtagBaseConstructor
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
-      ShowDropIndicator=   False
-      TabIndex        =   1
+      TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -104,9 +72,108 @@ Begin Window CRtagBaseConstructor
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   878
+      Width           =   600
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
+   End
+   Begin Label Label1
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   26
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   35
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      Text            =   "Select sequences file"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   238
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   453
+   End
+   Begin Label Label2
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   35
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      Text            =   "Select .cidx file base"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   299
+      Transparent     =   True
+      Underline       =   False
+      Visible         =   True
+      Width           =   443
+   End
+   Begin PushButton runbutton
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Start!"
+      Default         =   True
+      Enabled         =   True
+      Height          =   26
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   500
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   354
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
    End
    Begin PushButton PushButton2
       AutoDeactivate  =   True
@@ -116,63 +183,28 @@ Begin Window CRtagBaseConstructor
       Caption         =   "OK"
       Default         =   True
       Enabled         =   True
-      Height          =   38
+      Height          =   26
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   600
+      Left            =   500
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   2
+      TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   320
+      Top             =   238
       Underline       =   False
       Visible         =   True
-      Width           =   91
-   End
-   Begin Label Label1
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   21
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   61
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Select sequences file"
-      TextAlign       =   0
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   323
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   524
+      Width           =   80
    End
    Begin PushButton PushButton3
       AutoDeactivate  =   True
@@ -182,63 +214,28 @@ Begin Window CRtagBaseConstructor
       Caption         =   "OK"
       Default         =   True
       Enabled         =   True
-      Height          =   38
+      Height          =   26
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   600
+      Left            =   500
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   7
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   366
+      Top             =   299
       Underline       =   False
       Visible         =   True
-      Width           =   91
-   End
-   Begin Label Label2
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   21
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   61
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Select .cidx file base"
-      TextAlign       =   0
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   370
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   524
+      Width           =   80
    End
 End
 #tag EndWindow
@@ -397,38 +394,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub EmblArrayPrep1(Alignments as string)
-		  'dim Trimleft, s1,s2,c1,m,n as integer
-		  'dim line as string
-		  ''redim emblcom(0), emblPrCodes(0),EmblPrSeq(0)
-		  's1=instrb(Alignments, "-#dom-")
-		  's2=instrB(Alignments, "Sequence")
-		  'Trimleft=s2-s1-8
-		  '
-		  'c1=InStr(Alignments,"-----------")+9
-		  'Alignments=Right(Alignments, len(Alignments)-c1)
-		  'c1=InStr(Alignments,"Domain annotation")-1
-		  'Alignments=Left(Alignments,c1)
-		  '
-		  'EmblCom=split(Alignments, EndOfLine.Unix)
-		  'n=Ubound(EmblCom)
-		  'For m=0 to n
-		  'line=right(EmblCom(m), lenb(EmblCom(m))-Trimleft)
-		  'if line<>"" then
-		  'EmblPrSeq.Append(trim(NthField(line,"SubName: ",1)))
-		  'line=trim(NthField(line,"SubName: ",2))
-		  'if line="" then
-		  'EmblPrCodes.Append("No EMBL")
-		  'else
-		  'EmblPrCodes.Append(line)
-		  'end
-		  'end
-		  'next
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function GetCrtags(SearchResRaw as string, SearchResTable as string, CRs as string) As String
+		Function GetCrtags(SearchResRaw as string, SearchResTable as string, CRs as string) As string
 		  // Add Critical Residues (CRs) according to Sahota and Stormo (2010; doi:10.1093/bioinformatics/btq501) 
 		  ' to hmmsearch output 
 		  ' CRs should be in the format "2,3,7,9,11,13,14,21"
@@ -470,7 +436,7 @@ End
 		  dim hitSeq,CDStmp, CRtag, CRtagRegion, EmblCode as string
 		  dim m,n,o,p,q,r,fst,CRlen,EmblPrIndex as integer
 		  dim tempseq as string
-		  
+		  dim cdsID as string 
 		  ReDim ProtNames(0)
 		  ReDim hmmSearchMatches(0)
 		  ReDim CRtags(0)
@@ -479,7 +445,7 @@ End
 		  dim sh as Shell
 		  // Store CR positions
 		  m=CountFields(CRs,",")
-		  for n=1 to m
+		  for n=1 to m 
 		    CRarray.Append(Val(NthField(CRs,",",n)))
 		  next
 		  fst=CRarray(1)
@@ -497,14 +463,14 @@ End
 		  sh.TimeOut=-1
 		  cli="grep "+chr(34)+"^[^#;]"+chr(34)+" "+SearchResTable+"  "+chr(124)+" grep -Po "+chr(34)+"^\S.*(?=\/)"+chr(34)+"  "+chr(124)+" sort "+chr(124)+" uniq -cd" ' get list of non unique (thus multidomain) seq codes  
 		  Sh.Execute cli
-		  dim uniqprot as string=sh.Result 'every second item isn't needed
+		  dim uniqprot as string=sh.Result
 		  uniqprot=uniqprot+prot2exclude ' add seq codes that don't have EMBL codes to multidomain seq list - all of them must be skipped
 		  redim EmblCom(0)
 		  
 		  // Extract CR tag
 		  m=ubound(AlignmentArray)-1 'removed -4
 		  o=ubound(CRarray)
-		  for n=1 to m
+		  for n=0 to m 
 		    hitseq=AlignmentArray(n)
 		    ProtName=NthField(hitSeq,"/",1)
 		    if InStr(ProtName,"|")>0 then
@@ -553,7 +519,8 @@ End
 		        LogoWin.WriteToSTDOUT (EndOfLine.unix+"get seq error with protein: "+str(ProtNames(ubound(ProtNames)))+EndOfLine.unix)
 		        CDStmp=""
 		      else
-		        CDStmp=trim(NthField(Sh.result,EndOfLine.unix,2))
+		        cdsID=NthField(Sh.result,EndOfLine.unix,1)
+		        CDStmp=trim(ReplaceAll(NthField(Sh.Result,cdsID,2),EndOfLine.UNIX,""))
 		      end if
 		      dim gapPos,leftPartStart, rightPartStart as integer
 		      dim leftPart, rightPart, leftExt, rightExt as string
@@ -758,7 +725,7 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		fastasource As folderItem
+		fastasource As folderitem
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -766,12 +733,50 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		prot2exclude As String
+		#tag Note
+			prot2exclude
+		#tag EndNote
+		prot2exclude As string
 	#tag EndProperty
 
 
 #tag EndWindowCode
 
+#tag Events hmmlist
+	#tag Event
+		Sub Change()
+		  
+		  startcheck
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  me.ColumnWidths="0,110,85,205,80,85,*,0" 'checkboxes hidden for now
+		  me.ColumnType(0)=Listbox.TypeCheckbox
+		  
+		  me.Heading(1)="Name"
+		  me.Heading(2)="Accession"
+		  me.Heading(3)="CR tag residues"
+		  me.Heading(4)="Palindrome"
+		  me.Heading(5)="TFBS width"
+		  me.Heading(6)="Description"
+		  
+		  'column 7 stores file path
+		  
+		  me.GridLinesHorizontal = ListBox.BorderThinDotted
+		  'me.GridLinesVertical = ListBox.BorderThinSolid
+		  
+		  me.ColumnAlignment(4) = ListBox.AlignCenter
+		  me.ColumnAlignment(5) = ListBox.AlignCenter
+		  
+		  me.ColumnType(3) = ListBox.TypeEditable
+		  me.ColumnType(4) = ListBox.TypeEditable
+		  me.ColumnType(5) = ListBox.TypeEditable
+		  
+		  BuildHmmArray
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events runbutton
 	#tag Event
 		Sub Action()
@@ -883,48 +888,6 @@ End
 		  'outstream1.Write(resultBase)
 		  'outstream1.close
 		  'exit
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events hmmlist
-	#tag Event
-		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
-		  
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  me.ColumnWidths="0,110,85,205,80,85,*,0" 'checkboxes hidden for now
-		  me.ColumnType(0)=Listbox.TypeCheckbox
-		  
-		  me.Heading(1)="Name"
-		  me.Heading(2)="Accession"
-		  me.Heading(3)="CR tag residues"
-		  me.Heading(4)="Palindrome"
-		  me.Heading(5)="TFBS width"
-		  me.Heading(6)="Description"
-		  
-		  'column 7 stores file path
-		  
-		  me.GridLinesHorizontal = ListBox.BorderThinDotted
-		  'me.GridLinesVertical = ListBox.BorderThinSolid
-		  
-		  me.ColumnAlignment(4) = ListBox.AlignCenter
-		  me.ColumnAlignment(5) = ListBox.AlignCenter
-		  
-		  me.ColumnType(3) = ListBox.TypeEditable
-		  me.ColumnType(4) = ListBox.TypeEditable
-		  me.ColumnType(5) = ListBox.TypeEditable
-		  
-		  BuildHmmArray
-		  
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Change()
-		  
-		  startcheck
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1143,8 +1106,7 @@ End
 	#tag ViewProperty
 		Name="prot2exclude"
 		Group="Behavior"
-		Type="String"
-		EditorType="MultiLineEditor"
+		Type="string"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Resizeable"

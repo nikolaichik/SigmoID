@@ -103,7 +103,7 @@ Begin Window FilteredSearchWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   52
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -186,7 +186,7 @@ Begin Window FilteredSearchWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   196
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -264,7 +264,7 @@ Begin Window FilteredSearchWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   308
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -297,7 +297,7 @@ Begin Window FilteredSearchWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   374
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -329,7 +329,7 @@ Begin Window FilteredSearchWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   374
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -406,7 +406,7 @@ Begin Window FilteredSearchWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   340
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -439,7 +439,7 @@ Begin Window FilteredSearchWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   340
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   192
@@ -481,7 +481,7 @@ Begin Window FilteredSearchWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   306
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -514,7 +514,7 @@ Begin Window FilteredSearchWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   374
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   337

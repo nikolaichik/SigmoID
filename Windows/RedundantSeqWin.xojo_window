@@ -68,7 +68,7 @@ Begin Window RedundantSeqWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -116,7 +116,7 @@ Begin Window RedundantSeqWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   271
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -149,7 +149,7 @@ Begin Window RedundantSeqWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   500
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   142
@@ -181,7 +181,7 @@ Begin Window RedundantSeqWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   500
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   136
@@ -223,7 +223,7 @@ Begin Window RedundantSeqWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   500
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True

@@ -69,7 +69,7 @@ Begin Window NewFeatureWin
       TextSize        =   12.0
       TextUnit        =   0
       Top             =   118
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -102,7 +102,7 @@ Begin Window NewFeatureWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   447
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -134,7 +134,7 @@ Begin Window NewFeatureWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   447
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -211,7 +211,7 @@ Begin Window NewFeatureWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -254,7 +254,7 @@ Begin Window NewFeatureWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -322,7 +322,7 @@ Begin Window NewFeatureWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   52
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -355,7 +355,7 @@ Begin Window NewFeatureWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   54
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -398,7 +398,7 @@ Begin Window NewFeatureWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   52
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -441,7 +441,7 @@ Begin Window NewFeatureWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   82
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -544,7 +544,7 @@ Begin Window NewFeatureWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   84
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True

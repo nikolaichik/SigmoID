@@ -53,7 +53,7 @@ Begin Window GoToWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   56
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -85,7 +85,7 @@ Begin Window GoToWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   56
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -127,7 +127,7 @@ Begin Window GoToWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   14
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True

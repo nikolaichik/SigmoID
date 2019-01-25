@@ -53,7 +53,7 @@ Begin Window MASTGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   318
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -85,7 +85,7 @@ Begin Window MASTGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   318
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -117,7 +117,7 @@ Begin Window MASTGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   86
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -182,7 +182,7 @@ Begin Window MASTGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   184
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   408
@@ -213,7 +213,7 @@ Begin Window MASTGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   199
-         Transparent     =   False
+         Transparent     =   "False"
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -257,7 +257,7 @@ Begin Window MASTGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   231
-         Transparent     =   False
+         Transparent     =   "False"
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -301,7 +301,7 @@ Begin Window MASTGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   231
-         Transparent     =   False
+         Transparent     =   "False"
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -335,7 +335,7 @@ Begin Window MASTGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   118
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -368,7 +368,7 @@ Begin Window MASTGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   150
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -401,7 +401,7 @@ Begin Window MASTGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   118
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -431,7 +431,7 @@ Begin Window MASTGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   408
@@ -459,7 +459,7 @@ Begin Window MASTGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   48
-         Transparent     =   False
+         Transparent     =   "False"
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -489,7 +489,7 @@ Begin Window MASTGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   48
-         Transparent     =   False
+         Transparent     =   "False"
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -533,7 +533,7 @@ Begin Window MASTGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   46
-         Transparent     =   False
+         Transparent     =   "False"
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -577,7 +577,7 @@ Begin Window MASTGenSettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   46
-         Transparent     =   False
+         Transparent     =   "False"
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -611,7 +611,7 @@ Begin Window MASTGenSettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   282
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   True
       Visible         =   True
