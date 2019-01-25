@@ -129,6 +129,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   False
       Value           =   1
@@ -3653,7 +3654,7 @@ End
 		        end if
 		        ProfileWizardWin.MASTField.text=""
 		      end if
-		      
+		      ChangeView("Logo")
 		    end if
 		    
 		    'removes line breaks and not allowed symbols, makes a copy in /tmp, then sets path to Logofile
@@ -4244,23 +4245,23 @@ End
 		  dim CDSfasta as folderitem
 		  CDSfasta=TemporaryFolder.child("CDS.fasta")
 		  
-		  instream=CDSfasta.OpenAsTextFile
-		  
-		  if instream<>nil then
-		    CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
-		    instream.close
-		  end if
+		  'instream=CDSfasta.OpenAsTextFile
+		  '
+		  'if instream<>nil then
+		  'CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
+		  'instream.close
+		  'end if
 		  
 		  
 		  if CDSfasta<>nil then
 		    if CDSfasta.exists then
-		      LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"An existing CDS sequences file was found at "+CDSfasta.shellpath+" and will be reused.")
-		      
-		    else
-		      LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Exporting CDS sequences...")
-		      GenomeWin.ExportProteins(CDSfasta)
-		      LogoWin.WriteToSTDOUT (" OK")
+		      'LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"An existing CDS sequences file was found at "+CDSfasta.shellpath+" and will be reused.")
+		      CDSfasta.Delete
 		    end if
+		    'LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Exporting CDS sequences...")
+		    GenomeWin.ExportProteins(CDSfasta)
+		    LogoWin.WriteToSTDOUT (" OK")
+		    
 		    
 		    instream=CDSfasta.OpenAsTextFile
 		    
