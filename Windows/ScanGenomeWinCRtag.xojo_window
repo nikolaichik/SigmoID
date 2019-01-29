@@ -98,7 +98,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   420
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -131,7 +131,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -163,7 +163,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -195,7 +195,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   421
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -227,7 +227,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -251,7 +251,7 @@ Begin Window ScanGenomeWinCRtag
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   396
-      Transparent     =   "False"
+      Transparent     =   False
       Visible         =   True
       Width           =   406
    End
@@ -299,7 +299,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -346,7 +346,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -391,7 +391,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -436,7 +436,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -450,6 +450,7 @@ End
 		Sub Open()
 		  BuildSigArrayCR
 		  AdjustLayout4linux(me)
+		  
 		End Sub
 	#tag EndEvent
 
@@ -460,7 +461,8 @@ End
 		  dim froot,f,f2, fitemn, fitemk as folderitem
 		  dim aName, sigfolpath, temp, profilespath as string
 		  
-		  froot=GetFolderItem("").Parent
+		  'froot=GetFolderItem("").Parent
+		  froot=Resources_f  
 		  
 		  f2=froot.child("TF_HMMs") 
 		  f=froot.child("RegPreciseExport") 
@@ -473,45 +475,45 @@ End
 		  for n=1 to m
 		    if f2.item(n).Visible=True then
 		      fitemn=f2.item(n)
-		      #if Target64Bit 
-		        if right(fitemn.Name,4)=".hmm" then 
-		          aName = Replaceall(fitemn.DisplayName, ".hmm","")
-		          if InStr(aName,"_")>0 then
-		            aName=NthField(aName,"_",1) 
+		      '#if Target64Bit 
+		      if right(fitemn.Name,4)=".hmm" then 
+		        aName = Replaceall(fitemn.DisplayName, ".hmm","")
+		        if InStr(aName,"_")>0 then
+		          aName=NthField(aName,"_",1) 
+		        end
+		        if InStr(aname, "GerE")>0 then
+		          aName="LuxR"
+		        end
+		        for k=1 to f.Count
+		          if f.Item(k).Directory=false then
+		            Continue 
 		          end
-		          if InStr(aname, "GerE")>0 then
-		            aName="LuxR"
+		          fitemk=f.item(k)
+		          temp= fitemk.DisplayName
+		          if instr(temp, aName)>0 then
+		            if sigfolpath="" then
+		              sigfolpath=fitemk.NativePath
+		            else
+		              sigfolpath=sigfolpath+";"+fitemk.NativePath
+		            end
 		          end
-		          for k=1 to f.Count
-		            if f.Item(k).Directory=false then
-		              Continue 
-		            end
-		            fitemk=f.item(k)
-		            temp= fitemk.DisplayName
-		            if instr(temp, aName)>0 then
-		              if sigfolpath="" then
-		                sigfolpath=fitemk.NativePath
-		              else
-		                sigfolpath=sigfolpath+";"+fitemk.NativePath
-		              end
-		            end
-		          next
-		          SigList.AddRow
-		          SigList.Cell(SigList.LastIndex, 3)= fitemn.NativePath
-		          SigList.Cell(SigList.LastIndex, 1) = fitemn.DisplayName
-		          siglist.Cell(SigList.LastIndex,2)=sigfolpath
-		          SigList.CellCheck(SigList.LastIndex,0) = true
-		          sigfolpath=""
-		        end if
-		        '#else
-		        'if f.Item(n).Type="SigmoidFile" then
-		        'aName = f.Item(n).DisplayName
-		        'aName = left(aName,len(aName)-4) 'drop the .sig part
-		        'SigList.AddRow
-		        'SigList.Cell(SigList.LastIndex, 1) = aName
-		        'SigList.CellCheck(SigList.LastIndex,0) = true
-		        'end if
-		      #endif
+		        next
+		        SigList.AddRow
+		        SigList.Cell(SigList.LastIndex, 3)= fitemn.NativePath
+		        SigList.Cell(SigList.LastIndex, 1) = fitemn.DisplayName
+		        siglist.Cell(SigList.LastIndex,2)=sigfolpath
+		        SigList.CellCheck(SigList.LastIndex,0) = true
+		        sigfolpath=""
+		      end if
+		      '#else
+		      'if f.Item(n).Type="SigmoidFile" then
+		      'aName = f.Item(n).DisplayName
+		      'aName = left(aName,len(aName)-4) 'drop the .sig part
+		      'SigList.AddRow
+		      'SigList.Cell(SigList.LastIndex, 1) = aName
+		      'SigList.CellCheck(SigList.LastIndex,0) = true
+		      'end if
+		      '#endif
 		    end
 		  next
 		  SigList.SortedColumn=1
@@ -605,7 +607,7 @@ End
 		          dim index as integer
 		          index=sigtagbase.indexof(crtags(j1))
 		          if index>-1 then
-		            f3=getfolderitem(sigpathbase(index))
+		            f3=getfolderitem(sigpathbase(index),FolderItem.PathTypeShell)
 		            if f3.Exists then 
 		              LogoWin.LoadAlignment f3
 		              logowin.ChangeView("Logo")
