@@ -462,6 +462,9 @@ End
 		  dim aName, sigfolpath, temp, profilespath as string
 		  
 		  'froot=GetFolderItem("").Parent
+		  if Resources_f=Nil then 'there's a glitch with event order on some systems
+		    GetResources_f
+		  end if
 		  froot=Resources_f  
 		  
 		  f2=froot.child("TF_HMMs") 
@@ -743,7 +746,7 @@ End
 	#tag Event
 		Sub Open()
 		  me.ColumnCount=4
-		  me.ColumnWidths="30,80,0,0"
+		  me.ColumnWidths="30,*,0,0"
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		End Sub
 	#tag EndEvent

@@ -88,7 +88,7 @@ Begin Window MergePlotDataWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   170
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -120,7 +120,7 @@ Begin Window MergePlotDataWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   170
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -162,7 +162,7 @@ Begin Window MergePlotDataWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   64
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -230,7 +230,7 @@ Begin Window MergePlotDataWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   65
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -272,7 +272,7 @@ Begin Window MergePlotDataWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   98
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -340,7 +340,7 @@ Begin Window MergePlotDataWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   99
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -382,7 +382,7 @@ Begin Window MergePlotDataWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   131
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -450,7 +450,7 @@ Begin Window MergePlotDataWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   132
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -522,11 +522,11 @@ End
 		  dim linecount, posNo as integer
 		  InStream = infile1.OpenAsTextFile
 		  aLine=trim(InStream.readLine)
-		  if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools)
+		  if CountFields(aLine,TabChar)=3 then        'Triple column file produced by samtools
 		    seqname=NthField(aLine,TabChar,1)
 		    instream.close
 		    logowin.show
-		    logowin.WriteToSTDOUT (EndOfLine.unix+"Reading depth data from the first file... ")
+		    logowin.WriteToSTDOUT (EndOfLine.unix+"Reading data from "+InFile1.Name+"... ")
 		    
 		    InStream = infile1.OpenAsTextFile
 		    while not InStream.EOF
@@ -535,9 +535,23 @@ End
 		      ReadDepth(posNo)=val(NthField(aLine,TabChar,3))
 		    wend
 		  else
-		    msgbox "Wrong file format!"
-		    self.hide
-		    return
+		    logowin.show
+		    logowin.WriteToSTDOUT (EndOfLine.unix+"Reading data from "+InFile1.Name+"... ")
+		    if infile1.Type="WIG" then     'Rockhopper/IGV track: drop the second header line
+		      aLine=InStream.readLine
+		      posNo=0
+		    else 'save the first line data
+		      'assume plain single column file with no header
+		      posNo=1
+		      ReadDepth(posNo)=val(aline)
+		    end if
+		    
+		    while not InStream.EOF
+		      posNo=posNo+1
+		      ReadDepth(posNo)=val(InStream.readLine)
+		    wend
+		    
+		    
 		  end
 		  instream.close
 		  logowin.WriteToSTDOUT ("OK"+EndOfLine.unix)
@@ -551,7 +565,7 @@ End
 		      MsgBox "Sequence names in the files being merged do not match! Please make sure you have chosen the correct files for the merge"
 		    end if
 		    instream.close
-		    logowin.WriteToSTDOUT ("Reading depth data from the second file... ")
+		    logowin.WriteToSTDOUT ("Reading data from "+InFile2.Name+"... ")
 		    
 		    InStream = infile2.OpenAsTextFile
 		    while not InStream.EOF
@@ -560,9 +574,21 @@ End
 		      ReadDepth(posNo)=ReadDepth(posNo)+val(NthField(aLine,TabChar,3))
 		    wend
 		  else
-		    msgbox "Wrong file format!"
-		    self.hide
-		    return
+		    logowin.show
+		    logowin.WriteToSTDOUT (EndOfLine.unix+"Reading data from "+InFile2.Name+"... ")
+		    if infile2.Type="WIG" then     'Rockhopper/IGV track: drop the second header line
+		      aLine=InStream.readLine
+		      posNo=0
+		    else 'save the first line data
+		      'assume plain single column file with no header
+		      posNo=1
+		      ReadDepth(posNo)=ReadDepth(posNo)+val(aline)
+		    end if
+		    
+		    while not InStream.EOF
+		      posNo=posNo+1
+		      ReadDepth(posNo)=ReadDepth(posNo)+val(InStream.readLine)
+		    wend
 		  end 
 		  instream.close
 		  logowin.WriteToSTDOUT ("OK"+EndOfLine.unix)
@@ -614,7 +640,13 @@ End
 #tag Events SelectData1butt
 	#tag Event
 		Sub Action()
-		  InFile1=GetOpenFolderItem("")
+		  Dim dlg as New OpenDialog
+		  
+		  dlg.promptText="Select a .wig/samtools depth/plain text file with data to plot"
+		  dlg.Title="Open file with data to plot"
+		  dlg.Filter="FileTypes.Text;FileTypes.WIG"
+		  infile1=dlg.ShowModal()
+		  
 		  if InFile1<> Nil And InFile1.exists then
 		    Infile1Field.text=InFile1.shellpath
 		  end if
@@ -632,7 +664,13 @@ End
 #tag Events SelectData2butt
 	#tag Event
 		Sub Action()
-		  InFile2=GetOpenFolderItem("")
+		  Dim dlg as New OpenDialog
+		  
+		  dlg.promptText="Select a .wig/samtools depth/plain text file with data to plot"
+		  dlg.Title="Open file with data to plot"
+		  dlg.Filter="FileTypes.Text;FileTypes.WIG"
+		  infile2=dlg.ShowModal()
+		  
 		  if InFile2<> Nil And InFile2.exists then
 		    Infile2Field.text=InFile2.shellpath
 		  end if
