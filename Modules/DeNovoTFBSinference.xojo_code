@@ -541,7 +541,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  if instr(ecodes,",")>0 then
 		    ResArray=split(eCodes,",") 'if only one tag, then exception, fix
-		    ResArray.Shuffle 'random distribution of EMBLcodes to prevent non using the rest and masking from shearch
+		    ResArray.Shuffle 'random distribution of the EMBLcodes to prevent not using codes in the string's "tail"  
 		    ecodes=join(ResArray,",")
 		  else
 		    singleCodeTags=singleCodeTags+1
