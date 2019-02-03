@@ -77,7 +77,7 @@ Begin Window LogoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -129,9 +129,8 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Transparent     =   "False"
+      Transparent     =   False
       Value           =   1
       Visible         =   True
       Width           =   1000
@@ -206,7 +205,7 @@ Begin Window LogoWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   0
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   False
@@ -237,7 +236,7 @@ Begin Window LogoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
-      Transparent     =   "False"
+      Transparent     =   False
       Value           =   0
       Visible         =   False
       Width           =   1000
@@ -1638,6 +1637,22 @@ End
 			p=LogoFromPWM(s)
 			beep
 			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ProfilePalindromise() As Boolean Handles ProfilePalindromise.Action
+			Palindromise
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ProfileReverseComplement() As Boolean Handles ProfileReverseComplement.Action
+			RevCompProfile
 			Return True
 			
 		End Function
@@ -4617,11 +4632,14 @@ End
 		  SigFileOpened=false
 		  
 		  If PalindromeLogoFile <> Nil then
-		    RevCompAlignment(logofile, palindromeLogofile)
-		    logofile=PalindromeLogoFile
+		    RevCompAlignment(logofile, palindromeLogofile,true)
+		    if logofile.exists then
+		      logofile.delete
+		    End If
+		    PalindromeLogoFile.moveFileTo(logofile)
 		    
 		    'replace contents of the Sequence variable (for viewing)
-		    dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
+		    dim instream as TextInputStream = LogoFile.OpenAsTextFile
 		    Sequences=Instream.ReadAll
 		    instream.Close
 		    DrawLogo
@@ -4871,6 +4889,34 @@ End
 		    ExceptionHandler(err,"LogoWin:HmmGen")
 		    
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub RevCompProfile()
+		  // Reverse complement motif 
+		  
+		  PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
+		  
+		  'since we change data, that's not the .sig any more!
+		  SigFileOpened=false
+		  
+		  If PalindromeLogoFile <> Nil then
+		    RevCompAlignment(logofile, palindromeLogofile,false)
+		    if logofile.exists then
+		      logofile.delete
+		    End If
+		    PalindromeLogoFile.moveFileTo(logofile)
+		    
+		    'replace contents of the Sequence variable (for viewing)
+		    dim instream as TextInputStream = LogoFile.OpenAsTextFile
+		    Sequences=Instream.ReadAll
+		    instream.Close
+		    DrawLogo
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:Palindromise")
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
