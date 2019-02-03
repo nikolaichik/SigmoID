@@ -50,7 +50,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   312
@@ -127,7 +127,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   54
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -206,7 +206,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   88
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -285,7 +285,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   120
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -329,7 +329,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   152
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -395,7 +395,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   316
@@ -426,7 +426,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   88
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -495,7 +495,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   120
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -539,7 +539,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   152
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -572,7 +572,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   56
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -651,7 +651,7 @@ Begin Window ProfileWizardWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   152
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -700,7 +700,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   393
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -733,7 +733,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   540
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -765,7 +765,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   540
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -809,7 +809,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   540
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -842,7 +842,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   202
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   494
@@ -954,7 +954,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   234
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -1037,7 +1037,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   287
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -1115,7 +1115,7 @@ Begin Window ProfileWizardWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   234
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -1772,7 +1772,7 @@ End
 		            'looks like the seqs are palindromised already
 		          else
 		            rcAlignmentFile=TemporaryFolder.child("rcAliFile")
-		            RevCompAlignment(AlignmentFile,rcAlignmentFile)
+		            RevCompAlignment(AlignmentFile,rcAlignmentFile,true)
 		            AlignmentFile.Delete
 		            AlignmentFile=rcAlignmentFile
 		            AlignmentFile.name=LogoWin.LogoFile.DisplayName

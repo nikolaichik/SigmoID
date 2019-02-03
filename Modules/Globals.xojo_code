@@ -2901,7 +2901,9 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RevCompAlignment(infile as folderitem, outfile as folderitem)
+		Sub RevCompAlignment(infile as folderitem, outfile as folderitem, keepFwd as boolean)
+		  // Either reverse complement (with keepFwd=false) or palindromise (with keepFwd=true) aligned multifasta file 
+		  
 		  dim instream as TextInputStream
 		  dim outstream As TextOutputStream
 		  dim aLine,title as string
@@ -2912,11 +2914,15 @@ Protected Module Globals
 		    
 		    aLine=trim(InStream.readLine)
 		    if left(aLine,1)=">" then
-		      OutStream.writeLine ">f_"+right(aline,len(aline)-1)
+		      if keepFwd then
+		        OutStream.writeLine ">f_"+right(aline,len(aline)-1)
+		      end if
 		      title=aline
 		    else
 		      if aline<>"" then
-		        OutStream.writeLine aline
+		        if keepFwd then
+		          OutStream.writeLine aline
+		        end if
 		        'and now the reverse complement:
 		        OutStream.writeLine ">r_"+right(title,len(title)-1)
 		        OutStream.writeLine ReverseComplement(aline)

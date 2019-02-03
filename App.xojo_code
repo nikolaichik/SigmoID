@@ -756,7 +756,7 @@ Inherits Application
 		          AlignmentFile= SigFolder.child(sigfolder.displayname+".fasta")
 		          if AlignmentFile<>Nil AND AlignmentFile.Exists then
 		            rcAlignmentFile=TemporaryFolder.child("rcAliFile")
-		            RevCompAlignment(AlignmentFile,rcAlignmentFile)
+		            RevCompAlignment(AlignmentFile,rcAlignmentFile,true)
 		            AlignmentFile=rcAlignmentFile
 		          end if
 		        else 'just open existing alignment:

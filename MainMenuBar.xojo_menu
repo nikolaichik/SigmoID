@@ -352,6 +352,20 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem ProfilePalindromise
+         SpecialMenu = 0
+         Text = "Palindromise"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem ProfileReverseComplement
+         SpecialMenu = 0
+         Text = "Reverse Complement"
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator7
          SpecialMenu = 0
          Text = "-"
