@@ -9,7 +9,7 @@ Begin Window CRtagBaseConstructor
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   596
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,7 +25,7 @@ Begin Window CRtagBaseConstructor
    Resizeable      =   True
    Title           =   "Untitled"
    Visible         =   True
-   Width           =   600
+   Width           =   699
    Begin Listbox hmmlist
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -55,13 +55,14 @@ Begin Window CRtagBaseConstructor
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   False
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -72,7 +73,7 @@ Begin Window CRtagBaseConstructor
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   600
+      Width           =   699
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -98,6 +99,7 @@ Begin Window CRtagBaseConstructor
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Select sequences file"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -132,6 +134,7 @@ Begin Window CRtagBaseConstructor
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Select .cidx file base"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -152,12 +155,12 @@ Begin Window CRtagBaseConstructor
       Caption         =   "Start!"
       Default         =   True
       Enabled         =   True
-      Height          =   26
+      Height          =   34
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   500
+      Left            =   559
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -170,10 +173,10 @@ Begin Window CRtagBaseConstructor
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   354
+      Top             =   356
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   76
    End
    Begin PushButton PushButton2
       AutoDeactivate  =   True
@@ -183,12 +186,12 @@ Begin Window CRtagBaseConstructor
       Caption         =   "OK"
       Default         =   True
       Enabled         =   True
-      Height          =   26
+      Height          =   37
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   500
+      Left            =   550
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -201,10 +204,10 @@ Begin Window CRtagBaseConstructor
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   238
+      Top             =   224
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   93
    End
    Begin PushButton PushButton3
       AutoDeactivate  =   True
@@ -214,12 +217,12 @@ Begin Window CRtagBaseConstructor
       Caption         =   "OK"
       Default         =   True
       Enabled         =   True
-      Height          =   26
+      Height          =   34
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   500
+      Left            =   550
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -232,10 +235,57 @@ Begin Window CRtagBaseConstructor
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   299
+      Top             =   284
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   93
+   End
+   Begin TextArea TextArea1
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   True
+      BackColor       =   &cFFFFFF00
+      Bold            =   False
+      Border          =   True
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   194
+      HelpTag         =   ""
+      HideSelection   =   True
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   0
+      LimitText       =   0
+      LineHeight      =   0.0
+      LineSpacing     =   1.0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Mask            =   ""
+      Multiline       =   True
+      ReadOnly        =   False
+      Scope           =   0
+      ScrollbarHorizontal=   False
+      ScrollbarVertical=   True
+      Styled          =   True
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "READ FIRST:\nThe process of CR-tag base creation uses Cdbfasta software for quick sequence retrieval from large fasta files. It's necessary to install this program from repository or by link: https://github.com/gpertea/cdbfasta.\nAfter the installation, check, please, that its path was added to your PATH environment: the command ""cdbfasta"" should be executed successfully outside the installation directory in the command line.\n\nNext, create an index file for your sequences in .fasta file. You need to execute command ""cdbfasta /path/to/your fasta"" and after that new .cidx file will be created in the directory with your fasta. \n\nNow you can provide paths to original fasta (""Select sequences file"" line) and its index file (""Select .cidx file"") by dialog buttons above; choose right HMM model from the list and press ""Start!"" button in order to activate base creation process."
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   402
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   699
    End
 End
 #tag EndWindow
@@ -1107,6 +1157,7 @@ End
 		Name="prot2exclude"
 		Group="Behavior"
 		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Resizeable"

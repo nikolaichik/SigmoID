@@ -53,7 +53,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -85,7 +85,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -162,7 +162,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -195,7 +195,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   372
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -244,7 +244,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -332,7 +332,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   346
-      Transparent     =   True
+      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -365,7 +365,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   347
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
