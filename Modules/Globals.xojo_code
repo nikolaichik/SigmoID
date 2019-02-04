@@ -388,7 +388,24 @@ Protected Module Globals
 		  
 		  dim cli as string
 		  Dim sh As Shell
-		  
+		  dim threadsSupport as Boolean = false
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  cli="ompi_info"
+		  Sh.Execute cli
+		  dim ompiversion as string=sh.Result 
+		  if instr(ompiversion,"'ompi_info' not found")=0 then
+		    ompiversion=NthField(ompiversion,EndOfLine.UNIX+"Open MPI repo",1)
+		    ompiversion=NthField(ompiversion,"Open MPI: ",2)
+		    ompiversion=NthField(ompiversion,".",1)
+		    dim v as Integer = val(ompiversion)
+		    if v>2 then
+		      threadsSupport=false
+		    else
+		      threadsSupport=true
+		    end
+		  end
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -404,6 +421,9 @@ Protected Module Globals
 		        return 1
 		      else
 		        LogoWin.WriteToSTDOUT(str(CPUs)+" CPU cores detected. All of them will be used for running MEME."+EndOfLine.unix)
+		        If threadsSupport=False then
+		          CPUs=CPUs\2
+		        end
 		        return CPUs
 		      end if
 		    else
