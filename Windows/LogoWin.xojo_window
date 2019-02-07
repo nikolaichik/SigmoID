@@ -1640,22 +1640,6 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function ProfilePalindromise() As Boolean Handles ProfilePalindromise.Action
-			Palindromise
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function ProfileReverseComplement() As Boolean Handles ProfileReverseComplement.Action
-			RevCompProfile
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
 		Function RegPreciseCompareScores() As Boolean Handles RegPreciseCompareScores.Action
 			'run nhmmer, then hmmgen, then convert hits to fasta string
 			'and feed it to the actual comparison routine
@@ -4629,14 +4613,11 @@ End
 		  SigFileOpened=false
 		  
 		  If PalindromeLogoFile <> Nil then
-		    RevCompAlignment(logofile, palindromeLogofile,true)
-		    if logofile.exists then
-		      logofile.delete
-		    End If
-		    PalindromeLogoFile.moveFileTo(logofile)
+		    RevCompAlignment(logofile, palindromeLogofile)
+		    logofile=PalindromeLogoFile
 		    
 		    'replace contents of the Sequence variable (for viewing)
-		    dim instream as TextInputStream = LogoFile.OpenAsTextFile
+		    dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
 		    Sequences=Instream.ReadAll
 		    instream.Close
 		    DrawLogo
@@ -4886,34 +4867,6 @@ End
 		    ExceptionHandler(err,"LogoWin:HmmGen")
 		    
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub RevCompProfile()
-		  // Reverse complement motif 
-		  
-		  PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
-		  
-		  'since we change data, that's not the .sig any more!
-		  SigFileOpened=false
-		  
-		  If PalindromeLogoFile <> Nil then
-		    RevCompAlignment(logofile, palindromeLogofile,false)
-		    if logofile.exists then
-		      logofile.delete
-		    End If
-		    PalindromeLogoFile.moveFileTo(logofile)
-		    
-		    'replace contents of the Sequence variable (for viewing)
-		    dim instream as TextInputStream = LogoFile.OpenAsTextFile
-		    Sequences=Instream.ReadAll
-		    instream.Close
-		    DrawLogo
-		  End If
-		  
-		  Exception err
-		    ExceptionHandler(err,"LogoWin:Palindromise")
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1

@@ -714,8 +714,6 @@ Protected Module DeNovoTFBSinference
 		      qualifier=NthField(entryarray(i),"/strain="+chr(34),2)
 		      qualifier=NthField(qualifier,chr(34),1)         'strain
 		      FastaName=FastaName+qualifier
-		      FastaName=replaceall(FastaName,"/","_") 'Some strains may have funny names
-		      FastaName=replaceall(FastaName,":","_") 'Some strains may have funny names
 		      
 		      //Get GB entry ID and TF gene coordinates
 		      ' GenPept entry should have a line like this:

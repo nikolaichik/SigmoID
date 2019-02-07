@@ -62,7 +62,6 @@ Begin Window CRtagBaseConstructor
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
-      ShowDropIndicator=   False
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -99,7 +98,6 @@ Begin Window CRtagBaseConstructor
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Select sequences file"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -134,7 +132,6 @@ Begin Window CRtagBaseConstructor
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Select .cidx file base"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -276,7 +273,7 @@ Begin Window CRtagBaseConstructor
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "READ FIRST:\nThe process of CR-tag base creation uses Cdbfasta software for quick sequence retrieval from large fasta files. It's necessary to install this program from repository or by link: https://github.com/gpertea/cdbfasta.\nAfter the installation, check, please, that its path was added to your PATH environment: the command ""cdbfasta"" should be executed successfully outside the installation directory in the command line.\n\nNext, create an index file for your sequences in .fasta file. You need to execute command ""cdbfasta /path/to/your fasta"" and after that new .cidx file will be created in the directory with your fasta. \n\nNow you can provide paths to original fasta (""Select sequences file"" line) and its index file (""Select .cidx file"") by dialog buttons above; choose right HMM model from the list and press ""Start!"" button in order to activate base creation process."
+      Text            =   "READ FIRST:\nThe process of CR-tag base creation uses Cdbfasta software for quick sequence retrieval from large fasta files. It's necessary to install this program from repository or by link: https://github.com/gpertea/cdbfasta.\nAfter the installation, check, please, that its path was added to your PATH environment: the command ""cdbfasta"" should be executed successfully outside the installation directory in the command line.\n\nThe source file should contain EMBL codes for all sequences and can be compressed (.gz). That file will be used by hmmsearch tool with chosen HMM model.\n\nNext, create a .fasta file from your sequences file (if it's not .fasta), after that make an index file for it. You need to execute command ""cdbfasta /path/to/your fasta"" - new .cidx file will be created in the directory with your fasta. \n\nNow you can provide paths to the original file with EMBL codes (""Select sequences file"" line) and the index file was made from corresponding .fasta (""Select .cidx file"") by dialog buttons above; choose right HMM model from the list and press ""Start!"" button in order to activate base creation process."
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
