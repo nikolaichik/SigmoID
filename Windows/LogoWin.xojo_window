@@ -77,6 +77,7 @@ Begin Window LogoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -128,8 +129,8 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
+      Transparent     =   True
       Value           =   1
       Visible         =   True
       Width           =   1000
@@ -204,6 +205,7 @@ Begin Window LogoWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   0
+         Transparent     =   True
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   False
@@ -234,6 +236,7 @@ Begin Window LogoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
+      Transparent     =   True
       Value           =   0
       Visible         =   False
       Width           =   1000
@@ -4613,7 +4616,7 @@ End
 		  SigFileOpened=false
 		  
 		  If PalindromeLogoFile <> Nil then
-		    RevCompAlignment(logofile, palindromeLogofile)
+		    RevCompAlignment(logofile, palindromeLogofile,true)
 		    logofile=PalindromeLogoFile
 		    
 		    'replace contents of the Sequence variable (for viewing)

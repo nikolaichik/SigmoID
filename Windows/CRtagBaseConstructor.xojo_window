@@ -62,6 +62,7 @@ Begin Window CRtagBaseConstructor
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   False
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -69,6 +70,7 @@ Begin Window CRtagBaseConstructor
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -98,6 +100,7 @@ Begin Window CRtagBaseConstructor
       Selectable      =   False
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Select sequences file"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -132,7 +135,8 @@ Begin Window CRtagBaseConstructor
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      Text            =   "Select .cidx file base"
+      TabStop         =   True
+      Text            =   "Select .fasta file"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
@@ -142,7 +146,7 @@ Begin Window CRtagBaseConstructor
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   443
+      Width           =   363
    End
    Begin PushButton runbutton
       AutoDeactivate  =   True
@@ -171,6 +175,7 @@ Begin Window CRtagBaseConstructor
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   356
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   76
@@ -180,7 +185,7 @@ Begin Window CRtagBaseConstructor
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "OK"
+      Caption         =   "trEMBL.dat(.gz)"
       Default         =   True
       Enabled         =   True
       Height          =   37
@@ -188,7 +193,7 @@ Begin Window CRtagBaseConstructor
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   550
+      Left            =   410
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -202,16 +207,17 @@ Begin Window CRtagBaseConstructor
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   224
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   93
+      Width           =   233
    End
    Begin PushButton PushButton3
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
       Cancel          =   False
-      Caption         =   "OK"
+      Caption         =   "trEMBL.fasta"
       Default         =   True
       Enabled         =   True
       Height          =   34
@@ -219,7 +225,7 @@ Begin Window CRtagBaseConstructor
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   550
+      Left            =   410
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -233,9 +239,10 @@ Begin Window CRtagBaseConstructor
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   284
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   93
+      Width           =   233
    End
    Begin TextArea TextArea1
       AcceptTabs      =   False
@@ -279,6 +286,7 @@ Begin Window CRtagBaseConstructor
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   402
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -559,11 +567,19 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      cli="cdbyank -a "+str(ProtNames(ubound(ProtNames)))+" "+cidxbase.ShellPath
+		      
+		      // cdbyank version:
+		      
+		      'cli="cdbyank -a "+str(ProtNames(ubound(ProtNames)))+" "+cidxbase.ShellPath
+		      
+		      // samtools version:
+		      'cli="samtools faidx "+fastasource.shellpath+" "+str(ProtNames(ubound(ProtNames)))
+		      cli="samtools faidx "+trEMBL_fasta.shellpath+" "+str(ProtNames(ubound(ProtNames)))
+		      
 		      Sh.Execute cli
 		      
 		      if sh.ErrorCode<>0 then
-		        LogoWin.WriteToSTDOUT (EndOfLine.unix+"get seq error with protein: "+str(ProtNames(ubound(ProtNames)))+EndOfLine.unix)
+		        LogoWin.WriteToSTDOUT (EndOfLine.unix+"Error retrieving "+str(ProtNames(ubound(ProtNames)))+" from trEMBL"+EndOfLine.unix)
 		        CDStmp=""
 		      else
 		        cdsID=NthField(Sh.result,EndOfLine.unix,1)
@@ -733,31 +749,27 @@ End
 		    return
 		  end if
 		  
-		  if cidxbase=nil then
+		  if trEMBL_fasta=nil then
 		    RunButton.Enabled=false
 		    return
 		  end if
 		  
-		  if NOT cidxbase.exists then
+		  if NOT trEMBL_fasta.exists then
 		    RunButton.Enabled=false
 		    return
 		  end if 
 		  
-		  if fastasource=nil then
+		  if trEMBL_dat=nil then
 		    RunButton.Enabled=false
 		    return
 		  end if
-		  if NOT fastasource.exists then
+		  if NOT trEMBL_dat.exists then
 		    RunButton.Enabled=false
 		    return
 		  end if 
 		End Sub
 	#tag EndMethod
 
-
-	#tag Property, Flags = &h0
-		cidxbase As folderItem
-	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		emblcom(0) As string
@@ -772,10 +784,6 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		fastasource As folderitem
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		Outf As folderItem
 	#tag EndProperty
 
@@ -784,6 +792,14 @@ End
 			prot2exclude
 		#tag EndNote
 		prot2exclude As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		trEMBL_dat As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		trEMBL_fasta As folderItem
 	#tag EndProperty
 
 
@@ -862,8 +878,8 @@ End
 		  dim  Base as string
 		  dim AlignmentsFile, hmmsearchoutput as FolderItem
 		  
-		  path2alignmentsfile=TemporaryFolder.ShellPath+fastasource.Name+CRtagPositions+"-alignments"
-		  path2hmmsearchoutput=TemporaryFolder.ShellPath+fastasource.Name+CRtagPositions+"-hmmsearch"
+		  path2alignmentsfile=TemporaryFolder.ShellPath+trEMBL_dat.Name+CRtagPositions+"-alignments"
+		  path2hmmsearchoutput=TemporaryFolder.ShellPath+trEMBL_dat.Name+CRtagPositions+"-hmmsearch"
 		  AlignmentsFile=new FolderItem(path2alignmentsfile, FolderItem.PathTypeShell)
 		  hmmsearchoutput=new FolderItem(path2hmmsearchoutput, FolderItem.PathTypeShell)
 		  While outf=nil
@@ -874,10 +890,10 @@ End
 		    if hmmsearchoutput.exists=False and AlignmentsFile.Exists=False then
 		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		      dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
-		      if instr(fastasource.ShellPath,".gz")>0 then
-		        cli="gunzip -c "+fastasource.ShellPath+" "+chr(124)+" "+ HmmSearchPath+" --cut_tc --notextw -A "+alignmentsFile.ShellPath+" -o "+hmmsearchoutput.ShellPath+" "+hmmPath+" -"
+		      if instr(trEMBL_dat.ShellPath,".gz")>0 then
+		        cli="gunzip -c "+trEMBL_dat.ShellPath+" "+chr(124)+" "+ HmmSearchPath+" --cut_tc --notextw -A "+alignmentsFile.ShellPath+" -o "+hmmsearchoutput.ShellPath+" "+hmmPath+" -"
 		      else
-		        cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" -o "+hmmsearchoutput.ShellPath+" "+hmmPath+" "+fastasource.ShellPath
+		        cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" -o "+hmmsearchoutput.ShellPath+" "+hmmPath+" "+trEMBL_dat.ShellPath
 		      end
 		      sh=New Shell
 		      sh.mode=0
@@ -941,10 +957,10 @@ End
 #tag Events PushButton2
 	#tag Event
 		Sub Action()
-		  CRtagBaseConstructor.fastasource=GetOpenFolderItem("")
-		  if CRtagBaseConstructor.fastasource<> Nil then
-		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+CRtagBaseConstructor.fastasource.NativePath+" loaded.")
-		    Label1.text=CRtagBaseConstructor.fastasource.NativePath
+		  trEMBL_dat=GetOpenFolderItem("")
+		  if trEMBL_dat<> Nil then
+		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+trEMBL_dat.NativePath+" loaded.")
+		    Label1.text=trEMBL_dat.NativePath
 		  end if
 		  startcheck
 		End Sub
@@ -953,10 +969,10 @@ End
 #tag Events PushButton3
 	#tag Event
 		Sub Action()
-		  CRtagBaseConstructor.cidxbase=GetOpenFolderItem("")
-		  if CRtagBaseConstructor.cidxbase<> Nil then
+		  trEMBL_fasta=GetOpenFolderItem("")
+		  if trEMBL_fasta<> Nil then
 		    'LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+CRtagBaseConstructor.cidxbase+" loaded.")
-		    Label2.text=CRtagBaseConstructor.cidxbase.ShellPath
+		    Label2.text=trEMBL_fasta.ShellPath
 		  end if
 		  startcheck
 		End Sub
