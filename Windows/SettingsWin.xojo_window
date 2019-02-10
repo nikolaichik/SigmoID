@@ -53,7 +53,7 @@ Begin Window SettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   314
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -85,7 +85,7 @@ Begin Window SettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   314
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -97,6 +97,7 @@ Begin Window SettingsWin
       LockedInPosition=   False
       Scope           =   0
       TabPanelIndex   =   0
+      Transparent     =   True
       Visible         =   True
    End
    Begin PagePanel PagePanel1
@@ -119,7 +120,7 @@ Begin Window SettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
-      Transparent     =   "False"
+      Transparent     =   False
       Value           =   0
       Visible         =   True
       Width           =   556
@@ -147,7 +148,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   20
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -178,7 +179,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   56
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             Visible         =   True
             Width           =   343
@@ -210,7 +211,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   88
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             Visible         =   True
             Width           =   343
@@ -253,7 +254,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   120
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -402,7 +403,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   154
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -468,7 +469,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   6
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -510,7 +511,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   40
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -624,7 +625,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   75
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -703,7 +704,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   108
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -782,7 +783,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   142
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -861,7 +862,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   176
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -940,7 +941,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   210
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -1019,7 +1020,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   244
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -1088,7 +1089,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   84
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   172
@@ -1152,7 +1153,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   199
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -1180,7 +1181,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   226
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             Value           =   True
             Visible         =   True
@@ -1210,7 +1211,7 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   226
-            Transparent     =   "False"
+            Transparent     =   False
             Underline       =   False
             Value           =   False
             Visible         =   True
@@ -1304,7 +1305,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   45
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -2281,7 +2282,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   50
@@ -2313,7 +2314,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2345,7 +2346,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2479,7 +2480,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   129
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2543,7 +2544,7 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   129
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2611,7 +2612,7 @@ Begin Window SettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   314
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   161

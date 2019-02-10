@@ -98,7 +98,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   420
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -131,7 +131,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -163,7 +163,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -195,7 +195,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   421
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -227,7 +227,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   True
       Visible         =   True
@@ -251,7 +251,7 @@ Begin Window ScanGenomeWinCRtag
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   396
-      Transparent     =   "False"
+      Transparent     =   False
       Visible         =   True
       Width           =   406
    End
@@ -299,7 +299,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -346,7 +346,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -391,7 +391,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -436,7 +436,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True

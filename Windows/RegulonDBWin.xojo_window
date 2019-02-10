@@ -70,7 +70,7 @@ Begin Window RegulonDBWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   77
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -96,7 +96,7 @@ Begin Window RegulonDBWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   -58
-      Transparent     =   "False"
+      Transparent     =   False
       Visible         =   True
       Width           =   94
    End
@@ -127,7 +127,7 @@ Begin Window RegulonDBWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   480
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   126
@@ -171,7 +171,7 @@ Begin Window RegulonDBWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   478
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -236,7 +236,7 @@ Begin Window RegulonDBWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   9
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   350
@@ -264,7 +264,7 @@ Begin Window RegulonDBWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   35
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -294,7 +294,7 @@ Begin Window RegulonDBWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   35
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -324,7 +324,7 @@ Begin Window RegulonDBWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   35
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -355,7 +355,7 @@ Begin Window RegulonDBWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   9
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   280
@@ -383,7 +383,7 @@ Begin Window RegulonDBWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   35
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Value           =   True
          Visible         =   True
@@ -413,7 +413,7 @@ Begin Window RegulonDBWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   35
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -447,7 +447,7 @@ Begin Window RegulonDBWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   480
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   175

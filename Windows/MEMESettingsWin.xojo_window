@@ -53,7 +53,7 @@ Begin Window MEMESettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   240
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -85,7 +85,7 @@ Begin Window MEMESettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   240
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -152,7 +152,7 @@ Begin Window MEMESettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   90
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -186,7 +186,7 @@ Begin Window MEMESettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   154
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -216,7 +216,7 @@ Begin Window MEMESettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   270
@@ -258,7 +258,7 @@ Begin Window MEMESettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   46
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -302,7 +302,7 @@ Begin Window MEMESettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   46
-         Transparent     =   "False"
+         Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
@@ -406,7 +406,7 @@ Begin Window MEMESettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   122
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -439,7 +439,7 @@ Begin Window MEMESettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   186
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   112

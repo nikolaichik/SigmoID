@@ -55,7 +55,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,10 +78,10 @@ Begin Window GenomeWin
       Scope           =   0
       Segments        =   "\nbr_prev_icon16\nFalse\r                      \n\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
+      TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Transparent     =   "True"
+      Transparent     =   True
       Visible         =   True
       Width           =   177
    End
@@ -113,7 +112,7 @@ Begin Window GenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   "True"
+      Transparent     =   True
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -143,7 +142,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   205
-      Transparent     =   "True"
+      Transparent     =   True
       Value           =   0
       Visible         =   True
       Width           =   1067
@@ -163,10 +162,10 @@ Begin Window GenomeWin
       Scope           =   0
       Segments        =   "+\n\nFalse\r-\n\nFalse"
       SelectionType   =   2
+      TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Transparent     =   "True"
+      Transparent     =   True
       Visible         =   True
       Width           =   41
    End
@@ -247,9 +246,8 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
-      Transparent     =   "True"
+      Transparent     =   True
       Value           =   2
       Visible         =   True
       Width           =   1041
@@ -360,7 +358,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -373,7 +370,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -466,7 +462,7 @@ Begin Window GenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   -54
-      Transparent     =   "True"
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   False
       Visible         =   False
@@ -477,7 +473,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -503,7 +498,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   -89
-      Transparent     =   "True"
+      Transparent     =   True
       Visible         =   False
       Width           =   24
    End
@@ -540,7 +535,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -1140,24 +1134,29 @@ End
 			infile=dlg.ShowModal()
 			
 			if infile<> Nil then
+			if right(Infile.name,6)=".plots" then 
+			'add four plots specified in the .plots file
+			'(four lines with full shell paths) 
+			Add4Plots(infile)   
+			return false
+			end if
 			
 			//load the data into array attached to seq object:
 			
 			dim instream as TextInputStream
 			dim aLine as string
-			dim linecount, posNo as integer
+			dim posNo as integer
 			dim tabChar as string = chr(9)
 			
 			
 			
-			
-			if UBound(self.Genome.ReadDepth1)<1 then     'Loading first track
 			InStream = infile.OpenAsTextFile
 			if infile.Type="WIG" then     'Rockhopper/IGV track: drop first two lines
 			aLine=trim(InStream.readLine)
 			aLine=trim(InStream.readLine)
 			end if
 			
+			if UBound(self.Genome.ReadDepth1)<1 then     'Loading first track
 			aLine=trim(InStream.readLine)
 			if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools)
 			instream.close
@@ -1581,6 +1580,76 @@ End
 		End Function
 	#tag EndMenuHandler
 
+
+	#tag Method, Flags = &h0
+		Sub Add4plots(infile as folderitem)
+		  
+		  dim instream as TextInputStream
+		  dim aLine as string
+		  dim linecount, posNo as integer
+		  dim tabChar as string = chr(9)
+		  dim FileNameArr(4) as string
+		  dim n as integer
+		  dim plotFile as folderitem
+		  
+		  redim self.Genome.ReadDepth1(0)
+		  redim self.Genome.ReadDepth2(0)
+		  redim self.Genome.ReadDepth3(0)
+		  redim self.Genome.ReadDepth4(0)
+		  
+		  InStream = infile.OpenAsTextFile
+		  if instream=nil then return
+		  FileNameArr(1)=trim(InStream.readLine)
+		  FileNameArr(2)=trim(InStream.readLine)
+		  FileNameArr(3)=trim(InStream.readLine)
+		  FileNameArr(4)=trim(InStream.readLine)
+		  instream.close
+		  
+		  for n=1 to 4
+		    plotFile=GetFolderItem(FileNameArr(n),FolderItem.PathTypeShell)
+		    InStream = plotFile.OpenAsTextFile
+		    if instream=nil then return
+		    if infile.Type="WIG" then     'Rockhopper/IGV track: drop first two lines
+		      aLine=trim(InStream.readLine)
+		      aLine=trim(InStream.readLine)
+		    end if
+		    
+		    select case n
+		    case 1
+		      while not InStream.EOF
+		        aLine=trim(InStream.readLine)
+		        self.Genome.ReadDepth1.Append(val(aLine))
+		      wend
+		    case 2
+		      while not InStream.EOF
+		        aLine=trim(InStream.readLine)
+		        self.Genome.ReadDepth2.Append(val(aLine))
+		      wend
+		    case 3
+		      while not InStream.EOF
+		        aLine=trim(InStream.readLine)
+		        self.Genome.ReadDepth3.Append(val(aLine))
+		      wend
+		    case 4
+		      while not InStream.EOF
+		        aLine=trim(InStream.readLine)
+		        self.Genome.ReadDepth4.Append(val(aLine))
+		      wend
+		    end select
+		    instream.close
+		  next
+		  
+		  
+		  genome.baselineY=100 'make room for the graph
+		  ExtractFragment(1,10000)
+		  TextMap(0,0)
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:GenomeAddPlot")
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub AddFeature()
