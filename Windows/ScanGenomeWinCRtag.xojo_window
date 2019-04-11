@@ -48,7 +48,6 @@ Begin Window ScanGenomeWinCRtag
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -98,7 +97,6 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   420
-      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -131,7 +129,6 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
-      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -163,7 +160,6 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
-      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -195,43 +191,9 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   421
-      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
-   End
-   Begin CheckBox TerminatorCheckBox
-      AutoDeactivate  =   True
-      Bold            =   False
-      Caption         =   "#kScan4terminators"
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      State           =   1
-      TabIndex        =   16
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   376
-      Transparent     =   False
-      Underline       =   False
-      Value           =   True
-      Visible         =   True
-      Width           =   366
    End
    Begin Separator Separator2
       AutoDeactivate  =   True
@@ -251,7 +213,6 @@ Begin Window ScanGenomeWinCRtag
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   396
-      Transparent     =   False
       Visible         =   True
       Width           =   406
    End
@@ -273,7 +234,7 @@ Begin Window ScanGenomeWinCRtag
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   341
+      Height          =   398
       HelpTag         =   "The genome will be searched with all the profiles checked"
       Hierarchical    =   False
       Index           =   -2147483648
@@ -291,7 +252,6 @@ Begin Window ScanGenomeWinCRtag
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
-      ShowDropIndicator=   False
       TabIndex        =   19
       TabPanelIndex   =   0
       TabStop         =   True
@@ -299,7 +259,6 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -307,148 +266,13 @@ Begin Window ScanGenomeWinCRtag
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin BevelButton SelectAllButton
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
-      Bold            =   False
-      ButtonType      =   0
-      Caption         =   "#kSelectAll"
-      CaptionAlign    =   3
-      CaptionDelta    =   0
-      CaptionPlacement=   1
-      Enabled         =   True
-      HasBackColor    =   False
-      HasMenu         =   0
-      Height          =   22
-      HelpTag         =   ""
-      Icon            =   0
-      IconAlign       =   0
-      IconDX          =   0
-      IconDY          =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MenuValue       =   0
-      Scope           =   0
-      TabIndex        =   20
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   342
-      Transparent     =   False
-      Underline       =   False
-      Value           =   False
-      Visible         =   True
-      Width           =   120
-   End
-   Begin BevelButton DeselectAllButton
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
-      Bold            =   False
-      ButtonType      =   0
-      Caption         =   "#kDeselectAll"
-      CaptionAlign    =   3
-      CaptionDelta    =   0
-      CaptionPlacement=   1
-      Enabled         =   True
-      HasBackColor    =   False
-      HasMenu         =   0
-      Height          =   22
-      HelpTag         =   ""
-      Icon            =   0
-      IconAlign       =   0
-      IconDX          =   0
-      IconDY          =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   119
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MenuValue       =   0
-      Scope           =   0
-      TabIndex        =   21
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   342
-      Transparent     =   False
-      Underline       =   False
-      Value           =   False
-      Visible         =   True
-      Width           =   120
-   End
-   Begin BevelButton BevelButton3
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
-      Bold            =   False
-      ButtonType      =   0
-      Caption         =   ""
-      CaptionAlign    =   3
-      CaptionDelta    =   0
-      CaptionPlacement=   1
-      Enabled         =   False
-      HasBackColor    =   False
-      HasMenu         =   0
-      Height          =   22
-      HelpTag         =   ""
-      Icon            =   0
-      IconAlign       =   0
-      IconDX          =   0
-      IconDY          =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   238
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      MenuValue       =   0
-      Scope           =   0
-      TabIndex        =   22
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   342
-      Transparent     =   False
-      Underline       =   False
-      Value           =   False
-      Visible         =   True
-      Width           =   168
-   End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Event
 		Sub Open()
-		  BuildSigArrayCR
+		  BuildHMMArrayCR
 		  AdjustLayout4linux(me)
 		  
 		End Sub
@@ -456,10 +280,10 @@ End
 
 
 	#tag Method, Flags = &h1, Description = 4275696C645369674172726179
-		Protected Sub BuildSigArrayCR()
-		  dim m,n,k,k1 as integer
+		Protected Sub BuildHMMArrayCR()
+		  dim m,n,k as integer
 		  dim froot,f,f2, fitemn, fitemk as folderitem
-		  dim aName, sigfolpath, temp, profilespath as string
+		  dim aName, sigfolpath, temp as string
 		  
 		  'froot=GetFolderItem("").Parent
 		  if Resources_f=Nil then 'there's a glitch with event order on some systems
@@ -505,7 +329,7 @@ End
 		        SigList.Cell(SigList.LastIndex, 3)= fitemn.NativePath
 		        SigList.Cell(SigList.LastIndex, 1) = fitemn.DisplayName
 		        siglist.Cell(SigList.LastIndex,2)=sigfolpath
-		        SigList.CellCheck(SigList.LastIndex,0) = true
+		        SigList.CellCheck(SigList.LastIndex,0) = false
 		        sigfolpath=""
 		      end if
 		      '#else
@@ -529,8 +353,32 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CompareTags(tag1 as string, tag2 as string, maxdiff as integer) As integer
+		  if  tag1.LenB<>tag2.LenB then 
+		    return maxdiff+1
+		  else
+		    dim mb1 as MemoryBlock =tag1
+		    dim mb2 as MemoryBlock=tag2
+		    if mb1.size<>mb2.size then
+		      return maxdiff+1
+		    else
+		      dim diff as integer=0
+		      dim lastIndex as integer = mb1.Size - 1
+		      for mbindex as integer=0 to lastIndex
+		        if diff>maxdiff then return diff
+		        if mb1.byte(mbindex)<>mb2.byte(mbindex) then
+		          diff=diff+1
+		        end
+		      next
+		      return diff
+		    end
+		  end
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ScanGenomeCR()
-		  dim k,l,m,n,SigCount,HitCount as integer
+		  dim k,SigCount,HitCount as integer
 		  dim time as double
 		  dim f,f3 as folderitem
 		  dim infileName, crtags(-1), sigtagbase(-1), sigpathbase(-1), protdescr(-1),notfound(-1), summary(-1), hmmsearch, hmmsearchcopy, fname, summstring as string
@@ -542,7 +390,6 @@ End
 		  infileName=logowin.genomefile.displayname
 		  
 		  Sigcount=0
-		  dim checked as integer = 0
 		  dim GenomeScanOut as new FolderItem
 		  GenomeScanOut = TemporaryFolder.child("GenomeScanOut")
 		  time= Microseconds
@@ -656,45 +503,208 @@ End
 		    if f2.Exists then
 		      f2.Delete
 		    End If
-		    if TerminatorCheckBox.value then
-		      LogoWin.outfile=f2
-		      if LogoWin.TermGen then
-		        'if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		        'GenomeWin.opengenbankfile(outFile)
-		        'GenomeWin.ShowGenomeStart
-		        ''genomeWin.ShowHit
-		        'end if
-		      end if
-		    else
-		      GenomeScanOut.CopyFileTo f2
-		    End If
-		    
-		    dim min, sec As integer
-		    dim timestring As string
-		    sec=(Microseconds-Time)/1000000
-		    if sec>60 then
-		      min=sec/60
-		      sec=sec-min*60
-		      timestring= str(min)+" minutes "+str(sec)+" seconds "
-		    else
-		      timestring= str(sec)+" seconds "
-		    End If
-		    dim sum as Integer = summary.Ubound
-		    logowin.WriteToSTDOUT(Endofline.unix+"Summary: "+endofline.UNIX)
-		    for i1 as Integer=0 to sum
-		      logowin.WriteToSTDOUT(str(summary(i1)))
-		    next
-		    
-		    logowin.WriteToSTDOUT(EndOfLine+EndOfLine+timestring+"spent scanning "+infileName+" with "+str(SigCount)+" profiles." )
-		    logowin.WriteToSTDOUT(EndOfLine+str(HitCount)+" sites added to feature table.")
-		    logowin.WriteToSTDOUT(EndOfLine+"Modified GenBank file written to "+f2.ShellPath+endofline)
-		    Logowin.ScanningGenome=false
-		    LogoWin.Refresh
-		    //'next
+		    'if TerminatorCheckBox.value then
+		    'LogoWin.outfile=f2
+		    'if LogoWin.TermGen then
+		    ''if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		    ''GenomeWin.opengenbankfile(outFile)
+		    ''GenomeWin.ShowGenomeStart
+		    '''genomeWin.ShowHit
+		    ''end if
+		    'end if
+		  else
+		    GenomeScanOut.CopyFileTo f2
 		  End If
+		  
+		  dim min, sec As integer
+		  dim timestring As string
+		  sec=(Microseconds-Time)/1000000
+		  if sec>60 then
+		    min=sec/60
+		    sec=sec-min*60
+		    timestring= str(min)+" minutes "+str(sec)+" seconds "
+		  else
+		    timestring= str(sec)+" seconds "
+		  End If
+		  dim sum as Integer = summary.Ubound
+		  logowin.WriteToSTDOUT(Endofline.unix+"Summary: "+endofline.UNIX)
+		  for i1 as Integer=0 to sum
+		    logowin.WriteToSTDOUT(str(summary(i1)))
+		  next
+		  
+		  logowin.WriteToSTDOUT(EndOfLine+EndOfLine+timestring+"spent scanning "+infileName+" with "+str(SigCount)+" profiles." )
+		  logowin.WriteToSTDOUT(EndOfLine+str(HitCount)+" sites added to feature table.")
+		  logowin.WriteToSTDOUT(EndOfLine+"Modified GenBank file written to "+f2.ShellPath+endofline)
+		  Logowin.ScanningGenome=false
+		  LogoWin.Refresh
+		  //'next
+		  'End If
 		  
 		  Exception err
 		    ExceptionHandler(err,"ScanGenomeWinCRtag:ScanGenomeCR")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ScanGenomeCR1()
+		  dim k,SigCount as integer
+		  'dim time as double
+		  dim f,f3 as folderitem ' f - path to folder with sig files of the selected family, f3 - path to sig with matched crtag 
+		  dim infileName, crtags(-1), sigtagbase(-1), sigpathbase(-1), protdescr(-1),notfound(-1), summary(-1), hmmsearch, fname, summstring, tag, basename,content as string
+		  dim cdsfile as FolderItem
+		  dim protNFound as Integer
+		  
+		  cdsfile=TemporaryFolder.child("gbkProtexport.fasta") 'getting converted gbk file 
+		  Logowin.ScanningGenome=true 'to prevent file writing messages
+		  infileName=logowin.genomefile.displayname
+		  Sigcount=0
+		  for k=0 to SigList.ListCount-1
+		    if SigList.CellCheck(k,0) = true then
+		      dim w as new ScanGenomeCRtagMotifs
+		      w.Title=str(SigList.Cell(k,1))+" family"
+		      protNFound =0 'counting proteins without crtag in base
+		      redim crtags(-1)
+		      redim protdescr(-1) 
+		      redim sigtagbase(-1)
+		      redim sigpathbase(-1)
+		      redim notfound(-1)
+		      hmmsearch=HMMsearchWithCRtagsCR(cdsfile, str(SigList.Cell(k,3)))
+		      for tagCount as integer =1 to UBound(DeNovoTFBSinference.CRtags)
+		        tag=DeNovoTFBSinference.CRtags(tagCount)
+		        if instr(tag,"[indel")>0 or instr(tag,"error")>0 or InStr(tag,"no_CRtag")>0 then Continue
+		        crtags.Append(DeNovoTFBSinference.CRtags(tagCount))
+		        protdescr.Append(DeNovoTFBSinference.ProtNames(tagCount))
+		      next
+		      
+		      dim index as integer
+		      dim apath as string=Siglist.Cell(k,2)
+		      dim sigf as FolderItem
+		      if instr(apath, ";")>0 then
+		        apath=NthField(apath, ";", 1) 'multiple pathes for one hmm family is allowed, but not done yet, process first  
+		      end
+		      f=getfolderitem(apath, FolderItem.PathTypeNative)
+		      for j as integer = 1 to f.count
+		        if f.Item(j).Visible<>True then Continue
+		        sigf=f.Item(j)
+		        fname = sigf.DisplayName
+		        if right(fname,4)<>".sig" or instr(fname,"[indel")>0 or instr(fname,"error")>0 or InStr(fname,"no_CRtag")>0 then Continue
+		        fname=NthField(fname,"_",1)
+		        index=sigtagbase.IndexOf(fname)
+		        'grouping sig-files with the same crtags
+		        if  index>-1 then
+		          sigpathbase(index)=sigpathbase(index)+sigf.ShellPath+EndOfLine.UNIX
+		        else
+		          sigtagbase.append(fname)
+		          sigpathbase.append(sigf.ShellPath+EndOfLine.UNIX)
+		        end
+		      next
+		      
+		      for tagsCount as integer =0 to ubound(CRtags) 
+		        'compare crtags in genome with tags in sigs from selected family folder 
+		        index=sigtagbase.indexof(CRtags(tagsCount))
+		        if index>-1 then
+		          if instr(sigpathbase(index), EndOfLine.unix)>0 then 
+		            dim tmPath(-1) as string
+		            tmPath=sigpathbase(index).Split(EndOfLine.UNIX)
+		            for pathCount as integer=0 to UBound(tmPath)-1
+		              f3=getfolderitem(tmPath(pathCount),FolderItem.PathTypeShell)
+		              if f3.Exists then 
+		                dim vv as VirtualVolume
+		                dim sigfasta as FolderItem
+		                vv=f3.openAsVirtualVolume
+		                if vv<> nil then
+		                  basename=nthfield(f3.DisplayName,".sig",1)
+		                  sigfasta=vv.root.child(basename+".fasta")
+		                  dim tis as textinputstream
+		                  tis=sigfasta.OpenAsTextFile
+		                  
+		                  if tis<>nil then
+		                    content=tis.ReadAll   'hmmfile
+		                    tis.Close
+		                    dim p as Picture = MakeLogoPic(content)
+		                    w.Listbox1.AddRow
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,1)=basename
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount)
+		                    w.Listbox1.RowTag(w.Listbox1.LastIndex)=p
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,4)=f3.ShellPath
+		                    
+		                  end if
+		                  for sigTCount as integer=0 to UBound(sigtagbase)
+		                    dim tagsDiff as Integer
+		                    tagsDiff=CompareTags(CRtags(tagsCount),sigtagbase(sigTCount),2) '
+		                    if tagsDiff<=2 then
+		                      if instr(sigpathbase(index), EndOfLine.unix)>0 then 
+		                        dim tmPath2(-1) as string
+		                        tmPath2=sigpathbase(sigTCount).Split(EndOfLine.UNIX)
+		                        for pathCount2 as integer=0 to UBound(tmPath2)-1
+		                          f3=getfolderitem(tmPath2(pathCount2),FolderItem.PathTypeShell)
+		                          if f3.Exists then 
+		                            vv=f3.openAsVirtualVolume
+		                            if vv<> nil then
+		                              basename=nthfield(f3.DisplayName,".sig",1)
+		                              sigfasta=vv.root.child(basename+".fasta")
+		                              tis=sigfasta.OpenAsTextFile
+		                              
+		                              if tis<>nil then
+		                                content=tis.ReadAll   'hmmfile
+		                                tis.Close
+		                                dim p as Picture = MakeLogoPic(content)
+		                                w.Listbox1.AddRow
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,1)=" ~"+basename
+		                                w.Listbox1.RowTag(w.Listbox1.LastIndex)=p
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,4)=f3.ShellPath
+		                                
+		                              end if
+		                              
+		                            end
+		                            
+		                          else
+		                            LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Model path not found"+EndOfLine.UNIX)
+		                            Continue
+		                          end if
+		                        next
+		                        
+		                      end
+		                    end
+		                  next
+		                  
+		                end
+		                
+		              else
+		                LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Model path not found"+EndOfLine.UNIX)
+		                Continue
+		              end if
+		            next
+		            
+		          end
+		        else
+		          notfound.append(protdescr(tagsCount)) 
+		          protNFound=protNFound+1
+		        end
+		        
+		      next
+		      
+		      ' summary stats
+		      summstring=Endofline.Unix+"For the model "+str(SigList.Cell(k,3))+" total tags count is: "+str(ubound(CRtags)+1)
+		      if protNFound>0 then
+		        summstring=summstring+", CRtags that were not processed: "+str(protNFound)+Endofline.Unix+"Details of proteins with tags that were not found in base: "+str(join(notfound, ";"))+EndOfLine.Unix
+		      end
+		      summary.Append(summstring)
+		      
+		      w.Show
+		    end
+		    
+		  next
+		  
+		  
+		  logowin.WriteToSTDOUT(Endofline.unix+"Summary: "+endofline.UNIX)
+		  for sum as Integer=0 to summary.Ubound
+		    logowin.WriteToSTDOUT(str(summary(sum)))
+		  next
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"ScanGenomeWinCRtag:ScanGenomeCR1")
 		End Sub
 	#tag EndMethod
 
@@ -711,7 +721,7 @@ End
 		Sub Action()
 		  
 		  self.hide
-		  self.ScanGenomeCR
+		  self.ScanGenomeCR1
 		  
 		End Sub
 	#tag EndEvent
@@ -750,26 +760,16 @@ End
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		End Sub
 	#tag EndEvent
-#tag EndEvents
-#tag Events SelectAllButton
 	#tag Event
-		Sub Action()
-		  dim k as integer
-		  
-		  for k=0 to SigList.ListCount-1
-		    SigList.CellCheck(k,0) = true
-		  next
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events DeselectAllButton
-	#tag Event
-		Sub Action()
-		  dim k as integer
-		  
-		  for k=0 to SigList.ListCount-1
-		    SigList.CellCheck(k,0) = false
-		  next
+		Sub CellAction(row As Integer, column As Integer)
+		  'preventing a multiple choice of the hmm models 
+		  If column = 0 Then
+		    For i As Integer = 0 To Me.ListCount-1
+		      If i <> row Then
+		        Me.CellCheck(i, column) = False
+		      End If
+		    Next
+		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents
