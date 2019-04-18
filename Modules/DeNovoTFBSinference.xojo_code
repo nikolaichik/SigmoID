@@ -1069,6 +1069,8 @@ Protected Module DeNovoTFBSinference
 		        else
 		          'next gene has the same orientation: extract the intergenic sequence
 		          'SeqLen=450
+		          
+		          'find next operon
 		          n=TFno
 		          while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).start-eSeq.Features(n).finish<operonGap
 		            n=n+1
@@ -1079,7 +1081,7 @@ Protected Module DeNovoTFBSinference
 		            if eSeq.Features(n+1).complement=true then
 		              'we have a converging operon here, go further to its start:
 		              n=n+1
-		              while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).start-eSeq.Features(n).finish<operonGap
+		              while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).finish-eSeq.Features(n).start<operonGap
 		                n=n+1
 		                if n>=m then exit
 		              wend
@@ -1088,23 +1090,28 @@ Protected Module DeNovoTFBSinference
 		          end if
 		          if n<m then
 		            if eSeq.Features(n).complement=eSeq.Features(n+1).complement then
-		              'same orientation (both genes on top strand)
-		              rightC=eSeq.Features(n+1).start+DownstreamSize
-		              leftC=rightC-DownstreamSize-UpstreamSize
-		              SeqLen=rightC-LeftC
-		              if LeftC<eSeq.Features(n).Finish then
-		                SeqLen=SeqLen-eSeq.Features(n).Finish+LeftC
-		                leftC=eSeq.Features(n).Finish
+		              'same orientation
+		              if eSeq.Features(n).complement then 'bottom strand
+		                rightC=eSeq.Features(n+1).finish
+		                leftC=eSeq.Features(n).start-DownstreamSize
+		                SeqLen=rightC-LeftC
+		                if seqlen>DownstreamSize+UpstreamSize then
+		                  SeqLen=DownstreamSize+UpstreamSize
+		                end if
+		                
+		                downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
+		              else    'top strand
+		                rightC=eSeq.Features(n+1).start+DownstreamSize  
+		                leftC=rightC-DownstreamSize-UpstreamSize
+		                SeqLen=rightC-LeftC
+		                if LeftC<eSeq.Features(n).Finish then
+		                  SeqLen=SeqLen-eSeq.Features(n).Finish+LeftC
+		                  leftC=eSeq.Features(n).Finish
+		                end if
+		                
+		                downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
 		              end if
 		              
-		              'rightC=eSeq.Features(n+1).finish
-		              'leftC=eSeq.Features(n).start-DownstreamSize
-		              'SeqLen=rightC-LeftC
-		              'if seqlen>DownstreamSize+UpstreamSize then
-		              'SeqLen=DownstreamSize+UpstreamSize
-		              'end if
-		              
-		              downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
 		            else
 		              'divergent operons
 		              
