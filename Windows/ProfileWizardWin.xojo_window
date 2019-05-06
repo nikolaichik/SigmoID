@@ -1634,6 +1634,12 @@ End
 		  
 		  LogoWin.show
 		  
+		  'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
+		  dim Pseq as string
+		  Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
+		  Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
+		  
+		  
 		  // Get CRtag sequence
 		  ' write CDS seq to the tmp file
 		  dim outStream as TextOutputStream
@@ -1641,7 +1647,7 @@ End
 		  if CDSFile<>Nil then
 		    OutStream = TextOutputStream.Create(CDSFile)
 		    if outStream<>Nil then
-		      outstream.Write(SeedProteinArea.text)
+		      outstream.Write(Pseq)
 		      outstream.close
 		    end if
 		  end if
@@ -1683,8 +1689,8 @@ End
 		  
 		  // Guess protein name 
 		  'assume the name goes first in the fasta title line
-		  ProtName=NthField(SeedProteinArea.text, ">",2)
-		  ProtName=NthField(ProtName, " ", 1)   'should be separated by space...
+		  ProtName=NthField(Pseq, ">",2)
+		  'ProtName=NthField(ProtName, " ", 1)   'should be separated by space...
 		  ProtName=NthField(ProtName, EndOfLine, 1)   '... or EndOfLine
 		  
 		  dlg.ActionButtonCaption = "Save"
@@ -1833,7 +1839,7 @@ End
 		            'get seed protein name and sequence
 		            dim proteinID, proteinSeq as string
 		            dim lineBreakC as integer
-		            proteinSeq=trim(SeedProteinArea.text)
+		            proteinSeq=trim(Pseq)
 		            lineBreakC=instr(proteinSeq,EndOfLine.Unix)
 		            if lineBreakC=0 then
 		              msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
@@ -2078,7 +2084,13 @@ End
 		            if CDSFile<>Nil then
 		              OutStream = TextOutputStream.Create(CDSFile)
 		              if outStream<>Nil then
-		                outstream.Write(SeedProteinArea.text)
+		                'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
+		                dim Pseq as string
+		                Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
+		                Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
+		                
+		                outstream.Write(Pseq)
+		                outstream.Write(Pseq)
 		                outstream.close
 		              end if
 		            end if
@@ -2126,13 +2138,18 @@ End
 		    
 		    
 		    if SeedProteinArea.TextColor=&c99999900 then 'placefiller
-		    else                                                                             'hopefully, proper protein sequence
+		    else                                         'hopefully, proper protein sequence
 		      ' write CDS seq to the tmp file
 		      CDSFile=TemporaryFolder.child("CDSfile.fa")
 		      if CDSFile<>Nil then
 		        OutStream = TextOutputStream.Create(CDSFile)
 		        if outStream<>Nil then
-		          outstream.Write(SeedProteinArea.text)
+		          'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
+		          dim Pseq as string
+		          Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
+		          Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
+		          
+		          outstream.Write(Pseq)
 		          outstream.close
 		        end if
 		      end if

@@ -2196,113 +2196,112 @@ End
 
 	#tag Method, Flags = &h0
 		Sub EMI()
-		  'Workaround for EnableMenuItems bug on 64-bit Linux
-		  #if TargetLinux
-		    #if Target64Bit
-		      'adjust View menu command visibility:
-		      ViewLogo.Visible=false
-		      ViewSequences.Visible=false
-		      ViewAlignmentInfo.Visible=false
-		      ViewHmmProfile.Visible=false
-		      ViewMEMEresults.Visible=false
-		      ViewHmmerSettings.Visible=false
-		      Separator1.Visible=false
-		      ViewHideViewer.Visible=false
-		      Separator2.Visible=false
-		      ViewViewDetails.Visible=true
-		      
-		      if ubound(Genome.ReadDepth1)>0 then
-		        GenomeRemovePlots.enabled=true
-		      end if
-		      GenomeMergePlotData.enabled=true
-		      
-		      ViewViewDetails.Enable
-		      
-		      if TMdisplay.visible then
-		        ViewViewDetails.text = kHideDetails
-		      else
-		        ViewViewDetails.text = kViewDetails
-		      end if
-		      
-		      GenomeFind.enabled=true
-		      if SearchPosition>0 then
-		        GenomeFindAgain.Enabled=true
-		      end if
-		      GenomeGoto.enabled=true
-		      GenomeAddPlot.enabled=true
-		      GenomeMergePlotData.enabled=true
-		      
-		      FileSaveCheckedSites.Visible=true
-		      FileSaveCheckedSites.Enabled=true
-		      FileSaveGenomeAs.Visible=true
-		      FileSaveGenomeAs.Enabled=true
-		      FileExportFeatureTable.enabled=true
-		      FileExportSequence.enabled=true
-		      FileExportProteinSequences.enabled=true
-		      
-		      
-		      FileSaveAlignmentSelection.visible=false
-		      FileSaveLogo.visible=false
-		      'GenomeScanGenome.Visible=false
-		      
-		      GenomeListRegulons.Enabled=true
-		      if GenomeChanged=false then
-		        FileSaveGenome.enabled=false
-		      else
-		        FileSaveGenome.enabled=true
-		      end if
-		      
-		      if Ubound(genomeWin.HmmHits)>0 then
-		        RegPreciseCompareScores.Enable
-		      end if
-		      
-		      'enable copying if anything is selected:
-		      if AnythingSelected then
-		        EditCopy.enabled=true
-		        'enable copying of protein sequence, but only if a CDS is selected
-		        if SelFeatureNo>0 then
-		          if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
-		            if seq.Features(SelFeatureNo).type="CDS" then
-		              EditCopyTranslation.enabled=true
-		            end if
+		  'Workaround for EnableMenuItems bug on 64-bit
+		  
+		  #if Target64Bit
+		    'adjust View menu command visibility:
+		    ViewLogo.Visible=false
+		    ViewSequences.Visible=false
+		    ViewAlignmentInfo.Visible=false
+		    ViewHmmProfile.Visible=false
+		    ViewMEMEresults.Visible=false
+		    ViewHmmerSettings.Visible=false
+		    Separator1.Visible=false
+		    ViewHideViewer.Visible=false
+		    Separator2.Visible=false
+		    ViewViewDetails.Visible=true
+		    if ubound(Genome.ReadDepth1)>0 then
+		      GenomeRemovePlots.enabled=true
+		    end if
+		    GenomeMergePlotData.enabled=true
+		    
+		    ViewViewDetails.Enable
+		    
+		    if TMdisplay.visible then
+		      ViewViewDetails.text = kHideDetails
+		    else
+		      ViewViewDetails.text = kViewDetails
+		    end if
+		    
+		    GenomeFind.enabled=true
+		    if SearchPosition>0 then
+		      GenomeFindAgain.Enabled=true
+		    end if
+		    GenomeGoto.enabled=true
+		    GenomeAddPlot.enabled=true
+		    GenomeMergePlotData.enabled=true
+		    
+		    FileSaveCheckedSites.Visible=true
+		    FileSaveCheckedSites.Enabled=true
+		    FileSaveGenomeAs.Visible=true
+		    FileSaveGenomeAs.Enabled=true
+		    FileExportFeatureTable.enabled=true
+		    FileExportSequence.enabled=true
+		    FileExportProteinSequences.enabled=true
+		    
+		    
+		    FileSaveAlignmentSelection.visible=false
+		    FileSaveLogo.visible=false
+		    'GenomeScanGenome.Visible=false
+		    
+		    GenomeListRegulons.Enabled=true
+		    if GenomeChanged=false then
+		      FileSaveGenome.enabled=false
+		    else
+		      FileSaveGenome.enabled=true
+		    end if
+		    
+		    if Ubound(genomeWin.HmmHits)>0 then
+		      RegPreciseCompareScores.Enable
+		    end if
+		    
+		    'enable copying if anything is selected:
+		    if AnythingSelected then
+		      EditCopy.enabled=true
+		      'enable copying of protein sequence, but only if a CDS is selected
+		      if SelFeatureNo>0 then
+		        if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
+		          if seq.Features(SelFeatureNo).type="CDS" then
+		            EditCopyTranslation.enabled=true
 		          end if
 		        end if
-		      else
-		        EditCopy.enabled=false
 		      end if
-		      
-		      EditCut.enabled=false
-		      
-		      dim count, i as Integer
-		      // Get a handle to our parent sub menu.
-		      Dim parent, child as MenuItem
-		      parent = MainMenuBar.Child( kWindows )    // Get the window menu
-		      if parent = nil then return
-		      
-		      // Clear the existing menu
-		      for i=parent.Count-1 downto 0
-		        parent.Remove(i)
-		      next
-		      
-		      // Add the windows to the menu
-		      count = WindowCount
-		      
-		      for i = 0 to count - 1
-		        // Construct the child item
-		        if Window(i).visible then
-		          child = new WindowMenuItem(Window(i))
-		          // And add it to the menu
-		          parent.Append( child )
-		        end if
-		      next i
-		      
-		      if Window(0) isA GenomeWin or Window(0) isA RegPreciseWin or Window(0) isA WebBrowserWin or Window(0) isA HelpWin then
-		        FileClose.enabled=true
+		    else
+		      EditCopy.enabled=false
+		    end if
+		    
+		    EditCut.enabled=false
+		    
+		    dim count, i as Integer
+		    // Get a handle to our parent sub menu.
+		    Dim parent, child as MenuItem
+		    parent = MainMenuBar.Child( kWindows )    // Get the window menu
+		    if parent = nil then return
+		    
+		    // Clear the existing menu
+		    for i=parent.Count-1 downto 0
+		      parent.Remove(i)
+		    next
+		    
+		    // Add the windows to the menu
+		    count = WindowCount
+		    
+		    for i = 0 to count - 1
+		      // Construct the child item
+		      if Window(i).visible then
+		        child = new WindowMenuItem(Window(i))
+		        // And add it to the menu
+		        parent.Append( child )
 		      end if
-		      Exception err
-		        ExceptionHandler(err,"GenomeWin:EnableMenuItems")
-		    #endif
+		    next i
+		    
+		    if Window(0) isA GenomeWin or Window(0) isA RegPreciseWin or Window(0) isA WebBrowserWin or Window(0) isA HelpWin then
+		      FileClose.enabled=true
+		    end if
+		    Exception err
+		      ExceptionHandler(err,"GenomeWin:EnableMenuItems")
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 
@@ -3728,7 +3727,7 @@ End
 		  dim l,n as integer
 		  dim s,ACTG as string
 		  
-		  ACTG="ACTG"
+		  ACTG="ACTGN"
 		  l=len(query)
 		  for n=1 to l
 		    s=mid(query,n,1)

@@ -335,6 +335,8 @@ End
 		      AlignmentConvertToHmm.enabled=true
 		      AlignmentConvertToMEME.enabled=true
 		      AlignmentConverttoStockholm.enabled=true
+		      ProfilePalindromise.Enabled=true
+		      ProfileReverseComplement.Enabled=true
 		      'if WebLogoAvailable then
 		      
 		      
@@ -1643,6 +1645,42 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ProfilePalindromise() As Boolean Handles ProfilePalindromise.Action
+			Palindromise
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ProfileReverseComplement() As Boolean Handles ProfileReverseComplement.Action
+			PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
+			
+			'since we change data, that's not the .sig any more!
+			SigFileOpened=false
+			
+			If PalindromeLogoFile <> Nil then
+			RevCompAlignment(logofile, palindromeLogofile,false)
+			logofile=PalindromeLogoFile
+			
+			'replace contents of the Sequence variable (for viewing)
+			dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
+			Sequences=Instream.ReadAll
+			instream.Close
+			DrawLogo
+			palindromic=true
+			LogoWinToolbar.Item(4).Enabled=false
+			HmmGenSettingsWin.PalindromicBox.value=true
+			End If
+			
+			Exception err
+			ExceptionHandler(err,"LogoWin:Palindromise")
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function RegPreciseCompareScores() As Boolean Handles RegPreciseCompareScores.Action
 			'run nhmmer, then hmmgen, then convert hits to fasta string
 			'and feed it to the actual comparison routine
@@ -1698,14 +1736,6 @@ End
 			
 			WriteToSTDOUT("__0,5,1,6__:"+EndOfLine)
 			WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(0,5,1,6)+EndOfLine)
-			
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function Untitled() As Boolean Handles Untitled.Action
 			
 			Return True
 			
@@ -2877,177 +2907,179 @@ End
 
 	#tag Method, Flags = &h0
 		Sub EMI()
-		  'workaround for EnableMenuItems bug on 64-bit Linux
+		  'workaround for EnableMenuItems bug on 64-bit
 		  
-		  #if TargetLinux
-		    #if Target64Bit
-		      'adjust View menu command visibility:
-		      ViewLogo.Visible=true
-		      ViewSequences.Visible=true
-		      ViewAlignmentInfo.Visible=true
-		      ViewHmmProfile.Visible=true
-		      ViewMEMEresults.Visible=true
-		      ViewHmmerSettings.Visible=true
-		      Separator1.Visible=true
-		      ViewHideViewer.Visible=true
-		      Separator2.Visible=false
-		      ViewViewDetails.Visible=false
-		      
-		      
-		      if ubound(SelArray1)>0 then
-		        FileSaveAlignmentSelection.enabled=true
-		      else
-		        FileSaveAlignmentSelection.enabled=false
-		      end if
-		      if LogoWin.LogoFile<>Nil then
-		        AlignmentProfileWizard.enabled=true
-		      else
-		        AlignmentProfileWizard.enabled=false
-		      end if
-		      
-		      
-		      ViewLogo.enabled=false
-		      
-		      if SeqsChanged then
-		        FileSaveProfileAs.enabled=true
-		      else
-		        FileSaveProfileAs.enabled=false
-		      end if
-		      
-		      
-		      
-		      
-		      if SigFileOpened then
-		        FileSaveLogo.enabled=true
-		        ViewAlignmentInfo.enabled=true
-		        ViewHmmerSettings.enabled=true
-		        ViewHmmProfile.Enabled=true
-		        ViewLogo.enabled=true
+		  
+		  #if Target64Bit
+		    'adjust View menu command visibility:
+		    ViewLogo.Visible=true
+		    ViewSequences.Visible=true
+		    ViewAlignmentInfo.Visible=true
+		    ViewHmmProfile.Visible=true
+		    ViewMEMEresults.Visible=true
+		    ViewHmmerSettings.Visible=true
+		    Separator1.Visible=true
+		    ViewHideViewer.Visible=true
+		    Separator2.Visible=false
+		    ViewViewDetails.Visible=false
+		    
+		    
+		    if ubound(SelArray1)>0 then
+		      FileSaveAlignmentSelection.enabled=true
+		    else
+		      FileSaveAlignmentSelection.enabled=false
+		    end if
+		    if LogoWin.LogoFile<>Nil then
+		      AlignmentProfileWizard.enabled=true
+		    else
+		      AlignmentProfileWizard.enabled=false
+		    end if
+		    
+		    
+		    ViewLogo.enabled=false
+		    
+		    if SeqsChanged then
+		      FileSaveProfileAs.enabled=true
+		    else
+		      FileSaveProfileAs.enabled=false
+		    end if
+		    
+		    
+		    
+		    
+		    if SigFileOpened then
+		      FileSaveLogo.enabled=true
+		      ViewAlignmentInfo.enabled=true
+		      ViewHmmerSettings.enabled=true
+		      ViewHmmProfile.Enabled=true
+		      ViewLogo.enabled=true
+		      ViewSequences.enabled=true
+		      ViewMEMEresults.enabled=true
+		      AlignmentExtendBindingSites.enabled=true
+		      AlignmentConvertToHmm.enabled=true
+		      AlignmentConvertToMEME.enabled=true
+		      AlignmentConverttoStockholm.enabled=true
+		    else
+		      ViewAlignmentInfo.enabled=false
+		      ViewHmmerSettings.enabled=false
+		      ViewHmmProfile.Enabled=false
+		      ViewMEMEresults.enabled=false
+		      'AlignmentExtendBindingSites.enabled=false
+		      'AlignmentConvertToHmm.enabled=false
+		      'AlignmentConvertToMEME.enabled=false
+		      'AlignmentConverttoStockholm.enabled=false
+		      if sequences<>"" then
+		        if LengthsDiffer then
+		          FileSaveLogo.enabled=false
+		          palindromic=false
+		          LogoWinToolbar.Item(4).Enabled=false
+		        else
+		          FileSaveLogo.enabled=true
+		          ViewLogo.enabled=true
+		          palindromic=true
+		          LogoWinToolbar.Item(4).Enabled=true
+		        end if
 		        ViewSequences.enabled=true
-		        ViewMEMEresults.enabled=true
 		        AlignmentExtendBindingSites.enabled=true
 		        AlignmentConvertToHmm.enabled=true
 		        AlignmentConvertToMEME.enabled=true
 		        AlignmentConverttoStockholm.enabled=true
-		      else
-		        ViewAlignmentInfo.enabled=false
-		        ViewHmmerSettings.enabled=false
-		        ViewHmmProfile.Enabled=false
-		        ViewMEMEresults.enabled=false
-		        'AlignmentExtendBindingSites.enabled=false
-		        'AlignmentConvertToHmm.enabled=false
-		        'AlignmentConvertToMEME.enabled=false
-		        'AlignmentConverttoStockholm.enabled=false
-		        if sequences<>"" then
-		          if LengthsDiffer then
-		            FileSaveLogo.enabled=false
-		            palindromic=false
-		            LogoWinToolbar.Item(4).Enabled=false
-		          else
-		            FileSaveLogo.enabled=true
-		            ViewLogo.enabled=true
-		            palindromic=true
-		            LogoWinToolbar.Item(4).Enabled=true
-		          end if
-		          ViewSequences.enabled=true
-		          AlignmentExtendBindingSites.enabled=true
-		          AlignmentConvertToHmm.enabled=true
-		          AlignmentConvertToMEME.enabled=true
-		          AlignmentConverttoStockholm.enabled=true
-		          'if WebLogoAvailable then
-		          
-		          'else
-		          'ViewLogo.enabled=false
-		          'FileSaveLogo.enabled=false
-		          'end if
-		        end if
+		        ProfilePalindromise.Enabled=true
+		        ProfileReverseComplement.Enabled=true
+		        'if WebLogoAvailable then
 		        
+		        'else
+		        'ViewLogo.enabled=false
+		        'FileSaveLogo.enabled=false
+		        'end if
 		      end if
 		      
-		      if LogoFile<>NIL then
-		        AlignmentConvertToMEME.enabled=true
-		        AlignmentMEME.enabled=true
-		        GenomeMASTSearch.enabled=true
-		        GenomeNhmmersearch.enabled=true
-		        
-		        if RegulonID<>0 then
-		          RegPreciseRegulonInfo.enabled=true
-		          if IsRegulog then
-		            RegPreciseRegulonInfo.Text="Regulog Info"
-		          else
-		            RegPreciseRegulonInfo.Text="Regulon Info"
-		          end if
+		    end if
+		    
+		    if LogoFile<>NIL then
+		      AlignmentConvertToMEME.enabled=true
+		      AlignmentMEME.enabled=true
+		      GenomeMASTSearch.enabled=true
+		      GenomeNhmmersearch.enabled=true
+		      
+		      if RegulonID<>0 then
+		        RegPreciseRegulonInfo.enabled=true
+		        if IsRegulog then
+		          RegPreciseRegulonInfo.Text="Regulog Info"
+		        else
+		          RegPreciseRegulonInfo.Text="Regulon Info"
 		        end if
 		      end if
-		      
-		      if MEMEdata="" then
-		        ViewMEMEresults.Enabled=false
-		      else
-		        ViewMEMEresults.Enabled=true
+		    end if
+		    
+		    if MEMEdata="" then
+		      ViewMEMEresults.Enabled=false
+		    else
+		      ViewMEMEresults.Enabled=true
+		    end if
+		    
+		    FileSaveCheckedSites.Visible=false
+		    FileSaveCheckedSites.Enabled=false
+		    FileSaveGenomeAs.Visible=false
+		    FileSaveGenomeAs.Enabled=false
+		    
+		    FileSaveAlignmentSelection.visible=true
+		    FileSaveLogo.visible=true
+		    GenomeScanGenome.Visible=true
+		    GenomeScanGenome.Enabled=true
+		    FileOpenAlignment.visible=true
+		    FileOpenAlignment.Enabled=true
+		    if LastSearch<>"" then
+		      GenomeAnnotate.Enabled=true
+		    end if
+		    
+		    if Ubound(genomeWin.HmmHits)>0 then
+		      RegPreciseCompareScores.Enabled=true
+		    end if
+		    
+		    dim count, i as Integer
+		    
+		    // Get a handle to our parent sub menu.
+		    Dim parent, child as MenuItem
+		    parent = MainMenuBar.Child( kWindows )    // Get the window menu
+		    if parent = nil then return
+		    
+		    // Clear the existing menu
+		    for i=parent.Count-1 downto 0
+		      parent.Remove(i)
+		    next
+		    
+		    // Add the windows to the menu
+		    count = WindowCount
+		    
+		    for i = 0 to count - 1
+		      // Construct the child item
+		      if Window(i).visible then
+		        child = new WindowMenuItem(Window(i))
+		        // And add it to the menu
+		        parent.Append( child )
 		      end if
+		    next i
+		    
+		    if Window(0) isA GenomeWin or Window(0) isA RegPreciseWin or Window(0) isA WebBrowserWin or Window(0) isA HelpWin then
+		      FileClose.enabled=true
+		    end if
+		    
+		    if NOT GenomeWin.visible then
+		      FileExportSequence.enabled=false
+		      FileExportFeatureTable.enabled=false
+		      GenomeListRegulons.enabled=false
 		      
-		      FileSaveCheckedSites.Visible=false
-		      FileSaveCheckedSites.Enabled=false
-		      FileSaveGenomeAs.Visible=false
-		      FileSaveGenomeAs.Enabled=false
+		      GenomeFind.enabled=false
+		      GenomeGoto.enabled=false
+		      GenomeAddPlot.enabled=false
+		      GenomeMergePlotData.enabled=false
+		      GenomeFindAgain.Enabled=false
 		      
-		      FileSaveAlignmentSelection.visible=true
-		      FileSaveLogo.visible=true
-		      GenomeScanGenome.Visible=true
-		      GenomeScanGenome.Enabled=true
-		      FileOpenAlignment.visible=true
-		      FileOpenAlignment.Enabled=true
-		      if LastSearch<>"" then
-		        GenomeAnnotate.Enabled=true
-		      end if
-		      
-		      if Ubound(genomeWin.HmmHits)>0 then
-		        RegPreciseCompareScores.Enabled=true
-		      end if
-		      
-		      dim count, i as Integer
-		      
-		      // Get a handle to our parent sub menu.
-		      Dim parent, child as MenuItem
-		      parent = MainMenuBar.Child( kWindows )    // Get the window menu
-		      if parent = nil then return
-		      
-		      // Clear the existing menu
-		      for i=parent.Count-1 downto 0
-		        parent.Remove(i)
-		      next
-		      
-		      // Add the windows to the menu
-		      count = WindowCount
-		      
-		      for i = 0 to count - 1
-		        // Construct the child item
-		        if Window(i).visible then
-		          child = new WindowMenuItem(Window(i))
-		          // And add it to the menu
-		          parent.Append( child )
-		        end if
-		      next i
-		      
-		      if Window(0) isA GenomeWin or Window(0) isA RegPreciseWin or Window(0) isA WebBrowserWin or Window(0) isA HelpWin then
-		        FileClose.enabled=true
-		      end if
-		      
-		      if NOT GenomeWin.visible then
-		        FileExportSequence.enabled=false
-		        FileExportFeatureTable.enabled=false
-		        GenomeListRegulons.enabled=false
-		        
-		        GenomeFind.enabled=false
-		        GenomeGoto.enabled=false
-		        GenomeAddPlot.enabled=false
-		        GenomeMergePlotData.enabled=false
-		        GenomeFindAgain.Enabled=false
-		        
-		      end if
-		      
-		    #endif
+		    end if
+		    
 		  #endif
+		  
 		End Sub
 	#tag EndMethod
 
