@@ -81,6 +81,7 @@
 					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbFkucHk=
 					FolderItem = Li4vQ1J0YWdCYXNl
 					FolderItem = Li4vUmVnUHJlY2lzZUV4cG9ydA==
+					FolderItem = Li4vUHl0aG9uL2dldHByb3QucHk=
 				End
 			End
 			Begin BuildStepList Mac OS X
@@ -124,6 +125,7 @@
 					FolderItem = Li4vUHl0aG9uL1Byb3RGYW1pbFkucHk=
 					FolderItem = Li4vQ1J0YWdCYXNl
 					FolderItem = Li4vUmVnUHJlY2lzZUV4cG9ydA==
+					FolderItem = Li4vUHl0aG9uL2dldHByb3QucHk=
 				End
 			End
 			Begin BuildStepList Windows

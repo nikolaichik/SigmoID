@@ -53,7 +53,6 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
-      Transparent     =   "True"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -85,7 +84,6 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
-      Transparent     =   "True"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -162,7 +160,6 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
-      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -195,7 +192,6 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   372
-      Transparent     =   "True"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -236,7 +232,6 @@ Begin Window deNovoWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
-      ShowDropIndicator=   False
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
@@ -244,7 +239,6 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -332,7 +326,6 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   346
-      Transparent     =   "True"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -365,7 +358,6 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   347
-      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -945,8 +937,6 @@ End
 		  
 		  dim phmmerSearchSeparator as string = "================================================================================================================"
 		  dim hitCount,crIndex as integer
-		  'BaseLocation=GetFolderItem("").Parent
-		  BaseLocation=Resources_f
 		  CDSseqs=""
 		  
 		  hmmPath=HmmList.Cell(HmmList.ListIndex,7) 'was five
@@ -955,14 +945,18 @@ End
 		  
 		  if RunTomTomBox.Value then GetTTlibString  'assemble motif library path for running TomTom later
 		  
-		  BaseLocation=BaseLocation.Child("CRtagBase").Child(hmmName+".crtag")
+		  BaseLocation=Resources_f.Child("TF_HMMs").Child(hmmName+".crtag")
 		  
-		  try
-		    instream=BaseLocation.OpenAsTextFile
-		  catch e as NilObjectException
-		    MsgBox("Check the crtags base's path: "+str(BaseLocation.NativePath))
-		    exit
-		  end try
+		  if BaseLocation<>Nil then
+		    if BaseLocation.Exists then
+		      instream=BaseLocation.OpenAsTextFile
+		    else
+		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		      exit
+		    end
+		  else
+		    MsgBox("Path to the crtag base isn't valid")
+		  end
 		  while not instream.EOF 
 		    CrTagsCodes=instream.ReadLine
 		    CrTagsCodes=Replaceall(CrTagsCodes,".1;",",")

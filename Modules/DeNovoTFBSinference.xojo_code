@@ -621,6 +621,9 @@ Protected Module DeNovoTFBSinference
 		  'Using Xojo.Core
 		  'Using Xojo.IO
 		  
+		  dim sh as Shell
+		  dim cli as String
+		  dim getprot as FolderItem
 		  dim tempID, tempID1 as string 
 		  dim Entry as string
 		  dim gbID as string
@@ -664,7 +667,24 @@ Protected Module DeNovoTFBSinference
 		  end if
 		  
 		  
-		  Entry=FetchGenPeptEntry(tempID)
+		  'Entry=FetchGenPeptEntry(tempID)
+		  getprot=Resources_f.Child("getprot.py")
+		  if getprot.exists then
+		    sh=New Shell
+		    sh.mode=0
+		    sh.TimeOut=-1
+		    cli="python "+getprot.ShellPath+" "+"'"+tempID+"'"
+		    sh.execute cli
+		    If sh.errorCode=0 then
+		      entry=sh.Result
+		    else
+		      LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
+		      return ""
+		    end if
+		  else
+		    MsgBox("File "+getprot.NativePath+" doesn't exist")
+		    return ""
+		  end
 		  entryarray=entry.split("//"+EndOfLine.UNIX)
 		  UniProtId=UniProtIDs.Split(",")
 		  k=UBound(entryarray)-1 'last entry always empty line, so not count it
@@ -751,7 +771,7 @@ Protected Module DeNovoTFBSinference
 		          try  
 		            OutStream = TextOutputStream.Create(gbFile)
 		          catch e as IOException
-		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't create the file to save a genome fragment. Path:"+EndOfLine.UNIX+gbFile.ShellPath+EndOfLine.unix)
+		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't create the file to save a genome fragment. Path:"+gbFile.ShellPath+EndOfLine.unix)
 		            'return ""
 		          end try
 		          // check existence of the file
@@ -759,10 +779,10 @@ Protected Module DeNovoTFBSinference
 		            try 
 		              OutStream.Write(Entry)
 		            catch eNil as NilObjectException
-		              LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+EndOfLine.UNIX+gbFile.ShellPath+EndOfLine.unix+"Error: ")
+		              LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+gbFile.ShellPath+EndOfLine.unix)
 		            end try
 		          else
-		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+EndOfLine.UNIX+gbFile.ShellPath+EndOfLine.unix)
+		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+gbFile.ShellPath+EndOfLine.unix)
 		          End If
 		          OutStream.Close
 		        End If
