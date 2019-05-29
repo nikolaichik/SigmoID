@@ -450,6 +450,24 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function countSubst(source as string, subst as string) As integer
+		  
+		  dim count,index,lensub as Integer
+		  index=1
+		  count=0
+		  lensub=lenb(subst)
+		  while index<>0
+		    index=instrB(index, source, subst)
+		    if index> 0 then 
+		      count=count+1
+		      index=index+lensub
+		    end
+		  wend
+		  return count
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DeleteEntireFolder(theFolder as folderitem, continueIfErrors as Boolean = false) As integer
 		  // From LR with no modifications
 		  
@@ -1492,7 +1510,6 @@ Protected Module Globals
 		  dim f as FolderItem 
 		  
 		  'if  ScanGenomeWin.firstrun=0 then
-		  'f= GetFolderItem ("/home/aither/Sources/Sigmoid-archive/Sigmoid-04-09-18/TF_HMMs/TF_HMMs/GerE.hmm")
 		  'ScanGenomeWin.firstrun=1
 		  'else
 		  f= GetFolderItem (HMMfilePath, FolderItem.PathTypeNative)

@@ -48,6 +48,7 @@ Begin Window ScanGenomeWinCRtag
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kGenome_"
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -97,6 +98,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   420
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -129,6 +131,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -160,6 +163,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -191,6 +195,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   421
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -213,6 +218,7 @@ Begin Window ScanGenomeWinCRtag
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   396
+      Transparent     =   True
       Visible         =   True
       Width           =   406
    End
@@ -252,6 +258,7 @@ Begin Window ScanGenomeWinCRtag
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   False
       TabIndex        =   19
       TabPanelIndex   =   0
       TabStop         =   True
@@ -259,6 +266,7 @@ Begin Window ScanGenomeWinCRtag
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -611,10 +619,12 @@ End
 		              if f3.Exists then 
 		                dim vv as VirtualVolume
 		                dim sigfasta as FolderItem
+		                dim infofile as FolderItem
 		                vv=f3.openAsVirtualVolume
 		                if vv<> nil then
 		                  basename=nthfield(f3.DisplayName,".sig",1)
 		                  sigfasta=vv.root.child(basename+".fasta")
+		                  infofile=vv.root.child(basename+".info")
 		                  dim tis as textinputstream
 		                  tis=sigfasta.OpenAsTextFile
 		                  
@@ -626,13 +636,21 @@ End
 		                    w.Listbox1.Cell(w.Listbox1.LastIndex,1)=basename
 		                    w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount)
 		                    w.Listbox1.RowTag(w.Listbox1.LastIndex)=p
-		                    w.Listbox1.Cell(w.Listbox1.LastIndex,4)=f3.ShellPath
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,4)=str(countSubst(content,">"))
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,5)=f3.ShellPath
+		                    tis=infofile.OpenAsTextFile
+		                    if tis<> nil then 
+		                      content=tis.ReadAll 
+		                      tis.close
+		                      'content=ReplaceAll(content,". ","."+EndOfLine.UNIX)
+		                    end
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,6)=content
 		                    
 		                  end if
 		                  for sigTCount as integer=0 to UBound(sigtagbase)
 		                    dim tagsDiff as Integer
 		                    tagsDiff=CompareTags(CRtags(tagsCount),sigtagbase(sigTCount),2) '
-		                    if tagsDiff<=2 then
+		                    if  tagsDiff>0 and tagsDiff<=2 then
 		                      if instr(sigpathbase(index), EndOfLine.unix)>0 then 
 		                        dim tmPath2(-1) as string
 		                        tmPath2=sigpathbase(sigTCount).Split(EndOfLine.UNIX)
@@ -643,6 +661,7 @@ End
 		                            if vv<> nil then
 		                              basename=nthfield(f3.DisplayName,".sig",1)
 		                              sigfasta=vv.root.child(basename+".fasta")
+		                              infofile=vv.root.child(basename+".info")
 		                              tis=sigfasta.OpenAsTextFile
 		                              
 		                              if tis<>nil then
@@ -651,8 +670,18 @@ End
 		                                dim p as Picture = MakeLogoPic(content)
 		                                w.Listbox1.AddRow
 		                                w.Listbox1.Cell(w.Listbox1.LastIndex,1)=" ~"+basename
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount) 'added TF name
 		                                w.Listbox1.RowTag(w.Listbox1.LastIndex)=p
-		                                w.Listbox1.Cell(w.Listbox1.LastIndex,4)=f3.ShellPath
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,4)=str(countSubst(content,">"))
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,5)=f3.ShellPath
+		                                
+		                                tis=infofile.OpenAsTextFile
+		                                if tis<> nil then 
+		                                  content=tis.ReadAll 
+		                                  tis.close
+		                                  'content=ReplaceAll(content,". ",EndOfLine.UNIX+".")
+		                                end
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,6)=content
 		                                
 		                              end if
 		                              

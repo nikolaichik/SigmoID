@@ -124,7 +124,7 @@ Begin Window ScanGenomeCRtagMotifs
       AutoHideScrollbars=   True
       Bold            =   False
       Border          =   True
-      ColumnCount     =   5
+      ColumnCount     =   7
       ColumnsResizable=   False
       ColumnWidths    =   ""
       DataField       =   ""
@@ -133,7 +133,7 @@ Begin Window ScanGenomeCRtagMotifs
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
-      GridLinesHorizontal=   0
+      GridLinesHorizontal=   2
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
@@ -197,7 +197,7 @@ End
 		    for k=0 to listbox1.ListCount-1
 		      if me.listbox1.CellCheck(k,0) = true then
 		        
-		        dim apath as string=listbox1.Cell(k,4)
+		        dim apath as string=listbox1.Cell(k,5)
 		        f=getfolderitem(apath, FolderItem.PathTypeShell)
 		        
 		        if f.Exists then 
@@ -325,23 +325,24 @@ End
 		Sub Open()
 		  
 		  'me.ColumnWidths="20,300,100,*,0"
-		  me.ColumnWidths="5%,40%,20%,35%,0%"
+		  me.ColumnWidths="4%,30%,25%,30%,11%,0%,0%"
 		  me.DefaultRowHeight=49  'LogoPic.Height=45
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		  me.Heading(0)=" "
 		  me.Heading(1)="CR tag"
 		  me.Heading(2)="Transcription factor name"
 		  me.Heading(3)="Logo"
+		  me.Heading(4)="Number of sequences in fasta"
 		  
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Change()
-		  If Me.ListIndex >= 0 and Me.Cell(Me.ListIndex, 4)<>"" Then
+		  If Me.ListIndex >= 0 and Me.Cell(Me.ListIndex, 5)<>"" Then
 		    PushButton1.Enabled=true
 		    PushButton2.Enabled=true
-		    sigpath = Me.Cell(Me.ListIndex, 4)
+		    sigpath = Me.Cell(Me.ListIndex, 5)
 		  else
 		    Pushbutton1.Enabled=false
 		    PushButton2.Enabled=false
@@ -377,6 +378,24 @@ End
 		      PushButton3.Enabled=False
 		    end
 		  end
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseMove(X As Integer, Y As Integer)
+		  Dim row As Integer = Me.RowFromXY(X, Y)
+		  Dim column As Integer = Me.ColumnFromXY(X, Y)
+		  dim content as String
+		  
+		  // Grab the motif description from column 
+		  If row > -1 Then
+		    content=me.Cell(row,6)
+		    Tooltip.Show(content, System.MouseX, System.MouseY + 20, True)
+		    'MHMouseTip.Show(Me.CellHelpTag(row, 4))
+		    'siglist.HelpTag("RegulonDB is the primary database on transcriptional regulation in Escherichia coli K-12 containing knowledge manually curated from original scientific publications, complemented with high throughput datasets and comprehensive computational predictions. ")
+		  Else
+		    'MHMouseTip.Hide
+		    'And Me.CellHelpTag(row, 4)
+		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -575,6 +594,12 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="sigpath"
+		Group="Behavior"
+		Type="string"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Super"
