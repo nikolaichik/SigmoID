@@ -53,6 +53,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -84,6 +85,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   410
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -160,6 +162,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -192,6 +195,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   372
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -232,6 +236,7 @@ Begin Window deNovoWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   False
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
@@ -239,6 +244,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -247,7 +253,6 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -326,6 +331,7 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   346
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -358,13 +364,13 @@ Begin Window deNovoWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   347
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
       Width           =   402
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -945,7 +951,7 @@ End
 		  
 		  if RunTomTomBox.Value then GetTTlibString  'assemble motif library path for running TomTom later
 		  
-		  BaseLocation=Resources_f.Child("TF_HMMs").Child(hmmName+".crtag")
+		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+".crtag")
 		  
 		  if BaseLocation<>Nil then
 		    if BaseLocation.Exists then

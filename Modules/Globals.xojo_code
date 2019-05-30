@@ -507,6 +507,30 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DisableAppAutoTabbing()
+		  // MacOS X Sierra and up has the option of opening new windows in tabs.
+		  '  This is useless for SigmoID, so disabling it here
+		  
+		  
+		  #if TargetMacOS  and TargetCocoa then
+		    
+		    Soft Declare Function objc_getClass lib "libobjc.dylib" (name As CString) As Ptr
+		    Soft Declare Function sel_registerName lib "libobjc.dylib" (name As CString) As Ptr
+		    Soft Declare Function RespondsToSelector Lib "Cocoa" selector "respondsToSelector:" (target As Ptr, Sel As Ptr) As Boolean
+		    
+		    Dim nsWindowClass As Ptr = objc_getClass("NSWindow")
+		    if RespondsToSelector(nsWindowClass, sel_registerName("setAllowsAutomaticWindowTabbing:")) then 'check if this option is available
+		      
+		      declare sub AllowTabGrouping lib "AppKit"selector "setAllowsAutomaticWindowTabbing:" ( classPtr as Ptr , enableDisable as Boolean ) 
+		      
+		      AllowTabGrouping( nsWindowClass, false )
+		    end if
+		    
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DrawRuler(width as integer, baseY as integer, bp as integer) As Group2D
 		  'Routine to draw  the ruler on linear maps
 		  
