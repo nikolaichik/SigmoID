@@ -69,7 +69,7 @@ Inherits Application
 	#tag Event
 		Sub Open()
 		  SetLinuxIcon
-		  
+		  DisableAppAutoTabbing
 		  
 		  GetResources_f
 		  

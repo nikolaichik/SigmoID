@@ -63,10 +63,10 @@ Begin Window HelpWin
       Scope           =   0
       Segments        =   "\nbr_prev_icon16\nFalse\r\nbr_next_icon16\nFalse"
       SelectionType   =   2
+      TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   4
-      Transparent     =   "False"
+      Transparent     =   False
       Visible         =   True
       Width           =   54
    End
@@ -88,7 +88,7 @@ Begin Window HelpWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   8
-      Transparent     =   "False"
+      Transparent     =   False
       Visible         =   False
       Width           =   16
    End
@@ -107,10 +107,10 @@ Begin Window HelpWin
       Scope           =   0
       Segments        =   "\nhome2x\nFalse"
       SelectionType   =   2
+      TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   4
-      Transparent     =   "False"
+      Transparent     =   False
       Visible         =   True
       Width           =   27
    End
@@ -237,8 +237,13 @@ End
 		  #if TargetCocoa then
 		    s0.Title=""
 		    s1.Title=""
-		    s0.Icon=SystemIcons.GoLeftTemplate
-		    s1.Icon=SystemIcons.GoRightTemplate
+		    #if Target64Bit then
+		      s0.Icon=br_prev_icon16
+		      s1.Icon=br_next_icon16
+		    #else
+		      s0.Icon=SystemIcons.GoLeftTemplate
+		      s1.Icon=SystemIcons.GoRightTemplate
+		    #endif
 		  #endif
 		End Sub
 	#tag EndEvent
@@ -248,10 +253,17 @@ End
 		Sub Action(itemIndex as integer)
 		  dim f As folderitem
 		  
-		  f=Resources_f.Child("Help").child("index.html")
+		  f=Resources_f.Child("Help").child(kHelpFileName)
 		  if f<>nil then
 		    if f.exists then
-		      LoadPage(f)
+		      self.LoadPage(f)
+		    end if
+		  else
+		    f=Resources_f.Child("Help").child("help_en.html")
+		    if f<>nil then
+		      if f.exists then
+		        self.LoadPage(f)
+		      end if
 		    end if
 		  end if
 		  
@@ -264,7 +276,11 @@ End
 		  
 		  #if TargetCocoa then
 		    s0.Title=""
-		    s0.Icon=SystemIcons.HomeTemplate
+		    #if Target64Bit 
+		      s0.icon=home2x
+		    #else
+		      s0.Icon=SystemIcons.HomeTemplate
+		    #endif
 		  #endif
 		End Sub
 	#tag EndEvent

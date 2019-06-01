@@ -714,6 +714,9 @@ End
 		  GenomeWin.FeatureBox.Width=genomeWin.SelRange.left-GenomeWin.FeatureBox.left-5
 		  
 		  
+		  
+		  
+		  
 		  #if TargetCocoa then
 		    #if Target64Bit then
 		      'NSSearchField class in MacOSLib seems to be broken for 64bit
@@ -727,7 +730,7 @@ End
 		      SearchField.visible=false
 		    #endif
 		    
-		    s0.Icon=SystemIcons.GoLeftTemplate
+		    s0.Icon=SystemIcons.GoLeftTemplate   'doesn't work on 64 bit
 		    s2.Icon=SystemIcons.GoRightTemplate
 		    s0.Title=""
 		    s2.Title=""
@@ -739,6 +742,17 @@ End
 		    NSSearchField1.enabled=false
 		    NSSearchField1.visible=false
 		  #endif
+		  
+		  #if Target64Bit
+		    
+		    'SegmentedControl doesn't show icons on Linux 64-bit?
+		    s0.Icon=br_prev_icon16
+		    's0.Title="<"
+		    s2.Icon=br_next_icon16
+		    's2.Title=">"
+		    
+		  #endif
+		  
 		  
 		  'Get the default fonts:
 		  'dim ff as string
@@ -6580,17 +6594,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  #if Target64Bit
-		    #if TargetLinux
-		      'SegmentedControl doesn't show icons on Linux 64-bit
-		      Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
-		      Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
-		      s0.Icon=nil
-		      s0.Title="<"
-		      s2.Icon=nil
-		      s2.Title=">"
-		    #endif
-		  #endif
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

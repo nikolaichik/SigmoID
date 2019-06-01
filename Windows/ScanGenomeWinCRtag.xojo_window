@@ -300,7 +300,9 @@ End
 		  froot=Resources_f  
 		  
 		  f2=froot.child("TF_HMMs") 
-		  f=froot.child("RegPreciseExport") 
+		  'f=froot.child("RegPreciseExport") 
+		  f=froot.child("CalibratedProfiles")
+		  
 		  if not f.Exists then
 		    MsgBox("Folder with sig profiles not found, check path: "+str(f.NativePath))
 		    exit
