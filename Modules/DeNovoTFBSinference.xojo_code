@@ -536,12 +536,35 @@ Protected Module DeNovoTFBSinference
 		  
 		  dim ResArray(0) as string
 		  dim m,n,id,i,k,z as integer
-		  dim UniProtID, MultiFasta, SingleFasta, entryprep, temparr(-1), thound as string
-		  dim EntryFragmentsF as FolderItem
+		  dim UniProtID, MultiFasta, SingleFasta, entryprep, cli, genpeptIDs  as string
+		  dim EntryFragmentsF, uniprot2genpept as FolderItem
+		  dim sh as Shell
 		  
+		  uniprot2genpept=Resources_f.Child("uniprot2genpept.py")
+		  if uniprot2genpept<>nil then
+		    if not uniprot2genpept.Exists then
+		      MsgBox("Check "+uniprot2genpept.ShellPath+" for uniprot2genpept.py")
+		      Return ""
+		    else
+		      cli= "python "+uniprot2genpept.ShellPath+" '"+ecodes+"' | grep -o -Pe '\S*(?=\.)' - | paste -s -d, -" 'convert UniprotKB IDs to Genpept IDs and replace end of line with comma 
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      Sh.Execute cli
+		      if sh.ErrorCode<>0 then
+		        logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
+		      else
+		        genpeptIDs=sh.Result
+		        ecodes=ReplaceAll(genpeptIDs, EndOfLine.UNIX,"")
+		      end if
+		    end
+		  else
+		    MsgBox("Path to SigmoID folder is Nil")
+		    Return ""
+		  end
 		  if instr(ecodes,",")>0 then
 		    ResArray=split(eCodes,",") 'if only one tag, then exception, fix
-		    ResArray.Shuffle 'random distribution of the EMBLcodes to prevent not using codes in the string's "tail"  
+		    ResArray.Shuffle 'random distribution of the codes to prevent not using codes in the string's "tail"  
 		    ecodes=join(ResArray,",")
 		  else
 		    singleCodeTags=singleCodeTags+1
@@ -665,6 +688,7 @@ Protected Module DeNovoTFBSinference
 		    LogoWin.WriteToSTDOUT("Can't get GenPept ID for NCBI reference "+tempID1+EndOfLine.UNIX)
 		    return ""
 		  end if
+		  
 		  
 		  
 		  'Entry=FetchGenPeptEntry(tempID)
