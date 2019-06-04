@@ -536,9 +536,12 @@ Protected Module DeNovoTFBSinference
 		  
 		  dim ResArray(0) as string
 		  dim m,n,id,i,k,z as integer
-		  dim UniProtID, MultiFasta, SingleFasta, entryprep, cli, genpeptIDs  as string
+		  dim UniProtID, MultiFasta, SingleFasta, entryprep, cli, genpeptIDs, shellRes(-1)  as string
 		  dim EntryFragmentsF, uniprot2genpept as FolderItem
 		  dim sh as Shell
+		  dim rg as New RegEx
+		  Dim rgmatch as RegExMatch
+		  rg.SearchPattern="\S*(?=\.)"
 		  
 		  uniprot2genpept=Resources_f.Child("uniprot2genpept.py")
 		  if uniprot2genpept<>nil then
@@ -546,7 +549,8 @@ Protected Module DeNovoTFBSinference
 		      MsgBox("Check "+uniprot2genpept.ShellPath+" for uniprot2genpept.py")
 		      Return ""
 		    else
-		      cli= "python "+uniprot2genpept.ShellPath+" '"+ecodes+"' | grep -o -Pe '\S*(?=\.)' - | paste -s -d, -" 'convert UniprotKB IDs to Genpept IDs and replace end of line with comma 
+		      'cli= "python "+uniprot2genpept.ShellPath+" '"+ecodes+"' | grep -o -Pe '\S*(?=\.)' - | paste -s -d, -" 'convert UniprotKB IDs to Genpept IDs and replace end of line with comma 
+		      cli= "python "+uniprot2genpept.ShellPath+" '"+ecodes+"'"
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
@@ -554,8 +558,18 @@ Protected Module DeNovoTFBSinference
 		      if sh.ErrorCode<>0 then
 		        logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
 		      else
-		        genpeptIDs=sh.Result
-		        ecodes=ReplaceAll(genpeptIDs, EndOfLine.UNIX,"")
+		        shellRes=sh.Result.Split(EndOfLine.UNIX)
+		        for id=0 to UBound(shellRes)
+		          rgmatch=rg.Search(shellRes(id))
+		          if rgmatch<> nil then
+		            if genpeptIDs="" then 
+		              genpeptIDs=rgmatch.SubExpressionString(0)
+		            else
+		              genpeptIDs=genpeptIDs+","+rgmatch.SubExpressionString(0)
+		            end
+		          end
+		        next
+		        ecodes=genpeptIDs
 		      end if
 		    end
 		  else
