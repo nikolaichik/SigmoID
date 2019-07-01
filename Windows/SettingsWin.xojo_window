@@ -97,7 +97,6 @@ Begin Window SettingsWin
       LockedInPosition=   False
       Scope           =   0
       TabPanelIndex   =   0
-      Transparent     =   True
       Visible         =   True
    End
    Begin PagePanel PagePanel1
@@ -118,7 +117,6 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   False
       Value           =   0
@@ -2860,6 +2858,8 @@ End
 		  ReadPrefs
 		  self.hide
 		  
+		  Exception err
+		    ExceptionHandler(err,"SettingsWin:OKbutton:Action")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2911,9 +2911,11 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  #if TargetCocoa then
-		    ToolButton(me.Item(3)).Icon=SystemIcons.ColorPanel(32,32)
-		    ToolButton(me.Item(4)).Icon=SystemIcons.FontPanel(32,32)
+		  #if TargetCocoa 
+		    #if Target32Bit  'systemIcons broken in current macoslib for 64 bit
+		      ToolButton(me.Item(3)).Icon=SystemIcons.ColorPanel(32,32)
+		      ToolButton(me.Item(4)).Icon=SystemIcons.FontPanel(32,32)
+		    #endif
 		  #endif
 		  
 		  

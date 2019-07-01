@@ -1905,6 +1905,10 @@ End
 		  dim MenuTexts(0) as string
 		  
 		  f=Profile_f
+		  if f=nil then
+		    msgbox "Profile folder is missing."
+		    exit
+		  end if
 		  m=f.Count
 		  for n=1 to m
 		    if f.Item(n).name<>".DS_Store" then

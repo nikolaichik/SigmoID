@@ -655,6 +655,7 @@ End
 		  
 		  EditCut.enabled=false
 		  
+		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:EnableMenuItems")
 		End Sub
@@ -1398,6 +1399,19 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeGenomeInfo() As Boolean Handles GenomeGenomeInfo.Action
+			// show the header of GenBank file
+			
+			DocWin.Editor.text=Header
+			DocWin.Title=self.Title+" Info"
+			DocWin.show
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeGenomeStatistics() As Boolean Handles GenomeGenomeStatistics.Action
 			GenomeStats
 			Return True
@@ -1472,7 +1486,7 @@ End
 		Function GenomeTFfamilySearch() As Boolean Handles GenomeTFfamilySearch.Action
 			dim boo as boolean
 			
-			if HmmSearch then
+			if HmmSearchCR then
 			
 			
 			if hmmSearchSettingsWin.AddAnnotationCheckBox.value then
@@ -1571,14 +1585,6 @@ End
 			
 			LogoWin.show
 			score=CompareScores(GenomeWin.GetCheckedHits,LogoWin.Sequences)
-			
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function Untitled() As Boolean Handles Untitled.Action
 			
 			Return True
 			
@@ -3083,7 +3089,11 @@ End
 		  
 		  // Calculate nucleotide content 
 		  
+		  // Calculate GC content
+		  ' graph it?
 		  
+		  // Calculate GC skew?
+		  ' only meaningful if shown in the graph area
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
@@ -3737,6 +3747,65 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function hmmsearchCR() As boolean
+		  'returns true if completed without errors
+		  
+		  hmmSearchSettingsWin.ShowModalWithin(self)
+		  if hmmSearchSettings="" then
+		    return false
+		    
+		  end if
+		  
+		  logowin.show
+		  dim cli as string
+		  Dim sh As Shell
+		  
+		  
+		  if GenomeFile=Nil then
+		    logoWin.WriteToSTDOUT("Please select a file to search first.")
+		    return false
+		  else
+		    logoWin.WriteToSTDOUT("Exporting protein seqs..."+EndOfLine.UNIX)
+		    
+		  end if
+		  
+		  'export protein fastas:
+		  dim CDSfasta as folderitem
+		  CDSfasta=TemporaryFolder.child("CDS.fasta")
+		  
+		  if CDSfasta<>nil then
+		    ExportProteins(CDSfasta)
+		    cli=""
+		    
+		    
+		    FixPath4Windows(CDSfasta)
+		    
+		    dim genomefilepath as string
+		    #if TargetWin32
+		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		    #else
+		      GenomeFilePath=GenomeFile.shellpath
+		    #endif
+		    
+		    dim modelFile as string
+		    modelFile=hmmSearchSettingsWin.PopupFiles(hmmSearchSettingsWin.PfamPopup.ListIndex-1)
+		    
+		    
+		    'HMMsearchWithCRtagsCR (CDSfile as folderitem, HMMfilePath as string)
+		    
+		    logoWin.WriteToSTDOUT (EndofLine+HMMsearchWithCRtagsCR(CDSfasta,modelFile))
+		    
+		    
+		  end if
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:hmmsearchCR")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function isACGT(query as string) As Boolean
 		  dim l,n as integer
 		  dim s,ACTG as string
@@ -3852,7 +3921,10 @@ End
 		    'after which the feature list goes
 		    'the sequence starts right after "ORIGIN      <cr>        1 "
 		    
-		    'first get the feature table:
+		    'first, store file header
+		    Header=nthfield(s,"FEATURES             Location/Qualifiers",1)
+		    
+		    'Now get the feature table:
 		    st=instrb(s,"FEATURES             Location/Qualifiers")+41
 		    's0=LineEnd+"BASE COUNT "  'this long in order to terminate parsing properly
 		    
@@ -5469,6 +5541,10 @@ End
 
 	#tag Property, Flags = &h0
 		GraphExists As boolean = false
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Header As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

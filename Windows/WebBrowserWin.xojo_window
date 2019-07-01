@@ -88,7 +88,6 @@ Begin Window WebBrowserWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   34
-      Transparent     =   True
       Visible         =   True
       Width           =   1100
    End
@@ -109,7 +108,6 @@ Begin Window WebBrowserWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   4
       Transparent     =   True
       Visible         =   True
@@ -274,7 +272,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Error(errorNumber as Integer, errorMessage as String)
-		  beep
+		  msgbox "Web viewer error "+str(errorNumber)+errorMessage
 		End Sub
 	#tag EndEvent
 #tag EndEvents

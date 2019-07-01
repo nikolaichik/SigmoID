@@ -618,6 +618,16 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem GenomeGenomeInfo
+         SpecialMenu = 0
+         Text = "Genome Info"
+         Index = -2147483648
+         ShortcutKey = "I"
+         Shortcut = "Cmd+I"
+         MenuModifier = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem GenomeGenomeStatistics
          SpecialMenu = 0
          Text = "#kGenomeStatistics"
