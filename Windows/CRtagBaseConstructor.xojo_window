@@ -528,9 +528,9 @@ End
 		  for n=0 to m 
 		    hitseq=AlignmentArray(n)
 		    ProtName=NthField(hitSeq,"/",1)
-		    if InStr(ProtName,"|")>0 then
-		      ProtName=NthField(ProtName,"|",2)
-		    end if
+		    'if InStr(ProtName,"|")>0 then 'questionable: this will prevent adding CR tags to hmmsearch result
+		    'ProtName=NthField(ProtName,"|",2)
+		    'end if
 		    if uniqprot.InStr(ProtName)>0 then Continue
 		    
 		    ProtNames.Append(ProtName)

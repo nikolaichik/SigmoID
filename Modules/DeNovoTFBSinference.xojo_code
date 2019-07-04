@@ -300,9 +300,9 @@ Protected Module DeNovoTFBSinference
 		  for n=1 to m step 2
 		    hitseq=AlignmentArray(n)
 		    ProtName=NthField(hitSeq,"/",1)
-		    if InStr(ProtName,"|")>0 then
-		      ProtName=NthField(ProtName,"|",2)
-		    end if
+		    'if InStr(ProtName,"|")>0 then        'questionable: this will prevent adding CR tags to hmmsearch result
+		    'ProtName=NthField(ProtName,"|",2)
+		    'end if
 		    ProtNames.Append(ProtName)
 		    hitseq=NthField(hitSeq," ",countfields(hitseq," ")) 'the seq goes after the last space
 		    hitSeq=ReplaceAll(hitseq,".","") 'removing gaps resulting from insertions in other seqs: probably not the wise thing to do! 
@@ -332,6 +332,9 @@ Protected Module DeNovoTFBSinference
 		      
 		      'get extended hit
 		      CDStmp=NthField(CDSseqs,ProtNames(ubound(ProtNames)),2)'precaution for paralogues
+		      if len(cdstmp)<50 then
+		        msgbox "Warning! Protein sequence too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
+		      end if
 		      dim gapPos,leftPartStart, rightPartStart as integer
 		      dim leftPart, rightPart, leftExt, rightExt as string
 		      
