@@ -2,8 +2,10 @@ import sys
 import argparse
 import time
 import Bio
+import re
 from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
+from StringIO import StringIO
 
 
 class MySeqFeature(SeqFeature):
@@ -311,7 +313,6 @@ def createparser():
                                 etc.)''')
     return parser
 
-
 args = createparser()
 enter = args.parse_args()
 arguments = sys.argv[1:0]
@@ -360,7 +361,16 @@ prog = []
 nhmm_parser(file_path, allign_list)
 nhmm_prog(file_path, prog)
 prog[2] = prog[2].replace('\r', '')
-records = SeqIO.parse(input_handle, 'genbank')
+
+# SeqIO.parse doesn't parse some of the files correctly, if contain features like: 
+# gene            complement(join(4528109..4528215,1..82))
+# So we use regEx to replace such occurrances and to prevent incorrect parsing
+sourcegbk=input_handle.read()
+sourcegbk=re.sub(r'(?<=complement\()join\((?<=\S).*\,(?=\d)','',sourcegbk)
+# sourcegbk=re.sub(r'(?<!complement\()join\((?<=\S).*\,(?=\d)','(',sourcegbk)
+sourcegbk=re.sub(r'\)\)',')',sourcegbk)
+input=StringIO(sourcegbk)
+records = SeqIO.parse(input, 'genbank')
 allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
 total = 0
 for record in records:
