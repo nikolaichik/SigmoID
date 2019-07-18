@@ -714,7 +714,7 @@ Protected Module DeNovoTFBSinference
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    cli="python "+getprot.ShellPath+" "+"'"+tempID+"'"
+		    cli=pythonpath+getprot.ShellPath+" "+"'"+tempID+"'"
 		    sh.execute cli
 		    If sh.errorCode=0 then
 		      entry=sh.Result

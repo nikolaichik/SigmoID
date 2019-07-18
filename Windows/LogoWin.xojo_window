@@ -105,7 +105,7 @@ Begin Window LogoWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   175
+      Top             =   229
       Transparent     =   True
       UseFocusRing    =   False
       Visible         =   True
@@ -129,39 +129,11 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      Top             =   0
+      Top             =   27
       Transparent     =   True
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   1000
-      Begin Canvas LogoCanvas
-         AcceptFocus     =   False
-         AcceptTabs      =   False
-         AutoDeactivate  =   True
-         Backdrop        =   0
-         DoubleBuffer    =   True
-         Enabled         =   True
-         EraseBackground =   False
-         Height          =   175
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "TopPanel"
-         Left            =   0
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   2
-         TabStop         =   True
-         Top             =   0
-         Transparent     =   True
-         UseFocusRing    =   True
-         Visible         =   True
-         Width           =   1000
-      End
       Begin TextArea Informer
          AcceptTabs      =   False
          Alignment       =   0
@@ -204,7 +176,7 @@ Begin Window LogoWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   0
+         Top             =   27
          Transparent     =   True
          Underline       =   False
          UseFocusRing    =   True
@@ -221,7 +193,7 @@ Begin Window LogoWin
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
-      LineStep        =   1
+      LineStep        =   200
       LiveScroll      =   False
       LockBottom      =   False
       LockedInPosition=   False
@@ -230,7 +202,7 @@ Begin Window LogoWin
       LockTop         =   True
       Maximum         =   100
       Minimum         =   0
-      PageStep        =   20
+      PageStep        =   200
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -239,6 +211,64 @@ Begin Window LogoWin
       Transparent     =   True
       Value           =   0
       Visible         =   False
+      Width           =   1000
+   End
+   Begin Canvas LogoCanvas
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   0
+      DoubleBuffer    =   True
+      Enabled         =   True
+      EraseBackground =   False
+      Height          =   175
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   -11
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   27
+      Transparent     =   True
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   1000
+   End
+   Begin CustomTabPanelTabs LogoTabs
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   True
+      Facing          =   0
+      Height          =   27
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   -11
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   0
+      Transparent     =   True
+      UseFocusRing    =   True
+      value           =   0
+      Visible         =   True
       Width           =   1000
    End
 End
@@ -405,7 +435,6 @@ End
 		  'PathsChanged=true
 		  'ReadPrefs
 		  
-		  
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then
 		    if f.exists then
@@ -506,13 +535,16 @@ End
 		      sh=New Shell
 		      sh.execute cli
 		      If sh.errorCode=0 then
-		        pythonPath="python2 "
+		        pythonPath=SystemPath("python2")+" "  
+		        
+		        'pythonPath="python2 "
 		      else
 		        pythonPath=""
 		        WriteToSTDOUT ("Can't find working Python 2 command. Python scripts won't work. ")
 		      End If
 		    else
-		      pythonPath="python "
+		      pythonPath=SystemPath("python")+" "  
+		      'pythonPath="python "
 		    End If
 		    
 		    if instr(Sh.Result,"command not found")>0 then
@@ -1744,8 +1776,8 @@ End
 
 	#tag MenuHandler
 		Function ViewAlignmentInfo() As Boolean Handles ViewAlignmentInfo.Action
+			LogoTabs.value=2
 			ChangeView("AlignmentInfo")
-			
 			Return True
 			
 		End Function
@@ -1762,6 +1794,7 @@ End
 
 	#tag MenuHandler
 		Function ViewHmmerSettings() As Boolean Handles ViewHmmerSettings.Action
+			LogoTabs.value=3
 			ChangeView("ProfileSettings")
 			Return True
 			
@@ -1770,6 +1803,8 @@ End
 
 	#tag MenuHandler
 		Function ViewHmmProfile() As Boolean Handles ViewHmmProfile.Action
+			LogoTabs.value=4
+			
 			ChangeView("HmmProfile")
 			Return True
 			
@@ -1778,7 +1813,9 @@ End
 
 	#tag MenuHandler
 		Function ViewLogo() As Boolean Handles ViewLogo.Action
+			LogoTabs.value=0
 			ChangeView("Logo")
+			
 			Return True
 			
 		End Function
@@ -1786,6 +1823,7 @@ End
 
 	#tag MenuHandler
 		Function ViewMEMEresults() As Boolean Handles ViewMEMEresults.Action
+			LogoTabs.value=5
 			ChangeView("MEMEresults")
 			Return True
 		End Function
@@ -1793,8 +1831,8 @@ End
 
 	#tag MenuHandler
 		Function ViewSequences() As Boolean Handles ViewSequences.Action
+			LogoTabs.value=1
 			ChangeView("Sequences")
-			
 			Return True
 			
 		End Function
@@ -1972,9 +2010,11 @@ End
 		        
 		        if LengthsDiffer then
 		          logowin.ChangeView("Sequences")
+		          logowin.LogoTabs.value=1
 		          return
 		        else
 		          logowin.ChangeView("Logo")
+		          logowin.LogoTabs.value=0
 		        end if
 		        MEMEdata=""
 		        if NOT LengthsDiffer then
@@ -1994,15 +2034,14 @@ End
 		    ViewHmmProfile.Checked=false
 		    ViewMEMEresults.checked=false
 		    ControlAdjust
-		    'LogoCanvas.visible=true
+		    LogoCanvas.visible=true
 		    'LogoCanvas.Enabled=true
 		    'Informer.visible=false
 		    'Informer.enabled=false
 		    
-		    TopPanel.visible=true
+		    TopPanel.visible=false
 		    LogoCanvas.visible=true
 		    DownshiftLog true
-		    
 		  case "Sequences"
 		    if ViewSequences.Checked=false then
 		      ViewLogo.Checked=false
@@ -2021,9 +2060,10 @@ End
 		      informer.SetFocus
 		      HScrollBar.Visible=False
 		      TopPanel.left=0 
-		      TopPanel.height=splitter.top
+		      TopPanel.height=splitter.top-LogoTabs.height
 		      splitter.left=0
 		      STDOUT.top=splitter.top+splitter.height
+		      LogoCanvas.visible=false
 		    else
 		      ViewSequences.Checked=true
 		    end
@@ -2043,9 +2083,10 @@ End
 		    informer.visible=true
 		    TopPanel.visible=true
 		    HScrollBar.Visible=False
-		    TopPanel.height=splitter.top
+		    TopPanel.height=splitter.top-LogoTabs.height
 		    DownshiftLog true
 		    informer.SetFocus
+		    LogoCanvas.visible=false
 		  case "HideViewer"
 		    if TopPanel.Visible then
 		      
@@ -2072,6 +2113,7 @@ End
 		      ViewHmmProfile.Checked=false
 		      ViewMEMEresults.checked=false
 		      TopPanel.visible=false
+		      LogoCanvas.visible=false
 		      DownshiftLog false
 		      HScrollBar.Visible=false
 		    else
@@ -2094,7 +2136,7 @@ End
 		        
 		      end select
 		      
-		      
+		      LogoCanvas.visible=true
 		      TopPanel.visible=true
 		      DownshiftLog true
 		    end if
@@ -2112,8 +2154,9 @@ End
 		    TopPanel.Value=0
 		    informer.visible=true
 		    HScrollBar.Visible=False
-		    TopPanel.height=splitter.top
+		    TopPanel.height=splitter.top-LogoTabs.height
 		    DownshiftLog true
+		    LogoCanvas.visible=false
 		  case "HmmProfile"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
@@ -2128,8 +2171,9 @@ End
 		    TopPanel.visible=true
 		    informer.visible=true
 		    HScrollBar.Visible=False
-		    TopPanel.height=splitter.top
+		    TopPanel.height=splitter.top-LogoTabs.height
 		    DownshiftLog true
+		    LogoCanvas.visible=false
 		  case "MEMEresults"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
@@ -2144,10 +2188,18 @@ End
 		    TopPanel.visible=true
 		    informer.visible=true
 		    HScrollBar.Visible=False
-		    TopPanel.height=splitter.top
+		    TopPanel.height=splitter.top-LogoTabs.height
 		    DownshiftLog true
+		    LogoCanvas.visible=false
 		  end select
 		  
+		  if View="Logo" then
+		    Splitter.Enabled=false
+		  else
+		    Splitter.Enabled=true
+		  end if
+		  
+		  LogoTabs.RePaint
 		  EMI
 		End Sub
 	#tag EndMethod
@@ -2240,7 +2292,7 @@ End
 		    
 		    if LogoPic.width>LogoWin.width then
 		      HScrollBar.Visible=true
-		      HScrollBar.top=TopPanel.height
+		      HScrollBar.top=TopPanel.height+LogoTabs.height
 		      LogoCanvas.Width=Logopic.width
 		    else
 		      HScrollBar.Visible=false
@@ -2248,13 +2300,13 @@ End
 		    end
 		    
 		    if HScrollBar.visible=true then
-		      STDOUT.top=LogoCanvas.Height+HScrollBar.Height+splitter.Height
-		      STDOUT.height=Logowin.height-(LogoCanvas.Height+hscrollbar.height+splitter.height)
-		      Splitter.top=LogoCanvas.Height+HScrollBar.Height
+		      STDOUT.top=LogoCanvas.Height+HScrollBar.Height+splitter.Height+LogoTabs.height
+		      STDOUT.height=Logowin.height-(LogoCanvas.Height+hscrollbar.height+splitter.height+LogoTabs.height)
+		      Splitter.top=LogoCanvas.Height+HScrollBar.Height+LogoTabs.height
 		    else
-		      STDOUT.top=LogoCanvas.Height+splitter.Height
-		      STDOUT.height=Logowin.height-(splitter.height+LogoCanvas.Height)
-		      Splitter.top=LogoCanvas.Height
+		      STDOUT.top=LogoCanvas.Height+splitter.Height+LogoTabs.height
+		      STDOUT.height=Logowin.height-(splitter.height+LogoCanvas.Height+LogoTabs.height)
+		      Splitter.top=LogoCanvas.Height+LogoTabs.height
 		    end
 		    
 		  end
@@ -2900,6 +2952,7 @@ End
 		    
 		    'Palindromic=false
 		    ChangeView("Logo")
+		    LogoTabs.value=0
 		  else
 		    WriteToSTDOUT (EndofLine+"Could not load alignment from "+LogoFile.shellpath+EndofLine)
 		  end if
@@ -3646,6 +3699,7 @@ End
 		        ProfileWizardWin.MASTField.text=""
 		      end if
 		      ChangeView("Logo")
+		      LogoTabs.value=0
 		    else
 		      SigFileOpened=false
 		      MEMEdata=""
@@ -3690,6 +3744,7 @@ End
 		        ProfileWizardWin.MASTField.text=""
 		      end if
 		      ChangeView("Logo")
+		      LogoTabs.value=0
 		    end if
 		    
 		    'removes line breaks and not allowed symbols, makes a copy in /tmp, then sets path to Logofile
@@ -3796,8 +3851,10 @@ End
 		  
 		  if LengthsDiffer then
 		    me.ChangeView("Sequences")
+		    me.LogoTabs.value=1
 		  else
 		    me.ChangeView("Logo")
+		    me.LogoTabs.value=0
 		  end if
 		  
 		  RegulonID=0
@@ -3858,6 +3915,7 @@ End
 		          outstream.close
 		          LoadAlignment(RegPreciseTemp)
 		          logowin.ChangeView("Logo")
+		          logowin.LogoTabs.value=0
 		          me.title="SigmoID: "+TFname+" (RegPrecise)"
 		          
 		          'fill some hmmgen settings:
@@ -4272,7 +4330,7 @@ End
 		    logoWin.WriteToSTDOUT("Please select a file to search first.")
 		    return false
 		  else
-		    logoWin.WriteToSTDOUT("Exporting protein seqs..."+EndOfLine.UNIX)
+		    logoWin.WriteToSTDOUT("Exporting protein seqs... ")
 		    
 		  end if
 		  
@@ -4295,7 +4353,7 @@ End
 		    end if
 		    'LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Exporting CDS sequences...")
 		    GenomeWin.ExportProteins(CDSfasta)
-		    LogoWin.WriteToSTDOUT (" OK")
+		    LogoWin.WriteToSTDOUT (" OK"+EndOfLine.UNIX)
 		    
 		    
 		    instream=CDSfasta.OpenAsTextFile
@@ -5340,6 +5398,7 @@ End
 		    if tmpfile<>Nil then
 		      LoadAlignment(tmpFile)
 		      ChangeView("Logo")
+		      LogoTabs.value=0
 		      logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		    end if
 		  Case "LoadGenomeTool"
@@ -5406,6 +5465,7 @@ End
 		          LoadAlignment(tmpFile)
 		          ChangeView("Sequences") 'a workaround for invisible logo
 		          ChangeView("Logo")
+		          LogoTabs.value=0
 		          logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		        end if
 		      else
@@ -5413,6 +5473,7 @@ End
 		          LoadAlignment(tmpFile)
 		          ChangeView("Sequences") 'a workaround for invisible logo
 		          ChangeView("Logo")
+		          LogoTabs.value=0
 		          logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		        end if
 		      end if
@@ -5420,6 +5481,7 @@ End
 		      if tmpfile<>Nil then
 		        LoadAlignment(tmpFile)
 		        logowin.ChangeView("Logo")
+		        logowin.LogoTabs.value=0
 		        logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		      end if
 		    #endif
@@ -5495,10 +5557,73 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events Informer
+	#tag Event
+		Sub Open()
+		  'if FixedFont="" then
+		  'dim ff as string
+		  'ff=SetDefaultFonts(true)
+		  'FixedFont=NthField(ff,";",1)
+		  'end if
+		  '
+		  'me.TextFont=FixedFont
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  'watch only for sequence change
+		  'for other changes Profile Wizard should be used
+		  
+		  if ViewSequences.Checked=true then
+		    SeqsChanged=true
+		    LengthsDiffer=false 'we don't actually know
+		    FileSaveLogo.enabled=true
+		  end if
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  'enable editing of only the sequences
+		  
+		  if ViewSequences.Checked then
+		    return false 
+		  else
+		    return true
+		  end if
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  InformerHasFocus=true
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  InformerHasFocus=false
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events HScrollBar
+	#tag Event
+		Sub ValueChanged()
+		  Dim delta As Integer
+		  delta = HScrollBarLast - Me.Value
+		  LogoCanvas.left=LogoCanvas.left+delta
+		  HScrollBarLast = Me.Value
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  #if TargetLinux
+		    me.Height=17
+		  #endif
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events LogoCanvas
 	#tag Event
 		Sub Open()
-		  
+		  me.left=0
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -5525,7 +5650,7 @@ End
 		    if LogoPic.width>LogoWin.width then
 		      
 		      HScrollBar.Visible=true
-		      HScrollBar.top=LogoCanvas.Height
+		      HScrollBar.top=LogoCanvas.Height+LogoTabs.height
 		    else
 		      HScrollBar.Visible=false
 		    end
@@ -5607,66 +5732,27 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Informer
+#tag Events LogoTabs
 	#tag Event
 		Sub Open()
-		  'if FixedFont="" then
-		  'dim ff as string
-		  'ff=SetDefaultFonts(true)
-		  'FixedFont=NthField(ff,";",1)
-		  'end if
-		  '
-		  'me.TextFont=FixedFont
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub TextChange()
-		  'watch only for sequence change
-		  'for other changes Profile Wizard should be used
+		  me.appendTab("Logo")
+		  me.appendTab("Sequences")
+		  me.appendTab("AlignmentInfo")
+		  me.appendTab("ProfileSettings")
+		  me.appendTab("HmmProfile")
+		  me.appendTab("MEMEresults")
 		  
-		  if ViewSequences.Checked=true then
-		    SeqsChanged=true
-		    LengthsDiffer=false 'we don't actually know
-		    FileSaveLogo.enabled=true
-		  end if
+		  me.left=0
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  'enable editing of only the sequences
+		Sub TabChanged(tabIndex as integer)
+		  dim Tabname as string
 		  
-		  if ViewSequences.Checked then
-		    return false 
-		  else
-		    return true
-		  end if
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub GotFocus()
-		  InformerHasFocus=true
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub LostFocus()
-		  InformerHasFocus=false
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events HScrollBar
-	#tag Event
-		Sub ValueChanged()
-		  Dim delta As Integer
-		  delta = HScrollBarLast - Me.Value
-		  LogoCanvas.left=LogoCanvas.left+delta
-		  HScrollBarLast = Me.Value
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  #if TargetLinux
-		    me.Height=17
-		  #endif
+		  Tabname=me.tabs(tabIndex).caption
+		  
+		  ChangeView(TabName)
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

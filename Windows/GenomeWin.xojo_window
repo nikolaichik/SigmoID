@@ -8189,4 +8189,9 @@ End
 		InitialValue="600"
 		Type="Integer"
 	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Header"
+		Group="Behavior"
+		Type="String"
+	#tag EndViewProperty
 #tag EndViewBehavior

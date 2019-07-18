@@ -1446,13 +1446,18 @@ End
 		                  
 		                  if RunTomTomBox.Value then 
 		                    'launch TomTom threads
-		                    TTshellArray.Append ttt
-		                    TTshellArray(UBound(TTshellArray)).RunTomTom
-		                    TTshellArray.Append ttt2
-		                    TTshellArray(UBound(TTshellArray)).RunTomTom
+		                    if ttt<>NIL then
+		                      TTshellArray.Append ttt
+		                      TTshellArray(UBound(TTshellArray)).RunTomTom
+		                      ttt = new TTshell(f1.child("meme.txt")) 'remove reference to array element
+		                    end if
+		                    if ttt<>NIL then
+		                      TTshellArray.Append ttt2
+		                      TTshellArray(UBound(TTshellArray)).RunTomTom
+		                      ttt2 = new TTshell(f1.child("meme.txt"))
+		                    end if
 		                    
-		                    ttt = new TTshell(f1.child("meme.txt")) 'remove reference to array element
-		                    ttt2 = new TTshell(f1.child("meme.txt"))
+		                    
 		                  end if
 		                  
 		                  LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
