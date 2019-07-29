@@ -314,7 +314,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.22 (October 26, 2018)')
+                        version='%(prog)s 2.23 (July 29, 2019)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
