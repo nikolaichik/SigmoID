@@ -237,6 +237,15 @@ def dna_topology(path, topo_list):
     infile.close()
     return lines
 
+def feature_length_correct(feature):
+    # check if feature length does not exceed 3/4 of the genome sequence length
+    # if it does, then skip
+    end=int(feature.location.end.position)
+    start=int(feature.location.start.position)
+    if abs(end-start)<genome_size*0.75:
+        return True
+    else:
+        return False
 
 def createparser():
     parser = argparse.ArgumentParser(
@@ -361,14 +370,10 @@ prog = []
 nhmm_parser(file_path, allign_list)
 nhmm_prog(file_path, prog)
 prog[2] = prog[2].replace('\r', '')
-
-# SeqIO.parse doesn't parse some of the files correctly, if contain features like: 
-# gene            complement(join(4528109..4528215,1..82))
-# So we use regEx to replace such occurrances and to prevent incorrect parsing
 sourcegbk=input_handle.read()
-sourcegbk=re.sub(r'(?<=complement\()join\((?<=\S).*\,(?=\d)','',sourcegbk)
-# sourcegbk=re.sub(r'(?<!complement\()join\((?<=\S).*\,(?=\d)','(',sourcegbk)
-sourcegbk=re.sub(r'\)\)',')',sourcegbk)
+# regex search for numbers before 'bp" in line
+length_match=re.search(r'\d+(?=\sbp)', str(circular_vs_linear[0]))
+genome_size=int(length_match.group(0))
 input=StringIO(sourcegbk)
 records = SeqIO.parse(input, 'genbank')
 allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
@@ -378,7 +383,7 @@ for record in records:
     print '\n   FEATURES ADDED: \n'
     allowed_features_list = []
     for feature in record.features:
-        if feature.type in allowed_types:
+        if feature.type in allowed_types and feature_length_correct(feature)==True:
             allowed_features_list.append(feature)
     try:
         cds_loc_start = allowed_features_list[0]
