@@ -179,6 +179,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ChipMdata2Logo() As Boolean Handles ChipMdata2Logo.Action
+			ChipMdata2Logo
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function CRtagbase(index as Integer) As Boolean Handles CRtagbase.Action
 			CRtagBaseConstructor.Show
 			return true
@@ -689,6 +697,125 @@ Inherits Application
 		End Function
 	#tag EndMenuHandler
 
+
+	#tag Method, Flags = &h0
+		Sub ChipMdata2Logo()
+		  dim f as FolderItem
+		  dim openF as OpenDialog
+		  dim tis as TextInputStream
+		  dim fasta, chipMout as string
+		  dim seqid,fastaid(), motifs(),anrsites() as string
+		  dim rg  as new RegEx
+		  dim rgm as RegExMatch
+		  dim s as Site
+		  dim m as Motif
+		  dim w as ChipMLogo
+		  dim snum as integer
+		  
+		  openF = new OpenDialog
+		  openF.Title="Open file with the ChipMunk output"
+		  f = openF.ShowModal
+		  if f <>Nil then
+		    tis = TextInputStream.Open(f)
+		    chipMout=tis.ReadAll
+		    tis.Close
+		  end if
+		  
+		  openF = new OpenDialog
+		  openF.Title="Open source fasta"
+		  f = openF.ShowModal
+		  if f <>Nil then
+		    tis = TextInputStream.Open(f)
+		    fasta=tis.ReadAll
+		    tis.Close
+		  end if
+		  rg.SearchPattern="^\>.*"
+		  rgm=rg.Search(fasta)
+		  
+		  do
+		    if rgm<>nil then
+		      fastaid.Append(rgm.SubExpressionString(0))
+		    end if
+		    rgm=rg.search
+		  loop until rgm=nil
+		  
+		  
+		  
+		  motifs=chipMout.Split("MOTF|")
+		  w = new ChipMLogo
+		  for i as integer=1 to UBound(motifs)
+		    rg.SearchPattern="(^WORD\|)(\d+)(\t\d+\t)(\w+)(\t\S+\t)(\w+)"
+		    
+		    rgm = rg.search(motifs(i))
+		    m = new Motif
+		    do 
+		      if rgm<> NIl then
+		        
+		        s=new Site
+		        snum=val(trim(rgm.SubExpressionString(2)))
+		        s.id=fastaid(snum)
+		        s.seq=rgm.SubExpressionString(4)
+		        s.qualValue=val(rgm.SubExpressionString(5))
+		        s.qualValue=Floor(s.qualValue*100)/100
+		        s.strand=rgm.SubExpressionString(6)
+		      end
+		      
+		      m.Sites.Append(s)
+		      rgm=rg.search
+		    loop until rgm = nil
+		    m.number=i
+		    m.type="ZOOPS"
+		    dim valrange() as double
+		    for Each c as Site in m.Sites
+		      valrange.Append(c.qualValue)
+		    next
+		    valrange.Sort
+		    m.valrange=str(valrange(0))+" - "+str(valrange(UBound(valrange)))
+		    
+		    
+		    w.Motifs.Append(m)
+		    //append Zoops motif
+		    rg.SearchPattern="(^OCCS\|\d+\;)(\d+)(\;\s)(.*)"
+		    rgm=rg.search(motifs(i))
+		    m = new Motif
+		    do 
+		      if rgm<> NIl then
+		        
+		        snum=val(trim(rgm.SubExpressionString(2)))
+		        seqid=fastaid(snum)
+		        anrsites=split(rgm.SubExpressionString(4)," ")
+		        for k as integer=0 to UBound(anrsites)
+		          s=new Site
+		          s.id=seqid
+		          s.seq=NthField(anrsites(k),":",1)
+		          s.qualValue=(val(NthField(anrsites(k),":",4)))
+		          s.qualValue=Floor(s.qualValue*100)/100
+		          s.strand=NthField(anrsites(k),":",3)
+		          m.Sites.Append(s)
+		        next
+		        
+		      end
+		      
+		      rgm=rg.search
+		    loop until rgm = nil
+		    m.number=i
+		    m.type="ANR"
+		    redim valrange(-1)
+		    for Each c as Site in m.Sites
+		      valrange.Append(c.qualValue)
+		    next
+		    valrange.Sort
+		    m.valrange=str(valrange(0))+" - "+str(valrange(UBound(valrange)))
+		    w.Motifs.Append(m)
+		    //append ANR motif
+		  next
+		  w.populateListbox
+		  w.Visible=True
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub MakeSigFile(SigFolder as folderitem)
