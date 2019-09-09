@@ -155,13 +155,16 @@ Inherits Application
 		      logowin.LoadAlignment(item)
 		      if LengthsDiffer then
 		        logowin.ChangeView("Sequences")
+		        LogoWin.LogoTabs.TabIndex=1
 		      else
 		        logowin.ChangeView("Logo")
+		        LogoWin.LogoTabs.TabIndex=0
 		      end if
 		      logowin.title="SigmoID: "+item.DisplayName
 		    case "SigmoidFile"
 		      logowin.LoadAlignment(item)
 		      logowin.ChangeView("Logo")
+		      logowin.LogoTabs.TabIndex=0
 		      logowin.title="SigmoID: "+item.DisplayName
 		    end select
 		  end if
@@ -376,6 +379,7 @@ Inherits Application
 			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 			logowin.LoadAlignment(tmpFile)
 			logowin.ChangeView("Logo")
+			logowin.LogoTabs.TabIndex=0
 			Return True
 			end if
 			
@@ -402,6 +406,7 @@ Inherits Application
 			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 			logowin.LoadAlignment(convertedFasta)
 			logowin.ChangeView("Logo")
+			logowin.LogoTabs.TabIndex=0
 			end if
 			
 			Return True
