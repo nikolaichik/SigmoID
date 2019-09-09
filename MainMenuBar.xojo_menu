@@ -499,6 +499,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem ChipMdata2Logo
+         SpecialMenu = 0
+         Text = "Logo from ChipMunk data "
+         Index = -2147483648
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator5
          SpecialMenu = 0
          Text = "-"
