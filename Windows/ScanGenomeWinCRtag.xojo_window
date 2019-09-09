@@ -315,12 +315,16 @@ End
 		      '#if Target64Bit 
 		      if right(fitemn.Name,4)=".hmm" then 
 		        aName = Replaceall(fitemn.DisplayName, ".hmm","")
+		        'handle special names:
+		        if InStr(aname, "GerE")>0 then
+		          aName="LuxR"
+		        elseif InStr(aname, "Trans_reg_C")>0 then
+		          aName="OmpR"
+		        end
 		        if InStr(aName,"_")>0 then
 		          aName=NthField(aName,"_",1) 
 		        end
-		        if InStr(aname, "GerE")>0 then
-		          aName="LuxR"
-		        end
+		        
 		        for k=1 to f.Count
 		          if f.Item(k).Directory=false then
 		            Continue 
@@ -471,6 +475,7 @@ End
 		            if f3.Exists then 
 		              LogoWin.LoadAlignment f3
 		              logowin.ChangeView("Logo")
+		              LogoWin.LogoTabs.TabIndex=0
 		              app.DoEvents  'otherwise logo picture isn't updated
 		              nhmmerSettingsWin.GenomeField.text=LogoWin.GenomeFile.ShellPath
 		              nhmmerSettingsWin.ReadOptions

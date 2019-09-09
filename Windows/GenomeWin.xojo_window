@@ -7282,7 +7282,7 @@ End
 		    #else
 		      self.invalidate(false)
 		    #endif
-		    
+		    MapCanvas.invalidate(false)
 		  end if
 		  
 		  

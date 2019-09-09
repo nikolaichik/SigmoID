@@ -70,7 +70,7 @@ Begin Window CollecTFWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -96,7 +96,7 @@ Begin Window CollecTFWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   -58
-      Transparent     =   "False"
+      Transparent     =   False
       Visible         =   True
       Width           =   94
    End
@@ -127,7 +127,7 @@ Begin Window CollecTFWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   480
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   126
@@ -171,7 +171,7 @@ Begin Window CollecTFWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   478
-      Transparent     =   "False"
+      Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -216,7 +216,6 @@ Begin Window CollecTFWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -236,7 +235,6 @@ Begin Window CollecTFWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -559,9 +557,11 @@ End
 		      if LengthsDiffer then
 		        LogoWin.show
 		        logowin.ChangeView("Sequences")
+		        logowin.LogoTabs.TabIndex=1
 		      else
 		        LogoWin.show
 		        logowin.ChangeView("Logo")
+		        logowin.LogoTabs.TabIndex=0
 		      end if
 		      HmmGenSettingsWin.ValueField.text=TFname
 		      MASTGenSettingsWin.ValueField.text=TFname

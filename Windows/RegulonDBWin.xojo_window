@@ -1141,8 +1141,10 @@ End
 		      logowin.LoadAlignment(tmpfile)
 		      if LengthsDiffer then
 		        logowin.ChangeView("Sequences")
+		        LogoWin.LogoTabs.TabIndex=1
 		      else
 		        logowin.ChangeView("Logo")
+		        LogoWin.LogoTabs.TabIndex=0
 		      end if
 		      HmmGenSettingsWin.ValueField.text=TFname
 		      MASTGenSettingsWin.ValueField.text=TFname

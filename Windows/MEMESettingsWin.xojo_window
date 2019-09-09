@@ -46,7 +46,7 @@ Begin Window MEMESettingsWin
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
-      TabIndex        =   7
+      TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -78,7 +78,7 @@ Begin Window MEMESettingsWin
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
-      TabIndex        =   8
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -110,7 +110,7 @@ Begin Window MEMESettingsWin
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   11
+      TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kNumberOfMotifs2find"
@@ -145,7 +145,7 @@ Begin Window MEMESettingsWin
       LockTop         =   True
       Scope           =   0
       State           =   0
-      TabIndex        =   17
+      TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -179,7 +179,7 @@ Begin Window MEMESettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   19
+      TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -209,7 +209,7 @@ Begin Window MEMESettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   21
+      TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -399,7 +399,7 @@ Begin Window MEMESettingsWin
       LockTop         =   True
       Scope           =   0
       State           =   0
-      TabIndex        =   23
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -432,7 +432,7 @@ Begin Window MEMESettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   24
+      TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
@@ -464,7 +464,7 @@ Begin Window MEMESettingsWin
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   25
+      TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMotifsPerSequence"

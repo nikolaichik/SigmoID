@@ -1344,7 +1344,10 @@ End
 		            
 		          end if 'resfile2<>nil
 		          
-		        end if
+		        else
+		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"No data to run meme for "+ProtNames(n)+".")
+		          
+		        end if 'dataForMeme<>""
 		        
 		        
 		        
