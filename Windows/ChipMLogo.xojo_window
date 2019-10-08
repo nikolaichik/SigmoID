@@ -62,6 +62,7 @@ Begin Window ChipMLogo
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   False
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -69,6 +70,7 @@ Begin Window ChipMLogo
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -103,9 +105,42 @@ Begin Window ChipMLogo
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   360
+      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   130
+   End
+   Begin PushButton PushButton2
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "Load Logo"
+      Default         =   True
+      Enabled         =   True
+      Height          =   37
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   281
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   360
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   141
    End
 End
 #tag EndWindow
@@ -239,6 +274,26 @@ End
 		    // handle
 		  End Try
 		  
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton2
+	#tag Event
+		Sub Action()
+		  dim f as folderitem=TemporaryFolder.child("chiplogodata")
+		  
+		  if f<>nil then
+		    if f.Exists then f.Delete
+		    dim outstream As TextOutputStream
+		    outstream = TextOutputStream.Create(f)
+		    outstream.Write(ConvertEncoding(self.Listbox1.CellTag(self.row,5), Encodings.UTF8))
+		    outstream.Close
+		    LogoWin.LoadAlignment(f)
+		  else
+		    msgbox "Can't write converted file."
+		    return
+		  end if
 		  
 		End Sub
 	#tag EndEvent
