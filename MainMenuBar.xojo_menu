@@ -363,6 +363,9 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Text = "Reverse Complement"
          Index = -2147483648
+         ShortcutKey = "R"
+         Shortcut = "Cmd+R"
+         MenuModifier = True
          AutoEnable = True
          Visible = True
       End
