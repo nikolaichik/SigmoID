@@ -155,13 +155,16 @@ Inherits Application
 		      logowin.LoadAlignment(item)
 		      if LengthsDiffer then
 		        logowin.ChangeView("Sequences")
+		        LogoWin.LogoTabs.TabIndex=1
 		      else
 		        logowin.ChangeView("Logo")
+		        LogoWin.LogoTabs.TabIndex=0
 		      end if
 		      logowin.title="SigmoID: "+item.DisplayName
 		    case "SigmoidFile"
 		      logowin.LoadAlignment(item)
 		      logowin.ChangeView("Logo")
+		      logowin.LogoTabs.TabIndex=0
 		      logowin.title="SigmoID: "+item.DisplayName
 		    end select
 		  end if
@@ -329,7 +332,7 @@ Inherits Application
 			
 			
 			dim GenomeFile as folderitem
-			Dim dlg as New OpenDialog
+			Dim dlg As New OpenDialog
 			
 			'#If Not TargetLinux Then
 			'dlg.InitialDirectory = SpecialFolder.Documents
@@ -384,6 +387,7 @@ Inherits Application
 			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 			logowin.LoadAlignment(tmpFile)
 			logowin.ChangeView("Logo")
+			logowin.LogoTabs.TabIndex=0
 			Return True
 			end if
 			
@@ -395,7 +399,7 @@ Inherits Application
 			dim tmpfile, convertedFasta as folderitem
 			
 			dim GenomeFile as folderitem
-			Dim dlg as New OpenDialog
+			Dim dlg As New OpenDialog
 			
 			dlg.promptText="Select a file with RegulonDB data for a SINGLE regulator"
 			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
@@ -410,6 +414,7 @@ Inherits Application
 			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 			logowin.LoadAlignment(convertedFasta)
 			logowin.ChangeView("Logo")
+			logowin.LogoTabs.TabIndex=0
 			end if
 			
 			Return True
@@ -700,8 +705,8 @@ Inherits Application
 
 	#tag Method, Flags = &h0
 		Sub ChipMdata2Logo()
-		  dim f as FolderItem
-		  dim openF as OpenDialog
+		  Dim f As FolderItem
+		  Dim openF As OpenDialog
 		  dim tis as TextInputStream
 		  dim fasta, chipMout as string
 		  dim seqid,fastaid(), motifs(),anrsites() as string
@@ -713,7 +718,10 @@ Inherits Application
 		  dim snum as integer
 		  
 		  openF = new OpenDialog
-		  openF.Title="Open file with the ChipMunk output"
+		  openF.Title="Open ChipMunk result"
+		  openF.promptText="Select file with ChipMunk output"
+		  openF.Title="Open alignment"
+		  'openF.Filter=FileTypes.Text
 		  f = openF.ShowModal
 		  if f <>Nil then
 		    tis = TextInputStream.Open(f)
@@ -722,7 +730,9 @@ Inherits Application
 		  end if
 		  
 		  openF = new OpenDialog
-		  openF.Title="Open source fasta"
+		  openF.Title="Open fasta file"
+		  openF.promptText="Select file with sequences used as ChipMunk input"
+		  openF.Filter=FileTypes.Fasta
 		  f = openF.ShowModal
 		  if f <>Nil then
 		    tis = TextInputStream.Open(f)

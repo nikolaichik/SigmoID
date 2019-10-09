@@ -32,7 +32,7 @@ Begin Window ChipMLogo
       Bold            =   False
       Border          =   True
       ColumnCount     =   6
-      ColumnsResizable=   False
+      ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
@@ -165,7 +165,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub populateListbox()
-		  dim fasta as string
+		  Dim fasta As String
 		  for each m as Motif in me.Motifs
 		    fasta=""
 		    for i as integer = 0 to Ubound(m.Sites)
@@ -199,8 +199,10 @@ End
 #tag Events Listbox1
 	#tag Event
 		Sub Open()
-		  me.ColumnWidths="15%,20%,15%,200,0%,0%"
-		  me.DefaultRowHeight=46  
+		  'me.ColumnWidths="15%,20%,15%,200,0%,0%"
+		  Me.ColumnWidths="130,100,130,*,0,0"
+		  
+		  Me.DefaultRowHeight=62  
 		  me.ColumnType(2)=Listbox.TypeEditable
 		  me.Heading(0)="#"
 		  me.Heading(1)="Value range"

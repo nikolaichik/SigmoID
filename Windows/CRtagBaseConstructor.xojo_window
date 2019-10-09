@@ -562,7 +562,7 @@ End
 		      wend
 		      
 		      'get extended hit
-		      CDStmp=NthField(CDSseqs,ProtNames(ubound(ProtNames)),2)'precaution for paralogues
+		      CDStmp=NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2)'precaution for paralogues
 		      // get extended hit for base
 		      sh=New Shell
 		      sh.mode=0

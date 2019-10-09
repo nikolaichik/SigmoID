@@ -53,6 +53,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   361
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   97
@@ -84,6 +85,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   361
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   120
@@ -115,6 +117,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   361
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -155,6 +158,7 @@ Begin Window ScanGenomeCRtagMotifs
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   False
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
@@ -162,6 +166,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -271,6 +276,7 @@ End
 		  f=getfolderitem(row, FolderItem.PathTypeShell)
 		  LogoWin.LoadAlignment f
 		  logowin.ChangeView("Logo")
+		  LogoWin.LogoTabs.TabIndex=0
 		End Sub
 	#tag EndMethod
 

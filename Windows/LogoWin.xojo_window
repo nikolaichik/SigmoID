@@ -5747,14 +5747,16 @@ End
 #tag Events LogoTabs
 	#tag Event
 		Sub Open()
-		  me.appendTab("Logo")
+		  Me.appendTab("Logo")
 		  me.appendTab("Sequences")
 		  me.appendTab("AlignmentInfo")
 		  me.appendTab("ProfileSettings")
 		  me.appendTab("HmmProfile")
 		  me.appendTab("MEMEresults")
 		  
-		  me.left=0
+		  Me.Left=0
+		  
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event

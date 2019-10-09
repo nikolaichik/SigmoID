@@ -520,6 +520,7 @@ End
 		            'Scan the genome!
 		            LogoWin.LoadAlignment f.Item(n)
 		            logowin.ChangeView("Logo")
+		            LogoWin.LogoTabs.TabIndex=0
 		            app.DoEvents  'otherwise logo picture isn't updated
 		            nhmmerSettingsWin.GenomeField.text=LogoWin.GenomeFile.ShellPath
 		            nhmmerSettingsWin.ReadOptions
