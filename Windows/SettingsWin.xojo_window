@@ -9,7 +9,7 @@ Begin Window SettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   354
+   Height          =   402
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -52,7 +52,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   314
+      Top             =   362
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -84,7 +84,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   314
+      Top             =   362
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -102,7 +102,7 @@ Begin Window SettingsWin
    Begin PagePanel PagePanel1
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   302
+      Height          =   350
       HelpTag         =   "All searches will be restricted to sequences from this organism"
       Index           =   -2147483648
       InitialParent   =   ""
@@ -117,6 +117,7 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   False
       Value           =   0
@@ -448,7 +449,7 @@ Begin Window SettingsWin
          Bold            =   False
          Caption         =   "#kPaths"
          Enabled         =   True
-         Height          =   281
+         Height          =   329
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -798,7 +799,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   30
+            Left            =   31
             LockBottom      =   False
             LockedInPosition=   False
             LockLeft        =   True
@@ -816,7 +817,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   177
+            Top             =   210
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -840,7 +841,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   114
+            Left            =   115
             LimitText       =   0
             LockBottom      =   False
             LockedInPosition=   False
@@ -859,7 +860,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   176
+            Top             =   209
             Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
@@ -877,7 +878,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   30
+            Left            =   31
             LockBottom      =   False
             LockedInPosition=   False
             LockLeft        =   True
@@ -895,7 +896,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   211
+            Top             =   244
             Transparent     =   False
             Underline       =   False
             Visible         =   True
@@ -919,7 +920,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   114
+            Left            =   115
             LimitText       =   0
             LockBottom      =   False
             LockedInPosition=   False
@@ -938,7 +939,7 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   210
+            Top             =   243
             Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
@@ -956,7 +957,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   30
+            Left            =   31
             LockBottom      =   False
             LockedInPosition=   False
             LockLeft        =   True
@@ -974,13 +975,57 @@ Begin Window SettingsWin
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   245
+            Top             =   278
             Transparent     =   False
             Underline       =   False
             Visible         =   True
             Width           =   80
          End
          Begin TextField tfastxPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &c00FFFFFF
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   115
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   20
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "/usr/local/bin/tfastx"
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   277
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin TextField ChipMunkPathField
             AcceptTabs      =   False
             Alignment       =   0
             AutoDeactivate  =   True
@@ -1009,20 +1054,55 @@ Begin Window SettingsWin
             Password        =   False
             ReadOnly        =   False
             Scope           =   0
-            TabIndex        =   20
+            TabIndex        =   21
             TabPanelIndex   =   1
             TabStop         =   True
-            Text            =   "/usr/local/bin/tfastx"
+            Text            =   ""
             TextColor       =   &c00000000
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   244
+            Top             =   176
             Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
             Width           =   409
+         End
+         Begin Label Label34
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   22
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "ChipMunk"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   175
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   68
          End
       End
       Begin Label ProfileFolderLabel
@@ -2609,7 +2689,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   314
+      Top             =   362
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -2644,7 +2724,7 @@ End
 	#tag Event
 		Sub Open()
 		  dim n as integer
-		  
+		  Globals.chipset= new ChipMSettings
 		  AdjustLayout4linux(me)
 		  PathsChanged=true
 		  ReadPrefs
@@ -2812,6 +2892,7 @@ End
 		  Prefs.value("BLASTpDB")=nthfield(nthfield(ProteinPopup.Text,"(",2),")",1)
 		  Prefs.value("BLASTorganism")=OrganismField.text
 		  Prefs.value("API_Key")=APIKeyField.text
+		  Prefs.Value("ChipMunkPath")=ChipMunkPathField.Text
 		  
 		  if LoadPlainResult then
 		    Prefs.value("LoadPlainResult")="true"
@@ -2983,6 +3064,14 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events tfastxPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChipMunkPathField
 	#tag Event
 		Sub TextChange()
 		  PathsChanged=true

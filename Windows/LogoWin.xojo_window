@@ -129,6 +129,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -248,6 +249,7 @@ Begin Window LogoWin
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
+      EnableTabReordering=   False
       EraseBackground =   True
       Facing          =   0
       Height          =   27
@@ -381,6 +383,7 @@ End
 		  if LogoFile<>NIL then
 		    AlignmentConvertToMEME.enabled=true
 		    AlignmentMEME.enabled=true
+		    findSitesChipM.Enabled=true
 		    GenomeMASTSearch.enabled=true
 		    GenomeNhmmersearch.enabled=true
 		    
@@ -1290,6 +1293,14 @@ End
 			ProfileWizardWin.show
 			
 			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function findSitesChipM() As Boolean Handles findSitesChipM.Action
+			dim w as new ChipMParam
+			w.actionButton.Caption="Run"
 			
 		End Function
 	#tag EndMenuHandler
@@ -3056,6 +3067,7 @@ End
 		    if LogoFile<>NIL then
 		      AlignmentConvertToMEME.enabled=true
 		      AlignmentMEME.enabled=true
+		      findSitesChipM.Enabled=true
 		      GenomeMASTSearch.enabled=true
 		      GenomeNhmmersearch.enabled=true
 		      

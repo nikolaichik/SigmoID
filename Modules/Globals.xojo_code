@@ -2633,6 +2633,7 @@ Protected Module Globals
 		    MEMEpath=Prefs.value("MEMEpath",MEMEpath)
 		    MASTpath=Prefs.value("MASTpath",MASTpath)
 		    TomTomPath=Prefs.value("TomTomPath",TomTomPath)
+		    Globals.chipset.jarPath=Prefs.Value("ChipMunkPath", Globals.chipset.jarPath)
 		    PathsChanged=false
 		  end if
 		  
@@ -4004,6 +4005,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		CDScolour As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		chipset As ChipMSettings
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

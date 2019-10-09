@@ -906,10 +906,6 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		chipset As ChipMSettings
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		Fasta_files As FolderItem
 	#tag EndProperty
 
@@ -1482,7 +1478,6 @@ End
 		                  end if
 		                  if runChipMunk.Enabled then
 		                    dim errcodecm as Integer
-		                    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running ChipMunk...")
 		                    ErrCodeCM=ChipMunk(resfile2, f1)
 		                    if errcodecm=0 then
 		                      LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
