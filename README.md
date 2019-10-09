@@ -1,30 +1,32 @@
-__SigmoID__ is an application written in Xojo with important additions in python to ease annotation of sigma-factor and transcription factor binding sites in bacterial genome sequences.
+__SigmoID__ is all about transcription factor binding sites (TFBS) in bacterial genomes: find known ones, infer unknown and view them all in genomic context. It is an application written in Xojo with some additions in python.
+
 Functions:
+- de novo inference of transcription factor binding sites (__new in v.2__);
+- 3D structure (DNA-protein contact) based application of known TFBS profiles to new genomes (__new in v.2__);
 - visualise binding site alignments with sequence logo;
-- integrated access to RegPrecise and RegulonDB
-- extend, shorten and mask alignments;
-- create hmm profiles from alignments;
+- integrated access to RegPrecise, CollecTF and RegulonDB;
+- extend, shorten and mask TFBS alignments;
+- create hmm profiles from TFBS alignments;
 - search bacterial genome sequences with calibrated (and uncalibrated) hmm profiles;
 - annotate promoters and transcription factor binding sites in GenBank-formatted genomes;
 - view regulatory sites in genomic context with the integrated genome browser;
 - view RNA-seq coverage data;
-- verify annotation via the integrated database search.
+- verify and edit genome annotation via the integrated database search.
 
-This version includes over 80 calibrated profiles optimised for (i) soft rot enterobacterial phytopathogens (Pectobacterium spp. and Dickeya spp.) and (ii) Pseudomonas spp.
+Sigmoid v.2 (currently in development) is strongly recommended for routine use. It is available as 64-bit application for OS X and Linux on the [Releases page](https://github.com/nikolaichik/SigmoID/releases).  Supported OS versions include OS X Yosemite 10.10 and up and several Linux distributions:
+Linux Mint 16 or later
+CentOS 7.0 or later
+Ubuntu 14.04 LTS or later
+Debian 6.0 or later
+OpenSUSE 11.3 or later
+Fedora 13 Desktop or later.
+Other Linux distributions may work provided required libraries are installed.
+Windows and 32-bit versions are available for SigmoID v.1 only. 
 
-The actual searches are done by nhmmer or mast which are included or could be configured to run from default installations on the user system.
-
-Adding annotations to GenBank files and some other functions are implemented as python scripts, hence BioPython (version 1.64 and up) is required as well as 32-bit version of Python 2.7.x.
-
-At the moment SigmoID is known to work on OS X (10.8 and up), 64-bit and 32-bit Linux distributions (Ubuntu 14.04 is tested for 64-bit and 12.04 for 32-bit) and Windows (from Vista to Windows 10). Other Linux distributions may work provided Xojo requirements are met. 32-bit SigmoID version runs on 64-bit Linux distributions provided 32-bit libraries are installed; web browser related features require loading 32-bit WebKit 1 libraries (see SigmoID.sh). 64-bit Linux version is compiled with beta version of Xojo compiler and may be less stable. An important limitation of this version is its inability to open standard SigmoID profile (.sig) files (these files are converted to folders on 64-bit Linux; .sig files and folders are fully interchangeable on other platforms). We hope to fix this problem once Xojo compiler is appropriately updated.      
-
-Full list of platform-specific system requirements is located at Xojo site: http://developer.xojo.com/system-requirements 
-
-Compiled applications for all supported platforms are located on the [Releases page](https://github.com/nikolaichik/SigmoID/releases).
+Adding annotations to GenBank files and some other functions are implemented as python scripts, hence BioPython (version 1.64 and up) is required as well as Python 2.7.x. de novo TFBS search requires full installation of the MEME Suite (meme-suite.org). 
 
 Additional info and usage instructions are in the help file accessible from SigmoID.
 
-There is also a paper describing SigmoID:
+A paper describing SigmoID v.1 is available:
 Nikolaichik Y, Damienikan AU. (2016) SigmoID: a user-friendly tool for improving bacterial genome annotation through analysis of transcription control signals. PeerJ 4:e2056 https://doi.org/10.7717/peerj.2056
 
-As supporting four different systems (and different versions of those) isn't simple, we'd be grateful for reporting any problems via the [Issues page](https://github.com/nikolaichik/SigmoID/issues).

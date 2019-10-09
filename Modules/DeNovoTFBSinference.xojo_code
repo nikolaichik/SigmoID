@@ -48,6 +48,33 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ChipMunk(infile as folderItem, outfile as folderItem) As integer
+		  dim cli as string
+		  Dim sh As Shell
+		  sh=New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  cli="java -cp "+deNovoWin.chipset.jarPath+" ru.autosome.ChIPHorde "+deNovoWin.chipset.motifLength+" "+deNovoWin.chipset.mode+" yes 1 s:"+str(inFile.ShellPath)
+		  cli=cli+" "+deNovoWin.chipset.tryLimit+" "+deNovoWin.chipset.stepLimit+" "+deNovoWin.chipset.iterLimit+" "+deNovoWin.chipset.threadCount+" random "+deNovoWin.chipset.gcPercent+" "+deNovoWin.chipset.motifShape
+		  cli=cli+" > "+str(outfile.ShellPath)+"chipmunk"
+		  sh.execute cli
+		  
+		  'return sh.errorCode
+		  If sh.errorCode=0 then
+		    return sh.errorCode
+		  else
+		    LogoWin.WriteToSTDOUT ("ChipMunk error code: "+Str(sh.errorCode))
+		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    
+		    return sh.errorCode
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"SeqRetrieval:ChipMunk")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ConvertIDtoGenPept(ncbiID as string) As string
 		  // Requires a valid NCBI ID (e.g. the one returned by UniProt2ncbi_ID)
 		  //

@@ -378,6 +378,39 @@ Begin Window deNovoWin
       Scope           =   0
       TabPanelIndex   =   0
    End
+   Begin CheckBox runChipMunk
+      AutoDeactivate  =   True
+      Bold            =   False
+      Caption         =   "Run ChipMunk"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   714
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   346
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      Width           =   100
+   End
 End
 #tag EndWindow
 
@@ -870,6 +903,10 @@ End
 
 	#tag Property, Flags = &h1
 		Protected alignmentsFile As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		chipset As ChipMSettings
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1446,6 +1483,14 @@ End
 		                  else
 		                    aclean=false
 		                  end if
+		                  if runChipMunk.Enabled then
+		                    dim errcodecm as Integer
+		                    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running ChipMunk...")
+		                    ErrCodeCM=ChipMunk(resfile2, f1)
+		                    if errcodecm=0 then
+		                      LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
+		                    end
+		                  end
 		                  
 		                  if RunTomTomBox.Value then 
 		                    'launch TomTom threads
@@ -1741,6 +1786,17 @@ End
 		      
 		    end if
 		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events runChipMunk
+	#tag Event
+		Sub Action()
+		  select Case me.State
+		  case CheckBox.CheckedStates.Checked
+		    dim w as new ChipMParam
+		    dim chipset as new ChipMSettings
+		  end Select
 		End Sub
 	#tag EndEvent
 #tag EndEvents
