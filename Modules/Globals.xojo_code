@@ -2201,7 +2201,7 @@ Protected Module Globals
 		  Redim Gcounter(SeqLen)
 		  Redim Tcounter(SeqLen)
 		  
-		  dim LogoPic as new Picture (30*(SeqLen+1),170,32)
+		  Dim LogoPic As New Picture (30*(SeqLen+1),170,32)
 		  LogoPic.Transparent=1
 		  
 		  for n=0 to ubound(logodatarr)-1
@@ -2371,9 +2371,12 @@ Protected Module Globals
 		  
 		  'return LogoPic
 		  
-		  'scale the picture down to 45 pixel heigh and stretch it horisontally a bit
-		  dim LogoPicScaled as new Picture (LogoPic.width*50/170,45,32)
-		  LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPic.width*50/170,45,0,0,LogoPic.width,LogoPic.Height)
+		  'scale the picture down to 60 pixel heigh and stretch it horisontally a bit
+		  'dim LogoPicScaled as new Picture (LogoPic.width*50/170,45,32)
+		  'LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPic.width*50/170,45,0,0,LogoPic.width,LogoPic.Height)
+		  
+		  Dim LogoPicScaled As New Picture (LogoPic.width*70/170,60,32)
+		  LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,LogoPic.width,LogoPic.Height)
 		  
 		  LogoPicScaled.Transparent=1
 		  RegPreciseTFcollectionsWin.InfoBits=totalEntropy

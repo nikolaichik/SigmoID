@@ -248,6 +248,7 @@ Begin Window LogoWin
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
+      EnableTabReordering=   False
       EraseBackground =   True
       Facing          =   0
       Height          =   27
@@ -5735,14 +5736,16 @@ End
 #tag Events LogoTabs
 	#tag Event
 		Sub Open()
-		  me.appendTab("Logo")
+		  Me.appendTab("Logo")
 		  me.appendTab("Sequences")
 		  me.appendTab("AlignmentInfo")
 		  me.appendTab("ProfileSettings")
 		  me.appendTab("HmmProfile")
 		  me.appendTab("MEMEresults")
 		  
-		  me.left=0
+		  Me.Left=0
+		  
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event

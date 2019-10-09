@@ -787,7 +787,7 @@ End
 #tag Events TFfamilyPopup
 	#tag Event
 		Sub Change()
-		  dim m,n as integer
+		  Dim m,n As Integer
 		  dim f, CollectionFile as folderitem
 		  
 		  
@@ -845,9 +845,12 @@ End
 		    'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
 		    'LogoPicScaled.Transparent=1
 		    
-		    'scale the picture down to 45 pixel heigh and stretch it horisontally a bit
-		    dim LogoPicScaled as new Picture (p.width*50/170,45,32)
-		    LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,45,0,0,p.width,p.Height)
+		    ''scale the picture down to 60 pixel heigh and stretch it horisontally a bit
+		    'dim LogoPicScaled as new Picture (p.width*50/170,45,32)
+		    'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,45,0,0,p.width,p.Height)
+		    Dim LogoPicScaled As New Picture (p.width*70/170,60,32)
+		    LogoPicScaled.Graphics.DrawPicture (p,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,p.width,p.Height)
+		    
 		    LogoPicScaled.Transparent=1
 		    
 		    
@@ -907,7 +910,7 @@ End
 		  
 		  me.ColumnWidths="20,300,50,70,*,0,0" 'the last column just stores the file path 
 		  me.ColumnType(0)=Listbox.TypeCheckbox
-		  me.DefaultRowHeight=49  'LogoPic.Height=45
+		  me.DefaultRowHeight=62  'LogoPic.Height=60
 		  'me.ColumnSortDirection(-1)=ListBox.HeaderTypes.NotSortable 'disable sorting of all the columns
 		  
 		  

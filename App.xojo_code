@@ -332,7 +332,7 @@ Inherits Application
 			
 			
 			dim GenomeFile as folderitem
-			Dim dlg as New OpenDialog
+			Dim dlg As New OpenDialog
 			
 			'#If Not TargetLinux Then
 			'dlg.InitialDirectory = SpecialFolder.Documents
@@ -399,7 +399,7 @@ Inherits Application
 			dim tmpfile, convertedFasta as folderitem
 			
 			dim GenomeFile as folderitem
-			Dim dlg as New OpenDialog
+			Dim dlg As New OpenDialog
 			
 			dlg.promptText="Select a file with RegulonDB data for a SINGLE regulator"
 			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
@@ -705,8 +705,8 @@ Inherits Application
 
 	#tag Method, Flags = &h0
 		Sub ChipMdata2Logo()
-		  dim f as FolderItem
-		  dim openF as OpenDialog
+		  Dim f As FolderItem
+		  Dim openF As OpenDialog
 		  dim tis as TextInputStream
 		  dim fasta, chipMout as string
 		  dim seqid,fastaid(), motifs(),anrsites() as string
@@ -718,7 +718,10 @@ Inherits Application
 		  dim snum as integer
 		  
 		  openF = new OpenDialog
-		  openF.Title="Open file with the ChipMunk output"
+		  openF.Title="Open ChipMunk result"
+		  openF.promptText="Select file with ChipMunk output"
+		  openF.Title="Open alignment"
+		  'openF.Filter=FileTypes.Text
 		  f = openF.ShowModal
 		  if f <>Nil then
 		    tis = TextInputStream.Open(f)
@@ -727,7 +730,9 @@ Inherits Application
 		  end if
 		  
 		  openF = new OpenDialog
-		  openF.Title="Open source fasta"
+		  openF.Title="Open fasta file"
+		  openF.promptText="Select file with sequences used as ChipMunk input"
+		  openF.Filter=FileTypes.Fasta
 		  f = openF.ShowModal
 		  if f <>Nil then
 		    tis = TextInputStream.Open(f)
