@@ -822,8 +822,9 @@ Inherits Application
 		  w.populateListbox
 		  w.Visible=True
 		  
-		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"App:ChipMdata2Logo")
+		    
 		End Sub
 	#tag EndMethod
 

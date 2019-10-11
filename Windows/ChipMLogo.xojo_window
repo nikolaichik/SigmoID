@@ -146,6 +146,23 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub EnableMenuItems()
+		  FileClose.Enable
+		End Sub
+	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			
+			Close
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Method, Flags = &h0
 		Function filterSitesVal(val as double, row as integer) As string
 		  dim m as Motif=me.Listbox1.CellTag(row, 4)

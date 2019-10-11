@@ -436,7 +436,7 @@ End
 
 	#tag Event
 		Sub EnableMenuItems()
-		  if CollectionList.SelCount=1 then
+		  If CollectionList.SelCount=1 Then
 		    RegPreciseRegulonInfo.enabled=true
 		    RegPreciseRegulonInfo.Text=kRegulonInfo
 		    RegulonShowLogo.Enabled=true
@@ -450,7 +450,9 @@ End
 		  else
 		    RegulonGetRegPreciseTFseqs.visible=false
 		    RegulonGetRegPreciseTFseqs.enabled=false
-		  end if
+		  End If
+		  
+		  FileClose.Enable
 		End Sub
 	#tag EndEvent
 
