@@ -9,7 +9,7 @@ Begin Window ChipMParam
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   440
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -23,40 +23,9 @@ Begin Window ChipMParam
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Untitled"
+   Title           =   "ChipMunk settings"
    Visible         =   True
-   Width           =   600
-   Begin PushButton setjarPath
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "Set ChipMunk.jar path"
-      Default         =   True
-      Enabled         =   True
-      Height          =   35
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   31
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   20
-      Underline       =   False
-      Visible         =   True
-      Width           =   155
-   End
+   Width           =   538
    Begin Label Label1
       AutoDeactivate  =   True
       Bold            =   False
@@ -68,7 +37,7 @@ Begin Window ChipMParam
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   49
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -85,45 +54,11 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   64
+      Top             =   41
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   508
-   End
-   Begin Label Label2
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   198
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      Text            =   ""
-      TextAlign       =   0
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   32
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   382
    End
    Begin TextField TextField1
       AcceptTabs      =   False
@@ -142,7 +77,7 @@ Begin Window ChipMParam
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   31
+      Left            =   34
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -161,11 +96,11 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   89
+      Top             =   73
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   118
+      Width           =   135
    End
    Begin Label Label3
       AutoDeactivate  =   True
@@ -213,7 +148,7 @@ Begin Window ChipMParam
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   143
+      Left            =   159
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -249,7 +184,7 @@ Begin Window ChipMParam
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   143
+      Left            =   159
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -291,7 +226,7 @@ Begin Window ChipMParam
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   143
+      Left            =   159
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -333,7 +268,7 @@ Begin Window ChipMParam
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   143
+      Left            =   159
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -375,7 +310,7 @@ Begin Window ChipMParam
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   143
+      Left            =   159
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -412,7 +347,7 @@ Begin Window ChipMParam
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   143
+      Left            =   159
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -443,7 +378,7 @@ Begin Window ChipMParam
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   143
+      Left            =   159
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -666,7 +601,7 @@ Begin Window ChipMParam
       Visible         =   True
       Width           =   100
    End
-   Begin PushButton saveButton
+   Begin PushButton actionButton
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
@@ -679,12 +614,12 @@ Begin Window ChipMParam
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   411
-      LockBottom      =   False
+      Left            =   349
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
@@ -692,7 +627,7 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   362
+      Top             =   402
       Underline       =   False
       Visible         =   True
       Width           =   115
@@ -701,41 +636,19 @@ End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Open()
-		  dim path as string
-		  if deNovoWin.chipset<>nil then path=deNovoWin.chipset.jarPath
-		  deNovoWin.chipset= new ChipMSettings
-		  if path<>"" then deNovoWin.chipset.jarPath=path
-		End Sub
-	#tag EndEvent
-
-
 #tag EndWindowCode
 
-#tag Events setjarPath
-	#tag Event
-		Sub Action()
-		  dim jarfile as FolderItem
-		  jarfile=GetOpenFolderItem("")
-		  if jarfile<> Nil then
-		    deNovoWin.chipset.jarPath=str(jarfile.NativePath)
-		    Label2.Text=str(jarfile.NativePath)
-		  end 
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events TextField1
 	#tag Event
 		Sub TextChange()
-		  deNovoWin.chipset.motifLength=me.Text
+		  globals.chipset.motifLength=Trim(me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events mode
 	#tag Event
 		Sub Change()
-		  deNovoWin.chipset.mode=me.Text
+		  globals.chipset.mode=me.Text
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -749,35 +662,35 @@ End
 #tag Events TextField2
 	#tag Event
 		Sub TextChange()
-		  deNovoWin.chipset.tryLimit=me.Text
+		  globals.chipset.tryLimit=Trim(me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events TextField3
 	#tag Event
 		Sub TextChange()
-		  deNovoWin.chipset.stepLimit=me.Text
+		  globals.chipset.stepLimit=Trim(me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events TextField4
 	#tag Event
 		Sub TextChange()
-		  deNovoWin.chipset.iterLimit=me.Text
+		  globals.chipset.iterLimit=Trim(me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events TextField5
 	#tag Event
 		Sub TextChange()
-		  deNovoWin.chipset.threadCount=me.Text
+		  globals.chipset.threadCount=Trim(me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events gcPer
 	#tag Event
 		Sub Change()
-		  deNovoWin.chipset.gcPercent=me.Text
+		  globals.chipset.gcPercent=me.Text
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -791,7 +704,7 @@ End
 #tag Events motifShape
 	#tag Event
 		Sub Change()
-		  deNovoWin.chipset.motifShape=me.Text
+		  globals.chipset.motifShape=me.Text
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -803,16 +716,26 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events saveButton
+#tag Events actionButton
 	#tag Event
 		Sub Action()
-		  if deNovoWin.chipset <> nil then
-		    if deNovoWin.chipset.gcPercent<>"" and deNovoWin.chipset.motifLength<>"" and deNovoWin.chipset.mode<>"" and deNovoWin.chipset.motifShape<>"" and deNovoWin.chipset.jarPath <>"" and deNovoWin.chipset.iterLimit<>"" and deNovoWin.chipset.tryLimit<>"" and deNovoWin.chipset.threadCount<>"" then
-		      self.Close
+		  if globals.chipset <> nil then
+		    if globals.chipset.gcPercent<>"" and globals.chipset.motifLength<>"" and globals.chipset.mode<>"" and globals.chipset.motifShape<>"" and globals.chipset.jarPath <>"" and globals.chipset.iterLimit<>"" and globals.chipset.tryLimit<>"" and globals.chipset.threadCount<>"" then
+		      if me.Caption="Save settings" then
+		        self.Close
+		      else
+		        dim errcode as Integer
+		        dim dlg as new SaveAsDialog
+		        dim outf,infile as FolderItem
+		        MsgBox("Set output file location ")
+		        outf=dlg.ShowModal
+		        errcode=DeNovoTFBSinference.ChipMunk(LogoWin.LogoFile, outf)
+		      end
 		    else
-		      MsgBox("check values")
+		      MsgBox("check input values")
 		    end
 		  end
+		  
 		  
 		End Sub
 	#tag EndEvent

@@ -411,6 +411,13 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem findSitesChipM
+         SpecialMenu = 0
+         Text = "Find Sites with ChipMunk"
+         Index = -2147483648
+         AutoEnable = False
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator6
          SpecialMenu = 0
          Text = "-"

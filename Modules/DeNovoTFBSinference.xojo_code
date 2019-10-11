@@ -54,12 +54,12 @@ Protected Module DeNovoTFBSinference
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  cli="java -cp "+deNovoWin.chipset.jarPath+" ru.autosome.ChIPHorde "+deNovoWin.chipset.motifLength+" "+deNovoWin.chipset.mode+" yes 1 s:"+str(inFile.ShellPath)
-		  cli=cli+" "+deNovoWin.chipset.tryLimit+" "+deNovoWin.chipset.stepLimit+" "+deNovoWin.chipset.iterLimit+" "+deNovoWin.chipset.threadCount+" random "+deNovoWin.chipset.gcPercent+" "+deNovoWin.chipset.motifShape
-		  cli=cli+" > "+str(outfile.ShellPath)+"chipmunk"
+		  if outfile.Exists then outfile.Delete
+		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+str(inFile.ShellPath)
+		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" "+globals.chipset.iterLimit+" "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
+		  cli=cli+" > "+str(outfile.ShellPath)+"_outputchipmunk"
+		  LogoWin.WriteToSTDOUT (EndofLine.unix+"Running ChipMunk...")
 		  sh.execute cli
-		  
-		  'return sh.errorCode
 		  If sh.errorCode=0 then
 		    return sh.errorCode
 		  else
