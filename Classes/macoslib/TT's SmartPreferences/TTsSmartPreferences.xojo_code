@@ -28,14 +28,14 @@ Protected Class TTsSmartPreferences
 		    f.CreateAsFolder
 		    if not f.Exists then
 		      break
-		      System.DebugLog "Can't create App data folder at: "+f.AbsolutePath
+		      System.DebugLog "Can't create App data folder at: "+f.NativePath
 		      return nil
 		    end if
 		  end if
 		  
 		  if not f.Directory then
 		    break
-		    System.DebugLog "App data folder not a dir at: "+f.AbsolutePath
+		    System.DebugLog "App data folder not a dir at: "+f.NativePath
 		    return nil
 		  end if
 		  
@@ -45,81 +45,81 @@ Protected Class TTsSmartPreferences
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromBoolean(a() as Boolean) As Variant()
-		  dim var() as Variant
+		  Dim vari() As Variant
 		  for each v as Variant in a
-		    var.Append v
+		    Vari.Append v
 		  next
-		  return var
+		  return vari
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromDate(a() as Date) As Variant()
-		  dim var() as Variant
+		  dim vari() as Variant
 		  for each v as Variant in a
-		    var.Append v
+		    Vari.Append v
 		  next
-		  return var
+		  Return vari
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromDouble(a() as Double) As Variant()
-		  dim var() as Variant
+		  dim vari() as Variant
 		  for each v as Variant in a
-		    var.Append v
+		    Vari.Append v
 		  next
-		  return var
+		  Return vari
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromInteger(a() as Integer) As Variant()
-		  dim var() as Variant
+		  Dim Vari() As Variant
 		  for each v as Variant in a
-		    var.Append v
+		    vari.Append v
 		  next
-		  return var
+		  Return vari
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromLong(a() as Int64) As Variant()
-		  dim var() as Variant
+		  Dim Vari() As Variant
 		  for each v as Variant in a
-		    var.Append v
+		    vari.Append v
 		  next
-		  return var
+		  Return vari
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromObject(a() as Object) As Variant()
-		  dim var() as Variant
+		  Dim Vari() As Variant
 		  for each v as Variant in a
-		    var.Append v
+		    vari.Append v
 		  next
-		  return var
+		  Return vari
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromSingle(a() as Single) As Variant()
-		  dim var() as Variant
+		  Dim Vari() As Variant
 		  for each v as Variant in a
-		    var.Append v
+		    vari.Append v
 		  next
-		  return var
+		  Return vari
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function arrayFromString(a() as String) As Variant()
-		  dim var() as Variant
+		  Dim Vari() As Variant
 		  for each v as Variant in a
-		    var.Append v
+		    vari.Append v
 		  next
-		  return var
+		  Return vari
 		End Function
 	#tag EndMethod
 
@@ -192,7 +192,7 @@ Protected Class TTsSmartPreferences
 		    // write changes to disk
 		    if not mPrefsDict.SaveXML (f, true) then
 		      break
-		      System.DebugLog "Can't save prefs at: "+f.AbsolutePath
+		      System.DebugLog "Can't save prefs at: "+f.NativePath
 		      return
 		    else
 		      mIsDirty = false
@@ -201,7 +201,7 @@ Protected Class TTsSmartPreferences
 		    // read latest state from disk
 		    if f.Exists and not mPrefsDict.LoadXML (f) then
 		      break
-		      System.DebugLog "Can't read prefs at: "+f.AbsolutePath
+		      System.DebugLog "Can't read prefs at: "+f.NativePath
 		      return
 		    end
 		  end
@@ -467,11 +467,15 @@ Protected Class TTsSmartPreferences
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsDirty"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -479,18 +483,23 @@ Protected Class TTsSmartPreferences
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -498,6 +507,7 @@ Protected Class TTsSmartPreferences
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

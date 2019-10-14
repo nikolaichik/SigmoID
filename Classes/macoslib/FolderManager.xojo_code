@@ -2,10 +2,14 @@
 Protected Module FolderManager
 	#tag Method, Flags = &h1
 		Protected Function FindFolder(vol as FolderItem, folderType as String, create as Boolean) As FolderItem
-		  if vol is nil then
-		    return nil
-		  end if
-		  return FindFolder(vol.MacVRefNum, folderType, create)
+		  'if vol is nil then
+		  'return nil
+		  'end if
+		  'Return FindFolder(vol.MacVRefNum, folderType, create)
+		  
+		  // disabled since 2019r2 due to removal of folderitem.MacFSRef
+		  
+		  return nil
 		End Function
 	#tag EndMethod
 
@@ -606,6 +610,7 @@ Protected Module FolderManager
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -613,18 +618,23 @@ Protected Module FolderManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -632,6 +642,7 @@ Protected Module FolderManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -1190,13 +1190,17 @@ Inherits Application
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="FormattedSequence"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="gbkSource"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty

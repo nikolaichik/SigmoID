@@ -84,64 +84,66 @@ Module FileManager
 		Protected Function GetFolderItemFromAliasData(aliasData as MemoryBlock, relativeTo as FolderItem = nil, flags as Integer = FileManager.kFSResolveAliasNoUI) As FolderItem
 		  // Adapted from code written by Thomas Tempelmann (www.tempel.org/rb/), from his TTsFiles module.
 		  
+		  // disabled since 2019r2 due to folderitem properties/methods removal
+		  
 		  dim r as FolderItem
 		  
-		  #if TargetMacOS
-		    
-		    if aliasData is nil then return nil
-		    
-		    declare function FSResolveAliasWithMountFlags Lib CarbonLib _
-		    ( fsrefIn as Ptr, aliasHdl as Integer, fsrefOut as Ptr, ByRef changed as Boolean, flags as UInt32 ) as Integer
-		    declare function NewHandle Lib CarbonLib ( size as Integer ) as Integer
-		    declare sub DisposeHandle Lib CarbonLib ( hdl as Integer )
-		    
-		    dim mb1 as new MemoryBlock( 4 ) // holds just the handle for the alias data
-		    mb1.Long( 0 ) = NewHandle( LenB( aliasData ) )
-		    mb1.Ptr( 0 ).Ptr( 0 ).StringValue( 0, LenB( aliasData ) ) = aliasData
-		    
-		    dim OSError as Integer
-		    dim mb2 as MemoryBlock
-		    if relativeTo <> nil then
-		      mb2 = relativeTo.MacFSRef
-		    end
-		    dim outRef as new MemoryBlock( 80 )
-		    dim changed as Boolean
-		    if mb2 <> nil then
-		      OSError = FSResolveAliasWithMountFlags( mb2, mb1.Long(0), outRef, changed, flags )
-		    else
-		      OSError = FSResolveAliasWithMountFlags( nil, mb1.Long(0), outRef, changed, flags )
-		    end
-		    DisposeHandle ( mb1.Long( 0 ) )
-		    if OSError = 0 then
-		      r = FolderItem.CreateFromMacFSRef( outRef )
-		    else
-		      
-		      // We'll grab the info from the alias and create a folderitem that way.
-		      dim targetNameHFS as HFSUniStr255
-		      dim volumeNameHFS as HFSUniStr255
-		      dim pathString as CFStringRef
-		      dim bitmap as integer
-		      dim aliasInfo as FSAliasInfo
-		      
-		      OSError = FSCopyAliasInfo( aliasData, targetNameHFS, volumeNameHFS, pathString, bitmap, aliasInfo )
-		      if OSError = 0 and pathString <> "" then
-		        #if DebugBuild
-		          dim targetName as string = StringValue( targetNameHFS )
-		          dim volumeName as string = StringValue( volumeNameHFS )
-		          #pragma unused targetName
-		          #pragma unused volumeName
-		        #endif
-		        r = GetFolderItemFromPOSIXPath( pathString )
-		      end if
-		    end if
-		    
-		  #else
-		    
-		    #pragma unused aliasData
-		    #pragma unused relativeTo
-		    #pragma unused flags
-		    
-		  #endif
+		  '#if TargetMacOS
+		  '
+		  'if aliasData is nil then return nil
+		  '
+		  'declare function FSResolveAliasWithMountFlags Lib CarbonLib _
+		  '( fsrefIn as Ptr, aliasHdl as Integer, fsrefOut as Ptr, ByRef changed as Boolean, flags as UInt32 ) as Integer
+		  'declare function NewHandle Lib CarbonLib ( size as Integer ) as Integer
+		  'declare sub DisposeHandle Lib CarbonLib ( hdl as Integer )
+		  '
+		  'dim mb1 as new MemoryBlock( 4 ) // holds just the handle for the alias data
+		  'mb1.Long( 0 ) = NewHandle( LenB( aliasData ) )
+		  'mb1.Ptr( 0 ).Ptr( 0 ).StringValue( 0, LenB( aliasData ) ) = aliasData
+		  '
+		  'dim OSError as Integer
+		  'dim mb2 as MemoryBlock
+		  'if relativeTo <> nil then
+		  'mb2 = relativeTo.MacFSRef
+		  'end
+		  'dim outRef as new MemoryBlock( 80 )
+		  'dim changed as Boolean
+		  'if mb2 <> nil then
+		  'OSError = FSResolveAliasWithMountFlags( mb2, mb1.Long(0), outRef, changed, flags )
+		  'else
+		  'OSError = FSResolveAliasWithMountFlags( nil, mb1.Long(0), outRef, changed, flags )
+		  'end
+		  'DisposeHandle ( mb1.Long( 0 ) )
+		  'if OSError = 0 then
+		  'r = FolderItem.CreateFromMacFSRef( outRef )
+		  'else
+		  '
+		  '// We'll grab the info from the alias and create a folderitem that way.
+		  'dim targetNameHFS as HFSUniStr255
+		  'dim volumeNameHFS as HFSUniStr255
+		  'dim pathString as CFStringRef
+		  'dim bitmap as integer
+		  'dim aliasInfo as FSAliasInfo
+		  '
+		  'OSError = FSCopyAliasInfo( aliasData, targetNameHFS, volumeNameHFS, pathString, bitmap, aliasInfo )
+		  'if OSError = 0 and pathString <> "" then
+		  '#if DebugBuild
+		  'dim targetName as string = StringValue( targetNameHFS )
+		  'dim volumeName as string = StringValue( volumeNameHFS )
+		  '#pragma unused targetName
+		  '#pragma unused volumeName
+		  '#endif
+		  'r = GetFolderItemFromPOSIXPath( pathString )
+		  'end if
+		  'end if
+		  '
+		  '#else
+		  
+		  #pragma unused aliasData
+		  #pragma unused relativeTo
+		  #pragma unused flags
+		  
+		  '#endif
 		  
 		  return r
 		  
@@ -150,100 +152,102 @@ Module FileManager
 
 	#tag Method, Flags = &h1
 		Protected Function GetFolderItemFromFSRef(theFSRef as FSRef) As FolderItem
-		  #if targetMacOS
-		    
-		    #if RBVersion >= 2010.05
-		      
-		      return FolderItem.CreateFromMacFSRef (theFSRef)
-		      
-		    #else
-		      
-		      // use the "lib hack"
-		      
-		      declare function FSGetCatalogInfo lib CarbonLib (ref as Ptr, whichInfo as Uint32, _
-		      ByRef catalogInfo as FSCatalogInfo, outName as Ptr, fsSpec as Ptr, parentRef as Ptr) as Int16
-		      
-		      dim err as Integer
-		      dim parentRef as new FSRef
-		      dim catalogInfo as FSCatalogInfo
-		      
-		      declare function REALFolderItemFromParentFSRef lib "" (parentRef as Ptr, name as Ptr) as FolderItem
-		      
-		      dim itemName as new MemoryBlock(512)
-		      err = FSGetCatalogInfo (theFSRef, kFSCatInfoNodeID, catalogInfo, itemName, nil, parentRef)
-		      if err <> 0 then
-		        // item doesn't exist
-		        return nil
-		      elseif catalogInfo.nodeID = 2 then
-		        // this is a root dir - we cannot use REALFolderItemFromParentFSRef there
-		        // -> determine the Volume item
-		        err = FSGetCatalogInfo(theFSRef, kFSCatInfoVolume, catalogInfo, nil, nil, parentRef)
-		        if err <> 0 then
-		          return nil
-		        end
-		        dim theVolume as FolderItem
-		        for i as Integer = VolumeCount - 1 downto 0
-		          dim v as FolderItem = Volume(i)
-		          if v is nil then
-		            continue
-		          end if
-		          if v.MacVRefNum = catalogInfo.volume then
-		            theVolume = v
-		            exit
-		          end if
-		        next
-		        return theVolume
-		      else
-		        dim f as FolderItem = REALFolderItemFromParentFSRef (parentRef, itemName)
-		        if f = nil then
-		          break // this is unexpected
-		        end
-		        return f
-		      end if
-		      
-		    #endif
-		    
-		  #else
-		    
-		    #pragma unused theFSRef
-		    
-		  #endif
+		  '#if targetMacOS
+		  
+		  '#if RBVersion >= 2010.05
+		  '
+		  'Return FolderItem.CreateFromMacFSRef (theFSRef)
+		  '
+		  '#else
+		  
+		  // use the "lib hack"
+		  
+		  'declare function FSGetCatalogInfo lib CarbonLib (ref as Ptr, whichInfo as Uint32, _
+		  'ByRef catalogInfo as FSCatalogInfo, outName as Ptr, fsSpec as Ptr, parentRef as Ptr) as Int16
+		  '
+		  'dim err as Integer
+		  'dim parentRef as new FSRef
+		  'dim catalogInfo as FSCatalogInfo
+		  '
+		  'Declare Function REALFolderItemFromParentFSRef Lib "" (parentRef As Ptr, name As Ptr) As FolderItem
+		  '
+		  'dim itemName as new MemoryBlock(512)
+		  'err = FSGetCatalogInfo (theFSRef, kFSCatInfoNodeID, catalogInfo, itemName, nil, parentRef)
+		  'if err <> 0 then
+		  '// item doesn't exist
+		  'return nil
+		  'Elseif catalogInfo.nodeID = 2 Then
+		  '// this is a root dir - we cannot use REALFolderItemFromParentFSRef there
+		  '// -> determine the Volume item
+		  'err = FSGetCatalogInfo(theFSRef, kFSCatInfoVolume, catalogInfo, nil, nil, parentRef)
+		  'if err <> 0 then
+		  'return nil
+		  'end
+		  'dim theVolume as FolderItem
+		  'for i as Integer = VolumeCount - 1 downto 0
+		  'dim v as FolderItem = Volume(i)
+		  'if v is nil then
+		  'continue
+		  'End If
+		  'if v.MacVRefNum = catalogInfo.volume then
+		  'theVolume = v
+		  'exit
+		  'end if
+		  'next
+		  'return theVolume
+		  'else
+		  'dim f as FolderItem = REALFolderItemFromParentFSRef (parentRef, itemName)
+		  'if f = nil then
+		  'break // this is unexpected
+		  'end
+		  'return f
+		  'end if
+		  
+		  '#endif
+		  
+		  '#else
+		  
+		  #pragma unused theFSRef
+		  
+		  '#endif
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Function GetFolderItemFromFSSpec(theFSSpec as FSSpec) As FolderItem
-		  #if targetMacOS
-		    if theFSSpec.parID = fsRtParID then // I am the root directory
-		      dim f as FolderItem
-		      for i as Integer = 0 to VolumeCount - 1
-		        if Volume(i).MacVRefNum = theFSSpec.vRefNum then
-		          f = Volume(i)
-		          exit
-		        end if
-		      next
-		      return f
-		    else
-		      soft declare function FSMakeFSSpec lib CarbonLib (vRefNum as Int16, dirID as Integer, filename as PString, ByRef spec as FSSpec) as Int16
-		      
-		      dim parentSpec as FSSpec
-		      dim OSError as Int16 = FSMakeFSSpec(theFSSpec.vRefNum, theFSSpec.parID, "", parentSpec)
-		      if OSError <> 0 then
-		        return nil
-		      end if
-		      dim f as FolderItem = GetFolderItemFromFSSpec(parentSpec) //recursion occurs here
-		      if f <> nil then
-		        return f.TrueChild(ConvertEncoding(DefineEncoding(LeftB(theFSSpec.Name.char, theFSSpec.Name.length), Encodings.SystemDefault), Encodings.UTF8))
-		      else
-		        return nil
-		      end if
-		    end if
-		    
-		  #else
-		    
-		    #pragma unused theFSSpec
-		    
-		  #endif
+		  //disabled since 2019r2 due to folderitem.MacVRefNum removal
+		  
+		  '#If targetMacOS
+		  'if theFSSpec.parID = fsRtParID then // I am the root directory
+		  'dim f as FolderItem
+		  'for i as Integer = 0 to VolumeCount - 1
+		  'If Volume(i).MacVRefNum = theFSSpec.vRefNum Then
+		  'f = Volume(i)
+		  'exit
+		  'end if
+		  'next
+		  'return f
+		  'else
+		  'soft declare function FSMakeFSSpec lib CarbonLib (vRefNum as Int16, dirID as Integer, filename as PString, ByRef spec as FSSpec) as Int16
+		  '
+		  'dim parentSpec as FSSpec
+		  'dim OSError as Int16 = FSMakeFSSpec(theFSSpec.vRefNum, theFSSpec.parID, "", parentSpec)
+		  'if OSError <> 0 then
+		  'return nil
+		  'end if
+		  'dim f as FolderItem = GetFolderItemFromFSSpec(parentSpec) //recursion occurs here
+		  'if f <> nil then
+		  'return f.TrueChild(ConvertEncoding(DefineEncoding(LeftB(theFSSpec.Name.char, theFSSpec.Name.length), Encodings.SystemDefault), Encodings.UTF8))
+		  'else
+		  'return nil
+		  'end if
+		  'end if
+		  '
+		  '#else
+		  
+		  #pragma unused theFSSpec
+		  
+		  '#endif
 		End Function
 	#tag EndMethod
 
@@ -303,37 +307,37 @@ Module FileManager
 		    end if
 		  end if
 		  
-		  #if TargetMacOS
-		    
-		    dim theFSRef as FSRef
-		    
-		    #if RBVersion >= 2010.05
-		      
-		      theFSRef = new FSRef(f.MacFSRef)
-		      
-		    #else
-		      // use the "lib hack"
-		      
-		      theFSRef = new FSRef
-		      
-		      if f.Parent is nil then //f should be the root directory of the volume
-		        declare function FSGetVolumeInfo lib CarbonLib (volume as Int16, volumeIndex as Integer, actualVolume as Ptr, whichInfo as UInt32, info as Ptr, volumeName as Ptr, rootDirectory as Ptr) as Int16
-		        dim OSErr as Int16 = FSGetVolumeInfo(f.MacVRefNum, 0, Nil, kFSVolInfoNone, Nil, Nil, theFSRef)
-		        #if debugBuild
-		          if OSErr <> 0 then break
-		        #endif
-		      else
-		        declare function REALFSRefFromFolderItem lib "" (f as Object, refOut as Ptr, nameOut as Ptr) as Boolean
-		        if not REALFSRefFromFolderItem (f, theFSRef, nil) then
-		          return nullFSRef
-		        end
-		      end if
-		      
-		    #endif
-		    
-		    return theFSRef
-		    
-		  #endif
+		  '#if TargetMacOS
+		  '
+		  'dim theFSRef as FSRef
+		  
+		  '#If XojoVersion <= 2019.02
+		  '
+		  'theFSRef = New FSRef(f.MacFSRef)
+		  '
+		  '#else
+		  // use the "lib hack"
+		  '
+		  'theFSRef = new FSRef
+		  '
+		  'if f.Parent is nil then //f should be the root directory of the volume
+		  'declare function FSGetVolumeInfo lib CarbonLib (volume as Int16, volumeIndex as Integer, actualVolume as Ptr, whichInfo as UInt32, info as Ptr, volumeName as Ptr, rootDirectory as Ptr) as Int16
+		  'dim OSErr as Int16 = FSGetVolumeInfo(f.MacVRefNum, 0, Nil, kFSVolInfoNone, Nil, Nil, theFSRef)
+		  '#if debugBuild
+		  'if OSErr <> 0 then break
+		  '#EndIf
+		  'else
+		  'Declare Function REALFSRefFromFolderItem Lib "" (f As Object, refOut As Ptr, nameOut As Ptr) As Boolean
+		  'if not REALFSRefFromFolderItem (f, theFSRef, nil) then
+		  'return nullFSRef
+		  'end
+		  'end if
+		  '
+		  ''#endif
+		  '
+		  'return theFSRef
+		  '
+		  '#endif
 		End Function
 	#tag EndMethod
 
@@ -378,24 +382,27 @@ Module FileManager
 	#tag Method, Flags = &h0
 		Function IsVolumeCaseSensitive(extends f as FolderItem) As Boolean
 		  //# Indicates if the volume on which f resides is case sensitive
+		  // disabled since 2019r2 due to removal of folderitem.MacFSRef
 		  
-		  #if targetMacOS
-		    soft declare function FSGetVolumeParms lib CarbonLib (volume as Int16, ByRef buffer as GetVolParmsInfoBuffer, bufferSize as Integer) as Integer
-		    
-		    dim buffer as GetVolParmsInfoBuffer
-		    dim err as Integer = FSGetVolumeParms(f.MacVRefNum, buffer, buffer.Size)
-		    if err = noErr then
-		      return (buffer.vMExtendedAttributes and isCaseSensitive) = isCaseSensitive
-		    else
-		      //since we're not generally raising exceptions, alas
-		      return false
-		    end if
-		    
-		  #else
-		    
-		    #pragma unused f
-		    
-		  #endif
+		  '#if targetMacOS
+		  'soft declare function FSGetVolumeParms lib CarbonLib (volume as Int16, ByRef buffer as GetVolParmsInfoBuffer, bufferSize as Integer) as Integer
+		  '
+		  'dim buffer as GetVolParmsInfoBuffer
+		  'Dim err As Integer = FSGetVolumeParms(f.MacVRefNum, buffer, buffer.Size)
+		  'if err = noErr then
+		  'return (buffer.vMExtendedAttributes and isCaseSensitive) = isCaseSensitive
+		  'else
+		  '//since we're not generally raising exceptions, alas
+		  'return false
+		  'end if
+		  '
+		  '#else
+		  
+		  
+		  
+		  #pragma unused f
+		  
+		  '#endif
 		End Function
 	#tag EndMethod
 
@@ -410,7 +417,7 @@ Module FileManager
 		    return f.POSIXPath
 		    
 		  #else
-		    return f.AbsolutePath
+		    return f.NativePath
 		    
 		  #endif
 		  
@@ -436,12 +443,12 @@ Module FileManager
 		    return f.NativePath
 		    
 		  #elseif TargetMacOS
-		    dim url as CFURL = CFURL.CreateFromHFSPath(f.AbsolutePath, f.Directory)
+		    dim url as CFURL = CFURL.CreateFromHFSPath(f.NativePath, f.Directory)
 		    return url.Path
 		    
 		  #elseif TargetLinux
 		    
-		    return f.AbsolutePath
+		    return f.NativePath
 		    
 		  #else
 		    
@@ -801,6 +808,7 @@ Module FileManager
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -808,18 +816,23 @@ Module FileManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -827,6 +840,7 @@ Module FileManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -373,7 +373,7 @@ Protected Class CustomTab
 
 	#tag Method, Flags = &h21
 		Private Function optimumSize() As integer
-		  dim iconw, closew, tabW as Integer
+		  Dim iconw, closew, tabW As Integer
 		  
 		  //icon present?
 		  if iconPic=nil then
@@ -392,7 +392,7 @@ Protected Class CustomTab
 		  end if
 		  
 		  //calculate width
-		  tabW=leftTabOutline.Width+iconw+7+closeW+rightTabOutline.Width+stringWidth(caption)
+		  tabW=leftTabOutline.Width+iconw+13+closeW+rightTabOutline.Width+stringWidth(caption)
 		  
 		  Return tabW
 		End Function

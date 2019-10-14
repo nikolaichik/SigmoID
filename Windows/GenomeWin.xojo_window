@@ -3,7 +3,6 @@ Begin Window GenomeWin
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   True
    Frame           =   9
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window GenomeWin
    HasBackColor    =   False
    Height          =   750
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
@@ -33,7 +32,7 @@ Begin Window GenomeWin
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   176
       HelpTag         =   ""
       Index           =   -2147483648
@@ -55,6 +54,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -80,6 +80,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -114,7 +115,7 @@ Begin Window GenomeWin
       Top             =   0
       Transparent     =   True
       Underline       =   False
-      Value           =   False
+      Value           =   "False"
       Visible         =   True
       Width           =   390
    End
@@ -164,6 +165,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -176,7 +178,7 @@ Begin Window GenomeWin
       Backdrop        =   0
       DoubleBuffer    =   True
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       Height          =   132
       HelpTag         =   ""
       Index           =   -2147483648
@@ -205,7 +207,7 @@ Begin Window GenomeWin
       DoubleBuffer    =   True
       Enabled         =   True
       EnableTabReordering=   False
-      EraseBackground =   False
+      EraseBackground =   "False"
       Facing          =   3
       Height          =   392
       HelpTag         =   ""
@@ -246,6 +248,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   359
       Transparent     =   True
       Value           =   2
@@ -358,6 +361,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -370,6 +374,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -390,7 +395,7 @@ Begin Window GenomeWin
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       FloatValue      =   0.0
       FocusRing       =   True
       Height          =   24
@@ -473,6 +478,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -509,7 +515,7 @@ Begin Window GenomeWin
       Backdrop        =   0
       DoubleBuffer    =   True
       Enabled         =   True
-      EraseBackground =   False
+      EraseBackground =   "False"
       Height          =   4
       HelpTag         =   ""
       Index           =   -2147483648
@@ -535,6 +541,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -4422,57 +4429,6 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub SaveFile(FileName as string, DisplaySaveDialog As Boolean)
-		  'this only saves nonredundant seqs as compressed files
-		  'which may not always be desirable
-		  'the way it is an Export function to save as text only (or in any other format)
-		  'is required
-		  
-		  Dim f as folderitem
-		  'dim stream as binaryStream
-		  dim fn as string
-		  dim k,m as integer
-		  
-		  ////RedundanciesPresent=HaveRedundancies(Editor.text)
-		  seq.Redundant=RedundanciesPresent
-		  If Document = Nil or DisplaySaveDialog then 'get the folderItem to save to
-		    if rightb(FileName,3)=".sq" then
-		      fn=filename
-		    else
-		      if instr(filename,".")>0 then  'remove old extension and add ".sq"
-		        k=CountFields(filename,".")
-		        m=len(NthField(FileName,".",k))
-		        fn=left(filename,len(filename)-m-1)+".sq"
-		      else
-		        fn=filename+".sq"
-		      end
-		    end
-		    f=GetSaveFolderItem("SQ file",fn)
-		    If f <> nil then //if the user clicked Save
-		      Title=f.Name
-		      f.MacType="BINA"
-		      f.MacCreator="SqEd"
-		      Document=f
-		      
-		    End if
-		  else
-		    f=document
-		  End if
-		  If f <> nil then 'save
-		    'SaveSQfile200 f
-		    EnableSave False
-		    'RecentFile f    'record in recent files menu
-		    
-		    
-		  End if
-		  
-		  
-		  Exception err
-		    ExceptionHandler(err,"GenomeWin:SaveFile")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub SaveGenBankFile(f as folderitem)
 		  dim stream as TextOutputStream = TextOutputStream.Create(f)
 		  dim m,n as integer
@@ -6817,7 +6773,7 @@ End
 #tag EndEvents
 #tag Events SPSearchViewer
 	#tag Event
-		Sub DocumentComplete(URL as String)
+		Sub DocumentComplete(url as String)
 		  'msgBox me.UserAgent
 		End Sub
 	#tag EndEvent
@@ -6839,7 +6795,7 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub DocumentBegin(URL as String)
+		Sub DocumentBegin(url as String)
 		  ProgressWheel1.Visible=true
 		  ProgressWheel1.Enabled=true
 		  ProgressWheel1.Refresh(false)
@@ -6859,12 +6815,12 @@ End
 #tag EndEvents
 #tag Events UPSearchViewer
 	#tag Event
-		Sub DocumentBegin(URL as String)
+		Sub DocumentBegin(url as String)
 		  'ProgressHide
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub DocumentComplete(URL as String)
+		Sub DocumentComplete(url as String)
 		  
 		End Sub
 	#tag EndEvent
@@ -6912,7 +6868,7 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub DocumentBegin(URL as String)
+		Sub DocumentBegin(url as String)
 		  
 		End Sub
 	#tag EndEvent
@@ -7398,216 +7354,43 @@ End
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
-		Name="AnyHitDeselected"
-		Group="Behavior"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="AnyNameClicked"
-		Group="Behavior"
-		InitialValue="0"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="AnythingSelected"
-		Group="Behavior"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="BackColor"
+		Name="MinimumWidth"
 		Visible=true
-		Group="Appearance"
-		InitialValue="&hFFFFFF"
-		Type="Color"
+		Group="Size"
+		InitialValue="64"
+		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Backdrop"
+		Name="MinimumHeight"
 		Visible=true
-		Group="Appearance"
-		Type="Picture"
-		EditorType="Picture"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="bppp2"
-		Group="Behavior"
-		InitialValue="0"
-		Type="double"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ccolumn"
-		Group="Behavior"
-		InitialValue="0"
+		Group="Size"
+		InitialValue="64"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="CDDsearch"
-		Group="Behavior"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="CloseButton"
+		Name="MaximumWidth"
 		Visible=true
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="CmapDx"
-		Group="Behavior"
+		Group="Size"
+		InitialValue="32000"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="CmapDy"
-		Group="Behavior"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="CMpointedFeature"
-		Group="Behavior"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Composite"
+		Name="MaximumHeight"
 		Visible=true
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ConfigButtonType"
-		Group="Behavior"
-		Type="string"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ContentsChanged"
-		Group="Behavior"
-		InitialValue="0"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ContextFeature"
-		Group="Behavior"
+		Group="Size"
+		InitialValue="32000"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="ContextProteinName"
-		Group="Behavior"
-		Type="String"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="CurrentHit"
-		Group="Behavior"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="CurrentScrollPosition"
-		Group="Behavior"
-		InitialValue="0"
-		Type="integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="DirDown"
-		Group="Behavior"
-		InitialValue="0"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="DisplayInterval"
-		Group="Behavior"
-		InitialValue="10000"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="dx"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="dy"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="editingFeature"
-		Group="Behavior"
-		InitialValue="0"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="EditorLock"
-		Group="Behavior"
-		InitialValue="false"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="EditorToolTip"
-		Group="Behavior"
-		Type="string"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="EnableEdit"
-		Group="Behavior"
-		InitialValue="0"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="featuredeleted"
-		Group="Behavior"
-		InitialValue="false"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FeatureLeft"
-		Group="Behavior"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FeatureRight"
-		Group="Behavior"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FindMode"
-		Group="Behavior"
-		InitialValue="0"
-		Type="integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FirstDrag"
-		Group="Behavior"
-		InitialValue="0"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FormattedSequence"
-		Group="Behavior"
-		Type="String"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FoundSitesNumber"
-		Group="Behavior"
-		InitialValue="0"
-		Type="integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FoundTargetSize"
-		Group="Behavior"
-		InitialValue="0"
-		Type="integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Frame"
+		Name="Type"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="0"
-		Type="Integer"
+		Type="Types"
 		EditorType="Enum"
 		#tag EnumValues
 			"0 - Document"
@@ -7624,310 +7407,43 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="FullScreen"
+		Name="HasCloseButton"
 		Visible=true
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FullScreenButton"
-		Visible=true
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="gbkSource"
-		Group="Behavior"
-		Type="string"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="GBOpened"
-		Group="Behavior"
-		InitialValue="false"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="GenomeChanged"
-		Group="Behavior"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="GraphExists"
-		Group="Behavior"
-		InitialValue="false"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasBackColor"
-		Visible=true
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Height"
-		Visible=true
-		Group="Position"
-		InitialValue="400"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HScrollBarCodeLock"
-		Group="Behavior"
-		Type="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ImplicitInstance"
-		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Interfaces"
+		Name="HasMaximizeButton"
 		Visible=true
-		Group="ID"
-		Type="String"
-		EditorType="String"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LastAngle"
-		Group="Behavior"
-		InitialValue="0"
-		Type="double"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LastX"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LastX2"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LastY"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LastY2"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="leftarrow"
-		Group="Behavior"
-		Type="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LiveResize"
-		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="LmapDx"
-		Group="Behavior"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LmapDy"
-		Group="Behavior"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MacProcID"
+		Name="HasMinimizeButton"
 		Visible=true
-		Group="Appearance"
-		InitialValue="0"
-		Type="Integer"
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MapCanvasDragLock"
-		Group="Behavior"
-		InitialValue="0"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MapCanvasPicture"
-		Group="Behavior"
-		Type="Picture"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MapRasterPic"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Picture"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MaxHeight"
+		Name="HasFullScreenButton"
 		Visible=true
-		Group="Position"
-		InitialValue="32000"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MaximizeButton"
-		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="False"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MaxWidth"
+		Name="DefaultLocation"
 		Visible=true
-		Group="Position"
-		InitialValue="32000"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBar"
-		Visible=true
-		Group="Appearance"
-		Type="MenuBar"
-		EditorType="MenuBar"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBarVisible"
-		Visible=true
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinHeight"
-		Visible=true
-		Group="Position"
-		InitialValue="64"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinimizeButton"
-		Visible=true
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinWidth"
-		Visible=true
-		Group="Position"
-		InitialValue="64"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="moving"
-		Group="Behavior"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Name"
-		Visible=true
-		Group="ID"
-		Type="String"
-		EditorType="String"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="NameX"
 		Group="Behavior"
 		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="NameXL"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="NameY"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="NameYL"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="NewColor"
-		Group="Behavior"
-		InitialValue="&h000000"
-		Type="color"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="NewFeature"
-		Group="Behavior"
-		InitialValue="0"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Opening"
-		Group="Behavior"
-		InitialValue="0"
-		Type="boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="OperOnOptions"
-		Group="Behavior"
-		Type="string"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ORFclickedDir"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ORFCurrCoord"
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ORFMap1"
-		Group="Behavior"
-		InitialValue="0"
-		Type="picture"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ORFMapScale"
-		Group="Behavior"
-		InitialValue="1"
-		Type="double"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="PageSetup"
-		Group="Behavior"
-		Type="String"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Placement"
-		Visible=true
-		Group="Position"
-		InitialValue="0"
-		Type="Integer"
+		Type="Locations"
 		EditorType="Enum"
 		#tag EnumValues
 			"0 - Default"
@@ -7938,76 +7454,684 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Query"
+		Name="HasBackgroundColor"
+		Visible=true
+		Group="Background"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="BackgroundColor"
+		Visible=true
+		Group="Background"
+		InitialValue="&hFFFFFF"
+		Type="Color"
+		EditorType="Color"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="AnyHitDeselected"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="AnyNameClicked"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="AnythingSelected"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Backdrop"
+		Visible=true
+		Group="Appearance"
+		InitialValue=""
+		Type="Picture"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="bppp2"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="double"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ccolumn"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CDDsearch"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CmapDx"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CmapDy"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CMpointedFeature"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Composite"
+		Visible=true
+		Group="Appearance"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ConfigButtonType"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="string"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ContentsChanged"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ContextFeature"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ContextProteinName"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CurrentHit"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CurrentScrollPosition"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="DirDown"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="DisplayInterval"
+		Visible=false
+		Group="Behavior"
+		InitialValue="10000"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="dx"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="dy"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="editingFeature"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="EditorLock"
+		Visible=false
+		Group="Behavior"
+		InitialValue="false"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="EditorToolTip"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="string"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="EnableEdit"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="featuredeleted"
+		Visible=false
+		Group="Behavior"
+		InitialValue="false"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FeatureLeft"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FeatureRight"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FindMode"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FirstDrag"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FormattedSequence"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FoundSitesNumber"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FoundTargetSize"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FullScreen"
+		Visible=true
+		Group="Appearance"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="gbkSource"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="string"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="GBOpened"
+		Visible=false
+		Group="Behavior"
+		InitialValue="false"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="GenomeChanged"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="GraphExists"
+		Visible=false
+		Group="Behavior"
+		InitialValue="false"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Height"
+		Visible=true
+		Group="Position"
+		InitialValue="400"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HScrollBarCodeLock"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ImplicitInstance"
+		Visible=true
+		Group="Appearance"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Interfaces"
+		Visible=true
+		Group="ID"
+		InitialValue=""
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LastAngle"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="double"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LastX"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LastX2"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LastY"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LastY2"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="leftarrow"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LmapDx"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LmapDy"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MacProcID"
+		Visible=true
+		Group="Appearance"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MapCanvasDragLock"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MapCanvasPicture"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Picture"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MapRasterPic"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Picture"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBar"
+		Visible=true
+		Group="Appearance"
+		InitialValue=""
+		Type="MenuBar"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBarVisible"
+		Visible=true
+		Group="Appearance"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="moving"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Name"
+		Visible=true
+		Group="ID"
+		InitialValue=""
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="NameX"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="NameXL"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="NameY"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="NameYL"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="NewColor"
+		Visible=false
+		Group="Behavior"
+		InitialValue="&h000000"
+		Type="color"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="NewFeature"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Opening"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="OperOnOptions"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="string"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ORFclickedDir"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ORFCurrCoord"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ORFMap1"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="picture"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ORFMapScale"
+		Visible=false
+		Group="Behavior"
+		InitialValue="1"
+		Type="double"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="PageSetup"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Query"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
 		Type="string"
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE1"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="string"
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE1cutposition"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE1overhang"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE1pos"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE1targetsize"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE2"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="string"
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE2cutposition"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE2overhang"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE2pos"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RE2targetsize"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="RedundanciesPresent"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Resizeable"
@@ -8015,34 +8139,43 @@ End
 		Group="Appearance"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="rrow"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="rw"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="rx"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ry"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Scales"
+		Visible=false
 		Group="Behavior"
 		InitialValue="25,33,50,75,100,125,150,200,300,400"
 		Type="string"
@@ -8050,41 +8183,55 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SearchPosition"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SelColor"
+		Visible=false
 		Group="Behavior"
 		InitialValue="&h000000"
 		Type="color"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SelectingREfragment"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="selFeatureNo"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SelNameNo"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SiteNo"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="sTBButtons"
+		Visible=false
 		Group="Behavior"
 		InitialValue=",1,2,3,5,0,6,8,11,12,18,13,14,19,15,16,17,10,"
 		Type="string"
@@ -8094,23 +8241,31 @@ End
 		Name="Super"
 		Visible=true
 		Group="ID"
+		InitialValue=""
 		Type="String"
-		EditorType="String"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TextHeight"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TextMapPic"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="Picture"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TFfamilyDesc"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="String"
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty
@@ -8120,59 +8275,87 @@ End
 		Group="Appearance"
 		InitialValue="Untitled"
 		Type="String"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TMCharWidth"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="Double"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TMLineHeight"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="Double"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ToolTipBlock"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ToolTipX"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ToolTipY"
+		Visible=false
 		Group="Behavior"
 		InitialValue="0"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="topstrand"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="topStrandSearched"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ttip"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="string"
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TTx"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TTy"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Visible"
@@ -8180,7 +8363,7 @@ End
 		Group="Appearance"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Width"
@@ -8188,10 +8371,14 @@ End
 		Group="Position"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Header"
+		Visible=false
 		Group="Behavior"
+		InitialValue=""
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 #tag EndViewBehavior

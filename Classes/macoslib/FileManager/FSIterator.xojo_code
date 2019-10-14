@@ -63,7 +63,11 @@ Class FSIterator
 		  end if
 		  
 		  
-		  #if targetMacOS
+		  #If targetMacOS
+		    
+		    // probably nonfunctional since 2019r2 due to removal of folderitem.MacFSRef
+		    
+		    
 		    soft declare function FSCatalogSearch lib CarbonLib (iterator as Ptr, ByRef searchCriteria as FSSearchParams, maximumObjects as UInt32, ByRef actualObjects as UInt32, ByRef containerChanged as Boolean, whichInfo as Uint32, catalogInfos as Ptr, refs as Ptr, specs as Ptr, names as Ptr) as Int16
 		    
 		    dim iterator as new FSIterator(f, FSIterator.kFSIterateFlat)
@@ -81,7 +85,7 @@ Class FSIterator
 		    //add parent dir criterion
 		    
 		    dim searchInfo1 as new MemoryBlock(FSCatalogInfo.Size)
-		    searchInfo1.UInt32Value(4) = f.MacDirID
+		    'searchInfo1.UInt32Value(4) = f.MacDirID
 		    searchInfo1.Long(80) = FileManager.kIsInvisible
 		    
 		    criteria.searchInfo1 = searchInfo1
@@ -133,6 +137,7 @@ Class FSIterator
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -140,18 +145,23 @@ Class FSIterator
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -159,6 +169,7 @@ Class FSIterator
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
