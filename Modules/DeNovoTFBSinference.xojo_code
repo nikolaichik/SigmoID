@@ -58,8 +58,13 @@ Protected Module DeNovoTFBSinference
 		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+str(inFile.ShellPath)
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" "+globals.chipset.iterLimit+" "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  cli=cli+" > "+str(outfile.ShellPath)+"_outputchipmunk"
-		  LogoWin.WriteToSTDOUT (EndofLine.unix+"Running ChipMunk...")
-		  sh.execute cli
+		  LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running ChipMunk...")
+		  'assume bash is the normal user shell
+		  'execute bash with login scripts to set the same env as in terminal
+		  'command must be in single quotes
+		  
+		  sh.execute ("bash --login -c '"+cli+"'")
+		  
 		  If sh.errorCode=0 then
 		    return sh.errorCode
 		  else
@@ -580,11 +585,18 @@ Protected Module DeNovoTFBSinference
 		      Return ""
 		    else
 		      'cli= "python "+uniprot2genpept.ShellPath+" '"+ecodes+"' | grep -o -Pe '\S*(?=\.)' - | paste -s -d, -" 'convert UniprotKB IDs to Genpept IDs and replace end of line with comma 
-		      cli= "python "+uniprot2genpept.ShellPath+" '"+ecodes+"'"
+		      cli= pythonpath+uniprot2genpept.ShellPath+" '"+ecodes+"'"
+		      
+		      
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      Sh.Execute cli
+		      'assume bash is the normal user shell
+		      'execute bash with login scripts to set the same env as in terminal
+		      'command must be in single quotes
+		      
+		      sh.execute ("bash --login -c '"+cli+"'")
+		      
 		      if sh.ErrorCode<>0 then
 		        logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
 		      else
@@ -741,8 +753,14 @@ Protected Module DeNovoTFBSinference
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    cli=pythonpath+getprot.ShellPath+" "+"'"+tempID+"'"
-		    sh.execute cli
+		    cli=pythonpath+getprot.ShellPath+" "+"'"+tempID+"'"+" 'nikolaichik@bsu.by'"
+		    
+		    'assume bash is the normal user shell
+		    'execute bash with login scripts to set the same env as in terminal
+		    'command must be in single quotes
+		    
+		    sh.execute ("bash --login -c '"+cli+"'")
+		    
 		    If sh.errorCode=0 then
 		      entry=sh.Result
 		    else
@@ -2857,13 +2875,17 @@ Protected Module DeNovoTFBSinference
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="CDSseqs"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DevInfo"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -2873,6 +2895,7 @@ Protected Module DeNovoTFBSinference
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -2880,23 +2903,31 @@ Protected Module DeNovoTFBSinference
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="singleCodeTags"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -2904,6 +2935,7 @@ Protected Module DeNovoTFBSinference
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

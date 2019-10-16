@@ -32,7 +32,6 @@ Begin Window GenomeWin
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   "True"
       Height          =   176
       HelpTag         =   ""
       Index           =   -2147483648
@@ -54,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -80,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -115,7 +112,6 @@ Begin Window GenomeWin
       Top             =   0
       Transparent     =   True
       Underline       =   False
-      Value           =   "False"
       Visible         =   True
       Width           =   390
    End
@@ -165,7 +161,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -178,7 +173,6 @@ Begin Window GenomeWin
       Backdrop        =   0
       DoubleBuffer    =   True
       Enabled         =   True
-      EraseBackground =   "False"
       Height          =   132
       HelpTag         =   ""
       Index           =   -2147483648
@@ -207,7 +201,6 @@ Begin Window GenomeWin
       DoubleBuffer    =   True
       Enabled         =   True
       EnableTabReordering=   False
-      EraseBackground =   "False"
       Facing          =   3
       Height          =   392
       HelpTag         =   ""
@@ -248,7 +241,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Transparent     =   True
       Value           =   2
@@ -361,7 +353,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -374,7 +365,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -395,7 +385,6 @@ Begin Window GenomeWin
       DoubleBuffer    =   False
       DoubleValue     =   0.0
       Enabled         =   True
-      EraseBackground =   "False"
       FloatValue      =   0.0
       FocusRing       =   True
       Height          =   24
@@ -478,7 +467,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -515,7 +503,6 @@ Begin Window GenomeWin
       Backdrop        =   0
       DoubleBuffer    =   True
       Enabled         =   True
-      EraseBackground =   "False"
       Height          =   4
       HelpTag         =   ""
       Index           =   -2147483648
@@ -541,7 +528,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -965,11 +951,11 @@ End
 		Function EditCopy() As Boolean Handles EditCopy.Action
 			' Copies protein sequence if a CDS is selected, otherwise copies DNA seq
 			
-			if AnythingSelected then
-			if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
+			If AnythingSelected Then
+			If SelFeatureNo<=Ubound(seq.features) Then 'workaround for scrolling problem
 			if SelFeatureNo>0 then
 			if seq.Features(SelFeatureNo).type="CDS" then
-			CopyAA
+			CopyAA(false)
 			else
 			CopyDNA
 			end if
@@ -991,7 +977,7 @@ End
 
 	#tag MenuHandler
 		Function EditCopyTranslation() As Boolean Handles EditCopyTranslation.Action
-			CopyAA
+			CopyAA(false)
 		End Function
 	#tag EndMenuHandler
 
@@ -1934,12 +1920,25 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub CopyAA()
+		Sub CopyAA(FromContextualMenu as boolean)
 		  Dim C as  Clipboard
-		  C=new Clipboard
+		  C=New Clipboard
 		  
-		  if SelProtTranslation<>"" then
-		    'use translation from feature table is available
+		  Dim FtNo As Integer
+		  
+		  If FromContextualMenu Then
+		    FtNo=ContextFeature
+		  Else
+		    FtNo=selFeatureNo
+		  End If
+		  
+		  If seq.Features(FtNo).type="CDS" Then
+		    'extract translation from feature table if present
+		    '(takes care of frameshifts)
+		    SelProtTranslation=NthField(seq.Features(FtNo).FeatureText,"/translation="+Chr(34),2)
+		    SelProtTranslation=NthField(SelProtTranslation,Chr(34),1)
+		    SelProtTranslation=ReplaceAll(SelProtTranslation,EndOfLine.unix,"")
+		    
 		    c.Text=SelProtTranslation
 		  else
 		    
@@ -4602,7 +4601,11 @@ End
 
 	#tag Method, Flags = &h0
 		Sub SearchAction()
-		  dim n as integer
+		  Dim n As Integer
+		  
+		  
+		  // Switch focus from Search field to the map:
+		  MapCanvas.SetFocus
 		  
 		  SearchPosition=0
 		  
@@ -6243,7 +6246,7 @@ End
 		      base.Append mItem(kCopyProtein)
 		      'extract translation from feature table if present
 		      '(takes care of frameshifts)
-		      SelProtTranslation=nthfield(seq.Features(ContextFeature).FeatureText,"/translation="+Chr(34),2)
+		      SelProtTranslation=NthField(seq.Features(ContextFeature).FeatureText,"/translation="+Chr(34),2)
 		      SelProtTranslation=nthfield(SelProtTranslation,chr(34),1)
 		      SelProtTranslation=ReplaceAll(SelProtTranslation,EndOfLine.unix,"")
 		    else
@@ -6321,7 +6324,7 @@ End
 		  'ToolTip.hide
 		  select case hititem.text
 		  case kCopyProtein
-		    CopyAA
+		    CopyAA(true)
 		  case kCopyDNA
 		    CopyDNA
 		  case kEditFeature
@@ -6353,7 +6356,9 @@ End
 		    MapScrollUpdate 'apply change
 		  case kSetPlotScaleMax
 		    PlotScaleMaxWin.show
-		  end
+		  End
+		  
+		  ContextFeature=0
 		End Function
 	#tag EndEvent
 	#tag Event
