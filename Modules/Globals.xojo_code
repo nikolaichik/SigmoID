@@ -2866,7 +2866,7 @@ Protected Module Globals
 		  'Evidence confidence level added in version 9
 		  
 		  dim tis as TextInputStream
-		  dim tos as TextOutputStream
+		  Dim tos As TextOutputStream
 		  dim BSarr() as string
 		  dim tab as string = chr(9)
 		  dim aline, tline as string

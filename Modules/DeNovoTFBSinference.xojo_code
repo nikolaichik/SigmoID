@@ -55,9 +55,9 @@ Protected Module DeNovoTFBSinference
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  if outfile.Exists then outfile.Delete
-		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+str(inFile.ShellPath)
-		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" "+globals.chipset.iterLimit+" "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
-		  cli=cli+" > "+str(outfile.ShellPath)+"_outputchipmunk"
+		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+Str(inFile.ShellPath)
+		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
+		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputchipmunk"
 		  LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running ChipMunk...")
 		  'assume bash is the normal user shell
 		  'execute bash with login scripts to set the same env as in terminal
@@ -65,7 +65,13 @@ Protected Module DeNovoTFBSinference
 		  
 		  sh.execute ("bash --login -c '"+cli+"'")
 		  
-		  If sh.errorCode=0 then
+		  If sh.errorCode=0 Then
+		    Dim tos As TextOutputStream
+		    tos = TextOutputStream.Create(outFile)
+		    If tos=Nil Then Return 1
+		    tos.writeline(cli)
+		    tos.Write(sh.result)
+		    
 		    return sh.errorCode
 		  else
 		    LogoWin.WriteToSTDOUT ("ChipMunk error code: "+Str(sh.errorCode))

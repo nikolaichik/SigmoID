@@ -723,24 +723,61 @@ Inherits Application
 		  openF.Title="Open alignment"
 		  'openF.Filter=FileTypes.Text
 		  f = openF.ShowModal
-		  if f <>Nil then
+		  If f <>Nil Then
 		    tis = TextInputStream.Open(f)
 		    chipMout=tis.ReadAll
 		    tis.Close
 		  end if
 		  
-		  openF = new OpenDialog
-		  openF.Title="Open fasta file"
-		  openF.promptText="Select file with sequences used as ChipMunk input"
-		  openF.Filter=FileTypes.Fasta
-		  f = openF.ShowModal
-		  if f <>Nil then
-		    tis = TextInputStream.Open(f)
+		  // Try to find ChipMunk input from the command stored in the result file
+		  ' the filename should go after ' s:' and can include full path
+		  Dim chipMfileName As String
+		  Dim chipMfile As folderitem
+		  Dim dataSet As String
+		  
+		  If InStr(chipMout, " s:")>0 Then
+		    dataSet=" s:"                     'simple multi-fasta
+		  Elseif InStr(chipMout, " w:")>0 Then
+		    dataSet=" w:"                     'weighted data set
+		  Elseif InStr(chipMout, " p:")>0 Then
+		    dataSet=" p:"                     'peak data with the positional preferences profile
+		  Elseif InStr(chipMout, " m:")>0 Then
+		    dataSet=" m:"                     'peak summit mode
+		  Else
+		    MsgBox "Can't guess dataset format."
+		    Exit                              'smth wrong with the file!
+		  End If
+		  
+		  chipMfileName=NthField(chipMout, dataSet, 2)
+		  chipMfileName=ReplaceAll(chipMfileName, "\ ", "\\\") 'mask escaped spaces in filename
+		  chipMfileName=NthField(chipMfileName, " ",1)
+		  
+		  If InStr(chipMfileName, "/")>0 Then 'hopefully full path
+		    chipMfileName=ReplaceAll(chipMfileName, "\\\", "\ ") 'restore escaped path
+		    chipMfile=GetFolderItem(chipMfileName,FolderItem.PathTypeShell)
+		  Else 'filename only
+		    'assume input file is in the same dir as output
+		    chipMfileName=ReplaceAll(chipMfileName, "\\\", " ") 'restore spaces in filename
+		    If f <>Nil Then
+		      chipMfile=f.Parent.child(chipMfileName)
+		    End If
+		  End If
+		  
+		  If chipMfile=Nil Or (chipMfile<>Nil And (Not chipMfile.Exists)) Then
+		    openF = New OpenDialog
+		    openF.Title="Open fasta file"
+		    openF.promptText="Select file with sequences used as ChipMunk input"
+		    openF.Filter=FileTypes.Fasta
+		    chipMfile = openF.ShowModal
+		  End If
+		  
+		  If chipMfile <>Nil Then
+		    tis = TextInputStream.Open(chipMfile)
 		    fasta=tis.ReadAll
 		    tis.Close
-		  end if
-		  rg.SearchPattern="^\>.*"
-		  rgm=rg.Search(fasta)
+		    rg.SearchPattern="^\>.*"
+		    rgm=rg.Search(fasta)
+		  End If
 		  
 		  do
 		    if rgm<>nil then
@@ -748,8 +785,6 @@ Inherits Application
 		    end if
 		    rgm=rg.search
 		  loop until rgm=nil
-		  
-		  
 		  
 		  motifs=chipMout.Split("MOTF|")
 		  w = new ChipMLogo
@@ -823,7 +858,11 @@ Inherits Application
 		  w.Visible=True
 		  
 		  Exception err
-		    ExceptionHandler(err,"App:ChipMdata2Logo")
+		    If err IsA OutOfBoundsException Then
+		      MsgBox "Can't match original sequence names with ChipMunk motif numbers.  Please make sure the correct input file exists in the location specified in the ChipMunk result file you are trying to open."
+		    Else
+		      ExceptionHandler(err,"App:ChipMdata2Logo")
+		    End If
 		    
 		End Sub
 	#tag EndMethod

@@ -8,7 +8,7 @@ Begin Window ChipMLogo
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   406
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,7 +24,7 @@ Begin Window ChipMLogo
    Resizeable      =   True
    Title           =   "Motifs logo"
    Visible         =   False
-   Width           =   600
+   Width           =   714
    Begin Listbox Listbox1
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -43,7 +43,7 @@ Begin Window ChipMLogo
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   356
+      Height          =   362
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -73,7 +73,7 @@ Begin Window ChipMLogo
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   600
+      Width           =   714
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -90,7 +90,7 @@ Begin Window ChipMLogo
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   450
+      Left            =   564
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -103,7 +103,7 @@ Begin Window ChipMLogo
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   360
+      Top             =   366
       Transparent     =   True
       Underline       =   False
       Visible         =   True
@@ -122,7 +122,7 @@ Begin Window ChipMLogo
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   281
+      Left            =   395
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -135,7 +135,7 @@ Begin Window ChipMLogo
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   360
+      Top             =   366
       Transparent     =   False
       Underline       =   False
       Visible         =   True

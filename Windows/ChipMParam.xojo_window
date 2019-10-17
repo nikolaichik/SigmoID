@@ -8,7 +8,7 @@ Begin Window ChipMParam
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   440
+   Height          =   282
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -48,19 +48,19 @@ Begin Window ChipMParam
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Motif length estimaiton in format: start_length1:stop_lenth1,..,start_lengthN:stop_lengthN"
+      Text            =   "Motif length:"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   41
+      Top             =   21
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   508
+      Width           =   100
    End
-   Begin TextField TextField1
+   Begin TextField MotifLengthField
       AcceptTabs      =   False
       Alignment       =   0
       AutoDeactivate  =   True
@@ -74,10 +74,10 @@ Begin Window ChipMParam
       Enabled         =   True
       Format          =   ""
       Height          =   27
-      HelpTag         =   ""
+      HelpTag         =   "format: start_length1:stop_lenth1,..,start_lengthN:stop_lengthN"
       Index           =   -2147483648
       Italic          =   False
-      Left            =   34
+      Left            =   146
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -91,12 +91,12 @@ Begin Window ChipMParam
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      Text            =   "16:23,22:17,18:21"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   73
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -114,7 +114,7 @@ Begin Window ChipMParam
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   31
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -126,13 +126,13 @@ Begin Window ChipMParam
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Mode: mask|filter|dummy"
+      Text            =   "Mode"
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   128
+      Top             =   59
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -150,7 +150,7 @@ Begin Window ChipMParam
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   159
+      Left            =   146
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -164,7 +164,7 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   126
+      Top             =   53
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -187,7 +187,7 @@ Begin Window ChipMParam
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   159
+      Left            =   146
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -201,12 +201,12 @@ Begin Window ChipMParam
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      Text            =   "200"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   173
+      Top             =   93
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -230,7 +230,7 @@ Begin Window ChipMParam
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   159
+      Left            =   146
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -244,55 +244,12 @@ Begin Window ChipMParam
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      Text            =   "20"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   212
-      Transparent     =   False
-      Underline       =   False
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   80
-   End
-   Begin TextField TextField4
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
-      Bold            =   False
-      Border          =   True
-      CueText         =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   27
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   159
-      LimitText       =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   251
+      Top             =   131
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -316,7 +273,7 @@ Begin Window ChipMParam
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   159
+      Left            =   146
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -330,12 +287,12 @@ Begin Window ChipMParam
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      Text            =   "2"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   290
+      Top             =   169
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -354,7 +311,7 @@ Begin Window ChipMParam
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   159
+      Left            =   146
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -368,7 +325,7 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   322
+      Top             =   202
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -386,7 +343,7 @@ Begin Window ChipMParam
       InitialParent   =   ""
       InitialValue    =   ""
       Italic          =   False
-      Left            =   159
+      Left            =   146
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -400,7 +357,7 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   362
+      Top             =   234
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -417,7 +374,7 @@ Begin Window ChipMParam
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   31
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -435,7 +392,7 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   173
+      Top             =   94
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -452,7 +409,7 @@ Begin Window ChipMParam
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   31
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -470,42 +427,7 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   214
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   100
-   End
-   Begin Label Label6
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   31
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   14
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "iter_limit"
-      TextAlign       =   0
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   251
+      Top             =   132
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -522,7 +444,7 @@ Begin Window ChipMParam
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   31
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -540,7 +462,7 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   292
+      Top             =   170
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -557,7 +479,7 @@ Begin Window ChipMParam
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   31
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -575,7 +497,7 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   324
+      Top             =   208
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -592,7 +514,7 @@ Begin Window ChipMParam
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   31
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -610,7 +532,7 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   364
+      Top             =   242
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -629,7 +551,7 @@ Begin Window ChipMParam
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   349
+      Left            =   414
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -642,19 +564,58 @@ Begin Window ChipMParam
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   402
+      Top             =   239
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   115
    End
+   Begin PushButton CancelButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   True
+      Caption         =   "Cancel"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   322
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      MacButtonStyle  =   "0"
+      Scope           =   0
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   240
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Note, Name = Defaults
+		
+		Defaults are set as default values of ChipMSettings class properties. 
+		So any changes to setiings displayed by default in this window must be duplicated in the ChipMSettings class
+	#tag EndNote
+
+
 #tag EndWindowCode
 
-#tag Events TextField1
+#tag Events MotifLengthField
 	#tag Event
 		Sub TextChange()
 		  globals.chipset.motifLength=Trim(me.Text)
@@ -669,9 +630,13 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  me.AddRow("mask")
+		  Me.AddRow("mask")
 		  me.AddRow("filter")
-		  me.AddRow("dummy")
+		  Me.AddRow("dummy")
+		  
+		  Me.SelectedRowIndex=0
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -686,13 +651,6 @@ End
 	#tag Event
 		Sub TextChange()
 		  globals.chipset.stepLimit=Trim(me.Text)
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events TextField4
-	#tag Event
-		Sub TextChange()
-		  globals.chipset.iterLimit=Trim(me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -711,9 +669,12 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  me.AddRow("uniform")
+		  Me.AddRow("uniform")
 		  me.AddRow("auto")
-		  me.AddRow("local")
+		  Me.AddRow("local")
+		  
+		  Me.SelectedRowIndex=0
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -725,25 +686,34 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  me.AddRow("flat")
+		  Me.AddRow("flat")
 		  me.AddRow("single")
-		  me.AddRow("double")
+		  Me.AddRow("double")
 		  
+		  Me.SelectedRowIndex=2
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events actionButton
 	#tag Event
 		Sub Action()
-		  if globals.chipset <> nil then
-		    if globals.chipset.gcPercent<>"" and globals.chipset.motifLength<>"" and globals.chipset.mode<>"" and globals.chipset.motifShape<>"" and globals.chipset.jarPath <>"" and globals.chipset.iterLimit<>"" and globals.chipset.tryLimit<>"" and globals.chipset.threadCount<>"" then
+		  If globals.chipset <> Nil Then
+		    
+		    if globals.chipset.gcPercent<>"" and globals.chipset.motifLength<>"" and globals.chipset.mode<>"" and globals.chipset.motifShape<>"" and globals.chipset.jarPath <>"" and globals.chipset.tryLimit<>"" and globals.chipset.threadCount<>"" then
 		      if me.Caption="Save settings" then
 		        self.Close
 		      else
 		        dim errcode as Integer
-		        dim dlg as new SaveAsDialog
+		        Dim dlg As New SaveAsDialog
 		        dim outf,infile as FolderItem
-		        MsgBox("Set output file location ")
+		        
+		        dlg.SuggestedFileName = "result.chipMunk"
+		        dlg.ActionButtonCaption = kSave
+		        dlg.Title = "Set output file location"
+		        dlg.promptText="Where to save ChipMunk results?" 
+		        dlg.CancelButtonCaption=kCancel
+		        
+		        
 		        outf=dlg.ShowModal
 		        errcode=DeNovoTFBSinference.ChipMunk(LogoWin.LogoFile, outf)
 		      end
@@ -752,7 +722,15 @@ End
 		    end
 		  end
 		  
+		  self.hide
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CancelButton
+	#tag Event
+		Sub Pressed()
+		  self.close
 		End Sub
 	#tag EndEvent
 #tag EndEvents
