@@ -4259,153 +4259,112 @@ Protected Module Globals
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="alimaskpath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="API_Key"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="attenuatorColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BLASTnDB"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BLASTorganism"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BLASTpDB"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CDScolour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="cLineEnd"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CodonList"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CPUcores"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CR"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CRtagPositions"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FixedFont"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="GBrowseShift"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="gCodeNo"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="geneColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="highlightColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="hmmBuildPath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="hmmSearchSettings"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -4415,7 +4374,6 @@ Protected Module Globals
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -4423,293 +4381,213 @@ Protected Module Globals
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LengthsDiffer"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LF"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LineEnd"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LoadPlainResult"
-			Visible=false
 			Group="Behavior"
 			InitialValue="true"
 			Type="boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MASTpath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MASTVersion"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="maxLen"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MEMEpath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MeshClustPath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="minLen"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="mobile_elementColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ncRNAcolour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="nhmmerPath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="nhmmerVersion"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="operonColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ORFMinLength"
-			Visible=false
 			Group="Behavior"
 			InitialValue="50"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ORFStarts"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="otherColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PathsChanged"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ProfileFpath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ProfileWizardLocked"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="promoterColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ProportionalFont"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ProportionalFontSize"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="protein_bindColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="pythonPath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="repeat_regionColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="riboswitchColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="rRNAcolour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="sig_peptideColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="Color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="terminatorColour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="tfastxPath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ThreadCount"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TomTomPath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -4719,29 +4597,22 @@ Protected Module Globals
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="tRNAcolour"
-			Visible=false
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TTlibString"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WebLogoPath"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
