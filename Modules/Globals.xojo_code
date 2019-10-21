@@ -2647,7 +2647,8 @@ Protected Module Globals
 		  SettingsWin.MEMEPathField.text=MEMEpath
 		  SettingsWin.MASTPathField.text=MASTpath
 		  SettingsWin.TomTomPathField.text=TomTomPath
-		  SettingsWin.APIKeyField.text=API_Key
+		  SettingsWin.APIKeyField.Text=API_Key
+		  SettingsWin.ChipMunkPathField.Text=Globals.chipset.jarPath
 		  
 		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")

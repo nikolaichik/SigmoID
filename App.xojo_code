@@ -708,13 +708,13 @@ Inherits Application
 		  Dim f As FolderItem
 		  Dim openF As OpenDialog
 		  dim tis as TextInputStream
-		  dim fasta, chipMout as string
+		  Dim fasta, chipMout, winTitle As String
 		  dim seqid,fastaid(), motifs(),anrsites() as string
 		  dim rg  as new RegEx
 		  dim rgm as RegExMatch
 		  dim s as Site
 		  dim m as Motif
-		  dim w as ChipMLogo
+		  Dim w As ChipMLogo
 		  dim snum as integer
 		  
 		  openF = new OpenDialog
@@ -727,6 +727,7 @@ Inherits Application
 		    tis = TextInputStream.Open(f)
 		    chipMout=tis.ReadAll
 		    tis.Close
+		    winTitle=f.DisplayName
 		  end if
 		  
 		  // Try to find ChipMunk input from the command stored in the result file
@@ -855,6 +856,7 @@ Inherits Application
 		    //append ANR motif
 		  next
 		  w.populateListbox
+		  w.Title="Motif Logos for " + winTitle
 		  w.Visible=True
 		  
 		  Exception err
