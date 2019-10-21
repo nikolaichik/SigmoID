@@ -716,13 +716,16 @@ Inherits Application
 		  dim m as Motif
 		  Dim w As ChipMLogo
 		  dim snum as integer
-		  
-		  openF = new OpenDialog
-		  openF.Title="Open ChipMunk result"
-		  openF.promptText="Select file with ChipMunk output"
-		  openF.Title="Open alignment"
-		  'openF.Filter=FileTypes.Text
-		  f = openF.ShowModal
+		  if ChipMLogo.inputFasta= Nil and ChipMLogo.chipmOutput=Nil then
+		    openF = new OpenDialog
+		    openF.Title="Open ChipMunk result"
+		    openF.promptText="Select file with ChipMunk output"
+		    openF.Title="Open alignment"
+		    'openF.Filter=FileTypes.Text
+		    f = openF.ShowModal
+		  else
+		    f=ChipMLogo.chipmOutput
+		  end
 		  If f <>Nil Then
 		    tis = TextInputStream.Open(f)
 		    chipMout=tis.ReadAll
@@ -765,11 +768,15 @@ Inherits Application
 		  End If
 		  
 		  If chipMfile=Nil Or (chipMfile<>Nil And (Not chipMfile.Exists)) Then
-		    openF = New OpenDialog
-		    openF.Title="Open fasta file"
-		    openF.promptText="Select file with sequences used as ChipMunk input"
-		    openF.Filter=FileTypes.Fasta
-		    chipMfile = openF.ShowModal
+		    if ChipMLogo.inputFasta= Nil and ChipMLogo.chipmOutput=Nil then
+		      openF = New OpenDialog
+		      openF.Title="Open fasta file"
+		      openF.promptText="Select file with sequences used as ChipMunk input"
+		      openF.Filter=FileTypes.Fasta
+		      chipMfile = openF.ShowModal
+		    else
+		      chipMfile=ChipMLogo.inputFasta
+		    end
 		  End If
 		  
 		  If chipMfile <>Nil Then
@@ -858,6 +865,8 @@ Inherits Application
 		  w.populateListbox
 		  w.Title="Motif Logos for " + winTitle
 		  w.Visible=True
+		  ChipMLogo.inputFasta=nil
+		  ChipMLogo.chipmOutput=nil
 		  
 		  Exception err
 		    If err IsA OutOfBoundsException Then
@@ -1231,17 +1240,13 @@ Inherits Application
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="FormattedSequence"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="gbkSource"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
