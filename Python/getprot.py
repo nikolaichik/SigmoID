@@ -8,17 +8,26 @@ parser.add_argument('uniprotAcc')
 parser.add_argument('email')
 args=parser.parse_args()
 Entrez.email = args.email
-def fetch_data(args):
-   handle = Entrez.efetch(db="protein", id=args.uniprotAcc, rettype="gb", retmode="text")
-   data=handle.read()
-   handle.close()
-   if data.find("HTTP Error")>-1 and attemps<=3:
-       attemps=attemps+1
-       time.sleep(15)
-       print(fetch_data(args))
-   else:
-       print(data)
-fetch_data(args)
+attempts = 0
+ids=args.uniprotAcc
+def fetch_data(ids):
+   global attempts
+   time.sleep(1)
+   try:
+        handle = Entrez.efetch(db='protein', id=ids, rettype='gp', retmode='text')
+        data=handle.read()
+        handle.close()
+        attempts=0
+        print(data)
+   except:
+       if attempts<=2:
+           attempts+=1
+           time.sleep(5)
+           fetch_data(ids)
+       else:
+           print('Error retrieving: '+ ids)
+
+fetch_data(ids)
     
 
 

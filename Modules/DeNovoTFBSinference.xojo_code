@@ -767,9 +767,25 @@ Protected Module DeNovoTFBSinference
 		    
 		    sh.execute ("bash --login -c '"+cli+"'")
 		    
-		    If sh.errorCode=0 then
+		    If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
 		      entry=sh.Result
-		    else
+		    Elseif  instr(tempID,",")<>0 and instr(sh.result, "Error retrieving: ") <>0 then
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      LogoWin.WriteToSTDOUT(EndOfLine.Unix+"A try to retrieve a batch of identificators has resulted in error. So process it sequently."+EndOfLine.UNIX)
+		      
+		      dim tempIDs() as String = tempID.Split(",")
+		      for id as Integer = 0 to UBound(tempIDs)
+		        cli=pythonpath+getprot.ShellPath+" "+"'"+tempIDs(id)+"'"+" 'nikolaichik@bsu.by'"
+		        sh.execute ("bash --login -c '"+cli+"'")
+		        If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
+		          entry=entry+sh.Result
+		        else
+		          LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
+		        end
+		      next
+		    Else 
 		      LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
 		      return ""
 		    end if
