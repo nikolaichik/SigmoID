@@ -266,25 +266,19 @@ Inherits CFType
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="AllowsCopying"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowsPrinting"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -294,23 +288,18 @@ Inherits CFType
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsEncrypted"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsUnlocked"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -318,47 +307,36 @@ Inherits CFType
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MajorVersion"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MinorVersion"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PageCount"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -366,7 +344,6 @@ Inherits CFType
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

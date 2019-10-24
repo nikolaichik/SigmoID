@@ -2,40 +2,28 @@
 Begin Window ChipMParam
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
-   BackgroundColor =   &cFFFFFF00
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   False
-   DefaultLocation =   "0"
    Frame           =   0
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   HasBackgroundColor=   False
-   HasCloseButton  =   True
-   HasFullScreenButton=   False
-   HasMaximizeButton=   True
-   HasMinimizeButton=   True
    Height          =   282
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
-   MaximumHeight   =   32000
-   MaximumWidth    =   32000
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
-   MinimumHeight   =   64
-   MinimumWidth    =   64
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
    Title           =   "ChipMunk settings"
-   Type            =   "0"
    Visible         =   True
    Width           =   538
    Begin Label Label1
@@ -78,7 +66,7 @@ Begin Window ChipMParam
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -110,7 +98,7 @@ Begin Window ChipMParam
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   20
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -178,7 +166,7 @@ Begin Window ChipMParam
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   53
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -188,7 +176,7 @@ Begin Window ChipMParam
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -220,7 +208,7 @@ Begin Window ChipMParam
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   93
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -231,7 +219,7 @@ Begin Window ChipMParam
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -263,7 +251,7 @@ Begin Window ChipMParam
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   131
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -274,7 +262,7 @@ Begin Window ChipMParam
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -306,7 +294,7 @@ Begin Window ChipMParam
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   169
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -339,7 +327,7 @@ Begin Window ChipMParam
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   202
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -371,7 +359,7 @@ Begin Window ChipMParam
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   234
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -578,13 +566,13 @@ Begin Window ChipMParam
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   239
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   115
    End
    Begin PushButton CancelButton
-      AllowAutoDeactivate=   True
+      AllowAutoDeactivate=   "True"
       AutoDeactivate  =   True
       Bold            =   False
       ButtonStyle     =   "0"
@@ -593,8 +581,8 @@ Begin Window ChipMParam
       Default         =   False
       Enabled         =   True
       FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
+      FontSize        =   "0.0"
+      FontUnit        =   "0"
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
@@ -616,7 +604,7 @@ Begin Window ChipMParam
       TextUnit        =   0
       Tooltip         =   ""
       Top             =   240
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -719,7 +707,7 @@ End
 		  If globals.chipset <> Nil Then
 		    
 		    if globals.chipset.gcPercent<>"" and globals.chipset.motifLength<>"" and globals.chipset.mode<>"" and globals.chipset.motifShape<>"" and globals.chipset.tryLimit<>""_
-		       and globals.chipset.threadCount<>"" then
+		      and globals.chipset.threadCount<>"" then
 		      if globals.chipset.jarPath <>"" then
 		        if me.Caption="Save settings" then
 		          self.Close

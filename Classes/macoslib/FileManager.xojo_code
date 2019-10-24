@@ -808,7 +808,6 @@ Module FileManager
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -816,23 +815,18 @@ Module FileManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -840,7 +834,6 @@ Module FileManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

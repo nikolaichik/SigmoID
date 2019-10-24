@@ -21,7 +21,7 @@ Inherits TCPSocket
 	#tag EndEvent
 
 	#tag Event
-		Sub Error(err As RuntimeException)
+		Sub Error()
 		  #if TargetMacOS
 		    if mCFSock <> nil then
 		      mCFSock.Close()
@@ -109,25 +109,21 @@ Inherits TCPSocket
 			Name="Address"
 			Visible=true
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="Integer"
-			EditorType=""
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Port"
@@ -135,15 +131,13 @@ Inherits TCPSocket
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="String"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -4342,6 +4342,12 @@ Protected Module Globals
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="email"
+			Group="Behavior"
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="FixedFont"
 			Group="Behavior"
 			Type="string"
@@ -4556,6 +4562,12 @@ Protected Module Globals
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="requestCount"
+			Group="Behavior"
+			InitialValue="100"
+			Type="integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="riboswitchColour"

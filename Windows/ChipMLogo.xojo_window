@@ -2,40 +2,28 @@
 Begin Window ChipMLogo
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
-   BackgroundColor =   &cFFFFFF00
    CloseButton     =   True
    Compatibility   =   ""
    Composite       =   False
-   DefaultLocation =   "0"
    Frame           =   0
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   HasBackgroundColor=   False
-   HasCloseButton  =   True
-   HasFullScreenButton=   False
-   HasMaximizeButton=   True
-   HasMinimizeButton=   True
    Height          =   406
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
-   MaximumHeight   =   32000
-   MaximumWidth    =   32000
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
-   MinimumHeight   =   64
-   MinimumWidth    =   64
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
    Title           =   "Motifs logo"
-   Type            =   "0"
    Visible         =   False
    Width           =   714
    Begin Listbox Listbox1
@@ -43,7 +31,7 @@ Begin Window ChipMLogo
       AutoHideScrollbars=   True
       Bold            =   False
       Border          =   True
-      ColumnCount     =   6
+      ColumnCount     =   7
       ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
@@ -74,7 +62,6 @@ Begin Window ChipMLogo
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
-      ShowDropIndicator=   False
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
@@ -82,7 +69,6 @@ Begin Window ChipMLogo
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -117,7 +103,6 @@ Begin Window ChipMLogo
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   366
-      Transparent     =   True
       Underline       =   False
       Visible         =   True
       Width           =   130
@@ -149,7 +134,6 @@ Begin Window ChipMLogo
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   366
-      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   141
@@ -177,16 +161,16 @@ End
 
 	#tag Method, Flags = &h0
 		Function filterSitesVal(val as double, row as integer) As string
-		  dim m as Motif=me.Listbox1.CellTag(row, 4)
+		  dim m as Motif=me.Listbox1.CellTag(row, 5)
 		  dim fasta as string
+		  dim seqCount as integer=0
 		  for each s as Site in m.Sites
-		    fasta=""
-		    for i as integer = 0 to Ubound(m.Sites)
-		      if m.Sites(i).qualValue>=val then
-		        fasta=fasta+str(m.Sites(i).id)+" "+str(m.Sites(i).qualValue)+" "+m.Sites(i).strand+EndOfLine.UNIX+m.Sites(i).seq+EndOfLine.UNIX
-		      end
-		    next
+		    if s.qualValue>=val then
+		      fasta=fasta+str(s.id)+" "+str(s.qualValue)+" "+s.strand+EndOfLine.UNIX+s.seq+EndOfLine.UNIX
+		      seqCount=seqCount+1
+		    end
 		  next
+		  self.Listbox1.Cell(row, 3)=str(seqCount)
 		  return fasta
 		  
 		End Function
@@ -205,9 +189,10 @@ End
 		    me.Listbox1.Cell(me.Listbox1.LastIndex,0)="Motif #"+str(m.number)+" "+m.type
 		    me.Listbox1.Cell(me.Listbox1.LastIndex,1)=m.valrange
 		    me.Listbox1.Cell(me.Listbox1.LastIndex,2)="input value here"
+		    me.Listbox1.Cell(me.Listbox1.LastIndex,3)=str(UBound(m.Sites)+1)
 		    me.Listbox1.RowTag(me.Listbox1.LastIndex)=p
-		    me.Listbox1.CellTag(me.Listbox1.LastIndex,4)=m
-		    me.Listbox1.CellTag(me.Listbox1.LastIndex,5)=fasta
+		    me.Listbox1.CellTag(me.Listbox1.LastIndex,5)=m
+		    me.Listbox1.CellTag(me.Listbox1.LastIndex,6)=fasta
 		  next
 		  
 		End Sub
@@ -237,14 +222,15 @@ End
 	#tag Event
 		Sub Open()
 		  'me.ColumnWidths="15%,20%,15%,200,0%,0%"
-		  Me.ColumnWidths="130,100,130,*,0,0"
+		  Me.ColumnWidths="130,100,130,40,*,0,0"
 		  
 		  Me.DefaultRowHeight=62  
 		  me.ColumnType(2)=Listbox.TypeEditable
 		  me.Heading(0)="#"
 		  me.Heading(1)="Value range"
 		  me.Heading(2)="define sites threshold"
-		  me.Heading(3)="Logo"
+		  me.Heading(3)="number of seq"
+		  me.Heading(4)="Logo"
 		  
 		End Sub
 	#tag EndEvent
@@ -252,7 +238,7 @@ End
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
 		  dim p as picture
 		  
-		  if Column=3 then
+		  if Column=4 then
 		    if row<=me.lastindex then
 		      p=me.rowtag(row)
 		      g.DrawPicture(p, 0, 0)  
@@ -273,7 +259,7 @@ End
 		    dim p as Picture = MakeLogoPic(filfasta)
 		    Self.Listbox1.RowTag(row)=p
 		    
-		    self.Listbox1.CellTag(row,5)=filfasta
+		    self.Listbox1.CellTag(row,6)=filfasta
 		  else
 		    MsgBox("Only numeric values are acceptable")
 		  end
@@ -307,7 +293,7 @@ End
 		  Try
 		    // TextOutputStream.Create raises an IOException if it can't open the file for some reason.
 		    Dim t As TextOutputStream = TextOutputStream.Create(ExportFolder)
-		    t.Write(ConvertEncoding(self.Listbox1.CellTag(self.row,5), Encodings.UTF8))
+		    t.Write(ConvertEncoding(self.Listbox1.CellTag(self.row,6), Encodings.UTF8))
 		    t.Close
 		  Catch e As IOException
 		    // handle
@@ -326,7 +312,7 @@ End
 		    if f.Exists then f.Delete
 		    dim outstream As TextOutputStream
 		    outstream = TextOutputStream.Create(f)
-		    outstream.Write(ConvertEncoding(self.Listbox1.CellTag(self.row,5), Encodings.UTF8))
+		    outstream.Write(ConvertEncoding(self.Listbox1.CellTag(self.row,6), Encodings.UTF8))
 		    outstream.Close
 		    LogoWin.LoadAlignment(f)
 		  else

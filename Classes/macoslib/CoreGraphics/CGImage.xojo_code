@@ -456,43 +456,33 @@ Inherits CFType
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="BitsPerComponent"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BitsPerPixel"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BytesPerRow"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Description"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -500,15 +490,12 @@ Inherits CFType
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsMask"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -516,23 +503,18 @@ Inherits CFType
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
-			InitialValue=""
 			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -540,15 +522,12 @@ Inherits CFType
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Width"
-			Visible=false
 			Group="Behavior"
 			InitialValue="0"
 			Type="Integer"
-			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
