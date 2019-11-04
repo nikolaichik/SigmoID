@@ -3023,6 +3023,7 @@ End
 		  Prefs.Value("ChipMunkPath")=ChipMunkPathField.Text
 		  Prefs.Value("email")=email.text
 		  Prefs.Value("requestCount")=requestCount.text
+		  Prefs.Value("TomTomPath")=TomTomPathField.Text
 		  
 		  
 		  if LoadPlainResult then
