@@ -572,7 +572,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  // GenBank files are saved to specified  folder
 		  
-		  // The limit of 300 sequences is hard-coded (should be an option)
+		  // The limit of requestCount sequences is hard-coded (should be an option)
 		  
 		  
 		  dim ResArray(0) as string
@@ -640,14 +640,14 @@ Protected Module DeNovoTFBSinference
 		    gbkcount=m
 		  end if
 		  
-		  z=m mod 300
+		  z=m mod requestCount
 		  
-		  if gbkcount>300 then
+		  if gbkcount>requestCount then
 		    'LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
-		    k=gbkcount\300
+		    k=gbkcount\requestCount
 		    for i=1 to k
-		      UniProtID=trim(NthField(eCodes,","+Resarray(300),1))
+		      UniProtID=trim(NthField(eCodes,","+Resarray(requestCount),1))
 		      SingleFasta=GetRegSeq(UniProtID,EntryFragmentsF)
 		      
 		      if SingleFasta<>"" then
@@ -657,7 +657,7 @@ Protected Module DeNovoTFBSinference
 		      end if
 		      'end if
 		      'LogoWin.WriteToSTDOUT(EndOfLine.unix)
-		      eCodes=NthField(eCodes,Resarray(299)+",",2)
+		      eCodes=NthField(eCodes,Resarray(requestCount-1)+",",2)
 		      ResArray=split(eCodes,",")
 		    next
 		    if z<>0 then
@@ -759,7 +759,7 @@ Protected Module DeNovoTFBSinference
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    cli=pythonpath+getprot.ShellPath+" "+"'"+tempID+"'"+" 'nikolaichik@bsu.by'"
+		    cli=pythonpath+getprot.ShellPath+" "+"'"+tempID+"'"+" '"+email+"'"
 		    
 		    'assume bash is the normal user shell
 		    'execute bash with login scripts to set the same env as in terminal

@@ -3,6 +3,7 @@ Begin Window ScanGenomeWin
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   False
    Frame           =   8
    FullScreen      =   False
@@ -10,7 +11,7 @@ Begin Window ScanGenomeWin
    HasBackColor    =   False
    Height          =   494
    ImplicitInstance=   True
-   LiveResize      =   "True"
+   LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   1024
    MaximizeButton  =   True
@@ -65,7 +66,7 @@ Begin Window ScanGenomeWin
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFF00FFFF
+      BackColor       =   &c00FFFFFF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -97,7 +98,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   420
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -106,7 +107,7 @@ Begin Window ScanGenomeWin
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   0
+      ButtonStyle     =   "0"
       Cancel          =   False
       Caption         =   "#kRun"
       Default         =   True
@@ -130,7 +131,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -138,7 +139,7 @@ Begin Window ScanGenomeWin
    Begin PushButton CancelButt
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   0
+      ButtonStyle     =   "0"
       Cancel          =   True
       Caption         =   "#kCancel"
       Default         =   False
@@ -162,7 +163,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   454
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -170,7 +171,7 @@ Begin Window ScanGenomeWin
    Begin PushButton SelectGenomeButt
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   0
+      ButtonStyle     =   "0"
       Cancel          =   False
       Caption         =   "#kChoose"
       Default         =   False
@@ -194,7 +195,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   421
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -226,9 +227,9 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   376
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   366
    End
@@ -250,7 +251,7 @@ Begin Window ScanGenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   396
-      Transparent     =   False
+      Transparent     =   "False"
       Visible         =   True
       Width           =   406
    End
@@ -290,7 +291,7 @@ Begin Window ScanGenomeWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
-      ShowDropIndicator=   False
+      ShowDropIndicator=   "False"
       TabIndex        =   19
       TabPanelIndex   =   0
       TabStop         =   True
@@ -298,7 +299,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -345,7 +346,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -390,7 +391,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -435,7 +436,7 @@ Begin Window ScanGenomeWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   342
-      Transparent     =   False
+      Transparent     =   "False"
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -665,43 +666,40 @@ End
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
-		Name="MinimumWidth"
+		Name="BackColor"
 		Visible=true
-		Group="Size"
-		InitialValue="64"
-		Type="Integer"
-		EditorType=""
+		Group="Background"
+		InitialValue="&hFFFFFF"
+		Type="Color"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MinimumHeight"
+		Name="Backdrop"
 		Visible=true
-		Group="Size"
-		InitialValue="64"
-		Type="Integer"
-		EditorType=""
+		Group="Appearance"
+		Type="Picture"
+		EditorType="Picture"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MaximumWidth"
+		Name="CloseButton"
 		Visible=true
-		Group="Size"
-		InitialValue="32000"
-		Type="Integer"
-		EditorType=""
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MaximumHeight"
+		Name="Composite"
 		Visible=true
-		Group="Size"
-		InitialValue="32000"
-		Type="Integer"
-		EditorType=""
+		Group="Appearance"
+		InitialValue="False"
+		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Type"
+		Name="Frame"
 		Visible=true
 		Group="Frame"
 		InitialValue="0"
-		Type="Types"
+		Type="Integer"
 		EditorType="Enum"
 		#tag EnumValues
 			"0 - Document"
@@ -718,43 +716,135 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="HasCloseButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
+		Name="FullScreen"
+		Group="Appearance"
+		InitialValue="False"
 		Type="Boolean"
-		EditorType=""
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="HasMaximizeButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasMinimizeButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasFullScreenButton"
+		Name="FullScreenButton"
 		Visible=true
 		Group="Frame"
 		InitialValue="False"
 		Type="Boolean"
-		EditorType=""
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="DefaultLocation"
+		Name="HasBackColor"
+		Visible=true
+		Group="Background"
+		InitialValue="False"
+		Type="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Height"
+		Visible=true
+		Group="Position"
+		InitialValue="400"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ImplicitInstance"
+		Visible=true
+		Group="Appearance"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Interfaces"
+		Visible=true
+		Group="ID"
+		Type="String"
+		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LiveResize"
+		Visible=true
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MacProcID"
+		Visible=true
+		Group="Appearance"
+		InitialValue="0"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MaxHeight"
+		Visible=true
+		Group="Size"
+		InitialValue="32000"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MaximizeButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MaxWidth"
+		Visible=true
+		Group="Size"
+		InitialValue="32000"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBar"
+		Visible=true
+		Group="Appearance"
+		Type="MenuBar"
+		EditorType="MenuBar"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBarVisible"
+		Group="Appearance"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinHeight"
+		Visible=true
+		Group="Size"
+		InitialValue="64"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinimizeButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinWidth"
+		Visible=true
+		Group="Size"
+		InitialValue="64"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Name"
+		Visible=true
+		Group="ID"
+		Type="String"
+		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Placement"
 		Visible=true
 		Group="Behavior"
 		InitialValue="0"
-		Type="Locations"
+		Type="Integer"
 		EditorType="Enum"
 		#tag EnumValues
 			"0 - Default"
@@ -765,124 +855,24 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="HasBackgroundColor"
-		Visible=true
-		Group="Background"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="BackgroundColor"
-		Visible=true
-		Group="Background"
-		InitialValue="&hFFFFFF"
-		Type="Color"
-		EditorType="Color"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Backdrop"
-		Visible=true
-		Group="Appearance"
-		InitialValue=""
-		Type="Picture"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Composite"
-		Visible=true
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FullScreen"
-		Visible=false
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Height"
-		Visible=true
-		Group="Position"
-		InitialValue="400"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ImplicitInstance"
-		Visible=true
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Interfaces"
-		Visible=true
-		Group="ID"
-		InitialValue=""
-		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MacProcID"
-		Visible=true
-		Group="Appearance"
-		InitialValue="0"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBar"
-		Visible=true
-		Group="Appearance"
-		InitialValue=""
-		Type="MenuBar"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBarVisible"
-		Visible=false
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Name"
-		Visible=true
-		Group="ID"
-		InitialValue=""
-		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="Resizeable"
 		Visible=true
 		Group="Appearance"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType=""
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="SigArrayCount"
-		Visible=false
 		Group="Behavior"
-		InitialValue=""
 		Type="Integer"
-		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Super"
 		Visible=true
 		Group="ID"
-		InitialValue=""
 		Type="String"
-		EditorType=""
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"
@@ -890,7 +880,6 @@ End
 		Group="Appearance"
 		InitialValue="Untitled"
 		Type="String"
-		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Visible"
@@ -898,7 +887,7 @@ End
 		Group="Appearance"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType=""
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Width"
@@ -906,6 +895,5 @@ End
 		Group="Position"
 		InitialValue="600"
 		Type="Integer"
-		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

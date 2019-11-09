@@ -2649,12 +2649,16 @@ Protected Module Globals
 		  SettingsWin.TomTomPathField.text=TomTomPath
 		  SettingsWin.APIKeyField.Text=API_Key
 		  SettingsWin.ChipMunkPathField.Text=Globals.chipset.jarPath
+		  SettingsWin.email.Text=Globals.email
+		  SettingsWin.requestCount.Text=str(Globals.requestCount)
 		  
 		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
 		  BLASTorganism=Prefs.value("BLASTorganism","")
 		  API_Key=Prefs.value("API_Key","")
+		  email=Prefs.value("email","")
+		  requestCount=val(Prefs.Value("requestCount",""))
 		  
 		  'feedback info for NCBI
 		  DevInfo = "&tool=SigmoID&email=nikolaichik@bsu.by"
@@ -4036,6 +4040,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		email As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		FixedFont As string
 	#tag EndProperty
 
@@ -4193,6 +4201,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		requestCount As integer = 100
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		Resources_f As FolderItem
 	#tag EndProperty
 
@@ -4327,6 +4339,12 @@ Protected Module Globals
 			Name="CRtagPositions"
 			Group="Behavior"
 			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="email"
+			Group="Behavior"
+			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -4544,6 +4562,12 @@ Protected Module Globals
 			Group="Behavior"
 			InitialValue="&c000000"
 			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="requestCount"
+			Group="Behavior"
+			InitialValue="100"
+			Type="integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="riboswitchColour"
