@@ -1324,6 +1324,11 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x92\xD1\x8B\xD0\xB4\xD0\xB0\xD0\xBB\xD1\x96\xD1\x86\xD1\x8C \xD1\x8D\xD0\xBB\xD0\xB5\xD0\xBC\xD0\xB5\xD0\xBD\xD1\x82 \xD0\xB0\xD0\xBD\xD0\xB0\xD1\x82\xD0\xB0\xD1\x86\xD1\x8B\xD1\x96"
 	#tag EndConstant
 
+	#tag Constant, Name = kRemoveFeatures, Type = String, Dynamic = True, Default = \"Remove Features with the Same Name", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA3\xD0\xB4\xD0\xB0\xD0\xBB\xD0\xB8\xD1\x82\xD1\x8C \xD1\x8D\xD0\xBB\xD0\xB5\xD0\xBC\xD0\xB5\xD0\xBD\xD1\x82\xD1\x8B \xD0\xB0\xD0\xBD\xD0\xBD\xD0\xBE\xD1\x82\xD0\xB0\xD1\x86\xD0\xB8\xD0\xB8 \xD1\x81 \xD1\x82\xD0\xB0\xD0\xBA\xD0\xB8\xD0\xBC \xD0\xBD\xD0\xB0\xD0\xB7\xD0\xB2\xD0\xB0\xD0\xBD\xD0\xB8\xD0\xB5\xD0\xBC"
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x92\xD1\x8B\xD0\xB4\xD0\xB0\xD0\xBB\xD1\x96\xD1\x86\xD1\x8C \xD1\x8D\xD0\xBB\xD0\xB5\xD0\xBC\xD0\xB5\xD0\xBD\xD1\x82 \xD0\xB0\xD0\xBD\xD0\xB0\xD1\x82\xD0\xB0\xD1\x86\xD1\x8B\xD1\x96 \xD0\xB7 \xD1\x82\xD0\xB0\xD0\xBA\xD0\xBE\xD0\xB9 \xD0\xBD\xD0\xB0\xD0\xB7\xD0\xB2\xD0\xB0\xD0\xB9"
+	#tag EndConstant
+
 	#tag Constant, Name = kRemovePlots, Type = String, Dynamic = True, Default = \"Remove Plots", Scope = Public
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9F\xD1\x80\xD1\x8B\xD0\xB1\xD1\x80\xD0\xB0\xD1\x86\xD1\x8C \xD0\xB3\xD1\x80\xD0\xB0\xD1\x84i\xD0\xBAi"
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA3\xD0\xB1\xD1\x80\xD0\xB0\xD1\x82\xD1\x8C \xD0\xB3\xD1\x80\xD0\xB0\xD1\x84\xD0\xB8\xD0\xBA\xD0\xB8"
@@ -1913,6 +1918,7 @@ Protected Module Strings
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -1920,18 +1926,23 @@ Protected Module Strings
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -1939,6 +1950,7 @@ Protected Module Strings
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

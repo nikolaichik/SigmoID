@@ -1,73 +1,30 @@
 #tag Window
-Begin Window MASTSettingsWin
+Begin Window ChipMParam
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
    Composite       =   False
-   Frame           =   8
+   Frame           =   0
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   333
+   Height          =   282
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
-   MaxHeight       =   353
+   MaxHeight       =   32000
    MaximizeButton  =   True
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
-   MinHeight       =   224
+   MinHeight       =   64
    MinimizeButton  =   True
-   MinWidth        =   400
+   MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "#kMASTSettings"
-   Visible         =   False
-   Width           =   534
-   Begin TextField OptionsField
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
-      Bold            =   False
-      Border          =   True
-      CueText         =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   115
-      LimitText       =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   104
-      Transparent     =   False
-      Underline       =   False
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   399
-   End
+   Title           =   "ChipMunk settings"
+   Visible         =   True
+   Width           =   538
    Begin Label Label1
       AutoDeactivate  =   True
       Bold            =   False
@@ -79,7 +36,7 @@ Begin Window MASTSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -91,17 +48,60 @@ Begin Window MASTSettingsWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "#kMoreOptions"
-      TextAlign       =   2
+      Text            =   "Motif length:"
+      TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   106
+      Top             =   21
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   90
+      Width           =   100
+   End
+   Begin TextField MotifLengthField
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFF00FF
+      Bold            =   False
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   27
+      HelpTag         =   "format: start_length1:stop_lenth1,..,start_lengthN:stop_lengthN"
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   146
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "16:23,22:17,18:21"
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   135
    End
    Begin Label Label3
       AutoDeactivate  =   True
@@ -114,7 +114,7 @@ Begin Window MASTSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -123,27 +123,59 @@ Begin Window MASTSettingsWin
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   5
+      TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "#kGenome_"
-      TextAlign       =   2
+      Text            =   "Mode"
+      TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   138
+      Top             =   59
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   90
+      Width           =   100
    End
-   Begin TextField GenomeField
+   Begin PopupMenu mode
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   28
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   146
+      ListIndex       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   53
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin TextField TextField2
       AcceptTabs      =   False
       Alignment       =   0
       AutoDeactivate  =   True
       AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
+      BackColor       =   &cFFFF00FF
       Bold            =   False
       Border          =   True
       CueText         =   ""
@@ -151,11 +183,11 @@ Begin Window MASTSettingsWin
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   22
-      HelpTag         =   "Path to genome to be searched"
+      Height          =   27
+      HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   115
+      Left            =   146
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -169,109 +201,163 @@ Begin Window MASTSettingsWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      Text            =   "200"
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   136
+      Top             =   93
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   307
+      Width           =   80
    End
-   Begin PushButton RunButton
+   Begin TextField TextField3
+      AcceptTabs      =   False
+      Alignment       =   0
       AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFF00FF
       Bold            =   False
-      ButtonStyle     =   0
-      Cancel          =   False
-      Caption         =   "#kRun"
-      Default         =   True
-      Enabled         =   False
-      Height          =   20
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   27
       HelpTag         =   ""
       Index           =   -2147483648
-      InitialParent   =   ""
       Italic          =   False
-      Left            =   424
-      LockBottom      =   True
+      Left            =   146
+      LimitText       =   0
+      LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "20"
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   293
+      Top             =   131
       Transparent     =   False
       Underline       =   False
+      UseFocusRing    =   True
       Visible         =   True
-      Width           =   90
+      Width           =   80
    End
-   Begin PushButton CancelButton
+   Begin TextField TextField5
+      AcceptTabs      =   False
+      Alignment       =   0
+      AutoDeactivate  =   True
+      AutomaticallyCheckSpelling=   False
+      BackColor       =   &cFFFF00FF
+      Bold            =   False
+      Border          =   True
+      CueText         =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Format          =   ""
+      Height          =   27
+      HelpTag         =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   146
+      LimitText       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Mask            =   ""
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "2"
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   169
+      Transparent     =   False
+      Underline       =   False
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   80
+   End
+   Begin PopupMenu gcPer
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   0
-      Cancel          =   True
-      Caption         =   "#kCancel"
-      Default         =   False
+      DataField       =   ""
+      DataSource      =   ""
       Enabled         =   True
-      Height          =   20
+      Height          =   28
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
+      InitialValue    =   ""
       Italic          =   False
-      Left            =   322
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   293
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   90
-   End
-   Begin PushButton PushButton3
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   0
-      Cancel          =   False
-      Caption         =   "#kChoose"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   "Select genome to search"
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   434
+      Left            =   146
+      ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   13
+      TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   138
+      Top             =   202
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin PopupMenu motifShape
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   28
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   146
+      ListIndex       =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   234
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -288,34 +374,33 @@ Begin Window MASTSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   16
+      TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "#kMEMEmastRunDesc"
-      TextAlign       =   1
+      Text            =   "try_limit"
+      TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   20
+      Top             =   94
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   494
+      Width           =   100
    End
-   Begin CheckBox PvalueCheck
+   Begin Label Label5
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "#kPvalueCutoff"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -324,91 +409,56 @@ Begin Window MASTSettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   94
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
+      Multiline       =   False
       Scope           =   0
-      State           =   1
-      TabIndex        =   17
+      Selectable      =   False
+      TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   66
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "True"
-      Visible         =   True
-      Width           =   157
-   End
-   Begin TextField PvalueField
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFFFF00
-      Bold            =   False
-      Border          =   True
-      CueText         =   "0.000001"
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   256
-      LimitText       =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   18
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "1e-6"
+      Text            =   "step_limit"
+      TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   64
+      Top             =   132
       Transparent     =   False
       Underline       =   False
-      UseFocusRing    =   True
       Visible         =   True
-      Width           =   166
+      Width           =   100
    End
-   Begin GroupBox GroupBox1
+   Begin Label Label7
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   ""
+      DataField       =   ""
+      DataSource      =   ""
       Enabled         =   True
-      Height          =   109
+      Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   34
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
+      Multiline       =   False
       Scope           =   0
-      TabIndex        =   20
+      Selectable      =   False
+      TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "thread_count"
+      TextAlign       =   0
+      TextColor       =   &c00000000
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
@@ -416,270 +466,281 @@ Begin Window MASTSettingsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   494
-      Begin CheckBox MaskWithinORFCheckBox
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kIgnoreWithinORF"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   66
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   False
-         Scope           =   0
-         State           =   1
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   209
-         Transparent     =   False
-         Underline       =   False
-         Value           =   "True"
-         Visible         =   True
-         Width           =   428
-      End
-      Begin CheckBox AddAnnotationCheckBox
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kAddAnnotation2genome"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   "Annotation will be added with the HmmGen.py script"
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   65
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   False
-         Scope           =   0
-         State           =   0
-         TabIndex        =   1
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   241
-         Transparent     =   False
-         Underline       =   False
-         Value           =   "False"
-         Visible         =   True
-         Width           =   429
-      End
-      Begin CheckBox ShowHitsCheckBox
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kShowHitsInBrowser"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox1"
-         Italic          =   False
-         Left            =   40
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         State           =   1
-         TabIndex        =   2
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   177
-         Transparent     =   False
-         Underline       =   False
-         Value           =   "True"
-         Visible         =   True
-         Width           =   454
-      End
+      Width           =   100
+   End
+   Begin Label Label8
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   34
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "gc%"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   208
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin Label Label9
+      AutoDeactivate  =   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   34
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   17
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "motif_shape"
+      TextAlign       =   0
+      TextColor       =   &c00000000
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   242
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+   End
+   Begin PushButton actionButton
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   0
+      Cancel          =   False
+      Caption         =   "Save settings"
+      Default         =   True
+      Enabled         =   True
+      Height          =   26
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   414
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   239
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   115
+   End
+   Begin PushButton CancelButton
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   True
+      Caption         =   "Cancel"
+      Default         =   False
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   322
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   240
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
    End
 End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Function CancelClose(appQuitting as Boolean) As Boolean
-		  if not appQuitting then
-		    'hide instead of closing to preserve the settings
-		    LogoWin.nhmmeroptions=""
-		    self.hide
-		    return true
-		  end if
-		End Function
-	#tag EndEvent
-
-	#tag Event
-		Sub Open()
-		  #if DebugBuild
-		    RunButton.Enabled=true
-		  #endif
-		  AdjustLayout4linux(me)
-		End Sub
-	#tag EndEvent
-
-
-	#tag Method, Flags = &h0
-		Sub EnableRun()
-		  RunButton.enabled=true
-		  
-		  if LogoWin.Genomefile=nil then
-		    RunButton.enabled=false
-		  elseif GenomeField.text<>LogoWin.Genomefile.shellpath then
-		    RunButton.enabled=false
-		  end if
-		  
-		  
-		  
-		  'if PvalueCheck.Value=true AND PvalueField.text="" then
-		  'RunButton.enabled=false
-		  'end if
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub ReadOptions()
-		  dim PNO as string
-		  
-		  PNO=""
-		  
-		  if PvalueCheck.Value then
-		    if val(PvalueField.text)>0 then    'if cutoff isn't entered, run without it
-		      PNO=PNO+" -mt "+trim(PvalueField.text)
-		      MASTGenSettingsWin.PvalueField.text=PvalueField.text
-		    else
-		      PNO=PNO+" -mt "+trim(PvalueField.CueText)
-		      MASTGenSettingsWin.PvalueField.text=PvalueField.CueText
-		    end if
-		  end if
-		  
-		  if OptionsField.text<>"" then
-		    PNO=PNO+" "+trim(OptionsField.text)
-		  end if
-		  
-		  LogoWin.nhmmeroptions=PNO
-		  
-		  Exception err
-		    ExceptionHandler(err,"MASTSettingsWin:ReadOptions")
-		End Sub
-	#tag EndMethod
+	#tag Note, Name = Defaults
+		
+		Defaults are set as default values of ChipMSettings class properties. 
+		So any changes to setiings displayed by default in this window must be duplicated in the ChipMSettings class
+	#tag EndNote
 
 
 #tag EndWindowCode
 
-#tag Events GenomeField
+#tag Events MotifLengthField
+	#tag Event
+		Sub TextChange()
+		  globals.chipset.motifLength=Trim(me.Text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events mode
+	#tag Event
+		Sub Change()
+		  globals.chipset.mode=me.Text
+		End Sub
+	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  #if DebugBuild then
-		    me.text="/Users/Home/3\-2rez9/Pca32_2015.04.08.gbk"
-		    RunButton.Enabled=true
-		  #endif
+		  Me.AddRow("mask")
+		  me.AddRow("filter")
+		  Me.AddRow("dummy")
+		  
+		  Me.SelectedRowIndex=0
+		  
 		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events RunButton
+#tag Events TextField2
+	#tag Event
+		Sub TextChange()
+		  globals.chipset.tryLimit=Trim(me.Text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextField3
+	#tag Event
+		Sub TextChange()
+		  globals.chipset.stepLimit=Trim(me.Text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextField5
+	#tag Event
+		Sub TextChange()
+		  globals.chipset.threadCount=Trim(me.Text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events gcPer
+	#tag Event
+		Sub Change()
+		  globals.chipset.gcPercent=me.Text
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  Me.AddRow("uniform")
+		  me.AddRow("auto")
+		  Me.AddRow("local")
+		  
+		  Me.SelectedRowIndex=0
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events motifShape
+	#tag Event
+		Sub Change()
+		  globals.chipset.motifShape=me.Text
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  Me.AddRow("flat")
+		  me.AddRow("single")
+		  Me.AddRow("double")
+		  
+		  Me.SelectedRowIndex=2
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events actionButton
 	#tag Event
 		Sub Action()
-		  self.ReadOptions
+		  If globals.chipset <> Nil Then
+		    
+		    if globals.chipset.gcPercent<>"" and globals.chipset.motifLength<>"" and globals.chipset.mode<>"" and globals.chipset.motifShape<>"" and globals.chipset.tryLimit<>""_
+		      and globals.chipset.threadCount<>"" then
+		      if globals.chipset.jarPath <>"" then
+		        if me.Caption="Save settings" then
+		          self.Close
+		        else
+		          dim errcode as Integer
+		          Dim dlg As New SaveAsDialog
+		          dim outf,infile as FolderItem
+		          
+		          dlg.SuggestedFileName = "result.chipMunk"
+		          dlg.ActionButtonCaption = kSave
+		          dlg.Title = "Set output file location"
+		          dlg.promptText="Where to save ChipMunk results?" 
+		          dlg.CancelButtonCaption=kCancel
+		          
+		          
+		          outf=dlg.ShowModal
+		          errcode=DeNovoTFBSinference.ChipMunk(LogoWin.LogoFile, outf)
+		          if errcode=0 and LogoWin.LogoFile<>nil and outf<>nil then
+		            ChipMLogo.inputFasta=LogoWin.LogoFile
+		            ChipMLogo.chipmOutput=outf
+		            app.ChipMdata2Logo
+		          end
+		        end
+		      else
+		        MsgBox("Check path to chipmunk.jar: Settings - Paths")
+		      end
+		    else
+		      MsgBox("Check input values")
+		    end
+		  end
 		  
 		  self.hide
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events CancelButton
 	#tag Event
-		Sub Action()
-		  LogoWin.nhmmeroptions=""
-		  
-		  self.hide
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PushButton3
-	#tag Event
-		Sub Action()
-		  LogoWin.GenomeFile=GetOpenFolderItem("GenBank")
-		  if LogoWin.GenomeFile<> Nil then
-		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+LogoWin.GenomeFile.shellpath+" loaded.")
-		    LogoWin.LogoWinToolbar.Item(3).Enabled=true
-		    if LogoWin.Logofile<>nil then
-		      LogoWin.LogoWinToolbar.Item(1).Enabled=true
-		      LogoWin.LogoWinToolbar.Item(2).Enabled=false 'new genome, no nhmmer output yet
-		    end if
-		    GenomeField.text=LogoWin.Genomefile.shellpath
-		    EnableRun
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PvalueCheck
-	#tag Event
-		Sub Action()
-		  if me.Value then
-		    PvalueField.enabled=true
-		  else
-		    PvalueField.enabled=false
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PvalueField
-	#tag Event
-		Sub TextChange()
-		  
-		  EnableRun
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events MaskWithinORFCheckBox
-	#tag Event
-		Sub Action()
-		  'if me.value then
-		  'AddAnnotationCheckBox.value=false
-		  'end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events AddAnnotationCheckBox
-	#tag Event
-		Sub Action()
-		  'if me.value then
-		  'MaskWithinORFCheckBox.value=false
-		  'end if
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events ShowHitsCheckBox
-	#tag Event
-		Sub Action()
-		  MaskWithinORFCheckBox.enabled=me.value
-		  AddAnnotationCheckBox.enabled=me.value
+		Sub Pressed()
+		  self.close
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -803,15 +864,15 @@ End
 	#tag ViewProperty
 		Name="Backdrop"
 		Visible=true
-		Group="Appearance"
+		Group="Background"
 		InitialValue=""
 		Type="Picture"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Composite"
-		Visible=true
-		Group="Appearance"
+		Visible=false
+		Group="OS X (Carbon)"
 		InitialValue="False"
 		Type="Boolean"
 		EditorType=""
@@ -819,7 +880,7 @@ End
 	#tag ViewProperty
 		Name="FullScreen"
 		Visible=false
-		Group="Appearance"
+		Group="Behavior"
 		InitialValue="False"
 		Type="Boolean"
 		EditorType=""
@@ -827,7 +888,7 @@ End
 	#tag ViewProperty
 		Name="Height"
 		Visible=true
-		Group="Position"
+		Group="Size"
 		InitialValue="400"
 		Type="Integer"
 		EditorType=""
@@ -835,7 +896,7 @@ End
 	#tag ViewProperty
 		Name="ImplicitInstance"
 		Visible=true
-		Group="Appearance"
+		Group="Behavior"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType=""
@@ -850,8 +911,8 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MacProcID"
-		Visible=true
-		Group="Appearance"
+		Visible=false
+		Group="OS X (Carbon)"
 		InitialValue="0"
 		Type="Integer"
 		EditorType=""
@@ -859,15 +920,15 @@ End
 	#tag ViewProperty
 		Name="MenuBar"
 		Visible=true
-		Group="Appearance"
+		Group="Menus"
 		InitialValue=""
 		Type="MenuBar"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MenuBarVisible"
-		Visible=false
-		Group="Appearance"
+		Visible=true
+		Group="Deprecated"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType=""
@@ -883,7 +944,7 @@ End
 	#tag ViewProperty
 		Name="Resizeable"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType=""
@@ -899,7 +960,7 @@ End
 	#tag ViewProperty
 		Name="Title"
 		Visible=true
-		Group="Appearance"
+		Group="Frame"
 		InitialValue="Untitled"
 		Type="String"
 		EditorType=""
@@ -907,7 +968,7 @@ End
 	#tag ViewProperty
 		Name="Visible"
 		Visible=true
-		Group="Appearance"
+		Group="Behavior"
 		InitialValue="True"
 		Type="Boolean"
 		EditorType=""
@@ -915,7 +976,7 @@ End
 	#tag ViewProperty
 		Name="Width"
 		Visible=true
-		Group="Position"
+		Group="Size"
 		InitialValue="600"
 		Type="Integer"
 		EditorType=""

@@ -36,6 +36,7 @@ Begin Window ChipMLogo
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
@@ -68,6 +69,7 @@ Begin Window ChipMLogo
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   0
+      Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
@@ -102,6 +104,7 @@ Begin Window ChipMLogo
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   366
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   130
@@ -133,6 +136,7 @@ Begin Window ChipMLogo
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   366
+      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   141
@@ -197,6 +201,14 @@ End
 		End Sub
 	#tag EndMethod
 
+
+	#tag Property, Flags = &h0
+		chipmOutput As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		InputFasta As FolderItem
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		Motifs() As Motif
