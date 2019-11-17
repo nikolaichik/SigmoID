@@ -577,8 +577,9 @@ Protected Module DeNovoTFBSinference
 		  
 		  dim ResArray(0) as string
 		  dim m,n,id,i,k,z as integer
-		  dim UniProtID, MultiFasta, SingleFasta, entryprep, cli, genpeptIDs, shellRes(-1)  as string
+		  dim UniProtID, MultiFasta, SingleFasta, entryprep, cli, genpeptIDs, shellRes(-1),sp  as string
 		  dim EntryFragmentsF, uniprot2genpept as FolderItem
+		  dim gbkcount as integer = Val(deNovoWin.Proteins2processField.text)
 		  dim sh as Shell
 		  dim rg as New RegEx
 		  Dim rgmatch as RegExMatch
@@ -627,32 +628,44 @@ Protected Module DeNovoTFBSinference
 		  if instr(ecodes,",")>0 then
 		    ResArray=split(eCodes,",") 'if only one tag, then exception, fix
 		    ResArray.Shuffle 'random distribution of the codes to prevent not using codes in the string's "tail"  
-		    ecodes=join(ResArray,",")
+		    if ubound(ResArray) +1>gbkcount then
+		      ecodes=""
+		      for i=0 to gbkcount-1
+		        if i<>gbkcount-1 then 
+		          ecodes=ecodes+ResArray(i)+","
+		        else
+		          ecodes=ecodes+ResArray(i)
+		        end
+		      next
+		      ResArray=ecodes.Split(",")
+		      m=ubound(ResArray)+1
+		    else
+		      ecodes=join(ResArray,",")
+		      m=ubound(ResArray)+1
+		    end
 		  else
 		    singleCodeTags=singleCodeTags+1
 		    return ""
 		  end
 		  
-		  m=ubound(ResArray)-1
-		  
-		  dim gbkcount as integer = Val(deNovoWin.Proteins2processField.text)
-		  if m<gbkcount then
-		    gbkcount=m
-		  end if
-		  
-		  z=m mod requestCount
-		  
-		  if gbkcount>requestCount then
+		  // localgbk string for GetRegSeq method 
+		  'is as signal to use local gbk file for TF's nearby regions extraction
+		  if m>requestCount then
 		    'LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
-		    k=gbkcount\requestCount
+		    k=m\requestCount 
+		    z=m mod requestCount
 		    for i=1 to k
-		      UniProtID=trim(NthField(eCodes,","+Resarray(requestCount),1))
+		      if requestCount<UBound(ResArray) then
+		        UniProtID=trim(NthField(eCodes,","+Resarray(requestCount),1))
+		      else
+		        UniProtID=ecodes
+		      end
 		      SingleFasta=GetRegSeq(UniProtID,EntryFragmentsF)
 		      
 		      if SingleFasta<>"" then
 		        'if len(Nthfield(SingleFasta,EndofLine.unix,2))>100 then       'anything shorter is probably rubbish
-		        MultiFasta=MultiFasta+SingleFasta+EndOfLine.unix
+		        MultiFasta=MultiFasta+SingleFasta
 		        'end if
 		      end if
 		      'end if
@@ -661,20 +674,21 @@ Protected Module DeNovoTFBSinference
 		      ResArray=split(eCodes,",")
 		    next
 		    if z<>0 then
-		      SingleFasta=GetRegSeq(eCodes,EntryFragmentsF)
+		      SingleFasta=GetRegSeq(ecodes,EntryFragmentsF)
 		      if SingleFasta<>"" then
 		        'if len(Nthfield(SingleFasta,EndofLine.unix,2))>100 then       'anything shorter is probably rubbish
-		        MultiFasta=MultiFasta+SingleFasta+EndOfLine.unix
+		        MultiFasta=MultiFasta+SingleFasta
 		        'end if
 		      end if
+		      '''if len(Nthfield(SingleFasta,EndofLine.unix,2))>100 then       'anything shorter is probably rubbish
 		    end
-		    
+		    MultiFasta=MultiFasta+GetRegSeq("localgbk",EntryFragmentsF)
 		    return MultiFasta
 		  else
 		    'LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
-		    UniProtID=trim(NthField(eCodes,","+Resarray(gbkcount),1))
-		    SingleFasta=GetRegSeq(UniProtID,EntryFragmentsF)
+		    SingleFasta=GetRegSeq(ecodes,EntryFragmentsF)
+		    SingleFasta=SingleFasta+GetRegSeq("localgbk",EntryFragmentsF)
 		    return SingleFasta
 		    
 		  end if
@@ -709,7 +723,7 @@ Protected Module DeNovoTFBSinference
 		  dim sh as Shell
 		  dim cli as String
 		  dim getprot as FolderItem
-		  dim tempID, tempID1 as string 
+		  dim tempID as string 
 		  dim Entry as string
 		  dim gbID as string
 		  dim COO as string 
@@ -747,56 +761,67 @@ Protected Module DeNovoTFBSinference
 		  'tempID=ConvertIDtoGenPept(tempID1)
 		  tempID=UniProtIDs
 		  if tempID="" then
-		    LogoWin.WriteToSTDOUT("Can't get GenPept ID for NCBI reference "+tempID1+EndOfLine.UNIX)
+		    LogoWin.WriteToSTDOUT("Can't get GenPept ID - reference is empty "+EndOfLine.UNIX)
 		    return ""
 		  end if
 		  
 		  
 		  
 		  'Entry=FetchGenPeptEntry(tempID)
-		  getprot=Resources_f.Child("getprot.py")
-		  if getprot.exists then
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
-		    cli=pythonpath+getprot.ShellPath+" "+"'"+tempID+"'"+" '"+email+"'"
-		    
-		    'assume bash is the normal user shell
-		    'execute bash with login scripts to set the same env as in terminal
-		    'command must be in single quotes
-		    
-		    sh.execute ("bash --login -c '"+cli+"'")
-		    
-		    If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
-		      entry=sh.Result
-		    Elseif  instr(tempID,",")<>0 and instr(sh.result, "Error retrieving: ") <>0 then
+		  dim f as GBFeature 
+		  if instr(tempID,"localgbk")>0 then 
+		    if IsNumeric(deNovoWin.TFfeature) and GenomeWin.Genome<>nil  then
+		      redim entryarray(0)
+		      f= GenomeWin.Genome.Features(deNovoWin.TFfeature)
+		      entryarray(0)=str(GenomeWin.Genome.Description)+str(f.FeatureText)
+		      k=UBound(entryarray)
+		    else
+		      return ""
+		    end
+		  else
+		    getprot=Resources_f.Child("getprot.py")
+		    if getprot.exists then
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      LogoWin.WriteToSTDOUT(EndOfLine.Unix+"A try to retrieve a batch of identificators has resulted in error. So process it sequently."+EndOfLine.UNIX)
+		      cli=pythonpath+getprot.ShellPath+" "+"'"+tempID+"'"+" '"+email+"'"
 		      
-		      dim tempIDs() as String = tempID.Split(",")
-		      for id as Integer = 0 to UBound(tempIDs)
-		        cli=pythonpath+getprot.ShellPath+" "+"'"+tempIDs(id)+"'"+" 'nikolaichik@bsu.by'"
-		        sh.execute ("bash --login -c '"+cli+"'")
-		        If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
-		          entry=entry+sh.Result
-		        else
-		          LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
-		        end
-		      next
-		    Else 
-		      LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
+		      'assume bash is the normal user shell
+		      'execute bash with login scripts to set the same env as in terminal
+		      'command must be in single quotes
+		      
+		      sh.execute ("bash --login -c '"+cli+"'")
+		      
+		      If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
+		        entry=sh.Result
+		      Elseif  instr(tempID,",")<>0 and instr(sh.result, "Error retrieving: ") <>0 then
+		        sh=New Shell
+		        sh.mode=0
+		        sh.TimeOut=-1
+		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+"A try to retrieve a batch of identificators has resulted in error. So process it sequently."+EndOfLine.UNIX)
+		        
+		        dim tempIDs() as String = tempID.Split(",")
+		        for id as Integer = 0 to UBound(tempIDs)
+		          cli=pythonpath+getprot.ShellPath+" "+"'"+tempIDs(id)+"'"+" '"+email+"'"
+		          sh.execute ("bash --login -c '"+cli+"'")
+		          If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
+		            entry=entry+sh.Result
+		          else
+		            LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
+		          end
+		        next
+		      Else 
+		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
+		        return ""
+		      end if
+		    else
+		      MsgBox("File "+getprot.NativePath+" doesn't exist")
 		      return ""
-		    end if
-		  else
-		    MsgBox("File "+getprot.NativePath+" doesn't exist")
-		    return ""
+		    end
+		    entryarray=entry.split("//"+EndOfLine.UNIX)
+		    UniProtId=UniProtIDs.Split(",")
+		    k=UBound(entryarray)-1 'last entry always empty line, so replace with data for TF from local gbkfile
 		  end
-		  entryarray=entry.split("//"+EndOfLine.UNIX)
-		  UniProtId=UniProtIDs.Split(",")
-		  k=UBound(entryarray)-1 'last entry always empty line, so not count it
-		  
 		  'get Locus_tag to be used later. The line to look for:
 		  '/locus_tag="OI69_02845"
 		  '
@@ -806,7 +831,6 @@ Protected Module DeNovoTFBSinference
 		    Dim Separ1 as string="/locus_tag="+chr(34)
 		    Dim Separ2 as string=chr(34)
 		    Dim LocusTag As string
-		    
 		    if entryarray(i)<>"" then
 		      'LocusTag=NthField(Entry,separ1,2)
 		      LocusTag=NthField(entryarray(i),separ1,2)
@@ -831,35 +855,54 @@ Protected Module DeNovoTFBSinference
 		      qualifier=NthField(entryarray(i),"ACCESSION   ",2)      'accession
 		      qualifier=trim(NthField(qualifier,"VERSION     ",1))
 		      'UniProtID=qualifier
-		      FastaName=FastaName+qualifier+"|"
-		      'qualifier=NthField(Entry,"/organism="+chr(34),2)
-		      qualifier=NthField(entryarray(i),"/organism="+chr(34),2)
-		      qualifier=NthField(qualifier,chr(34),1)         'organism name
-		      qualifier=replace(qualifier,EndOfLine.unix,"")  'name cleanup
-		      qualifier=replace(qualifier,"                     "," ")
-		      FastaName=FastaName+qualifier+" "
-		      'qualifier=NthField(Entry,"/strain="+chr(34),2)
-		      qualifier=NthField(entryarray(i),"/strain="+chr(34),2)
-		      qualifier=NthField(qualifier,chr(34),1)         'strain
-		      FastaName=FastaName+qualifier
+		      
 		      
 		      //Get GB entry ID and TF gene coordinates
 		      ' GenPept entry should have a line like this:
 		      ' /coded_by="JSXC01000011.1:16659..17396"
+		      //localgbk string is passed from GetRthoRegSeq method
+		      'as a code to exctract regions nearby TF gene.
+		      if instr(UniProtIDs,"localgbk")>0 then
+		        qualifier=replace(qualifier,EndOfLine.unix,"")
+		        FastaName=FastaName+qualifier+"|"
+		        gbID=qualifier
+		        qualifier=NthField(entryarray(i),"ORGANISM  ",2)
+		        qualifier=NthField(qualifier,EndOfLine.UNIX,1)
+		        FastaName=FastaName+qualifier+" from-local-gbk-file"
+		        if f.complement then
+		          leftCOO=f.Finish-20000
+		          rightCOO=f.start+20000
+		        else
+		          leftCOO=f.start-20000
+		          rightCOO=f.Finish+20000
+		        end
+		        if leftCOO<0 then leftCOO=1
+		      else
+		        FastaName=FastaName+qualifier+"|"
+		        'qualifier=NthField(Entry,"/organism="+chr(34),2)
+		        qualifier=NthField(entryarray(i),"/organism="+chr(34),2)
+		        qualifier=NthField(qualifier,chr(34),1)         'organism name
+		        qualifier=replace(qualifier,EndOfLine.unix,"")  'name cleanup
+		        qualifier=replace(qualifier,"                     "," ")
+		        FastaName=FastaName+qualifier+" "
+		        'qualifier=NthField(Entry,"/strain="+chr(34),2)
+		        qualifier=NthField(entryarray(i),"/strain="+chr(34),2)
+		        qualifier=NthField(qualifier,chr(34),1)         'strain
+		        FastaName=FastaName+qualifier
+		        Separ1="/coded_by="+chr(34)
+		        'Dim TFcoord as string = NthField(Entry,separ1,2)
+		        Dim TFcoord as string = NthField(entryarray(i),separ1,2)
+		        TFcoord=NthField(TFcoord,separ2,1)
+		        gbID=NthField(TFcoord,":",1)
+		        gbID=Replace(gbID,"complement(","")
+		        COO=NthField(TFcoord,":",2)
+		        COO=ReplaceAll(COO,">","")  'very rare cases of partial ORFs 
+		        COO=ReplaceAll(COO,"<","")
+		        leftCOO=val(NthField(COO,"..",1))-20000
+		        if leftCOO<0 then leftCOO=1
+		        rightCOO=val(NthField(COO,"..",2))+20000
+		      end
 		      
-		      Separ1="/coded_by="+chr(34)
-		      'Dim TFcoord as string = NthField(Entry,separ1,2)
-		      Dim TFcoord as string = NthField(entryarray(i),separ1,2)
-		      TFcoord=NthField(TFcoord,separ2,1)
-		      gbID=NthField(TFcoord,":",1)
-		      gbID=Replace(gbID,"complement(","")
-		      COO=NthField(TFcoord,":",2)
-		      COO=ReplaceAll(COO,">","")  'very rare cases of partial ORFs 
-		      COO=ReplaceAll(COO,"<","")
-		      
-		      leftCOO=val(NthField(COO,"..",1))-20000
-		      if leftCOO<0 then leftCOO=1
-		      rightCOO=val(NthField(COO,"..",2))+20000
 		      // Get the required GenBank entry fragment
 		      Entry=FetchGenBankEntryFragment(gbID,leftCOO,rightCOO)
 		      dim GBfileName As String
@@ -872,6 +915,9 @@ Protected Module DeNovoTFBSinference
 		        if len(GBfileName)>100 then          'some names may be too long
 		          GBfileName=left(GBfileName,100)
 		        End If
+		        GBfileName=replaceall(GBfileName,"\","_")
+		        GBfileName=replaceall(GBfileName,"//","_")
+		        GBfileName=replaceall(GBfileName,"/","_")
 		        GBfileName=replaceall(GBfileName," ","_")+".gb"
 		        gbFile=FragmentsFolder.Child(GBfileName)
 		        if gbFile<>Nil then
@@ -886,13 +932,13 @@ Protected Module DeNovoTFBSinference
 		          if OutStream<>Nil then
 		            try 
 		              OutStream.Write(Entry)
+		              OutStream.Close
 		            catch eNil as NilObjectException
 		              LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+gbFile.ShellPath+EndOfLine.unix)
 		            end try
 		          else
 		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+gbFile.ShellPath+EndOfLine.unix)
 		          End If
-		          OutStream.Close
 		        End If
 		      End If
 		      // load the sequence into a seq object
