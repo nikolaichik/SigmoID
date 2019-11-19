@@ -577,7 +577,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  dim ResArray(0) as string
 		  dim m,n,id,i,k,z as integer
-		  dim UniProtID, MultiFasta, SingleFasta, entryprep, cli, genpeptIDs, shellRes(-1),sp  as string
+		  dim UniProtID, MultiFasta, SingleFasta, entryprep, cli, genpeptIDs, shellRes(-1)  as string
 		  dim EntryFragmentsF, uniprot2genpept as FolderItem
 		  dim gbkcount as integer = Val(deNovoWin.Proteins2processField.text)
 		  dim sh as Shell
@@ -773,6 +773,10 @@ Protected Module DeNovoTFBSinference
 		    if IsNumeric(deNovoWin.TFfeature) and GenomeWin.Genome<>nil  then
 		      redim entryarray(0)
 		      f= GenomeWin.Genome.Features(deNovoWin.TFfeature)
+		      if f.FeatureText="" then 
+		        LogoWin.WriteToSTDOUT("Failed to process gene's description from "+str(GenomeWin.GenomeFile.Name)+", feature text is empty."+EndOfLine.UNIX)
+		        return ""
+		      end
 		      entryarray(0)=str(GenomeWin.Genome.Description)+str(f.FeatureText)
 		      k=UBound(entryarray)
 		    else
@@ -838,7 +842,11 @@ Protected Module DeNovoTFBSinference
 		      
 		      if LocusTag="" then
 		        'return "Error extracting locus_tag from GenPept entry "+ConvertEncoding(tempID,Encodings.UTF8)+EndOfLine.unix+EndOfLine.unix
-		        LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniprotID(i)+EndOfLine.unix+EndOfLine.unix)
+		        if UBound(UniProtId)>=i then
+		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniprotID(i)+EndOfLine.unix+EndOfLine.unix)
+		        else
+		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniProtIDs+EndOfLine.unix+EndOfLine.unix)
+		        end
 		        Continue for i
 		      end if
 		      
