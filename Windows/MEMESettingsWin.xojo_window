@@ -153,7 +153,6 @@ Begin Window MEMESettingsWin
       Top             =   90
       Transparent     =   False
       Underline       =   False
-      Value           =   "False"
       Visible         =   True
       Width           =   270
    End
@@ -408,7 +407,6 @@ Begin Window MEMESettingsWin
       Top             =   122
       Transparent     =   False
       Underline       =   False
-      Value           =   "False"
       Visible         =   True
       Width           =   270
    End
@@ -712,8 +710,11 @@ End
 		      cli=cli+" -mod oops"
 		    case 2      'any number
 		      cli=cli+" -mod anr"
-		    end select
+		    End Select
 		    
+		    If CPUcores>1 Then
+		      cli=cli+" -p " + Str(CPUcores)  'for parallelised meme
+		    End If
 		    
 		    '[-oc <output dir>]    name of directory for output files
 		    'will replace existing directory

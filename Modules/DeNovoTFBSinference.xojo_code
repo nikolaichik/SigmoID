@@ -2346,7 +2346,12 @@ Protected Module DeNovoTFBSinference
 		    cli=TemporaryFolder.child("meme.exe").ShellPath+" "+infile.ShellPath
 		  #else
 		    cli=MEMEpath+" "+infile.ShellPath
-		  #endif
+		  #EndIf
+		  
+		  If CPUcores>1 Then
+		    cli=cli+" -p " + Str(CPUcores)  'for parallelised meme
+		  End If
+		  
 		  cli=cli+" -oc "+outFolder.ShellPath+Options
 		  
 		  sh=New Shell
@@ -2951,13 +2956,17 @@ Protected Module DeNovoTFBSinference
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="CDSseqs"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DevInfo"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -2967,6 +2976,7 @@ Protected Module DeNovoTFBSinference
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -2974,23 +2984,31 @@ Protected Module DeNovoTFBSinference
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="singleCodeTags"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -2998,6 +3016,7 @@ Protected Module DeNovoTFBSinference
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
