@@ -116,6 +116,7 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   False
       Value           =   4

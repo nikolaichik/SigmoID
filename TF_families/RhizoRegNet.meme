@@ -8,7 +8,7 @@ Background letter frequencies (from unknown source):
  A 0.287 C 0.213 G 0.213 T 0.287
 
 MOTIF AglR LacI-Family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 20 nsites= 24 E= 1.9e-136 
  0.333333  0.291667  0.000000  0.375000 
  0.291667  0.125000  0.041667  0.541667 
@@ -32,7 +32,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 24 E= 1.9e-136
  0.375000  0.000000  0.208333  0.416667
 
 MOTIF BetI_Galardini TetR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 30 nsites= 6 E= 8.0e-040 
  0.000000  0.000000  0.000000  1.000000 
  0.500000  0.000000  0.083333  0.416667 
@@ -66,7 +66,7 @@ letter-probability matrix: alength= 4 w= 30 nsites= 6 E= 8.0e-040
  0.999999  0.000000  0.000000  0.000000 
 
 MOTIF ChvI_Galardini_LowIC OmpR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 11 nsites= 6 E= 1.5e+004 
  0.333333  0.000000  0.166667  0.500000 
  0.166667  0.166667  0.333333  0.333333 
@@ -80,7 +80,7 @@ letter-probability matrix: alength= 4 w= 11 nsites= 6 E= 1.5e+004
  1.000000  0.000000  0.000000  0.000000 
  0.833333  0.000000  0.000000  0.166667
  
- MOTIF ChvI_RhizoRegNet OmpR-family
+MOTIF ChvI_RhizoRegNet OmpR-family
  
 letter-probability matrix: alength= 4 w= 23 nsites= 3 E= 2.9e-013 
  0.000000  0.000000  1.000000  0.000000 
@@ -108,7 +108,7 @@ letter-probability matrix: alength= 4 w= 23 nsites= 3 E= 2.9e-013
  1.000000  0.000000  0.000000  0.000000 
 
 MOTIF CtrA_RhizoRegNet OmpR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 16 nsites= 15 E= 1.9e-052 
  0.000000  0.200000  0.600000  0.200000 
  0.000000  0.000000  0.400000  0.600000 
@@ -126,9 +126,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 15 E= 1.9e-052
  0.800000  0.000000  0.000000  0.200000 
  0.800000  0.200000  0.000000  0.000000 
  0.000000  0.800000  0.000000  0.200000 
-  
+
 MOTIF ChpR_RhizoRegNet OmpR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 37 nsites= 3 E= 3.2e-023 
  0.000000  1.000000  0.000000  0.000000 
  1.000000  0.000000  0.000000  0.000000 
@@ -169,7 +169,7 @@ letter-probability matrix: alength= 4 w= 37 nsites= 3 E= 3.2e-023
  0.000000  0.000000  1.000000  0.000000 
 
 MOTIF DctD_RhizoRegNet Fis-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 21 nsites= 3 E= 5.7e-013 
  0.000000  0.000000  0.000000  1.000000 
  0.000000  1.000000  0.000000  0.000000 
@@ -194,7 +194,7 @@ letter-probability matrix: alength= 4 w= 21 nsites= 3 E= 5.7e-013
  0.000000  0.000000  1.000000  0.000000
 
 MOTIF ExpG_RhizoregNet MarR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 15 nsites= 12 E= 1.7e-059 
  0.000000  1.000000  0.000000  0.000000 
  0.000000  0.000000  0.000000  1.000000 
@@ -212,8 +212,8 @@ letter-probability matrix: alength= 4 w= 15 nsites= 12 E= 1.7e-059
  1.000000  0.000000  0.000000  0.000000 
  0.000000  0.000000  1.000000  0.000000 
  
- MOTIF ExpG_Galardini MarR-family
- --------------------------------------------------------------------------------
+MOTIF ExpG_Galardini MarR-family
+ 
 letter-probability matrix: alength= 4 w= 21 nsites= 15 E= 1.0e-131 
  1.000000  0.000000  0.000000  0.000000 
  0.466667  0.000000  0.000000  0.533333 
@@ -238,7 +238,7 @@ letter-probability matrix: alength= 4 w= 21 nsites= 15 E= 1.0e-131
  0.000000  0.000000  1.000000  0.000000 
 
 MOTIF ExpR_Galardini LuxR-family
- --------------------------------------------------------------------------------
+ 
 letter-probability matrix: alength= 4 w= 20 nsites= 33 E= 1.3e-073 
  0.363636  0.272727  0.121212  0.242424 
  0.242424  0.393939  0.181818  0.181818 
@@ -261,8 +261,8 @@ letter-probability matrix: alength= 4 w= 20 nsites= 33 E= 1.3e-073
  0.151515  0.030303  0.606061  0.212121 
  0.181818  0.121212  0.393939  0.303030
  
- MOTIF ExpR_RhizoRegNet LuxR-family
---------------------------------------------------------------------------------
+MOTIF ExpR_RhizoRegNet LuxR-family
+
 letter-probability matrix: alength= 4 w= 20 nsites= 4 E= 3.7e-005 
  0.500000  0.000000  0.250000  0.250000 
  0.500000  0.000000  0.000000  0.500000 
@@ -285,8 +285,8 @@ letter-probability matrix: alength= 4 w= 20 nsites= 4 E= 3.7e-005
  0.000000  0.000000  0.250000  0.750000 
  0.000000  0.000000  1.000000  0.000000
  
- MOTIF FixJ1_Galardini LuxR-family
---------------------------------------------------------------------------------
+MOTIF FixJ1_Galardini LuxR-family
+
 letter-probability matrix: alength= 4 w= 15 nsites= 45 E= 6.0e-297 
  0.000000  0.000000  0.000000  1.000000 
  0.000000  1.000000  0.000000  0.000000 
@@ -305,7 +305,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 45 E= 6.0e-297
  0.177778  0.644444  0.177778  0.000000
  
 MOTIF FixJ2_Galardini LuxR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 8 nsites= 16 E= 2.5e-049 
  0.000000  0.062500  0.937500  0.000000 
  0.000000  0.000000  0.000000  1.000000 
@@ -317,7 +317,7 @@ letter-probability matrix: alength= 4 w= 8 nsites= 16 E= 2.5e-049
  0.000000  0.062500  0.875000  0.062500 
 
 MOTIF FixK_Galardini CRP-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 14 nsites= 35 E= 2.1e-064 
  0.028571  0.000000  0.000000  0.971429 
  0.014286  0.028571  0.000000  0.957143 
@@ -334,8 +334,8 @@ letter-probability matrix: alength= 4 w= 14 nsites= 35 E= 2.1e-064
  0.957142  0.000000  0.028570  0.014285 
  0.971428  0.000000  0.000000  0.028570 
  
- MOTIF FixK1_RhizoRegNet
---------------------------------------------------------------------------------
+MOTIF FixK1_RhizoRegNet
+
 letter-probability matrix: alength= 4 w= 14 nsites= 12 E= 8.2e-063 
  0.000000  0.000000  0.000000  1.000000 
  0.000000  0.000000  0.000000  1.000000 
@@ -352,8 +352,8 @@ letter-probability matrix: alength= 4 w= 14 nsites= 12 E= 8.2e-063
  1.000000  0.000000  0.000000  0.000000 
  1.000000  0.000000  0.000000  0.000000 
  
- MOTIF Fur_Galardini
---------------------------------------------------------------------------------
+MOTIF Fur_Galardini
+
 letter-probability matrix: alength= 4 w= 31 nsites= 2 E= 4.7e+006 
  0.000000  0.500000  0.500000  0.000000 
  0.500000  0.000000  0.000000  0.500000 
@@ -387,8 +387,8 @@ letter-probability matrix: alength= 4 w= 31 nsites= 2 E= 4.7e+006
  0.500000  0.000000  0.000000  0.500000 
  0.000000  1.000000  0.000000  0.000000
  
- MOTIF Fur_RhizoRegNet
---------------------------------------------------------------------------------
+MOTIF Fur_RhizoRegNet
+
 letter-probability matrix: alength= 4 w= 22 nsites= 3 E= 1.1e-013 
  0.000000  0.000000  0.000000  1.000000 
  0.000000  0.000000  1.000000  0.000000 
@@ -413,8 +413,8 @@ letter-probability matrix: alength= 4 w= 22 nsites= 3 E= 1.1e-013
  0.000000  1.000000  0.000000  0.000000 
  1.000000  0.000000  0.000000  0.000000
  
- MOTIF GlnBK_Galardini
---------------------------------------------------------------------------------
+MOTIF GlnBK_Galardini
+
 letter-probability matrix: alength= 4 w= 29 nsites= 6 E= 1.3e+006 
  0.666667  0.083333  0.083333  0.166667 
  0.500000  0.000000  0.416667  0.083333 
@@ -446,8 +446,8 @@ letter-probability matrix: alength= 4 w= 29 nsites= 6 E= 1.3e+006
  0.083332  0.416666  0.000000  0.499999 
  0.166666  0.083332  0.083332  0.666666
  
- MOTIF IolR_Galardini RpiR-family
---------------------------------------------------------------------------------
+MOTIF IolR_Galardini RpiR-family
+
 letter-probability matrix: alength= 4 w= 20 nsites= 17 E= 4.7e-047 
  0.294118  0.058824  0.117647  0.529412 
  0.558824  0.000000  0.088235  0.352941 
@@ -470,8 +470,8 @@ letter-probability matrix: alength= 4 w= 20 nsites= 17 E= 4.7e-047
  0.352940  0.088234  0.000000  0.558823 
  0.529411  0.117646  0.058823  0.294117
  
-  MOTIF IolR_RhizoRegNet RpiR-family
- --------------------------------------------------------------------------------
+MOTIF IolR_RhizoRegNet RpiR-family
+ 
 letter-probability matrix: alength= 4 w= 14 nsites= 12 E= 2.2e-053 
  0.250000  0.250000  0.500000  0.000000 
  0.000000  0.000000  1.000000  0.000000 
@@ -488,8 +488,8 @@ letter-probability matrix: alength= 4 w= 14 nsites= 12 E= 2.2e-053
  0.000000  1.000000  0.000000  0.000000 
  0.000000  1.000000  0.000000  0.000000 
  
- MOTIF LsrAB1_Galardini LysR-family
---------------------------------------------------------------------------------
+MOTIF LsrAB1_Galardini LysR-family
+
 letter-probability matrix: alength= 4 w= 13 nsites= 6 E= 2.6e+000 
  0.000000  0.000000  0.000000  1.000000 
  0.916667  0.000000  0.000000  0.083333 
@@ -505,8 +505,8 @@ letter-probability matrix: alength= 4 w= 13 nsites= 6 E= 2.6e+000
  0.083332  0.000000  0.000000  0.916666 
  0.999999  0.000000  0.000000  0.000000
  
- MOTIF MucR Ros/MucR-family
---------------------------------------------------------------------------------
+MOTIF MucR Ros/MucR-family
+
 letter-probability matrix: alength= 4 w= 47 nsites= 11 E= 1.2e-021 
  0.545455  0.181818  0.045455  0.227273 
  0.454545  0.181818  0.000000  0.363636 
@@ -556,8 +556,8 @@ letter-probability matrix: alength= 4 w= 47 nsites= 11 E= 1.2e-021
  0.363635  0.000000  0.181817  0.454544 
  0.227272  0.045454  0.181817  0.545454
  
- MOTIF NesR_Galardini LuxR-family 
---------------------------------------------------------------------------------
+MOTIF NesR_Galardini LuxR-family 
+
 letter-probability matrix: alength= 4 w= 20 nsites= 4 E= 9.8e-012 
  1.000000  0.000000  0.000000  0.000000 
  0.000000  0.500000  0.000000  0.500000 
@@ -581,7 +581,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 4 E= 9.8e-012
  0.000000  0.000000  0.000000  1.000000
  
 MOTIF NodD1_Galardini LysR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 48 nsites= 4 E= 1.4e-019 
  1.000000  0.000000  0.000000  0.000000 
  0.000000  0.000000  0.000000  1.000000 
@@ -633,7 +633,7 @@ letter-probability matrix: alength= 4 w= 48 nsites= 4 E= 1.4e-019
  0.000000  0.250000  0.000000  0.750000 
  
 MOTIF NodD1_RhizoregNet LysR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 46 nsites= 5 E= 6.2e-029 
  0.200000  0.000000  0.000000  0.800000 
  0.000000  0.600000  0.000000  0.400000 
@@ -683,7 +683,7 @@ letter-probability matrix: alength= 4 w= 46 nsites= 5 E= 6.2e-029
  0.000000  1.000000  0.000000  0.000000
  
 MOTIF NodD2_RhizoRegNet LysR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 46 nsites= 5 E= 6.2e-029 
  0.200000  0.000000  0.000000  0.800000 
  0.000000  0.600000  0.000000  0.400000 
@@ -732,8 +732,8 @@ letter-probability matrix: alength= 4 w= 46 nsites= 5 E= 6.2e-029
  0.000000  0.000000  0.000000  1.000000 
  0.000000  1.000000  0.000000  0.000000
  
- MOTIF NodD3_RhizoRegNet LysR-family
---------------------------------------------------------------------------------
+MOTIF NodD3_RhizoRegNet LysR-family
+
 letter-probability matrix: alength= 4 w= 46 nsites= 6 E= 2.2e-036 
  0.166667  0.000000  0.000000  0.833333 
  0.000000  0.666667  0.000000  0.333333 
@@ -782,8 +782,8 @@ letter-probability matrix: alength= 4 w= 46 nsites= 6 E= 2.2e-036
  0.000000  0.000000  0.000000  1.000000 
  0.000000  1.000000  0.000000  0.000000
  
- MOTIF NolR_Galardini ArsR-family
---------------------------------------------------------------------------------
+MOTIF NolR_Galardini ArsR-family
+
 letter-probability matrix: alength= 4 w= 16 nsites= 5 E= 2.9e+004 
  0.400000  0.000000  0.400000  0.200000 
  0.000000  0.000000  0.000000  1.000000 
@@ -802,8 +802,8 @@ letter-probability matrix: alength= 4 w= 16 nsites= 5 E= 2.9e+004
  0.400000  0.200000  0.400000  0.000000 
  1.000000  0.000000  0.000000  0.000000
  
- MOTIF NtrC1_Galardini
---------------------------------------------------------------------------------
+MOTIF NtrC1_Galardini
+
 letter-probability matrix: alength= 4 w= 27 nsites= 42 E= 4.8e-035 
  0.511905  0.142857  0.226190  0.119048 
  0.476190  0.130952  0.130952  0.261905 
@@ -833,8 +833,8 @@ letter-probability matrix: alength= 4 w= 27 nsites= 42 E= 4.8e-035
  0.261904  0.130951  0.130951  0.476189 
  0.119047  0.226189  0.142856  0.511904
  
- MOTIF NtrC2_Galardini
---------------------------------------------------------------------------------
+MOTIF NtrC2_Galardini
+
 letter-probability matrix: alength= 4 w= 16 nsites= 44 E= 2.8e-009 
  0.318182  0.238636  0.045455  0.397727 
  0.602273  0.000000  0.000000  0.397727 
@@ -853,8 +853,8 @@ letter-probability matrix: alength= 4 w= 16 nsites= 44 E= 2.8e-009
  0.397726  0.000000  0.000000  0.602272 
  0.397726  0.045454  0.238635  0.318181
  
- MOTIF OxyR_Galardini LysR-family
---------------------------------------------------------------------------------
+MOTIF OxyR_Galardini LysR-family
+
 letter-probability matrix: alength= 4 w= 49 nsites= 5 E= 3.8e-012 
  0.600000  0.000000  0.400000  0.000000 
  0.000000  0.000000  0.000000  1.000000 
@@ -906,8 +906,8 @@ letter-probability matrix: alength= 4 w= 49 nsites= 5 E= 3.8e-012
  0.200000  0.200000  0.400000  0.200000 
  0.000000  0.000000  1.000000  0.000000
  
- MOTIF OxyR_RhizoRegNet LysR-Family
---------------------------------------------------------------------------------
+MOTIF OxyR_RhizoRegNet LysR-Family
+
 letter-probability matrix: alength= 4 w= 37 nsites= 6 E= 9.4e-069 
  1.000000  0.000000  0.000000  0.000000 
  0.000000  0.000000  0.000000  1.000000 
@@ -947,8 +947,8 @@ letter-probability matrix: alength= 4 w= 37 nsites= 6 E= 9.4e-069
  1.000000  0.000000  0.000000  0.000000 
  0.000000  0.000000  0.000000  1.000000
  
- MOTIF PcaQ_Galardini LysR-family
---------------------------------------------------------------------------------
+MOTIF PcaQ_Galardini LysR-family
+
 letter-probability matrix: alength= 4 w= 20 nsites= 11 E= 5.7e-015 
  0.181818  0.500000  0.136364  0.181818 
  0.227273  0.545455  0.136364  0.090909 
@@ -971,8 +971,8 @@ letter-probability matrix: alength= 4 w= 20 nsites= 11 E= 5.7e-015
  0.090908  0.136363  0.545454  0.227272 
  0.181817  0.136363  0.499999  0.181817
  
- Motif PckR_RegTransBase LacI-family
---------------------------------------------------------------------------------
+MOTIF PckR_RegTransBase LacI-family
+
 letter-probability matrix: alength= 4 w= 20 nsites= 91 E= 6.9e-398 
  0.296703  0.252747  0.252747  0.197802 
  0.395604  0.197802  0.175824  0.230769 
@@ -995,8 +995,8 @@ letter-probability matrix: alength= 4 w= 20 nsites= 91 E= 6.9e-398
  0.395604  0.164835  0.087912  0.351648 
  0.241758  0.142857  0.208791  0.406593
  
- MOTIF PhoB_Galardini+ OmpR-family
---------------------------------------------------------------------------------
+MOTIF PhoB_Galardini+ OmpR-family
+
 letter-probability matrix: alength= 4 w= 19 nsites= 25 E= 8.9e-071
 0.000000 0.600000 0.000000 0.400000
 0.000000 0.120000 0.000000 0.880000
@@ -1018,8 +1018,8 @@ letter-probability matrix: alength= 4 w= 19 nsites= 25 E= 8.9e-071
 0.120000 0.400000 0.000000 0.480000
 0.290795 0.369205 0.329205 0.010795
 
- Motif RbtR_RegTransBase LacI-Family
---------------------------------------------------------------------------------
+MOTIF RbtR_RegTransBase LacI-Family
+
 letter-probability matrix: alength= 4 w= 20 nsites= 16 E= 7.3e-099 
  0.250000  0.062500  0.000000  0.687500 
  0.062500  0.000000  0.125000  0.812500 
@@ -1039,8 +1039,8 @@ letter-probability matrix: alength= 4 w= 20 nsites= 16 E= 7.3e-099
  0.125000  0.125000  0.000000  0.750000 
  0.000000  0.000000  0.937500  0.062500
  
- Motif RctR_Galardini GntR-family
---------------------------------------------------------------------------------
+MOTIF RctR_Galardini GntR-family
+
 letter-probability matrix: alength= 4 w= 28 nsites= 8 E= 2.3e-033 
  0.000000  0.000000  0.000000  1.000000 
  0.000000  0.000000  0.000000  1.000000 
@@ -1072,7 +1072,7 @@ letter-probability matrix: alength= 4 w= 28 nsites= 8 E= 2.3e-033
  0.999999  0.000000  0.000000  0.000000
   
 MOTIF Rem_Galardini_LowIC OmpR-family
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 32 nsites= 23 E= 3.7e-061 
  0.130435  0.304348  0.000000  0.565217 
  0.304348  0.478261  0.000000  0.217391 
@@ -1108,7 +1108,7 @@ letter-probability matrix: alength= 4 w= 32 nsites= 23 E= 3.7e-061
  0.086957  0.608696  0.000000  0.304348
  
 MOTIF Rem_RhizoRegNet
---------------------------------------------------------------------------------
+
 letter-probability matrix: alength= 4 w= 21 nsites= 6 E= 5.9e-006 
  0.000000  1.000000  0.000000  0.000000 
  0.333333  0.333333  0.000000  0.333333 
@@ -1133,7 +1133,7 @@ letter-probability matrix: alength= 4 w= 21 nsites= 6 E= 5.9e-006
  0.000000  0.000000  0.666667  0.333333
  
 MOTIF Rem_Galardini_MEME19
---------------------------------------------------------------------------------
+
  letter-probability matrix: alength= 4 w= 18 nsites= 20 E= 2.6e-045
 0.050000 0.600000 0.000000 0.350000
 0.550000 0.400000 0.050000 0.000000
@@ -1153,8 +1153,9 @@ MOTIF Rem_Galardini_MEME19
 0.300000 0.000000 0.250000 0.450000
 0.350000 0.200000 0.000000 0.450000
 0.150000 0.000000 0.000000 0.850000
- Motif RhrA_Galardini AraC-Family
---------------------------------------------------------------------------------
+
+MOTIF RhrA_Galardini AraC-Family
+
 letter-probability matrix: alength= 4 w= 27 nsites= 2 E= 2.7e+002 
  0.000000  0.000000  1.000000  0.000000 
  0.000000  0.000000  0.000000  1.000000 
@@ -1184,8 +1185,8 @@ letter-probability matrix: alength= 4 w= 27 nsites= 2 E= 2.7e+002
  0.000000  0.000000  1.000000  0.000000 
  0.000000  1.000000  0.000000  0.000000
  
- Motif RhrA_RhizoRegNet AraC-Family
---------------------------------------------------------------------------------
+MOTIF RhrA_RhizoRegNet AraC-Family
+
 letter-probability matrix: alength= 4 w= 27 nsites= 6 E= 1.1e-046 
  0.000000  0.000000  1.000000  0.000000 
  0.000000  0.000000  0.000000  1.000000 
@@ -1215,8 +1216,8 @@ letter-probability matrix: alength= 4 w= 27 nsites= 6 E= 1.1e-046
  0.000000  0.000000  1.000000  0.000000 
  0.000000  1.000000  0.000000  0.000000
  
- Motif RirA_1_Galardini Rrf2_family
---------------------------------------------------------------------------------
+MOTIF RirA_1_Galardini Rrf2_family
+
 letter-probability matrix: alength= 4 w= 20 nsites= 61 E= 1.4e-042 
  0.639344  0.016393  0.016393  0.327869 
  0.639344  0.032787  0.081967  0.245902 
@@ -1239,8 +1240,8 @@ letter-probability matrix: alength= 4 w= 20 nsites= 61 E= 1.4e-042
  0.081967  0.737705  0.000000  0.180328 
  0.770492  0.098361  0.081967  0.049180
  
-  Motif RirA_2_Galardini Rrf2_family
---------------------------------------------------------------------------------
+MOTIF RirA_2_Galardini Rrf2_family
+
 letter-probability matrix: alength= 4 w= 25 nsites= 13 E= 7.8e-010 
  0.730769  0.000000  0.000000  0.269231 
  0.653846  0.038462  0.038462  0.269231 
@@ -1268,8 +1269,8 @@ letter-probability matrix: alength= 4 w= 25 nsites= 13 E= 7.8e-010
  0.269230  0.038461  0.038461  0.653845 
  0.269230  0.000000  0.000000  0.730768 
  
- Motif SinR_Galardini LuxR-family
---------------------------------------------------------------------------------
+MOTIF SinR_Galardini LuxR-family
+
 letter-probability matrix: alength= 4 w= 20 nsites= 15 E= 3.8e+000 
  0.133333  0.000000  0.133333  0.733333 
  0.000000  0.200000  0.000000  0.800000 
@@ -1292,8 +1293,8 @@ letter-probability matrix: alength= 4 w= 20 nsites= 15 E= 3.8e+000
  0.266667  0.000000  0.400000  0.333333 
  0.466667  0.000000  0.133333  0.400000
  
- Motif SyrM_RhizoRegNet LysR_family
---------------------------------------------------------------------------------
+MOTIF SyrM_RhizoRegNet LysR_family
+
 letter-probability matrix: alength= 4 w= 68 nsites= 6 E= 3.8e-102 
  0.000000  0.000000  0.000000  1.000000 
  0.000000  0.000000  0.000000  1.000000 

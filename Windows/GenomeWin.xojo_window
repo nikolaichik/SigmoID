@@ -53,6 +53,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -78,6 +79,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -112,6 +114,7 @@ Begin Window GenomeWin
       Top             =   0
       Transparent     =   True
       Underline       =   False
+      Value           =   False
       Visible         =   True
       Width           =   390
    End
@@ -161,6 +164,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -241,6 +245,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   359
       Transparent     =   True
       Value           =   2
@@ -353,6 +358,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -365,6 +371,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -467,6 +474,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -528,6 +536,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -3699,7 +3708,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub HmmerSearchUniProt(ProtName as string)
-		  dim theSeq, command, UUID, theURL as string
+		  Dim theSeq, command, UUID, theURL As String
 		  
 		  
 		  'name the search tab:
@@ -3730,8 +3739,8 @@ End
 		  Dim form As Dictionary
 		  'create and populate the form object
 		  form = New Dictionary
-		  form.Value("seqdb") = "uniprotkb"
-		  'form.Value("seqdb") = "uniprotrefprot"
+		  'form.Value("seqdb") = "uniprotkb"    'almost always hangs lately
+		  form.Value("seqdb") = "uniprotrefprot"
 		  form.Value("algo") = "phmmer"
 		  'form.Value("seqdb_ranges") = "17277318..17420758" 'trying taxonomy restriction a la the browser version: doesn't work!
 		  form.Value("seq") = theSeq

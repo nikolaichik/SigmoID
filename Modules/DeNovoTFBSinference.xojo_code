@@ -582,15 +582,15 @@ Protected Module DeNovoTFBSinference
 		  dim gbkcount as integer = Val(deNovoWin.Proteins2processField.text)
 		  dim sh as Shell
 		  dim rg as New RegEx
-		  Dim rgmatch as RegExMatch
+		  Dim rgmatch As RegExMatch
 		  rg.SearchPattern="\S*(?=\.)"
 		  
 		  uniprot2genpept=Resources_f.Child("uniprot2genpept.py")
-		  if uniprot2genpept<>nil then
-		    if not uniprot2genpept.Exists then
+		  If uniprot2genpept<>Nil Then
+		    If Not uniprot2genpept.Exists Then
 		      MsgBox("Check "+uniprot2genpept.ShellPath+" for uniprot2genpept.py")
 		      Return ""
-		    else
+		    Else
 		      'cli= "python "+uniprot2genpept.ShellPath+" '"+ecodes+"' | grep -o -Pe '\S*(?=\.)' - | paste -s -d, -" 'convert UniprotKB IDs to Genpept IDs and replace end of line with comma 
 		      cli= pythonpath+uniprot2genpept.ShellPath+" '"+ecodes+"'"
 		      
@@ -604,24 +604,24 @@ Protected Module DeNovoTFBSinference
 		      
 		      sh.execute ("bash --login -c '"+cli+"'")
 		      
-		      if sh.ErrorCode<>0 then
+		      If sh.ErrorCode<>0 Then
 		        logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
-		      else
+		      Else
 		        shellRes=sh.Result.Split(EndOfLine.UNIX)
-		        for id=0 to UBound(shellRes)
+		        For id=0 To UBound(shellRes)
 		          rgmatch=rg.Search(shellRes(id))
-		          if rgmatch<> nil then
-		            if genpeptIDs="" then 
+		          If rgmatch<> Nil Then
+		            If genpeptIDs="" Then 
 		              genpeptIDs=rgmatch.SubExpressionString(0)
-		            else
+		            Else
 		              genpeptIDs=genpeptIDs+","+rgmatch.SubExpressionString(0)
-		            end
-		          end
-		        next
+		            End
+		          End
+		        Next
 		        ecodes=genpeptIDs
-		      end if
-		    end
-		  else
+		      End If
+		    End
+		  Else
 		    MsgBox("Path to SigmoID folder is Nil")
 		    Return ""
 		  end

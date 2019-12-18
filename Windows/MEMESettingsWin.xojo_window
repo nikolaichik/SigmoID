@@ -153,6 +153,7 @@ Begin Window MEMESettingsWin
       Top             =   90
       Transparent     =   False
       Underline       =   False
+      Value           =   "False"
       Visible         =   True
       Width           =   270
    End
@@ -407,6 +408,7 @@ Begin Window MEMESettingsWin
       Top             =   122
       Transparent     =   False
       Underline       =   False
+      Value           =   "False"
       Visible         =   True
       Width           =   270
    End
