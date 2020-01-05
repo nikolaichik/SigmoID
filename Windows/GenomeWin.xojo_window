@@ -567,7 +567,7 @@ End
 
 	#tag Event
 		Sub Deactivate()
-		  ToolTip.Hide
+		  Global.ToolTip.Hide
 		End Sub
 	#tag EndEvent
 
@@ -2148,7 +2148,7 @@ End
 		  dim n,u,start as integer
 		  dim OldFeatureText as string
 		  
-		  ToolTip.Hide
+		  Global.ToolTip.Hide
 		  
 		  FeaturePropertiesWin.ParentWin=self
 		  FeaturePropertiesWin.FeatureTextField.text=f.FeatureText
@@ -2196,7 +2196,7 @@ End
 		  dim upstream, downstream as string
 		  
 		  
-		  ToolTip.Hide
+		  Global.ToolTip.Hide
 		  
 		  EditGeneWin.ParentWin=self
 		  OldFeatureText=f.FeatureText
@@ -6342,7 +6342,7 @@ End
 		  
 		  ToolTipBlock=true
 		  ToolTipTimer.Reset
-		  ToolTip.hide
+		  Global.ToolTip.hide
 		  ToolTipTimer.Mode=0
 		  
 		  p=Seq.Map
@@ -6608,7 +6608,7 @@ End
 		    
 		    'ToolTip.Show(ttip, X+self.left, Y+self.top, True)
 		  else
-		    ToolTip.hide
+		    Global.ToolTip.hide
 		  end if
 		  
 		  Exception err
@@ -6674,7 +6674,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub MouseExit()
-		  ToolTip.hide
+		  Global.ToolTip.hide
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -6695,25 +6695,32 @@ End
 		Sub Action()
 		  if not ToolTipBlock then
 		    
-		    if TTip="" then
-		      ToolTip.hide
-		    else
-		      'ToolTip.Show(ttip, TTx,TTy, True)
-		      #if TargetWin32
-		        ToolTip.Show(ttip,System.MouseX, System.MouseY-20, false)
-		        '#elseif TargetLinux
-		        'ToolTip.Show(ttip,System.MouseX, System.MouseY-20, false)
-		      #else
-		        ToolTip.Show(ttip,System.MouseX, System.MouseY-20, true)
-		      #endif
-		    end if
-		  end if
+		    
+		    #If XojoVersion < 2019.02
+		      If TTip="" Then
+		        Global.ToolTip.hide
+		      Else
+		        #if TargetWin32
+		          Global.ToolTip.Show(ttip,System.MouseX, System.MouseY-20, False)
+		        #else
+		          Global.ToolTip.Show(ttip,System.MouseX, System.MouseY-20, True)
+		        #endif
+		      end if
+		      
+		      
+		    #Else
+		      If TTip="" Then
+		        App.HideTooltip
+		      Else
+		        #If TargetWin32
+		          App.ShowTooltip(ttip,System.MouseX, System.MouseY-20, False)
+		        #Else
+		          App.ShowTooltip(ttip,System.MouseX, System.MouseY-20, True)
+		        #EndIf
+		      End If
+		    #EndIf
+		  End If
 		  
-		  
-		  
-		  ''This places the tooltip right at the tip of the mouse cursor arrow :
-		  '
-		  'Tooltip.Show("hello", System.MouseX, System.MouseY-20, True)
 		  
 		End Sub
 	#tag EndEvent

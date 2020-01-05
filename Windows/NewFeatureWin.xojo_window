@@ -557,7 +557,7 @@ End
 	#tag Event
 		Sub Activate()
 		  GenomeWin.ToolTipTimer.Mode=0
-		  Tooltip.hide
+		  Global.Tooltip.hide
 		  'beep
 		End Sub
 	#tag EndEvent
@@ -581,7 +581,7 @@ End
 		Sub Open()
 		  AdjustLayout4linux(me)
 		  GenomeWin.ToolTipTimer.Mode=0
-		  Tooltip.hide
+		  Global.Tooltip.hide
 		  
 		  
 		  

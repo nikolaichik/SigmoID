@@ -394,7 +394,7 @@ End
 		  // Grab the motif description from column 
 		  If row > -1 Then
 		    content=me.Cell(row,6)
-		    Tooltip.Show(content, System.MouseX, System.MouseY + 20, True)
+		    Global.Tooltip.Show(content, System.MouseX, System.MouseY + 20, True)
 		    'MHMouseTip.Show(Me.CellHelpTag(row, 4))
 		    'siglist.HelpTag("RegulonDB is the primary database on transcriptional regulation in Escherichia coli K-12 containing knowledge manually curated from original scientific publications, complemented with high throughput datasets and comprehensive computational predictions. ")
 		  Else
