@@ -110,6 +110,20 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub CheckEmail()
+		  If globals.email="" Then 
+		    If  Not SettingsWin.Visible Then
+		      SettingsWin.Show
+		      SettingsWin.PagePanel1.value=1
+		      SettingsWin.EmailField.SetFocus
+		      MsgBox("Please, enter your e-mail address. It is required for some NCBI services.")
+		    End If
+		    
+		  end
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CleanUp(Ge As string) As string
 		  'Remove numbers, spaces, line ends
 		  '(no complete cleanup for speed reasons!)
@@ -424,7 +438,7 @@ Protected Module Globals
 		          CPUs=CPUs\2
 		        End
 		        
-		        LogoWin.WriteToSTDOUT(Str(CPUs)+" CPU cores detected. All of them will be used for running MEME."+EndOfLine.unix)
+		        LogoWin.WriteToSTDOUT(EndOfLine.unix+Str(CPUs)+" CPU cores detected. All of them will be used for running MEME."+EndOfLine.unix)
 		        Return CPUs
 		        
 		      end if
@@ -2651,7 +2665,7 @@ Protected Module Globals
 		  SettingsWin.TomTomPathField.text=TomTomPath
 		  SettingsWin.APIKeyField.Text=API_Key
 		  SettingsWin.ChipMunkPathField.Text=Globals.chipset.jarPath
-		  SettingsWin.email.Text=Globals.email
+		  SettingsWin.EmailField.Text=Globals.email
 		  SettingsWin.requestCount.Text=str(Globals.requestCount)
 		  
 		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
@@ -2660,10 +2674,44 @@ Protected Module Globals
 		  BLASTorganism=Prefs.value("BLASTorganism","")
 		  API_Key=Prefs.value("API_Key","")
 		  email=Prefs.value("email","")
-		  requestCount=val(Prefs.Value("requestCount",""))
+		  requestCount=Val(Prefs.Value("requestCount",""))
 		  
-		  'feedback info for NCBI
-		  DevInfo = "&tool=SigmoID&email=nikolaichik@bsu.by"
+		  // Fonts
+		  
+		  Dim ff,FFont,PFont As String
+		  
+		  ff=SetDefaultFonts(True)
+		  
+		  FFont=NthField(ff,";",1)
+		  PFont=NthField(ff,";",2)
+		  
+		  FixedFont=Prefs.value("FixedFont",FFont)
+		  ProportionalFont=Prefs.value("ProportionalFont",PFont)
+		  ProportionalFontSize=Prefs.value("ProportionalFontSize",10)
+		  
+		  Dim n As Integer
+		  For n=0 To SettingsWin.FixedFontSelMenu.ListCount-1
+		    If SettingsWin.FixedFontSelMenu.list(n)=FixedFont Then
+		      SettingsWin.FixedFontSelMenu.listIndex=n
+		      Exit
+		    End If
+		  Next
+		  For n=0 To SettingsWin.PropFontSelMenu.ListCount-1
+		    If SettingsWin.PropFontSelMenu.list(n)=ProportionalFont Then
+		      SettingsWin.PropFontSelMenu.listIndex=n
+		      Exit
+		    End If
+		  Next
+		  For n=0 To SettingsWin.PropFontSizeMenu.ListCount-1
+		    If SettingsWin.PropFontSizeMenu.list(n)=Str(ProportionalFontSize) Then
+		      SettingsWin.PropFontSizeMenu.listIndex=n
+		      Exit
+		    End If
+		  Next
+		  
+		  // feedback info for NCBI
+		  CheckEmail
+		  DevInfo = "&tool=SigmoID&email="+email
 		  if API_Key<>"" then 'without API_Key, only 3 requests to eutils per second are allowed
 		    DevInfo=DevInfo+API_Key
 		  end if
@@ -2795,40 +2843,11 @@ Protected Module Globals
 		  intColor = Val(Prefs.value("HighlightColour",HighlightColor)) 'defaults to system setting (not set properly on some Linux distros)
 		  highlightColour = Color(intColor)
 		  
-		  // Fonts
 		  
-		  dim ff,FFont,PFont as string
-		  
-		  ff=SetDefaultFonts(true)
-		  
-		  FFont=NthField(ff,";",1)
-		  PFont=NthField(ff,";",2)
-		  
-		  FixedFont=Prefs.value("FixedFont",FFont)
-		  ProportionalFont=Prefs.value("ProportionalFont",PFont)
-		  ProportionalFontSize=Prefs.value("ProportionalFontSize",10)
-		  
-		  dim n as integer
-		  for n=0 to SettingsWin.FixedFontSelMenu.ListCount-1
-		    if SettingsWin.FixedFontSelMenu.list(n)=FixedFont then
-		      SettingsWin.FixedFontSelMenu.listIndex=n
-		      exit
-		    end if
-		  next
-		  for n=0 to SettingsWin.PropFontSelMenu.ListCount-1
-		    if SettingsWin.PropFontSelMenu.list(n)=ProportionalFont then
-		      SettingsWin.PropFontSelMenu.listIndex=n
-		      exit
-		    end if
-		  next
-		  for n=0 to SettingsWin.PropFontSizeMenu.ListCount-1
-		    if SettingsWin.PropFontSizeMenu.list(n)=str(ProportionalFontSize) then
-		      SettingsWin.PropFontSizeMenu.listIndex=n
-		      exit
-		    end if
-		  next
 		  
 		  LogoWin.Informer.TextFont=FixedFont
+		  
+		  
 		End Sub
 	#tag EndMethod
 

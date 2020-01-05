@@ -53,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -114,7 +112,6 @@ Begin Window GenomeWin
       Top             =   0
       Transparent     =   True
       Underline       =   False
-      Value           =   False
       Visible         =   True
       Width           =   390
    End
@@ -164,7 +161,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +241,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Transparent     =   True
       Value           =   2
@@ -358,7 +353,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -371,7 +365,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -474,7 +467,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -536,7 +528,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -764,7 +755,7 @@ End
 		  'ProportionalFont=NthField(ff,";",2)
 		  
 		  'Set detail view display and the sizes of dependent controls
-		  TextMapPic=new picture(Screen(0).Width,me.Height)
+		  TextMapPic=New picture(Screen(0).Width,Me.Height)
 		  TextMapPic.Graphics.TextSize=12
 		  TextMapPic.Graphics.TextFont=FixedFont
 		  TMLineHeight=TextMapPic.Graphics.StringHeight("Ay",TextMapPic.width)
@@ -1573,7 +1564,7 @@ End
 			dlg.CancelButtonCaption=kCancel
 			dlg.ActionButtonCaption=kSave
 			
-			gbkFile=dlg.ShowModal()
+			gbkFile=dlg.ShowModal
 			If gbkFile <> Nil then
 			'run annotation script:
 			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
@@ -1601,7 +1592,7 @@ End
 			dim GenomeFilePath,outFilePath as string
 			#if TargetWin32
 			'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
-			FixPath4Windows(outfile)
+			FixPath4Windows(gbkFile)
 			GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
 			outFilePath=chr(34)+gbkFile.ShellPath+chr(34)
 			#else
@@ -1829,7 +1820,7 @@ End
 		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
 		  end if
 		  #if DebugBuild
-		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		    theURL=theURL+"&EMAIL="+email+"&TOOL=SigmoID"
 		  #endif
 		  
 		  CDDsearch=false
@@ -1885,7 +1876,7 @@ End
 		    theURL=theURL+"&ENTREZ_QUERY="+BLASTorganism+"&5BOrganism%5D"
 		  end if
 		  #if DebugBuild
-		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		    theURL=theURL+"&EMAIL="+email+"&TOOL=SigmoID"
 		  #endif
 		  
 		  CDDsearch=false
@@ -1941,7 +1932,7 @@ End
 		  end if
 		  
 		  #if DebugBuild
-		    theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		    theURL=theURL+"&EMAIL="+email+"&TOOL=SigmoID"
 		  #endif
 		  
 		  CDDsearch=false
@@ -5305,7 +5296,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub updateMapCanvas()
-		  dim mapbounds As String
+		  Dim mapbounds As String
 		  dim maxX, maxY,sourceW,sourceh,minX, minY as integer
 		  
 		  
@@ -7267,7 +7258,7 @@ End
 		    RID=NthField(RID,chr(34),1)
 		    theURL="https://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get"
 		    #if DebugBuild
-		      theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		      theURL=theURL+"&EMAIL="+email+"&TOOL=SigmoID"
 		    #endif
 		  else
 		    
@@ -7284,7 +7275,7 @@ End
 		    RID=NthField(RID,EndOfLine.UNIX,1)
 		    theURL="https://blast.ncbi.nlm.nih.gov/Blast.cgi?RID="+RID+"&CMD=Get"
 		    #if DebugBuild
-		      theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		      theURL=theURL+"&EMAIL="+email+"&TOOL=SigmoID"
 		    #endif
 		  end if
 		  
@@ -7436,7 +7427,7 @@ End
 		  'RID=NthField(RID,chr(34),1)
 		  'theURL="https://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get"
 		  '#if DebugBuild
-		  'theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  'theURL=theURL+"&EMAIL="+email+"&TOOL=SigmoID"
 		  '#endif
 		  'else
 		  '
@@ -7453,7 +7444,7 @@ End
 		  'RID=NthField(RID,EndOfLine.UNIX,1)
 		  'theURL="https://blast.ncbi.nlm.nih.gov/Blast.cgi?RID="+RID+"&CMD=Get"
 		  '#if DebugBuild
-		  'theURL=theURL+"&EMAIL=nikolaichik@bio.bsu.by&TOOL=SigmoID"
+		  'theURL=theURL+"&EMAIL="+email+"&TOOL=SigmoID"
 		  '#endif
 		  'end if
 		  '

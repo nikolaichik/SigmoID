@@ -252,7 +252,6 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -366,12 +365,10 @@ Begin Window deNovoWin
       Top             =   347
       Transparent     =   True
       Underline       =   False
-      Value           =   "False"
       Visible         =   True
       Width           =   402
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -408,7 +405,6 @@ Begin Window deNovoWin
       Top             =   346
       Transparent     =   True
       Underline       =   False
-      Value           =   "False"
       Visible         =   True
       Width           =   192
    End
@@ -963,10 +959,7 @@ End
 		  
 		  self.hide
 		  
-		  if globals.email="" then 
-		    MsgBox("Please, provide your e-mail address: Settings-SigmoID Preferences-DB Search-E-mail field")
-		    return 
-		  end
+		  CheckEmail
 		  
 		  dim cli, hmmSearchRes, CRtagPositions, table, currentHit as string
 		  dim dataForMeme as string
@@ -1766,20 +1759,20 @@ End
 #tag EndEvents
 #tag Events Proteins2processField
 	#tag Event
-		Sub TextChange()
-		  dim p2p as integer
+		Sub LostFocus()
+		  Dim p2p As Integer
 		  
-		  p2p=val(me.text)
+		  p2p=Val(Me.Text)
 		  
-		  if p2p<30 then
-		    me.text="30"
-		    msgbox "30 is the minimal number here"
-		  end if
+		  If p2p<30 Then
+		    Me.Text="30"
+		    MsgBox "30 is the minimal number here"
+		  End If
 		  
-		  if p2p>1000 then
-		    me.text="1000"
-		    msgbox "1000 is the maximal number here. Please think if you really want to fetch this many seqs. It's slow and doesn't really help."
-		  end if
+		  If p2p>1000 Then
+		    Me.Text="1000"
+		    MsgBox "1000 is the maximal number here. Please think if you really want to fetch this many seqs. It's slow and doesn't really help."
+		  End If
 		  
 		  
 		End Sub

@@ -88,6 +88,8 @@ Inherits Application
 		  
 		  GetResources_f
 		  
+		  ReadPrefs 'diplicating this function in several places as event order is different on different systems
+		  
 		  
 		  'initialise array for reverse-complementation (and complementation):
 		  'A-65 -> T-84

@@ -426,12 +426,15 @@ End
 		  Dim sh As Shell
 		  dim f As FolderItem
 		  
+		  ReadPrefs 'diplicating this function in several places as event order is different on different systems
+		  
 		  'a proper check for monospaced font is required
-		  STDOUT.TextFont="Courier"
+		  'STDOUT.TextFont="Courier"
+		  STDOUT.TextFont=FixedFont
 		  STDOUT.Refresh(false)
 		  
 		  'PathsChanged=true
-		  'ReadPrefs
+		  
 		  
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then
@@ -1080,7 +1083,11 @@ End
 		  LogoWinToolbar.Item(4).Enabled=false 'palindromise: disable until alignment loaded
 		  LogoWinToolbar.Item(5).Enabled=false 'SaveLog: disable until alignment loaded
 		  
-		  WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Load alignment or genome file to start."+EndofLine.Unix)
+		  //Determine and store CPU core number
+		  CPUcores=CountCPUcores
+		  
+		  
+		  WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Load alignment or genome file to start."+EndOfLine.Unix)
 		  
 		  ViewHideViewer.Checked=true
 		  
@@ -1584,7 +1591,7 @@ End
 			
 			if RSW.EvalueButton.Value then
 			if val(RSW.EvalueField.text)>0 then    'if cutoff isn't entered, run without it
-			nhmmeroptions=nhmmeroptions+" -E "+trim(RSW.EvalueField.text)
+			nhmmeroptions=nhmmeroptions+" -E "+Trim(RSW.EvalueField.Text)
 			end if
 			elseif RSW.BitScoreButton.value then
 			if val(RSW.BitScoreField.text)>0 then    'if cutoff isn't entered, run without it
