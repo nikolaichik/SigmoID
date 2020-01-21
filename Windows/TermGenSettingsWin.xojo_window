@@ -118,7 +118,7 @@ Begin Window TermGenSettingsWin
       Top             =   212
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   502
    End

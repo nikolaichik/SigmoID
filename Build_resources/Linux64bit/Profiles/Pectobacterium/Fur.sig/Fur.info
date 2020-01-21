@@ -1,3 +1,0 @@
-hmm profile made of 19 19-bp Fur binding sites from Panina, Mironov and Gelfand (NAR 29:5195) were used to search Dickeya dadantii 3937, Pectobacterium atrosepticum SCRI 1043 and Pectobacterium carotovorum PC1 genomes. The best hits were manually checked and extended by four bases. The final 23 bp long profile was build with 98  Fur binding sites (some of these partially overlap) and their reverse complements. Experimental evidence is available for only some of these sites.
-
-The hmm profile is definitely missing some of the real Fur sites, but reducing the threshold leads to many false positives. The MEME profile is 2 bp shorter, but has rather good sensitivity and MAST should find some of the sites missed by nhmmer. 

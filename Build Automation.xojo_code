@@ -70,7 +70,6 @@
 					FolderItem = Li4vUHl0aG9uL09wZXJPbi5weQ==
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvUHJvZmlsZXMv
 					FolderItem = Li4vVEZfSE1Ncy8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvY2QtaGl0LWVzdA==
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
@@ -84,6 +83,7 @@
 					FolderItem = Li4vLi4vQ2FsaWJyYXRlZFByb2ZpbGVzLw==
 					FolderItem = Li4vUHl0aG9uL3VuaXByb3QyZ2VucGVwdC5weQ==
 					FolderItem = Li4vLi4vQ1J0YWdCYXNlLw==
+					FolderItem = Li4vUHJvZmlsZXMv
 				End
 			End
 			Begin BuildStepList Mac OS X

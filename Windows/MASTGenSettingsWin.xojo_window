@@ -118,7 +118,7 @@ Begin Window MASTGenSettingsWin
       Top             =   86
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   400
    End
@@ -214,7 +214,7 @@ Begin Window MASTGenSettingsWin
          Top             =   199
          Transparent     =   False
          Underline       =   False
-         Value           =   "False"
+         Value           =   False
          Visible         =   True
          Width           =   340
       End
@@ -336,7 +336,7 @@ Begin Window MASTGenSettingsWin
       Top             =   118
       Transparent     =   False
       Underline       =   False
-      Value           =   "False"
+      Value           =   False
       Visible         =   True
       Width           =   156
    End
@@ -403,7 +403,7 @@ Begin Window MASTGenSettingsWin
       Top             =   118
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   240
    End
@@ -613,7 +613,7 @@ Begin Window MASTGenSettingsWin
       Top             =   282
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   400
    End

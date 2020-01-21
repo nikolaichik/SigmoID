@@ -451,7 +451,7 @@ Begin Window SelectTFBSWindow
       Top             =   198
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   350
    End

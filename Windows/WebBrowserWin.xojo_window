@@ -87,6 +87,7 @@ Begin Window WebBrowserWin
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   34
+      Transparent     =   "True"
       Visible         =   True
       Width           =   1100
    End
@@ -107,7 +108,7 @@ Begin Window WebBrowserWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   4
       Transparent     =   True
       Visible         =   True

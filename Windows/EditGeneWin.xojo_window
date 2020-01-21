@@ -167,7 +167,7 @@ Begin Window EditGeneWin
       Top             =   52
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   256
    End

@@ -146,7 +146,7 @@ Begin Window RegulonSettingsWin
          Top             =   331
          Transparent     =   False
          Underline       =   False
-         Value           =   "True"
+         Value           =   True
          Visible         =   True
          Width           =   115
       End
@@ -179,7 +179,7 @@ Begin Window RegulonSettingsWin
          Top             =   365
          Transparent     =   False
          Underline       =   False
-         Value           =   "True"
+         Value           =   True
          Visible         =   True
          Width           =   103
       End
@@ -291,7 +291,7 @@ Begin Window RegulonSettingsWin
          Top             =   331
          Transparent     =   False
          Underline       =   False
-         Value           =   "False"
+         Value           =   False
          Visible         =   True
          Width           =   219
       End
@@ -486,7 +486,7 @@ Begin Window RegulonSettingsWin
          Top             =   225
          Transparent     =   False
          Underline       =   False
-         Value           =   "True"
+         Value           =   True
          Visible         =   True
          Width           =   343
       End
@@ -598,7 +598,7 @@ Begin Window RegulonSettingsWin
          Top             =   257
          Transparent     =   False
          Underline       =   False
-         Value           =   "True"
+         Value           =   True
          Visible         =   True
          Width           =   400
       End

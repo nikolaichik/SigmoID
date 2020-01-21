@@ -1,3 +1,0 @@
-   AaeR is the LysR family transcriptional activator for the aaeXAB operon coding for aromatic (carboxylic) acid efflux system. There’s genetic evidence for this control (doi: 10.1128/JB.186.21.7196-7204.2004), but no experimental data on the binding site. 
-
-   This putative binding site was suggested by MEME. It overlaps the very start of aaeX CDS. The calibrated threshold is set high to cut off all hits except the one in front of the target operon.

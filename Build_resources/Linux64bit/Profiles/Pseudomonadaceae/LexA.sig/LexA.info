@@ -1,3 +1,0 @@
-LexA is the repressor of the SOS regulon composed of a large set of genes involved in DNA reparation. Temperate phages may also use LexA-dependent regulation to activate their excision after extensive DNA damage, therefore several LexA binding sites are expected in front of phage-related genes. 
-
-The profile was built starting with LexA binding sites from Pseudomonas fluorescens Pf-5 taken from RegPrecise with addition of sites in front of uvrB and dinP.

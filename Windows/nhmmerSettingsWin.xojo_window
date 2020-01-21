@@ -691,7 +691,7 @@ Begin Window nhmmerSettingsWin
       Top             =   173
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   170
    End
@@ -724,7 +724,7 @@ Begin Window nhmmerSettingsWin
       Top             =   172
       Transparent     =   False
       Underline       =   False
-      Value           =   "False"
+      Value           =   False
       Visible         =   True
       Width           =   168
    End
@@ -966,7 +966,7 @@ Begin Window nhmmerSettingsWin
       Top             =   284
       Transparent     =   False
       Underline       =   False
-      Value           =   "False"
+      Value           =   False
       Visible         =   True
       Width           =   526
    End

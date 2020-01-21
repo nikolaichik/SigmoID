@@ -1,8 +1,0 @@
-NtrC is a member of the two-component NtrB-NtrC system that controls nitrogen assimilation in Proteobacteria in accordance with nitrogen availability. NtrC is an enhancer-binding protein (EBP) required for transcription initiation by RpoN-containing RNA polymerase; it may also act as a repressor.
-
-The profile was built starting with NtrC sites of Pectobacterium atrosepticum SCRI1043 obtained from RegPrecise (http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=1127) and scanning the genomes of Pectobacterium/D.dadantii strains. Low scoring sites were retained if located near (in front of) RpoN-dependent promoter. 
-
-The final profile is built from 56 sites and their reverse complements. The calibrated profile successfully recognises all NtrC sites annotated in RegPrecise for SCRI1043 except for the one in front of ygjG and correctly identifies the sites missed by RegPrecise in front of Eca3495 (CRON2), hisJ (CRON4), as well as sites in front of six other genes not considered as part of NtrC regulon by RegPrecise.
-
-Additional NtrC sites may be found with this profile by decreasing the threshold and taking into account location of RpoN-dependent promoters.
-    

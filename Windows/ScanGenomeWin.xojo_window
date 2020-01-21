@@ -228,7 +228,7 @@ Begin Window ScanGenomeWin
       Top             =   376
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   366
    End
@@ -335,7 +335,7 @@ Begin Window ScanGenomeWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   20
       TabPanelIndex   =   0
@@ -380,7 +380,7 @@ Begin Window ScanGenomeWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   21
       TabPanelIndex   =   0
@@ -425,7 +425,7 @@ Begin Window ScanGenomeWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   22
       TabPanelIndex   =   0

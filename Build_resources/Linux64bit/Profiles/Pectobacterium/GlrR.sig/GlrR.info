@@ -1,8 +1,0 @@
-GlrR is an enhancer-binding protein (EBP) required for transcription activation at the RpoN-dependent promoter of small RNA gene glmY. In some strains it may also regulate another sRNA gene, glmZ.
-
-The profile was built starting with three GlrR binding sites from E.coli described in RegulonDB and iteratively adding Pectobacterium/Dickeya sites. 
-
-The final profile is built from 14 non-redundant sites and their reverse complements. 
-
-
-    

@@ -118,7 +118,7 @@ Begin Window HmmGenSettingsWin
       Top             =   86
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   402
    End
@@ -214,7 +214,7 @@ Begin Window HmmGenSettingsWin
          Top             =   189
          Transparent     =   False
          Underline       =   False
-         Value           =   "True"
+         Value           =   True
          Visible         =   True
          Width           =   381
       End
@@ -336,7 +336,7 @@ Begin Window HmmGenSettingsWin
       Top             =   116
       Transparent     =   False
       Underline       =   False
-      Value           =   "False"
+      Value           =   False
       Visible         =   True
       Width           =   164
    End
@@ -403,7 +403,7 @@ Begin Window HmmGenSettingsWin
       Top             =   116
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   242
    End
@@ -613,7 +613,7 @@ Begin Window HmmGenSettingsWin
       Top             =   277
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   410
    End

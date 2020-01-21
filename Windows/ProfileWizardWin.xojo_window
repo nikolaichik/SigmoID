@@ -427,7 +427,7 @@ Begin Window ProfileWizardWin
          Top             =   88
          Transparent     =   False
          Underline       =   False
-         Value           =   "False"
+         Value           =   False
          Visible         =   True
          Width           =   268
       End
@@ -574,7 +574,7 @@ Begin Window ProfileWizardWin
          Top             =   56
          Transparent     =   False
          Underline       =   False
-         Value           =   "False"
+         Value           =   False
          Visible         =   True
          Width           =   141
       End
@@ -799,7 +799,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0

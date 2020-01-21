@@ -597,7 +597,7 @@ Begin Window hmmSearchSettingsWin
       Top             =   262
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   496
    End
@@ -630,7 +630,7 @@ Begin Window hmmSearchSettingsWin
       Top             =   196
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   496
    End

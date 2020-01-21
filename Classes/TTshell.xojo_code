@@ -65,14 +65,6 @@ Inherits shell
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ErrorCode"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="ExitCode"
 			Visible=false
 			Group="Behavior"
@@ -151,14 +143,6 @@ Inherits shell
 			InitialValue=""
 			Type="Integer"
 			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Mode"
-			Visible=true
-			Group=""
-			InitialValue=""
-			Type="Integer"
-			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"

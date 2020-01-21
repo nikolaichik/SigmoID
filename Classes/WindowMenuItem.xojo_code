@@ -68,30 +68,6 @@ Inherits MenuItem
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AutoEnable"
-			Visible=false
-			Group="Behavior"
-			InitialValue="0"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Checked"
-			Visible=false
-			Group="Behavior"
-			InitialValue="0"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="CommandKey"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Enabled"
 			Visible=false
 			Group="Behavior"
@@ -114,14 +90,6 @@ Inherits MenuItem
 			InitialValue="-2147483648"
 			Type="Integer"
 			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="KeyboardShortcut"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -154,14 +122,6 @@ Inherits MenuItem
 			InitialValue=""
 			Type="String"
 			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Text"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"

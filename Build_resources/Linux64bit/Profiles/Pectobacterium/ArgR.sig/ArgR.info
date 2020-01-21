@@ -1,3 +1,0 @@
-ArgR repressor regulates arginine biosynthesis and degradation.
- 
-hmm profile made of 22 Pectobacterium atrosepticum ArgR binding sites present in regPrecise version 3.2 was used to search genomes of Pectobacterium strains. Weak sites were removed, some manually selected sites were added, the resulting alignment was extened by 3 bp from each side. The final profile is built from 24 nonredundant sequences from Pectobacterium atrosepticum SCRI 1043 and Pectobacterium carotovorum 3-2. 

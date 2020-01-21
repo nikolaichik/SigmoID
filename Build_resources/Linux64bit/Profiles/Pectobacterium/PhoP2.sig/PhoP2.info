@@ -1,7 +1,0 @@
-PhoP is a known regulator of magnesium transport and virulence genes with a rather large regulons in characterised cases. The PhoP binding sites seem to vary significantly, so several profiles seem to be required to detect most of them. The two PhoP profiles were built starting with E.coli and Salmonella sites described by Harari O. et al. in PLoS Comput Biol 6(7): e1000862. doi:10.1371/journal.pcbi.1000862. The binding site sequences were taken from the Figure S2: Subtractive Submotif 1 for the PhoP1 profile and Subtractive Submotif 2 for the PhoP2 profile. The original PhoP1 and PhoP2 profiles were used to search Pectobacterium carotovorum and Pectobacterium atrosepticum  genomes, and high scoring hits clearly related to magnesium transport/magnesium-dependent enzymes/virulence were retained to build final profiles. Ho sensible hits were found in pectobacteria when Subtractive Submotif 3 was used.
-
-Indirect experimental evidence only supports the presence of PhoP binding site in front of the pehA gene.
-
-Both profiles have to be used as the results produced by them are significantly different. 
-
-(MEME shortens this alignment by one base from each side, which makes the resulting profile largely unusable, hence no MAST threshold is set.)

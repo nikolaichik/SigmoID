@@ -1,4 +1,0 @@
-Primary hmm profile built on the basis of the FliA(sigma28)-dependent E.coli promoters. This profile was used to search Pectobacterium atrosepticum genomes and promoters supported by RNA-seq data from Kwenda et al. (10.1186/s12864-016-2376-0 
-) were retained. Then, the promoters located in front of ortologous genes from P. carotovorum 3-2 and P. wasabiae SCC3193 were added to construct the final profile.
-
-This profile performs poorly with Dickeya genomes due to slightly differing -10 box and much less conserved -35 box in Dickeya.

@@ -118,7 +118,7 @@ Begin Window RepeatSearchSettingsWin
       Top             =   142
       Transparent     =   False
       Underline       =   False
-      Value           =   "False"
+      Value           =   False
       Visible         =   True
       Width           =   206
    End
@@ -646,7 +646,7 @@ Begin Window RepeatSearchSettingsWin
       Top             =   458
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   410
    End
@@ -858,7 +858,7 @@ Begin Window RepeatSearchSettingsWin
       Top             =   142
       Transparent     =   False
       Underline       =   False
-      Value           =   "False"
+      Value           =   False
       Visible         =   True
       Width           =   192
    End

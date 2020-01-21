@@ -341,7 +341,7 @@ Begin Window MASTSettingsWin
       Top             =   66
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   157
    End
@@ -446,7 +446,7 @@ Begin Window MASTSettingsWin
          Top             =   209
          Transparent     =   False
          Underline       =   False
-         Value           =   "True"
+         Value           =   True
          Visible         =   True
          Width           =   428
       End
@@ -479,7 +479,7 @@ Begin Window MASTSettingsWin
          Top             =   241
          Transparent     =   False
          Underline       =   False
-         Value           =   "False"
+         Value           =   False
          Visible         =   True
          Width           =   429
       End
@@ -512,7 +512,7 @@ Begin Window MASTSettingsWin
          Top             =   177
          Transparent     =   False
          Underline       =   False
-         Value           =   "True"
+         Value           =   True
          Visible         =   True
          Width           =   454
       End

@@ -116,10 +116,9 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   False
-      Value           =   4
+      Value           =   0
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -442,7 +441,7 @@ Begin Window SettingsWin
             Visible         =   True
             Width           =   141
          End
-         Begin TextField email
+         Begin TextField EmailField
             AcceptTabs      =   False
             Alignment       =   0
             AutoDeactivate  =   True
@@ -450,7 +449,7 @@ Begin Window SettingsWin
             BackColor       =   &cFFFF00FF
             Bold            =   False
             Border          =   True
-            CueText         =   ""
+            CueText         =   "valid e-mail is required for some NCBI services "
             DataField       =   ""
             DataSource      =   ""
             Enabled         =   True
@@ -2868,7 +2867,9 @@ End
 		  Globals.chipset= new ChipMSettings
 		  AdjustLayout4linux(me)
 		  PathsChanged=true
-		  ReadPrefs
+		  
+		  ReadPrefs 'diplicating this function in several places as event order is different on different systems
+		  
 		  'Call SetDefaultFonts(false) 'duplicate, but needed at start due to event order
 		  'alimaskPathField.text=Prefs.value("alimaskpath","/usr/local/bin/alimask")
 		  'nhmmerPathField.text=Prefs.value("nhmmerpath","/usr/local/bin/nhmmer")
@@ -2910,8 +2911,6 @@ End
 		    StandardFormatRadioButton.value=true
 		  end if
 		  
-		  //Determine and store CPU core number
-		  CPUcores=CountCPUcores
 		  
 		  SetDefaultColours
 		  
@@ -3021,7 +3020,7 @@ End
 #tag Events OKButton
 	#tag Event
 		Sub Action()
-		  Prefs.value("alimaskpath")=alimaskPathField.text
+		  Prefs.value("alimaskpath")=alimaskPathField.Text
 		  Prefs.value("nhmmerpath")=nhmmerPathField.text
 		  Prefs.value("hmmbuildpath")=hmmbuildPathField.text
 		  Prefs.value("MEMEpath")=MEMEPathField.text
@@ -3034,7 +3033,7 @@ End
 		  Prefs.value("BLASTorganism")=OrganismField.text
 		  Prefs.value("API_Key")=APIKeyField.text
 		  Prefs.Value("ChipMunkPath")=ChipMunkPathField.Text
-		  Prefs.Value("email")=email.text
+		  Prefs.Value("email")=emailField.text
 		  Prefs.Value("requestCount")=requestCount.text
 		  Prefs.Value("TomTomPath")=TomTomPathField.Text
 		  
@@ -3049,22 +3048,24 @@ End
 		  // Colors are stored as strings
 		  dim c as string
 		  
-		  Prefs.value("HighlightColour")=str(HighlightCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("CDScolour")=str(CDSCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("sig_peptideColour")=str(sig_peptideCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("rRNAcolour")=str(rRNAcanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("tRNAcolour")=str(tRNAcanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("ncRNAcolour")=str(ncRNAcanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("protein_bindColour")=str(protein_bindCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("geneColour")=str(geneCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("operonColour")=str(operonCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("promoterColour")=str(promoterCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("terminatorColour")=str(terminatorCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("attenuatorColour")=str(attenuatorCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("riboswitchColour")=str(riboswitchCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("mobile_elementColour")=str(mobile_elementCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("repeat_regionColour")=str(repeat_regionCanvas.backdrop.RGBSurface.Pixel(1,1))
-		  Prefs.value("otherColour")=str(otherCanvas.backdrop.RGBSurface.Pixel(1,1))
+		  If HighlightCanvas.backdrop<>Nil Then 'we can arrive here before the backdrops are initialised!
+		    Prefs.value("HighlightColour")=Str(HighlightCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("CDScolour")=str(CDSCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("sig_peptideColour")=str(sig_peptideCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("rRNAcolour")=str(rRNAcanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("tRNAcolour")=str(tRNAcanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("ncRNAcolour")=str(ncRNAcanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("protein_bindColour")=str(protein_bindCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("geneColour")=str(geneCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("operonColour")=str(operonCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("promoterColour")=str(promoterCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("terminatorColour")=str(terminatorCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("attenuatorColour")=str(attenuatorCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("riboswitchColour")=str(riboswitchCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("mobile_elementColour")=str(mobile_elementCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("repeat_regionColour")=str(repeat_regionCanvas.backdrop.RGBSurface.Pixel(1,1))
+		    Prefs.value("otherColour")=Str(otherCanvas.backdrop.RGBSurface.Pixel(1,1))
+		  End If
 		  
 		  
 		  //Fonts
@@ -3101,7 +3102,7 @@ End
 #tag Events PrefsToolbar1
 	#tag Event
 		Sub Action(item As ToolItem)
-		  select case item.Name
+		  Select Case item.Name
 		  case "PathsButt"
 		    PagePanel1.value=0
 		    toolbutton(me.Item(1)).Pushed=false

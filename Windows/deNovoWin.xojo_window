@@ -210,7 +210,6 @@ Begin Window deNovoWin
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      DropIndicatorVisible=   False
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
@@ -236,6 +235,7 @@ Begin Window deNovoWin
       ScrollbarHorizontal=   False
       ScrollBarVertical=   True
       SelectionType   =   0
+      ShowDropIndicator=   False
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
@@ -252,6 +252,7 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -365,10 +366,12 @@ Begin Window deNovoWin
       Top             =   347
       Transparent     =   True
       Underline       =   False
+      Value           =   False
       Visible         =   True
       Width           =   402
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -405,6 +408,7 @@ Begin Window deNovoWin
       Top             =   346
       Transparent     =   True
       Underline       =   False
+      Value           =   False
       Visible         =   True
       Width           =   192
    End

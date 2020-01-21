@@ -1,2 +1,0 @@
-   Glycine cleavage A, GcvA, is a repressor of the glycine cleavage enzyme system, which is a secondary pathway for production of C1 units. 
-   This profile was built starting with GcvA sites from RegPrecise 4.0. The matching sites in front of gcvA and gcvT were collected from Pectobacterium/Dickeya genomes, extended and realigned with MEME. The final profile is calibrated to produce no false positive hits, but may miss one of the two sites in front of gcvT of some Dickeya strains.

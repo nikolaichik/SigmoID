@@ -205,7 +205,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -250,7 +250,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
@@ -295,7 +295,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -340,7 +340,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0

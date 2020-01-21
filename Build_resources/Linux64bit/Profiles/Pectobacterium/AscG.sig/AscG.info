@@ -1,6 +1,0 @@
-AscG is the regulator of beta-glucosides and cellobiose utilisation.
-Effector:	Cellobiose-6-phosphate; Beta-glucoside-6-phosphate
-
-hmm profile made of 5 Pectobacterium atrosepticum SCRI1043 AscG binding sites present in regPrecise version 3.2 was used to search genomes of Pectobacterium strains. The final profile is built from 9 nonredundant sequences from Pectobacterium atrosepticum, P. carotovorum and P. wasabiae.
-
-There are usually more than one paralogous AscG-like regulators in Pectobacteria, and these are very similar to each other. This profile may not discriminate between the sites recognised by different AscG-like regulators.

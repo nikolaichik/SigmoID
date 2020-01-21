@@ -160,7 +160,7 @@ Begin Window CollecTFWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   0
+      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -222,7 +222,7 @@ Begin Window CollecTFWin
       Index           =   -2147483648
       InitialParent   =   ""
       IsConnected     =   False
-      LastErrorCode   =   0
+      LastErrorCode   =   "0"
       LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
@@ -242,7 +242,7 @@ Begin Window CollecTFWin
       Index           =   -2147483648
       InitialParent   =   ""
       IsConnected     =   False
-      LastErrorCode   =   0
+      LastErrorCode   =   "0"
       LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0

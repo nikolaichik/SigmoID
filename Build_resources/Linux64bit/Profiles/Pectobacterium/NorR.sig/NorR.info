@@ -1,8 +1,0 @@
-NorR is an enhancer-binding protein (EBP) required for transcription activation at the RpoN-dependent promoter of the norVW nitric oxide reductase operon.
-
-The profile was built starting with six NorR binding sites from E.coli described in RegulonDB and iteratively adding Pectobacterium/Dickeya sites. 
-
-The final profile is built from 8 non-redundant sites and their reverse complements. 
-
-
-    

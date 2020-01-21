@@ -112,6 +112,7 @@ Begin Window GenomeWin
       Top             =   0
       Transparent     =   True
       Underline       =   False
+      Value           =   False
       Visible         =   True
       Width           =   390
    End
@@ -243,7 +244,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       Top             =   359
       Transparent     =   True
-      Value           =   2
+      Value           =   0
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer

@@ -3737,7 +3737,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function Translate3(Gene As string, code as integer) As string
-		  dim  m,n,GeneLength,aa0,up  as integer
+		  Dim  m,n,GeneLength,aa0,up  As Integer
 		  dim protein,codon,codons,aa1st as string
 		  dim gC as gCode
 		  gc=gCodes(code)
@@ -3787,7 +3787,7 @@ Protected Module Globals
 		  return protein
 		  
 		  Exception err
-		    ExceptionHandler(err,"Globals:Translate")
+		    ExceptionHandler(err,"Globals:Translate3")
 		End Function
 	#tag EndMethod
 

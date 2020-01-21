@@ -573,7 +573,7 @@ Begin Window ChipMParam
    Begin PushButton CancelButton
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   True
       Caption         =   "Cancel"
       Default         =   False
@@ -739,7 +739,7 @@ End
 #tag EndEvents
 #tag Events CancelButton
 	#tag Event
-		Sub Pressed()
+		Sub Action()
 		  self.close
 		End Sub
 	#tag EndEvent

@@ -1,7 +1,0 @@
-MarR (multiple antibiotic resistance regulator) family of transcriptional regulators controlling response to diverse toxic compounds, including antibiotics, phenolics and oxidative stress agents. SlyA is a representative of this family controlling virulence-related functions in both animal and plant pathogens.
-
-This profile was built starting with six SlyA binding sites in font of HlyE taken from RegulonDB, eight sites from S.typhimurium (doi:10.1074/jbc.M110178200) and a site in front of PhoP in D. dadantii 3937 experimentally identified by Hague et al. ( doi:10.1128/JB.00240-09). A profile built from these sites allowed to identify potеntial binding sites in front of D. dadantii genes pelD and pelL that were demonstrated to be regulated by SlyA by Hague et al. The profile built with additional D. dadantii sites was used to identify potential binding sites in P. carotovorum and P. atrosepticum in front of pel genes and slyA (hor) itself. From here on E. coli and S.typhimurium sites were removed and several iterations added more sites in front of type VI secretion related and oxidative stress genes
-
-The final profile is built from 55 sites and their reverse complements. 
-
-    

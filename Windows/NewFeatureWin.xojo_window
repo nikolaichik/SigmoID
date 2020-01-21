@@ -323,7 +323,7 @@ Begin Window NewFeatureWin
       Top             =   52
       Transparent     =   False
       Underline       =   False
-      Value           =   "False"
+      Value           =   False
       Visible         =   True
       Width           =   242
    End
@@ -356,7 +356,7 @@ Begin Window NewFeatureWin
       Top             =   54
       Transparent     =   False
       Underline       =   False
-      Value           =   "True"
+      Value           =   True
       Visible         =   True
       Width           =   154
    End
