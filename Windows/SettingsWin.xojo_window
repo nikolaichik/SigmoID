@@ -118,7 +118,7 @@ Begin Window SettingsWin
       TabPanelIndex   =   0
       Top             =   0
       Transparent     =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -517,7 +517,7 @@ Begin Window SettingsWin
             TabIndex        =   9
             TabPanelIndex   =   2
             TabStop         =   True
-            Text            =   ""
+            Text            =   "100"
             TextColor       =   &c00000000
             TextFont        =   "System"
             TextSize        =   0.0
@@ -1090,7 +1090,7 @@ Begin Window SettingsWin
             TabIndex        =   18
             TabPanelIndex   =   1
             TabStop         =   True
-            Text            =   "/usr/local/bin/tfastx"
+            Text            =   "~/meme/bin/tomtom"
             TextColor       =   &c00000000
             TextFont        =   "System"
             TextSize        =   0.0
@@ -2879,13 +2879,13 @@ End
 		  ''weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
 		  'tfastxPathField.text=Prefs.value("tfastxPath","/usr/local/bin/tfastx")
 		  
-		  alimaskPathField.text=alimaskpath
-		  nhmmerPathField.text=nhmmerpath
-		  hmmbuildPathField.text=hmmbuildpath
-		  MEMEPathField.text=MEMEpath
-		  MASTPathField.text=MASTpath
-		  'weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
-		  tfastxPathField.text=tfastxPath
+		  'alimaskPathField.text=alimaskpath
+		  'nhmmerPathField.text=nhmmerpath
+		  'hmmbuildPathField.text=hmmbuildpath
+		  'MEMEPathField.text=MEMEpath
+		  'MASTPathField.text=MASTpath
+		  ''weblogoPathField.text=Prefs.value("weblogopath","/usr/local/bin/weblogo")
+		  'tfastxPathField.text=tfastxPath
 		  
 		  'set the BLAST database values
 		  for n=0 to NucleotidePopup.ListCount
@@ -3024,7 +3024,7 @@ End
 		  Prefs.value("nhmmerpath")=nhmmerPathField.text
 		  Prefs.value("hmmbuildpath")=hmmbuildPathField.text
 		  Prefs.value("MEMEpath")=MEMEPathField.text
-		  Prefs.value("MASTpath")=MASTPathField.text
+		  Prefs.value("MASTpath")=MASTPathField.Text
 		  'Prefs.value("weblogopath")=weblogoPathField.text
 		  Prefs.value("tfastxPath")=tfastxPathField.text
 		  Prefs.value("ProfileFpath")=ProfileFpath

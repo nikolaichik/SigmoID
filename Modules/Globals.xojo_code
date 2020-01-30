@@ -2653,7 +2653,7 @@ Protected Module Globals
 		    MASTpath=Prefs.value("MASTpath",MASTpath)
 		    TomTomPath=Prefs.value("TomTomPath",TomTomPath)
 		    Globals.chipset.jarPath=Prefs.Value("ChipMunkPath", Globals.chipset.jarPath)
-		    PathsChanged=false
+		    PathsChanged=False
 		  end if
 		  
 		  SettingsWin.tfastxPathField.text=tfastxPath
@@ -2661,12 +2661,12 @@ Protected Module Globals
 		  SettingsWin.nhmmerpathField.text=nhmmerpath
 		  SettingsWin.hmmBuildPathField.text=hmmBuildPath
 		  SettingsWin.MEMEPathField.text=MEMEpath
-		  SettingsWin.MASTPathField.text=MASTpath
-		  SettingsWin.TomTomPathField.text=TomTomPath
+		  SettingsWin.MASTPathField.Text=MASTpath
+		  SettingsWin.TomTomPathField.Text=TomTomPath
 		  SettingsWin.APIKeyField.Text=API_Key
 		  SettingsWin.ChipMunkPathField.Text=Globals.chipset.jarPath
 		  SettingsWin.EmailField.Text=Globals.email
-		  SettingsWin.requestCount.Text=str(Globals.requestCount)
+		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
 		  
 		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
@@ -2674,7 +2674,7 @@ Protected Module Globals
 		  BLASTorganism=Prefs.value("BLASTorganism","")
 		  API_Key=Prefs.value("API_Key","")
 		  email=Prefs.value("email","")
-		  requestCount=Val(Prefs.Value("requestCount",""))
+		  requestCount=Val(Prefs.Value("requestCount","100"))
 		  
 		  // Fonts
 		  
@@ -3635,18 +3635,24 @@ Protected Module Globals
 		  
 		  #if TargetLinux
 		    dim userName as string=SpecialFolder.UserHome.name '/tmp/UserHome/
-		    userName=NthField(userName,"/",2)
+		    'userName=NthField(userName,"/",2)
 		    
 		    dim tmpF as folderitem=SpecialFolder.Temporary.Child(userName)
 		    if tmpF<>Nil then
-		      if NOT tmpF.Exists then
-		        tmpf.CreateAsFolder
-		      end if
-		      return tmpF
+		      If Not tmpF.Exists Then
+		        If XojoVersion>2019.2 Then
+		          tmpf.CreateFolder
+		        Else
+		          tmpf.CreateAsFolder   'deprecated in 2019r21
+		        End If
+		      End If
+		      Return tmpF
+		    Else
+		      MsgBox "Can't create a temporary folder for user data"
 		    end if
 		    
 		  #else
-		    return SpecialFolder.Temporary
+		    Return SpecialFolder.Temporary
 		  #endif
 		  
 		  Exception Err
