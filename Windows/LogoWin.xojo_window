@@ -1044,31 +1044,32 @@ End
 		  
 		  
 		  // RegPrecise
+		  ' web services don't work after the move to new server
 		  
-		  WriteToSTDOUT ("Accessing RegPrecise... ")
+		  'WriteToSTDOUT ("Accessing RegPrecise... ")
 		  me.Show
 		  
-		  dim res as string
-		  dim jsn as new JSONItem
-		  dim hts as new HTTPSocket
-		  hts.Yield=true
-		  res=hts.Get("https://regprecise.lbl.gov/Services/rest/release",5)
-		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		    
-		    if Res="" then
-		      WriteToSTDOUT ("no response in 5 seconds")
-		    else
-		      JSN.load(res)
-		      RegPreciseWin.RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
-		      WriteToSTDOUT (RegPreciseWin.RegPreciseVersion)+EndOfLine.Unix
-		    end if
-		    
-		  else
-		    
-		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
-		    LogoWin.WriteToSTDOUT (httpErr)
-		    
-		  end if
+		  'dim res as string
+		  'dim jsn as new JSONItem
+		  'dim hts as new HTTPSocket
+		  'hts.Yield=true
+		  'res=hts.Get("https://regprecise.lbl.gov/Services/rest/release",5)
+		  'if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		  '
+		  'if Res="" then
+		  'WriteToSTDOUT ("no response in 5 seconds")
+		  'else
+		  'JSN.load(res)
+		  'RegPreciseWin.RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
+		  'WriteToSTDOUT (RegPreciseWin.RegPreciseVersion)+EndOfLine.Unix
+		  'end if
+		  '
+		  'else
+		  '
+		  'dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
+		  'LogoWin.WriteToSTDOUT (httpErr)
+		  '
+		  'end if
 		  
 		  
 		  if not allProgsFine then

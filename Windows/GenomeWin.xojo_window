@@ -7248,7 +7248,7 @@ End
 #tag Events BLASTSocket
 	#tag Event
 		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
-		  dim RID,theURL,ltag as string
+		  Dim RID,theURL,ltag As String
 		  
 		  'this socket should process all requests to BLAST servers, including CD search
 		  
@@ -7261,10 +7261,12 @@ End
 		    '<input name="CDD_RID" value="data_cache_seq:641743590" type="hidden" />
 		    '<input name="CDD_SEARCH_STATE" type="hidden" value="4" />
 		    
+		    'concise results are displayed by default, hence &mode=std to display standard ones
+		    
 		    ltag="<input name="+chr(34)+"RID"+chr(34)+" value="+chr(34)
 		    RID=NthField(content,ltag,2)
 		    RID=NthField(RID,chr(34),1)
-		    theURL="https://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get"
+		    theURL="https://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi?RID="+RID+"&CMD=Get&mode=std"
 		    #if DebugBuild
 		      theURL=theURL+"&EMAIL="+email+"&TOOL=SigmoID"
 		    #endif

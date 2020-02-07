@@ -1486,7 +1486,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function HMMsearchWithCRtags(CDSfile as folderitem, HMMfilePath as string) As string
-		  dim HmmResultFile as folderitem
+		  Dim HmmResultFile As folderitem
 		  dim hmmSearchRes, cli, table as string
 		  dim instream as TextInputStream
 		  dim sh as new shell
@@ -2978,14 +2978,14 @@ Protected Module Globals
 		Sub RegulonInfo(ID as integer, IsRegulog as boolean)
 		  'Get RegPrecise web pages for a regulon (regulog)
 		  
-		  'https://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id=12127
-		  'https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=1307
+		  'http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulon.jsp?regulon_id=12127
+		  'http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=1307
 		  
 		  WebBrowserWin.show
 		  If IsRegulog then
-		    WebBrowserWin.LoadPage("http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id="+str(ID))
+		    WebBrowserWin.LoadPage("http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id="+str(ID))
 		  else
-		    WebBrowserWin.LoadPage("http://regprecise.lbl.gov/RegPrecise/regulon.jsp?regulon_id="+str(ID))
+		    WebBrowserWin.LoadPage("http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulon.jsp?regulon_id="+str(ID))
 		  end if
 		  
 		End Sub

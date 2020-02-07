@@ -628,7 +628,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub LoadGenomes()
-		  dim gnms as string
+		  Dim gnms As String
 		  dim f as folderitem
 		  dim tis as TextInputStream
 		  
@@ -659,7 +659,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub LoadRegulators(GenomeID as string)
-		  if me.title="RegPrecise: regulons" then
+		  If Me.title="RegPrecise: regulons" Then
 		    'regulons
 		    SocketTask="regulons"
 		    RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulons?genomeId="+GenomeID)

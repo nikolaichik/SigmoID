@@ -364,8 +364,8 @@ Protected Module DeNovoTFBSinference
 		        
 		      end if
 		      
-		      while right(currentHit,1)="-"     'trim right end
-		        currentHit=left(currentHit,len(currentHit)-1)
+		      While Right(currentHit,1)="-"     'trim right end
+		        currentHit=Left(currentHit,Len(currentHit)-1)
 		      wend
 		      
 		      'get extended hit
@@ -385,9 +385,20 @@ Protected Module DeNovoTFBSinference
 		      currenthit=leftext+currentHit
 		      
 		      'extend the right end
-		      rightPart=nthfield(currentHit,"-",countfields(currentHit,"-"))
-		      rightPartStart=instr(CDStmp,rightPart)
-		      rightExt=mid(CDStmp,rightPartStart+len(rightPart),len(hitseq)-len(currenthit))
+		      rightPart=NthField(currentHit,"-",CountFields(currentHit,"-"))
+		      rightPartStart=InStr(CDStmp,rightPart)
+		      rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
+		      
+		      
+		      rightPart=NthField(currentHit,"-",1)
+		      rightPartStart=InStr(CDStmp,rightPart)
+		      rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
+		      
+		      
+		      
+		      
+		      
+		      
 		      
 		      'replace dashes so that phmmer doesn't bark at them later
 		      dim hitpos as integer = instr(CDStmp,currenthit)
@@ -409,7 +420,7 @@ Protected Module DeNovoTFBSinference
 		        ''extend the right end
 		        'rightPartStart=instr(CDStmp,currenthit)
 		        'rightExt=mid(CDStmp,rightPartStart+len(currenthit),len(hitseq)-len(currenthit))
-		        'currenthit=currenthit+rightExt
+		        currenthit=currenthit+rightExt
 		        'end if
 		        
 		      end if
@@ -618,7 +629,9 @@ Protected Module DeNovoTFBSinference
 		            End
 		          End
 		        Next
-		        ecodes=genpeptIDs
+		        ecodes=genpeptIDs  'a Uniprot accession can be converted to several NCBI ones due to identical proteins. Most often we need just one of those 
+		        logoWin.WriteToSTDOUT (EndOfLine.unix+"converted to "+Str(CountFields(ecodes,","))+" NCBI accessions")
+		        
 		      End If
 		    End
 		  Else
@@ -843,9 +856,9 @@ Protected Module DeNovoTFBSinference
 		      if LocusTag="" then
 		        'return "Error extracting locus_tag from GenPept entry "+ConvertEncoding(tempID,Encodings.UTF8)+EndOfLine.unix+EndOfLine.unix
 		        if UBound(UniProtId)>=i then
-		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniprotID(i)+EndOfLine.unix+EndOfLine.unix)
+		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniprotID(i)+EndOfLine.unix)
 		        else
-		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniProtIDs+EndOfLine.unix+EndOfLine.unix)
+		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniProtIDs+EndOfLine.unix)
 		        end
 		        Continue for i
 		      end if

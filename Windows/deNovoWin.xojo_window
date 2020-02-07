@@ -252,7 +252,6 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -371,7 +370,6 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -970,16 +968,24 @@ End
 		  dim sh as shell
 		  dim hmmPath, hmmName as string
 		  dim CrTagsCodes as String
-		  dim CrBaseTags(0) as String
+		  Dim CrBaseTags(0) As String
 		  dim CrBaseECodes(0) as String
-		  dim CDSfile as folderitem
+		  Dim CrBaseTags_rp15(0) As String
+		  Dim CrBaseECodes_rp15(0) As String
+		  Dim CrBaseTags_rp35(0) As String
+		  Dim CrBaseECodes_rp35(0) As String
+		  Dim CrBaseTags_rp55(0) As String
+		  Dim CrBaseECodes_rp55(0) As String
+		  Dim CrBaseTags_rp75(0) As String
+		  Dim CrBaseECodes_rp75(0) As String
+		  Dim CDSfile As folderitem
 		  dim resFile as folderitem
 		  dim resfile2 as folderitem
 		  dim BaseLocation as FolderItem
 		  dim instream as TextInputStream
 		  dim outStream as TextOutputStream
 		  dim theProtName as string
-		  redim TTshellArray(-1)
+		  Redim TTshellArray(-1)
 		  dim ttt,ttt2 as TTshell
 		  
 		  dim phmmerSearchSeparator as string = "================================================================================================================"
@@ -997,27 +1003,116 @@ End
 		      MsgBox("Please, provide full path to TomTom: Settings-TomTom field")
 		      return 
 		    end
-		  end
+		  End
 		  
+		  // Read Reference Proteomes accession codes into
+		  // separate arrays for each of the four clustering percentages and the full protein DB
+		  
+		  'rp15
+		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+"_rp15.crtag")
+		  
+		  If BaseLocation<>Nil Then
+		    If BaseLocation.Exists Then
+		      instream=BaseLocation.OpenAsTextFile
+		    Else
+		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		      Exit
+		    End
+		  Else
+		    MsgBox("Path to the crtag base isn't valid")
+		  End
+		  While Not instream.EOF 
+		    CrTagsCodes=instream.ReadLine
+		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
+		    CrBaseTags_rp15.append(Trim(NthField(CrTagsCodes," ",1)))
+		    CrBaseECodes_rp15.Append(Trim(NthField(CrTagsCodes," ",2)))
+		  Wend
+		  instream.Close
+		  
+		  'rp35
+		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+"_rp35.crtag")
+		  
+		  If BaseLocation<>Nil Then
+		    If BaseLocation.Exists Then
+		      instream=BaseLocation.OpenAsTextFile
+		    Else
+		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		      Exit
+		    End
+		  Else
+		    MsgBox("Path to the crtag base isn't valid")
+		  End
+		  While Not instream.EOF 
+		    CrTagsCodes=instream.ReadLine
+		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
+		    CrBaseTags_rp35.append(Trim(NthField(CrTagsCodes," ",1)))
+		    CrBaseECodes_rp35.Append(Trim(NthField(CrTagsCodes," ",2)))
+		  Wend
+		  instream.Close
+		  
+		  'rp55
+		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+"_rp55.crtag")
+		  
+		  If BaseLocation<>Nil Then
+		    If BaseLocation.Exists Then
+		      instream=BaseLocation.OpenAsTextFile
+		    Else
+		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		      Exit
+		    End
+		  Else
+		    MsgBox("Path to the crtag base isn't valid")
+		  End
+		  While Not instream.EOF 
+		    CrTagsCodes=instream.ReadLine
+		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
+		    CrBaseTags_rp55.append(Trim(NthField(CrTagsCodes," ",1)))
+		    CrBaseECodes_rp55.Append(Trim(NthField(CrTagsCodes," ",2)))
+		  Wend
+		  instream.Close
+		  
+		  'rp75
+		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+"_rp75.crtag")
+		  
+		  If BaseLocation<>Nil Then
+		    If BaseLocation.Exists Then
+		      instream=BaseLocation.OpenAsTextFile
+		    Else
+		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		      Exit
+		    End
+		  Else
+		    MsgBox("Path to the crtag base isn't valid")
+		  End
+		  While Not instream.EOF 
+		    CrTagsCodes=instream.ReadLine
+		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
+		    CrBaseTags_rp75.append(Trim(NthField(CrTagsCodes," ",1)))
+		    CrBaseECodes_rp75.Append(Trim(NthField(CrTagsCodes," ",2)))
+		  Wend
+		  instream.Close
+		  
+		  'full
 		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+".crtag")
 		  
-		  if BaseLocation<>Nil then
-		    if BaseLocation.Exists then
+		  If BaseLocation<>Nil Then
+		    If BaseLocation.Exists Then
 		      instream=BaseLocation.OpenAsTextFile
-		    else
+		    Else
 		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
-		      exit
-		    end
-		  else
+		      Exit
+		    End
+		  Else
 		    MsgBox("Path to the crtag base isn't valid")
-		  end
-		  while not instream.EOF 
+		  End
+		  While Not instream.EOF 
 		    CrTagsCodes=instream.ReadLine
-		    CrTagsCodes=Replaceall(CrTagsCodes,".1;",",")
-		    CrBaseTags.append(trim(NthField(CrTagsCodes," ",1)))
-		    CrBaseECodes.Append(trim(NthField(CrTagsCodes," ",2)))
-		  wend
+		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
+		    CrBaseTags.append(Trim(NthField(CrTagsCodes," ",1)))
+		    CrBaseECodes.Append(Trim(NthField(CrTagsCodes," ",2)))
+		  Wend
 		  instream.Close
+		  
 		  
 		  //Run hmmsearch and screen the output for CR tags.
 		  sh=New Shell
@@ -1306,20 +1401,51 @@ End
 		          
 		          
 		          
-		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons..."+EndOfLine.unix)
+		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons."+EndOfLine.unix)
 		          
 		          
+		          'add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
 		          
-		          //add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
-		          crIndex=CrBaseTags.indexof(Crtags(n))
-		          if crIndex>0 then
-		            filteredRes=CrBaseECodes(crindex)
+		          
+		          //get the list with the right number of accession codes
+		          crIndex=CrBaseTags_rp15.indexof(Crtags(n))
+		          Dim RPname As String = "rp15"
+		          If crIndex>0 Then
+		            filteredRes=CrBaseECodes_rp15(crindex)
+		            If CountFields(filteredRes,",")<20 Then          '<-- threshold should be user configurable?
+		              crIndex=CrBaseTags_rp35.indexof(Crtags(n))
+		              filteredRes=CrBaseECodes_rp35(crindex)
+		              RPname="rp35"
+		              If CountFields(filteredRes,",")<20 Then 
+		                crIndex=CrBaseTags_rp55.indexof(Crtags(n))
+		                filteredRes=CrBaseECodes_rp55(crindex)
+		                RPname="rp55"
+		                If CountFields(filteredRes,",")<20 Then 
+		                  crIndex=CrBaseTags_rp75.indexof(Crtags(n))
+		                  filteredRes=CrBaseECodes_rp75(crindex)
+		                  RPname="rp75"
+		                  If CountFields(filteredRes,",")<20 Then 
+		                    crIndex=CrBaseTags.indexof(Crtags(n))
+		                    filteredRes=CrBaseECodes(crindex)
+		                    RPname="rp_full"
+		                  End If
+		                End If
+		              End If
+		            End If
+		            #If DebugBuild
+		              LogoWin.WriteToSTDOUT (Str(CountFields(filteredRes,","))+" accession from "+RPname+" to process..."+EndOfLine.unix)
+		            #Else
+		              LogoWin.WriteToSTDOUT (Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
+		            #EndIf
 		          else
 		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"CrTag "+Crtags(n)+" was not found in the local base (protein seq accession "+theProtName+")"+EndOfLine.unix)
 		            continue for n
-		          end if
+		          End If
+		          
 		          DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
 		        end if
+		        
+		        
 		        
 		        
 		        

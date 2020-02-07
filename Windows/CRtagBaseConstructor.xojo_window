@@ -568,12 +568,14 @@ End
 		      sh.TimeOut=-1
 		      
 		      // cdbyank version:
-		      
-		      'cli="cdbyank -a "+str(ProtNames(ubound(ProtNames)))+" "+cidxbase.ShellPath
+		      'assume bash is the normal user shell
+		      'execute bash with login scripts to set the same env as in terminal
+		      'command must be in single quotes
+		      cli="bash --login -c 'cdbyank -a "+Str(ProtNames(ubound(ProtNames)))+" "+trEMBL_fasta.ShellPath+"'"
 		      
 		      // samtools version:
 		      'cli="samtools faidx "+fastasource.shellpath+" "+str(ProtNames(ubound(ProtNames)))
-		      cli="samtools faidx "+trEMBL_fasta.shellpath+" "+str(ProtNames(ubound(ProtNames)))
+		      'cli="samtools faidx "+trEMBL_fasta.shellpath+" "+str(ProtNames(ubound(ProtNames)))
 		      
 		      Sh.Execute cli
 		      

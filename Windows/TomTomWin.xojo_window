@@ -619,7 +619,7 @@ End
 		        'run tomtom
 		        dim cli, TToptions as string
 		        
-		        TToptions=" "+trim(TomTomOptionsField.text)+" "
+		        TToptions=" "+Trim(TomTomOptionsField.Text)+" "
 		        
 		        cli=tomtomPath+" -oc "+inFolder.ShellPath
 		        

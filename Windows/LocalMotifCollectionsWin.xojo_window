@@ -205,7 +205,6 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -250,7 +249,6 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
@@ -295,7 +293,6 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -340,7 +337,6 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
@@ -1125,7 +1121,7 @@ End
 		      
 		      // convert all tmp files to a single minimal meme file
 		      ' sites2meme command should look like 
-		      ' sites2meme -map /Users/Home/Desktop/sites2meme_test/sites.map -url https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME /Users/Home/Desktop/sites2meme_test
+		      ' sites2meme -map /Users/Home/Desktop/sites2meme_test/sites.map -url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME /Users/Home/Desktop/sites2meme_test
 		      
 		      ' sample output is like this:
 		      'MEME version 4
@@ -1148,7 +1144,7 @@ End
 		      '0.000000      1.000000      0.000000      0.000000    
 		      '0.928571      0.000000      0.071429      0.000000    
 		      '
-		      'URL https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site1
+		      'URL http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=site1
 		      '
 		      'MOTIF site2 RegR
 		      '
@@ -1161,7 +1157,7 @@ End
 		      '0.000000      1.000000      0.000000      0.000000    
 		      '0.785714      0.000000      0.214286      0.000000    
 		      '
-		      'URL https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=site2
+		      'URL http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=site2
 		      
 		      dim sites2memePath as string
 		      #if targetWin32
@@ -1177,7 +1173,7 @@ End
 		      
 		      dim cli as string
 		      cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
-		      cli=cli+" "+"-url https://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
+		      cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
 		      cli=cli+" "+TFfamily_tmp.ShellPath
 		      
 		      
