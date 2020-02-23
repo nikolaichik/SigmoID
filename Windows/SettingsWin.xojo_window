@@ -116,6 +116,7 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   False
       Value           =   1
@@ -1248,7 +1249,7 @@ Begin Window SettingsWin
             TabIndex        =   22
             TabPanelIndex   =   1
             TabStop         =   True
-            Text            =   "ChipMunk"
+            Text            =   "ChIPmunk"
             TextAlign       =   0
             TextColor       =   &c00000000
             TextFont        =   "System"
@@ -3032,7 +3033,7 @@ End
 		  Prefs.value("BLASTpDB")=nthfield(nthfield(ProteinPopup.Text,"(",2),")",1)
 		  Prefs.value("BLASTorganism")=OrganismField.text
 		  Prefs.value("API_Key")=APIKeyField.text
-		  Prefs.Value("ChipMunkPath")=ChipMunkPathField.Text
+		  Prefs.Value("ChIPmunkPath")=ChIPmunkPathField.Text
 		  Prefs.Value("email")=emailField.text
 		  Prefs.Value("requestCount")=requestCount.text
 		  Prefs.Value("TomTomPath")=TomTomPathField.Text

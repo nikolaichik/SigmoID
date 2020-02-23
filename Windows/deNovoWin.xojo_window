@@ -252,6 +252,7 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -370,6 +371,7 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -380,7 +382,7 @@ Begin Window deNovoWin
    Begin CheckBox runChipMunk
       AutoDeactivate  =   True
       Bold            =   False
-      Caption         =   "Run ChipMunk"
+      Caption         =   "Run ChIPmunk"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
@@ -1401,7 +1403,7 @@ End
 		          
 		          
 		          
-		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons."+EndOfLine.unix)
+		          LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons."+EndOfLine.unix)
 		          
 		          
 		          'add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
@@ -1427,20 +1429,80 @@ End
 		                  If CountFields(filteredRes,",")<20 Then 
 		                    crIndex=CrBaseTags.indexof(Crtags(n))
 		                    filteredRes=CrBaseECodes(crindex)
-		                    RPname="rp_full"
+		                    RPname="full PIR"
 		                  End If
 		                End If
 		              End If
 		            End If
+		            
+		          Else
+		            crIndex=CrBaseTags_rp35.indexof(Crtags(n))
+		            If crIndex>0 Then
+		              filteredRes=CrBaseECodes_rp35(crindex)
+		              RPname="rp35"
+		              If CountFields(filteredRes,",")<20 Then 
+		                crIndex=CrBaseTags_rp55.indexof(Crtags(n))
+		                filteredRes=CrBaseECodes_rp55(crindex)
+		                RPname="rp55"
+		                If CountFields(filteredRes,",")<20 Then 
+		                  crIndex=CrBaseTags_rp75.indexof(Crtags(n))
+		                  filteredRes=CrBaseECodes_rp75(crindex)
+		                  RPname="rp75"
+		                  If CountFields(filteredRes,",")<20 Then 
+		                    crIndex=CrBaseTags.indexof(Crtags(n))
+		                    filteredRes=CrBaseECodes(crindex)
+		                    RPname="full PIR"
+		                  End If
+		                End If
+		              End If
+		            Else
+		              
+		              crIndex=CrBaseTags_rp55.indexof(Crtags(n))
+		              If crIndex>0 Then
+		                filteredRes=CrBaseECodes_rp55(crindex)
+		                RPname="rp55"
+		                If CountFields(filteredRes,",")<20 Then 
+		                  crIndex=CrBaseTags_rp75.indexof(Crtags(n))
+		                  filteredRes=CrBaseECodes_rp75(crindex)
+		                  RPname="rp75"
+		                  If CountFields(filteredRes,",")<20 Then 
+		                    crIndex=CrBaseTags.indexof(Crtags(n))
+		                    filteredRes=CrBaseECodes(crindex)
+		                    RPname="full PIR"
+		                  End If
+		                End If
+		                
+		              Else
+		                crIndex=CrBaseTags_rp75.indexof(Crtags(n))
+		                If crIndex>0 Then
+		                  filteredRes=CrBaseECodes_rp75(crindex)
+		                  RPname="rp75"
+		                  If CountFields(filteredRes,",")<20 Then 
+		                    crIndex=CrBaseTags.indexof(Crtags(n))
+		                    If crIndex>0 Then
+		                      filteredRes=CrBaseECodes(crindex)
+		                      RPname="full PIR"
+		                    End If
+		                  End If
+		                End If
+		                
+		              End If
+		              
+		            End If
+		            
+		          End If
+		          
+		          If crIndex>0 Then
 		            #If DebugBuild
-		              LogoWin.WriteToSTDOUT (Str(CountFields(filteredRes,","))+" accession from "+RPname+" to process..."+EndOfLine.unix)
+		              LogoWin.WriteToSTDOUT (Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... ")
 		            #Else
 		              LogoWin.WriteToSTDOUT (Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
 		            #EndIf
-		          else
-		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"CrTag "+Crtags(n)+" was not found in the local base (protein seq accession "+theProtName+")"+EndOfLine.unix)
-		            continue for n
+		          Else
+		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"CrTag "+Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
+		            Continue For n
 		          End If
+		          
 		          
 		          DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
 		        end if
@@ -1630,9 +1692,9 @@ End
 		                  else
 		                    aclean=false
 		                  end if
-		                  if runChipMunk.value then
+		                  if runChIPmunk.value then
 		                    dim errcodecm as Integer
-		                    ErrCodeCM=ChipMunk(resfile2, f1.child("chipmunk-result"))
+		                    ErrCodeCM=ChIPmunk(resfile2, f1.child("ChIPmunk-result"))
 		                    if errcodecm=0 then
 		                      LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
 		                    end

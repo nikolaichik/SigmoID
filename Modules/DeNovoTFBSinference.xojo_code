@@ -48,7 +48,7 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ChipMunk(infile as folderItem, outfile as folderItem) As integer
+		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
 		  dim cli as string
 		  Dim sh As Shell
 		  sh=New Shell
@@ -57,8 +57,8 @@ Protected Module DeNovoTFBSinference
 		  if outfile.Exists then outfile.Delete
 		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+Str(inFile.ShellPath)
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
-		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputchipmunk"
-		  LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running ChipMunk...")
+		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
+		  LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running ChIPmunk...")
 		  'assume bash is the normal user shell
 		  'execute bash with login scripts to set the same env as in terminal
 		  'command must be in single quotes
@@ -74,14 +74,14 @@ Protected Module DeNovoTFBSinference
 		    
 		    return sh.errorCode
 		  else
-		    LogoWin.WriteToSTDOUT ("ChipMunk error code: "+Str(sh.errorCode))
+		    LogoWin.WriteToSTDOUT ("ChIPmunk error code: "+Str(sh.errorCode))
 		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		    
 		    return sh.errorCode
 		  end if
 		  
 		  Exception err
-		    ExceptionHandler(err,"SeqRetrieval:ChipMunk")
+		    ExceptionHandler(err,"SeqRetrieval:ChIPmunk")
 		End Function
 	#tag EndMethod
 
@@ -394,36 +394,32 @@ Protected Module DeNovoTFBSinference
 		      rightPartStart=InStr(CDStmp,rightPart)
 		      rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
 		      
-		      
-		      
-		      
-		      
-		      
-		      
 		      'replace dashes so that phmmer doesn't bark at them later
-		      dim hitpos as integer = instr(CDStmp,currenthit)
-		      if hitpos=0 then
-		        'zero should be due to gap(s) in the central part of the hit region
-		        'these can probably be tolerated if located outside of the CR tag region,
-		        'so we are replacing 'em with small 'x' here 
-		        'This may leave C terminus truncated, and this could be a problem 
-		        
-		        'An example of a complex situation (CR tag positions are marked by astericks:
-		        '                            *        ***                  **                           
-		        ' ----VINQIIDDMARGHIP--SPLPSQNALAEMYNISRTTVRHILAHLRDCGVLT---------
-		        '(a warning should be issued if CR tag positions are in non-conserved part of the HTH like in this example)
-		        
-		        currenthit=ReplaceAll(currenthit,"-","x")+rightExt
-		      else
-		        'currenthit=mid(CDStmp,hitpos-q,len(hitSeq))
-		        'if len(currentHit)<len(hitSeq) then
-		        ''extend the right end
-		        'rightPartStart=instr(CDStmp,currenthit)
-		        'rightExt=mid(CDStmp,rightPartStart+len(currenthit),len(hitseq)-len(currenthit))
-		        currenthit=currenthit+rightExt
-		        'end if
-		        
-		      end if
+		      'Dim hitpos As Integer = InStr(CDStmp,currenthit)
+		      'if hitpos=0 then
+		      ''zero should be due to gap(s) in the central part of the hit region
+		      ''these can probably be tolerated if located outside of the CR tag region,
+		      ''so we are replacing 'em with small 'x' here 
+		      ''This may leave C terminus truncated, and this could be a problem 
+		      '
+		      ''An example of a complex situation (CR tag positions are marked by astericks:
+		      ''                            *        ***                  **                           
+		      '' ----VINQIIDDMARGHIP--SPLPSQNALAEMYNISRTTVRHILAHLRDCGVLT---------
+		      ''(a warning should be issued if CR tag positions are in non-conserved part of the HTH like in this example)
+		      '
+		      'currenthit=ReplaceAll(currenthit,"-","x")+rightExt
+		      'else
+		      ''currenthit=mid(CDStmp,hitpos-q,len(hitSeq))
+		      ''if len(currentHit)<len(hitSeq) then
+		      '''extend the right end
+		      ''rightPartStart=instr(CDStmp,currenthit)
+		      ''rightExt=mid(CDStmp,rightPartStart+len(currenthit),len(hitseq)-len(currenthit))
+		      'currenthit=currenthit+rightExt
+		      ''end if
+		      '
+		      'end if
+		      
+		      currenthit=currenthit+rightExt
 		      
 		      CRtag=""
 		      for p=1 to o
@@ -473,15 +469,20 @@ Protected Module DeNovoTFBSinference
 		    'checking for gaps/insertions within CR range
 		    CRtagRegion=mid(hitSeq,fst,CRlen)
 		    
-		    if strcomp(CRtagRegion,Uppercase(CRtagRegion),0)=0 then
-		      'no problems
-		      CRtag=""
-		      for p=1 to o
-		        'CRtag=CRtag+mid(hitseq,CRarray(p),1)
-		        CRtag=CRtag+mid(hitseq,CRarray(p),1)
-		      next
+		    If StrComp(CRtagRegion,Uppercase(CRtagRegion),0)=0 Then
+		      If InStr(CRtagRegion,"-")=0 Then
+		        'no problems
+		        CRtag=""
+		        for p=1 to o
+		          'CRtag=CRtag+mid(hitseq,CRarray(p),1)
+		          CRtag=CRtag+mid(hitseq,CRarray(p),1)
+		        Next
+		      Else
+		        'should capture gaps both in the model and in the hit seq
+		        CRtag="[indel within CR tag region]"
+		      End If
 		      
-		    else
+		    Else
 		      'should capture gaps both in the model and in the hit seq
 		      CRtag="[indel within CR tag region]"
 		    end if
@@ -619,6 +620,23 @@ Protected Module DeNovoTFBSinference
 		        logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
 		      Else
 		        shellRes=sh.Result.Split(EndOfLine.UNIX)
+		        
+		        logoWin.WriteToSTDOUT ("converted to "+Str(Ubound(shellRes)-2)+" NCBI accessions. ")
+		        
+		        'check for duplicate (multiple) GenBank accessions per given UniProt ID and leave just the first one
+		        If ubound(shellRes)>50 Then     ' <-- 50 is rather arbitrary, can be user configurable
+		          Dim y As Integer
+		          Dim lastCode As String = NthField(shellRes(ubound(shellRes)),Chr(9),1)
+		          For y=ubound(shellRes)-1 DownTo 1
+		            If NthField(shellRes(y),Chr(9),1)=LastCode Then
+		              shellRes.RemoveRowAt(y+1)
+		            Else
+		              lastCode=NthField(shellRes(y),Chr(9),1)
+		            End If
+		          Next
+		          
+		        End If
+		        
 		        For id=0 To UBound(shellRes)
 		          rgmatch=rg.Search(shellRes(id))
 		          If rgmatch<> Nil Then
@@ -630,7 +648,7 @@ Protected Module DeNovoTFBSinference
 		          End
 		        Next
 		        ecodes=genpeptIDs  'a Uniprot accession can be converted to several NCBI ones due to identical proteins. Most often we need just one of those 
-		        logoWin.WriteToSTDOUT (EndOfLine.unix+"converted to "+Str(CountFields(ecodes,","))+" NCBI accessions")
+		        logoWin.WriteToSTDOUT (Str(CountFields(ecodes,","))+" left after removing redundancies."+EndOfLine.unix)
 		        
 		      End If
 		    End

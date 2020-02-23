@@ -22,7 +22,7 @@ Begin Window ChipMParam
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "ChipMunk settings"
+   Title           =   "ChIPmunk settings"
    Visible         =   True
    Width           =   538
    Begin Label Label1
@@ -709,15 +709,15 @@ End
 		          Dim dlg As New SaveAsDialog
 		          dim outf,infile as FolderItem
 		          
-		          dlg.SuggestedFileName = "result.chipMunk"
+		          dlg.SuggestedFileName = "result.ChIPmunk"
 		          dlg.ActionButtonCaption = kSave
 		          dlg.Title = "Set output file location"
-		          dlg.promptText="Where to save ChipMunk results?" 
+		          dlg.promptText="Where to save ChIPmunk results?" 
 		          dlg.CancelButtonCaption=kCancel
 		          
 		          
 		          outf=dlg.ShowModal
-		          errcode=DeNovoTFBSinference.ChipMunk(LogoWin.LogoFile, outf)
+		          errcode=DeNovoTFBSinference.ChIPmunk(LogoWin.LogoFile, outf)
 		          if errcode=0 and LogoWin.LogoFile<>nil and outf<>nil then
 		            ChipMLogo.inputFasta=LogoWin.LogoFile
 		            ChipMLogo.chipmOutput=outf

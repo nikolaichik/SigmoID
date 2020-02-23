@@ -2652,7 +2652,7 @@ Protected Module Globals
 		    MEMEpath=Prefs.value("MEMEpath",MEMEpath)
 		    MASTpath=Prefs.value("MASTpath",MASTpath)
 		    TomTomPath=Prefs.value("TomTomPath",TomTomPath)
-		    Globals.chipset.jarPath=Prefs.Value("ChipMunkPath", Globals.chipset.jarPath)
+		    Globals.chipset.jarPath=Prefs.Value("ChIPmunkPath", Globals.chipset.jarPath)
 		    PathsChanged=False
 		  end if
 		  
@@ -2664,7 +2664,7 @@ Protected Module Globals
 		  SettingsWin.MASTPathField.Text=MASTpath
 		  SettingsWin.TomTomPathField.Text=TomTomPath
 		  SettingsWin.APIKeyField.Text=API_Key
-		  SettingsWin.ChipMunkPathField.Text=Globals.chipset.jarPath
+		  SettingsWin.ChIPmunkPathField.Text=Globals.chipset.jarPath
 		  SettingsWin.EmailField.Text=Globals.email
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
 		  

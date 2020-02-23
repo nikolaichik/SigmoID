@@ -519,9 +519,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem findSitesChipM
          SpecialMenu = 0
-         Value = "Find Sites with ChipMunk"
+         Value = "Find Sites with ChIPmunk"
          Index = -2147483648
-         Text = "Find Sites with ChipMunk"
+         Text = "Find Sites with ChIPmunk"
          AutoEnabled = False
          AutoEnable = False
          Visible = True
@@ -645,9 +645,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem ChipMdata2Logo
          SpecialMenu = 0
-         Value = "Logo from ChipMunk data "
+         Value = "Logo from ChIPmunk data "
          Index = -2147483648
-         Text = "Logo from ChipMunk data "
+         Text = "Logo from ChIPmunk data "
          AutoEnabled = True
          AutoEnable = True
          Visible = True

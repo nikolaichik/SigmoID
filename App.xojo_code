@@ -720,8 +720,8 @@ Inherits Application
 		  dim snum as integer
 		  
 		  openF = new OpenDialog
-		  openF.Title="Open ChipMunk result"
-		  openF.promptText="Select file with ChipMunk output"
+		  openF.Title="Open ChIPmunk result"
+		  openF.promptText="Select file with ChIPmunk output"
 		  openF.Title="Open alignment"
 		  'openF.Filter=FileTypes.Text
 		  f = openF.ShowModal
@@ -732,7 +732,7 @@ Inherits Application
 		    winTitle=f.DisplayName
 		  end if
 		  
-		  // Try to find ChipMunk input from the command stored in the result file
+		  // Try to find ChIPmunk input from the command stored in the result file
 		  ' the filename should go after ' s:' and can include full path
 		  Dim chipMfileName As String
 		  Dim chipMfile As folderitem
@@ -769,7 +769,7 @@ Inherits Application
 		  If chipMfile=Nil Or (chipMfile<>Nil And (Not chipMfile.Exists)) Then
 		    openF = New OpenDialog
 		    openF.Title="Open fasta file"
-		    openF.promptText="Select file with sequences used as ChipMunk input"
+		    openF.promptText="Select file with sequences used as ChIPmunk input"
 		    openF.Filter=FileTypes.Fasta
 		    chipMfile = openF.ShowModal
 		  End If
@@ -863,7 +863,7 @@ Inherits Application
 		  
 		  Exception err
 		    If err IsA OutOfBoundsException Then
-		      MsgBox "Can't match original sequence names with ChipMunk motif numbers.  Please make sure the correct input file exists in the location specified in the ChipMunk result file you are trying to open."
+		      MsgBox "Can't match original sequence names with ChIPmunk motif numbers.  Please make sure the correct input file exists in the location specified in the ChIPmunk result file you are trying to open."
 		    Else
 		      ExceptionHandler(err,"App:ChipMdata2Logo")
 		    End If
