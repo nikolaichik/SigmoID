@@ -718,10 +718,11 @@ Inherits Application
 		  dim m as Motif
 		  Dim w As ChipMLogo
 		  dim snum as integer
+		  rg.SearchPattern="(^WORD\|)(\d+)(\t\d+\t)(\w+)(\t\S+\t)(\w+)"
 		  
 		  openF = new OpenDialog
-		  openF.Title="Open ChIPmunk result"
-		  openF.promptText="Select file with ChIPmunk output"
+		  openF.Title="Open ChipMunk result"
+		  openF.promptText="Select file with ChipMunk output"
 		  openF.Title="Open alignment"
 		  'openF.Filter=FileTypes.Text
 		  f = openF.ShowModal
@@ -732,7 +733,7 @@ Inherits Application
 		    winTitle=f.DisplayName
 		  end if
 		  
-		  // Try to find ChIPmunk input from the command stored in the result file
+		  // Try to find ChipMunk input from the command stored in the result file
 		  ' the filename should go after ' s:' and can include full path
 		  Dim chipMfileName As String
 		  Dim chipMfile As folderitem
@@ -750,7 +751,6 @@ Inherits Application
 		    MsgBox "Can't guess dataset format."
 		    Exit                              'smth wrong with the file!
 		  End If
-		  
 		  chipMfileName=NthField(chipMout, dataSet, 2)
 		  chipMfileName=ReplaceAll(chipMfileName, "\ ", "\\\") 'mask escaped spaces in filename
 		  chipMfileName=NthField(chipMfileName, " ",1)
@@ -766,104 +766,139 @@ Inherits Application
 		    End If
 		  End If
 		  
-		  If chipMfile=Nil Or (chipMfile<>Nil And (Not chipMfile.Exists)) Then
-		    openF = New OpenDialog
-		    openF.Title="Open fasta file"
-		    openF.promptText="Select file with sequences used as ChIPmunk input"
-		    openF.Filter=FileTypes.Fasta
-		    chipMfile = openF.ShowModal
-		  End If
-		  
-		  If chipMfile <>Nil Then
-		    tis = TextInputStream.Open(chipMfile)
-		    fasta=tis.ReadAll
-		    tis.Close
-		    rg.SearchPattern="^\>.*"
-		    rgm=rg.Search(fasta)
-		  End If
-		  
-		  do
-		    if rgm<>nil then
-		      fastaid.Append(rgm.SubExpressionString(0))
+		  if instr(chipMout,"MOTF|")=0 and InStr(chipMout,"WORD|")>0 then 'probably file with single motif produced by plain ChIPMunk, so load logo strait to the main window
+		    dim chiplogo as String = ""
+		    rgm=rg.Search(chipMout)
+		    do
+		      if rgm<>nil then
+		        chiplogo=chiplogo+">"+rgm.SubExpressionString(2)+" "+rgm.SubExpressionString(6)+EndOfLine.UNIX+rgm.SubExpressionString(4)+EndOfLine.UNIX
+		      end if
+		      rgm=rg.search
+		    loop until rgm=nil
+		    f=TemporaryFolder.child("chiplogodata")
+		    
+		    if f<>nil then
+		      if f.Exists then f.Delete
+		      dim outstream As TextOutputStream
+		      outstream = TextOutputStream.Create(f)
+		      outstream.Write(ConvertEncoding(chiplogo, Encodings.UTF8))
+		      outstream.Close
+		      LogoWin.LoadAlignment(f)
+		    else
+		      msgbox "Can't write converted file."
 		    end if
-		    rgm=rg.search
-		  loop until rgm=nil
-		  
-		  motifs=chipMout.Split("MOTF|")
-		  w = new ChipMLogo
-		  for i as integer=1 to UBound(motifs)
-		    rg.SearchPattern="(^WORD\|)(\d+)(\t\d+\t)(\w+)(\t\S+\t)(\w+)"
+		  else
+		    chipMfileName=NthField(chipMout, dataSet, 2)
+		    chipMfileName=ReplaceAll(chipMfileName, "\ ", "\\\") 'mask escaped spaces in filename
+		    chipMfileName=NthField(chipMfileName, " ",1)
 		    
-		    rgm = rg.search(motifs(i))
-		    m = new Motif
-		    do 
-		      if rgm<> NIl then
-		        
-		        s=new Site
-		        snum=val(trim(rgm.SubExpressionString(2)))
-		        s.id=fastaid(snum)
-		        s.seq=rgm.SubExpressionString(4)
-		        s.qualValue=val(rgm.SubExpressionString(5))
-		        s.qualValue=Floor(s.qualValue*100)/100
-		        s.strand=rgm.SubExpressionString(6)
-		      end
-		      
-		      m.Sites.Append(s)
+		    If InStr(chipMfileName, "/")>0 Then 'hopefully full path
+		      chipMfileName=ReplaceAll(chipMfileName, "\\\", "\ ") 'restore escaped path
+		      chipMfile=GetFolderItem(chipMfileName,FolderItem.PathTypeShell)
+		    Else 'filename only
+		      'assume input file is in the same dir as output
+		      chipMfileName=ReplaceAll(chipMfileName, "\\\", " ") 'restore spaces in filename
+		      If f <>Nil Then
+		        chipMfile=f.Parent.child(chipMfileName)
+		      End If
+		    End If
+		    
+		    If chipMfile=Nil Or (chipMfile<>Nil And (Not chipMfile.Exists)) Then
+		      openF = New OpenDialog
+		      openF.Title="Open fasta file"
+		      openF.promptText="Select file with sequences used as ChipMunk input"
+		      openF.Filter=FileTypes.Fasta
+		      chipMfile = openF.ShowModal
+		    End If
+		    
+		    If chipMfile <>Nil Then
+		      tis = TextInputStream.Open(chipMfile)
+		      fasta=tis.ReadAll
+		      tis.Close
+		      rg.SearchPattern="^\>.*"
+		      rgm=rg.Search(fasta)
+		    End If
+		    
+		    do
+		      if rgm<>nil then
+		        fastaid.Append(rgm.SubExpressionString(0))
+		      end if
 		      rgm=rg.search
-		    loop until rgm = nil
-		    m.number=i
-		    m.type="ZOOPS"
-		    dim valrange() as double
-		    for Each c as Site in m.Sites
-		      valrange.Append(c.qualValue)
-		    next
-		    valrange.Sort
-		    m.valrange=str(valrange(0))+" - "+str(valrange(UBound(valrange)))
+		    loop until rgm=nil
 		    
-		    
-		    w.Motifs.Append(m)
-		    //append Zoops motif
-		    rg.SearchPattern="(^OCCS\|\d+\;)(\d+)(\;\s)(.*)"
-		    rgm=rg.search(motifs(i))
-		    m = new Motif
-		    do 
-		      if rgm<> NIl then
-		        
-		        snum=val(trim(rgm.SubExpressionString(2)))
-		        seqid=fastaid(snum)
-		        anrsites=split(rgm.SubExpressionString(4)," ")
-		        for k as integer=0 to UBound(anrsites)
+		    motifs=chipMout.Split("MOTF|")
+		    w = new ChipMLogo
+		    for i as integer=1 to UBound(motifs)
+		      rgm = rg.search(motifs(i))
+		      m = new Motif
+		      do 
+		        if rgm<> NIl then
+		          
 		          s=new Site
-		          s.id=seqid
-		          s.seq=NthField(anrsites(k),":",1)
-		          s.qualValue=(val(NthField(anrsites(k),":",4)))
+		          snum=val(trim(rgm.SubExpressionString(2)))
+		          s.id=fastaid(snum)
+		          s.seq=rgm.SubExpressionString(4)
+		          s.qualValue=val(rgm.SubExpressionString(5))
 		          s.qualValue=Floor(s.qualValue*100)/100
-		          s.strand=NthField(anrsites(k),":",3)
-		          m.Sites.Append(s)
-		        next
+		          s.strand=rgm.SubExpressionString(6)
+		        end
 		        
-		      end
+		        m.Sites.Append(s)
+		        rgm=rg.search
+		      loop until rgm = nil
+		      m.number=i
+		      m.type="ZOOPS"
+		      dim valrange() as double
+		      for Each c as Site in m.Sites
+		        valrange.Append(c.qualValue)
+		      next
+		      valrange.Sort
+		      m.valrange=str(valrange(0))+" - "+str(valrange(UBound(valrange)))
 		      
-		      rgm=rg.search
-		    loop until rgm = nil
-		    m.number=i
-		    m.type="ANR"
-		    redim valrange(-1)
-		    for Each c as Site in m.Sites
-		      valrange.Append(c.qualValue)
+		      
+		      w.Motifs.Append(m)
+		      //append Zoops motif
+		      rg.SearchPattern="(^OCCS\|\d+\;)(\d+)(\;\s)(.*)"
+		      rgm=rg.search(motifs(i))
+		      m = new Motif
+		      do 
+		        if rgm<> NIl then
+		          
+		          snum=val(trim(rgm.SubExpressionString(2)))
+		          seqid=fastaid(snum)
+		          anrsites=split(rgm.SubExpressionString(4)," ")
+		          for k as integer=0 to UBound(anrsites)
+		            s=new Site
+		            s.id=seqid
+		            s.seq=NthField(anrsites(k),":",1)
+		            s.qualValue=(val(NthField(anrsites(k),":",4)))
+		            s.qualValue=Floor(s.qualValue*100)/100
+		            s.strand=NthField(anrsites(k),":",3)
+		            m.Sites.Append(s)
+		          next
+		          
+		        end
+		        
+		        rgm=rg.search
+		      loop until rgm = nil
+		      m.number=i
+		      m.type="ANR"
+		      redim valrange(-1)
+		      for Each c as Site in m.Sites
+		        valrange.Append(c.qualValue)
+		      next
+		      valrange.Sort
+		      m.valrange=str(valrange(0))+" - "+str(valrange(UBound(valrange)))
+		      w.Motifs.Append(m)
+		      //append ANR motif
 		    next
-		    valrange.Sort
-		    m.valrange=str(valrange(0))+" - "+str(valrange(UBound(valrange)))
-		    w.Motifs.Append(m)
-		    //append ANR motif
-		  next
-		  w.populateListbox
-		  w.Title="Motif Logos for " + winTitle
-		  w.Visible=True
-		  
+		    w.populateListbox
+		    w.Title="Motif Logos for " + winTitle
+		    w.Visible=True
+		  end
 		  Exception err
 		    If err IsA OutOfBoundsException Then
-		      MsgBox "Can't match original sequence names with ChIPmunk motif numbers.  Please make sure the correct input file exists in the location specified in the ChIPmunk result file you are trying to open."
+		      MsgBox "Can't match original sequence names with ChipMunk motif numbers.  Please make sure the correct input file exists in the location specified in the ChipMunk result file you are trying to open."
 		    Else
 		      ExceptionHandler(err,"App:ChipMdata2Logo")
 		    End If
@@ -1233,17 +1268,13 @@ Inherits Application
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="FormattedSequence"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="gbkSource"
-			Visible=false
 			Group="Behavior"
-			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
