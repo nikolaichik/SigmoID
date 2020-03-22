@@ -79,7 +79,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +164,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +245,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -2426,7 +2426,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ExportProteins(Outfile as folderitem)
-		  dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+		  Dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine As String
 		  
 		  dim n,u as integer
 		  dim ft as GBFeature
@@ -2447,8 +2447,8 @@ End
 		        TitleLine=">"+NthField(TitleLine,separ2,1)
 		        prot=NthField(ft.FeatureText,separGene,2)                  'Gene
 		        prot=NthField(prot,separ2,1)
-		        if prot<>"" then
-		          TitleLine=TitleLine+" "+prot
+		        If prot<>"" Then
+		          TitleLine=TitleLine+"_"+prot                             'ProteinID_Gene is more convenient for de novo TFBS pipeline
 		        end if
 		        prot=NthField(ft.FeatureText,separProd,2)                  'Product
 		        prot=NthField(prot,separ2,1)

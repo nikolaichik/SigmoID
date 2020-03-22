@@ -167,6 +167,11 @@ Protected Module DeNovoTFBSinference
 		  hts.Secure = True
 		  dim res as string
 		  
+		  If InStr(EntryID,"join(")>0 Then  'this could be either a real pseudogene or sequencing error leading to a frameshift, better ignore this locus anyway
+		    EntryID=NthField(EntryID,"join(",2)
+		    LogoWin.WriteToSTDOUT ("Getting the GenBank entry "+EntryID+" fragment... It seems to be a pseudogene: ignoring"+EndOfLine.linux)
+		    Return ""
+		  End If
 		  
 		  LogoWin.WriteToSTDOUT ("Getting the GenBank entry "+EntryID+" fragment... ")
 		  'LogoWin.show
@@ -174,7 +179,7 @@ Protected Module DeNovoTFBSinference
 		  hts.Yield=true  'allow background activities while waiting
 		  hts.SetRequestHeader("Content-Type:","text/plain")
 		  
-		  theURL=URLstart+EntryID+URLend+str(entryStart)+"&seq_stop="+str(entryEnd)+DevInfo
+		  theURL=URLstart+EntryID+URLend+Str(entryStart)+"&seq_stop="+Str(entryEnd)+DevInfo
 		  res=DefineEncoding(hts.Get(theURL,60), Encodings.ASCII)  'no encoding is set
 		  
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
@@ -191,7 +196,8 @@ Protected Module DeNovoTFBSinference
 		      
 		    end if
 		  else
-		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
+		    LogoWin.WriteToSTDOUT ("eutils error "+Str(hts.HTTPStatusCode)+EndOfLine.unix)
+		    LogoWin.WriteToSTDOUT ("The URL requested was "+theURL+EndOfLine.unix)
 		  end if
 		  
 		  hts.close
@@ -376,7 +382,7 @@ Protected Module DeNovoTFBSinference
 		      dim gapPos,leftPartStart, rightPartStart as integer
 		      dim leftPart, rightPart, leftExt, rightExt as string
 		      
-		      'if the left end was truncated, we get completely wrong tag here!
+		      'if the left end was truncated, we get completely wrong tag here!     <--
 		      'so, we extend the left end by required number of residues first:
 		      gapPos=instr(currenthit,"-")
 		      leftPart=nthfield(currentHit,"-",1)
@@ -805,7 +811,7 @@ Protected Module DeNovoTFBSinference
 		      redim entryarray(0)
 		      f= GenomeWin.Genome.Features(deNovoWin.TFfeature)
 		      if f.FeatureText="" then 
-		        LogoWin.WriteToSTDOUT("Failed to process gene's description from "+str(GenomeWin.GenomeFile.Name)+", feature text is empty."+EndOfLine.UNIX)
+		        LogoWin.WriteToSTDOUT("Failed to process gene's description from "+Str(GenomeWin.GenomeFile.Name)+", feature text is empty."+EndOfLine.UNIX)
 		        return ""
 		      end
 		      entryarray(0)=str(GenomeWin.Genome.Description)+str(f.FeatureText)

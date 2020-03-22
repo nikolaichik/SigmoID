@@ -252,7 +252,6 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -371,7 +370,6 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -1121,7 +1119,7 @@ End
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  
-		  //'export protein sequences
+		  'export protein sequences
 		  LogoWin.show
 		  CDSfile=OutF.Child("CDS.fasta")
 		  if CDSfile<>nil then
@@ -1134,7 +1132,7 @@ End
 		      LogoWin.WriteToSTDOUT (" OK")
 		    end if
 		    
-		    //'store the CDSs as a string for possible further use:
+		    'store the CDSs as a string for possible further use:
 		    instream=CDSfile.OpenAsTextFile
 		    
 		    if instream<>nil then
@@ -1212,7 +1210,7 @@ End
 		  end if
 		  dim id as integer
 		  dim genome as cSeqObject=GenomeWin.Genome
-		  for n=1 to ubound(ProtNames)
+		  For n=1 To ubound(ProtNames)
 		    res=""
 		    
 		    if CRtags(n)="[indel within CR tag region]" then
@@ -1834,12 +1832,12 @@ End
 		    
 		    // Create folders to store intermediate files:
 		    'phmmer results:
-		    phmmer_results=OutF.child("phmmer_results")
-		    phmmer_results.createAsFolder
-		    if not phmmer_results.Exists or not phmmer_results.Directory Then
-		      logowin.WriteToSTDOUT EndOfLine.UNIX+EndOfLine.UNIX+"Cannot create a folder to store intermediate files. Have to abort motif search." 
-		      Return 
-		    End If
+		    'phmmer_results=OutF.child("phmmer_results")
+		    'phmmer_results.createAsFolder
+		    'if not phmmer_results.Exists or not phmmer_results.Directory Then
+		    'logowin.WriteToSTDOUT EndOfLine.UNIX+EndOfLine.UNIX+"Cannot create a folder to store intermediate files. Have to abort motif search." 
+		    'Return 
+		    'End If
 		    'Genome_fragments, Fasta_files, MEME_results, TomTom_results as FolderItem
 		    Genome_fragments=OutF.child("Genome_fragments")
 		    Genome_fragments.createAsFolder
@@ -1865,12 +1863,12 @@ End
 		    End If
 		    
 		    'TomTom_results
-		    TomTom_results=OutF.child("TomTom_results")
-		    TomTom_results.createAsFolder
-		    if not TomTom_results.Exists or not TomTom_results.Directory Then
-		      logowin.WriteToSTDOUT EndOfLine.UNIX+EndOfLine.UNIX+"Cannot create a folder to store intermediate files. Have to abort motif search." 
-		      Return
-		    End If
+		    'TomTom_results=OutF.child("TomTom_results")
+		    'TomTom_results.createAsFolder
+		    'if not TomTom_results.Exists or not TomTom_results.Directory Then
+		    'logowin.WriteToSTDOUT EndOfLine.UNIX+EndOfLine.UNIX+"Cannot create a folder to store intermediate files. Have to abort motif search." 
+		    'Return
+		    'End If
 		    
 		    RunCheck
 		    
