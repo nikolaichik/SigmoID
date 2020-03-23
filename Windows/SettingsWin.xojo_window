@@ -3,6 +3,7 @@ Begin Window SettingsWin
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
+   Compatibility   =   ""
    Composite       =   False
    Frame           =   9
    FullScreen      =   False
@@ -10,7 +11,7 @@ Begin Window SettingsWin
    HasBackColor    =   False
    Height          =   402
    ImplicitInstance=   True
-   LiveResize      =   "True"
+   LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   420
    MaximizeButton  =   False
@@ -28,7 +29,7 @@ Begin Window SettingsWin
    Begin PushButton OKButton
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   0
+      ButtonStyle     =   "0"
       Cancel          =   False
       Caption         =   "#kOK"
       Default         =   True
@@ -52,7 +53,6 @@ Begin Window SettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   362
-      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -60,7 +60,7 @@ Begin Window SettingsWin
    Begin PushButton CancelButton
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   0
+      ButtonStyle     =   "0"
       Cancel          =   True
       Caption         =   "#kCancel"
       Default         =   False
@@ -84,7 +84,6 @@ Begin Window SettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   362
-      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   90
@@ -116,9 +115,7 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Transparent     =   False
       Value           =   1
       Visible         =   True
       Width           =   556
@@ -146,7 +143,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   20
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -177,7 +173,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   56
-            Transparent     =   False
             Underline       =   False
             Visible         =   True
             Width           =   343
@@ -209,7 +204,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   88
-            Transparent     =   False
             Underline       =   False
             Visible         =   True
             Width           =   343
@@ -252,7 +246,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   120
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -280,7 +273,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   3
             TabPanelIndex   =   2
-            TabStop         =   True
             Text            =   "Organism (optional)"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -315,7 +307,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   4
             TabPanelIndex   =   2
-            TabStop         =   True
             Text            =   "Protein database"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -350,7 +341,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   5
             TabPanelIndex   =   2
-            TabStop         =   True
             Text            =   "Nucleotide database"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -401,7 +391,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   154
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -429,7 +418,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   7
             TabPanelIndex   =   2
-            TabStop         =   True
             Text            =   "API Key"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -480,7 +468,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   188
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -524,7 +511,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   222
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -552,7 +538,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   10
             TabPanelIndex   =   2
-            TabStop         =   True
             Text            =   "E-mail"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -587,7 +572,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   13
             TabPanelIndex   =   2
-            TabStop         =   True
             Text            =   "Accession codes in batch"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -625,7 +609,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   6
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -667,7 +650,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   40
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -695,7 +677,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   3
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "nhmmer:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -730,7 +711,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   4
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "alimask:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -781,7 +761,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   75
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -809,7 +788,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   11
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "hmmbuild:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -860,7 +838,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   108
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -888,7 +865,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   13
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "MEME:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -939,7 +915,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   142
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -967,7 +942,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   15
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "MAST:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -1018,7 +992,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   209
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -1046,7 +1019,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   17
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "TomTom:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -1097,7 +1069,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   243
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -1125,7 +1096,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   19
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "tfastx:"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -1176,7 +1146,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   277
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -1220,7 +1189,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   176
-            Transparent     =   False
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
@@ -1248,7 +1216,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   22
             TabPanelIndex   =   1
-            TabStop         =   True
             Text            =   "ChIPmunk"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -1284,7 +1251,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "Profile Folder:"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -1300,7 +1266,7 @@ Begin Window SettingsWin
       Begin PushButton ProfileFolderSelectButt
          AutoDeactivate  =   True
          Bold            =   False
-         ButtonStyle     =   0
+         ButtonStyle     =   "0"
          Cancel          =   False
          Caption         =   "#kSelectAnotherFolder"
          Default         =   False
@@ -1324,7 +1290,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   84
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   172
@@ -1351,7 +1316,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   2
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "#kProfileFolderPath"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -1388,7 +1352,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   272
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -1416,7 +1379,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   299
-            Transparent     =   False
             Underline       =   False
             Value           =   True
             Visible         =   True
@@ -1446,7 +1408,6 @@ Begin Window SettingsWin
             TextSize        =   0.0
             TextUnit        =   0
             Top             =   299
-            Transparent     =   False
             Underline       =   False
             Value           =   False
             Visible         =   True
@@ -1460,6 +1421,7 @@ Begin Window SettingsWin
          Backdrop        =   0
          DoubleBuffer    =   False
          Enabled         =   True
+         EraseBackground =   True
          Height          =   22
          HelpTag         =   "#kColorTag"
          Index           =   -2147483648
@@ -1502,7 +1464,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   4
-         TabStop         =   True
          Text            =   "Selection highlight colour:"
          TextAlign       =   2
          TextColor       =   &c00000000
@@ -1539,7 +1500,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   45
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   516
@@ -1550,6 +1510,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1592,7 +1553,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   1
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "CDS:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1612,6 +1572,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1654,7 +1615,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   3
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "sig_peptide:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1674,6 +1634,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1716,7 +1677,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   5
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "rRNA:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1736,6 +1696,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1778,7 +1739,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   7
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "ncRNA:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1798,6 +1758,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1840,7 +1801,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   9
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "protein_bind:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1860,6 +1820,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1902,7 +1863,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   11
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "gene:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1922,6 +1882,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1964,7 +1925,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   13
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "promoter:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -1984,6 +1944,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2026,7 +1987,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   15
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "terminator:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2046,6 +2006,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2088,7 +2049,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   17
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "attenuator:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2108,6 +2068,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2150,7 +2111,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   19
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "riboswitch:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2170,6 +2130,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2212,7 +2173,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   21
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "operon:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2232,6 +2192,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2274,7 +2235,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   23
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "tRNA:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2309,7 +2269,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   24
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "mobile_element:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2329,6 +2288,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2371,7 +2331,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   26
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "repeat_region:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2391,6 +2350,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2433,7 +2393,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   28
             TabPanelIndex   =   4
-            TabStop         =   True
             Text            =   "all other features:"
             TextAlign       =   2
             TextColor       =   &c00000000
@@ -2453,6 +2412,7 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
+            EraseBackground =   True
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2501,7 +2461,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   50
@@ -2533,7 +2492,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2565,7 +2523,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   101
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2592,7 +2549,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   13
          TabPanelIndex   =   5
-         TabStop         =   True
          Text            =   "#kFontSelInfo"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -2627,7 +2583,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   14
          TabPanelIndex   =   5
-         TabStop         =   True
          Text            =   "#kProportional"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -2662,7 +2617,6 @@ Begin Window SettingsWin
          Selectable      =   False
          TabIndex        =   15
          TabPanelIndex   =   5
-         TabStop         =   True
          Text            =   "#kFixed"
          TextAlign       =   0
          TextColor       =   &c00000000
@@ -2699,7 +2653,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   129
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2725,7 +2678,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   0
             TabPanelIndex   =   5
-            TabStop         =   True
             Text            =   "#kFFexample"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -2763,7 +2715,6 @@ Begin Window SettingsWin
          TextSize        =   0.0
          TextUnit        =   0
          Top             =   129
-         Transparent     =   False
          Underline       =   False
          Visible         =   True
          Width           =   220
@@ -2789,7 +2740,6 @@ Begin Window SettingsWin
             Selectable      =   False
             TabIndex        =   0
             TabPanelIndex   =   5
-            TabStop         =   True
             Text            =   "#kFFexample"
             TextAlign       =   0
             TextColor       =   &c00000000
@@ -2807,7 +2757,7 @@ Begin Window SettingsWin
    Begin PushButton DefaultPathsButton
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   0
+      ButtonStyle     =   "0"
       Cancel          =   False
       Caption         =   "#kRestoreDefaultPaths"
       Default         =   False
@@ -2831,7 +2781,6 @@ Begin Window SettingsWin
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   362
-      Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   161
@@ -3159,6 +3108,20 @@ End
 		  else
 		    DefaultPathsButton.visible=false
 		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events EmailField
+	#tag Event
+		Sub LostFocus()
+		  Dim rg as New RegEx
+		  Dim rgm as RegExMatch
+		  rg.SearchPattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+		  rgm=rg.Search(self.EmailField.Text)
+		  if rgm = Nil then
+		    MsgBox("Incorrect email! Use only latin letters, numbers, dots, hyphens, at sign.")
+		    self.EmailField.Text=""
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -3658,43 +3621,40 @@ End
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
-		Name="MinimumWidth"
+		Name="BackColor"
 		Visible=true
-		Group="Size"
-		InitialValue="64"
-		Type="Integer"
-		EditorType=""
+		Group="Background"
+		InitialValue="&hFFFFFF"
+		Type="Color"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MinimumHeight"
+		Name="Backdrop"
 		Visible=true
-		Group="Size"
-		InitialValue="64"
-		Type="Integer"
-		EditorType=""
+		Group="Appearance"
+		Type="Picture"
+		EditorType="Picture"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MaximumWidth"
+		Name="CloseButton"
 		Visible=true
-		Group="Size"
-		InitialValue="32000"
-		Type="Integer"
-		EditorType=""
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MaximumHeight"
+		Name="Composite"
 		Visible=true
-		Group="Size"
-		InitialValue="32000"
-		Type="Integer"
-		EditorType=""
+		Group="Appearance"
+		InitialValue="False"
+		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Type"
+		Name="Frame"
 		Visible=true
 		Group="Frame"
 		InitialValue="0"
-		Type="Types"
+		Type="Integer"
 		EditorType="Enum"
 		#tag EnumValues
 			"0 - Document"
@@ -3711,43 +3671,135 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="HasCloseButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
+		Name="FullScreen"
+		Group="Appearance"
+		InitialValue="False"
 		Type="Boolean"
-		EditorType=""
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="HasMaximizeButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasMinimizeButton"
-		Visible=true
-		Group="Frame"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="HasFullScreenButton"
+		Name="FullScreenButton"
 		Visible=true
 		Group="Frame"
 		InitialValue="False"
 		Type="Boolean"
-		EditorType=""
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="DefaultLocation"
+		Name="HasBackColor"
+		Visible=true
+		Group="Background"
+		InitialValue="False"
+		Type="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Height"
+		Visible=true
+		Group="Position"
+		InitialValue="400"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ImplicitInstance"
+		Visible=true
+		Group="Appearance"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Interfaces"
+		Visible=true
+		Group="ID"
+		Type="String"
+		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LiveResize"
+		Visible=true
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MacProcID"
+		Visible=true
+		Group="Appearance"
+		InitialValue="0"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MaxHeight"
+		Visible=true
+		Group="Size"
+		InitialValue="32000"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MaximizeButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MaxWidth"
+		Visible=true
+		Group="Size"
+		InitialValue="32000"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBar"
+		Visible=true
+		Group="Appearance"
+		Type="MenuBar"
+		EditorType="MenuBar"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBarVisible"
+		Group="Appearance"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinHeight"
+		Visible=true
+		Group="Size"
+		InitialValue="64"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinimizeButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinWidth"
+		Visible=true
+		Group="Size"
+		InitialValue="64"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Name"
+		Visible=true
+		Group="ID"
+		Type="String"
+		EditorType="String"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Placement"
 		Visible=true
 		Group="Behavior"
 		InitialValue="0"
-		Type="Locations"
+		Type="Integer"
 		EditorType="Enum"
 		#tag EnumValues
 			"0 - Default"
@@ -3758,116 +3810,19 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="HasBackgroundColor"
-		Visible=true
-		Group="Background"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="BackgroundColor"
-		Visible=true
-		Group="Background"
-		InitialValue="&hFFFFFF"
-		Type="Color"
-		EditorType="Color"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Backdrop"
-		Visible=true
-		Group="Appearance"
-		InitialValue=""
-		Type="Picture"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Composite"
-		Visible=true
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FullScreen"
-		Visible=false
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Height"
-		Visible=true
-		Group="Position"
-		InitialValue="400"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ImplicitInstance"
-		Visible=true
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Interfaces"
-		Visible=true
-		Group="ID"
-		InitialValue=""
-		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MacProcID"
-		Visible=true
-		Group="Appearance"
-		InitialValue="0"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBar"
-		Visible=true
-		Group="Appearance"
-		InitialValue=""
-		Type="MenuBar"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBarVisible"
-		Visible=false
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Name"
-		Visible=true
-		Group="ID"
-		InitialValue=""
-		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="Resizeable"
 		Visible=true
 		Group="Appearance"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType=""
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Super"
 		Visible=true
 		Group="ID"
-		InitialValue=""
 		Type="String"
-		EditorType=""
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"
@@ -3875,7 +3830,6 @@ End
 		Group="Appearance"
 		InitialValue="Untitled"
 		Type="String"
-		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Visible"
@@ -3883,7 +3837,7 @@ End
 		Group="Appearance"
 		InitialValue="True"
 		Type="Boolean"
-		EditorType=""
+		EditorType="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Width"
@@ -3891,6 +3845,5 @@ End
 		Group="Position"
 		InitialValue="600"
 		Type="Integer"
-		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
