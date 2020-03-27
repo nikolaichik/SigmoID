@@ -169,7 +169,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  If InStr(EntryID,"join(")>0 Then  'this could be either a real pseudogene or sequencing error leading to a frameshift, better ignore this locus anyway
 		    EntryID=NthField(EntryID,"join(",2)
-		    LogoWin.WriteToSTDOUT ("Getting the GenBank entry "+EntryID+" fragment... It seems to be a pseudogene: ignoring"+EndOfLine.linux)
+		    LogoWin.WriteToSTDOUT ("Getting the GenBank entry "+EntryID+" fragment... It seems to be a pseudogene: ignoring"+EndOfLine.UNIX)
 		    Return ""
 		  End If
 		  

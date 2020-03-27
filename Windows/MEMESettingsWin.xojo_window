@@ -767,7 +767,7 @@ End
 #tag Events RunButton
 	#tag Event
 		Sub Action()
-		  self.hide
+		  Self.hide
 		  dim errCode as integer = MEMEhtml
 		  
 		End Sub
