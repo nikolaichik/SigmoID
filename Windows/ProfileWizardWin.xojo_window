@@ -799,7 +799,6 @@ Begin Window ProfileWizardWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -2118,7 +2117,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Change()
-		  CRtagField.text=CRtags(me.ListIndex+1)
+		  CRtagField.Text=CRtags(Me.ListIndex+1)
 		  CRtagPositions=CRtags(me.ListIndex+1)
 		  
 		  dim f, CDSFile as folderitem

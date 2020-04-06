@@ -426,7 +426,7 @@ End
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  cli="grep -Po "+chr(34)+"^\>\>.*$"+chr(34)+" "+Hmmsearchoutput ' here we get all lines, that start with ">>" from hmmsearch output file
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    emblcom=sh.Result.Split(EndOfLine.UNIX)
 		  else
@@ -509,14 +509,14 @@ End
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  cli="grep "+chr(34)+"^[^#;]"+chr(34)+" "+SearchResTable 'get lines, that don't start with #
-		  Sh.Execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  AlignmentArray=sh.Result.Split(EndOfLine.UNIX) 
 		  
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  cli="grep "+chr(34)+"^[^#;]"+chr(34)+" "+SearchResTable+"  "+chr(124)+" grep -Po "+chr(34)+"^\S.*(?=\/)"+chr(34)+"  "+chr(124)+" sort "+chr(124)+" uniq -cd" ' get list of non unique (thus multidomain) seq codes  
-		  Sh.Execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  dim uniqprot as string=sh.Result
 		  uniqprot=uniqprot+prot2exclude ' add seq codes that don't have EMBL codes to multidomain seq list - all of them must be skipped
 		  redim EmblCom(0)
@@ -577,7 +577,7 @@ End
 		      'cli="samtools faidx "+fastasource.shellpath+" "+str(ProtNames(ubound(ProtNames)))
 		      'cli="samtools faidx "+trEMBL_fasta.shellpath+" "+str(ProtNames(ubound(ProtNames)))
 		      
-		      Sh.Execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      
 		      if sh.ErrorCode<>0 then
 		        LogoWin.WriteToSTDOUT (EndOfLine.unix+"Error retrieving "+str(ProtNames(ubound(ProtNames)))+" from trEMBL"+EndOfLine.unix)
@@ -899,7 +899,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 then
 		        LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		        instream=TextInputStream.Open(hmmsearchoutput)

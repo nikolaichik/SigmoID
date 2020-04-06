@@ -1469,7 +1469,7 @@ Protected Module Globals
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    return true
 		  else
@@ -1510,7 +1510,7 @@ Protected Module Globals
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    
-		    sh.execute cli
+		    sh.execute ("bash --login -c '"+cli+"'")
 		    If sh.errorCode=0 then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		      
@@ -1588,7 +1588,7 @@ Protected Module Globals
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    
-		    sh.execute cli
+		    sh.execute ("bash --login -c '"+cli+"'")
 		    //LogoWin.WriteToSTDOUT (EndofLine.UNIX+str(sh.Result)+EndOfLine.UNIX)
 		    If sh.errorCode=0 then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
@@ -1971,6 +1971,19 @@ Protected Module Globals
 		  end if
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:JSON2Fasta")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function LastField(extends s as string, separator as string) As string
+		  // Replacement for the String.LastField(separator As String) As String function added in 2019r31
+		  
+		  'Returns the last field from a string of data. The first field is numbered 1. If you need to parse binary data, use a MemoryBlock instead
+		  
+		  Dim n As Integer
+		  n=CountFields(s,separator)
+		  
+		  return NthField(s,separator,n)
 		End Function
 	#tag EndMethod
 
@@ -2467,7 +2480,7 @@ Protected Module Globals
 		    sh.mode=0
 		    sh.TimeOut=-1
 		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
-		    sh.execute cli
+		    sh.execute ("bash --login -c '"+cli+"'")
 		    If sh.errorCode=0 then
 		      Logowin.WriteToSTDOUT (" OK") '(EndofLine+Sh.Result)
 		      
@@ -3727,7 +3740,7 @@ Protected Module Globals
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    sh.execute cli
+		    sh.execute ("bash --login -c '"+cli+"'")
 		    If sh.errorCode=0 then
 		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		      return
@@ -3995,7 +4008,7 @@ Protected Module Globals
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    return Sh.Result
 		  else

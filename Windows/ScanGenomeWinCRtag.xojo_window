@@ -509,7 +509,7 @@ End
 		          end
 		        next
 		        ' summary stats
-		        summstring=Endofline.Unix+"For the model "+str(SigList.Cell(k,3))+" total tags count is: "+str(ubound(crtags)+1)+", CRtags that were not processed: "+str(count1)+Endofline.Unix+"Details of proteins with tags that were not found in base: "+str(join(notfound, ";"))+EndOfLine.Unix
+		        summstring=EndOfLine.Unix+"For the model "+Str(SigList.Cell(k,3))+" total tags count is: "+Str(ubound(crtags)+1)+", no profiles with matching CR tags found for "+Str(count1)+EndOfLine.Unix+" proteins: "+Str(Join(notfound, ";"))+EndOfLine.Unix
 		        summary.Append(summstring)
 		      end
 		    next
@@ -594,7 +594,7 @@ End
 		      dim apath as string=Siglist.Cell(k,2)
 		      dim sigf as FolderItem
 		      if instr(apath, ";")>0 then
-		        apath=NthField(apath, ";", 1) 'multiple pathes for one hmm family is allowed, but not done yet, process first  
+		        apath=NthField(apath, ";", 1) 'multiple paths for one hmm family are allowed, but not done yet, processing just the first one  
 		      end
 		      f=getfolderitem(apath, FolderItem.PathTypeNative)
 		      for j as integer = 1 to f.count
@@ -722,8 +722,8 @@ End
 		      ' summary stats
 		      summstring=Endofline.Unix+"For the model "+str(SigList.Cell(k,3))+" total tags count is: "+str(ubound(CRtags)+1)
 		      if protNFound>0 then
-		        summstring=summstring+", CRtags that were not processed: "+str(protNFound)+Endofline.Unix+"Details of proteins with tags that were not found in base: "+str(join(notfound, ";"))+EndOfLine.Unix
-		      end
+		        summstring=summstring+", no profiles with matching CR tags found for "+Str(protNFound)+EndOfLine.Unix+" proteins: "+Str(Join(notfound, ";"))+EndOfLine.Unix
+		      End
 		      summary.Append(summstring)
 		      
 		      w.Show

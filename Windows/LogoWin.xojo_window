@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -529,13 +528,13 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    if instr(sh.result,"Python 3")>0 then
 		      WriteToSTDOUT ("Your system defaults to Python 3. Looking for Python 2...")
 		      cli="python2 --version"
 		      sh=New Shell
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 then
 		        pythonPath=SystemPath("python2")+" "  
 		        
@@ -563,7 +562,7 @@ End
 		          sh=New Shell
 		          sh.mode=0
 		          sh.TimeOut=-1
-		          sh.execute cli
+		          sh.execute ("bash --login -c '"+cli+"'")
 		          If sh.errorCode=0 then
 		            pythonCheckString=pythonCheckString+" with Biopython "+Sh.Result
 		          end if
@@ -593,7 +592,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  dim hmmg as boolean=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -621,7 +620,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -650,7 +649,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
 		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"MastGen")>0 then
@@ -678,7 +677,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -707,7 +706,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -737,7 +736,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -766,7 +765,7 @@ End
 		  'sh=New Shell
 		  'sh.mode=0
 		  'sh.TimeOut=-1
-		  'sh.execute cli
+		  'sh.execute ("bash --login -c '"+cli+"'")
 		  'If sh.errorCode=0 then
 		  'if instr(Sh.Result,"command not found")>0 then
 		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
@@ -796,7 +795,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
 		    if instr(nthfield(s,EndOfLine.Unix,1),"nhmmer")>0 then
@@ -824,7 +823,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
 		    if instr(nthfield(s,EndOfLine.Unix,1),"hmmbuild")>0 then
@@ -853,7 +852,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
 		    if instr(nthfield((Sh.Result),EndOfLine.Unix,1),"alimask")>0 then
@@ -888,7 +887,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 OR sh.errorCode=3 then 'TransTerm returns error code when run without all args
 		        dim s As string
 		        s=nthfield((Sh.Result),EndOfLine.Unix,1)
@@ -923,7 +922,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT ("meme "+Sh.Result)
 		  else
@@ -941,7 +940,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT ("mast "+Sh.Result)
 		    MASTVersion=trim(Sh.Result)
@@ -961,7 +960,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT ("tomtom "+Sh.Result)
 		  else
@@ -994,7 +993,7 @@ End
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    sh.execute MeshClustPath
+		    sh.execute ("bash --login -c '"+MeshClustPath+"'")
 		    If sh.errorCode=1 then 'running meshclust without args produces this error and help info
 		      dim s As string=sh.Result
 		      if instr(s,"meshclust")>0 then
@@ -1027,7 +1026,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then 
 		    dim s As string=Sh.Result
 		    if instr(s,"TFASTX")>0 then
@@ -1930,7 +1929,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 then
 		        masked=true 'return Sh.Result
 		      else
@@ -3223,7 +3222,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 then
 		        'store hit number for genome scan:
 		        dim LastHitStr as string
@@ -3435,7 +3434,7 @@ End
 		    sh.mode=0
 		    sh.TimeOut=-1
 		    WriteToSTDOUT (EndofLine+"Running hmmsearch...")
-		    sh.execute cli
+		    sh.execute ("bash --login -c '"+cli+"'")
 		    If sh.errorCode=0 then
 		      WriteToSTDOUT (EndofLine+Sh.Result)
 		      'LogoWinToolbar.Item(2).Enabled=true
@@ -4044,7 +4043,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 then
 		        'store hit number for genome scan:
 		        dim LastHitStr as string
@@ -4208,7 +4207,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT (EndofLine+Sh.Result)
 		    'write results to a temporary file for MastGen.py:
@@ -4427,7 +4426,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 then
 		        logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		        'LogoWinToolbar.Item(2).Enabled=true
@@ -4525,7 +4524,7 @@ End
 		    sh.mode=0
 		    sh.TimeOut=-1
 		    WriteToSTDOUT (EndofLine+EndofLine+"Running nhmmer...")
-		    sh.execute cli
+		    sh.execute ("bash --login -c '"+cli+"'")
 		    If sh.errorCode=0 then
 		      WriteToSTDOUT (EndofLine+Sh.Result)
 		      LogoWinToolbar.Item(2).Enabled=true
@@ -4846,7 +4845,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 then
 		        'store hit number for genome scan:
 		        dim LastHitStr as string
@@ -5082,7 +5081,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 then
 		        'store hit number for genome scan:
 		        'dim LastHitStr as string

@@ -727,7 +727,7 @@ End
 		    sh.TimeOut=-1
 		    LogoWin.show
 		    LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
-		    sh.execute cli
+		    sh.execute ("bash --login -c '"+cli+"'")
 		    If sh.errorCode=0 then
 		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		      

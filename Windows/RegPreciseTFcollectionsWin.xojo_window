@@ -1534,7 +1534,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute cli
+		      sh.execute ("bash --login -c '"+cli+"'")
 		      
 		      
 		      If sh.errorCode=0 then

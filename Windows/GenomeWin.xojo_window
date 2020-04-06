@@ -1618,7 +1618,7 @@ End
 			sh=New Shell
 			sh.mode=0
 			sh.TimeOut=-1
-			sh.execute cli
+			sh.execute ("bash --login -c '"+cli+"'")
 			If sh.errorCode=0 then
 			
 			LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
@@ -2655,15 +2655,27 @@ End
 		      CF=seq.Features(n)
 		      for m=1 to n-1
 		        CM=seq.Features(m)
-		        if CF.finish>=CM.start AND CF.start<=CM.start then
+		        
+		        If CF.finish>=CM.start And CF.start<=CM.start Then
 		          SpreadFeatures(n,m,cf.type,cm.type)
-		        elseif CF.start<=CM.finish AND CF.start>=CM.start  then
+		        Elseif CF.finish>=CM.finish And CF.start<=CM.finish Then
 		          SpreadFeatures(n,m,cf.type,cm.type)
-		        elseif CF.start>=CM.finish AND CF.finish<=CM.finish  then
+		        Elseif CF.start>=CM.finish And CF.finish<=CM.finish  Then
 		          SpreadFeatures(n,m,cf.type,cm.type)
-		        elseif CF.start<=CM.start AND CF.finish>=CM.finish  then
+		        Elseif CF.start>=CM.start And CF.finish<=CM.start  Then
 		          SpreadFeatures(n,m,cf.type,cm.type)
-		        end
+		        End If
+		        
+		        If CM.finish>=CF.start And CM.start<=CF.start Then
+		          SpreadFeatures(n,m,cf.type,cm.type)
+		        Elseif CM.finish>=CF.finish And CM.start<=CF.finish Then
+		          SpreadFeatures(n,m,cf.type,cm.type)
+		        Elseif CM.start>=CF.finish And CM.finish<=CF.finish  Then
+		          SpreadFeatures(n,m,cf.type,cm.type)
+		        Elseif CM.start>=CF.start And CM.finish<=CF.start  Then
+		          SpreadFeatures(n,m,cf.type,cm.type)
+		        End If
+		        
 		      Next 'm
 		    Next 'n
 		    if not moving then exit
@@ -3041,7 +3053,7 @@ End
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    sh.execute cli
+		    sh.execute ("bash --login -c '"+cli+"'")
 		    
 		    If sh.errorCode=0 then
 		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
@@ -3816,7 +3828,7 @@ End
 		    sh.mode=0
 		    sh.TimeOut=-1
 		    logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
-		    sh.execute cli
+		    sh.execute ("bash --login -c '"+cli+"'")
 		    If sh.errorCode=0 then
 		      logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		      'LogoWinToolbar.Item(2).Enabled=true
@@ -4211,7 +4223,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute cli
+		  sh.execute ("bash --login -c '"+cli+"'")
 		  If sh.errorCode=0 then
 		    LogoWin.WriteToSTDOUT (EndofLine+"OperOn.py was run with these options: "+nthfield(cli,".gb",2)) ' 
 		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
