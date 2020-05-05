@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -4345,7 +4346,7 @@ End
 		    logoWin.WriteToSTDOUT("Please select a file to search first.")
 		    return false
 		  else
-		    logoWin.WriteToSTDOUT("Exporting protein seqs... ")
+		    logoWin.WriteToSTDOUT(EndOfLine.UNIX+"Exporting protein seqs... ")
 		    
 		  end if
 		  
@@ -4428,7 +4429,6 @@ End
 		      sh.TimeOut=-1
 		      sh.execute ("bash --login -c '"+cli+"'")
 		      If sh.errorCode=0 then
-		        logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		        'LogoWinToolbar.Item(2).Enabled=true
 		        'logoWin.LastSearch="hmmsearch" 'not used
 		        
@@ -4438,10 +4438,12 @@ End
 		        instream = alignmentsFile.OpenAsTextFile
 		        
 		        if instream<>nil then         'save hmmsearch results
-		          dim table as string=trim(instream.ReadAll)
+		          Dim table As String=Trim(instream.ReadAll)
 		          instream.close
-		          dim hmmSearchRes as string = GetCRtags(sh.Result,Table,CRtagCoords)
-		          if instr(hmmSearchRes,">"+CRtag+">")>0 then
+		          Dim hmmSearchRes As String = GetCRtags(sh.Result,Table,CRtagCoords)
+		          logoWin.WriteToSTDOUT (EndOfLine+hmmSearchRes)
+		          
+		          If InStr(hmmSearchRes,">"+CRtag+">")>0 Then
 		            return true
 		          else
 		            return false
@@ -4674,7 +4676,7 @@ End
 		        end if
 		      end if
 		    else
-		      if MatchingTFpresent then
+		      If MatchingTFpresent Then
 		        
 		        
 		        
@@ -4707,7 +4709,7 @@ End
 		        end if
 		        
 		      else
-		        me.WriteToSTDOUT "No TF with matching CRtag could be found."+EndOfLine.unix
+		        Me.WriteToSTDOUT "No TF with matching CRtag could be found."+EndOfLine.unix
 		        
 		      end if
 		    end if
