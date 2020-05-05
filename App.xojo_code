@@ -427,6 +427,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FilterDuplicateSites() As Boolean Handles FilterDuplicateSites.Action
+			LogoWin.filerRedundancy
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeCRtagfilteredsearch() As Boolean Handles GenomeCRtagfilteredsearch.Action
 			FilteredSearchWin.show
 			Return True

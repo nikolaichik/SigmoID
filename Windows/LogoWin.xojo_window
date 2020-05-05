@@ -382,6 +382,7 @@ End
 		    findSitesChipM.Enabled=true
 		    GenomeMASTSearch.enabled=true
 		    GenomeNhmmersearch.enabled=true
+		    FilterDuplicateSites.enabled=true
 		    
 		    if RegulonID<>0 then
 		      RegPreciseRegulonInfo.enabled=true
@@ -3074,6 +3075,7 @@ End
 		      findSitesChipM.Enabled=true
 		      GenomeMASTSearch.enabled=true
 		      GenomeNhmmersearch.enabled=true
+		      FilterDuplicateSites.enabled=true
 		      
 		      if RegulonID<>0 then
 		        RegPreciseRegulonInfo.enabled=true
@@ -3153,6 +3155,38 @@ End
 		    
 		  #endif
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub filerRedundancy()
+		  dim InputStream as TextInputStream
+		  dim fasta as String
+		  dim sequence, revSequence as String
+		  dim FastaArray(-1), UniqueSites as String
+		  dim count as Integer = 0
+		  
+		  
+		  
+		  if LogoFile<>Nil then
+		    InputStream = TextInputStream.Open(LogoFile)
+		    fasta = InputStream.ReadAll
+		    FastaArray  = fasta.Split(">")
+		    for i as Integer = 1 to UBound(FastaArray)
+		      if FastaArray(i)<>"" then 
+		        sequence = NthField(FastaArray(i),EndOfLine.UNIX,2)
+		        revSequence = ReverseComplement(sequence)
+		        if UniqueSites.IndexOf(sequence)=-1 and UniqueSites.IndexOf(revSequence)=-1 then
+		          UniqueSites=UniqueSites+">"+FastaArray(i)
+		        else
+		          count=count+1
+		        end
+		      end
+		    next
+		    if UniqueSites<>"" then
+		      LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sequences set without duplicates ("+str(count)+" sequences have been removed):"+EndOfLine.UNIX+UniqueSites)
+		    end
+		  end
 		End Sub
 	#tag EndMethod
 

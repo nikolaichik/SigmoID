@@ -463,6 +463,15 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem FilterDuplicateSites
+         SpecialMenu = 0
+         Value = "Filter duplicate sites"
+         Index = -2147483648
+         Text = "Filter duplicate sites"
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator7
          SpecialMenu = 0
          Value = "-"
