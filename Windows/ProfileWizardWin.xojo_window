@@ -1132,16 +1132,29 @@ End
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h0
+		Sub CheckGathering()
+		  Dim Noise As Single =Val(NoiseField.Text)
+		  Dim Trust As Single = Val(TrustedField.Text)
+		  
+		  If Noise > 5 And Trust > 5 Then
+		    If GatheringField.Text="" Then
+		      GatheringField.Hint=Str((Noise+Trust)/2)
+		    End If
+		  End If
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Protected Sub EnableSave()
-		  if LogoWin.LogoFile=Nil then
+		  If LogoWin.LogoFile=Nil Then
 		    SaveButton.enabled=false
 		    return
 		  else
 		    SaveButton.enabled=true
 		  end if
 		  
-		  If GatheringField.text="" then
+		  If GatheringField.Text="" Then
 		    SaveButton.enabled=false
 		    return
 		  end
@@ -1186,15 +1199,33 @@ End
 
 #tag EndWindowCode
 
+#tag Events TrustedField
+	#tag Event
+		Sub TextChange()
+		  CheckGathering
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events GatheringField
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
-		  
+		  If Me.Text="" Then
+		    If key=Chr(9) Then
+		      me.text=me.Hint
+		    End If
+		  End If
 		End Function
 	#tag EndEvent
 	#tag Event
 		Sub TextChange()
 		  EnableSave
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NoiseField
+	#tag Event
+		Sub TextChange()
+		  CheckGathering
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1687,10 +1718,11 @@ End
 		  'CRtagSeqField.text=CRtag
 		  
 		  // Guess protein name 
-		  'assume the name goes first in the fasta title line
-		  ProtName=NthField(Pseq, ">",2)
-		  'ProtName=NthField(ProtName, " ", 1)   'should be separated by space...
-		  ProtName=NthField(ProtName, EndOfLine, 1)   '... or EndOfLine
+		  ''assume the name goes first in the fasta title line
+		  'ProtName=NthField(Pseq, ">",2)
+		  ''ProtName=NthField(ProtName, " ", 1)   'should be separated by space...
+		  'ProtName=NthField(ProtName, EndOfLine, 1)   '... or EndOfLine
+		  ProtName=ValueField.text
 		  
 		  dlg.ActionButtonCaption = "Save"
 		  dlg.Title = "Save .sig File"
