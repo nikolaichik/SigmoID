@@ -2169,7 +2169,7 @@ Protected Module Globals
 		  LogoPic.graphics.DrawString("1",6,baseY-65)
 		  LogoPic.graphics.DrawString("2",6,baseY-135)
 		  
-		  LocalMotifCollectionsWin.InfoBits=totalEntropy
+		  Globals.InfoBits=totalEntropy
 		  
 		  
 		  return LogoPic
@@ -4113,6 +4113,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		hmmSearchSettings As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		InfoBits As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

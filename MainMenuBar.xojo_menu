@@ -508,6 +508,15 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem ProfileConvertFolderToMEME
+         SpecialMenu = 0
+         Value = "#kConvertFolderToMEME"
+         Index = -2147483648
+         Text = "#kConvertFolderToMEME"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator0
          SpecialMenu = 0
          Value = "-"

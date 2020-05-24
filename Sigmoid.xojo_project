@@ -391,6 +391,7 @@ Class=nSocket;Classes/nSocket.xojo_code;&h00000000747497FF;&h0000000047302C04;fa
 Window=About;Windows/About.xojo_window;&hFFFFFFFFB7052ABB;&h000000002250E847;false
 Window=CRtagWin;Windows/CRtagWin.xojo_window;&h000000006B208FFF;&h000000002250E847;false
 Window=CollecTFWin;Windows/CollecTFWin.xojo_window;&h0000000071F7A7FF;&h000000002250E847;false
+Window=ConvertProfilesToMEMEWin;Windows/ConvertProfilesToMEMEWin.xojo_window;&h00000000627357FF;&h000000002250E847;false
 Window=deNovoWin;Windows/deNovoWin.xojo_window;&h0000000069E4E7FF;&h000000002250E847;false
 Window=DocWin;Windows/DocWin.xojo_window;&h00000000687CBD7C;&h000000002250E847;false
 Window=EditGeneWin;Windows/EditGeneWin.xojo_window;&h000000006980BFFF;&h000000002250E847;false

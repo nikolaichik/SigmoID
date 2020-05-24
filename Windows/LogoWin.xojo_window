@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -1693,6 +1692,141 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ProfileConvertFolderToMEME() As Boolean Handles ProfileConvertFolderToMEME.Action
+			// Select a folder with .sig files and convert all of them into a single file in the minimal meme format
+			
+			
+			Dim SigF, f As FolderItem
+			Dim m,n,q As Integer
+			Dim basename As String
+			Dim vv As VirtualVolume
+			Dim tis As TextInputStream
+			Dim dlg As New SelectFolderDialog
+			dlg.ActionButtonCaption = "Select"
+			dlg.Title = "Select Folder with .sig files"
+			dlg.PromptText = "Select Folder with .sig files to convert"
+			'dlg.InitialDirectory = Profile_f.parent
+			
+			SigF = dlg.ShowModal
+			If SigF <> Nil Then
+			ConvertProfilesToMEMEWin.Foldername=SigF.DisplayName
+			m=SigF.Count
+			For n=1 To m
+			If SigF.Item(n).name<>".DS_Store" Then
+			If SigF.Item(n).Directory Then
+			'skip folder
+			Else
+			If Right(SigF.Item(n).Name,4)=".sig" Then
+			
+			'Get MEME data:
+			vv=SigF.Item(n).openAsVirtualVolume
+			If vv<> Nil Then
+			basename=NthField(SigF.Item(n).DisplayName,".sig",1)
+			f=vv.root.child("meme.txt")
+			If f<> Nil And f.exists Then
+			'tis = New TextInputStream
+			tis = TextInputStream.Open(f)
+			MEMEdata=tis.ReadAll
+			tis.Close
+			
+			Dim motifName, nSites, PWMdata, sitelen, FastaData As String 
+			Dim LEloc As Integer
+			
+			motifName=NthField(SigF.Item(n).Name,".sig",1)
+			nSites=Str(Val(NthField(MEMEdata," nsites=",2)))
+			PWMdata=NthField(MEMEdata," nsites=",2)               'get closer to the data
+			LEloc=InStr(PWMdata,EndOfLine)
+			PWMdata=Right(PWMdata,Len(PWMdata)-LEloc)                 'still has trailing lines
+			PWMdata=NthField(PWMdata,"--",1)
+			'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine) 'remove empty lines
+			'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
+			'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
+			
+			sitelen=Str(CountFields(PWMdata,EndOfLine))
+			
+			'get fasta data:
+			f=vv.root.child(basename+".fasta")
+			If f<> Nil And f.exists Then
+			tis = TextInputStream.Open(f)
+			FastaData=tis.ReadAll
+			tis.Close
+			End If
+			
+			// CollectionList columns are:
+			' 0 - Checkbox
+			' 1 - Profile Name
+			' 2 - Number of seqs
+			' 3 - Information (bits)
+			' 4 - Logo picture
+			' 5 (invisible) - TFBS seqs (in fasta format)
+			' 6 (invisible) - TFBS length.
+			
+			Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen)  'first column contains checkboxes
+			
+			ConvertProfilesToMEMEWin.CollectionList.AddRow(reg)
+			
+			Dim p As picture = LogoFromPWM(PWMdata)
+			''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
+			'dim LogoPicScaled as new Picture (p.width*50/170,35,32)
+			'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
+			'LogoPicScaled.Transparent=1
+			
+			''scale the picture down to 60 pixel heigh and stretch it horisontally a bit
+			'dim LogoPicScaled as new Picture (p.width*50/170,45,32)
+			'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,45,0,0,p.width,p.Height)
+			Dim LogoPicScaled As New Picture (p.width*70/170,60,32)
+			LogoPicScaled.Graphics.DrawPicture (p,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,p.width,p.Height)
+			
+			LogoPicScaled.Transparent=1
+			
+			
+			'add picture to the last row as variant, so it is sorted properly 
+			ConvertProfilesToMEMEWin.CollectionList.RowTag(ConvertProfilesToMEMEWin.collectionlist.LastIndex)=LogoPicScaled
+			
+			'Update progress text
+			ConvertProfilesToMEMEWin.ProgressLabel.Text="Loading profiles: "+Str(ConvertProfilesToMEMEWin.CollectionList.ListCount)
+			
+			
+			ConvertProfilesToMEMEWin.CollectionList.Enabled=True
+			
+			
+			
+			
+			
+			
+			Else
+			WriteToSTDOUT(EndOfLine.UNIX+"No MEME data in "+SigF.Item(n).DisplayName+EndOfLine.UNIX)
+			
+			
+			
+			End If
+			Else
+			Beep
+			End If
+			
+			
+			End If
+			End If
+			End If
+			Next
+			
+			'logowin.WriteToSTDOUT(EndOfLine+"Converted sig files written to "+OutF.ShellPath+EndOfLine)
+			
+			Else
+			// User cancelled
+			End If
+			
+			
+			ConvertProfilesToMEMEWin.show
+			
+			Exception err
+			ExceptionHandler(err,"App:ProfileConvertFolderToMEME")
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ProfilePalindromise() As Boolean Handles ProfilePalindromise.Action
 			Palindromise
 			Return True
@@ -2006,7 +2140,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ChangeView(View As string)
-		  select case View
+		  Select Case View
 		    
 		  case "Logo"
 		    if SeqsChanged then
@@ -2085,7 +2219,7 @@ End
 		    end
 		    
 		    
-		  case "AlignmentInfo"
+		  Case "Info"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
 		    ViewAlignmentInfo.checked=true
@@ -2156,7 +2290,7 @@ End
 		      TopPanel.visible=true
 		      DownshiftLog true
 		    end if
-		  case "ProfileSettings"
+		  case "Settings"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
 		    ViewAlignmentInfo.checked=false
@@ -2173,7 +2307,7 @@ End
 		    TopPanel.height=splitter.top-LogoTabs.height
 		    DownshiftLog true
 		    LogoCanvas.visible=false
-		  case "HmmProfile"
+		  case "HMM"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
 		    ViewAlignmentInfo.checked=false
@@ -2190,7 +2324,7 @@ End
 		    TopPanel.height=splitter.top-LogoTabs.height
 		    DownshiftLog true
 		    LogoCanvas.visible=false
-		  case "MEMEresults"
+		  case "MEME"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
 		    ViewAlignmentInfo.checked=false
@@ -5788,19 +5922,20 @@ End
 		Sub Open()
 		  Me.appendTab("Logo")
 		  me.appendTab("Sequences")
-		  me.appendTab("AlignmentInfo")
-		  me.appendTab("ProfileSettings")
-		  me.appendTab("HmmProfile")
-		  me.appendTab("MEMEresults")
+		  Me.appendTab("Info")
+		  Me.appendTab("Settings")
+		  Me.appendTab("HMM")
+		  Me.appendTab("MEME")
 		  
 		  Me.Left=0
+		  ChangeView("Logo")
 		  
 		  
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub TabChanged(tabIndex as integer)
-		  dim Tabname as string
+		  Dim Tabname As String
 		  
 		  Tabname=me.tabs(tabIndex).caption
 		  

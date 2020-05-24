@@ -1,5 +1,5 @@
 #tag Window
-Begin Window LocalMotifCollectionsWin
+Begin Window ConvertProfilesToMEMEWin
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
@@ -22,76 +22,9 @@ Begin Window LocalMotifCollectionsWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Local Motif Collections"
+   Title           =   "Profiles in a folder"
    Visible         =   False
    Width           =   800
-   Begin Label Label2
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   8
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   1
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "#kTFBScollection"
-      TextAlign       =   0
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   20
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   93
-   End
-   Begin PopupMenu TFfamilyPopup
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   False
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      InitialValue    =   "#kSelectMotifCollection"
-      Italic          =   False
-      Left            =   113
-      ListIndex       =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   20
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   640
-   End
    Begin Listbox CollectionList
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -110,7 +43,7 @@ Begin Window LocalMotifCollectionsWin
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   296
+      Height          =   348
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -135,7 +68,7 @@ Begin Window LocalMotifCollectionsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   52
+      Top             =   0
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -175,50 +108,6 @@ Begin Window LocalMotifCollectionsWin
       Underline       =   False
       Visible         =   True
       Width           =   84
-   End
-   Begin BevelButton InfoButton
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
-      Bold            =   False
-      ButtonType      =   0
-      Caption         =   ""
-      CaptionAlign    =   3
-      CaptionDelta    =   0
-      CaptionPlacement=   1
-      Enabled         =   False
-      HasBackColor    =   False
-      HasMenu         =   0
-      Height          =   22
-      HelpTag         =   ""
-      Icon            =   495161343
-      IconAlign       =   1
-      IconDX          =   0
-      IconDY          =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   10
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   382
-      Transparent     =   False
-      Underline       =   False
-      Value           =   False
-      Visible         =   True
-      Width           =   22
    End
    Begin BevelButton BevelButton3
       AcceptFocus     =   True
@@ -363,7 +252,7 @@ Begin Window LocalMotifCollectionsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   71
+      Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -385,7 +274,7 @@ Begin Window LocalMotifCollectionsWin
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   388
+      Width           =   439
    End
    Begin PushButton ExportButton
       AutoDeactivate  =   True
@@ -664,11 +553,11 @@ End
 		  if collectionList.SelCount=1 then
 		    'RegulonLogoButton.Enabled=true
 		    RegulogLogoButton.Enabled=true
-		    InfoButton.Enabled=true
+		    'InfoButton.Enabled=true
 		  else
 		    'RegulonLogoButton.Enabled=false
 		    RegulogLogoButton.Enabled=false
-		    InfoButton.Enabled=false
+		    'InfoButton.Enabled=false
 		  end if
 		  
 		  dim sr as integer=CountSelRows
@@ -744,6 +633,10 @@ End
 
 
 	#tag Property, Flags = &h0
+		FolderName As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		GenomeStatsArray(-1) As JSONItem
 	#tag EndProperty
 
@@ -774,120 +667,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events Label2
-	#tag Event
-		Sub Open()
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events TFfamilyPopup
-	#tag Event
-		Sub Change()
-		  Dim m,n As Integer
-		  dim f, CollectionFile as folderitem
-		  
-		  
-		  CollectionList.DeleteAllRows
-		  
-		  ' find the file
-		  f=Resources_f.Child("TF_families")
-		  if f<>nil then
-		    m=f.Count
-		    for n=1 to m
-		      if f.Item(n).name=me.Text+".meme" then
-		        CollectionFile=f.Item(n)
-		        exit
-		      end if
-		    next
-		  end if
-		  
-		  'read motifs into an array
-		  dim tis as TextInputStream
-		  dim motifs, motifArray(-1), motifName, nSites, PWMdata, URL, siteLen as string
-		  dim LEloc as integer
-		  
-		  tis=CollectionFile.OpenAsTextFile
-		  if tis<>nil then
-		    motifs=tis.ReadAll
-		    tis.Close
-		  end if
-		  
-		  motifArray=motifs.Split("MOTIF ")
-		  
-		  'fill in CollectionList
-		  m=UBound(motifArray)
-		  for n=1 to m
-		    motifName=NthField(motifArray(n)," ",1)
-		    nSites=str(val(NthField(motifArray(n),"nsites=",2)))
-		    PWMdata=NthField(motifArray(n),"nsites=",2)               'get closer to the data
-		    LEloc=instr(PWMdata,EndOfLine)
-		    PWMdata=right(PWMdata,len(PWMdata)-LEloc)                 'still has trailing lines
-		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine) 'remove empty lines
-		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
-		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
-		    if instr(PWMdata,"URL")>0 then                            'standard meme files don't have URLs
-		      URL=trim(NthField(PWMdata,"URL",2))
-		      LEloc=instr(PWMdata,"URL")
-		      PWMdata=left(PWMdata,LEloc-1)
-		    end if
-		    sitelen=str(CountFields(PWMdata,EndOfLine))
-		    
-		    Dim p as picture = LogoFromPWM(PWMdata)
-		    Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", URL,siteLen)  'first column contains checkboxes
-		    CollectionList.AddRow(reg)
-		    
-		    ''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
-		    'dim LogoPicScaled as new Picture (p.width*50/170,35,32)
-		    'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
-		    'LogoPicScaled.Transparent=1
-		    
-		    ''scale the picture down to 60 pixel heigh and stretch it horisontally a bit
-		    'dim LogoPicScaled as new Picture (p.width*50/170,45,32)
-		    'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,45,0,0,p.width,p.Height)
-		    Dim LogoPicScaled As New Picture (p.width*70/170,60,32)
-		    LogoPicScaled.Graphics.DrawPicture (p,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,p.width,p.Height)
-		    
-		    LogoPicScaled.Transparent=1
-		    
-		    
-		    'add picture to the last row as variant, so it is sorted properly 
-		    CollectionList.RowTag(collectionlist.LastIndex)=LogoPicScaled
-		    
-		    'Update progress text
-		    ProgressLabel.Text="Loading profiles: "+str(CollectionList.ListCount)
-		    
-		  next
-		  CollectionList.Enabled=true
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  // Load the TF family names
-		  
-		  dim m,n as integer
-		  dim f as folderitem
-		  
-		  f=Resources_f.Child("TF_families")
-		  if f<>nil then
-		    m=f.Count
-		    for n=1 to m
-		      if f.Item(n).name<>".DS_Store" then
-		        'if f.Item(n).Directory then
-		        ''skip folder
-		        'else
-		        if right(f.Item(n).DisplayName,5)=".meme" then
-		          me.AddRow nthfield(f.Item(n).Name,".meme",1) 'drop the extension
-		        end if
-		      end if
-		    next
-		  end if
-		  
-		  me.Enabled=true
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events CollectionList
 	#tag Event
 		Sub Change()
@@ -964,23 +743,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events InfoButton
-	#tag Event
-		Sub Open()
-		  #if TargetCocoa then
-		    me.Icon=SystemIcons.Info(20,20)
-		    me.Caption=""
-		  #endif
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Action()
-		  WebBrowserWin.show
-		  WebBrowserWin.LoadPage(CollectionList.cell(CollectionList.ListIndex,5))
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events BevelButton3
 	#tag Event
 		Sub Action()
@@ -1019,45 +781,47 @@ End
 #tag Events ExportButton
 	#tag Event
 		Sub Action()
-		  Dim dlg as New SaveAsDialog
-		  dim outfile as folderitem
-		  dim FamilyName as string
+		  // With MEME-Suite v.5+, sites2meme isn't on the path anymore. 
+		  '  This routine expects sites2meme to sit in the same folder as meme, which may not be the case!
 		  
-		  FamilyName=NthField(TFfamilyPopup.Text," ",1)
+		  
+		  Dim dlg As New SaveAsDialog
+		  Dim outfile As folderitem
+		  Dim FamilyName As String
+		  
 		  
 		  'dlg.InitialDirectory=genomefile.Parent
 		  dlg.promptText=kTFfamilyExportDesc
-		  'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".meme"
-		  dlg.SuggestedFileName=FamilyName+"_RegPrecise.meme"
+		  dlg.SuggestedFileName=FolderName+".meme"
 		  dlg.Title=kExportProfiles
 		  dlg.Filter=FileTypes.meme
 		  dlg.CancelButtonCaption=kCancel
 		  dlg.ActionButtonCaption=kSave
-		  outfile=dlg.ShowModalwithin(self)
-		  if outfile<>nil then
-		    LogoWin.WriteToSTDOUT (EndofLine+kExportingProfiles)
-		    LogoWin.STDOUT.Refresh(false)
+		  outfile=dlg.ShowModalwithin(Self)
+		  If outfile<>Nil Then
+		    LogoWin.WriteToSTDOUT (EndOfLine+kExportingProfiles)
+		    LogoWin.stdout.Refresh(False)
 		    Logowin.show
 		    
-		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
-		    if s<> NIL then
+		    Dim s As TextOutputStream=TextOutputStream.Create(outfile)
+		    If s<> Nil Then
 		      
 		      
 		      // make tmp folder
-		      dim TFfamily_tmp as FolderItem = TemporaryFolder.child("TFfamily_tmp")
-		      if TFfamily_tmp <> nil then
+		      Dim TFfamily_tmp As FolderItem = TemporaryFolder.child("TFfamily_tmp")
+		      If TFfamily_tmp <> Nil Then
 		        
 		        
 		        'the folder may be there from the previous run, we have delete it!
-		        if TFfamily_tmp.Exists then
-		          dim i as integer
+		        If TFfamily_tmp.Exists Then
+		          Dim i As Integer
 		          i=deleteEntireFolder(TFfamily_tmp) 'return code isn't handled yet
-		        end if
+		        End If
 		        TFfamily_tmp.CreateAsFolder
-		      else 
-		        msgbox "Can't create tmp folder"
-		        return
-		      end if
+		      Else 
+		        MsgBox "Can't create tmp folder"
+		        Return
+		      End If
 		      
 		      // write 'sites' files to tmp folder
 		      ' (simple text files named a la regulogID.txt
@@ -1066,58 +830,67 @@ End
 		      ' for palindromic sites, rev. complements should probably be added here
 		      ' as RegPrecise ignores site symmetry (currently, sites are written as they are) 
 		      
-		      dim m,n as integer
-		      dim fastaLines(-1) as string
-		      dim sitesFile as folderitem
-		      dim tos as TextOutputStream
-		      dim RegulonID as string
+		      Dim m,n As Integer
+		      Dim fastaLines(-1) As String
+		      Dim sitesFile As folderitem
+		      Dim tos As TextOutputStream
+		      Dim RegulonID As String
 		      
-		      for n=0 to CollectionList.ListCount-1
-		        if CollectionList.CellCheck(n,0) then
-		          sitesFile=TFfamily_tmp.Child(CollectionList.Cell(n,6)+".txt")
-		          if sitesFile<>nil then
+		      // CollectionList columns are:
+		      ' 0 - Checkbox
+		      ' 1 - Profile Name
+		      ' 2 - Number of seqs
+		      ' 3 - Information (bits)
+		      ' 4 - Logo picture
+		      ' 5 (invisible) - TFBS seqs (in fasta format)
+		      ' 6 (invisible) - TFBS length.
+		      
+		      For n=0 To CollectionList.ListCount-1
+		        If CollectionList.CellCheck(n,0) Then
+		          sitesFile=TFfamily_tmp.Child(CollectionList.Cell(n,1)+".txt")   'will be used as motif name
+		          If sitesFile<>Nil Then
 		            tos=TextOutputStream.Create(sitesFile)
-		            if tos <>nil then
-		              fastaLines=split(CollectionList.Cell(n,7), endofline.UNIX)
-		              for m=0 to ubound(fastaLines)-1
-		                if left(fastaLines(m),1)<>">" then
+		            If tos <>Nil Then
+		              fastaLines=Split(CollectionList.Cell(n,5), EndOfLine.UNIX)
+		              For m=0 To ubound(fastaLines)-1
+		                If Left(fastaLines(m),1)<>">" Then
 		                  tos.Writeline fastaLines(m)
 		                  
-		                end if
-		              next
+		                End If
+		              Next
 		              tos.close
-		            else
-		              msgbox "can't write to tmp file"
-		            end if
-		          else
-		            msgbox "Can't create tmp file"
-		          end if
+		            Else
+		              MsgBox "can't write to tmp file"
+		            End If
+		          Else
+		            MsgBox "Can't create tmp file"
+		          End If
 		          
 		          
-		        end if
-		      next
+		        End If
+		      Next
 		      
 		      // add sites.map file to the same folder pairing motif ID with its name
 		      ' (one space separated pair per line)
-		      dim sitesMap as folderitem
-		      
-		      sitesMap=TFfamily_tmp.Child("sites.map")
-		      if sitesMap<>nil then
-		        tos=TextOutputStream.Create(sitesMap)
-		        if tos<>nil then
-		          for n=0 to CollectionList.ListCount-1
-		            if CollectionList.CellCheck(n,0) then
-		              tos.writeline CollectionList.Cell(n,6)+" "+Replace(CollectionList.Cell(n,1)," – ","_")
-		            end if
-		          next
-		          tos.close
-		        else
-		          msgbox "can't write to sites.map file"
-		        end if
-		        
-		      else
-		        msgbox "Can't create the sites.map file"
-		      end if
+		      'Dim sitesMap As folderitem
+		      '
+		      'sitesMap=TFfamily_tmp.Child("sites.map")
+		      'If sitesMap<>Nil Then
+		      'tos=TextOutputStream.Create(sitesMap)
+		      'If tos<>Nil Then
+		      'For n=0 To CollectionList.ListCount-1
+		      'If CollectionList.CellCheck(n,0) Then
+		      'tos.writeline CollectionList.Cell(n,6)+" "+Replace(CollectionList.Cell(n,1)," – ","_")
+		      'End If
+		      'Next
+		      'tos.close
+		      'Else
+		      'MsgBox "can't write to sites.map file"
+		      'End If
+		      '
+		      'Else
+		      'MsgBox "Can't create the sites.map file"
+		      'End If
 		      
 		      // convert all tmp files to a single minimal meme file
 		      ' sites2meme command should look like 
@@ -1159,69 +932,45 @@ End
 		      '
 		      'URL http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=site2
 		      
-		      dim sites2memePath as string
-		      #if targetWin32
-		        sites2memePath=nthfield(MEMEpath,"/meme.exe",1)+"/sites2meme"
-		      #else
-		        MEMEpath=trim(MEMEpath)
-		        if right(MEMEpath,1)="'" then
-		          sites2memePath=left(MEMEpath,len(MEMEpath)-5)+"sites2meme'"
-		        else
-		          sites2memePath=left(MEMEpath,len(MEMEpath)-4)+"sites2meme" 
-		        end if
-		      #endif
+		      Dim sites2memePath As String
+		      #If targetWin32
+		        sites2memePath=NthField(MEMEpath,"/meme.exe",1)+"/sites2meme"
+		      #Else
+		        MEMEpath=Trim(MEMEpath)
+		        If Right(MEMEpath,1)="'" Then
+		          sites2memePath=Left(MEMEpath,Len(MEMEpath)-5)+"sites2meme'"
+		        Else
+		          sites2memePath=Left(MEMEpath,Len(MEMEpath)-4)+"sites2meme" 
+		        End If
+		      #EndIf
 		      
-		      dim cli as string
-		      cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
-		      cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
+		      Dim cli As String
+		      cli=sites2memePath'+" "+"-map "+sitesMap.ShellPath
+		      'cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
 		      cli=cli+" "+TFfamily_tmp.ShellPath
 		      
 		      
-		      dim sh As Shell
+		      Dim sh As Shell
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
 		      sh.execute ("bash --login -c '"+cli+"'")
 		      
 		      
-		      If sh.errorCode=0 then
-		        // modify the meme output removing motif ID from the header but adding family name instead 
-		        ' (motif ID remains in the URL anyway)
-		        ' so, 
-		        ' MOTIF site1 TfbS
-		        ' should become
-		        ' MOTIF TfbS LacI-family
-		        
-		        dim memeArr() as string
-		        memeArr=split(sh.Result,EndOfLine)
-		        
-		        
-		        for n=0 to UBound(memeArr)
-		          if left(memeArr(n),6)="MOTIF " then
-		            dim a4,aftr as string
-		            a4=memeArr(n)
-		            memeArr(n)="MOTIF "+NthField(memeArr(n)," ",3)+" "+FamilyName+"-family"
-		            aftr=memeArr(n)
-		            beep
-		          end if
-		        next
-		        
-		        'write the file
-		        for n=0 to UBound(memeArr)
-		          s.WriteLine memeArr(n)
-		        next
+		      If sh.errorCode=0 Then
+		        s.Write sh.result
 		        s.close
 		        LogoWin.WriteToSTDOUT (" Done!")
 		        
-		      else
-		        msgbox sh.result
-		        Msgbox "Command line was: <"+cli+">"
-		      end if
-		    end if
-		  end if
+		      Else
+		        MsgBox "Error running sites2meme. Error message: "+sh.result
+		        MsgBox "Command line was: <"+cli+">"
+		      End If
+		    End If
+		  End If
 		  
 		  Exception err
-		    ExceptionHandler(err,"RegPreciseTFcollectionsWin:ExportButton")
+		    ExceptionHandler(err,"ConvertProfilesToMEMEWin:ExportButton")
 		    
 		End Sub
 	#tag EndEvent

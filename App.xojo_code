@@ -16,14 +16,10 @@ Inherits Application
 		  FileConvertSigFilestoFolders.visible=false
 		  
 		  if Keyboard.AltKey then
-		    #if Target64Bit then
-		      'VirtualVolumes are broken in 64 bitin  2015r3
-		    #else
-		      FileMakeSigFile.Visible=true
-		      FileMakeSigFile.Enabled=true
-		      FileConvertSigFilestoFolders.visible=true
-		      FileConvertSigFilestoFolders.Enabled=true
-		    #endif
+		    FileMakeSigFile.Visible=true
+		    FileMakeSigFile.Enabled=true
+		    FileConvertSigFilestoFolders.visible=True
+		    FileConvertSigFilestoFolders.Enabled=True
 		  end if
 		  
 		  'Build dynamic Window Menu
