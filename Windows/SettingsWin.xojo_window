@@ -99,9 +99,6 @@ Begin Window SettingsWin
       Visible         =   True
    End
    Begin PagePanel PagePanel1
-      <               =   "<<<<<HEAD"
-      =               =   "====="
-      >               =   ">>>>>7ee1e045f1ac5f7a2f97e9cc07cac474d3291dbc"
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   350
@@ -119,10 +116,9 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   False
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -1463,7 +1459,6 @@ Begin Window SettingsWin
          Backdrop        =   0
          DoubleBuffer    =   False
          Enabled         =   True
-         EraseBackground =   "True"
          Height          =   22
          HelpTag         =   "#kColorTag"
          Index           =   -2147483648
@@ -1554,7 +1549,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1617,7 +1611,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1680,7 +1673,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1743,7 +1735,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1806,7 +1797,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1869,7 +1859,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1932,7 +1921,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -1995,7 +1983,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2058,7 +2045,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2121,7 +2107,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2184,7 +2169,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2247,7 +2231,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2345,7 +2328,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2408,7 +2390,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648
@@ -2471,7 +2452,6 @@ Begin Window SettingsWin
             Backdrop        =   0
             DoubleBuffer    =   False
             Enabled         =   True
-            EraseBackground =   "True"
             Height          =   22
             HelpTag         =   "#kColorTag"
             Index           =   -2147483648

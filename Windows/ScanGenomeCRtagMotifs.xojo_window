@@ -8,7 +8,7 @@ Begin Window ScanGenomeCRtagMotifs
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   400
+   Height          =   662
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,7 +24,7 @@ Begin Window ScanGenomeCRtagMotifs
    Resizeable      =   True
    Title           =   "Untitled"
    Visible         =   True
-   Width           =   600
+   Width           =   1002
    Begin PushButton PushButton1
       AutoDeactivate  =   True
       Bold            =   False
@@ -38,7 +38,7 @@ Begin Window ScanGenomeCRtagMotifs
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   287
+      Left            =   689
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -51,7 +51,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   361
+      Top             =   623
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -70,7 +70,7 @@ Begin Window ScanGenomeCRtagMotifs
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   396
+      Left            =   798
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -83,7 +83,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   361
+      Top             =   623
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -102,7 +102,7 @@ Begin Window ScanGenomeCRtagMotifs
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   185
+      Left            =   587
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -115,7 +115,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   361
+      Top             =   623
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -139,7 +139,7 @@ Begin Window ScanGenomeCRtagMotifs
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   349
+      Height          =   611
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -169,7 +169,7 @@ Begin Window ScanGenomeCRtagMotifs
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   600
+      Width           =   1002
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -330,14 +330,14 @@ End
 		Sub Open()
 		  
 		  'me.ColumnWidths="20,300,100,*,0"
-		  me.ColumnWidths="4%,30%,25%,30%,11%,0%,0%"
-		  me.DefaultRowHeight=49  'LogoPic.Height=45
+		  Me.ColumnWidths="30,200,120,*,70,0,0"      'Adjust CellBackgroundPaint if changed!
+		  Me.DefaultRowHeight=59  'LogoPic.Height=45
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		  me.Heading(0)=" "
-		  me.Heading(1)="CR tag"
-		  me.Heading(2)="Transcription factor name"
+		  Me.Heading(1)="Profile Name"
+		  Me.Heading(2)="Protein_ID"
 		  me.Heading(3)="Logo"
-		  me.Heading(4)="Number of sequences in fasta"
+		  Me.Heading(4)="Site #"
 		  
 		  
 		End Sub
@@ -360,9 +360,13 @@ End
 		  ' LogoPix array isn't initialised initially (and some elements may be nil afterwards)
 		  dim p as picture
 		  if Column=3 then
-		    if row<=me.lastindex then
-		      p=me.rowtag(row)
-		      g.DrawPicture(p, 0, 0)  
+		    If row<=Me.lastindex Then
+		      Dim w As Integer
+		      'Me.ColumnWidths="30,200,120,*,90,0,0"
+		      w=Me.width-440                           '<--
+		      p=Me.rowtag(row)
+		      g.DrawPicture(p, (w-p.width)/2, 0)  
+		      
 		    end if
 		  end if
 		  Return True

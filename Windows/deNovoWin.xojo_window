@@ -252,7 +252,6 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -371,7 +370,6 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -992,6 +990,12 @@ End
 		  Redim TTshellArray(-1)
 		  dim ttt,ttt2 as TTshell
 		  
+		  
+		  
+		  LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Running de novo TFBS inference pipeline with SigmoID "+app.LongVersion)
+		  
+		  
+		  
 		  dim phmmerSearchSeparator as string = "================================================================================================================"
 		  dim hitCount,crIndex as integer
 		  CDSseqs=""
@@ -1131,7 +1135,7 @@ End
 		      LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused.")
 		      
 		    else
-		      LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Exporting CDS sequences...")
+		      LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Exporting CDS sequences...")
 		      GenomeWin.ExportProteins(CDSfile)
 		      LogoWin.WriteToSTDOUT (" OK")
 		    end if
