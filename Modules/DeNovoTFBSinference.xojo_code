@@ -686,7 +686,7 @@ Protected Module DeNovoTFBSinference
 		  end
 		  
 		  // localgbk string for GetRegSeq method 
-		  'is as signal to use local gbk file for TF's nearby regions extraction
+		  'is a signal to use local gbk file for TF's nearby regions extraction
 		  if m>requestCount then
 		    'LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
@@ -839,7 +839,7 @@ Protected Module DeNovoTFBSinference
 		        sh=New Shell
 		        sh.mode=0
 		        sh.TimeOut=-1
-		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+"A try to retrieve a batch of identificators has resulted in error. So process it sequently."+EndOfLine.UNIX)
+		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+"Trying to retrieve a batch of identificators has resulted in error. Attempting to process them sequentially..."+EndOfLine.UNIX)
 		        
 		        dim tempIDs() as String = tempID.Split(",")
 		        for id as Integer = 0 to UBound(tempIDs)
@@ -907,7 +907,7 @@ Protected Module DeNovoTFBSinference
 		      ' /coded_by="JSXC01000011.1:16659..17396"
 		      //localgbk string is passed from GetRthoRegSeq method
 		      'as a code to exctract regions nearby TF gene.
-		      if instr(UniProtIDs,"localgbk")>0 then
+		      If InStr(UniProtIDs,"localgbk")>0 Then
 		        qualifier=replace(qualifier,EndOfLine.unix,"")
 		        FastaName=FastaName+qualifier+"|"
 		        gbID=qualifier
@@ -1098,6 +1098,7 @@ Protected Module DeNovoTFBSinference
 		      if TFno<1 OR TFno>m then
 		        'return "Error extracting intergenic sequences. GenBank file problem?"+EndOfLine.unix
 		        LogoWin.WriteToSTDOUT("Error extracting intergenic sequences. GenBank file problem?"+EndOfLine.unix)
+		        If i=0 Then Return ""
 		        continue for i
 		        
 		      end if

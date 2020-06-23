@@ -1625,14 +1625,16 @@ End
 		            dim opt as string
 		            dim ErrCode as integer
 		            
-		            if CPUcores>1 then
-		              opt=" -p " + str(CPUcores)  'for parallelised meme
-		              'opt=" -p 2"
-		            end if
+		            '-p option is set in DenovoTFBSinference.meme
+		            
+		            'if CPUcores>1 then
+		            'opt=" -p " + str(CPUcores)  'for parallelised meme
+		            ''opt=" -p 2"
+		            'end if
 		            
 		            dim mWidth as string=HmmList.Cell(HmmList.ListIndex,5) 'motif widths are stored in the table (and can be changed here)
 		            
-		            opt=opt+" -dna -minw "+ trim(nthfield(mWidth,"-",1))
+		            opt=opt+" -dna -minw "+ Trim(NthField(mWidth,"-",1))
 		            opt=opt+" -maxw "+ trim(nthfield(mWidth,"-",2))
 		            
 		            

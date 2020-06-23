@@ -75,7 +75,7 @@ Begin Window LogoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   0
+      Top             =   28
       Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
@@ -422,7 +422,7 @@ End
 
 	#tag Event
 		Sub Open()
-		  dim cli as string
+		  Dim cli As String
 		  dim allProgsFine as boolean
 		  Dim sh As Shell
 		  dim f As FolderItem
@@ -1048,6 +1048,8 @@ End
 		  ' web services don't work after the move to new server
 		  
 		  'WriteToSTDOUT ("Accessing RegPrecise... ")
+		  ChangeView("HideViewer")
+		  
 		  me.Show
 		  
 		  'dim res as string
@@ -1090,8 +1092,6 @@ End
 		  
 		  
 		  WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Load alignment or genome file to start."+EndOfLine.Unix)
-		  
-		  ViewHideViewer.Checked=true
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:Open")
@@ -2190,7 +2190,8 @@ End
 		    'Informer.enabled=false
 		    
 		    TopPanel.visible=false
-		    LogoCanvas.visible=true
+		    LogoCanvas.visible=True
+		    LogoTabs.Visible=True
 		    DownshiftLog true
 		  case "Sequences"
 		    if ViewSequences.Checked=false then
@@ -2213,11 +2214,12 @@ End
 		      TopPanel.height=splitter.top-LogoTabs.height
 		      splitter.left=0
 		      STDOUT.top=splitter.top+splitter.height
-		      LogoCanvas.visible=false
+		      LogoCanvas.visible=False
+		      
 		    else
 		      ViewSequences.Checked=true
 		    end
-		    
+		    LogoTabs.Visible=True
 		    
 		  Case "Info"
 		    ViewLogo.Checked=false
@@ -2227,7 +2229,7 @@ End
 		    ViewHmmerSettings.Checked=false
 		    ViewHmmProfile.Checked=false
 		    ViewMEMEresults.checked=false
-		    Informer.text=Info
+		    Informer.Text=Info
 		    Informer.ReadOnly=true
 		    TopPanel.value=0
 		    informer.visible=true
@@ -2236,9 +2238,10 @@ End
 		    TopPanel.height=splitter.top-LogoTabs.height
 		    DownshiftLog true
 		    informer.SetFocus
-		    LogoCanvas.visible=false
+		    LogoCanvas.visible=False
+		    LogoTabs.Visible=True
 		  case "HideViewer"
-		    if TopPanel.Visible then
+		    If TopPanel.Visible Or LogoCanvas.visible Then
 		      
 		      'store current state
 		      if ViewLogo.Checked then
@@ -2265,8 +2268,9 @@ End
 		      TopPanel.visible=false
 		      LogoCanvas.visible=false
 		      DownshiftLog false
-		      HScrollBar.Visible=false
-		    else
+		      HScrollBar.Visible=False
+		      LogoTabs.Visible=False
+		    Else
 		      ViewHideViewer.Checked=false
 		      
 		      'restore previous state:
@@ -2288,7 +2292,8 @@ End
 		      
 		      LogoCanvas.visible=true
 		      TopPanel.visible=true
-		      DownshiftLog true
+		      DownshiftLog True
+		      LogoTabs.Visible=True
 		    end if
 		  case "Settings"
 		    ViewLogo.Checked=false
@@ -2298,7 +2303,7 @@ End
 		    ViewHmmerSettings.Checked=true
 		    ViewHmmProfile.Checked=false
 		    ViewMEMEresults.checked=false
-		    Informer.text=ProfileSettings
+		    Informer.Text=ProfileSettings
 		    Informer.ReadOnly=true
 		    TopPanel.visible=true
 		    TopPanel.Value=0
@@ -2306,7 +2311,8 @@ End
 		    HScrollBar.Visible=False
 		    TopPanel.height=splitter.top-LogoTabs.height
 		    DownshiftLog true
-		    LogoCanvas.visible=false
+		    LogoCanvas.visible=False
+		    LogoTabs.Visible=True
 		  case "HMM"
 		    ViewLogo.Checked=false
 		    ViewSequences.Checked=false
@@ -2315,7 +2321,7 @@ End
 		    ViewHmmerSettings.Checked=False
 		    ViewHmmProfile.Checked=true
 		    ViewMEMEresults.checked=false
-		    Informer.text=HmmProfile
+		    Informer.Text=HmmProfile
 		    Informer.ReadOnly=true
 		    TopPanel.Value=0
 		    TopPanel.visible=true
@@ -2341,14 +2347,14 @@ End
 		    TopPanel.height=splitter.top-LogoTabs.height
 		    DownshiftLog true
 		    LogoCanvas.visible=false
-		  end select
+		  End Select
 		  
 		  if View="Logo" then
 		    Splitter.Enabled=false
 		  else
-		    Splitter.Enabled=true
-		  end if
-		  
+		    Splitter.Enabled=True
+		  End If
+		  informer.VerticalScrollPosition=0
 		  LogoTabs.RePaint
 		  EMI
 		End Sub
@@ -3636,7 +3642,7 @@ End
 		    
 		    dim vv as VirtualVolume
 		    vv=tmpfile.openAsVirtualVolume
-		    if vv<> nil OR (tmpfile.Directory and right(tmpfile.Name,4)=".sig") then ' .sig file or folder
+		    If vv<> Nil Or (tmpfile.Directory And Right(tmpfile.Name,4)=".sig") Then ' .sig file or folder
 		      '
 		      'else
 		      'if vv<> nil then                   ' .sig file
@@ -3686,7 +3692,7 @@ End
 		          Info=inStream.ReadAll
 		          ProfileWizardWin.InfoArea.Italic=false
 		          ProfileWizardWin.InfoArea.TextColor=&c00000000 'black
-		          ProfileWizardWin.InfoArea.text=info
+		          ProfileWizardWin.InfoArea.Text=info
 		          inStream.close
 		        else
 		          msgbox "Can't read alignment info"
@@ -3887,6 +3893,10 @@ End
 		    else
 		      SigFileOpened=false
 		      MEMEdata=""
+		      HmmProfile=""
+		      ProfileSettings=""
+		      Info=""
+		      Informer.Text=""
 		      nhmmerSettingsWin.AddAnnotationCheckBox.value=false
 		      nhmmerSettingsWin.AddAnnotationCheckBox.enabled=false
 		      nhmmerSettingsWin.AddAnnotationCheckBox.HelpTag="This option is enabled only for calibrated profiles"
