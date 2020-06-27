@@ -1078,7 +1078,7 @@ Protected Module DeNovoTFBSinference
 		      
 		      if len(eSeq.sequence)<LengthLimit then
 		        'return "Genome piece coding for "+UniProtID+" is too short ("+str(len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX
-		        LogoWin.WriteToSTDOUT("Genome piece coding for "+UniprotID(i)+" is too short ("+str(len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX)
+		        LogoWin.WriteToSTDOUT("Genome piece coding for "+UniprotID(i)+" is too short ("+Str(Len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX)
 		        continue for i
 		      end if
 		      
@@ -1097,8 +1097,8 @@ Protected Module DeNovoTFBSinference
 		      
 		      if TFno<1 OR TFno>m then
 		        'return "Error extracting intergenic sequences. GenBank file problem?"+EndOfLine.unix
-		        LogoWin.WriteToSTDOUT("Error extracting intergenic sequences. GenBank file problem?"+EndOfLine.unix)
-		        If i=0 Then Return ""
+		        LogoWin.WriteToSTDOUT("Error extracting intergenic sequences for "+UniprotID(i)+". GenBank file problem?"+EndOfLine.unix)
+		        If i=0 Then Return ""  'Most likely for local modified gbks
 		        continue for i
 		        
 		      end if

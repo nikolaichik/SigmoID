@@ -2155,8 +2155,8 @@ End
 		        outstream = TextOutputStream.Create(BSfastaFile)
 		        outstream.write(trim(Informer.text))
 		        outstream.close
-		        SeqsChanged=false
 		        LoadAlignment(BSfastaFile)
+		        'SeqsChanged=False
 		        
 		        if LengthsDiffer then
 		          logowin.ChangeView("Sequences")
@@ -3936,7 +3936,8 @@ End
 		          ProfileWizardWin.ValueField.text=""
 		        end if
 		        ProfileWizardWin.MASTField.text=""
-		      end if
+		      End If
+		      SeqsChanged=false
 		      ChangeView("Logo")
 		      LogoTabs.value=0
 		    end if
