@@ -713,16 +713,20 @@ Inherits Application
 		Sub ChipMdata2Logo()
 		  Dim f As FolderItem
 		  Dim openF As OpenDialog
-		  dim tis as TextInputStream
+		  dim tis As TextInputStream
 		  Dim fasta, chipMout, winTitle As String
-		  dim seqid,fastaid(), motifs(),anrsites() as string
-		  dim rg  as new RegEx
-		  dim rgm as RegExMatch
-		  dim s as Site
-		  dim m as Motif
+		  dim seqid,fastaid(), motifs(),anrsites() As string
+		  dim word  As new RegEx
+		  dim occs As new RegEx
+		  dim id  As new RegEx
+		  dim rgm As RegExMatch
+		  dim s As Site
+		  dim m As Motif
 		  Dim w As ChipMLogo
-		  dim snum as integer
-		  rg.SearchPattern="(^WORD\|)(\d+)(\t\d+\t)(\w+)(\t\S+\t)(\w+)"
+		  dim snum As integer
+		  word.SearchPattern="(^WORD\|)(\d+)(\t\d+\t)(\w+)(\t\S+\t)(\w+)"
+		  occs.SearchPattern="(^OCCS\|\d+\;)(\d+)(\;\s)(.*)"
+		  id.SearchPattern="^\>.*"
 		  
 		  openF = new OpenDialog
 		  openF.Title="Open ChipMunk result"
@@ -772,12 +776,12 @@ Inherits Application
 		  
 		  if instr(chipMout,"MOTF|")=0 and InStr(chipMout,"WORD|")>0 then 'probably file with single motif produced by plain ChIPMunk, so load logo strait to the main window
 		    dim chiplogo as String = ""
-		    rgm=rg.Search(chipMout)
+		    rgm=word.Search(chipMout)
 		    do
 		      if rgm<>nil then
 		        chiplogo=chiplogo+">"+rgm.SubExpressionString(2)+" "+rgm.SubExpressionString(6)+EndOfLine.UNIX+rgm.SubExpressionString(4)+EndOfLine.UNIX
 		      end if
-		      rgm=rg.search
+		      rgm=word.search
 		    loop until rgm=nil
 		    f=TemporaryFolder.child("chiplogodata")
 		    
@@ -819,21 +823,20 @@ Inherits Application
 		      tis = TextInputStream.Open(chipMfile)
 		      fasta=tis.ReadAll
 		      tis.Close
-		      rg.SearchPattern="^\>.*"
-		      rgm=rg.Search(fasta)
+		      rgm=id.Search(fasta)
 		    End If
 		    
 		    do
 		      if rgm<>nil then
 		        fastaid.Append(rgm.SubExpressionString(0))
 		      end if
-		      rgm=rg.search
+		      rgm=id.search
 		    loop until rgm=nil
 		    
 		    motifs=chipMout.Split("MOTF|")
 		    w = new ChipMLogo
 		    for i as integer=1 to UBound(motifs)
-		      rgm = rg.search(motifs(i))
+		      rgm = word.search(motifs(i))
 		      m = new Motif
 		      do 
 		        if rgm<> NIl then
@@ -845,10 +848,10 @@ Inherits Application
 		          s.qualValue=val(rgm.SubExpressionString(5))
 		          s.qualValue=Floor(s.qualValue*100)/100
 		          s.strand=rgm.SubExpressionString(6)
+		          m.Sites.Append(s)
+		          
 		        end
-		        
-		        m.Sites.Append(s)
-		        rgm=rg.search
+		        rgm=word.search
 		      loop until rgm = nil
 		      m.number=i
 		      m.type="ZOOPS"
@@ -862,8 +865,7 @@ Inherits Application
 		      
 		      w.Motifs.Append(m)
 		      //append Zoops motif
-		      rg.SearchPattern="(^OCCS\|\d+\;)(\d+)(\;\s)(.*)"
-		      rgm=rg.search(motifs(i))
+		      rgm=occs.search(motifs(i))
 		      m = new Motif
 		      do 
 		        if rgm<> NIl then
@@ -883,7 +885,7 @@ Inherits Application
 		          
 		        end
 		        
-		        rgm=rg.search
+		        rgm=occs.search
 		      loop until rgm = nil
 		      m.number=i
 		      m.type="ANR"

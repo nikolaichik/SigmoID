@@ -115,7 +115,6 @@ Protected Module Globals
 		    If  Not SettingsWin.Visible Then
 		      SettingsWin.Show
 		      SettingsWin.PagePanel1.value=1
-		      SettingsWin.EmailField.SetFocus
 		      MsgBox("Please, enter your e-mail address. It is required for some NCBI services.")
 		    End If
 		    
@@ -4817,6 +4816,14 @@ Protected Module Globals
 			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="InfoBits"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
