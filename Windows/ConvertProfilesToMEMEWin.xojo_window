@@ -1244,4 +1244,12 @@ End
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FolderName"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
 #tag EndViewBehavior

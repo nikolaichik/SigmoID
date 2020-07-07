@@ -383,7 +383,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 4 E= 5.2e-006
 
 URL http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=4661
 
-MOTIF MepA_Corynebacterium_glutamicum OmpR-family
+MOTIF MtrA_Corynebacterium_glutamicum OmpR-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 19 E= 2.9e-051
 0.526316 0.000000 0.473684 0.000000

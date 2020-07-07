@@ -113,9 +113,12 @@ Protected Module Globals
 		Sub CheckEmail()
 		  If globals.email="" Then 
 		    If  Not SettingsWin.Visible Then
-		      SettingsWin.Show
-		      SettingsWin.PagePanel1.value=1
-		      MsgBox("Please, enter your e-mail address. It is required for some NCBI services.")
+		      'SettingsWin.Show
+		      'SettingsWin.PagePanel1.value=1
+		      If Not EmailWarned Then
+		        LogoWin.WriteToSTDOUT("Please enter your e-mail address in the preferences. It is required for some NCBI services."+EndOfLine.UNIX)
+		        EmailWarned=True
+		      End If
 		    End If
 		    
 		  end
@@ -4080,6 +4083,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		email As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		EmailWarned As boolean = false
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

@@ -21,7 +21,7 @@ Begin Window ProfileWizardWin
    MinimizeButton  =   True
    MinWidth        =   64
    Placement       =   1
-   Resizeable      =   False
+   Resizeable      =   True
    Title           =   "#kProfileWizard"
    Visible         =   False
    Width           =   665
@@ -429,7 +429,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   268
+         Width           =   300
       End
       Begin Label Label5
          AutoDeactivate  =   True
@@ -519,7 +519,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   406
+         Left            =   424
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -543,7 +543,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   131
+         Width           =   113
       End
       Begin CheckBox PalindromicBox
          AutoDeactivate  =   True
@@ -576,7 +576,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   141
+         Width           =   300
       End
       Begin Label Label6
          AutoDeactivate  =   True
@@ -607,11 +607,11 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   152
+         Top             =   153
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   68
+         Width           =   79
       End
       Begin TextField ValueField
          AcceptTabs      =   False
@@ -875,11 +875,11 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   204
+      Top             =   203
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   134
+      Width           =   145
    End
    Begin Label Label8
       AutoDeactivate  =   True
@@ -1071,11 +1071,11 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   234
+      Top             =   235
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   128
+      Width           =   139
    End
    Begin TextField CRtagSeqField
       AcceptTabs      =   False
