@@ -53,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +162,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +242,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -358,7 +354,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -371,7 +366,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -474,7 +468,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -536,7 +529,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -552,7 +544,7 @@ End
 		  
 		  'me.SetFocus
 		  MapCanvas.SetFocus
-		  EMI
+		  
 		  
 		End Sub
 	#tag EndEvent
@@ -1151,7 +1143,7 @@ End
 			infile=dlg.ShowModal()
 			
 			if infile<> Nil then
-			if right(Infile.name,6)=".plots" then 
+			If Right(Infile.name,6)=".plots" Then 
 			'add four plots specified in the .plots file
 			'(four lines with full shell paths) 
 			Add4Plots(infile)   
@@ -1172,6 +1164,7 @@ End
 			aLine=trim(InStream.readLine)
 			aLine=trim(InStream.readLine)
 			end if
+			LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Adding a plot..."+EndOfLine.UNIX)
 			
 			if UBound(self.Genome.ReadDepth1)<1 then     'Loading first track
 			aLine=trim(InStream.readLine)
@@ -1209,7 +1202,7 @@ End
 			'end if
 			wend
 			end if
-			
+			LogoWin.WriteToSTDOUT("Red: "+ Infile.name +EndOfLine.UNIX)
 			elseif UBound(self.Genome.ReadDepth2)<1 then 
 			
 			redim self.Genome.ReadDepth2(0)
@@ -1251,7 +1244,7 @@ End
 			wend
 			
 			end if
-			
+			LogoWin.WriteToSTDOUT("Brown: "+ Infile.name +EndOfLine.UNIX)
 			elseif UBound(self.Genome.ReadDepth3)<1 then 
 			
 			redim self.Genome.ReadDepth3(0)
@@ -1294,9 +1287,7 @@ End
 			wend
 			
 			end if
-			
-			
-			
+			LogoWin.WriteToSTDOUT("Green: "+ Infile.name +EndOfLine.UNIX)
 			else
 			redim self.Genome.ReadDepth4(0)
 			InStream = infile.OpenAsTextFile
@@ -1338,10 +1329,8 @@ End
 			wend
 			
 			end if
-			end if
-			
-			
-			
+			LogoWin.WriteToSTDOUT("Blue: "+ Infile.name +EndOfLine.UNIX)
+			End If
 			
 			genome.baselineY=100 'make room for the graph
 			ExtractFragment(1,10000)
@@ -1618,7 +1607,7 @@ End
 			sh=New Shell
 			sh.mode=0
 			sh.TimeOut=-1
-			sh.execute ("bash --login -c '"+cli+"'")
+			sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 			If sh.errorCode=0 then
 			
 			LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
@@ -1691,43 +1680,52 @@ End
 		  
 		  InStream = infile.OpenAsTextFile
 		  if instream=nil then return
-		  FileNameArr(1)=trim(InStream.readLine)
+		  FileNameArr(1)=Trim(InStream.readLine)
 		  FileNameArr(2)=trim(InStream.readLine)
 		  FileNameArr(3)=trim(InStream.readLine)
 		  FileNameArr(4)=trim(InStream.readLine)
 		  instream.close
+		  LogoWin.show
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Adding coverage plots. The colours used are..."+EndOfLine.UNIX)
+		  
+		  
+		  
 		  
 		  for n=1 to 4
 		    plotFile=GetFolderItem(FileNameArr(n),FolderItem.PathTypeShell)
 		    InStream = plotFile.OpenAsTextFile
-		    if instream=nil then return
-		    if infile.Type="WIG" then     'Rockhopper/IGV track: drop first two lines
+		    If instream=Nil Then Return
+		    If plotFile.Type="WIG" Then     'Rockhopper/IGV track: drop first two lines
 		      aLine=trim(InStream.readLine)
 		      aLine=trim(InStream.readLine)
-		    end if
+		    End If
 		    
 		    select case n
 		    case 1
 		      while not InStream.EOF
 		        aLine=trim(InStream.readLine)
-		        self.Genome.ReadDepth1.Append(val(aLine))
-		      wend
-		    case 2
+		        Self.Genome.ReadDepth1.Append(Val(aLine))
+		      Wend
+		      LogoWin.WriteToSTDOUT("Red:   "+ FileNameArr(1)+EndOfLine.UNIX)
+		    Case 2
 		      while not InStream.EOF
 		        aLine=trim(InStream.readLine)
 		        self.Genome.ReadDepth2.Append(val(aLine))
 		      wend
-		    case 3
+		      LogoWin.WriteToSTDOUT("Brown: "+ FileNameArr(2)+EndOfLine.UNIX)
+		    Case 3
 		      while not InStream.EOF
 		        aLine=trim(InStream.readLine)
 		        self.Genome.ReadDepth3.Append(val(aLine))
 		      wend
-		    case 4
+		      LogoWin.WriteToSTDOUT("Green: "+ FileNameArr(3)+EndOfLine.UNIX)
+		    Case 4
 		      while not InStream.EOF
 		        aLine=trim(InStream.readLine)
 		        self.Genome.ReadDepth4.Append(val(aLine))
 		      wend
-		    end select
+		      LogoWin.WriteToSTDOUT("Blue:  "+ FileNameArr(4)+EndOfLine.UNIX)
+		    End Select
 		    instream.close
 		  next
 		  
@@ -1735,7 +1733,7 @@ End
 		  genome.baselineY=100 'make room for the graph
 		  ExtractFragment(1,10000)
 		  TextMap(0,0)
-		  
+		  me.show
 		  
 		  
 		  Exception err
@@ -2300,117 +2298,6 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub EMI()
-		  'Workaround for EnableMenuItems bug on 64-bit
-		  
-		  #if Target64Bit
-		    'adjust View menu command visibility:
-		    ViewLogo.Visible=false
-		    ViewSequences.Visible=false
-		    ViewAlignmentInfo.Visible=false
-		    ViewHmmProfile.Visible=false
-		    ViewMEMEresults.Visible=false
-		    ViewHmmerSettings.Visible=false
-		    Separator1.Visible=false
-		    ViewHideViewer.Visible=false
-		    Separator2.Visible=false
-		    ViewViewDetails.Visible=true
-		    if ubound(Genome.ReadDepth1)>0 then
-		      GenomeRemovePlots.enabled=true
-		    end if
-		    GenomeMergePlotData.enabled=true
-		    
-		    ViewViewDetails.Enable
-		    
-		    if TMdisplay.visible then
-		      ViewViewDetails.text = kHideDetails
-		    else
-		      ViewViewDetails.text = kViewDetails
-		    end if
-		    
-		    GenomeFind.enabled=true
-		    if SearchPosition>0 then
-		      GenomeFindAgain.Enabled=true
-		    end if
-		    GenomeGoto.enabled=true
-		    GenomeAddPlot.enabled=true
-		    GenomeMergePlotData.enabled=true
-		    
-		    FileSaveCheckedSites.Visible=true
-		    FileSaveCheckedSites.Enabled=true
-		    FileSaveGenomeAs.Visible=true
-		    FileSaveGenomeAs.Enabled=true
-		    FileExportFeatureTable.enabled=true
-		    FileExportSequence.enabled=true
-		    FileExportProteinSequences.enabled=true
-		    
-		    
-		    FileSaveAlignmentSelection.visible=false
-		    FileSaveLogo.visible=false
-		    'GenomeScanGenome.Visible=false
-		    
-		    GenomeListRegulons.Enabled=true
-		    if GenomeChanged=false then
-		      FileSaveGenome.enabled=false
-		    else
-		      FileSaveGenome.enabled=true
-		    end if
-		    
-		    if Ubound(genomeWin.HmmHits)>0 then
-		      RegPreciseCompareScores.Enable
-		    end if
-		    
-		    'enable copying if anything is selected:
-		    if AnythingSelected then
-		      EditCopy.enabled=true
-		      'enable copying of protein sequence, but only if a CDS is selected
-		      if SelFeatureNo>0 then
-		        if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
-		          if seq.Features(SelFeatureNo).type="CDS" then
-		            EditCopyTranslation.enabled=true
-		          end if
-		        end if
-		      end if
-		    else
-		      EditCopy.enabled=false
-		    end if
-		    
-		    EditCut.enabled=false
-		    
-		    dim count, i as Integer
-		    // Get a handle to our parent sub menu.
-		    Dim parent, child as MenuItem
-		    parent = MainMenuBar.Child( kWindows )    // Get the window menu
-		    if parent = nil then return
-		    
-		    // Clear the existing menu
-		    for i=parent.Count-1 downto 0
-		      parent.Remove(i)
-		    next
-		    
-		    // Add the windows to the menu
-		    count = WindowCount
-		    
-		    for i = 0 to count - 1
-		      // Construct the child item
-		      if Window(i).visible then
-		        child = new WindowMenuItem(Window(i))
-		        // And add it to the menu
-		        parent.Append( child )
-		      end if
-		    next i
-		    
-		    if Window(0) isA GenomeWin or Window(0) isA RegPreciseWin or Window(0) isA WebBrowserWin or Window(0) isA HelpWin then
-		      FileClose.enabled=true
-		    end if
-		    Exception err
-		      ExceptionHandler(err,"GenomeWin:EnableMenuItems")
-		  #endif
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub EnableSave(Ya as boolean)
 		  
 		  dim i as integer
@@ -2588,7 +2475,7 @@ End
 		  
 		  
 		  'Clone RNA-seq data:
-		  if ubound(genome.ReadDepth1)>0 then
+		  If ubound(genome.ReadDepth1)>0 Then
 		    for n=FragmentStart to FragmentEnd
 		      if n<=ubound(genome.ReadDepth1) then
 		        seq.ReadDepth1.Append genome.ReadDepth1(n)
@@ -3053,7 +2940,7 @@ End
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    
 		    If sh.errorCode=0 then
 		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
@@ -3828,7 +3715,7 @@ End
 		    sh.mode=0
 		    sh.TimeOut=-1
 		    logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    If sh.errorCode=0 then
 		      logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		      'LogoWinToolbar.Item(2).Enabled=true
@@ -4223,7 +4110,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    LogoWin.WriteToSTDOUT (EndofLine+"OperOn.py was run with these options: "+nthfield(cli,".gb",2)) ' 
 		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
@@ -5175,7 +5062,7 @@ End
 	#tag Method, Flags = &h0
 		Sub TextMap(HighlightFrom As integer, HighlightTo As integer)
 		  'equal parameters mean no Highlight
-		  'zeroes mean display start with no hoghlight
+		  'zeroes mean display start with no highlight
 		  
 		  dim  charsPerLine,  posInLine,lnl,cl,fullSize,halfSize As Integer
 		  dim lineNum, j, k, l,m,n,tens, numb,numblen, arrScanEnd, CurrentY, SeqStart as integer

@@ -954,7 +954,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      
 		      
 		      If sh.errorCode=0 Then

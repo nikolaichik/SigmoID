@@ -569,7 +569,7 @@ End
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    
 		    If sh.errorCode <> 0 then
 		      msgbox "Problem running CD-Hit"
@@ -656,7 +656,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      
 		      If sh.errorCode <> 0 then
 		        msgbox "Problem running MeShClust"
@@ -1163,7 +1163,7 @@ End
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+hmmPath+" "+CDSfile.ShellPath
 		    
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    If sh.errorCode=0 then
 		      LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		      

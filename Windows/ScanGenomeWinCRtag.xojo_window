@@ -561,7 +561,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ScanGenomeCR1()
-		  dim k,SigCount as integer
+		  Dim k,SigCount As Integer
 		  'dim time as double
 		  dim f,f3 as folderitem ' f - path to folder with sig files of the selected family, f3 - path to sig with matched crtag 
 		  dim infileName, crtags(-1), sigtagbase(-1), sigpathbase(-1), protdescr(-1),notfound(-1), summary(-1), hmmsearch, fname, summstring, tag, basename,content as string

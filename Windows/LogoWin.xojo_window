@@ -274,7 +274,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Activate()
-		  EMI
+		  
 		End Sub
 	#tag EndEvent
 
@@ -529,13 +529,13 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    if instr(sh.result,"Python 3")>0 then
 		      WriteToSTDOUT ("Your system defaults to Python 3. Looking for Python 2...")
 		      cli="python2 --version"
 		      sh=New Shell
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      If sh.errorCode=0 then
 		        pythonPath=SystemPath("python2")+" "  
 		        
@@ -563,7 +563,7 @@ End
 		          sh=New Shell
 		          sh.mode=0
 		          sh.TimeOut=-1
-		          sh.execute ("bash --login -c '"+cli+"'")
+		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		          If sh.errorCode=0 then
 		            pythonCheckString=pythonCheckString+" with Biopython "+Sh.Result
 		          end if
@@ -593,7 +593,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  dim hmmg as boolean=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -621,7 +621,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -650,7 +650,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
 		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"MastGen")>0 then
@@ -678,7 +678,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -707,7 +707,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -737,7 +737,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  hmmg=false
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
@@ -766,7 +766,7 @@ End
 		  'sh=New Shell
 		  'sh.mode=0
 		  'sh.TimeOut=-1
-		  'sh.execute ("bash --login -c '"+cli+"'")
+		  'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  'If sh.errorCode=0 then
 		  'if instr(Sh.Result,"command not found")>0 then
 		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
@@ -796,8 +796,8 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
-		  If sh.errorCode=0 then
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  If sh.errorCode=0 Then
 		    dim s As string=Sh.Result
 		    if instr(nthfield(s,EndOfLine.Unix,1),"nhmmer")>0 then
 		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
@@ -824,7 +824,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
 		    if instr(nthfield(s,EndOfLine.Unix,1),"hmmbuild")>0 then
@@ -853,7 +853,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    dim s As string=Sh.Result
 		    if instr(nthfield((Sh.Result),EndOfLine.Unix,1),"alimask")>0 then
@@ -888,7 +888,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      If sh.errorCode=0 OR sh.errorCode=3 then 'TransTerm returns error code when run without all args
 		        dim s As string
 		        s=nthfield((Sh.Result),EndOfLine.Unix,1)
@@ -923,7 +923,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT ("meme "+Sh.Result)
 		  else
@@ -941,7 +941,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT ("mast "+Sh.Result)
 		    MASTVersion=trim(Sh.Result)
@@ -961,7 +961,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT ("tomtom "+Sh.Result)
 		  else
@@ -994,7 +994,7 @@ End
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    sh.execute ("bash --login -c '"+MeshClustPath+"'")
+		    sh.execute ("bash --login -c "+Chr(34)+MeshClustPath+Chr(34))
 		    If sh.errorCode=1 then 'running meshclust without args produces this error and help info
 		      dim s As string=sh.Result
 		      if instr(s,"meshclust")>0 then
@@ -1027,7 +1027,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then 
 		    dim s As string=Sh.Result
 		    if instr(s,"TFASTX")>0 then
@@ -2065,7 +2065,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      If sh.errorCode=0 then
 		        masked=true 'return Sh.Result
 		      else
@@ -2356,7 +2356,6 @@ End
 		  End If
 		  informer.VerticalScrollPosition=0
 		  LogoTabs.RePaint
-		  EMI
 		End Sub
 	#tag EndMethod
 
@@ -3119,186 +3118,6 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub EMI()
-		  'workaround for EnableMenuItems bug on 64-bit
-		  
-		  
-		  #if Target64Bit
-		    'adjust View menu command visibility:
-		    ViewLogo.Visible=true
-		    ViewSequences.Visible=true
-		    ViewAlignmentInfo.Visible=true
-		    ViewHmmProfile.Visible=true
-		    ViewMEMEresults.Visible=true
-		    ViewHmmerSettings.Visible=true
-		    Separator1.Visible=true
-		    ViewHideViewer.Visible=true
-		    Separator2.Visible=false
-		    ViewViewDetails.Visible=false
-		    
-		    
-		    if ubound(SelArray1)>0 then
-		      FileSaveAlignmentSelection.enabled=true
-		    else
-		      FileSaveAlignmentSelection.enabled=false
-		    end if
-		    if LogoWin.LogoFile<>Nil then
-		      AlignmentProfileWizard.enabled=true
-		    else
-		      AlignmentProfileWizard.enabled=false
-		    end if
-		    
-		    
-		    ViewLogo.enabled=false
-		    
-		    if SeqsChanged then
-		      FileSaveProfileAs.enabled=true
-		    else
-		      FileSaveProfileAs.enabled=false
-		    end if
-		    
-		    
-		    
-		    
-		    if SigFileOpened then
-		      FileSaveLogo.enabled=true
-		      ViewAlignmentInfo.enabled=true
-		      ViewHmmerSettings.enabled=true
-		      ViewHmmProfile.Enabled=true
-		      ViewLogo.enabled=true
-		      ViewSequences.enabled=true
-		      ViewMEMEresults.enabled=true
-		      AlignmentExtendBindingSites.enabled=true
-		      AlignmentConvertToHmm.enabled=true
-		      AlignmentConvertToMEME.enabled=true
-		      AlignmentConverttoStockholm.enabled=true
-		    else
-		      ViewAlignmentInfo.enabled=false
-		      ViewHmmerSettings.enabled=false
-		      ViewHmmProfile.Enabled=false
-		      ViewMEMEresults.enabled=false
-		      'AlignmentExtendBindingSites.enabled=false
-		      'AlignmentConvertToHmm.enabled=false
-		      'AlignmentConvertToMEME.enabled=false
-		      'AlignmentConverttoStockholm.enabled=false
-		      if sequences<>"" then
-		        if LengthsDiffer then
-		          FileSaveLogo.enabled=false
-		          palindromic=false
-		          LogoWinToolbar.Item(4).Enabled=false
-		        else
-		          FileSaveLogo.enabled=true
-		          ViewLogo.enabled=true
-		          palindromic=true
-		          LogoWinToolbar.Item(4).Enabled=true
-		        end if
-		        ViewSequences.enabled=true
-		        AlignmentExtendBindingSites.enabled=true
-		        AlignmentConvertToHmm.enabled=true
-		        AlignmentConvertToMEME.enabled=true
-		        AlignmentConverttoStockholm.enabled=true
-		        ProfilePalindromise.Enabled=true
-		        ProfileReverseComplement.Enabled=true
-		        'if WebLogoAvailable then
-		        
-		        'else
-		        'ViewLogo.enabled=false
-		        'FileSaveLogo.enabled=false
-		        'end if
-		      end if
-		      
-		    end if
-		    
-		    if LogoFile<>NIL then
-		      AlignmentConvertToMEME.enabled=true
-		      AlignmentMEME.enabled=true
-		      findSitesChipM.Enabled=true
-		      GenomeMASTSearch.enabled=true
-		      GenomeNhmmersearch.enabled=true
-		      FilterDuplicateSites.enabled=true
-		      
-		      if RegulonID<>0 then
-		        RegPreciseRegulonInfo.enabled=true
-		        if IsRegulog then
-		          RegPreciseRegulonInfo.Text="Regulog Info"
-		        else
-		          RegPreciseRegulonInfo.Text="Regulon Info"
-		        end if
-		      end if
-		    end if
-		    
-		    if MEMEdata="" then
-		      ViewMEMEresults.Enabled=false
-		    else
-		      ViewMEMEresults.Enabled=true
-		    end if
-		    
-		    FileSaveCheckedSites.Visible=false
-		    FileSaveCheckedSites.Enabled=false
-		    FileSaveGenomeAs.Visible=false
-		    FileSaveGenomeAs.Enabled=false
-		    
-		    FileSaveAlignmentSelection.visible=true
-		    FileSaveLogo.visible=true
-		    GenomeScanGenome.Visible=true
-		    GenomeScanGenome.Enabled=true
-		    FileOpenAlignment.visible=true
-		    FileOpenAlignment.Enabled=true
-		    if LastSearch<>"" then
-		      GenomeAnnotate.Enabled=true
-		    end if
-		    
-		    if Ubound(genomeWin.HmmHits)>0 then
-		      RegPreciseCompareScores.Enabled=true
-		    end if
-		    
-		    dim count, i as Integer
-		    
-		    // Get a handle to our parent sub menu.
-		    Dim parent, child as MenuItem
-		    parent = MainMenuBar.Child( kWindows )    // Get the window menu
-		    if parent = nil then return
-		    
-		    // Clear the existing menu
-		    for i=parent.Count-1 downto 0
-		      parent.Remove(i)
-		    next
-		    
-		    // Add the windows to the menu
-		    count = WindowCount
-		    
-		    for i = 0 to count - 1
-		      // Construct the child item
-		      if Window(i).visible then
-		        child = new WindowMenuItem(Window(i))
-		        // And add it to the menu
-		        parent.Append( child )
-		      end if
-		    next i
-		    
-		    if Window(0) isA GenomeWin or Window(0) isA RegPreciseWin or Window(0) isA WebBrowserWin or Window(0) isA HelpWin then
-		      FileClose.enabled=true
-		    end if
-		    
-		    if NOT GenomeWin.visible then
-		      FileExportSequence.enabled=false
-		      FileExportFeatureTable.enabled=false
-		      GenomeListRegulons.enabled=false
-		      
-		      GenomeFind.enabled=false
-		      GenomeGoto.enabled=false
-		      GenomeAddPlot.enabled=false
-		      GenomeMergePlotData.enabled=false
-		      GenomeFindAgain.Enabled=false
-		      
-		    end if
-		    
-		  #endif
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Sub filerRedundancy()
 		  dim InputStream as TextInputStream
 		  dim fasta as String
@@ -3397,7 +3216,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      If sh.errorCode=0 then
 		        'store hit number for genome scan:
 		        dim LastHitStr as string
@@ -3609,7 +3428,7 @@ End
 		    sh.mode=0
 		    sh.TimeOut=-1
 		    WriteToSTDOUT (EndofLine+"Running hmmsearch...")
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    If sh.errorCode=0 then
 		      WriteToSTDOUT (EndofLine+Sh.Result)
 		      'LogoWinToolbar.Item(2).Enabled=true
@@ -4058,7 +3877,6 @@ End
 		  LastSearch=""
 		  SeqsChanged=false
 		  show
-		  EMI
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:LoadAlignment")
 		End Sub
@@ -4223,7 +4041,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      If sh.errorCode=0 then
 		        'store hit number for genome scan:
 		        dim LastHitStr as string
@@ -4387,7 +4205,7 @@ End
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    WriteToSTDOUT (EndofLine+Sh.Result)
 		    'write results to a temporary file for MastGen.py:
@@ -4606,7 +4424,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      If sh.errorCode=0 then
 		        'LogoWinToolbar.Item(2).Enabled=true
 		        'logoWin.LastSearch="hmmsearch" 'not used
@@ -4705,7 +4523,7 @@ End
 		    sh.mode=0
 		    sh.TimeOut=-1
 		    WriteToSTDOUT (EndofLine+EndofLine+"Running nhmmer...")
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    If sh.errorCode=0 then
 		      WriteToSTDOUT (EndofLine+Sh.Result)
 		      LogoWinToolbar.Item(2).Enabled=true
@@ -5026,7 +4844,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      If sh.errorCode=0 then
 		        'store hit number for genome scan:
 		        dim LastHitStr as string
@@ -5262,7 +5080,7 @@ End
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      If sh.errorCode=0 then
 		        'store hit number for genome scan:
 		        'dim LastHitStr as string
@@ -5887,7 +5705,6 @@ End
 		    #endif
 		  end if
 		  
-		  EMI
 		End Sub
 	#tag EndEvent
 	#tag Event

@@ -1471,7 +1471,8 @@ Protected Module Globals
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
 		  If sh.errorCode=0 then
 		    return true
 		  else
@@ -1512,7 +1513,8 @@ Protected Module Globals
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		    
 		    If sh.errorCode=0 then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		      
@@ -1590,7 +1592,7 @@ Protected Module Globals
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    //LogoWin.WriteToSTDOUT (EndofLine.UNIX+str(sh.Result)+EndOfLine.UNIX)
 		    If sh.errorCode=0 then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
@@ -2482,7 +2484,7 @@ Protected Module Globals
 		    sh.mode=0
 		    sh.TimeOut=-1
 		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    If sh.errorCode=0 then
 		      Logowin.WriteToSTDOUT (" OK") '(EndofLine+Sh.Result)
 		      
@@ -3742,7 +3744,7 @@ Protected Module Globals
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    sh.execute ("bash --login -c '"+cli+"'")
+		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    If sh.errorCode=0 then
 		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
 		      return
@@ -4010,7 +4012,7 @@ Protected Module Globals
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  If sh.errorCode=0 then
 		    return Sh.Result
 		  else
@@ -4830,6 +4832,14 @@ Protected Module Globals
 			Group="Behavior"
 			InitialValue=""
 			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="EmailWarned"
+			Visible=false
+			Group="Behavior"
+			InitialValue="false"
+			Type="boolean"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

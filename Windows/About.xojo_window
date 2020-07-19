@@ -102,7 +102,6 @@ Begin Window About
       Backdrop        =   184883199
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   "False"
       Height          =   180
       HelpTag         =   ""
       Index           =   -2147483648

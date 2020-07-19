@@ -63,7 +63,7 @@ Protected Module DeNovoTFBSinference
 		  'execute bash with login scripts to set the same env as in terminal
 		  'command must be in single quotes
 		  
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  
 		  If sh.errorCode=0 Then
 		    Dim tos As TextOutputStream
@@ -620,7 +620,7 @@ Protected Module DeNovoTFBSinference
 		      'execute bash with login scripts to set the same env as in terminal
 		      'command must be in single quotes
 		      
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      
 		      If sh.ErrorCode<>0 Then
 		        logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
@@ -831,7 +831,7 @@ Protected Module DeNovoTFBSinference
 		      'execute bash with login scripts to set the same env as in terminal
 		      'command must be in single quotes
 		      
-		      sh.execute ("bash --login -c '"+cli+"'")
+		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      
 		      If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
 		        entry=sh.Result
@@ -844,7 +844,7 @@ Protected Module DeNovoTFBSinference
 		        dim tempIDs() as String = tempID.Split(",")
 		        for id as Integer = 0 to UBound(tempIDs)
 		          cli=pythonpath+getprot.ShellPath+" "+"'"+tempIDs(id)+"'"+" '"+email+"'"
-		          sh.execute ("bash --login -c '"+cli+"'")
+		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		          If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
 		            entry=entry+sh.Result
 		          else
@@ -2395,7 +2395,7 @@ Protected Module DeNovoTFBSinference
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c '"+cli+"'")
+		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		  
 		  'return sh.errorCode
 		  If sh.errorCode=0 then
