@@ -116,8 +116,8 @@ Protected Module Globals
 		      'SettingsWin.Show
 		      'SettingsWin.PagePanel1.value=1
 		      If Not EmailWarned Then
-		        LogoWin.WriteToSTDOUT("Please enter your e-mail address in the preferences. It is required for some NCBI services."+EndOfLine.UNIX)
 		        EmailWarned=True
+		        LogoWin.WriteToSTDOUT("Please enter your e-mail address in the preferences. It is required for some NCBI services."+EndOfLine.UNIX)
 		      End If
 		    End If
 		    

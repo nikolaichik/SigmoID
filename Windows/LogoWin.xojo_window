@@ -2472,12 +2472,12 @@ End
 
 	#tag Method, Flags = &h0
 		Sub DownshiftLog(boo as boolean)
-		  if boo then
+		  If boo Then
 		    if STDOUT.top=0 then
 		      TopPanel.left=0
 		      Splitter.left=0
-		      STDOUT.top=TopPanel.Height+5
-		      STDOUT.height=self.Height-TopPanel.Height-5
+		      stdout.top=TopPanel.Height+LogoTabs.Height+5
+		      stdout.height=Self.Height-TopPanel.Height-LogoTabs.Height-5
 		    else
 		      'already down
 		    end if
@@ -2491,7 +2491,11 @@ End
 		      STDOUT.height=self.Height
 		    end if
 		    
-		  end if
+		  End If
+		  
+		  stdout.ScrollPosition=stdout.LineNumber(Len(stdout.Text))
+		  stdout.refresh(False)
+		  App.DoEvents
 		End Sub
 	#tag EndMethod
 
@@ -5142,8 +5146,43 @@ End
 	#tag Method, Flags = &h0
 		Sub WriteToSTDOUT(txt as string)
 		  'STDOUT.text=STDOUT.text+txt
-		  STDOUT.AppendText(txt)
-		  STDOUT.ScrollPosition=STDOUT.LineNumAtCharPos(len(STDOUT.text))
+		  stdout.TextFont=FixedFont  'workaround for problems setting font at initialisation 
+		  stdout.AppendText(txt)
+		  stdout.ScrollPosition=stdout.LineNumber(Len(stdout.Text))
+		  STDOUT.refresh(false)
+		  App.DoEvents  'seems to be required as of Xojo 2018, otherwise STDout isn't updated
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub WriteToSTDOUT(txt as string, clr as string)
+		  Dim ss,se,sl As Integer
+		  Dim colr As Color
+		  Select Case clr
+		  Case "Red"
+		    colr=&cFF000000   '
+		  Case "Brown"
+		    colr=&c66330000   '
+		  Case "Green"
+		    colr=&c00804000   '
+		  Case "Blue"
+		    colr=&c0080FF00   '
+		  Case "Black"
+		    colr=&c00000000
+		  End Select
+		  
+		  ss=Len(stdout.Text)
+		  
+		  stdout.TextFont=FixedFont  'workaround for problems setting font at initialisation 
+		  stdout.AppendText(txt)
+		  stdout.ScrollPosition=stdout.LineNumber(Len(stdout.Text))
+		  se=Len(stdout.Text)
+		  sl=se-ss
+		  stdout.SelStart=ss
+		  stdout.SelLength=sl
+		  stdout.SelTextColor=colr
+		  stdout.SelStart=se
+		  stdout.SelLength=0
 		  STDOUT.refresh(false)
 		  App.DoEvents  'seems to be required as of Xojo 2018, otherwise STDout isn't updated
 		End Sub

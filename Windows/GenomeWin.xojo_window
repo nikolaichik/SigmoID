@@ -1666,11 +1666,11 @@ End
 		Sub Add4plots(infile as folderitem)
 		  
 		  dim instream as TextInputStream
-		  dim aLine as string
+		  Dim aLine, InFileFolderPath As String
 		  dim linecount, posNo as integer
 		  dim tabChar as string = chr(9)
 		  dim FileNameArr(4) as string
-		  dim n as integer
+		  Dim n,ss,sl As Integer
 		  dim plotFile as folderitem
 		  
 		  redim self.Genome.ReadDepth1(0)
@@ -1685,8 +1685,18 @@ End
 		  FileNameArr(3)=trim(InStream.readLine)
 		  FileNameArr(4)=trim(InStream.readLine)
 		  instream.close
+		  
+		  // Check if FileNameArr() contains paths or filenames (and prepend paths if required)
+		  // .path file should be in the same folder with coverage files
+		  If InStr(FileNameArr(1),"/")=0 Then  'only filename
+		    InFileFolderPath=infile.Parent.ShellPath
+		    For n=1 To 4
+		      FileNameArr(n)=InFileFolderPath+"/"+FileNameArr(n)
+		    Next
+		  End If
+		  
 		  LogoWin.show
-		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Adding coverage plots. The colours used are..."+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Adding coverage plots..."+EndOfLine.UNIX)
 		  
 		  
 		  
@@ -1706,30 +1716,29 @@ End
 		        aLine=trim(InStream.readLine)
 		        Self.Genome.ReadDepth1.Append(Val(aLine))
 		      Wend
-		      LogoWin.WriteToSTDOUT("Red:   "+ FileNameArr(1)+EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT(FileNameArr(1)+EndOfLine.UNIX,"Red")
 		    Case 2
 		      while not InStream.EOF
 		        aLine=trim(InStream.readLine)
 		        self.Genome.ReadDepth2.Append(val(aLine))
-		      wend
-		      LogoWin.WriteToSTDOUT("Brown: "+ FileNameArr(2)+EndOfLine.UNIX)
+		      Wend
+		      LogoWin.WriteToSTDOUT(FileNameArr(2)+EndOfLine.UNIX,"Brown")
 		    Case 3
 		      while not InStream.EOF
 		        aLine=trim(InStream.readLine)
 		        self.Genome.ReadDepth3.Append(val(aLine))
 		      wend
-		      LogoWin.WriteToSTDOUT("Green: "+ FileNameArr(3)+EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT(FileNameArr(3)+EndOfLine.UNIX,"Green")
 		    Case 4
 		      while not InStream.EOF
 		        aLine=trim(InStream.readLine)
-		        self.Genome.ReadDepth4.Append(val(aLine))
+		        Self.Genome.ReadDepth4.Append(Val(aLine))
 		      wend
-		      LogoWin.WriteToSTDOUT("Blue:  "+ FileNameArr(4)+EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT(FileNameArr(4)+EndOfLine.UNIX,"Blue")
 		    End Select
 		    instream.close
 		  next
-		  
-		  
+		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
 		  genome.baselineY=100 'make room for the graph
 		  ExtractFragment(1,10000)
 		  TextMap(0,0)
