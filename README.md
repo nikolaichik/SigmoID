@@ -1,4 +1,4 @@
-__SigmoID__ is all about transcription factor binding sites (TFBS) in bacterial genomes: find known ones, infer unknown and view them all in genomic context. It is an application written in Xojo with some additions in python.
+__SigmoID__ is all about transcription factor binding sites (TFBS) in bacterial genomes: find known ones, infer unknown and view them all in genomic context. It is a GUI application written in Xojo with some additions in python.
 
 Functions:
 - de novo inference of transcription factor binding sites (__new in v.2__);
@@ -6,7 +6,7 @@ Functions:
 - visualise binding site alignments with sequence logo;
 - integrated access to RegPrecise, CollecTF and RegulonDB;
 - extend, shorten and mask TFBS alignments;
-- create hmm profiles from TFBS alignments;
+- create calibrated hmm profiles from TFBS alignments;
 - search bacterial genome sequences with calibrated (and uncalibrated) hmm profiles;
 - annotate promoters and transcription factor binding sites in GenBank-formatted genomes;
 - view regulatory sites in genomic context with the integrated genome browser;
