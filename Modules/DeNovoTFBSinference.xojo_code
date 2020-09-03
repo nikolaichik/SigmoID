@@ -158,13 +158,12 @@ Protected Module DeNovoTFBSinference
 		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id="
 		  Const URLend as string="&rettype=gbwithparts&retmode=text&seq_start=" 
 		  
-		  Dim Separ1 as string="reference id="+chr(34)
-		  Dim Separ2 as string=chr(34)
+		  
 		  dim theURL as string
 		  
 		  
-		  dim hts as new HTTPSecureSocket
-		  hts.Secure = True
+		  'dim hts as new HTTPSecureSocket
+		  'hts.Secure = True
 		  dim res as string
 		  
 		  If InStr(EntryID,"join(")>0 Then  'this could be either a real pseudogene or sequencing error leading to a frameshift, better ignore this locus anyway
@@ -176,19 +175,30 @@ Protected Module DeNovoTFBSinference
 		  LogoWin.WriteToSTDOUT ("Getting the GenBank entry "+EntryID+" fragment... ")
 		  'LogoWin.show
 		  
-		  hts.Yield=true  'allow background activities while waiting
-		  hts.SetRequestHeader("Content-Type:","text/plain")
+		  'old socket masked
+		  'hts.Yield=true  'allow background activities while waiting
+		  'hts.SetRequestHeader("Content-Type:","text/plain")
 		  
 		  theURL=URLstart+EntryID+URLend+Str(entryStart)+"&seq_stop="+Str(entryEnd)+DevInfo
-		  res=DefineEncoding(hts.Get(theURL,60), Encodings.ASCII)  'no encoding is set
+		  'res=DefineEncoding(hts.Get(theURL,60), Encodings.ASCII)  'no encoding is set 
+		  
+		  dim hts as New URLConnection
+		  hts.RequestHeader("Content-Type:")="text/plain"
+		  try
+		    res=DefineEncoding(hts.SendSync("GET", theURL,60), Encodings.ASCII) 
+		  catch e as NetworkException
+		    Logowin.WriteToSTDOUT(e.message+EndOfLine.UNIX)
+		  catch e as RuntimeException
+		    Logowin.WriteToSTDOUT(e.message+EndOfLine.UNIX)
+		  end try
 		  
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		    if Res="" then
-		      if hts.ErrorCode=-1 then
-		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
-		      else
-		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
-		      end if
+		      'if hts.Error=-1 then
+		      'Logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		      'else
+		      LogoWin.WriteToSTDOUT ("Error (empty response)"+EndOfLine.UNIX)
+		      'end if
 		    else
 		      'LogoWin.WriteToSTDOUT (EndOfLine)
 		      LogoWin.WriteToSTDOUT (" OK")'(res)
@@ -196,11 +206,11 @@ Protected Module DeNovoTFBSinference
 		      
 		    end if
 		  else
-		    LogoWin.WriteToSTDOUT ("eutils error "+Str(hts.HTTPStatusCode)+EndOfLine.unix)
-		    LogoWin.WriteToSTDOUT ("The URL requested was "+theURL+EndOfLine.unix)
+		    LogoWin.WriteToSTDOUT ("eutils error "+Str(hts.HTTPStatusCode)+EndOfLine.UNIX)
+		    LogoWin.WriteToSTDOUT ("The URL requested was "+theURL+EndOfLine.UNIX)
 		  end if
 		  
-		  hts.close
+		  'hts.close
 		  return res
 		  Exception err
 		    ExceptionHandler(err,"SeqRetrieval:FetchGenBankEntryFragment")
@@ -1076,7 +1086,7 @@ Protected Module DeNovoTFBSinference
 		      
 		      eSeq.sequence=CleanUp(trim(rightb(Entry,len(Entry)-instrb(Entry,"ORIGIN")-7)))
 		      
-		      if len(eSeq.sequence)<LengthLimit then
+		      if len(eSeq.sequence)<LengthLimit and i<=UniProtId.Ubound then
 		        'return "Genome piece coding for "+UniProtID+" is too short ("+str(len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX
 		        LogoWin.WriteToSTDOUT("Genome piece coding for "+UniprotID(i)+" is too short ("+Str(Len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX)
 		        continue for i
