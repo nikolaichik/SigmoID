@@ -53,6 +53,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -78,6 +79,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -162,6 +164,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -242,6 +245,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -354,6 +358,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -366,6 +371,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -468,6 +474,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -529,6 +536,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -927,7 +935,10 @@ End
 		    ExtractFragment(lenb(genome.sequence)-DisplayInterval,lenb(genome.sequence))
 		  else
 		    ExtractFragment(HScrollbar.Value-DisplayInterval/2,HScrollbar.Value+DisplayInterval/2)
-		  end if
+		  End If
+		  
+		  TMdisplay.Refresh
+		  
 		End Sub
 	#tag EndEvent
 
@@ -2997,6 +3008,8 @@ End
 		  LogoWin.STDOUT.Refresh(false)
 		  Logowin.show
 		  
+		  
+		  // genome feature counts and percentage
 		  u=ubound(Genome.Features)
 		  for n=1 to u
 		    fText=Genome.Features(n).FeatureText
@@ -3072,9 +3085,26 @@ End
 		    
 		  next
 		  
-		  Dim GenomeLength as integer = len(Genome.Sequence)
-		  LogoWin.WriteToSTDOUT (EndofLine+"Genome length: "+str(GenomeLength)+" bp")
-		  LogoWin.WriteToSTDOUT (EndofLine+"Feature stats:")
+		  Dim GenomeLength As Integer = Len(Genome.Sequence)
+		  // Calculate nucleotide content 
+		  
+		  Dim pA,pC,pG,pT,pN As Double
+		  pA=CountFields(Genome.Sequence,"A")*100/GenomeLength
+		  pC=CountFields(Genome.Sequence,"C")*100/GenomeLength
+		  pG=CountFields(Genome.Sequence,"G")*100/GenomeLength
+		  pT=CountFields(Genome.Sequence,"T")*100/GenomeLength
+		  pN=CountFields(Genome.Sequence,"N")*100/GenomeLength
+		  
+		  
+		  // Write results to the main window
+		  LogoWin.WriteToSTDOUT (EndOfLine+"Genome length: "+Str(GenomeLength)+" bp"+EndOfLine)
+		  LogoWin.WriteToSTDOUT (EndOfLine+"Nucleotide content:")
+		  LogoWin.WriteToSTDOUT (EndOfLine+"A – "+Str(pA)+"%")
+		  LogoWin.WriteToSTDOUT (EndOfLine+"C – "+Str(pC)+"%")
+		  LogoWin.WriteToSTDOUT (EndOfLine+"G – "+Str(pG)+"%")
+		  LogoWin.WriteToSTDOUT (EndOfLine+"T – "+Str(pT)+"%")
+		  LogoWin.WriteToSTDOUT (EndOfLine+"N – "+Str(pN)+"%"+EndOfLine)
+		  LogoWin.WriteToSTDOUT (EndOfLine+"Feature stats:")
 		  LogoWin.WriteToSTDOUT (EndofLine+"Feature"+chr(9)+"Count"+chr(9)+"Cumulative length"+chr(9)+"% of genome length")
 		  for n=1 to UBound(types)
 		    LogoWin.WriteToSTDOUT (EndofLine+types(n)+chr(9)+str(counts(n))+chr(9)+str(lengths(n))+chr(9)+str(100*lengths(n)/GenomeLength))
@@ -3083,7 +3113,6 @@ End
 		  
 		  'LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
 		  
-		  // Calculate nucleotide content 
 		  
 		  // Calculate GC content
 		  ' graph it?
@@ -6020,7 +6049,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub MouseDrag(X As Integer, Y As Integer)
-		  dim p as picture
+		  Dim p As picture
 		  dim w,q,deltaX,deltaY as integer
 		  dim arcAngle, currentAngle as double
 		  dim selShape As ArcShape
@@ -6725,15 +6754,23 @@ End
 		  
 		  If itemIndex = 0 Then
 		    'zoom in
-		    if DisplayInterval>1500 then
-		      DisplayInterval=DisplayInterval/1.5
+		    If DisplayInterval>1500 Then
+		      If Keyboard.AltKey Then
+		        DisplayInterval=DisplayInterval/1.1 'fine adjustment
+		      Else
+		        DisplayInterval=DisplayInterval/1.5
+		      End If
 		    else
 		      beep
 		    end if
 		  Else
 		    'zoom out
 		    if DisplayInterval<22000 then
-		      DisplayInterval=DisplayInterval*1.5
+		      If Keyboard.AltKey Then
+		        DisplayInterval=DisplayInterval*1.1 'fine adjustment
+		      Else
+		        DisplayInterval=DisplayInterval*1.5
+		      End If
 		    else
 		      beep
 		    End If
@@ -7254,7 +7291,8 @@ End
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
 		  DragStartY=Y
-		  self.invalidate(false)
+		  Self.invalidate(False)
+		  updateMapCanvas
 		End Sub
 	#tag EndEvent
 	#tag Event

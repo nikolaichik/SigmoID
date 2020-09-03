@@ -16,9 +16,10 @@ DATE  Wed Oct 14 20:28:06 2015
 NSEQ  77
 EFFN  17.487610
 CKSUM 1711574086
-GA    20.80 20.80;
+GA    19.00 19.00;
 TC    20.80 20.80;
 NC    20.70 20.70;
+NOTE  GA lowered a bit relative to PFAM's 20.8 to allow finding all TetR proteins with known structures
 BM    hmmbuild HMM.ann SEED.ann
 SM    hmmsearch -Z 11927849 -E 1000 --cpu 4 HMM pfamseq
 STATS LOCAL MSV       -7.7551  0.71926

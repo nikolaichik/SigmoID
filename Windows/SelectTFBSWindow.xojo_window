@@ -476,9 +476,11 @@ End
 #tag Events OKButton
 	#tag Event
 		Sub Action()
-		  dim lb as Listbox
-		  if ParentWin.Title=kRegPreciseTFCollections then
+		  Dim lb As Listbox
+		  If ParentWin.Title=kRegPreciseTFCollections Then
 		    lb=RegPreciseTFcollectionsWin.CollectionList
+		  Elseif ParentWin.Title=kProfilesInAfolder Then
+		    lb=ConvertProfilesToMEMEWin.CollectionList
 		  else
 		    lb=LocalMotifCollectionsWin.CollectionList
 		  end if

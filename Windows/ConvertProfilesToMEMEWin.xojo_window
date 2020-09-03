@@ -22,7 +22,7 @@ Begin Window ConvertProfilesToMEMEWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "Profiles in a folder"
+   Title           =   "#kProfilesInAfolder"
    Visible         =   False
    Width           =   800
    Begin Listbox CollectionList
@@ -698,21 +698,21 @@ End
 		  dim ws as string
 		  dim p as picture
 		  
-		  // Logo centering doesn't seem appropriate here
+		  // Logo centering doesn't seem appropriate here?
 		  
 		  // calculate logo column width 
-		  ' column widths are currently set as
-		  ' 20,300,60,40,*,0
+		  'column widths are currently set As
+		  '20,300,60,40,*,0
 		  
-		  'ws=me.ColumnWidths
-		  'colWidth=me.width-val(NthField(ws,",",1))-val(NthField(ws,",",2))-val(NthField(ws,",",3))-val(NthField(ws,",",4))
+		  ws=Me.ColumnWidths
+		  colWidth=Me.width-Val(NthField(ws,",",1))-Val(NthField(ws,",",2))-Val(NthField(ws,",",3))-Val(NthField(ws,",",4))
 		  
 		  
 		  if Column=4 then
 		    if row<=me.lastindex then
 		      p=me.rowtag(row)
-		      'offset=(colWidth-p.Width)/2 
-		      g.DrawPicture(p, offset, 0)  'pic is centered for proper alignment (currently disabled)
+		      offset=(colWidth-p.Width)/2 
+		      g.DrawPicture(p, offset, 0)  'pic is centered for proper alignment 
 		    end if
 		  end if
 		  Return True

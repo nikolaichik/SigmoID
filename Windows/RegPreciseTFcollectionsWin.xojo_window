@@ -1320,7 +1320,9 @@ End
 		      'beep
 		    End Select
 		  else
-		    MsgBox "Can't connect to RegPrecise (HTTP status code "+str(httpStatus)+")"
+		    'MsgBox "Can't connect to RegPrecise (HTTP status code "+Str(httpStatus)+")"
+		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Can't connect to RegPrecise (HTTP status code "+Str(httpStatus)+")"+EndOfLine.UNIX)
+		    Dim dmy As String=HTTPerror(HTTPstatus, True)
 		  end if
 		  
 		  Exception err

@@ -58,7 +58,7 @@ Begin Window LocalMotifCollectionsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   93
+      Width           =   125
    End
    Begin PopupMenu TFfamilyPopup
       AutoDeactivate  =   True
@@ -72,7 +72,7 @@ Begin Window LocalMotifCollectionsWin
       InitialParent   =   ""
       InitialValue    =   "#kSelectMotifCollection"
       Italic          =   False
-      Left            =   113
+      Left            =   145
       ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -90,7 +90,7 @@ Begin Window LocalMotifCollectionsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   640
+      Width           =   608
    End
    Begin Listbox CollectionList
       AutoDeactivate  =   True
@@ -915,25 +915,25 @@ End
 	#tag EndEvent
 	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
-		  dim colWidth, offset as double
+		  Dim colWidth, offset As Double
 		  dim ws as string
 		  dim p as picture
 		  
-		  // Logo centering doesn't seem appropriate here
+		  // Logo centering doesn't seem appropriate here?
 		  
 		  // calculate logo column width 
 		  ' column widths are currently set as
 		  ' 20,300,60,40,*,0
 		  
-		  'ws=me.ColumnWidths
-		  'colWidth=me.width-val(NthField(ws,",",1))-val(NthField(ws,",",2))-val(NthField(ws,",",3))-val(NthField(ws,",",4))
+		  ws=Me.ColumnWidths
+		  colWidth=Me.width-Val(NthField(ws,",",1))-Val(NthField(ws,",",2))-Val(NthField(ws,",",3))-Val(NthField(ws,",",4))
 		  
 		  
 		  if Column=4 then
 		    if row<=me.lastindex then
 		      p=me.rowtag(row)
-		      'offset=(colWidth-p.Width)/2 
-		      g.DrawPicture(p, offset, 0)  'pic is centered for proper alignment (currently disabled)
+		      offset=(colWidth-p.Width)/2 
+		      g.DrawPicture(p, offset, 0)  'pic is centered for proper alignment 
 		    end if
 		  end if
 		  Return True

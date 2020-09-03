@@ -141,12 +141,13 @@ Inherits Application
 
 	#tag Event
 		Sub OpenDocument(item As FolderItem)
-		  if item<> Nil then
+		  If item<> Nil Then
 		    select case item.Type
 		    case "GenBank"
 		      if GenomeWin.SaveCheck then
 		        GenomeWin.opengenbankfile(item)
 		        GenomeWin.ShowGenomeStart
+		        LogoWin.GenomeFile=item
 		      end if
 		    case "Fasta"
 		      logowin.LoadAlignment(item)

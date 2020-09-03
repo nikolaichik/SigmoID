@@ -8,7 +8,7 @@ Begin Window ProfileWizardWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   574
+   Height          =   696
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -670,7 +670,7 @@ Begin Window ProfileWizardWin
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   135
+      Height          =   234
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -683,7 +683,7 @@ Begin Window ProfileWizardWin
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Mask            =   ""
       Multiline       =   True
       ReadOnly        =   False
@@ -699,7 +699,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   393
+      Top             =   416
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -732,7 +732,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   540
+      Top             =   662
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -764,7 +764,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   540
+      Top             =   662
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -807,7 +807,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   540
+      Top             =   662
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -1006,7 +1006,7 @@ Begin Window ProfileWizardWin
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   100
+      Height          =   117
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648

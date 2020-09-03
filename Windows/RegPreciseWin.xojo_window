@@ -180,14 +180,12 @@ Begin Window RegPreciseWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
       Index           =   -2147483648
       InitialParent   =   ""
       IsConnected     =   False
-      LastErrorCode   =   "0"
       LocalAddress    =   ""
       LockedInPosition=   False
       Port            =   0
@@ -279,7 +277,6 @@ Begin Window RegPreciseWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuValue       =   "0"
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -873,7 +870,7 @@ End
 		    Select case SocketTask
 		    case "release"
 		      
-		      RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
+		      RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate") 'mionrVersion should be minorVersion?
 		    case "genomes"
 		      'populate the GenomesPopup:
 		      GenomeStats2array(JSN)
@@ -885,8 +882,10 @@ End
 		      beep
 		    End Select
 		  else
-		    MsgBox "Can't connect to RegPrecise (HTTP status code "+str(httpStatus)+")"
-		  end if
+		    'MsgBox "Can't connect to RegPrecise (HTTP status code "+Str(httpStatus)+")"
+		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Can't connect to RegPrecise (HTTP status code "+Str(httpStatus)+")"+EndOfLine.UNIX)
+		    dim dmy as string=HTTPerror(HTTPstatus, true)
+		  End If
 		  
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:RegPreciseSocket.pagereceived")

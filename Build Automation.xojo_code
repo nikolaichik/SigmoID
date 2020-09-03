@@ -42,7 +42,7 @@
 					AppliesTo = 1
 					Destination = 0
 					Subdirectory = 
-					FolderItem = Li4vU2lnbW9JRC5zaA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0luc3RhbGwuaHRtbA==
 				End
 				Begin CopyFilesBuildStep CopyResources64bit
 					AppliesTo = 0

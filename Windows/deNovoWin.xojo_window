@@ -252,7 +252,6 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -371,7 +370,6 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -659,7 +657,8 @@ End
 		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      
 		      If sh.errorCode <> 0 then
-		        msgbox "Problem running MeShClust"
+		        MsgBox "Problem running MeShClust"
+		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+sh.Result+EndOfLine.Unix)
 		        return ""
 		      else
 		        'MeshClust only writes cluster data, but doesn't export cluster representatives, 
