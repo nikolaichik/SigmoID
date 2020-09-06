@@ -53,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +162,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +242,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -357,8 +353,7 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      ConnectionType  =   3
-      Enabled         =   True
+      ConnectionType  =   5
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -370,8 +365,7 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      ConnectionType  =   3
-      Enabled         =   True
+      ConnectionType  =   5
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -473,8 +467,7 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      ConnectionType  =   3
-      Enabled         =   True
+      ConnectionType  =   5
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -536,7 +529,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
