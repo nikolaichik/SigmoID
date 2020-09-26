@@ -691,8 +691,14 @@ Protected Module DeNovoTFBSinference
 		      m=ubound(ResArray)+1
 		    end
 		  else
-		    singleCodeTags=singleCodeTags+1
-		    return ""
+		    ecodes=ecodes.NthField("\t", ecodes.CountFields("\t"))
+		    if ecodes<>"" then
+		      ResArray.Append(ecodes)
+		      m = UBound(ResArray)+1
+		      'singleCodeTags=singleCodeTags+1
+		    else
+		      return ""
+		    end
 		  end
 		  
 		  // localgbk string for GetRegSeq method 
@@ -2393,14 +2399,14 @@ Protected Module DeNovoTFBSinference
 		  #if TargetWin32
 		    cli=TemporaryFolder.child("meme.exe").ShellPath+" "+infile.ShellPath
 		  #else
-		    cli=MEMEpath+" "+infile.ShellPath
+		    cli=MEMEpath+" '"+infile.ShellPath+"'"
 		  #EndIf
 		  
 		  If CPUcores>1 Then
 		    cli=cli+" -p " + Str(CPUcores)  'for parallelised meme
 		  End If
 		  
-		  cli=cli+" -oc "+outFolder.ShellPath+Options
+		  cli=cli+" -oc '"+outFolder.ShellPath+"' "+Options
 		  
 		  sh=New Shell
 		  sh.mode=0
