@@ -626,12 +626,13 @@ End
 		                dim vv as VirtualVolume
 		                dim sigfasta as FolderItem
 		                dim infofile as FolderItem
+		                dim tis as textinputstream
 		                vv=f3.openAsVirtualVolume
 		                if vv<> nil then
 		                  basename=nthfield(f3.DisplayName,".sig",1)
 		                  sigfasta=vv.root.child(basename+".fasta")
 		                  infofile=vv.root.child(basename+".info")
-		                  dim tis as textinputstream
+		                  
 		                  tis=sigfasta.OpenAsTextFile
 		                  
 		                  if tis<>nil then
@@ -713,10 +714,65 @@ End
 		            
 		          end
 		        else
-		          notfound.append(protdescr(tagsCount)) 
-		          protNFound=protNFound+1
+		          basename=""
+		          for sigTCount as integer=0 to UBound(sigtagbase)
+		            dim tagsDiff as Integer
+		            tagsDiff=CompareTags(CRtags(tagsCount),sigtagbase(sigTCount),2) '
+		            if  tagsDiff>0 and tagsDiff<=2 then
+		              if instr(sigpathbase(sigTCount), EndOfLine.unix)>0 then 
+		                dim tmPath2(-1) as string
+		                tmPath2=sigpathbase(sigTCount).Split(EndOfLine.UNIX)
+		                for pathCount2 as integer=0 to UBound(tmPath2)-1
+		                  f3=getfolderitem(tmPath2(pathCount2),FolderItem.PathTypeShell)
+		                  dim vv as VirtualVolume
+		                  dim sigfasta as FolderItem
+		                  dim infofile as FolderItem
+		                  dim tis as textinputstream
+		                  if f3.Exists then 
+		                    vv=f3.openAsVirtualVolume
+		                    if vv<> nil then
+		                      basename=nthfield(f3.DisplayName,".sig",1)
+		                      sigfasta=vv.root.child(basename+".fasta")
+		                      infofile=vv.root.child(basename+".info")
+		                      tis=sigfasta.OpenAsTextFile
+		                      
+		                      if tis<>nil then
+		                        content=tis.ReadAll   'hmmfile
+		                        tis.Close
+		                        dim p as Picture = MakeLogoPic(content)
+		                        w.Listbox1.AddRow
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,1)=" !"+basename
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount) 'added TF name
+		                        w.Listbox1.RowTag(w.Listbox1.LastIndex)=p
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,4)=str(countSubst(content,">"))
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,5)=f3.ShellPath
+		                        
+		                        tis=infofile.OpenAsTextFile
+		                        if tis<> nil then 
+		                          content=tis.ReadAll 
+		                          tis.close
+		                          'content=ReplaceAll(content,". ",EndOfLine.UNIX+".")
+		                        end
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,6)=content
+		                        
+		                      end if
+		                      
+		                    end
+		                    
+		                  else
+		                    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Model path not found"+EndOfLine.UNIX)
+		                    Continue
+		                  end if
+		                next
+		                
+		              end
+		            end
+		          next
+		          if basename ="" then
+		            notfound.append(protdescr(tagsCount)) 
+		            protNFound=protNFound+1
+		          end
 		        end
-		        
 		      next
 		      
 		      ' summary stats
