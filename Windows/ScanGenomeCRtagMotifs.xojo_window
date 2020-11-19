@@ -127,14 +127,14 @@ Begin Window ScanGenomeCRtagMotifs
       Bold            =   False
       Border          =   True
       ColumnCount     =   7
-      ColumnsResizable=   False
+      ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
       Enabled         =   True
       EnableDrag      =   False
-      EnableDragReorder=   False
+      EnableDragReorder=   True
       GridLinesHorizontal=   2
       GridLinesVertical=   0
       HasHeading      =   True
@@ -392,18 +392,20 @@ End
 	#tag Event
 		Sub MouseMove(X As Integer, Y As Integer)
 		  Dim row As Integer = Me.RowFromXY(X, Y)
-		  Dim column As Integer = Me.ColumnFromXY(X, Y)
+		  'Dim column As Integer = Me.ColumnFromXY(X, Y)
 		  dim content as String
 		  
 		  // Grab the motif description from column 
 		  If row > -1 Then
 		    content=me.Cell(row,6)
-		    Global.Tooltip.Show(content, System.MouseX, System.MouseY + 20, True)
+		    'Global.Tooltip.Show(content, System.MouseX, System.MouseY + 20, True)
+		    Me.HelpTag=content
 		    'MHMouseTip.Show(Me.CellHelpTag(row, 4))
 		    'siglist.HelpTag("RegulonDB is the primary database on transcriptional regulation in Escherichia coli K-12 containing knowledge manually curated from original scientific publications, complemented with high throughput datasets and comprehensive computational predictions. ")
 		  Else
 		    'MHMouseTip.Hide
 		    'And Me.CellHelpTag(row, 4)
+		    Me.HelpTag=""
 		  End If
 		End Sub
 	#tag EndEvent

@@ -367,14 +367,17 @@ End
 
 	#tag Method, Flags = &h0
 		Function CompareTags(tag1 as string, tag2 as string, maxdiff as integer) As integer
-		  if  tag1.LenB<>tag2.LenB then 
+		  // returns Levenshtein distance between two strings
+		  // (doesn't count indels as they are not expected in CR tags)
+		  
+		  If  tag1.LenB<>tag2.LenB Then 
 		    return maxdiff+1
 		  else
 		    dim mb1 as MemoryBlock =tag1
 		    dim mb2 as MemoryBlock=tag2
 		    if mb1.size<>mb2.size then
 		      return maxdiff+1
-		    else
+		    Else
 		      dim diff as integer=0
 		      dim lastIndex as integer = mb1.Size - 1
 		      for mbindex as integer=0 to lastIndex
