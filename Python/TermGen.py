@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.15 (March 25, 2017)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.16 (September 27, 2020)')
     return parser
 
 args = createParser()
@@ -69,13 +69,13 @@ else:
     name = enter.input_file.split('/')[-1]
     fusedname = '' # this is done for avoiding problems below with fasta file creation & TransTerm command line
     for part in name.split('.'):
-        print part
+        print (part)
         if part != name.split('.')[-1]:
             if part != name.split('.')[0]:
                 fusedname += '.' + part
             else:
                 fusedname += part
-    print fusedname
+    print (fusedname)
 cwd = os.path.abspath(os.path.dirname(__file__))
 if platform.system() != 'Windows':
     renamed_cwd = cwd.replace(' ', '\\ ')
@@ -98,15 +98,15 @@ else:
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print '\nTermGen 1.15 (March 25, 2017)'
-print "="*50
+print ('\nTermGen 1.15 (March 25, 2017)')
+print ("="*50)
 output_args = ''
 for arg in range(1, len(sys.argv)):
     output_args += sys.argv[arg] + ' '
-print 'Options used:\n%s' % output_args
+print ('Options used:\n%s' % output_args)
 
 # handling with fasta...
-print '\nCreating .fasta file...'
+print ('\nCreating .fasta file...')
 input_gbk = open(enter.input_file, 'r')
 gbk = SeqIO.parse(input_gbk, 'genbank')
 if platform.system() != 'Windows':
@@ -139,7 +139,7 @@ records = SeqIO.parse(input_gbk, 'genbank')
 
 
 # executes ptt_converter.py script
-print 'Creating .ptt file...'
+print ('Creating .ptt file...')
 if platform.system() != 'Windows':
     edited_input = enter.input_file.replace(' ', '\\ ')
     edited_input = edited_input.replace('(', '\(')
@@ -162,7 +162,7 @@ else:
     ptt_file = '%s.ptt' % (id)
 
 # sets directory for output and executes TransTerm HP
-print 'Running TransTerm HP...\n%s' % ('-'*50)
+print ('Running TransTerm HP...\n%s' % ('-'*50))
 if enter.output == '':
     if platform.system() != 'Windows':
         transterm_output = '%s/transterm_output' % tmp_directory
@@ -203,9 +203,9 @@ term_out = terms_out.readlines()
 
 # creates a list of lines, containing genes and terminators in order (deletes unnecessary lines)
 term_lines = []
-for line in xrange(len(term_out)):
+for line in range(len(term_out)):
     if term_out[line].startswith('SEQUENCE'):
-        for i in xrange(line, len(term_out)):
+        for i in range(line, len(term_out)):
             if len(term_out[i]) != 0:
                 term_lines.append(term_out[i].replace('\n', ''))
         break
@@ -213,16 +213,16 @@ del term_lines[0]
 
 # makes a mix strings, which contain a TERM-lines and up and down genes (the first and the last words)
 terminators = []
-for i in xrange(1, len(term_lines)-1):
+for i in range(1, len(term_lines)-1):
     next_gene = '-'
     if term_lines[i][0] != ' ' and term_lines[i+1].startswith(' '):  # finds gene-line
-        for item in xrange(i+2, len(term_lines)):
+        for item in range(i+2, len(term_lines)):
             if item < len(term_lines)-2 and term_lines[item].startswith(' ') is False:  # finds next gene-line
                 next_gene = term_lines[item].split(' ')[0]
                 break
             else:
                 next_gene = '-'
-        for l in xrange(i+1, len(term_lines)):  # finds TERM-lines
+        for l in range(i+1, len(term_lines)):  # finds TERM-lines
             if term_lines[l].startswith(' '):
                 terminators.append(term_lines[i].split(' ')[0] + term_lines[l] + ' ' + next_gene)  # creates mix-line
             else:
@@ -243,7 +243,7 @@ def dna_topology(path, topo_list):
     infile = open(path, 'r')
     loci_counter = -1  # because 1 is 0 in python
     lines = infile.readlines()
-    for numline in xrange(len(lines)):
+    for numline in range(len(lines)):
         if lines[numline].startswith('LOCUS'):
             loci_counter += 1
             lines[numline] = topo_list[loci_counter]
@@ -270,9 +270,9 @@ for item in terms:
 
 # filters by confidence and U-tail score
 to_delete_list = []
-for item in reversed(xrange(len(terminators))):
+for item in reversed(range(len(terminators))):
     item = len(terminators) - item - 1
-    for duplicate in xrange(item+1, len(terminators)):
+    for duplicate in range(item+1, len(terminators)):
         if terminators[item][0] == terminators[duplicate][0] and terminators[item][4] == terminators[duplicate][4] and \
                 (int(terminators[item][1]) - int(terminators[duplicate][1]))**2 < 225:
             if int(terminators[item][5]) > int(terminators[duplicate][5]):
@@ -290,7 +290,7 @@ for item in reversed(xrange(len(terminators))):
             break
 
 # deletes terminators with the same strand and aproximately similar location (see above)
-for item in reversed(xrange(len(terminators))):
+for item in reversed(range(len(terminators))):
     item = len(terminators) - item - 1
     for terminator in to_delete_list:
         if terminators[item] == terminator:
@@ -332,17 +332,17 @@ for record in records:
             pass
         qualifiers = {}
         if strand == +1:
-            for feature in reversed(xrange(len(gene_list)-1)):
+            for feature in reversed(range(len(gene_list)-1)):
                 if start > gene_list[feature].location.start and strand == gene_list[feature].strand:
-                    if gene_list[feature].qualifiers.has_key('locus_tag'):
+                    if gene_list[feature].qualifiers.__contains__('locus_tag'):
                         qualifiers['locus_tag'] =  gene_list[feature].qualifiers['locus_tag']
                         break
                 elif start > gene_list[feature].location.start and strand != gene_list[feature].strand:
                     break
         elif strand == -1:
-            for feature in xrange(len(gene_list)-1):
+            for feature in range(len(gene_list)-1):
                 if start < gene_list[feature].location.start and strand == gene_list[feature].strand :
-                    if gene_list[feature].qualifiers.has_key('locus_tag'):
+                    if gene_list[feature].qualifiers.__contains__('locus_tag'):
                         qualifiers['locus_tag'] =  gene_list[feature].qualifiers['locus_tag']
                         break
                 elif start < gene_list[feature].location.start and strand != gene_list[feature].strand:
@@ -360,7 +360,7 @@ for record in records:
                                 qualifiers=qualifiers)
 
         # adding terminators to genbank features list
-        for i in reversed(xrange(len(record.features))):
+        for i in reversed(range(len(record.features))):
             if record.features[i].location.start < start:
                 record.features.insert(i+1, my_feature)
                 break
@@ -368,12 +368,12 @@ for record in records:
     # editing features to add U-tail
     new_features_list = []
     for feature in record.features:
-        if feature.type == 'regulatory' and feature.qualifiers.has_key('TermGen_check'):
+        if feature.type == 'regulatory' and feature.qualifiers.__contains__('TermGen_check'):
             u_tail = 0
             tail = ''
             if feature.strand == +1:
                 penalty = 0
-                for letter in xrange(feature.location.end, len(record.seq)):
+                for letter in range(feature.location.end, len(record.seq)):
                     if record.seq[letter] == 'T':
                         u_tail += 1
                         tail += record.seq[letter]
@@ -381,7 +381,7 @@ for record in records:
                         u_tail += 2  # next letter is 'T'  
                         penalty += 1
                         tail += record.seq[letter]+record.seq[letter+1]
-                        for next_letter in xrange(letter+2, len(record.seq)):
+                        for next_letter in range(letter+2, len(record.seq)):
                             if record.seq[next_letter] == 'T':
                                 u_tail += 1
                                 tail += record.seq[next_letter]
@@ -393,7 +393,7 @@ for record in records:
             # handling with reverse complement strand
             if feature.strand == -1:
                 penalty = 0
-                for letter in reversed(xrange(0, feature.location.start)):
+                for letter in reversed(range(0, feature.location.start)):
                     if record.seq[letter] == 'A':
                         u_tail += 1
                         tail += record.seq[letter]
@@ -401,7 +401,7 @@ for record in records:
                         u_tail += 1   
                         penalty += 1
                         tail += record.seq[letter]
-                        for next_letter in reversed(xrange(0, letter)):
+                        for next_letter in reversed(range(0, letter)):
                             if record.seq[next_letter] == 'A':
                                 u_tail += 1
                                 tail += record.seq[next_letter]
@@ -416,7 +416,7 @@ for record in records:
             elif feature.strand == -1:
                 new_feature_location = FeatureLocation(feature.location.start-u_tail, feature.location.end)
             new_feature_qualifiers = {}
-            for key, value in feature.qualifiers.iteritems():
+            for key, value in feature.qualifiers.items():
                 if key != 'TermGen_check':
                     new_feature_qualifiers[key] = value
             new_feature = SeqFeature(location=new_feature_location, type=feature.type, strand=feature.strand,
@@ -424,18 +424,18 @@ for record in records:
             new_features_list.append(new_feature)
     # adding adjusted terminator's feature
     for feature in new_features_list:
-        for i in reversed(xrange(len(record.features))):
+        for i in reversed(range(len(record.features))):
             if record.features[i].location.start < feature.location.start:
                 record.features.insert(i+1, feature)
                 break
-    for i in reversed(xrange(len(record.features))):
+    for i in reversed(range(len(record.features))):
         i = len(record.features)-1-i
-        if record.features[i].qualifiers.has_key('TermGen_check'):
+        if record.features[i].qualifiers.__contains__('TermGen_check'):
             del record.features[i]
     SeqIO.write(record, output_gbk, 'genbank')
-    print '-'*50
-    print '%s terminators were added.\n' % len(new_features_list)
-    print "="*50
+    print ('-'*50)
+    print ('%s terminators were added.\n' % len(new_features_list))
+    print ("="*50)
 output_gbk.close()
 #overwriting output to add topology (see DNA_topology() function)
 newlines = dna_topology(enter.output_file, circular_vs_linear)

@@ -719,7 +719,7 @@ Inherits Application
 		  dim word  As new RegEx
 		  dim occs As new RegEx
 		  dim id  As new RegEx
-		  dim rgm As RegExMatch
+		  Dim rgm As RegExMatch
 		  dim s As Site
 		  dim m As Motif
 		  Dim w As ChipMLogo

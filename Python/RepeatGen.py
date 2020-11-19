@@ -1,6 +1,6 @@
 import sys
 import argparse
-import time
+from time import process_time
 import Bio
 from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
@@ -195,7 +195,7 @@ def output(score_list, output_features):
     for val in score_list:
         for some_feature in output_features:
             if val == feature_score(some_feature):
-                print some_feature
+                print (some_feature)
                 output_features = [f for f in output_features if f != some_feature]
 
 
@@ -213,7 +213,7 @@ def dna_topology(path, topo_list):
     infile = open(path, 'r')
     loci_counter = -1  # because 1 is 0 in python
     lines = infile.readlines()
-    for numline in xrange(len(lines)):
+    for numline in range(len(lines)):
         if lines[numline].startswith('LOCUS'):
             loci_counter += 1
             lines[numline] = topo_list[loci_counter]
@@ -292,7 +292,7 @@ def createparser():
                                 value.''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 1.1 (October 29, 2018)')
+                        version='%(prog)s 1.2 (September 27, 2020)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -300,7 +300,7 @@ def createparser():
                                 etc.)''')
     return parser
 
-
+t_start = process_time()
 args = createparser()
 enter = args.parse_args()
 arguments = sys.argv[1:0]
@@ -338,11 +338,11 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nRepeatGen 1.0 (January 6, 2018)'
-print "="*50
-print 'Options used:\n'
+print ('\nRepeatGen 1.0 (January 6, 2018)')
+print ("="*50)
+print ('Options used:\n')
 for arg in range(1, len(sys.argv)):
-    print sys.argv[arg],
+    print (sys.argv[arg])
 file_path = enter.report_file
 qualifier = {'CHECK': 'CHECKED!'}
 qualifiers_function(enter.qual, qualifier)
@@ -360,8 +360,8 @@ records = SeqIO.parse(input_handle, 'genbank')
 allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
 total = 0
 for record in records:
-    print '\n' + "-"*50 + "\nCONTIG: " + record.id
-    print '\n   FEATURES ADDED: \n'
+    print ('\n' + "-"*50 + "\nCONTIG: " + record.id)
+    print ('\n   FEATURES ADDED: \n')
     allowed_features_list = []
     for feature in record.features:
         if feature.type in allowed_types:
@@ -432,12 +432,12 @@ for record in records:
                  (enter.min_length == False and feature_length == enter.max_length) \
                 ) and \
                 (score >= enter.score or enter.score is False):
-            for i in reversed(xrange(len(record.features))):
+            for i in reversed(range(len(record.features))):
                 if record.features[i].location.start < \
                         my_feature.location.start and \
                    (enter.eval is False or e_value <= enter.eval or
                    enter.score is not False):
-                    for c in xrange(len(allowed_features_list)-1):
+                    for c in range(len(allowed_features_list)-1):
                         if allowed_features_list[c].location.start <= \
                                 my_feature.location.start <= \
                                 allowed_features_list[c+1].location.start:
@@ -466,12 +466,12 @@ for record in records:
 
     if enter.insert:
         hit_list = []
-        for i in xrange(len(record.features)):
+        for i in range(len(record.features)):
             if 'CHECK' in record.features[i].qualifiers.keys():
                 hit_list.append(record.features[i])
-        for i in reversed(xrange(len(hit_list))):
+        for i in reversed(range(len(hit_list))):
             i = len(hit_list)-1-i
-            for n in xrange(len(allowed_features_list)-1):
+            for n in range(len(allowed_features_list)-1):
                 if (
                     is_within_feature(allowed_features_list,
                                       n,
@@ -485,7 +485,7 @@ for record in records:
                                          allowed_features_list[n+1]):
                     hit_list.pop(i)
                     break
-        for i in reversed(xrange(len(record.features))):
+        for i in reversed(range(len(record.features))):
             if 'CHECK' in record.features[i].qualifiers.keys() and \
                not any(record.features[i] == hit for hit in hit_list):
                 record.features.pop(i)
@@ -545,8 +545,8 @@ for record in records:
     score_list = sorting_output_features(output_features)
     score_list.sort()
     output(score_list, output_features)
-    print '\nFeatures added:', len(output_features)
-    print '\n' + "-"*50
+    print ('\nFeatures added:', len(output_features))
+    print ('\n' + "-"*50)
     SeqIO.write(record, output_handle, 'genbank')
 
     total += int(len(output_features))
@@ -556,6 +556,7 @@ new_output_file = open(enter.output_file, 'w')
 new_output_file.writelines(newlines)
 new_output_file.close()
 input_handle.close()
-print 'Total features: ', total
-print 'CPU time: ', time.clock()
-print '\n' + "="*50
+t_end = process_time()
+print ('Total features: ', total)
+print ('CPU time: {0:.3f} sec'.format(t_stop-t_start))
+print ('\n' + "="*50)

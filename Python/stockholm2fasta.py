@@ -15,7 +15,7 @@ def createParser():
             )
     parser.add_argument('input_file',
                         help='''path to Stockholm file.''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.0 (May 16, 2018)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.1 (September 27, 2020)')
     return parser
 
 
@@ -49,7 +49,7 @@ def ptt_location(feature):
 
 def ptt_pid(feature):
     pid = '-'
-    if feature.qualifiers.has_key('db_xref'):
+    if feature.qualifiers.__contains__('db_xref'):
         pid = feature.qualifiers['db_xref']
         if type(pid) == list and any(value.startswith('GI:') for value in pid):
             for id in pid:
@@ -64,7 +64,7 @@ def ptt_pid(feature):
 
 
 def ptt_gene(feature):
-    if feature.qualifiers.has_key('gene'):
+    if feature.qualifiers.__contains__('gene'):
         gene = str(feature.qualifiers['gene'])[2:-2]
     else:
         gene = '-'
@@ -72,7 +72,7 @@ def ptt_gene(feature):
 
 
 def ptt_synonym(feature):
-    if feature.qualifiers.has_key('gene_synonym'):
+    if feature.qualifiers.__contains__('gene_synonym'):
         synonym = str(feature.qualifiers['gene_synonym']).replace('\'', '').replace('[', '').replace(']', '')
     else:
         synonym = '-'
@@ -80,7 +80,7 @@ def ptt_synonym(feature):
 
 
 def ptt_code(feature):
-    if feature.qualifiers.has_key('locus_tag'):
+    if feature.qualifiers.__contains__('locus_tag'):
         code = str(feature.qualifiers['locus_tag'])[2:-2]
     else:
         code = '-'
@@ -88,7 +88,7 @@ def ptt_code(feature):
 
 
 def ptt_product(feature):
-    if feature.qualifiers.has_key('product'):
+    if feature.qualifiers.__contains__('product'):
         product = str(feature.qualifiers['product'])[2:-2]
     else:
         product = '-'

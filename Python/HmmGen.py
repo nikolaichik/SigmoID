@@ -1,35 +1,33 @@
 import sys
 import argparse
-import time
+from time import process_time
 import Bio
-import re
 from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
-from StringIO import StringIO
 
 
 class MySeqFeature(SeqFeature):
     def __str__(self):
-        out = "type: %s\n" % self.type
+        out = "type: {}\n".format(self.type)
         if self.strand == 1:
-            out += "location: [%s:%s](%s)\n" % (self.location.start+1,
+            out += "location: [{}:{}]({})\n".format(self.location.start+1,
                                                 self.location.end, '+')
         if self.strand == -1:
-            out += "location: [%s:%s](%s)\n" % (self.location.start+1,
+            out += "location: [{}:{}]({})\n".format(self.location.start+1,
                                                 self.location.end, '-')
         if self.id and self.id != "<unknown id>":
-            out += "id: %s\n" % self.id
+            out += "id: {}\n".self.id
         out += "qualifiers:\n"
         for qual_key in sorted(self.qualifiers):
-            out += " Key: %s, Value: %s\n" % (qual_key,
+            out += " Key: {}, Value: {}\n".format(qual_key,
                                               self.qualifiers[qual_key])
-        if Bio.__version__ != '1.68': # to avoid problems with diff biopython versions
+        if Bio.__version__ != '1.73': # to avoid problems with diff biopython versions
             if not hasattr(self, "_sub_features"):
                 self._sub_features = []
             if len(self._sub_features) != 0:
                 out += "Sub-Features\n"
                 for sub_feature in self._sub_features:
-                    out += "%s\n" % sub_feature
+                    out += "{}\n".sub_feature
         return out
 
 
@@ -63,7 +61,7 @@ def is_within_feature(list_of_features, index, some_hit):
              some_hit.location.end <
             list_of_features[index+1].location.start and \
             list_of_features[index].strand == +1 and \
-            list_of_features[index].strand != 
+            list_of_features[index].strand !=
                 list_of_features[index+1].strand):
         # checking if hit is within other features or is between two convergent ones.
         return True
@@ -212,7 +210,7 @@ def output(score_list, output_features):
     for val in score_list:
         for some_feature in output_features:
             if val == feature_score(some_feature):
-                print some_feature
+                print (some_feature)
                 output_features = [f for f in output_features if f != some_feature]
 
 
@@ -230,22 +228,13 @@ def dna_topology(path, topo_list):
     infile = open(path, 'r')
     loci_counter = -1  # because 1 is 0 in python
     lines = infile.readlines()
-    for numline in xrange(len(lines)):
+    for numline in range(len(lines)):
         if lines[numline].startswith('LOCUS'):
             loci_counter += 1
             lines[numline] = topo_list[loci_counter]
     infile.close()
     return lines
 
-def feature_length_correct(feature):
-    # check if feature length does not exceed 3/4 of the genome sequence length
-    # if it does, then skip
-    end=int(feature.location.end.position)
-    start=int(feature.location.start.position)
-    if abs(end-start)<genome_size*0.75:
-        return True
-    else:
-        return False
 
 def createparser():
     parser = argparse.ArgumentParser(
@@ -253,8 +242,9 @@ def createparser():
              usage='\n%(prog)s <report_file> <input_file> <output_file> [options]',
              description='''This script allows to add features to a genbank \
                             file according to nhmmer results.\
-                            Requires Biopython 1.64 (or newer)''',
-             epilog='(c) Aliaksandr Damienikan, 2014-2017.')
+                            Requires Biopython 1.73 (or newer)''',
+             epilog='(c) Aliaksandr Damienikan, 2014-2017; the original code was ported to Python3.X by /'
+                    'Andrei Pleskunou  and Pavel Vychyk.')
     parser.add_argument('report_file',
                         help='path to nhmmer report file produced with \
                               -tblout option.')
@@ -314,7 +304,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.23 (July 29, 2019)')
+                        version='%(prog)s 2.23 (September 27, 2020)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -322,6 +312,8 @@ def createparser():
                                 etc.)''')
     return parser
 
+version='HmmGen 2.23 (September 27, 2020)'
+t_start = process_time()
 args = createparser()
 enter = args.parse_args()
 arguments = sys.argv[1:0]
@@ -357,11 +349,12 @@ try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
-print '\nHmmGen 2.21 (March 25, 2017)'
-print "="*50
-print 'Options used:\n'
+
+print (version)
+print ("="*50)
+print ('Options used:\n')
 for arg in range(1, len(sys.argv)):
-    print sys.argv[arg],
+    print (sys.argv[arg], end = " ")
 file_path = enter.report_file
 qualifier = {'CHECK': 'CHECKED!'}
 qualifiers_function(enter.qual, qualifier)
@@ -370,20 +363,15 @@ prog = []
 nhmm_parser(file_path, allign_list)
 nhmm_prog(file_path, prog)
 prog[2] = prog[2].replace('\r', '')
-sourcegbk=input_handle.read()
-# regex search for numbers before 'bp" in line
-length_match=re.search(r'\d+(?=\sbp)', str(circular_vs_linear[0]))
-genome_size=int(length_match.group(0))
-input=StringIO(sourcegbk)
-records = SeqIO.parse(input, 'genbank')
+records = SeqIO.parse(input_handle, 'genbank')
 allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
 total = 0
 for record in records:
-    print '\n' + "-"*50 + "\nCONTIG: " + record.id
-    print '\n   FEATURES ADDED: \n'
+    print ('\n' + "-"*50 + "\nCONTIG: " + record.id)
+    print ('\n   FEATURES ADDED: \n')
     allowed_features_list = []
     for feature in record.features:
-        if feature.type in allowed_types and feature_length_correct(feature)==True:
+        if feature.type in allowed_types:
             allowed_features_list.append(feature)
     try:
         cds_loc_start = allowed_features_list[0]
@@ -474,33 +462,30 @@ for record in records:
         feature_type = enter.feature
         from Bio.SeqFeature import SeqFeature
         note_qualifier = dict()
-        note_qualifier['note'] = str('%s score %s E-value %s' %
-                                     (prog[2].replace('\n', ''),
-                                      score,
-                                      e_value))
+        note_qualifier['note'] = str('{} score {} E-value {}'.format(prog[2].replace('\n', ''), score, e_value))
         my_feature = MySeqFeature(
                          location=feature_location,
                          type=feature_type,
                          strand=strnd,
-                         qualifiers=dict(qualifier.items() +
-                                         note_qualifier.items()))
+                         qualifiers=dict(list(qualifier.items()) + list(note_qualifier.items())))
+
         if (hmm_diff - ali_diff == 0 or
                 hmm_diff - ali_diff == 1 or
                 hmm_diff - ali_diff == (-1)) and \
                 (score >= enter.score or enter.score is False):
-            for i in reversed(xrange(len(record.features))):
+            for i in reversed(range(len(record.features))):
                 if record.features[i].location.start < \
                         my_feature.location.start and \
                    (enter.eval is False or e_value <= enter.eval or
                    enter.score is not False):
-                    for c in xrange(len(allowed_features_list)-1):
+                    for c in range(len(allowed_features_list)-1):
                         if allowed_features_list[c].location.start <= \
                                 my_feature.location.start <= \
                                 allowed_features_list[c+1].location.start:
                             record.features.insert(i+1, my_feature)
                             break
                     break
-                        
+
                 if i == 0 and \
                         record.features[i].location.start > \
                         my_feature.location.start:
@@ -514,12 +499,12 @@ for record in records:
 
     if enter.insert:
         hit_list = []
-        for i in xrange(len(record.features)):
+        for i in range(len(record.features)):
             if 'CHECK' in record.features[i].qualifiers.keys():
                 hit_list.append(record.features[i])
-        for i in reversed(xrange(len(hit_list))):
+        for i in reversed(range(len(hit_list))):
             i = len(hit_list)-1-i
-            for n in xrange(len(allowed_features_list)-1):
+            for n in range(len(allowed_features_list)-1):
                 if (
                     is_within_feature(allowed_features_list,
                                       n,
@@ -533,18 +518,18 @@ for record in records:
                                          allowed_features_list[n+1]):
                     hit_list.pop(i)
                     break
-        for i in reversed(xrange(len(record.features))):
+        for i in reversed(range(len(record.features))):
             if 'CHECK' in record.features[i].qualifiers.keys() and \
                not any(record.features[i] == hit for hit in hit_list):
                 record.features.pop(i)
 
     if not enter.name:
-        for i in reversed(xrange(len(record.features))):
+        for i in reversed(range(len(record.features))):
             i = len(record.features) - 1 - i
             if 'CHECK' in record.features[i].qualifiers.keys():
                 individual_qualifiers = {}
                 hit = record.features[i]
-                for n in xrange(i+1, len(record.features)):
+                for n in range(i+1, len(record.features)):
                     if record.features[n].type in allowed_types and \
                        record.features[n].location.start > hit.location.end:
                         cds_up = record.features[n]
@@ -552,7 +537,7 @@ for record in records:
                 if hit.location.start > \
                         allowed_features_list[-1].location.end:
                     cds_up = allowed_features_list[0]
-                for c in reversed(xrange(len(allowed_features_list))):
+                for c in reversed(range(len(allowed_features_list))):
                     if allowed_features_list[c].location.end < \
                             hit.location.start:
                         cds_down = allowed_features_list[c]
@@ -707,11 +692,11 @@ for record in records:
                         if hit.strand == cds_up.strand or \
                            not enter.insert:
                             record.features.insert(i, new_feature)
-                if enter.boundary != 0:    
-                    for n in xrange(len(allowed_features_list)):
+                if enter.boundary != 0:
+                    for n in range(len(allowed_features_list)):
                         if is_within_boundary(allowed_features_list, n, hit) and \
                            (allowed_features_list[n].strand == hit.strand or \
-                            (enter.palindromic and 
+                            (enter.palindromic and
                                ((hit.strand != cds_up.strand and hit.strand == -1) or \
                                  (hit.strand != cds_down.strand and hit.strand == +1)))):
                             try:
@@ -741,12 +726,12 @@ for record in records:
             last_cds = allowed_features_list[-1]
         except:
             last_cds = record.features[-1]
-        for i in reversed(xrange(1, len(record.features))):
+        for i in reversed(range(1, len(record.features))):
             i = len(record.features)-1-i
             if 'CHECK' in record.features[i].qualifiers.keys() and \
                     i < len(record.features):
                 hit = record.features[i]
-                for c in reversed(xrange(len(allowed_features_list))):
+                for c in reversed(range(len(allowed_features_list))):
                     if allowed_features_list[c].location.end < \
                             hit.location.start:
                         cds_down = allowed_features_list[c]
@@ -755,7 +740,7 @@ for record in records:
                             allowed_features_list[0].location.start:
                         cds_down = allowed_features_list[-1] # for circular chromosomes
                         break
-                for c in xrange(len(allowed_features_list)):
+                for c in range(len(allowed_features_list)):
                     if allowed_features_list[c].location.start > \
                             hit.location.end:
                         cds_up = allowed_features_list[c]
@@ -797,7 +782,7 @@ for record in records:
                          del record.features[i+1]
 
     if enter.duplicate is True:
-        for i in reversed(xrange(1, len(record.features))):
+        for i in reversed(range(1, len(record.features))):
             i = len(record.features)-1-i
             if (record.features[i].type in ['protein_bind', 'promoter']) and \
                     record.features[i].type == record.features[i+1].type:
@@ -812,12 +797,12 @@ for record in records:
                             record.features[i+1].strand and \
                        0 <= record.features[i+1].location.start - \
                             record.features[i].location.start <= 2:
-                        if score_parser(record.features[i]) > \
-                                score_parser(record.features[i+1]):
-                            del record.features[i+1]
-                        elif score_parser(record.features[i]) < \
-                                score_parser(record.features[i+1]):
-                            del record.features[i]
+                        if score_parser(record.features[i]).isdigit() and score_parser(record.features[i+1]).isdigit():
+                            if score_parser(record.features[i]) > score_parser(record.features[i+1]):
+                                del record.features[i+1]
+                            elif score_parser(record.features[i]) < \
+                                    score_parser(record.features[i+1]):
+                                del record.features[i]
     output_features = []
     for feature in record.features:
         if 'CHECK' in feature.qualifiers.keys():
@@ -835,8 +820,8 @@ for record in records:
             del feature.qualifiers['cds_down_gene']
         if 'cds_up_gene' in feature.qualifiers.keys():
             del feature.qualifiers['cds_up_gene']
-    print '\nFeatures added:', len(output_features)
-    print '\n' + "-"*50
+    print ('\nFeatures added:', len(output_features))
+    print ('\n' + "-"*50)
     SeqIO.write(record, output_handle, 'genbank')
 
     total += int(len(output_features))
@@ -846,6 +831,7 @@ new_output_file = open(enter.output_file, 'w')
 new_output_file.writelines(newlines)
 new_output_file.close()
 input_handle.close()
-print 'Total features: ', total
-print 'CPU time: ', time.clock()
-print '\n' + "="*50
+t_stop = process_time()
+print ('Total features: ', total)
+print ('CPU time: {0:.3f} sec'.format(t_stop-t_start))
+print ('\n' + "="*50)

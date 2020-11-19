@@ -1,5 +1,5 @@
 # coding: utf-8
-import urllib,urllib2
+import urllib.request, urllib.parse
 import argparse
 
 parser = argparse.ArgumentParser(description='UniProt codes')
@@ -16,8 +16,9 @@ params = {
 'query': codes.uniprotAcc,
 }
 
-data = urllib.urlencode(params)
-request = urllib2.Request(url, data)
-response = urllib2.urlopen(request)
+data = urllib.parse.urlencode(params).encode('utf-8')
+request = urllib.request.Request(url, data)
+response = urllib.request.urlopen(request)
 page = response.read()
 print(page)
+
