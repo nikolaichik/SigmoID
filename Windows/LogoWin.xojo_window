@@ -527,25 +527,60 @@ End
 		  // python (python 3 now required)
 		  
 		  Dim pythonCheckString As String = "Checking python and scripts... "+EndOfLine.unix
-		  cli="python --version"
+		  
+		  cli="python3 --version"
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
 		  If sh.errorCode=0 Then
 		    If InStr(sh.result,"Python 3")>0 Then
-		      pythonPath=SystemPath("python")+" " 
+		      '
+		      '
+		      '
+		      'WriteToSTDOUT (sh.result)
+		      '
+		      '
+		      '
+		      pythonPath=SystemPath("python3")+" " 
 		    Else
-		      cli="python3 --version"
+		      cli="python --version"
 		      sh=New Shell
 		      sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
 		      If sh.errorCode=0 Then
-		        pythonPath=SystemPath("python3")+" "  
+		        pythonPath=SystemPath("python")+" "  
 		      Else
 		        pythonPath=""
-		        WriteToSTDOUT ("Can't find working Python 2 command. Python scripts won't work. ")
+		        WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
 		      End If
 		    End If
+		    
+		    'cli="python --version"
+		    'sh=New Shell
+		    'sh.mode=0
+		    'sh.TimeOut=-1
+		    'sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		    'If sh.errorCode=0 Then
+		    'If InStr(sh.result,"Python 3")>0 Then
+		    ''
+		    ''
+		    ''
+		    'WriteToSTDOUT (sh.result)
+		    ''
+		    ''
+		    ''
+		    'pythonPath=SystemPath("python")+" " 
+		    'Else
+		    'cli="python3 --version"
+		    'sh=New Shell
+		    'sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		    'If sh.errorCode=0 Then
+		    'pythonPath=SystemPath("python3")+" "  
+		    'Else
+		    'pythonPath=""
+		    'WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
+		    'End If
+		    'End If
 		    
 		     
 		    'dim pythonCheckString as string = "Checking python and scripts... "+EndofLine.unix
@@ -573,11 +608,11 @@ End
 		    ''pythonPath="python "
 		    'End If
 		    
-		    if instr(Sh.Result,"command not found")>0 then
-		      WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
+		    If InStr(Sh.Result,"command not found")>0 Then
+		      WriteToSTDOUT (Sh.Result+EndOfLine.unix)
 		      allProgsFine=false
 		    else
-		      pythonCheckString=pythonCheckString+trim (Sh.Result)
+		      pythonCheckString=pythonCheckString+Trim (Sh.Result)
 		      
 		      'check BioPython:
 		      f=resources_f.child("BioPythonVersion.py")
@@ -597,7 +632,7 @@ End
 		      
 		    end if
 		  else
-		    WriteToSTDOUT ("No python found. Please install it or correct the path in the settings."+EndOfLine.unix)
+		    WriteToSTDOUT (Sh.Result+EndOfLine.unix)
 		    allProgsFine=false
 		  end if
 		  

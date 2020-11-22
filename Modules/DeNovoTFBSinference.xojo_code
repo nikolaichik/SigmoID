@@ -636,6 +636,7 @@ Protected Module DeNovoTFBSinference
 		        logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
 		      Else
 		        shellRes=sh.Result.Split(EndOfLine.UNIX)
+		        'shellRes=sh.Result.Split("\n")
 		        
 		        logoWin.WriteToSTDOUT ("converted to "+Str(Ubound(shellRes)-2)+" NCBI accessions. ")
 		        
@@ -645,6 +646,7 @@ Protected Module DeNovoTFBSinference
 		          Dim lastCode As String = NthField(shellRes(ubound(shellRes)),Chr(9),1)
 		          For y=ubound(shellRes)-1 DownTo 1
 		            If NthField(shellRes(y),Chr(9),1)=LastCode Then
+		              'If NthField(shellRes(y),"\t",1)=LastCode Then
 		              shellRes.RemoveRowAt(y+1)
 		            Else
 		              lastCode=NthField(shellRes(y),Chr(9),1)

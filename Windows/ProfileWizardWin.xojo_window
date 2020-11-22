@@ -690,7 +690,7 @@ Begin Window ProfileWizardWin
       Scope           =   0
       ScrollbarHorizontal=   False
       ScrollbarVertical=   True
-      Styled          =   True
+      Styled          =   False
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
