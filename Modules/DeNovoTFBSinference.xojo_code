@@ -219,9 +219,69 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FetchGenPeptEntry(Entry as string) As string
+		Function FetchGenPeptEntries(Entries as string) As string
 		  
-		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
+		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=gp&retmode=text&id="
+		  Dim theURL As String
+		  
+		  
+		  dim hts as new HTTPSecureSocket
+		  hts.Secure = True
+		  Dim res As String
+		  
+		  LogoWin.WriteToSTDOUT ("Getting GenPept entries... ")
+		  'LogoWin.show
+		  
+		  hts.Yield=true  'allow background activities while waiting
+		  hts.SetRequestHeader("Content-Type:","text/plain")
+		  hts.SetRequestHeader("email:","nikolaichik@bio.bsu.by")
+		  hts.SetRequestHeader("tool:","SigmoID")
+		  hts.SSLConnectionType=SSLSocket.SSLConnectionTypes.TLSv12
+		  
+		  theURL=URLstart+Entries
+		  
+		  res=DefineEncoding(hts.post(theURL,60), Encodings.ASCII)  'no encoding is set
+		  
+		  If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		    if Res="" then
+		      if hts.ErrorCode=-1 then
+		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		      end if
+		    else
+		      'LogoWin.WriteToSTDOUT (EndOfLine)
+		      LogoWin.WriteToSTDOUT "OK" '(res)
+		      LogoWin.WriteToSTDOUT (EndOfLine)
+		      
+		    end if
+		  else
+		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
+		  end if
+		  
+		  hts.close
+		  return res
+		  '
+		  'Exception err
+		  'ExceptionHandler(err,"SeqRetrieval:FetchGenPeptEntry")
+		  
+		  
+		  Exception err
+		    if err isa IOException then
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"IOException has occurred.")
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
+		    end if
+		    ExceptionHandler(err,"FetchGenPeptEntry")
+		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FetchGenPeptEntry1(Entry as string) As string
+		  
+		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
 		  Const URLend as string="&rettype=gp" 
 		  Dim Separ1 as string="reference id="+chr(34)
 		  Dim Separ2 as string=chr(34)
@@ -777,7 +837,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  dim sh as Shell
 		  dim cli as String
-		  dim getprot as FolderItem
+		  Dim getprot As FolderItem
 		  dim tempID as string 
 		  dim Entry as string
 		  dim gbID as string
@@ -839,7 +899,7 @@ Protected Module DeNovoTFBSinference
 		    end
 		  else
 		    getprot=Resources_f.Child("getprot.py")
-		    if getprot.exists then
+		    If getprot.exists Then
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
@@ -849,38 +909,47 @@ Protected Module DeNovoTFBSinference
 		      'execute bash with login scripts to set the same env as in terminal
 		      'command must be in single quotes
 		      
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		      sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
 		      
-		      If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
+		      If sh.errorCode=0 And InStr(sh.result, "Error retrieving: ") =0 Then
 		        entry=sh.Result
-		      Elseif  instr(tempID,",")<>0 and instr(sh.result, "Error retrieving: ") <>0 then
+		      Elseif  InStr(tempID,",")<>0 And InStr(sh.result, "Error retrieving: ") <>0 Then
 		        sh=New Shell
 		        sh.mode=0
 		        sh.TimeOut=-1
 		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+"Trying to retrieve a batch of identificators has resulted in error. Attempting to process them sequentially..."+EndOfLine.UNIX)
 		        
-		        dim tempIDs() as String = tempID.Split(",")
-		        for id as Integer = 0 to UBound(tempIDs)
+		        Dim tempIDs() As String = tempID.Split(",")
+		        For id As Integer = 0 To UBound(tempIDs)
 		          cli=pythonpath+getprot.ShellPath+" "+"'"+tempIDs(id)+"'"+" '"+email+"'"
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		          If sh.errorCode=0 and instr(sh.result, "Error retrieving: ") =0 then
+		          sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		          If sh.errorCode=0 And InStr(sh.result, "Error retrieving: ") =0 Then
 		            entry=entry+sh.Result
-		          else
-		            LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
-		          end
-		        next
+		          Else
+		            LogoWin.WriteToSTDOUT(EndOfLine.Unix+Str(sh.Result)+EndOfLine.UNIX)
+		          End
+		        Next
 		      Else 
-		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
-		        return ""
-		      end if
-		    else
+		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+Str(sh.Result)+EndOfLine.UNIX)
+		        Return ""
+		      End If
+		    Else
 		      MsgBox("File "+getprot.NativePath+" doesn't exist")
-		      return ""
-		    end
+		      Return ""
+		    End
+		    
+		    
+		    'entry=FetchGenPeptEntries(TempID)
+		    
+		    
+		    
 		    entryarray=entry.split("//"+EndOfLine.UNIX)
 		    UniProtId=UniProtIDs.Split(",")
 		    k=UBound(entryarray)-1 'last entry always empty line, so replace with data for TF from local gbkfile
-		  end
+		  End
+		  
+		  
+		  
 		  'get Locus_tag to be used later. The line to look for:
 		  '/locus_tag="OI69_02845"
 		  '
@@ -2404,8 +2473,17 @@ Protected Module DeNovoTFBSinference
 		    cli=MEMEpath+" '"+infile.ShellPath+"'"
 		  #EndIf
 		  
-		  If CPUcores>1 Then
-		    cli=cli+" -p " + Str(CPUcores)  'for parallelised meme
+		  If CPUcores>1 Then 'for parallelised meme
+		    If lCPUcores>CPUcores Then
+		      ' with OpenMPI v.>2 in mind, physical cores are allowed by default.
+		      ' to use threads on CPUs with hyperthreading, use the --use-hwthread-cpus option for mpirun
+		      ' e.g. on a 4-core processor with 8 threads, meme can be launched like this:
+		      ' meme -p "8 --use-hwthread-cpus" 
+		      cli=cli+" -p " + Chr(34) + Str(lCPUcores) + " --use-hwthread-cpus" + Chr(34)
+		    Else
+		      cli=cli+" -p " + Str(CPUcores)  
+		    End If
+		    
 		  End If
 		  
 		  cli=cli+" -oc '"+outFolder.ShellPath+"' "+Options

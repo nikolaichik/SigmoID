@@ -1147,9 +1147,17 @@ End
 		  LogoWinToolbar.Item(5).Enabled=false 'SaveLog: disable until alignment loaded
 		  
 		  //Determine and store CPU core number
-		  CPUcores=CountCPUcores
-		  
-		  
+		  CPUcores=CountCPUcores  'physical cores only!
+		  lCPUcores=CountCPUcores(true)  'logical cores
+		  If CPUcores>1 then
+		    sh.execute MEMEpath+" -p 2"
+		    If InStr(sh.Result,"Parallel MEME not configured")>0 Then
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Parallel MEME not configured (refer to install.html from MEME Suite docs for proper installation)."+EndOfLine.unix)
+		    Else
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+Str(CPUcores)+" CPU cores detected. All of them will be used for running MEME."+EndOfLine.unix)
+		      
+		    End If
+		  End If
 		  WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Load alignment or genome file to start."+EndOfLine.Unix)
 		  
 		  Exception err

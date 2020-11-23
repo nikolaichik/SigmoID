@@ -398,74 +398,74 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function CountCPUcores() As integer
-		  // returns number of CPU cores (threads)
-		  ' (not sure if this works with Windows)
-		  
-		  'Simplified to return logical CPU cores, not the real ones
+		Function CountCPUcores(logical as boolean = False) As integer
+		  // returns number of CPU cores:
+		  '    physical ones (with logical = false)
+		  '    or threads (with logical = true)
+		  '
+		  ' with OpenMPI v.>2 in mind, physical cores are only allowed by  default.
+		  ' to use threads on CPUs with hyperthreading, use the --use-hwthread-cpus option for mpirun
+		  ' e.g. on a 4-core processor with 8 threads, meme can be launched like this:
+		  ' meme -p "8 --use-hwthread-cpus" 
+		  '
+		  ' not sure how this can work with Windows, so no corresponding option for now
 		  
 		  dim cli as string
 		  Dim sh As Shell
-		  'dim threadsSupport as Boolean = false
-		  'sh=New Shell
-		  'sh.mode=0
-		  'sh.TimeOut=-1
-		  'cli="ompi_info"
-		  'Sh.Execute cli
-		  'dim ompiversion as string=sh.Result 
-		  'if instr(ompiversion,"'ompi_info' not found")=0 then
-		  'ompiversion=NthField(ompiversion,EndOfLine.UNIX+"Open MPI repo",1)
-		  'ompiversion=NthField(ompiversion,"Open MPI: ",2)
-		  'ompiversion=NthField(ompiversion,".",1)
-		  'dim v as Integer = val(ompiversion)
-		  'if v>2 then
-		  'threadsSupport=false
-		  'else
-		  'threadsSupport=true
-		  'end
-		  'end
+		  
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  
-		  cli=pythonPath+"-c 'import multiprocessing as mp; print(mp.cpu_count())'"
-		  sh.execute cli
-		  If sh.errorCode=0 then
-		    dim CPUs As Integer = Val(sh.result)
-		    if CPUs>1 then
-		      sh.execute MEMEpath+" -p 2"
-		      if instr(sh.Result,"Parallel MEME not configured")>0 then
-		        LogoWin.WriteToSTDOUT(EndOfLine.unix+"Parallel MEME not configured (refer to install.html from MEME Suite docs for proper installation)."+EndOfLine.unix)
-		        return 1
-		      else
-		        'If threadsSupport=False Then
-		        'CPUs=CPUs\2
-		        'End
-		        
-		        LogoWin.WriteToSTDOUT(EndOfLine.unix+Str(CPUs)+" CPU cores detected. All of them will be used for running MEME."+EndOfLine.unix)
-		        Return CPUs
-		        
-		      End If
-		    else
+		  #If TargetLinux
+		    If logical Then
+		      cli=pythonPath+"-c 'import psutil; print(psutil.cpu_count(logical=True))'"
+		    Else
+		      cli=pythonPath+"-c 'import psutil; print(psutil.cpu_count(logical=False))'"
+		    End If
+		    sh.execute cli
+		    If sh.errorCode=0 Then
+		      Return Val(sh.result)
+		      
+		      'check if meme is compiled with mp support:
+		      '
+		      'dim CPUs As Integer = Val(sh.result)
+		      'if CPUs>1 then
+		      'sh.execute MEMEpath+" -p 2"
+		      'if instr(sh.Result,"Parallel MEME not configured")>0 then
+		      'LogoWin.WriteToSTDOUT(EndOfLine.unix+"Parallel MEME not configured (refer to install.html from MEME Suite docs for proper installation)."+EndOfLine.unix)
+		      'return 1
+		      ''End
+		      '
+		      'LogoWin.WriteToSTDOUT(EndOfLine.unix+Str(CPUs)+" CPU cores detected. All of them will be used for running MEME."+EndOfLine.unix)
+		      'Return CPUs
+		      '
+		      'End If
+		      '
+		      'else
+		      'return 1
+		      'end if
+		    Else
 		      return 1
-		    end if
-		  else
-		    return 1
-		  End If
-		  
-		  
-		  '
-		  '#if TargetMacOS
-		  '
-		  'cli="sysctl -n hw.ncpu"
-		  'sh.execute cli
-		  'If sh.errorCode=0 then
-		  'return Val(sh.result)
-		  'else
-		  'return 1
-		  'End If
-		  '
-		  '#endif
+		    End If
+		    
+		    
+		    
+		  #ElseIf TargetMacOS
+		    
+		    If logical Then
+		      cli="sysctl -n hw.physicalcpu"
+		    Else
+		      cli="sysctl -n hw.logicalcpu"
+		    End If
+		    sh.execute cli
+		    If sh.errorCode=0 Then
+		      Return Val(sh.result)
+		    Else
+		      Return 1
+		    End If
+		    
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -4127,6 +4127,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		InfoBits As Double
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		lCPUcores As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
