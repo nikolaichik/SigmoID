@@ -714,8 +714,16 @@ End
 		      cli=cli+" -mod anr"
 		    End Select
 		    
-		    If CPUcores>1 Then
-		      cli=cli+" -p " + Str(CPUcores)  'for parallelised meme
+		    If cores2use>1 Then
+		      If cores2use>CPUcores Then
+		        ' with OpenMPI v.>2 in mind, physical cores are allowed by default.
+		        ' to use threads on CPUs with hyperthreading, use the --use-hwthread-cpus option for mpirun
+		        ' e.g. on a 4-core processor with 8 threads, meme can be launched like this:
+		        ' meme -p '8 --use-hwthread-cpus'
+		        cli=cli+" -p '" + Str(cores2use) + " --use-hwthread-cpus'"
+		      Else
+		        cli=cli+" -p " + Str(cores2use)  
+		      End If
 		    End If
 		    
 		    '[-oc <output dir>]    name of directory for output files

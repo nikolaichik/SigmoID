@@ -180,7 +180,7 @@ Begin Window About
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "SigmoID includes the following open source software:\n- nhmmer, hmmbuild and alimask from the HMMER package (http://hmmer.org);\n- meme and mast from the MEME Suite (http://MEME-suite.org/);\n- TransTerm HP (http://transterm.cbcb.umd.edu);\n- tfastx from the FASTA package (http://fasta.bioch.virginia.edu/fasta_www2/fasta_list2.shtml);\n- MeShClust (https://github.com/TulsaBioinformaticsToolsmith/MeShClust);\n- RBCustomTabPanel (https://github.com/alexrestrepo/RBCustomTabPanel);\n- MacOSLib (https://github.com/macoslib)."
+      Text            =   "SigmoID includes the following open source software:\n- nhmmer, hmmbuild and alimask from the HMMER package (http://hmmer.org);\n- meme, tomtom and mast from the MEME Suite (http://MEME-suite.org/);\n- TransTerm HP (http://transterm.cbcb.umd.edu);\n- tfastx from the FASTA package (http://fasta.bioch.virginia.edu/fasta_www2/fasta_list2.shtml);\n- MeShClust (https://github.com/TulsaBioinformaticsToolsmith/MeShClust);\n- RBCustomTabPanel (https://github.com/alexrestrepo/RBCustomTabPanel);\n- MacOSLib (https://github.com/macoslib)."
       TextAlign       =   0
       TextColor       =   &c00000000
       TextFont        =   "SmallSystem"

@@ -143,11 +143,11 @@ Begin Window deNovoWin
       Italic          =   False
       Left            =   135
       LimitText       =   0
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -252,7 +252,6 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -313,11 +312,11 @@ Begin Window deNovoWin
       Italic          =   False
       Left            =   425
       LimitText       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -371,7 +370,6 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2

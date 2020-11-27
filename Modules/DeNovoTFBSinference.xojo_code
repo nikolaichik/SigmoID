@@ -1021,7 +1021,7 @@ Protected Module DeNovoTFBSinference
 		        qualifier=NthField(entryarray(i),"/strain="+chr(34),2)
 		        qualifier=NthField(qualifier,chr(34),1)         'strain
 		        FastaName=FastaName+qualifier
-		        Separ1="/coded_by="+chr(34)
+		        Separ1="/coded_by="+chr(34)                      ' <-- some (older?) files don't have this qualifier. 
 		        'Dim TFcoord as string = NthField(Entry,separ1,2)
 		        Dim TFcoord as string = NthField(entryarray(i),separ1,2)
 		        TFcoord=NthField(TFcoord,separ2,1)
@@ -1184,7 +1184,9 @@ Protected Module DeNovoTFBSinference
 		      
 		      if TFno<1 OR TFno>m then
 		        'return "Error extracting intergenic sequences. GenBank file problem?"+EndOfLine.unix
-		        LogoWin.WriteToSTDOUT("Error extracting intergenic sequences for "+UniprotID(i)+". GenBank file problem?"+EndOfLine.unix)
+		        If ubound(UniProtId)>=0 And i<=ubound(UniProtId) Then 'precaution for non-standard cases
+		          LogoWin.WriteToSTDOUT("Error extracting intergenic sequences for "+UniprotID(i)+". GenBank file problem?"+EndOfLine.unix)
+		        End If
 		        If i=0 Then Return ""  'Most likely for local modified gbks
 		        continue for i
 		        
@@ -2473,15 +2475,15 @@ Protected Module DeNovoTFBSinference
 		    cli=MEMEpath+" '"+infile.ShellPath+"'"
 		  #EndIf
 		  
-		  If CPUcores>1 Then 'for parallelised meme
-		    If lCPUcores>CPUcores Then
+		  If cores2use>1 Then 'for parallelised meme
+		    If cores2use>CPUcores Then
 		      ' with OpenMPI v.>2 in mind, physical cores are allowed by default.
 		      ' to use threads on CPUs with hyperthreading, use the --use-hwthread-cpus option for mpirun
 		      ' e.g. on a 4-core processor with 8 threads, meme can be launched like this:
 		      ' meme -p "8 --use-hwthread-cpus" 
-		      cli=cli+" -p " + Chr(34) + Str(lCPUcores) + " --use-hwthread-cpus" + Chr(34)
+		      cli=cli+" -p '" + Str(cores2use) + " --use-hwthread-cpus'"
 		    Else
-		      cli=cli+" -p " + Str(CPUcores)  
+		      cli=cli+" -p " + Str(cores2use)  
 		    End If
 		    
 		  End If

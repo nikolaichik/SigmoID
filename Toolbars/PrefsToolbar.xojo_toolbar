@@ -31,5 +31,11 @@ Begin Toolbar PrefsToolbar
 		Style = 2
 		Icon = 1503078399
 	End
+	Begin ToolButton CoresButt
+		Caption = "CPU Cores"
+		HelpTag = ""
+		Style = 2
+		Icon = 1674088447
+	End
 End
 #tag EndToolbar

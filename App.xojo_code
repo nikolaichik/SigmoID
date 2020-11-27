@@ -78,6 +78,8 @@ Inherits Application
 
 	#tag Event
 		Sub Open()
+		  about.show
+		  
 		  SetLinuxIcon
 		  DisableAppAutoTabbing
 		  
@@ -495,8 +497,16 @@ Inherits Application
 			'return -1
 			end if
 			
-			if CPUcores>1 then
-			opt=" -p " + str(CPUcores)  'for parallelised meme
+			If cores2use>1 Then
+			If cores2use>CPUcores Then
+			' with OpenMPI v.>2 in mind, physical cores are allowed by default.
+			' to use threads on CPUs with hyperthreading, use the --use-hwthread-cpus option for mpirun
+			' e.g. on a 4-core processor with 8 threads, meme can be launched like this:
+			' meme -p "8 --use-hwthread-cpus" 
+			opt=opt+" -p '" + Str(cores2use) + " --use-hwthread-cpus'"
+			Else
+			opt=opt+" -p " + Str(cores2use)  
+			End If
 			end if
 			
 			opt=opt+" -dna -minw 17"+" -maxw 23"

@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -582,7 +581,7 @@ End
 		    'End If
 		    'End If
 		    
-		     
+		    
 		    'dim pythonCheckString as string = "Checking python and scripts... "+EndofLine.unix
 		    'cli="python --version"
 		    'sh=New Shell
@@ -1149,17 +1148,21 @@ End
 		  //Determine and store CPU core number
 		  CPUcores=CountCPUcores  'physical cores only!
 		  lCPUcores=CountCPUcores(true)  'logical cores
-		  If CPUcores>1 then
+		  If CPUcores>1 Then
 		    sh.execute MEMEpath+" -p 2"
 		    If InStr(sh.Result,"Parallel MEME not configured")>0 Then
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Parallel MEME not configured (refer to install.html from MEME Suite docs for proper installation)."+EndOfLine.unix)
+		      cores2use=1 ' to suppress error message since serial meme can only be run anyway
 		    Else
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+Str(CPUcores)+" CPU cores detected. All of them will be used for running MEME."+EndOfLine.unix)
-		      
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+Str(lCPUcores)+" CPU cores detected. All of them can be used for running MEME."+EndOfLine.unix)
+		      If lCPUcores<>cores2use Then
+		        LogoWin.WriteToSTDOUT("The current setting is to use "+Str(cores2use)+" cores. The number can be changed in the preferences window."+EndOfLine.unix)
+		      End If
 		    End If
 		  End If
 		  WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Load alignment or genome file to start."+EndOfLine.Unix)
 		  
+		  about.close
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:Open")
 		    

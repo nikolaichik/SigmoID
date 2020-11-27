@@ -454,9 +454,9 @@ Protected Module Globals
 		  #ElseIf TargetMacOS
 		    
 		    If logical Then
-		      cli="sysctl -n hw.physicalcpu"
-		    Else
 		      cli="sysctl -n hw.logicalcpu"
+		    Else
+		      cli="sysctl -n hw.physicalcpu"
 		    End If
 		    sh.execute cli
 		    If sh.errorCode=0 Then
@@ -2707,6 +2707,8 @@ Protected Module Globals
 		  FixedFont=Prefs.value("FixedFont",FFont)
 		  ProportionalFont=Prefs.value("ProportionalFont",PFont)
 		  ProportionalFontSize=Prefs.value("ProportionalFontSize",10)
+		  Cores2use=Prefs.value("Cores2use",CountCPUcores)
+		  
 		  
 		  Dim n As Integer
 		  For n=0 To SettingsWin.FixedFontSelMenu.ListCount-1
@@ -3883,6 +3885,14 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function User(cli as string) As string
+		  // modify command line to run with user bash settings
+		  
+		  Return ("bash --login -c "+Chr(34)+cli+Chr(34))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Weblogo(f as folderitem) As string
 		  'Unused at the moment
 		  
@@ -4071,6 +4081,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		CodonList As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Cores2use As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -4846,6 +4860,14 @@ Protected Module Globals
 			Group="Behavior"
 			InitialValue="false"
 			Type="boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="lCPUcores"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

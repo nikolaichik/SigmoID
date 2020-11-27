@@ -102,7 +102,7 @@ Begin Window SettingsWin
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   350
-      HelpTag         =   "All searches will be restricted to sequences from this organism"
+      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -111,15 +111,14 @@ Begin Window SettingsWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      PanelCount      =   5
+      PanelCount      =   6
       Panels          =   ""
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -2803,6 +2802,242 @@ Begin Window SettingsWin
             Width           =   200
          End
       End
+      Begin Label Label39
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   True
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   6
+         TabStop         =   True
+         Text            =   "Set number of CPU cores to be used with MEME. Proper Open MPI install required."
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   20
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   516
+      End
+      Begin Label OMPinfoLabel
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   6
+         TabStop         =   True
+         Text            =   "OMPI info"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   62
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   516
+      End
+      Begin GroupBox GroupBox9
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "CPU cores detected"
+         Enabled         =   True
+         Height          =   100
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   6
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   104
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   323
+         Begin Label pCoresLabel
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox9"
+            Italic          =   False
+            Left            =   40
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   0
+            TabPanelIndex   =   6
+            TabStop         =   True
+            Text            =   "Physical"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   140
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   100
+         End
+         Begin Label lCoresLabel
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox9"
+            Italic          =   False
+            Left            =   40
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   1
+            TabPanelIndex   =   6
+            TabStop         =   True
+            Text            =   "Logical"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   172
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   100
+         End
+      End
+      Begin Label Label43
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   3
+         TabPanelIndex   =   6
+         TabStop         =   True
+         Text            =   "CPU Cores to use:"
+         TextAlign       =   0
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   227
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   145
+      End
+      Begin PopupMenu CPUcoresPopup
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   177
+         ListIndex       =   0
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   6
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   227
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   46
+      End
    End
    Begin PushButton DefaultPathsButton
       AutoDeactivate  =   True
@@ -2864,7 +3099,7 @@ End
 
 	#tag Event
 		Sub Open()
-		  dim n as integer
+		  Dim n As Integer
 		  Globals.chipset= new ChipMSettings
 		  AdjustLayout4linux(me)
 		  PathsChanged=true
@@ -2915,6 +3150,40 @@ End
 		  
 		  SetDefaultColours
 		  
+		  // Set CPU Cores pane values
+		  
+		  'show OMPI version:
+		  Dim sh As New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  sh.execute user("ompi_info")
+		  If sh.errorCode=0 Then
+		    Dim ompiver As String =sh.Result
+		    If InStr(ompiver,"Open MPI: ")>0 Then
+		      ompiver=NthField(ompiver,"Open MPI: ",2)
+		      ompiver=Trim(NthField(ompiver,EndOfLine.unix,1))
+		      OMPinfoLabel.Text="Found Open MPI version " + ompiver + "."
+		    End If
+		  Else
+		    OMPinfoLabel.Text="Open MPI not detected. Only serial meme can run on single CPU core."
+		    CPUcoresPopup.SelectedRowIndex=0   'single core
+		    CPUcoresPopup.Enabled=False
+		    
+		  End If
+		  
+		  //Determine and store CPU core number
+		  ' (have to duplicate LogoWin's open due to unpredictable init order 
+		  CPUcores=CountCPUcores  'physical cores only!
+		  lCPUcores=CountCPUcores(True)  'logical cores
+		  
+		  pCoresLabel.Text="Physical: "+Str(CPUcores)
+		  lCoresLabel.Text="Logical: "+Str(lCPUcores)
+		  
+		  For n=1 To lCPUcores
+		    CPUcoresPopup.AddRow(Str(n))
+		  Next
+		  CPUcoresPopup.SelectedRowIndex=Cores2use-1
 		  
 		  'if NthField(ff,";",1)<>"" AND NthField(ff,";",2)<>"" then
 		  'OKButt.Enabled=true
@@ -3077,6 +3346,7 @@ End
 		  Prefs.value("FixedFont")=FixedFont
 		  Prefs.value("ProportionalFont")=ProportionalFont
 		  Prefs.value("ProportionalFontSize")=ProportionalFontSize
+		  Prefs.value("Cores2use")=Cores2use
 		  
 		  
 		  self.close
@@ -3109,44 +3379,59 @@ End
 		    toolbutton(me.Item(1)).Pushed=false
 		    toolbutton(me.Item(2)).Pushed=false
 		    toolbutton(me.Item(3)).Pushed=false
-		    toolbutton(me.Item(4)).Pushed=false
+		    toolbutton(Me.Item(4)).Pushed=False
+		    toolbutton(Me.Item(5)).Pushed=False
 		  case "BLASTbutt"
 		    PagePanel1.value=1
 		    toolbutton(me.Item(0)).Pushed=false
 		    toolbutton(me.Item(2)).Pushed=false
 		    toolbutton(me.Item(3)).Pushed=false
-		    toolbutton(me.Item(4)).Pushed=false
+		    toolbutton(Me.Item(4)).Pushed=False
+		    toolbutton(Me.Item(5)).Pushed=False
 		  case "ProfileButt"
 		    PagePanel1.value=2
 		    toolbutton(me.Item(0)).Pushed=false
 		    toolbutton(me.Item(1)).Pushed=false
 		    toolbutton(me.Item(3)).Pushed=false
-		    toolbutton(me.Item(4)).Pushed=false
+		    toolbutton(Me.Item(4)).Pushed=False
+		    toolbutton(Me.Item(5)).Pushed=False
 		  case "ColorButt"
 		    PagePanel1.value=3
 		    toolbutton(me.Item(0)).Pushed=false
 		    toolbutton(me.Item(1)).Pushed=false
 		    toolbutton(me.Item(2)).Pushed=false
-		    toolbutton(me.Item(4)).Pushed=false
-		  case "FontsButt"
+		    toolbutton(Me.Item(4)).Pushed=False
+		    toolbutton(Me.Item(5)).Pushed=False
+		  Case "FontsButt"
 		    PagePanel1.value=4
 		    toolbutton(me.Item(0)).Pushed=false
-		    toolbutton(me.Item(1)).Pushed=false
+		    toolbutton(Me.Item(1)).Pushed=False
 		    toolbutton(me.Item(2)).Pushed=false
-		    toolbutton(me.Item(3)).Pushed=false
-		  end select
+		    toolbutton(Me.Item(3)).Pushed=False
+		    toolbutton(Me.Item(5)).Pushed=False
+		  Case "CoresButt"
+		    PagePanel1.value=5
+		    toolbutton(Me.Item(0)).Pushed=False
+		    toolbutton(Me.Item(1)).Pushed=False
+		    toolbutton(Me.Item(2)).Pushed=False
+		    toolbutton(Me.Item(3)).Pushed=False
+		    toolbutton(Me.Item(4)).Pushed=False
+		  End Select
+		  
+		  Exception err
+		    ExceptionHandler(err,"SettingsWin:PrefsToolbar1:Action")
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  #if TargetCocoa 
+		  #If TargetCocoa 
 		    #if Target32Bit  'systemIcons broken in current macoslib for 64 bit
 		      ToolButton(me.Item(3)).Icon=SystemIcons.ColorPanel(32,32)
 		      ToolButton(me.Item(4)).Icon=SystemIcons.FontPanel(32,32)
 		    #endif
 		  #endif
 		  
-		  
+		  toolbutton(Me.Item(0)).Pushed=True
 		  
 		End Sub
 	#tag EndEvent
@@ -3659,6 +3944,13 @@ End
 	#tag Event
 		Sub Change()
 		  FixedSampleText.TextFont=me.text
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CPUcoresPopup
+	#tag Event
+		Sub Change()
+		  Cores2use=val(me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
