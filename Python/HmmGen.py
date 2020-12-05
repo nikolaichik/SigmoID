@@ -195,14 +195,20 @@ def score_parser(some_feature):
         if key == 'note' and type(some_feature.qualifiers['note']) != list:
             temp = some_feature.qualifiers[key]
             temp = temp.split(' ')
-            bit_score = float(temp[-3])
+            try:
+                bit_score = float(temp[-3])
+            except ValueError:
+                bit_score = None
             return bit_score
         elif key == 'note' and type(some_feature.qualifiers['note']) == list:
             for note in some_feature.qualifiers['note']:
                 if note.startswith('nhmmer'):
                     temp = note
                     temp = temp.split(' ')
-                    bit_score = float(temp[-3])
+                    try:
+                        bit_score = float(temp[-3])
+                    except ValueError:
+                        bit_score = None
                     return bit_score
 
 
@@ -797,7 +803,7 @@ for record in records:
                             record.features[i+1].strand and \
                        0 <= record.features[i+1].location.start - \
                             record.features[i].location.start <= 2:
-                        if score_parser(record.features[i]).isdigit() and score_parser(record.features[i+1]).isdigit():
+                        if score_parser(record.features[i]) != None and score_parser(record.features[i+1]) != None :
                             if score_parser(record.features[i]) > score_parser(record.features[i+1]):
                                 del record.features[i+1]
                             elif score_parser(record.features[i]) < \
