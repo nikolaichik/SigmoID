@@ -664,8 +664,8 @@ Protected Module DeNovoTFBSinference
 		  
 		  
 		  dim ResArray(0) as string
-		  dim m,n,id,i,k,z as integer
-		  dim UniProtID, MultiFasta, SingleFasta, entryprep, cli, genpeptIDs, shellRes(-1)  as string
+		  dim m,id,i,k,z as integer
+		  dim UniProtID, MultiFasta, SingleFasta, cli, genpeptIDs, shellRes(-1)  as string
 		  dim EntryFragmentsF, uniprot2genpept as FolderItem
 		  dim gbkcount as integer = Val(deNovoWin.Proteins2processField.text)
 		  dim sh as Shell
@@ -829,7 +829,7 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetRegSeq(UniProtIDs as string, FragmentsFolder as folderitem) As String
+		Function GetRegSeq(UniProtCodes as string, FragmentsFolder as folderitem) As String
 		  // Given a UniProt ID, find the corresponding gene
 		  // and get regulatory regions for it and two neighbour operons
 		  'Using Xojo.Core
@@ -838,7 +838,7 @@ Protected Module DeNovoTFBSinference
 		  dim sh as Shell
 		  dim cli as String
 		  Dim getprot As FolderItem
-		  dim tempID as string 
+		  Dim extractfragment As  FolderItem 
 		  dim Entry as string
 		  dim gbID as string
 		  dim COO as string 
@@ -847,7 +847,7 @@ Protected Module DeNovoTFBSinference
 		  dim leftCOO, rightCOO, i, k as integer
 		  dim entryarray(-1) as string
 		  dim OutStream As TextOutputStream
-		  dim UniProtId(-1) as String 
+		  dim CodesArray(-1) as String 
 		  dim operonGap as integer = 100     ' <-- adjust this/ make configurable!
 		  
 		  dim LengthLimit as integer = 30000 ' <-- adjust this/ make configurable!
@@ -858,34 +858,24 @@ Protected Module DeNovoTFBSinference
 		  
 		  'Ensembl ID are quite a mess and don't map to anything properly, so we are not using these :(
 		  
-		  'if InStr(UniProtID,"_")>0 then
+		  'if InStr(UniProtCodes,"_")>0 then
 		  ''this should be Ensembl ID which is actually a locus_tag directly usable in NCBI system
-		  'tempID1=UniProtID
 		  'else
+		  'end if
 		  
 		  //ALREADY HAVE CODES
-		  'tempID1 = UniProt2ncbi_ID(UniProtID)
-		  ''end if
-		  '
-		  'if tempID1="" then
-		  '
-		  'LogoWin.WriteToSTDOUT("Can't find NCBI reference for UniProt entry "+UniProtID+EndOfLine.UNIX)
-		  'return ""
-		  '
-		  'end if
-		  'tempID=ConvertIDtoGenPept(tempID1)
-		  tempID=UniProtIDs
-		  if tempID="" then
+		  
+		  if UniProtCodes="" then
 		    LogoWin.WriteToSTDOUT("Can't get GenPept ID - reference is empty "+EndOfLine.UNIX)
 		    return ""
 		  end if
 		  
 		  
 		  
-		  'Entry=FetchGenPeptEntry(tempID)
+		  'Entry=FetchGenPeptEntry(UniProtCodes)
 		  dim f as GBFeature 
-		  if instr(tempID,"localgbk")>0 then 
-		    if IsNumeric(deNovoWin.TFfeature) and GenomeWin.Genome<>nil  then
+		  if instr(UniProtCodes,"localgbk")>0 then 
+		    if deNovoWin.TFfeature<>-1 and GenomeWin.Genome<>nil  then
 		      redim entryarray(0)
 		      f= GenomeWin.Genome.Features(deNovoWin.TFfeature)
 		      if f.FeatureText="" then 
@@ -894,7 +884,9 @@ Protected Module DeNovoTFBSinference
 		      end
 		      entryarray(0)=str(GenomeWin.Genome.Description)+str(f.FeatureText)
 		      k=UBound(entryarray)
+		      deNovoWin.TFfeature=-1
 		    else
+		      LogoWin.WriteToSTDOUT("Failed to determine the nearby located operons -  TF coding gene was not found  in the local GenBank file, check TF id in hmmsearch_result_withCRtags.txt and corresponding GeneBank record" +EndOfLine.UNIX)
 		      return ""
 		    end
 		  else
@@ -903,7 +895,7 @@ Protected Module DeNovoTFBSinference
 		      sh=New Shell
 		      sh.mode=0
 		      sh.TimeOut=-1
-		      cli=pythonpath+getprot.ShellPath+" "+"'"+tempID+"'"+" '"+email+"'"
+		      cli=pythonpath+getprot.ShellPath+" "+"'"+UniProtCodes+"'"+" '"+email+"'"
 		      
 		      'assume bash is the normal user shell
 		      'execute bash with login scripts to set the same env as in terminal
@@ -913,13 +905,13 @@ Protected Module DeNovoTFBSinference
 		      
 		      If sh.errorCode=0 And InStr(sh.result, "Error retrieving: ") =0 Then
 		        entry=sh.Result
-		      Elseif  InStr(tempID,",")<>0 And InStr(sh.result, "Error retrieving: ") <>0 Then
+		      Elseif  InStr(UniProtCodes,",")<>0 And InStr(sh.result, "Error retrieving: ") <>0 Then
 		        sh=New Shell
 		        sh.mode=0
 		        sh.TimeOut=-1
 		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+"Trying to retrieve a batch of identificators has resulted in error. Attempting to process them sequentially..."+EndOfLine.UNIX)
 		        
-		        Dim tempIDs() As String = tempID.Split(",")
+		        Dim tempIDs() As String = UniProtCodes.Split(",")
 		        For id As Integer = 0 To UBound(tempIDs)
 		          cli=pythonpath+getprot.ShellPath+" "+"'"+tempIDs(id)+"'"+" '"+email+"'"
 		          sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
@@ -939,12 +931,12 @@ Protected Module DeNovoTFBSinference
 		    End
 		    
 		    
-		    'entry=FetchGenPeptEntries(TempID)
+		    'entry=FetchGenPeptEntries(UniProtCodes)
 		    
 		    
 		    
 		    entryarray=entry.split("//"+EndOfLine.UNIX)
-		    UniProtId=UniProtIDs.Split(",")
+		    CodesArray=UniProtCodes.Split(",")
 		    k=UBound(entryarray)-1 'last entry always empty line, so replace with data for TF from local gbkfile
 		  End
 		  
@@ -965,11 +957,11 @@ Protected Module DeNovoTFBSinference
 		      LocusTag=NthField(LocusTag,separ2,1)
 		      
 		      if LocusTag="" then
-		        'return "Error extracting locus_tag from GenPept entry "+ConvertEncoding(tempID,Encodings.UTF8)+EndOfLine.unix+EndOfLine.unix
-		        if UBound(UniProtId)>=i then
-		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniprotID(i)+EndOfLine.unix)
+		        'return "Error extracting locus_tag from GenPept entry "+ConvertEncoding(UniProtCodes,Encodings.UTF8)+EndOfLine.unix+EndOfLine.unix
+		        if UBound(CodesArray)>=i then
+		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+CodesArray(i)+EndOfLine.unix)
 		        else
-		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniProtIDs+EndOfLine.unix)
+		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniProtCodes+EndOfLine.unix)
 		        end
 		        Continue for i
 		      end if
@@ -986,15 +978,13 @@ Protected Module DeNovoTFBSinference
 		      'qualifier=NthField(Entry,"ACCESSION   ",2)      'accession
 		      qualifier=NthField(entryarray(i),"ACCESSION   ",2)      'accession
 		      qualifier=trim(NthField(qualifier,"VERSION     ",1))
-		      'UniProtID=qualifier
-		      
 		      
 		      //Get GB entry ID and TF gene coordinates
 		      ' GenPept entry should have a line like this:
 		      ' /coded_by="JSXC01000011.1:16659..17396"
 		      //localgbk string is passed from GetRthoRegSeq method
 		      'as a code to exctract regions nearby TF gene.
-		      If InStr(UniProtIDs,"localgbk")>0 Then
+		      If InStr(UniProtCodes,"localgbk")>0 Then
 		        qualifier=replace(qualifier,EndOfLine.unix,"")
 		        FastaName=FastaName+qualifier+"|"
 		        gbID=qualifier
@@ -1036,7 +1026,38 @@ Protected Module DeNovoTFBSinference
 		      end
 		      
 		      // Get the required GenBank entry fragment
-		      Entry=FetchGenBankEntryFragment(gbID,leftCOO,rightCOO)
+		      if InStr(UniProtCodes,"localgbk")>0 Then
+		        extractfragment=Resources_f.Child("ExtractFragment.py")
+		        If extractfragment.exists and GenomeWin.GenomeFile.exists Then
+		          sh=New Shell
+		          sh.mode=0
+		          sh.TimeOut=-1
+		          cli=pythonpath+extractfragment.ShellPath+" "+GenomeWin.GenomeFile.ShellPath+" @@coord "+str(leftCOO)+","+str(rightCOO)
+		          
+		          'assume bash is the normal user shell
+		          'execute bash with login scripts to set the same env as in terminal
+		          'command must be in single quotes
+		          
+		          sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		          If sh.errorCode=0 Then
+		            Entry=sh.Result
+		          else
+		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't get nearby operons region from "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
+		            LogoWin.WriteToSTDOUT(str(sh.Result))
+		          end
+		        else
+		          if extractfragment.exists then
+		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Check if genome file exists: "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
+		          else
+		            LogoWin.WriteToSTDOUT("Can't get nearby operons region, check if ExtractFragment.py is present in  SigmoID Resources folder"+EndOfLine.unix)
+		          end
+		          
+		          
+		        end
+		      else
+		        Entry=FetchGenBankEntryFragment(gbID,leftCOO,rightCOO)
+		      end
+		      
 		      dim GBfileName As String
 		      dim gbFile as FolderItem
 		      If FragmentsFolder <> Nil Then
@@ -1075,7 +1096,7 @@ Protected Module DeNovoTFBSinference
 		      End If
 		      // load the sequence into a seq object
 		      dim eSeq as new cSeqObject
-		      dim  s0, features,Separator,currentFeature,gbkSource,cf1,name,coord as string
+		      dim  s0, features,Separator,currentFeature,cf1,name,coord as string
 		      dim en,st,m,n as integer
 		      dim featureArray(0) as string
 		      dim NewFeature as GBFeature
@@ -1107,7 +1128,7 @@ Protected Module DeNovoTFBSinference
 		      features=ConvertEncoding(features,Encodings.ASCII)
 		      
 		      featureArray=Split(features,Separator)
-		      'gbkSource=""
+		      
 		      for n=0 to m-1
 		        currentFeature=featureArray(n)
 		        
@@ -1163,9 +1184,8 @@ Protected Module DeNovoTFBSinference
 		      
 		      eSeq.sequence=CleanUp(trim(rightb(Entry,len(Entry)-instrb(Entry,"ORIGIN")-7)))
 		      
-		      if len(eSeq.sequence)<LengthLimit and i<=UniProtId.Ubound then
-		        'return "Genome piece coding for "+UniProtID+" is too short ("+str(len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX
-		        LogoWin.WriteToSTDOUT("Genome piece coding for "+UniprotID(i)+" is too short ("+Str(Len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX)
+		      if len(eSeq.sequence)<LengthLimit and i<=CodesArray.Ubound then
+		        LogoWin.WriteToSTDOUT("Genome piece coding for "+CodesArray(i)+" is too short ("+Str(Len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX)
 		        continue for i
 		      end if
 		      
@@ -1184,8 +1204,8 @@ Protected Module DeNovoTFBSinference
 		      
 		      if TFno<1 OR TFno>m then
 		        'return "Error extracting intergenic sequences. GenBank file problem?"+EndOfLine.unix
-		        If ubound(UniProtId)>=0 And i<=ubound(UniProtId) Then 'precaution for non-standard cases
-		          LogoWin.WriteToSTDOUT("Error extracting intergenic sequences for "+UniprotID(i)+". GenBank file problem?"+EndOfLine.unix)
+		        If ubound(CodesArray)>=0 And i<=ubound(CodesArray) Then 'precaution for non-standard cases
+		          LogoWin.WriteToSTDOUT("Error extracting intergenic sequences for "+CodesArray(i)+". GenBank file problem?"+EndOfLine.unix)
 		        End If
 		        If i=0 Then Return ""  'Most likely for local modified gbks
 		        continue for i
@@ -1480,370 +1500,6 @@ Protected Module DeNovoTFBSinference
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
 		    end if
-		    ExceptionHandler(err,"SeqRetrieval:GetRegSeq")
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function GetRegSeq1(Entry as string) As String
-		  // Given a UniProt ID, find the corresponding gene
-		  // and get regulatory regions for it and two neighbour operons
-		  
-		  dim tempID, tempID1 as string 
-		  'dim Entry as string
-		  dim gbID as string
-		  dim COO as string 
-		  dim FastaName as string
-		  dim qualifier as string
-		  dim leftCOO, rightCOO as integer
-		  
-		  dim operonGap as integer = 100     ' <-- adjust this/ make configurable!
-		  
-		  dim LengthLimit as integer = 30000 ' <-- adjust this/ make configurable!
-		  
-		  
-		  'dim GBfileName As String
-		  'dim gbFile as FolderItem
-		  'If FragmentsFolder <> Nil Then
-		  ''save the genBank entry to a file:
-		  'GBfileName=replace(FastaName,">","")
-		  'GBfileName=replaceall(GBfileName,"|","_")
-		  'GBfileName=replaceall(GBfileName,":","_")
-		  'GBfileName=replaceall(GBfileName," ","_")+".gb"
-		  'gbFile=FragmentsFolder.Child(GBfileName)
-		  'if gbFile<>Nil then
-		  'dim OutStream As TextOutputStream
-		  'OutStream = TextOutputStream.Create(gbFile)
-		  'OutStream.Write(Entry)
-		  'OutStream.Close
-		  'End If
-		  'End If
-		  
-		  // load the sequence into a seq object
-		  dim eSeq as new cSeqObject
-		  dim  s0, features,Separator,currentFeature,gbkSource,cf1,name,coord as string
-		  dim en,st,m,n as integer
-		  dim featureArray(0) as string
-		  dim NewFeature as GBFeature
-		  
-		  '****************Opening Genbank file******************
-		  '
-		  'Genebank file - sequence starts after "ORIGIN"
-		  'the entry starts with "LOCUS       ";
-		  'description and references follow down to
-		  '"FEATURES             Location/Qualifiers",
-		  'after which the feature list goes
-		  'the sequence starts right after "ORIGIN      <cr>        1 "
-		  
-		  'first get the feature table:
-		  st=instrb(Entry,"FEATURES             Location/Qualifiers")+41
-		  
-		  s0=EndOfLine.unix+"ORIGIN"
-		  en=instrb(Entry,s0)-1
-		  features=midb(Entry,st,en-st+1)
-		  
-		  'get genetic code number
-		  'dim tt As string
-		  'if instr(features,"/transl_table=")>0 then
-		  'tt=NthField(features,"/transl_table=",2)
-		  'tt=trim(NthField(tt,EndOfLine.unix,1))
-		  'if len(tt)<3 then
-		  'gCodeNo=val(tt)
-		  'else
-		  'gCodeNo=1
-		  'end if
-		  'else
-		  'gCodeNo=1 'can't get the translation table – using the universal code
-		  'end if
-		  
-		  'save description:
-		  'Genome.Description=leftb(Entry,st)
-		  
-		  'now parse the feature table.
-		  'every new feature is identified as the line having 5 rather than 21 leading spaces
-		  
-		  'First remove the blocks of 21 spaces:
-		  features=ReplaceAll(features,"                     ","")
-		  Separator=EndOfLine.unix+"     "
-		  m=countfields(features,Separator)
-		  currentFeature=""
-		  features=ConvertEncoding(features,Encodings.ASCII)
-		  
-		  featureArray=Split(features,Separator)
-		  'gbkSource=""
-		  for n=0 to m-1
-		    currentFeature=featureArray(n)
-		    
-		    'feature description parsing:
-		    cf1=nthfield(currentFeature,EndOfLine.unix,1)
-		    name=trim(leftb(cf1,16))      'feature name
-		    
-		    if name ="gene" then 'we don't need anything else here
-		      NewFeature=new GBfeature(eSeq.baselineY)
-		      NewFeature.featureText=currentFeature 'for debugging only
-		      
-		      'now check the direction and coorginates:
-		      cf1=replace((cf1),"<","")  'remove markers of truncated genes to simplify coordinate parsing
-		      cf1=replace((cf1),">","")
-		      if InStrB(17,cf1,"complement")>0 then
-		        NewFeature.complement=true
-		        'gene            complement(2659..4155)
-		        if InStrB(27,cf1,"order")>0 OR InStrB(27,cf1,"join")>0 then
-		          'split feature:
-		          'misc_feature    complement(order(3576182..3576235,3576263..3576322,
-		          '3576341..3576409,3576467..3576532))
-		          'CDS             complement(join(2497077..2497340,2497344..2497514))
-		          NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",3))
-		          NewFeature.finish=val(nthFieldB(cf1,"..",countfieldsB(cf1,"..")))  'replacement to correct for partial features
-		        else
-		          coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
-		          NewFeature.start=val(nthFieldB(coord,"..",2))
-		          'NewFeature.finish=val(replace((nthFieldB(coord,"..",1)),"<",""))  'replacement to correct for partial features
-		          NewFeature.finish=val(nthFieldB(coord,"..",1))  'replacement to correct for partial features
-		        end if
-		      else
-		        if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then
-		          'split feature:
-		          'misc_feature    order(343373..343441,343469..343537,343652..343720,
-		          '343799..343867,343925..343984)
-		          'CDS             join(843475..843549,843551..844573)
-		          
-		          NewFeature.start=val(nthfieldB(nthfieldB(cf1,"..",1),"(",2))
-		          'splitCoords=NthFieldB(currentFeature,")",1)
-		          'NewFeature.finish=val(nthFieldB(splitCoords,"..",CountFieldsB(splitCoords,"..") ))
-		          NewFeature.finish=val(nthFieldB(cf1,"..",CountFieldsB(cf1,"..")))
-		        else
-		          'NewFeature.complement=false false is the default
-		          coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
-		          NewFeature.start=val(NthFieldB(coord,"..",1))
-		          NewFeature.finish=val(nthFieldB(coord,"..",2))
-		        end if
-		      end if
-		      eSeq.features.Append NewFeature
-		    end if
-		    
-		  next 'n
-		  
-		  eSeq.sequence=CleanUp(trim(rightb(Entry,len(Entry)-instrb(Entry,"ORIGIN")-7)))
-		  
-		  'if len(eSeq.sequence)<LengthLimit then
-		  'return "Genome piece coding for "+UniProtID+" is too short. Skipping it. "+EndOfLine.UNIX
-		  'end if
-		  
-		  // Now find operons and the gaps in between:
-		  
-		  'Find the gene coding for the TF:
-		  dim TFno as integer
-		  m=ubound(eSeq.Features)
-		  
-		  
-		  
-		  Dim LocusTag As string = trim(RedundantSeqWin.TextField1.text)
-		  
-		  
-		  
-		  LocusTag="/locus_tag="+chr(34)+LocusTag
-		  for n=1 to m
-		    if instr(eSeq.Features(n).FeatureText,LocusTag)>0 then
-		      TFno=n
-		      exit
-		    end if
-		  next
-		  
-		  if TFno<1 OR TFno>m then
-		    return "Error extracting intergenic sequences. GenBank file problem?"+EndOfLine.unix
-		    
-		  end if
-		  
-		  'check TF gene orientation:
-		  dim leftC, rightC as integer
-		  dim SeqLen as integer
-		  dim downStreamSeq, upStreamSeq,upStreamSeq2, regSeq as string
-		  
-		  if eSeq.Features(TFno).complement=true then 'complement
-		    'correct start and finish, flip the complement boolean
-		    'reverse feature order(and reverse the seq)
-		    m=ubound(eSeq.Features)
-		    dim eSeqlength as integer = len(eSeq.sequence)
-		    for n=1 to m
-		      'read all of the feature properties:
-		      eSeq.Features(n).complement=NOT(eSeq.Features(n).complement) 
-		      eSeq.Features(n).start=2+eSeqlength-eSeq.Features(n).start  '2 is a necessary correction
-		      eSeq.Features(n).finish=2+eSeqlength-eSeq.Features(n).finish  
-		      
-		      
-		      
-		    next
-		    eSeq.Sequence=ReverseComplement(eSeq.Sequence)
-		    'reverse feature array
-		    
-		    dim rSeq(0) as GBFeature
-		    redim rSeq(m)
-		    
-		    for n=m downto 1
-		      rSeq(n)=new GBFeature(100)
-		      rSeq(n).complement=eSeq.Features(m-n+1).complement
-		      rSeq(n).start=eSeq.Features(m-n+1).start
-		      rSeq(n).finish=eSeq.Features(m-n+1).finish
-		      rSeq(n).featuretext=eSeq.Features(m-n+1).featuretext
-		    next
-		    
-		    'copy the values back to the original object
-		    for n=1 to m
-		      eSeq.Features(n).complement=rSeq(n).complement
-		      eSeq.Features(n).start=rSeq(n).start
-		      eSeq.Features(n).finish=rSeq(n).finish
-		      eSeq.Features(n).featuretext=rSeq(n).featuretext
-		    next 
-		    
-		    'find the TF gene again:
-		    for n=1 to m
-		      if instr(eSeq.Features(n).FeatureText,LocusTag)>0 then
-		        TFno=n
-		        exit
-		      end if
-		    next
-		  end if                                     
-		  
-		  
-		  'checking upstream gene(s):
-		  upStreamSeq2=""
-		  upstreamSeq=""
-		  if TFno>1 then
-		    
-		    if eSeq.Features(TFno-1).complement=true then
-		      'previous gene is opposite to TF: simply get the whole intergenic piece 
-		      'including the first 50 bp of each ORF
-		      rightC=eSeq.Features(TFno).start+50
-		      leftC=eSeq.Features(TFno-1).start-50
-		      SeqLen=rightC-LeftC
-		      upStreamSeq=mid(eSeq.sequence,leftC,SeqLen)
-		    else
-		      'previous gene has the same orientation: extract the sequence in front of the TF gene...
-		      n=TFno
-		      while eSeq.Features(n).complement=eSeq.Features(n-1).complement AND eSeq.Features(n).start-eSeq.Features(n-1).finish<operonGap
-		        n=n-1
-		        if n<2 then exit
-		      wend
-		      if n>1 then
-		        if eSeq.Features(n).complement=eSeq.Features(n-1).complement then
-		          rightC=eSeq.Features(n).start+50
-		          leftC=eSeq.Features(n-1).finish
-		          SeqLen=rightC-LeftC
-		          upStreamSeq=mid(eSeq.sequence,leftC,SeqLen)
-		        else
-		          rightC=eSeq.Features(n).start+50
-		          leftC=eSeq.Features(n-1).start-50
-		          SeqLen=rightC-LeftC
-		          upStreamSeq=mid(eSeq.sequence,leftC,SeqLen)
-		        end if
-		      end if
-		      
-		      '...and look for sequence upstream of the previous operon
-		      n=TFno-1
-		      if n>1 then
-		        while eSeq.Features(n).complement=eSeq.Features(n-1).complement AND eSeq.Features(n).start-eSeq.Features(n-1).finish<operonGap
-		          n=n-1
-		          if n<2 then exit
-		        wend
-		      end if
-		      if n>1 then
-		        if eSeq.Features(n).complement=eSeq.Features(n-1).complement then
-		          rightC=eSeq.Features(n).start+50
-		          leftC=eSeq.Features(n-1).finish
-		          SeqLen=rightC-LeftC
-		          upStreamSeq2=mid(eSeq.sequence,leftC,SeqLen)
-		        else
-		          rightC=eSeq.Features(n).start+50
-		          leftC=eSeq.Features(n-1).start-50
-		          SeqLen=rightC-LeftC
-		          upStreamSeq2=mid(eSeq.sequence,leftC,SeqLen)
-		        end if
-		      end if
-		    end if
-		  end if
-		  
-		  'checking downstream gene(s):
-		  
-		  if TFno<m then
-		    if eSeq.Features(TFno+1).complement=true then
-		      'next gene is opposite to TF: check for operon start
-		      n=TFno+1
-		      if n<m then
-		        while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n).start-eSeq.Features(n+1).finish<operonGap
-		          n=n+1
-		          if n>=m then exit
-		        wend
-		        if n<m then
-		          if eSeq.Features(n).complement=eSeq.Features(n+1).complement then
-		            rightC=eSeq.Features(n+1).finish
-		            leftC=eSeq.Features(n+1).start-50
-		            SeqLen=rightC-LeftC
-		            downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
-		          else
-		            rightC=eSeq.Features(n+1).start+50
-		            leftC=eSeq.Features(n).start-50
-		            SeqLen=rightC-LeftC
-		            downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
-		          end if
-		        end if
-		      end if
-		      
-		      
-		    else
-		      'next gene has the same orientation: extract the intergenic sequence
-		      SeqLen=450
-		      n=TFno
-		      while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).start-eSeq.Features(n).finish<operonGap
-		        n=n+1
-		        if n>=m then exit
-		      wend
-		      
-		      if n<m-1 then
-		        if eSeq.Features(n+1).complement=true then
-		          'we have a converging operon here, go further to its start:
-		          n=n+1
-		          while eSeq.Features(n).complement=eSeq.Features(n+1).complement AND eSeq.Features(n+1).start-eSeq.Features(n).finish<operonGap
-		            n=n+1
-		            if n>=m then exit
-		          wend
-		        end if
-		        
-		      end if
-		      if n<m then
-		        if eSeq.Features(n).complement=eSeq.Features(n+1).complement then
-		          'same orientation
-		          rightC=eSeq.Features(n+1).start+50
-		          leftC=rightC-450
-		          if LeftC<eSeq.Features(n).Finish then
-		            SeqLen=SeqLen-eSeq.Features(n).Finish+LeftC
-		            leftC=eSeq.Features(n).Finish
-		          end if
-		          downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
-		        else
-		          'divergent operons
-		          rightC=eSeq.Features(n+1).start+50
-		          leftC=eSeq.Features(n).start-50
-		          SeqLen=rightC-LeftC
-		          downstreamSeq=mid(eSeq.sequence,leftC,SeqLen)
-		        end if
-		      end if
-		    end if
-		  end if
-		  
-		  regSeq=FastaName+EndOfLine.unix
-		  if len(upStreamSeq2)>20 then
-		    if upStreamSeq2<>upStreamSeq then
-		      RegSeq=RegSeq+upStreamSeq2+"NNN"
-		      
-		    end if
-		  end if
-		  
-		  RegSeq=RegSeq+upStreamSeq+"NNN"+downStreamSeq
-		  
-		  return regseq
-		  
-		  Exception err
 		    ExceptionHandler(err,"SeqRetrieval:GetRegSeq")
 		End Function
 	#tag EndMethod
@@ -2779,7 +2435,7 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function UniProt2ncbi_ID1(UniProtID as string) As string
+		Function UniProt2ncbi_ID_old(UniProtID as string) As string
 		  'As UniProt IDs are unusable with NCBI, this method returns 
 		  'an ID that can be found in GenPept.
 		  

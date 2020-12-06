@@ -252,6 +252,7 @@ Begin Window deNovoWin
       _ScrollWidth    =   -1
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -370,6 +371,7 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -933,7 +935,7 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		TFfeature As integer
+		TFfeature As integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

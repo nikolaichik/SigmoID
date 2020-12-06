@@ -1,7 +1,7 @@
 Type=Desktop
 RBProjectVersion=2019.021
 MinIDEVersion=20070100
-OrigIDEVersion=00000000
+OrigIDEVersion=20190210
 Class=App;App.xojo_code;&h0000000006C8CC97;&h0000000000000000;false
 Folder=Modules;Modules;&h0000000063A9EFFF;&h0000000000000000;false
 Module=Globals;Modules/Globals.xojo_code;&h000000006F421901;&h0000000063A9EFFF;false
