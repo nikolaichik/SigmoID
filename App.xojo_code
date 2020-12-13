@@ -79,7 +79,7 @@ Inherits Application
 	#tag Event
 		Sub Open()
 		  about.show
-		  
+		  about.Refresh
 		  SetLinuxIcon
 		  DisableAppAutoTabbing
 		  
@@ -263,7 +263,7 @@ Inherits Application
 			f.CopyFileTo SigF
 			end if
 			else
-			beep
+			'beep
 			end if
 			
 			
@@ -1111,10 +1111,10 @@ Inherits Application
 		                      CopyFileToVV(F2,SigFileVV)
 		                      logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
 		                    else
-		                      beep
+		                      'beep
 		                    end if
 		                  else
-		                    beep
+		                    'beep
 		                  end if
 		                else
 		                  'error message handled by hmmbuild most of the time

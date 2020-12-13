@@ -146,7 +146,7 @@ End
 		Sub Activate()
 		  GenomeWin.ToolTipTimer.Mode=0
 		  Global.Tooltip.hide
-		  'beep
+		  ''beep
 		End Sub
 	#tag EndEvent
 

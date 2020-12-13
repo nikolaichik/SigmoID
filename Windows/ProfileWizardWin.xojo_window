@@ -1599,10 +1599,10 @@ End
 		  'logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
 		  'LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
 		  'else
-		  'beep
+		  ''beep
 		  'end if
 		  'else
-		  'beep
+		  ''beep
 		  'end if
 		  'else
 		  ''error message handled by hmmbuild most of the time
@@ -2011,10 +2011,10 @@ End
 		                    logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
 		                    LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
 		                  else
-		                    beep
+		                    'beep
 		                  end if
 		                else
-		                  beep
+		                  'beep
 		                end if
 		              else
 		                'error message handled by hmmbuild most of the time

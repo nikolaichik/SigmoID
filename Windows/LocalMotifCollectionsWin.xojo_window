@@ -1202,7 +1202,7 @@ End
 		            a4=memeArr(n)
 		            memeArr(n)="MOTIF "+NthField(memeArr(n)," ",3)+" "+FamilyName+"-family"
 		            aftr=memeArr(n)
-		            beep
+		            'beep
 		          end if
 		        next
 		        

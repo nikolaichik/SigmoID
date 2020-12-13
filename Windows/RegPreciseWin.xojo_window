@@ -880,7 +880,7 @@ End
 		      FillRegulatorList(JSN)
 		    case "regulogs"
 		      'populate the RegulatorList:
-		      beep
+		      'beep
 		    End Select
 		  else
 		    'MsgBox "Can't connect to RegPrecise (HTTP status code "+Str(httpStatus)+")"

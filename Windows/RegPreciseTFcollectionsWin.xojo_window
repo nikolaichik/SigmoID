@@ -1317,7 +1317,7 @@ End
 		      'FillRegulatorList(JSN)
 		      'case "regulogs"
 		      ''populate the RegulatorList:
-		      'beep
+		      ''beep
 		    End Select
 		  else
 		    'MsgBox "Can't connect to RegPrecise (HTTP status code "+Str(httpStatus)+")"
@@ -1552,7 +1552,7 @@ End
 		            a4=memeArr(n)
 		            memeArr(n)="MOTIF "+NthField(memeArr(n)," ",3)+" "+FamilyName+"-family"
 		            aftr=memeArr(n)
-		            beep
+		            'beep
 		          end if
 		        next
 		        
@@ -2419,7 +2419,7 @@ End
 		                        LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
 		                        
 		                      else
-		                        beep
+		                        'beep
 		                      end if
 		                    else
 		                      'error message handled by hmmbuild most of the time

@@ -2489,7 +2489,7 @@ End
 		      
 		      seq.features.append FragmentFeature
 		    else
-		      'beep
+		      ''beep
 		    end if
 		  next
 		  
@@ -3074,7 +3074,7 @@ End
 		        types.Append fType
 		        counts.append 1
 		        lengths.Append ftLength
-		        beep
+		        'beepp
 		      else
 		        counts(p)=counts(p)+1
 		        lengths(p)=lengths(p)+ftLength
@@ -4734,7 +4734,7 @@ End
 		      end if
 		    end if
 		  else
-		    beep
+		    'beepp
 		  end if
 		End Sub
 	#tag EndMethod
@@ -5024,14 +5024,14 @@ End
 		        if CurrentHit<ubound(GenomeWin.HmmHits) then
 		          CurrentHit=CurrentHit+1
 		        else
-		          beep
+		          'beep
 		        end if
 		      elseif Keyboard.AsynckeyDown(&h7B) then 'Left
 		        if CurrentHit>1 then
 		          CurrentHit=CurrentHit-1
 		          leftarrow=true
 		        else
-		          beep
+		          'beep
 		        end if
 		      end if
 		      
@@ -5055,7 +5055,7 @@ End
 		      
 		      ShowHit
 		    else
-		      beep
+		      'beep
 		    end if
 		  end if
 		  
@@ -6444,9 +6444,9 @@ End
 		    FeatureBox.Value=NOT FeatureBox.Value
 		    return true
 		    'elseif key=decodehex("1D") then 'right (or chr(124?)
-		    'beep
+		    ''beep
 		    'elseif key=decodehex("1C") then ' (chr123)? - left
-		    'beep
+		    ''beep
 		    
 		  end if
 		  
@@ -6704,7 +6704,7 @@ End
 		    
 		    ShowHit
 		  else
-		    beep
+		    'beep
 		  end if
 		  
 		  Exception err
@@ -6761,7 +6761,7 @@ End
 		        DisplayInterval=DisplayInterval/1.5
 		      End If
 		    else
-		      beep
+		      'beep
 		    end if
 		  Else
 		    'zoom out
@@ -6772,7 +6772,7 @@ End
 		        DisplayInterval=DisplayInterval*1.5
 		      End If
 		    else
-		      beep
+		      'beep
 		    End If
 		  End If
 		  
@@ -6829,7 +6829,7 @@ End
 		  
 		  'dim va as integer
 		  'va=BrowserPagePanel.value
-		  'beep
+		  ''beep
 		  
 		  'BrowserPagePanel.value=tabIndex
 		End Sub
@@ -7002,7 +7002,7 @@ End
 		    if resultfile<>nil and resultfile.exists then
 		      SPSearchViewer.LoadPage(resultfile)
 		    else
-		      beep
+		      'beep
 		    end if
 		  else
 		    
@@ -7066,7 +7066,7 @@ End
 		    if resultfile<>nil and resultfile.exists then
 		      UPSearchViewer.LoadPage(resultfile)
 		    else
-		      beep
+		      'beep
 		    end if
 		  else
 		    

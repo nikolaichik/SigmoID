@@ -761,10 +761,10 @@ End
 		      if f.exists then
 		        MEMEresFolder=New FolderItem(trim(me.text))
 		      else
-		        beep
+		        'beep
 		      end if
 		    else
-		      beep
+		      'beep
 		    end if
 		    
 		  end if
@@ -816,10 +816,10 @@ End
 		      if f.exists then
 		        TFfamFolder=New FolderItem(trim(me.text),Folderitem.PathTypeShell)
 		      else
-		        beep
+		        'beep
 		      end if
 		    else
-		      beep
+		      'beep
 		    end if
 		    
 		  end if

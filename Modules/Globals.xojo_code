@@ -2733,8 +2733,11 @@ Protected Module Globals
 		  // feedback info for NCBI
 		  CheckEmail
 		  DevInfo = "&tool=SigmoID&email="+email
-		  if API_Key<>"" then 'without API_Key, only 3 requests to eutils per second are allowed
-		    DevInfo=DevInfo+API_Key
+		  'for Entrez, email-tool pair should be registered @NCBI
+		  'so, just providing the email won't work 
+		  If API_Key<>"" Then 'without API_Key, only 3 requests to eutils per second are allowed
+		    'API_Key allows up to 10 requests per second
+		    DevInfo="&api_key="+API_Key
 		  end if
 		  
 		  'HMMER server scripts don't work in IE on Windows
@@ -4864,6 +4867,14 @@ Protected Module Globals
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="lCPUcores"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Cores2use"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
