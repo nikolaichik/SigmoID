@@ -55,8 +55,8 @@ Begin Menu MainMenuBar
          ShortcutKey = "W"
          Shortcut = "Cmd+W"
          MenuModifier = True
-         AutoEnabled = False
-         AutoEnable = False
+         AutoEnabled = True
+         AutoEnable = True
          Visible = True
       End
       Begin MenuItem UntitledSeparator3

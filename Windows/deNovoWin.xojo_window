@@ -2257,7 +2257,7 @@ End
 		Name="TFfeature"
 		Visible=false
 		Group="Behavior"
-		InitialValue=""
+		InitialValue="-1"
 		Type="integer"
 		EditorType=""
 	#tag EndViewProperty

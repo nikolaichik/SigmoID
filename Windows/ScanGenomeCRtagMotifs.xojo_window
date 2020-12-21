@@ -177,6 +177,15 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			Close
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Method, Flags = &h0
 		Sub annotateGenome()
 		  dim k,SigCount,HitCount as integer

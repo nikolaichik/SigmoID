@@ -8,9 +8,9 @@ MM    no
 CONS  yes
 CS    no
 MAP   yes
-GA 55 55
-TC 95 95
-NC 15 15
+GA    55 55
+TC    95 95
+NC    15 15
 DATE  Fri Dec  7 14:30:33 2018
 NSEQ  9
 EFFN  1.384277

@@ -1717,17 +1717,6 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function GenomeTFfamilySearch() As Boolean Handles GenomeTFfamilySearch.Action
-			dim boo as boolean
-			
-			boo=HmmSearch
-			
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
 		Function LogoFromPWMtest() As Boolean Handles LogoFromPWMtest.Action
 			// only testing
 			
@@ -3608,6 +3597,14 @@ End
 		        
 		        inStream.close
 		        
+		        'clean up existing values
+		        ProfileWizardWin.CRtagSeqField.Text=""
+		        ProfileWizardWin.CRtagField.Text=""
+		        ProfileWizardWin.GatheringField.Text=""
+		        ProfileWizardWin.NoiseField.Text=""
+		        ProfileWizardWin.TrustedField.Text=""
+		        ProfileWizardWin.SeedProteinArea.Text=""
+		        
 		        'read CRtag and profile calibration values
 		        dim aline As string
 		        
@@ -3629,18 +3626,18 @@ End
 		            
 		          elseif left(aLine,6)="CRtag " then 'space to distinguish from CRtagCoords
 		            CRtag=right(aline,len(aline)-6)
-		            ProfileWizardWin.CRtagSeqField.text=CRtag
+		            ProfileWizardWin.CRtagSeqField.Text=CRtag
 		          elseif left(aLine,11)="CRtagCoords" then
 		            CRtagCoords=right(aline,len(aline)-12)
 		            ProfileWizardWin.CRtagField.text=CRtagCoords
 		          elseif left(aLine,10)="protein_id" then
 		            SeedProteinID=trim(NthField(aline," ",2))
-		            ProfileWizardWin.SeedProteinArea.text=">"+SeedProteinID+EndOfLine.Unix
+		            ProfileWizardWin.SeedProteinArea.Text=">"+SeedProteinID+EndOfLine.Unix
 		            ProfileWizardWin.SeedProteinArea.TextColor=&c00000000
 		          elseif left(aLine,12)="seed_protein" then
-		            SeedProteinSeq=trim(NthField(aline," ",2))
-		            ProfileWizardWin.SeedProteinArea.text=ProfileWizardWin.SeedProteinArea.text+SeedProteinSeq
-		            ProfileWizardWin.SeedProteinArea.Italic=false
+		            SeedProteinSeq=Trim(NthField(aline," ",2))
+		            ProfileWizardWin.SeedProteinArea.Text=ProfileWizardWin.SeedProteinArea.Text+SeedProteinSeq
+		            ProfileWizardWin.SeedProteinArea.Italic=False
 		          elseif left(aLine,7)="#=GF GA" then
 		            score=trim(NthField(aline," ",3))
 		            nhmmerSettingsWin.GAvalue.text="("+score+")"

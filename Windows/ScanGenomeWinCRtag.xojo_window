@@ -575,7 +575,7 @@ End
 		  Logowin.ScanningGenome=true 'to prevent file writing messages
 		  infileName=logowin.genomefile.displayname
 		  Sigcount=0
-		  for k=0 to SigList.ListCount-1
+		  For k=0 To SigList.ListCount-1
 		    if SigList.CellCheck(k,0) = true then
 		      dim w as new ScanGenomeCRtagMotifs
 		      w.Title=str(SigList.Cell(k,1))+" family"
@@ -585,7 +585,7 @@ End
 		      redim sigtagbase(-1)
 		      redim sigpathbase(-1)
 		      redim notfound(-1)
-		      hmmsearch=HMMsearchWithCRtagsCR(cdsfile, str(SigList.Cell(k,3)))
+		      hmmsearch=HMMsearchWithCRtagsCR(cdsfile, Str(SigList.Cell(k,3)))
 		      for tagCount as integer =1 to UBound(DeNovoTFBSinference.CRtags)
 		        tag=DeNovoTFBSinference.CRtags(tagCount)
 		        if instr(tag,"[indel")>0 or instr(tag,"error")>0 or InStr(tag,"no_CRtag")>0 then Continue
@@ -596,8 +596,9 @@ End
 		      dim index as integer
 		      dim apath as string=Siglist.Cell(k,2)
 		      dim sigf as FolderItem
-		      if instr(apath, ";")>0 then
+		      If InStr(apath, ";")>0 Then
 		        apath=NthField(apath, ";", 1) 'multiple paths for one hmm family are allowed, but not done yet, processing just the first one  
+		        ' put all profiles for the family into one folder for now
 		      end
 		      f=getfolderitem(apath, FolderItem.PathTypeNative)
 		      for j as integer = 1 to f.count
