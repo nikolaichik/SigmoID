@@ -1,5 +1,5 @@
 #tag Window
-Begin Window RegPreciseTFcollectionsWin
+Begin Window RegPreciseTFcollectionsWin2
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
@@ -26,13 +26,15 @@ Begin Window RegPreciseTFcollectionsWin
    Visible         =   False
    Width           =   1000
    Begin Label Label2
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -48,44 +50,42 @@ Begin Window RegPreciseTFcollectionsWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "#kTFfamily"
-      TextAlign       =   0
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
+      Value           =   "#kTFfamily"
       Visible         =   True
       Width           =   93
    End
    Begin PopupMenu GenomesPopup
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   "#kSelectTFfam"
       Italic          =   False
       Left            =   113
-      ListIndex       =   0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
+      SelectedRowIndex=   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
@@ -93,26 +93,32 @@ Begin Window RegPreciseTFcollectionsWin
       Width           =   840
    End
    Begin Listbox CollectionList
-      AutoDeactivate  =   True
-      AutoHideScrollbars=   True
+      AllowAutoDeactivate=   True
+      AllowAutoHideScrollbars=   True
+      AllowExpandableRows=   False
+      AllowFocusRing  =   True
+      AllowResizableColumns=   True
+      AllowRowDragging=   False
+      AllowRowReordering=   False
       Bold            =   False
-      Border          =   False
       ColumnCount     =   9
-      ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
       Enabled         =   False
-      EnableDrag      =   False
-      EnableDragReorder=   False
-      GridLinesHorizontal=   0
-      GridLinesVertical=   0
-      HasHeading      =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      GridLinesHorizontalStyle=   "0"
+      GridLinesVerticalStyle=   "0"
+      HasBorder       =   False
+      HasHeader       =   True
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
       HeadingIndex    =   -1
       Height          =   474
-      HelpTag         =   ""
-      Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   " 	#kRegulog	#kRegulonNo	TFBSs	#kInfoBits	#kLogo"
@@ -124,21 +130,15 @@ Begin Window RegPreciseTFcollectionsWin
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
+      RowSelectionType=   "1"
       Scope           =   0
-      ScrollbarHorizontal=   False
-      ScrollBarVertical=   True
-      SelectionType   =   1
-      ShowDropIndicator=   False
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   52
       Transparent     =   False
       Underline       =   False
-      UseFocusRing    =   True
       Visible         =   True
       Width           =   1000
       _ScrollOffset   =   0
@@ -148,7 +148,6 @@ Begin Window RegPreciseTFcollectionsWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -164,10 +163,9 @@ Begin Window RegPreciseTFcollectionsWin
       yield           =   False
    End
    Begin ProgressWheel ProgressWheel1
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Enabled         =   False
       Height          =   16
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   965
@@ -180,21 +178,23 @@ Begin Window RegPreciseTFcollectionsWin
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Visible         =   True
       Width           =   16
    End
    Begin PushButton RegulogLogoButton
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
-      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "#kOpen_"
       Default         =   True
       Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -204,13 +204,12 @@ Begin Window RegPreciseTFcollectionsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   560
       Transparent     =   False
       Underline       =   False
@@ -218,25 +217,26 @@ Begin Window RegPreciseTFcollectionsWin
       Width           =   84
    End
    Begin BevelButton InfoButton
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
+      AllowAutoDeactivate=   True
+      AllowFocus      =   True
+      BackgroundColor =   &c00000000
+      BevelStyle      =   "4"
       Bold            =   False
-      ButtonType      =   0
+      ButtonStyle     =   "0"
       Caption         =   ""
-      CaptionAlign    =   3
+      CaptionAlignment=   "3"
       CaptionDelta    =   0
-      CaptionPlacement=   1
+      CaptionPosition =   "1"
       Enabled         =   False
-      HasBackColor    =   False
-      HasMenu         =   0
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      HasBackgroundColor=   False
       Height          =   22
-      HelpTag         =   ""
       Icon            =   495161343
-      IconAlign       =   1
-      IconDX          =   0
-      IconDY          =   0
+      IconAlignment   =   "1"
+      IconDeltaX      =   0
+      IconDeltaY      =   0
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -246,14 +246,13 @@ Begin Window RegPreciseTFcollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
+      MenuStyle       =   "0"
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   560
       Transparent     =   False
       Underline       =   False
@@ -262,15 +261,16 @@ Begin Window RegPreciseTFcollectionsWin
       Width           =   22
    End
    Begin PushButton ExportButton
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
-      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "#kExportSelected"
       Default         =   False
       Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -280,13 +280,12 @@ Begin Window RegPreciseTFcollectionsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   560
       Transparent     =   False
       Underline       =   False
@@ -294,25 +293,26 @@ Begin Window RegPreciseTFcollectionsWin
       Width           =   200
    End
    Begin BevelButton BevelButton3
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
+      AllowAutoDeactivate=   True
+      AllowFocus      =   True
+      BackgroundColor =   &c00000000
+      BevelStyle      =   "4"
       Bold            =   False
-      ButtonType      =   0
+      ButtonStyle     =   "0"
       Caption         =   "#kSelectByQuality"
-      CaptionAlign    =   3
+      CaptionAlignment=   "3"
       CaptionDelta    =   0
-      CaptionPlacement=   1
+      CaptionPosition =   "1"
       Enabled         =   True
-      HasBackColor    =   False
-      HasMenu         =   0
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      HasBackgroundColor=   False
       Height          =   22
-      HelpTag         =   ""
       Icon            =   0
-      IconAlign       =   0
-      IconDX          =   0
-      IconDY          =   0
+      IconAlignment   =   "0"
+      IconDeltaX      =   0
+      IconDeltaY      =   0
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -322,14 +322,13 @@ Begin Window RegPreciseTFcollectionsWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
+      MenuStyle       =   "0"
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   526
       Transparent     =   False
       Underline       =   False
@@ -338,25 +337,26 @@ Begin Window RegPreciseTFcollectionsWin
       Width           =   722
    End
    Begin BevelButton DeselectAllButton
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
+      AllowAutoDeactivate=   True
+      AllowFocus      =   True
+      BackgroundColor =   &c00000000
+      BevelStyle      =   "4"
       Bold            =   False
-      ButtonType      =   0
+      ButtonStyle     =   "0"
       Caption         =   "#kDeselectAll"
-      CaptionAlign    =   3
+      CaptionAlignment=   "3"
       CaptionDelta    =   0
-      CaptionPlacement=   1
+      CaptionPosition =   "1"
       Enabled         =   True
-      HasBackColor    =   False
-      HasMenu         =   0
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      HasBackgroundColor=   False
       Height          =   22
-      HelpTag         =   ""
       Icon            =   0
-      IconAlign       =   0
-      IconDX          =   0
-      IconDY          =   0
+      IconAlignment   =   "0"
+      IconDeltaX      =   0
+      IconDeltaY      =   0
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -366,14 +366,13 @@ Begin Window RegPreciseTFcollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
+      MenuStyle       =   "0"
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   526
       Transparent     =   False
       Underline       =   False
@@ -382,25 +381,26 @@ Begin Window RegPreciseTFcollectionsWin
       Width           =   140
    End
    Begin BevelButton SelectAllButton
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
+      AllowAutoDeactivate=   True
+      AllowFocus      =   True
+      BackgroundColor =   &c00000000
+      BevelStyle      =   "4"
       Bold            =   False
-      ButtonType      =   0
+      ButtonStyle     =   "0"
       Caption         =   "#kSelectAll"
-      CaptionAlign    =   3
+      CaptionAlignment=   "3"
       CaptionDelta    =   0
-      CaptionPlacement=   1
+      CaptionPosition =   "1"
       Enabled         =   True
-      HasBackColor    =   False
-      HasMenu         =   0
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      HasBackgroundColor=   False
       Height          =   22
-      HelpTag         =   ""
       Icon            =   0
-      IconAlign       =   0
-      IconDX          =   0
-      IconDY          =   0
+      IconAlignment   =   "0"
+      IconDeltaX      =   0
+      IconDeltaY      =   0
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -410,14 +410,13 @@ Begin Window RegPreciseTFcollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
+      MenuStyle       =   "0"
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   526
       Transparent     =   False
       Underline       =   False
@@ -426,13 +425,15 @@ Begin Window RegPreciseTFcollectionsWin
       Width           =   140
    End
    Begin Label ProgressLabel
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -448,28 +449,27 @@ Begin Window RegPreciseTFcollectionsWin
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlign       =   0
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   560
       Transparent     =   True
       Underline       =   False
+      Value           =   ""
       Visible         =   True
       Width           =   588
    End
    Begin PushButton ExportSigButton
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
-      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "#kExportSelected2sig"
       Default         =   False
       Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -479,13 +479,12 @@ Begin Window RegPreciseTFcollectionsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   560
       Transparent     =   False
       Underline       =   False
@@ -557,89 +556,89 @@ End
 		  'You may fully enable it if if you have the Database license 
 		  
 		  
-		  #if DebugBuild then
-		    dim RegulonID, vimssId, ProteinFasta as string
-		    dim TFname as string
-		    dim n as integer
-		    
-		    logowin.show
-		    
-		    TFname=CollectionList.Cell(CollectionList.ListIndex,0)
-		    for n=0 to UBound(regulatorArray)
-		      if JSONitem(regulatorArray(n)).Value("regulatorName")=TFname then
-		        RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
-		        exit
-		      end if
-		      
-		    next
-		    
-		    logowin.WriteToSTDOUT("Getting protein ID from RegPrecise... ")
-		    
-		    dim res as string
-		    dim jsn as new JSONItem
-		    dim jsn0 as new JSONItem
-		    dim hts as new HTTPSocket
-		    
-		    hts.Yield=true
-		    
-		    res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
-		    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		      if res<>"" then
-		        JSN0.load(res)
-		        'should contain smth like:
-		        '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
-		        
-		        JSN=JSN0.value("regulator")
-		        ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
-		        vimssId=JSN.Value("vimssId")
-		        LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
-		        
-		      end if
-		      
-		      logowin.WriteToSTDOUT("Getting protein sequence from MicrobesOnline... ")
-		      
-		      ' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
-		      
-		      Dim db As New MySQLCommunityServer
-		      db.Host = "pub.microbesonline.org"
-		      'db.Port = 3306
-		      db.DatabaseName = "genomics"
-		      db.UserName = "guest"
-		      db.Password = "guest"
-		      If db.Connect Then
-		        // Use the database
-		        
-		        Dim rs As RecordSet
-		        rs = db.SQLSelect("select * from AASeq where locusId="+vimssId)
-		        
-		        If db.Error Then
-		          MsgBox("Error: " + db.ErrorMessage)
-		          Return
-		        End If
-		        
-		        If rs <> Nil Then
-		          ProteinFasta=ProteinFasta+EndOfLine.UNIX+rs.Field("sequence").StringValue
-		          tfastx(ProteinFasta)
-		          rs.Close
-		        End If
-		        db.Close
-		        
-		        
-		      Else
-		        // Connection error
-		        MsgBox(db.ErrorMessage)
-		      End If
-		      
-		      
-		    else
-		      LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
-		      LogoWin.show
-		    end if
-		    
-		  #else
-		    MsgBox "This method is currently disabled due to database licensing issue. Should hopefully be fixed sometime..."
-		    
-		  #endif
+		  '#if DebugBuild then
+		  'dim RegulonID, vimssId, ProteinFasta as string
+		  'dim TFname as string
+		  'dim n as integer
+		  '
+		  'logowin.show
+		  '
+		  'TFname=CollectionList.Cell(CollectionList.ListIndex,0)
+		  'for n=0 to UBound(regulatorArray)
+		  'If JSONitem(regulatorArray(n)).Value("regulatorName")=TFname Then
+		  'RegulonID=JSONitem(regulatorArray(n)).Value("regulonId")
+		  'exit
+		  'end if
+		  '
+		  'next
+		  '
+		  'logowin.WriteToSTDOUT("Getting protein ID from RegPrecise... ")
+		  '
+		  'dim res as string
+		  'dim jsn as new JSONItem
+		  'dim jsn0 as new JSONItem
+		  'dim hts as new HTTPSocket
+		  '
+		  'hts.Yield=true
+		  '
+		  'res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+regulonId,0)
+		  'if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		  'if res<>"" then
+		  'JSN0.load(res)
+		  ''should contain smth like:
+		  ''{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
+		  '
+		  'JSN=JSN0.value("regulator")
+		  'ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
+		  'vimssId=JSN.Value("vimssId")
+		  'LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
+		  '
+		  'end if
+		  '
+		  'logowin.WriteToSTDOUT("Getting protein sequence from MicrobesOnline... ")
+		  '
+		  '' -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
+		  '
+		  'Dim db As New MySQLCommunityServer
+		  'db.Host = "pub.microbesonline.org"
+		  ''db.Port = 3306
+		  'db.DatabaseName = "genomics"
+		  'db.UserName = "guest"
+		  'db.Password = "guest"
+		  'If db.Connect Then
+		  '// Use the database
+		  '
+		  'Dim rs As RecordSet
+		  'rs = db.SQLSelect("select * from AASeq where locusId="+vimssId)
+		  '
+		  'If db.Error Then
+		  'MsgBox("Error: " + db.ErrorMessage)
+		  'Return
+		  'End If
+		  '
+		  'If rs <> Nil Then
+		  'ProteinFasta=ProteinFasta+EndOfLine.UNIX+rs.Field("sequence").StringValue
+		  'tfastx(ProteinFasta)
+		  'rs.Close
+		  'End If
+		  'db.Close
+		  '
+		  '
+		  'Else
+		  '// Connection error
+		  'MsgBox(db.ErrorMessage)
+		  'End If
+		  '
+		  '
+		  'else
+		  'LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		  'LogoWin.show
+		  'end if
+		  '
+		  '#else
+		  'MsgBox "This method is currently disabled due to database licensing issue. Should hopefully be fixed sometime..."
+		  '
+		  '#endif
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseWin:CheckTF")
 		    
@@ -652,12 +651,12 @@ End
 		  'the popup and array indices are the same
 		  
 		  dim genomes as JSONItem
-		  dim GenomeString as string
+		  Dim GenomeString As String
 		  dim n as integer
 		  
 		  GenomesPopup.DeleteAllRows
 		  
-		  redim GenomeStatsArray(-1)
+		  Redim GenomeStatsArray(-1)
 		  genomes=JSONin.Value("regulogCollectionStat")
 		  if genomes.IsArray then
 		    for n=0 to genomes.Count-1
@@ -677,7 +676,7 @@ End
 		            GenomeStatsArray.append genomes(n)
 		            GenomesPopup.AddRow(genomestring)
 		          end if
-		        end if
+		        End If
 		      end if
 		      
 		    next
@@ -947,7 +946,7 @@ End
 		    'A single item in JSON
 		    
 		    if JSONItem(regulators).Value("regulationType")="TF" then 'exclude the RNAs for now
-		      regulatorArray.append regulators
+		      'regulatorArray.append regulators
 		      dim s1, s2, s3, s4, s6, s7 as string
 		      s1=JSONItem(regulators).Value("regulatorName")+" – "+JSONItem(regulators).Value("taxonName")
 		      regulogID=JSONItem(regulators).Value("regulogId")
@@ -1173,6 +1172,235 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub WLoadFamilies()
+		  // Replacement for the broken REST API
+		  
+		  Dim instream As TextInputStream
+		  Dim f As folderitem
+		  Dim aLine, GenomeString As String
+		  
+		  f=Resources_f.child("RegPreciseData").child("TFfamilies.csv")
+		  If f<>Nil And f.exists Then
+		    
+		    GenomesPopup.DeleteAllRows
+		    Redim GenomeStatsArray(-1)
+		    
+		    InStream = f.OpenAsTextFile
+		    If instream<>Nil Then
+		      aLine=InStream.readLine      'drop header line
+		      While Not InStream.EOF 
+		        aLine=InStream.readLine
+		        ' TF family,Regulogs,TF regulons,TF binding sites,Genomes,tffamily_id
+		        
+		        
+		        'GenomeString=JSONItem(genomes(n)).Value("name")+" ("+JSONItem(genomes(n)).Value("tfCount")+" TFs, "+JSONItem(genomes(n)).Value("tfRegulogCount")+" regulogs, "+JSONItem(genomes(n)).Value("tfSiteCount")+" TFBSs)"
+		        
+		        GenomeString=NthField(aline, ",", 1)+" ("+NthField(aline, ",", 2)+" regulogs, "+NthField(aline, ",", 3)+" regulons, "+NthField(aline, ",", 4)+" TFBSs)"
+		        
+		        
+		        FamilyIDarray.append NthField(aline, ",", 6)  'Family ID stored here now
+		        GenomesPopup.AddRow(genomestring)
+		        
+		      Wend
+		    End If
+		    
+		    
+		    GenomesPopup.Enabled=True
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		  Else
+		    MsgBox "A file with RegPrecise family data is missing"
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub WLoadRegulators(TFfamilyID as string)
+		  // Populates the RegulatorList and stores regulator JSONs in an array
+		  ' the popup and array indices are the same
+		  
+		  // CollectionList columns are:
+		  ' 0 - Checkbox
+		  ' 1 - Regulog Name
+		  ' 2 - Number of regulons in the regulog
+		  ' 3 - Number of TFBSs in the regulog
+		  ' 4 - Information (bits)
+		  ' 5 - Logo picture
+		  ' 6 (invisible) – RegulogID
+		  ' 7 (invisible) - TFBS seqs (in fasta format)
+		  ' 8 - TFBS length.
+		  ' (three last columns are here, because it's easier to access these data when sorting the listbox)
+		  
+		  ProgressWheel1.Visible=True
+		  ProgressWheel1.Enabled=True
+		  
+		  Dim regulators As String
+		  Dim regulogID As String
+		  Dim fa As String
+		  Dim tabarray(-1) As String
+		  Dim n As Integer
+		  
+		  Redim logopix(-1)
+		  CollectionList.DeleteAllRows
+		  
+		  Redim regulatorArray(-1)
+		  
+		  // get the list of regulogs for the TF family from RegPrecise
+		  ' the URL sould look like this
+		  ' http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/collection_tffam.jsp?tffamily_id=1
+		  ' or like this:
+		  ' https://regprecise.lbl.gov/collection_tffam.jsp?tffamily_id=1
+		  
+		  Dim hts As New HTTPSocket
+		  Dim TheURL As String
+		  Dim res As String
+		  hts.Yield=True  'allow background activities while waiting
+		  hts.SetRequestHeader("Content-Type:","text/plain")
+		  
+		  theURL=RegPreciseBase+"collection_tffam.jsp?tffamily_id="+TFfamilyID
+		  
+		  res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		  
+		  If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		    hts.close
+		    If Res="" Then
+		      If hts.ErrorCode=-1 Then
+		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		      Else
+		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		      End If
+		    Else
+		      
+		      'Convert RegPrecise response to a string array
+		      Dim RPD As String
+		      
+		      RPD=NthField(Res,"</h2>",2)
+		      RPD=NthField(RPD,"<tbody>",2)
+		      RPD=NthField(RPD,"</tbody>",1)
+		      
+		      tabarray=split(RPD,"</tr>")
+		      
+		      Dim reg As String
+		      
+		      For n=0 To ubound(tabarray)-1
+		        Dim s1, s2, s3, s4, s6, s7 As String
+		        'Dim RegulogID As String
+		        
+		        reg=Trim(tabarray(n))
+		        s1= NthField(reg,Chr(34)+"><a href="+Chr(34)+"regulog.jsp?regulog_id=",2)
+		        s2=s1
+		        s3=s1
+		        s1=NthField(s1,">",2)
+		        s1=NthField(s1,"</a",1)  'regulog name
+		        s2=NthField(s2,"<b>",2)
+		        s2=NthField(s2,"</b>",1)  'regulon # (studied genomes ignored)
+		        s3=NthField(reg,"><a href="+Chr(34)+"sites.jsp?regulog_id=",2)
+		        RegulogID=NthField(s3,Chr(34),1)          'Regulog ID 
+		        s6=RegulogID
+		        s3=NthField(s3,">",2)
+		        s3=NthField(s3,"<",1)      'TFBS #
+		        
+		        // get TFBS sequences
+		        
+		        hts = New HTTPSocket
+		        hts.Yield=True 
+		        hts.SetRequestHeader("Content-Type:","text/plain")
+		        
+		        theURL=RegPreciseBase+"ExportServlet?type=site&regulogId="+regulogID
+		        
+		        
+		        res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		        
+		        If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		          hts.close
+		          If res<>"" Then
+		            'Dim RegPreciseTemp As FolderItem
+		            'Dim OutStream As TextOutputStream
+		            '
+		            'RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
+		            'If RegPreciseTemp<>Nil Then
+		            'If RegPreciseTemp.Exists Then
+		            '
+		            '' the file being created may not be used in the end
+		            '
+		            '
+		            '#If TargetLinux 
+		            'RegPreciseTemp.delete 'SpecialFolder.Trash returns NIL in Linux
+		            '#Else 
+		            'RegPreciseTemp.MoveFileTo(SpecialFolder.Trash)
+		            '#EndIf
+		            'RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
+		            'End If
+		            
+		            
+		            fa=res
+		            fa=FillGaps(fa,True)
+		            s7=fa
+		            
+		            If fa<>"" Then
+		              'OutStream = TextOutputStream.Create(RegPreciseTemp)
+		              'outstream.Write(fa)
+		              'outstream.close
+		              '--> LoadAlignment(RegPreciseTemp)
+		              '--> logowin.ChangeView("Logo")
+		              '--> me.title="SigmoID: "+TFname+" (RegPrecise)"
+		              
+		              
+		              
+		            End If
+		            'End If
+		          Else
+		            logowin.WriteToSTDOUT("no response in 15 sec.")
+		          End If
+		        Else
+		          logowin.WriteToSTDOUT ("Server error (HTTP status code "+Str(hts.HTTPStatusCode)+")")
+		        End If
+		        
+		        
+		        
+		        Dim reg2() As String = Array("",s1, s2, s3, "(InfoBits)","", s6, s7, "(Sitelength)")  'first column contains checkboxes
+		        
+		        
+		        CollectionList.AddRow(reg2)
+		        'add picture to the last row as variant, so it is sorted properly 
+		        Dim p As picture = MakeLogoPic(fa)
+		        CollectionList.RowTag(collectionlist.LastIndex)=p
+		        
+		        'Update progress text
+		        ProgressLabel.Text="Loading profiles: "+Str(CollectionList.ListCount)
+		        
+		      Next n
+		      
+		      
+		      
+		      
+		    End If
+		  Else
+		    LogoWin.WriteToSTDOUT ("RegPrecise error "+Str(hts.HTTPStatusCode)+EndOfLine.unix)
+		  End If
+		  
+		  
+		  CollectionList.Enabled=True
+		  
+		  
+		  ProgressWheel1.Visible=False
+		  ProgressWheel1.Enabled=False
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
+		End Sub
+	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		FamilyIDArray(-1) As string
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		GenomeStatsArray(-1) As JSONItem
@@ -1191,7 +1419,7 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		RegulatorArray(-1) As JSONItem
+		RegulatorArray(-1) As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1201,6 +1429,10 @@ End
 	#tag Property, Flags = &h0
 		SocketTask As String
 	#tag EndProperty
+
+
+	#tag Constant, Name = RegPreciseBase, Type = String, Dynamic = False, Default = \"http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/", Scope = Public
+	#tag EndConstant
 
 
 #tag EndWindowCode
@@ -1217,9 +1449,11 @@ End
 		Sub Change()
 		  'GenomeStatsArray contain JSONs like this:
 		  '{"className":"","collectionId":"2","collectionType":"tfFam","name":"ArgR","rnaCount":"0","rnaRegulogCount":"0","rnaSiteCount":"0","tfCount":"1","tfRegulogCount":"27","tfSiteCount":"1752","totalGenomeCount":"249","totalRegulogCount":"27"}
+		  'LoadRegulators(GenomeStatsArray(Me.ListIndex).Value("collectionId"))
 		  
 		  
-		  LoadRegulators(GenomeStatsArray(me.ListIndex).Value("collectionId"))
+		  
+		  WLoadRegulators(FamilyIDArray(Me.ListIndex))
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1271,7 +1505,7 @@ End
 		      offset=(colWidth-p.Width)/2 
 		      g.DrawPicture(p, offset, 0)  'pic is centered for proper alignment
 		    End If
-		  end if
+		  End If
 		  Return True
 		End Function
 	#tag EndEvent

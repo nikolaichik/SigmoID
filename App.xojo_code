@@ -703,8 +703,9 @@ Inherits Application
 	#tag MenuHandler
 		Function RegulonRegPreciseTFFamilies() As Boolean Handles RegulonRegPreciseTFFamilies.Action
 			'RegPreciseWin.title="RegPrecise: regulons"
-			RegPreciseTFcollectionsWin.LoadFamilies
-			RegPreciseTFcollectionsWin.show
+			'RegPreciseTFcollectionsWin.LoadFamilies
+			RegPreciseTFcollectionsWin2.WLoadFamilies
+			RegPreciseTFcollectionsWin2.show
 			Return True
 			
 		End Function

@@ -3550,7 +3550,7 @@ Protected Module Globals
 		Sub Stockholm(AlignmentFile as folderitem, StockholmFile as folderitem, cutoffs as string)
 		  'convert alignment to Stockholm format:
 		  
-		  dim InStream As TextInputStream
+		  Dim InStream As TextInputStream
 		  dim OutStream As TextOutputStream
 		  dim aline as string
 		  dim dupCount as integer = 1
