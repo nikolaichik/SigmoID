@@ -762,7 +762,7 @@ End
 
 	#tag Method, Flags = &h0
 		Function CountSelRows() As integer
-		  dim lb as Listbox=RegPreciseTFcollectionsWin.CollectionList
+		  dim lb as Listbox=self.CollectionList
 		  dim n, CheckedRows as integer
 		  
 		  for n=0 to lb.ListCount-1
@@ -1320,41 +1320,11 @@ End
 		        If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
 		          hts.close
 		          If res<>"" Then
-		            'Dim RegPreciseTemp As FolderItem
-		            'Dim OutStream As TextOutputStream
-		            '
-		            'RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
-		            'If RegPreciseTemp<>Nil Then
-		            'If RegPreciseTemp.Exists Then
-		            '
-		            '' the file being created may not be used in the end
-		            '
-		            '
-		            '#If TargetLinux 
-		            'RegPreciseTemp.delete 'SpecialFolder.Trash returns NIL in Linux
-		            '#Else 
-		            'RegPreciseTemp.MoveFileTo(SpecialFolder.Trash)
-		            '#EndIf
-		            'RegPreciseTemp=TemporaryFolder.child("RegPreciseTemp")
-		            'End If
-		            
 		            
 		            fa=res
 		            fa=FillGaps(fa,True)
 		            s7=fa
 		            
-		            If fa<>"" Then
-		              'OutStream = TextOutputStream.Create(RegPreciseTemp)
-		              'outstream.Write(fa)
-		              'outstream.close
-		              '--> LoadAlignment(RegPreciseTemp)
-		              '--> logowin.ChangeView("Logo")
-		              '--> me.title="SigmoID: "+TFname+" (RegPrecise)"
-		              
-		              
-		              
-		            End If
-		            'End If
 		          Else
 		            logowin.WriteToSTDOUT("no response in 15 sec.")
 		          End If
@@ -1363,21 +1333,19 @@ End
 		        End If
 		        
 		        
+		        Dim p As picture = MakeLogoPic(fa)
 		        
-		        Dim reg2() As String = Array("",s1, s2, s3, "(InfoBits)","", s6, s7, "(Sitelength)")  'first column contains checkboxes
+		        Dim reg2() As String = Array("",s1, s2, s3, Str(InfoBits),"", s6, s7, Str(Sitelength))  'first column contains checkboxes
 		        
 		        
 		        CollectionList.AddRow(reg2)
 		        'add picture to the last row as variant, so it is sorted properly 
-		        Dim p As picture = MakeLogoPic(fa)
 		        CollectionList.RowTag(collectionlist.LastIndex)=p
 		        
 		        'Update progress text
 		        ProgressLabel.Text="Loading profiles: "+Str(CollectionList.ListCount)
 		        
 		      Next n
-		      
-		      
 		      
 		      
 		    End If
@@ -1478,7 +1446,7 @@ End
 		  
 		  me.ColumnWidths="20,300,80,60,80,*,0,0,0" 'three last columns just store the data 
 		  me.ColumnType(0)=Listbox.TypeCheckbox
-		  me.DefaultRowHeight=49  'LogoPic.Height=45
+		  me.DefaultRowHeight=55  'LogoPic.Height=45
 		  'me.ColumnSortDirection(-1)=ListBox.HeaderTypes.NotSortable 'disable sorting of all the columns
 		  
 		  
@@ -1588,9 +1556,11 @@ End
 #tag Events InfoButton
 	#tag Event
 		Sub Open()
-		  #if TargetCocoa then
-		    me.Icon=SystemIcons.Info(20,20)
-		    me.Caption=""
+		  #If TargetCocoa Then
+		    #If Target32Bit
+		      Me.Icon=SystemIcons.Info(20,20)  'broken in 64 bit
+		      Me.Caption=""
+		    #EndIf
 		  #endif
 		End Sub
 	#tag EndEvent
@@ -1848,10 +1818,7 @@ End
 #tag Events ExportSigButton
 	#tag Event
 		Sub Action()
-		  'Single profile only for now!
-		  
-		  
-		  dim outfile as folderitem
+		  Dim outfile As folderitem
 		  dim FFile, HMMfile as folderitem
 		  dim ExportFolder as folderitem
 		  dim HMMfilePath as string
@@ -1872,7 +1839,9 @@ End
 		  dim IdenticalCRRegulogCount, nonIdenticalCRRegulogCount, noCRtagRegulogCount as integer
 		  dim CRtagVariants as string
 		  dim TFCount, noCRtagTFCount as integer
-		  dim CRtagVariantCount(0) As integer
+		  Dim CRtagVariantCount(0) As Integer
+		  Dim RegulonInfo As String
+		  
 		  
 		  
 		  // HMM file matching the collection is needed.
@@ -1943,99 +1912,96 @@ End
 		  redim CRtagVariantCount(CountFields(CRtag,",")-1) 
 		  
 		  
-		  dim m,n,p,q,r,s as integer  ' For..Next counters
+		  Dim m,n,n1,p,q,r,s As Integer  ' For..Next counters
 		  dim fastaLines(-1) as string
 		  dim sitesFile as folderitem
 		  
 		  dim RegulogID, RegulonID, TFname as string
-		  dim RegulonIDs(0), TFs(0), CRtags(0) as string
-		  DIM RegulonsJSON, Regulon, regs As JSONItem
+		  Dim TFs(0), CRtags(0) As String
+		  'Dim RegulonsJSON, Regulon, regs As JSONItem
+		  
 		  
 		  'initiate TF stats (tab separated, one TF per line) string to print after saving according to this header:
 		  dim stats as string = "RegulogName    CRtag#    CRtagLength    VariablePositions#    CRtags(numberOfSites)    genomes#    genomesWithoutCRtag#"+EndOfLine.UNIX
 		  
-		  for n=0 to CollectionList.ListCount-1 'cycle through checked regulogs only
+		  For n=0 To CollectionList.ListCount-1 'cycle through checked regulogs only
 		    TFname=""
-		    if CollectionList.CellCheck(n,0) then
+		    If CollectionList.CellCheck(n,0) Then
 		      
 		      //check if orthologous TFs actually have the same CRtag:
 		      
 		      'get all regulons belonging to the regulog:
-		      hts = new HTTPSocket
-		      
-		      hts.Yield=true
 		      
 		      TFname=CollectionList.Cell(n,1)
-		      TFname=replace(TFname," – ","_")
-		      TFname=replace(TFname,"/","_")   'avoid path problems
+		      TFname=ReplaceAll(TFname," – ","_")
+		      TFname=replaceall(TFname,"/","_")   'avoid path problems
 		      
 		      
 		      RegulogID=CollectionList.Cell(n,6)
-		      res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulons?regulogId="+RegulogID,0)
 		      
-		      RegulonsJSON=new JSONItem(res) 'Convert RegPrecise string to JSON
-		      regs=RegulonsJSON.value("regulon")
-		      redim RegulonIDs(0)
+		      Dim TheURL As String
+		      Dim regulons(0) As String
+		      Dim RegulonIds(0) As Integer
+		      Dim GenomeNames(0), gn As String
 		      redim CRtagStatArray(0)
-		      if regs.IsArray then
-		        for m=0 to regs.Count-1
-		          if regs(m) isa JSONItem then
-		            RegulonIDs.append JSONItem(regs(m)).Value("regulonId")
-		            'if TFname="" then
-		            'TFname=JSONItem(regs(m)).Value("regulatorName")
-		            'end
-		          end if
-		        next
-		      else
-		        RegulonIDs.append regs.Value("regulonId")
-		      end if
+		      hts = New HTTPSocket
 		      
+		      hts.Yield=True  'allow background activities while waiting
+		      hts.SetRequestHeader("Content-Type:","text/plain")
 		      
+		      theURL=RegPreciseBase+"regulog.jsp?regulog_id="+RegulogID
+		      
+		      res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		      
+		      If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		        'save regulog info for later use:
+		        RegulonInfo=NthField(res,">Properties<",2)
+		        RegulonInfo=NthField(RegulonInfo,">Visualization:<",1)
+		        
+		        'proceed with regulons
+		        res=NthField(res,"Statistics Of regulated genes",2)
+		        res=NthField(res,"<tbody>",2)
+		        res=NthField(res,"</tbody>",1)
+		        regulons=Split(res,"regulon.jsp?regulon_id=")
+		        
+		        For n1=1 To ubound(regulons)
+		          RegulonIds.append Val(regulons(n1))
+		          gn=NthField(regulons(n1),">",2)
+		          gn=NthField(gn,"<",1)
+		          GenomeNames.append gn
+		        Next
+		      End If
 		      
 		      // get the seqs of TFs controlling each regulon:
 		      
 		      redim TFs(UBound(RegulonIDs))
 		      logowin.WriteToSTDOUT(EndOfLine.UNIX+"MicrobesOnline: getting protein sequence with ID ")
-		      for m=1 to UBound(RegulonIDs)
+		      For m=0 To UBound(RegulonIDs)
 		        
 		        'RegPrecise is linked to protein seqs via microbesOnline, so we have to get vimssId first
-		        hts = new HTTPSocket
-		        hts.Yield=true
-		        res=hts.Get("https://regprecise.lbl.gov/Services/rest/regulators?regulonId="+RegulonIDs(m),0)
-		        if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		        hts = New HTTPSocket
+		        
+		        hts.Yield=True  'allow background activities while waiting
+		        hts.SetRequestHeader("Content-Type:","text/plain")
+		        
+		        theURL=RegPreciseBase+"regulon.jsp?regulon_id="+Str(RegulonIDs(m))
+		        
+		        res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		        
+		        If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
 		          if res="null" then
 		            'API error, quite frequent. really no way to get this protein from RegPrecise/MicrobesOnline
-		            LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Incorrect response from RegPrecise. Can't get the sequence of the TF controlling the regulon with ID "+RegulonIDs(m)+". The sig file will have no CR tag and should be corrected manually."+EndOfLine.UNIX)
+		            LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Incorrect response from RegPrecise. Can't get the sequence of the TF controlling the regulon with ID "+str(RegulonIDs(m))+". The sig file will have no CR tag and should be corrected manually."+EndOfLine.UNIX)
 		            ProteinFasta=""
 		          else
-		            if res<>"" then
-		              Try
-		                JSN0.load(res)
-		                'should contain smth like:
-		                '{"regulator":{"locusTag":"ECA3790","name":"PdhR","regulatorFamily":"GntR","regulonId":"10409","vimssId":"608214"}}
-		                JSN=JSN0.value("regulator")
-		                
-		                
-		                'Have to add a check for array here, these errors happen in RegPrecise too often!
-		                'use the first item from the array and drop the second one?
-		                'example of problematic JSON:
-		                '{"regulator":[{"locusTag":"GALLO_1056","name":"Rgg","regulatorFamily":"XRE","regulonId":"37986","vimssId":"10395756"},{"locusTag":"GALLO_1054","name":"Rgg","regulatorFamily":"XRE","regulonId":"37986","vimssId":"10395754"}]}
-		                
-		                if JSN.IsArray then
-		                  ProteinFasta=">"+JSONItem(JSN(0)).Value("name")+" locus_tag="+JSONItem(JSN(0)).Value("locusTag")+" regulonId="+JSONItem(JSN(0)).Value("regulonId")+" vimssId="+JSONItem(JSN(0)).Value("vimssId")
-		                  vimssId=JSONItem(JSN(0)).Value("vimssId")
-		                else
-		                  ProteinFasta=">"+JSN.Value("name")+" locus_tag="+JSN.Value("locusTag")+" regulonId="+JSN.Value("regulonId")+" vimssId="+JSN.Value("vimssId")
-		                  vimssId=JSN.Value("vimssId")
-		                end if
-		              Catch err As KeyNotFoundException
-		                
-		                LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Can't get the TF controlling regulon with ID="+str(RegulonIDs(m))+". Skipping this regulon...")
-		                exit for m
-		                
-		              End Try
-		            end if
-		            
+		            If res<>"" Then
+		              vimssId=NthField(res,"http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=",2)
+		              vimssId=NthField(vimssId,"&",1)
+		              
+		              ProteinFasta=NthField(res,"<title>Regulon Of ",2)
+		              ProteinFasta=">"+NthField(ProteinFasta,"</title>",1)
+		               
+		            End If
 		            
 		            ' now get the actual protein seq
 		            ' mysql -h pub.microbesonline.org -u guest -pguest genomics -B -e "select * from AASeq where locusId=606816;"
@@ -2044,15 +2010,14 @@ End
 		            ' html alternative:
 		            ' http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=606816&disp=4
 		            
-		            dim URL As string 
-		            URL="http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
+		            theURL="http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
 		            
 		            hts = new HTTPSocket
 		            
 		            hts.Yield=true  'allow background activities while waiting
 		            hts.SetRequestHeader("Content-Type:","text/plain")
 		            
-		            res=hts.Get(URL,60)  'adjust timeout?
+		            res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
 		            
 		            if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		              if Res="" then
@@ -2063,7 +2028,7 @@ End
 		                end if
 		                
 		                ProteinFasta=""
-		              else
+		              Else
 		                'parse the server response
 		                dim pseq as string
 		                pseq=NthField(res,">Protein<",2)
@@ -2091,17 +2056,14 @@ End
 		          end if
 		        end if
 		        TFs(m)=ProteinFasta
-		      next
+		      Next
 		      logowin.WriteToSTDOUT("."+EndOfLine)
-		      
-		      
-		      
 		      
 		      
 		      'Extract CRtags from each TF
 		      redim CRtags(UBound(RegulonIDs))
 		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
-		      for m=1 to UBound(RegulonIDs)
+		      for m=0 to UBound(RegulonIDs)
 		        if TFs(m)<>"" then
 		          'make the file for hmmsearch
 		          
@@ -2113,27 +2075,7 @@ End
 		              
 		            end if
 		            tos.close 
-		          end if
-		          
-		          ''set CRtagPositions b4 calling HMMsearchWithCRtags:
-		          'dim tis as textinputstream
-		          'tis=HMMfile.OpenAsTextFile
-		          '
-		          'if tis<>nil then
-		          '
-		          'while CRTAG=""
-		          'aLine=tis.ReadLine     'hmmfile
-		          'if left(aline,6)="CRTAG " then
-		          'CRtag=NthField(aLine,"CRTAG ",2)
-		          'exit
-		          'end if
-		          'wend
-		          'CRtagPositions=CRtag
-		          'else
-		          'return
-		          'end if
-		          'tis.close
-		          
+		          End If
 		          
 		          hmmSearchRes=HMMsearchWithCRtags(FFile,HMMfilePath)
 		          CRtags(m)=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
@@ -2143,9 +2085,12 @@ End
 		            'TF title line looks like this:
 		            '>Rgg locus_tag=SGO_0496 regulonId=37987 vimssId=3788810
 		            dim TFdata as string
-		            TFdata=nthfield(TFs(m),"locus_tag=",2)
-		            TFdata=nthfield(TFdata," vimssId=",1)
-		            TFdata="locus_tag="+TFdata
+		            'TFdata=nthfield(TFs(m),"locus_tag=",2)
+		            'TFdata=nthfield(TFdata," vimssId=",1)
+		            'TFdata="locus_tag="+TFdata
+		            TFdata=NthField(TFs(m),">",2)
+		            TFdata=NthField(TFdata,Chr(10),1)
+		            
 		            
 		            LogoWin.WriteToSTDOUT(EndOfLine+"hmmsearch failed, most likely the TF ("+TFdata+") is from another family.") 
 		            
@@ -2162,13 +2107,13 @@ End
 		      redim uTags(0)
 		      redim uRegulons(0)
 		      uTags.append CRtags(1)         
-		      uRegulons.append regulonIDs(1)        
+		      uRegulons.append str(regulonIDs(1))       
 		      for q=2 to UBound(CRtags)
 		        dim NewTag as boolean=true
 		        
 		        for p=1 to UBound(uTags)
 		          if uTags(p)=CRtags(q) then
-		            uRegulons(p)=uRegulons(p)+";"+regulonIDs(q)
+		            uRegulons(p)=uRegulons(p)+";"+str(regulonIDs(q))
 		            NewTag=false
 		            exit
 		          end if
@@ -2176,12 +2121,9 @@ End
 		        
 		        if NewTag then
 		          uTags.Append CRtags(q)
-		          uRegulons.append RegulonIDs(q)
+		          uRegulons.append str(RegulonIDs(q))
 		        end if
 		      next q
-		      
-		      
-		      
 		      
 		      
 		      '     <---!
@@ -2207,24 +2149,17 @@ End
 		          
 		          'Get TFBS seqs:
 		          res=""
-		          jsn = new JSONItem
-		          hts = new HTTPSocket
+		          hts = New HTTPSocket
 		          hts.Yield=true
 		          
-		          res=hts.Get("https://regprecise.lbl.gov/Services/rest/sites?regulonId="+ID,0)
+		          theURL=RegPreciseBase+"ExportServlet?type=site&regulonId="+ID
+		          
+		          res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
 		          
 		          if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		            if res<>"" then
-		              JSN.load(res)
 		              Logowin.WriteToSTDOUT(" "+ID)
-		              dim fa as string
-		              fa=JSON2Fasta(JSN)
-		              if fa<>"" then
-		                fa=FillGaps(fa,true)
-		                TFBSs(r)=TFBSs(r)+fa
-		                
-		              end if
-		              
+		              TFBSs(r)=TFBSs(r)+FillGaps(res,True)
 		            else
 		              Logowin.WriteToSTDOUT("no response in 15 sec.")
 		            end if
@@ -2233,30 +2168,19 @@ End
 		            LogoWin.WriteToSTDOUT (httpErr)
 		          end if
 		          
-		          
-		          
-		          
 		        next s
-		        
 		        
 		      next r
 		      Logowin.WriteToSTDOUT("."+EndOfLine)
 		      
-		      
-		      
-		      
-		      //Need to remove duplicate names/seqs that RegPrecise has a lot of!!!
-		      
-		      
-		      
-		      
+		      'Need to remove duplicate names/seqs that RegPrecise has a lot of!!!
 		      
 		      //=============================================================================================
 		      ' write .sig files for every CRtag
 		      //=============================================================================================
 		      
 		      Dim SigFile As FolderItem
-		      Dim f, CDSFile as folderitem
+		      Dim f As folderitem
 		      'Dim hmmSearchRes, CRtag, hmmFile2find, hmmPath, ProtName as string
 		      Dim SigFileVV As VirtualVolume
 		      
@@ -2306,7 +2230,7 @@ End
 		          'Calculate Info Content
 		          dim IC As double
 		          IC=Fasta2IC(TFBSs(r))
-		          ICarr.append str(IC) 'append IC to the stats array
+		          ICarr.append Str(IC) 'append IC to the stats array
 		          
 		          'Guess the hmm cutoffs
 		          dim cutoffs as string
@@ -2315,372 +2239,401 @@ End
 		          'Check for variable motif length
 		          if MotifLengthsDiffer(TFBSs(r)) then
 		            LogoWin.WriteToSTDOUT("Motifs are unaligned, can't build the hmm."+EndOfLine.unix)
-		            exit for r
-		          End If
-		          
-		          'convert the alignment to Stockholm format (for building the hmm
-		          dim stock as FolderItem = TemporaryFolder.child("stock")
-		          if stock <> nil then
-		            dim AlignmentFile,rcAlignmentFile as FolderItem
 		            
-		            AlignmentFile=TemporaryFolder.Child("alignment.fa")
+		          Else
 		            
-		            If AlignmentFile <> Nil then
-		              'if AlignmentFile.exists then
-		              'AlignmentFile.delete
-		              'end if
+		            'convert the alignment to Stockholm format (for building the hmm
+		            Dim stock As FolderItem = TemporaryFolder.child("stock")
+		            If stock <> Nil Then
+		              Dim AlignmentFile,rcAlignmentFile As FolderItem
 		              
-		              OutStream = TextOutputStream.Create(AlignmentFile)
-		              if outStream<>Nil then
-		                outstream.Write(TFBSs(r))                             '<<-----!
-		                outstream.close
-		              end if
+		              AlignmentFile=TemporaryFolder.Child("alignment.fa")
 		              
+		              If AlignmentFile <> Nil Then
+		                'if AlignmentFile.exists then
+		                'AlignmentFile.delete
+		                'end if
+		                
+		                OutStream = TextOutputStream.Create(AlignmentFile)
+		                If outStream<>Nil Then
+		                  outstream.Write(TFBSs(r))                             '<<-----!
+		                  outstream.close
+		                End If
+		                
+		              End If
+		              
+		              
+		              ' check if the profile should be palindromic!!!!!              <---!
+		              ' we guess from family name here, which is far from being safe
+		              
+		              
+		              PalindromicSite=palindromicFamily(FamilyName,TFname)
+		              If PalindromicSite Then 'reverse complement every site
+		                
+		                If AlignmentFile<>Nil And AlignmentFile.Exists Then
+		                  'check if the alignment is already RC'd
+		                  Dim firstLine,thirdLine As String
+		                  'dim tis as TextInputStream
+		                  tis=AlignmentFile.OpenAsTextFile
+		                  If tis<>Nil Then
+		                    firstLine=tis.readLine
+		                    thirdLine=tis.readLine
+		                    thirdLine=tis.readLine
+		                    tis.Close
+		                  End If
+		                  
+		                  If Left(firstLine,3)=">f_" And Left(thirdLine,3)=">r_" Then
+		                    'looks like the seqs are palindromised already
+		                  Else
+		                    rcAlignmentFile=TemporaryFolder.child("rcAliFile")
+		                    RevCompAlignment(AlignmentFile,rcAlignmentFile,True)
+		                    AlignmentFile.Delete
+		                    AlignmentFile=rcAlignmentFile
+		                    AlignmentFile.name=ProfileBaseName+".sig"
+		                  End If
+		                End If
+		                
+		              End If
+		              
+		              
+		              // Write everything to the .sig file:
+		              
+		              'Alignments:
+		              If AlignmentFile<>Nil And AlignmentFile.Exists Then
+		                
+		                
+		                SigFileVV = SigFile.CreateVirtualVolume
+		                If SigFileVV <> Nil Then
+		                  'first copy the existing files:
+		                  'AlignmentFile.CopyFileTo(SigFileVV.Root)    'still broken in Linux?
+		                  CopyFileToVV(AlignmentFile,SigFileVV)                          'alignment
+		                  'get the base of profile name
+		                  Dim baseName As String
+		                  basename= NthField(SigFile.DisplayName,".sig",1)
+		                  
+		                  'alignment file can have any name, so checking it here:
+		                  Dim file2copy As folderitem
+		                  If AlignmentFile.Name<>basename+".fasta" Then
+		                    Dim wrongFile As folderitem=SigFileVV.Root.child(AlignmentFile.Name)
+		                    If wrongFile<>Nil And wrongFile.exists Then
+		                      wrongFile.name=basename+".fasta"
+		                    Else
+		                      logowin.WriteToSTDOUT(EndOfLine+"Error writing .sig file")
+		                      Return
+		                    End If
+		                  End If
+		                  
+		                  
+		                  'Options file:
+		                  
+		                  Dim f2 As folderitem =SigFileVV.Root.child(basename+".options")
+		                  If f2<>Nil Then
+		                    'dim outstream As TextOutputStream
+		                    outstream = TextOutputStream.Create(f2)
+		                    
+		                    outstream.WriteLine("////")
+		                    outstream.WriteLine("// TF family and critical residue tag settings")
+		                    outstream.WriteLine("////")
+		                    outstream.WriteLine(EndOfLine)
+		                    
+		                    outstream.WriteLine("// TF family HMM file name")
+		                    outstream.WriteLine("TF_HMM "+Hmmfile.name)
+		                    'outstream.WriteLine(Endofline)
+		                    
+		                    outstream.WriteLine("// CRtag coordinates")
+		                    outstream.WriteLine("CRtagCoords "+CRtag)     ' <--- fix!
+		                    'outstream.WriteLine(Endofline)
+		                    
+		                    outstream.WriteLine("// CRtag sequence")
+		                    outstream.WriteLine("CRtag "+uTags(r))
+		                    
+		                    
+		                    'get seed protein name and sequence
+		                    ' using the first protein of the family, CRtag may be not quite correct!
+		                    
+		                    Dim proteinID, proteinSeq As String
+		                    Dim lineBreakC As Integer
+		                    
+		                    proteinSeq=TFs(1)
+		                    lineBreakC=InStr(proteinSeq,EndOfLine.Unix)
+		                    'the check for null protein disabled since this is too frequent. The .sig will be incomplete and has to be corrected manually
+		                    'if lineBreakC=0 then
+		                    'msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
+		                    'return
+		                    'End If
+		                    proteinID=NthField(proteinSeq,EndOfLine.Unix,1)
+		                    proteinID=Right(proteinID,Len(proteinID)-1) 'remove the > sign
+		                    proteinSeq=CleanUp(Right(proteinSeq,Len(proteinSeq)-lineBreakC))
+		                    
+		                    outstream.WriteLine("// protein_id of the TF used to seed the profile")
+		                    outstream.WriteLine("protein_id "+proteinID)
+		                    'outstream.WriteLine(Endofline)
+		                    
+		                    outstream.WriteLine("// seed protein sequence (single line)")
+		                    outstream.WriteLine("Seed_protein "+proteinSeq)
+		                    outstream.WriteLine(EndOfLine)
+		                    'outstream.WriteLine(Endofline)
+		                    
+		                    outstream.WriteLine("////")
+		                    outstream.WriteLine("// nhmmer options")
+		                    outstream.WriteLine("////")
+		                    outstream.WriteLine(EndOfLine)
+		                    
+		                    outstream.Write(cutoffs)
+		                    'outstream.WriteLine("// Trusted cutoff. Bit score per-sequence cutoff, set according to the lowest scores seen for true homologous sequences that were above the GA gathering thresholds, when gathering members of the alignment")
+		                    'outstream.WriteLine("#=GF TC "+trim(TrustedField.text)+" "+trim(TrustedField.text))
+		                    'outstream.WriteLine(Endofline)
+		                    '
+		                    'outstream.WriteLine("// Gathering threshold. Bit score per-sequence cutoff used in gathering the members of the alignment")
+		                    'outstream.WriteLine("#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text))
+		                    'outstream.WriteLine(Endofline)
+		                    '
+		                    'outstream.WriteLine("//Noise cutoff. Bit score per-sequence cutoff, set according to the highest scores seen for unrelated sequences")
+		                    'outstream.WriteLine("#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text))
+		                    'outstream.WriteLine(Endofline)
+		                    '
+		                    'outstream.WriteLine("// use the gathering threshold from the calibrated profile")
+		                    'outstream.WriteLine("nhmmer.--cut_ga")
+		                    outstream.WriteLine(EndOfLine)
+		                    outstream.WriteLine(EndOfLine)
+		                    
+		                    outstream.WriteLine("////")
+		                    outstream.WriteLine("// HmmGen options")
+		                    outstream.WriteLine("////")
+		                    outstream.WriteLine(EndOfLine)
+		                    
+		                    'outstream.WriteLine("// the alignment length")
+		                    'outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))     '<---! Not used any more?
+		                    'outstream.WriteLine(Endofline)
+		                    
+		                    If PalindromicSite Then
+		                      outstream.WriteLine("// the site is palindromic")
+		                      outstream.WriteLine("HmmGen.-p")
+		                      outstream.WriteLine(EndOfLine)
+		                    End If
+		                    
+		                    'if NOT NextLocusBox.value then
+		                    'outstream.WriteLine("// don't pick up locus_tag from next locus")
+		                    'outstream.WriteLine("HmmGen.-n")
+		                    'outstream.WriteLine(Endofline)
+		                    'end if
+		                    
+		                    
+		                    outstream.WriteLine("// ignore sites inside ORFs (and risk missing some real ones!)")
+		                    outstream.WriteLine("HmmGen.-i ")
+		                    outstream.WriteLine(EndOfLine)
+		                    
+		                    outstream.WriteLine("// feature key")
+		                    outstream.WriteLine("HmmGen.-f "+"protein_bind")
+		                    outstream.WriteLine(EndOfLine)
+		                    
+		                    outstream.WriteLine("// feature qualifier")
+		                    outstream.WriteLine("HmmGen.-q "+"bound_moiety#"+TFname)
+		                    outstream.WriteLine(EndOfLine)
+		                    
+		                    'MASTgen p-value
+		                    outstream.WriteLine("// MASTgen p-value cutoff")
+		                    outstream.WriteLine("mastGen.-V "+"")                    '<---not set for now!
+		                    outstream.WriteLine(EndOfLine)
+		                    
+		                    outstream.Close
+		                    
+		                    
+		                    // Assemble and write info file:
+		                    '  Collect info available from RegPrecise,
+		                    '  add analysis/stats of CRtags/TFBSs
+		                    
+		                    
+		                    
+		                    
+		                    
+		                    '<--------------------------------------------------------------------------------
+		                    
+		                    
+		                    
+		                    
+		                    
+		                    
+		                    // Info file
+		                    
+		                    Dim RegPreciseInfo As String
+		                    'RegPreciseInfo=hts.Get("http://regprecise.lbl.gov/Services/rest/regulog?regulogId="+RegulogID,0)
+		                    ' sample result:
+		                    '{"effector":"BceS, sensor histidine kinase (bacitracin)","pathway":"Bacitracin resistance","regulationType":"TF",
+		                    '"regulatorFamily":"OmpR","regulatorName":"BceR","regulogId":"1339","taxonName":"Bacillales"}
+		                    
+		                    'JSN2.load(RegPreciseInfo)
+		                    'JSN3=JSN2.value("regulog")
+		                    'RegPreciseInfo=DefineEncoding(RegPreciseInfo,Encodings.ASCII)
+		                    Dim regulatorFamily, taxonName, pathway, effector As String
+		                    
+		                    regulatorFamily=NthField(RegulonInfo,">Regulator family:</td>",2)
+		                    regulatorFamily=NthField(regulatorFamily,"<td>",2)
+		                    regulatorFamily=NthField(regulatorFamily,"</td>",1)
+		                    
+		                    taxonName=NthField(RegulonInfo,">Phylum:</td>",2)
+		                    taxonName=NthField(taxonName,"<td>",2)
+		                    taxonName=NthField(taxonName,"</td>",1)
+		                    
+		                    pathway=NthField(RegulonInfo,">Biological process:</td>",2)
+		                    pathway=NthField(pathway,"<td>",2)
+		                    pathway=NthField(pathway,"</td>",1)
+		                    
+		                    effector=NthField(RegulonInfo,">Effector:</td>",2)
+		                    effector=NthField(effector,"<td>",2)
+		                    effector=NthField(effector,"</td>",1)
+		                    
+		                    
+		                    RegPreciseInfo="   This profile is built with RegPrecise (version "+RegPreciseWin.RegPreciseVersion+") data for "
+		                    RegPreciseInfo=RegPreciseInfo+TFname+" ("+regulatorFamily+" family) from "+taxonName+". "
+		                    RegPreciseInfo=RegPreciseInfo+TFname+" is involved in "+pathway+" and responds to "+effector+"."+EndOfLine.UNIX
+		                    RegPreciseInfo=RegPreciseInfo+"   RegPrecise regulog (ID "+Str(RegulogID)+") includes "+CollectionList.Cell(n,2)+" regulons and "+CollectionList.Cell(n,3)+" inferred binding sites."
+		                    
+		                    'assemble and then append basic CR tag stats
+		                    Dim CRtagStats As String
+		                    If ubound(uTags)=1 Then
+		                      CRtagStats=" All regulog member TFs have the same CR tag."
+		                      Dim siteCount As Integer = CountFields(TFBSs(1),">")-1
+		                      Dim regCount As Integer = CountFields(uRegulons(1),";")
+		                      If r=1 Then
+		                        If regCount=1 Then
+		                          CRtagStatArray.append Str(uTags(1))+" (1 genome, "+Str(siteCount)+" binding sites)"+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
+		                        Else
+		                          CRtagStatArray.append Str(uTags(1))+" ("+Str(RegCount)+" genomes, "+Str(siteCount)+" binding sites)"+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
+		                        End If
+		                      End If
+		                    Else
+		                      CRtagStats=" Regulog member TFs have "+Str(ubound(uTags))+" variants of CR tags:"+EndOfLine.UNIX
+		                      For w=1 To ubound(uTags)
+		                        Dim regCount As Integer = CountFields(uRegulons(w),";")
+		                        Dim siteCount As Integer = CountFields(TFBSs(w),">")-1
+		                        If regCount=1 Then
+		                          CRtagStats=CRtagStats+Str(uTags(w))+" (1 genome, "+Str(siteCount)+" binding sites)"+EndOfLine.UNIX
+		                        Else
+		                          CRtagStats=CRtagStats+Str(uTags(w))+" ("+Str(RegCount)+" genomes, "+Str(siteCount)+" binding sites)"+EndOfLine.UNIX
+		                          
+		                        End If
+		                        If r=1 Then
+		                          CRtagStatArray.append NthField(CRtagStats,EndOfLine.UNIX,w+1)+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
+		                        End If
+		                      Next
+		                    End If
+		                    
+		                    Dim regCount As Integer = CountFields(uRegulons(r),";")
+		                    Dim siteCount As Integer = CountFields(TFBSs(r),">")-1
+		                    If regCount=1 Then
+		                      CRtagStats=CRtagStats+EndOfLine.UNIX+"   This profile includes the data for the TF with CR tag "+uTags(r)+"."
+		                    Else
+		                      CRtagStats=CRtagStats+EndOfLine.UNIX+"   This profile includes the data for TFs with CR tag "+uTags(r)+"."
+		                      
+		                    End If
+		                    
+		                    RegPreciseInfo=RegPreciseInfo+CRtagStats 
+		                    
+		                    //**********************************
+		                    ' need to include species info here!
+		                    //**********************************
+		                    
+		                    If regCount=1 Then
+		                      RegPreciseInfo=RegPreciseInfo+" The sites belong to the genome of "
+		                    Else
+		                      RegPreciseInfo=RegPreciseInfo+" The sites belong to the following genomes:"+EndOfLine
+		                      
+		                    End If
+		                    
+		                    For w=1 To regCount
+		                      res=""
+		                      hts = New HTTPSocket
+		                      hts.Yield=True
+		                      
+		                      theURL=RegPreciseBase+"ExportServlet?type=site&regulonId="+NthField(uRegulons(r),";",w)
+		                      res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		                      
+		                      If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		                        If res<>"" Then
+		                          RegPreciseInfo=RegPreciseInfo+GenomeNames(w)+" (regulonId="+Str(regulonIds(w))+")"+EndOfLine
+		                          
+		                        End If
+		                      Else
+		                        Dim httpErr As String = HTTPerror(hts.HTTPStatusCode, True)
+		                        LogoWin.WriteToSTDOUT (httpErr)
+		                      End If
+		                    Next
+		                    
+		                    
+		                    
+		                    
+		                    
+		                    f2=SigFileVV.Root.child(basename+".info")
+		                    
+		                    If f2<>Nil Then
+		                      outstream = TextOutputStream.Create(f2)
+		                      outstream.Write(RegPreciseInfo)
+		                      outstream.close
+		                    End If
+		                    
+		                    
+		                    // Save MEME data
+		                    If MEMEconvert(AlignmentFile,PalindromicSite)=0 Then
+		                      file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
+		                      If file2copy<>Nil And file2copy.exists Then
+		                        CopyFileToVV(file2copy,SigFileVV)
+		                        
+		                        If file2copy.LastErrorCode <> 0 Then
+		                          MsgBox "MEME result file copy error"
+		                        End If
+		                      Else
+		                        'this file is optional
+		                      End If
+		                    Else
+		                      'have to handle cases when only one seq is left and hence meme returns an error
+		                    End
+		                    
+		                    
+		                    // build and save the hmm:
+		                    Stockholm(AlignmentFile,stock, cutoffs)
+		                    
+		                    f2 = TemporaryFolder.child(basename+".hmm")      'place to save
+		                    If f2<>Nil Then
+		                      FixPath4Windows(f2)
+		                      If hmmbuild(stock.ShellPath,f2.ShellPath) Then
+		                        If f2.exists Then
+		                          CopyFileToVV(f2,SigFileVV)
+		                          logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath+EndOfLine.UNIX)
+		                          LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
+		                          
+		                        Else
+		                          'beep
+		                        End If
+		                      Else
+		                        'error message handled by hmmbuild most of the time
+		                        logowin.WriteToSTDOUT(EndOfLine+"hmmbuild error")
+		                        Return
+		                      End If
+		                    Else
+		                      MsgBox "Creating hmm failed"
+		                      Return
+		                    End If
+		                  Else
+		                    MsgBox "Can't create .sig file here. Please try another location."
+		                    
+		                  End If
+		                Else
+		                  MsgBox "Can't create .sig file here. Please try another location."
+		                End If
+		              Else
+		                MsgBox "No alignment file found in the chosen folder. Can't proceed without it"
+		                Return
+		              End If
+		            Else
+		              MsgBox "Can't create temporary file"
+		              Return
 		            End If
 		            
-		            
-		            ' check if the profile should be palindromic!!!!!              <---!
-		            ' we guess from family name here, which is far from being safe
-		            
-		            
-		            PalindromicSite=palindromicFamily(FamilyName,TFname)
-		            if PalindromicSite then 'reverse complement every site
-		              
-		              if AlignmentFile<>Nil AND AlignmentFile.Exists then
-		                'check if the alignment is already RC'd
-		                dim firstLine,thirdLine as string
-		                'dim tis as TextInputStream
-		                tis=AlignmentFile.OpenAsTextFile
-		                if tis<>nil then
-		                  firstLine=tis.readLine
-		                  thirdLine=tis.readLine
-		                  thirdLine=tis.readLine
-		                  tis.Close
-		                End If
-		                
-		                if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
-		                  'looks like the seqs are palindromised already
-		                else
-		                  rcAlignmentFile=TemporaryFolder.child("rcAliFile")
-		                  RevCompAlignment(AlignmentFile,rcAlignmentFile,true)
-		                  AlignmentFile.Delete
-		                  AlignmentFile=rcAlignmentFile
-		                  AlignmentFile.name=ProfileBaseName+".sig"
-		                End If
-		              end if
-		              
-		            end if
-		            
-		            
-		            // Write everything to the .sig file:
-		            
-		            'Alignments:
-		            if AlignmentFile<>Nil AND AlignmentFile.Exists then
-		              
-		              
-		              SigFileVV = SigFile.CreateVirtualVolume
-		              If SigFileVV <> nil Then
-		                'first copy the existing files:
-		                'AlignmentFile.CopyFileTo(SigFileVV.Root)    'still broken in Linux?
-		                CopyFileToVV(AlignmentFile,SigFileVV)                          'alignment
-		                'get the base of profile name
-		                dim baseName as string
-		                basename= NthField(SigFile.DisplayName,".sig",1)
-		                
-		                'alignment file can have any name, so checking it here:
-		                dim file2copy as folderitem
-		                if AlignmentFile.Name<>basename+".fasta" then
-		                  dim wrongFile as folderitem=SigFileVV.Root.child(AlignmentFile.Name)
-		                  if wrongFile<>nil and wrongFile.exists then
-		                    wrongFile.name=basename+".fasta"
-		                  else
-		                    logowin.WriteToSTDOUT(EndOfLine+"Error writing .sig file")
-		                    return
-		                  End If
-		                End If
-		                
-		                
-		                'Options file:
-		                
-		                dim f2 as folderitem =SigFileVV.Root.child(basename+".options")
-		                if f2<>nil then
-		                  'dim outstream As TextOutputStream
-		                  outstream = TextOutputStream.Create(f2)
-		                  
-		                  outstream.WriteLine("////")
-		                  outstream.WriteLine("// TF family and critical residue tag settings")
-		                  outstream.WriteLine("////")
-		                  outstream.WriteLine(Endofline)
-		                  
-		                  outstream.WriteLine("// TF family HMM file name")
-		                  outstream.WriteLine("TF_HMM "+Hmmfile.name)
-		                  'outstream.WriteLine(Endofline)
-		                  
-		                  outstream.WriteLine("// CRtag coordinates")
-		                  outstream.WriteLine("CRtagCoords "+CRtag)     ' <--- fix!
-		                  'outstream.WriteLine(Endofline)
-		                  
-		                  outstream.WriteLine("// CRtag sequence")
-		                  outstream.WriteLine("CRtag "+uTags(r))
-		                  
-		                  
-		                  'get seed protein name and sequence
-		                  ' using the first protein of the family, CRtag may be not quite correct!
-		                  
-		                  dim proteinID, proteinSeq as string
-		                  dim lineBreakC as integer
-		                  
-		                  proteinSeq=TFs(1)
-		                  lineBreakC=instr(proteinSeq,EndOfLine.Unix)
-		                  'the check for null protein disabled since this is too frequent. The .sig will be incomplete and has to be corrected manually
-		                  'if lineBreakC=0 then
-		                  'msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
-		                  'return
-		                  'End If
-		                  proteinID=NthField(proteinSeq,EndOfLine.Unix,1)
-		                  proteinID=right(proteinID,len(proteinID)-1) 'remove the > sign
-		                  proteinSeq=CleanUp(right(proteinSeq,len(proteinSeq)-lineBreakC))
-		                  
-		                  outstream.WriteLine("// protein_id of the TF used to seed the profile")
-		                  outstream.WriteLine("protein_id "+proteinID)
-		                  'outstream.WriteLine(Endofline)
-		                  
-		                  outstream.WriteLine("// seed protein sequence (single line)")
-		                  outstream.WriteLine("Seed_protein "+proteinSeq)
-		                  outstream.WriteLine(Endofline)
-		                  'outstream.WriteLine(Endofline)
-		                  
-		                  outstream.WriteLine("////")
-		                  outstream.WriteLine("// nhmmer options")
-		                  outstream.WriteLine("////")
-		                  outstream.WriteLine(Endofline)
-		                  
-		                  outstream.Write(cutoffs)
-		                  'outstream.WriteLine("// Trusted cutoff. Bit score per-sequence cutoff, set according to the lowest scores seen for true homologous sequences that were above the GA gathering thresholds, when gathering members of the alignment")
-		                  'outstream.WriteLine("#=GF TC "+trim(TrustedField.text)+" "+trim(TrustedField.text))
-		                  'outstream.WriteLine(Endofline)
-		                  '
-		                  'outstream.WriteLine("// Gathering threshold. Bit score per-sequence cutoff used in gathering the members of the alignment")
-		                  'outstream.WriteLine("#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text))
-		                  'outstream.WriteLine(Endofline)
-		                  '
-		                  'outstream.WriteLine("//Noise cutoff. Bit score per-sequence cutoff, set according to the highest scores seen for unrelated sequences")
-		                  'outstream.WriteLine("#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text))
-		                  'outstream.WriteLine(Endofline)
-		                  '
-		                  'outstream.WriteLine("// use the gathering threshold from the calibrated profile")
-		                  'outstream.WriteLine("nhmmer.--cut_ga")
-		                  outstream.WriteLine(Endofline)
-		                  outstream.WriteLine(Endofline)
-		                  
-		                  outstream.WriteLine("////")
-		                  outstream.WriteLine("// HmmGen options")
-		                  outstream.WriteLine("////")
-		                  outstream.WriteLine(Endofline)
-		                  
-		                  'outstream.WriteLine("// the alignment length")
-		                  'outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))     '<---! Not used any more?
-		                  'outstream.WriteLine(Endofline)
-		                  
-		                  if PalindromicSite then
-		                    outstream.WriteLine("// the site is palindromic")
-		                    outstream.WriteLine("HmmGen.-p")
-		                    outstream.WriteLine(Endofline)
-		                  end if
-		                  
-		                  'if NOT NextLocusBox.value then
-		                  'outstream.WriteLine("// don't pick up locus_tag from next locus")
-		                  'outstream.WriteLine("HmmGen.-n")
-		                  'outstream.WriteLine(Endofline)
-		                  'end if
-		                  
-		                  
-		                  outstream.WriteLine("// ignore sites inside ORFs (and risk missing some real ones!)")
-		                  outstream.WriteLine("HmmGen.-i ")
-		                  outstream.WriteLine(Endofline)
-		                  
-		                  outstream.WriteLine("// feature key")
-		                  outstream.WriteLine("HmmGen.-f "+"protein_bind")
-		                  outstream.WriteLine(Endofline)
-		                  
-		                  outstream.WriteLine("// feature qualifier")
-		                  outstream.WriteLine("HmmGen.-q "+"bound_moiety#"+TFname)
-		                  outstream.WriteLine(Endofline)
-		                  
-		                  'MASTgen p-value
-		                  outstream.WriteLine("// MASTgen p-value cutoff")
-		                  outstream.WriteLine("mastGen.-V "+"")                    '<---not set for now!
-		                  outstream.WriteLine(Endofline)
-		                  
-		                  outstream.Close
-		                  
-		                  
-		                  // Assemble and write info file:
-		                  '  Collect info available from RegPrecise,
-		                  '  add analysis/stats of CRtags/TFBSs
-		                  
-		                  
-		                  hts = new HTTPSocket
-		                  
-		                  hts.Yield=true
-		                  dim RegPreciseInfo as string
-		                  dim JSN2 as new JSONItem
-		                  RegPreciseInfo=hts.Get("http://regprecise.lbl.gov/Services/rest/regulog?regulogId="+RegulogID,0)
-		                  ' sample result:
-		                  '{"effector":"BceS, sensor histidine kinase (bacitracin)","pathway":"Bacitracin resistance","regulationType":"TF",
-		                  '"regulatorFamily":"OmpR","regulatorName":"BceR","regulogId":"1339","taxonName":"Bacillales"}
-		                  
-		                  JSN2.load(RegPreciseInfo)
-		                  'JSN3=JSN2.value("regulog")
-		                  RegPreciseInfo=DefineEncoding(RegPreciseInfo,Encodings.ASCII)
-		                  RegPreciseInfo="   This profile is built with RegPrecise (version "+RegPreciseWin.RegPreciseVersion+") data for "
-		                  RegPreciseInfo=RegPreciseInfo+TFname+" ("+JSN2.Value("regulatorFamily")+" family) from "+JSN2.Value("taxonName")+". "
-		                  RegPreciseInfo=RegPreciseInfo+TFname+" is involved in "+JSN2.Value("pathway")+" and responds to "+JSN2.Value("effector")+"."+EndOfLine.UNIX
-		                  RegPreciseInfo=RegPreciseInfo+"   RegPrecise regulog (ID "+str(RegulogID)+") includes "+CollectionList.Cell(n,2)+" regulons and "+CollectionList.Cell(n,3)+" inferred binding sites."
-		                  
-		                  'assemble and then append basic CR tag stats
-		                  dim CRtagStats as string
-		                  if ubound(uTags)=1 then
-		                    CRtagStats=" All regulog member TFs have the same CR tag."
-		                    dim siteCount as integer = CountFields(TFBSs(1),">")-1
-		                    dim regCount as integer = CountFields(uRegulons(1),";")
-		                    if r=1 then
-		                      if regCount=1 then
-		                        CRtagStatArray.append str(uTags(1))+" (1 genome, "+str(siteCount)+" binding sites)"+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
-		                      else
-		                        CRtagStatArray.append str(uTags(1))+" ("+str(RegCount)+" genomes, "+str(siteCount)+" binding sites)"+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
-		                      End If
-		                    End If
-		                  else
-		                    CRtagStats=" Regulog member TFs have "+str(ubound(uTags))+" variants of CR tags:"+EndOfLine.UNIX
-		                    for w=1 to ubound(uTags)
-		                      dim regCount as integer = CountFields(uRegulons(w),";")
-		                      dim siteCount as integer = CountFields(TFBSs(w),">")-1
-		                      if regCount=1 then
-		                        CRtagStats=CRtagStats+str(uTags(w))+" (1 genome, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
-		                      else
-		                        CRtagStats=CRtagStats+str(uTags(w))+" ("+str(RegCount)+" genomes, "+str(siteCount)+" binding sites)"+EndOfLine.UNIX
-		                        
-		                      end if
-		                      if r=1 then
-		                        CRtagStatArray.append NthField(CRtagStats,EndOfLine.UNIX,w+1)+TFname'+ICarr(r)  'used in the end to print out CRtag ststistics
-		                      end if
-		                    next
-		                  End If
-		                  
-		                  dim regCount as integer = CountFields(uRegulons(r),";")
-		                  dim siteCount as integer = CountFields(TFBSs(r),">")-1
-		                  if regCount=1 then
-		                    CRtagStats=CRtagStats+EndOfLine.UNIX+"   This profile includes the data for the TF with CR tag "+uTags(r)+"."
-		                  else
-		                    CRtagStats=CRtagStats+EndOfLine.UNIX+"   This profile includes the data for TFs with CR tag "+uTags(r)+"."
-		                    
-		                  end if
-		                  
-		                  RegPreciseInfo=RegPreciseInfo+CRtagStats 
-		                  
-		                  //**********************************
-		                  ' need to include species info here!
-		                  //**********************************
-		                  
-		                  if regCount=1 then
-		                    RegPreciseInfo=RegPreciseInfo+" The sites belong to the genome of "
-		                  else
-		                    RegPreciseInfo=RegPreciseInfo+" The sites belong to the following genomes:"+EndOfLine
-		                    
-		                  end if
-		                  
-		                  for w=1 to regCount
-		                    res=""
-		                    jsn = new JSONItem
-		                    hts = new HTTPSocket
-		                    hts.Yield=true
-		                    
-		                    res=hts.Get("http://regprecise.lbl.gov/Services/rest/regulon?regulonId="+NthField(uRegulons(r),";",w),0)
-		                    
-		                    if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		                      if res<>"" then
-		                        JSN.load(res)
-		                        RegPreciseInfo=RegPreciseInfo+JSN.Value("genomeName")+" (regulonId="+JSN.Value("regulonId")+")"+EndOfLine
-		                        
-		                      end if
-		                    else
-		                      dim httpErr as String = HTTPerror(hts.HTTPStatusCode, true)
-		                      LogoWin.WriteToSTDOUT (httpErr)
-		                    end if
-		                  next
-		                  
-		                  
-		                  
-		                  
-		                  
-		                  f2=SigFileVV.Root.child(basename+".info")
-		                  
-		                  if f2<>nil then
-		                    outstream = TextOutputStream.Create(f2)
-		                    outstream.Write(RegPreciseInfo)
-		                    outstream.close
-		                  end if
-		                  
-		                  
-		                  // Save MEME data
-		                  if MEMEconvert(AlignmentFile,PalindromicSite)=0 then
-		                    file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
-		                    if file2copy<>Nil AND file2copy.exists then
-		                      CopyFileToVV(file2copy,SigFileVV)
-		                      
-		                      If file2copy.LastErrorCode <> 0 Then
-		                        msgbox "MEME result file copy error"
-		                      End If
-		                    else
-		                      'this file is optional
-		                    end if
-		                  else
-		                    'have to handle cases when only one seq is left and hence meme returns an error
-		                  end
-		                  
-		                  
-		                  // build and save the hmm:
-		                  Stockholm(AlignmentFile,stock, cutoffs)
-		                  
-		                  f2 = TemporaryFolder.child(basename+".hmm")      'place to save
-		                  if f2<>nil then
-		                    FixPath4Windows(f2)
-		                    if hmmbuild(stock.ShellPath,f2.ShellPath) then
-		                      if f2.exists then
-		                        CopyFileToVV(f2,SigFileVV)
-		                        logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath+EndOfLine.UNIX)
-		                        LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
-		                        
-		                      else
-		                        'beep
-		                      end if
-		                    else
-		                      'error message handled by hmmbuild most of the time
-		                      logowin.WriteToSTDOUT(EndOfLine+"hmmbuild error")
-		                      return
-		                    end if
-		                  else
-		                    msgbox "Creating hmm failed"
-		                    return
-		                  end if
-		                else
-		                  Msgbox "Can't create .sig file here. Please try another location."
-		                  
-		                end if
-		              else
-		                Msgbox "Can't create .sig file here. Please try another location."
-		              end if
-		            else
-		              msgbox "No alignment file found in the chosen folder. Can't proceed without it"
-		              return
-		            end if
-		          else
-		            msgbox "Can't create temporary file"
-		            return
-		          end if
+		          End If
 		          
 		        else
+		          Beep
 		          'cancelled
 		        end if
 		        
@@ -2796,7 +2749,7 @@ End
 		  
 		  
 		  LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"__CR tag statistics__"+EndOfLine.UNIX)
-		  LogoWin.WriteToSTDOUT("CRtag"+chr(9)+"TFname"+chr(9)+"GenomesPresentIn#"+chr(9)+"TFBS#"+chr(9)+"InfoBits"+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT("CRtag"+Chr(9)+"TFname"+Chr(9)+"GenomesPresentIn#"+Chr(9)+"TFBS#"+Chr(9)+"Info Bits"+EndOfLine.UNIX)
 		  LogoWin.WriteToSTDOUT(integralCRtagStats)
 		  
 		  for p=0 to ubound(CRtagVariantCount)

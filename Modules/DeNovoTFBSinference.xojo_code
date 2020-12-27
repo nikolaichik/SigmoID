@@ -599,9 +599,11 @@ Protected Module DeNovoTFBSinference
 		  case "LuxR"
 		    hmmFileName="GerE.hmm"
 		  case "GntR/MocR"
-		    hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		    hmmFileName="GntR_strict.hmm"
 		  case "GntR/Others"
-		    hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		    hmmFileName="GntR_strict.hmm"
 		  case "HxlR"
 		    hmmFileName="HxlR.hmm"
 		  case "LacI"
@@ -614,11 +616,25 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="TetR.hmm"
 		  case "XRE"
 		    hmmFileName="XRE_superfamily.hmm"
-		  case ""
+		  Case "CitT"
+		    hmmFileName="CitT.hmm"
+		  Case "DcuR"
+		    hmmFileName="DcuR.hmm"
+		  Case "Fis"
+		    hmmFileName="HTH_8.hmm"
+		  Case "IclR"
+		    hmmFileName="IclR.hmm"
+		  Case ""
 		    hmmFileName=""
-		  case ""
+		  Case ""
 		    hmmFileName=""
-		  else
+		  Case ""
+		    hmmFileName=""
+		  Case ""
+		    hmmFileName=""
+		  Case ""
+		    hmmFileName=""
+		  Else
 		    'can't find the proper .hmm file, so asking the user to choose it
 		    Dim dlg2 as New OpenDialog
 		    dlg2.InitialDirectory=Resources_f.child("TF_HMMs")          'only these are meaningful

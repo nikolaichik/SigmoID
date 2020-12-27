@@ -478,7 +478,7 @@ End
 		Sub Action()
 		  Dim lb As Listbox
 		  If ParentWin.Title=kRegPreciseTFCollections Then
-		    lb=RegPreciseTFcollectionsWin.CollectionList
+		    lb=RegPreciseTFcollectionsWin2.CollectionList
 		  Elseif ParentWin.Title=kProfilesInAfolder Then
 		    lb=ConvertProfilesToMEMEWin.CollectionList
 		  else

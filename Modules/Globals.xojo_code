@@ -814,13 +814,15 @@ Protected Module Globals
 		  
 		  'determine seqlength
 		  RegPreciseTFcollectionsWin.siteLength=0
-		  for n=0 to ubound(logodatarr)-1
+		  RegPreciseTFcollectionsWin2.siteLength=0
+		  For n=0 To ubound(logodatarr)-1
 		    Arow=trim(LogoDatarr(n)) 'trimming just in case
 		    Achar=left(Arow,1)
 		    if Achar<>">" then
 		      SeqLen=len(Arow)
 		      RegPreciseTFcollectionsWin.siteLength=SeqLen
-		      exit
+		      RegPreciseTFcollectionsWin2.siteLength=SeqLen
+		      Exit
 		    end if
 		    
 		  next
@@ -844,9 +846,10 @@ Protected Module Globals
 		      if len(Arow)<>SeqLen then
 		        logowin.WriteToSTDOUT "The sequences are of different lengths!"+EndOfLine.UNIX
 		        
-		        LengthsDiffer=true
+		        LengthsDiffer=True
 		        RegPreciseTFcollectionsWin.siteLength=0
-		        exit
+		        RegPreciseTFcollectionsWin2.siteLength=0
+		        Exit
 		      else
 		        LengthsDiffer=false
 		      end if
@@ -2217,13 +2220,15 @@ Protected Module Globals
 		  
 		  'determine seqlength
 		  RegPreciseTFcollectionsWin.siteLength=0
-		  for n=0 to ubound(logodatarr)-1
+		  RegPreciseTFcollectionsWin2.siteLength=0
+		  For n=0 To ubound(logodatarr)-1
 		    Arow=trim(LogoDatarr(n)) 'trimming just in case
 		    Achar=left(Arow,1)
 		    if Achar<>">" then
 		      SeqLen=len(Arow)
 		      RegPreciseTFcollectionsWin.siteLength=SeqLen
-		      exit
+		      RegPreciseTFcollectionsWin2.siteLength=SeqLen
+		      Exit
 		    end if
 		    
 		  next
@@ -2260,7 +2265,8 @@ Protected Module Globals
 		        LogoPic.graphics.DrawString("(TFBS lengths differ)",2,120)
 		        LengthsDiffer=true
 		        RegPreciseTFcollectionsWin.siteLength=0
-		        exit
+		        RegPreciseTFcollectionsWin2.siteLength=0
+		        Exit
 		      else
 		        LengthsDiffer=false
 		      end if
@@ -2415,6 +2421,7 @@ Protected Module Globals
 		  
 		  LogoPicScaled.Transparent=1
 		  RegPreciseTFcollectionsWin.InfoBits=totalEntropy
+		  RegPreciseTFcollectionsWin2.InfoBits=totalEntropy
 		  return LogoPicScaled
 		  
 		  Exception err
