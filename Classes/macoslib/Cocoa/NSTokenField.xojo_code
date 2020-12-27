@@ -1151,6 +1151,28 @@ Inherits NSControl
 	#tag EndHook
 
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  #if targetCocoa
+			    declare function isBordered lib CocoaLib selector "isBordered" (this as Ptr) as Boolean
+			    
+			    return isBordered(self)
+			  #endif
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  #if targetCocoa
+			    declare sub setBordered lib CocoaLib selector "setBordered:" (this as Ptr, value as Boolean)
+			    
+			    setBordered(self, value)
+			  #endif
+			End Set
+		#tag EndSetter
+		Bordered As Boolean
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21
 		#tag Note
 			//We need to cache MenuItems because they are not retained by NSMenuItem during the selection process in the local menu.
@@ -1263,11 +1285,8 @@ Inherits NSControl
 			  #if TargetMacOS
 			    declare sub setTokenStyle lib CocoaLib selector "setTokenStyle::" (id as Ptr, newValue as integer)
 			    
-			    #if Target32Bit
-			      setTokenStyle( me.id, Int32( value ) )
-			    #else
-			      setTokenStyle( me.id, Integer( value ) )
-			    #endif
+			    setTokenStyle( me.id, Integer( value ) )
+			    
 			  #else
 			    #pragma unused value
 			  #endif
@@ -1330,6 +1349,14 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="DoubleBuffer"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Alignment"
 			Visible=false
 			Group="Behavior"
@@ -1377,28 +1404,12 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="CompletionDelay"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="double"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Description"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DoubleBuffer"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleValue"
@@ -1421,7 +1432,7 @@ Inherits NSControl
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Single"
+			Type="Double"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -1429,14 +1440,6 @@ Inherits NSControl
 			Visible=true
 			Group="Position"
 			InitialValue="100"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Index"
-			Visible=true
-			Group="ID"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -1473,14 +1476,6 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Left"
-			Visible=true
-			Group="Position"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="LockBottom"
 			Visible=true
 			Group="Position"
@@ -1513,28 +1508,12 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="StringValue"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
@@ -1577,35 +1556,6 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TokenizingCharacters"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="string"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TokenStyle"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="TokenStyles"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - NSDefaultTokenStyle"
-				"1 - NSPlainTextTokenStyle"
-				"2 - NSRoundedTokenStyle"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Top"
-			Visible=true
-			Group="Position"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Transparent"
 			Visible=true
 			Group="Behavior"
@@ -1634,6 +1584,83 @@ Inherits NSControl
 			Visible=true
 			Group="Position"
 			InitialValue="100"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Bordered"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CompletionDelay"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TokenizingCharacters"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TokenStyle"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="TokenStyles"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSDefaultTokenStyle"
+				"1 - NSPlainTextTokenStyle"
+				"2 - NSRoundedTokenStyle"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

@@ -1,15 +1,15 @@
 #tag Module
 Module WindowManager
 	#tag Method, Flags = &h0
-		Function Alpha(extends w as Window) As Single
+		Function Alpha(extends w as Window) As Double
 		  if w.Handle = 0 then
 		    return 0.0
 		  end if
 		  
 		  #if TargetCarbon
-		    soft declare function GetWindowAlpha lib CarbonLib (inWindow as WindowPtr, ByRef inAlpha as Single) as Integer
+		    soft declare function GetWindowAlpha lib CarbonLib (inWindow as WindowPtr, ByRef inAlpha as Double) as Integer
 		    
-		    dim alphaValue as Single
+		    dim alphaValue as Double
 		    dim OSError as Integer = GetWindowAlpha(w, alphaValue)
 		    if OSError = 0 then
 		      return alphaValue
@@ -19,7 +19,7 @@ Module WindowManager
 		  #endif
 		  
 		  #if targetCocoa
-		    soft declare function alphaValue lib CocoaLib selector "alphaValue" (id as Ptr) as Single
+		    soft declare function alphaValue lib CocoaLib selector "alphaValue" (id as Ptr) as Double
 		    
 		    return alphaValue(Ptr(w.Handle))
 		  #endif
@@ -28,7 +28,7 @@ Module WindowManager
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Alpha(extends w as Window, assigns value as Single)
+		Sub Alpha(extends w as Window, assigns value as Double)
 		  if w.Handle = 0 then
 		    return
 		  end if
@@ -38,14 +38,14 @@ Module WindowManager
 		  end if
 		  
 		  #if TargetCarbon
-		    soft declare function SetWindowAlpha lib CarbonLib (inWindow as WindowPtr, inAlpha as Single) as Integer
+		    soft declare function SetWindowAlpha lib CarbonLib (inWindow as WindowPtr, inAlpha as Double) as Integer
 		    
 		    dim OSError as Integer = SetWindowAlpha(w, value)
 		    #pragma unused OSError
 		  #endif
 		  
 		  #if targetCocoa
-		    soft declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (id as Ptr, windowAlpha as Single)
+		    soft declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (id as Ptr, windowAlpha as Double)
 		    
 		    setAlphaValue Ptr(w.Handle), value
 		  #endif
@@ -644,6 +644,7 @@ Module WindowManager
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -651,18 +652,23 @@ Module WindowManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -670,6 +676,7 @@ Module WindowManager
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

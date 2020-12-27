@@ -459,6 +459,14 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="DoubleBuffer"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Alignment"
 			Visible=false
 			Group="Behavior"
@@ -506,28 +514,12 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="CriticalValue"
-			Visible=true
-			Group="Behavior"
-			InitialValue=""
-			Type="Double"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Description"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DoubleBuffer"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleValue"
@@ -550,7 +542,7 @@ Inherits NSControl
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Single"
+			Type="Double"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -558,14 +550,6 @@ Inherits NSControl
 			Visible=true
 			Group="Position"
 			InitialValue="100"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Index"
-			Visible=true
-			Group="ID"
-			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -602,14 +586,6 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Left"
-			Visible=true
-			Group="Position"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="LockBottom"
 			Visible=true
 			Group="Position"
@@ -642,66 +618,12 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="MajorTickMarks"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="MaxValue"
-			Visible=true
-			Group="Behavior"
-			InitialValue=""
-			Type="Double"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="MinValue"
-			Visible=true
-			Group="Behavior"
-			InitialValue=""
-			Type="Double"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="StringValue"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Style"
-			Visible=true
-			Group="Behavior"
-			InitialValue=""
-			Type="Integer"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - RelevancyLevelIndicator"
-				"1 - ContinuousCapacityLevelIndicator"
-				"2 - DiscreteCapacityLevelIndicator"
-				"3 - RatingLevelIndicator"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
@@ -744,16 +666,114 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TickMarkPosition"
+			Name="Transparent"
+			Visible=true
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Underlined"
+			Visible=true
+			Group="Behavior"
+			InitialValue="false"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Visible"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Width"
+			Visible=true
+			Group="Position"
+			InitialValue="100"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CriticalValue"
+			Visible=true
+			Group="Behavior"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MajorTickMarks"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="NSTickMarkPosition"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MaxValue"
+			Visible=true
+			Group="Behavior"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MinValue"
+			Visible=true
+			Group="Behavior"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Style"
+			Visible=true
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
 			EditorType="Enum"
 			#tag EnumValues
-				"0 - Below"
-				"1 - Above"
+				"0 - RelevancyLevelIndicator"
+				"1 - ContinuousCapacityLevelIndicator"
+				"2 - DiscreteCapacityLevelIndicator"
+				"3 - RatingLevelIndicator"
 			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TickMarks"
@@ -772,35 +792,11 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Transparent"
-			Visible=true
-			Group="Behavior"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Underlined"
-			Visible=true
-			Group="Behavior"
-			InitialValue="false"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Value"
 			Visible=true
 			Group="Behavior"
 			InitialValue=""
 			Type="Double"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Visible"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -812,12 +808,16 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Width"
-			Visible=true
-			Group="Position"
-			InitialValue="100"
-			Type="Integer"
-			EditorType=""
+			Name="TickMarkPosition"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSTickMarkPosition"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Below"
+				"1 - Above"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

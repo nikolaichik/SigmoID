@@ -143,55 +143,23 @@ Inherits NSObject
 		  //# Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 		  
 		  #if targetMacOS
+		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInteger) as Ptr
 		    
-		    #if Target64Bit
-		      declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInteger) as Ptr
+		    dim uboundObject as UInteger = objects.ubound
+		    dim objectCount as UInteger = uboundObject+1
+		    if uboundObject > -1 then
 		      
-		      dim uboundObject as UInteger = objects.ubound
-		      dim objectCount as UInteger = uboundObject+1
-		      if uboundObject > -1 then
-		        
-		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		        for i as integer = 0 to uboundObject
-		          m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
-		        next
-		        
-		        super.Constructor(initWithObjects(Allocate("NSArray"), m, objectCount), NSArray.hasOwnership)
-		      else
-		        dim n as NilObjectException
-		        n.Message = "NSArray.Constructor: NSObject argument cannot be nil."
-		        raise n
-		      end if
-		    #else
+		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		      for i as integer = 0 to uboundObject
+		        m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
+		      next
 		      
-		      declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
-		      dim uboundObject as UInt32 = objects.ubound
-		      dim objectCount as UInt32 = uboundObject+1
-		      if uboundObject > -1 then
-		        
-		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		        for i as integer = 0 to uboundObject
-		          'm.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
-		          
-		          #if Target32Bit
-		            m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
-		          #endif
-		          
-		          #if Target64Bit //On 32bits platform, a UInt64 cannot be casted to a Ptr
-		            m.UInt64Value = UInt64(objects(i).id)
-		          #endif
-		          
-		          
-		          
-		        next
-		        
-		        super.Constructor(initWithObjects(Allocate("NSArray"), m, objectCount), NSArray.hasOwnership)
-		      else
-		        dim n as NilObjectException
-		        n.Message = "NSArray.Constructor: NSObject argument cannot be nil."
-		        raise n
-		      end if
-		    #endif
+		      super.Constructor(initWithObjects(Allocate("NSArray"), m, objectCount), NSArray.hasOwnership)
+		    else
+		      dim n as NilObjectException
+		      n.Message = "NSArray.Constructor: NSObject argument cannot be nil."
+		      raise n
+		    end if
 		    
 		  #else
 		    #pragma unused objects
@@ -339,7 +307,7 @@ Inherits NSObject
 		      nsma.Append s
 		    next
 		    
-		  case Variant.TypeDouble, Variant.TypeSingle
+		  case Variant.TypeDouble
 		    dim ard() as double = theArray
 		    for each d as double in ard
 		      nsma.Append   new NSNumber( d )
@@ -434,45 +402,23 @@ Inherits NSObject
 		  //# Creates and returns an array containing the objects in the argument list.
 		  
 		  #if TargetMacOS
-		    #if Target64Bit
-		      declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInteger) as Ptr
+		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInteger) as Ptr
+		    
+		    dim uboundObject as Integer = objects.ubound
+		    dim objectCount as Integer = uboundObject+1
+		    if uboundObject > -1 then
 		      
-		      dim uboundObject as Integer = objects.ubound
-		      dim objectCount as Integer = uboundObject+1
-		      if uboundObject > -1 then
-		        
-		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		        for i as UInteger = 0 to uboundObject
-		          m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
-		        next
-		        
-		        dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
-		        
-		        if arrayRef <> nil then
-		          return new NSArray(arrayRef)
-		        end if
+		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		      for i as UInteger = 0 to uboundObject
+		        m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
+		      next
+		      
+		      dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
+		      
+		      if arrayRef <> nil then
+		        return new NSArray(arrayRef)
 		      end if
-		    #else
-		      
-		      declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
-		      
-		      dim uboundObject as UInt32 = objects.ubound
-		      dim objectCount as UInt32 = uboundObject+1
-		      
-		      if uboundObject > -1 then
-		        
-		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		        for i as integer = 0 to uboundObject
-		          m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
-		        next
-		        
-		        dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
-		        
-		        if arrayRef <> nil then
-		          return new NSArray(arrayRef)
-		        end if
-		      end if
-		    #endif
+		    end if
 		    
 		  #else
 		    #pragma unused objects
@@ -680,28 +626,18 @@ Inherits NSObject
 
 	#tag Method, Flags = &h0
 		Function Operator_Convert() As String()
-		  
-		  dim retArray() as String
-		  
-		  #if RBVersion > 2013.01
-		    #if Target64Bit
-		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		    #endif
-		  #endif
-		  
-		  dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, self.Count)
-		  dim m as MemoryBlock = self.ValuesArray(arrayRange)
-		  dim n as UInt32 = arrayRange.length-1
-		  for i as integer = 0 to n
-		    #if Target64Bit then
-		      retArray.append new NSString(Ptr(m.UInt64Value(i*8)))
-		    #else
-		      retArray.append new NSString(Ptr(m.UInt32Value(i*4)))
-		    #endif
-		  next
-		  
-		  return retArray
-		  
+		  #If TargetMacOS
+		    dim retArray() as String
+		    
+		    dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, self.Count)
+		    dim m as MemoryBlock = self.ValuesArray(arrayRange)
+		    dim n as Integer = arrayRange.length-1
+		    for i as integer = 0 to n
+		      retArray.append New NSString(Ptr(m.UInt64Value(i * SizeOfPointer)))
+		    next
+		    
+		    return retArray
+		  #EndIf
 		End Function
 	#tag EndMethod
 
@@ -792,26 +728,18 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Function Values(aRange as Cocoa.NSRange) As NSObject()
-		  #if RBVersion > 2013.01
-		    #if Target64Bit
-		      #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		    #endif
-		  #endif
-		  
-		  dim rb_array() as NSObject
-		  
-		  dim m as MemoryBlock = self.ValuesArray(aRange)
-		  
-		  dim n as UInt32 = aRange.length-1
-		  for i as integer = 0 to n
-		    #if Target64Bit then
-		      rb_array.append new NSObject(Ptr(m.UInt64Value(i*8)))
-		    #else
-		      rb_array.append new NSObject(Ptr(m.UInt32Value(i*4)))
-		    #endif
-		  next
-		  
-		  return rb_array
+		  #If TargetMacOS
+		    Dim rb_array() As NSObject
+		    
+		    Dim m As MemoryBlock = Self.ValuesArray(aRange)
+		    
+		    Dim n As Integer = aRange.length - 1
+		    For i As Integer = 0 To n
+		      rb_array.append New NSObject(Ptr(m.UInt64Value(i * SizeOfPointer)))
+		    Next
+		    
+		    Return rb_array
+		  #EndIf
 		  
 		End Function
 	#tag EndMethod
@@ -846,12 +774,6 @@ Inherits NSObject
 		  
 		  #if targetMacOS
 		    declare sub getObjects lib CocoaLib selector "getObjects:range:" (obj_id as Ptr, aBuffer as Ptr, aRange as Cocoa.NSRange)
-		    
-		    #if RBVersion > 2013.01
-		      #if Target64Bit
-		        #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		      #endif
-		    #endif
 		    
 		    dim m as new MemoryBlock(SizeOfPointer*aRange.length)
 		    
@@ -934,40 +856,26 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  //# Returns the number of objects currently in the array.
-			  
-			  #if TargetMacOS
-			    #if RBVersion >= 2012.02
-			      #if Target32Bit
-			        declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt32
-			      #else
-			        declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt64
-			      #endif
-			      
-			    #else //Previous versions are 32 bits only
-			      declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInt32
-			    #endif
-			    
+			  #If TargetMacOS Then
+			    declare function m_count lib CocoaLib selector "count" ( obj as Ptr ) as UInteger
 			    dim cnt as integer = m_count( me.id )
 			    
 			    return  cnt
-			  #endif
+			  #EndIf
 			End Get
 		#tag EndGetter
-		Count As Integer
+		Count As UInteger
 	#tag EndComputedProperty
 
 
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Count"
+			Visible=false
 			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			InitialValue=""
+			Type="UInteger"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -975,6 +883,7 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -982,18 +891,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -1001,6 +915,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -484,7 +484,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    declare function getRate lib CocoaLib selector "rate" (id as Ptr) as single
+			    declare function getRate lib CocoaLib selector "rate" (id as Ptr) as Double
 			    
 			    return  getRate( me.id )
 			  #endif
@@ -493,7 +493,7 @@ Inherits NSObject
 		#tag Setter
 			Set
 			  #if TargetMacOS
-			    declare sub setRate lib CocoaLib selector "setRate:" (id as Ptr, newRate as single)
+			    declare sub setRate lib CocoaLib selector "setRate:" (id as Ptr, newRate as Double)
 			    
 			    setRate( me.id, value )
 			    
@@ -502,7 +502,7 @@ Inherits NSObject
 			  #endif
 			End Set
 		#tag EndSetter
-		Rate As single
+		Rate As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -534,7 +534,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if TargetMacOS
-			    declare function getVolume lib CocoaLib selector "volume" (id as Ptr) as single
+			    declare function getVolume lib CocoaLib selector "volume" (id as Ptr) as Double
 			    
 			    return  getVolume( me.id )
 			  #endif
@@ -543,7 +543,7 @@ Inherits NSObject
 		#tag Setter
 			Set
 			  #if TargetMacOS
-			    declare sub setVolume lib CocoaLib selector "setVolume:" (id as Ptr, newVol as single)
+			    declare sub setVolume lib CocoaLib selector "setVolume:" (id as Ptr, newVol as Double)
 			    
 			    if value<0.0 OR value>1.0 then
 			      raise new  macoslibException( "NSSpeechSynthesizer volume must be in range 0.0 to 1.0" )
@@ -556,7 +556,7 @@ Inherits NSObject
 			  #endif
 			End Set
 		#tag EndSetter
-		Volume As single
+		Volume As Double
 	#tag EndComputedProperty
 
 
@@ -578,17 +578,12 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -596,23 +591,31 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Rate"
+			Visible=false
 			Group="Behavior"
-			Type="single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -620,17 +623,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Voice"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Volume"
+			Visible=false
 			Group="Behavior"
-			Type="single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

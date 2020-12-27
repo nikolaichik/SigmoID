@@ -2,11 +2,14 @@
 Protected Module ResourceForkReplacement
 	#tag Method, Flags = &h0
 		Function OpenMacResourceFork(extends f as FolderItem) As MacResourceFork
-		  // Disabled starting with Xojo 2019r2 because FolderItem implementation for macOS no longer uses FSRefs. 
-		  
-		  'if f <> nil and f.ResourceForkLength > 0 then
-		  'return new MacResourceFork (f)
-		  'end if
+		  #if XojoVersion < 2019.02
+		    if f <> nil and f.ResourceForkLength > 0 then
+		      return new MacResourceFork (f)
+		    end if
+		  #else
+		    // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		    break
+		  #endif
 		End Function
 	#tag EndMethod
 

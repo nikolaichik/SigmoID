@@ -2,26 +2,19 @@
 Class MDQuery
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
 		    
-		    soft declare function MDQueryGetTypeID lib CarbonLib () as Integer
+		    soft declare function MDQueryGetTypeID lib CarbonLib () as UInteger
 		    
-		    #if Target32Bit
-		      static id as UInt32 = UInt32(MDQueryGetTypeID)
-		      
-		    #else
-		      static id as UInteger = MDQueryGetTypeID
-		      
-		    #endif
-		    
+		    static id as UInteger = MDQueryGetTypeID
 		    return id
 		  #endif
 		  

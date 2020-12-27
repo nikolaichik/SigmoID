@@ -2,17 +2,17 @@
 Class SCDynamicStore
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return SCDynamicStore.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib SystemConfiguration.framework alias "SCDynamicStoreGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib SystemConfiguration.framework alias "SCDynamicStoreGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -172,7 +172,7 @@ Inherits CFType
 		    declare function SCDynamicStoreCopyValue lib SystemConfiguration.framework (store as Ptr, key as CFStringRef) as Ptr
 		    dim p as Ptr = SCDynamicStoreCopyValue(self, key)
 		    if p <> nil then
-		      soft declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInt32
+		      soft declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInteger
 		      select case CFGetTypeID(p)
 		      case CFArray.ClassID
 		        return new CFArray(p, hasOwnership)
@@ -316,7 +316,7 @@ Inherits CFType
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="ComputerName"
+			Name="Description"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
@@ -324,7 +324,7 @@ Inherits CFType
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Description"
+			Name="ComputerName"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

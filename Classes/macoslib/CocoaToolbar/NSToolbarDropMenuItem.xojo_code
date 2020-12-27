@@ -297,53 +297,6 @@ Implements NSToolbarItemInterface
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Image() As NSImage
-		  
-		  // get the item image as NSImage
-		  
-		  #if TargetCocoa
-		    declare function image lib CocoaLib selector "image:" (obj_id as Ptr) as Ptr
-		    
-		    dim imageRef as Ptr = image(_control_id)
-		    if imageRef <> nil then
-		      return new NSImage(imageRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Image(assigns n as NSImage)
-		  
-		  // set the image item as NSImage
-		  
-		  #if TargetCocoa
-		    declare sub setImage lib CocoaLib selector "setImage:" (obj_id as Ptr, menuImage as Ptr)
-		    
-		    if n <> nil then
-		      setImage _control_id, n
-		      
-		      // set the same image on the overflow menu item (just smaller)
-		      dim tinyImage as NSImage = n.Copy
-		      dim s as Cocoa.NSSize
-		      s.width = 16
-		      s.height = 16
-		      tinyImage.Size = s
-		      _overflowMenuItem.Image = tinyImage
-		    end if
-		    
-		  #else
-		    #pragma unused n
-		  #endif
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function IndexOfItemWithTag(tag as Integer) As Integer
 		  
 		  // get the index of first menu item with a provided tag
@@ -676,28 +629,12 @@ Implements NSToolbarItemInterface
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Autovalidates"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ItemIdentifier"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -705,35 +642,23 @@ Implements NSToolbarItemInterface
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="PaletteLabel"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Tag"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ToolTip"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -741,18 +666,7 @@ Implements NSToolbarItemInterface
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="VisibilityPriority"
-			Group="Behavior"
-			Type="NSToolbarItemVisibilityPriority"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - NSToolbarItemVisibilityPriorityStandard"
-				"-1000 - NSToolbarItemVisibilityPriorityLow"
-				"1000 - NSToolbarItemVisibilityPriorityHigh"
-				"2000 - NSToolbarItemVisibilityPriorityUser"
-			#tag EndEnumValues
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

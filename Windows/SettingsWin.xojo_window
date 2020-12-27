@@ -3425,10 +3425,8 @@ End
 	#tag Event
 		Sub Open()
 		  #If TargetCocoa 
-		    #if Target32Bit  'systemIcons broken in current macoslib for 64 bit
-		      ToolButton(me.Item(3)).Icon=SystemIcons.ColorPanel(32,32)
-		      ToolButton(me.Item(4)).Icon=SystemIcons.FontPanel(32,32)
-		    #endif
+		    ToolButton(Me.Item(3)).Icon=SystemIcons.ColorPanel(32,32)
+		    ToolButton(Me.Item(4)).Icon=SystemIcons.FontPanel(32,32)
 		  #endif
 		  
 		  toolbutton(Me.Item(0)).Pushed=True

@@ -80,6 +80,77 @@ Protected Module IOKit
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IdleTime() As Int64
+		  //
+		  // Get the number of nano seconds the user has been idle
+		  //
+		  // Hint: To convert to seconds, divide by 1000000000
+		  //
+		  
+		  const errorReturnValue = -1
+		  
+		  #if TargetMacOS
+		    declare function IOServiceMatching lib IOKit (name as CString) as Ptr
+		    declare function IOServiceGetMatchingServices lib IOKit (masterPort as UInt32, matching as Ptr, ByRef existing as UInt32) as Integer
+		    declare function IOIteratorNext lib IOKit (iterator as UInt32) as UInt32
+		    declare function IORegistryEntryCreateCFProperties lib IOKit (entry as UInt32, ByRef properties as Ptr, allocator as Ptr, options as UInt32) as Integer
+		    
+		    const kHIDIdleTime = "HIDIdleTime"
+		    const kKernSuccess = 0
+		    
+		    dim iter as UInt32
+		    
+		    if IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching(kIOHIDSystem), iter) <> kKernSuccess then
+		      //
+		      // Could not locate the HID System Service
+		      //
+		      
+		      return errorReturnValue
+		    end if
+		    
+		    dim entry as UInt32 = IOIteratorNext(iter)
+		    if entry = 0 then
+		      //
+		      // All we cared about was the first instance, but no instances of the HID System Service existed
+		      //
+		      
+		      return errorReturnValue
+		    end if
+		    
+		    dim dictPtr as Ptr
+		    
+		    if IORegistryEntryCreateCFProperties(entry, dictPtr, nil, 0) <> kKernSuccess then
+		      //
+		      // Something failed (probably memory) creating a dictionary representation
+		      // of the properties on the HID System Service
+		      //
+		      
+		      return errorReturnValue
+		    end if
+		    
+		    //
+		    // Create our dictionary representing the properties in the HID System Service
+		    //
+		    
+		    dim dictRef as CFTypeRef
+		    dictRef.value = dictPtr
+		    
+		    dim dict as new CFDictionary(dictRef, True)
+		    
+		    //
+		    // Get the idle time entry
+		    //
+		    
+		    dim obj as CFType = dict.Lookup(new CFString(kHIDIdleTime), new CFNumber(errorReturnValue))
+		    return CFNumber(obj).Int64Value
+		    
+		  #else
+		    return errorReturnValue
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PrimaryMACAddress() As String
 		  //The code is ported from the Apple example code at http://developer.apple.com/library/mac/#samplecode/GetPrimaryMACAddress/Listings/GetPrimaryMACAddress_c.html%23//apple_ref/doc/uid/DTS10000698-GetPrimaryMACAddress_c-DontLinkElementID_3
 		  
@@ -110,6 +181,9 @@ Protected Module IOKit
 	#tag Constant, Name = kIOEthernetInterfaceClass, Type = String, Dynamic = False, Default = \"IOEthernetInterface", Scope = Protected
 	#tag EndConstant
 
+	#tag Constant, Name = kIOHIDSystem, Type = String, Dynamic = False, Default = \"IOHIDSystem", Scope = Private
+	#tag EndConstant
+
 	#tag Constant, Name = kIOMACAddress, Type = String, Dynamic = False, Default = \"IOMACAddress", Scope = Protected
 	#tag EndConstant
 
@@ -133,6 +207,7 @@ Protected Module IOKit
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -140,18 +215,23 @@ Protected Module IOKit
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -159,6 +239,7 @@ Protected Module IOKit
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

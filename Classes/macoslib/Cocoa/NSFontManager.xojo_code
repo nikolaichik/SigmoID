@@ -225,10 +225,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ConvertFontToSize(aFont as NSFont, size as Single) As NSFont
+		Function ConvertFontToSize(aFont as NSFont, size as Double) As NSFont
 		  
 		  #if TargetMacOS
-		    declare function convertFont lib CocoaLib selector "convertFont:toSize:" (obj_id as Ptr, aFont as Ptr, size as Single) as Ptr
+		    declare function convertFont lib CocoaLib selector "convertFont:toSize:" (obj_id as Ptr, aFont as Ptr, size as Double) as Ptr
 		    
 		    dim fontRef as Ptr
 		    if aFont <> nil then
@@ -284,20 +284,13 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSFontDescriptor(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSFontDescriptor(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSFontDescriptor(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -333,7 +326,7 @@ Inherits NSObject
 		    dim nsf as NSFont
 		    dim traits as integer
 		    
-		    declare function fontWithFamily lib CocoaLib selector "fontWithFamily:traits:weight:size:" ( id as Ptr, family as CFStringRef, traits as integer, weight as Integer, size as single ) as Ptr
+		    declare function fontWithFamily lib CocoaLib selector "fontWithFamily:traits:weight:size:" ( id as Ptr, family as CFStringRef, traits as integer, weight as Integer, size as Double ) as Ptr
 		    
 		    if familyName="System" then //Get System font
 		      if bold then
@@ -379,7 +372,7 @@ Inherits NSObject
 		  //Find a font
 		  
 		  #if targetMacOS
-		    declare function fontWithFamily lib CocoaLib selector "fontWithFamily:traits:weight:size:" ( id as Ptr, family as CFStringRef, traits as integer, weight as Integer, size as single ) as Ptr
+		    declare function fontWithFamily lib CocoaLib selector "fontWithFamily:traits:weight:size:" ( id as Ptr, family as CFStringRef, traits as integer, weight as Integer, size as Double ) as Ptr
 		    
 		    dim p as Ptr = fontWithFamily(self, familyName, traits, NormalWeight, size)
 		    
@@ -632,15 +625,12 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Enabled"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -648,6 +638,7 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -655,18 +646,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -674,6 +670,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

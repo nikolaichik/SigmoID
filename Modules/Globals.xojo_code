@@ -769,8 +769,8 @@ Protected Module Globals
 		  
 		  if err IsA HTMLViewerException then
 		    'Occurs when The HTMLViewer cannot render the HTML, usually because of a missing library.
-		    #if TargetLinux then
-		      #if Target64Bit then
+		    #if TargetLinux
+		      #If Target64Bit
 		        'An HTMLViewerException is most likely to occur on 64-bit Linux
 		        'when the required 32-bit webkit libraries are not installed.
 		        MsgBox "There was a problem displaying html. This is probably because of missing WebKit libraries. Please try to launch Sigmoid with the provided sigmoid.sh script or consult the docs on details of Linux install."

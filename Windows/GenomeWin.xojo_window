@@ -712,18 +712,18 @@ End
 		  
 		  
 		  
-		  #if TargetCocoa then
-		    #if Target64Bit then
-		      'NSSearchField class in MacOSLib seems to be broken for 64bit
-		      SearchField.enabled=true
-		      SearchField.visible=true
-		      SearchField.top=0
-		      NSSearchField1.enabled=false
-		      NSSearchField1.visible=false
-		    #else
-		      SearchField.enabled=false
-		      SearchField.visible=false
-		    #endif
+		  #if TargetCocoa
+		    '#if Target64Bit then
+		    ''NSSearchField class in MacOSLib seems to be broken for 64bit
+		    'SearchField.enabled=true
+		    'SearchField.visible=true
+		    'SearchField.top=0
+		    'NSSearchField1.enabled=false
+		    'NSSearchField1.visible=false
+		    '#else
+		    SearchField.enabled=false
+		    SearchField.visible=false
+		    '#endif
 		    
 		    s0.Icon=SystemIcons.GoLeftTemplate   'doesn't work on 64 bit
 		    s2.Icon=SystemIcons.GoRightTemplate
@@ -738,7 +738,7 @@ End
 		    NSSearchField1.visible=false
 		  #endif
 		  
-		  #if Target64Bit
+		  #If TargetLinux
 		    
 		    'SegmentedControl doesn't show icons on Linux 64-bit?
 		    s0.Icon=br_prev_icon16
@@ -1348,14 +1348,14 @@ End
 	#tag MenuHandler
 		Function GenomeFind() As Boolean Handles GenomeFind.Action
 			#if TargetMacOS then
-			#if Target64Bit then
-			'NSSearchField class in MacOSLib seems to be broken for 64bit
-			SearchField.SetFocus
-			SearchField.SelectAll
-			#else
+			'#If Target64Bit Then
+			''NSSearchField class in MacOSLib seems to be broken for 64bit
+			'SearchField.SetFocus
+			'SearchField.SelectAll
+			'#else
 			NSSearchField1.SetFocus
 			NSSearchField1.SelectAll
-			#endif
+			'#endif
 			#Else
 			SearchField.SetFocus
 			SearchField.SelectAll
@@ -6705,7 +6705,10 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  
+		  #If TargetCocoa
+		    Me.Items(0).icon=SystemIcons.GoLeftTemplate
+		    Me.Items(2).Icon=SystemIcons.GoRightTemplate
+		  #EndIf
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -6779,6 +6782,16 @@ End
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:Magnifier:action")
 		    
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  #If TargetCocoa
+		    Me.Items(0).icon=SystemIcons.AddTemplate
+		    Me.Items(1).Icon=SystemIcons.RemoveTemplate
+		    Me.Items(0).title=""
+		    Me.Items(1).title=""
+		  #EndIf
 		End Sub
 	#tag EndEvent
 #tag EndEvents

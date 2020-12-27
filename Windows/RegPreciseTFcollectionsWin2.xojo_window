@@ -144,24 +144,6 @@ Begin Window RegPreciseTFcollectionsWin2
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
-   Begin mHTTPSocket RegPreciseSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      IsConnected     =   False
-      LocalAddress    =   ""
-      LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
-      Scope           =   0
-      TabPanelIndex   =   0
-      yield           =   False
-   End
    Begin ProgressWheel ProgressWheel1
       AllowAutoDeactivate=   True
       Enabled         =   False
@@ -1036,69 +1018,8 @@ End
 
 	#tag Method, Flags = &h0
 		Sub GetVersion()
-		  SocketTask="release"
-		  RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/release")
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub LoadFamilies()
-		  Dim gnms As String
-		  dim f as folderitem
-		  dim tis as TextInputStream
-		  
-		  'loading the JSON from disk rather than retrieving it from the net:
-		  '(Need to check RegPrecise version/date!)
-		  'f=Resources_f.child("genomeStats.JSON")
-		  'if f<>Nil then
-		  'tis=f.OpenAsTextFile
-		  'if tis<>nil then
-		  'gnms=tis.ReadAll
-		  'tis.Close
-		  '
-		  'dim JSN as new JSONItem
-		  'JSN.load(gnms)
-		  '
-		  'GenomeStats2array(JSN)
-		  'end if
-		  'else
-		  'get the data from RegPrecise
-		  SocketTask="TFfamilies"
-		  RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulogCollectionStats?collectionType=tfFam")
-		  'end if
-		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:LoadGenomes")
-		    
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub LoadRegulators(GenomeID as string)
-		  SocketTask="tfFam"
-		  'regulogs?collectionType={type}&collectionId={id}
-		  'Description
-		  'Retrieves a list of regulogs that belongs to a specific collection
-		  '
-		  'Input
-		  'Requires type and identifier of a regulog collection
-		  '
-		  'Output
-		  'Returns a list of regulogs. Each regulog is provided with the following data:
-		  '
-		  'regulogId - identifier of regulog
-		  'regulatorName - name of regulator
-		  'regulatorFamily - family of regulator
-		  'regulationType - type of regulation: either TF (transcription factor) or RNA
-		  'taxonName - name of taxonomic group
-		  'effector - effector molecule or environmental signal of a regulator
-		  'pathway - metabolic pathway or biological process controlled by a regulator
-		  
-		  RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/regulogs?collectionType=tfFam&collectionId="+GenomeID)
-		  
-		  
-		  
+		  'SocketTask="release"
+		  'RegPreciseSocket.Get("https://regprecise.lbl.gov/Services/rest/release")
 		  
 		End Sub
 	#tag EndMethod
@@ -1492,59 +1413,6 @@ End
 		End Function
 	#tag EndEvent
 #tag EndEvents
-#tag Events RegPreciseSocket
-	#tag Event
-		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
-		  
-		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
-		  dim JSN as new JSONItem
-		  
-		  if httpStatus>=200 AND httpStatus<300 then 'successful
-		    JSN.load(content)
-		    
-		    Select case SocketTask
-		    case "release"
-		      
-		      RegPreciseVersion=JSN.value("majorVersion")+"."+JSN.value("mionrVersion")+" "+JSN.value("releaseDate")
-		    case "TFfamilies"
-		      'populate the GenomesPopup:
-		      CollectionStats2array(JSN)
-		    case "tfFam"
-		      'Assemble collection info
-		      '(with Logos!)
-		      FillCollectionList(JSN)
-		      'case "regulons"
-		      ''populate the RegulatorList:
-		      'FillRegulatorList(JSN)
-		      'case "regulogs"
-		      ''populate the RegulatorList:
-		      ''beep
-		    End Select
-		  else
-		    'MsgBox "Can't connect to RegPrecise (HTTP status code "+Str(httpStatus)+")"
-		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Can't connect to RegPrecise (HTTP status code "+Str(httpStatus)+")"+EndOfLine.UNIX)
-		    Dim dmy As String=HTTPerror(HTTPstatus, True)
-		  end if
-		  
-		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:RegPreciseSocket.pagereceived")
-		    
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Connected()
-		  if SocketTask<>"release" then
-		    'ProgressWheel1.top=CollectionList.top+CollectionList.Height/3
-		    ProgressWheel1.Visible=true
-		    ProgressWheel1.Enabled=true
-		  end if
-		  
-		  
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events RegulogLogoButton
 	#tag Event
 		Sub Action()
@@ -1557,8 +1425,8 @@ End
 	#tag Event
 		Sub Open()
 		  #If TargetCocoa Then
-		    #If Target32Bit
-		      Me.Icon=SystemIcons.Info(20,20)  'broken in 64 bit
+		    #If Target64Bit
+		      Me.Icon=SystemIcons.Info(20,20)  
 		      Me.Caption=""
 		    #EndIf
 		  #endif
@@ -2000,7 +1868,7 @@ End
 		              
 		              ProteinFasta=NthField(res,"<title>Regulon Of ",2)
 		              ProteinFasta=">"+NthField(ProteinFasta,"</title>",1)
-		               
+		              
 		            End If
 		            
 		            ' now get the actual protein seq

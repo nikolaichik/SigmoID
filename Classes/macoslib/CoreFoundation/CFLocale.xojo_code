@@ -2,7 +2,7 @@
 Class CFLocale
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -21,10 +21,10 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    soft declare function TypeID lib CarbonLib alias "CFLocaleGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    soft declare function TypeID lib CarbonLib alias "CFLocaleGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -476,6 +476,14 @@ Inherits CFType
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="CalendarIdentifier"
 			Visible=false
 			Group="Behavior"
@@ -517,14 +525,6 @@ Inherits CFType
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DecimalSeparator"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

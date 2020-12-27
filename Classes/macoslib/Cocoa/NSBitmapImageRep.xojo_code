@@ -175,11 +175,11 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub ColorizeByMappingGray(midPoint as Single, midPointColor as NSColor, shadowColor as NSColor, lightColor as NSColor)
+		Sub ColorizeByMappingGray(midPoint as Double, midPointColor as NSColor, shadowColor as NSColor, lightColor as NSColor)
 		  //# Colorizes a grayscale image.
 		  
 		  #if TargetMacOS
-		    declare sub colorizeByMappingGray lib CocoaLib selector "colorizeByMappingGray:toColor:blackMapping:whiteMapping:" (obj_id as Ptr, midPoint as Single, midPointColor as Ptr, shadowColor as Ptr, lightColor as Ptr)
+		    declare sub colorizeByMappingGray lib CocoaLib selector "colorizeByMappingGray:toColor:blackMapping:whiteMapping:" (obj_id as Ptr, midPoint as Double, midPointColor as Ptr, shadowColor as Ptr, lightColor as Ptr)
 		    
 		    dim midPointColorRef as Ptr
 		    if midPointColor <> nil then
@@ -429,22 +429,12 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as Integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #Endif
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -469,21 +459,12 @@ Inherits NSImageRep
 		      if arrayRef <> nil then
 		        dim ns_array as new NSArray(arrayRef)
 		        
-		        
-		        
 		        dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		        dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		        #if Target64Bit
-		          dim n as Integer = arrayRange.length-1
-		          for i as integer = 0 to n
-		            retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		          next
-		        #else
-		          dim n as UInt32 = arrayRange.length-1
-		          for i as integer = 0 to n
-		            retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		          next
-		        #endif
+		        dim n as Integer = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		        next
 		      end if
 		    end if
 		    
@@ -513,21 +494,12 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as Integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -556,27 +528,12 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      #if RBVersion > 2013.01
-		        #if Target64Bit
-		          #pragma warning "MACOSLIB: This method is not 64 bit-savvy"
-		        #endif
-		      #endif
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as Integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -697,11 +654,11 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub GetCompression(byRef compression as NSTIFFCompression, byRef factor as Single)
+		Sub GetCompression(byRef compression as NSTIFFCompression, byRef factor as Double)
 		  //# Returns by indirection the NSBitmapImageRep’s compression type and compression factor.
 		  
 		  #if TargetMacOS
-		    declare sub getCompression lib CocoaLib selector "getCompression:factor:" (obj_id as Ptr, byRef compression as NSTIFFCompression, byRef factor as Single)
+		    declare sub getCompression lib CocoaLib selector "getCompression:factor:" (obj_id as Ptr, byRef compression as NSTIFFCompression, byRef factor as Double)
 		    
 		    getCompression self, compression, factor
 		  #else
@@ -1028,23 +985,13 @@ Inherits NSImageRep
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as Integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSBitmapImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append Ptr(m.UInt32Value(i*SizeOfPointer))
-		        next
-		      #endif
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append Ptr(m.UInt64Value(i*SizeOfPointer))
+		      next
 		    end if
-		    
 		    
 		    return retArray
 		    
@@ -1172,7 +1119,7 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub SetCompression(compression as NSTIFFCompression, factor as Single)
+		Sub SetCompression(compression as NSTIFFCompression, factor as Double)
 		  //# Sets the NSBitmapImageRep's compression type and compression factor.
 		  
 		  //@param compression = An enum constant that identifies one of the supported compression types as described in “Constants.”
@@ -1183,7 +1130,7 @@ Inherits NSImageRep
 		  // with 0.0 being the lowest and 1.0 being the highest.
 		  
 		  #if TargetMacOS
-		    declare sub setCompression lib CocoaLib selector "setCompression:factor:" (obj_id as Ptr, compression as NSTIFFCompression, factor as Single)
+		    declare sub setCompression lib CocoaLib selector "setCompression:factor:" (obj_id as Ptr, compression as NSTIFFCompression, factor as Double)
 		    
 		    setCompression self, compression, factor
 		  #else
@@ -1256,8 +1203,6 @@ Inherits NSImageRep
 		  #if TargetMacOS
 		    declare sub getTIFFCompressionTypes lib CocoaLib selector "getTIFFCompressionTypes:count:" (class_id as Ptr, byRef list as Ptr, byRef count as Integer)
 		    
-		    const sizeOfUInteger = 4
-		    
 		    dim listRef as Ptr
 		    dim listCount as Integer
 		    
@@ -1269,7 +1214,7 @@ Inherits NSImageRep
 		    
 		    if m <> nil then
 		      for i as integer = 0 to listCount-1
-		        rb_array.append NSTIFFCompression(m.UInt32Value(i*sizeOfUInteger))
+		        rb_array.append NSTIFFCompression(m.Int64Value(i*SizeOfInteger))
 		      next
 		    end if
 		    
@@ -1323,11 +1268,11 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Shared Function TIFFRepresentation(imageReps as NSArray, compression as NSTIFFCompression, factor as Single) As NSData
+		Shared Function TIFFRepresentation(imageReps as NSArray, compression as NSTIFFCompression, factor as Double) As NSData
 		  
 		  #if TargetMacOS
 		    declare function TIFFRepresentationOfImageRepsInArray lib CocoaLib selector "TIFFRepresentationOfImageRepsInArray:usingCompression:factor:" _
-		    (class_id as Ptr, anArray as Ptr, compression as NSTIFFCompression, factor as Single) as Ptr
+		    (class_id as Ptr, anArray as Ptr, compression as NSTIFFCompression, factor as Double) as Ptr
 		    
 		    dim arrayRef as Ptr
 		    if imageReps <> nil then
@@ -1350,11 +1295,11 @@ Inherits NSImageRep
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function TIFFRepresentation(compression as NSTIFFCompression, factor as Single) As NSData
+		Function TIFFRepresentation(compression as NSTIFFCompression, factor as Double) As NSData
 		  //# Returns a data object containing TIFF data with the specified compression settings for all of the image representations in the NSBitmapImageRep.
 		  
 		  #if TargetMacOS
-		    declare function TIFFRepresentationUsingCompression lib CocoaLib selector "TIFFRepresentationUsingCompression:factor:" (class_id as Ptr, compression as NSTIFFCompression, factor as Single) as Ptr
+		    declare function TIFFRepresentationUsingCompression lib CocoaLib selector "TIFFRepresentationUsingCompression:factor:" (class_id as Ptr, compression as NSTIFFCompression, factor as Double) as Ptr
 		    
 		    dim dataRef as Ptr = TIFFRepresentationUsingCompression(self, compression, factor)
 		    
@@ -1540,7 +1485,7 @@ Inherits NSImageRep
 		NSImageRepLoadStatusCompleted = -6
 	#tag EndEnum
 
-	#tag Enum, Name = NSTIFFCompression, Type = UInt32, Flags = &h0
+	#tag Enum, Name = NSTIFFCompression, Type = UInteger, Flags = &h0
 		NSTIFFCompressionNone = 1
 		  NSTIFFCompressionCCITTFAX3 = 3
 		  NSTIFFCompressionCCITTFAX4 = 4
@@ -1555,45 +1500,35 @@ Inherits NSImageRep
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="BitmapFormat"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="UInt32"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BitsPerPixel"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="BitsPerSample"
-			Group="Behavior"
-			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BytesPerPlane"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BytesPerRow"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ColorSpaceName"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HasAlpha"
-			Group="Behavior"
-			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -1601,16 +1536,15 @@ Inherits NSImageRep
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="IsOpaque"
-			Group="Behavior"
-			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsPlanar"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -1618,38 +1552,39 @@ Inherits NSImageRep
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NumberOfPlanes"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="PixelsHigh"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="PixelsWide"
-			Group="Behavior"
-			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SamplesPerPixel"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -1657,6 +1592,7 @@ Inherits NSImageRep
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

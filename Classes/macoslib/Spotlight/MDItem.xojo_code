@@ -2,7 +2,7 @@
 Class MDItem
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -59,18 +59,12 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
 		    
-		    soft declare function MDItemGetTypeID lib CarbonLib () as Integer
+		    soft declare function MDItemGetTypeID lib CarbonLib () as UInteger
 		    
-		    #if Target32Bit
-		      static id as UInt32 = UInt32(MDItemGetTypeID)
-		      
-		    #else
-		      static id as UInteger = MDItemGetTypeID
-		      
-		    #endif
+		    static id as UInteger = MDItemGetTypeID
 		    return id
 		  #endif
 		  

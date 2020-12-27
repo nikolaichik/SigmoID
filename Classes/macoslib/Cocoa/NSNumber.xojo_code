@@ -107,16 +107,6 @@ Inherits NSValue
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Sub Constructor(value as Single)
-		  #if targetMacOS
-		    declare function numberWithFloat lib CocoaLib selector "numberWithFloat:" (class_id as Ptr, value as Single) as Ptr
-		    
-		    self.Constructor(numberWithFloat(ClassRef, value))
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
 		Sub Constructor(value as UInt16)
 		  #if targetMacOS
 		    declare function numberWithUnsignedShort lib CocoaLib selector "numberWithUnsignedShort:" (class_id as Ptr, value as UInt16) as Ptr
@@ -289,24 +279,6 @@ Inherits NSValue
 		    declare function numberWithInt lib CocoaLib selector "numberWithInt:" (class_id as Ptr, value as Integer) as Ptr
 		    
 		    dim numRef as Ptr = numberWithInt(ClassRef, value)
-		    if numRef <> nil then
-		      return new NSNumber(numRef)
-		    end if
-		    
-		  #else
-		    #pragma unused value
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1000
-		Shared Function CreateWithSingle(value as Single) As NSNumber
-		  
-		  #if targetMacOS
-		    declare function numberWithFloat lib CocoaLib selector "numberWithFloat:" (class_id as Ptr, value as Single) as Ptr
-		    
-		    dim numRef as Ptr = numberWithFloat(ClassRef, value)
 		    if numRef <> nil then
 		      return new NSNumber(numRef)
 		    end if
@@ -561,13 +533,13 @@ Inherits NSValue
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Ptr) as Single
+			    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Ptr) as Double
 			    
 			    return floatValue(self)
 			  #endif
 			End Get
 		#tag EndGetter
-		SingleValue As Single
+		SingleValue As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -639,19 +611,19 @@ Inherits NSValue
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="BooleanValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -659,31 +631,47 @@ Inherits NSValue
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Int16Value"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Int16"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Int32Value"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Int32"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Int64Value"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Int64"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Int8Value"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Int8"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IntegerValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -691,27 +679,29 @@ Inherits NSValue
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="objCType"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SingleValue"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StringValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -719,7 +709,9 @@ Inherits NSValue
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -727,26 +719,39 @@ Inherits NSValue
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UInt16Value"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="UInt16"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UInt32Value"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="UInt32"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UInt64Value"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="UInt64"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UInt8Value"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="UInt8"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

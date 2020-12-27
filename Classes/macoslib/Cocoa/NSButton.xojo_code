@@ -832,6 +832,14 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="DoubleBuffer"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Alignment"
 			Visible=false
 			Group="Behavior"
@@ -855,30 +863,6 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="AllowsMixedState"
-			Visible=true
-			Group="NSProperties"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AlternateImage"
-			Visible=true
-			Group="NSProperties"
-			InitialValue=""
-			Type="Picture"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="AlternateTitle"
-			Visible=true
-			Group="NSProperties"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="autoresizesSubviews"
 			Visible=false
 			Group="Behavior"
@@ -895,31 +879,6 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="BezelStyle"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="NSBezelStyle"
-			EditorType="Enum"
-			#tag EnumValues
-				"1 - NSRoundedBezelStyle"
-				"2 - NSRegularSquareBezelStyle"
-				"3 - NSThickSquareBezelStyle"
-				"4 - NSThickerSquareBezelStyle"
-				"5 - NSDisclosureBezelStyle"
-				"6 - NSShadowlessSquareBezelStyle"
-				"7 - NSCircularBezelStyle"
-				"8 - NSTexturedSquareBezelStyle"
-				"9 - NSHelpButtonBezelStyle"
-				"10 - NSSmallSquareBezelStyle"
-				"11 - NSTexturedRoundedBezelStyle"
-				"12 - NSRoundRectBezelStyle"
-				"13 - NSRecessedBezelStyle"
-				"14 - NSRoundedDisclosureBezelStyle"
-				"15 - NSInlineBezelStyle"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Bold"
 			Visible=true
 			Group="Behavior"
@@ -928,54 +887,12 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="BooleanValue"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Bordered"
-			Visible=true
-			Group="NSProperties"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ButtonType"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="NSButtonType"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - NSMomentaryLightButton"
-				"1 - NSPushOnPushOffButton"
-				"2 - NSToggleButton"
-				"3 - NSSwitchButton"
-				"4 - NSRadioButton"
-				"5 - NSMomentaryChangeButton"
-				"6 - NSOnOffButton"
-				"7 - NSMomentaryPushInButton"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Description"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DoubleBuffer"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleValue"
@@ -998,7 +915,7 @@ Inherits NSControl
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Single"
+			Type="Double"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -1006,39 +923,6 @@ Inherits NSControl
 			Visible=true
 			Group="Position"
 			InitialValue="100"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Image"
-			Visible=true
-			Group="NSProperties"
-			InitialValue=""
-			Type="Picture"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ImagePosition"
-			Visible=true
-			Group="NSProperties"
-			InitialValue="0"
-			Type="Integer"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - No Image"
-				"1 - Image Only"
-				"2 - Left"
-				"3 - Right"
-				"4 - Below"
-				"5 - Above"
-				"6 - Overlaps"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Index"
-			Visible=true
-			Group="ID"
-			InitialValue="-2147483648"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
@@ -1075,22 +959,6 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="KeyEquivalentModifierMask"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="UInt64"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Left"
-			Visible=true
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="LockBottom"
 			Visible=true
 			Group="Position"
@@ -1123,91 +991,12 @@ Inherits NSControl
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="NativeImagePosition"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="NSImagePosition"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - NSNoImage"
-				"1 - NSImageOnly"
-				"2 - NSImageLeft"
-				"3 - NSImageRight"
-				"4 - NSImageBelow"
-				"5 - NSImageAbove"
-				"6 - NSImageOverlaps"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ShowsBorderOnlyWhileMouseInside"
-			Visible=true
-			Group="NSProperties"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="State"
-			Visible=true
-			Group="NSProperties"
-			InitialValue="0"
-			Type="Integer"
-			EditorType="Enum"
-			#tag EnumValues
-				" - Mixed"
-				"0 - Off"
-				"1 - On"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="StringValue"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Style"
-			Visible=true
-			Group="NSProperties"
-			InitialValue="1"
-			Type="Integer"
-			EditorType="Enum"
-			#tag EnumValues
-				"1 - Rounded"
-				"2 - Regular Square"
-				"3 - Thick Square"
-				"4 - Thicker Square"
-				"5 - Disclosure"
-				"6 - Shadowless Square"
-				"7 - Circular"
-				"8 - Textured Square"
-				"9 - Help Button"
-				"10 - Small Square"
-				"11 - Textured Rounded"
-				"12 - Round Rect"
-				"13 - Recessed"
-				"14 - Rounded Disclosure"
-				"15 - Inline"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
-			InitialValue=""
-			Type="String"
-			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
@@ -1247,6 +1036,173 @@ Inherits NSControl
 			Group="Behavior"
 			InitialValue="0.0"
 			Type="double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Underlined"
+			Visible=true
+			Group="Behavior"
+			InitialValue="false"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Visible"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Width"
+			Visible=true
+			Group="Position"
+			InitialValue="100"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AllowsMixedState"
+			Visible=true
+			Group="NSProperties"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AlternateImage"
+			Visible=true
+			Group="NSProperties"
+			InitialValue=""
+			Type="Picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AlternateTitle"
+			Visible=true
+			Group="NSProperties"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BooleanValue"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Bordered"
+			Visible=true
+			Group="NSProperties"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Image"
+			Visible=true
+			Group="NSProperties"
+			InitialValue=""
+			Type="Picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ImagePosition"
+			Visible=true
+			Group="NSProperties"
+			InitialValue="0"
+			Type="Integer"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - No Image"
+				"1 - Image Only"
+				"2 - Left"
+				"3 - Right"
+				"4 - Below"
+				"5 - Above"
+				"6 - Overlaps"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Index"
+			Visible=true
+			Group="ID"
+			InitialValue="-2147483648"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ShowsBorderOnlyWhileMouseInside"
+			Visible=true
+			Group="NSProperties"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="State"
+			Visible=true
+			Group="NSProperties"
+			InitialValue="0"
+			Type="Integer"
+			EditorType="Enum"
+			#tag EnumValues
+				" - Mixed"
+				"0 - Off"
+				"1 - On"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Style"
+			Visible=true
+			Group="NSProperties"
+			InitialValue="1"
+			Type="Integer"
+			EditorType="Enum"
+			#tag EnumValues
+				"1 - Rounded"
+				"2 - Regular Square"
+				"3 - Thick Square"
+				"4 - Thicker Square"
+				"5 - Disclosure"
+				"6 - Shadowless Square"
+				"7 - Circular"
+				"8 - Textured Square"
+				"9 - Help Button"
+				"10 - Small Square"
+				"11 - Textured Rounded"
+				"12 - Round Rect"
+				"13 - Recessed"
+				"14 - Rounded Disclosure"
+				"15 - Inline"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -1292,28 +1248,72 @@ Inherits NSControl
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Underlined"
-			Visible=true
+			Name="BezelStyle"
+			Visible=false
 			Group="Behavior"
-			InitialValue="false"
-			Type="Boolean"
+			InitialValue=""
+			Type="NSBezelStyle"
+			EditorType="Enum"
+			#tag EnumValues
+				"1 - NSRoundedBezelStyle"
+				"2 - NSRegularSquareBezelStyle"
+				"3 - NSThickSquareBezelStyle"
+				"4 - NSThickerSquareBezelStyle"
+				"5 - NSDisclosureBezelStyle"
+				"6 - NSShadowlessSquareBezelStyle"
+				"7 - NSCircularBezelStyle"
+				"8 - NSTexturedSquareBezelStyle"
+				"9 - NSHelpButtonBezelStyle"
+				"10 - NSSmallSquareBezelStyle"
+				"11 - NSTexturedRoundedBezelStyle"
+				"12 - NSRoundRectBezelStyle"
+				"13 - NSRecessedBezelStyle"
+				"14 - NSRoundedDisclosureBezelStyle"
+				"15 - NSInlineBezelStyle"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ButtonType"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSButtonType"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSMomentaryLightButton"
+				"1 - NSPushOnPushOffButton"
+				"2 - NSToggleButton"
+				"3 - NSSwitchButton"
+				"4 - NSRadioButton"
+				"5 - NSMomentaryChangeButton"
+				"6 - NSOnOffButton"
+				"7 - NSMomentaryPushInButton"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="KeyEquivalentModifierMask"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="UInt64"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Visible"
-			Visible=true
-			Group="Appearance"
-			InitialValue="True"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Width"
-			Visible=true
-			Group="Position"
-			InitialValue="100"
-			Type="Integer"
-			EditorType=""
+			Name="NativeImagePosition"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSImagePosition"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSNoImage"
+				"1 - NSImageOnly"
+				"2 - NSImageLeft"
+				"3 - NSImageRight"
+				"4 - NSImageBelow"
+				"5 - NSImageAbove"
+				"6 - NSImageOverlaps"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

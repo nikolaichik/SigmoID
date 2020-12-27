@@ -119,34 +119,19 @@ Inherits NSArray
 		Sub Constructor(objects() as NSObject)
 		  
 		  #if targetMacOS
-		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInt32) as Ptr
+		    declare function initWithObjects lib CocoaLib selector "initWithObjects:count:" (obj_id as Ptr, objects as Ptr, count as UInteger) as Ptr
 		    
-		    #if Target64Bit
-		      dim uboundObject as integer = objects.ubound
-		      dim objectCount as integer = uboundObject+1
-		      if uboundObject > -1 then
-		        
-		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		        for i as integer = 0 to uboundObject
-		          m.UInt32Value(i*SizeOfPointer) = UInt64(objects(i).id)
-		        next
-		        
-		        super.Constructor(initWithObjects(Allocate("NSMutableArray"), m, objectCount), NSMutableArray.hasOwnership)
-		      end if
-		    #else
-		      dim uboundObject as UInt32 = objects.ubound
-		      dim objectCount as UInt32 = uboundObject+1
-		      if uboundObject > -1 then
-		        
-		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		        for i as integer = 0 to uboundObject
-		          m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
-		        next
-		        
-		        super.Constructor(initWithObjects(Allocate("NSMutableArray"), m, objectCount), NSMutableArray.hasOwnership)
-		      end if
-		    #endif
-		    
+		    dim uboundObject as Integer = objects.ubound
+		    dim objectCount as Integer = uboundObject+1
+		    if uboundObject > -1 then
+		      
+		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		      for i as integer = 0 to uboundObject
+		        m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
+		      next
+		      
+		      super.Constructor(initWithObjects(Allocate("NSMutableArray"), m, objectCount), NSMutableArray.hasOwnership)
+		    end if
 		    
 		  #else
 		    #pragma unused objects
@@ -309,45 +294,23 @@ Inherits NSArray
 		Shared Function CreateWithObjects(objects() as NSObject) As NSMutableArray
 		  
 		  #if TargetMacOS
-		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInt32) as Ptr
+		    declare function arrayWithObjects lib CocoaLib selector "arrayWithObjects:count:" (class_id as Ptr, objects as Ptr, count as UInteger) as Ptr
 		    
-		    
-		    #if Target64Bit
-		      dim uboundObject as integer = objects.ubound
-		      dim objectCount as integer = uboundObject+1
-		      if uboundObject > -1 then
-		        
-		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		        for i as integer = 0 to uboundObject
-		          m.UInt32Value(i*SizeOfPointer) = UInt64(objects(i).id)
-		        next
-		        
-		        dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
-		        
-		        if arrayRef <> nil then
-		          return new NSMutableArray(arrayRef)
-		        end if
+		    dim uboundObject as Integer = objects.ubound
+		    dim objectCount as Integer = uboundObject+1
+		    if uboundObject > -1 then
+		      
+		      dim m as new MemoryBlock(SizeOfPointer*(objectCount))
+		      for i as integer = 0 to uboundObject
+		        m.UInt64Value(i*SizeOfPointer) = UInt64(objects(i).id)
+		      next
+		      
+		      dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
+		      
+		      if arrayRef <> nil then
+		        return new NSMutableArray(arrayRef)
 		      end if
-		    #else
-		      dim uboundObject as UInt32 = objects.ubound
-		      dim objectCount as UInt32 = uboundObject+1
-		      if uboundObject > -1 then
-		        
-		        dim m as new MemoryBlock(SizeOfPointer*(objectCount))
-		        for i as integer = 0 to uboundObject
-		          m.UInt32Value(i*SizeOfPointer) = UInt32(objects(i).id)
-		        next
-		        
-		        dim arrayRef as Ptr = arrayWithObjects(ClassRef, m, objectCount)
-		        
-		        if arrayRef <> nil then
-		          return new NSMutableArray(arrayRef)
-		        end if
-		      end if
-		    #endif
-		    
-		    
-		    
+		    end if
 		    
 		  #else
 		    #pragma unused objects
@@ -725,22 +688,12 @@ Inherits NSArray
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Count"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -748,18 +701,23 @@ Inherits NSArray
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -767,6 +725,7 @@ Inherits NSArray
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

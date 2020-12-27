@@ -2,7 +2,7 @@
 Class CGPDFDocument
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -24,11 +24,11 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CGPDFDocumentGetTypeID" () as UInt32
+		    declare function TypeID lib CarbonLib alias "CGPDFDocumentGetTypeID" () as UInteger
 		    
-		    static id as UInt32 = TypeID
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -265,6 +265,14 @@ Inherits CFType
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="AllowsCopying"
 			Visible=false
 			Group="Behavior"
@@ -279,14 +287,6 @@ Inherits CFType
 			InitialValue="0"
 			Type="Boolean"
 			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

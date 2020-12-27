@@ -485,22 +485,12 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSMenuItem(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSMenuItem(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSMenuItem(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -947,7 +937,7 @@ Inherits NSObject
 			Get
 			  
 			  #if TargetMacOS
-			    declare function menuBarHeight lib CocoaLib selector "menuBarHeight" (obj_id as Ptr) as Single
+			    declare function menuBarHeight lib CocoaLib selector "menuBarHeight" (obj_id as Ptr) as Double
 			    
 			    return menuBarHeight(self)
 			    
@@ -955,7 +945,7 @@ Inherits NSObject
 			  
 			End Get
 		#tag EndGetter
-		MenuBarHeight As Single
+		MenuBarHeight As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -1024,7 +1014,7 @@ Inherits NSObject
 			  
 			  #if TargetMacOS
 			    if IsSnowLeopard then
-			      declare function minimumWidth lib CocoaLib selector "minimumWidth" (obj_id as Ptr) as Single
+			      declare function minimumWidth lib CocoaLib selector "minimumWidth" (obj_id as Ptr) as Double
 			      
 			      return minimumWidth(self)
 			      
@@ -1038,7 +1028,7 @@ Inherits NSObject
 			  
 			  #if TargetMacOS
 			    if IsSnowLeopard then
-			      declare sub setMinimumWidth lib CocoaLib selector "setMinimumWidth:" (obj_id as Ptr, width as Single)
+			      declare sub setMinimumWidth lib CocoaLib selector "setMinimumWidth:" (obj_id as Ptr, width as Double)
 			      
 			      setMinimumWidth(self, value)
 			      
@@ -1049,7 +1039,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		MinimumWidth As Single
+		MinimumWidth As Double
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
@@ -1164,24 +1154,27 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="AllowsContextMenuPlugIns"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoenablesItems"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Count"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -1189,11 +1182,15 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsTornOff"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -1201,37 +1198,53 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MenuBarHeight"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MinimumWidth"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShowsStateColumn"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Title"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -1241,6 +1254,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

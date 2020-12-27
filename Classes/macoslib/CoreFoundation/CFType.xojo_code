@@ -146,9 +146,9 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Hash() As UInt32
+		Function Hash() As UInteger
 		  #if TargetMacOS
-		    soft declare function CFHash lib CarbonLib (cf as CFTypeRef) as UInt32
+		    soft declare function CFHash lib CarbonLib (cf as CFTypeRef) as UInteger
 		    
 		    if self.mRef.value <> nil then
 		      return CFHash(self.mRef)
@@ -182,7 +182,7 @@ Class CFType
 		    end if
 		    
 		    
-		    dim theTypeID as UInt32 = CFGetTypeID(ref)
+		    dim theTypeID as UInteger = CFGetTypeID(ref)
 		    
 		    select case theTypeID
 		      
@@ -414,7 +414,7 @@ Class CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function TypeID() As UInt32
+		Function TypeID() As UInteger
 		  #if TargetMacOS
 		    if self.mRef.value <> nil then
 		      return CFGetTypeID(self.mRef)
@@ -442,8 +442,8 @@ Class CFType
 		    if ref.value = nil then
 		      return ref
 		    else
-		      dim expectedTypeID as UInt32 = RaiseEvent ClassID()
-		      dim actualTypeID as UInt32 = CFGetTypeID(ref)
+		      dim expectedTypeID as UInteger = RaiseEvent ClassID()
+		      dim actualTypeID as UInteger = CFGetTypeID(ref)
 		      if (expectedTypeID = actualTypeID) then
 		        return ref
 		      else
@@ -494,7 +494,7 @@ Class CFType
 
 
 	#tag Hook, Flags = &h0
-		Event ClassID() As UInt32
+		Event ClassID() As UInteger
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
@@ -560,7 +560,9 @@ Class CFType
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Description"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -570,6 +572,7 @@ Class CFType
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -577,18 +580,23 @@ Class CFType
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -596,6 +604,7 @@ Class CFType
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

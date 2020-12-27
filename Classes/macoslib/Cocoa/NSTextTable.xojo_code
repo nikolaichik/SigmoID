@@ -230,19 +230,19 @@ Inherits NSTextBlock
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="CollapsesBorders"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HidesEmptyCells"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -250,10 +250,45 @@ Inherits NSTextBlock
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Left"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Top"
+			Visible=true
+			Group="Position"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LayoutAlgorithm"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSTextTableLayoutAlgorithm"
 			EditorType="Enum"
 			#tag EnumValues
@@ -262,47 +297,12 @@ Inherits NSTextBlock
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Left"
-			Visible=true
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="NumberOfColumns"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="UInt32"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
-			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Top"
-			Visible=true
-			Group="Position"
-			InitialValue="0"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="VerticalAlignment"
-			Group="Behavior"
-			Type="NSTextBlockVerticalAlignment"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - NSTextBlockTopAlignment"
-				"1 - NSTextBlockMiddleAlignment"
-				"2 - NSTextBlockBottomAlignment"
-				"3 - NSTextBlockBaselineAlignment"
-			#tag EndEnumValues
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

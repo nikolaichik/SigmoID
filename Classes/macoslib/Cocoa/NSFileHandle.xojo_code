@@ -126,14 +126,7 @@ Inherits NSObject
 		  //Puts the file pointer at the end of the file referenced by the NSFileHandle and returns the new file offset.
 		  
 		  #if targetMacOS
-		    
-		    #if Target64Bit
-		      declare function seekToEndOfFile lib CocoaLib selector "seekToEndOfFile" (obj_id as Ptr) as UInt64
-		      
-		    #else
-		      declare function seekToEndOfFile lib CocoaLib (obj_id as Ptr) as UInt64
-		      
-		    #endif
+		    declare function seekToEndOfFile lib CocoaLib selector "seekToEndOfFile" (obj_id as Ptr) as UInt64
 		    
 		    return seekToEndOfFile(self)
 		  #endif
@@ -195,16 +188,9 @@ Inherits NSObject
 		  
 		  
 		  #if targetMacOS
-		    #if Target32Bit
-		      declare sub truncateFileAtOffset lib CocoaLib (obj_id as Ptr, offset as UInt64)
-		      
-		      truncateFileAtOffset(self, offset)
-		    #else
-		      declare sub truncateFileAtOffset lib CocoaLib selector "truncateFileAtOffset:" (obj_id as Ptr, offset as UInt64)
-		      truncateFileAtOffset(self, offset)
-		    #endif
+		    declare sub truncateFileAtOffset lib CocoaLib selector "truncateFileAtOffset:" (obj_id as Ptr, offset as UInt64)
+		    truncateFileAtOffset(self, offset)
 		  #endif
-		  
 		End Sub
 	#tag EndMethod
 
@@ -267,15 +253,12 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="FileDescriptor"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -283,6 +266,7 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -290,23 +274,31 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Offset"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="UInt64"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -314,6 +306,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -3,7 +3,7 @@ Class CFArray
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return self.ClassID
 		End Function
 	#tag EndEvent
@@ -23,10 +23,39 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Function CFStringRefValue(index as Integer) As CFStringRef
+		  #if TargetMacOS
+		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInteger
+		    declare function CFStringGetTypeID lib CarbonLib () as UInteger
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
+		    
+		    static StringTypeID as UInteger = CFStringGetTypeID
+		    
+		    dim p as Ptr = self.Value(index)
+		    if CFGetTypeID(p) = StringTypeID then
+		      return CFRetain(p)
+		    else
+		      dim e as new TypeMismatchException
+		      e.Message = "Value &h" + Hex(Integer(p)) + " at index " + Str(index) + " has unexpected type " + CFCopyTypeIDDescription(CFGetTypeID(p)) + "."
+		      raise e
+		    end if
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function CFValue(index as Integer) As CFType
+		  #if TargetMacOS
+		    return CFType.NewObject(self.Value(index), not CFType.hasOwnership, kCFPropertyListImmutable)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CoreFoundation.framework alias "CFArrayGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CoreFoundation.framework alias "CFArrayGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -102,7 +131,7 @@ Implements CFPropertyList
 		        cfma.Append   new CFString( s )
 		      next
 		      
-		    case Variant.TypeDouble, Variant.TypeSingle
+		    case Variant.TypeDouble
 		      dim ard() as double = theArray
 		      for each d as double in ard
 		        cfma.Append   new CFNumber( d )
@@ -155,7 +184,8 @@ Implements CFPropertyList
 	#tag Method, Flags = &h1
 		Protected Shared Function DefaultCallbacks() As Ptr
 		  const kCFTypeArrayCallBacks = "kCFTypeArrayCallBacks"
-		  return CFBundle.NewCFBundleFromID(CoreFoundation.BundleID).DataPointerNotRetained(kCFTypeArrayCallBacks)
+		  static x as Ptr = CFBundle.NewCFBundleFromID(CoreFoundation.BundleID).DataPointerNotRetained(kCFTypeArrayCallBacks)
+		  return x
 		End Function
 	#tag EndMethod
 
@@ -188,6 +218,43 @@ Implements CFPropertyList
 		  // Added by Kem Tekinay.
 		  
 		  return self.VariantValue
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function StringValues() As String()
+		  //New 75% faster implementation. Still sluggish, though.
+		  
+		  #if TargetMacOS
+		    declare sub CFArrayGetValues lib CarbonLib ( theArray as Ptr, range as CFRange, values as Ptr )
+		    declare function CFGetTypeID lib CarbonLib (cf as Ptr) as UInteger
+		    declare function CFStringGetTypeID lib CarbonLib () as UInteger
+		    declare function CFRetain lib CarbonLib (cf as Ptr) as CFStringRef
+		    
+		    static StringTypeID as UInteger = CFStringGetTypeID
+		    
+		    dim p as Ptr
+		    dim mb as MemoryBlock
+		    dim L() as String
+		    
+		    mb = new MemoryBlock( SizeOfPointer * self.Count )
+		    CFArrayGetValues self.Reference, CFRangeMake( 0, self.Count ), mb
+		    
+		    dim lastIndex as Integer = self.Count - 1
+		    for index as Integer = 0 to lastIndex
+		      p = mb.bsPtrValueFromCArray( index )
+		      if CFGetTypeID( p )=StringTypeID then
+		        L.Append   CFRetain( p )
+		      else
+		        dim e as new TypeMismatchException
+		        e.Message = "At least one value is not a string"
+		        raise e
+		      end if
+		    next
+		    
+		    return L
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 
@@ -234,20 +301,20 @@ Implements CFPropertyList
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Count"
-			Visible=false
-			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Description"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Count"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

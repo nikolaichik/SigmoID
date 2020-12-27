@@ -5620,6 +5620,13 @@ End
 		    ExceptionHandler(err,"LogoWinToolbar:DropDownMenuAction")
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  #If TargetCocoa
+		    Me.SettingsTool.icon=SystemIcons.PreferencesGeneral(32,32)
+		  #EndIf
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events STDOUT
 	#tag Event

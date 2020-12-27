@@ -105,10 +105,8 @@ Protected Class MacIcon
 		    dim labelColor as RGBColor
 		    dim context as Integer = g.Handle(Graphics.HandleTypeCGContextRef)
 		    dim grafPort as Integer
-		    If context = 0 Then
-		      'grafPort = g.Handle(Graphics.handleTypeCGrafPtr) 'no such handle in 2019r2
-		      grafPort = g.Handle(2)
-		      
+		    if context = 0 then
+		      grafPort = g.Handle(Graphics.HandleTypeCGContextRef)
 		      error = QDBeginCGContext (grafPort, context)
 		    end if
 		    

@@ -284,23 +284,13 @@ Inherits NSObject
 		    dim arrayRef as Ptr = pasteboardItems(self)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSPasteboardItem(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSPasteboardItem(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
-		      
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSPasteboardItem(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -772,14 +762,11 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="ChangeCount"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -787,6 +774,7 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -794,18 +782,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -813,6 +806,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

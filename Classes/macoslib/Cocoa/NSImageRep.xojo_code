@@ -159,21 +159,12 @@ Inherits NSObject
 		      if arrayRef <> nil then
 		        dim ns_array as new NSArray(arrayRef)
 		        
-		        
 		        dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		        dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		        #if Target64Bit
-		          dim n as integer = arrayRange.length-1
-		          for i as integer = 0 to n
-		            retArray.append new NSImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		          next
-		        #else
-		          dim n as UInt32 = arrayRange.length-1
-		          for i as integer = 0 to n
-		            retArray.append new NSImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		          next
-		        #endif
-		        
+		        dim n as Integer = arrayRange.length-1
+		        for i as integer = 0 to n
+		          retArray.append new NSImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		        next
 		      end if
 		    end if
 		    
@@ -188,7 +179,6 @@ Inherits NSObject
 
 	#tag Method, Flags = &h1000
 		Shared Function CreatesWithPasteboard(pasteboard as NSPasteboard) As NSImageRep()
-		  
 		  #if TargetMacOS
 		    declare function imageRepsWithPasteboard lib CocoaLib selector "imageRepsWithPasteboard:" (class_id as Ptr, pasteboard as Ptr) as Ptr
 		    
@@ -203,22 +193,12 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -226,7 +206,6 @@ Inherits NSObject
 		  #else
 		    #pragma unused pasteboard
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 
@@ -248,21 +227,12 @@ Inherits NSObject
 		      dim ns_array as new NSArray(arrayRef)
 		      
 		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -384,11 +354,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Draw(srcSpacePortionRect as Cocoa.NSRect, dstSpacePortionRect as Cocoa.NSRect, operation as NSImage.NSComposite, opacity as Single, respectContextIsFlipped as Boolean, hints as NSDictionary)
+		Sub Draw(srcSpacePortionRect as Cocoa.NSRect, dstSpacePortionRect as Cocoa.NSRect, operation as NSImage.NSComposite, opacity as Double, respectContextIsFlipped as Boolean, hints as NSDictionary)
 		  
 		  #if targetMacOS
 		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:respectFlipped:hints:" _
-		    (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as NSImage.NSComposite, requestedAlpha as Single, _
+		    (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as NSImage.NSComposite, requestedAlpha as Double, _
 		    respectContextIsFlipped as Boolean, hints as Ptr)
 		    
 		    dim hintsRef as Ptr
@@ -543,18 +513,10 @@ Inherits NSObject
 		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append Ptr(m.UInt64Value(i*SizeOfPointer))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append Ptr(m.UInt32Value(i*SizeOfPointer))
-		        next
-		      #endif
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append Ptr(m.UInt64Value(i*SizeOfPointer))
+		      next
 		    end if
 		    
 		    return retArray
@@ -812,25 +774,27 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="BitsPerSample"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ColorSpaceName"
+			Visible=false
 			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasAlpha"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -838,11 +802,15 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsOpaque"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -850,28 +818,39 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PixelsHigh"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PixelsWide"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -879,6 +858,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

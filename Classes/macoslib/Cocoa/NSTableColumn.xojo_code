@@ -39,7 +39,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetCocoa
-			    declare function width lib CocoaLib selector "width" (obj_id as Ptr) as Single
+			    declare function width lib CocoaLib selector "width" (obj_id as Ptr) as Double
 			    
 			    return width(self)
 			  #endif
@@ -48,7 +48,7 @@ Inherits NSObject
 		#tag Setter
 			Set
 			  #if targetCocoa
-			    declare sub setWidth lib CocoaLib selector "setWidth:" (obj_id as Ptr, newWidth as Single)
+			    declare sub setWidth lib CocoaLib selector "setWidth:" (obj_id as Ptr, newWidth as Double)
 			    
 			    setWidth self, CType(Value, Single)
 			    
@@ -65,17 +65,12 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -83,18 +78,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -102,11 +102,15 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Width"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

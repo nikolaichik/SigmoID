@@ -34,20 +34,20 @@ Protected Module ATSForFonts
 
 	#tag Structure, Name = ATSFontMetrics, Flags = &h0
 		version as UInt32
-		  ascent as Single
-		  descent as Single
-		  leading as Single
-		  avgAdvanceWidth as Single
-		  maxAdvanceWidth as Single
-		  minLeftSideBearing as Single
-		  minRightSideBearing as Single
-		  stemWidth as Single
-		  stemHeight as Single
-		  capHeight as Single
-		  xHeight as Single
-		  italicAngle as Single
-		  underlinePosition as Single
-		underlineThickness as Single
+		  ascent as Double
+		  descent as Double
+		  leading as Double
+		  avgAdvanceWidth as Double
+		  maxAdvanceWidth as Double
+		  minLeftSideBearing as Double
+		  minRightSideBearing as Double
+		  stemWidth as Double
+		  stemHeight as Double
+		  capHeight as Double
+		  xHeight as Double
+		  italicAngle as Double
+		  underlinePosition as Double
+		underlineThickness as Double
 	#tag EndStructure
 
 
@@ -58,6 +58,7 @@ Protected Module ATSForFonts
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -65,18 +66,23 @@ Protected Module ATSForFonts
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -84,6 +90,7 @@ Protected Module ATSForFonts
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -2,14 +2,16 @@
 Protected Module FolderManager
 	#tag Method, Flags = &h1
 		Protected Function FindFolder(vol as FolderItem, folderType as String, create as Boolean) As FolderItem
-		  'if vol is nil then
-		  'return nil
-		  'end if
-		  'Return FindFolder(vol.MacVRefNum, folderType, create)
+		  if vol is nil then
+		    return nil
+		  end if
 		  
-		  // disabled since 2019r2 due to removal of folderitem.MacFSRef
-		  
-		  return nil
+		  #if XojoVersion < 2019.02
+		    return FindFolder(vol.MacVRefNum, folderType, create)
+		  #else
+		    // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
+		    break
+		  #endif
 		End Function
 	#tag EndMethod
 

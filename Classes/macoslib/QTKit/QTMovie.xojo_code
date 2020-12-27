@@ -131,7 +131,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Rate() As Double
 		  #if targetCocoa
-		    declare function rate lib QTKit.framework selector "rate" (obj_id as Ptr) as Single
+		    declare function rate lib QTKit.framework selector "rate" (obj_id as Ptr) as Double
 		    
 		    return CType(rate(self), Double)
 		  #endif
@@ -199,7 +199,7 @@ Inherits NSObject
 	#tag Method, Flags = &h0
 		Function Volume() As Double
 		  #if targetCocoa
-		    declare function volume lib QTKit.framework selector "volume" (obj_id as Ptr) as Single
+		    declare function volume lib QTKit.framework selector "volume" (obj_id as Ptr) as Double
 		    
 		    return CType(volume(self), Double)
 		  #endif
@@ -246,17 +246,12 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -264,23 +259,31 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Muted"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -288,6 +291,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

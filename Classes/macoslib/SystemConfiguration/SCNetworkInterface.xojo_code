@@ -2,17 +2,17 @@
 Class SCNetworkInterface
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return SCNetworkInterface.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib SystemConfiguration.framework alias "SCNetworkInterfaceGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib SystemConfiguration.framework alias "SCNetworkInterfaceGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -144,7 +144,7 @@ Inherits CFType
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="BSDName"
+			Name="Description"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
@@ -152,7 +152,7 @@ Inherits CFType
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Description"
+			Name="BSDName"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

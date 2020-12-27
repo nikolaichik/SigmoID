@@ -3,7 +3,7 @@ Class CFString
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -16,10 +16,10 @@ Implements CFPropertyList
 
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CFStringGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CarbonLib alias "CFStringGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -34,9 +34,11 @@ Implements CFPropertyList
 		    if Encoding(s) <> nil then
 		      p = CFStringCreateWithCString(nil, s, Encoding(s).code)
 		    else
-		      const kCFStringEncodingInvalidId = &hffffffff
-		      
-		      p = CFStringCreateWithCString(nil, s, kCFStringEncodingInvalidId)
+		      // Missing encoding!
+		      break
+		      // Fall back to a safe encoding, e.g. any 8 Bit encoding, but not UTF-8 because that's may not be valid with all byte combinations!
+		      const kCFStringEncodingISOLatin1 = &h0201
+		      p = CFStringCreateWithCString(nil, s, kCFStringEncodingISOLatin1)
 		    end if
 		    
 		    self.Constructor(p, hasOwnership)

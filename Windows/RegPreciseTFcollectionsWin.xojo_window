@@ -1741,7 +1741,7 @@ End
 		      
 		      RegulonsJSON=new JSONItem(res) 'Convert RegPrecise string to JSON
 		      regs=RegulonsJSON.value("regulon")
-		      redim RegulonIDs(0)
+		      Redim RegulonIDs(0)
 		      redim CRtagStatArray(0)
 		      if regs.IsArray then
 		        for m=0 to regs.Count-1

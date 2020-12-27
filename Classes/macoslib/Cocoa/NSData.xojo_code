@@ -211,11 +211,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h1000
-		Function Data(length as UInt32) As MemoryBlock
+		Function Data(length as UInteger) As MemoryBlock
 		  //# Copies a number of bytes from the start of the NSData's data into a given buffer.
 		  
 		  #if targetMacOS
-		    declare function getBytes lib CocoaLib selector "getBytes:length:" (obj_id as Ptr, length as UInt32) as Ptr
+		    declare function getBytes lib CocoaLib selector "getBytes:length:" (obj_id as Ptr, length as UInteger) as Ptr
 		    
 		    return getBytes(self, length)
 		  #else
@@ -357,16 +357,7 @@ Inherits NSObject
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    #if RBVersion >= 2012.02
-			      #if Target32Bit
-			        declare sub getBytes lib CocoaLib selector "getBytes:length:" ( id as Ptr, buffer as Ptr, length as UInt32 )
-			      #else
-			        declare sub getBytes lib CocoaLib selector "getBytes:length:" ( id as Ptr, buffer as Ptr, length as UInt64 )
-			      #endif
-			      
-			    #else //Previous versions are 32 bits only
-			      declare sub getBytes lib CocoaLib selector "getBytes:length:" ( id as Ptr, buffer as Ptr, length as UInt32 )
-			    #endif
+			    declare sub getBytes lib CocoaLib selector "getBytes:length:" ( id as Ptr, buffer as Ptr, length as UInteger )
 			    
 			    dim dataLength as Integer = me.Length
 			    if dataLength > 0 then
@@ -405,17 +396,12 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -423,23 +409,31 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Length"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -447,6 +441,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

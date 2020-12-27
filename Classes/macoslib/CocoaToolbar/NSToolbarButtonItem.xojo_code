@@ -208,28 +208,12 @@ Implements NSToolbarItemInterface
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Autovalidates"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ItemIdentifier"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -237,35 +221,23 @@ Implements NSToolbarItemInterface
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="PaletteLabel"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Tag"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ToolTip"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -273,18 +245,7 @@ Implements NSToolbarItemInterface
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="VisibilityPriority"
-			Group="Behavior"
-			Type="NSToolbarItemVisibilityPriority"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - NSToolbarItemVisibilityPriorityStandard"
-				"-1000 - NSToolbarItemVisibilityPriorityLow"
-				"1000 - NSToolbarItemVisibilityPriorityHigh"
-				"2000 - NSToolbarItemVisibilityPriorityUser"
-			#tag EndEnumValues
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

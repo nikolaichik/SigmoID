@@ -2,18 +2,18 @@
 Class CGImage
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CGImageGetTypeID" () as UInt32
+		    declare function TypeID lib CarbonLib alias "CGImageGetTypeID" () as UInteger
 		    
-		    static id as UInt32 = TypeID
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -73,14 +73,13 @@ Inherits CFType
 		      return
 		    end if
 		    
-		    const sizeOfSingle = 4
-		    dim components as new MemoryBlock(2*(1 + UBound(minComponents))*sizeOfSingle)
+		    dim components as new MemoryBlock(2*(1 + UBound(minComponents))*SizeOfDouble)
 		    dim offset as Integer = 0
 		    for index as Integer = 0 to UBound(minComponents)
-		      components.SingleValue(offset) = minComponents(index)
-		      offset = offset + 4
-		      components.SingleValue(offset) = maxComponents(index)
-		      offset = offset + 4
+		      components.DoubleValue(offset) = minComponents(index)
+		      offset = offset + SizeOfDouble
+		      components.DoubleValue(offset) = maxComponents(index)
+		      offset = offset + SizeOfDouble
 		    next
 		    
 		    super.Constructor CGImageCreateWithMaskingColors(image, components), true
@@ -284,10 +283,10 @@ Inherits CFType
 		  // Note: Available in Mac OS X v10.4 and later
 		  
 		  #if targetMacOS
-		    soft declare function HICreateTransformedCGImage lib CarbonLib (inImage as Ptr, inTransform as UInt32, ByRef outImage as Ptr) as Integer
+		    soft declare function HICreateTransformedCGImage lib CarbonLib (inImage as Ptr, inTransform as UInt32, ByRef outImage as Ptr) as Int32
 		    
 		    dim p as Ptr
-		    dim OSStatus as Integer = HICreateTransformedCGImage(me, transformType, p)
+		    dim OSStatus as Int32 = HICreateTransformedCGImage(me, transformType, p)
 		    if OSStatus = noErr then
 		      const hasOwnership = true
 		      return new CGImage(p, hasOwnership)
@@ -455,6 +454,14 @@ Inherits CFType
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="BitsPerComponent"
 			Visible=false
 			Group="Behavior"
@@ -477,14 +484,6 @@ Inherits CFType
 			InitialValue="0"
 			Type="Integer"
 			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Height"

@@ -6,6 +6,15 @@ Protected Module Carbon
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function GetSystemVersionFromCommandLine() As String
+		  dim sh as new shell
+		  sh.Execute("sw_vers | grep ProductVersion | awk '{print $2}'")
+		  dim s as string = sh.Result
+		  return trim(s)
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1
 		Attributes( deprecated ) Protected Function GetSystemVersionFromGestalt() As String
 		  // Attention: This is now deprecated because it's returning wrong
@@ -24,6 +33,36 @@ Protected Module Carbon
 		      return Format(sys1,"#")+"."+Format(sys2,"#")+"."+Format(sys3,"#")
 		    end if
 		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsCatalina() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 101500
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsElCapitan() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 101100
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsHighSierra() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 101300
 		End Function
 	#tag EndMethod
 
@@ -58,6 +97,16 @@ Protected Module Carbon
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function IsMojave() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 101400
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IsMountainLion() As Boolean
 		  // Tells you if this OS has features of this version
 		  // This means that it returns true for later OS versions as well.
@@ -74,6 +123,16 @@ Protected Module Carbon
 		  // If you want to test for a particular version, use SystemVersionAsInt
 		  
 		  return SystemVersionAsInt >= 100300
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function IsSierra() As Boolean
+		  // Tells you if this OS has features of this version
+		  // This means that it returns true for later OS versions as well.
+		  // If you want to test for a particular version, use SystemVersionAsInt
+		  
+		  return SystemVersionAsInt >= 101200
 		End Function
 	#tag EndMethod
 
@@ -405,6 +464,7 @@ Protected Module Carbon
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -412,18 +472,23 @@ Protected Module Carbon
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -431,6 +496,7 @@ Protected Module Carbon
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

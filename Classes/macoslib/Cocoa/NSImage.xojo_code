@@ -443,9 +443,9 @@ Inherits NSObject
 		  //pass fromRect = zeroRect to draw the entire image.
 		  
 		  #if targetCocoa
-		    declare sub drawAtPoint lib CocoaLib selector "drawAtPoint:fromRect:operation:fraction:" (obj_id as Ptr, point as Cocoa.NSPoint, fromRect as Cocoa.NSRect, op as NSComposite, delta as Single)
+		    declare sub drawAtPoint lib CocoaLib selector "drawAtPoint:fromRect:operation:fraction:" (obj_id as Ptr, point as Cocoa.NSPoint, fromRect as Cocoa.NSRect, op as NSComposite, delta as Double)
 		    
-		    drawAtPoint(self, point, fromRect, operation, CType(opacity, Single))
+		    drawAtPoint(self, point, fromRect, operation, CType(opacity, Double))
 		  #else
 		    #pragma unused point
 		    #pragma unused fromRect
@@ -456,27 +456,9 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Double)
-		  //draws part of image defined by srcRect into dstRect in the current context.  The image is scaled as needed.
-		  //Pass srcRect = zeroRect to draw the entire image.
-		  
+		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Double = 1.0, respectFlipped as Boolean = true, hints as NSDictionary = nil)
 		  #if targetMacOS
-		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:" (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as NSComposite, delta as Single)
-		    
-		    drawInRect(self, dstRect, srcRect, operation, CType(opacity, Single))
-		  #else
-		    #pragma Unused srcRect
-		    #pragma Unused dstRect
-		    #pragma Unused operation
-		    #pragma Unused opacity
-		  #endif
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Single = 1.0, respectFlipped as Boolean = true, hints as NSDictionary = nil)
-		  #if targetMacOS
-		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:respectFlipped:hints:" (obj_id as Ptr, dstSpacePortionRect as Cocoa.NSRect, srcSpacePortionRect as Cocoa.NSRect, op as NSComposite, requestedAlpha as Single, respectContextIsFlipped as Boolean, hints as Ptr)
+		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:respectFlipped:hints:" (obj_id as Ptr, dstSpacePortionRect as Cocoa.NSRect, srcSpacePortionRect as Cocoa.NSRect, op as NSComposite, requestedAlpha as Double, respectContextIsFlipped as Boolean, hints as Ptr)
 		    
 		    dim hintsPtr as Ptr
 		    if hints <> nil then
@@ -493,6 +475,24 @@ Inherits NSObject
 		    #pragma Unused opacity
 		    #pragma Unused respectFlipped
 		    #pragma Unused hints
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Draw(srcRect as Cocoa.NSRect, dstRect as Cocoa.NSRect, operation as NSComposite, opacity as Double)
+		  //draws part of image defined by srcRect into dstRect in the current context.  The image is scaled as needed.
+		  //Pass srcRect = zeroRect to draw the entire image.
+		  
+		  #if targetMacOS
+		    declare sub drawInRect lib CocoaLib selector "drawInRect:fromRect:operation:fraction:" (obj_id as Ptr, dstRect as Cocoa.NSRect, srcRect as Cocoa.NSRect, op as NSComposite, delta as Double)
+		    
+		    drawInRect(self, dstRect, srcRect, operation, CType(opacity, Double))
+		  #else
+		    #pragma Unused srcRect
+		    #pragma Unused dstRect
+		    #pragma Unused operation
+		    #pragma Unused opacity
 		  #endif
 		End Sub
 	#tag EndMethod
@@ -1595,22 +1595,12 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSImageRep(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSImageRep(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -1799,11 +1789,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function TIFFRepresentation(comp as NSBitmapImageRep.NSTIFFCompression, factor as Single) As NSData
+		Function TIFFRepresentation(comp as NSBitmapImageRep.NSTIFFCompression, factor as Double) As NSData
 		  
 		  #if targetMacOS
 		    declare function TIFFRepresentationUsingCompression lib CocoaLib selector "TIFFRepresentationUsingCompression:factor:" _
-		    (obj_id as Ptr, comp as NSBitmapImageRep.NSTIFFCompression, factor as Single) as Ptr
+		    (obj_id as Ptr, comp as NSBitmapImageRep.NSTIFFCompression, factor as Double) as Ptr
 		    
 		    dim dataRef as Ptr = TIFFRepresentationUsingCompression(self, comp, factor)
 		    if dataRef <> nil then
@@ -2259,13 +2249,17 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="AccessibilityDescription"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CacheMode"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSCacheMode"
 			EditorType="Enum"
 			#tag EnumValues
@@ -2276,17 +2270,12 @@ Inherits NSObject
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -2294,33 +2283,47 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MatchesOnMultipleResolution"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PrefersColorMatch"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Template"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -2328,16 +2331,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="UsesEPSOnResolutionMismatch"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Valid"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

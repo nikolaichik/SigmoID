@@ -122,14 +122,11 @@ Inherits NSTextBlock
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="ColumnSpan"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -137,6 +134,7 @@ Inherits NSTextBlock
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -144,33 +142,47 @@ Inherits NSTextBlock
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="RowSpan"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StartingColumn"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StartingRow"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -178,18 +190,7 @@ Inherits NSTextBlock
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="VerticalAlignment"
-			Group="Behavior"
-			Type="NSTextBlockVerticalAlignment"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - NSTextBlockTopAlignment"
-				"1 - NSTextBlockMiddleAlignment"
-				"2 - NSTextBlockBottomAlignment"
-				"3 - NSTextBlockBaselineAlignment"
-			#tag EndEnumValues
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -2,7 +2,7 @@
 Class CGFunction
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -14,12 +14,11 @@ Inherits CFType
 		    return nil
 		  end if
 		  
-		  const sizeOfSingle = 4
-		  dim theArray as new MemoryBlock(sizeOfSingle*(1 + UBound(theList)))
+		  dim theArray as new MemoryBlock(SizeOfDouble*(1 + UBound(theList)))
 		  dim offset as Integer = 0
 		  for i as Integer = 0 to UBound(theList)
-		    theArray.SingleValue(offset) = theList(i)
-		    offset = offset + sizeOfSingle
+		    theArray.DoubleValue(offset) = theList(i)
+		    offset = offset + SizeOfDouble
 		  next
 		  
 		  return theArray
@@ -27,11 +26,11 @@ Inherits CFType
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CGFunctionGetTypeID" () as UInt32
+		    declare function TypeID lib CarbonLib alias "CGFunctionGetTypeID" () as UInteger
 		    
-		    static id as UInt32 = TypeID
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function

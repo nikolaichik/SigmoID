@@ -63,50 +63,52 @@ Class FSIterator
 		  end if
 		  
 		  
-		  #If targetMacOS
-		    
-		    // probably nonfunctional since 2019r2 due to removal of folderitem.MacFSRef
-		    
-		    
-		    soft declare function FSCatalogSearch lib CarbonLib (iterator as Ptr, ByRef searchCriteria as FSSearchParams, maximumObjects as UInt32, ByRef actualObjects as UInt32, ByRef containerChanged as Boolean, whichInfo as Uint32, catalogInfos as Ptr, refs as Ptr, specs as Ptr, names as Ptr) as Int16
-		    
-		    dim iterator as new FSIterator(f, FSIterator.kFSIterateFlat)
-		    
-		    //build search criteria
-		    const fsSBFlFndrInfo = 8 //For files only search by the file’s Finder info.
-		    const fsSBDrUsrWds = 8 //For directories only search by the directory’s Finder info.
-		    const fsSBFlParID = 8192 //For files only search by the file’s parent ID.
-		    dim criteria as FSSearchParams
-		    criteria.searchTime = 0
-		    criteria.searchBits = fsSBFlFndrInfo + fsSBFlParID
-		    criteria.searchNameLength = 0
-		    criteria.searchName = nil
-		    
-		    //add parent dir criterion
-		    
-		    dim searchInfo1 as new MemoryBlock(FSCatalogInfo.Size)
-		    'searchInfo1.UInt32Value(4) = f.MacDirID
-		    searchInfo1.Long(80) = FileManager.kIsInvisible
-		    
-		    criteria.searchInfo1 = searchInfo1
-		    
-		    dim searchInfo2 as new MemoryBlock(FSCatalogInfo.Size)
-		    searchInfo2.Long(80) = FileManager.kIsInvisible
-		    
-		    criteria.searchInfo2 = searchInfo2
-		    
-		    const maximumObjects = 16
-		    dim actualObjects as UInt32
-		    dim containerChanged as Boolean
-		    
-		    dim nameArray as new MemoryBlock(maximumObjects*HFSUniStr255.Size)
-		    
-		    dim OSErr as Int16 = FSCatalogSearch(iterator, criteria, maximumObjects, actualObjects, containerChanged, 0, nil, nil, nil, nameArray)
-		    if OSErr <> noErr then
+		  #if targetMacOS
+		    #if XojoVersion < 2019.02
+		      soft declare function FSCatalogSearch lib CarbonLib (iterator as Ptr, ByRef searchCriteria as FSSearchParams, maximumObjects as UInt32, ByRef actualObjects as UInt32, ByRef containerChanged as Boolean, whichInfo as Uint32, catalogInfos as Ptr, refs as Ptr, specs as Ptr, names as Ptr) as Int16
+		      
+		      dim iterator as new FSIterator(f, FSIterator.kFSIterateFlat)
+		      
+		      //build search criteria
+		      const fsSBFlFndrInfo = 8 //For files only search by the file’s Finder info.
+		      const fsSBDrUsrWds = 8 //For directories only search by the directory’s Finder info.
+		      const fsSBFlParID = 8192 //For files only search by the file’s parent ID.
+		      dim criteria as FSSearchParams
+		      criteria.searchTime = 0
+		      criteria.searchBits = fsSBFlFndrInfo + fsSBFlParID
+		      criteria.searchNameLength = 0
+		      criteria.searchName = nil
+		      
+		      //add parent dir criterion
+		      
+		      dim searchInfo1 as new MemoryBlock(FSCatalogInfo.Size)
+		      searchInfo1.UInt32Value(4) = f.MacDirID
+		      searchInfo1.Long(80) = FileManager.kIsInvisible
+		      
+		      criteria.searchInfo1 = searchInfo1
+		      
+		      dim searchInfo2 as new MemoryBlock(FSCatalogInfo.Size)
+		      searchInfo2.Long(80) = FileManager.kIsInvisible
+		      
+		      criteria.searchInfo2 = searchInfo2
+		      
+		      const maximumObjects = 16
+		      dim actualObjects as UInt32
+		      dim containerChanged as Boolean
+		      
+		      dim nameArray as new MemoryBlock(maximumObjects*HFSUniStr255.Size)
+		      
+		      dim OSErr as Int16 = FSCatalogSearch(iterator, criteria, maximumObjects, actualObjects, containerChanged, 0, nil, nil, nil, nameArray)
+		      if OSErr <> noErr then
+		        break
+		      end if
+		      
+		      return actualObjects
+		    #else
+		      // the code isn't supported or should be rewritten for Xojo 2019r2 or newer
 		      break
-		    end if
+		    #endif
 		    
-		    return actualObjects
 		  #endif
 		End Function
 	#tag EndMethod

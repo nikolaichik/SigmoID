@@ -92,7 +92,7 @@ Protected Module CorePrinting
 		  
 		  #if TargetMacOS
 		    
-		    dim r as boolean
+		    dim r as boolean 
 		    dim printers() as PMPrinter = PrinterList
 		    for each printer as PMPrinter in printers
 		      if printer.Name = printerName then
@@ -177,6 +177,7 @@ Protected Module CorePrinting
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -184,18 +185,23 @@ Protected Module CorePrinting
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -203,6 +209,7 @@ Protected Module CorePrinting
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -325,7 +325,7 @@ Inherits Canvas
 		#tag Getter
 			Get
 			  #if targetMacOS
-			    declare function controllerBarHeight lib QTKit.framework selector "controllerBarHeight" (obj_id as Ptr) as Single
+			    declare function controllerBarHeight lib QTKit.framework selector "controllerBarHeight" (obj_id as Ptr) as Double
 			    
 			    return CType(controllerBarHeight(self), Double)
 			  #endif
@@ -457,6 +457,14 @@ Inherits Canvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="DoubleBuffer"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Backdrop"
 			Visible=true
 			Group="Appearance"
@@ -477,14 +485,6 @@ Inherits Canvas
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DoubleBuffer"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
 			Type="Boolean"
 			EditorType=""
 		#tag EndViewProperty

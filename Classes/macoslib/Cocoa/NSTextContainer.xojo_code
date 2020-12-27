@@ -187,7 +187,7 @@ Inherits NSObject
 			Get
 			  
 			  #if TargetMacOS
-			    declare function lineFragmentPadding lib CocoaLib selector "lineFragmentPadding" (obj_id as Ptr) as Single
+			    declare function lineFragmentPadding lib CocoaLib selector "lineFragmentPadding" (obj_id as Ptr) as Double
 			    
 			    return lineFragmentPadding(self)
 			    
@@ -199,7 +199,7 @@ Inherits NSObject
 			Set
 			  
 			  #if TargetMacOS
-			    declare sub setLineFragmentPadding lib CocoaLib selector "setLineFragmentPadding:" (obj_id as Ptr, aFloat as Single)
+			    declare sub setLineFragmentPadding lib CocoaLib selector "setLineFragmentPadding:" (obj_id as Ptr, aFloat as Double)
 			    
 			    setLineFragmentPadding self, value
 			    
@@ -209,7 +209,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		LineFragmentPadding As Single
+		LineFragmentPadding As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -297,15 +297,12 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="HeightTracksTextView"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -313,6 +310,7 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -320,23 +318,31 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LineFragmentPadding"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -344,11 +350,15 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WidthTracksTextView"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

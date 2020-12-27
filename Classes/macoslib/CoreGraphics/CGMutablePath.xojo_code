@@ -8,7 +8,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddArc lib CarbonLib (path as Ptr, m as Ptr, x as Single, y as Single, r as SIngle, startAngle as Single, endAngle as Single, clockwise as Boolean)
+		    soft declare sub CGPathAddArc lib CarbonLib (path as Ptr, m as Ptr, x as Double, y as Double, r as Double, startAngle as Double, endAngle as Double, clockwise as Boolean)
 		    
 		    CGPathAddArc me, nil, x, y, r, startAngle, endAngle, clockwise
 		  #endif
@@ -22,7 +22,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddArc lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, x as Single, y as Single, r as SIngle, startAngle as Single, endAngle as Single, clockwise as Boolean)
+		    soft declare sub CGPathAddArc lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, x as Double, y as Double, r as Double, startAngle as Double, endAngle as Double, clockwise as Boolean)
 		    
 		    CGPathAddArc me, m, x, y, r, startAngle, endAngle, clockwise
 		  #endif
@@ -36,7 +36,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddArcToPoint lib CarbonLib (path as Ptr, m as Ptr, x1 as Single, y1 as Single, x2 as Single, y2 as Single, r as Single)
+		    soft declare sub CGPathAddArcToPoint lib CarbonLib (path as Ptr, m as Ptr, x1 as Double, y1 as Double, x2 as Double, y2 as Double, r as Double)
 		    
 		    CGPathAddArcToPoint me, nil, x1, y1, x2, y2, r
 		  #endif
@@ -50,7 +50,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddArcToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, x1 as Single, y1 as Single, x2 as Single, y2 as Single, r as Single)
+		    soft declare sub CGPathAddArcToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, x1 as Double, y1 as Double, x2 as Double, y2 as Double, r as Double)
 		    
 		    CGPathAddArcToPoint me, m, x1, y1, x2, y2, r
 		  #endif
@@ -64,7 +64,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddCurveToPoint lib CarbonLib (path as Ptr, m as Ptr, cx1 as Single, cy1 as Single, cx2 as Single, cy2 as Single, x as Single, y as Single)
+		    soft declare sub CGPathAddCurveToPoint lib CarbonLib (path as Ptr, m as Ptr, cx1 as Double, cy1 as Double, cx2 as Double, cy2 as Double, x as Double, y as Double)
 		    
 		    CGPathAddCurveToPoint me, nil, cx1, cy1, cx2, cy2, x, y
 		  #endif
@@ -78,7 +78,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddCurveToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, cx1 as Single, cy1 as Single, cx2 as Single, cy2 as Single, x as Single, y as Single)
+		    soft declare sub CGPathAddCurveToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, cx1 as Double, cy1 as Double, cx2 as Double, cy2 as Double, x as Double, y as Double)
 		    
 		    CGPathAddCurveToPoint me, m, cx1, cy1, cx2, cy2, x, y
 		  #endif
@@ -156,7 +156,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddLineToPoint lib CarbonLib (path as Ptr, m as Ptr, x as Single, y as Single)
+		    soft declare sub CGPathAddLineToPoint lib CarbonLib (path as Ptr, m as Ptr, x as Double, y as Double)
 		    
 		    CGPathAddLineToPoint me, nil, x, y
 		  #endif
@@ -170,7 +170,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddLineToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, x as Single, y as Single)
+		    soft declare sub CGPathAddLineToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, x as Double, y as Double)
 		    
 		    CGPathAddLineToPoint me, m, x, y
 		  #endif
@@ -218,7 +218,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddQuadCurveToPoint lib CarbonLib (path as Ptr, m as Ptr, cx as Single, cy as Single, x as Single, y as Single)
+		    soft declare sub CGPathAddQuadCurveToPoint lib CarbonLib (path as Ptr, m as Ptr, cx as Double, cy as Double, x as Double, y as Double)
 		    
 		    CGPathAddQuadCurveToPoint me, nil, cx, cy, x, y
 		  #endif
@@ -232,7 +232,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathAddQuadCurveToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, cx as Single, cy as Single, x as Single, y as Single)
+		    soft declare sub CGPathAddQuadCurveToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, cx as Double, cy as Double, x as Double, y as Double)
 		    
 		    CGPathAddQuadCurveToPoint me, m, cx, cy, x, y
 		  #endif
@@ -347,7 +347,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathMoveToPoint lib CarbonLib (path as Ptr, m as Ptr, x as Single, y as Single)
+		    soft declare sub CGPathMoveToPoint lib CarbonLib (path as Ptr, m as Ptr, x as Double, y as Double)
 		    
 		    CGPathMoveToPoint me, nil, x, y
 		  #endif
@@ -361,7 +361,7 @@ Inherits CGPath
 		  end if
 		  
 		  #if targetMacOS
-		    soft declare sub CGPathMoveToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, x as Single, y as Single)
+		    soft declare sub CGPathMoveToPoint lib CarbonLib (path as Ptr, ByRef m as CGAffineTransform, x as Double, y as Double)
 		    
 		    CGPathMoveToPoint me, m, x, y
 		  #endif
@@ -371,23 +371,12 @@ Inherits CGPath
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="IsEmpty"
-			Group="Behavior"
-			InitialValue="0"
-			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -395,18 +384,23 @@ Inherits CGPath
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -414,6 +408,7 @@ Inherits CGPath
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

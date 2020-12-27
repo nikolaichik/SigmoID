@@ -3,7 +3,7 @@ Class CFDictionary
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -39,10 +39,10 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CFDictionaryGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CarbonLib alias "CFDictionaryGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -70,19 +70,19 @@ Implements CFPropertyList
 		  end if
 		  
 		  #if targetMacOS
-		    dim keyCallbacks as Ptr = me.DefaultCallbacks("kCFTypeDictionaryKeyCallBacks")
-		    dim valueCallbacks as Ptr = me.DefaultCallbacks("kCFTypeDictionaryValueCallBacks")
+		    static keyCallbacks as Ptr = me.DefaultCallbacks("kCFTypeDictionaryKeyCallBacks")
+		    static valueCallbacks as Ptr = me.DefaultCallbacks("kCFTypeDictionaryValueCallBacks")
 		    
 		    declare function CFDictionaryCreate lib CarbonLib (allocator as Ptr, keys as Ptr, values as Ptr, numValues as Integer, keyCallBacks as Ptr, valueCallBacks as Ptr) as Ptr
 		    
 		    if UBound(theKeys) >= 0 then
-		      dim keyBlock as new MemoryBlock(4*(1 + UBound(theKeys)))
-		      dim valueBlock as new MemoryBlock(4*(1 + UBound(theValues)))
+		      dim keyBlock as new MemoryBlock(SizeOfPointer*(1 + UBound(theKeys)))
+		      dim valueBlock as new MemoryBlock(SizeOfPointer*(1 + UBound(theValues)))
 		      dim offset as Integer = 0
 		      for i as Integer = 0 to UBound(theKeys)
 		        keyBlock.Ptr(offset) = theKeys(i).Reference
 		        valueBlock.Ptr(offset) = theValues(i).Reference
-		        offset = offset + 4
+		        offset = offset + SizeOfPointer
 		      next
 		      // create with presets
 		      super.Constructor CFDictionaryCreate(nil, keyBlock, valueBlock, 1 + UBound(theKeys), keyCallbacks, valueCallbacks), true
@@ -155,8 +155,8 @@ Implements CFPropertyList
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function DefaultCallbacks(name as String) As Ptr
+	#tag Method, Flags = &h1
+		Protected Shared Function DefaultCallbacks(name as String) As Ptr
 		  return Carbon.Bundle.DataPointerNotRetained(name)
 		End Function
 	#tag EndMethod
@@ -194,14 +194,13 @@ Implements CFPropertyList
 		      if dictCount > 0 then
 		        declare sub CFDictionaryGetKeysAndValues lib CarbonLib (theDict as Ptr, keys as Ptr, values as Ptr)
 		        
-		        const sizeOfCFTypeRef = 4
-		        dim keyList as new MemoryBlock(sizeOfCFTypeRef*dictCount)
+		        dim keyList as new MemoryBlock(CFTypeRef.Size*dictCount)
 		        CFDictionaryGetKeysAndValues me.Reference, keyList, nil
 		        
 		        dim offset as Integer = 0
 		        for i as Integer = 1 to dictCount
 		          theList.Append CFType.NewObject(keyList.Ptr(offset), false, kCFPropertyListImmutable)
-		          offset = offset + sizeOfCFTypeRef
+		          offset = offset + CFTypeRef.Size
 		        next
 		      end if
 		    end if
@@ -288,20 +287,20 @@ Implements CFPropertyList
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Count"
-			Visible=false
-			Group="Behavior"
-			InitialValue="0"
-			Type="Integer"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Description"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Count"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"

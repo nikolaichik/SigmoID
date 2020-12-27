@@ -52,24 +52,15 @@ Inherits NSObject
 		  #if TargetMacOS
 		    declare function availableStringEncodings lib CocoaLib selector "availableStringEncodings" (class_id as Ptr) as Ptr
 		    
-		    const sizeOfUInt32 = 4
-		    
 		    dim rb_array() as NSStringEncoding
 		    
 		    dim m as MemoryBlock = availableStringEncodings(ClassRef)
-		    #if Target64Bit
-		      dim offset as UInt64 = 0
-		      while m.UInt64Value(offset) <> 0
-		        rb_array.append NSStringEncoding(m.UInt64Value(offset))
-		        offset = offset + sizeOfInteger
-		      wend
-		    #else
-		      dim offset as UInt32 = 0
-		      while m.UInt32Value(offset) <> 0
-		        rb_array.append NSStringEncoding(m.UInt32Value(offset))
-		        offset = offset + sizeOfUInt32
-		      wend
-		    #endif
+		    
+		    dim offset as UInt64 = 0
+		    while m.UInt64Value(offset) <> 0
+		      rb_array.append NSStringEncoding(m.UInt64Value(offset))
+		      offset = offset + SizeOfInteger
+		    wend
 		    
 		    return rb_array
 		    
@@ -1273,7 +1264,7 @@ Inherits NSObject
 			Get
 			  
 			  #if targetMacOS
-			    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Ptr) as Single
+			    declare function floatValue lib CocoaLib selector "floatValue" (obj_id as Ptr) as Double
 			    
 			    return floatValue(self)
 			    
@@ -1281,7 +1272,7 @@ Inherits NSObject
 			  
 			End Get
 		#tag EndGetter
-		SingleValue As Single
+		SingleValue As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -1379,19 +1370,19 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="AbsolutePath"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DoubleValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -1399,16 +1390,23 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Int64Value"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Int64"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IntegerValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -1416,26 +1414,37 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Length"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SingleValue"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StringValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -1443,7 +1452,9 @@ Inherits NSObject
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -1451,6 +1462,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

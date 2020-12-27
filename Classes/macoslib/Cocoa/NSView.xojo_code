@@ -71,10 +71,10 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub AdjustPageHeightNewTopBottomLimit(newBottom as Single, top as Single, proposedBottom as Single, bottomLimit as Single)
+		Sub AdjustPageHeightNewTopBottomLimit(newBottom as Double, top as Double, proposedBottom as Double, bottomLimit as Double)
 		  
 		  #if TargetMacOS then
-		    declare sub adjustPageWidthNewLeftRightLimit lib CocoaLib selector "adjustPageWidthNew:left:right:limit:" (obj_id as Ptr, NewBluePaletteMBS as Single, top as Single, proposedBottom as Single, bottomLimit as Single)
+		    declare sub adjustPageWidthNewLeftRightLimit lib CocoaLib selector "adjustPageWidthNew:left:right:limit:" (obj_id as Ptr, NewBluePaletteMBS as Double, top as Double, proposedBottom as Double, bottomLimit as Double)
 		    
 		    adjustPageWidthNewLeftRightLimit self, newBottom, top, proposedBottom, bottomLimit
 		  #else
@@ -87,10 +87,10 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub AdjustPageWidthNewLeftRightLimit(newRight as Single, left as Single, proposedRight as Single, rightLimit as Single)
+		Sub AdjustPageWidthNewLeftRightLimit(newRight as Double, left as Double, proposedRight as Double, rightLimit as Double)
 		  
 		  #if TargetMacOS then
-		    declare sub adjustPageWidthNewLeftRightLimit lib CocoaLib selector "adjustPageWidthNew:left:right:limit:" (obj_id as Ptr, newRight as Single, left as Single, proposedRight as Single, rightLimit as Single)
+		    declare sub adjustPageWidthNewLeftRightLimit lib CocoaLib selector "adjustPageWidthNew:left:right:limit:" (obj_id as Ptr, newRight as Double, left as Double, proposedRight as Double, rightLimit as Double)
 		    
 		    adjustPageWidthNewLeftRightLimit self, newRight, left, proposedRight, rightLimit
 		  #else
@@ -203,10 +203,10 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub BoundsRotation(angle as Single)
+		Sub BoundsRotation(angle as Double)
 		  
 		  #if TargetMacOS then
-		    declare sub setBoundsRotation lib CocoaLib selector "setBoundsRotation:" (obj_id as Ptr, angle as Single)
+		    declare sub setBoundsRotation lib CocoaLib selector "setBoundsRotation:" (obj_id as Ptr, angle as Double)
 		    
 		    setBoundsRotation self, angle
 		  #else
@@ -299,35 +299,35 @@ Inherits NSResponder
 
 	#tag Method, Flags = &h0
 		Function DataWithEPSInsideRect(aRect as Cocoa.NSRect) As NSData
-		  #if TargetMacOS then
-		    declare sub setDataWithEPSInsideRect lib CocoaLib selector "dataWithEPSInsideRect:" (obj_id as Ptr, aRect as Cocoa.NSRect)
+		  
+		  #if TargetCocoa
+		    declare function dataWithEPSInsideRect lib CocoaLib selector "dataWithEPSInsideRect:" (obj_id as Ptr, aRect as Cocoa.NSRect) as Ptr
 		    
-		    setDataWithEPSInsideRect self, aRect
+		    dim dataRef as Ptr = dataWithEPSInsideRect(self, aRect)
+		    if dataRef <> nil then
+		      return new NSData(dataRef)
+		    end if
+		    
 		  #else
-		    #pragma Unused aRect
+		    #pragma unused aRect
 		  #endif
-		  
-		  
-		  
-		  
-		  
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function DataWithPDFInsideRect(aRect as Cocoa.NSRect) As NSData
+		  
 		  #if TargetMacOS then
-		    declare sub setDataWithPDFInsideRect lib CocoaLib selector "dataWithPDFInsideRect:" (obj_id as Ptr, aRect as Cocoa.NSRect)
+		    declare function dataWithPDFInsideRect lib CocoaLib selector "dataWithPDFInsideRect:" (obj_id as Ptr, aRect as Cocoa.NSRect) as Ptr
 		    
-		    setDataWithPDFInsideRect self, aRect
+		    dim dataRef as Ptr = dataWithPDFInsideRect(self, aRect)
+		    if dataRef <> nil then
+		      return new NSData(dataRef)
+		    end if
+		    
 		  #else
 		    #pragma Unused aRect
 		  #endif
-		  
-		  
-		  
-		  
-		  
 		End Function
 	#tag EndMethod
 
@@ -717,10 +717,10 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function HeightAdjustLimit() As Single
+		Function HeightAdjustLimit() As Double
 		  
 		  #if TargetMacOS then
-		    declare function getHeightAdjustLimit lib CocoaLib selector "heightAdjustLimit" (obj_id as Ptr) as Single
+		    declare function getHeightAdjustLimit lib CocoaLib selector "heightAdjustLimit" (obj_id as Ptr) as Double
 		    
 		    return getHeightAdjustLimit( self )
 		  #endif
@@ -1071,10 +1071,10 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RotateByAngle(angle as Single)
+		Sub RotateByAngle(angle as Double)
 		  
 		  #if TargetMacOS then
-		    declare sub rotateByAngle lib CocoaLib selector "rotateByAngle:" (obj_id as Ptr, angle as Single)
+		    declare sub rotateByAngle lib CocoaLib selector "rotateByAngle:" (obj_id as Ptr, angle as Double)
 		    
 		    rotateByAngle self, angle
 		  #else
@@ -1222,10 +1222,10 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function WidthAdjustLimit() As Single
+		Function WidthAdjustLimit() As Double
 		  
 		  #if TargetMacOS then
-		    declare function getWidthAdjustLimit lib CocoaLib selector "widthAdjustLimit" (obj_id as Ptr) as Single
+		    declare function getWidthAdjustLimit lib CocoaLib selector "widthAdjustLimit" (obj_id as Ptr) as Double
 		    
 		    return getWidthAdjustLimit( self )
 		  #endif
@@ -1417,13 +1417,13 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetMacOS then
-			    declare function getBoundsRotation lib CocoaLib selector "boundsRotation" (obj_id as Ptr) as Single
+			    declare function getBoundsRotation lib CocoaLib selector "boundsRotation" (obj_id as Ptr) as Double
 			    
 			    return getBoundsRotation( self )
 			  #endif
 			End Get
 		#tag EndGetter
-		BoundsRotation As Single
+		BoundsRotation As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -1567,7 +1567,7 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetMacOS then
-			    declare function getFrameRotation lib CocoaLib selector "frameRotation" (obj_id as Ptr) as Single
+			    declare function getFrameRotation lib CocoaLib selector "frameRotation" (obj_id as Ptr) as Double
 			    
 			    return getFrameRotation( self )
 			  #endif
@@ -1577,7 +1577,7 @@ Inherits NSResponder
 			Set
 			  
 			  #if TargetMacOS then
-			    declare sub setFrameRotation lib CocoaLib selector "setFrameRotation:" (obj_id as Ptr, value as Single)
+			    declare sub setFrameRotation lib CocoaLib selector "setFrameRotation:" (obj_id as Ptr, value as Double)
 			    
 			    setFrameRotation self, value
 			  #else
@@ -1585,7 +1585,7 @@ Inherits NSResponder
 			  #endif
 			End Set
 		#tag EndSetter
-		FrameRotation As Single
+		FrameRotation As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -2073,43 +2073,57 @@ Inherits NSResponder
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="AutoresizesSubviews"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoresizingMask"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BoundsRotation"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanBecomeKeyView"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanDraw"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanDrawConcurrently"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FocusRingType"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSFocusRingType"
 			EditorType="Enum"
 			#tag EnumValues
@@ -2120,18 +2134,27 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FrameRotation"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Hidden"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HiddenOrHasHiddenAncestor"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -2139,36 +2162,55 @@ Inherits NSResponder
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InLiveResize"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlipped"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsInFullScreenMode"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsOpague"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsRotatedFromBase"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsRotatedOrScaledFromBase"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -2176,48 +2218,71 @@ Inherits NSResponder
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NeedsDisplay"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PostsBoundsChangedNotifications"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PostsFrameChangedNotifications"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PreservesContentDuringLiveResize"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShouldDrawColor"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Tag"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -2225,16 +2290,23 @@ Inherits NSResponder
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WantsDefaultClipping"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WantsLayer"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

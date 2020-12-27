@@ -58,19 +58,11 @@ Protected Module macoslib_32_64bits_savviness
 		  //    The ''bs'' prefix stands for ''bits-savvy''.
 		  //@discussion/
 		  
-		  if SizeOfPointer=4 then //32 bits
-		    #if Target32Bit
-		      return  Ptr( mb.UInt32Value( offset ))
-		    #endif
-		    
-		  else //64 bits
-		    #if RBVersion>= 2013
-		      #if Target64Bit //On 32bits platform, a UInt64 cannot be casted to a Ptr
-		        return  Ptr( mb.UInt64Value( offset ))
-		      #endif
-		    #endif
-		    
-		  end if
+		  #if Target64Bit //On 32bits platform, a UInt64 cannot be casted to a Ptr
+		    return  Ptr( mb.UInt64Value( offset ))
+		  #else
+		    return  Ptr( mb.UInt32Value( offset ))
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -88,19 +80,20 @@ Protected Module macoslib_32_64bits_savviness
 		  
 		  //Note: ShiftLeft is quicker than a multiplication
 		  
-		  if SizeOfPointer=4 then //32 bits
-		    #if Target32Bit
-		      return  Ptr( mb.UInt32Value( Bitwise.ShiftLeft( ArrayIndex, 2 )))
-		    #endif
-		    
-		  else //64 bits
-		    #if RBVersion>= 2013
-		      #if Target64Bit //On 32bits platform, a UInt64 cannot be casted to a Ptr
-		        return  Ptr( mb.UInt64Value( Bitwise.ShiftLeft( ArrayIndex, 3 )))
-		      #endif
-		    #endif
-		    
-		  end if
+		  #if Target64Bit //On 32bits platform, a UInt64 cannot be casted to a Ptr
+		    return  Ptr( mb.UInt64Value( Bitwise.ShiftLeft( ArrayIndex, 3 )))
+		  #else
+		    return  Ptr( mb.UInt32Value( Bitwise.ShiftLeft( ArrayIndex, 2 )))
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function SizeOfDouble() As integer
+		  //# Returns the size of an Double
+		  
+		  return  8
+		  
 		End Function
 	#tag EndMethod
 
@@ -108,13 +101,8 @@ Protected Module macoslib_32_64bits_savviness
 		Function SizeOfInteger() As integer
 		  //# Returns the size of an Integer (the same code as SizeOfPointer)
 		  
-		  #if RBVersion >= 2013
-		    #if Target64Bit
-		      return  8
-		    #else
-		      return  4
-		    #endif
-		    
+		  #if Target64Bit
+		    return  8
 		  #else
 		    return  4
 		  #endif
@@ -126,13 +114,8 @@ Protected Module macoslib_32_64bits_savviness
 		Function SizeOfPointer() As integer
 		  //# Returns the size of a Ptr (the same code as SizeOfInteger)
 		  
-		  #if RBVersion >= 2013
-		    #if Target64Bit
-		      return  8
-		    #else
-		      return  4
-		    #endif
-		    
+		  #if Target64Bit
+		    return  8
 		  #else
 		    return  4
 		  #endif
@@ -143,11 +126,28 @@ Protected Module macoslib_32_64bits_savviness
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Name"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Super"
+			Visible=true
+			Group="ID"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -155,18 +155,7 @@ Protected Module macoslib_32_64bits_savviness
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Name"
-			Visible=true
-			Group="ID"
-			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Super"
-			Visible=true
-			Group="ID"
-			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -174,6 +163,7 @@ Protected Module macoslib_32_64bits_savviness
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -2,16 +2,16 @@
 Class CFError
 Inherits CFType
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return CFError.ClassID
 		End Function
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function CFErrorGetTypeID lib CarbonLib () as UInt32
+		    declare function CFErrorGetTypeID lib CarbonLib () as UInteger
 		    
 		    return CFErrorGetTypeID
 		  #endif

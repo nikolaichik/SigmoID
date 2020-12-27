@@ -312,7 +312,9 @@ Inherits NSObject
 			  #if TargetMacOS then
 			    declare function soundName lib CocoaLib selector "soundName" (obj_id as Ptr) as CFStringRef
 			    
-			    return soundName(self)
+			    dim buffer as string
+			    buffer = SoundName(self)
+			    return buffer
 			  #endif
 			End Get
 		#tag EndGetter
@@ -322,13 +324,20 @@ Inherits NSObject
 			  #if TargetMacOS then
 			    declare sub setSoundName lib CocoaLib selector "setSoundName:" (obj_id as Ptr, value as CFStringRef)
 			    
-			    setSoundName self, value
+			    if value = NIL then
+			      setSoundName self, NIL
+			    else
+			      dim buffer as string
+			      buffer = cstr(value)
+			      setSoundName self, buffer
+			    end if
+			    
 			  #else
 			    #pragma Unused value
 			  #endif
 			End Set
 		#tag EndSetter
-		SoundName As String
+		SoundName As Variant
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -420,13 +429,17 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="ActionButtonTitle"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ActivationType"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSUserNotificationActivationType"
 			EditorType="Enum"
 			#tag EnumValues
@@ -436,15 +449,12 @@ Inherits NSObject
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="HasActionButton"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -452,22 +462,31 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InformativeText"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsPresented"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsRemote"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -475,28 +494,29 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="otherButtonTitle"
+			Visible=false
 			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SoundName"
-			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Subtitle"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -504,11 +524,15 @@ Inherits NSObject
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Title"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -518,6 +542,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

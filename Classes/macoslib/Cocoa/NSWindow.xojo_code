@@ -178,23 +178,12 @@ Inherits NSResponder
 		      dim ns_array as new NSArray(arrayRef)
 		      
 		      
-		      
-		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSWindow(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSWindow(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSWindow(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -301,7 +290,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ContentBorderBottomThickness() As Single
+		Function ContentBorderBottomThickness() As Double
 		  //@header Returns the thickness of the bottom border of the window.
 		  
 		  // Convenience method.
@@ -310,7 +299,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ContentBorderBottomThickness(assigns thickness as Single)
+		Sub ContentBorderBottomThickness(assigns thickness as Double)
 		  //@header Indicates the thickness of the bottom border of the window.
 		  
 		  // Convenience method.
@@ -319,12 +308,12 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ContentBorderThickness(edge as Cocoa.NSRectEdge) As Single
+		Function ContentBorderThickness(edge as Cocoa.NSRectEdge) As Double
 		  //@header Indicates the thickness of a given border of the window.
 		  
 		  #if TargetCocoa
 		    declare function contentBorderThicknessForEdge lib CocoaLib selector "contentBorderThicknessForEdge:" _
-		    (obj_id as Ptr, edge as Cocoa.NSRectEdge) as Single
+		    (obj_id as Ptr, edge as Cocoa.NSRectEdge) as Double
 		    
 		    return contentBorderThicknessForEdge(self, edge)
 		  #else
@@ -334,7 +323,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ContentBorderThickness(edge as Cocoa.NSRectEdge, assigns thickness as Single)
+		Sub ContentBorderThickness(edge as Cocoa.NSRectEdge, assigns thickness as Double)
 		  //@header Specifies the thickness of a given border of the window.
 		  
 		  //@param '''thickness''' The thickness for edge
@@ -353,7 +342,7 @@ Inherits NSResponder
 		  #if TargetCocoa
 		    declare sub setBackingType lib CocoaLib selector "setBackingType:" (obj_id as Ptr, BackingType as NSBackingStoreType)
 		    declare sub setAutorecalculatesContentBorderThicknessForEdge lib CocoaLib selector "setAutorecalculatesContentBorderThickness:forEdge:" (obj_id as Ptr, Flag as Boolean, edge as Cocoa.NSRectEdge)
-		    declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (obj_id as Ptr, thickness as Single, edge as Cocoa.NSRectEdge)
+		    declare sub setContentBorderThicknessForEdge lib CocoaLib selector "setContentBorderThickness:forEdge:" (obj_id as Ptr, thickness as Double, edge as Cocoa.NSRectEdge)
 		    
 		    setBackingType self, NSBackingStoreType.NSBackingStoreBuffered
 		    setAutorecalculatesContentBorderThicknessForEdge self, false, edge // Do not recalculate the border thickness automatically
@@ -366,7 +355,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ContentBorderTopThickness() As Single
+		Function ContentBorderTopThickness() As Double
 		  //@header Returns the thickness of the top border of the window.
 		  
 		  // Convenience method.
@@ -375,7 +364,7 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ContentBorderTopThickness(assigns thickness as Single)
+		Sub ContentBorderTopThickness(assigns thickness as Double)
 		  //@header Indicates the thickness of the top border of the window.
 		  
 		  // Convenience method.
@@ -490,7 +479,6 @@ Inherits NSResponder
 		  #else
 		    #pragma unused aRect
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 
@@ -508,7 +496,6 @@ Inherits NSResponder
 		  #else
 		    #pragma unused aRect
 		  #endif
-		  
 		End Function
 	#tag EndMethod
 
@@ -696,24 +683,12 @@ Inherits NSResponder
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      
-		      
-		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSDrawer(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSDrawer(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSDrawer(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -1069,11 +1044,11 @@ Inherits NSResponder
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function MinFrameWidth(windowTitle as String, styleMask as UInt32) As Single
+		Shared Function MinFrameWidth(windowTitle as String, styleMask as UInt32) As Double
 		  
 		  #if TargetCocoa
 		    declare function minFrameWidthWithTitle lib CocoaLib selector "minFrameWidthWithTitle:styleMask:" _
-		    (class_id as Ptr, windowTitle as CFStringRef, styleMask as UInt32) as Single
+		    (class_id as Ptr, windowTitle as CFStringRef, styleMask as UInt32) as Double
 		    
 		    return minFrameWidthWithTitle(ClassRef, windowTitle, styleMask)
 		    
@@ -1728,33 +1703,21 @@ Inherits NSResponder
 		Shared Function WindowNumbers(options as UInt32) As Integer()
 		  
 		  #if TargetCocoa
-		    declare function windowNumbersWithOptions lib CocoaLib selector "windowNumbersWithOptions:" (class_id as Ptr, options as UInt32) as Ptr
+		    declare function windowNumbersWithOptions lib CocoaLib selector "windowNumbersWithOptions:" (class_id as Ptr, options as UInteger) as Ptr
 		    
 		    dim retArray() as Integer
 		    
 		    dim arrayRef as Ptr = windowNumbersWithOptions(ClassRef, options)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      
-		      
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          dim temp as new NSNumber(Ptr(m.Int64Value(i*SizeOfPointer)))
-		          retArray.append temp.IntegerValue
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          dim temp as new NSNumber(Ptr(m.Int32Value(i*SizeOfPointer)))
-		          retArray.append temp.IntegerValue
-		        next
-		      #endif
-		      
-		      
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        dim temp as new NSNumber(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		        retArray.append temp.IntegerValue
+		      next
 		    end if
 		    
 		    return retArray
@@ -1877,7 +1840,7 @@ Inherits NSResponder
 			Get
 			  
 			  #if TargetCocoa
-			    declare function alphaValue lib CocoaLib selector "alphaValue" (obj_id as Ptr) as Single
+			    declare function alphaValue lib CocoaLib selector "alphaValue" (obj_id as Ptr) as Double
 			    
 			    return alphaValue(self)
 			    
@@ -1889,7 +1852,7 @@ Inherits NSResponder
 			Set
 			  
 			  #if TargetCocoa
-			    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (obj_id as Ptr, windowAlpha as Single)
+			    declare sub setAlphaValue lib CocoaLib selector "setAlphaValue:" (obj_id as Ptr, windowAlpha as Double)
 			    
 			    setAlphaValue self, value
 			    
@@ -1899,7 +1862,7 @@ Inherits NSResponder
 			  
 			End Set
 		#tag EndSetter
-		AlphaValue As Single
+		AlphaValue As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -2132,7 +2095,7 @@ Inherits NSResponder
 			  #if TargetCocoa
 			    
 			    if me.RespondsToSelector( "backingScaleFactor" ) then
-			      declare function instanceBackingScaleFactor lib CarbonLib selector "backingScaleFactor" ( obj_id As Ptr ) As Single
+			      declare function instanceBackingScaleFactor lib CarbonLib selector "backingScaleFactor" ( obj_id As Ptr ) as Double
 			      r = instanceBackingScaleFactor( self )
 			    end if
 			    
@@ -2141,7 +2104,7 @@ Inherits NSResponder
 			  return r
 			End Get
 		#tag EndGetter
-		BackingScaleFactor As Single
+		BackingScaleFactor As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -4722,27 +4685,41 @@ Inherits NSResponder
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="AcceptsMouseMovedEvents"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowsConcurrentViewDrawing"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AllowsToolTipsWhenApplicationIsInactive"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AlphaValue"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AnimationBehavior"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSWindowAnimationBehavior"
 			EditorType="Enum"
 			#tag EnumValues
@@ -4755,22 +4732,33 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AreCursorRectsEnabled"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Autodisplay"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutorecalculatesKeyViewLoop"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BackingLocation"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSWindowBackingLocation"
 			EditorType="Enum"
 			#tag EnumValues
@@ -4781,12 +4769,17 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BackingScaleFactor"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BackingType"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSBackingStoreType"
 			EditorType="Enum"
 			#tag EnumValues
@@ -4797,116 +4790,171 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanBecomeKeyWindow"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanBecomeMainWindow"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanBecomeVisibleWithoutLogin"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanHide"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanJoinAllSpaces"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CanStoreColor"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CollectionBehavior"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DepthLimit"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DisplaysWhenScreenProfileChanges"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DocumentEdited"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DynamicDepthLimit"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FrameAutosaveName"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FrameString"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FullscreenAllowed"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FullscreenAllowedAuxiliary"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FullSizeContentView"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="GState"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HasShadow"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="HidesOnDeactivate"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IgnoresCycle"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IgnoresMouseEvents"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -4914,90 +4962,141 @@ Inherits NSResponder
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InLiveResize"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsDocumentEdited"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsExcludedFromWindowsMenu"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFlushWindowDisabled"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsFullscreen"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsKeyWindow"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsMainWindow"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsMiniaturized"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsMovable"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsOnActiveSpace"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsOpaque"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsReleasedWhenClosed"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsRestorable"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsSheet"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsVisible"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsZoomed"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="KeyViewSelectionDirection"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSSelectionDirection"
 			EditorType="Enum"
 			#tag EnumValues
@@ -5012,47 +5111,69 @@ Inherits NSResponder
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Managed"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MiniwindowTitle"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MovableByBackground"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MoveToActiveSpace"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="OneShot"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ParticipatesInCycle"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PreferredBackingLocation"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSWindowBackingLocation"
 			EditorType="Enum"
 			#tag EnumValues
@@ -5063,23 +5184,33 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PreservesContentDuringLiveResize"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="PreventsAppTerminationWhenModal"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="RepresentedFilename"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SharingType"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSWindowSharingType"
 			EditorType="Enum"
 			#tag EnumValues
@@ -5090,40 +5221,59 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShowsResizeIndicator"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShowsToolbarButton"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Stationary"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StyleMask"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="UInt32"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Title"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TitlebarAppearsTransparent"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -5131,20 +5281,29 @@ Inherits NSResponder
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Transient"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ViewsNeedDisplay"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WindowLevel"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSWindowLevel"
 			EditorType="Enum"
 			#tag EnumValues
@@ -5161,12 +5320,17 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WindowNumber"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WindowTitleVisibility"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSWindowTitleVisibility"
 			EditorType="Enum"
 			#tag EnumValues
@@ -5177,8 +5341,11 @@ Inherits NSResponder
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="WorksWhenModal"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

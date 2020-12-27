@@ -11,11 +11,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function CreatesWithVisualFormat(aFormat as String, options as UInt32, metrics as NSDictionary, views as NSDictionary) As NSLayoutConstraint()
+		Shared Function CreatesWithVisualFormat(aFormat as String, options as UInteger, metrics as NSDictionary, views as NSDictionary) As NSLayoutConstraint()
 		  
 		  #if TargetMacOS
 		    declare function constraintsWithVisualFormat lib CocoaLib selector "constraintsWithVisualFormat:options:metrics:views:" _
-		    (class_id as Ptr, aFormat as CFStringRef, options as UInt32, metrics as Ptr, views as Ptr) as Ptr
+		    (class_id as Ptr, aFormat as CFStringRef, options as UInteger, metrics as Ptr, views as Ptr) as Ptr
 		    
 		    dim metricsRef as Ptr
 		    if metrics <> nil then
@@ -33,21 +33,12 @@ Inherits NSObject
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
 		      
-		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSLayoutConstraint(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSLayoutConstraint(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
-		      
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSLayoutConstraint(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
 		    
 		    return retArray
@@ -63,11 +54,11 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function CreateWithItem(view1 as NSView, attrib1 as NSLayoutAttribute, relation as NSLayoutRelation, view2 as NSView, attrib2 as NSLayoutAttribute, multiplier as Single, constant as Single) As NSLayoutConstraint
+		Shared Function CreateWithItem(view1 as NSView, attrib1 as NSLayoutAttribute, relation as NSLayoutRelation, view2 as NSView, attrib2 as NSLayoutAttribute, multiplier as Double, constant as Double) As NSLayoutConstraint
 		  
 		  #if TargetMacOS
 		    declare function constraintWithItem lib CocoaLib selector "constraintWithItem:attribute:relatedBy:toItem:attribute:multiplier:constant:" _
-		    (class_id as Ptr, view1 as Ptr, attrib1 as NSLayoutAttribute, relation as NSLayoutRelation, view2 as Ptr, attrib2 as NSLayoutAttribute, multiplier as Single, constant as Single) as Ptr
+		    (class_id as Ptr, view1 as Ptr, attrib1 as NSLayoutAttribute, relation as NSLayoutRelation, view2 as Ptr, attrib2 as NSLayoutAttribute, multiplier as Double, constant as Double) as Ptr
 		    
 		    dim view1Ref as Ptr
 		    if view1 <> nil then
@@ -104,7 +95,7 @@ Inherits NSObject
 			Get
 			  
 			  #if TargetMacOS
-			    declare function constant lib CocoaLib selector "constant" (obj_id as Ptr) as Single
+			    declare function constant lib CocoaLib selector "constant" (obj_id as Ptr) as Double
 			    
 			    return constant(self)
 			    
@@ -116,7 +107,7 @@ Inherits NSObject
 			Set
 			  
 			  #if TargetMacOS
-			    declare sub setConstant lib CocoaLib selector "setConstant:" (obj_id as Ptr, value as Single)
+			    declare sub setConstant lib CocoaLib selector "setConstant:" (obj_id as Ptr, value as Double)
 			    
 			    setConstant self, value
 			    
@@ -126,7 +117,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		Constant As Single
+		Constant As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -170,7 +161,7 @@ Inherits NSObject
 			Get
 			  
 			  #if TargetMacOS
-			    declare function multiplier lib CocoaLib selector "multiplier" (obj_id as Ptr) as Single
+			    declare function multiplier lib CocoaLib selector "multiplier" (obj_id as Ptr) as Double
 			    
 			    return multiplier(self)
 			    
@@ -178,7 +169,7 @@ Inherits NSObject
 			  
 			End Get
 		#tag EndGetter
-		Multiplier As Single
+		Multiplier As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -186,7 +177,7 @@ Inherits NSObject
 			Get
 			  
 			  #if TargetMacOS
-			    declare function priority lib CocoaLib selector "priority" (obj_id as Ptr) as Single
+			    declare function priority lib CocoaLib selector "priority" (obj_id as Ptr) as Double
 			    
 			    return CType(priority(self), NSLayoutPriority)
 			    
@@ -198,9 +189,9 @@ Inherits NSObject
 			Set
 			  
 			  #if TargetMacOS
-			    declare sub setPriority lib CocoaLib selector "setPriority:" (obj_id as Ptr, value as Single)
+			    declare sub setPriority lib CocoaLib selector "setPriority:" (obj_id as Ptr, value as Double)
 			    
-			    setPriority self, CType(value, Single)
+			    setPriority self, CType(value, Double)
 			    
 			  #else
 			    #pragma unused value
@@ -338,10 +329,10 @@ Inherits NSObject
 
 
 	#tag Structure, Name = NSEdgeInsets, Flags = &h0
-		top as Single
-		  left as Single
-		  bottom as Single
-		right as Single
+		top as Double
+		  left as Double
+		  bottom as Double
+		right as Double
 	#tag EndStructure
 
 
@@ -385,18 +376,17 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Constant"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="FirstAttribute"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSLayoutAttribute"
 			EditorType="Enum"
 			#tag EnumValues
@@ -420,6 +410,7 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -427,21 +418,29 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Multiplier"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Priority"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSLayoutPriority"
 			EditorType="Enum"
 			#tag EnumValues
@@ -456,7 +455,9 @@ Inherits NSObject
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Relation"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSLayoutRelation"
 			EditorType="Enum"
 			#tag EnumValues
@@ -467,7 +468,9 @@ Inherits NSObject
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="SecondAttribute"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="NSLayoutAttribute"
 			EditorType="Enum"
 			#tag EnumValues
@@ -487,14 +490,19 @@ Inherits NSObject
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ShouldBeArchived"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -502,6 +510,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -171,6 +171,28 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Shared Function FontDescriptorWithName(name as String, size as Double) As NSFontDescriptor
+		  
+		  #if TargetMacOS
+		    declare function fontDescriptorWithName lib CocoaLib selector "fontDescriptorWithName:size:" (obj_id as Ptr, name as CFStringRef, size as Double) as Ptr
+		    
+		    dim descriptorRef as Ptr = fontDescriptorWithName(ClassRef, name, size)
+		    
+		    if descriptorRef <> nil then
+		      return new NSFontDescriptor(descriptorRef)
+		    else
+		      return nil
+		    end if
+		    
+		  #else
+		    #pragma unused name
+		    #pragma unused size
+		  #endif
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Shared Function FontDescriptorWithName(name as String, matrix as NSAffineTransform) As NSFontDescriptor
 		  
 		  #if TargetMacOS
@@ -198,32 +220,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function FontDescriptorWithName(name as String, size as Single) As NSFontDescriptor
+		Function FontDescriptorWithSize(newPointSIze as Double) As NSFontDescriptor
 		  
 		  #if TargetMacOS
-		    declare function fontDescriptorWithName lib CocoaLib selector "fontDescriptorWithName:size:" (obj_id as Ptr, name as CFStringRef, size as Single) as Ptr
-		    
-		    dim descriptorRef as Ptr = fontDescriptorWithName(ClassRef, name, size)
-		    
-		    if descriptorRef <> nil then
-		      return new NSFontDescriptor(descriptorRef)
-		    else
-		      return nil
-		    end if
-		    
-		  #else
-		    #pragma unused name
-		    #pragma unused size
-		  #endif
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function FontDescriptorWithSize(newPointSIze as Single) As NSFontDescriptor
-		  
-		  #if TargetMacOS
-		    declare function fontDescriptorWithSize lib CocoaLib selector "fontDescriptorWithSize:" (obj_id as Ptr, newPointSize as Single) as Ptr
+		    declare function fontDescriptorWithSize lib CocoaLib selector "fontDescriptorWithSize:" (obj_id as Ptr, newPointSize as Double) as Ptr
 		    
 		    dim descriptorRef as Ptr = fontDescriptorWithSize(self, newPointSize)
 		    
@@ -278,24 +278,14 @@ Inherits NSObject
 		    dim arrayRef as Ptr = matchingFontDescriptorsWithMandatoryKeys(self, mandatoryKeysRef)
 		    if arrayRef <> nil then
 		      dim ns_array as new NSArray(arrayRef)
+		      
 		      dim arrayRange as Cocoa.NSRange = Cocoa.NSMakeRange(0, ns_array.Count)
 		      dim m as MemoryBlock = ns_array.ValuesArray(arrayRange)
-		      
-		      #if Target64Bit
-		        dim n as integer = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSFontDescriptor(Ptr(m.UInt64Value(i*SizeOfPointer)))
-		        next
-		      #else
-		        dim n as UInt32 = arrayRange.length-1
-		        for i as integer = 0 to n
-		          retArray.append new NSFontDescriptor(Ptr(m.UInt32Value(i*SizeOfPointer)))
-		        next
-		      #endif
+		      dim n as Integer = arrayRange.length-1
+		      for i as integer = 0 to n
+		        retArray.append new NSFontDescriptor(Ptr(m.UInt64Value(i*SizeOfPointer)))
+		      next
 		    end if
-		    
-		    
-		    
 		    
 		    return retArray
 		    
@@ -476,10 +466,10 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function PointSize() As Single
+		Function PointSize() As Double
 		  
 		  #if TargetMacOS
-		    declare function pointSize lib CocoaLib selector "pointSize" (obj_id as Ptr) as Single
+		    declare function pointSize lib CocoaLib selector "pointSize" (obj_id as Ptr) as Double
 		    
 		    return pointSize(self)
 		    
@@ -517,17 +507,12 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -535,18 +520,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -554,6 +544,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

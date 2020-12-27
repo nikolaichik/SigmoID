@@ -780,7 +780,7 @@ Inherits Canvas
 			  
 			  #if TargetCocoa
 			    if me.id <> nil then
-			      declare function getFloatValue lib CocoaLib selector "floatValue" (id as Ptr) as Single
+			      declare function getFloatValue lib CocoaLib selector "floatValue" (id as Ptr) as Double
 			      
 			      
 			      return getFloatValue(me.id)
@@ -798,7 +798,7 @@ Inherits Canvas
 			      return
 			    end if
 			    
-			    declare sub setFloatValue lib CocoaLib selector "setFloatValue:"  (id as Ptr, aFloat as Single)
+			    declare sub setFloatValue lib CocoaLib selector "setFloatValue:"  (id as Ptr, aFloat as Double)
 			    
 			    setFloatValue me.id, value
 			  #else
@@ -806,7 +806,7 @@ Inherits Canvas
 			  #endif
 			End Set
 		#tag EndSetter
-		FloatValue As Single
+		FloatValue As Double
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -1128,6 +1128,14 @@ Inherits Canvas
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="DoubleBuffer"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Alignment"
 			Visible=false
 			Group="Behavior"
@@ -1183,14 +1191,6 @@ Inherits Canvas
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="DoubleBuffer"
-			Visible=true
-			Group="Behavior"
-			InitialValue="False"
-			Type="Boolean"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="DoubleValue"
 			Visible=false
 			Group="Behavior"
@@ -1211,7 +1211,7 @@ Inherits Canvas
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Single"
+			Type="Double"
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty

@@ -3,7 +3,7 @@ Class CFDate
 Inherits CFType
 Implements CFPropertyList
 	#tag Event
-		Function ClassID() As UInt32
+		Function ClassID() As UInteger
 		  return me.ClassID
 		End Function
 	#tag EndEvent
@@ -26,10 +26,10 @@ Implements CFPropertyList
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Shared Function ClassID() As UInt32
+		Shared Function ClassID() As UInteger
 		  #if targetMacOS
-		    declare function TypeID lib CarbonLib alias "CFDateGetTypeID" () as UInt32
-		    static id as UInt32 = TypeID
+		    declare function TypeID lib CarbonLib alias "CFDateGetTypeID" () as UInteger
+		    static id as UInteger = TypeID
 		    return id
 		  #endif
 		End Function
@@ -52,9 +52,13 @@ Implements CFPropertyList
 		  
 		  // convert d.TotalSeconds to absolute time
 		  d = new Date(d)
+		  
+		  dim ofs as Double = d.GMTOffset
 		  d.GMTOffset = 0.0
 		  
 		  me.Constructor d.TotalSeconds - AbsoluteTimeIntervalSince1904
+		  
+		  d.GMTOffset = ofs
 		End Sub
 	#tag EndMethod
 

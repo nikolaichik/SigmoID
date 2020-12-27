@@ -96,9 +96,9 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FloatValue(key as String) As single
+		Function FloatValue(key as String) As Double
 		  #if TargetMacOS
-		    declare function floatForKey lib CocoaLib selector "floatForKey:" (id as Ptr, key as CFStringRef) as single
+		    declare function floatForKey lib CocoaLib selector "floatForKey:" (id as Ptr, key as CFStringRef) as Double
 		    
 		    return floatForKey( self, key )
 		  #endif
@@ -106,9 +106,9 @@ Inherits NSObject
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FloatValue(key as String, assigns value as single)
+		Sub FloatValue(key as String, assigns value as Double)
 		  #if TargetMacOS
-		    declare sub setFloat lib CocoaLib selector "setFloat:forKey:" (id as Ptr, value as single, key as CFStringRef)
+		    declare sub setFloat lib CocoaLib selector "setFloat:forKey:" (id as Ptr, value as Double, key as CFStringRef)
 		    
 		    setFloat( self, value, key )
 		  #endif
@@ -274,17 +274,12 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -292,18 +287,23 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -311,6 +311,7 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

@@ -323,66 +323,12 @@ Inherits NSText
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Alignment"
-			Group="Behavior"
-			Type="NSTextAlignment"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - NSLeftTextAlignment"
-				"1 - NSRightTextAlignment"
-				"2 - NSCenterTextAlignment"
-				"3 - NSJustifiedTextAlignment"
-				"4 - NSNaturalTextAlignment"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="BaseWritingDirection"
-			Group="Behavior"
-			Type="NSWritingDirection"
-			EditorType="Enum"
-			#tag EnumValues
-				"-1 - NSWritingDirectionNatural"
-				"0 - NSWritingDirectionLeftToRight"
-				"1 - NSWritingDirectionRightToLeft"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DrawsBackground"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Editable"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="FieldEditor"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="HorizontallyResizable"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ImportsGraphics"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -390,42 +336,21 @@ Inherits NSText
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="RichText"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="RulerVisible"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Selectable"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="SelectionGranularity"
-			Group="Behavior"
-			Type="NSSelectionGranularity"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - NSSelectByCharacter"
-				"1 - NSSelectByWord"
-				"2 - NSSelectByParagraph"
-			#tag EndEnumValues
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StringValue"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -433,7 +358,9 @@ Inherits NSText
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -441,16 +368,20 @@ Inherits NSText
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="UsesFontPanel"
+			Name="SelectionGranularity"
+			Visible=false
 			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="VerticallyResizable"
-			Group="Behavior"
-			Type="Boolean"
+			InitialValue=""
+			Type="NSSelectionGranularity"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSSelectByCharacter"
+				"1 - NSSelectByWord"
+				"2 - NSSelectByParagraph"
+			#tag EndEnumValues
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

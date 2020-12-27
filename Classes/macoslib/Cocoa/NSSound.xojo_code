@@ -449,7 +449,7 @@ Inherits NSObject
 			Get
 			  #if TargetMacOS
 			    
-			    declare function volume_ lib Framework selector "volume" ( obj_id As Ptr ) As Single
+			    declare function volume_ lib Framework selector "volume" ( obj_id As Ptr ) as Double
 			    
 			    return volume_( self.id )
 			    
@@ -461,7 +461,7 @@ Inherits NSObject
 			Set
 			  #if TargetMacOS
 			    
-			    declare sub setVolume lib Framework selector "setVolume:" ( obj_id As Ptr, volume As Single )
+			    declare sub setVolume lib Framework selector "setVolume:" ( obj_id As Ptr, volume as Double )
 			    
 			    setVolume( self.id, value )
 			    
@@ -473,7 +473,7 @@ Inherits NSObject
 			  
 			End Set
 		#tag EndSetter
-		Volume As Single
+		Volume As Double
 	#tag EndComputedProperty
 
 
@@ -487,14 +487,11 @@ Inherits NSObject
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="CurrentTime"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Double"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Description"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -502,11 +499,15 @@ Inherits NSObject
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="IsPlaying"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -514,28 +515,39 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Loops"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="StopOnDestruct"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -543,11 +555,15 @@ Inherits NSObject
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Volume"
+			Visible=false
 			Group="Behavior"
-			Type="Single"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
