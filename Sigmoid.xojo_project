@@ -658,6 +658,7 @@ Class=MenuItemHelpMenu;Additional Modules/Cocoa MenuItems/Help Menu/MenuItemHelp
 Folder=TT's SmartPreferences;Additional Modules/TT's SmartPreferences;&h000000000F229F85;&h00000000171E2973;false
 Class=TTsSmartPreferences;Additional Modules/TT's SmartPreferences/TTsSmartPreferences.xojo_code;&h0000000053BE31F0;&h000000000F229F85;false
 Module=XMLDictionary;Additional Modules/TT's SmartPreferences/XMLDictionary.xojo_code;&h000000002A171E2C;&h000000000F229F85;false
+Plist=Info1;Info.plist;&h00000000267187FF;&h0000000000000000;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=2

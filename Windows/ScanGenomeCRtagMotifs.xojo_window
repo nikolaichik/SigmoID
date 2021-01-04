@@ -8,7 +8,7 @@ Begin Window ScanGenomeCRtagMotifs
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   662
+   Height          =   648
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,7 +24,7 @@ Begin Window ScanGenomeCRtagMotifs
    Resizeable      =   True
    Title           =   "Untitled"
    Visible         =   True
-   Width           =   1002
+   Width           =   984
    Begin PushButton PushButton1
       AutoDeactivate  =   True
       Bold            =   False
@@ -38,7 +38,7 @@ Begin Window ScanGenomeCRtagMotifs
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   689
+      Left            =   671
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -51,7 +51,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   623
+      Top             =   609
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -70,7 +70,7 @@ Begin Window ScanGenomeCRtagMotifs
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   798
+      Left            =   780
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -83,7 +83,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   623
+      Top             =   609
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -102,7 +102,7 @@ Begin Window ScanGenomeCRtagMotifs
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   587
+      Left            =   569
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -115,7 +115,7 @@ Begin Window ScanGenomeCRtagMotifs
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   623
+      Top             =   609
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -139,7 +139,7 @@ Begin Window ScanGenomeCRtagMotifs
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   611
+      Height          =   597
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -169,7 +169,7 @@ Begin Window ScanGenomeCRtagMotifs
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   1002
+      Width           =   984
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -290,6 +290,10 @@ End
 
 
 	#tag Property, Flags = &h0
+		CellTxtBkup As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		sigpath As string
 	#tag EndProperty
 
@@ -383,7 +387,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub CellAction(row As Integer, column As Integer)
-		  if column=0 then
+		  If column=0 Then
 		    dim counter as Integer =0
 		    for i as Integer=0 to Listbox1.ListCount-1
 		      if Listbox1.CellCheck(i, column)=true then
@@ -395,7 +399,10 @@ End
 		    else
 		      PushButton3.Enabled=False
 		    end
-		  end
+		  End
+		  
+		  // Restore original name if changed (the text should be selectable, but not editable)
+		  Me.CellValueAt(row,column)=CellTxtBkup
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -416,6 +423,23 @@ End
 		    'And Me.CellHelpTag(row, 4)
 		    Me.HelpTag=""
 		  End If
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
+		  // Make the text in the ProfileName column user-selectable
+		  
+		  If column=1 OR column=2 Then
+		    CellTxtBkup=Me.CellValueAt(row,column)
+		    Me.CellTypeAt(row, column) = ListBox.CellTypes.TextField
+		    Me.EditCellAt(row, column)
+		  End If
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub CellTextChange(row as Integer, column as Integer)
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -662,6 +686,14 @@ End
 		Group="Size"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CellTxtBkup"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="string"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
