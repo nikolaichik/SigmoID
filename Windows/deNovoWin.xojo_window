@@ -143,11 +143,11 @@ Begin Window deNovoWin
       Italic          =   False
       Left            =   135
       LimitText       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -301,7 +301,6 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -323,8 +322,8 @@ Begin Window deNovoWin
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
+      LockRight       =   False
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -365,8 +364,8 @@ Begin Window deNovoWin
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
+      LockRight       =   False
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -401,9 +400,9 @@ Begin Window deNovoWin
       Left            =   600
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       State           =   0
       TabIndex        =   9
@@ -417,10 +416,9 @@ Begin Window deNovoWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   402
+      Width           =   198
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -443,9 +441,9 @@ Begin Window deNovoWin
       Left            =   810
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       State           =   0
       TabIndex        =   10
@@ -462,7 +460,6 @@ Begin Window deNovoWin
       Width           =   192
    End
    Begin Timer OutputTimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -503,7 +500,6 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -845,7 +841,9 @@ End
 		            end if
 		          wend
 		          inStream.close
-		          LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(outSeqs)+" fragments left after MeShClust clustering.")
+		          'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(outSeqs)+" fragments left after MeShClust clustering.")
+		          deNovoWin.rp.writeToWin(EndOfLine.Unix + CountSeqs(outSeqs)+" fragments left after MeShClust clustering.")
+		          
 		          OutStream = TextOutputStream.Create(outfile)
 		          if OutStream<>NIL then
 		            OutStream.Write(outSeqs)

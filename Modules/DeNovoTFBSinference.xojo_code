@@ -2309,10 +2309,13 @@ Protected Module DeNovoTFBSinference
 		  // write to the log
 		  deNovoWin.rp.writeToWin("Test interface update from RedundantSeqs"+EndOfLine.UNIX)
 		  if genusSpecific then
-		    MsgOutput=MsgOutput+EndOfLine.UNIX+"Removing redundant seqs within genera... " 
+		    'MsgOutput=MsgOutput+EndOfLine.UNIX+"Removing redundant seqs within genera... " 
+		    deNovoWin.rp.writeToWin(EndOfLine.UNIX+"Removing redundant seqs within genera... ")
 		  else
-		    MsgOutput=MsgOutput+EndOfLine.UNIX+"Removing redundant seqs within species... "
-		  end if
+		    'MsgOutput=MsgOutput+EndOfLine.UNIX+"Removing redundant seqs within species... "
+		    deNovoWin.rp.writeToWin(EndOfLine.UNIX+"Removing redundant seqs within species... ")
+		  End If
+		  
 		  
 		  // group seqs according to species names
 		  
@@ -2421,7 +2424,8 @@ Protected Module DeNovoTFBSinference
 		  inNo=CountFields(InSeqs,">")-1
 		  outNo=CountFields(nr_fasta,">")-1
 		  
-		  logowin.WriteToSTDOUT(str(inNo-outNo)+" out of "+str(inNo)+" removed.")
+		  'logowin.WriteToSTDOUT(str(inNo-outNo)+" out of "+str(inNo)+" removed.")
+		  deNovoWin.rp.writeToWin(str(inNo-outNo)+" out of "+str(inNo)+" removed."+EndOfLine.UNIX)
 		  
 		  return nr_fasta
 		  
