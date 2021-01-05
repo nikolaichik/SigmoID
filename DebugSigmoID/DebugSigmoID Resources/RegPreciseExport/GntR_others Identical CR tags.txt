@@ -1,0 +1,12 @@
+many examples of differently named, but likely orthologous seqs
+
+This one is interesting: NanR half-site distantly resembles IolR, but either the spacer is different or the repeats are direct!
+LSRPRG_IolR_Mycobacteriaceae.sig
+LSRPRG_IolR_Nocardiaceae.sig
+LSRSRG_NanR_Corynebacteriaceae.sig
+
+longer spacer here for TreR (TM0766 is completely different)
+QRSPMG_GntR_Bacillales.sig
+QRSPMG_GntR_Staphylococcaceae.sig
+QRSPMG_TM0766_Thermotogales.sig
+QRSPMG_TreR_Staphylococcaceae.sig

@@ -1,0 +1,1137 @@
+Regulog statistics:
+RegulogName	genomes#	genomesWithoutCRtag#	CRtag#	VariablePositions#
+AAur_3503 – Micrococcineae	2	0	1	0
+AAur_4078 – Micrococcineae	4	0	3	2
+ABC1167 – Bacillales	1	0	1	0
+AbfR – Bifidobacteriaceae	2	0	2	2
+AduR – Rhizobiales	4	0	4	2
+AfrR – Rhizobiales	6	0	5	4
+AfrR – Rhodobacterales	1	0	1	0
+AglR – Rhizobiales	7	0	2	1
+AglR – Rhodobacterales	5	0	3	2
+AlsR – Listeriaceae	2	0	1	0
+AlsR – Streptococcaceae	1	0	1	0
+AouR – Bifidobacteriaceae	3	0	3	6
+AraQ – Bifidobacteriaceae	10	0	4	4
+Arth_2426 – Micrococcineae	5	4	2	0
+AscG – Enterobacteriales	7	0	4	4
+Atu5239 – Rhizobiales	2	0	2	10
+AZL_a08610 – Rhodospirillales	1	0	1	0
+Bamb_2736 – Burkholderia 	2	0	2	8
+Bamb_4155 – Burkholderia	3	0	2	9
+BBNG_01789 – Bifidobacteriaceae	1	0	1	0
+BC0230 – Bacillales	1	0	1	0
+BC5402 – Bacillales	1	0	1	0
+BDP_1267 – Bifidobacteriaceae	2	0	2	2
+BDP_2100 – Bifidobacteriaceae	2	0	2	9
+BDP_2111 – Bifidobacteriaceae	2	0	2	4
+BDP_2131 – Bifidobacteriaceae	2	1	2	0
+BfrR – Bifidobacteriaceae	3	3	1	0
+BfrR – Chloroflexia	2	2	1	0
+BfrR – Lactobacillaceae	1	0	1	0
+BfrR – Streptococcaceae	4	0	3	1
+BgaR – Bifidobacteriaceae	6	1	5	5
+BgaR – Micrococcineae	2	0	2	5
+BgaR – Streptomycetaceae	3	0	2	1
+BglR  – Sphingomonadales	3	0	2	1
+BglR – Alteromonadales	6	0	6	2
+BglR – Bifidobacteriaceae	4	1	2	0
+BglR – Burkholderia 	2	0	2	1
+BglR – Deinococcus-Thermus	3	0	3	6
+BglR – Enterobacteriales	1	0	1	0
+BglR – Enterococcaceae	1	0	1	0
+BglR – Listeriaceae	4	0	1	0
+BglR – Shewanellaceae	6	1	4	2
+BglR – Vibrionales 	3	0	2	1
+BglR1 – Caulobacterales	2	0	1	0
+BglR2 – Caulobacterales	3	0	2	1
+BglR2 – Listeriaceae	4	0	1	0
+BglR3 – Caulobacterales	4	0	1	0
+BglZ – Bacillales	5	0	4	3
+BH1250 – Bacillales	4	1	4	2
+BH1516 – Bacillales	2	0	2	1
+BIFBRE_03467 – Bifidobacteriaceae	1	0	1	0
+BIFBRE_03542 – Bifidobacteriaceae	1	0	1	0
+BL0176 – Bifidobacteriaceae	3	0	2	1
+BL0185 – Bifidobacteriaceae	4	0	2	1
+BL0610 – Bifidobacteriaceae	1	0	1	0
+BLA_0143 – Bifidobacteriaceae 	4	1	3	1
+Blon_0374 – Bifidobacteriaceae	1	0	1	0
+blr3394 – Rhizobiales	2	0	1	0
+Bphy_2245 – Burkholderia	2	0	2	10
+Bphy_4590 – Burkholderia	5	0	3	10
+Bphy_6994 – Burkholderia	2	2	1	0
+Bpro_5109 – Comamonadaceae	2	0	2	9
+BPSL1304 – Burkholderia	8	0	2	2
+Caur_1157 – Chloroflexia	3	0	2	3
+Caur_3448 – Chloroflexia	5	0	4	5
+Caur_3866 – Chloroflexia	2	0	1	0
+CC1627 – Caulobacterales	4	0	3	2
+CceR (GapR) – Rhodobacterales	13	2	3	2
+CcpA – Bacillales	11	0	1	0
+CcpA – Clostridia-1	8	0	1	0
+CcpA – Clostridia-2	3	0	1	0
+CcpA – Lactobacillaceae	15	0	4	3
+CcpA – Staphylococcaceae	7	2	3	1
+CcpA – Streptococcaceae	15	1	3	1
+CcpB – Lactobacillaceae	4	0	4	4
+CcpB – Listeriaceae	4	0	1	0
+CcpB – Streptococcaceae	5	0	5	7
+CD0683 – Clostridia-2 	1	1	1	0
+CelR – Micrococcineae	4	0	3	4
+CelR – Streptomycetaceae 	4	0	1	0
+CelR – Thermotogales	7	0	5	3
+CelR – Vibrionales  	5	0	1	0
+CelR2 – Enterobacteriales	2	0	1	0
+CelR2 – Vibrionales	3	0	2	1
+CelR3 – Vibrionales	2	0	1	0
+Cg2314 – Corynebacteriaceae	1	0	1	0
+CldR – Bifidobacteriaceae	1	1	1	0
+Csal_3216 – Oceanospirillales/Alteromonadales 	1	0	1	0
+CscR – Bifidobacteria	8	8	2	0
+CscR – Enterobacteriales 	3	0	3	2
+DR2501 – Deinococcus-Thermus 	3	0	3	3
+EbgR – Enterobacteriales	2	2	1	0
+EbgR – Psychromonadaceae/Aeromonadales	2	2	1	0
+EbgR – Vibrionales	7	7	1	0
+ECA4246 – Enterobacteriales	1	0	1	0
+EF1410 – Enterococcaceae	1	0	1	0
+ExuR – Bacillales	4	0	3	1
+ExuR – Clostridia-1 	3	0	2	1
+ExuR – Lactobacillaceae	2	0	2	2
+FruR – Enterobacteriales	12	12	1	0
+FruR – Micrococcineae	2	0	2	3
+FruR – Oceanospirillales/Alteromonadales	2	2	1	0
+FruR – Pasteurellales	3	3	1	0
+FruR – Pseudomonadaceae	8	8	1	0
+FruR – Psychromonadaceae/Aeromonadales	6	6	1	0
+FruR – Vibrionales	10	10	1	0
+FruR2 – Comamonadaceae	2	1	2	0
+FruR2 – Ralstonia 	2	2	1	0
+FruR2 – Rhodobacterales	1	1	1	0
+FruR2 – Rhodospirillales	3	3	1	0
+FruR2 – Various betaproteobacteria	1	1	1	0
+FruR2 – Xanthomonadales 	3	3	1	0
+FucR – Bifidobacteriaceae	2	0	2	1
+GalR – Alteromonadales	2	0	2	1
+GalR – Desulfovibrionales 	2	0	2	3
+GalR – Lactobacillaceae	11	11	1	0
+GalR – Pasteurellales	5	2	5	3
+GalR – Shewanellaceae	1	0	1	0
+GalR – Streptococcaceae	9	9	2	0
+GalR – Thermotogales	9	0	3	2
+GalR – Vibrionales 	8	0	2	1
+GalR/GalS – Enterobacteriales	11	0	2	4
+GalR2 – Bifidobacteriaceae	1	1	1	0
+GanR – Bacillales	5	5	1	0
+GloR – Thermotogales	5	0	4	4
+GluR – Caulobacterales	3	0	1	0
+GlxR – Bifidobacteriaceae	1	1	1	0
+GntR – Alteromonadales	1	1	1	0
+GntR – Bifidobacteriaceae	1	1	1	0
+GntR – Burkholderia	1	0	1	0
+GntR – Comamonadaceae	8	0	7	4
+GntR – Enterobacteriales  	12	0	5	3
+GntR – Oceanospirillales/Alteromonadales	3	0	3	4
+GntR – Pasteurellales	7	1	5	2
+GntR – Pseudomonadaceae	8	1	7	5
+GntR – Psychromonadaceae/Aeromonadales	5	0	5	3
+GntR – Rhizobiales	1	0	1	0
+GntR – Rhodospirillales	1	0	1	0
+GntR – Shewanellaceae	1	0	1	0
+GntR – Various betaproteobacteria	1	0	1	0
+GntR – Vibrionales	8	0	5	3
+GntR2 – Bacillales	4	4	1	0
+GntR2 – Lactobacillaceae	2	2	1	0
+GosR – Bifidobacteriaceae	6	0	1	0
+GosR2 – Bifidobacteriaceae	1	0	1	0
+GudR – Comamonadaceae	4	0	4	7
+HpxR – Ralstonia	3	0	2	1
+HxlR – Bifidobacteriaceae	2	2	1	0
+HxlR – Lactobacillaceae	2	2	1	0
+IdnR – Enterobacteriales	4	0	3	3
+IdnR – Rhizobiales	7	1	6	4
+IolR – Micrococcineae	2	0	2	3
+IolR – Oceanospirillales/Alteromonadales	1	0	1	0
+IolR – Rhizobiales	2	0	1	0
+IolR – Rhodobacterales	3	0	2	1
+IolR – Streptomycetaceae	2	0	1	0
+IolR – Thermoanaerobacterales	5	0	3	4
+IolR1 – Bacillales	5	0	4	4
+IolR2 – Bacillales	2	0	2	5
+IolR2 – Corynebacteriaceae	1	0	1	0
+Jann_1107 – Rhodobacterales	2	0	2	9
+Jann_1459 – Rhodobacterales	4	0	4	7
+Jann_3936 – Rhodobacterales	1	0	1	0
+KdgR – Bacillales	3	3	1	0
+KdgR – Bacteroidaceae	10	0	2	1
+KglR – Rhizobiales	2	0	2	1
+KglR – Rhodobacterales	1	0	1	0
+KojR – Bacillales	2	0	1	0
+KojR – Chloroflexia	2	0	1	0
+KojR – Thermoanaerobacterales 	5	0	3	5
+LacI – Enterobacteriales   	5	0	3	2
+LacR – Bifidobacteriaceae	8	8	1	0
+LacR – Lactobacillaceae	7	7	1	0
+LACR_0766 – Streptococcaceae	2	2	1	0
+LBA1472 – Lactobacillaceae	2	0	1	0
+LfaR – Enterobacteriales	6	0	6	4
+LgoR – Bacteroidaceae	6	1	2	0
+LJ1265 – Lactobacillaceae 	2	0	2	1
+Lmo0031 – Listeriaceae	2	0	1	0
+Lp_3221 – Lactobacillaceae	3	0	2	3
+LSEI_0368  – Lactobacillaceae	2	0	1	0
+MalI – Enterobacteriales	5	0	3	2
+MalI – Vibrionales	4	0	3	3
+MalR – Alteromonadales 	7	0	2	1
+MalR – Bacteroidaceae	5	2	3	0
+MalR – Lactobacillaceae	7	0	6	5
+MalR – Shewanellaceae	11	0	1	0
+MalR – Sphingomonadales 	3	0	1	0
+MalR – Staphylococcaceae	4	1	4	2
+MalR – Streptococcaceae	15	0	11	5
+MalR – Xanthomonadales	3	0	1	0
+MalR1 – Clostridia-1 	4	0	2	1
+MalR1/MalR2/MalR3 – Bifidobacteriaceae	10	0	6	4
+MalR2 – Bacillales	7	1	5	3
+MalR2 – Clostridia-1	4	0	4	4
+MalR2 – Streptococcaceae	4	4	1	0
+MalR2 – Thermoanaerobacterales	5	0	3	3
+MalR3 – Lactobacillaceae	6	5	2	0
+MalR4 – Bifidobacteriaceae	3	0	3	4
+MalR5 – Bifidobacteriaceae	3	0	3	4
+ManR – Psychromonadaceae/Aeromonadales 	1	0	1	0
+ManR – Streptomycetaceae	4	0	1	0
+ManR – Xanthomonadales	3	0	2	2
+ManR1 – Alteromonadales	3	0	3	4
+ManR1 – Shewanellaceae	2	0	1	0
+ManR2 – Alteromonadales	1	0	1	0
+ManR2 – Shewanellaceae	1	0	1	0
+MdxR – Bacillales	2	0	1	0
+MdxR – Lactobacillaceae	6	1	5	3
+MdxR – Listeriaceae	4	0	1	0
+MdxR – Streptococcaceae	1	0	1	0
+Mll1683 – Rhizobiales	6	1	6	7
+MocR – Rhizobiales	5	0	3	3
+MsmR – Bacillales	5	5	1	0
+MsmR – Bifidobacteriaceae	4	0	2	1
+MsmR – Micrococcineae	3	0	2	2
+MsmR1 – Bifidobacteriaceae	3	0	2	3
+NagR – Alteromonadales	3	0	3	2
+NagR – Oceanospirillales/Alteromonadales	3	0	3	2
+NagR – Shewanellaceae	15	0	1	0
+NagR – Xanthomonadales	4	1	2	0
+NGR_b22600 – Rhizobiales	1	0	1	0
+NigR – Lactobacillaceae	2	2	1	0
+NigR – Streptococcaceae	1	1	1	0
+NtdR – Bacillales	3	0	2	2
+OB2597_06045 – Rhodobacterales	1	1	1	0
+OG2516_10476 – Rhodobacterales	1	0	1	0
+OglR2 – Lactobacillaceae	1	0	1	0
+Patl_0292 – Alteromonadales	1	1	1	0
+PckR – Rhizobiales	10	1	5	4
+PFL_0254 – Pseudomonadaceae	3	0	3	5
+PMI2934 – Enterobacteriales	1	1	1	0
+pRL90265 – Rhizobiales	3	0	3	10
+PsiR – Rhizobiales	4	4	2	0
+PSPTO0485 – Pseudomonadaceae	1	0	1	0
+PtsR – Bifidobacteriaceae	7	0	5	3
+PtsR – Enterobacteriales	1	0	1	0
+PtxS – Burkholderia	8	2	3	1
+PtxS – Enterobacteriales  	5	5	1	0
+PtxS – Pseudomonadaceae 	4	4	1	0
+PtxS – Ralstonia 	2	2	1	0
+PurR – Enterobacteriales	12	0	1	0
+PurR – Pasteurellales	9	0	2	1
+PurR – Vibrionales	10	0	1	0
+RafR – Enterobacteriales	4	0	3	3
+RbsR – Bacillales	11	0	3	2
+RbsR – Burkholderia	7	0	1	0
+RbsR – Clostridia-1 	4	4	1	0
+RbsR – Comamonadaceae	2	0	1	0
+RbsR – Corynebacteriaceae	3	0	2	3
+RbsR – Desulfovibrionales	1	0	1	0
+RbsR – Enterobacteriales	11	0	3	2
+RbsR – Lactobacillaceae	10	10	1	0
+RbsR – Pasteurellales	6	0	3	2
+RbsR – Pseudomonadaceae	5	0	2	2
+RbsR – Psychromonadaceae/Aeromonadales	6	0	3	3
+RbsR – Ralstonia	2	0	1	0
+RbsR – Shewanellaceae	2	0	1	0
+RbsR – Staphylococcaceae	2	2	1	0
+RbsR – Streptomycetaceae	3	0	1	0
+RbsR – Thermoanaerobacterales	2	2	1	0
+RbsR – Thermotogales	8	0	6	5
+RbsR – Vibrionales	10	0	2	1
+RbsR1 – Bifidobacteriaceae	2	0	1	0
+RbsR2 – Bifidobacteriaceae	3	0	1	0
+RbsR2 – Rhizobiales	2	0	2	2
+RbsR2 – Rhodobacterales	1	0	1	0
+RbsR2 – Staphylococcaceae	6	3	2	0
+RbsR2 – Streptococcaceae	7	0	3	2
+RbsR3 – Bifidobacteriaceae	5	5	1	0
+RbtR – Rhodobacterales	1	1	1	0
+RegR – Streptococcaceae	6	6	1	0
+Reut_C5892 – Ralstonia 	1	0	1	0
+RhaR – Frankineae/Propionibacterineae/Pseudonocardiaceae	2	0	2	4
+RhaR – Micrococcineae	5	0	3	5
+RhaR – Mycobacteriaceae	2	0	1	0
+RhaR – Nocardiaceae	2	0	2	3
+RhaR – Streptomycetaceae	3	0	2	1
+RhiR – Enterobacteriales	1	0	1	0
+RhiR – Rhizobiales	4	0	1	0
+RhmR – Chloroflexia	1	1	1	0
+RL3595 – Rhizobiales	4	4	2	0
+RL4253  – Rhizobiales	3	0	1	0
+Rmet_4647 – Ralstonia  	2	0	2	10
+RSc1790 – Ralstonia	5	1	5	5
+SAG1808 – Streptococcaceae	2	2	1	0
+SAV1329 – Streptomycetaceae	2	0	1	0
+SCO1956 – Streptomycetaceae 	2	0	1	0
+SCO2753 – Streptomycetaceae	4	0	1	0
+SCO4158 – Streptomycetaceae	4	4	1	0
+SCO5692 – Streptomycetaceae	3	0	1	0
+ScrR – Alteromonadales	5	1	4	2
+ScrR – Bacillales	4	0	4	2
+ScrR – Bifidobacteriaceae	7	0	2	1
+ScrR – Burkholderia	5	0	1	0
+ScrR – Clostridia-1 	2	2	1	0
+ScrR – Enterobacteriales	6	6	1	0
+ScrR – Lactobacillaceae	7	0	6	5
+ScrR – Oceanospirillales/Alteromonadales 	1	0	1	0
+ScrR – Pseudomonadaceae	3	0	3	2
+ScrR – Psychromonadaceae/Aeromonadales 	3	3	1	0
+ScrR – Ralstonia	1	0	1	0
+ScrR – Shewanellaceae	5	0	1	0
+ScrR – Sphingomonadales 	2	0	2	2
+ScrR – Staphylococcaceae	6	6	1	0
+ScrR – Streptococcaceae	13	1	2	0
+ScrR – Vibrionales 	1	0	1	0
+ScrR2 – Bacillales	3	3	1	0
+ScrR2 – Lactobacillaceae	1	1	1	0
+Sde_0506 – Alteromonadales	2	0	1	0
+SgaR – Enterobacteriales	9	1	8	6
+SgaR – Pasteurellales	1	0	1	0
+SgaR – Psychromonadaceae/Aeromonadales 	3	0	2	4
+SgaR – Vibrionales	2	0	1	0
+SgaR2 – Bifidobacteriaceae	2	0	2	2
+SMb20014 – Rhizobiales	4	0	4	4
+SMb20537 – Rhizobiales	5	0	3	9
+SMb20667 – Rhizobiales	6	1	3	1
+SMb20717 – Rhizobiales	4	0	1	0
+SMb21598 – Rhizobiales	6	0	3	9
+SMb21706 – Rhizobiales	6	2	5	4
+SMc04260 – Rhizobiales	6	1	4	2
+SmoR – Rhizobiales	4	0	4	2
+SmoR – Rhodobacterales	7	0	6	3
+SocR – Rhizobiales	3	0	2	1
+SocR – Rhodobacterales	1	0	1	0
+SPO0590 – Rhodobacterales	5	0	5	3
+SPOA0336 – Rhodobacterales	2	0	2	3
+STM1555 – Enterobacteriales 	3	0	3	3
+SuxR – Xanthomonadales	2	0	1	0
+TalR – Comamonadaceae	2	0	2	2
+TalR – Enterobacteriales	2	0	2	2
+TalR – Ralstonia	1	0	1	0
+ThuR – Rhizobiales	5	0	3	2
+TreR – Alteromonadales	3	0	3	3
+TreR – Enterobacteriales	8	0	4	4
+TreR – Psychromonadaceae/Aeromonadales 	4	0	2	1
+TreR – Shewanellaceae	2	0	2	1
+TreR – Thermoanaerobacterales	3	0	3	7
+TreR – Vibrionales	8	1	2	0
+UdhR – Burkholderia	4	0	2	4
+UgpR – Thermotogales	7	0	4	3
+UriR – Corynebacteriaceae	2	0	1	0
+UriR – Enterococcaceae	2	2	2	0
+UriR – Listeriaceae	4	4	1	0
+UxaR – Bacteroidaceae	6	0	2	2
+UxuR – Bacillales	3	0	2	1
+UxuR – Bacteroidaceae	3	0	3	2
+UxuR – Clostridia-3	8	0	7	2
+VCA0673 – Vibrionales	4	0	3	8
+VF_1255 – Vibrionales 	5	0	5	3
+VP2396 – Vibrionales	2	2	1	0
+VVA0138 – Vibrionales	1	0	1	0
+XCC2209 – Xanthomonadales	3	0	2	1
+XCC4129 – Xanthomonadales 	2	0	1	0
+XltR – Enterobacteriales	1	0	1	0
+XltR – Oceanospirillales/Alteromonadales 	2	0	2	1
+XltR – Shewanellaceae	2	0	2	1
+XosR – Bifidobacteriaceae	4	1	3	2
+XylR – Rhizobiales	8	0	3	2
+y3436 – Enterobacteriales 	1	1	1	0
+YcjW – Enterobacteriales	2	0	1	0
+YcjW – Listeriaceae	3	0	1	0
+
+CR tag statistics:
+CRtag	TFname	GenomesPresentIn#	TFBS#	InfoBits
+VQSVGSRPAV	AAur_3503_Micrococcineae	1	4	35.68872
+IDSRGSRHWV	AAur_4078_Micrococcineae	1	4	30.13233
+IRSRGSRHWV	AAur_4078_Micrococcineae	2	12	24.91211
+ISSTGSRHWV	AAur_4078_Micrococcineae	1	5	29.94077
+VASVSFGSAE	ABC1167_Bacillales	1	2	35
+IKSFKSNGSM	AbfR_Bifidobacteriaceae	1	1	40
+ITSIKSNGSM	AbfR_Bifidobacteriaceae	1	2	36
+LSSVASNGRV	AduR_Rhizobiales	1	1	40
+LSSIASNGRV	AduR_Rhizobiales	1	1	40
+LSSAASNGRV	AduR_Rhizobiales	1	1	40
+LTSAASNGRV	AduR_Rhizobiales	1	1	40
+VISKSSLPLV	AfrR_Rhizobiales	1	3	30.65363
+IFSKSSLGLI	AfrR_Rhizobiales	1	4	30.75489
+VISKSSLSLV	AfrR_Rhizobiales	2	4	31.56617
+VVSKSSLALV	AfrR_Rhizobiales	1	4	33.13233
+VVSKSSLPLV	AfrR_Rhizobiales	1	4	33.13233
+ILSKSSLKQV	AfrR_Rhodobacterales	1	3	31.06867
+LKSQTSRPEV	AglR_Rhizobiales	6	22	26.70491
+LRSQTSRPEV	AglR_Rhizobiales	1	2	36
+LRSQTSRPEV	AglR_Rhodobacterales	1	3	30.402
+LKSPTSRPEV	AglR_Rhodobacterales	1	2	34
+LKSQTSRPEV	AglR_Rhodobacterales	3	9	27.99503
+IKSVASRGRF	AlsR_Listeriaceae	1	12	24.6272
+IKSVASRGRF	AlsR_Streptococcaceae	1	2	32
+LHADSSKGRI	AouR_Bifidobacteriaceae	1	2	34
+LESLASKPRV	AouR_Bifidobacteriaceae	1	6	21.30948
+LESTASKPRI	AouR_Bifidobacteriaceae	1	3	24.47719
+MFSHQSRPDV	AraQ_Bifidobacteriaceae	7	73	22.72638
+IFSHQSRPNV	AraQ_Bifidobacteriaceae	1	4	28.44361
+MFSHQSRSDV	AraQ_Bifidobacteriaceae	1	3	29.48371
+MISHQSRPDV	AraQ_Bifidobacteriaceae	1	3	28.15037
+[indel within CR tag region]	Arth_2426_Micrococcineae	4	11	26.03177
+LSSLASRSRV	Arth_2426_Micrococcineae	1	1	40
+MLSKASRGYV	AscG_Enterobacteriales	4	17	25.06242
+MLSKASRNYV	AscG_Enterobacteriales	1	2	34
+ILSKASRGYV	AscG_Enterobacteriales	1	4	28.25489
+MQSKASRGYT	AscG_Enterobacteriales	1	5	30.35558
+GDPITRAKVS	Atu5239_Rhizobiales	1	4	30.37744
+IASPISRQKV	Atu5239_Rhizobiales	1	1	40
+VATVSFNAPA	AZL_a08610_Rhodospirillales	1	4	30.50978
+EITTVVLVSA	Bamb_2736_Burkholderia 	1	2	34
+FDSTTDRGSV	Bamb_2736_Burkholderia 	1	2	34
+DVSAVAFIAP	Bamb_4155_Burkholderia	1	1	40
+ASSRSSRASI	Bamb_4155_Burkholderia	2	2	37
+IRSYGSRTHV	BBNG_01789_Bifidobacteriaceae	1	2	40
+KDVTTRVYVS	BC0230_Bacillales	1	2	36
+RKVSTRVYVN	BC5402_Bacillales	1	2	32
+IKSPQSNAVV	BDP_1267_Bifidobacteriaceae	1	2	36
+IKSPQSNGIV	BDP_1267_Bifidobacteriaceae	1	2	38
+ITSVYSRSGV	BDP_2100_Bifidobacteriaceae	1	1	40
+AGALRSGRAR	BDP_2100_Bifidobacteriaceae	1	3	31.06867
+LKSHTSAPNV	BDP_2111_Bifidobacteriaceae	1	1	40
+LKSMSSADIV	BDP_2111_Bifidobacteriaceae	1	4	33
+IKSISSYRSI	BDP_2131_Bifidobacteriaceae	1	1	24
+errorGettingCRtag	BDP_2131_Bifidobacteriaceae	1	7	0
+[indel within CR tag region]	BfrR_Bifidobacteriaceae	1	6	30.8359
+[indel within CR tag region]	BfrR_Chloroflexia	1	2	39
+MKGVGSRPGV	BfrR_Lactobacillaceae	1	1	40
+MKSVGSRKGI	BfrR_Streptococcaceae	2	4	40
+MKSVGSRPGI	BfrR_Streptococcaceae	1	1	40
+MKSVGSRSGI	BfrR_Streptococcaceae	1	2	39
+LQSPQSRAAV	BgaR_Bifidobacteriaceae	1	3	29.98697
+MKSSQSRSEV	BgaR_Bifidobacteriaceae	1	5	29.18072
+MQSPQSRNAV	BgaR_Bifidobacteriaceae	2	5	25.44273
+errorGettingCRtag	BgaR_Bifidobacteriaceae	1	4	28.1985
+MQSPQSRDAV	BgaR_Bifidobacteriaceae	1	5	26.09175
+MASAQSRQNV	BgaR_Micrococcineae	1	2	36
+IGSSQSRERV	BgaR_Micrococcineae	1	4	32.13233
+MGSSQSRAGV	BgaR_Streptomycetaceae	1	2	40
+MASSQSRAGV	BgaR_Streptomycetaceae	2	6	35.24511
+IRSLQSRPNV	BglR _Sphingomonadales	1	1	40
+IKSLQSRPNV	BglR _Sphingomonadales	2	6	26.33694
+IYSLASRTKV	BglR_Alteromonadales	1	9	27.42878
+IYSLASRAKV	BglR_Alteromonadales	1	4	32.75489
+IYSLASRPQV	BglR_Alteromonadales	1	8	31.13145
+IYSLASRVKV	BglR_Alteromonadales	1	5	32.35041
+IYSLASRTPV	BglR_Alteromonadales	1	3	32.90526
+IYSLASRGRV	BglR_Alteromonadales	1	6	30.59509
+VYSTASFDKV	BglR_Bifidobacteriaceae	3	7	30.38227
+errorGettingCRtag	BglR_Bifidobacteriaceae	1	3	31.73534
+LKGLSSRGPV	BglR_Burkholderia 	1	1	40
+LKGMSSRGPV	BglR_Burkholderia 	1	1	40
+LESVSSRTKV	BglR_Deinococcus-Thermus	1	1	40
+LASPSSRAQV	BglR_Deinococcus-Thermus	1	2	34
+IASPASRARV	BglR_Deinococcus-Thermus	1	1	40
+IKSISSYPKI	BglR_Enterobacteriales	1	2	37
+IKSISSYSKV	BglR_Enterococcaceae	1	2	36
+IKSISSYPKV	BglR_Listeriaceae	1	8	33.004
+IYSLASRTNV	BglR_Shewanellaceae	2	5	31.89231
+IYSLASRTKV	BglR_Shewanellaceae	2	8	32.56617
+IYSLASRGKV	BglR_Shewanellaceae	1	4	33.56617
+[indel within CR tag region]	BglR_Shewanellaceae	1	7	30.48679
+IKSQASRCRV	BglR_Vibrionales 	2	4	32.37744
+IKSQASRSRV	BglR_Vibrionales 	1	3	31.3203
+IDARVSRPNV	BglR1_Caulobacterales	1	2	36
+INSPKSRESV	BglR2_Caulobacterales	2	6	31.77945
+IHSPKSRESV	BglR2_Caulobacterales	1	4	30.63233
+IQSSASRDYV	BglR2_Listeriaceae	1	16	32.87465
+IYSIKSRPNV	BglR3_Caulobacterales	1	8	27.29432
+IKSVTSRPYV	BglZ_Bacillales	1	2	33
+IRSVTSRPYV	BglZ_Bacillales	2	3	30.74185
+IRSITSRPYV	BglZ_Bacillales	1	1	36
+IKSISSRPYV	BglZ_Bacillales	1	2	31
+IESRTSRPYV	BH1250_Bacillales	1	1	40
+[indel within CR tag region]	BH1250_Bacillales	1	3	31.3203
+IKSRSSRPYV	BH1250_Bacillales	1	2	33
+IKSRTSRPYV	BH1250_Bacillales	1	3	29.23208
+IKSIASRIGY	BH1516_Bacillales	1	2	34
+IKSIASRVGY	BH1516_Bacillales	1	4	31.06617
+IKSISSYRPI	BIFBRE_03467_Bifidobacteriaceae	1	1	24
+IFSKSSRGGV	BIFBRE_03542_Bifidobacteriaceae	1	2	34
+LRSPMSNPGV	BL0176_Bifidobacteriaceae	2	7	30.92285
+LRSPMSNTGV	BL0176_Bifidobacteriaceae	1	2	36
+MRSIKSNEFV	BL0185_Bifidobacteriaceae	3	22	24.73168
+MRSVKSNEFV	BL0185_Bifidobacteriaceae	1	6	26.89014
+LKTATSADYV	BL0610_Bifidobacteriaceae	1	2	36
+no_CRtag	BLA_0143_Bifidobacteriaceae 	1	1	40
+IFSSSSYPGV	BLA_0143_Bifidobacteriaceae 	2	4	27.25489
+IFSSSSYSGV	BLA_0143_Bifidobacteriaceae 	1	6	26.38105
+DVATVVMISE	Blon_0374_Bifidobacteriaceae	1	3	29.48371
+LESLADREGV	blr3394_Rhizobiales	1	2	39
+AGVATRVNVR	Bphy_2245_Burkholderia	1	1	40
+22SVASRENV	Bphy_2245_Burkholderia	1	1	40
+LGSTASRGKV	Bphy_4590_Burkholderia	3	6	34.16341
+LSSTASRGKV	Bphy_4590_Burkholderia	1	2	36
+GDTATRVKVS	Bphy_4590_Burkholderia	1	2	34
+[indel within CR tag region]	Bphy_6994_Burkholderia	1	2	40
+DISTVVLVRK	Bpro_5109_Comamonadaceae	1	2	34
+SQSQASRGNV	Bpro_5109_Comamonadaceae	1	1	40
+IKSIASRHTV	BPSL1304_Burkholderia	7	10	32.26814
+IKSIASRDSV	BPSL1304_Burkholderia	1	1	40
+LDSRSSRPHV	Caur_1157_Chloroflexia	2	2	38
+IRSRSSRPSV	Caur_1157_Chloroflexia	1	5	28.91172
+IRSTASYGVV	Caur_3448_Chloroflexia	1	2	33
+IKSTASYGVI	Caur_3448_Chloroflexia	1	2	35
+IKSVASYMPV	Caur_3448_Chloroflexia	1	1	40
+IKSVASYGVV	Caur_3448_Chloroflexia	2	4	35.06617
+IKSVTSYGTI	Caur_3866_Chloroflexia	1	5	27.83756
+IQSTASRDLV	CC1627_Caulobacterales	1	4	30.13233
+IQSTASRELV	CC1627_Caulobacterales	1	3	30.81704
+IQSTASRERV	CC1627_Caulobacterales	2	7	25.37183
+LRSEMSRGDV	CceR (GapR	10	146	16.48502
+[indel within CR tag region]	CceR (GapR	2	25	17.6481
+22SEMSRGDV	CceR (GapR	1	6	23.08101
+IYSMASRPNV	CcpA_Bacillales	1	559	16.73681
+IKSIASRDVV	CcpA_Clostridia-1	1	436	16.29113
+IKSISSRKPV	CcpA_Clostridia-2	1	113	14.88584
+IYSMASRNNV	CcpA_Lactobacillaceae	4	111	15.75074
+IYSMASRPNV	CcpA_Lactobacillaceae	9	380	14.91504
+IYSLASRSNV	CcpA_Lactobacillaceae	1	39	18.42105
+IYSLASRGKV	CcpA_Lactobacillaceae	1	31	16.90182
+[indel within CR tag region]	CcpA_Staphylococcaceae	2	124	17.64177
+IYSMASRQNV	CcpA_Staphylococcaceae	4	242	17.54128
+IYSMASRPNV	CcpA_Staphylococcaceae	1	25	18.15195
+IYSMASRANV	CcpA_Streptococcaceae	2	72	15.71501
+IYSMASRKNV	CcpA_Streptococcaceae	12	819	15.19376
+errorGettingCRtag	CcpA_Streptococcaceae	1	77	15.13204
+IHSTASRHYV	CcpB_Lactobacillaceae	1	1	32
+IHSVSSRKYV	CcpB_Lactobacillaceae	1	1	32
+IHSTASRRYV	CcpB_Lactobacillaceae	1	1	32
+IRSVSSRKYV	CcpB_Lactobacillaceae	1	1	32
+IKSVTSRPYV	CcpB_Listeriaceae	1	4	37.18872
+LTSKASRGYV	CcpB_Streptococcaceae	1	1	32
+LSSKASRGYV	CcpB_Streptococcaceae	1	1	32
+ISAKSSRPHV	CcpB_Streptococcaceae	1	1	32
+IRAPSSRDYV	CcpB_Streptococcaceae	1	1	32
+IRSKASRPYV	CcpB_Streptococcaceae	1	1	32
+[indel within CR tag region]	CD0683_Clostridia-2 	1	2	35
+LESRASRPSV	CelR_Micrococcineae	1	2	37
+LESRSSRSKV	CelR_Micrococcineae	2	6	27.65085
+LVSRASRLRV	CelR_Micrococcineae	1	2	34
+LEGRGSRPRV	CelR_Streptomycetaceae 	1	49	24.56373
+IKSIASRNNV	CelR_Thermotogales	2	14	27.15961
+IRSIASRNNV	CelR_Thermotogales	1	5	29.50712
+IKSIASRDNV	CelR_Thermotogales	2	10	27.66327
+IKSIASRNRV	CelR_Thermotogales	1	1	32
+IKSIASRSNV	CelR_Thermotogales	1	1	32
+IKNRSSRGKF	CelR_Vibrionales  	1	10	32.88462
+LESRASRTNV	CelR2_Enterobacteriales	1	2	40
+INSKASRGQV	CelR2_Vibrionales	1	2	32
+INSKASRGPV	CelR2_Vibrionales	2	4	30
+ITSKASRRGV	CelR3_Vibrionales	1	3	32.90526
+MASTASIPGA	Cg2314_Corynebacteriaceae	1	2	38
+[indel within CR tag region]	CldR_Bifidobacteriaceae	1	2	36
+IDAPISRDKV	Csal_3216_Oceanospirillales_Alteromonadales 	1	4	35.13233
+[indel within CR tag region]	CscR_Bifidobacteria	7	14	31.91189
+errorGettingCRtag	CscR_Bifidobacteria	1	2	38
+LKSLMSRERL	CscR_Enterobacteriales 	1	4	31.88722
+LKSLMSRELL	CscR_Enterobacteriales 	1	4	27.32105
+LKSLMSRDKL	CscR_Enterobacteriales 	1	2	35
+31SVASNDQL	DR2501_Deinococcus-Thermus 	1	2	40
+LRSPASNDQL	DR2501_Deinococcus-Thermus 	1	3	30.65363
+LRSVASNDQL	DR2501_Deinococcus-Thermus 	1	3	32.90526
+[indel within CR tag region]	EbgR_Enterobacteriales	1	5	28.24273
+[indel within CR tag region]	EbgR_Psychromonadaceae_Aeromonadales	1	5	23.54594
+[indel within CR tag region]	EbgR_Vibrionales	1	30	20.65434
+DVSAVSFVSA	ECA4246_Enterobacteriales	1	1	40
+IDKSTRLYVS	EF1410_Enterococcaceae	1	2	32
+IKSHTSRPYI	ExuR_Bacillales	2	2	31
+IKSHTSRPFI	ExuR_Bacillales	1	1	32
+IKSHTSRPLI	ExuR_Bacillales	1	2	30
+IKSHTSRPYI	ExuR_Clostridia-1 	2	8	24.93913
+IKSHTSRPVI	ExuR_Clostridia-1 	1	12	23.00488
+IRSHTSRPLV	ExuR_Lactobacillaceae	1	1	32
+IRSHMSRELV	ExuR_Lactobacillaceae	1	1	32
+[indel within CR tag region]	FruR_Enterobacteriales	1	213	16.74544
+MKGIKSRPNV	FruR_Micrococcineae	1	4	29.13233
+MRSIKSRPAV	FruR_Micrococcineae	1	5	31.47751
+[indel within CR tag region]	FruR_Oceanospirillales_Alteromonadales	1	9	24.51495
+[indel within CR tag region]	FruR_Pasteurellales	1	3	26.74185
+[indel within CR tag region]	FruR_Pseudomonadaceae	1	16	24.64882
+[indel within CR tag region]	FruR_Psychromonadaceae_Aeromonadales	1	22	25.37342
+[indel within CR tag region]	FruR_Vibrionales	1	60	26.54148
+IKSTTSRGAV	FruR2_Comamonadaceae	1	4	28.37744
+[indel within CR tag region]	FruR2_Comamonadaceae	1	4	25.50978
+[indel within CR tag region]	FruR2_Ralstonia 	1	8	26.06617
+[indel within CR tag region]	FruR2_Rhodobacterales	1	3	31.3203
+[indel within CR tag region]	FruR2_Rhodospirillales	1	8	26.94361
+[indel within CR tag region]	FruR2_Various betaproteobacteria	1	4	28.13233
+[indel within CR tag region]	FruR2_Xanthomonadales 	1	11	29.3434
+VGSPSSKPGI	FucR_Bifidobacteriaceae	1	2	28
+VGSASSKPGI	FucR_Bifidobacteriaceae	1	2	30
+IKSLASRPKV	GalR_Alteromonadales	1	4	28.13233
+IKSIASRPKV	GalR_Alteromonadales	1	2	34
+IKSPSSRPGI	GalR_Desulfovibrionales 	1	2	38
+LKSASSRPDI	GalR_Desulfovibrionales 	1	3	28.31378
+[indel within CR tag region]	GalR_Lactobacillaceae	1	30	22.74541
+IRSVASRPST	GalR_Pasteurellales	1	4	30.13233
+IRSVASRLSV	GalR_Pasteurellales	1	3	32.90526
+no_CRtag	GalR_Pasteurellales	1	2	34
+[indel within CR tag region]	GalR_Pasteurellales	1	4	28.63233
+IHSVASRPSA	GalR_Pasteurellales	1	3	30.65363
+IKSVASRPKV	GalR_Shewanellaceae	1	2	34
+[indel within CR tag region]	GalR_Streptococcaceae	8	18	24.68907
+errorGettingCRtag	GalR_Streptococcaceae	1	2	29
+IRSINSRPDI	GalR_Thermotogales	6	13	23.27621
+IVSINSRPDI	GalR_Thermotogales	1	3	25.57193
+IKSVNSRPDI	GalR_Thermotogales	2	3	24.65363
+IKSVASRPKA	GalR_Vibrionales 	6	23	23.42895
+IKSIASRPKA	GalR_Vibrionales 	2	7	26.72146
+IKSVASRPKA	GalR_GalS_Enterobacteriales	9	57	21.42155
+IRSVASRALV	GalR_GalS_Enterobacteriales	2	21	22.19797
+[indel within CR tag region]	GalR2_Bifidobacteriaceae	1	5	24.14468
+[indel within CR tag region]	GanR_Bacillales	1	8	31.26612
+LKSISSRPGV	GloR_Thermotogales	2	4	34
+LKSVSSRPGV	GloR_Thermotogales	1	2	32
+IKNASSRPGV	GloR_Thermotogales	1	1	36
+IKSPSSRNGV	GloR_Thermotogales	1	1	36
+IHSIKSRPNV	GluR_Caulobacterales	1	17	25.52872
+[indel within CR tag region]	GlxR_Bifidobacteriaceae	1	2	36
+[indel within CR tag region]	GntR_Alteromonadales	1	5	30.88142
+[indel within CR tag region]	GntR_Bifidobacteriaceae	1	2	38
+LDSSISRGSV	GntR_Burkholderia	1	4	31.50978
+LDSPISRRSV	GntR_Comamonadaceae	1	3	31.3203
+LNSPISRRTV	GntR_Comamonadaceae	1	3	35.66015
+LSSPMSRRRV	GntR_Comamonadaceae	2	7	30.89232
+LTSPISRRAV	GntR_Comamonadaceae	1	3	32.49022
+LDSRMSRRKV	GntR_Comamonadaceae	1	2	34
+LDSPISRRNV	GntR_Comamonadaceae	1	6	30.07519
+LSSPISRRAV	GntR_Comamonadaceae	1	4	30.75489
+LQTKMSREQV	GntR_Enterobacteriales  	7	41	23.80242
+LQTKMSRDRV	GntR_Enterobacteriales  	1	2	34
+LQTKMSRDQV	GntR_Enterobacteriales  	2	9	24.63866
+PQTKMSRAQV	GntR_Enterobacteriales  	1	7	29.47635
+LQTKMSRELV	GntR_Enterobacteriales  	1	2	33
+LQTKMSRELV	GntR_Oceanospirillales_Alteromonadales	1	2	35
+LQTKMSRDQV	GntR_Oceanospirillales_Alteromonadales	1	2	33
+LQSKVSRQRV	GntR_Oceanospirillales_Alteromonadales	1	4	23.50978
+LQTKMSRDSV	GntR_Pasteurellales	2	8	28.57417
+LQTKMSRASV	GntR_Pasteurellales	2	8	26.6613
+LQTKMSRDTV	GntR_Pasteurellales	1	4	31.37744
+LQTKMSRRLV	GntR_Pasteurellales	1	4	28.13233
+[indel within CR tag region]	GntR_Pasteurellales	1	4	28.50978
+LNSPISRASV	GntR_Pseudomonadaceae	1	5	28.16466
+LASPISRSTV	GntR_Pseudomonadaceae	2	10	29.52624
+LNSPISRATV	GntR_Pseudomonadaceae	1	5	28.43365
+LNSPISRSSV	GntR_Pseudomonadaceae	1	5	26.14468
+LSSLMSRGRV	GntR_Pseudomonadaceae	1	1	40
+errorGettingCRtag	GntR_Pseudomonadaceae	1	1	40
+LNSPISRPSV	GntR_Pseudomonadaceae	1	5	28.25753
+LQTKMSRSLV	GntR_Psychromonadaceae_Aeromonadales	1	5	28.2627
+LQTKISREKV	GntR_Psychromonadaceae_Aeromonadales	1	3	29.06867
+LQTKMSRQAV	GntR_Psychromonadaceae_Aeromonadales	1	5	30.03365
+LQTKMSRHAV	GntR_Psychromonadaceae_Aeromonadales	1	5	28.43882
+LQTKMSRALV	GntR_Psychromonadaceae_Aeromonadales	1	4	33.75489
+LASPISRASV	GntR_Rhizobiales	1	4	29.56617
+MASAISRELV	GntR_Rhodospirillales	1	4	28.13233
+LQTKMSRTRV	GntR_Shewanellaceae	1	4	30.50978
+MHSAISRQQV	GntR_Various betaproteobacteria	1	1	40
+LQTKMSRDSV	GntR_Vibrionales	3	12	28.33821
+LQTKMSRESV	GntR_Vibrionales	2	9	29.53287
+LQTKMSRSLV	GntR_Vibrionales	1	3	32.49022
+LQTKMSRNSV	GntR_Vibrionales	1	5	27.93561
+LNTKMSRSSV	GntR_Vibrionales	1	4	34.37744
+[indel within CR tag region]	GntR2_Bacillales	1	8	30.13345
+[indel within CR tag region]	GntR2_Lactobacillaceae	1	2	33
+LRSLKSNGRM	GosR_Bifidobacteriaceae	1	17	25.72621
+MRSPASFPRI	GosR2_Bifidobacteriaceae	1	3	31.57193
+LGSPISRDQV	GudR_Comamonadaceae	1	3	31.06867
+LRSMISRQQV	GudR_Comamonadaceae	1	2	40
+LHAPISRTQV	GudR_Comamonadaceae	1	5	28.33561
+VHSAMSREKV	GudR_Comamonadaceae	1	1	40
+IHSLTSHGVL	HpxR_Ralstonia	2	2	39
+IHSLTSHGVV	HpxR_Ralstonia	1	1	40
+[indel within CR tag region]	HxlR_Bifidobacteriaceae	1	5	31.48267
+[indel within CR tag region]	HxlR_Lactobacillaceae	1	4	28.63233
+LQNKMSRNQV	IdnR_Enterobacteriales	1	1	40
+LQTKMSRKKV	IdnR_Enterobacteriales	2	4	31
+LQTKMSRDKV	IdnR_Enterobacteriales	1	2	28
+[indel within CR tag region]	IdnR_Rhizobiales	1	6	30.14176
+MRSTMSRETV	IdnR_Rhizobiales	1	2	32
+MASTMSRGAV	IdnR_Rhizobiales	1	2	34
+MASAMSRASV	IdnR_Rhizobiales	2	14	27.96896
+MASPMSRSSV	IdnR_Rhizobiales	1	6	30.0767
+MRSPMSRDTV	IdnR_Rhizobiales	1	2	36
+IYSPSSLGKV	IolR_Micrococcineae	1	2	36
+IYSKSSLPNV	IolR_Micrococcineae	1	4	32.68872
+SDSRSSRASV	IolR_Oceanospirillales_Alteromonadales	1	1	40
+AKSKWIRASI	IolR_Rhizobiales	1	8	31.66776
+LKSTSSRASV	IolR_Rhodobacterales	1	4	36.75489
+LKSRSSRASV	IolR_Rhodobacterales	2	9	32.28181
+IRSKSSLEQV	IolR_Streptomycetaceae	1	8	26.43715
+IRSVASRDLV	IolR_Thermoanaerobacterales	1	1	40
+IRSVASRDSV	IolR_Thermoanaerobacterales	2	2	30
+VKSVASREKV	IolR_Thermoanaerobacterales	2	4	33.18872
+IYSITSRGRI	IolR1_Bacillales	1	3	24.32682
+IYSISSRGRI	IolR1_Bacillales	2	6	21.94507
+IYSIASKGNM	IolR1_Bacillales	1	3	23.40852
+IYSIASNGNV	IolR1_Bacillales	1	1	28
+IKSTASRGNV	IolR2_Bacillales	1	2	34
+MSSPASRELV	IolR2_Bacillales	1	2	35
+IYSKSSLPNV	IolR2_Corynebacteriaceae	1	2	34
+VAAVSFTSKK	Jann_1107_Rhodobacterales	1	4	31.82105
+SLSQSSRASA	Jann_1107_Rhodobacterales	1	1	40
+IQSTASRGLL	Jann_1459_Rhodobacterales	1	2	34
+IKSTASRDTV	Jann_1459_Rhodobacterales	1	2	32
+LSSASSRGVV	Jann_1459_Rhodobacterales	1	2	38
+IQSTASRDRV	Jann_1459_Rhodobacterales	1	4	26.88722
+LRSVASRPRI	Jann_3936_Rhodobacterales	1	4	30.13233
+[indel within CR tag region]	KdgR_Bacillales	1	13	28.02809
+IKSVGDRSGV	KdgR_Bacteroidaceae	8	49	22.6298
+IKSVGDRTGV	KdgR_Bacteroidaceae	2	13	23.33571
+LNSRASLPLV	KglR_Rhizobiales	1	1	40
+LLSRASLPLV	KglR_Rhizobiales	1	1	40
+LDSRASLPLV	KglR_Rhodobacterales	1	1	40
+IKSVTSRSDV	KojR_Bacillales	1	5	32.59944
+LKSYQSKMQV	KojR_Chloroflexia	1	5	29.53561
+IKSPSSRSDI	KojR_Thermoanaerobacterales 	2	5	33.30139
+IKSVTSRPDV	KojR_Thermoanaerobacterales 	2	4	34.68872
+IRSVTSRPDV	KojR_Thermoanaerobacterales 	1	2	36
+LYSYQSRSHV	LacI_Enterobacteriales   	3	3	38.32682
+LYSYQSREHV	LacI_Enterobacteriales   	1	1	42
+LHSYQSRPHV	LacI_Enterobacteriales   	1	1	42
+[indel within CR tag region]	LacR_Bifidobacteriaceae	1	27	15.60864
+[indel within CR tag region]	LacR_Lactobacillaceae	1	11	22.39038
+[indel within CR tag region]	LACR_0766_Streptococcaceae	1	3	33.82356
+IRSVASRGKV	LBA1472_Lactobacillaceae	1	4	32
+ISSVSSRANT	LfaR_Enterobacteriales	1	3	26.49022
+IASISSRANT	LfaR_Enterobacteriales	1	2	28
+IRSISSRSNT	LfaR_Enterobacteriales	1	6	23.97836
+VASPSSRANT	LfaR_Enterobacteriales	1	4	26.37744
+IQSISSRSNT	LfaR_Enterobacteriales	1	4	25.75489
+IQSISSRGNT	LfaR_Enterobacteriales	1	4	25.13233
+LKSIPSRPEI	LgoR_Bacteroidaceae	5	11	28.72544
+errorGettingCRtag	LgoR_Bacteroidaceae	1	2	35
+MSSKASFPGV	LJ1265_Lactobacillaceae 	1	2	32
+MSSKASFAGV	LJ1265_Lactobacillaceae 	1	2	34
+IQSVSSRPSV	Lmo0031_Listeriaceae	1	8	36.46858
+ISGVTSRPYI	Lp_3221_Lactobacillaceae	2	4	34
+ISGVGSRPSV	Lp_3221_Lactobacillaceae	1	2	35
+IKSVASRGRY	LSEI_0368 _Lactobacillaceae	1	8	31.63233
+IHSVSSLGRI	MalI_Enterobacteriales	2	9	31.74674
+INSVSSLGRI	MalI_Enterobacteriales	2	6	32.99348
+ITSVTSLGRI	MalI_Enterobacteriales	1	4	31.37744
+ITSVSSLGRI	MalI_Vibrionales	1	5	32.62458
+IKSVTSMGRI	MalI_Vibrionales	2	6	32.71008
+ITSVTSMGRI	MalI_Vibrionales	1	4	35.13233
+SFSQSSRPLV	MalR_Alteromonadales 	6	40	25.4406
+SFSQSSRSLV	MalR_Alteromonadales 	1	4	27.44361
+IKSPSSRPDI	MalR_Bacteroidaceae	3	19	23.78381
+no_CRtag	MalR_Bacteroidaceae	1	4	27.82105
+errorGettingCRtag	MalR_Bacteroidaceae	1	7	27.41829
+IRSVSSRPRI	MalR_Lactobacillaceae	1	1	40
+IKSISSRPRI	MalR_Lactobacillaceae	1	1	40
+IKSPSSRKII	MalR_Lactobacillaceae	1	4	30.32105
+IKSVSSRPRI	MalR_Lactobacillaceae	2	2	34
+IRSPSSRNLI	MalR_Lactobacillaceae	1	1	40
+IQAISSRPKI	MalR_Lactobacillaceae	1	2	32
+SISQSSRPLV	MalR_Shewanellaceae	1	67	26.05987
+SFSQPSRKSV	MalR_Sphingomonadales 	1	6	23.33264
+IKSPSSRKRI	MalR_Staphylococcaceae	1	2	37
+errorGettingCRtag	MalR_Staphylococcaceae	1	1	40
+IKSPSSRSRI	MalR_Staphylococcaceae	1	1	40
+IKSPSSRSGI	MalR_Staphylococcaceae	1	1	40
+IKNASSRSEI	MalR_Streptococcaceae	2	4	33.87744
+IKNPSSRASI	MalR_Streptococcaceae	1	6	30.49022
+IKSASSRHMI	MalR_Streptococcaceae	1	4	32.87744
+IKSPSSRDMI	MalR_Streptococcaceae	1	6	27.21765
+IKSTSSRSMI	MalR_Streptococcaceae	1	8	28.40116
+IKSPSTRSTI	MalR_Streptococcaceae	4	30	24.81067
+IKNPSSRSSI	MalR_Streptococcaceae	1	4	31.63233
+IKNPSSRRSI	MalR_Streptococcaceae	1	6	29.04772
+IKSPSTRSAI	MalR_Streptococcaceae	1	6	28.15259
+IKIPSSRPSI	MalR_Streptococcaceae	1	2	33
+IKSPSSREMI	MalR_Streptococcaceae	1	4	32.13233
+SLSQPSRPMV	MalR_Xanthomonadales	1	14	29.70835
+IKGVSSRPDV	MalR1_Clostridia-1 	3	3	30.15037
+IRGVSSRPDV	MalR1_Clostridia-1 	1	1	40
+IQSVSSRDLV	MalR1_MalR2/MalR3_Bifidobacteriaceae	2	25	20.27155
+IRSISSRELV	MalR1_MalR2/MalR3_Bifidobacteriaceae	1	15	18.79929
+IQSISSRDLV	MalR1_MalR2/MalR3_Bifidobacteriaceae	3	36	19.89375
+IQSISSRELV	MalR1_MalR2/MalR3_Bifidobacteriaceae	2	26	20.07132
+IRSISSREVV	MalR1_MalR2/MalR3_Bifidobacteriaceae	1	2	27
+IQSVSSRNLV	MalR1_MalR2/MalR3_Bifidobacteriaceae	1	4	21.6985
+IKAPSSRPRI	MalR2_Bacillales	3	14	26.88013
+IKAPSSRPSI	MalR2_Bacillales	1	3	31.98697
+IKAPSSRPKI	MalR2_Bacillales	1	3	32.65363
+IKSPSSRSRI	MalR2_Bacillales	1	3	31.73534
+no_CRtag	MalR2_Bacillales	1	1	40
+IKSPSSRSQI	MalR2_Clostridia-1	1	4	31.87744
+IKSPSSRPRI	MalR2_Clostridia-1	1	2	36
+IKSTSSRPQI	MalR2_Clostridia-1	1	3	34.07519
+IKAPSSRPKI	MalR2_Clostridia-1	1	1	40
+[indel within CR tag region]	MalR2_Streptococcaceae	1	4	37.56617
+IKSPSSRSKI	MalR2_Thermoanaerobacterales	1	2	31
+IKSPSSRAKI	MalR2_Thermoanaerobacterales	1	2	31
+IKAPSSRPRI	MalR2_Thermoanaerobacterales	3	13	26.25996
+[indel within CR tag region]	MalR3_Lactobacillaceae	5	15	27.10414
+IKTPSSRGGY	MalR3_Lactobacillaceae	1	2	38
+IGSNASREQV	MalR4_Bifidobacteriaceae	1	6	24.52351
+IESTASRDMV	MalR4_Bifidobacteriaceae	1	4	23.75489
+ISSIASRDKV	MalR4_Bifidobacteriaceae	1	4	28.37744
+IASQASRGKV	MalR5_Bifidobacteriaceae	1	6	23.22347
+IASQASRDKV	MalR5_Bifidobacteriaceae	1	2	28
+IASVSSRDRV	MalR5_Bifidobacteriaceae	1	4	21.32105
+VASTASMGRI	ManR_Psychromonadaceae_Aeromonadales 	1	5	30.11172
+MKGLKSRPGV	ManR_Streptomycetaceae	1	15	26.98811
+VTSRASLPLV	ManR_Xanthomonadales	1	5	25.84273
+LRSRASLPLV	ManR_Xanthomonadales	2	8	26.65205
+IFSKSSLKKV	ManR1_Alteromonadales	1	1	40
+VISKSSLSKV	ManR1_Alteromonadales	1	4	32.13233
+IFSKSSLDKT	ManR1_Alteromonadales	1	2	33
+VISKSSLDKV	ManR1_Shewanellaceae	1	4	33.75489
+IKSTASRDMV	ManR2_Alteromonadales	1	5	33.07751
+IKSTASRERV	ManR2_Shewanellaceae	1	5	31.32653
+LSSKMSRETV	MdxR_Bacillales	1	4	31.87744
+LSSKMSREQV	MdxR_Lactobacillaceae	2	4	31.87744
+no_CRtag	MdxR_Lactobacillaceae	1	1	40
+LSSKMSRQQV	MdxR_Lactobacillaceae	1	2	37
+LNSKMSREQV	MdxR_Lactobacillaceae	1	2	34
+LNSKMSRERV	MdxR_Lactobacillaceae	1	2	37
+LASKMSRDQV	MdxR_Listeriaceae	1	8	34
+LASKMSREQV	MdxR_Streptococcaceae	1	1	40
+LASPISREAL	Mll1683_Rhizobiales	1	3	27.89875
+LTSPISRDTV	Mll1683_Rhizobiales	1	3	28.56541
+IAGAISRERV	Mll1683_Rhizobiales	1	1	40
+LDSPISRDVV	Mll1683_Rhizobiales	1	4	31.13233
+LDSPISRDAV	Mll1683_Rhizobiales	1	4	33.13233
+no_CRtag	Mll1683_Rhizobiales	1	1	40
+ISSVADRLPV	MocR_Rhizobiales	1	2	33
+ISSVADRHRV	MocR_Rhizobiales	2	6	27.90526
+IASVADRHPV	MocR_Rhizobiales	2	4	28
+[indel within CR tag region]	MsmR_Bacillales	1	6	26.57345
+IKSVSSYRSI	MsmR_Bifidobacteriaceae	3	11	29.36499
+IKSASSYRSI	MsmR_Bifidobacteriaceae	1	4	31.44361
+SKAQSSYRPI	MsmR_Micrococcineae	2	7	33.61907
+SQSQSSYRPI	MsmR_Micrococcineae	1	1	40
+IKSAPSRVNV	MsmR1_Bifidobacteriaceae	2	2	39
+IKSVPSRERV	MsmR1_Bifidobacteriaceae	1	2	34
+INSIKSRISV	NagR_Alteromonadales	1	11	27.35673
+INSIKSRASV	NagR_Alteromonadales	1	4	30.06617
+INSMKSRPSV	NagR_Alteromonadales	1	12	26.62238
+IKSFKSRSTV	NagR_Oceanospirillales_Alteromonadales	1	6	27.61173
+IKSFKSRGSV	NagR_Oceanospirillales_Alteromonadales	1	5	30.21424
+IKSFKSRASV	NagR_Oceanospirillales_Alteromonadales	1	8	25.72581
+INSIKSRPSV	NagR_Shewanellaceae	1	105	28.00275
+errorGettingCRtag	NagR_Xanthomonadales	1	2	28
+IKSLKSRPSV	NagR_Xanthomonadales	3	15	25.85061
+VATVSFNAPE	NGR_b22600_Rhizobiales	1	4	30.75489
+[indel within CR tag region]	NigR_Lactobacillaceae	1	5	35.17039
+[indel within CR tag region]	NigR_Streptococcaceae	1	2	34
+IDSKTSRPYV	NtdR_Bacillales	2	4	23.75489
+IYSTTSRPYV	NtdR_Bacillales	1	3	25.15689
+errorGettingCRtag	OB2597_06045_Rhodobacterales	1	2	36
+SIGKPKAVLA	OG2516_10476_Rhodobacterales	1	4	30.13233
+ISSVSSRPHV	OglR2_Lactobacillaceae	1	1	32
+[indel within CR tag region]	Patl_0292_Alteromonadales	1	2	38
+LSSTASLPLV	PckR_Rhizobiales	6	73	19.18318
+LQSTASLQVV	PckR_Rhizobiales	1	2	32
+LQSTASLPMV	PckR_Rhizobiales	1	5	22.09692
+errorGettingCRtag	PckR_Rhizobiales	1	11	21.23078
+17STASLPLV	PckR_Rhizobiales	1	8	22.24441
+69SALSRERV	PFL_0254_Pseudomonadaceae	1	1	40
+LNSAISRDSV	PFL_0254_Pseudomonadaceae	1	2	36
+ITSAISREQV	PFL_0254_Pseudomonadaceae	1	1	40
+[indel within CR tag region]	PMI2934_Enterobacteriales	1	1	40
+78SRASRASV	pRL90265_Rhizobiales	1	1	40
+VAAVSFTSPK	pRL90265_Rhizobiales	1	1	40
+AESRSSRASV	pRL90265_Rhizobiales	1	6	26.17505
+[indel within CR tag region]	PsiR_Rhizobiales	3	12	29.22683
+no_CRtag	PsiR_Rhizobiales	1	4	30.50978
+KDRATRAVVR	PSPTO0485_Pseudomonadaceae	1	1	40
+IVSTASRRTK	PtsR_Bifidobacteriaceae	2	4	30
+ITSIASRRGK	PtsR_Bifidobacteriaceae	1	1	40
+ITSIASRRDK	PtsR_Bifidobacteriaceae	1	2	34
+ITSIASRRTK	PtsR_Bifidobacteriaceae	2	4	27.37744
+ITSIASRRSK	PtsR_Bifidobacteriaceae	1	2	28
+IISVSSLGKI	PtsR_Enterobacteriales	1	2	35
+ISGKTSRTHV	PtxS_Burkholderia	4	7	33.89051
+[indel within CR tag region]	PtxS_Burkholderia	2	2	37
+ISGKTSRTNV	PtxS_Burkholderia	2	2	39
+[indel within CR tag region]	PtxS_Enterobacteriales  	1	5	34.69231
+[indel within CR tag region]	PtxS_Pseudomonadaceae 	1	10	30.30299
+[indel within CR tag region]	PtxS_Ralstonia 	1	3	30.402
+IKSTTSHRFV	PurR_Enterobacteriales	1	313	17.30942
+IKSTTSHRFV	PurR_Pasteurellales	7	58	23.592
+IKSTTSHRHV	PurR_Pasteurellales	2	19	22.44172
+IKSTTSHRFV	PurR_Vibrionales	1	149	22.75027
+LKSVTSRDDV	RafR_Enterobacteriales	2	4	34.5
+LKSVTSRRDI	RafR_Enterobacteriales	1	2	37
+LKSSTSRDDV	RafR_Enterobacteriales	1	2	35
+IKSVASRGYV	RbsR_Bacillales	6	6	33.34346
+IRSVASRGYV	RbsR_Bacillales	4	4	35.25489
+IKSAASRGYV	RbsR_Bacillales	1	1	40
+IKSFTSHRPV	RbsR_Burkholderia	1	7	31.55732
+[indel within CR tag region]	RbsR_Clostridia-1 	1	5	27.16075
+IKSVTSHRHV	RbsR_Comamonadaceae	1	2	37
+LKSISSRPVI	RbsR_Corynebacteriaceae	1	1	36
+LKSVSSRASI	RbsR_Corynebacteriaceae	2	5	26.10656
+IKSTSSHRFV	RbsR_Desulfovibrionales	1	1	40
+MKSTSSHRFV	RbsR_Enterobacteriales	8	12	34.21036
+MKSTSSYRFV	RbsR_Enterobacteriales	1	2	35
+MKSTSSHRYV	RbsR_Enterobacteriales	2	3	34.49022
+[indel within CR tag region]	RbsR_Lactobacillaceae	1	18	26.02273
+MKSTSSHRFV	RbsR_Pasteurellales	4	4	37.5
+MKSTSSHRYV	RbsR_Pasteurellales	1	1	40
+MKSLSSHRFV	RbsR_Pasteurellales	1	1	40
+MKSFTSHRPV	RbsR_Pseudomonadaceae	1	1	40
+IKSYTSHRPV	RbsR_Pseudomonadaceae	4	4	31.37744
+IKSTSSHRYV	RbsR_Psychromonadaceae_Aeromonadales	3	5	28.34859
+IKSTTSHRFV	RbsR_Psychromonadaceae_Aeromonadales	2	2	40
+MKSTSSHRFV	RbsR_Psychromonadaceae_Aeromonadales	1	1	40
+IKSFTSHRPV	RbsR_Ralstonia	1	2	37
+MKSTSSHRFV	RbsR_Shewanellaceae	1	4	37
+[indel within CR tag region]	RbsR_Staphylococcaceae	1	2	39
+IKSVASRPSV	RbsR_Streptomycetaceae	1	3	36.32682
+[indel within CR tag region]	RbsR_Thermoanaerobacterales	1	4	32.37744
+INSISSRSQV	RbsR_Thermotogales	2	4	35
+IKSPSSRAPV	RbsR_Thermotogales	2	4	35
+IKSISSRDSV	RbsR_Thermotogales	1	2	35
+IKSISSRAPV	RbsR_Thermotogales	1	2	35
+IKSISSRLPV	RbsR_Thermotogales	1	1	40
+IRSIASRSFV	RbsR_Thermotogales	1	2	34
+MKSTSSHRFV	RbsR_Vibrionales	7	12	35.38542
+IKSTSSHRFV	RbsR_Vibrionales	3	3	31.73534
+IRSVSSRGRI	RbsR1_Bifidobacteriaceae	1	5	32.84846
+LKSAASQGRF	RbsR2_Bifidobacteriaceae	1	6	31.58427
+LKSVASRLEL	RbsR2_Rhizobiales	1	2	34
+LKSVTSRLDL	RbsR2_Rhizobiales	1	2	34
+LQSKTSRLEL	RbsR2_Rhodobacterales	1	3	29.3203
+no_CRtag	RbsR2_Staphylococcaceae	3	3	28.56541
+IKSVASRGYV	RbsR2_Staphylococcaceae	3	4	33.13233
+IKSKSSRGYV	RbsR2_Streptococcaceae	5	7	29.52182
+IRSTSSRGYV	RbsR2_Streptococcaceae	1	1	40
+IKSRSSRGYV	RbsR2_Streptococcaceae	1	1	40
+[indel within CR tag region]	RbsR3_Bifidobacteriaceae	1	11	30.05175
+[indel within CR tag region]	RbtR_Rhodobacterales	1	4	29.75489
+[indel within CR tag region]	RegR_Streptococcaceae	1	27	23.91349
+IATVSLQKPE	Reut_C5892_Ralstonia 	1	1	40
+IRSVGSNELV	RhaR_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	6	23.71591
+IKSVASNDRV	RhaR_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	4	25.25489
+IKAVGSNDRV	RhaR_Micrococcineae	3	23	22.49545
+VKALGSNEAV	RhaR_Micrococcineae	1	1	40
+MKSVGSNEIV	RhaR_Micrococcineae	1	5	25.59371
+MRSVGSNDKV	RhaR_Mycobacteriaceae	1	2	37
+MKSVGSNEKV	RhaR_Nocardiaceae	1	1	40
+MRSMGSNELV	RhaR_Nocardiaceae	1	4	26.37744
+IKSVGSNDSV	RhaR_Streptomycetaceae	2	8	23.14682
+IKSVGSNDTV	RhaR_Streptomycetaceae	1	6	25.54446
+LKSISSRAPI	RhiR_Enterobacteriales	1	2	38
+LKSLSSHAPL	RhiR_Rhizobiales	1	16	28.5686
+[indel within CR tag region]	RhmR_Chloroflexia	1	1	40
+[indel within CR tag region]	RL3595_Rhizobiales	3	6	33.66015
+no_CRtag	RL3595_Rhizobiales	1	2	38
+LRAVTSRPQI	RL4253 _Rhizobiales	1	11	28.51475
+VRSIGSRGYA	Rmet_4647_Ralstonia  	1	2	36
+DVGSVVLASQ	Rmet_4647_Ralstonia  	1	2	28
+IKSIASRERV	RSc1790_Ralstonia	1	1	40
+no_CRtag	RSc1790_Ralstonia	1	1	40
+LASLASRQLV	RSc1790_Ralstonia	1	1	40
+LISLASRHLV	RSc1790_Ralstonia	1	1	40
+LVSLASREMV	RSc1790_Ralstonia	1	1	40
+[indel within CR tag region]	SAG1808_Streptococcaceae	1	3	32.2386
+IHSRGSRHYV	SAV1329_Streptomycetaceae	1	4	36
+MASVASHRPV	SCO1956_Streptomycetaceae 	1	2	40
+LASPASRYPV	SCO2753_Streptomycetaceae	1	10	30.35592
+[indel within CR tag region]	SCO4158_Streptomycetaceae	1	12	27.20257
+LASASSYRSI	SCO5692_Streptomycetaceae	1	13	30.89066
+LKSNASNDQL	ScrR_Alteromonadales	2	6	34.48592
+LKSTASNDQL	ScrR_Alteromonadales	1	5	31.85753
+LRSTASNDQL	ScrR_Alteromonadales	1	5	31.72653
+errorGettingCRtag	ScrR_Alteromonadales	1	5	32.12653
+IHSSTSRGYI	ScrR_Bacillales	1	2	38
+ISSPTSRGYI	ScrR_Bacillales	1	1	40
+IHSPTSRGYI	ScrR_Bacillales	1	2	40
+ISSKTSRGYI	ScrR_Bacillales	1	2	38
+MRSLSSLGYV	ScrR_Bifidobacteriaceae	6	17	30.92562
+MRSVSSLGYV	ScrR_Bifidobacteriaceae	1	6	30.2386
+LKSRTSRDDV	ScrR_Burkholderia	1	20	28.23622
+[indel within CR tag region]	ScrR_Clostridia-1 	1	3	34.49022
+[indel within CR tag region]	ScrR_Enterobacteriales	1	16	26.4135
+LSSVTSRGYL	ScrR_Lactobacillaceae	1	4	33.13233
+LKSVTSRHSL	ScrR_Lactobacillaceae	1	2	34
+LTSVTSRGYI	ScrR_Lactobacillaceae	1	4	28.50978
+LNSATSRGYL	ScrR_Lactobacillaceae	2	8	32.13233
+LTSPTSRGYL	ScrR_Lactobacillaceae	1	4	31.50978
+LSSPTSRGYI	ScrR_Lactobacillaceae	1	2	35
+MSSKSSRPLV	ScrR_Oceanospirillales_Alteromonadales 	1	4	31.75489
+VKSPMSREKL	ScrR_Pseudomonadaceae	1	2	30
+VKSFMSREKV	ScrR_Pseudomonadaceae	1	2	34
+VKSLMSREKL	ScrR_Pseudomonadaceae	1	2	34
+[indel within CR tag region]	ScrR_Psychromonadaceae_Aeromonadales 	1	8	31.83788
+IRSTSSRGYV	ScrR_Ralstonia	1	2	33
+LKSNASNDQL	ScrR_Shewanellaceae	1	16	34.62921
+ITSAGSRSLV	ScrR_Sphingomonadales 	1	4	30.37744
+IASAGSRELV	ScrR_Sphingomonadales 	1	5	26.49175
+[indel within CR tag region]	ScrR_Staphylococcaceae	1	16	26.86953
+LTSPTSRGYL	ScrR_Streptococcaceae	12	24	30.48655
+errorGettingCRtag	ScrR_Streptococcaceae	1	3	31.3203
+LHSKSSRYGV	ScrR_Vibrionales 	1	4	30.25489
+[indel within CR tag region]	ScrR2_Bacillales	1	5	33.24846
+[indel within CR tag region]	ScrR2_Lactobacillaceae	1	2	32
+IRSVASRERV	Sde_0506_Alteromonadales	1	6	32.20252
+IAGTMSREQV	SgaR_Enterobacteriales	2	8	27.75889
+[indel within CR tag region]	SgaR_Enterobacteriales	1	4	28.75489
+ISGTMSREQV	SgaR_Enterobacteriales	1	4	27.75489
+LQGTMSRDLV	SgaR_Enterobacteriales	1	2	34
+LTSAMSREKV	SgaR_Enterobacteriales	1	2	34
+LQGSMSREMV	SgaR_Enterobacteriales	1	4	30.75489
+LQGSMSRELV	SgaR_Enterobacteriales	1	4	27.50978
+LQGSMSREQV	SgaR_Enterobacteriales	1	6	28.80843
+LAGTMSRKMV	SgaR_Pasteurellales	1	4	27.75489
+LNGAMSRELV	SgaR_Psychromonadaceae_Aeromonadales 	2	8	26.1573
+LAGTMSRDQV	SgaR_Psychromonadaceae_Aeromonadales 	1	4	36.37744
+LAGTMSRELV	SgaR_Vibrionales	1	12	28.9176
+ITSKASRRTK	SgaR2_Bifidobacteriaceae	1	2	30
+ITSIASRRAK	SgaR2_Bifidobacteriaceae	1	2	34
+IRSIASRDKV	SMb20014_Rhizobiales	1	2	33
+IKSPASRPLV	SMb20014_Rhizobiales	1	1	40
+IKSVASRALV	SMb20014_Rhizobiales	1	1	40
+IKSVASRTLV	SMb20014_Rhizobiales	1	1	40
+QSSISSRKGI	SMb20537_Rhizobiales	1	2	28
+QASVSSRPGI	SMb20537_Rhizobiales	3	6	27.85685
+IATVSLASED	SMb20537_Rhizobiales	1	2	32
+LAGESSRGSF	SMb20667_Rhizobiales	4	19	30.22371
+errorGettingCRtag	SMb20667_Rhizobiales	1	4	33
+LTGESSRGSF	SMb20667_Rhizobiales	1	6	28.10848
+IESIASREKV	SMb20717_Rhizobiales	1	16	29.08877
+IRSIGSRPDV	SMb21598_Rhizobiales	4	8	31.37744
+IHSIGSRADV	SMb21598_Rhizobiales	1	3	32.2386
+ISNGRVNRVL	SMb21598_Rhizobiales	1	2	36
+IKSISSKGRM	SMb21706_Rhizobiales	1	2	34
+MRSVASKGRM	SMb21706_Rhizobiales	1	2	35
+errorGettingCRtag	SMb21706_Rhizobiales	2	4	33.06617
+IHSISSKGRM	SMb21706_Rhizobiales	1	6	30.44181
+IHSVSSKGRM	SMb21706_Rhizobiales	1	1	40
+LKGITSRPDI	SMc04260_Rhizobiales	2	6	27.03259
+LKGVTSRPEI	SMc04260_Rhizobiales	1	2	38
+errorGettingCRtag	SMc04260_Rhizobiales	1	2	33
+LKGVTSRPDI	SMc04260_Rhizobiales	2	5	30.86144
+MESRPSKASV	SmoR_Rhizobiales	1	3	28.31378
+MDSRPSKASV	SmoR_Rhizobiales	1	2	30
+MESRPSKMSV	SmoR_Rhizobiales	1	2	34
+MESRPSKSSV	SmoR_Rhizobiales	1	1	40
+MESRPSKQSV	SmoR_Rhodobacterales	1	2	36
+MESRPSKNSV	SmoR_Rhodobacterales	1	2	34
+MESRPSKDSV	SmoR_Rhodobacterales	2	4	29.32105
+MESRPSRERV	SmoR_Rhodobacterales	1	2	32
+MESRPSKSSV	SmoR_Rhodobacterales	1	3	28.98045
+MESRPSKTSV	SmoR_Rhodobacterales	1	2	31
+VASKAARGTV	SocR_Rhizobiales	1	4	32.37744
+VASKAARGVV	SocR_Rhizobiales	2	8	26.13233
+VKSRAARGYV	SocR_Rhodobacterales	1	1	40
+LQSTASRDQV	SPO0590_Rhodobacterales	1	7	24.74999
+LASTASRDQV	SPO0590_Rhodobacterales	1	4	32.13233
+LESTASRDKV	SPO0590_Rhodobacterales	1	4	31.75489
+LASTASRSQV	SPO0590_Rhodobacterales	1	2	38
+LASTASRDRV	SPO0590_Rhodobacterales	1	4	30.75489
+LVSAISRHVV	SPOA0336_Rhodobacterales	1	4	36.37744
+LNSAISRDMV	SPOA0336_Rhodobacterales	1	2	36
+MKSVASRAYV	STM1555_Enterobacteriales 	1	2	37
+IKSTASRAWV	STM1555_Enterobacteriales 	1	1	40
+MKSTASRAYV	STM1555_Enterobacteriales 	1	1	40
+MASESSRPVV	SuxR_Xanthomonadales	1	4	36.37744
+LHSLISRSIV	TalR_Comamonadaceae	1	4	34.75489
+LHSLISRTLV	TalR_Comamonadaceae	1	3	36.32682
+LESPMSRKIV	TalR_Enterobacteriales	1	3	32.65363
+LESPMSRQLV	TalR_Enterobacteriales	1	4	35.37744
+LHSLISRGMV	TalR_Ralstonia	1	4	33.75489
+LKSPTSRPEV	ThuR_Rhizobiales	3	10	24.25375
+LRSPTSRPEV	ThuR_Rhizobiales	1	5	31.13561
+LRSATSRPEV	ThuR_Rhizobiales	1	3	30.402
+LASTSSRPVI	TreR_Alteromonadales	1	8	27.39591
+LNSASSRPLI	TreR_Alteromonadales	1	5	32.57946
+LTSTSSRPLI	TreR_Alteromonadales	1	3	34.49022
+IKGKSSRSGV	TreR_Enterobacteriales	4	4	39.18872
+IKGKSSRGSV	TreR_Enterobacteriales	2	2	38
+INGKSSRPMV	TreR_Enterobacteriales	1	1	40
+IKSKSSRNSV	TreR_Enterobacteriales	1	1	40
+ILGKSSRPKV	TreR_Psychromonadaceae_Aeromonadales 	3	5	32.10656
+ILGKSSRPNV	TreR_Psychromonadaceae_Aeromonadales 	1	2	35
+LASTSSRPLI	TreR_Shewanellaceae	1	5	33.49748
+LASKSSRPLI	TreR_Shewanellaceae	1	6	30.86336
+IDSIASRPLV	TreR_Thermoanaerobacterales	1	2	37
+IKTVTSRGYI	TreR_Thermoanaerobacterales	1	2	36
+IDSIASRPWV	TreR_Thermoanaerobacterales	1	2	37
+ILGKSSRPKV	TreR_Vibrionales	7	12	33.036
+errorGettingCRtag	TreR_Vibrionales	1	1	40
+IRSVASKQRF	UdhR_Burkholderia	3	10	27.88504
+INSIGSKKRF	UdhR_Burkholderia	1	3	31.40852
+IESIASRGYV	UgpR_Thermotogales	4	4	39.18872
+IESTASRGYV	UgpR_Thermotogales	1	2	35
+IESIASRNNV	UgpR_Thermotogales	1	2	36
+IESIASRGNV	UgpR_Thermotogales	1	1	40
+LKSIASRPAV	UriR_Corynebacteriaceae	1	3	28.32682
+[indel within CR tag region]	UriR_Enterococcaceae	1	1	40
+errorGettingCRtag	UriR_Enterococcaceae	1	2	33
+[indel within CR tag region]	UriR_Listeriaceae	1	4	39.18872
+IKSAGDRGDV	UxaR_Bacteroidaceae	5	10	28.95614
+35SAGDRGDV	UxaR_Bacteroidaceae	1	2	30
+IKSYSSKPLV	UxuR_Bacillales	2	10	32.79356
+LKSYSSKPLV	UxuR_Bacillales	1	2	38
+IVSVGDRGRV	UxuR_Bacteroidaceae	1	1	36
+LTSVGDRGRV	UxuR_Bacteroidaceae	1	1	36
+35SVGDRGRV	UxuR_Bacteroidaceae	1	1	36
+IYSIASRQSV	UxuR_Clostridia-3	1	2	37
+IYSIASRARV	UxuR_Clostridia-3	1	4	30
+IYSIASRPNV	UxuR_Clostridia-3	2	14	29.73683
+IYSIASRTKV	UxuR_Clostridia-3	1	3	33.57193
+IYSIASRAKV	UxuR_Clostridia-3	1	4	32.37744
+IYSIASRDKV	UxuR_Clostridia-3	1	5	28.44664
+IYSIASREKV	UxuR_Clostridia-3	1	8	26.58063
+DVSTVVFVSE	VCA0673_Vibrionales	1	3	30.402
+SKSQSSRSSV	VCA0673_Vibrionales	2	5	28.2627
+SKSQSSRSSA	VCA0673_Vibrionales	1	1	40
+ISSTASRAYV	VF_1255_Vibrionales 	1	1	44
+IKSTASRTYV	VF_1255_Vibrionales 	1	1	44
+INSTASRAYV	VF_1255_Vibrionales 	1	1	44
+MKSTASRHYV	VF_1255_Vibrionales 	1	1	44
+MKSTASRSYV	VF_1255_Vibrionales 	1	1	44
+[indel within CR tag region]	VP2396_Vibrionales	1	14	27.47206
+IKSQSSRPTV	VVA0138_Vibrionales	1	6	34.10417
+IKSVASRENV	XCC2209_Xanthomonadales	1	6	24.64933
+IKSVASRDNV	XCC2209_Xanthomonadales	2	16	23.6143
+IKSVASRQHV	XCC4129_Xanthomonadales 	1	2	40
+IVTNISRGLV	XltR_Enterobacteriales	1	1	40
+ITTTISRELV	XltR_Oceanospirillales_Alteromonadales 	1	5	31.18072
+ITTTISREKV	XltR_Oceanospirillales_Alteromonadales 	1	6	30.58148
+LSSSISREKV	XltR_Shewanellaceae	1	4	33.75489
+LASSISREKV	XltR_Shewanellaceae	1	4	32.37744
+LSSLSSKADV	XosR_Bifidobacteriaceae	2	12	23.68692
+LASLASKADV	XosR_Bifidobacteriaceae	1	5	27.55558
+errorGettingCRtag	XosR_Bifidobacteriaceae	1	2	31
+VHSLADRPGV	XylR_Rhizobiales	6	15	30.01725
+LKSLADRPGV	XylR_Rhizobiales	1	1	40
+LRSLADRPGV	XylR_Rhizobiales	1	1	40
+[indel within CR tag region]	y3436_Enterobacteriales 	1	2	36
+IYSKSSRTNI	YcjW_Enterobacteriales	1	4	34.25489
+IYSKSSRANI	YcjW_Listeriaceae	1	9	30.15037

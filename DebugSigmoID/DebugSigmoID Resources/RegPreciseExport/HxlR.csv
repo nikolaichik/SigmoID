@@ -1,0 +1,54 @@
+Regulog statistics:
+RegulogName	genomes#	genomesWithoutCRtag#	CRtag#	VariablePositions#
+YodB/CatR – Bacillales	9	0	6	6
+HxlR – Bacillales	6	0	5	4
+YtcD – Bacillales	5	0	3	1
+DVU2423 – Desulfovibrionales	5	0	4	3
+YybR/YdeP – Bacillales	8	0	6	3
+QorR – Enterobacteriales	8	1	4	2
+QorR – Corynebacteriaceae	1	0	1	0
+QorR – Nocardiaceae	3	0	1	0
+QorR – Streptomycetaceae	4	0	3	2
+QorR – Micrococcineae	4	1	2	0
+QorR – Frankineae/Propionibacterineae/Pseudonocardiaceae	3	0	3	2
+
+CR tag statistics:
+CRtag	TFname	GenomesPresentIn#	TFBS#	InfoBits
+ESQKLT	YodB_CatR_Bacillales	1	4	22.13233
+NSGRLS	YodB_CatR_Bacillales	3	14	22.01955
+VGRLSE	YodB_CatR_Bacillales	1	8	23.86573
+IGRVSE	YodB_CatR_Bacillales	1	4	24.13233
+IGRLSE	YodB_CatR_Bacillales	2	10	22.40502
+IGRLSD	YodB_CatR_Bacillales	1	2	34
+DTQKLV	HxlR_Bacillales	1	1	28
+DTHKLV	HxlR_Bacillales	1	1	28
+GTQRLV	HxlR_Bacillales	2	2	26
+NTQRLV	HxlR_Bacillales	1	1	28
+HTQKLT	HxlR_Bacillales	1	1	28
+NTQKLT	YtcD_Bacillales	3	6	29.39991
+DTQKLT	YtcD_Bacillales	1	2	30
+STQKLT	YtcD_Bacillales	1	2	28
+NTQKLT	DVU2423_Desulfovibrionales	2	4	29.13233
+ATQKLT	DVU2423_Desulfovibrionales	1	2	34
+DTERLT	DVU2423_Desulfovibrionales	1	2	30
+STQKLT	DVU2423_Desulfovibrionales	1	1	40
+STQRLT	YybR_YdeP_Bacillales	2	8	29.06894
+NTQRLT	YybR_YdeP_Bacillales	1	2	34
+GTQKLT	YybR_YdeP_Bacillales	2	5	30.48658
+GTQRLS	YybR_YdeP_Bacillales	1	2	34
+GTQRLT	YybR_YdeP_Bacillales	1	2	34
+RTQRLT	YybR_YdeP_Bacillales	1	2	32
+GSEKLA	QorR_Enterobacteriales	5	9	31.58675
+GSERLA	QorR_Enterobacteriales	1	2	33
+no_CRtag	QorR_Enterobacteriales	1	2	35
+GSEKLS	QorR_Enterobacteriales	1	2	35
+GSDRLS	QorR_Corynebacteriaceae	1	2	33
+GSERLS	QorR_Nocardiaceae	1	6	33.16341
+SSEKLT	QorR_Streptomycetaceae	1	2	36
+RSEKLT	QorR_Streptomycetaceae	2	4	31.37744
+GSEKLA	QorR_Streptomycetaceae	1	2	29
+GSEKLA	QorR_Micrococcineae	3	5	27.10083
+no_CRtag	QorR_Micrococcineae	1	2	32
+GAPKLT	QorR_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	2	31
+RSPKLT	QorR_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	2	31
+RTPKLT	QorR_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	2	33

@@ -1,0 +1,605 @@
+Regulog statistics:
+RegulogName	genomes#	genomesWithoutCRtag#	CRtag#	VariablePositions#
+PdxR – Lactobacillaceae	2	0	2	2
+YdfD/YisV – Bacillales	5	0	5	2
+GabR – Various betaproteobacteria	1	0	1	0
+EutR – Rhizobiales	6	0	3	5
+YrdX – Burkholderia	3	0	1	0
+PdxW – Ralstonia	2	0	1	0
+DVU0030 – Desulfovibrionales	7	0	6	6
+TERTU_3902 – Oceanospirillales/Alteromonadales	1	0	1	0
+TauR2 – Rhodobacterales	2	1	2	0
+Cpin_2755 – Sphingobacteria	2	0	2	3
+PdxR – Streptococcaceae	7	0	3	1
+MSMEG_4140 – Mycobacteriaceae	5	0	2	6
+PdxW – Sphingobacteria	2	0	2	3
+TauR2 – Rhizobiales	1	0	1	0
+PdxR2 – Ralstonia	1	0	1	0
+PdxR2 – Alcaligenaceae	2	0	1	0
+PdxR2 – Micrococcineae	2	0	2	1
+PdxR2 – Xanthomonadales	1	0	1	0
+PdxW – Streptomycetaceae	4	0	2	1
+PdxW – Various betaproteobacteria	1	1	1	0
+PdxW – Mycobacteriaceae	2	0	2	1
+GabR – Burkholderia	8	0	2	1
+PdxR3 – Nocardiaceae	4	0	1	0
+PdxR3 – Comamonadaceae	1	0	1	0
+Fjoh_4822 – Flavobacteria	5	0	4	6
+Cpin_4623 – Sphingobacteria	3	0	3	6
+Cpin_6695 – Sphingobacteria	1	0	1	0
+Fjoh_0145 – Flavobacteria	1	0	1	0
+PdxQ – Oceanospirillales/Alteromonadales	1	0	1	0
+YhdI/YdeL – Staphylococcaceae	1	0	1	0
+PdxW2 – Pseudomonadaceae	6	0	2	1
+PdxR2 – Enterobacteriales	5	0	2	1
+BC3039 – Bacillales	1	0	1	0
+PdxR3 – Mycobacteriaceae	5	0	2	1
+PdxR3 – Frankineae/Propionibacterineae/Pseudonocardiaceae	3	0	1	0
+PdxR3 – Caulobacterales	1	0	1	0
+PdxR3 – Enterobacteriales	3	0	2	1
+PdxR3 – Rhodobacterales	1	0	1	0
+YrdX3 – Sphingomonadales	1	0	1	0
+Bcep18194_A4479 – Burkholderia	1	0	1	0
+BPSL1086 – Burkholderia	8	0	2	6
+Vapar_1337 – Comamonadaceae	1	0	1	0
+BACOVA_03038 – Bacteroidaceae	1	0	1	0
+PA2100 – Pseudomonadaceae	2	0	2	1
+PP0486 – Pseudomonadaceae	3	0	2	6
+YcxD – Clostridia-1	2	0	2	4
+YcxD – Bacillales	5	0	3	3
+GabR – Moraxellaceae 	2	0	1	0
+TauR – Comamonadaceae	4	0	4	3
+GabR – Staphylococcaceae	1	0	1	0
+GabR – Bacillales	4	0	2	1
+PdxR – Enterococcaceae	2	0	1	0
+PdxR – Listeriaceae	4	0	1	0
+YhdI/YdeL – Bacillales	4	0	3	3
+PdxR2(2) – Micrococcineae	1	0	1	0
+PdxR2 – Mycobacteriaceae	1	0	1	0
+PdxR – Corynebacteriaceae	3	0	2	1
+PdxR – Frankineae/Propionibacterineae/Pseudonocardiaceae	1	0	1	0
+PdxR – Micrococcineae	3	0	3	2
+YrdX3 – Xanthomonadales	1	0	1	0
+YrdX3(2) – Ralstonia	1	0	1	0
+YrdX3 – Caulobacterales	3	0	3	1
+YjiR – Pseudomonadaceae	6	0	1	0
+PdxR – Clostridia-3	14	0	5	3
+Spro_2017 – Enterobacteriales	1	0	1	0
+Veis_0044 – Comamonadaceae	1	0	1	0
+RHA1_ro08093 – Nocardiaceae	1	0	1	0
+PdxW2 – Comamonadaceae	1	0	1	0
+PdxW – Rhodobacterales	1	0	1	0
+PdxW – Rhodospirillales	2	0	1	0
+PdxW – Desulfuromonadales	1	0	1	0
+PdxQ – Bacillales	2	0	2	1
+CD3353 – Clostridia-2	1	0	1	0
+DVU2086 – Desulfovibrionales	1	0	1	0
+BH1940 – Bacillales	1	0	1	0
+PdxQ – Desulfuromonadales	1	0	1	0
+PdxW – Bacillales	2	1	2	0
+PdxQ – Desulfovibrionales	2	0	2	2
+PdxQ – Clostridia-1	2	0	2	2
+Veis_4721 – Comamonadaceae	1	0	1	0
+SPOA0379 – Rhodobacterales	2	0	2	5
+Bpet3338 – Alcaligenaceae	1	0	1	0
+Daci_0288 – Comamonadaceae	1	0	1	0
+Ent638_1108 – Enterobacteriales	1	0	1	0
+Sbal_3352 – Shewanellaceae	3	0	2	6
+EAM_2333 – Enterobacteriales	1	0	1	0
+AHA_3778 – Psychromonadaceae/Aeromonadales	2	0	2	6
+PdxR2 – Rhizobiales	1	0	1	0
+PdxR2 – Sphingomonadales	1	0	1	0
+PdxR2 – Rhodobacterales	2	0	1	0
+PdxR – Pseudomonadaceae	2	0	2	1
+PdxW2 – Various betaproteobacteria	1	0	1	0
+Bcep1808_4966 – Burkholderia	2	0	2	6
+YdeF – Bacillales	2	0	2	1
+Spro_0112 – Enterobacteriales	1	0	1	0
+XAC0737 – Xanthomonadales	2	0	2	1
+PE36_10153 – Psychromonadaceae/Aeromonadales	1	0	1	0
+ACIAD3613 – Moraxellaceae 	2	0	2	6
+VV21354 – Vibrionales	3	0	3	6
+CPS_3393 – Alteromonadales	1	0	1	0
+Mmwyl1_0910 – Oceanospirillales/Alteromonadales	2	0	2	1
+Daro_1932 – Various betaproteobacteria	2	0	2	6
+BAV2320 – Alcaligenaceae	3	0	2	1
+sll5086 – Cyanobacteria	2	0	1	0
+Spro_3347 – Enterobacteriales	1	0	1	0
+PdxQ3 – Mycobacteriaceae	1	0	1	0
+YrdX – Ralstonia	1	0	1	0
+YdcR – Moraxellaceae 	2	0	1	0
+H16_B1468 – Ralstonia	4	0	1	0
+BPSS0970 – Burkholderia	8	0	4	6
+OapR – Rhodospirillales	1	0	1	0
+OapR – Rhizobiales	1	0	1	0
+OapR – Burkholderia	2	0	1	0
+OapR – Alcaligenaceae	3	0	1	0
+CV4096 – Various betaproteobacteria	1	0	1	0
+PdxW2 – Oceanospirillales/Alteromonadales	1	0	1	0
+PdxW – Enterobacteriales	2	1	2	0
+PdxW – Alteromonadales	2	0	2	1
+PdxW – Shewanellaceae	1	0	1	0
+Bxe_A4302 – Burkholderia	1	0	1	0
+BBta_7471 – Rhizobiales	1	0	1	0
+AB57_0242 – Moraxellaceae 	1	0	1	0
+Mmwyl1_4437 – Oceanospirillales/Alteromonadales	1	0	1	0
+PP2642 – Pseudomonadaceae	1	0	1	0
+Daci_4286 – Comamonadaceae	1	0	1	0
+CPS_4612 – Alteromonadales	3	0	3	6
+MED92_15328 – Oceanospirillales/Alteromonadales	2	0	2	1
+PdxR – Rhizobiales	2	0	1	0
+PdxR – Various betaproteobacteria	1	0	1	0
+PdxR – Rhodospirillales	1	0	1	0
+PdxR – Enterobacteriales	1	0	1	0
+PdxR – Comamonadaceae	2	0	2	2
+PdxR – Alcaligenaceae	2	0	2	2
+PdxR – Staphylococcaceae	7	2	6	2
+PdxR – Bacillales	2	0	1	0
+PdxR – Pasteurellales	3	0	3	5
+PdxW – Caulobacterales	1	0	1	0
+PdxQ – Comamonadaceae	1	0	1	0
+PdxQ – Alcaligenaceae	1	0	1	0
+PdxQ – Ralstonia	2	0	2	1
+PdxQ – Rhizobiales	1	0	1	0
+PdxQ – Rhodospirillales	1	0	1	0
+PdxQ – Rhodobacterales	1	0	1	0
+CV1517 – Various betaproteobacteria	1	0	1	0
+PFL_2191 – Pseudomonadaceae	1	0	1	0
+HCH_03332 – Oceanospirillales/Alteromonadales	1	0	1	0
+Bamb_3558 – Burkholderia	4	0	1	0
+Bcav_0410 – Micrococcineae	1	0	1	0
+Bcav_0044 – Micrococcineae	1	0	1	0
+SACE_6928 – Frankineae/Propionibacterineae/Pseudonocardiaceae	2	0	2	6
+Nfa21130 – Nocardiaceae	4	0	3	6
+SCO4836 – Streptomycetaceae	4	0	2	6
+PdxR2 – Deinococcus-Thermus	1	0	1	0
+YdfD/YisV – Clostridia-1	2	0	2	1
+YdfD/YisV – Lactobacillaceae	1	0	1	0
+GabR2 – Pseudomonadaceae	2	0	1	0
+EF0117 – Enterococcaceae	2	0	2	5
+CV1900 – Various betaproteobacteria	1	0	1	0
+YdcR – Oceanospirillales/Alteromonadales	2	0	2	1
+YdcR – Psychromonadaceae/Aeromonadales	2	0	1	0
+YdcR – Shewanellaceae	5	0	2	1
+YdcR – Vibrionales	6	0	6	4
+YdcR – Pseudomonadaceae	6	0	3	2
+YdcR – Enterobacteriales	10	0	3	1
+Smlt0590 – Xanthomonadales	1	0	1	0
+AB57_2651 – Moraxellaceae 	1	0	1	0
+Sbal_1936 – Shewanellaceae	1	0	1	0
+YE4144 – Enterobacteriales	2	0	2	1
+BAV2922 – Alcaligenaceae	3	0	2	6
+H16_A2655 – Ralstonia	6	0	2	4
+YjiR – Enterobacteriales	5	0	2	1
+Mll0059 – Rhizobiales	6	0	2	1
+CLOBOL_00921 – Clostridia-3	1	0	1	0
+CD2285 – Clostridia-2	1	0	1	0
+CBY_0654 – Clostridia-1	2	0	2	1
+LAR_1807 – Lactobacillaceae	2	0	2	5
+SMU640c – Streptococcaceae	1	0	1	0
+PdxQ2 – Comamonadaceae	1	0	1	0
+PdxQ2 – Rhizobiales	1	0	1	0
+PdxQ2 – Caulobacterales	2	0	1	0
+PdxQ – Streptomycetaceae	4	1	4	6
+PdxQ – Frankineae/Propionibacterineae/Pseudonocardiaceae	1	0	1	0
+PdxQ – Nocardiaceae	1	0	1	0
+PdxQ – Mycobacteriaceae	2	0	2	6
+PdxQ – Micrococcineae	4	0	1	0
+BPSS1200 – Burkholderia	6	0	2	6
+PA0268 – Pseudomonadaceae	3	0	2	5
+PdxW2 – Burkholderia	6	0	2	1
+PdxW2 – Moraxellaceae 	1	0	1	0
+GabR – Psychromonadaceae/Aeromonadales	1	0	1	0
+GabR – Alcaligenaceae	3	0	1	0
+TauR – Oceanospirillales/Alteromonadales	2	0	2	1
+TauR – Psychromonadaceae/Aeromonadales	1	0	1	0
+TauR – Ralstonia	3	0	1	0
+TauR – Burkholderia	3	0	1	0
+TauR – Rhizobiales	1	0	1	0
+TauR – Enterobacteriales	1	0	1	0
+H16_B1411 – Ralstonia	2	0	2	5
+EbA483 – Various Betaproteobacteria	1	0	1	0
+Bpro_5165 – Comamonadaceae	1	0	1	0
+Bpet3002 – Alcaligenaceae	1	0	1	0
+Swit_4344 – Sphingomonadales	1	0	1	0
+Blr6977 – Rhizobiales	1	0	1	0
+H16_B0275 – Ralstonia	2	0	2	6
+Bamb_6386 – Burkholderia	3	0	3	6
+PdxQ3 – Rhizobiales	3	0	2	1
+PdxQ3 – Oceanospirillales/Alteromonadales	1	0	1	0
+PdxQ3 – Rhodobacterales	2	0	2	1
+PdxQ3 – Nocardiaceae	1	0	1	0
+PdxQ3 – Comamonadaceae	2	0	2	2
+PdxQ3 – Ralstonia	1	0	1	0
+PdxQ3 – Burkholderia	3	0	2	3
+PdxQ3 – Pseudomonadaceae	2	0	1	0
+Bamb_4265 – Burkholderia	4	0	2	4
+Mmwyl1_0258 – Oceanospirillales/Alteromonadales	1	0	1	0
+Smlt1075 – Xanthomonadales	1	0	1	0
+ACIAD1897 – Moraxellaceae	2	0	2	6
+Pden_4836 – Rhodobacterales	1	0	1	0
+PP2948 – Pseudomonadaceae	2	0	2	4
+EutR – Oceanospirillales/Alteromonadales	1	0	1	0
+EutR – Comamonadaceae	1	0	1	0
+Tola_2572 – Psychromonadaceae/Aeromonadales	3	0	3	6
+EutR – Pseudomonadaceae	1	0	1	0
+VSAL_I1306 – Vibrionales	2	0	2	5
+EutR – Burkholderia	4	0	2	1
+PdxW – Burkholderia	8	5	3	1
+PdxW – Alcaligenaceae	3	3	1	0
+PdxW – Comamonadaceae	2	2	1	0
+TauR – Nocardiaceae	2	0	1	0
+PdxR3 – Streptomycetaceae	4	0	2	2
+
+CR tag statistics:
+CRtag	TFname	GenomesPresentIn#	TFBS#	InfoBits
+RDRSRG	PdxR_Lactobacillaceae	1	2	34
+RNRSVG	PdxR_Lactobacillaceae	1	2	34
+RNRSKG	YdfD_YisV_Bacillales	1	4	27.75489
+RNRSGR	YdfD_YisV_Bacillales	1	4	27.88722
+RNRSQG	YdfD_YisV_Bacillales	1	2	39
+RNRSTG	YdfD_YisV_Bacillales	1	2	35
+RNRSSG	YdfD_YisV_Bacillales	1	2	41
+RGRNVG	GabR_Various betaproteobacteria	1	1	48
+RSVQIG	EutR_Rhizobiales	4	15	14.92777
+RSVQVG	EutR_Rhizobiales	1	6	14.64281
+LRAYV	EutR_Rhizobiales	1	4	16.07594
+RNYTAG	YrdX_Burkholderia	1	7	18.92059
+RARNRQ	PdxW_Ralstonia	1	3	54.56541
+QIATRS	DVU0030_Desulfovibrionales	1	2	31
+RSIAPR	DVU0030_Desulfovibrionales	2	4	23.37744
+RSLAPR	DVU0030_Desulfovibrionales	1	4	27.50978
+RSISPR	DVU0030_Desulfovibrionales	1	4	24.88722
+RSVSPK	DVU0030_Desulfovibrionales	1	1	42
+RAVSPR	DVU0030_Desulfovibrionales	1	2	27
+TREL	TERTU_3902_Oceanospirillales_Alteromonadales	1	1	48
+errorGettingCRtag	TauR2_Rhodobacterales	1	2	35
+RSRNDR	TauR2_Rhodobacterales	1	2	33
+RNRTPR	Cpin_2755_Sphingobacteria	1	1	60
+RHARPR	Cpin_2755_Sphingobacteria	1	1	60
+RSKDPK	PdxR_Streptococcaceae	5	10	28
+RSKDNK	PdxR_Streptococcaceae	1	2	28
+RSKDLK	PdxR_Streptococcaceae	1	2	28
+RARNQG	MSMEG_4140_Mycobacteriaceae	4	5	41.97555
+ATVAGT	MSMEG_4140_Mycobacteriaceae	1	4	30.13233
+RNRIVG	PdxW_Sphingobacteria	1	1	66
+RHRRTG	PdxW_Sphingobacteria	1	1	66
+RSRNQR	TauR2_Rhizobiales	1	3	30.15037
+RNRNGR	PdxR2_Ralstonia	1	2	30
+RNRNGR	PdxR2_Alcaligenaceae	1	3	29.24511
+RHRNGR	PdxR2_Micrococcineae	1	2	22
+RNRNGR	PdxR2_Micrococcineae	1	2	30
+RNRNGR	PdxR2_Xanthomonadales	1	2	28
+RNPNGR	PdxW_Streptomycetaceae	3	13	18.93036
+RNANGR	PdxW_Streptomycetaceae	1	4	21.75489
+[indel within CR tag region]	PdxW_Various betaproteobacteria	1	1	66
+RNANGR	PdxW_Mycobacteriaceae	1	2	28
+RNPNGR	PdxW_Mycobacteriaceae	1	2	32
+RARNTG	GabR_Burkholderia	7	14	34.25642
+RGRNTG	GabR_Burkholderia	1	2	36
+RSRTQG	PdxR3_Nocardiaceae	1	16	17.68932
+LTTVSG	PdxR3_Comamonadaceae	1	4	30.13233
+IRNTNK	Fjoh_4822_Flavobacteria	1	1	66
+RHRNAN	Fjoh_4822_Flavobacteria	1	1	66
+RNRNAN	Fjoh_4822_Flavobacteria	1	1	66
+RHRNPN	Fjoh_4822_Flavobacteria	2	2	56
+TRNTNR	Cpin_4623_Sphingobacteria	1	1	66
+RHRKPN	Cpin_4623_Sphingobacteria	1	1	66
+RNRNAN	Cpin_4623_Sphingobacteria	1	1	66
+TYEY	Cpin_6695_Sphingobacteria	1	1	44
+RSLNPK	Fjoh_0145_Flavobacteria	1	2	30
+RSRTRG	PdxQ_Oceanospirillales_Alteromonadales	1	1	66
+RSQNPR	YhdI_YdeL_Staphylococcaceae	1	1	48
+RSRNTG	PdxW2_Pseudomonadaceae	1	1	54
+RSRNVG	PdxW2_Pseudomonadaceae	5	5	45.03756
+RNRNGR	PdxR2_Enterobacteriales	4	16	20.8714
+RNPNGR	PdxR2_Enterobacteriales	1	2	28
+KRSTGK	BC3039_Bacillales	1	4	32.75489
+RSRTQG	PdxR3_Mycobacteriaceae	1	1	66
+RSRTRG	PdxR3_Mycobacteriaceae	4	5	58.10656
+RSRTRG	PdxR3_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	3	45.7223
+RSRTQG	PdxR3_Caulobacterales	1	1	66
+RSRTQG	PdxR3_Enterobacteriales	2	2	57
+RSRTHG	PdxR3_Enterobacteriales	1	1	66
+RARIQG	PdxR3_Rhodobacterales	1	1	66
+RDLTGR	YrdX3_Sphingomonadales	1	2	40
+TVSTQS	Bcep18194_A4479_Burkholderia	1	2	41
+RSRFRG	BPSL1086_Burkholderia	7	13	63.28791
+ATVVGF	BPSL1086_Burkholderia	1	2	72
+ADRG	Vapar_1337_Comamonadaceae	1	1	48
+RSLNPK	BACOVA_03038_Bacteroidaceae	1	1	36
+RTAGVG	PA2100_Pseudomonadaceae	1	1	48
+RTIGVG	PA2100_Pseudomonadaceae	1	1	48
+RTPGVG	PP0486_Pseudomonadaceae	2	7	23.89015
+DPGTGR	PP0486_Pseudomonadaceae	1	4	24.13233
+TSKGPQ	YcxD_Clostridia-1	1	1	54
+RNKSPK	YcxD_Clostridia-1	1	1	54
+RSKSPK	YcxD_Bacillales	3	3	47.57193
+RSKSER	YcxD_Bacillales	1	1	54
+RSISPQ	YcxD_Bacillales	1	1	54
+RSRNTG	GabR_Moraxellaceae 	1	3	42.49022
+RGRIER	TauR_Comamonadaceae	1	3	30.81704
+RARIQR	TauR_Comamonadaceae	1	3	29.23208
+RSRNPR	TauR_Comamonadaceae	1	2	34
+RSRNAR	TauR_Comamonadaceae	1	3	26.72882
+RSINER	GabR_Staphylococcaceae	1	1	36
+RSVNER	GabR_Bacillales	3	3	36
+RSINER	GabR_Bacillales	1	1	36
+RNRSRG	PdxR_Enterococcaceae	1	5	29.55041
+RNRSQG	PdxR_Listeriaceae	1	8	36
+RSLTPR	YhdI_YdeL_Bacillales	1	1	48
+RSQTPR	YhdI_YdeL_Bacillales	2	3	41.57193
+RSKNSR	YhdI_YdeL_Bacillales	1	2	37
+RSRGPG	PdxR2(2	1	1	60
+RSRSQG	PdxR2_Mycobacteriaceae	1	1	60
+RSRGVG	PdxR_Corynebacteriaceae	1	1	60
+RSRGRG	PdxR_Corynebacteriaceae	2	2	58
+RSRGAG	PdxR_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	1	60
+RSRGER	PdxR_Micrococcineae	1	1	60
+RSRGPR	PdxR_Micrococcineae	1	1	60
+RSRGRG	PdxR_Micrococcineae	1	1	60
+RDLTGA	YrdX3_Xanthomonadales	1	1	48
+RDLTSG	YrdX3(2	1	1	48
+RDFTAG	YrdX3_Caulobacterales	1	1	66
+RDFTTG	YrdX3_Caulobacterales	1	1	66
+RDFTVG	YrdX3_Caulobacterales	1	1	66
+RSLSPK	YjiR_Pseudomonadaceae	1	6	48.22999
+RSTIPK	PdxR_Clostridia-3	3	3	40.47719
+RSRSPC	PdxR_Clostridia-3	6	8	40.04923
+RSRSPG	PdxR_Clostridia-3	1	1	54
+RSRSPY	PdxR_Clostridia-3	3	7	39.78831
+RSVIPK	PdxR_Clostridia-3	1	2	47
+ATYA	Spro_2017_Enterobacteriales	1	1	40
+QRNT	Veis_0044_Comamonadaceae	1	3	47.39549
+RRNTGS	RHA1_ro08093_Nocardiaceae	1	2	52
+RARNVG	PdxW2_Comamonadaceae	1	1	54
+RSRMRG	PdxW_Rhodobacterales	1	1	54
+RARNRG	PdxW_Rhodospirillales	1	2	49
+RSRNPR	PdxW_Desulfuromonadales	1	2	30
+RSRNTR	PdxQ_Bacillales	1	2	41
+RSRNKR	PdxQ_Bacillales	1	1	42
+RSRNNG	CD3353_Clostridia-2	1	1	66
+LNTVSG	DVU2086_Desulfovibrionales	1	1	54
+QRNVGA	BH1940_Bacillales	1	2	52
+RSRNQG	PdxQ_Desulfuromonadales	1	1	36
+RSKNPR	PdxW_Bacillales	1	1	36
+no_CRtag	PdxW_Bacillales	1	1	36
+RGRNPR	PdxQ_Desulfovibrionales	1	1	36
+RGKNPG	PdxQ_Desulfovibrionales	1	1	36
+RSRNAG	PdxQ_Clostridia-1	1	1	36
+RGRNPG	PdxQ_Clostridia-1	1	1	36
+TRATGA	Veis_4721_Comamonadaceae	1	1	60
+RSRTVG	SPOA0379_Rhodobacterales	1	2	44
+LTTVAG	SPOA0379_Rhodobacterales	1	2	53
+ATMAGY	Bpet3338_Alcaligenaceae	1	2	32
+EKNTGS	Daci_0288_Comamonadaceae	1	1	54
+FNSVSG	Ent638_1108_Enterobacteriales	1	1	60
+ARNSGS	Sbal_3352_Shewanellaceae	1	2	46
+RSRNPG	Sbal_3352_Shewanellaceae	2	4	49.18872
+LRVTGK	EAM_2333_Enterobacteriales	1	1	60
+MRSTGA	AHA_3778_Psychromonadaceae_Aeromonadales	1	1	60
+RSRSVG	AHA_3778_Psychromonadaceae_Aeromonadales	1	1	60
+RHRNPS	PdxR2_Rhizobiales	1	1	54
+RHRNSS	PdxR2_Sphingomonadales	1	1	54
+RHRNPA	PdxR2_Rhodobacterales	1	3	45.73534
+RSRDVG	PdxR_Pseudomonadaceae	1	1	60
+RSRDKG	PdxR_Pseudomonadaceae	1	2	51
+RSRFRG	PdxW2_Various betaproteobacteria	1	1	60
+RSRFPG	Bcep1808_4966_Burkholderia	1	1	80
+KRFPGA	Bcep1808_4966_Burkholderia	1	1	80
+RNVSVG	YdeF_Bacillales	1	1	36
+RNLSVG	YdeF_Bacillales	1	1	36
+RSLTPK	Spro_0112_Enterobacteriales	1	2	33
+RSAAPR	XAC0737_Xanthomonadales	1	1	44
+RSPAPR	XAC0737_Xanthomonadales	1	1	44
+TTANGY	PE36_10153_Psychromonadaceae_Aeromonadales	1	1	44
+RSLSPK	ACIAD3613_Moraxellaceae 	1	1	44
+DISTKS	ACIAD3613_Moraxellaceae 	1	1	44
+RSISPK	VV21354_Vibrionales	1	1	44
+RSMSPQ	VV21354_Vibrionales	1	1	44
+QMSTQA	VV21354_Vibrionales	1	1	44
+HNCYV	CPS_3393_Alteromonadales	1	1	44
+RSLTPQ	Mmwyl1_0910_Oceanospirillales_Alteromonadales	1	1	44
+RSMTPQ	Mmwyl1_0910_Oceanospirillales_Alteromonadales	1	1	44
+RSLNPQ	Daro_1932_Various betaproteobacteria	1	1	112
+QVSTQS	Daro_1932_Various betaproteobacteria	1	1	112
+RSLGPR	BAV2320_Alcaligenaceae	1	3	97.30727
+RSLSPR	BAV2320_Alcaligenaceae	2	3	82.53935
+RSISPQ	sll5086_Cyanobacteria	1	2	47
+RSRLRG	Spro_3347_Enterobacteriales	1	1	40
+RAVAPG	PdxQ3_Mycobacteriaceae	1	1	48
+RNYTTG	YrdX_Ralstonia	1	2	23
+RSLMEK	YdcR_Moraxellaceae 	1	3	49.23208
+RSITPQ	H16_B1468_Ralstonia	1	9	35.35103
+RSVTPQ	BPSS0970_Burkholderia	3	3	60
+RSITPQ	BPSS0970_Burkholderia	3	3	49.48371
+QVTTQS	BPSS0970_Burkholderia	1	1	60
+RSIKPQ	BPSS0970_Burkholderia	1	1	60
+RSHVNR	OapR_Rhodospirillales	1	2	42
+RSTLRA	OapR_Rhizobiales	1	1	72
+RSTFRG	OapR_Burkholderia	1	2	67
+RSTFPG	OapR_Alcaligenaceae	1	3	63.73534
+RGRNHG	CV4096_Various betaproteobacteria	1	1	44
+RGRNPG	PdxW2_Oceanospirillales_Alteromonadales	1	1	66
+[indel within CR tag region]	PdxW_Enterobacteriales	1	1	66
+RSRNRQ	PdxW_Enterobacteriales	1	1	66
+RNRHER	PdxW_Alteromonadales	1	1	54
+RNRHQR	PdxW_Alteromonadales	1	1	54
+RNRHER	PdxW_Shewanellaceae	1	1	54
+ATVVGS	Bxe_A4302_Burkholderia	1	1	60
+ATKG	BBta_7471_Rhizobiales	1	1	60
+GVYE	AB57_0242_Moraxellaceae 	1	1	60
+LKTVRG	Mmwyl1_4437_Oceanospirillales_Alteromonadales	1	1	60
+ERKTRR	PP2642_Pseudomonadaceae	1	1	60
+SLPTRS	Daci_4286_Comamonadaceae	1	1	66
+KVPTQS	CPS_4612_Alteromonadales	1	1	44
+RSVPSK	CPS_4612_Alteromonadales	1	1	44
+RSIPEK	CPS_4612_Alteromonadales	1	1	44
+RSKAPK	MED92_15328_Oceanospirillales_Alteromonadales	1	1	44
+RSKAFK	MED92_15328_Oceanospirillales_Alteromonadales	1	1	44
+RSRDVG	PdxR_Rhizobiales	1	3	41.7223
+RSRDVG	PdxR_Various betaproteobacteria	1	1	60
+RSRDVG	PdxR_Rhodospirillales	1	2	55
+RSRDVG	PdxR_Enterobacteriales	1	2	57
+RSRDTG	PdxR_Comamonadaceae	1	1	60
+RARDQG	PdxR_Comamonadaceae	1	1	60
+RSRDVG	PdxR_Alcaligenaceae	1	1	60
+RARDQG	PdxR_Alcaligenaceae	1	1	60
+RSGTPK	PdxR_Staphylococcaceae	1	1	48
+RSQTPR	PdxR_Staphylococcaceae	1	1	48
+no_CRtag	PdxR_Staphylococcaceae	1	1	48
+RSNTPR	PdxR_Staphylococcaceae	2	2	41
+errorGettingCRtag	PdxR_Staphylococcaceae	1	1	48
+RSHTPR	PdxR_Staphylococcaceae	1	1	48
+RSQNPR	PdxR_Bacillales	1	2	41
+LRAYV	PdxR_Pasteurellales	1	1	48
+RSQNAR	PdxR_Pasteurellales	1	1	48
+RSQNPR	PdxR_Pasteurellales	1	1	48
+RARAPG	PdxW_Caulobacterales	1	2	44
+RSRTPG	PdxQ_Comamonadaceae	1	1	66
+RSRTPG	PdxQ_Alcaligenaceae	1	1	66
+RSRTRG	PdxQ_Ralstonia	1	1	66
+RSRTVG	PdxQ_Ralstonia	1	1	66
+RSRTQG	PdxQ_Rhizobiales	1	2	55
+RSRNPG	PdxQ_Rhodospirillales	1	1	66
+RSRTQG	PdxQ_Rhodobacterales	1	1	66
+LGTVAG	CV1517_Various betaproteobacteria	1	1	72
+ARGTAA	PFL_2191_Pseudomonadaceae	1	1	72
+SKKTPR	HCH_03332_Oceanospirillales_Alteromonadales	1	1	72
+RSLSPR	Bamb_3558_Burkholderia	1	4	90.01955
+EVTET	Bcav_0410_Micrococcineae	1	1	48
+RVTETR	Bcav_0044_Micrococcineae	1	1	66
+LGTVSG	SACE_6928_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	2	40
+RSRGGR	SACE_6928_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	1	48
+AVAATR	Nfa21130_Nocardiaceae	1	1	48
+RARNPG	Nfa21130_Nocardiaceae	1	1	48
+RARNQG	Nfa21130_Nocardiaceae	2	2	47
+RARNQG	SCO4836_Streptomycetaceae	3	8	32.50766
+AVADTR	SCO4836_Streptomycetaceae	1	2	40
+RSRGVG	PdxR2_Deinococcus-Thermus	1	1	60
+RNRSSG	YdfD_YisV_Clostridia-1	1	1	28
+RNRSKG	YdfD_YisV_Clostridia-1	1	1	28
+RNRSPG	YdfD_YisV_Lactobacillaceae	1	1	28
+RSTFGN	GabR2_Pseudomonadaceae	1	2	24
+EFTTGC	EF0117_Enterococcaceae	1	2	34
+RNFTIG	EF0117_Enterococcaceae	1	2	36
+RSLNPQ	CV1900_Various betaproteobacteria	1	3	38.38897
+RSASPR	YdcR_Oceanospirillales_Alteromonadales	1	1	60
+RSPSPR	YdcR_Oceanospirillales_Alteromonadales	1	1	60
+RSPMPQ	YdcR_Psychromonadaceae_Aeromonadales	1	2	60
+RSLMEK	YdcR_Shewanellaceae	1	1	60
+RSLMAK	YdcR_Shewanellaceae	4	4	57
+RSPMPK	YdcR_Vibrionales	1	1	60
+RSIEAK	YdcR_Vibrionales	1	1	60
+RSTGPQ	YdcR_Vibrionales	1	2	48
+RSLMPR	YdcR_Vibrionales	1	3	40.38897
+RSIEPK	YdcR_Vibrionales	1	3	41.47067
+RSAGPQ	YdcR_Vibrionales	1	2	46
+RSASAR	YdcR_Pseudomonadaceae	1	2	49
+RSPSPR	YdcR_Pseudomonadaceae	3	6	44.50839
+RSPSAR	YdcR_Pseudomonadaceae	2	2	56
+RSFMPQ	YdcR_Enterobacteriales	5	7	43.62103
+RSMMPQ	YdcR_Enterobacteriales	1	1	60
+RSLMPQ	YdcR_Enterobacteriales	4	5	43.33504
+QLNTKA	Smlt0590_Xanthomonadales	1	1	56
+RSINPQ	AB57_2651_Moraxellaceae 	1	1	56
+YINSQA	Sbal_1936_Shewanellaceae	1	1	56
+RSVNPQ	YE4144_Enterobacteriales	1	1	56
+RSINPQ	YE4144_Enterobacteriales	1	1	56
+ATVVGF	BAV2922_Alcaligenaceae	1	1	88
+RSRFRG	BAV2922_Alcaligenaceae	2	2	85
+RSRFRG	H16_A2655_Ralstonia	5	8	51.42176
+IYER	H16_A2655_Ralstonia	1	2	58
+RSISPR	YjiR_Enterobacteriales	4	4	51.94361
+RSISPK	YjiR_Enterobacteriales	1	1	56
+RTIGVG	Mll0059_Rhizobiales	5	14	24.30586
+RTVGVG	Mll0059_Rhizobiales	1	2	30
+ELSTGN	CLOBOL_00921_Clostridia-3	1	2	32
+RNVSTG	CD2285_Clostridia-2	1	3	30.49022
+RNLSIG	CBY_0654_Clostridia-1	1	2	34
+RNLSTG	CBY_0654_Clostridia-1	1	2	32
+EFTTGK	LAR_1807_Lactobacillaceae	1	2	30
+RHFTKG	LAR_1807_Lactobacillaceae	1	2	34
+RNLSIG	SMU640c_Streptococcaceae	1	2	32
+RGLGRG	PdxQ2_Comamonadaceae	1	2	36
+RGLGKG	PdxQ2_Rhizobiales	1	2	40
+RGLGVG	PdxQ2_Caulobacterales	1	6	34.37675
+errorGettingCRtag	PdxQ_Streptomycetaceae	1	2	34
+APVTGA	PdxQ_Streptomycetaceae	1	2	36
+RSPVPG	PdxQ_Streptomycetaceae	1	2	32
+LVTVAG	PdxQ_Streptomycetaceae	1	2	38
+LVTVVG	PdxQ_Frankineae_Propionibacterineae/Pseudonocardiaceae	1	2	34
+LVTVVG	PdxQ_Nocardiaceae	1	3	34.81704
+LSTVAG	PdxQ_Mycobacteriaceae	1	2	38
+VPVTGV	PdxQ_Mycobacteriaceae	1	2	34
+LVTVVG	PdxQ_Micrococcineae	1	8	33.18627
+RSRKAG	BPSS1200_Burkholderia	5	5	44.73561
+ERKTGN	BPSS1200_Burkholderia	1	1	54
+LKTVSG	PA0268_Pseudomonadaceae	1	1	54
+RSRKVG	PA0268_Pseudomonadaceae	2	2	46
+RARGGG	PdxW2_Burkholderia	5	5	41.62332
+RARGGR	PdxW2_Burkholderia	1	1	48
+RARGPR	PdxW2_Moraxellaceae 	1	1	48
+RSRNAG	GabR_Psychromonadaceae_Aeromonadales	1	1	48
+RARNQG	GabR_Alcaligenaceae	1	7	31.01645
+RSRNPR	TauR_Oceanospirillales_Alteromonadales	1	2	35
+RSRNAR	TauR_Oceanospirillales_Alteromonadales	1	1	40
+KRNTRC	TauR_Psychromonadaceae_Aeromonadales	1	2	34
+RARNER	TauR_Ralstonia	1	9	28.70794
+RARNER	TauR_Burkholderia	1	9	29.20429
+RSRINR	TauR_Rhizobiales	1	1	40
+RSRNPR	TauR_Enterobacteriales	1	1	40
+ARGTPA	H16_B1411_Ralstonia	1	2	70
+RARGGA	H16_B1411_Ralstonia	1	1	72
+DRGTSG	EbA483_Various Betaproteobacteria	1	2	40
+QARGGA	Bpro_5165_Comamonadaceae	1	1	40
+DRGTSA	Bpet3002_Alcaligenaceae	1	1	40
+DRGTPA	Swit_4344_Sphingomonadales	1	1	40
+QARGRA	Blr6977_Rhizobiales	1	1	40
+DRGTAW	H16_B0275_Ralstonia	1	1	40
+SSRGGA	H16_B0275_Ralstonia	1	2	33
+DRGTAA	Bamb_6386_Burkholderia	1	2	33
+LARGRP	Bamb_6386_Burkholderia	1	1	40
+ASRGGA	Bamb_6386_Burkholderia	1	5	28.09175
+RAASVG	PdxQ3_Rhizobiales	2	2	44
+RAVSVG	PdxQ3_Rhizobiales	1	1	48
+RALARG	PdxQ3_Oceanospirillales_Alteromonadales	1	1	48
+RALAAG	PdxQ3_Rhodobacterales	1	1	48
+RALAGG	PdxQ3_Rhodobacterales	1	1	48
+RAIAPG	PdxQ3_Nocardiaceae	1	1	48
+RAVATG	PdxQ3_Comamonadaceae	1	1	48
+RALVTG	PdxQ3_Comamonadaceae	1	1	48
+RALATG	PdxQ3_Ralstonia	1	1	48
+RALVTG	PdxQ3_Burkholderia	2	2	46
+RAASVG	PdxQ3_Burkholderia	1	1	48
+RALVTG	PdxQ3_Pseudomonadaceae	1	3	37.73534
+MSTVSG	Bamb_4265_Burkholderia	1	1	66
+RSKSRG	Bamb_4265_Burkholderia	3	3	60.49022
+AVSTGA	Mmwyl1_0258_Oceanospirillales_Alteromonadales	1	1	66
+QSTVSG	Smlt1075_Xanthomonadales	1	1	66
+SVSTGS	ACIAD1897_Moraxellaceae	1	1	66
+RSVSSG	ACIAD1897_Moraxellaceae	1	1	66
+GAYA	Pden_4836_Rhodobacterales	1	1	66
+RSVSPG	PP2948_Pseudomonadaceae	1	1	66
+MSTVSG	PP2948_Pseudomonadaceae	1	1	66
+RSVQVG	EutR_Oceanospirillales_Alteromonadales	1	2	26
+RSVQVG	EutR_Comamonadaceae	1	3	26.49022
+EPITGR	Tola_2572_Psychromonadaceae_Aeromonadales	1	4	25.13233
+RTPTVG	Tola_2572_Psychromonadaceae_Aeromonadales	1	4	22.50978
+RTPVVG	Tola_2572_Psychromonadaceae_Aeromonadales	1	2	30
+RSVQVG	EutR_Pseudomonadaceae	1	3	27.40852
+RTPAVG	VSAL_I1306_Vibrionales	1	4	27.13233
+LATIRG	VSAL_I1306_Vibrionales	1	2	30
+RSVQVG	EutR_Burkholderia	3	10	24.68491
+RSEQVG	EutR_Burkholderia	1	2	27
+RARNRQ	PdxW_Burkholderia	2	4	47
+[indel within CR tag region]	PdxW_Burkholderia	5	8	44.65192
+RARNRH	PdxW_Burkholderia	1	2	54
+[indel within CR tag region]	PdxW_Alcaligenaceae	1	3	54.56541
+[indel within CR tag region]	PdxW_Comamonadaceae	1	2	60
+RSRNQR	TauR_Nocardiaceae	1	10	28.92045
+RSRTAR	PdxR3_Streptomycetaceae	1	4	26.13233
+RSRTRG	PdxR3_Streptomycetaceae	3	8	27.02424
+
+Number of alternative AA variants at each CR tag position:
+39	50	74	47	80	45	

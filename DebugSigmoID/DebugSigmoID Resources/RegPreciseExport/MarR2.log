@@ -1,0 +1,277 @@
+Exporting selected profiles in MEME format...
+
+MicrobesOnline: getting protein sequence with ID  6349996 300521 5916190.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 38392 38395 38396.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DISTHR_Cg1211_Corynebacteriaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/AAIAGL_Cg1211_Corynebacteriaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  143482 6432919 314398 918694.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 6545 6546 6547 6549.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SDKTRT_BlaI_Staphylococcaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  3458155 824741 65658 726626 40610 278029 6926792.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 13288 13290 13291 13292 13294 13296 13297.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DRTTAR_YybA_Bacillales.sig
+
+MicrobesOnline: getting protein sequence with ID  15651 148861 3403220 3382065 3625123.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 10997 11001 10992 10994 10998.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DLGATR_MarR_Enterobacteriales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DPGATR_MarR_Enterobacteriales.sig
+
+MicrobesOnline: getting protein sequence with ID  37850 3455673 3426124 727443 853728 361724 280243 6922883.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 11503 11497 11502 11501 11504 11498 11505 11506.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DSGTTP_OhrR_Bacillales.sig
+
+MicrobesOnline: getting protein sequence with ID  37902 3455720 3426170 727547 5700432 852809 358656 822186 277388 6927765.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 10148 10142 10147 10146 10149 10143 10141 10150 10144 10151.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/ASGSTY_MhqR_Bacillales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TSGSTY_MhqR_Bacillales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/ASSSTY_MhqR_Bacillales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SSGNTY_MhqR_Bacillales.sig
+
+MicrobesOnline: getting protein sequence with ID  37255 3455113.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 11492 11486.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TKATTG_YetL_Bacillales.sig
+
+MicrobesOnline: getting protein sequence with ID  16773 150120 3405703 3383453 3626311 10478629 271476 3621757 607927 10256675 5782462 548735.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 10574 10578 10569 10575 10571 10572 10580 10579 10573 10570 10577 10576.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SRTNTR_MprA_Enterobacteriales.sig
+
+MicrobesOnline: getting protein sequence with ID  102306.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 6699.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SPKTRT_MecI_Staphylococcaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  102594 5568643 917554 921832.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 6706 6709 6710 6711.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TGPTSN_MepR_Staphylococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TRPTSS_MepR_Staphylococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/KGSTSS_MepR_Staphylococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/KGSTSN_MepR_Staphylococcaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  3457194 822446 729257 3427674 39643.
+
+Running hmmsearch...�hmmsearch failed, most likely the TF (locus_tag=RBAM_028170 regulonId=13318) is from another family.�hmmsearch failed, most likely the TF (locus_tag=ABC0981 regulonId=13320) is from another family.�hmmsearch failed, most likely the TF (locus_tag=BLi03271 regulonId=13322) is from another family.�hmmsearch failed, most likely the TF (locus_tag=BSU31070 regulonId=13324) is from another family. OK
+Getting data for regulon with ID 13318 13320 13322 13324 13323.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/errorGettingCRtag_GbsR\ \(YuaC\)_Bacillales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SKPSST_GbsR\ \(YuaC\)_Bacillales.sig
+
+MicrobesOnline: getting protein sequence with ID  3457483 729624 3427983 39913.
+
+Running hmmsearch...�hmmsearch failed, most likely the TF (locus_tag=RBAM_031060 regulonId=32143) is from another family. OK
+Getting data for regulon with ID 32143 32147 32148 32149.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/errorGettingCRtag_YvbF_YvaV_Bacillales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SKTRSQ_YvbF_YvaV_Bacillales.sig
+
+MicrobesOnline: getting protein sequence with ID  1788164 77578 274998 7473403 5803944 10395018 3790012 10163383 296420 115938 101921 2061465 3592827 926583 5936747.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 34957 34958 34959 34960 34961 34962 34963 34964 34965 34966 34967 34969 34970 34971 34968.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/ALSTTI_FabT_Streptococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TLGTTT_FabT_Streptococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TVTTLN_FabT_Streptococcaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  2058049 1868421 5502774
+Incorrect response from RegPrecise. Can't get the sequence of the TF controlling the regulon with ID 35022. The sig file will have no CR tag and should be corrected manually.
+ 5813947 7619403 1255059 2179855 2183040.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 35018 35019 35026 35021 35030 35022 35025 35028 35029.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SKGTTA_FabT_Lactobacillaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TQGTSV_FabT_Lactobacillaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SPGTTA_FabT_Lactobacillaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/no_CRtag_FabT_Lactobacillaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TPGTTS_FabT_Lactobacillaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TPGTTA_FabT_Lactobacillaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TPSSTA_FabT_Lactobacillaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  275951 7473558 5803762 10395990 3790065 10163538 295669 117347 100734 2060034 3593060 926632 5936931.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 35777 35778 35779 35780 35781 35782 35783 35786 35787 35788 35789 35784 35785.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SKSVSN_YjdR_Streptococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TKPVSN_YjdR_Streptococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/MPSQDK_YjdR_Streptococcaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  1789657 78925 274811 7471713 5803649 10394737 3790253 10163730 296641 117585 100633 2059721 3591106 926388 5935352.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 35835 35836 35837 35838 35839 35840 35841 35842 35844 35845 35846 35848 35849 35843 35847.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/PAAVKA_AdcR_Streptococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/QAAVKA_AdcR_Streptococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SQAATK_AdcR_Streptococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/QAAIKA_AdcR_Streptococcaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  2181510.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 36011.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SKPATK_AdcR_Lactobacillaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  866252 531912.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 38749 38755.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DRTTAR_YybA_Lactobacillaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  6348376 7578732 520707 300162 5916296 845016 7746912 5730575.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 36362 36363 36364 36365 36366 36367 36368 36369.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DRSRSH_RosR_Corynebacteriaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SRSRSH_RosR_Corynebacteriaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/ERSRSH_RosR_Corynebacteriaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  276520 7471834 5805294 10394869 3789612 294946 102076 2060915 3591621 926252 5935498.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 44802 44803 44804 44805 44806 44808 44810 44811 44812 44813 44814.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SGNMVV_SAG1910_Streptococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/TSGNTV_SAG1910_Streptococcaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  865216 1865595 3649485 1254578.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 47021 47024 47026 47032.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/SINKIK_LBA0573_Lactobacillaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/PKQSSK_LBA0573_Lactobacillaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/PKQSNK_LBA0573_Lactobacillaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  8508777 209464 8500681.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 48985 48986 48987.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DKAAAR_DVU0525_Desulfovibrionales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/KGATRA_DVU0525_Desulfovibrionales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DKGSAR_DVU0525_Desulfovibrionales.sig
+
+MicrobesOnline: getting protein sequence with ID  3133244 2783266 1132102.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 60239 60245 60246.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/MarR2/DKSTSR_HmgS_Alteromonadales.sig

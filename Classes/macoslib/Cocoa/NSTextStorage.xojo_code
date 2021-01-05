@@ -122,6 +122,38 @@ Inherits NSMutableAttributedString
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StringValue"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Length"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="UInt32"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IsEditing"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="FixesAttributesLazily"
 			Visible=false
 			Group="Behavior"

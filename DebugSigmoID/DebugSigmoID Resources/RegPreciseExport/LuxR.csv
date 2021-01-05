@@ -1,0 +1,64 @@
+Regulog statistics:
+RegulogName	genomes#	genomesWithoutCRtag#	CRtag#	VariablePositions#
+NarP – Shewanellaceae	15	0	1	0
+YvfU – Bacillales	4	0	1	0
+YdfI – Bacillales	3	0	2	1
+NarP – Enterobacteriales	9	0	2	1
+NarP – Vibrionales	10	1	3	1
+NarP – Pasteurellales	8	0	1	0
+NarP – Psychromonadaceae/Aeromonadales	4	0	1	0
+DesR – Bacillales	6	0	1	0
+PedR – Cyanobacteria	12	0	1	0
+PcaO – Corynebacteriaceae	2	0	1	0
+FixJ – Rhizobiales	3	3	1	0
+FixJ – Caulobacterales	4	0	2	1
+FixJ – Rhizobiales	11	11	2	0
+TtrR – Enterobacteriales	4	0	1	0
+TtrR – Pasteurellales	2	0	1	0
+TtrR – Shewanellaceae	5	0	1	0
+TtrR – Vibrionales	3	0	2	1
+PhsR – Shewanellaceae	14	0	2	1
+PhsR – Vibrionales	3	0	1	0
+BenR – Corynebacteriaceae	2	0	1	0
+
+
+Regulogs combining TFs with the same CR tag: 0
+Regulogs combining TFs with different CR tags: 20
+
+
+CR tag statistics:
+CRtag	TFname	GenomesPresentIn#	TFBS#	InfoBits
+GTKVHK	NarP_Shewanellaceae	1	249	17.76135
+GTRNYS	YvfU_Bacillales	1	4	26.37744
+RTKSRT	YdfI_Bacillales	2	2	48
+RTKART	YdfI_Bacillales	1	1	48
+QTKVHR	NarP_Enterobacteriales	3	80	15.85297
+ETKVHR	NarP_Enterobacteriales	6	45	16.21017
+no_CRtag	NarP_Vibrionales	1	10	19.36722
+STKVHK	NarP_Vibrionales	5	75	18.47161
+ATKVHK	NarP_Vibrionales	4	50	17.57437
+ETKVHR	NarP_Pasteurellales	1	114	15.74953
+GTKVHK	NarP_Psychromonadaceae_Aeromonadales	1	53	16.41179
+GTRNYS	DesR_Bacillales	1	6	26.09835
+RTDNHS	PedR_Cyanobacteria	1	54	14.15352
+KTEYHT	PcaO_Corynebacteriaceae	1	2	31
+errorGettingCRtag	FixJ_Rhizobiales	1	10	24.33755
+RTEIYA	FixJ_Caulobacterales	3	6	21.1143
+RTEVYA	FixJ_Caulobacterales	1	2	27
+errorGettingCRtag	FixJ_Rhizobiales	9	21	16.71606
+no_CRtag	FixJ_Rhizobiales	2	3	22.06215
+RTEVHA	TtrR_Enterobacteriales	1	8	33.06371
+RTEVHS	TtrR_Pasteurellales	1	4	33.37744
+RTEIHA	TtrR_Shewanellaceae	1	10	30.23422
+RTEVHS	TtrR_Vibrionales	1	2	34
+RTEVHA	TtrR_Vibrionales	2	4	34.37744
+RTEVHA	PhsR_Shewanellaceae	9	9	43.14323
+RTEVHS	PhsR_Shewanellaceae	5	8	38.64481
+RTEVHS	PhsR_Vibrionales	1	6	38.74185
+KTEYHT	BenR_Corynebacteriaceae	1	6	23.52782
+
+Number of alternative AA variants at each CR tag position:
+2	0	0	2	0	2	
+
+TFs with CR tag determined: 109
+TFs without CR tag : 15

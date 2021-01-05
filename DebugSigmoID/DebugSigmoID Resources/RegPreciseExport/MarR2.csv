@@ -1,0 +1,92 @@
+Regulog statistics:
+RegulogName	genomes#	genomesWithoutCRtag#	CRtag#	VariablePositions#
+Cg1211 – Corynebacteriaceae	3	0	2	6
+BlaI – Staphylococcaceae	4	0	1	0
+YybA – Bacillales	7	0	1	0
+MarR – Enterobacteriales	5	0	2	1
+OhrR – Bacillales	8	0	1	0
+MhqR – Bacillales	10	0	4	3
+YetL – Bacillales	2	0	1	0
+MprA – Enterobacteriales	12	0	1	0
+MecI – Staphylococcaceae	1	0	1	0
+MepR – Staphylococcaceae	4	0	4	4
+GbsR (YuaC) – Bacillales	5	4	2	0
+YvbF/YvaV – Bacillales	4	1	2	0
+FabT – Streptococcaceae	15	0	3	5
+FabT – Lactobacillaceae	9	1	7	6
+YjdR – Streptococcaceae	13	0	3	6
+AdcR – Streptococcaceae	15	0	4	5
+AdcR – Lactobacillaceae	1	0	1	0
+YybA – Lactobacillaceae	2	0	1	0
+RosR – Corynebacteriaceae	8	0	3	1
+SAG1910 – Streptococcaceae	11	0	2	5
+LBA0573 – Lactobacillaceae	4	0	3	5
+DVU0525 – Desulfovibrionales	3	0	3	6
+HmgS – Alteromonadales	3	0	1	0
+
+
+Regulogs combining TFs with the same CR tag: 9
+Regulogs combining TFs with different CR tags: 14
+Regulogs without determined CR tags: 0
+
+
+CR tag statistics:
+CRtag	TFname	GenomesPresentIn#	TFBS#	InfoBits
+DISTHR	Cg1211_Corynebacteriaceae	2	8	25.49755
+AAIAGL	Cg1211_Corynebacteriaceae	1	4	29.75489
+SDKTRT	BlaI_Staphylococcaceae	1	16	32.98502
+DRTTAR	YybA_Bacillales	1	25	36.04409
+DLGATR	MarR_Enterobacteriales	4	8	33.66487
+DPGATR	MarR_Enterobacteriales	1	2	36
+DSGTTP	OhrR_Bacillales	1	11	28.82994
+ASGSTY	MhqR_Bacillales	6	25	28.82898
+TSGSTY	MhqR_Bacillales	2	5	23.14594
+ASSSTY	MhqR_Bacillales	1	3	27.98697
+SSGNTY	MhqR_Bacillales	1	2	33
+TKATTG	YetL_Bacillales	1	4	22.50978
+SRTNTR	MprA_Enterobacteriales	1	25	25.63289
+SPKTRT	MecI_Staphylococcaceae	1	4	30.75489
+TGPTSN	MepR_Staphylococcaceae	1	3	28.90526
+TRPTSS	MepR_Staphylococcaceae	1	3	29.57193
+KGSTSS	MepR_Staphylococcaceae	1	3	29.15689
+KGSTSN	MepR_Staphylococcaceae	1	3	30.74185
+errorGettingCRtag	GbsR (YuaC	4	4	31.94361
+SKPSST	GbsR (YuaC	1	1	36
+errorGettingCRtag	YvbF_YvaV_Bacillales	1	4	44.56617
+SKTRSQ	YvbF_YvaV_Bacillales	3	8	39.65148
+ALSTTI	FabT_Streptococcaceae	2	6	22.5568
+TLGTTT	FabT_Streptococcaceae	12	46	22.89615
+TVTTLN	FabT_Streptococcaceae	1	4	28.06617
+SKGTTA	FabT_Lactobacillaceae	1	2	30
+TQGTSV	FabT_Lactobacillaceae	2	3	29.40852
+SPGTTA	FabT_Lactobacillaceae	2	2	30
+no_CRtag	FabT_Lactobacillaceae	1	1	34
+TPGTTS	FabT_Lactobacillaceae	1	2	30
+TPGTTA	FabT_Lactobacillaceae	1	1	34
+TPSSTA	FabT_Lactobacillaceae	1	1	34
+SKSVSN	YjdR_Streptococcaceae	11	19	29.57127
+TKPVSN	YjdR_Streptococcaceae	1	1	40
+MPSQDK	YjdR_Streptococcaceae	1	1	40
+PAAVKA	AdcR_Streptococcaceae	2	3	28.32682
+QAAVKA	AdcR_Streptococcaceae	11	64	22.35128
+SQAATK	AdcR_Streptococcaceae	1	2	29
+QAAIKA	AdcR_Streptococcaceae	1	3	27.40852
+SKPATK	AdcR_Lactobacillaceae	1	2	28
+DRTTAR	YybA_Lactobacillaceae	1	2	43
+DRSRSH	RosR_Corynebacteriaceae	5	32	22.25097
+SRSRSH	RosR_Corynebacteriaceae	1	3	24.98045
+ERSRSH	RosR_Corynebacteriaceae	2	8	25.25366
+SGNMVV	SAG1910_Streptococcaceae	1	3	28.90526
+TSGNTV	SAG1910_Streptococcaceae	10	21	23.1486
+SINKIK	LBA0573_Lactobacillaceae	1	2	27
+PKQSSK	LBA0573_Lactobacillaceae	1	1	36
+PKQSNK	LBA0573_Lactobacillaceae	2	4	27.82105
+DKAAAR	DVU0525_Desulfovibrionales	1	3	25.57193
+KGATRA	DVU0525_Desulfovibrionales	1	1	32
+DKGSAR	DVU0525_Desulfovibrionales	1	2	26
+DKSTSR	HmgS_Alteromonadales	1	6	22.86336
+
+
+Number of alternative AA variants at each CR tag position: 15 11 10 10 9 9 0 
+TFs with CR tag determined:143
+TFs without CR tag determined:6

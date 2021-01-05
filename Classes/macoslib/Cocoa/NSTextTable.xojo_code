@@ -229,6 +229,28 @@ Inherits NSTextBlock
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="VerticalAlignment"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSTextBlockVerticalAlignment"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSTextBlockTopAlignment"
+				"1 - NSTextBlockMiddleAlignment"
+				"2 - NSTextBlockBottomAlignment"
+				"3 - NSTextBlockBaselineAlignment"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="CollapsesBorders"
 			Visible=false
 			Group="Behavior"

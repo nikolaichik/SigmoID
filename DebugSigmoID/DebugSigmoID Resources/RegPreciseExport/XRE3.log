@@ -1,0 +1,68 @@
+Exporting selected profiles in MEME format...
+
+MicrobesOnline: getting protein sequence with ID  3456670
+Incorrect response from RegPrecise. Can't get the sequence of the TF controlling the regulon with ID 13147. The sig file will have no CR tag and should be corrected manually.
+ 64706 728635 3427107 38998
+Incorrect response from RegPrecise. Can't get the sequence of the TF controlling the regulon with ID 13154. The sig file will have no CR tag and should be corrected manually.
+.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 13146 13150 13151 13152 13147 13154 13149.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/LSAKSYSSLQ_SinR_Bacillales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/no_CRtag_SinR_Bacillales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/LSAKSYSSIQ_SinR_Bacillales.sig
+
+MicrobesOnline: getting protein sequence with ID  38897 3456549 3428488 730106 360376.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 12827 12821 12826 12825 12822.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/LQAKSTAGYR_AnsR_Bacillales.sig
+
+MicrobesOnline: getting protein sequence with ID  203774 3440618 6977946 7026930 6867186 6871373 6931370 6908565 6916278 6936492 5210116 7160080 3786234 5435304 3700660 7101357.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 6311 6312 6313 6317 6315 6316 6314 6318 6319 6320 6321 6322 6325 6324 6323 6326.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/\[indel\ within\ CR\ tag\ region\]_SO4705_Shewanellaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  3563352 5694208 7083466 3676971 1544 10362544 5474274 3584209 7270867.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 29387 29389 29390 29391 29392 29393 29394 29395 29396.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/QESRSFSQKV_PuuR_Thermotogales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/QESRSFSQQV_PuuR_Thermotogales.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/QESRSFSQKT_PuuR_Thermotogales.sig
+
+MicrobesOnline: getting protein sequence with ID  6348171 7579219 521143 300744 5917060 844040 7747337 5729420.
+
+Running hmmsearch... OK
+Getting data for regulon with ID 36196 36197 36198 36199 36200 36201 36202 36203.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/LRSPGYSERK_ClgR_Corynebacteriaceae.sig
+
+MicrobesOnline: getting protein sequence with ID  10395756 3788810 10161808 2060179.
+
+Running hmmsearch...�hmmsearch failed, most likely the TF (locus_tag=smi_0116 regulonId=37988) is from another family. OK
+Getting data for regulon with ID 37986 37987 37992 37988.
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/\[indel\ within\ CR\ tag\ region\]_Rgg_Streptococcaceae.sig
+
+Running MEME... OK
+sig file written to /Users/y/Desktop/RegPrecise\ export/XRE3/errorGettingCRtag_Rgg_Streptococcaceae.sig

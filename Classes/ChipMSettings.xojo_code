@@ -36,6 +36,7 @@ Protected Class ChipMSettings
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="gcPercent"
+			Visible=false
 			Group="Behavior"
 			InitialValue="uniform"
 			Type="string"
@@ -47,10 +48,13 @@ Protected Class ChipMSettings
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="jarPath"
+			Visible=false
 			Group="Behavior"
+			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -60,9 +64,11 @@ Protected Class ChipMSettings
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="mode"
+			Visible=false
 			Group="Behavior"
 			InitialValue="mask"
 			Type="string"
@@ -70,6 +76,7 @@ Protected Class ChipMSettings
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="motifLength"
+			Visible=false
 			Group="Behavior"
 			InitialValue="16:23,22:17,18:21"
 			Type="string"
@@ -77,6 +84,7 @@ Protected Class ChipMSettings
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="motifShape"
+			Visible=false
 			Group="Behavior"
 			InitialValue="double"
 			Type="string"
@@ -86,10 +94,13 @@ Protected Class ChipMSettings
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="stepLimit"
+			Visible=false
 			Group="Behavior"
 			InitialValue="20"
 			Type="string"
@@ -99,10 +110,13 @@ Protected Class ChipMSettings
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="threadCount"
+			Visible=false
 			Group="Behavior"
 			InitialValue="2"
 			Type="string"
@@ -114,9 +128,11 @@ Protected Class ChipMSettings
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="tryLimit"
+			Visible=false
 			Group="Behavior"
 			InitialValue="200"
 			Type="string"

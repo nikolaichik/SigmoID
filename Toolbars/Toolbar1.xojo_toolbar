@@ -26,9 +26,9 @@ Begin Toolbar Toolbar1
 	End
 	Begin ToolButton PalindromiseTool
 		Caption = "#kPalindromise"
+		Enabled = False
 		HelpTag = ""
 		Style = 0
-		Enabled = False
 		Icon = 678101466
 	End
 	Begin ToolButton ToolItem2
