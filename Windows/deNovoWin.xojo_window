@@ -143,11 +143,11 @@ Begin Window deNovoWin
       Italic          =   False
       Left            =   135
       LimitText       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -301,7 +301,6 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -324,7 +323,7 @@ Begin Window deNovoWin
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -364,9 +363,9 @@ Begin Window deNovoWin
       LimitText       =   0
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -401,9 +400,9 @@ Begin Window deNovoWin
       Left            =   600
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       State           =   0
       TabIndex        =   9
@@ -420,10 +419,9 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
-      Mode            =   2
+      Mode            =   0
       Period          =   500
       Scope           =   0
       TabPanelIndex   =   0
@@ -443,9 +441,9 @@ Begin Window deNovoWin
       Left            =   810
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       State           =   0
       TabIndex        =   10
@@ -462,7 +460,6 @@ Begin Window deNovoWin
       Width           =   192
    End
    Begin Timer OutputTimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -503,7 +500,6 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -537,7 +533,7 @@ End
 		Sub Open()
 		  AdjustLayout4linux(me)
 		  RunCheck
-		  rp = new deNovoSearch
+		  
 		  TextArea1.TextFont=FixedFont 
 		End Sub
 	#tag EndEvent
@@ -772,8 +768,7 @@ End
 		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      
 		      If sh.errorCode <> 0 then
-		        MsgBox "Problem running MeShClust"
-		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+sh.Result+EndOfLine.Unix)
+		        deNovoWin.rp.writeToWin("Problem running MeShClust"+EndOfLine.Unix+sh.Result+EndOfLine.Unix)
 		        return ""
 		      else
 		        'MeshClust only writes cluster data, but doesn't export cluster representatives, 
@@ -845,7 +840,7 @@ End
 		            end if
 		          wend
 		          inStream.close
-		          LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(outSeqs)+" fragments left after MeShClust clustering.")
+		          deNovoWin.rp.writeToWin(EndOfLine.Unix + CountSeqs(outSeqs)+" fragments left after MeShClust clustering.")
 		          OutStream = TextOutputStream.Create(outfile)
 		          if OutStream<>NIL then
 		            OutStream.Write(outSeqs)
@@ -1067,10 +1062,6 @@ End
 		TomTom_results As FolderItem
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		TTthreadsRunnin As Integer = 0
-	#tag EndProperty
-
 
 #tag EndWindowCode
 
@@ -1086,6 +1077,7 @@ End
 		    logoWin.DownshiftLog false
 		  end if
 		  self.TextArea1.Text=""
+		  rp = new deNovoSearch
 		  LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Running de novo TFBS inference pipeline with SigmoID "+app.LongVersion)
 		  
 		  'self.hide
@@ -1112,10 +1104,7 @@ End
 		  DeNovoTFBSinference.Proteins2process=Val(deNovoWin.Proteins2processField.text)
 		  
 		  RunThreadState = "running"
-		  'Try
-		  'if rp.State = Thread.Running Then 
-		  'rp.Stop
-		  'else
+		  
 		  rp.isFinished = False
 		  CancelButton.Caption="Stop"
 		  CancelButton.Enabled = True
@@ -1126,9 +1115,7 @@ End
 		  ChooseButton.Enabled=False
 		  me.Enabled=false
 		  
-		  'rp.Start
-		  'end
-		  'end Try
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1343,20 +1330,20 @@ End
 #tag Events OutputTimer
 	#tag Event
 		Sub Action()
-		  if rp.MsgOutput<>"" Then
-		    
-		    'rp.MsgOutput = ""
-		    'LogoWin.WriteToSTDOUT(temp)'
-		    'stdout.TextFont=FixedFont  'workaround for problems setting font at initialisation 
-		    TextArea1.AppendText(rp.MsgOutput)
-		    rp.MsgOutput=""
-		    if mouseInWin=false and TextArea1.Visible=True then
-		      TextArea1.ScrollPosition=TextArea1.LineNumber(Len(TextArea1.Text))
-		    end
-		    TextArea1.Refresh(False)
-		    'App.DoEvents
-		    if TextArea1.Visible=False then me.Enabled=False
-		  end
+		  'if rp.MsgOutput<>"" Then
+		  '
+		  ''rp.MsgOutput = ""
+		  ''LogoWin.WriteToSTDOUT(temp)'
+		  ''stdout.TextFont=FixedFont  'workaround for problems setting font at initialisation 
+		  'TextArea1.AppendText(rp.MsgOutput)
+		  'rp.MsgOutput=""
+		  'if mouseInWin=false and TextArea1.Visible=True then
+		  'TextArea1.ScrollPosition=TextArea1.LineNumber(Len(TextArea1.Text))
+		  'end
+		  'TextArea1.Refresh(False)
+		  ''App.DoEvents
+		  'if TextArea1.Visible=False then me.Enabled=False
+		  'end
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1385,12 +1372,12 @@ End
 		  case "paused"
 		    if rp.ThreadState=Thread.ThreadStates.Running then
 		      rp.Pause
-		      rp.MsgOutput=rp.MsgOutput+"Thread paused..."
+		      rp.writeToWin("Thread paused...")
 		    end
 		  case "resume"
 		    if rp.ThreadState=Thread.ThreadStates.Paused then
 		      rp.Resume
-		      rp.MsgOutput=rp.MsgOutput+"Thread resumed"+EndOfLine.UNIX
+		      rp.writeToWin("Thread resumed"+EndOfLine.UNIX)
 		    end
 		  case "stopped"
 		    if rp.ThreadState<>Thread.ThreadStates.NotRunning then
@@ -1411,17 +1398,16 @@ End
 		    PushButton1.Enabled=false
 		    RunButton.Enabled=true
 		    ChooseButton.Enabled=True
-		    'if RunTomTomBox.State = CheckBox.CheckedStates.Checked then
+		    
 		    dim n,tc as integer
 		    for n=0 to UBound(TTshellArray)
 		      if TTshellArray(n).finished=false then
 		        TTshellArray(n).Close
 		      end if
 		    next
-		    'end
 		    if PushButton1.Caption="Resume" then PushButton1.Caption="Pause"
 		    me.enabled=False
-		    OutputTimer.Enabled = False
+		    
 		  end
 		  if rp.ThreadState=Thread.ThreadStates.NotRunning and CancelButton.Caption="Stop" then
 		    CancelButton.Caption="Finish"
@@ -1673,14 +1659,6 @@ End
 		Group="Frame"
 		InitialValue="Untitled"
 		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="TTthreadsRunnin"
-		Visible=false
-		Group="Behavior"
-		InitialValue="0"
-		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty

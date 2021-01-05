@@ -7,7 +7,6 @@ Inherits Thread
 		  
 		  while isFinished = False
 		    CheckEmail
-		    
 		    dim cli, hmmSearchRes, CRtagPositions, table, currentHit as string
 		    dim dataForMeme as string
 		    dim sh as shell
@@ -15,6 +14,7 @@ Inherits Thread
 		    Dim gene as String
 		    Dim protname as String
 		    dim CrTagsCodes as String
+		    dim seqCount as String
 		    Dim CrBaseTags(0) As String
 		    Dim CrBaseECodes(0) as String
 		    Dim CrBaseTags_rp15(0) As String
@@ -39,18 +39,15 @@ Inherits Thread
 		    CDSseqs=""
 		    
 		    
-		    deNovoWin.OutputTimer.Mode = Timer.ModeMultiple
-		    deNovoWin.OutputTimer.Enabled = True
-		    
 		    
 		    if me.RunTomTom then
 		      
-		      'if RunTomTomBox.Value then
 		      if TomTomPath<>"" then 
 		        deNovoWin.GetTTlibString 'assemble motif library path for running TomTom later
+		        deNovoWin.TTtimer.Enabled=True
 		      else
 		        
-		        Me.MsgOutput=Me.MsgOutput+("Please, provide full path to TomTom: Settings-TomTom field")+EndOfLine.UNIX
+		        deNovoWin.rp.writeToWin("Please, provide full path to TomTom: Settings-TomTom field"+EndOfLine.UNIX)
 		        
 		        return 
 		      end
@@ -66,11 +63,14 @@ Inherits Thread
 		      If BaseLocation.Exists Then
 		        instream=BaseLocation.OpenAsTextFile
 		      Else
-		        'MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
-		        Exit
+		        deNovoWin.rp.writeToWin("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		        isFinished = True
+		        exit
 		      End
 		    Else
-		      'MsgBox("Path to the crtag base isn't valid")
+		      deNovoWin.rp.writeToWin("Path to the crtag base isn't valid")
+		      isFinished = True
+		      exit
 		    End
 		    While Not instream.EOF 
 		      App.YieldToNextThread()
@@ -88,11 +88,14 @@ Inherits Thread
 		      If BaseLocation.Exists Then
 		        instream=BaseLocation.OpenAsTextFile
 		      Else
-		        'MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		        deNovoWin.rp.writeToWin("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		        isFinished =True
 		        Exit
 		      End
 		    Else
-		      'MsgBox("Path to the crtag base isn't valid")
+		      deNovoWin.rp.writeToWin("Path to the crtag base isn't valid")
+		      isFinished= True
+		      exit
 		    End
 		    While Not instream.EOF 
 		      App.YieldToNextThread()
@@ -110,11 +113,14 @@ Inherits Thread
 		      If BaseLocation.Exists Then
 		        instream=BaseLocation.OpenAsTextFile
 		      Else
-		        me.MsgOutput=me.MsgOutput+"The crtag base doesn't exist, check path: "+BaseLocation.NativePath
+		        deNovoWin.rp.writeToWin("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		        isFinished = True
 		        Exit
 		      End
 		    Else
-		      'MsgBox("Path to the crtag base isn't valid")
+		      deNovoWin.rp.writeToWin("Path to the crtag base isn't valid")
+		      isFinished = True
+		      exit
 		    End
 		    While Not instream.EOF 
 		      App.YieldToNextThread()
@@ -132,7 +138,8 @@ Inherits Thread
 		      If BaseLocation.Exists Then
 		        instream=BaseLocation.OpenAsTextFile
 		      Else
-		        'MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		        deNovoWin.rp.writeToWin("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		        isFinished = True
 		        Exit
 		      End
 		    Else
@@ -154,7 +161,8 @@ Inherits Thread
 		      If BaseLocation.Exists Then
 		        instream=BaseLocation.OpenAsTextFile
 		      Else
-		        'MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		        deNovoWin.rp.writeToWin("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		        isFinished = True
 		        Exit
 		      End
 		    Else
@@ -174,22 +182,18 @@ Inherits Thread
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
-		    
+		    'set mode 2
 		    'export protein sequences
 		    'doesn't work LogoWin.show
 		    CDSfile=OutF.Child("CDS.fasta")
 		    if CDSfile<>nil then
 		      if CDSfile.exists then
-		        'doesn't workt me.MsgOutput=me.MsgOutput+EndofLine.unix+EndofLine.unix+"An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused.")
-		        me.MsgOutput=me.MsgOutput+"An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused."+EndOfLine.UNIX
+		        
+		        deNovoWin.rp.writeToWin("An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused."+EndOfLine.UNIX)
 		      else
-		        'doesn't work me.MsgOutput=me.MsgOutput+EndOfLine.unix+EndOfLine.unix+"Exporting CDS sequences...")
-		        
-		        me.MsgOutput=me.MsgOutput+"Exporting CDS sequences..."
-		        
+		        deNovoWin.rp.writeToWin("Exporting CDS sequences...")
 		        GenomeWin.ExportProteins(CDSfile)
-		        'doesn't work me.MsgOutput=me.MsgOutput+" OK")
-		        me.MsgOutput=me.MsgOutput+" OK"+EndOfLine.UNIX
+		        deNovoWin.rp.writeToWin(" OK"+EndOfLine.UNIX)
 		      end if
 		      
 		      'store the CDSs as a string for possible further use:
@@ -200,7 +204,7 @@ Inherits Thread
 		        instream.close
 		      end if
 		    else
-		      'doesn't work msgbox "Can't create a file to store CDS sequences, have to abort search"
+		      deNovoWin.rp.writeToWin("Can't create a file to store CDS sequences, have to abort search")
 		      
 		    end if
 		    alignmentsFile=TemporaryFolder.Child("alignments.table")
@@ -208,16 +212,14 @@ Inherits Thread
 		      if alignmentsFile.exists then
 		        alignmentsFile.Delete
 		      end if
-		      ' doesn't work me.MsgOutput=me.MsgOutput+EndofLine.unix+"Running hmmsearch...")
-		      me.MsgOutput=me.MsgOutput+EndofLine.unix+"Running hmmsearch..."
+		      deNovoWin.rp.writeToWin(EndofLine.unix+"Running hmmsearch...")
 		      dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		      
 		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+me.hmmPath+" "+CDSfile.ShellPath
 		      
 		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      If sh.errorCode=0 then
-		        'doesn't work me.MsgOutput=me.MsgOutput+" OK"+EndofLine.unix)
-		        me.MsgOutput=me.MsgOutput+" OK"+EndofLine.unix
+		        deNovoWin.rp.writeToWin(" OK"+EndofLine.unix)
 		        
 		        instream=alignmentsFile.OpenAsTextFile
 		        
@@ -247,12 +249,11 @@ Inherits Thread
 		        
 		        
 		      else
-		        me.MsgOutput=me.MsgOutput+sh.Result
+		        deNovoWin.rp.writeToWin(sh.Result+EndOfLine.UNIX)
 		        
 		      End If
 		    else
-		      'doesn't work me.MsgOutput=me.MsgOutput+EndofLine.unix+"Can't create temporary file, have to abort search.")
-		      me.MsgOutput=me.MsgOutput+"Can't create temporary file, have to abort search."+EndofLine.unix
+		      deNovoWin.rp.writeToWin("Can't create temporary file, have to abort search."+EndofLine.unix)
 		      return
 		    end if
 		    
@@ -263,13 +264,11 @@ Inherits Thread
 		    ' CRtags()
 		    dim query, res, filteredRes As string
 		    dim n as integer
-		    me.writeToWin("Test interface update from run event!"+EndOfLine.UNIX)
-		    'doesn't work me.MsgOutput=me.MsgOutput+EndofLine.unix+"Running online search and genome fragment retrieval.")
-		    me.MsgOutput=me.MsgOutput+"Running online search and genome fragment retrieval."+EndofLine.unix
+		    deNovoWin.rp.writeToWin("Running online search and genome fragment retrieval."+EndofLine.unix)
 		    if ubound(me.Protnames)>10 then
-		      me.MsgOutput=me.MsgOutput+" Relax and have a cup of coffee. Or two..."+EndofLine.unix
+		      deNovoWin.rp.writeToWin(" Relax and have a cup of coffee. Or two..."+EndofLine.unix)
 		    else
-		      me.MsgOutput=me.MsgOutput+".."
+		      deNovoWin.rp.writeToWin("..")
 		    end if
 		    dim id as integer
 		    dim genome as cSeqObject=GenomeWin.Genome
@@ -281,7 +280,7 @@ Inherits Thread
 		      res=""
 		      
 		      if me.CRtags(n)="[indel within CR tag region]" then
-		        me.MsgOutput=me.MsgOutput+me.Protnames(n)+" has an indel within CR tag region. Skipping it."+EndofLine.unix
+		        deNovoWin.rp.writeToWin(str(me.Protnames(n))+" has an indel within CR tag region. Skipping it."+EndofLine.unix)
 		      else
 		        id =0
 		        if genome <> nil then
@@ -450,7 +449,7 @@ Inherits Thread
 		        if resFile<>Nil then
 		          if resfile.exists then
 		            //'load existing data
-		            me.MsgOutput=me.MsgOutput+"a fasta file presumably with genome fragments exists in the working directory and will be reused."+EndOfLine.unix
+		            deNovoWin.rp.writeToWin("a fasta file presumably with genome fragments exists in the working directory and will be reused."+EndOfLine.unix)
 		            instream=resFile.OpenAsTextFile
 		            if instream<>nil then
 		              res=instream.ReadAll
@@ -468,13 +467,13 @@ Inherits Thread
 		            end if
 		            
 		            if FragmentsForAhitF=Nil then
-		              me.MsgOutput=me.MsgOutput+ "Can't create a folder "+FragmentsForAhitF.ShellPath+"to store genome fragments"+EndofLine.unix
+		              deNovoWin.rp.writeToWin("Can't create a folder "+FragmentsForAhitF.ShellPath+"to store genome fragments"+EndofLine.unix)
 		              return
 		            end if
 		            
 		            
 		            
-		            me.MsgOutput=me.MsgOutput+"Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons."+EndOfLine.unix
+		            deNovoWin.rp.writeToWin("Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons."+EndOfLine.unix)
 		            
 		            
 		            'add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
@@ -565,12 +564,12 @@ Inherits Thread
 		            
 		            If crIndex>0 Then
 		              #If DebugBuild
-		                me.MsgOutput=me.MsgOutput+Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... "+EndofLine.unix
+		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... "+EndofLine.unix)
 		              #Else
-		                me.MsgOutput=me.MsgOutput+Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix
+		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
 		              #EndIf
 		            Else
-		              me.MsgOutput=me.MsgOutput+"CRtag "+me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix
+		              deNovoWin.rp.writeToWin("CRtag "+me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
 		              Continue For n
 		            End If
 		            
@@ -600,25 +599,16 @@ Inherits Thread
 		              end if
 		              
 		            else
-		              me.MsgOutput=me.MsgOutput+"Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix
-		              
-		              
-		              
+		              deNovoWin.rp.writeToWin("Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix)
 		            end if
 		            
-		            
-		            
-		            
-		            me.MsgOutput=me.MsgOutput+" Done extracting genome fragments."+EndOfLine.unix
+		            deNovoWin.rp.writeToWin(" Done extracting genome fragments."+EndOfLine.unix)
 		            
 		            // Save UPS fragments used for MEME run
 		            
 		            
 		            
-		            
-		            
-		            
-		            me.MsgOutput=me.MsgOutput+deNovoWin.CountSeqs(dataForMeme)+" genome fragments extracted."+EndofLine.unix
+		            deNovoWin.rp.writeToWin(deNovoWin.CountSeqs(dataForMeme)+" genome fragments extracted."+EndofLine.unix)
 		            
 		            
 		            resfile2=Fasta_files.child(me.Protnames(n)+"_CDhit_filtered.fasta")
@@ -637,17 +627,19 @@ Inherits Thread
 		                
 		                'use genus and then species filtering anyway, as cd-hit filtering is far from perfect
 		                DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
-		                'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant species.")
+		                seqCount=str(deNovoWin.CountSeqs(dataForMeme))
+		                deNovoWin.rp.writeToWin(EndOfLine.Unix +seqCount+" fragments after removing redundant species.")
 		                
 		                DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
-		                'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant genera.")
+		                seqCount=str(deNovoWin.CountSeqs(dataForMeme))
+		                deNovoWin.rp.writeToWin(str(EndOfLine.Unix+seqCount+" fragments after removing redundant genera."))
 		                
 		                resfile2=Fasta_files.child(me.Protnames(n)+".fasta")
 		                OutStream = TextOutputStream.Create(resFile2)
 		                if outStream<>Nil then
 		                  outstream.Write(DataForMeme)
 		                  outstream.close
-		                  'me.MsgOutput=me.MsgOutput+" Done.")
+		                  deNovoWin.rp.writeToWin(" Done.")
 		                  
 		                end if
 		                
@@ -657,12 +649,12 @@ Inherits Thread
 		              end if 'countfields(DataForMeme,">")>30
 		              
 		            else 'resfile2<>nil
-		              me.MsgOutput=me.MsgOutput+"Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix
+		              deNovoWin.rp.writeToWin("Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix)
 		              
 		            end if 'resfile2<>nil
 		            
 		          else
-		            me.MsgOutput=me.MsgOutput+EndOfLine.unix+"No data to run meme for "+me.Protnames(n)+"."
+		            deNovoWin.rp.writeToWin(EndOfLine.unix+"No data to run meme for "+me.Protnames(n)+".")
 		            
 		          end if 'dataForMeme<>""
 		          
@@ -677,7 +669,7 @@ Inherits Thread
 		          
 		          If memeF <> Nil Then
 		            If memeF.Exists Then
-		              me.MsgOutput=me.MsgOutput+"MEME results folder exists, so MEME will not be run. Remove this folder ("+memeF.shellpath+") and re-run this procedure if you want to re-generate the  results"+EndOfLine.unix
+		              deNovoWin.rp.writeToWin("MEME results folder exists, so MEME will not be run. Remove this folder ("+memeF.shellpath+") and re-run search procedure if you want to re-generate the  results"+EndOfLine.unix)
 		              
 		            else
 		              memeF.createAsFolder
@@ -726,7 +718,7 @@ Inherits Thread
 		                  end if
 		                  
 		                  'LogoWin.show
-		                  me.MsgOutput=me.MsgOutput+"Running MEME in zoops mode..."
+		                  deNovoWin.rp.writeToWin("Running MEME in zoops mode...")
 		                  
 		                  ErrCode=MEME(resfile2, f1, opt+" -mod zoops")
 		                  'sh=New Shell
@@ -734,13 +726,13 @@ Inherits Thread
 		                  'sh.TimeOut=-1
 		                  dim zclean, aclean as boolean 
 		                  If ErrCode=0 then
-		                    me.MsgOutput=me.MsgOutput+" done."+EndofLine.unix
+		                    deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
 		                    
 		                    'create TomTom thread
 		                    ttt = new TTshell(f1.child("meme.txt"))
 		                    zclean=true
 		                  else
-		                    me.MsgOutput=me.MsgOutput+" failed."+EndofLine.unix
+		                    deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
 		                    zclean=false
 		                  end if
 		                  
@@ -755,24 +747,23 @@ Inherits Thread
 		                    end if
 		                    
 		                    'LogoWin.show
-		                    me.MsgOutput=me.MsgOutput+"Running MEME in anr mode..."
+		                    deNovoWin.rp.writeToWin("Running MEME in anr mode...")
 		                    
 		                    ErrCode=MEME(resfile2, f1, opt+" -mod anr")
 		                    If ErrCode=0 then
-		                      
-		                      me.MsgOutput=me.MsgOutput+" done."+EndofLine.unix
+		                      deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
 		                      'create TomTom thread
 		                      ttt2 = new TTshell(f1.child("meme.txt"))
 		                      aclean=true
 		                    else
-		                      me.MsgOutput=me.MsgOutput+" failed."+EndofLine.unix
+		                      deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
 		                      aclean=false
 		                    end if
 		                    if me.RunChipMunk then
 		                      dim errcodecm as Integer
 		                      ErrCodeCM=ChIPmunk(resfile2, f1.child("ChIPmunk-result"))
 		                      if errcodecm=0 then
-		                        me.MsgOutput=me.MsgOutput+" done."+EndofLine.unix
+		                        deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
 		                      end
 		                    end
 		                    
@@ -794,11 +785,11 @@ Inherits Thread
 		                      
 		                    end if
 		                    
-		                    me.MsgOutput=me.MsgOutput+EndofLine+"Results written to "+outf.Shellpath
+		                    deNovoWin.rp.writeToWin(EndofLine+"Results written to "+outf.Shellpath+EndOfLine.Unix)
 		                    
 		                    
 		                  else
-		                    me.MsgOutput=me.MsgOutput+"Can't create MEME output folder!"
+		                    deNovoWin.rp.writeToWin("Can't create MEME output folder!")
 		                    'return -1
 		                  end if
 		                  
@@ -807,7 +798,7 @@ Inherits Thread
 		                End If
 		                resfile2=new FolderItem
 		              else
-		                me.MsgOutput=me.MsgOutput+EndofLine.unix+"Not running MEME (empty file)"
+		                deNovoWin.rp.writeToWin(EndofLine.unix+"Not running MEME (empty file)")
 		                
 		              End If
 		              
@@ -815,11 +806,11 @@ Inherits Thread
 		            
 		            
 		          else
-		            me.MsgOutput=me.MsgOutput+EndOfLine.unix+"Can't create a folder to store MEME results for "+me.Protnames(n)+"."
+		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create a folder to store MEME results for "+me.Protnames(n)+".")
 		            
 		          end if
 		        else
-		          me.MsgOutput=me.MsgOutput+EndOfLine.unix+"Can't create a folder to store genome fragments for "+me.Protnames(n)+"."
+		          deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create a folder to store genome fragments for "+me.Protnames(n)+".")
 		        end if
 		        'end if
 		        
@@ -833,29 +824,23 @@ Inherits Thread
 		    next
 		    
 		    
-		    me.MsgOutput=me.MsgOutput+"All searches completed."+EndofLine.unix
+		    'deNovoWin.rp.writeToWin("All searches completed."+EndofLine.unix)
 		    '
-		    'me.MsgOutput=me.MsgOutput+EndofLine.unix+"TomTomThreadArray size: "+str(Ubound(TTthreadArray))+EndofLine.unix)
+		    'deNovoWin.rp.writeToWin(EndofLine.unix+"TomTomThreadArray size: "+str(Ubound(TTthreadArray))+EndofLine.unix))
 		    '
 		    '
 		    if me.RunTomTom then 
-		      dim tc as integer
-		      for n=0 to UBound(TTshellArray)
-		        if TTshellArray(n).finished=false then
-		          tc=tc+1
-		        end if
-		      next
-		      '
-		      'if tc>0 then
-		      'TTthreadsRunning=tc
-		      me.MsgOutput=me.MsgOutput+EndofLine.unix+str(TC)+" TomTom tasks are still running. Don't quit SigmoID or repeat de novo search until these threads are finished."+EndofLine.unix
-		      'deNovoWin.TTtimer.Enabled=true
-		      'end if
+		      if deNovoWin.TTtimer.Enabled = False then
+		        deNovoWin.TTtimer.Enabled = True
+		      end
+		      deNovoWin.rp.writeToWin(EndofLine.unix+" TomTom tasks are still running. Don't quit SigmoID or repeat de novo search until these threads are finished."+EndofLine.unix)
+		      
 		      While deNovoWin.TTtimer.Enabled = True
 		        app.YieldToNextThread()
 		      wend
-		      me.MsgOutput=me.MsgOutput+"All TomTom tasks finished. Press Finish button to save log file."+EndofLine.unix
-		      
+		      deNovoWin.rp.writeToWin("All TomTom tasks finished. Press Finish button to save log file."+EndofLine.unix)
+		    else 
+		      deNovoWin.rp.writeToWin("All TomTom tasks finished. Press Finish button to save log file."+EndofLine.unix)
 		    end if
 		    
 		    // Reutilise data from incomplete searches!
@@ -864,10 +849,10 @@ Inherits Thread
 		  Exception err
 		    
 		    if err isa IOException then
-		      me.MsgOutput=me.MsgOutput+EndOfLine.unix+"IOException has occurred."
-		      me.MsgOutput=me.MsgOutput+EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber)
-		      me.MsgOutput=me.MsgOutput+EndOfLine.unix+"Message: "+err.Message
-		      me.MsgOutput=me.MsgOutput+EndOfLine.unix+"Reason: "+err.Reason
+		      deNovoWin.rp.writeToWin(EndOfLine.unix+"IOException has occurred.")
+		      deNovoWin.rp.writeToWin(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
+		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Message: "+err.Message)
+		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Reason: "+err.Reason)
 		    end if
 		    ExceptionHandler(err,"deNovoWin:RunButton")
 		    
@@ -879,6 +864,9 @@ Inherits Thread
 		  for each update as Dictionary in data
 		    if update.HasKey("Message") then
 		      deNovoWin.TextArea1.AppendText(update.Value("Message"))
+		      if deNovoWin.mouseInWin=false and deNovoWin.TextArea1.Visible=True then
+		        deNovoWin.TextArea1.ScrollPosition=deNovoWin.TextArea1.LineNumber(Len(deNovoWin.TextArea1.Text))
+		      end
 		    end
 		  next
 		End Sub
@@ -931,10 +919,6 @@ Inherits Thread
 
 	#tag Property, Flags = &h0
 		MEME_results As FolderItem
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		MsgOutput As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1094,14 +1078,6 @@ Inherits Thread
 			InitialValue=""
 			Type="boolean"
 			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="MsgOutput"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="string"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="isFinished"
