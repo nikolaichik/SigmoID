@@ -909,7 +909,7 @@ Protected Module DeNovoTFBSinference
 		    return ""
 		  end if
 		  
-		  
+		  deNovoWin.rp.writeToWin("Test interface update from GetRegSeq"+EndOfLine.UNIX)
 		  
 		  'Entry=FetchGenPeptEntry(UniProtCodes)
 		  dim f as GBFeature 
@@ -2307,7 +2307,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  
 		  // write to the log
-		  
+		  deNovoWin.rp.writeToWin("Test interface update from RedundantSeqs"+EndOfLine.UNIX)
 		  if genusSpecific then
 		    MsgOutput=MsgOutput+EndOfLine.UNIX+"Removing redundant seqs within genera... " 
 		  else

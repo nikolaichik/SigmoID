@@ -301,6 +301,7 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -419,6 +420,7 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   2
@@ -460,6 +462,7 @@ Begin Window deNovoWin
       Width           =   192
    End
    Begin Timer OutputTimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -500,6 +503,7 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -1675,7 +1679,7 @@ End
 		Name="TTthreadsRunnin"
 		Visible=false
 		Group="Behavior"
-		InitialValue=""
+		InitialValue="0"
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty

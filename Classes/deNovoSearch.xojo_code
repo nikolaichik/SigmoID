@@ -263,7 +263,7 @@ Inherits Thread
 		    ' CRtags()
 		    dim query, res, filteredRes As string
 		    dim n as integer
-		    
+		    me.writeToWin("Test interface update from run event!"+EndOfLine.UNIX)
 		    'doesn't work me.MsgOutput=me.MsgOutput+EndofLine.unix+"Running online search and genome fragment retrieval.")
 		    me.MsgOutput=me.MsgOutput+"Running online search and genome fragment retrieval."+EndofLine.unix
 		    if ubound(me.Protnames)>10 then
@@ -873,6 +873,24 @@ Inherits Thread
 		    
 		End Sub
 	#tag EndEvent
+
+	#tag Event
+		Sub UserInterfaceUpdate(data() as Dictionary)
+		  for each update as Dictionary in data
+		    if update.HasKey("Message") then
+		      deNovoWin.TextArea1.AppendText(update.Value("Message"))
+		    end
+		  next
+		End Sub
+	#tag EndEvent
+
+
+	#tag Method, Flags = &h0
+		Sub writeToWin(msg as string)
+		  Me.AddUserInterfaceUpdate("Message":msg)
+		  
+		End Sub
+	#tag EndMethod
 
 
 	#tag Property, Flags = &h0
