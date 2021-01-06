@@ -264,11 +264,11 @@ Inherits Thread
 		    ' CRtags()
 		    dim query, res, filteredRes As string
 		    dim n as integer
-		    deNovoWin.rp.writeToWin("Running online search and genome fragment retrieval."+EndofLine.unix)
+		    deNovoWin.rp.writeToWin("Running online search and genome fragment retrieval.")
 		    if ubound(me.Protnames)>10 then
 		      deNovoWin.rp.writeToWin(" Relax and have a cup of coffee. Or two..."+EndofLine.unix)
 		    else
-		      deNovoWin.rp.writeToWin("..")
+		      deNovoWin.rp.writeToWin(".."+EndofLine.unix)
 		    end if
 		    dim id as integer
 		    dim genome as cSeqObject=GenomeWin.Genome
@@ -564,7 +564,7 @@ Inherits Thread
 		            
 		            If crIndex>0 Then
 		              #If DebugBuild
-		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... "+EndofLine.unix)
+		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... "
 		              #Else
 		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
 		              #EndIf
@@ -602,20 +602,20 @@ Inherits Thread
 		              deNovoWin.rp.writeToWin("Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix)
 		            end if
 		            
-		            deNovoWin.rp.writeToWin(" Done extracting genome fragments."+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin("Done extracting genome fragments. ")
 		            
 		            // Save UPS fragments used for MEME run
 		            
 		            
 		            
-		            deNovoWin.rp.writeToWin(deNovoWin.CountSeqs(dataForMeme)+" genome fragments extracted."+EndofLine.unix)
+		            deNovoWin.rp.writeToWin(deNovoWin.CountSeqs(dataForMeme)+" fragments collected."+EndofLine.unix)
 		            
 		            
 		            resfile2=Fasta_files.child(me.Protnames(n)+"_CDhit_filtered.fasta")
 		            
 		            if resfile2<>nil then
 		              
-		              if countfields(DataForMeme,">")>30 then 'too many seqs - reduce the number!
+		              If CountFields(DataForMeme,">")>30 Then 'too many seqs - reduce the number!
 		                
 		                'run cd-hit if present
 		                dim clustered as string
@@ -625,21 +625,24 @@ Inherits Thread
 		                  DataForMeme=clustered
 		                end if
 		                
-		                'use genus and then species filtering anyway, as cd-hit filtering is far from perfect
-		                DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
-		                seqCount=str(deNovoWin.CountSeqs(dataForMeme))
-		                deNovoWin.rp.writeToWin(EndOfLine.Unix +seqCount+" fragments after removing redundant species.")
+		                If CountFields(DataForMeme,">")>30 Then 'Still too many seqs - remove redundant species
+		                  DataForMeme=RemoveRedundantSeqs(DataForMeme,False)
+		                  seqCount=str(deNovoWin.CountSeqs(dataForMeme))
+		                  deNovoWin.rp.writeToWin(EndOfLine.Unix +seqCount+" fragments after removing redundant species.")
+		                End If
 		                
-		                DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
-		                seqCount=str(deNovoWin.CountSeqs(dataForMeme))
-		                deNovoWin.rp.writeToWin(str(EndOfLine.Unix+seqCount+" fragments after removing redundant genera."))
+		                If CountFields(DataForMeme,">")>30 Then 'Still too many seqs - remove redundant genera
+		                  DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
+		                  seqCount=str(deNovoWin.CountSeqs(dataForMeme))
+		                  deNovoWin.rp.writeToWin(Str(EndOfLine.Unix+seqCount+" fragments after removing redundant genera."))
+		                End If
 		                
 		                resfile2=Fasta_files.child(me.Protnames(n)+".fasta")
 		                OutStream = TextOutputStream.Create(resFile2)
 		                if outStream<>Nil then
 		                  outstream.Write(DataForMeme)
 		                  outstream.close
-		                  deNovoWin.rp.writeToWin(" Done.")
+		                  'deNovoWin.rp.writeToWin(" Done.")
 		                  
 		                end if
 		                
@@ -665,7 +668,9 @@ Inherits Thread
 		          // Run MEME in two modes
 		          dim memeF,f1 as folderitem
 		          
-		          memeF=MEME_results.child(me.Protnames(n))
+		          memeF=MEME_results.child(Me.Protnames(n))
+		          
+		          deNovoWin.rp.writeToWin(EndOfLine.UNIX)
 		          
 		          If memeF <> Nil Then
 		            If memeF.Exists Then
@@ -785,7 +790,7 @@ Inherits Thread
 		                      
 		                    end if
 		                    
-		                    deNovoWin.rp.writeToWin(EndofLine+"Results written to "+outf.Shellpath+EndOfLine.Unix)
+		                    deNovoWin.rp.writeToWin("Results written to "+outf.Shellpath+EndOfLine.Unix+EndOfLine.Unix)
 		                    
 		                    
 		                  else
@@ -854,7 +859,7 @@ Inherits Thread
 		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Message: "+err.Message)
 		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Reason: "+err.Reason)
 		    end if
-		    ExceptionHandler(err,"deNovoWin:RunButton")
+		    ExceptionHandler(err, "deNovoWin:RunButton", true)
 		    
 		End Sub
 	#tag EndEvent

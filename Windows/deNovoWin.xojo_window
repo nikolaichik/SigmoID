@@ -1068,7 +1068,7 @@ End
 #tag Events RunButton
 	#tag Event
 		Sub Action()
-		  if logoWin.TopPanel.Visible then
+		  If logoWin.TopPanel.Visible Then
 		    
 		    logoWin.DownshiftLog true
 		    logoWin.DownshiftLog false
@@ -1115,7 +1115,10 @@ End
 		  ChooseButton.Enabled=False
 		  me.Enabled=false
 		  
-		  
+		  Exception err
+		    
+		    ExceptionHandler(err,"deNovoWin:RunButton")
+		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents

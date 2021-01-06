@@ -698,7 +698,7 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ExceptionHandler(err as RuntimeException, meth as string)
+		Sub ExceptionHandler(err As RuntimeException, meth As string, fromThread As boolean = False)
 		  
 		  dim errtype as string 
 		  
@@ -767,20 +767,40 @@ Protected Module Globals
 		  end if
 		  
 		  
-		  if err IsA HTMLViewerException then
-		    'Occurs when The HTMLViewer cannot render the HTML, usually because of a missing library.
-		    #if TargetLinux
-		      #If Target64Bit
-		        'An HTMLViewerException is most likely to occur on 64-bit Linux
-		        'when the required 32-bit webkit libraries are not installed.
-		        MsgBox "There was a problem displaying html. This is probably because of missing WebKit libraries. Please try to launch Sigmoid with the provided sigmoid.sh script or consult the docs on details of Linux install."
+		  If fromThread Then
+		    'Currently limited to the de novo TFBS search thread
+		    If err IsA HTMLViewerException Then
+		      'Occurs when The HTMLViewer cannot render the HTML, usually because of a missing library.
+		      #If TargetLinux
+		        #If Target64Bit
+		          'An HTMLViewerException is most likely to occur on 64-bit Linux
+		          'when the required 32-bit webkit libraries are not installed.
+		          deNovoWin.rp.writeToWin(EndOfLine.unix+"There was a problem displaying html. This is probably because of missing WebKit libraries. Please try to launch Sigmoid with the provided sigmoid.sh script or consult the docs on details of Linux install."+EndOfLine.unix)
+		        #EndIf
+		      #Else
+		        deNovoWin.rp.writeToWin(EndOfLine.unix+"There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)+" ("+ErrType+")"+EndOfLine.unix)
+		        
+		      #EndIf
+		    Else
+		      deNovoWin.rp.writeToWin(EndOfLine.unix+"There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)+" ("+ErrType+")"+EndOfLine.unix)
+		    End If
+		    
+		  Else
+		    If err IsA HTMLViewerException Then
+		      'Occurs when The HTMLViewer cannot render the HTML, usually because of a missing library.
+		      #if TargetLinux
+		        #If Target64Bit
+		          'An HTMLViewerException is most likely to occur on 64-bit Linux
+		          'when the required 32-bit webkit libraries are not installed.
+		          MsgBox "There was a problem displaying html. This is probably because of missing WebKit libraries. Please try to launch Sigmoid with the provided sigmoid.sh script or consult the docs on details of Linux install."
+		        #endif
+		      #else
+		        MsgBox "There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)+" ("+ErrType+")"
 		      #endif
-		    #else
+		    else
 		      MsgBox "There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)+" ("+ErrType+")"
-		    #endif
-		  else
-		    MsgBox "There was a problem in the following method: "+meth+". "+ err.Message+" Error Code: "+Str(err.errorNumber)+" ("+ErrType+")"
-		  end if
+		    End If
+		  End If
 		End Sub
 	#tag EndMethod
 

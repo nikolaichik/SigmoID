@@ -49,7 +49,7 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
-		  dim cli as string
+		  Dim cli As String
 		  Dim sh As Shell
 		  sh=New Shell
 		  sh.mode=0
@@ -81,12 +81,14 @@ Protected Module DeNovoTFBSinference
 		  end if
 		  
 		  Exception err
-		    ExceptionHandler(err,"SeqRetrieval:ChIPmunk")
+		    ExceptionHandler(err,"DeNovoTFBSinference:ChIPmunk",True)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function ConvertIDtoGenPept(ncbiID as string) As string
+		  'currently unused
+		  
 		  // Requires a valid NCBI ID (e.g. the one returned by UniProt2ncbi_ID)
 		  //
 		  // Returns correct ID (currently gi, may break in September 2016) for the protein sequence in GenPept
@@ -212,12 +214,13 @@ Protected Module DeNovoTFBSinference
 		  'hts.close
 		  return res
 		  Exception err
-		    ExceptionHandler(err,"SeqRetrieval:FetchGenBankEntryFragment")
+		    ExceptionHandler(err,"DeNovoTFBSinference:FetchGenBankEntryFragment",True)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function FetchGenPeptEntries(Entries as string) As string
+		  'Currently unused
 		  
 		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=gp&retmode=text&id="
 		  Dim theURL As String
@@ -278,6 +281,7 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function FetchGenPeptEntry1(Entry as string) As string
+		  'Currently unused
 		  
 		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
 		  Const URLend as string="&rettype=gp" 
@@ -804,7 +808,7 @@ Protected Module DeNovoTFBSinference
 		  // localgbk string for GetRegSeq method 
 		  'is a signal to use local gbk file for TF's nearby regions extraction
 		  if m>requestCount then
-		    deNovoWin.rp.writeToWin("Processing UniProt hits..."+EndOfLine.unix)
+		    deNovoWin.rp.writeToWin("Extracting genome fragments around around the TF gene..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    k=m\requestCount 
 		    z=m mod requestCount
@@ -838,7 +842,7 @@ Protected Module DeNovoTFBSinference
 		    MultiFasta=MultiFasta+GetRegSeq("localgbk",EntryFragmentsF)
 		    return MultiFasta
 		  else
-		    deNovoWin.rp.writeToWin("Processing UniProt hits..."+EndOfLine.unix)
+		    deNovoWin.rp.writeToWin("Extracting genome fragments around around the TF gene..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    SingleFasta=GetRegSeq(ecodes,EntryFragmentsF)
 		    SingleFasta=SingleFasta+GetRegSeq("localgbk",EntryFragmentsF)
@@ -852,8 +856,9 @@ Protected Module DeNovoTFBSinference
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
-		    end if
-		    ExceptionHandler(err,"SeqRetrieval:GetOrthoRegSeq")
+		    End If
+		    
+		    ExceptionHandler(err,"DeNovoTFBSinference:GetOrthoRegSeq", true)
 		    
 		End Function
 	#tag EndMethod
@@ -1106,7 +1111,7 @@ Protected Module DeNovoTFBSinference
 		          if extractfragment.exists then
 		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Check if genome file exists: "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
 		          else
-		            deNovoWin.rp.writeToWin("Can't get nearby operons region, check if ExtractFragment.py is present in  SigmoID Resources folder"+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin("Can't get nearby operons region, check if ExtractFragment.py is present in  SigmoID Resources folder."+EndOfLine.unix)
 		          end
 		          
 		          
@@ -1558,7 +1563,7 @@ Protected Module DeNovoTFBSinference
 		      deNovoWin.rp.writeToWin("Message: "+err.Message)
 		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Reason: "+err.Reason)
 		    end if
-		    ExceptionHandler(err,"SeqRetrieval:GetRegSeq")
+		    ExceptionHandler(err,"DeNovoTFBSinference:GetRegSeq",true)
 		End Function
 	#tag EndMethod
 
@@ -2223,7 +2228,7 @@ Protected Module DeNovoTFBSinference
 		  end if
 		  
 		  Exception err
-		    ExceptionHandler(err,"SeqRetrieval:MEME")
+		    ExceptionHandler(err,"DeNovoTFBSinference:MEME")
 		    
 		    
 		End Function
@@ -2434,6 +2439,8 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function UniProt2ncbi_ID(UniProtID as string) As string
+		  'Currently unused
+		  
 		  'As UniProt IDs are unusable with NCBI, this method returns 
 		  'an ID that can be found in GenPept.
 		  
@@ -2497,6 +2504,8 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function UniProt2ncbi_ID_old(UniProtID as string) As string
+		  'Currently unused
+		  
 		  'As UniProt IDs are unusable with NCBI, this method returns 
 		  'an ID that can be found in GenPept.
 		  
