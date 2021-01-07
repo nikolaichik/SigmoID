@@ -808,7 +808,7 @@ Protected Module DeNovoTFBSinference
 		  // localgbk string for GetRegSeq method 
 		  'is a signal to use local gbk file for TF's nearby regions extraction
 		  if m>requestCount then
-		    deNovoWin.rp.writeToWin("Extracting genome fragments around around the TF gene..."+EndOfLine.unix)
+		    deNovoWin.rp.writeToWin("Extracting genome fragments around the TF gene..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    k=m\requestCount 
 		    z=m mod requestCount
@@ -842,7 +842,7 @@ Protected Module DeNovoTFBSinference
 		    MultiFasta=MultiFasta+GetRegSeq("localgbk",EntryFragmentsF)
 		    return MultiFasta
 		  else
-		    deNovoWin.rp.writeToWin("Extracting genome fragments around around the TF gene..."+EndOfLine.unix)
+		    deNovoWin.rp.writeToWin("Extracting genome fragments around the TF gene..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    SingleFasta=GetRegSeq(ecodes,EntryFragmentsF)
 		    SingleFasta=SingleFasta+GetRegSeq("localgbk",EntryFragmentsF)

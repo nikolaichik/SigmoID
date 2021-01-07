@@ -564,7 +564,7 @@ Inherits Thread
 		            
 		            If crIndex>0 Then
 		              #If DebugBuild
-		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... "
+		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... ")
 		              #Else
 		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
 		              #EndIf
@@ -835,6 +835,7 @@ Inherits Thread
 		    '
 		    '
 		    if me.RunTomTom then 
+		      deNovoWin.TTtimer.Mode = Timer.ModeMultiple
 		      if deNovoWin.TTtimer.Enabled = False then
 		        deNovoWin.TTtimer.Enabled = True
 		      end
@@ -843,9 +844,9 @@ Inherits Thread
 		      While deNovoWin.TTtimer.Enabled = True
 		        app.YieldToNextThread()
 		      wend
-		      deNovoWin.rp.writeToWin("All TomTom tasks finished. Press Finish button to save log file."+EndofLine.unix)
+		      deNovoWin.rp.writeToWin("Press 'Save log' button to proceed."+EndofLine.unix)
 		    else 
-		      deNovoWin.rp.writeToWin("All TomTom tasks finished. Press Finish button to save log file."+EndofLine.unix)
+		      deNovoWin.rp.writeToWin("Press 'Save log' button to proceed."+EndofLine.unix)
 		    end if
 		    
 		    // Reutilise data from incomplete searches!
@@ -868,9 +869,9 @@ Inherits Thread
 		Sub UserInterfaceUpdate(data() as Dictionary)
 		  for each update as Dictionary in data
 		    if update.HasKey("Message") then
-		      deNovoWin.TextArea1.AppendText(update.Value("Message"))
-		      if deNovoWin.mouseInWin=false and deNovoWin.TextArea1.Visible=True then
-		        deNovoWin.TextArea1.ScrollPosition=deNovoWin.TextArea1.LineNumber(Len(deNovoWin.TextArea1.Text))
+		      deNovoWin.LoggingOutput.AppendText(update.Value("Message"))
+		      if deNovoWin.mouseInWin=false and deNovoWin.LoggingOutput.Visible=True then
+		        deNovoWin.LoggingOutput.ScrollPosition=deNovoWin.LoggingOutput.LineNumber(Len(deNovoWin.LoggingOutput.Text))
 		      end
 		    end
 		  next
@@ -947,11 +948,11 @@ Inherits Thread
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		RunChipMunk As boolean
+		RunChipMunk As boolean = false
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		RunTomTom As boolean
+		RunTomTom As boolean = false
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -959,7 +960,7 @@ Inherits Thread
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		TTthreadsRunning As Integer
+		TTthreadsRunning As Integer = 0
 	#tag EndProperty
 
 
@@ -1072,7 +1073,7 @@ Inherits Thread
 			Name="TTthreadsRunning"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="0"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

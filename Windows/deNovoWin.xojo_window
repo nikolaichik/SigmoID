@@ -250,7 +250,7 @@ Begin Window deNovoWin
       Width           =   1022
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
-      Begin TextArea TextArea1
+      Begin TextArea LoggingOutput
          AllowAutoDeactivate=   True
          AllowFocusRing  =   True
          AllowSpellChecking=   True
@@ -422,7 +422,7 @@ Begin Window deNovoWin
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
-      Period          =   500
+      Period          =   1000
       Scope           =   0
       TabPanelIndex   =   0
    End
@@ -459,15 +459,7 @@ Begin Window deNovoWin
       Visible         =   True
       Width           =   192
    End
-   Begin Timer OutputTimer
-      Index           =   -2147483648
-      LockedInPosition=   False
-      Period          =   1000
-      RunMode         =   "0"
-      Scope           =   0
-      TabPanelIndex   =   0
-   End
-   Begin PushButton PushButton1
+   Begin PushButton PauseButton
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -534,7 +526,7 @@ End
 		  AdjustLayout4linux(me)
 		  RunCheck
 		  
-		  TextArea1.TextFont=FixedFont 
+		  
 		End Sub
 	#tag EndEvent
 
@@ -1076,16 +1068,15 @@ End
 		    logoWin.DownshiftLog true
 		    logoWin.DownshiftLog false
 		  end if
-		  self.TextArea1.Text=""
+		  self.LoggingOutput.Text=""
 		  rp = new deNovoSearch
 		  LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Running de novo TFBS inference pipeline with SigmoID "+app.LongVersion)
 		  
 		  'self.hide
-		  'dim rp as new RunPipelineThread
+		  
 		  rp.hmmPath=HmmList.Cell(HmmList.ListIndex,7) 'was five
 		  rp.CRtagPositions=HmmList.Cell(HmmList.ListIndex,3)
 		  rp.hmmName=HmmList.Cell(HmmList.ListIndex,1)
-		  
 		  rp.OutF=OutF
 		  rp.Fasta_files=Fasta_files
 		  rp.Genome_fragments=Genome_fragments
@@ -1104,12 +1095,13 @@ End
 		  DeNovoTFBSinference.Proteins2process=Val(deNovoWin.Proteins2processField.text)
 		  
 		  RunThreadState = "running"
-		  
 		  rp.isFinished = False
 		  CancelButton.Caption="Stop"
 		  CancelButton.Enabled = True
-		  PushButton1.Enabled = True
-		  TextArea1.Visible = True
+		  PauseButton.Enabled = True
+		  runChipMunk.Enabled = False
+		  RunTomTomBox.Enabled = False
+		  LoggingOutput.Visible = True
 		  RunTImer.Mode= Timer.ModeMultiple
 		  RunTImer.Enabled = True
 		  ChooseButton.Enabled=False
@@ -1126,7 +1118,7 @@ End
 	#tag Event
 		Sub Action()
 		  RunThreadState="stopped"
-		  TextArea1.Visible= False
+		  LoggingOutput.Visible= False
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1241,6 +1233,15 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events LoggingOutput
+	#tag Event
+		Sub Open()
+		  me.ReadOnly =  True
+		  me.TextFont = FixedFont 
+		  me.AllowSpellChecking = False
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events hts2
 	#tag Event
 		Sub PageReceived(URL as Text, HTTPStatus as Integer, Content as xojo.Core.MemoryBlock)
@@ -1302,19 +1303,18 @@ End
 		  if tc<rp.TTthreadsRunning then
 		    rp.TTthreadsRunning=tc
 		    if tc=0 then
-		      'LogoWin.WriteToSTDOUT (EndofLine.unix+"All TomTom tasks finished."+EndofLine.unix)
-		      TextArea1.AppendText(EndofLine.unix+"All TomTom tasks finished."+EndofLine.unix)
+		      LoggingOutput.AppendText(EndofLine.unix+"All TomTom tasks finished."+EndofLine.unix)
 		      me.Enabled=false
 		    else
 		      if tc=1 then
-		        'LogoWin.WriteToSTDOUT (EndofLine.unix+"1 TomTom task is still running..."+EndofLine.unix)
-		        TextArea1.AppendText(EndofLine.unix+"1 TomTom task is still running..."+EndofLine.unix)
+		        LoggingOutput.AppendText(EndofLine.unix+"1 TomTom task is still running..."+EndofLine.unix)
 		      else
-		        'LogoWin.WriteToSTDOUT (EndofLine.unix+str(TC)+" TomTom tasks are still running..."+EndofLine.unix)
-		        TextArea1.AppendText(EndofLine.unix+str(TC)+" TomTom tasks are still running..."+EndofLine.unix)
+		        LoggingOutput.AppendText(EndofLine.unix+str(TC)+" TomTom tasks are still running..."+EndofLine.unix)
 		      end if
 		      
 		    end if
+		  else 
+		    if tc=0 then me.Enabled=false
 		  end if
 		End Sub
 	#tag EndEvent
@@ -1330,27 +1330,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events OutputTimer
-	#tag Event
-		Sub Action()
-		  'if rp.MsgOutput<>"" Then
-		  '
-		  ''rp.MsgOutput = ""
-		  ''LogoWin.WriteToSTDOUT(temp)'
-		  ''stdout.TextFont=FixedFont  'workaround for problems setting font at initialisation 
-		  'TextArea1.AppendText(rp.MsgOutput)
-		  'rp.MsgOutput=""
-		  'if mouseInWin=false and TextArea1.Visible=True then
-		  'TextArea1.ScrollPosition=TextArea1.LineNumber(Len(TextArea1.Text))
-		  'end
-		  'TextArea1.Refresh(False)
-		  ''App.DoEvents
-		  'if TextArea1.Visible=False then me.Enabled=False
-		  'end
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PushButton1
+#tag Events PauseButton
 	#tag Event
 		Sub Action()
 		  if me.Caption = "Pause" then
@@ -1392,15 +1372,18 @@ End
 		    if resFile<>Nil then
 		      OutStream = TextOutputStream.Create(resFile)
 		      if outStream<>Nil then
-		        outstream.Write(self.TextArea1.Text)
+		        outstream.Write(self.LoggingOutput.Text)
 		        outstream.close
-		        Self.TextArea1.Text=""
+		        Self.LoggingOutput.Text=""
 		      end if
 		    end if
 		    CancelButton.Enabled=false
-		    PushButton1.Enabled=false
+		    PauseButton.Enabled=false
 		    RunButton.Enabled=true
 		    ChooseButton.Enabled=True
+		    RunTomTomBox.Enabled=True
+		    runChipMunk.Enabled=True
+		    
 		    
 		    dim n,tc as integer
 		    for n=0 to UBound(TTshellArray)
@@ -1408,13 +1391,13 @@ End
 		        TTshellArray(n).Close
 		      end if
 		    next
-		    if PushButton1.Caption="Resume" then PushButton1.Caption="Pause"
+		    if PauseButton.Caption="Resume" then PauseButton.Caption="Pause"
 		    me.enabled=False
 		    
 		  end
 		  if rp.ThreadState=Thread.ThreadStates.NotRunning and CancelButton.Caption="Stop" then
-		    CancelButton.Caption="Finish"
-		    PushButton1.Enabled=False
+		    CancelButton.Caption="Save log"
+		    PauseButton.Enabled=False
 		  end
 		End Sub
 	#tag EndEvent
