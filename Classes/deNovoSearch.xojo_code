@@ -1049,7 +1049,7 @@ Inherits Thread
 			Name="RunChipMunk"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="false"
 			Type="boolean"
 			EditorType=""
 		#tag EndViewProperty
@@ -1057,7 +1057,7 @@ Inherits Thread
 			Name="RunTomTom"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="false"
 			Type="boolean"
 			EditorType=""
 		#tag EndViewProperty

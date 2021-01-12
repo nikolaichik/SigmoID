@@ -58,7 +58,7 @@ Protected Module DeNovoTFBSinference
 		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+Str(inFile.ShellPath)
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
-		  LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running ChIPmunk...")
+		  deNovoWin.rp.writeToWin(EndOfLine.unix+"Running ChIPmunk...")
 		  'assume bash is the normal user shell
 		  'execute bash with login scripts to set the same env as in terminal
 		  'command must be in single quotes
@@ -74,8 +74,8 @@ Protected Module DeNovoTFBSinference
 		    
 		    return sh.errorCode
 		  else
-		    LogoWin.WriteToSTDOUT ("ChIPmunk error code: "+Str(sh.errorCode))
-		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    deNovoWin.rp.writeToWin("ChIPmunk error code: "+Str(sh.errorCode))
+		    deNovoWin.rp.writeToWin(EndofLine+Sh.Result)
 		    
 		    return sh.errorCode
 		  end if
@@ -626,16 +626,29 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="HTH_8.hmm"
 		  Case "IclR"
 		    hmmFileName="IclR.hmm"
+		  Case "ArsR"
+		    hmmFileName="HTH_20.hmm"
+		  Case "MerR"
+		    hmmFileName="MerR.hmm"
+		  Case "Rrf2"
+		    hmmFileName="Rrf2.hmm"
+		  Case "AsnC"
+		    hmmFileName="HTH_AsnC_type.hmm"
+		  Case "ROK"
+		    hmmFileName="MarR_Superfamily.hmm"  'this model matches most of TFs from this family in RegPrecise
+		  Case "CRP"
+		    hmmFileName="HTH_Crp_2.hmm"
+		  Case "Fur"
+		    hmmFileName="FUR.hmm"
+		    
+		    'although the majority of AraC family TFs are covered by AraCd1.hmm, significant numbers 
+		    'have shorter or longer specer between two DBDs, hence tho other models are needed
+		    'and the user has to choose manually between AraCd1.hmm, AraCd2.hmm and the original HTH_18.hmm
+		    'Case "AraC"
+		    'hmmFileName="AraCd1.hmm"
 		  Case ""
 		    hmmFileName=""
-		  Case ""
-		    hmmFileName=""
-		  Case ""
-		    hmmFileName=""
-		  Case ""
-		    hmmFileName=""
-		  Case ""
-		    hmmFileName=""
+		    
 		  Else
 		    'can't find the proper .hmm file, so asking the user to choose it
 		    Dim dlg2 as New OpenDialog

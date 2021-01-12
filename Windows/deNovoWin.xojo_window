@@ -533,7 +533,7 @@ End
 
 	#tag Method, Flags = &h1, Description = 4275696C645369674172726179
 		Protected Sub BuildHmmArray()
-		  dim l,m,n as integer
+		  Dim l,m,n As Integer
 		  dim f as folderitem
 		  dim hmmPath, fName, aLine,lineStart as string
 		  dim inStream as TextInputStream
