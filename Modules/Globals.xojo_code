@@ -117,7 +117,14 @@ Protected Module Globals
 		      'SettingsWin.PagePanel1.value=1
 		      If Not EmailWarned Then
 		        EmailWarned=True
-		        LogoWin.WriteToSTDOUT("Please enter your e-mail address in the preferences. It is required for some NCBI services."+EndOfLine.UNIX)
+		        if deNovoWin.LoggingOutput.Visible = False then
+		          LogoWin.WriteToSTDOUT("Please enter your e-mail address in the preferences. It is required for some NCBI services."+EndOfLine.UNIX)
+		        else
+		          deNovoWin.rp.writeToWin("Please enter your e-mail address in the preferences. It is required for some NCBI services."+EndOfLine.UNIX)
+		          app.SleepCurrentThread(5000)
+		          deNovoWin.RunThreadState="stopped"
+		          deNovoWin.LoggingOutput.Visible= False
+		        end
 		      End If
 		    End If
 		    
