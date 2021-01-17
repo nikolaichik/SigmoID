@@ -1665,8 +1665,8 @@ End
 		    msgbox "No folder to save profiles to. Stopping."
 		    return
 		  end if
-		  LogoWin.WriteToSTDOUT (EndofLine.UNIX+kExportingProfiles+EndOfLine.UNIX)
-		  LogoWin.STDOUT.Refresh(false)
+		  LogoWin.WriteToSTDOUT (EndOfLine.UNIX+kExportingSigs+EndOfLine.UNIX)
+		  LogoWin.stdout.Refresh(False)
 		  Logowin.show
 		  
 		  

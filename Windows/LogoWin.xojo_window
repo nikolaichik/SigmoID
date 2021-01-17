@@ -3630,8 +3630,8 @@ End
 		          elseif left(aLine,11)="CRtagCoords" then
 		            CRtagCoords=right(aline,len(aline)-12)
 		            ProfileWizardWin.CRtagField.text=CRtagCoords
-		          elseif left(aLine,10)="protein_id" then
-		            SeedProteinID=trim(NthField(aline," ",2))
+		          Elseif Left(aLine,10)="protein_id" Then
+		            SeedProteinID=trim(NthField(aline,"protein_id",2))
 		            ProfileWizardWin.SeedProteinArea.Text=">"+SeedProteinID+EndOfLine.Unix
 		            ProfileWizardWin.SeedProteinArea.TextColor=&c00000000
 		          elseif left(aLine,12)="seed_protein" then
