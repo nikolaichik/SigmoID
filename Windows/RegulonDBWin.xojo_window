@@ -454,7 +454,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -473,7 +472,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -756,7 +754,7 @@ End
 		        if isPromoterSet then
 		          siteSeq=BSarr(6)
 		        else
-		          siteSeq=BSarr(12)
+		          siteSeq=BSarr(14)
 		        end if
 		        if siteSeq<>"" then 'filter out empty sites
 		          
@@ -764,7 +762,7 @@ End
 		          if isPromoterSet then
 		            conf=BSarr(8)
 		          else
-		            conf=BSarr(14)
+		            conf=BSarr(17)
 		          end if
 		          
 		          if conf="Confirmed" then
@@ -808,7 +806,7 @@ End
 		            
 		            linecount=linecount+1
 		            
-		            currentGene=BSarr(8)
+		            currentGene=BSarr(9)
 		            newgene=true
 		            for n=0 to UBound(genearr)
 		              if currentGene=genearr(n) then
@@ -822,9 +820,9 @@ End
 		            
 		            'BSarr(8)+"_"+BSarr(11) gives unique name
 		            
-		            tline=">"+BSarr(8)+"_"+BSarr(11)+" "+BSarr(10)+" "+BSarr(9)+" "+BSarr(1)+" "+BSarr(2)+" "+BSarr(3)+" "+BSarr(4)+" "+BSarr(5)+" "+BSarr(6)+" "+BSarr(7)+" "+BSarr(13)+" "+BSarr(14)
+		            tline=">"+BSarr(9)+"_"+BSarr(13)+" "+BSarr(12)+" "+BSarr(11)+" "+BSarr(1)+" "+BSarr(2)+" "+BSarr(4)+" "+BSarr(5)+" "+BSarr(6)+" "+BSarr(7)+" "+BSarr(8)+" "+BSarr(16)+" "+BSarr(17)
 		            
-		            theSeq=BSarr(12)
+		            theSeq=BSarr(14)
 		            
 		            if lenb(theSeq)<minLen then
 		              minLen=lenb(theSeq)
@@ -836,7 +834,7 @@ End
 		            
 		            TFdata=TFdata+tline+EndOfLine.Unix
 		            'RC should be an option
-		            if BSarr(6)="forward" then
+		            If BSarr(7)="forward" Then
 		              TFdata=TFdata+theSeq+EndOfLine.Unix
 		            else
 		              TFdata=TFdata+ReverseComplement(theSeq)+EndOfLine.Unix
