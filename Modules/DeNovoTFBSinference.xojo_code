@@ -2236,8 +2236,7 @@ Protected Module DeNovoTFBSinference
 		  else
 		    '"MEME error code: "+Str(sh.errorCode)
 		    'EndofLine+Sh.Result
-		    MemeError = ""
-		    MemeError = sh.Result
+		    
 		    return sh.errorCode
 		  end if
 		  
@@ -2818,10 +2817,6 @@ Protected Module DeNovoTFBSinference
 
 	#tag Property, Flags = &h0
 		HTTPSError As string
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		MemeError As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

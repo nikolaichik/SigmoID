@@ -1276,7 +1276,7 @@ End
 		  
 		  
 		  CollectionList.Enabled=True
-		  
+		  EnableButtons
 		  
 		  ProgressWheel1.Visible=False
 		  ProgressWheel1.Enabled=False

@@ -117,14 +117,7 @@ Protected Module Globals
 		      'SettingsWin.PagePanel1.value=1
 		      If Not EmailWarned Then
 		        EmailWarned=True
-		        if deNovoWin.LoggingOutput.Visible = False then
-		          LogoWin.WriteToSTDOUT("Please enter your e-mail address in the preferences. It is required for some NCBI services."+EndOfLine.UNIX)
-		        else
-		          deNovoWin.rp.writeToWin("Please enter your e-mail address in the preferences. It is required for some NCBI services."+EndOfLine.UNIX)
-		          app.SleepCurrentThread(5000)
-		          deNovoWin.RunThreadState="stopped"
-		          deNovoWin.LoggingOutput.Visible= False
-		        end
+		        LogoWin.WriteToSTDOUT("Please enter your e-mail address in the preferences. It is required for some NCBI services."+EndOfLine.UNIX)
 		      End If
 		    End If
 		    
@@ -453,7 +446,25 @@ Protected Module Globals
 		      'return 1
 		      'end if
 		    Else
-		      return 1
+		      sh=New Shell
+		      sh.mode=0
+		      sh.TimeOut=-1
+		      
+		      sh.execute "lscpu"
+		      If sh.errorCode=0 Then
+		        
+		        Dim cpus,threads As Integer
+		        cpus=Val(Trim(NthField(sh.result,"CPU(s):",2)))
+		        If logical Then
+		          Return cpus
+		        Else
+		          threads=Val(Trim(NthField(sh.result,"Thread(s) per core:",2)))
+		          Return cpus/threads
+		        End If
+		        
+		      Else
+		        Return 1
+		      End If
 		    End If
 		    
 		    
@@ -3039,7 +3050,9 @@ Protected Module Globals
 		  'http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulon.jsp?regulon_id=12127
 		  'http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=1307
 		  
+		  WebBrowserWin.Title="RegPrecise Info"
 		  WebBrowserWin.show
+		  
 		  If IsRegulog then
 		    WebBrowserWin.LoadPage("http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id="+str(ID))
 		  else
