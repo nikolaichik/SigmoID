@@ -694,6 +694,6 @@ End
 		Group="Behavior"
 		InitialValue=""
 		Type="string"
-		EditorType=""
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 #tag EndViewBehavior
