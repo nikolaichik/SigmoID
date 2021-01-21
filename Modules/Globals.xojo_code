@@ -2716,6 +2716,7 @@ Protected Module Globals
 		    MEMEpath=Prefs.value("MEMEpath",MEMEpath)
 		    MASTpath=Prefs.value("MASTpath",MASTpath)
 		    TomTomPath=Prefs.value("TomTomPath",TomTomPath)
+		    MeshClustPath=Prefs.value("MeshClustPath",MeshClustPath)
 		    Globals.chipset.jarPath=Prefs.Value("ChIPmunkPath", Globals.chipset.jarPath)
 		    PathsChanged=False
 		  end if
@@ -2727,12 +2728,12 @@ Protected Module Globals
 		  SettingsWin.MEMEPathField.text=MEMEpath
 		  SettingsWin.MASTPathField.Text=MASTpath
 		  SettingsWin.TomTomPathField.Text=TomTomPath
+		  SettingsWin.MeshClustPathField.Text=MeshClustPath
 		  SettingsWin.APIKeyField.Text=API_Key
 		  SettingsWin.ChIPmunkPathField.Text=Globals.chipset.jarPath
 		  SettingsWin.EmailField.Text=Globals.email
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
 		  
-		  'weblogopath=Prefs.value("weblogopath",SettingsWin.weblogoPathField.text)
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
 		  BLASTorganism=Prefs.value("BLASTorganism","")

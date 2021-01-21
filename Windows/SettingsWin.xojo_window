@@ -118,7 +118,7 @@ Begin Window SettingsWin
       TabPanelIndex   =   0
       Top             =   0
       Transparent     =   False
-      Value           =   5
+      Value           =   0
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -598,667 +598,6 @@ Begin Window SettingsWin
             Underline       =   False
             Visible         =   True
             Width           =   205
-         End
-      End
-      Begin GroupBox GroupBox1
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kPaths"
-         Enabled         =   True
-         Height          =   329
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "PagePanel1"
-         Italic          =   False
-         Left            =   20
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   1
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   6
-         Transparent     =   False
-         Underline       =   False
-         Visible         =   True
-         Width           =   516
-         Begin TextField nhmmerPathField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "value"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   114
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   2
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "/usr/local/bin/nhmmer"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   40
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   409
-         End
-         Begin Label Label4
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   3
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "nhmmer:"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   41
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   72
-         End
-         Begin Label Label5
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   4
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "alimask:"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   75
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   72
-         End
-         Begin TextField alimaskPathField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "value"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   114
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   7
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "/usr/local/bin/alimask"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   75
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   409
-         End
-         Begin Label Label8
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   11
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "hmmbuild:"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   109
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   80
-         End
-         Begin TextField hmmBuildPathField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "value"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   114
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   12
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "/usr/local/bin/hmmbuild"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   108
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   409
-         End
-         Begin Label Label9
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   13
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "MEME:"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   143
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   80
-         End
-         Begin TextField MEMEPathField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "value"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   114
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   14
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "~/meme/bin/meme"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   142
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   409
-         End
-         Begin Label Label10
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   31
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   15
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "MAST:"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   210
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   80
-         End
-         Begin TextField MASTPathField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "value"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   115
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   16
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "~/meme/bin/mast"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   209
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   409
-         End
-         Begin Label Label11
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   31
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   17
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "TomTom:"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   244
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   80
-         End
-         Begin TextField TomTomPathField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "value"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   115
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   18
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "~/meme/bin/tomtom"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   243
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   409
-         End
-         Begin Label Label33
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   31
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   19
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "tfastx:"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   278
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   80
-         End
-         Begin TextField tfastxPathField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "value"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   115
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   20
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "/usr/local/bin/tfastx"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   277
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   409
-         End
-         Begin TextField ChipMunkPathField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "value"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   114
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   21
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   ""
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   176
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   409
-         End
-         Begin Label Label34
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   22
-            TabPanelIndex   =   1
-            TabStop         =   True
-            Text            =   "ChIPmunk"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   175
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   68
          End
       End
       Begin Label ProfileFolderLabel
@@ -3038,6 +2377,746 @@ Begin Window SettingsWin
          Visible         =   True
          Width           =   46
       End
+      Begin GroupBox GroupBox1
+         AutoDeactivate  =   True
+         Bold            =   False
+         Caption         =   "#kPaths"
+         Enabled         =   True
+         Height          =   329
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   6
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   516
+         Begin TextField nhmmerPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &cFFFFFF00
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   2
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "/usr/local/bin/nhmmer"
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   30
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin Label Label4
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   3
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "nhmmer:"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   31
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   72
+         End
+         Begin Label Label5
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   4
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "alimask:"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   65
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   72
+         End
+         Begin TextField alimaskPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &cFFFFFF00
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   7
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "/usr/local/bin/alimask"
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   65
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin Label Label8
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   11
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "hmmbuild:"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   99
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   80
+         End
+         Begin TextField hmmBuildPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &cFFFFFF00
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   12
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "/usr/local/bin/hmmbuild"
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   98
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin Label Label9
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   13
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "MEME:"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   133
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   80
+         End
+         Begin TextField MEMEPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &cFFFFFF00
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   14
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "~/meme/bin/meme"
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   132
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin Label Label10
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   31
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   15
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "MAST:"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   200
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   80
+         End
+         Begin TextField MASTPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &cFFFFFF00
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   115
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   16
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "~/meme/bin/mast"
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   199
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin Label Label11
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   31
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   17
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "TomTom:"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   234
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   80
+         End
+         Begin TextField TomTomPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &cFFFFFF00
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   115
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   18
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "~/meme/bin/tomtom"
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   233
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin Label Label33
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   31
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   19
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "tfastx:"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   268
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   80
+         End
+         Begin TextField tfastxPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &cFFFFFF00
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   115
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   20
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "/usr/local/bin/tfastx"
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   267
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin TextField ChipMunkPathField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &cFFFFFF00
+            Bold            =   False
+            Border          =   True
+            CueText         =   "value"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   21
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   ""
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   166
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   409
+         End
+         Begin Label Label34
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   22
+            TabPanelIndex   =   1
+            TabStop         =   True
+            Text            =   "ChIPmunk"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   165
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   68
+         End
+         Begin Label Label44
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   23
+            TabPanelIndex   =   1
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   302
+            Transparent     =   False
+            Underline       =   False
+            Value           =   "MeShClust:"
+            Visible         =   True
+            Width           =   80
+         End
+         Begin TextField MeshClustPathField
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF00
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "value"
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   24
+            TabPanelIndex   =   1
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   301
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   "/usr/local/bin/meshclust"
+            Visible         =   True
+            Width           =   409
+         End
+      End
    End
    Begin PushButton DefaultPathsButton
       AutoDeactivate  =   True
@@ -3320,6 +3399,7 @@ End
 		  Prefs.Value("email")=emailField.text
 		  Prefs.Value("requestCount")=requestCount.text
 		  Prefs.Value("TomTomPath")=TomTomPathField.Text
+		  Prefs.Value("MeshClustPath")=MeshClustPathField.Text
 		  
 		  
 		  if LoadPlainResult then
@@ -3470,70 +3550,6 @@ End
 		    MsgBox("Incorrect email! Use only latin letters, numbers, dots, hyphens, at sign.")
 		    self.EmailField.Text=""
 		  end
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events nhmmerPathField
-	#tag Event
-		Sub TextChange()
-		  PathsChanged=true
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events alimaskPathField
-	#tag Event
-		Sub TextChange()
-		  PathsChanged=true
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events hmmBuildPathField
-	#tag Event
-		Sub TextChange()
-		  PathsChanged=true
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events MEMEPathField
-	#tag Event
-		Sub TextChange()
-		  PathsChanged=true
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events MASTPathField
-	#tag Event
-		Sub TextChange()
-		  PathsChanged=true
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events TomTomPathField
-	#tag Event
-		Sub TextChange()
-		  PathsChanged=true
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events tfastxPathField
-	#tag Event
-		Sub TextChange()
-		  PathsChanged=true
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events ChipMunkPathField
-	#tag Event
-		Sub TextChange()
-		  PathsChanged=true
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -3970,6 +3986,78 @@ End
 	#tag Event
 		Sub Change()
 		  Cores2use=val(me.Text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events nhmmerPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events alimaskPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events hmmBuildPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MEMEPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MASTPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TomTomPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events tfastxPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChipMunkPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MeshClustPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
