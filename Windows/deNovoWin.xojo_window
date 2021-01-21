@@ -62,9 +62,9 @@ Begin Window deNovoWin
       Bold            =   False
       ButtonStyle     =   0
       Cancel          =   True
-      Caption         =   "#kCancel"
+      Caption         =   "Stop"
       Default         =   False
-      Enabled         =   True
+      Enabled         =   False
       Height          =   32
       HelpTag         =   ""
       Index           =   -2147483648
@@ -143,11 +143,11 @@ Begin Window deNovoWin
       Italic          =   False
       Left            =   135
       LimitText       =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Mask            =   ""
       Password        =   False
       ReadOnly        =   False
@@ -250,9 +250,57 @@ Begin Window deNovoWin
       Width           =   1022
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
+      Begin TextArea LoggingOutput
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   True
+         AllowStyledText =   True
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         HasHorizontalScrollbar=   False
+         HasVerticalScrollbar=   True
+         Height          =   334
+         HideSelection   =   True
+         Index           =   -2147483648
+         InitialParent   =   "HmmList"
+         Italic          =   False
+         Left            =   0
+         LineHeight      =   0.0
+         LineSpacing     =   1.0
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Multiline       =   True
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "1"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   0
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Value           =   ""
+         Visible         =   False
+         Width           =   1022
+      End
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -271,11 +319,11 @@ Begin Window deNovoWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockRight       =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -315,8 +363,8 @@ Begin Window deNovoWin
       LimitText       =   0
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   False
       Mask            =   ""
       Password        =   False
@@ -350,11 +398,11 @@ Begin Window deNovoWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   600
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       State           =   0
       TabIndex        =   9
@@ -371,11 +419,10 @@ Begin Window deNovoWin
       Width           =   402
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
-      Mode            =   2
-      Period          =   500
+      Mode            =   0
+      Period          =   1000
       Scope           =   0
       TabPanelIndex   =   0
    End
@@ -392,11 +439,11 @@ Begin Window deNovoWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   810
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       State           =   0
       TabIndex        =   10
@@ -412,6 +459,46 @@ Begin Window deNovoWin
       Visible         =   True
       Width           =   192
    End
+   Begin PushButton PauseButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Pause"
+      Default         =   True
+      Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   32
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   717
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      MacButtonStyle  =   "0"
+      Scope           =   0
+      TabIndex        =   11
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   409
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   81
+   End
+   Begin Timer RunTImer
+      Index           =   -2147483648
+      LockedInPosition=   False
+      Period          =   1000
+      RunMode         =   "0"
+      Scope           =   0
+      TabPanelIndex   =   0
+   End
 End
 #tag EndWindow
 
@@ -423,16 +510,30 @@ End
 	#tag EndEvent
 
 	#tag Event
+		Sub MouseEnter()
+		  mouseInWin=true
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseExit()
+		  mouseInWin=false
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  AdjustLayout4linux(me)
 		  RunCheck
+		  
+		  
 		End Sub
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h1, Description = 4275696C645369674172726179
 		Protected Sub BuildHmmArray()
-		  dim l,m,n as integer
+		  Dim l,m,n As Integer
 		  dim f as folderitem
 		  dim hmmPath, fName, aLine,lineStart as string
 		  dim inStream as TextInputStream
@@ -659,8 +760,7 @@ End
 		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      
 		      If sh.errorCode <> 0 then
-		        MsgBox "Problem running MeShClust"
-		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+sh.Result+EndOfLine.Unix)
+		        deNovoWin.rp.writeToWin("Problem running MeShClust"+EndOfLine.Unix+sh.Result+EndOfLine.Unix)
 		        return ""
 		      else
 		        'MeshClust only writes cluster data, but doesn't export cluster representatives, 
@@ -732,7 +832,7 @@ End
 		            end if
 		          wend
 		          inStream.close
-		          LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(outSeqs)+" fragments left after MeShClust clustering.")
+		          deNovoWin.rp.writeToWin(EndOfLine.Unix + CountSeqs(outSeqs)+" fragments left after MeShClust clustering.")
 		          OutStream = TextOutputStream.Create(outfile)
 		          if OutStream<>NIL then
 		            OutStream.Write(outSeqs)
@@ -922,6 +1022,10 @@ End
 		MEME_results As FolderItem
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		mouseInWin As boolean
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected OutF As folderItem
 	#tag EndProperty
@@ -935,15 +1039,19 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		rp As deNovoSearch
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		RunThreadState As string = "not running"
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		TFfeature As integer = -1
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		TomTom_results As FolderItem
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		TTthreadsRunning As Integer
 	#tag EndProperty
 
 
@@ -952,8 +1060,7 @@ End
 #tag Events RunButton
 	#tag Event
 		Sub Action()
-		  'a fix for wrong log pane height on mac:
-		  if logoWin.TopPanel.Visible then
+		  If logoWin.TopPanel.Visible Then
 		    
 		    logoWin.DownshiftLog true
 		    logoWin.DownshiftLog false
@@ -961,869 +1068,57 @@ End
 		    logoWin.DownshiftLog true
 		    logoWin.DownshiftLog false
 		  end if
-		  
-		  self.hide
-		  
-		  CheckEmail
-		  
-		  dim cli, hmmSearchRes, CRtagPositions, table, currentHit as string
-		  dim dataForMeme as string
-		  dim sh as shell
-		  dim hmmPath, hmmName as string
-		  Dim gene as String
-		  Dim protname as String
-		  dim CrTagsCodes as String
-		  Dim CrBaseTags(0) As String
-		  Dim CrBaseECodes(0) as String
-		  Dim CrBaseTags_rp15(0) As String
-		  Dim CrBaseECodes_rp15(0) As String
-		  Dim CrBaseTags_rp35(0) As String
-		  Dim CrBaseECodes_rp35(0) As String
-		  Dim CrBaseTags_rp55(0) As String
-		  Dim CrBaseECodes_rp55(0) As String
-		  Dim CrBaseTags_rp75(0) As String
-		  Dim CrBaseECodes_rp75(0) As String
-		  Dim CDSfile As folderitem
-		  dim resFile as folderitem
-		  dim resfile2 as folderitem
-		  dim BaseLocation as FolderItem
-		  dim instream as TextInputStream
-		  dim outStream as TextOutputStream
-		  dim theProtName as string
-		  Redim TTshellArray(-1)
-		  dim ttt,ttt2 as TTshell
-		  
-		  
-		  
+		  self.LoggingOutput.Text=""
+		  rp = new deNovoSearch
 		  LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Running de novo TFBS inference pipeline with SigmoID "+app.LongVersion)
 		  
+		  'self.hide
 		  
+		  rp.hmmPath=HmmList.Cell(HmmList.ListIndex,7) 'was five
+		  rp.CRtagPositions=HmmList.Cell(HmmList.ListIndex,3)
+		  rp.hmmName=HmmList.Cell(HmmList.ListIndex,1)
+		  rp.OutF=OutF
+		  rp.Fasta_files=Fasta_files
+		  rp.Genome_fragments=Genome_fragments
+		  rp.MEME_results=MEME_results
+		  rp.mWidth=HmmList.Cell(deNovoWin.HmmList.ListIndex,5)
+		  if HmmList.Cell(deNovoWin.HmmList.Listindex,4)="yes" then
+		    rp.palindromic=True
+		  end
+		  if RunTomTomBox.State = CheckBox.CheckedStates.Checked Then
+		    rp.RunTomTom = True
+		  end
+		  if runChipMunk.State = CheckBox.CheckedStates.Checked Then
+		    rp.RunChipMunk = True
+		  end
+		  rp.hmmlist = HmmList
+		  DeNovoTFBSinference.Proteins2process=Val(deNovoWin.Proteins2processField.text)
 		  
-		  dim phmmerSearchSeparator as string = "================================================================================================================"
-		  dim hitCount,crIndex as integer
-		  CDSseqs=""
-		  
-		  hmmPath=HmmList.Cell(HmmList.ListIndex,7) 'was five
-		  CRtagPositions=HmmList.Cell(HmmList.ListIndex,3)
-		  hmmName=HmmList.Cell(HmmList.ListIndex,1)
-		  
-		  if RunTomTomBox.Value then
-		    if TomTomPath<>"" then 
-		      GetTTlibString  'assemble motif library path for running TomTom later
-		    else
-		      MsgBox("Please, provide full path to TomTom: Settings-TomTom field")
-		      return 
-		    end
-		  End
-		  
-		  // Read Reference Proteomes accession codes into
-		  // separate arrays for each of the four clustering percentages and the full protein DB
-		  
-		  'rp15
-		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+"_rp15.crtag")
-		  
-		  If BaseLocation<>Nil Then
-		    If BaseLocation.Exists Then
-		      instream=BaseLocation.OpenAsTextFile
-		    Else
-		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
-		      Exit
-		    End
-		  Else
-		    MsgBox("Path to the crtag base isn't valid")
-		  End
-		  While Not instream.EOF 
-		    CrTagsCodes=instream.ReadLine
-		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
-		    CrBaseTags_rp15.append(Trim(NthField(CrTagsCodes," ",1)))
-		    CrBaseECodes_rp15.Append(Trim(NthField(CrTagsCodes," ",2)))
-		  Wend
-		  instream.Close
-		  
-		  'rp35
-		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+"_rp35.crtag")
-		  
-		  If BaseLocation<>Nil Then
-		    If BaseLocation.Exists Then
-		      instream=BaseLocation.OpenAsTextFile
-		    Else
-		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
-		      Exit
-		    End
-		  Else
-		    MsgBox("Path to the crtag base isn't valid")
-		  End
-		  While Not instream.EOF 
-		    CrTagsCodes=instream.ReadLine
-		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
-		    CrBaseTags_rp35.append(Trim(NthField(CrTagsCodes," ",1)))
-		    CrBaseECodes_rp35.Append(Trim(NthField(CrTagsCodes," ",2)))
-		  Wend
-		  instream.Close
-		  
-		  'rp55
-		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+"_rp55.crtag")
-		  
-		  If BaseLocation<>Nil Then
-		    If BaseLocation.Exists Then
-		      instream=BaseLocation.OpenAsTextFile
-		    Else
-		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
-		      Exit
-		    End
-		  Else
-		    MsgBox("Path to the crtag base isn't valid")
-		  End
-		  While Not instream.EOF 
-		    CrTagsCodes=instream.ReadLine
-		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
-		    CrBaseTags_rp55.append(Trim(NthField(CrTagsCodes," ",1)))
-		    CrBaseECodes_rp55.Append(Trim(NthField(CrTagsCodes," ",2)))
-		  Wend
-		  instream.Close
-		  
-		  'rp75
-		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+"_rp75.crtag")
-		  
-		  If BaseLocation<>Nil Then
-		    If BaseLocation.Exists Then
-		      instream=BaseLocation.OpenAsTextFile
-		    Else
-		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
-		      Exit
-		    End
-		  Else
-		    MsgBox("Path to the crtag base isn't valid")
-		  End
-		  While Not instream.EOF 
-		    CrTagsCodes=instream.ReadLine
-		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
-		    CrBaseTags_rp75.append(Trim(NthField(CrTagsCodes," ",1)))
-		    CrBaseECodes_rp75.Append(Trim(NthField(CrTagsCodes," ",2)))
-		  Wend
-		  instream.Close
-		  
-		  'full
-		  BaseLocation=Resources_f.Child("CRtagBase").Child(hmmName+".crtag")
-		  
-		  If BaseLocation<>Nil Then
-		    If BaseLocation.Exists Then
-		      instream=BaseLocation.OpenAsTextFile
-		    Else
-		      MsgBox("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
-		      Exit
-		    End
-		  Else
-		    MsgBox("Path to the crtag base isn't valid")
-		  End
-		  While Not instream.EOF 
-		    CrTagsCodes=instream.ReadLine
-		    CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
-		    CrBaseTags.append(Trim(NthField(CrTagsCodes," ",1)))
-		    CrBaseECodes.Append(Trim(NthField(CrTagsCodes," ",2)))
-		  Wend
-		  instream.Close
-		  
-		  
-		  //Run hmmsearch and screen the output for CR tags.
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  
-		  'export protein sequences
-		  LogoWin.show
-		  CDSfile=OutF.Child("CDS.fasta")
-		  if CDSfile<>nil then
-		    if CDSfile.exists then
-		      LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused.")
-		      
-		    else
-		      LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Exporting CDS sequences...")
-		      GenomeWin.ExportProteins(CDSfile)
-		      LogoWin.WriteToSTDOUT (" OK")
-		    end if
-		    
-		    'store the CDSs as a string for possible further use:
-		    instream=CDSfile.OpenAsTextFile
-		    
-		    if instream<>nil then
-		      CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
-		      instream.close
-		    end if
-		  else
-		    msgbox "Can't create a file to store CDS sequences, have to abort search"
-		    
-		  end if
-		  alignmentsFile=TemporaryFolder.Child("alignments.table")
-		  if alignmentsFile<>nil then
-		    if alignmentsFile.exists then
-		      alignmentsFile.Delete
-		    end if
-		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
-		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
-		    
-		    cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+hmmPath+" "+CDSfile.ShellPath
-		    
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		    If sh.errorCode=0 then
-		      LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
-		      
-		      instream=alignmentsFile.OpenAsTextFile
-		      
-		      if instream<>nil then         'save hmmsearch results
-		        table=trim(instream.ReadAll)
-		        instream.close
-		        hmmSearchRes=GetCRtags(sh.Result,Table,CRtagPositions)
-		        'LogoWin.WriteToSTDOUT EndofLine.unix+hmmSearchRes
-		        
-		        'save HmmSearch results (with CR tags), just in case:
-		        resFile=OutF.child("hmmsearch_result_withCRtags.txt")
-		        if resFile<>Nil then
-		          OutStream = TextOutputStream.Create(resFile)
-		          if outStream<>Nil then
-		            outstream.Writeline("HMM file used: "+hmmPath)
-		            outstream.Writeline("CRtag positions used: " +CRtagPositions)
-		            outstream.Writeline(EndOfLine.unix)
-		            outstream.Write(hmmSearchRes)
-		            outstream.close
-		            
-		          end if
-		          
-		        end if
-		        
-		      end if
-		      
-		      
-		      
-		    else
-		      LogoWin.WriteToSTDOUT sh.Result
-		      
-		    End If
-		  else
-		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Can't create temporary file, have to abort search.")
-		    return
-		  end if
-		  
-		  // Run searches and filter out results without the CR tag
-		  'names, hit seqs and CR tags are in these arrays:
-		  ' ProtNames()
-		  ' HmmSearchMatches()
-		  ' CRtags()
-		  dim query, res, filteredRes As string
-		  dim n as integer
-		  
-		  LogoWin.WriteToSTDOUT (EndofLine.unix+"Running online search and genome fragment retrieval.")
-		  
-		  if ubound(ProtNames)>10 then
-		    LogoWin.WriteToSTDOUT (" Relax and have a cup of coffee. Or two..."+EndofLine.unix)
-		  else
-		    LogoWin.WriteToSTDOUT ("..")
-		  end if
-		  dim id as integer
-		  dim genome as cSeqObject=GenomeWin.Genome
-		  For n=1 To ubound(ProtNames)
-		    res=""
-		    
-		    if CRtags(n)="[indel within CR tag region]" then
-		      LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+ProtNames(n)+" has an indel within CR tag region. Skipping it.")
-		    else
-		      id =0
-		      if genome <> nil then
-		        protname=Protnames(n)
-		        gene=protname.Lastfield("_")
-		        if gene <> "" then
-		          protname=replace(protname,"_"+gene,"")
-		        end
-		        for each f as GBFeature in genome.Features
-		          if instr(f.FeatureText,protname)>0 then
-		            deNovoWin.TFfeature=id
-		            exit
-		          end
-		          id=id+1
-		        next
-		      end
-		      //masked in new approach
-		      'if RefProtBut.Value then
-		      'LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Searching Uniprot Reference Proteins with "+ProtNames(n)+"...")
-		      'else
-		      'LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Searching Uniprot (full) with "+ProtNames(n)+"...")
-		      'end if
-		      
-		      
-		      theProtName=replaceall(ProtNames(N),":","_") 'OS X precaution
-		      '//'resFile=phmmer_results.child(ProtNames(n)+".raw")
-		      'resFile=phmmer_results.child(theProtName+".raw")
-		      '
-		      'if resFile<>Nil then
-		      'if resfile.exists then
-		      '//'load existing data
-		      'LogoWin.WriteToSTDOUT (EndOfLine.unix+"phmmer results file exists in the working directory and will be reused"+EndOfLine.unix)
-		      '
-		      'instream=resFile.OpenAsTextFile
-		      'if instream<>nil then
-		      'res=instream.ReadAll
-		      'instream.close
-		      'end if
-		      '
-		      'else
-		      '//'run phmmer search vs primary DB
-		      'if RefProtBut.Value then
-		      'res=phmmerTextSearch(query, "uniprotrefprot")
-		      '//'return 'debug
-		      'else
-		      'res=phmmerTextSearch(query, "uniprotkb")
-		      '//'return 'debug
-		      'end if
-		      '
-		      'if res<>"" then
-		      '//'save raw phmmer results
-		      'resFile=phmmer_results.child(theProtName+".raw")
-		      'if resFile<>Nil then
-		      'OutStream = TextOutputStream.Create(resFile)
-		      'if outStream<>Nil then
-		      'outstream.Write(res)
-		      'outstream.close
-		      '//'LogoWin.WriteToSTDOUT (" Done.")
-		      '
-		      'end if
-		      '
-		      'end if
-		      '
-		      'end if
-		      'end if
-		      '
-		      'end if
-		      '
-		      '// Filter phmmer results
-		      'if res<>"" then
-		      'FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
-		      'else
-		      'logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!"+EndOfLine.UNIX)
-		      'end if
-		      '
-		      '//' issue a warning if there's less than 10 or over 100 seqs.
-		      'hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
-		      'if hitcount<0 then hitcount=0
-		      '
-		      'if hitcount<10 then
-		      'LogoWin.WriteToSTDOUT (" Warning! Too few ("+str(hitcount)+") filtered hits.")
-		      'if FallBackCheck.value then
-		      'LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running search vs full UniProt...")
-		      '
-		      'resFile=phmmer_results.child(ProtNames(n)+".UniProt_raw")
-		      'if resFile<>Nil then
-		      'if resfile.exists then
-		      '//'load existing data
-		      'LogoWin.WriteToSTDOUT (EndOfLine.unix+"phmmer results file exists in the working directory and will be reused"+EndOfLine.unix)
-		      'instream=resFile.OpenAsTextFile
-		      'if instream<>nil then
-		      'res=instream.ReadAll
-		      'instream.close
-		      'end if
-		      '
-		      'else
-		      '//'run phmmer search vs fallback DB
-		      'res=phmmerTextSearch(query, "uniprotkb")
-		      '
-		      'if res<>"" then
-		      '//'save raw phmmer results
-		      'resFile=phmmer_results.child(theProtName+".UniProt_raw")
-		      'if resFile<>Nil then
-		      'OutStream = TextOutputStream.Create(resFile)
-		      'if outStream<>Nil then
-		      'outstream.Write(res)
-		      'outstream.close
-		      '
-		      'end if
-		      'end if
-		      '
-		      'end if
-		      'end if
-		      '
-		      '
-		      '// Filter phmmer results
-		      'if res<>"" then
-		      'FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
-		      '
-		      'hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
-		      '
-		      'LogoWin.WriteToSTDOUT (" "+str(hitcount)+" filtered hits found.")
-		      '
-		      '
-		      'else
-		      'logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!")
-		      'end if
-		      'hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
-		      'end if
-		      '
-		      '
-		      'end if
-		      'end if
-		      '
-		      'if hitcount>100 then
-		      'LogoWin.WriteToSTDOUT (" Warning! Over 100 ("+str(hitcount)+") filtered hits.")
-		      'if hitCount>300 then
-		      'LogoWin.WriteToSTDOUT (" Only the first 300 will be processed.")
-		      'end if
-		      'else
-		      'LogoWin.WriteToSTDOUT (str(hitcount)+" filtered hits.")
-		      'end if
-		      '
-		      '
-		      '//'save CR tag filtered phmmer results
-		      'resFile=phmmer_results.child(theProtName+".filtered")
-		      'if resFile<>Nil then
-		      'OutStream = TextOutputStream.Create(resFile)
-		      'if outStream<>Nil then
-		      'outstream.Write(FilteredRes)
-		      'outstream.close
-		      'LogoWin.WriteToSTDOUT (" Done.")
-		      '
-		      'end if
-		      '
-		      'end if
-		      '
-		      
-		      
-		      '
-		      // Extract promoter regions from the target operon and its two neighbours
-		      
-		      'if res<>"" then
-		      resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
-		      if resFile<>Nil then
-		        if resfile.exists then
-		          //'load existing data
-		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"a fasta file presumably with genome fragments exists in the working directory and will be reused."+EndOfLine.unix)
-		          instream=resFile.OpenAsTextFile
-		          if instream<>nil then
-		            res=instream.ReadAll
-		            instream.close
-		            DataForMeme=res
-		          end if
-		          'resfile2=Fasta_files.child(theProtName+".fasta")
-		        else
-		          
-		          dim FragmentsForAhitF As folderitem
-		          
-		          FragmentsForAhitF=Genome_fragments.child(theProtName)
-		          if NOT FragmentsForAhitF.exists then
-		            FragmentsForAhitF.createAsFolder
-		          end if
-		          
-		          if FragmentsForAhitF=Nil then
-		            MsgBox "Can't create a folder "+FragmentsForAhitF.ShellPath+"to store genome fragments"
-		            return
-		          end if
-		          
-		          
-		          
-		          LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons."+EndOfLine.unix)
-		          
-		          
-		          'add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
-		          
-		          
-		          //get the list with the right number of accession codes
-		          crIndex=CrBaseTags_rp15.indexof(Crtags(n))
-		          Dim RPname As String = "rp15"
-		          If crIndex>0 Then
-		            filteredRes=CrBaseECodes_rp15(crindex)
-		            If CountFields(filteredRes,",")<20 Then          '<-- threshold should be user configurable?
-		              crIndex=CrBaseTags_rp35.indexof(Crtags(n))
-		              filteredRes=CrBaseECodes_rp35(crindex)
-		              RPname="rp35"
-		              If CountFields(filteredRes,",")<20 Then 
-		                crIndex=CrBaseTags_rp55.indexof(Crtags(n))
-		                filteredRes=CrBaseECodes_rp55(crindex)
-		                RPname="rp55"
-		                If CountFields(filteredRes,",")<20 Then 
-		                  crIndex=CrBaseTags_rp75.indexof(Crtags(n))
-		                  filteredRes=CrBaseECodes_rp75(crindex)
-		                  RPname="rp75"
-		                  If CountFields(filteredRes,",")<20 Then 
-		                    crIndex=CrBaseTags.indexof(Crtags(n))
-		                    filteredRes=CrBaseECodes(crindex)
-		                    RPname="full PIR"
-		                  End If
-		                End If
-		              End If
-		            End If
-		            
-		          Else
-		            crIndex=CrBaseTags_rp35.indexof(Crtags(n))
-		            If crIndex>0 Then
-		              filteredRes=CrBaseECodes_rp35(crindex)
-		              RPname="rp35"
-		              If CountFields(filteredRes,",")<20 Then 
-		                crIndex=CrBaseTags_rp55.indexof(Crtags(n))
-		                filteredRes=CrBaseECodes_rp55(crindex)
-		                RPname="rp55"
-		                If CountFields(filteredRes,",")<20 Then 
-		                  crIndex=CrBaseTags_rp75.indexof(Crtags(n))
-		                  filteredRes=CrBaseECodes_rp75(crindex)
-		                  RPname="rp75"
-		                  If CountFields(filteredRes,",")<20 Then 
-		                    crIndex=CrBaseTags.indexof(Crtags(n))
-		                    filteredRes=CrBaseECodes(crindex)
-		                    RPname="full PIR"
-		                  End If
-		                End If
-		              End If
-		            Else
-		              
-		              crIndex=CrBaseTags_rp55.indexof(Crtags(n))
-		              If crIndex>0 Then
-		                filteredRes=CrBaseECodes_rp55(crindex)
-		                RPname="rp55"
-		                If CountFields(filteredRes,",")<20 Then 
-		                  crIndex=CrBaseTags_rp75.indexof(Crtags(n))
-		                  filteredRes=CrBaseECodes_rp75(crindex)
-		                  RPname="rp75"
-		                  If CountFields(filteredRes,",")<20 Then 
-		                    crIndex=CrBaseTags.indexof(Crtags(n))
-		                    filteredRes=CrBaseECodes(crindex)
-		                    RPname="full PIR"
-		                  End If
-		                End If
-		                
-		              Else
-		                crIndex=CrBaseTags_rp75.indexof(Crtags(n))
-		                If crIndex>0 Then
-		                  filteredRes=CrBaseECodes_rp75(crindex)
-		                  RPname="rp75"
-		                  If CountFields(filteredRes,",")<20 Then 
-		                    crIndex=CrBaseTags.indexof(Crtags(n))
-		                    If crIndex>0 Then
-		                      filteredRes=CrBaseECodes(crindex)
-		                      RPname="full PIR"
-		                    End If
-		                  End If
-		                End If
-		                
-		              End If
-		              
-		            End If
-		            
-		          End If
-		          
-		          If crIndex>0 Then
-		            #If DebugBuild
-		              LogoWin.WriteToSTDOUT (Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... ")
-		            #Else
-		              LogoWin.WriteToSTDOUT (Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
-		            #EndIf
-		          Else
-		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"CrTag "+Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
-		            Continue For n
-		          End If
-		          
-		          
-		          DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
-		        end if
-		        
-		        
-		        
-		        
-		        
-		        if dataForMeme<>"" then
-		          
-		          // Remove extra (repetitive/too close) seqs
-		          ' leave one seq per species,
-		          ' or one seq per genus if too many seqs
-		          
-		          ' Save unfiltered UPS fragments
-		          resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
-		          if resfile<>nil then
-		            OutStream = TextOutputStream.Create(resFile)
-		            if outStream<>Nil then
-		              outstream.Write(DataForMeme)
-		              outstream.close
-		              'LogoWin.WriteToSTDOUT (" Done.")
-		              
-		            end if
-		            
-		          else
-		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a file to store superpromoters around the genes coding for "+ProtNames(n)+".")
-		            
-		            
-		            
-		          end if
-		          
-		          
-		          
-		          
-		          LogoWin.WriteToSTDOUT (" Done extracting genome fragments."+EndOfLine.unix)
-		          
-		          // Save UPS fragments used for MEME run
-		          
-		          
-		          
-		          
-		          
-		          
-		          LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" genome fragments extracted.")
-		          
-		          
-		          resfile2=Fasta_files.child(ProtNames(n)+"_CDhit_filtered.fasta")
-		          
-		          if resfile2<>nil then
-		            
-		            if countfields(DataForMeme,">")>30 then 'too many seqs - reduce the number!
-		              
-		              'run cd-hit if present
-		              dim clustered as string
-		              'clustered=CDHitClustering(resFile,resFile2)
-		              clustered=MeshClustering(resFile,resFile2)
-		              if clustered<>"" then 'empty string can be returned in case of an error
-		                DataForMeme=clustered
-		              end if
-		              
-		              'use genus and then species filtering anyway, as cd-hit filtering is far from perfect
-		              DataForMeme=RemoveRedundantSeqs(DataForMeme,false)
-		              'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant species.")
-		              
-		              DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
-		              'LogoWin.WriteToSTDOUT(EndOfLine.Unix + CountSeqs(dataForMeme)+" fragments after removing redundant genera.")
-		              
-		              resfile2=Fasta_files.child(ProtNames(n)+".fasta")
-		              OutStream = TextOutputStream.Create(resFile2)
-		              if outStream<>Nil then
-		                outstream.Write(DataForMeme)
-		                outstream.close
-		                'LogoWin.WriteToSTDOUT (" Done.")
-		                
-		              end if
-		              
-		            else 'countfields(DataForMeme,">")>30
-		              resfile2=resFile
-		              
-		            end if 'countfields(DataForMeme,">")>30
-		            
-		          else 'resfile2<>nil
-		            LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a file to store superpromoters around the genes coding for "+ProtNames(n)+".")
-		            
-		          end if 'resfile2<>nil
-		          
-		        else
-		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"No data to run meme for "+ProtNames(n)+".")
-		          
-		        end if 'dataForMeme<>""
-		        
-		        
-		        
-		        
-		        
-		        // Run MEME in two modes
-		        dim memeF,f1 as folderitem
-		        
-		        memeF=MEME_results.child(ProtNames(n))
-		        
-		        If memeF <> Nil Then
-		          If memeF.Exists Then
-		            LogoWin.WriteToSTDOUT ("MEME results folder exists, so MEME will not be run. Remove this folder ("+memeF.shellpath+") and re-run this procedure if you want to re-generate the  results"+EndOfLine.unix)
-		            
-		          else
-		            memeF.createAsFolder
-		            
-		            dim opt as string
-		            dim ErrCode as integer
-		            
-		            '-p option is set in DenovoTFBSinference.meme
-		            
-		            'if CPUcores>1 then
-		            'opt=" -p " + str(CPUcores)  'for parallelised meme
-		            ''opt=" -p 2"
-		            'end if
-		            
-		            dim mWidth as string=HmmList.Cell(HmmList.ListIndex,5) 'motif widths are stored in the table (and can be changed here)
-		            
-		            opt=opt+" -dna -minw "+ Trim(NthField(mWidth,"-",1))
-		            opt=opt+" -maxw "+ trim(nthfield(mWidth,"-",2))
-		            
-		            
-		            '[-pal]            force palindromes (requires -dna)
-		            if HmmList.Cell(HmmList.ListIndex,4)="yes" then
-		              opt=opt+" -pal"
-		            end if
-		            
-		            '[-revcomp]        allow sites on + or - DNA strands
-		            'if GivenStrandBox.Value then
-		            'else
-		            opt=opt+" -revcomp"
-		            'end if
-		            
-		            '[-nmotifs <nmotifs>]    maximum number of motifs to find
-		            opt=opt+" -nmotifs 5"'+MotifNoPopup.Text
-		            
-		            
-		            
-		            'Run MEME in Zero or One per sequence' mode:
-		            f1=memeF.child("Zoops")
-		            FixPath4Windows(MEMEf)
-		            
-		            if resfile2<>Nil then
-		              if f1<>NIL then
-		                if f1.Exists then
-		                  f1.Delete
-		                end if
-		                
-		                'LogoWin.show
-		                LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Running MEME in zoops mode...")
-		                
-		                ErrCode=MEME(resfile2, f1, opt+" -mod zoops")
-		                'sh=New Shell
-		                'sh.mode=0
-		                'sh.TimeOut=-1
-		                dim zclean, aclean as boolean 
-		                If ErrCode=0 then
-		                  LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
-		                  
-		                  'create TomTom thread
-		                  ttt = new TTshell(f1.child("meme.txt"))
-		                  zclean=true
-		                else
-		                  zclean=false
-		                end if
-		                
-		                
-		                'Run MEME in Anr mode:
-		                f1=memeF.child("Anr")
-		                FixPath4Windows(f1)
-		                
-		                if f1<>NIL then
-		                  if f1.Exists then
-		                    f1.Delete
-		                  end if
-		                  
-		                  'LogoWin.show
-		                  LogoWin.WriteToSTDOUT (EndofLine.unix+"Running MEME in anr mode...")
-		                  
-		                  ErrCode=MEME(resfile2, f1, opt+" -mod anr")
-		                  If ErrCode=0 then
-		                    
-		                    LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
-		                    'create TomTom thread
-		                    ttt2 = new TTshell(f1.child("meme.txt"))
-		                    aclean=true
-		                  else
-		                    aclean=false
-		                  end if
-		                  if runChIPmunk.value then
-		                    dim errcodecm as Integer
-		                    ErrCodeCM=ChIPmunk(resfile2, f1.child("ChIPmunk-result"))
-		                    if errcodecm=0 then
-		                      LogoWin.WriteToSTDOUT (" done."+EndofLine.unix)
-		                    end
-		                  end
-		                  
-		                  if RunTomTomBox.Value then 
-		                    'launch TomTom threads
-		                    if ttt<>NIL then
-		                      TTshellArray.Append ttt
-		                      TTshellArray(UBound(TTshellArray)).RunTomTom
-		                      ttt = new TTshell(f1.child("meme.txt")) 'remove reference to array element
-		                    end if
-		                    if ttt<>NIL then
-		                      TTshellArray.Append ttt2
-		                      TTshellArray(UBound(TTshellArray)).RunTomTom
-		                      ttt2 = new TTshell(f1.child("meme.txt"))
-		                    end if
-		                    
-		                    
-		                  end if
-		                  
-		                  LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
-		                  
-		                  
-		                else
-		                  msgbox "Can't create MEME output folder!"
-		                  'return -1
-		                end if
-		                
-		              else
-		                
-		              End If
-		              resfile2=new FolderItem
-		            else
-		              LogoWin.WriteToSTDOUT (EndofLine.unix+"Not running MEME (empty file)")
-		              
-		            End If
-		            
-		          end if
-		          
-		          
-		        else
-		          LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a folder to store MEME results for "+ProtNames(n)+".")
-		          
-		        end if
-		      else
-		        LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create a folder to store genome fragments for "+ProtNames(n)+".")
-		      end if
-		      'end if
-		      
-		      
-		      
-		      '
-		      'else
-		      'LogoWin.WriteToSTDOUT (" phmmer search error!")
-		      'end if
-		    end if
-		  next
-		  
-		  resFile=OutF.child("Search.log")
-		  if resFile<>Nil then
-		    OutStream = TextOutputStream.Create(resFile)
-		    if outStream<>Nil then
-		      outstream.Write(logowin.STDOUT.Text)
-		      outstream.close
-		      
-		    end if
-		    
-		  end if
-		  
-		  LogoWin.WriteToSTDOUT (EndofLine.unix+"All searches completed."+EndofLine.unix)
-		  '
-		  'LogoWin.WriteToSTDOUT (EndofLine.unix+"TomTomThreadArray size: "+str(Ubound(TTthreadArray))+EndofLine.unix)
-		  '
-		  '
-		  if RunTomTomBox.Value then 
-		    dim tc as integer
-		    for n=0 to UBound(TTshellArray)
-		      if TTshellArray(n).finished=false then
-		        tc=tc+1
-		      end if
-		    next
-		    
-		    if tc>0 then
-		      TTthreadsRunning=tc
-		      LogoWin.WriteToSTDOUT (EndofLine.unix+str(TC)+" TomTom tasks are still running. Don't quit SigmoID or repeat de novo search until these threads are finished."+EndofLine.unix)
-		      TTtimer.Enabled=true
-		    end if
-		  end if
-		  
-		  
-		  // Reutilise data from incomplete searches!
-		  
-		  
+		  RunThreadState = "running"
+		  rp.isFinished = False
+		  CancelButton.Caption="Stop"
+		  CancelButton.Enabled = True
+		  PauseButton.Enabled = True
+		  runChipMunk.Enabled = False
+		  RunTomTomBox.Enabled = False
+		  LoggingOutput.Visible = True
+		  RunTImer.Mode= Timer.ModeMultiple
+		  RunTImer.Enabled = True
+		  ChooseButton.Enabled=False
+		  me.Enabled=false
 		  
 		  Exception err
 		    
-		    if err isa IOException then
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"IOException has occurred.")
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
-		    end if
 		    ExceptionHandler(err,"deNovoWin:RunButton")
+		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events CancelButton
 	#tag Event
 		Sub Action()
-		  LogoWin.nhmmeroptions=""
-		  
-		  self.hide
+		  RunThreadState="stopped"
+		  LoggingOutput.Visible= False
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1938,6 +1233,15 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events LoggingOutput
+	#tag Event
+		Sub Open()
+		  me.ReadOnly =  True
+		  me.TextFont = FixedFont 
+		  me.AllowSpellChecking = False
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events hts2
 	#tag Event
 		Sub PageReceived(URL as Text, HTTPStatus as Integer, Content as xojo.Core.MemoryBlock)
@@ -1996,19 +1300,21 @@ End
 		    end if
 		  next
 		  
-		  if tc<TTthreadsRunning then
-		    TTthreadsRunning=tc
+		  if tc<rp.TTthreadsRunning then
+		    rp.TTthreadsRunning=tc
 		    if tc=0 then
-		      LogoWin.WriteToSTDOUT (EndofLine.unix+"All TomTom tasks finished."+EndofLine.unix)
+		      LoggingOutput.AppendText(EndofLine.unix+"All TomTom tasks finished."+EndofLine.unix)
 		      me.Enabled=false
 		    else
 		      if tc=1 then
-		        LogoWin.WriteToSTDOUT (EndofLine.unix+"1 TomTom task is still running..."+EndofLine.unix)
+		        LoggingOutput.AppendText(EndofLine.unix+"1 TomTom task is still running..."+EndofLine.unix)
 		      else
-		        LogoWin.WriteToSTDOUT (EndofLine.unix+str(TC)+" TomTom tasks are still running..."+EndofLine.unix)
+		        LoggingOutput.AppendText(EndofLine.unix+str(TC)+" TomTom tasks are still running..."+EndofLine.unix)
 		      end if
 		      
 		    end if
+		  else 
+		    if tc=0 then me.Enabled=false
 		  end if
 		End Sub
 	#tag EndEvent
@@ -2021,6 +1327,78 @@ End
 		    dim w as new ChipMParam
 		    dim chipset as new ChipMSettings
 		  end Select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PauseButton
+	#tag Event
+		Sub Action()
+		  if me.Caption = "Pause" then
+		    RunThreadState = "paused"
+		    me.Caption = "Resume"
+		  else
+		    RunThreadState="resume"
+		    me.Caption="Pause"
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events RunTImer
+	#tag Event
+		Sub Action()
+		  
+		  Select case RunThreadState
+		  case "running"
+		    if rp.ThreadState<>Thread.ThreadStates.Running then
+		      rp.Start
+		    end
+		  case "paused"
+		    if rp.ThreadState=Thread.ThreadStates.Running then
+		      rp.Pause
+		      rp.writeToWin("Thread paused...")
+		    end
+		  case "resume"
+		    if rp.ThreadState=Thread.ThreadStates.Paused then
+		      rp.Resume
+		      rp.writeToWin("Thread resumed"+EndOfLine.UNIX)
+		    end
+		  case "stopped"
+		    if rp.ThreadState<>Thread.ThreadStates.NotRunning then
+		      rp.Stop
+		    end
+		    dim resFile as FolderItem
+		    dim OutStream as TextOutputStream
+		    resFile=OutF.child("Search.log")
+		    if resFile<>Nil then
+		      OutStream = TextOutputStream.Create(resFile)
+		      if outStream<>Nil then
+		        outstream.Write(self.LoggingOutput.Text)
+		        outstream.close
+		        Self.LoggingOutput.Text=""
+		      end if
+		    end if
+		    CancelButton.Enabled=false
+		    PauseButton.Enabled=false
+		    RunButton.Enabled=true
+		    ChooseButton.Enabled=True
+		    RunTomTomBox.Enabled=True
+		    runChipMunk.Enabled=True
+		    
+		    
+		    dim n,tc as integer
+		    for n=0 to UBound(TTshellArray)
+		      if TTshellArray(n).finished=false then
+		        TTshellArray(n).Close
+		      end if
+		    next
+		    if PauseButton.Caption="Resume" then PauseButton.Caption="Pause"
+		    me.enabled=False
+		    
+		  end
+		  if rp.ThreadState=Thread.ThreadStates.NotRunning and CancelButton.Caption="Stop" then
+		    CancelButton.Caption="Save log"
+		    PauseButton.Enabled=False
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2270,14 +1648,6 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="TTthreadsRunning"
-		Visible=false
-		Group="Behavior"
-		InitialValue=""
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="Visible"
 		Visible=true
 		Group="Behavior"
@@ -2291,6 +1661,22 @@ End
 		Group="Size"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="RunThreadState"
+		Visible=false
+		Group="Behavior"
+		InitialValue="not running"
+		Type="string"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="mouseInWin"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

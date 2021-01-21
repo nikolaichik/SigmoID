@@ -118,7 +118,7 @@ Begin Window SettingsWin
       TabPanelIndex   =   0
       Top             =   0
       Transparent     =   False
-      Value           =   0
+      Value           =   5
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -2584,7 +2584,7 @@ Begin Window SettingsWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Multiline       =   True
          Scope           =   0
@@ -2817,7 +2817,7 @@ Begin Window SettingsWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Multiline       =   True
          Scope           =   0
@@ -3069,7 +3069,7 @@ Begin Window SettingsWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   161
+      Width           =   175
    End
 End
 #tag EndWindow
@@ -3160,15 +3160,29 @@ End
 		  sh.execute user("ompi_info")
 		  If sh.errorCode=0 Then
 		    Dim ompiver As String =sh.Result
+		    'logowin.WriteToSTDOUT ("ompi_info returned this:"+EndOfLine.UNIX)
+		    'logowin.WriteToSTDOUT (ompiver+EndOfLine.UNIX)
 		    If InStr(ompiver,"Open MPI: ")>0 Then
 		      ompiver=NthField(ompiver,"Open MPI: ",2)
+		      'logowin.WriteToSTDOUT ("ompiver1: "+ompiver)
 		      ompiver=Trim(NthField(ompiver,EndOfLine.unix,1))
+		      'logowin.WriteToSTDOUT ("ompiver2: "+ompiver)
+		      
 		      OMPinfoLabel.Text="Found Open MPI version " + ompiver + "."
+		    Else
+		      logowin.WriteToSTDOUT ("No 'Open MPI: 'string "+EndOfLine.UNIX)
+		      
 		    End If
 		  Else
 		    OMPinfoLabel.Text="Open MPI not detected. Only serial meme can run on single CPU core."
 		    CPUcoresPopup.SelectedRowIndex=0   'single core
 		    CPUcoresPopup.Enabled=False
+		    
+		    
+		    'logowin.WriteToSTDOUT ("ompi_info returned this:"+EndOfLine.UNIX)
+		    'logowin.WriteToSTDOUT (sh.result+EndOfLine.UNIX)
+		    
+		    
 		    
 		  End If
 		  
@@ -3915,10 +3929,17 @@ End
 		  PropFontSizeMenu.addrow "10"
 		  PropFontSizeMenu.addrow "11"
 		  PropFontSizeMenu.addrow "12"
-		  PropFontSizeMenu.addrow "13"
 		  PropFontSizeMenu.addrow "14"
+		  PropFontSizeMenu.addrow "16"
+		  PropFontSizeMenu.addrow "18"
+		  PropFontSizeMenu.addrow "20"
+		  PropFontSizeMenu.addrow "24"
+		  PropFontSizeMenu.addrow "28"
+		  PropFontSizeMenu.addrow "32"
 		  
-		  PropFontSizeMenu.ListIndex=0
+		  
+		  
+		  PropFontSizeMenu.ListIndex=4
 		  
 		  
 		End Sub

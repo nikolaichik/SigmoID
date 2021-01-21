@@ -1276,7 +1276,7 @@ End
 		  
 		  
 		  CollectionList.Enabled=True
-		  
+		  EnableButtons
 		  
 		  ProgressWheel1.Visible=False
 		  ProgressWheel1.Enabled=False
@@ -1699,7 +1699,7 @@ End
 		  dim jsn as new JSONItem
 		  dim jsn0 as new JSONItem
 		  dim ProteinFasta, vimssId as string
-		  dim uTags(0), uRegulons(0) As string    'Unique CRtags and matching Regulon ID lists
+		  dim uTags(0), uRegulons(0), uNames(0) As string    'Unique CRtags and matching Regulon ID lists
 		  dim PalindromicSite as boolean
 		  dim aline,CRTAG as string
 		  dim CRtagStatArray(0) as string
@@ -1736,13 +1736,13 @@ End
 		    msgbox "No folder to save profiles to. Stopping."
 		    return
 		  end if
-		  LogoWin.WriteToSTDOUT (EndofLine.UNIX+kExportingProfiles+EndOfLine.UNIX)
+		  LogoWin.WriteToSTDOUT (EndOfLine.UNIX+kExportingSigs+EndOfLine.UNIX)
 		  LogoWin.STDOUT.Refresh(false)
 		  Logowin.show
 		  
 		  
 		  // make tmp folder
-		  dim TFfamily_tmp as FolderItem = TemporaryFolder.child("TFfamily_tmp")
+		  Dim TFfamily_tmp As FolderItem = TemporaryFolder.child("TFfamily_tmp")
 		  if TFfamily_tmp <> nil then
 		    
 		    
@@ -1822,6 +1822,10 @@ End
 		      res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
 		      
 		      If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		        'store RegRpecise version (approach valid for http://regprecise.sbpdiscovery.org as of Jan 2021)
+		        RegPreciseVersion=NthField(res,"-- version",2)
+		        RegPreciseVersion=Trim(NthField(RegPreciseVersion,"--",1))
+		        
 		        'save regulog info for later use:
 		        RegulonInfo=NthField(res,">Properties<",2)
 		        RegulonInfo=NthField(RegulonInfo,">Visualization:<",1)
@@ -1972,24 +1976,28 @@ End
 		      LogoWin.WriteToSTDOUT (" OK"+EndOfLine.unix)
 		      
 		      'check for different CRtags 
-		      redim uTags(0)
-		      redim uRegulons(0)
+		      Redim uTags(0)
+		      Redim uRegulons(0)
+		      Redim uNames(0)
 		      uTags.append CRtags(1)         
-		      uRegulons.append str(regulonIDs(1))       
+		      uRegulons.append Str(regulonIDs(1))  
+		      uNames.append Str(GenomeNames(1))      
 		      for q=2 to UBound(CRtags)
 		        dim NewTag as boolean=true
 		        
 		        for p=1 to UBound(uTags)
 		          if uTags(p)=CRtags(q) then
-		            uRegulons(p)=uRegulons(p)+";"+str(regulonIDs(q))
-		            NewTag=false
+		            uRegulons(p)=uRegulons(p)+";"+Str(regulonIDs(q))
+		            uNames(p)=uNames(p)+";"+Str(GenomeNames(q)) 'unused?
+		            NewTag=False
 		            exit
 		          end if
 		        next p
 		        
 		        if NewTag then
 		          uTags.Append CRtags(q)
-		          uRegulons.append str(RegulonIDs(q))
+		          uRegulons.append Str(RegulonIDs(q))
+		          uNames.append Str(GenomeNames(q))
 		        end if
 		      next q
 		      
@@ -2352,7 +2360,7 @@ End
 		                    effector=NthField(effector,"</td>",1)
 		                    
 		                    
-		                    RegPreciseInfo="   This profile is built with RegPrecise (version "+RegPreciseWin.RegPreciseVersion+") data for "
+		                    RegPreciseInfo="   This profile is built with RegPrecise (version "+RegPreciseVersion+") data for "
 		                    RegPreciseInfo=RegPreciseInfo+TFname+" ("+regulatorFamily+" family) from "+taxonName+". "
 		                    RegPreciseInfo=RegPreciseInfo+TFname+" is involved in "+pathway+" and responds to "+effector+"."+EndOfLine.UNIX
 		                    RegPreciseInfo=RegPreciseInfo+"   RegPrecise regulog (ID "+Str(RegulogID)+") includes "+CollectionList.Cell(n,2)+" regulons and "+CollectionList.Cell(n,3)+" inferred binding sites."
@@ -2419,7 +2427,7 @@ End
 		                      
 		                      If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
 		                        If res<>"" Then
-		                          RegPreciseInfo=RegPreciseInfo+GenomeNames(w)+" (regulonId="+Str(regulonIds(w))+")"+EndOfLine
+		                          RegPreciseInfo=RegPreciseInfo+NthField(uNames(r),";",w)+" (regulonId="+NthField(uRegulons(r),";",w)+")"+EndOfLine
 		                          
 		                        End If
 		                      Else

@@ -276,6 +276,68 @@ Implements NSToolbarItemInterface
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Autovalidates"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ItemIdentifier"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PaletteLabel"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Tag"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ToolTip"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="VisibilityPriority"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="NSToolbarItemVisibilityPriority"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - NSToolbarItemVisibilityPriorityStandard"
+				"-1000 - NSToolbarItemVisibilityPriorityLow"
+				"1000 - NSToolbarItemVisibilityPriorityHigh"
+				"2000 - NSToolbarItemVisibilityPriorityUser"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"

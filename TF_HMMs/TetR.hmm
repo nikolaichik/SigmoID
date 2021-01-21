@@ -1,7 +1,7 @@
 HMMER3/f [3.1b2 | February 2015]
 NAME  TetR_N
 ACC   PF00440.20
-DESC  Bacterial regulatory proteins, tetR family
+DESC  Bacterial regulatory proteins, TetR family
 LENG  47
 ALPH  amino
 RF    no

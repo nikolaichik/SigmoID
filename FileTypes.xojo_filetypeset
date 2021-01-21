@@ -7,10 +7,12 @@
 		MacType=BINA
 		Name=SigmoidFile
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 	#tag FileType
@@ -21,10 +23,12 @@
 		MacType=TEXT
 		Name=Text
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 	#tag FileType
@@ -35,10 +39,12 @@
 		MacType=????
 		Name=All Files
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 	#tag FileType
@@ -49,10 +55,12 @@
 		MacType=fold
 		Name=Folder
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 	#tag FileType
@@ -63,10 +71,12 @@
 		MacType=SgPr
 		Name=Sigmoid Prefs
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 	#tag FileType
@@ -77,10 +87,12 @@
 		MacType=TEXT
 		Name=GenBank
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 	#tag FileType
@@ -91,10 +103,12 @@
 		MacType=TEXT
 		Name=Fasta
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 	#tag FileType
@@ -105,10 +119,12 @@
 		MacType=TEXT
 		Name=Table
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 	#tag FileType
@@ -119,10 +135,12 @@
 		MacType=
 		Name=MEME
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 	#tag FileType
@@ -133,10 +151,12 @@
 		MacType=
 		Name=WIG
 		UTI=
-		UTIConformsTo=
+		UTIConformsTo=, public.data
 		Description=
 		MimeType=
 		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
 	#tag EndFileType
 
 #tag EndFileTypeSet
