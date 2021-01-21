@@ -89,8 +89,15 @@
 					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
 				End
 				Begin IDEScriptBuildStep Zip , AppliesTo = 2
-					Dim result As String 
+					Dim result As String
 					result = DoShellCommand("cd " + currentBuildLocation + " && zip -r SigmoID.zip SigmoID"
+				End
+				Begin CopyFilesBuildStep CopyLibs
+					AppliesTo = 0
+					Destination = 2
+					Subdirectory = 
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvTGlidW53aW5kL2xpYjY0L2xpYnVud2luZC14ODZfNjQuc28uOA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvTGlidW53aW5kL2xpYjY0L2xpYnVud2luZC5zby44
 				End
 			End
 			Begin BuildStepList Mac OS X

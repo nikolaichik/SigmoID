@@ -6,7 +6,7 @@ Inherits Thread
 		  'a fix for wrong log pane height on mac:
 		  
 		  while isFinished = False
-		    CheckEmail
+		    'CheckEmail
 		    dim cli, hmmSearchRes, CRtagPositions, table, currentHit as string
 		    dim dataForMeme as string
 		    dim sh as shell
