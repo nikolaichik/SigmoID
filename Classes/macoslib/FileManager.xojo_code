@@ -467,7 +467,7 @@ Module FileManager
 		    
 		  #elseif TargetLinux
 		    #if RBVersion >= 2013.0
-		      return f.AbsolutePath
+		      return f.NativePath
 		    #else
 		      return f.NativePath
 		    #endif

@@ -1,5 +1,6 @@
 HMMER3/f [3.1b2 | February 2015]
 NAME  DcuR
+DESC  Bacterial regulatory proteins, DcuR family
 LENG  75
 ALPH  amino
 RF    no

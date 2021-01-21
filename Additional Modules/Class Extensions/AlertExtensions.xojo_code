@@ -95,7 +95,7 @@ Protected Module AlertExtensions
 			Get
 			  static gPrefs as TTsSmartPreferences
 			  if gPrefs = nil then
-			    gPrefs = new TTsSmartPreferences ("") // <- enter your app's name here, it's necessary for Windows and Linux
+			    gPrefs = new TTsSmartPreferences ("SigmoID") // <- enter your app's name here, it's necessary for Windows and Linux
 			  end
 			  return gPrefs
 			End Get

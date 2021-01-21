@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -528,7 +527,7 @@ End
 		  
 		  Dim pythonCheckString As String = "Checking python and scripts... "+EndOfLine.unix
 		  
-		  cli="python3 --version"
+		  cli="python --version"
 		  sh=New Shell
 		  sh.mode=0
 		  sh.TimeOut=-1
@@ -542,71 +541,24 @@ End
 		      '
 		      '
 		      '
-		      pythonPath=SystemPath("python3")+" " 
+		      pythonPath=SystemPath("python")+" " 
 		    Else
-		      cli="python --version"
+		      cli="python3 --version"
 		      sh=New Shell
 		      sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
 		      If sh.errorCode=0 Then
-		        pythonPath=SystemPath("python")+" "  
+		        If InStr(sh.result,"Python 3")>0 Then
+		          pythonPath=SystemPath("python3")+" "  
+		        Else
+		          pythonPath=""
+		          WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
+		        End If
 		      Else
 		        pythonPath=""
 		        WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
 		      End If
 		    End If
 		    
-		    'cli="python --version"
-		    'sh=New Shell
-		    'sh.mode=0
-		    'sh.TimeOut=-1
-		    'sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
-		    'If sh.errorCode=0 Then
-		    'If InStr(sh.result,"Python 3")>0 Then
-		    ''
-		    ''
-		    ''
-		    'WriteToSTDOUT (sh.result)
-		    ''
-		    ''
-		    ''
-		    'pythonPath=SystemPath("python")+" " 
-		    'Else
-		    'cli="python3 --version"
-		    'sh=New Shell
-		    'sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
-		    'If sh.errorCode=0 Then
-		    'pythonPath=SystemPath("python3")+" "  
-		    'Else
-		    'pythonPath=""
-		    'WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
-		    'End If
-		    'End If
-		    
-		    
-		    'dim pythonCheckString as string = "Checking python and scripts... "+EndofLine.unix
-		    'cli="python --version"
-		    'sh=New Shell
-		    'sh.mode=0
-		    'sh.TimeOut=-1
-		    'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		    'If sh.errorCode=0 then
-		    'if instr(sh.result,"Python 3")>0 then
-		    'WriteToSTDOUT ("Your system defaults to Python 3. Looking for Python 2...")
-		    'cli="python2 --version"
-		    'sh=New Shell
-		    'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		    'If sh.errorCode=0 then
-		    'pythonPath=SystemPath("python2")+" "  
-		    '
-		    ''pythonPath="python2 "
-		    'else
-		    'pythonPath=""
-		    'WriteToSTDOUT ("Can't find working Python 2 command. Python scripts won't work. ")
-		    'End If
-		    'else
-		    'pythonPath=SystemPath("python")+" "  
-		    ''pythonPath="python "
-		    'End If
 		    
 		    If InStr(Sh.Result,"command not found")>0 Then
 		      WriteToSTDOUT (Sh.Result+EndOfLine.unix)
@@ -666,7 +618,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
+		    WriteToSTDOUT (EndOfLine.Unix+"HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
@@ -694,7 +646,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
+		    WriteToSTDOUT (EndOfLine.Unix+"RepeatGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
@@ -781,6 +733,8 @@ End
 		  end if
 		  if Not hmmg then
 		    WriteToSTDOUT ("OperOn script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
+		    WriteToSTDOUT ("The command was: "+cli+EndOfLine.UNIX)
+		    WriteToSTDOUT ("The result was: "+sh.result+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
@@ -810,7 +764,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT ("HmmGen script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
+		    WriteToSTDOUT (EndOfLine.Unix+"Converter script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
@@ -3630,8 +3584,8 @@ End
 		          elseif left(aLine,11)="CRtagCoords" then
 		            CRtagCoords=right(aline,len(aline)-12)
 		            ProfileWizardWin.CRtagField.text=CRtagCoords
-		          elseif left(aLine,10)="protein_id" then
-		            SeedProteinID=trim(NthField(aline," ",2))
+		          Elseif Left(aLine,10)="protein_id" Then
+		            SeedProteinID=trim(NthField(aline,"protein_id",2))
 		            ProfileWizardWin.SeedProteinArea.Text=">"+SeedProteinID+EndOfLine.Unix
 		            ProfileWizardWin.SeedProteinArea.TextColor=&c00000000
 		          elseif left(aLine,12)="seed_protein" then

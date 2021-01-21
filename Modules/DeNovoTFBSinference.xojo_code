@@ -49,7 +49,7 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
-		  dim cli as string
+		  Dim cli As String
 		  Dim sh As Shell
 		  sh=New Shell
 		  sh.mode=0
@@ -58,7 +58,7 @@ Protected Module DeNovoTFBSinference
 		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+Str(inFile.ShellPath)
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
-		  LogoWin.WriteToSTDOUT (EndOfLine.unix+"Running ChIPmunk...")
+		  deNovoWin.rp.writeToWin(EndOfLine.unix+"Running ChIPmunk...")
 		  'assume bash is the normal user shell
 		  'execute bash with login scripts to set the same env as in terminal
 		  'command must be in single quotes
@@ -74,19 +74,21 @@ Protected Module DeNovoTFBSinference
 		    
 		    return sh.errorCode
 		  else
-		    LogoWin.WriteToSTDOUT ("ChIPmunk error code: "+Str(sh.errorCode))
-		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    deNovoWin.rp.writeToWin("ChIPmunk error code: "+Str(sh.errorCode))
+		    deNovoWin.rp.writeToWin(EndofLine+Sh.Result)
 		    
 		    return sh.errorCode
 		  end if
 		  
 		  Exception err
-		    ExceptionHandler(err,"SeqRetrieval:ChIPmunk")
+		    ExceptionHandler(err,"DeNovoTFBSinference:ChIPmunk",True)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function ConvertIDtoGenPept(ncbiID as string) As string
+		  'currently unused
+		  
 		  // Requires a valid NCBI ID (e.g. the one returned by UniProt2ncbi_ID)
 		  //
 		  // Returns correct ID (currently gi, may break in September 2016) for the protein sequence in GenPept
@@ -168,11 +170,11 @@ Protected Module DeNovoTFBSinference
 		  
 		  If InStr(EntryID,"join(")>0 Then  'this could be either a real pseudogene or sequencing error leading to a frameshift, better ignore this locus anyway
 		    EntryID=NthField(EntryID,"join(",2)
-		    LogoWin.WriteToSTDOUT ("Getting the GenBank entry "+EntryID+" fragment... It seems to be a pseudogene: ignoring"+EndOfLine.UNIX)
+		    deNovoWin.rp.writeToWin("Getting the GenBank entry "+EntryID+" fragment... It seems to be a pseudogene: ignoring"+EndOfLine.UNIX)
 		    Return ""
 		  End If
 		  
-		  LogoWin.WriteToSTDOUT ("Getting the GenBank entry "+EntryID+" fragment... ")
+		  deNovoWin.rp.writeToWin("Getting the GenBank entry "+EntryID+" fragment... ")
 		  'LogoWin.show
 		  
 		  'old socket masked
@@ -187,9 +189,9 @@ Protected Module DeNovoTFBSinference
 		  try
 		    res=DefineEncoding(hts.SendSync("GET", theURL,60), Encodings.ASCII) 
 		  catch e as NetworkException
-		    Logowin.WriteToSTDOUT(e.message+EndOfLine.UNIX)
+		    deNovoWin.rp.writeToWin(e.message+EndOfLine.UNIX)
 		  catch e as RuntimeException
-		    Logowin.WriteToSTDOUT(e.message+EndOfLine.UNIX)
+		    deNovoWin.rp.writeToWin(e.message+EndOfLine.UNIX)
 		  end try
 		  
 		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
@@ -197,29 +199,28 @@ Protected Module DeNovoTFBSinference
 		      'if hts.Error=-1 then
 		      'Logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
 		      'else
-		      LogoWin.WriteToSTDOUT ("Error (empty response)"+EndOfLine.UNIX)
+		      deNovoWin.rp.writeToWin("Error (empty response)"+EndOfLine.UNIX)
 		      'end if
 		    else
 		      'LogoWin.WriteToSTDOUT (EndOfLine)
-		      LogoWin.WriteToSTDOUT (" OK")'(res)
-		      LogoWin.WriteToSTDOUT (EndOfLine)
+		      deNovoWin.rp.writeToWin(" OK"+EndOfLine.unix)'(res)
 		      
 		    end if
 		  else
-		    LogoWin.WriteToSTDOUT ("eutils error "+Str(hts.HTTPStatusCode)+EndOfLine.UNIX)
-		    LogoWin.WriteToSTDOUT ("The URL requested was "+theURL+EndOfLine.UNIX)
+		    deNovoWin.rp.writeToWin("eutils error "+Str(hts.HTTPStatusCode)+EndOfLine.UNIX)
+		    deNovoWin.rp.writeToWin("The URL requested was "+theURL+EndOfLine.UNIX)
 		  end if
 		  
 		  'hts.close
 		  return res
 		  Exception err
-		    ExceptionHandler(err,"SeqRetrieval:FetchGenBankEntryFragment")
-		    
+		    ExceptionHandler(err,"DeNovoTFBSinference:FetchGenBankEntryFragment",True)
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function FetchGenPeptEntries(Entries as string) As string
+		  'Currently unused
 		  
 		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=gp&retmode=text&id="
 		  Dim theURL As String
@@ -280,6 +281,7 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function FetchGenPeptEntry1(Entry as string) As string
+		  'Currently unused
 		  
 		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
 		  Const URLend as string="&rettype=gp" 
@@ -624,16 +626,29 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="HTH_8.hmm"
 		  Case "IclR"
 		    hmmFileName="IclR.hmm"
+		  Case "ArsR"
+		    hmmFileName="HTH_20.hmm"
+		  Case "MerR"
+		    hmmFileName="MerR.hmm"
+		  Case "Rrf2"
+		    hmmFileName="Rrf2.hmm"
+		  Case "AsnC"
+		    hmmFileName="HTH_AsnC_type.hmm"
+		  Case "ROK"
+		    hmmFileName="MarR_Superfamily.hmm"  'this model matches most of TFs from this family in RegPrecise
+		  Case "CRP"
+		    hmmFileName="HTH_Crp_2.hmm"
+		  Case "Fur"
+		    hmmFileName="FUR.hmm"
+		    
+		    'although the majority of AraC family TFs are covered by AraCd1.hmm, significant numbers 
+		    'have shorter or longer specer between two DBDs, hence tho other models are needed
+		    'and the user has to choose manually between AraCd1.hmm, AraCd2.hmm and the original HTH_18.hmm
+		    'Case "AraC"
+		    'hmmFileName="AraCd1.hmm"
 		  Case ""
 		    hmmFileName=""
-		  Case ""
-		    hmmFileName=""
-		  Case ""
-		    hmmFileName=""
-		  Case ""
-		    hmmFileName=""
-		  Case ""
-		    hmmFileName=""
+		    
 		  Else
 		    'can't find the proper .hmm file, so asking the user to choose it
 		    Dim dlg2 as New OpenDialog
@@ -683,7 +698,7 @@ Protected Module DeNovoTFBSinference
 		  dim m,id,i,k,z as integer
 		  dim UniProtID, MultiFasta, SingleFasta, cli, genpeptIDs, shellRes(-1)  as string
 		  dim EntryFragmentsF, uniprot2genpept as FolderItem
-		  dim gbkcount as integer = Val(deNovoWin.Proteins2processField.text)
+		  dim gbkcount as integer = Proteins2process 'Val(deNovoWin.Proteins2processField.text)
 		  dim sh as Shell
 		  dim rg as New RegEx
 		  Dim rgmatch As RegExMatch
@@ -692,62 +707,85 @@ Protected Module DeNovoTFBSinference
 		  uniprot2genpept=Resources_f.Child("uniprot2genpept.py")
 		  If uniprot2genpept<>Nil Then
 		    If Not uniprot2genpept.Exists Then
-		      MsgBox("Check "+uniprot2genpept.ShellPath+" for uniprot2genpept.py")
+		      'doesn't work MsgBox("Check "+uniprot2genpept.ShellPath+" for uniprot2genpept.py")
 		      Return ""
 		    Else
 		      'cli= "python "+uniprot2genpept.ShellPath+" '"+ecodes+"' | grep -o -Pe '\S*(?=\.)' - | paste -s -d, -" 'convert UniprotKB IDs to Genpept IDs and replace end of line with comma 
-		      cli= pythonpath+uniprot2genpept.ShellPath+" '"+ecodes+"'"
+		      'change from python to to xojo urlconnection
+		      'cli= pythonpath+uniprot2genpept.ShellPath+" '"+ecodes+"'"
+		      '
 		      
-		      
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      'assume bash is the normal user shell
+		      ''assume bash is the normal user shell
 		      'execute bash with login scripts to set the same env as in terminal
 		      'command must be in single quotes
 		      
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		      'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		      Const URL As String="https://www.uniprot.org/uploadlists/?"
 		      
-		      If sh.ErrorCode<>0 Then
-		        logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
-		      Else
-		        shellRes=sh.Result.Split(EndOfLine.UNIX)
-		        'shellRes=sh.Result.Split("\n")
-		        
-		        logoWin.WriteToSTDOUT ("converted to "+Str(Ubound(shellRes)-2)+" NCBI accessions. ")
-		        
-		        'check for duplicate (multiple) GenBank accessions per given UniProt ID and leave just the first one
-		        If ubound(shellRes)>50 Then     ' <-- 50 is rather arbitrary, can be user configurable
-		          Dim y As Integer
-		          Dim lastCode As String = NthField(shellRes(ubound(shellRes)),Chr(9),1)
-		          For y=ubound(shellRes)-1 DownTo 1
-		            If NthField(shellRes(y),Chr(9),1)=LastCode Then
-		              'If NthField(shellRes(y),"\t",1)=LastCode Then
-		              shellRes.RemoveRowAt(y+1)
-		            Else
-		              lastCode=NthField(shellRes(y),Chr(9),1)
-		            End If
-		          Next
-		          
-		        End If
-		        
-		        For id=0 To UBound(shellRes)
-		          rgmatch=rg.Search(shellRes(id))
-		          If rgmatch<> Nil Then
-		            If genpeptIDs="" Then 
-		              genpeptIDs=rgmatch.SubExpressionString(0)
-		            Else
-		              genpeptIDs=genpeptIDs+","+rgmatch.SubExpressionString(0)
-		            End
-		          End
+		      dim content as String = "&from=ACC&to=EMBL&format=tab&query="
+		      dim hts as new HTTPSconnection
+		      dim tempcontent as FolderItem
+		      tempcontent=TemporaryFolder.Child("gpfile")
+		      if tempcontent.Exists then tempcontent.Remove
+		      hts.SetRequestContent(content+ecodes, "application/x-www-form-urlencoded")
+		      hts.Send("POST", URL, tempcontent)
+		      while HTTPSerror="" and WebContent="" 
+		        app.YieldToNextThread
+		      wend
+		      if HTTPSError<>"" then
+		        deNovoWin.rp.writeToWin("An error occured while converting protein ids to EMBL format, "+HTTPSError+EndOfLine.UNIX)
+		        HTTPSError=""
+		      else
+		        shellres=WebContent.split(Endofline.unix)
+		        WebContent=""
+		        if UBound(shellRes)>1 then
+		          if instr(shellRes(0),"from")<>0 then  shellRes.RemoveRowAt(0)
+		        end
+		      end
+		      
+		      
+		      'If sh.ErrorCode<>0 Then
+		      'doesn't work logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
+		      'Else
+		      'shellRes=sh.Result.Split(EndOfLine.UNIX)
+		      'shellRes=sh.Result.Split("\n")
+		      
+		      deNovoWin.rp.writeToWin("converted to "+Str(Ubound(shellRes)-1)+" NCBI accessions. ")
+		      
+		      'check for duplicate (multiple) GenBank accessions per given UniProt ID and leave just the first one
+		      If ubound(shellRes)>50 Then     ' <-- 50 is rather arbitrary, can be user configurable
+		        Dim y As Integer
+		        Dim lastCode As String = NthField(shellRes(ubound(shellRes)),Chr(9),1)
+		        For y=ubound(shellRes)-1 DownTo 1
+		          App.YieldToNextThread()
+		          If NthField(shellRes(y),Chr(9),1)=LastCode Then
+		            'If NthField(shellRes(y),"\t",1)=LastCode Then
+		            shellRes.RemoveRowAt(y+1)
+		          Else
+		            lastCode=NthField(shellRes(y),Chr(9),1)
+		          End If
 		        Next
-		        ecodes=genpeptIDs  'a Uniprot accession can be converted to several NCBI ones due to identical proteins. Most often we need just one of those 
-		        logoWin.WriteToSTDOUT (Str(CountFields(ecodes,","))+" left after removing redundancies."+EndOfLine.unix)
 		        
 		      End If
+		      
+		      For id=0 To UBound(shellRes)
+		        App.YieldToNextThread()
+		        rgmatch=rg.Search(shellRes(id))
+		        If rgmatch<> Nil Then
+		          If genpeptIDs="" Then 
+		            genpeptIDs=rgmatch.SubExpressionString(0)
+		          Else
+		            genpeptIDs=genpeptIDs+","+rgmatch.SubExpressionString(0)
+		          End
+		        End
+		      Next
+		      ecodes=genpeptIDs  'a Uniprot accession can be converted to several NCBI ones due to identical proteins. Most often we need just one of those 
+		      deNovoWin.rp.writeToWin(Str(CountFields(ecodes,",")+1)+" left after removing redundancies."+EndOfLine.unix)
+		      
+		      'End If
 		    End
 		  Else
-		    MsgBox("Path to SigmoID folder is Nil")
+		    'MsgBox("Path to SigmoID folder is Nil")
 		    Return ""
 		  end
 		  if instr(ecodes,",")>0 then
@@ -756,6 +794,7 @@ Protected Module DeNovoTFBSinference
 		    if ubound(ResArray) +1>gbkcount then
 		      ecodes=""
 		      for i=0 to gbkcount-1
+		        App.YieldToNextThread()
 		        if i<>gbkcount-1 then 
 		          ecodes=ecodes+ResArray(i)+","
 		        else
@@ -782,7 +821,7 @@ Protected Module DeNovoTFBSinference
 		  // localgbk string for GetRegSeq method 
 		  'is a signal to use local gbk file for TF's nearby regions extraction
 		  if m>requestCount then
-		    'LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
+		    deNovoWin.rp.writeToWin("Extracting genome fragments around the TF gene..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    k=m\requestCount 
 		    z=m mod requestCount
@@ -816,7 +855,7 @@ Protected Module DeNovoTFBSinference
 		    MultiFasta=MultiFasta+GetRegSeq("localgbk",EntryFragmentsF)
 		    return MultiFasta
 		  else
-		    'LogoWin.WriteToSTDOUT("Processing UniProt hits..."+EndOfLine.unix)
+		    deNovoWin.rp.writeToWin("Extracting genome fragments around the TF gene..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    SingleFasta=GetRegSeq(ecodes,EntryFragmentsF)
 		    SingleFasta=SingleFasta+GetRegSeq("localgbk",EntryFragmentsF)
@@ -830,8 +869,9 @@ Protected Module DeNovoTFBSinference
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
-		    end if
-		    ExceptionHandler(err,"SeqRetrieval:GetOrthoRegSeq")
+		    End If
+		    
+		    ExceptionHandler(err,"DeNovoTFBSinference:GetOrthoRegSeq", true)
 		    
 		End Function
 	#tag EndMethod
@@ -882,11 +922,9 @@ Protected Module DeNovoTFBSinference
 		  //ALREADY HAVE CODES
 		  
 		  if UniProtCodes="" then
-		    LogoWin.WriteToSTDOUT("Can't get GenPept ID - reference is empty "+EndOfLine.UNIX)
+		    deNovoWin.rp.writeToWin("Can't get GenPept ID - reference is empty "+EndOfLine.UNIX)
 		    return ""
 		  end if
-		  
-		  
 		  
 		  'Entry=FetchGenPeptEntry(UniProtCodes)
 		  dim f as GBFeature 
@@ -895,56 +933,76 @@ Protected Module DeNovoTFBSinference
 		      redim entryarray(0)
 		      f= GenomeWin.Genome.Features(deNovoWin.TFfeature)
 		      if f.FeatureText="" then 
-		        LogoWin.WriteToSTDOUT("Failed to process gene's description from "+Str(GenomeWin.GenomeFile.Name)+", feature text is empty."+EndOfLine.UNIX)
+		        deNovoWin.rp.writeToWin("Failed to process gene's description from "+Str(GenomeWin.GenomeFile.Name)+", feature text is empty."+EndOfLine.UNIX)
 		        return ""
 		      end
 		      entryarray(0)=str(GenomeWin.Genome.Description)+str(f.FeatureText)
 		      k=UBound(entryarray)
 		      deNovoWin.TFfeature=-1
 		    else
-		      LogoWin.WriteToSTDOUT("Failed to determine the nearby located operons -  TF coding gene was not found  in the local GenBank file, check TF id in hmmsearch_result_withCRtags.txt and corresponding GeneBank record" +EndOfLine.UNIX)
+		      deNovoWin.rp.writeToWin("Failed to determine the nearby located operons -  TF coding gene was not found  in the local GenBank file, check TF id in hmmsearch_result_withCRtags.txt and corresponding GeneBank record" +EndOfLine.UNIX)
 		      return ""
 		    end
 		  else
 		    getprot=Resources_f.Child("getprot.py")
-		    If getprot.exists Then
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      cli=pythonpath+getprot.ShellPath+" "+"'"+UniProtCodes+"'"+" '"+email+"'"
-		      
-		      'assume bash is the normal user shell
-		      'execute bash with login scripts to set the same env as in terminal
-		      'command must be in single quotes
-		      
-		      sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
-		      
-		      If sh.errorCode=0 And InStr(sh.result, "Error retrieving: ") =0 Then
-		        entry=sh.Result
-		      Elseif  InStr(UniProtCodes,",")<>0 And InStr(sh.result, "Error retrieving: ") <>0 Then
-		        sh=New Shell
-		        sh.mode=0
-		        sh.TimeOut=-1
-		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+"Trying to retrieve a batch of identificators has resulted in error. Attempting to process them sequentially..."+EndOfLine.UNIX)
-		        
-		        Dim tempIDs() As String = UniProtCodes.Split(",")
-		        For id As Integer = 0 To UBound(tempIDs)
-		          cli=pythonpath+getprot.ShellPath+" "+"'"+tempIDs(id)+"'"+" '"+email+"'"
-		          sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
-		          If sh.errorCode=0 And InStr(sh.result, "Error retrieving: ") =0 Then
-		            entry=entry+sh.Result
-		          Else
-		            LogoWin.WriteToSTDOUT(EndOfLine.Unix+Str(sh.Result)+EndOfLine.UNIX)
-		          End
-		        Next
-		      Else 
-		        LogoWin.WriteToSTDOUT(EndOfLine.Unix+Str(sh.Result)+EndOfLine.UNIX)
-		        Return ""
-		      End If
-		    Else
-		      MsgBox("File "+getprot.NativePath+" doesn't exist")
-		      Return ""
-		    End
+		    'replace getprot.py with xojo URLConnection
+		    Const URL As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+		    dim content as String = "db=protein&rettype=gp&retmode=text&id="+UniProtCodes
+		    dim hts as new HTTPSconnection
+		    dim tempcontent as FolderItem
+		    tempcontent=TemporaryFolder.Child("gpfile")
+		    if tempcontent.Exists then tempcontent.Remove
+		    hts.SetRequestContent(content, "application/x-www-form-urlencoded")
+		    hts.Send("POST", URL, tempcontent)
+		    while HTTPSerror="" and WebContent="" 
+		      app.YieldToNextThread
+		    wend
+		    if HTTPSError<>"" then
+		      deNovoWin.rp.writeToWin("HTTPS error occured while retrieving genome regions from NCBI, "+HTTPSError+EndOfLine.UNIX)
+		      HTTPSError=""
+		    else
+		      Entry=WebContent
+		      WebContent=""
+		    end
+		    'If getprot.exists Then
+		    'sh=New ShellT
+		    'sh.mode=0
+		    'sh.TimeOut=-1
+		    'cli=pythonpath+getprot.ShellPath+" "+"'"+UniProtCodes+"'"+" '"+email+"'"
+		    '
+		    ''assume bash is the normal user shell
+		    ''execute bash with login scripts to set the same env as in terminal
+		    ''command must be in single quotes
+		    '
+		    'sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		    '
+		    'If sh.errorCode=0 And InStr(sh.result, "Error retrieving: ") =0 Then
+		    'entry=sh.Result
+		    'Elseif  InStr(UniProtCodes,",")<>0 And InStr(sh.result, "Error retrieving: ") <>0 Then
+		    'sh=New Shell
+		    'sh.mode=0
+		    'sh.TimeOut=-1
+		    'deNovoWin.rp.writeToWin(Trying to retrieve a batch of identificators has resulted in error. Attempting to process them sequentially..."+EndOfLine.UNIX)
+		    '
+		    'Dim tempIDs() As String = UniProtCodes.Split(",")
+		    'For id As Integer = 0 To UBound(tempIDs)
+		    'App.YieldToNextThread()
+		    'cli=pythonpath+getprot.ShellPath+" "+"'"+tempIDs(id)+"'"+" '"+email+"'"
+		    'sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		    'If sh.errorCode=0 And InStr(sh.result, "Error retrieving: ") =0 Then
+		    'entry=entry+sh.Result
+		    'Else
+		    'deNovoWin.rp.writeToWin(EndOfLine.Unix+Str(sh.Result)+EndOfLine.UNIX)
+		    'End
+		    'Next
+		    'Else 
+		    ''deNovoWin.rp.writeToWin(EndOfLine.Unix+Str(sh.Result)+EndOfLine.UNIX)
+		    'Return ""
+		    'End If
+		    'Else
+		    ''deNovoWin.rp.writeToWin("File "+getprot.NativePath+" doesn't exist")
+		    'Return ""
+		    'End
 		    
 		    
 		    'entry=FetchGenPeptEntries(UniProtCodes)
@@ -964,6 +1022,7 @@ Protected Module DeNovoTFBSinference
 		  '(some) WGS seqs don't have the "gene" and "locus_tag" qualifiers
 		  'we just skip those for now
 		  for i=0 to k
+		    'App.YieldToNextThread()
 		    Dim Separ1 as string="/locus_tag="+chr(34)
 		    Dim Separ2 as string=chr(34)
 		    Dim LocusTag As string
@@ -975,9 +1034,9 @@ Protected Module DeNovoTFBSinference
 		      if LocusTag="" then
 		        'return "Error extracting locus_tag from GenPept entry "+ConvertEncoding(UniProtCodes,Encodings.UTF8)+EndOfLine.unix+EndOfLine.unix
 		        if UBound(CodesArray)>=i then
-		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+CodesArray(i)+EndOfLine.unix)
+		          deNovoWin.rp.writeToWin("Error extracting locus_tag from GenPept entry "+CodesArray(i)+EndOfLine.unix)
 		        else
-		          LogoWin.WriteToSTDOUT("Error extracting locus_tag from GenPept entry "+UniProtCodes+EndOfLine.unix)
+		          deNovoWin.rp.writeToWin("Error extracting locus_tag from GenPept entry "+UniProtCodes+EndOfLine.unix)
 		        end
 		        Continue for i
 		      end if
@@ -1053,19 +1112,19 @@ Protected Module DeNovoTFBSinference
 		          'assume bash is the normal user shell
 		          'execute bash with login scripts to set the same env as in terminal
 		          'command must be in single quotes
-		          
+		          'set mode 2
 		          sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
 		          If sh.errorCode=0 Then
 		            Entry=sh.Result
 		          else
-		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't get nearby operons region from "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
-		            LogoWin.WriteToSTDOUT(str(sh.Result))
+		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't get nearby operons region from "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin(sh.Result)
 		          end
 		        else
 		          if extractfragment.exists then
-		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Check if genome file exists: "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Check if genome file exists: "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
 		          else
-		            LogoWin.WriteToSTDOUT("Can't get nearby operons region, check if ExtractFragment.py is present in  SigmoID Resources folder"+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin("Can't get nearby operons region, check if ExtractFragment.py is present in  SigmoID Resources folder."+EndOfLine.unix)
 		          end
 		          
 		          
@@ -1094,7 +1153,7 @@ Protected Module DeNovoTFBSinference
 		          try  
 		            OutStream = TextOutputStream.Create(gbFile)
 		          catch e as IOException
-		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't create the file to save a genome fragment. Path:"+gbFile.ShellPath+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create the file to save a genome fragment. Path:"+gbFile.ShellPath+EndOfLine.unix)
 		            'return ""
 		          end try
 		          // check existence of the file
@@ -1103,10 +1162,10 @@ Protected Module DeNovoTFBSinference
 		              OutStream.Write(Entry)
 		              OutStream.Close
 		            catch eNil as NilObjectException
-		              LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+gbFile.ShellPath+EndOfLine.unix)
+		              deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't save genome fragment to this file:"+gbFile.ShellPath+EndOfLine.unix)
 		            end try
 		          else
-		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Can't save genome fragment to this file:"+gbFile.ShellPath+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't save genome fragment to this file:"+gbFile.ShellPath+EndOfLine.unix)
 		          End If
 		        End If
 		      End If
@@ -1146,6 +1205,7 @@ Protected Module DeNovoTFBSinference
 		      featureArray=Split(features,Separator)
 		      
 		      for n=0 to m-1
+		        'App.YieldToNextThread()
 		        currentFeature=featureArray(n)
 		        
 		        'feature description parsing:
@@ -1201,7 +1261,7 @@ Protected Module DeNovoTFBSinference
 		      eSeq.sequence=CleanUp(trim(rightb(Entry,len(Entry)-instrb(Entry,"ORIGIN")-7)))
 		      
 		      if len(eSeq.sequence)<LengthLimit and i<=CodesArray.Ubound then
-		        LogoWin.WriteToSTDOUT("Genome piece coding for "+CodesArray(i)+" is too short ("+Str(Len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX)
+		        deNovoWin.rp.writeToWin("Genome piece coding for "+CodesArray(i)+" is too short ("+Str(Len(eSeq.sequence)) +" bp). Skipping it. "+EndOfLine.UNIX)
 		        continue for i
 		      end if
 		      
@@ -1221,7 +1281,7 @@ Protected Module DeNovoTFBSinference
 		      if TFno<1 OR TFno>m then
 		        'return "Error extracting intergenic sequences. GenBank file problem?"+EndOfLine.unix
 		        If ubound(CodesArray)>=0 And i<=ubound(CodesArray) Then 'precaution for non-standard cases
-		          LogoWin.WriteToSTDOUT("Error extracting intergenic sequences for "+CodesArray(i)+". GenBank file problem?"+EndOfLine.unix)
+		          deNovoWin.rp.writeToWin("Error extracting intergenic sequences for "+CodesArray(i)+". GenBank file problem?"+EndOfLine.unix)
 		        End If
 		        If i=0 Then Return ""  'Most likely for local modified gbks
 		        continue for i
@@ -1495,10 +1555,10 @@ Protected Module DeNovoTFBSinference
 		      if RegSeq<>"" then
 		        if left(RegSeq,5)="Error" then
 		          'problems with GenBank file
-		          LogoWin.WriteToSTDOUT(RegSeq)
+		          deNovoWin.rp.writeToWin(RegSeq)
 		        elseif left(RegSeq,24)="Genome piece coding for " then
 		          'extracted piece length is less then set limit
-		          LogoWin.WriteToSTDOUT(RegSeq)
+		          deNovoWin.rp.writeToWin(RegSeq)
 		        else
 		          if len(Nthfield(RegSeq,EndofLine.unix,2))>100 then       'anything shorter is probably rubbish
 		            MultiFasta=MultiFasta+RegSeq+EndOfLine.unix
@@ -1511,12 +1571,12 @@ Protected Module DeNovoTFBSinference
 		  
 		  Exception err
 		    if err isa IOException then
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"IOException has occurred.")
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
+		      deNovoWin.rp.writeToWin("IOException has occurred.")
+		      deNovoWin.rp.writeToWin("ErrorNumber: "+str(err.ErrorNumber))
+		      deNovoWin.rp.writeToWin("Message: "+err.Message)
+		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Reason: "+err.Reason)
 		    end if
-		    ExceptionHandler(err,"SeqRetrieval:GetRegSeq")
+		    ExceptionHandler(err,"DeNovoTFBSinference:GetRegSeq",true)
 		End Function
 	#tag EndMethod
 
@@ -2163,22 +2223,25 @@ Protected Module DeNovoTFBSinference
 		  cli=cli+" -oc '"+outFolder.ShellPath+"' "+Options
 		  
 		  sh=New Shell
-		  sh.mode=0
+		  sh.mode=1
 		  sh.TimeOut=-1
 		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  While sh.IsRunning=true
+		    app.YieldToNextThread()
+		  wend
 		  
 		  'return sh.errorCode
 		  If sh.errorCode=0 then
 		    return sh.errorCode
 		  else
-		    LogoWin.WriteToSTDOUT ("MEME error code: "+Str(sh.errorCode))
-		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    '"MEME error code: "+Str(sh.errorCode)
+		    'EndofLine+Sh.Result
 		    
 		    return sh.errorCode
 		  end if
 		  
 		  Exception err
-		    ExceptionHandler(err,"SeqRetrieval:MEME")
+		    ExceptionHandler(err,"DeNovoTFBSinference:MEME")
 		    
 		    
 		End Function
@@ -2261,9 +2324,9 @@ Protected Module DeNovoTFBSinference
 		  // write to the log
 		  
 		  if genusSpecific then
-		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing redundant seqs within genera... " )
+		    deNovoWin.rp.writeToWin(EndOfLine.UNIX+"Removing redundant seqs within genera... ")
 		  else
-		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"Removing redundant seqs within species... ")
+		    deNovoWin.rp.writeToWin(EndOfLine.UNIX+"Removing redundant seqs within species... ")
 		  end if
 		  
 		  // group seqs according to species names
@@ -2373,7 +2436,7 @@ Protected Module DeNovoTFBSinference
 		  inNo=CountFields(InSeqs,">")-1
 		  outNo=CountFields(nr_fasta,">")-1
 		  
-		  logowin.WriteToSTDOUT(str(inNo-outNo)+" out of "+str(inNo)+" removed.")
+		  deNovoWin.rp.writeToWin(str(inNo-outNo)+" out of "+str(inNo)+" removed.")
 		  
 		  return nr_fasta
 		  
@@ -2389,6 +2452,8 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function UniProt2ncbi_ID(UniProtID as string) As string
+		  'Currently unused
+		  
 		  'As UniProt IDs are unusable with NCBI, this method returns 
 		  'an ID that can be found in GenPept.
 		  
@@ -2452,6 +2517,8 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function UniProt2ncbi_ID_old(UniProtID as string) As string
+		  'Currently unused
+		  
 		  'As UniProt IDs are unusable with NCBI, this method returns 
 		  'an ID that can be found in GenPept.
 		  
@@ -2749,6 +2816,14 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		HTTPSError As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Proteins2process As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ProtNames(0) As string
 	#tag EndProperty
 
@@ -2758,6 +2833,10 @@ Protected Module DeNovoTFBSinference
 
 	#tag Property, Flags = &h0
 		TTshellArray(-1) As TTshell
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		WebContent As String
 	#tag EndProperty
 
 
@@ -2825,6 +2904,30 @@ Protected Module DeNovoTFBSinference
 			InitialValue="0"
 			Type="Integer"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HTTPSError"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Proteins2process"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WebContent"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

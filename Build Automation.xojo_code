@@ -86,6 +86,18 @@
 					FolderItem = Li4vUHJvZmlsZXMv
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdGZhc3R4
 					FolderItem = Li4vUmVnUHJlY2lzZURhdGEv
+					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
+				End
+				Begin IDEScriptBuildStep Zip , AppliesTo = 2
+					Dim result As String
+					result = DoShellCommand("cd " + currentBuildLocation + " && zip -r SigmoID.zip SigmoID"
+				End
+				Begin CopyFilesBuildStep CopyLibs
+					AppliesTo = 0
+					Destination = 2
+					Subdirectory = 
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvTGlidW53aW5kL2xpYjY0L2xpYnVud2luZC14ODZfNjQuc28uOA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvTGlidW53aW5kL2xpYjY0L2xpYnVud2luZC5zby44
 				End
 			End
 			Begin BuildStepList Mac OS X
@@ -133,6 +145,7 @@
 					FolderItem = Li4vLi4vQ1J0YWdCYXNlLw==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy90ZmFzdHg=
 					FolderItem = Li4vUmVnUHJlY2lzZURhdGEv
+					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
 				End
 			End
 			Begin BuildStepList Windows
@@ -179,6 +192,7 @@
 					FolderItem = Li4vLi4vQ1J0YWdCYXNlLw==
 					FolderItem = Li4vLi4vQ2FsaWJyYXRlZFByb2ZpbGVzLw==
 					FolderItem = Li4vUmVnUHJlY2lzZURhdGEv
+					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
 				End
 			End
 #tag EndBuildAutomation
