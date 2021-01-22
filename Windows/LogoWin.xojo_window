@@ -471,26 +471,6 @@ End
 		    msgbox "Can't find the MastGen.py script"
 		  end if
 		  
-		  'f=resources_f.child("Weblogo-3.3").child("weblogo")
-		  'if f<>Nil then
-		  'if f.exists then
-		  '#if targetwin32
-		  'weblogopath=pythonPath+f.ShellPath
-		  '#else
-		  'weblogopath=f.ShellPath
-		  '#endif
-		  'SettingsWin.weblogoPathField.text=weblogopath
-		  'else
-		  '#if targetwin32
-		  ''msgbox "Can't find WebLogo"
-		  '#endif
-		  'end if
-		  'else
-		  '#if targetwin32
-		  ''msgbox "Can't find WebLogo"
-		  '#endif
-		  'end if
-		  
 		  f=resources_f.child("TermGen.py")
 		  if f<>Nil then
 		    if f.exists then
@@ -518,9 +498,6 @@ End
 		  allProgsFine=true
 		  
 		  
-		  
-		  
-		  
 		  'check for the command line tools:
 		  
 		  // python (python 3 now required)
@@ -534,14 +511,9 @@ End
 		  sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
 		  If sh.errorCode=0 Then
 		    If InStr(sh.result,"Python 3")>0 Then
-		      '
-		      '
-		      '
-		      'WriteToSTDOUT (sh.result)
-		      '
-		      '
-		      '
+		      
 		      pythonPath=SystemPath("python")+" " 
+		      
 		    Else
 		      cli="python3 --version"
 		      sh=New Shell
@@ -770,33 +742,6 @@ End
 		  end if
 		  
 		  
-		  
-		  
-		  
-		  'weblogo
-		  'WriteToSTDOUT ("Looking for weblogo... ")
-		  'cli=WebLogoPath+" --version"
-		  'sh=New Shell
-		  'sh.mode=0
-		  'sh.TimeOut=-1
-		  'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  'If sh.errorCode=0 then
-		  'if instr(Sh.Result,"command not found")>0 then
-		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
-		  'WriteToSTDOUT Sh.result+EndOfLine
-		  ''allProgsFine=false
-		  'WebLogoAvailable=false
-		  'else
-		  'WriteToSTDOUT (Sh.Result)
-		  'WebLogoAvailable=true
-		  'end if
-		  'else
-		  'WriteToSTDOUT ("No weblogo found at "+WebLogoPath+". Please install it from https://code.google.com/p/weblogo/ or correct the path in the settings."+EndOfLine)
-		  'WriteToSTDOUT Sh.result+EndOfLine
-		  'WebLogoAvailable=false
-		  'allProgsFine=false
-		  'end if
-		  
 		  WriteToSTDOUT EndOfLine.UNIX+"Checking command line programs..."+EndOfLine.UNIX
 		  
 		  // nhmmer
@@ -853,8 +798,7 @@ End
 		  else
 		    WriteToSTDOUT ("No hmmbuild found at "+hmmbuildPath+". Please install it from http://hmmer.janelia.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
-		  end if
-		  
+		  End If
 		  
 		  // alimask
 		  
@@ -925,7 +869,6 @@ End
 		    allProgsFine=false
 		  end if
 		  
-		  
 		  // MEME
 		  
 		  #if TargetWin32
@@ -963,7 +906,6 @@ End
 		    allProgsFine=false
 		  end if
 		  
-		  
 		  // TomTom
 		  
 		  #if TargetWin32
@@ -980,55 +922,33 @@ End
 		  else
 		    WriteToSTDOUT ("No TomTom found at "+TomTomPath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
-		  end if
-		  
-		  
+		  End If
 		  
 		  // MeShClust
 		  
-		  dim MeshClust as folderitem
-		  #if TargetWindows 'not likely to happen
-		    MeshClust=Resources_f.child("meshclust.exe")
-		  #else
-		    MeshClust=Resources_f.child("meshclust")
-		  #endif
-		  
-		  if MeshClust<>nil then
-		    if MeshClust.exists then
-		      MeshClustPath=MeshClust.ShellPath
-		    else
-		      MeshClustPath=""
-		    end if
-		  else
-		    MeshClustPath=""
-		  end if
-		  
-		  if MeshClustPath<>"" then
+		  If MeshClustPath<>"" Then
 		    sh=New Shell
 		    sh.mode=0
 		    sh.TimeOut=-1
 		    sh.execute ("bash --login -c "+Chr(34)+MeshClustPath+Chr(34))
-		    If sh.errorCode=1 then 'running meshclust without args produces this error and help info
-		      dim s As string=sh.Result
-		      if instr(s,"meshclust")>0 then
-		        s=nthfield(s,"version ",2)
-		        s=nthfield(s,EndOfLine.Unix,1)
+		    If sh.errorCode=1 Then 'running meshclust without args produces this error and help info
+		      Dim s As String=sh.Result
+		      If InStr(s,"meshclust")>0 Then
+		        s=NthField(s,"version ",2)
+		        s=NthField(s,EndOfLine.Unix,1)
 		        WriteToSTDOUT ("MeShClust "+s+EndOfLine.UNIX)
-		      else
-		        WriteToSTDOUT ("No MeShClust found at "+MeshClustPath+". Please install it from https://github.com/TulsaBioinformaticsToolsmith/MeShClust or correct the path in the settings."+EndOfLine.unix)
-		        allProgsFine=false
-		      end if
-		    else
-		      WriteToSTDOUT ("No MeShClust found at "+MeshClustPath+". Please install it from https://github.com/TulsaBioinformaticsToolsmith/MeShClust or correct the path in the settings."+EndOfLine.unix)
-		      allProgsFine=false
-		    end if
-		  else
-		    WriteToSTDOUT ("No MeShClust found. Please install it from https://github.com/TulsaBioinformaticsToolsmith/MeShClust or correct the path in the settings."+EndOfLine.unix)
-		    allProgsFine=false
-		  end if
-		  
-		  
-		  
+		      Else
+		        WriteToSTDOUT ("No MeShClust found at "+MeshClustPath+". Please install it from https://github.com/BioinformaticsToolsmith/MeShClust or correct the path in the settings."+EndOfLine.unix)
+		        allProgsFine=False
+		      End If
+		    Else
+		      WriteToSTDOUT ("No MeShClust found at "+MeshClustPath+". Please install it from https://github.com/BioinformaticsToolsmith/MeShClust or correct the path in the settings."+EndOfLine.unix)
+		      allProgsFine=False
+		    End If
+		  Else
+		    WriteToSTDOUT ("No MeShClust found. Please install it from https://github.com/BioinformaticsToolsmith/MeShClust or correct the path in the settings."+EndOfLine.unix)
+		    allProgsFine=False
+		  End If
 		  
 		  // tfastx
 		  

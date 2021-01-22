@@ -1039,7 +1039,7 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		rp As deNovoSearch
+		rp As DeNovoTFBSinference.deNovoSearch
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1069,7 +1069,7 @@ End
 		    logoWin.DownshiftLog false
 		  end if
 		  self.LoggingOutput.Text=""
-		  rp = new deNovoSearch
+		  rp = new DeNovoTFBSinference.deNovoSearch
 		  LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Running de novo TFBS inference pipeline with SigmoID "+app.LongVersion)
 		  
 		  'self.hide
