@@ -1599,6 +1599,7 @@ Protected Module Globals
 		  'if  ScanGenomeWin.firstrun=0 then
 		  'ScanGenomeWin.firstrun=1
 		  'else
+		  
 		  f= GetFolderItem (HMMfilePath, FolderItem.PathTypeNative)
 		  'end
 		  tis=f.OpenAsTextFile
@@ -1630,7 +1631,7 @@ Protected Module Globals
 		    'LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    if instr(HMMfilePath, " ")>0 then
-		      HMMfilePath=chr(34)+HMMfilePath+chr(34)
+		      HMMfilePath="'"+HMMfilePath+"'"
 		    end
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
