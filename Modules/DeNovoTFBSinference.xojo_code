@@ -753,20 +753,21 @@ Protected Module DeNovoTFBSinference
 		      deNovoWin.rp.writeToWin("converted to "+Str(Ubound(shellRes)-1)+" NCBI accessions. ")
 		      
 		      'check for duplicate (multiple) GenBank accessions per given UniProt ID and leave just the first one
-		      If ubound(shellRes)>50 Then     ' <-- 50 is rather arbitrary, can be user configurable
-		        Dim y As Integer
-		        Dim lastCode As String = NthField(shellRes(ubound(shellRes)),Chr(9),1)
-		        For y=ubound(shellRes)-1 DownTo 1
-		          App.YieldToNextThread()
-		          If NthField(shellRes(y),Chr(9),1)=LastCode Then
-		            'If NthField(shellRes(y),"\t",1)=LastCode Then
-		            shellRes.RemoveRowAt(y+1)
-		          Else
-		            lastCode=NthField(shellRes(y),Chr(9),1)
-		          End If
-		        Next
-		        
-		      End If
+		      
+		      'Why this If block? All redundancies must always be removed 
+		      'If ubound(shellRes)>shellResMax Then     ' <-- 50(default) is rather arbitrary, can be user configurable
+		      Dim y As Integer
+		      Dim lastCode As String = NthField(shellRes(ubound(shellRes)),Chr(9),1)
+		      For y=ubound(shellRes)-1 DownTo 1
+		        App.YieldToNextThread()
+		        If NthField(shellRes(y),Chr(9),1)=LastCode Then
+		          'If NthField(shellRes(y),"\t",1)=LastCode Then
+		          shellRes.RemoveRowAt(y+1)
+		        Else
+		          lastCode=NthField(shellRes(y),Chr(9),1)
+		        End If
+		      Next
+		      'End If
 		      
 		      For id=0 To UBound(shellRes)
 		        App.YieldToNextThread()
@@ -821,7 +822,7 @@ Protected Module DeNovoTFBSinference
 		  // localgbk string for GetRegSeq method 
 		  'is a signal to use local gbk file for TF's nearby regions extraction
 		  if m>requestCount then
-		    deNovoWin.rp.writeToWin("Extracting genome fragments around the TF gene..."+EndOfLine.unix)
+		    deNovoWin.rp.writeToWin("Extracting genome fragments around TF genes..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    k=m\requestCount 
 		    z=m mod requestCount
@@ -855,7 +856,7 @@ Protected Module DeNovoTFBSinference
 		    MultiFasta=MultiFasta+GetRegSeq("localgbk",EntryFragmentsF)
 		    return MultiFasta
 		  else
-		    deNovoWin.rp.writeToWin("Extracting genome fragments around the TF gene..."+EndOfLine.unix)
+		    deNovoWin.rp.writeToWin("Extracting genome fragments around TF genes..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
 		    SingleFasta=GetRegSeq(ecodes,EntryFragmentsF)
 		    SingleFasta=SingleFasta+GetRegSeq("localgbk",EntryFragmentsF)
@@ -904,13 +905,13 @@ Protected Module DeNovoTFBSinference
 		  dim entryarray(-1) as string
 		  dim OutStream As TextOutputStream
 		  dim CodesArray(-1) as String 
-		  dim operonGap as integer = 100     ' <-- adjust this/ make configurable!
+		  'dim operonGap as integer = 100     ' <-- adjust this/ make configurable!
 		  
-		  dim LengthLimit as integer = 30000 ' <-- adjust this/ make configurable!
+		  'dim LengthLimit as integer = 30000 ' <-- adjust this/ make configurable!
 		  
-		  dim UpstreamSize as Integer = 400  ' <-- adjust this/ make configurable!
+		  'dim UpstreamSize as Integer = 400  ' <-- adjust this/ make configurable!
 		  
-		  dim DownstreamSize as Integer = 50 ' <-- adjust this/ make configurable!
+		  'dim DownstreamSize as Integer = 50 ' <-- adjust this/ make configurable!
 		  
 		  'Ensembl ID are quite a mess and don't map to anything properly, so we are not using these :(
 		  
@@ -1067,11 +1068,11 @@ Protected Module DeNovoTFBSinference
 		        qualifier=NthField(qualifier,EndOfLine.UNIX,1)
 		        FastaName=FastaName+qualifier+" from-local-gbk-file"
 		        if f.complement then
-		          leftCOO=f.Finish-20000
-		          rightCOO=f.start+20000
+		          leftCOO=f.Finish-GBKfragFlanks
+		          rightCOO=f.start+GBKfragFlanks
 		        else
-		          leftCOO=f.start-20000
-		          rightCOO=f.Finish+20000
+		          leftCOO=f.start-GBKfragFlanks
+		          rightCOO=f.Finish+GBKfragFlanks
 		        end
 		        if leftCOO<0 then leftCOO=1
 		      else
@@ -1095,9 +1096,9 @@ Protected Module DeNovoTFBSinference
 		        COO=NthField(TFcoord,":",2)
 		        COO=ReplaceAll(COO,">","")  'very rare cases of partial ORFs 
 		        COO=ReplaceAll(COO,"<","")
-		        leftCOO=val(NthField(COO,"..",1))-20000
+		        leftCOO=Val(NthField(COO,"..",1))-GBKfragFlanks
 		        if leftCOO<0 then leftCOO=1
-		        rightCOO=val(NthField(COO,"..",2))+20000
+		        rightCOO=val(NthField(COO,"..",2))+GBKfragFlanks
 		      end
 		      
 		      // Get the required GenBank entry fragment
@@ -1593,13 +1594,13 @@ Protected Module DeNovoTFBSinference
 		  dim qualifier as string
 		  dim leftCOO, rightCOO as integer
 		  
-		  dim operonGap as integer = 100     ' <-- adjust this/ make configurable!
+		  'dim operonGap as integer = 100     ' <-- adjust this/ make configurable!
 		  
-		  dim LengthLimit as integer = 30000 ' <-- adjust this/ make configurable!
+		  'dim LengthLimit as integer = 30000 ' <-- adjust this/ make configurable!
 		  
-		  dim UpstreamSize as Integer = 400  ' <-- adjust this/ make configurable!
+		  'dim UpstreamSize as Integer = 400  ' <-- adjust this/ make configurable!
 		  
-		  dim DownstreamSize as Integer = 50 ' <-- adjust this/ make configurable!
+		  'dim DownstreamSize as Integer = 50 ' <-- adjust this/ make configurable!
 		  
 		  'tempID1 = UniProt2ncbi_ID(UniProtID)
 		  'if tempID1="" then
@@ -2804,6 +2805,14 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		DownstreamSize As Integer = 50
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		GBKfragFlanks As Integer = 20000
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		Genome_fragments As FolderItem
 	#tag EndProperty
 
@@ -2820,6 +2829,22 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		LengthLimit As Integer = 3000
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		MEMEmax As Integer = 30
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		operonGap As Integer = 100
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		p2p As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		Proteins2process As Integer
 	#tag EndProperty
 
@@ -2828,11 +2853,27 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		RPcodesCountMin As Integer = 30
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		shellResMax As Integer = 50
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		singleCodeTags As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		TTshellArray(-1) As TTshell
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Untitled As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		UpstreamSize As Integer = 400
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -2928,6 +2969,62 @@ Protected Module DeNovoTFBSinference
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DownstreamSize"
+			Visible=false
+			Group="Behavior"
+			InitialValue="50"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="GBKfragFlanks"
+			Visible=false
+			Group="Behavior"
+			InitialValue="20000"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LengthLimit"
+			Visible=false
+			Group="Behavior"
+			InitialValue="3000"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="RPcodesCountMin"
+			Visible=false
+			Group="Behavior"
+			InitialValue="30"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="shellResMax"
+			Visible=false
+			Group="Behavior"
+			InitialValue="50"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Untitled"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UpstreamSize"
+			Visible=false
+			Group="Behavior"
+			InitialValue="400"
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

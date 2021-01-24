@@ -484,19 +484,19 @@ Inherits Thread
 		            Dim RPname As String = "rp15"
 		            If crIndex>0 Then
 		              filteredRes=CrBaseECodes_rp15(crindex)
-		              If CountFields(filteredRes,",")<20 Then          '<-- threshold should be user configurable?
+		              If CountFields(filteredRes,",")<RPcodesCountMin Then          '<-- threshold should be user configurable?
 		                crIndex=CrBaseTags_rp35.indexof(me.Crtags(n))
 		                filteredRes=CrBaseECodes_rp35(crindex)
 		                RPname="rp35"
-		                If CountFields(filteredRes,",")<20 Then 
+		                If CountFields(filteredRes,",")<RPcodesCountMin Then 
 		                  crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
 		                  filteredRes=CrBaseECodes_rp55(crindex)
 		                  RPname="rp55"
-		                  If CountFields(filteredRes,",")<20 Then 
+		                  If CountFields(filteredRes,",")<RPcodesCountMin Then 
 		                    crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
 		                    filteredRes=CrBaseECodes_rp75(crindex)
 		                    RPname="rp75"
-		                    If CountFields(filteredRes,",")<20 Then 
+		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
 		                      crIndex=CrBaseTags.indexof(me.Crtags(n))
 		                      filteredRes=CrBaseECodes(crindex)
 		                      RPname="full PIR"
@@ -510,15 +510,15 @@ Inherits Thread
 		              If crIndex>0 Then
 		                filteredRes=CrBaseECodes_rp35(crindex)
 		                RPname="rp35"
-		                If CountFields(filteredRes,",")<20 Then 
+		                If CountFields(filteredRes,",")<RPcodesCountMin Then 
 		                  crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
 		                  filteredRes=CrBaseECodes_rp55(crindex)
 		                  RPname="rp55"
-		                  If CountFields(filteredRes,",")<20 Then 
+		                  If CountFields(filteredRes,",")<RPcodesCountMin Then 
 		                    crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
 		                    filteredRes=CrBaseECodes_rp75(crindex)
 		                    RPname="rp75"
-		                    If CountFields(filteredRes,",")<20 Then 
+		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
 		                      crIndex=CrBaseTags.indexof(me.Crtags(n))
 		                      filteredRes=CrBaseECodes(crindex)
 		                      RPname="full PIR"
@@ -531,11 +531,11 @@ Inherits Thread
 		                If crIndex>0 Then
 		                  filteredRes=CrBaseECodes_rp55(crindex)
 		                  RPname="rp55"
-		                  If CountFields(filteredRes,",")<20 Then 
+		                  If CountFields(filteredRes,",")<RPcodesCountMin Then 
 		                    crIndex=CrBaseTags_rp75.indexof(me.CRtags(n))
 		                    filteredRes=CrBaseECodes_rp75(crindex)
 		                    RPname="rp75"
-		                    If CountFields(filteredRes,",")<20 Then 
+		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
 		                      crIndex=CrBaseTags.indexof(me.CRtags(n))
 		                      filteredRes=CrBaseECodes(crindex)
 		                      RPname="full PIR"
@@ -547,7 +547,7 @@ Inherits Thread
 		                  If crIndex>0 Then
 		                    filteredRes=CrBaseECodes_rp75(crindex)
 		                    RPname="rp75"
-		                    If CountFields(filteredRes,",")<20 Then 
+		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
 		                      crIndex=CrBaseTags.indexof(me.CRtags(n))
 		                      If crIndex>0 Then
 		                        filteredRes=CrBaseECodes(crindex)
@@ -615,7 +615,7 @@ Inherits Thread
 		            
 		            if resfile2<>nil then
 		              
-		              If CountFields(DataForMeme,">")>30 Then 'too many seqs - reduce the number!
+		              If CountFields(DataForMeme,">")>MEMEmax Then 'too many seqs - reduce the number!
 		                
 		                'run cd-hit if present
 		                dim clustered as string
@@ -625,13 +625,13 @@ Inherits Thread
 		                  DataForMeme=clustered
 		                end if
 		                
-		                If CountFields(DataForMeme,">")>30 Then 'Still too many seqs - remove redundant species
+		                If CountFields(DataForMeme,">")>MEMEmax Then 'Still too many seqs - remove redundant species
 		                  DataForMeme=RemoveRedundantSeqs(DataForMeme,False)
 		                  seqCount=str(deNovoWin.CountSeqs(dataForMeme))
 		                  deNovoWin.rp.writeToWin(EndOfLine.Unix +seqCount+" fragments after removing redundant species.")
 		                End If
 		                
-		                If CountFields(DataForMeme,">")>30 Then 'Still too many seqs - remove redundant genera
+		                If CountFields(DataForMeme,">")>MEMEmax Then 'Still too many seqs - remove redundant genera
 		                  DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
 		                  seqCount=str(deNovoWin.CountSeqs(dataForMeme))
 		                  deNovoWin.rp.writeToWin(Str(EndOfLine.Unix+seqCount+" fragments after removing redundant genera."))

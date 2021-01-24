@@ -118,7 +118,7 @@ Begin Window SettingsWin
       TabPanelIndex   =   0
       Top             =   0
       Transparent     =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
