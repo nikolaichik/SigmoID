@@ -2829,7 +2829,7 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		LengthLimit As Integer = 3000
+		LengthLimit As Integer = 30000
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -2841,7 +2841,7 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		p2p As Integer
+		p2p As Integer = 300
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3023,6 +3023,30 @@ Protected Module DeNovoTFBSinference
 			Visible=false
 			Group="Behavior"
 			InitialValue="400"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MEMEmax"
+			Visible=false
+			Group="Behavior"
+			InitialValue="30"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="operonGap"
+			Visible=false
+			Group="Behavior"
+			InitialValue="100"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="p2p"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

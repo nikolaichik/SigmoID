@@ -8,7 +8,7 @@ Begin Window deNovoWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   586
+   Height          =   634
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -51,7 +51,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   548
+      Top             =   596
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -83,7 +83,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   544
+      Top             =   592
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -118,7 +118,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   517
+      Top             =   565
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -160,7 +160,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   516
+      Top             =   564
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -193,7 +193,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   517
+      Top             =   559
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -217,7 +217,7 @@ Begin Window deNovoWin
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   335
+      Height          =   383
       HelpTag         =   "The genome will be searched with all the profiles checked"
       Hierarchical    =   False
       Index           =   -2147483648
@@ -268,7 +268,7 @@ Begin Window deNovoWin
          HasBorder       =   True
          HasHorizontalScrollbar=   False
          HasVerticalScrollbar=   True
-         Height          =   335
+         Height          =   383
          HideSelection   =   True
          Index           =   -2147483648
          InitialParent   =   "HmmList"
@@ -333,7 +333,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   552
+      Top             =   600
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -374,7 +374,7 @@ Begin Window deNovoWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   551
+      Top             =   599
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -407,7 +407,7 @@ Begin Window deNovoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   546
+      Top             =   594
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -434,17 +434,17 @@ Begin Window deNovoWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   347
+      Top             =   395
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -486,7 +486,7 @@ Begin Window deNovoWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   383
+         Top             =   431
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -529,7 +529,7 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   "We use CR-tag tables based on PIR and its four derivatives with reduced redundancy. Protein accession codes are first looked for in the least redundant table. If the number of accession codes for the given CR tag is less than this parameter, the next (more redundant) table is used."
-         Top             =   383
+         Top             =   431
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -565,7 +565,7 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   384
+         Top             =   432
          Transparent     =   False
          Underline       =   False
          Value           =   "Min:"
@@ -600,7 +600,7 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   384
+         Top             =   432
          Transparent     =   False
          Underline       =   False
          Value           =   "Max:"
@@ -621,12 +621,12 @@ Begin Window deNovoWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   479
-      LockBottom      =   False
+      Left            =   482
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -636,7 +636,7 @@ Begin Window deNovoWin
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   371
+      Top             =   419
       Transparent     =   False
       Underline       =   False
       Value           =   "Inter-operon gap:"
@@ -663,11 +663,11 @@ Begin Window deNovoWin
       Index           =   -2147483648
       Italic          =   False
       Left            =   635
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       MaximumCharactersAllowed=   0
       Password        =   False
       ReadOnly        =   False
@@ -678,7 +678,7 @@ Begin Window deNovoWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Two adjasent CDSs will be treated as belonging to different operons if the distance between their borders exceeds this parameter."
-      Top             =   370
+      Top             =   418
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -699,17 +699,17 @@ Begin Window deNovoWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "These parameters determine the boundaries of the regulatory region. The upstream parameter is ignored for divergons (the whole intergene region is used)."
-      Top             =   432
+      Top             =   480
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -734,7 +734,7 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   410
+         Left            =   386
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   False
@@ -750,13 +750,13 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   468
+         Top             =   516
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
          Value           =   "50"
          Visible         =   True
-         Width           =   36
+         Width           =   60
       End
       Begin TextField UpstreamSizeField
          AllowAutoDeactivate=   True
@@ -794,7 +794,7 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   468
+         Top             =   516
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -830,7 +830,7 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   469
+         Top             =   517
          Transparent     =   False
          Underline       =   False
          Value           =   "Upstream:"
@@ -850,7 +850,7 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   289
+         Left            =   265
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -865,7 +865,7 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   469
+         Top             =   517
          Transparent     =   False
          Underline       =   False
          Value           =   "Downstream:"
@@ -886,17 +886,17 @@ Begin Window deNovoWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   516
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   432
+      Top             =   480
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -921,7 +921,7 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   935
+         Left            =   920
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   False
@@ -937,13 +937,13 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   "Maximal number of genome fragments to download. If the number of accession codes found in CR tag tables exceeds this parameter, random (parameter) codes are used."
-         Top             =   468
+         Top             =   516
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
          Value           =   "30000"
          Visible         =   True
-         Width           =   46
+         Width           =   72
       End
       Begin TextField GBKfragFlanksField
          AllowAutoDeactivate=   True
@@ -965,7 +965,7 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   647
+         Left            =   635
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   False
@@ -981,48 +981,13 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   "We use CR-tag tables based on PIR and its four derivatives with reduced redundancy. Protein accession codes are first looked for in the least redundant table. If the number of accession codes for the given CR tag is less than this parameter, the next (more redundant) table is used."
-         Top             =   468
+         Top             =   516
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
          Value           =   "20000"
          Visible         =   True
-         Width           =   60
-      End
-      Begin Label Label9
-         AllowAutoDeactivate=   True
-         Bold            =   False
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Height          =   20
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox3"
-         Italic          =   False
-         Left            =   525
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Multiline       =   False
-         Scope           =   0
-         Selectable      =   False
-         TabIndex        =   2
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextAlignment   =   "3"
-         TextColor       =   &c00000000
-         Tooltip         =   ""
-         Top             =   469
-         Transparent     =   False
-         Underline       =   False
-         Value           =   "TF gene flanks:"
-         Visible         =   True
-         Width           =   110
+         Width           =   80
       End
       Begin Label Label10
          AllowAutoDeactivate=   True
@@ -1037,7 +1002,7 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   719
+         Left            =   711
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -1052,12 +1017,47 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   468
+         Top             =   517
          Transparent     =   False
          Underline       =   False
          Value           =   "Ignore fragments shorter than:"
          Visible         =   True
-         Width           =   214
+         Width           =   197
+      End
+      Begin Label Label9
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox3"
+         Italic          =   False
+         Left            =   516
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "3"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   515
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "TF gene flanks:"
+         Visible         =   True
+         Width           =   110
       End
    End
    Begin TextField MEMEmaxField
@@ -1080,11 +1080,11 @@ Begin Window deNovoWin
       Index           =   -2147483648
       Italic          =   False
       Left            =   922
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       MaximumCharactersAllowed=   0
       Password        =   False
       ReadOnly        =   False
@@ -1095,7 +1095,7 @@ Begin Window deNovoWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "If the number of regulatory fragments exceeds this parameter, homology clustering and taxoonomy filtering are used to reduce their number."
-      Top             =   370
+      Top             =   418
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -1116,12 +1116,12 @@ Begin Window deNovoWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   661
-      LockBottom      =   False
+      Left            =   727
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -1131,12 +1131,12 @@ Begin Window deNovoWin
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   371
+      Top             =   419
       Transparent     =   False
       Underline       =   False
       Value           =   "Max fragments for MEME:"
       Visible         =   True
-      Width           =   249
+      Width           =   183
    End
 End
 #tag EndWindow
