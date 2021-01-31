@@ -280,8 +280,8 @@ Inherits Thread
 		      res=""
 		      
 		      if me.CRtags(n)="[indel within CR tag region]" then
-		        deNovoWin.rp.writeToWin(str(me.Protnames(n))+" has an indel within CR tag region. Skipping it."+EndofLine.unix)
-		      else
+		        deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has an indel within CR tag region. Skipping it."+EndOfLine.unix+EndOfLine.unix)
+		      Else
 		        id =0
 		        if genome <> nil then
 		          protname=me.Protnames(n)

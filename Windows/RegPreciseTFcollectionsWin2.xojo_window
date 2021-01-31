@@ -2105,7 +2105,7 @@ End
 		          
 		          'Calculate Info Content
 		          dim IC As double
-		          IC=Fasta2IC(TFBSs(r))
+		          IC=Fasta2IC(TFBSs(r))   
 		          ICarr.append Str(IC) 'append IC to the stats array
 		          
 		          'Guess the hmm cutoffs
@@ -2113,9 +2113,9 @@ End
 		          cutoffs=Bits2thresholds(IC)
 		          
 		          'Check for variable motif length
-		          if MotifLengthsDiffer(TFBSs(r)) then
-		            LogoWin.WriteToSTDOUT("Motifs are unaligned, can't build the hmm."+EndOfLine.unix)
-		            
+		          If MotifLengthsDiffer(TFBSs(r)) Then
+		            LogoWin.WriteToSTDOUT(EndOfLine.unix+"Motifs are unaligned, can't build the hmm."+EndOfLine.unix)
+		            LogoWin.WriteToSTDOUT("Sig file was not saved for "+TFname+" (CR tag "+uTags(r)+" in "+uNames(r)+")"+EndOfLine.unix+EndOfLine.unix)
 		          Else
 		            
 		            'convert the alignment to Stockholm format (for building the hmm

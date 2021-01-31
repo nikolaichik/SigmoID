@@ -315,7 +315,7 @@ Begin Window deNovoWin
       DataSource      =   ""
       Enabled         =   True
       Height          =   20
-      HelpTag         =   "Experimental option. Avoid on machines with 1-2 processor cores."
+      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
