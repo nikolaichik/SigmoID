@@ -16,7 +16,7 @@ EFFN  11.119461
 CKSUM 3783528891
 CRTAG 8,10,11,13,14,60,61,62,64,65
 PAL   no
-WIDTH 16-32
+WIDTH 17-20
 NOTE  CR tag is derived from structures for MarR, Rob, AdpA and Ada.
 NOTE  Only the first two show contacts for the second DBD.  
 NOTE  The structures used: 1xs9, 1bl0, 1d5y, 3w6v, 1zgw.

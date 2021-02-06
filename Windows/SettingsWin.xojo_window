@@ -118,7 +118,7 @@ Begin Window SettingsWin
       TabPanelIndex   =   0
       Top             =   0
       Transparent     =   False
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -3626,7 +3626,7 @@ End
 #tag Events CDSCanvas
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  dim CurrentC as Color
+		  Dim CurrentC As Color
 		  
 		  CurrentC=me.backdrop.RGBSurface.Pixel(1,1)
 		  if SelectColor(CurrentC,"Change feature color") then

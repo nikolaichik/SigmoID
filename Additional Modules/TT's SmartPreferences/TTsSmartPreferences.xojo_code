@@ -208,9 +208,15 @@ Protected Class TTsSmartPreferences
 		  case v.TypeBoolean
 		    newv = CFBoolean.Get(v.BooleanValue)
 		  case v.TypeInteger, v.TypeInt64
-		    newv = CFNumber(v.Int64Value)
-		  case v.TypeDouble
-		    newv = CFNumber(v.DoubleValue)
+		    #If TargetWindows
+		    #Else
+		      newv = CFNumber(v.Int64Value)
+		    #EndIf
+		  Case v.TypeDouble
+		    #If TargetWindows
+		    #Else
+		      newv = CFNumber(v.DoubleValue)
+		    #EndIf
 		  case v.TypeString, v.TypeCFStringRef
 		    newv = CFString(v.StringValue)
 		  case v.TypeDate

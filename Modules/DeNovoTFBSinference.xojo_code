@@ -3046,7 +3046,7 @@ Protected Module DeNovoTFBSinference
 			Name="p2p"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="300"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

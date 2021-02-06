@@ -53,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +162,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +242,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -358,7 +354,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -371,7 +366,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -474,7 +468,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -536,7 +529,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -2018,7 +2010,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub CopyAA(FromContextualMenu as boolean)
-		  Dim C as  Clipboard
+		  Dim C As  Clipboard
 		  C=New Clipboard
 		  
 		  Dim FtNo As Integer
@@ -4740,6 +4732,36 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SearchLiterature(FromContextualMenu as boolean)
+		  Dim FtNo As Integer
+		  
+		  If FromContextualMenu Then
+		    FtNo=ContextFeature
+		  Else
+		    FtNo=selFeatureNo
+		  End If
+		  
+		  If seq.Features(FtNo).type="CDS" Then
+		    'extract translation from feature table if present
+		    '(takes care of frameshifts)
+		    SelProtTranslation=NthField(seq.Features(FtNo).FeatureText,"/translation="+Chr(34),2)
+		    SelProtTranslation=NthField(SelProtTranslation,Chr(34),1)
+		    SelProtTranslation=ReplaceAll(SelProtTranslation,EndOfLine.unix,"")
+		    
+		    // Search here!
+		    Dim URL As String
+		    
+		    URL="https://papers.genomics.lbl.gov/cgi-bin/litSearch.cgi?query="+SelProtTranslation+"&Search=Search"
+		    WebBrowserWin.Title="PaperBlast"
+		    WebBrowserWin.show
+		    WebBrowserWin.LoadPage(URL)
+		    
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SelChange()
 		  dim p as picture
 		  dim m,n as integer
@@ -5950,7 +5972,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  dim n,topObj,m,featureCount as integer
+		  Dim n,topObj,m,featureCount As Integer
 		  dim AnyObjectClicked, RetValue as Boolean
 		  dim p as picture
 		  
@@ -6284,7 +6306,7 @@ End
 	#tag Event
 		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
 		  Dim n,topObj,m,featureCount,currentFeature As Integer
-		  dim p as picture
+		  Dim p As picture
 		  
 		  ToolTipBlock=true
 		  ToolTipTimer.Reset
@@ -6314,6 +6336,7 @@ End
 		  if ContextFeature>0 then
 		    if seq.Features(ContextFeature).type="CDS" then
 		      base.Append mItem(kCopyProtein)
+		      base.Append mItem(kSearchLiterature)  'PaperBlast with this CDS sequence
 		      'extract translation from feature table if present
 		      '(takes care of frameshifts)
 		      SelProtTranslation=NthField(seq.Features(ContextFeature).FeatureText,"/translation="+Chr(34),2)
@@ -6398,7 +6421,9 @@ End
 		  select case hititem.text
 		  case kCopyProtein
 		    CopyAA(true)
-		  case kCopyDNA
+		  Case kSearchLiterature
+		    SearchLiterature(true)
+		  Case kCopyDNA
 		    CopyDNA
 		  case kEditFeature
 		    EditFeature(seq.Features(ContextFeature))
@@ -6563,7 +6588,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub DoubleClick(X As Integer, Y As Integer)
-		  dim n,topObj,m,featureCount,currentFeature as integer
+		  Dim n,topObj,m,featureCount,currentFeature As Integer
 		  dim p as picture
 		  
 		  'ToolTipBlock=true
@@ -6630,7 +6655,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  if MapCanvasPicture=nil then
+		  If MapCanvasPicture=Nil Then
 		    MapCanvasPicture=new Picture(me.width, me.Height,Screen(0).depth)
 		  end if
 		End Sub
@@ -6750,8 +6775,6 @@ End
 #tag Events Magnifier
 	#tag Event
 		Sub Action(itemIndex as integer)
-		  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
-		  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
 		  
 		  Dim CurrentLoc as integer= GBrowseShift+DisplayInterval/2
 		  
