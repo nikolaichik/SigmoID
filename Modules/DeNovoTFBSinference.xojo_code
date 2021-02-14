@@ -377,209 +377,238 @@ Protected Module DeNovoTFBSinference
 		  
 		  'Hits truncated at termini are not handled properly (if truncation eats into CR tag region)
 		  
-		  dim CRarray(0) as integer
+		  Dim CRarray(0) As Integer
 		  dim TableArray(0) as string
 		  dim AlignmentArray(0) as string
 		  dim ProtName As string
 		  dim currentCDS as string
 		  dim Alignments, hitSeq,currethit,CDStmp, CRtag, CRtagRegion as string
-		  dim m,n,o,p,q,r,fst,CRlen as integer
+		  Dim m,n,n1,o,p,q,r,fst,CRlen As Integer
+		  Dim CRCs(1), CRtagParts(1) As String
+		  Dim Repeats As Integer = 0
+		  Dim CRtags2(0) As String
 		  
-		  ReDim ProtNames(0)
-		  ReDim hmmSearchMatches(0)
-		  ReDim CRtags(0)
+		  // Check for a double CR tag (two DNA-binding domains like in AraC family proteins)
 		  
-		  // Store CR positions
-		  m=CountFields(CRs,",")
-		  for n=1 to m
-		    CRarray.Append(Val(NthField(CRs,",",n)))
-		  next
-		  if ubound(CRarray)<1 then
-		    return ""                 'hmmsearch failed
-		  end if
-		  fst=CRarray(1)
-		  CRlen=CRarray(m)-fst+1
+		  If InStr(CRs,"/")>0 Then
+		    Repeats=1
+		    CRCs(1)=NthField(CRs,"/",2) 'Second tag
+		    CRCs(0)=NthField(CRs,"/",1) 'First tag
+		  Else
+		    CRCs(0)=CRs
+		  End If
+		  Redim ProtNames(0)
+		  Redim CRtags(0)
 		  
-		  // Get the second part of the table containing the actual alignments:
-		  TableArray=SearchResTable.Split("#=GS")
-		  if Ubound(TableArray)=-1 then
-		    return ""                    ' empty result, probably wrong HMM/CDS combination
-		  end if
-		  Alignments=TableArray(UBound(TableArray)) 'we only need the last item:
-		  n=instr(Alignments,EndOfLine.UNIX)
-		  Alignments=Right(alignments, len(Alignments)-n)
-		  AlignmentArray=Alignments.Split(EndOfLine.UNIX) 'every second item isn't needed
-		  
-		  // Extract CR tag
-		  m=ubound(AlignmentArray)-4
-		  o=ubound(CRarray)
-		  for n=1 to m step 2
-		    hitseq=AlignmentArray(n)
-		    ProtName=NthField(hitSeq,"/",1)
-		    'if InStr(ProtName,"|")>0 then        'questionable: this will prevent adding CR tags to hmmsearch result
-		    'ProtName=NthField(ProtName,"|",2)
-		    'end if
-		    ProtNames.Append(ProtName)
-		    hitseq=NthField(hitSeq," ",countfields(hitseq," ")) 'the seq goes after the last space
-		    hitSeq=ReplaceAll(hitseq,".","") 'removing gaps resulting from insertions in other seqs: probably not the wise thing to do! 
+		  For n1=0 To Repeats       'Two cycles only for double tags 
+		    Redim hmmSearchMatches(0)
+		    Redim CRarray(0)
+		    Redim TableArray(0)
+		    Redim AlignmentArray(0)
 		    
-		    
-		    
-		    'extending hits to equal lengths at ends (if necessary)
-		    'checking for alignments truncated at ends (and fixing this when possible)
-		    if instr(hitSeq,"-")>0 then
-		      dim currentHit As string=hitseq
-		      q=0
-		      if left(hitSeq, 1)="-" then 
-		        'hitSeq=Replace(hitSeq,"-","x")
-		        r=len(hitSeq)
-		        for q=2 to r     'trim left end
-		          if mid(hitSeq,q,1)<>"-" then exit
-		        next
-		        q=q-1
-		        
-		        currentHit=right(hitseq,len(hitseq)-q)
-		        
-		      end if
-		      
-		      While Right(currentHit,1)="-"     'trim right end
-		        currentHit=Left(currentHit,Len(currentHit)-1)
-		      wend
-		      
-		      'get extended hit
-		      CDStmp=NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2)'precaution for paralogues
-		      if len(cdstmp)<50 then
-		        msgbox "Warning! Protein sequence too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
-		      end if
-		      dim gapPos,leftPartStart, rightPartStart as integer
-		      dim leftPart, rightPart, leftExt, rightExt as string
-		      
-		      'if the left end was truncated, we get completely wrong tag here!     <--
-		      'so, we extend the left end by required number of residues first:
-		      gapPos=instr(currenthit,"-")
-		      leftPart=nthfield(currentHit,"-",1)
-		      leftPartStart=instr(CDStmp,leftPart)
-		      leftExt=mid(CDStmp,leftPartStart-q,q)
-		      currenthit=leftext+currentHit
-		      
-		      'extend the right end
-		      rightPart=NthField(currentHit,"-",CountFields(currentHit,"-"))
-		      rightPartStart=InStr(CDStmp,rightPart)
-		      rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
-		      
-		      
-		      rightPart=NthField(currentHit,"-",1)
-		      rightPartStart=InStr(CDStmp,rightPart)
-		      rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
-		      
-		      'replace dashes so that phmmer doesn't bark at them later
-		      'Dim hitpos As Integer = InStr(CDStmp,currenthit)
-		      'if hitpos=0 then
-		      ''zero should be due to gap(s) in the central part of the hit region
-		      ''these can probably be tolerated if located outside of the CR tag region,
-		      ''so we are replacing 'em with small 'x' here 
-		      ''This may leave C terminus truncated, and this could be a problem 
-		      '
-		      ''An example of a complex situation (CR tag positions are marked by astericks:
-		      ''                            *        ***                  **                           
-		      '' ----VINQIIDDMARGHIP--SPLPSQNALAEMYNISRTTVRHILAHLRDCGVLT---------
-		      ''(a warning should be issued if CR tag positions are in non-conserved part of the HTH like in this example)
-		      '
-		      'currenthit=ReplaceAll(currenthit,"-","x")+rightExt
-		      'else
-		      ''currenthit=mid(CDStmp,hitpos-q,len(hitSeq))
-		      ''if len(currentHit)<len(hitSeq) then
-		      '''extend the right end
-		      ''rightPartStart=instr(CDStmp,currenthit)
-		      ''rightExt=mid(CDStmp,rightPartStart+len(currenthit),len(hitseq)-len(currenthit))
-		      'currenthit=currenthit+rightExt
-		      ''end if
-		      '
-		      'end if
-		      
-		      currenthit=currenthit+rightExt
-		      
-		      CRtag=""
-		      for p=1 to o
-		        CRtag=CRtag+mid(currenthit,CRarray(p),1)
-		      next
-		      
-		      hmmSearchMatches.Append currenthit
-		      hitseq=currenthit
-		    else
-		      hmmSearchMatches.Append hitseq
-		    end
-		    
-		    
-		    'gaps in the modelbefore the CRtag region should be corrected for, e.g
-		    'XRE_superfamily  1 rLrelReer....gLtqeelAellGisrstlsryEnGrrkPsqevlkklakaLgvsldel 56
-		    '                   rL+++ e++    gL+qe +A+++G+++s + +++nG    +  ++ +lak L+vs++e+
-		    '     ABO40696.1 18 RLKAIYEKKknelGLSQESVADKMGMGQSGVGALFNGINALNAYNAALLAKILNVSVEEF 77
-		    ' 
-		    CRtagRegion=left(hitSeq,fst)
-		    
-		    if strcomp(CRtagRegion,Uppercase(CRtagRegion),0)<>0 then
-		      dim p2 as integer =1
-		      dim gapChars as integer
-		      dim ch as string
-		      for p2=1 to len(CRtagRegion)
-		        ch =mid(CRtagRegion,p2,1)
-		        if strcomp(ch,Uppercase(ch),0)<>0 then
-		          gapChars=gapChars+1
-		        end if
-		      next
-		      
-		      hitseq=Right(hitseq,len(hitseq)-gapChars)
-		      hmmSearchMatches(ubound(hmmSearchMatches))=hitseq
-		      
+		    // Store CR positions
+		    m=CountFields(CRCs(n1),",")
+		    for n=1 to m
+		      CRarray.Append(Val(NthField(CRCs(n1),",",n)))
+		    next
+		    if ubound(CRarray)<1 then
+		      return ""                 'hmmsearch failed
 		    end if
+		    fst=CRarray(1)
+		    CRlen=CRarray(m)-fst+1
 		    
+		    // Get the second part of the table containing the actual alignments:
+		    TableArray=SearchResTable.Split("#=GS")
+		    if Ubound(TableArray)=-1 then
+		      return ""                    ' empty result, probably wrong HMM/CDS combination
+		    end if
+		    Alignments=TableArray(UBound(TableArray)) 'we only need the last item:
+		    n=instr(Alignments,EndOfLine.UNIX)
+		    Alignments=Right(alignments, len(Alignments)-n)
+		    AlignmentArray=Alignments.Split(EndOfLine.UNIX) 'every second item isn't needed
 		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    
-		    'checking for gaps/insertions within CR range
-		    CRtagRegion=mid(hitSeq,fst,CRlen)
-		    
-		    If StrComp(CRtagRegion,Uppercase(CRtagRegion),0)=0 Then
-		      If InStr(CRtagRegion,"-")=0 Then
-		        'no problems
-		        CRtag=""
-		        for p=1 to o
-		          'CRtag=CRtag+mid(hitseq,CRarray(p),1)
-		          CRtag=CRtag+mid(hitseq,CRarray(p),1)
-		        Next
+		    // Extract CR tag
+		    m=ubound(AlignmentArray)-4
+		    o=ubound(CRarray)
+		    for n=1 to m step 2
+		      hitseq=AlignmentArray(n)
+		      ProtName=NthField(hitSeq,"/",1)
+		      'if InStr(ProtName,"|")>0 then        'questionable: this will prevent adding CR tags to hmmsearch result
+		      'ProtName=NthField(ProtName,"|",2)
+		      'end if
+		      ProtNames.Append(ProtName)
+		      hitseq=NthField(hitSeq," ",countfields(hitseq," ")) 'the seq goes after the last space
+		      hitSeq=ReplaceAll(hitseq,".","") 'removing gaps resulting from insertions in other seqs: probably not the wise thing to do! 
+		      
+		      
+		      
+		      'extending hits to equal lengths at ends (if necessary)
+		      'checking for alignments truncated at ends (and fixing this when possible)
+		      if instr(hitSeq,"-")>0 then
+		        dim currentHit As string=hitseq
+		        q=0
+		        if left(hitSeq, 1)="-" then 
+		          'hitSeq=Replace(hitSeq,"-","x")
+		          r=len(hitSeq)
+		          for q=2 to r     'trim left end
+		            if mid(hitSeq,q,1)<>"-" then exit
+		          next
+		          q=q-1
+		          
+		          currentHit=right(hitseq,len(hitseq)-q)
+		          
+		        end if
+		        
+		        While Right(currentHit,1)="-"     'trim right end
+		          currentHit=Left(currentHit,Len(currentHit)-1)
+		        wend
+		        
+		        'get extended hit
+		        CDStmp=NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2)'precaution for paralogues
+		        if len(cdstmp)<50 then
+		          msgbox "Warning! Protein sequence too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
+		        end if
+		        dim gapPos,leftPartStart, rightPartStart as integer
+		        dim leftPart, rightPart, leftExt, rightExt as string
+		        
+		        'if the left end was truncated, we get completely wrong tag here!     <--
+		        'so, we extend the left end by required number of residues first:
+		        gapPos=instr(currenthit,"-")
+		        leftPart=nthfield(currentHit,"-",1)
+		        leftPartStart=instr(CDStmp,leftPart)
+		        leftExt=mid(CDStmp,leftPartStart-q,q)
+		        currenthit=leftext+currentHit
+		        
+		        'extend the right end
+		        rightPart=NthField(currentHit,"-",CountFields(currentHit,"-"))
+		        rightPartStart=InStr(CDStmp,rightPart)
+		        rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
+		        
+		        
+		        rightPart=NthField(currentHit,"-",1)
+		        rightPartStart=InStr(CDStmp,rightPart)
+		        rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
+		        
+		        'replace dashes so that phmmer doesn't bark at them later
+		        'Dim hitpos As Integer = InStr(CDStmp,currenthit)
+		        'if hitpos=0 then
+		        ''zero should be due to gap(s) in the central part of the hit region
+		        ''these can probably be tolerated if located outside of the CR tag region,
+		        ''so we are replacing 'em with small 'x' here 
+		        ''This may leave C terminus truncated, and this could be a problem 
+		        '
+		        ''An example of a complex situation (CR tag positions are marked by astericks:
+		        ''                            *        ***                  **                           
+		        '' ----VINQIIDDMARGHIP--SPLPSQNALAEMYNISRTTVRHILAHLRDCGVLT---------
+		        ''(a warning should be issued if CR tag positions are in non-conserved part of the HTH like in this example)
+		        '
+		        'currenthit=ReplaceAll(currenthit,"-","x")+rightExt
+		        'else
+		        ''currenthit=mid(CDStmp,hitpos-q,len(hitSeq))
+		        ''if len(currentHit)<len(hitSeq) then
+		        '''extend the right end
+		        ''rightPartStart=instr(CDStmp,currenthit)
+		        ''rightExt=mid(CDStmp,rightPartStart+len(currenthit),len(hitseq)-len(currenthit))
+		        'currenthit=currenthit+rightExt
+		        ''end if
+		        '
+		        'end if
+		        
+		        currenthit=currenthit+rightExt
+		        
+		        'CRtag=""
+		        'for p=1 to o
+		        'CRtag=CRtag+mid(currenthit,CRarray(p),1)
+		        'next
+		        
+		        hmmSearchMatches.Append currenthit
+		        hitseq=currenthit
+		      else
+		        hmmSearchMatches.Append hitseq
+		      end
+		      
+		      
+		      'gaps in the modelbefore the CRtag region should be corrected for, e.g
+		      'XRE_superfamily  1 rLrelReer....gLtqeelAellGisrstlsryEnGrrkPsqevlkklakaLgvsldel 56
+		      '                   rL+++ e++    gL+qe +A+++G+++s + +++nG    +  ++ +lak L+vs++e+
+		      '     ABO40696.1 18 RLKAIYEKKknelGLSQESVADKMGMGQSGVGALFNGINALNAYNAALLAKILNVSVEEF 77
+		      ' 
+		      CRtagRegion=left(hitSeq,fst)
+		      
+		      if strcomp(CRtagRegion,Uppercase(CRtagRegion),0)<>0 then
+		        dim p2 as integer =1
+		        dim gapChars as integer
+		        dim ch as string
+		        for p2=1 to len(CRtagRegion)
+		          ch =mid(CRtagRegion,p2,1)
+		          if strcomp(ch,Uppercase(ch),0)<>0 then
+		            gapChars=gapChars+1
+		          end if
+		        next
+		        
+		        hitseq=Right(hitseq,len(hitseq)-gapChars)
+		        hmmSearchMatches(ubound(hmmSearchMatches))=hitseq
+		        
+		      end if
+		      
+		      
+		      
+		      
+		      
+		      
+		      
+		      
+		      
+		      
+		      
+		      'checking for gaps/insertions within CR range
+		      CRtagRegion=mid(hitSeq,fst,CRlen)
+		      
+		      If StrComp(CRtagRegion,Uppercase(CRtagRegion),0)=0 Then
+		        If InStr(CRtagRegion,"-")=0 Then  'no problems
+		          CRtag=""
+		          for p=1 to o
+		            'CRtag=CRtag+mid(hitseq,CRarray(p),1)
+		            CRtag=CRtag+mid(hitseq,CRarray(p),1)
+		          Next
+		        Else
+		          'should capture gaps both in the model and in the hit seq
+		          CRtag="[indel within CR tag region]"
+		        End If
+		        
 		      Else
 		        'should capture gaps both in the model and in the hit seq
 		        CRtag="[indel within CR tag region]"
-		      End If
+		      end if
 		      
-		    Else
-		      'should capture gaps both in the model and in the hit seq
-		      CRtag="[indel within CR tag region]"
-		    end if
+		      
+		      
+		      If n1=0 Then
+		        CRtags.append(CRtag)
+		      Else
+		        CRtags2.append(CRtag)
+		      End If
+		    next
 		    
-		    
-		    
-		    'CRtags=CRtags+CRtag+","
-		    CRtags.append(CRtag)
-		  next
-		  
+		  Next 'n1
 		  'return CRtags
 		  
 		  // Add CR tags to hmmsearch output
 		  ' title lines of the alignments part of hmmsearch results look like this:
 		  ' >> AIK13051.1  acrR putative acrAB operon repressor
 		  m=ubound(CRtags)
-		  for n=1 to m
-		    SearchResRaw=Replaceall(SearchResRaw, ">> "+ProtNames(n), ">"+CRtags(n)+"> "+ProtNames(n))
-		  next
+		  If Repeats=0 Then
+		    For n=1 To m
+		      SearchResRaw=ReplaceAll(SearchResRaw, ">> "+ProtNames(n), ">"+CRtags(n)+"> "+ProtNames(n))
+		    Next
+		  Else
+		    Dim DoubleTag As String
+		    For n=1 To m
+		      DoubleTag=CRtags(n)+CRtags2(n)
+		      CRtags(n)=DoubleTag
+		      SearchResRaw=ReplaceAll(SearchResRaw, ">> "+ProtNames(n), ">"+DoubleTag+"> "+ProtNames(n))
+		    Next
+		  End If
 		  
 		  Return SearchResRaw
 		  Exception err

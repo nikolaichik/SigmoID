@@ -2076,7 +2076,7 @@ End
 #tag Events TFhmmPopup
 	#tag Event
 		Sub Open()
-		  dim l,m,n as integer
+		  Dim l,m,n As Integer
 		  dim f, CDSFile as folderitem
 		  dim OutStream as TextOutputStream
 		  dim hmmPath, fName, aLine, lineStart, hmm, CRtag, hmmSearchRes as string
@@ -2149,8 +2149,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Change()
-		  CRtagField.Text=CRtags(Me.ListIndex+1)
-		  CRtagPositions=CRtags(me.ListIndex+1)
+		  'CRtagField.Text=CRtags(Me.ListIndex+1)
+		  'CRtagPositions=CRtags(Me.ListIndex+1)
 		  
 		  dim f, CDSFile as folderitem
 		  dim OutStream as TextOutputStream
@@ -2163,10 +2163,10 @@ End
 		  'f=Profile_f
 		  f=Resources_f.Child("TF_HMMs")
 		  f=f.Child(me.Text)
-		  hmmPath = f.ShellPath
+		  
 		  if f<>Nil then
-		    
-		    
+		    hmmPath = f.ShellPath
+		    CRtagPositions=GetRealCRtag(hmmPath)
 		    
 		    if SeedProteinArea.TextColor=&c99999900 then 'placefiller
 		    else                                         'hopefully, proper protein sequence
@@ -2188,7 +2188,9 @@ End
 		      'extract CRtagresidues :
 		      hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
 		      CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
-		      CRtagSeqField.text=CRtag
+		      CRtagSeqField.Text=CRtag
+		      'CRtagField.Text=CRtags(Me.ListIndex+1)
+		      CRtagField.Text=CRtagPositions 'CRtagPositions were set by GetCRtags
 		    end if
 		  end if
 		  

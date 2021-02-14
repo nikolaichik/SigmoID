@@ -1317,6 +1317,31 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetRealCRtag(HMMfilePath as string) As String
+		  Dim f As folderitem
+		  Dim tis As TextInputStream
+		  Dim aLine As String
+		  
+		  f= GetFolderItem (HMMfilePath, FolderItem.PathTypeNative)
+		  If f <> Nil Then
+		    tis=f.OpenAsTextFile
+		    If tis<>Nil Then
+		      Do
+		        aLine=tis.ReadLine     'hmmfile
+		        If tis.EndOfFile Then Exit
+		        If Left(aline,6)="CRTAG " Then
+		          Return NthField(aLine,"CRTAG ",2)
+		        End If
+		      Loop Until tis.EndOfFile
+		    End If
+		    tis.close
+		    
+		  End If
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub GetResources_f()
 		  #if TargetMacOS then 'Bundle ↠ Contents ↠ Resources
 		    
@@ -1593,27 +1618,14 @@ Protected Module Globals
 		  dim hmmSearchRes, cli, table, aline as string
 		  dim instream, tis as TextInputStream
 		  dim sh as new shell
-		  dim CRTAG as string = ""
+		  dim CRTAG,CRTA2 as string
 		  dim f as FolderItem 
 		  
 		  'if  ScanGenomeWin.firstrun=0 then
 		  'ScanGenomeWin.firstrun=1
 		  'else
 		  
-		  f= GetFolderItem (HMMfilePath, FolderItem.PathTypeNative)
-		  'end
-		  tis=f.OpenAsTextFile
-		  if tis<>nil then
-		    while CRTAG=""
-		      aLine=tis.ReadLine     'hmmfile
-		      if left(aline,6)="CRTAG " then
-		        CRtag=NthField(aLine,"CRTAG ",2)
-		        exit
-		      end if
-		    wend
-		    CRtagPositions=CRtag
-		  end if
-		  tis.close
+		  CRtagPositions=GetRealCRtag(HMMfilePath)
 		  
 		  'store the CDSs as a string for further use:
 		  instream=CDSfile.OpenAsTextFile
@@ -2743,39 +2755,42 @@ Protected Module Globals
 		  requestCount=Val(Prefs.Value("requestCount","100"))
 		  
 		  // Fonts
+		  Dim LRI As Integer = SettingsWin.PropFontSelMenu.LastRowIndex
+		  If LRI<1 Then 'This function has already been called, no need to repeat
+		    Dim ff,FFont,PFont As String
+		    
+		    ff=SetDefaultFonts(True)
+		    
+		    FFont=NthField(ff,";",1)
+		    PFont=NthField(ff,";",2)
+		    
+		    FixedFont=Prefs.value("FixedFont",FFont)
+		    ProportionalFont=Prefs.value("ProportionalFont",PFont)
+		    ProportionalFontSize=Prefs.value("ProportionalFontSize",10)
+		    
+		    Dim n As Integer
+		    For n=0 To SettingsWin.FixedFontSelMenu.ListCount-1
+		      If SettingsWin.FixedFontSelMenu.list(n)=FixedFont Then
+		        SettingsWin.FixedFontSelMenu.listIndex=n
+		        Exit
+		      End If
+		    Next
+		    For n=0 To SettingsWin.PropFontSelMenu.ListCount-1
+		      If SettingsWin.PropFontSelMenu.list(n)=ProportionalFont Then
+		        SettingsWin.PropFontSelMenu.listIndex=n
+		        Exit
+		      End If
+		    Next
+		    For n=0 To SettingsWin.PropFontSizeMenu.ListCount-1
+		      If SettingsWin.PropFontSizeMenu.list(n)=Str(ProportionalFontSize) Then
+		        SettingsWin.PropFontSizeMenu.listIndex=n
+		        Exit
+		      End If
+		    Next
+		  End If
 		  
-		  Dim ff,FFont,PFont As String
-		  
-		  ff=SetDefaultFonts(True)
-		  
-		  FFont=NthField(ff,";",1)
-		  PFont=NthField(ff,";",2)
-		  
-		  FixedFont=Prefs.value("FixedFont",FFont)
-		  ProportionalFont=Prefs.value("ProportionalFont",PFont)
-		  ProportionalFontSize=Prefs.value("ProportionalFontSize",10)
+		  // Proper multiprocessing for MEME and MeShClust
 		  Cores2use=Prefs.value("Cores2use",CountCPUcores)
-		  
-		  
-		  Dim n As Integer
-		  For n=0 To SettingsWin.FixedFontSelMenu.ListCount-1
-		    If SettingsWin.FixedFontSelMenu.list(n)=FixedFont Then
-		      SettingsWin.FixedFontSelMenu.listIndex=n
-		      Exit
-		    End If
-		  Next
-		  For n=0 To SettingsWin.PropFontSelMenu.ListCount-1
-		    If SettingsWin.PropFontSelMenu.list(n)=ProportionalFont Then
-		      SettingsWin.PropFontSelMenu.listIndex=n
-		      Exit
-		    End If
-		  Next
-		  For n=0 To SettingsWin.PropFontSizeMenu.ListCount-1
-		    If SettingsWin.PropFontSizeMenu.list(n)=Str(ProportionalFontSize) Then
-		      SettingsWin.PropFontSizeMenu.listIndex=n
-		      Exit
-		    End If
-		  Next
 		  
 		  // feedback info for NCBI
 		  CheckEmail
