@@ -390,10 +390,10 @@ Protected Module DeNovoTFBSinference
 		  
 		  // Check for a double CR tag (two DNA-binding domains like in AraC family proteins)
 		  
-		  If InStr(CRs,"/")>0 Then
+		  If InStr(CRs,"|")>0 Then
 		    Repeats=1
-		    CRCs(1)=NthField(CRs,"/",2) 'Second tag
-		    CRCs(0)=NthField(CRs,"/",1) 'First tag
+		    CRCs(1)=NthField(CRs,"|",2) 'Second tag
+		    CRCs(0)=NthField(CRs,"|",1) 'First tag
 		  Else
 		    CRCs(0)=CRs
 		  End If

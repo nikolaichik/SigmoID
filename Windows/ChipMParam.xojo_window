@@ -730,10 +730,13 @@ End
 		    else
 		      MsgBox("Check input values")
 		    end
-		  end
+		  End
 		  
-		  self.hide
+		  Self.hide
 		  
+		  Exception err
+		    ExceptionHandler(err,"ChipMParam:ActionButton:Action")
+		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents

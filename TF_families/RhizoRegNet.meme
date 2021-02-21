@@ -1020,7 +1020,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 25 E= 8.9e-071
 
 MOTIF RbtR_RegTransBase LacI-Family
 
-letter-probability matrix: alength= 4 w= 20 nsites= 16 E= 7.3e-099 
+letter-probability matrix: alength= 4 w= 17 nsites= 16 E= 7.3e-099 
  0.250000  0.062500  0.000000  0.687500 
  0.062500  0.000000  0.125000  0.812500 
  0.000000  0.000000  1.000000  0.000000 
