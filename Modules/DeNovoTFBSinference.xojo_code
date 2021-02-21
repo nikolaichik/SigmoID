@@ -58,7 +58,15 @@ Protected Module DeNovoTFBSinference
 		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+Str(inFile.ShellPath)
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
-		  deNovoWin.rp.writeToWin(EndOfLine.unix+"Running ChIPmunk...")
+		  for i as integer = 0 to WindowCount - 1
+		    if window(i) isa deNovoWin then
+		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Running ChIPmunk...")
+		      exit
+		    elseif i = WindowCount-1 then
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Running ChIPmunk...")
+		    end
+		  next i
+		  
 		  'assume bash is the normal user shell
 		  'execute bash with login scripts to set the same env as in terminal
 		  'command must be in single quotes
@@ -74,8 +82,16 @@ Protected Module DeNovoTFBSinference
 		    
 		    return sh.errorCode
 		  else
-		    deNovoWin.rp.writeToWin("ChIPmunk error code: "+Str(sh.errorCode))
-		    deNovoWin.rp.writeToWin(EndofLine+Sh.Result)
+		    for i as integer = 0 to WindowCount - 1
+		      if window(i) isa deNovoWin then
+		        deNovoWin.rp.writeToWin(EndOfLine.unix+"ChIPmunk error code: "+Str(sh.errorCode))
+		        deNovoWin.rp.writeToWin(EndofLine+Sh.Result)
+		        exit
+		      elseif i = WindowCount-1 then
+		        LogoWin.WriteToSTDOUT(EndOfLine.unix+"ChIPmunk error code: "+Str(sh.errorCode))
+		        LogoWin.WriteToSTDOUT(EndofLine+Sh.Result)
+		      end
+		    next i
 		    
 		    return sh.errorCode
 		  end if
