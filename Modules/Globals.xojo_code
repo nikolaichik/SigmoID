@@ -2719,7 +2719,14 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub ReadPrefs()
-		  SetDefaultPaths
+		  for i as integer = 0 to WindowCount - 1
+		    if window(i) isa SettingsWin then
+		      exit
+		    elseif i = WindowCount-1 then
+		      SetDefaultPaths
+		    end
+		  next i
+		  
 		  
 		  if PathsChanged then
 		    alimaskpath=Prefs.value("alimaskpath",alimaskpath)
@@ -4293,7 +4300,7 @@ Protected Module Globals
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  static gPrefs as TTsSmartPreferences
+			  dim gPrefs as TTsSmartPreferences
 			  if gPrefs = nil then
 			    gPrefs = new TTsSmartPreferences ("SigmoID") // <- enter your app's name here, it's necessary for Windows and Linux
 			  end

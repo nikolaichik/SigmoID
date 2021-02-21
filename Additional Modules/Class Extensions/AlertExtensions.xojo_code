@@ -93,7 +93,7 @@ Protected Module AlertExtensions
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  static gPrefs as TTsSmartPreferences
+			  dim gPrefs as TTsSmartPreferences
 			  if gPrefs = nil then
 			    gPrefs = new TTsSmartPreferences ("SigmoID") // <- enter your app's name here, it's necessary for Windows and Linux
 			  end
