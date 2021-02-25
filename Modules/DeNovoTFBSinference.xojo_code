@@ -501,9 +501,9 @@ Protected Module DeNovoTFBSinference
 		        rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
 		        
 		        
-		        rightPart=NthField(currentHit,"-",1)
-		        rightPartStart=InStr(CDStmp,rightPart)
-		        rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
+		        'rightPart=NthField(currentHit,"-",1)
+		        'rightPartStart=InStr(CDStmp,rightPart)
+		        'rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
 		        
 		        'replace dashes so that phmmer doesn't bark at them later
 		        'Dim hitpos As Integer = InStr(CDStmp,currenthit)
