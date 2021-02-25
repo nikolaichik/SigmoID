@@ -4,8 +4,7 @@ Inherits Thread
 	#tag Event
 		Sub Run()
 		  'a fix for wrong log pane height on mac:
-		  
-		  while isFinished = False
+		  while me.isFinished <> True
 		    'CheckEmail
 		    dim cli, hmmSearchRes, CRtagPositions, table, currentHit as string
 		    dim dataForMeme as string
@@ -275,557 +274,560 @@ Inherits Thread
 		    me.CRTags=DeNovoTFBSinference.CRtags
 		    me.Protnames=DeNovoTFBSinference.Protnames
 		    
-		    For n=1 To ubound(me.Protnames)
-		      app.YieldToNextThread()
+		    For n=1 To ubound(me.CRTags)
+		      'app.YieldToNextThread()
 		      res=""
-		      
-		      if me.CRtags(n)="[indel within CR tag region]" then
-		        deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has an indel within CR tag region. Skipping it."+EndOfLine.unix+EndOfLine.unix)
-		      Else
-		        id =0
-		        if genome <> nil then
-		          protname=me.Protnames(n)
-		          gene=protname.Lastfield("_")
-		          if gene <> "" then
-		            protname=replace(protname,"_"+gene,"")
-		          end
-		          for each f as GBFeature in genome.Features
-		            App.YieldToNextThread()
-		            if instr(f.FeatureText,protname)>0 then
-		              deNovoWin.TFfeature=id
-		              exit
+		      try
+		        if me.CRtags(n)="[indel within CR tag region]" then
+		          deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has an indel within CR tag region. Skipping it."+EndOfLine.unix+EndOfLine.unix)
+		        Else
+		          id =0
+		          if genome <> nil then
+		            protname=me.Protnames(n)
+		            gene=protname.Lastfield("_")
+		            if gene <> "" then
+		              protname=replace(protname,"_"+gene,"")
 		            end
-		            id=id+1
-		          next
-		        end
-		        //masked in new approach
-		        'if RefProtBut.Value then
-		        'me.MsgOutput=me.MsgOutput+EndofLine.unix+EndofLine.unix+"Searching Uniprot Reference Proteins with "+me.Protnames(n)+"...")
-		        'else
-		        'me.MsgOutput=me.MsgOutput+EndofLine.unix+EndofLine.unix+"Searching Uniprot (full) with "+me.Protnames(n)+"...")
-		        'end if
-		        
-		        
-		        theProtName=replaceall(me.Protnames(N),":","_") 'OS X precaution
-		        '//'resFile=phmmer_results.child(me.Protnames(n)+".raw")
-		        'resFile=phmmer_results.child(theProtName+".raw")
-		        '
-		        'if resFile<>Nil then
-		        'if resfile.exists then
-		        '//'load existing data
-		        'me.MsgOutput=me.MsgOutput+EndOfLine.unix+"phmmer results file exists in the working directory and will be reused"+EndOfLine.unix)
-		        '
-		        'instream=resFile.OpenAsTextFile
-		        'if instream<>nil then
-		        'res=instream.ReadAll
-		        'instream.close
-		        'end if
-		        '
-		        'else
-		        '//'run phmmer search vs primary DB
-		        'if RefProtBut.Value then
-		        'res=phmmerTextSearch(query, "uniprotrefprot")
-		        '//'return 'debug
-		        'else
-		        'res=phmmerTextSearch(query, "uniprotkb")
-		        '//'return 'debug
-		        'end if
-		        '
-		        'if res<>"" then
-		        '//'save raw phmmer results
-		        'resFile=phmmer_results.child(theProtName+".raw")
-		        'if resFile<>Nil then
-		        'OutStream = TextOutputStream.Create(resFile)
-		        'if outStream<>Nil then
-		        'outstream.Write(res)
-		        'outstream.close
-		        '//'me.MsgOutput=me.MsgOutput+" Done.")
-		        '
-		        'end if
-		        '
-		        'end if
-		        '
-		        'end if
-		        'end if
-		        '
-		        'end if
-		        '
-		        '// Filter phmmer results
-		        'if res<>"" then
-		        'FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
-		        'else
-		        'logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!"+EndOfLine.UNIX)
-		        'end if
-		        '
-		        '//' issue a warning if there's less than 10 or over 100 seqs.
-		        'hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
-		        'if hitcount<0 then hitcount=0
-		        '
-		        'if hitcount<10 then
-		        'me.MsgOutput=me.MsgOutput+" Warning! Too few ("+str(hitcount)+") filtered hits.")
-		        'if FallBackCheck.value then
-		        'me.MsgOutput=me.MsgOutput+EndOfLine.unix+"Running search vs full UniProt...")
-		        '
-		        'resFile=phmmer_results.child(me.Protnames(n)+".UniProt_raw")
-		        'if resFile<>Nil then
-		        'if resfile.exists then
-		        '//'load existing data
-		        'me.MsgOutput=me.MsgOutput+EndOfLine.unix+"phmmer results file exists in the working directory and will be reused"+EndOfLine.unix)
-		        'instream=resFile.OpenAsTextFile
-		        'if instream<>nil then
-		        'res=instream.ReadAll
-		        'instream.close
-		        'end if
-		        '
-		        'else
-		        '//'run phmmer search vs fallback DB
-		        'res=phmmerTextSearch(query, "uniprotkb")
-		        '
-		        'if res<>"" then
-		        '//'save raw phmmer results
-		        'resFile=phmmer_results.child(theProtName+".UniProt_raw")
-		        'if resFile<>Nil then
-		        'OutStream = TextOutputStream.Create(resFile)
-		        'if outStream<>Nil then
-		        'outstream.Write(res)
-		        'outstream.close
-		        '
-		        'end if
-		        'end if
-		        '
-		        'end if
-		        'end if
-		        '
-		        '
-		        '// Filter phmmer results
-		        'if res<>"" then
-		        'FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
-		        '
-		        'hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
-		        '
-		        'me.MsgOutput=me.MsgOutput+" "+str(hitcount)+" filtered hits found.")
-		        '
-		        '
-		        'else
-		        'logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!")
-		        'end if
-		        'hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
-		        'end if
-		        '
-		        '
-		        'end if
-		        'end if
-		        '
-		        'if hitcount>100 then
-		        'me.MsgOutput=me.MsgOutput+" Warning! Over 100 ("+str(hitcount)+") filtered hits.")
-		        'if hitCount>300 then
-		        'me.MsgOutput=me.MsgOutput+" Only the first 300 will be processed.")
-		        'end if
-		        'else
-		        'me.MsgOutput=me.MsgOutput+str(hitcount)+" filtered hits.")
-		        'end if
-		        '
-		        '
-		        '//'save CR tag filtered phmmer results
-		        'resFile=phmmer_results.child(theProtName+".filtered")
-		        'if resFile<>Nil then
-		        'OutStream = TextOutputStream.Create(resFile)
-		        'if outStream<>Nil then
-		        'outstream.Write(FilteredRes)
-		        'outstream.close
-		        'me.MsgOutput=me.MsgOutput+" Done.")
-		        '
-		        'end if
-		        '
-		        'end if
-		        '
-		        
-		        
-		        '
-		        // Extract promoter regions from the target operon and its two neighbours
-		        
-		        'if res<>"" then
-		        resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
-		        if resFile<>Nil then
-		          if resfile.exists then
-		            //'load existing data
-		            deNovoWin.rp.writeToWin("a fasta file presumably with genome fragments exists in the working directory and will be reused."+EndOfLine.unix)
-		            instream=resFile.OpenAsTextFile
-		            if instream<>nil then
-		              res=instream.ReadAll
-		              instream.close
-		              DataForMeme=res
-		            end if
-		            'resfile2=Fasta_files.child(theProtName+".fasta")
-		          else
-		            
-		            dim FragmentsForAhitF As folderitem
-		            
-		            FragmentsForAhitF=Genome_fragments.child(theProtName)
-		            if NOT FragmentsForAhitF.exists then
-		              FragmentsForAhitF.createAsFolder
-		            end if
-		            
-		            if FragmentsForAhitF=Nil then
-		              deNovoWin.rp.writeToWin("Can't create a folder "+FragmentsForAhitF.ShellPath+"to store genome fragments"+EndofLine.unix)
-		              return
-		            end if
-		            
-		            
-		            
-		            deNovoWin.rp.writeToWin("Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons."+EndOfLine.unix)
-		            
-		            
-		            'add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
-		            
-		            
-		            //get the list with the right number of accession codes
-		            crIndex=CrBaseTags_rp15.indexof(me.Crtags(n))
-		            Dim RPname As String = "rp15"
-		            If crIndex>0 Then
-		              filteredRes=CrBaseECodes_rp15(crindex)
-		              If CountFields(filteredRes,",")<RPcodesCountMin Then          '<-- threshold should be user configurable?
-		                crIndex=CrBaseTags_rp35.indexof(me.Crtags(n))
-		                filteredRes=CrBaseECodes_rp35(crindex)
-		                RPname="rp35"
-		                If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                  crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
-		                  filteredRes=CrBaseECodes_rp55(crindex)
-		                  RPname="rp55"
-		                  If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                    crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
-		                    filteredRes=CrBaseECodes_rp75(crindex)
-		                    RPname="rp75"
-		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                      crIndex=CrBaseTags.indexof(me.Crtags(n))
-		                      filteredRes=CrBaseECodes(crindex)
-		                      RPname="full PIR"
-		                    End If
-		                  End If
-		                End If
-		              End If
+		            for each f as GBFeature in genome.Features
+		              App.YieldToNextThread()
+		              if instr(f.FeatureText,protname)>0 then
+		                deNovoWin.TFfeature=id
+		                exit
+		              end
+		              id=id+1
+		            next
+		          end
+		          //masked in new approach
+		          'if RefProtBut.Value then
+		          'me.MsgOutput=me.MsgOutput+EndofLine.unix+EndofLine.unix+"Searching Uniprot Reference Proteins with "+me.Protnames(n)+"...")
+		          'else
+		          'me.MsgOutput=me.MsgOutput+EndofLine.unix+EndofLine.unix+"Searching Uniprot (full) with "+me.Protnames(n)+"...")
+		          'end if
+		          
+		          
+		          theProtName=replaceall(me.Protnames(N),":","_") 'OS X precaution
+		          '//'resFile=phmmer_results.child(me.Protnames(n)+".raw")
+		          'resFile=phmmer_results.child(theProtName+".raw")
+		          '
+		          'if resFile<>Nil then
+		          'if resfile.exists then
+		          '//'load existing data
+		          'me.MsgOutput=me.MsgOutput+EndOfLine.unix+"phmmer results file exists in the working directory and will be reused"+EndOfLine.unix)
+		          '
+		          'instream=resFile.OpenAsTextFile
+		          'if instream<>nil then
+		          'res=instream.ReadAll
+		          'instream.close
+		          'end if
+		          '
+		          'else
+		          '//'run phmmer search vs primary DB
+		          'if RefProtBut.Value then
+		          'res=phmmerTextSearch(query, "uniprotrefprot")
+		          '//'return 'debug
+		          'else
+		          'res=phmmerTextSearch(query, "uniprotkb")
+		          '//'return 'debug
+		          'end if
+		          '
+		          'if res<>"" then
+		          '//'save raw phmmer results
+		          'resFile=phmmer_results.child(theProtName+".raw")
+		          'if resFile<>Nil then
+		          'OutStream = TextOutputStream.Create(resFile)
+		          'if outStream<>Nil then
+		          'outstream.Write(res)
+		          'outstream.close
+		          '//'me.MsgOutput=me.MsgOutput+" Done.")
+		          '
+		          'end if
+		          '
+		          'end if
+		          '
+		          'end if
+		          'end if
+		          '
+		          'end if
+		          '
+		          '// Filter phmmer results
+		          'if res<>"" then
+		          'FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
+		          'else
+		          'logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!"+EndOfLine.UNIX)
+		          'end if
+		          '
+		          '//' issue a warning if there's less than 10 or over 100 seqs.
+		          'hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
+		          'if hitcount<0 then hitcount=0
+		          '
+		          'if hitcount<10 then
+		          'me.MsgOutput=me.MsgOutput+" Warning! Too few ("+str(hitcount)+") filtered hits.")
+		          'if FallBackCheck.value then
+		          'me.MsgOutput=me.MsgOutput+EndOfLine.unix+"Running search vs full UniProt...")
+		          '
+		          'resFile=phmmer_results.child(me.Protnames(n)+".UniProt_raw")
+		          'if resFile<>Nil then
+		          'if resfile.exists then
+		          '//'load existing data
+		          'me.MsgOutput=me.MsgOutput+EndOfLine.unix+"phmmer results file exists in the working directory and will be reused"+EndOfLine.unix)
+		          'instream=resFile.OpenAsTextFile
+		          'if instream<>nil then
+		          'res=instream.ReadAll
+		          'instream.close
+		          'end if
+		          '
+		          'else
+		          '//'run phmmer search vs fallback DB
+		          'res=phmmerTextSearch(query, "uniprotkb")
+		          '
+		          'if res<>"" then
+		          '//'save raw phmmer results
+		          'resFile=phmmer_results.child(theProtName+".UniProt_raw")
+		          'if resFile<>Nil then
+		          'OutStream = TextOutputStream.Create(resFile)
+		          'if outStream<>Nil then
+		          'outstream.Write(res)
+		          'outstream.close
+		          '
+		          'end if
+		          'end if
+		          '
+		          'end if
+		          'end if
+		          '
+		          '
+		          '// Filter phmmer results
+		          'if res<>"" then
+		          'FilteredRes=DefineEncoding(WebGetCRtags(Res,CRtagPositions,CRtags(n)),Encodings.ASCII)
+		          '
+		          'hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
+		          '
+		          'me.MsgOutput=me.MsgOutput+" "+str(hitcount)+" filtered hits found.")
+		          '
+		          '
+		          'else
+		          'logowin.WriteToSTDOUT(EndOfLine.UNIX+"phmmer search returned empty result!")
+		          'end if
+		          'hitcount=CountFields(FilteredRes,phmmerSearchSeparator)-2
+		          'end if
+		          '
+		          '
+		          'end if
+		          'end if
+		          '
+		          'if hitcount>100 then
+		          'me.MsgOutput=me.MsgOutput+" Warning! Over 100 ("+str(hitcount)+") filtered hits.")
+		          'if hitCount>300 then
+		          'me.MsgOutput=me.MsgOutput+" Only the first 300 will be processed.")
+		          'end if
+		          'else
+		          'me.MsgOutput=me.MsgOutput+str(hitcount)+" filtered hits.")
+		          'end if
+		          '
+		          '
+		          '//'save CR tag filtered phmmer results
+		          'resFile=phmmer_results.child(theProtName+".filtered")
+		          'if resFile<>Nil then
+		          'OutStream = TextOutputStream.Create(resFile)
+		          'if outStream<>Nil then
+		          'outstream.Write(FilteredRes)
+		          'outstream.close
+		          'me.MsgOutput=me.MsgOutput+" Done.")
+		          '
+		          'end if
+		          '
+		          'end if
+		          '
+		          
+		          
+		          '
+		          // Extract promoter regions from the target operon and its two neighbours
+		          
+		          'if res<>"" then
+		          resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
+		          if resFile<>Nil then
+		            if resfile.exists then
+		              //'load existing data
+		              deNovoWin.rp.writeToWin("a fasta file presumably with genome fragments exists in the working directory and will be reused."+EndOfLine.unix)
+		              instream=resFile.OpenAsTextFile
+		              if instream<>nil then
+		                res=instream.ReadAll
+		                instream.close
+		                DataForMeme=res
+		              end if
+		              'resfile2=Fasta_files.child(theProtName+".fasta")
+		            else
 		              
-		            Else
-		              crIndex=CrBaseTags_rp35.indexof(me.Crtags(n))
+		              dim FragmentsForAhitF As folderitem
+		              
+		              FragmentsForAhitF=Genome_fragments.child(theProtName)
+		              if NOT FragmentsForAhitF.exists then
+		                FragmentsForAhitF.createAsFolder
+		              end if
+		              
+		              if FragmentsForAhitF=Nil then
+		                deNovoWin.rp.writeToWin("Can't create a folder "+FragmentsForAhitF.ShellPath+"to store genome fragments"+EndofLine.unix)
+		                return
+		              end if
+		              
+		              
+		              
+		              deNovoWin.rp.writeToWin("Extracting promoter fragments for the operon coding for "+theProtName+" and two neighbour operons."+EndOfLine.unix)
+		              
+		              
+		              'add file existence check somewhere here (or within GetOrthoRegSeq) and reuse existing .gb files
+		              
+		              
+		              //get the list with the right number of accession codes
+		              crIndex=CrBaseTags_rp15.indexof(me.Crtags(n))
+		              Dim RPname As String = "rp15"
 		              If crIndex>0 Then
-		                filteredRes=CrBaseECodes_rp35(crindex)
-		                RPname="rp35"
-		                If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                  crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
-		                  filteredRes=CrBaseECodes_rp55(crindex)
-		                  RPname="rp55"
+		                filteredRes=CrBaseECodes_rp15(crindex)
+		                If CountFields(filteredRes,",")<RPcodesCountMin Then          '<-- threshold should be user configurable?
+		                  crIndex=CrBaseTags_rp35.indexof(me.Crtags(n))
+		                  filteredRes=CrBaseECodes_rp35(crindex)
+		                  RPname="rp35"
 		                  If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                    crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
-		                    filteredRes=CrBaseECodes_rp75(crindex)
-		                    RPname="rp75"
+		                    crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
+		                    filteredRes=CrBaseECodes_rp55(crindex)
+		                    RPname="rp55"
 		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                      crIndex=CrBaseTags.indexof(me.Crtags(n))
-		                      filteredRes=CrBaseECodes(crindex)
-		                      RPname="full PIR"
-		                    End If
-		                  End If
-		                End If
-		              Else
-		                
-		                crIndex=CrBaseTags_rp55.indexof(me.CRtags(n))
-		                If crIndex>0 Then
-		                  filteredRes=CrBaseECodes_rp55(crindex)
-		                  RPname="rp55"
-		                  If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                    crIndex=CrBaseTags_rp75.indexof(me.CRtags(n))
-		                    filteredRes=CrBaseECodes_rp75(crindex)
-		                    RPname="rp75"
-		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                      crIndex=CrBaseTags.indexof(me.CRtags(n))
-		                      filteredRes=CrBaseECodes(crindex)
-		                      RPname="full PIR"
-		                    End If
-		                  End If
-		                  
-		                Else
-		                  crIndex=CrBaseTags_rp75.indexof(me.CRtags(n))
-		                  If crIndex>0 Then
-		                    filteredRes=CrBaseECodes_rp75(crindex)
-		                    RPname="rp75"
-		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                      crIndex=CrBaseTags.indexof(me.CRtags(n))
-		                      If crIndex>0 Then
+		                      crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
+		                      filteredRes=CrBaseECodes_rp75(crindex)
+		                      RPname="rp75"
+		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		                        crIndex=CrBaseTags.indexof(me.Crtags(n))
 		                        filteredRes=CrBaseECodes(crindex)
 		                        RPname="full PIR"
 		                      End If
 		                    End If
 		                  End If
+		                End If
+		                
+		              Else
+		                crIndex=CrBaseTags_rp35.indexof(me.Crtags(n))
+		                If crIndex>0 Then
+		                  filteredRes=CrBaseECodes_rp35(crindex)
+		                  RPname="rp35"
+		                  If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		                    crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
+		                    filteredRes=CrBaseECodes_rp55(crindex)
+		                    RPname="rp55"
+		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		                      crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
+		                      filteredRes=CrBaseECodes_rp75(crindex)
+		                      RPname="rp75"
+		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		                        crIndex=CrBaseTags.indexof(me.Crtags(n))
+		                        filteredRes=CrBaseECodes(crindex)
+		                        RPname="full PIR"
+		                      End If
+		                    End If
+		                  End If
+		                Else
+		                  
+		                  crIndex=CrBaseTags_rp55.indexof(me.CRtags(n))
+		                  If crIndex>0 Then
+		                    filteredRes=CrBaseECodes_rp55(crindex)
+		                    RPname="rp55"
+		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		                      crIndex=CrBaseTags_rp75.indexof(me.CRtags(n))
+		                      filteredRes=CrBaseECodes_rp75(crindex)
+		                      RPname="rp75"
+		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		                        crIndex=CrBaseTags.indexof(me.CRtags(n))
+		                        filteredRes=CrBaseECodes(crindex)
+		                        RPname="full PIR"
+		                      End If
+		                    End If
+		                    
+		                  Else
+		                    crIndex=CrBaseTags_rp75.indexof(me.CRtags(n))
+		                    If crIndex>0 Then
+		                      filteredRes=CrBaseECodes_rp75(crindex)
+		                      RPname="rp75"
+		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		                        crIndex=CrBaseTags.indexof(me.CRtags(n))
+		                        If crIndex>0 Then
+		                          filteredRes=CrBaseECodes(crindex)
+		                          RPname="full PIR"
+		                        End If
+		                      End If
+		                    End If
+		                    
+		                  End If
 		                  
 		                End If
 		                
 		              End If
 		              
-		            End If
-		            
-		            If crIndex>0 Then
-		              #If DebugBuild
-		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... ")
-		              #Else
-		                deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
-		              #EndIf
-		            Else
-		              deNovoWin.rp.writeToWin("CRtag "+me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
-		              Continue For n
-		            End If
-		            
-		            
-		            DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
-		          end if
-		          
-		          
-		          
-		          
-		          
-		          if dataForMeme<>"" then
-		            
-		            // Remove extra (repetitive/too close) seqs
-		            ' leave one seq per species,
-		            ' or one seq per genus if too many seqs
-		            
-		            ' Save unfiltered UPS fragments
-		            resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
-		            if resfile<>nil then
-		              OutStream = TextOutputStream.Create(resFile)
-		              if outStream<>Nil then
-		                outstream.Write(DataForMeme)
-		                outstream.close
-		                'me.MsgOutput=me.MsgOutput+" Done.")
-		                
-		              end if
+		              If crIndex>0 Then
+		                #If DebugBuild
+		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... ")
+		                #Else
+		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
+		                #EndIf
+		              Else
+		                deNovoWin.rp.writeToWin("CRtag "+me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
+		                Continue For n
+		              End If
 		              
-		            else
-		              deNovoWin.rp.writeToWin("Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix)
+		              
+		              DataForMeme=GetOrthoRegSeq(FilteredRes, FragmentsForAhitF)
 		            end if
 		            
-		            deNovoWin.rp.writeToWin("Done extracting genome fragments. ")
-		            
-		            // Save UPS fragments used for MEME run
 		            
 		            
 		            
-		            deNovoWin.rp.writeToWin(deNovoWin.CountSeqs(dataForMeme)+" fragments collected."+EndofLine.unix)
 		            
-		            
-		            resfile2=Fasta_files.child(me.Protnames(n)+"_CDhit_filtered.fasta")
-		            
-		            if resfile2<>nil then
+		            if dataForMeme<>"" then
 		              
-		              If CountFields(DataForMeme,">")>MEMEmax Then 'too many seqs - reduce the number!
-		                
-		                'run cd-hit if present
-		                dim clustered as string
-		                'clustered=CDHitClustering(resFile,resFile2)
-		                clustered=deNovoWin.MeshClustering(resFile,resFile2)
-		                if clustered<>"" then 'empty string can be returned in case of an error
-		                  DataForMeme=clustered
-		                end if
-		                
-		                If CountFields(DataForMeme,">")>MEMEmax Then 'Still too many seqs - remove redundant species
-		                  DataForMeme=RemoveRedundantSeqs(DataForMeme,False)
-		                  seqCount=str(deNovoWin.CountSeqs(dataForMeme))
-		                  deNovoWin.rp.writeToWin(EndOfLine.Unix +seqCount+" fragments after removing redundant species.")
-		                End If
-		                
-		                If CountFields(DataForMeme,">")>MEMEmax Then 'Still too many seqs - remove redundant genera
-		                  DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
-		                  seqCount=str(deNovoWin.CountSeqs(dataForMeme))
-		                  deNovoWin.rp.writeToWin(Str(EndOfLine.Unix+seqCount+" fragments after removing redundant genera."))
-		                End If
-		                
-		                resfile2=Fasta_files.child(me.Protnames(n)+".fasta")
-		                OutStream = TextOutputStream.Create(resFile2)
+		              // Remove extra (repetitive/too close) seqs
+		              ' leave one seq per species,
+		              ' or one seq per genus if too many seqs
+		              
+		              ' Save unfiltered UPS fragments
+		              resfile=Fasta_files.child(theProtName+"_unfiltered.fasta")
+		              if resfile<>nil then
+		                OutStream = TextOutputStream.Create(resFile)
 		                if outStream<>Nil then
 		                  outstream.Write(DataForMeme)
 		                  outstream.close
-		                  'deNovoWin.rp.writeToWin(" Done.")
+		                  'me.MsgOutput=me.MsgOutput+" Done.")
 		                  
 		                end if
 		                
-		              else 'countfields(DataForMeme,">")>30
-		                resfile2=resFile
-		                
-		              end if 'countfields(DataForMeme,">")>30
-		              
-		            else 'resfile2<>nil
-		              deNovoWin.rp.writeToWin("Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix)
-		              
-		            end if 'resfile2<>nil
-		            
-		          else
-		            deNovoWin.rp.writeToWin(EndOfLine.unix+"No data to run meme for "+me.Protnames(n)+".")
-		            
-		          end if 'dataForMeme<>""
-		          
-		          
-		          
-		          
-		          
-		          // Run MEME in two modes
-		          dim memeF,f1 as folderitem
-		          
-		          memeF=MEME_results.child(Me.Protnames(n))
-		          
-		          deNovoWin.rp.writeToWin(EndOfLine.UNIX)
-		          
-		          If memeF <> Nil Then
-		            If memeF.Exists Then
-		              deNovoWin.rp.writeToWin("MEME results folder exists, so MEME will not be run. Remove this folder ("+memeF.shellpath+") and re-run search procedure if you want to re-generate the  results"+EndOfLine.unix)
-		              
-		            else
-		              memeF.createAsFolder
-		              
-		              dim opt as string
-		              dim ErrCode as integer
-		              
-		              '-p option is set in DenovoTFBSinference.meme
-		              
-		              'if CPUcores>1 then
-		              'opt=" -p " + str(CPUcores)  'for parallelised meme
-		              ''opt=" -p 2"
-		              'end if
-		              
-		              'doesn't work dim mWidth as string=me.HmmList.Cell(me.HmmList.ListIndex,5) 'motif widths are stored in the table (and can be changed here)
-		              
-		              opt=opt+" -dna -minw "+ Trim(NthField(mWidth,"-",1))
-		              opt=opt+" -maxw "+ trim(nthfield(mWidth,"-",2))
-		              
-		              
-		              '[-pal]            force palindromes (requires -dna)
-		              if me.palindromic=True then
-		                ' me.HmmList.Cell(me.HmmList.ListIndex,4)="yes" then
-		                opt=opt+" -pal"
+		              else
+		                deNovoWin.rp.writeToWin("Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix)
 		              end if
 		              
-		              '[-revcomp]        allow sites on + or - DNA strands
-		              'if GivenStrandBox.Value then
-		              'else
-		              opt=opt+" -revcomp"
-		              'end if
+		              deNovoWin.rp.writeToWin("Done extracting genome fragments. ")
 		              
-		              '[-nmotifs <nmotifs>]    maximum number of motifs to find
-		              opt=opt+" -nmotifs 5"'+MotifNoPopup.Text
+		              // Save UPS fragments used for MEME run
 		              
 		              
 		              
-		              'Run MEME in Zero or One per sequence' mode:
-		              f1=memeF.child("Zoops")
-		              FixPath4Windows(MEMEf)
+		              deNovoWin.rp.writeToWin(deNovoWin.CountSeqs(dataForMeme)+" fragments collected."+EndofLine.unix)
 		              
-		              if resfile2<>Nil then
-		                if f1<>NIL then
-		                  if f1.Exists then
-		                    f1.Delete
+		              
+		              resfile2=Fasta_files.child(me.Protnames(n)+"_CDhit_filtered.fasta")
+		              
+		              if resfile2<>nil then
+		                
+		                If CountFields(DataForMeme,">")>MEMEmax Then 'too many seqs - reduce the number!
+		                  
+		                  'run cd-hit if present
+		                  dim clustered as string
+		                  'clustered=CDHitClustering(resFile,resFile2)
+		                  clustered=deNovoWin.MeshClustering(resFile,resFile2)
+		                  if clustered<>"" then 'empty string can be returned in case of an error
+		                    DataForMeme=clustered
 		                  end if
 		                  
-		                  'LogoWin.show
-		                  deNovoWin.rp.writeToWin("Running MEME in zoops mode...")
+		                  If CountFields(DataForMeme,">")>MEMEmax Then 'Still too many seqs - remove redundant species
+		                    DataForMeme=RemoveRedundantSeqs(DataForMeme,False)
+		                    seqCount=str(deNovoWin.CountSeqs(dataForMeme))
+		                    deNovoWin.rp.writeToWin(EndOfLine.Unix +seqCount+" fragments after removing redundant species.")
+		                  End If
 		                  
-		                  ErrCode=MEME(resfile2, f1, opt+" -mod zoops")
-		                  'sh=New Shell
-		                  'sh.mode=0
-		                  'sh.TimeOut=-1
-		                  dim zclean, aclean as boolean 
-		                  If ErrCode=0 then
-		                    deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
+		                  If CountFields(DataForMeme,">")>MEMEmax Then 'Still too many seqs - remove redundant genera
+		                    DataForMeme=RemoveRedundantSeqs(DataForMeme,true)
+		                    seqCount=str(deNovoWin.CountSeqs(dataForMeme))
+		                    deNovoWin.rp.writeToWin(Str(EndOfLine.Unix+seqCount+" fragments after removing redundant genera."))
+		                  End If
+		                  
+		                  resfile2=Fasta_files.child(me.Protnames(n)+".fasta")
+		                  OutStream = TextOutputStream.Create(resFile2)
+		                  if outStream<>Nil then
+		                    outstream.Write(DataForMeme)
+		                    outstream.close
+		                    'deNovoWin.rp.writeToWin(" Done.")
 		                    
-		                    'create TomTom thread
-		                    ttt = new TTshell(f1.child("meme.txt"))
-		                    zclean=true
-		                  else
-		                    deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
-		                    zclean=false
 		                  end if
 		                  
+		                else 'countfields(DataForMeme,">")>30
+		                  resfile2=resFile
 		                  
-		                  'Run MEME in Anr mode:
-		                  f1=memeF.child("Anr")
-		                  FixPath4Windows(f1)
-		                  
+		                end if 'countfields(DataForMeme,">")>30
+		                
+		              else 'resfile2<>nil
+		                deNovoWin.rp.writeToWin("Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix)
+		                
+		              end if 'resfile2<>nil
+		              
+		            else
+		              deNovoWin.rp.writeToWin(EndOfLine.unix+"No data to run meme for "+me.Protnames(n)+".")
+		              
+		            end if 'dataForMeme<>""
+		            
+		            
+		            
+		            
+		            
+		            // Run MEME in two modes
+		            dim memeF,f1 as folderitem
+		            
+		            memeF=MEME_results.child(Me.Protnames(n))
+		            
+		            deNovoWin.rp.writeToWin(EndOfLine.UNIX)
+		            
+		            If memeF <> Nil Then
+		              If memeF.Exists Then
+		                deNovoWin.rp.writeToWin("MEME results folder exists, so MEME will not be run. Remove this folder ("+memeF.shellpath+") and re-run search procedure if you want to re-generate the  results"+EndOfLine.unix)
+		                
+		              else
+		                memeF.createAsFolder
+		                
+		                dim opt as string
+		                dim ErrCode as integer
+		                
+		                '-p option is set in DenovoTFBSinference.meme
+		                
+		                'if CPUcores>1 then
+		                'opt=" -p " + str(CPUcores)  'for parallelised meme
+		                ''opt=" -p 2"
+		                'end if
+		                
+		                'doesn't work dim mWidth as string=me.HmmList.Cell(me.HmmList.ListIndex,5) 'motif widths are stored in the table (and can be changed here)
+		                
+		                opt=opt+" -dna -minw "+ Trim(NthField(mWidth,"-",1))
+		                opt=opt+" -maxw "+ trim(nthfield(mWidth,"-",2))
+		                
+		                
+		                '[-pal]            force palindromes (requires -dna)
+		                if me.palindromic=True then
+		                  ' me.HmmList.Cell(me.HmmList.ListIndex,4)="yes" then
+		                  opt=opt+" -pal"
+		                end if
+		                
+		                '[-revcomp]        allow sites on + or - DNA strands
+		                'if GivenStrandBox.Value then
+		                'else
+		                opt=opt+" -revcomp"
+		                'end if
+		                
+		                '[-nmotifs <nmotifs>]    maximum number of motifs to find
+		                opt=opt+" -nmotifs 5"'+MotifNoPopup.Text
+		                
+		                
+		                
+		                'Run MEME in Zero or One per sequence' mode:
+		                f1=memeF.child("Zoops")
+		                FixPath4Windows(MEMEf)
+		                
+		                if resfile2<>Nil then
 		                  if f1<>NIL then
 		                    if f1.Exists then
 		                      f1.Delete
 		                    end if
 		                    
 		                    'LogoWin.show
-		                    deNovoWin.rp.writeToWin("Running MEME in anr mode...")
+		                    deNovoWin.rp.writeToWin("Running MEME in zoops mode...")
 		                    
-		                    ErrCode=MEME(resfile2, f1, opt+" -mod anr")
+		                    ErrCode=MEME(resfile2, f1, opt+" -mod zoops")
+		                    'sh=New Shell
+		                    'sh.mode=0
+		                    'sh.TimeOut=-1
+		                    dim zclean, aclean as boolean 
 		                    If ErrCode=0 then
 		                      deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
+		                      
 		                      'create TomTom thread
-		                      ttt2 = new TTshell(f1.child("meme.txt"))
-		                      aclean=true
+		                      ttt = new TTshell(f1.child("meme.txt"))
+		                      zclean=true
 		                    else
 		                      deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
-		                      aclean=false
+		                      zclean=false
 		                    end if
-		                    if me.RunChipMunk then
-		                      dim errcodecm as Integer
-		                      ErrCodeCM=ChIPmunk(resfile2, f1.child("ChIPmunk-result"))
-		                      if errcodecm=0 then
+		                    
+		                    
+		                    'Run MEME in Anr mode:
+		                    f1=memeF.child("Anr")
+		                    FixPath4Windows(f1)
+		                    
+		                    if f1<>NIL then
+		                      if f1.Exists then
+		                        f1.Delete
+		                      end if
+		                      
+		                      'LogoWin.show
+		                      deNovoWin.rp.writeToWin("Running MEME in anr mode...")
+		                      
+		                      ErrCode=MEME(resfile2, f1, opt+" -mod anr")
+		                      If ErrCode=0 then
 		                        deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
-		                      end
-		                    end
-		                    
-		                    if me.RunTomTom then 
-		                      'launch TomTom threads
-		                      if ttt<>NIL then
-		                        TTshellArray.Append ttt
-		                        TTshellArray(UBound(TTshellArray)).RunTomTom
-		                        TTthreadsRunning=TTthreadsRunning+1
-		                        ttt = new TTshell(f1.child("meme.txt")) 'remove reference to array element
-		                      end if
-		                      if ttt<>NIL then
-		                        TTshellArray.Append ttt2
-		                        TTshellArray(UBound(TTshellArray)).RunTomTom
-		                        TTthreadsRunning=TTthreadsRunning+1
+		                        'create TomTom thread
 		                        ttt2 = new TTshell(f1.child("meme.txt"))
+		                        aclean=true
+		                      else
+		                        deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
+		                        aclean=false
+		                      end if
+		                      if me.RunChipMunk then
+		                        dim errcodecm as Integer
+		                        ErrCodeCM=ChIPmunk(resfile2, f1.child("ChIPmunk-result"))
+		                        if errcodecm=0 then
+		                          deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
+		                        end
+		                      end
+		                      
+		                      if me.RunTomTom then 
+		                        'launch TomTom threads
+		                        if ttt<>NIL then
+		                          TTshellArray.Append ttt
+		                          TTshellArray(UBound(TTshellArray)).RunTomTom
+		                          TTthreadsRunning=TTthreadsRunning+1
+		                          ttt = new TTshell(f1.child("meme.txt")) 'remove reference to array element
+		                        end if
+		                        if ttt<>NIL then
+		                          TTshellArray.Append ttt2
+		                          TTshellArray(UBound(TTshellArray)).RunTomTom
+		                          TTthreadsRunning=TTthreadsRunning+1
+		                          ttt2 = new TTshell(f1.child("meme.txt"))
+		                        end if
+		                        
+		                        
 		                      end if
 		                      
+		                      deNovoWin.rp.writeToWin("Results written to "+outf.Shellpath+EndOfLine.Unix+EndOfLine.Unix)
 		                      
+		                      
+		                    else
+		                      deNovoWin.rp.writeToWin("Can't create MEME output folder!")
+		                      'return -1
 		                    end if
-		                    
-		                    deNovoWin.rp.writeToWin("Results written to "+outf.Shellpath+EndOfLine.Unix+EndOfLine.Unix)
-		                    
 		                    
 		                  else
-		                    deNovoWin.rp.writeToWin("Can't create MEME output folder!")
-		                    'return -1
-		                  end if
-		                  
+		                    
+		                  End If
+		                  resfile2=new FolderItem
 		                else
+		                  deNovoWin.rp.writeToWin(EndofLine.unix+"Not running MEME (empty file)")
 		                  
 		                End If
-		                resfile2=new FolderItem
-		              else
-		                deNovoWin.rp.writeToWin(EndofLine.unix+"Not running MEME (empty file)")
 		                
-		              End If
+		              end if
+		              
+		              
+		            else
+		              deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create a folder to store MEME results for "+me.Protnames(n)+".")
 		              
 		            end if
-		            
-		            
 		          else
-		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create a folder to store MEME results for "+me.Protnames(n)+".")
-		            
+		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create a folder to store genome fragments for "+me.Protnames(n)+".")
 		          end if
-		        else
-		          deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create a folder to store genome fragments for "+me.Protnames(n)+".")
+		          'end if
+		          
+		          
+		          
+		          '
+		          'else
+		          'me.MsgOutput=me.MsgOutput+" phmmer search error!")
+		          'end if
 		        end if
-		        'end if
-		        
-		        
-		        
-		        '
-		        'else
-		        'me.MsgOutput=me.MsgOutput+" phmmer search error!")
-		        'end if
-		      end if
+		      catch OutOfBoundsException
+		        deNovoWin.rp.writeToWin(EndofLine.unix+"OutOfBounds exception occured during "+me.CRtags(n)+" tag processing."+EndofLine.unix)
+		      end try
 		    next
 		    
 		    
@@ -850,7 +852,7 @@ Inherits Thread
 		    end if
 		    
 		    // Reutilise data from incomplete searches!
-		    isFinished =True
+		    me.isFinished =True
 		  wend
 		  Exception err
 		    
@@ -920,7 +922,7 @@ Inherits Thread
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		isFinished As boolean = false
+		isFinished As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1089,7 +1091,7 @@ Inherits Thread
 			Name="isFinished"
 			Visible=false
 			Group="Behavior"
-			InitialValue="false"
+			InitialValue=""
 			Type="boolean"
 			EditorType=""
 		#tag EndViewProperty
