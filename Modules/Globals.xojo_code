@@ -342,7 +342,10 @@ Protected Module Globals
 		    else
 		      ProfileWizardWin.GatheringField.Text=str(minScore)
 		    end if
-		  end if
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:CompareScores")
 		End Function
 	#tag EndMethod
 
@@ -483,7 +486,10 @@ Protected Module Globals
 		      Return 1
 		    End If
 		    
-		  #endif
+		  #EndIf
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:CountCPUcores")
 		End Function
 	#tag EndMethod
 
@@ -558,7 +564,10 @@ Protected Module Globals
 		    // We‘re done without error, so the folder should be empty and we can delete it.
 		    theFolder.Delete
 		    returnCode = theFolder.LastErrorCode
-		  end if
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:DeleteEntireFolder")
 		End Function
 	#tag EndMethod
 
@@ -582,7 +591,10 @@ Protected Module Globals
 		      AllowTabGrouping( nsWindowClass, false )
 		    end if
 		    
-		  #endif
+		  #EndIf
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:DisableAppAutoTabbing")
 		End Sub
 	#tag EndMethod
 
@@ -1002,7 +1014,10 @@ Protected Module Globals
 		    
 		  end if
 		  
-		  return sequences
+		  Return sequences
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:FillGaps")
 		End Function
 	#tag EndMethod
 
@@ -1322,7 +1337,7 @@ Protected Module Globals
 		  Dim tis As TextInputStream
 		  Dim aLine As String
 		  
-		  f= GetFolderItem (HMMfilePath, FolderItem.PathTypeNative)
+		  f= GetFolderItem (HMMfilePath, FolderItem.PathTypeShell)
 		  If f <> Nil Then
 		    tis=f.OpenAsTextFile
 		    If tis<>Nil Then
@@ -1330,20 +1345,24 @@ Protected Module Globals
 		        aLine=tis.ReadLine     'hmmfile
 		        If tis.EndOfFile Then Exit
 		        If Left(aline,6)="CRTAG " Then
+		          tis.close
 		          Return NthField(aLine,"CRTAG ",2)
 		        End If
 		      Loop Until tis.EndOfFile
+		      tis.close
 		    End If
-		    tis.close
+		    
 		    
 		  End If
 		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:GetRealCRtag")
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub GetResources_f()
-		  #if TargetMacOS then 'Bundle ↠ Contents ↠ Resources
+		  #If TargetMacOS Then 'Bundle ↠ Contents ↠ Resources
 		    
 		    #if DebugBuild then
 		      #If XojoVersion < 2015.03 Then
@@ -1378,13 +1397,16 @@ Protected Module Globals
 		        msgbox "Can't access Resources folder!"
 		      end if
 		    #endif
-		  #endif
+		  #EndIf
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:GetResources_f")
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function GetShortPathName(LongPathName As String) As string
-		  dim lpShort,lpLong As MemoryBlock
+		  Dim lpShort,lpLong As MemoryBlock
 		  dim iBuff,iLen As Integer
 		  
 		  #IF TargetWin32 then
@@ -1416,7 +1438,10 @@ Protected Module Globals
 		      return "### Error Getting GetShortPathName: " + LongPathName
 		    end if
 		    
-		  #endif
+		  #EndIf
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:GetShortPathName")
 		End Function
 	#tag EndMethod
 
@@ -1609,6 +1634,8 @@ Protected Module Globals
 		    return ""
 		  end if
 		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:HMMsearchWithCRtags")
 		End Function
 	#tag EndMethod
 
@@ -1674,8 +1701,11 @@ Protected Module Globals
 		  else
 		    LogoWin.WriteToSTDOUT (EndofLine.unix+"Can't create temporary file, have to abort search.")
 		    return ""
-		  end if
+		  End If
 		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:HMMsearchWithCRtagsCR")
+		    
 		End Function
 	#tag EndMethod
 
@@ -2567,7 +2597,10 @@ Protected Module Globals
 		  else
 		    msgbox "Can't create temporary folder!"
 		    return -1
-		  end if
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:MEMEconvert")
 		End Function
 	#tag EndMethod
 
@@ -2719,7 +2752,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub ReadPrefs()
-		  for i as integer = 0 to WindowCount - 1
+		  For i As Integer = 0 To WindowCount - 1
 		    if window(i) isa SettingsWin then
 		      exit
 		    elseif i = WindowCount-1 then
@@ -2940,7 +2973,8 @@ Protected Module Globals
 		  
 		  LogoWin.Informer.TextFont=FixedFont
 		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:ReadPrefs")
 		End Sub
 	#tag EndMethod
 
@@ -3064,6 +3098,8 @@ Protected Module Globals
 		    LogoWin.WriteToSTDOUT(str(minLen)+"–"+str(maxLen)+"."+EndOfLine.UNIX)
 		  end if
 		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:RegulonDB2fasta")
 		End Sub
 	#tag EndMethod
 
@@ -3118,6 +3154,9 @@ Protected Module Globals
 		  wend
 		  InStream.close
 		  OutStream.close
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:RevCompAlignment")
 		End Sub
 	#tag EndMethod
 
@@ -3293,7 +3332,7 @@ Protected Module Globals
 		  MEMEpath=SystemPath("meme")
 		  MASTpath=SystemPath("mast")
 		  TomTomPath=SystemPath("tomtom")
-		  
+		  MeshClustPath=SystemPath("meshclust")
 		  
 		  
 		End Sub
@@ -3301,7 +3340,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub SetLinuxIcon()
-		  #if TargetLinux
+		  #If TargetLinux
 		    ' For Gnome and related window managers launcher icon is set via the .desktop file
 		    ' for user-specific apps this dir is used:
 		    ' ~/.local/share/applications
@@ -3361,7 +3400,10 @@ Protected Module Globals
 		      end if
 		    end if
 		    'GetFolderItem("SigmoID.debug.app")  
-		  #endif
+		  #EndIf
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:SetLinuxIcon")
 		End Sub
 	#tag EndMethod
 
@@ -3670,6 +3712,8 @@ Protected Module Globals
 		  instream.Close
 		  outstream.close
 		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:Stockholm")
 		End Sub
 	#tag EndMethod
 
@@ -3720,6 +3764,8 @@ Protected Module Globals
 		    return pth
 		  end if
 		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:SystemPath")
 		End Function
 	#tag EndMethod
 
@@ -3832,7 +3878,10 @@ Protected Module Globals
 		      LogoWin.WriteToSTDOUT (EndofLine+"tfastx command line was: "+cli+EndofLine)
 		      return
 		    end if
-		  end if
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:tfastx")
 		End Sub
 	#tag EndMethod
 
