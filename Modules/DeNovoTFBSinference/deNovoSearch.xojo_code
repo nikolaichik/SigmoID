@@ -38,7 +38,7 @@ Inherits Thread
 		    CDSseqs=""
 		    
 		    
-		    
+		    deNovoWin.rp.writeToWin("Loading CR tag tables... ")
 		    if me.RunTomTom then
 		      
 		      if TomTomPath<>"" then 
@@ -46,7 +46,7 @@ Inherits Thread
 		        deNovoWin.TTtimer.Enabled=True
 		      else
 		        
-		        deNovoWin.rp.writeToWin("Please, provide full path to TomTom: Settings-TomTom field"+EndOfLine.UNIX)
+		        deNovoWin.rp.writeToWin("Please, provide the full path to TomTom in the Settings window"+EndOfLine.UNIX)
 		        
 		        return 
 		      end
@@ -547,12 +547,19 @@ Inherits Thread
 		                      filteredRes=CrBaseECodes_rp75(crindex)
 		                      RPname="rp75"
 		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                        crIndex=CrBaseTags.indexof(me.CRtags(n))
+		                        crIndex=CrBaseTags.indexof(Me.CRtags(n))
 		                        If crIndex>0 Then
 		                          filteredRes=CrBaseECodes(crindex)
 		                          RPname="full PIR"
 		                        End If
 		                      End If
+		                    Else
+		                      crIndex=CrBaseTags.indexof(Me.CRtags(n))
+		                      If crIndex>0 Then
+		                        filteredRes=CrBaseECodes(crindex)
+		                        RPname="full PIR"
+		                      End If
+		                      
 		                    End If
 		                    
 		                  End If
@@ -568,7 +575,7 @@ Inherits Thread
 		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
 		                #EndIf
 		              Else
-		                deNovoWin.rp.writeToWin("CRtag "+me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
+		                deNovoWin.rp.writeToWin("CRtag "+Me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
 		                Continue For n
 		              End If
 		              
@@ -827,7 +834,7 @@ Inherits Thread
 		        end if
 		      catch OutOfBoundsException
 		        deNovoWin.rp.writeToWin(EndofLine.unix+"OutOfBounds exception occured during "+me.CRtags(n)+" tag processing."+EndofLine.unix)
-		      end try
+		      End Try
 		    next
 		    
 		    
@@ -853,7 +860,8 @@ Inherits Thread
 		    
 		    // Reutilise data from incomplete searches!
 		    me.isFinished =True
-		  wend
+		  Wend
+		  
 		  Exception err
 		    
 		    if err isa IOException then
