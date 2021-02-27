@@ -38,7 +38,7 @@ Inherits Thread
 		    CDSseqs=""
 		    
 		    
-		    deNovoWin.rp.writeToWin("Loading CR tag tables... ")
+		    
 		    if me.RunTomTom then
 		      
 		      if TomTomPath<>"" then 
@@ -46,7 +46,7 @@ Inherits Thread
 		        deNovoWin.TTtimer.Enabled=True
 		      else
 		        
-		        deNovoWin.rp.writeToWin("Please, provide the full path to TomTom in the Settings window"+EndOfLine.UNIX)
+		        deNovoWin.rp.writeToWin("Please, provide full path to TomTom: Settings-TomTom field"+EndOfLine.UNIX)
 		        
 		        return 
 		      end
@@ -57,7 +57,7 @@ Inherits Thread
 		    
 		    'rp15
 		    BaseLocation=Resources_f.Child("CRtagBase").Child(me.hmmName+"_rp15.crtag")
-		    
+		    deNovoWin.rp.writeToWin("Loading crtag bases...")
 		    If BaseLocation<>Nil Then
 		      If BaseLocation.Exists Then
 		        instream=BaseLocation.OpenAsTextFile
@@ -175,13 +175,13 @@ Inherits Thread
 		      CrBaseECodes.Append(Trim(NthField(CrTagsCodes," ",2)))
 		    Wend
 		    instream.Close
-		    
+		    deNovoWin.rp.writeToWin("OK"+EndOfLine.UNIX)
 		    
 		    //Run hmmsearch and screen the output for CR tags.
 		    sh=New Shell
-		    sh.mode=0
+		    sh.mode=1
 		    sh.TimeOut=-1
-		    'set mode 2
+		    
 		    'export protein sequences
 		    'doesn't work LogoWin.show
 		    CDSfile=OutF.Child("CDS.fasta")
@@ -217,6 +217,9 @@ Inherits Thread
 		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+me.hmmPath+" "+CDSfile.ShellPath
 		      
 		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		      While sh.IsRunning=true
+		        app.YieldToNextThread()
+		      wend
 		      If sh.errorCode=0 then
 		        deNovoWin.rp.writeToWin(" OK"+EndofLine.unix)
 		        
@@ -273,30 +276,65 @@ Inherits Thread
 		    dim genome as cSeqObject=GenomeWin.Genome
 		    me.CRTags=DeNovoTFBSinference.CRtags
 		    me.Protnames=DeNovoTFBSinference.Protnames
-		    
+		    dim match as String
+		    dim localTFentries(0) as Integer
+		    for n=1 to ubound(me.CRTags)
+		      localTFentries.Append(-1)
+		    next
+		    id =0
+		    if genome <> nil then
+		      for each f as GBFeature in genome.Features
+		        App.YieldToNextThread()
+		        'if instr(f.FeatureText,"/gene="+protname)>0 then 'specify field to match
+		        for n=1 To ubound(me.CRTags)
+		          match = ""
+		          if CountFields(me.ProtNames(n),"_")>2 then
+		            gene = Nthfield(me.ProtNames(n),"_", CountFields(me.Protnames(n),"_"))
+		            protname = Nthfield(me.ProtNames(n),"_"+gene,1)
+		            match = "/protein_id="+chr(34)+protname
+		          else
+		            match = "/protein_id="+chr(34)+str(Me.Protnames(n))
+		          end
+		          
+		          if instr(f.FeatureText,match)>0 then
+		            localTFentries(n)=id
+		            Continue for f
+		          end
+		        next
+		        id=id+1
+		      next
+		    end
 		    For n=1 To ubound(me.CRTags)
-		      'app.YieldToNextThread()
+		      app.YieldToNextThread()
 		      res=""
 		      try
 		        if me.CRtags(n)="[indel within CR tag region]" then
 		          deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has an indel within CR tag region. Skipping it."+EndOfLine.unix+EndOfLine.unix)
 		        Else
-		          id =0
-		          if genome <> nil then
-		            protname=me.Protnames(n)
-		            gene=protname.Lastfield("_")
-		            if gene <> "" then
-		              protname=replace(protname,"_"+gene,"")
-		            end
-		            for each f as GBFeature in genome.Features
-		              App.YieldToNextThread()
-		              if instr(f.FeatureText,protname)>0 then
-		                deNovoWin.TFfeature=id
-		                exit
-		              end
-		              id=id+1
-		            next
+		          if localTFentries(n)<>-1 then
+		            deNovoWin.TFfeature=localTFentries(n)
+		          else
+		            deNovoWin.TFfeature=-1
 		          end
+		          'id =0
+		          'if genome <> nil then
+		          'protname=me.Protnames(n)
+		          'gene=protname.Lastfield("_")
+		          'if gene <> "" then
+		          'protname=replace(protname,"_"+gene,"")
+		          'end
+		          'deNovoWin.TFfeature=-1
+		          'for each f as GBFeature in genome.Features
+		          'App.YieldToNextThread()
+		          ''if instr(f.FeatureText,"/gene="+protname)>0 then 'specify field to match
+		          'dim match as String = "/protein_id="+chr(34)+str(Me.Protnames(n))
+		          'if instr(f.FeatureText,match)>0 then
+		          'deNovoWin.TFfeature=id
+		          'exit
+		          'end
+		          'id=id+1
+		          'next
+		          'end
 		          //masked in new approach
 		          'if RefProtBut.Value then
 		          'me.MsgOutput=me.MsgOutput+EndofLine.unix+EndofLine.unix+"Searching Uniprot Reference Proteins with "+me.Protnames(n)+"...")
@@ -547,19 +585,12 @@ Inherits Thread
 		                      filteredRes=CrBaseECodes_rp75(crindex)
 		                      RPname="rp75"
 		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                        crIndex=CrBaseTags.indexof(Me.CRtags(n))
+		                        crIndex=CrBaseTags.indexof(me.CRtags(n))
 		                        If crIndex>0 Then
 		                          filteredRes=CrBaseECodes(crindex)
 		                          RPname="full PIR"
 		                        End If
 		                      End If
-		                    Else
-		                      crIndex=CrBaseTags.indexof(Me.CRtags(n))
-		                      If crIndex>0 Then
-		                        filteredRes=CrBaseECodes(crindex)
-		                        RPname="full PIR"
-		                      End If
-		                      
 		                    End If
 		                    
 		                  End If
@@ -575,7 +606,7 @@ Inherits Thread
 		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
 		                #EndIf
 		              Else
-		                deNovoWin.rp.writeToWin("CRtag "+Me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
+		                deNovoWin.rp.writeToWin("CRtag "+me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
 		                Continue For n
 		              End If
 		              
@@ -834,7 +865,7 @@ Inherits Thread
 		        end if
 		      catch OutOfBoundsException
 		        deNovoWin.rp.writeToWin(EndofLine.unix+"OutOfBounds exception occured during "+me.CRtags(n)+" tag processing."+EndofLine.unix)
-		      End Try
+		      end try
 		    next
 		    
 		    
@@ -860,8 +891,7 @@ Inherits Thread
 		    
 		    // Reutilise data from incomplete searches!
 		    me.isFinished =True
-		  Wend
-		  
+		  wend
 		  Exception err
 		    
 		    if err isa IOException then

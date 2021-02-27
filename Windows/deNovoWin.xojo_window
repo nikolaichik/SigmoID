@@ -1394,10 +1394,12 @@ End
 		      cli=MeshClustPath + " " + infilePath + " --output "+ MeshClustTemp.ShellPath
 		      
 		      sh=New Shell
-		      sh.mode=0
+		      sh.mode=1
 		      sh.TimeOut=-1
 		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      
+		      While sh.IsRunning=true
+		        app.YieldToNextThread()
+		      wend
 		      If sh.errorCode <> 0 then
 		        deNovoWin.rp.writeToWin("Problem running MeShClust"+EndOfLine.Unix+sh.Result+EndOfLine.Unix)
 		        return ""
