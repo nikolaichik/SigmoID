@@ -480,7 +480,7 @@ Protected Module DeNovoTFBSinference
 		        wend
 		        
 		        'get extended hit
-		        CDStmp=NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2)'precaution for paralogues
+		        CDStmp=UpperCase(NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2))'precaution for paralogues
 		        if len(cdstmp)<50 then
 		          msgbox "Warning! Protein sequence too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
 		        end if
@@ -496,9 +496,9 @@ Protected Module DeNovoTFBSinference
 		        currenthit=leftext+currentHit
 		        
 		        'extend the right end
-		        rightPart=NthField(currentHit,"-",CountFields(currentHit,"-"))
-		        rightPartStart=InStr(CDStmp,rightPart)
-		        rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
+		        'rightPart=NthField(currentHit,"-",CountFields(currentHit,"-"))
+		        'rightPartStart=InStr(CDStmp,rightPart)
+		        'rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
 		        
 		        
 		        rightPart=NthField(currentHit,"-",1)
