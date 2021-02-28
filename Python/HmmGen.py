@@ -1,5 +1,6 @@
 import sys
 import argparse
+import copy
 from time import process_time
 import Bio
 from Bio.SeqFeature import FeatureLocation
@@ -80,7 +81,24 @@ def is_within_boundary(list_of_features, index, some_hit):
                       some_hit.location.start < \
                       list_of_features[index].location.end and \
                       list_of_features[index].strand == -1):
-                return True
+                # check intergenic distance between feature and one located upstream on the same strand
+                try:
+                    if list_of_features[index].strand == +1:
+                        if (list_of_features[index].location.start-list_of_features[index-1].location.end >= enter.intergenic_distance \
+                            and list_of_features[index+1].strand == +1) \
+                                or list_of_features[index+1].strand == -1:
+                            return True
+                        else:
+                            return False
+                    else:
+                        if (list_of_features[index].location.end-list_of_features[index+1].location.start >= enter.intergenic_distance \
+                                and list_of_features[index+1].strand == -1) \
+                                or list_of_features[index+1].strand == +1:
+                            return True
+                        else:
+                            return False
+                except KeyError:
+                    pass
             else:
                 return False
         else:
@@ -242,6 +260,20 @@ def dna_topology(path, topo_list):
     return lines
 
 
+def intergenic_distance_correct(featurelist, i):
+    if len(featurelist)>1:
+        if i>0:
+            if featurelist[i].location.start-featurelist[i-1].location.end >= enter.intergenic_distance:
+                return True
+            else:
+                return False
+        else:
+            return True
+    else:
+        return False
+
+
+
 def createparser():
     parser = argparse.ArgumentParser(
              prog='HmmGen',
@@ -250,7 +282,7 @@ def createparser():
                             file according to nhmmer results.\
                             Requires Biopython 1.73 (or newer)''',
              epilog='(c) Aliaksandr Damienikan, 2014-2017; the original code was ported to Python3.X by /'
-                    'Andrei Pleskunou  and Pavel Vychyk.')
+                    'Andrei Pleskunou and Pavel Vychyk.')
     parser.add_argument('report_file',
                         help='path to nhmmer report file produced with \
                               -tblout option.')
@@ -316,6 +348,11 @@ def createparser():
                         default='unknown type',
                         help='''feature key to add  (promoter, protein_bind \
                                 etc.)''')
+    parser.add_argument('-s', '--intergenic_distance',
+                        type=int,
+                        default=100,
+                        help='''defines average intergenic distance in annotated genome \'
+                             to exclude senseless sites ''')
     return parser
 
 version='HmmGen 2.23 (September 27, 2020)'
@@ -372,10 +409,32 @@ prog[2] = prog[2].replace('\r', '')
 records = SeqIO.parse(input_handle, 'genbank')
 allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
 total = 0
+print('\nOnly first contig will be processed.\n')
 for record in records:
     print ('\n' + "-"*50 + "\nCONTIG: " + record.id)
     print ('\n   FEATURES ADDED: \n')
     allowed_features_list = []
+    replaced_location_features = []
+    # first sort features by location start value
+    record.features.sort(key = lambda SeqFeature:SeqFeature.location.start)
+    for index, feature in enumerate(record.features):
+        # check feature coordinates, replace coordinates for features with incorrect parts joining
+        try:
+            if feature.location.start == 0 and feature.location.end == len(record.seq) and feature.type != 'source':
+                replaced_location_features.append(feature)
+                edited_feature = SeqFeature()
+                for property,value in feature.__dict__.items():
+                    if property == 'location':
+                        edited_feature.location  = FeatureLocation(value.parts[0].start, value.parts[0].end, strand = value.strand)
+                    else:
+                        edited_feature.__dict__[property] = copy.deepcopy(value)
+                record.features[index] = edited_feature
+        except AttributeError:
+            pass
+        except KeyError:
+            pass
+    if len(replaced_location_features)>0:
+        record.features.sort(key=lambda SeqFeature: SeqFeature.location.start)
     for feature in record.features:
         if feature.type in allowed_types:
             allowed_features_list.append(feature)
@@ -810,10 +869,27 @@ for record in records:
                                     score_parser(record.features[i+1]):
                                 del record.features[i]
     output_features = []
-    for feature in record.features:
-        if 'CHECK' in feature.qualifiers.keys():
-            del feature.qualifiers['CHECK']
-            output_features.append(feature)
+    # if some features coordinates were replaced due to incorrect location parts joining, restore original values
+    if len(replaced_location_features) > 0:
+        for index,feature in enumerate(record.features):
+            for ind, edited_feature in enumerate(replaced_location_features):
+                # check locus_tag and db_xref attributes to find feature with replaced coordinates
+                try:
+                    if edited_feature.qualifiers['locus_tag'] == feature.qualifiers['locus_tag'] and \
+                        edited_feature.qualifiers['db_xref'] == feature.qualifiers['db_xref'] and \
+                            edited_feature.__dict__['type'] == feature.__dict__['type'] :
+                        record.features[index] = replaced_location_features[ind]
+                        break
+                except KeyError:
+                    pass
+            if 'CHECK' in feature.qualifiers.keys():
+                del feature.qualifiers['CHECK']
+                output_features.append(feature)
+    else:
+        for feature in record.features:
+            if 'CHECK' in feature.qualifiers.keys():
+                del feature.qualifiers['CHECK']
+                output_features.append(feature)
     score_list = sorting_output_features(output_features)
     score_list.sort()
     output(score_list, output_features)
@@ -829,8 +905,8 @@ for record in records:
     print ('\nFeatures added:', len(output_features))
     print ('\n' + "-"*50)
     SeqIO.write(record, output_handle, 'genbank')
-
     total += int(len(output_features))
+    break
 output_handle.close()
 newlines = dna_topology(enter.output_file, circular_vs_linear)
 new_output_file = open(enter.output_file, 'w')
