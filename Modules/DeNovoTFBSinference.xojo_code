@@ -685,8 +685,12 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="HTH_Crp_2.hmm"
 		  Case "Fur"
 		    hmmFileName="FUR.hmm"
-		  Case "AraC"
-		    hmmFileName="AraC.hmm"
+		    
+		    'although the majority of AraC family TFs are covered by AraCd1.hmm, significant numbers 
+		    'have shorter or longer specer between two DBDs, hence tho other models are needed
+		    'and the user has to choose manually between AraCd1.hmm, AraCd2.hmm and the original HTH_18.hmm
+		    'Case "AraC"
+		    'hmmFileName="AraCd1.hmm"
 		  Case ""
 		    hmmFileName=""
 		    
@@ -721,8 +725,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  return HMMfile
 		  
-		  Exception err
-		    ExceptionHandler(err,"DeNovoTFBSinference:GetHmmFromFamilyName")
+		  
 		End Function
 	#tag EndMethod
 
@@ -763,7 +766,8 @@ Protected Module DeNovoTFBSinference
 		      
 		      'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      Const URL As String="https://www.uniprot.org/uploadlists/?"
-		      
+		      HTTPSError=""
+		      WebContent=""
 		      dim content as String = "&from=ACC&to=EMBL&format=tab&query="
 		      dim hts as new HTTPSconnection
 		      dim tempcontent as FolderItem
@@ -777,8 +781,10 @@ Protected Module DeNovoTFBSinference
 		      if HTTPSError<>"" then
 		        deNovoWin.rp.writeToWin("An error occured while converting protein ids to EMBL format, "+HTTPSError+EndOfLine.UNIX)
 		        HTTPSError=""
+		        WebContent=""
 		      else
 		        shellres=WebContent.split(Endofline.unix)
+		        HTTPSError=""
 		        WebContent=""
 		        if UBound(shellRes)>1 then
 		          if instr(shellRes(0),"from")<>0 then  shellRes.RemoveRowAt(0)
@@ -823,7 +829,7 @@ Protected Module DeNovoTFBSinference
 		        End
 		      Next
 		      ecodes=genpeptIDs  'a Uniprot accession can be converted to several NCBI ones due to identical proteins. Most often we need just one of those 
-		      deNovoWin.rp.writeToWin(Str(CountFields(ecodes,",")+1)+" left after removing redundancies."+EndOfLine.unix)
+		      deNovoWin.rp.writeToWin(Str(CountFields(ecodes,","))+" left after removing redundancies."+EndOfLine.unix)
 		      
 		      'End If
 		    End
@@ -987,7 +993,7 @@ Protected Module DeNovoTFBSinference
 		      return ""
 		    end
 		  else
-		    getprot=Resources_f.Child("getprot.py")
+		    'getprot=Resources_f.Child("getprot.py")
 		    'replace getprot.py with xojo URLConnection
 		    Const URL As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 		    dim content as String = "db=protein&rettype=gp&retmode=text&id="+UniProtCodes
@@ -995,6 +1001,8 @@ Protected Module DeNovoTFBSinference
 		    dim tempcontent as FolderItem
 		    tempcontent=TemporaryFolder.Child("gpfile")
 		    if tempcontent.Exists then tempcontent.Remove
+		    HTTPSError=""
+		    WebContent=""
 		    hts.SetRequestContent(content, "application/x-www-form-urlencoded")
 		    hts.Send("POST", URL, tempcontent)
 		    while HTTPSerror="" and WebContent="" 
@@ -1002,11 +1010,11 @@ Protected Module DeNovoTFBSinference
 		    wend
 		    if HTTPSError<>"" then
 		      deNovoWin.rp.writeToWin("HTTPS error occured while retrieving genome regions from NCBI, "+HTTPSError+EndOfLine.UNIX)
-		      HTTPSError=""
 		    else
 		      Entry=WebContent
-		      WebContent=""
 		    end
+		    HTTPSError=""
+		    WebContent=""
 		    'If getprot.exists Then
 		    'sh=New ShellT
 		    'sh.mode=0
@@ -1145,29 +1153,36 @@ Protected Module DeNovoTFBSinference
 		      
 		      // Get the required GenBank entry fragment
 		      if InStr(UniProtCodes,"localgbk")>0 Then
+		        deNovoWin.rp.writeToWin("Getting  fragment from the opened GenBank file: "+str(GenomeWin.GenomeFile.Name)+"... ")
 		        extractfragment=Resources_f.Child("ExtractFragment.py")
 		        If extractfragment.exists and GenomeWin.GenomeFile.exists Then
 		          sh=New Shell
-		          sh.mode=0
+		          sh.mode=1
 		          sh.TimeOut=-1
 		          cli=pythonpath+extractfragment.ShellPath+" "+GenomeWin.GenomeFile.ShellPath+" @@coord "+str(leftCOO)+","+str(rightCOO)
 		          
 		          'assume bash is the normal user shell
 		          'execute bash with login scripts to set the same env as in terminal
 		          'command must be in single quotes
-		          'set mode 2
+		          
 		          sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		          
+		          While sh.IsRunning=true
+		            app.YieldToNextThread()
+		          wend
+		          
 		          If sh.errorCode=0 Then
 		            Entry=sh.Result
+		            deNovoWin.rp.writeToWin("OK"+EndOfLine.UNIX)
 		          else
-		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't get nearby operons region from "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Failed. Can't get nearby operons region from "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
 		            deNovoWin.rp.writeToWin(sh.Result)
 		          end
 		        else
 		          if extractfragment.exists then
-		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Check if genome file exists: "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Failed. Check if genome file exists: "+GenomeWin.GenomeFile.ShellPath+EndOfLine.unix)
 		          else
-		            deNovoWin.rp.writeToWin("Can't get nearby operons region, check if ExtractFragment.py is present in  SigmoID Resources folder."+EndOfLine.unix)
+		            deNovoWin.rp.writeToWin("Failed. Can't get nearby operons region, check if ExtractFragment.py is present in  SigmoID Resources folder."+EndOfLine.unix)
 		          end
 		          
 		          
@@ -2305,10 +2320,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  Select case FamilyName
 		  case "OmpR"               'PF00486
-		    Return False 'all direct repeats
-		    
-		  Case "AraC"
-		    Return False 'good for the majority; few exceptions should also be OK with this setting
+		    return false 'all direct repeats
 		    
 		  case "CitT"                      'PF12431
 		    'Similar to Trans_reg_C; these two are often treated as one "Response regulator" family
