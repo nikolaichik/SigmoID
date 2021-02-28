@@ -685,12 +685,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="HTH_Crp_2.hmm"
 		  Case "Fur"
 		    hmmFileName="FUR.hmm"
-		    
-		    'although the majority of AraC family TFs are covered by AraCd1.hmm, significant numbers 
-		    'have shorter or longer specer between two DBDs, hence tho other models are needed
-		    'and the user has to choose manually between AraCd1.hmm, AraCd2.hmm and the original HTH_18.hmm
-		    'Case "AraC"
-		    'hmmFileName="AraCd1.hmm"
+		  Case "AraC"
+		    hmmFileName="AraC.hmm"
 		  Case ""
 		    hmmFileName=""
 		    
