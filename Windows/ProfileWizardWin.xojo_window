@@ -1191,6 +1191,59 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub FillDefaults(ProfileSeqs As string)
+		  // show with default cutoff values
+		  // add defaults as hints only
+		  
+		  'Calculate Info Content
+		  Dim IC As Double
+		  IC=Fasta2IC(ProfileSeqs)
+		  
+		  'Guess the hmm cutoffs
+		  Dim cutoffs As String
+		  cutoffs=Bits2thresholds(IC)
+		  
+		  '#=GF TC "+Str(TC)+" "+Str(TC)+EndOfLine
+		  '#=GF GA "+Str(GA)+" "+Str(GA)+EndOfLine
+		  '#=GF NC "+Str(NC)+" "+Str(NC)+EndOfLine
+		  
+		  Dim TC,GA,NC As String
+		  
+		  TC=NthField(cutoffs,"#=GF TC ",2)
+		  TC=NthField(TC," ",1)
+		  TrustedField.Hint=TC
+		  
+		  GA=NthField(cutoffs,"#=GF GA ",2)
+		  GA=NthField(GA," ",1)
+		  GatheringField.Hint=GA
+		  
+		  NC=NthField(cutoffs,"#=GF NC ",2)
+		  NC=NthField(NC," ",1)
+		  NoiseField.Hint=NC
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"ProfileWizardWin:FillDefaults")
+		    
+		    
+		    
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Reveal(ProfileSeqs As string)
+		  FillDefaults(ProfileSeqs)
+		  
+		  Self.show
+		  
+		  
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h0
 		CRtags(0) As string
@@ -1204,6 +1257,15 @@ End
 		Sub TextChange()
 		  CheckGathering
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  If Me.Text="" Then
+		    If key=Chr(9) Then
+		      Me.Text=Me.Hint
+		    End If
+		  End If
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events GatheringField
@@ -1227,6 +1289,15 @@ End
 		Sub TextChange()
 		  CheckGathering
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  If Me.Text="" Then
+		    If key=Chr(9) Then
+		      Me.Text=Me.Hint
+		    End If
+		  End If
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events FeatureCombo

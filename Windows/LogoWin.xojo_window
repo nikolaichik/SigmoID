@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -1147,7 +1146,7 @@ End
 
 	#tag MenuHandler
 		Function AlignmentProfileWizard() As Boolean Handles AlignmentProfileWizard.Action
-			ProfileWizardWin.show
+			ProfileWizardWin.reveal(me.sequences)
 			
 			Return True
 			
@@ -1986,10 +1985,6 @@ End
 		    
 		    if alimaskTmp<>nil then
 		      if infile<>Nil then
-		        'shell within xojo doesn't read .bash_profile - hence PATH isn't set properly
-		        'and most programs don't work
-		        'hence the full path below
-		        '/usr/local/bin/alimask
 		        FixPath4Windows(alimaskTmp)
 		        cli=alimaskpath+" --alirange "+mask+weighting+inFile.ShellPath+" "+alimaskTmp.shellpath
 		        
@@ -3764,6 +3759,9 @@ End
 		        AlignmentLength=str(maxlength)
 		        minAlignmentLength=str(minlength)
 		        tis.Close
+		        
+		        ProfileWizardWin.FillDefaults(Sequences) ' hints with default cutoffs
+		        
 		      end
 		      
 		      
