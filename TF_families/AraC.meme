@@ -555,7 +555,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 30 E= 3.7e-214
 0.900000 0.000000 0.100000 0.000000
 0.000000 0.000000 1.000000 0.000000
 
-URL 
+URL http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulon.jsp?regulon_id=65824
 
 MOTIF NSYGRIDYYR_XygR AraC-family
 
