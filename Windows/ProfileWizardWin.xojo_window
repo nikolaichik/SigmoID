@@ -1244,6 +1244,57 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub UpdateCRtag()
+		  'CRtagField.Text=CRtags(Me.ListIndex+1)
+		  'CRtagPositions=CRtags(Me.ListIndex+1)
+		  
+		  Dim f, CDSFile As folderitem
+		  Dim OutStream As TextOutputStream
+		  Dim hmmPath, CRtag, hmmSearchRes As String
+		  Dim CRtagFileName As String
+		  Dim inStream As TextInputStream
+		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
+		  
+		  'redim PopupFiles(-1)
+		  'f=Profile_f
+		  f=Resources_f.Child("TF_HMMs")
+		  f=f.Child(TFhmmPopup.Text)
+		  
+		  If f<>Nil Then
+		    hmmPath = f.ShellPath
+		    CRtagPositions=GetRealCRtag(hmmPath)
+		    
+		    If SeedProteinArea.TextColor=&c99999900 Then 'placefiller
+		    Else                                         'hopefully, proper protein sequence
+		      ' write CDS seq to the tmp file
+		      CDSFile=TemporaryFolder.child("CDSfile.fa")
+		      If CDSFile<>Nil Then
+		        OutStream = TextOutputStream.Create(CDSFile)
+		        If outStream<>Nil Then
+		          'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
+		          Dim Pseq As String
+		          Pseq=ReplaceAll(SeedProteinArea.Text," ","_")   'hmmer doesn't like spaces
+		          Pseq=ReplaceAll(Pseq,Chr(9),"_")                'hmmer doesn't like tabs
+		          
+		          outstream.Write(Pseq)
+		          outstream.close
+		        End If
+		      End If
+		      
+		      'extract CRtagresidues :
+		      hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
+		      CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		      CRtagSeqField.Text=CRtag
+		      'CRtagField.Text=CRtags(Me.ListIndex+1)
+		      CRtagField.Text=CRtagPositions 'CRtagPositions were set by GetCRtags
+		    End If
+		  End If
+		  
+		  EnableSave
+		End Sub
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h0
 		CRtags(0) As string
@@ -2220,52 +2271,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Change()
-		  'CRtagField.Text=CRtags(Me.ListIndex+1)
-		  'CRtagPositions=CRtags(Me.ListIndex+1)
-		  
-		  dim f, CDSFile as folderitem
-		  dim OutStream as TextOutputStream
-		  dim hmmPath, CRtag, hmmSearchRes as string
-		  dim CRtagFileName as string
-		  dim inStream as TextInputStream
-		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
-		  
-		  'redim PopupFiles(-1)
-		  'f=Profile_f
-		  f=Resources_f.Child("TF_HMMs")
-		  f=f.Child(me.Text)
-		  
-		  if f<>Nil then
-		    hmmPath = f.ShellPath
-		    CRtagPositions=GetRealCRtag(hmmPath)
-		    
-		    if SeedProteinArea.TextColor=&c99999900 then 'placefiller
-		    else                                         'hopefully, proper protein sequence
-		      ' write CDS seq to the tmp file
-		      CDSFile=TemporaryFolder.child("CDSfile.fa")
-		      if CDSFile<>Nil then
-		        OutStream = TextOutputStream.Create(CDSFile)
-		        if outStream<>Nil then
-		          'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
-		          dim Pseq as string
-		          Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
-		          Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
-		          
-		          outstream.Write(Pseq)
-		          outstream.close
-		        end if
-		      end if
-		      
-		      'extract CRtagresidues :
-		      hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
-		      CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
-		      CRtagSeqField.Text=CRtag
-		      'CRtagField.Text=CRtags(Me.ListIndex+1)
-		      CRtagField.Text=CRtagPositions 'CRtagPositions were set by GetCRtags
-		    end if
-		  end if
-		  
-		  EnableSave
+		  UpdateCRtag
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2291,7 +2297,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub TextChange()
-		  EnableSave
+		  UpdateCRtag
 		End Sub
 	#tag EndEvent
 	#tag Event
