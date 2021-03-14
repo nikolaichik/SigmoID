@@ -210,7 +210,7 @@ End
 		    for k=0 to listbox1.ListCount-1
 		      if me.listbox1.CellCheck(k,0) = true then
 		        
-		        dim apath as string=listbox1.Cell(k,5)
+		        dim apath as string=listbox1.Cell(k,6)
 		        f=getfolderitem(apath, FolderItem.PathTypeShell)
 		        
 		        if f.Exists then 
@@ -343,14 +343,15 @@ End
 		Sub Open()
 		  
 		  'me.ColumnWidths="20,300,100,*,0"
-		  Me.ColumnWidths="30,200,120,*,70,0,0"      'Adjust CellBackgroundPaint if changed!
+		  Me.ColumnWidths="30,200,100,100,*,70,0,0"      'Adjust CellBackgroundPaint if changed!
 		  Me.DefaultRowHeight=59  'LogoPic.Height=45
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		  me.Heading(0)=" "
 		  Me.Heading(1)="Profile Name"
 		  Me.Heading(2)="Protein_ID"
-		  me.Heading(3)="Logo"
-		  Me.Heading(4)="Site #"
+		  Me.Heading(3) = "Gene"
+		  me.Heading(4)="Logo"
+		  Me.Heading(5)="Site #"
 		  
 		  
 		End Sub
@@ -360,7 +361,7 @@ End
 		  If Me.ListIndex >= 0 and Me.Cell(Me.ListIndex, 5)<>"" Then
 		    PushButton1.Enabled=true
 		    PushButton2.Enabled=true
-		    sigpath = Me.Cell(Me.ListIndex, 5)
+		    sigpath = Me.Cell(Me.ListIndex, 6)
 		  else
 		    Pushbutton1.Enabled=false
 		    PushButton2.Enabled=false
@@ -372,7 +373,7 @@ End
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
 		  ' LogoPix array isn't initialised initially (and some elements may be nil afterwards)
 		  dim p as picture
-		  if Column=3 then
+		  if Column=4 then
 		    If row<=Me.lastindex Then
 		      Dim w As Integer
 		      'Me.ColumnWidths="30,200,120,*,90,0,0"

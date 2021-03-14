@@ -8,7 +8,7 @@ Begin Window ScanGenomeWinCRtag
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   494
+   Height          =   450
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,85 +24,7 @@ Begin Window ScanGenomeWinCRtag
    Resizeable      =   True
    Title           =   "#kScanGenomeTitle"
    Visible         =   False
-   Width           =   406
-   Begin Label Label3
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "#kGenome_"
-      TextAlign       =   2
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   419
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   67
-   End
-   Begin TextField GenomeField
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &c00FFFFFF
-      Bold            =   False
-      Border          =   True
-      CueText         =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   "Path to genome to be searched"
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   93
-      LimitText       =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   420
-      Transparent     =   True
-      Underline       =   False
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   191
-   End
+   Width           =   408
    Begin PushButton RunButton
       AutoDeactivate  =   True
       Bold            =   False
@@ -110,13 +32,13 @@ Begin Window ScanGenomeWinCRtag
       Cancel          =   False
       Caption         =   "#kRun"
       Default         =   True
-      Enabled         =   False
-      Height          =   20
+      Enabled         =   True
+      Height          =   31
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   296
+      Left            =   298
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -129,71 +51,7 @@ Begin Window ScanGenomeWinCRtag
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   454
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   90
-   End
-   Begin PushButton CancelButt
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   0
-      Cancel          =   True
-      Caption         =   "#kCancel"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   194
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   454
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   90
-   End
-   Begin PushButton SelectGenomeButt
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   0
-      Cancel          =   False
-      Caption         =   "#kChoose"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   "Select genome to search"
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   296
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   13
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   421
+      Top             =   403
       Transparent     =   True
       Underline       =   False
       Visible         =   True
@@ -202,7 +60,7 @@ Begin Window ScanGenomeWinCRtag
    Begin Separator Separator2
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   18
+      Height          =   13
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -216,10 +74,10 @@ Begin Window ScanGenomeWinCRtag
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   396
+      Top             =   378
       Transparent     =   True
       Visible         =   True
-      Width           =   406
+      Width           =   408
    End
    Begin Listbox SigList
       AutoDeactivate  =   True
@@ -239,7 +97,7 @@ Begin Window ScanGenomeWinCRtag
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   398
+      Height          =   380
       HelpTag         =   "The genome will be searched with all the profiles checked"
       Hierarchical    =   False
       Index           =   -2147483648
@@ -269,7 +127,7 @@ Begin Window ScanGenomeWinCRtag
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   406
+      Width           =   408
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -570,8 +428,19 @@ End
 		  dim infileName, crtags(-1), sigtagbase(-1), sigpathbase(-1), protdescr(-1),notfound(-1), summary(-1), hmmsearch, fname, summstring, tag, basename,content as string
 		  dim cdsfile as FolderItem
 		  dim protNFound as Integer
+		  if GenomeWin.GenomeFile <> Nil then
+		    'LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+LogoWin.GenomeFile.shellpath+" loaded.")
+		    gbk2fasta(GenomeWin.GenomeFile)
+		  else
+		    MsgBox("Please, load the genome file first (File -> Open Genome...")
+		    return
+		  end
 		  
 		  cdsfile=TemporaryFolder.child("gbkProtexport.fasta") 'getting converted gbk file 
+		  if cdsfile is Nil then
+		    MsgBox("Exporting genome file to fasta failed, check destination path: "+str(TemporaryFolder)+EndOfLine.UNIX)
+		    return
+		  end
 		  Logowin.ScanningGenome=true 'to prevent file writing messages
 		  infileName=logowin.genomefile.displayname
 		  Sigcount=0
@@ -646,16 +515,17 @@ End
 		                    w.Listbox1.AddRow
 		                    w.Listbox1.Cell(w.Listbox1.LastIndex,1)=basename
 		                    w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount)
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,3)=Nthfield(Nthfield(DeNovoTFBSinference.CDSseqs,protdescr(tagsCount),2)," ",2)
 		                    w.Listbox1.RowTag(w.Listbox1.LastIndex)=p
-		                    w.Listbox1.Cell(w.Listbox1.LastIndex,4)=str(countSubst(content,">"))
-		                    w.Listbox1.Cell(w.Listbox1.LastIndex,5)=f3.ShellPath
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,5)=str(countSubst(content,">"))
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,6)=f3.ShellPath
 		                    tis=infofile.OpenAsTextFile
 		                    if tis<> nil then 
 		                      content=tis.ReadAll 
 		                      tis.close
 		                      'content=ReplaceAll(content,". ","."+EndOfLine.UNIX)
 		                    end
-		                    w.Listbox1.Cell(w.Listbox1.LastIndex,6)=content
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,7)=content
 		                    
 		                  end if
 		                  for sigTCount as integer=0 to UBound(sigtagbase)
@@ -680,11 +550,12 @@ End
 		                                tis.Close
 		                                dim p as Picture = MakeLogoPic(content)
 		                                w.Listbox1.AddRow
-		                                w.Listbox1.Cell(w.Listbox1.LastIndex,1)=" ~"+basename
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,1) = str(tagsDiff)+"~"+str(basename)
 		                                w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount) 'added TF name
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,3)=Nthfield(Nthfield(DeNovoTFBSinference.CDSseqs,protdescr(tagsCount),2)," ",2)
 		                                w.Listbox1.RowTag(w.Listbox1.LastIndex)=p
-		                                w.Listbox1.Cell(w.Listbox1.LastIndex,4)=str(countSubst(content,">"))
-		                                w.Listbox1.Cell(w.Listbox1.LastIndex,5)=f3.ShellPath
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,5)=str(countSubst(content,">"))
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,6)=f3.ShellPath
 		                                
 		                                tis=infofile.OpenAsTextFile
 		                                if tis<> nil then 
@@ -692,7 +563,7 @@ End
 		                                  tis.close
 		                                  'content=ReplaceAll(content,". ",EndOfLine.UNIX+".")
 		                                end
-		                                w.Listbox1.Cell(w.Listbox1.LastIndex,6)=content
+		                                w.Listbox1.Cell(w.Listbox1.LastIndex,7)=content
 		                                
 		                              end if
 		                              
@@ -745,11 +616,12 @@ End
 		                        tis.Close
 		                        dim p as Picture = MakeLogoPic(content)
 		                        w.Listbox1.AddRow
-		                        w.Listbox1.Cell(w.Listbox1.LastIndex,1)=" !"+basename
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,1)="!_"+str(tagsDiff)+"_"+basename
 		                        w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount) 'added TF name
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,3)=Nthfield(Nthfield(DeNovoTFBSinference.CDSseqs,protdescr(tagsCount),2)," ",2)
 		                        w.Listbox1.RowTag(w.Listbox1.LastIndex)=p
-		                        w.Listbox1.Cell(w.Listbox1.LastIndex,4)=str(countSubst(content,">"))
-		                        w.Listbox1.Cell(w.Listbox1.LastIndex,5)=f3.ShellPath
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,5)=str(countSubst(content,">"))
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,6)=f3.ShellPath
 		                        
 		                        tis=infofile.OpenAsTextFile
 		                        if tis<> nil then 
@@ -757,7 +629,7 @@ End
 		                          tis.close
 		                          'content=ReplaceAll(content,". ",EndOfLine.UNIX+".")
 		                        end
-		                        w.Listbox1.Cell(w.Listbox1.LastIndex,6)=content
+		                        w.Listbox1.Cell(w.Listbox1.LastIndex,7)=content
 		                        
 		                      end if
 		                      
@@ -818,32 +690,6 @@ End
 		  self.hide
 		  self.ScanGenomeCR1
 		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events CancelButt
-	#tag Event
-		Sub Action()
-		  self.hide
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events SelectGenomeButt
-	#tag Event
-		Sub Action()
-		  LogoWin.GenomeFile=GetOpenFolderItem("")
-		  gbk2fasta(LogoWin.GenomeFile)
-		  if LogoWin.GenomeFile<> Nil then
-		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+LogoWin.GenomeFile.shellpath+" loaded.")
-		    if LogoWin.Logofile<>nil then
-		      LogoWin.LogoWinToolbar.Item(1).Enabled=true
-		      LogoWin.LogoWinToolbar.Item(2).Enabled=false 'new genome, no nhmmer output yet
-		      LogoWin.LogoWinToolbar.Item(3).Enabled=true
-		      
-		    end if
-		    GenomeField.text=LogoWin.Genomefile.shellpath
-		    RunButton.enabled=true
-		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
