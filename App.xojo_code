@@ -758,30 +758,57 @@ Inherits Application
 		  Dim chipMfile As folderitem
 		  Dim dataSet As String
 		  
-		  If InStr(chipMout, " s:")>0 Then
-		    dataSet=" s:"                     'simple multi-fasta
-		  Elseif InStr(chipMout, " w:")>0 Then
-		    dataSet=" w:"                     'weighted data set
-		  Elseif InStr(chipMout, " p:")>0 Then
-		    dataSet=" p:"                     'peak data with the positional preferences profile
-		  Elseif InStr(chipMout, " m:")>0 Then
-		    dataSet=" m:"                     'peak summit mode
-		  Else
-		    MsgBox "Can't guess dataset format."
-		    Exit                              'smth wrong with the file!
-		  End If
-		  chipMfileName=NthField(chipMout, dataSet, 2)
-		  chipMfileName=ReplaceAll(chipMfileName, "\ ", "\\\") 'mask escaped spaces in filename
-		  chipMfileName=NthField(chipMfileName, " ",1)
-		  
-		  If InStr(chipMfileName, "/")>0 Then 'hopefully full path
-		    chipMfileName=ReplaceAll(chipMfileName, "\\\", "\ ") 'restore escaped path
-		    chipMfile=GetFolderItem(chipMfileName,FolderItem.PathTypeShell)
-		  Else 'filename only
-		    'assume input file is in the same dir as output
-		    chipMfileName=ReplaceAll(chipMfileName, "\\\", " ") 'restore spaces in filename
-		    If f <>Nil Then
-		      chipMfile=f.Parent.child(chipMfileName)
+		  If InStr(chipMout, ":'")>0 Then 'new format with native path
+		    If InStr(chipMout, " s:'")>0 Then
+		      dataSet=" s:'"                     'simple multi-fasta
+		    Elseif InStr(chipMout, " w:'")>0 Then
+		      dataSet=" w:'"                     'weighted data set
+		    Elseif InStr(chipMout, " p:'")>0 Then
+		      dataSet=" p:'"                     'peak data with the positional preferences profile
+		    Elseif InStr(chipMout, " m:'")>0 Then
+		      dataSet=" m:'"                     'peak summit mode
+		    Else
+		      MsgBox "Can't guess dataset format."
+		      Exit                              'smth wrong with the file!
+		    End If
+		    chipMfileName=NthField(chipMout, dataSet, 2)
+		    chipMfileName=NthField(chipMfileName, "' ",1)
+		    
+		    If InStr(chipMfileName, "/")>0 Then 'hopefully full path
+		      chipMfile=GetFolderItem(chipMfileName,FolderItem.PathTypeNative)
+		    Else 'filename only
+		      'assume input file is in the same dir as output
+		      If f <>Nil Then
+		        chipMfile=f.Parent.child(chipMfileName)
+		      End If
+		    End If
+		    
+		  Else                            'old format with shell path
+		    If InStr(chipMout, " s:")>0 Then
+		      dataSet=" s:"                     'simple multi-fasta
+		    Elseif InStr(chipMout, " w:")>0 Then
+		      dataSet=" w:"                     'weighted data set
+		    Elseif InStr(chipMout, " p:")>0 Then
+		      dataSet=" p:"                     'peak data with the positional preferences profile
+		    Elseif InStr(chipMout, " m:")>0 Then
+		      dataSet=" m:"                     'peak summit mode
+		    Else
+		      MsgBox "Can't guess dataset format."
+		      Exit                              'smth wrong with the file!
+		    End If
+		    chipMfileName=NthField(chipMout, dataSet, 2)
+		    chipMfileName=ReplaceAll(chipMfileName, "\ ", "\\\") 'mask escaped spaces in filename
+		    chipMfileName=NthField(chipMfileName, " ",1)
+		    
+		    If InStr(chipMfileName, "/")>0 Then 'hopefully full path
+		      chipMfileName=ReplaceAll(chipMfileName, "\\\", "\ ") 'restore escaped path
+		      chipMfile=GetFolderItem(chipMfileName,FolderItem.PathTypeShell)
+		    Else 'filename only
+		      'assume input file is in the same dir as output
+		      chipMfileName=ReplaceAll(chipMfileName, "\\\", " ") 'restore spaces in filename
+		      If f <>Nil Then
+		        chipMfile=f.Parent.child(chipMfileName)
+		      End If
 		    End If
 		  End If
 		  
@@ -807,20 +834,20 @@ Inherits Application
 		      msgbox "Can't write converted file."
 		    end if
 		  else
-		    chipMfileName=NthField(chipMout, dataSet, 2)
-		    chipMfileName=ReplaceAll(chipMfileName, "\ ", "\\\") 'mask escaped spaces in filename
-		    chipMfileName=NthField(chipMfileName, " ",1)
-		    
-		    If InStr(chipMfileName, "/")>0 Then 'hopefully full path
-		      chipMfileName=ReplaceAll(chipMfileName, "\\\", "\ ") 'restore escaped path
-		      chipMfile=GetFolderItem(chipMfileName,FolderItem.PathTypeShell)
-		    Else 'filename only
-		      'assume input file is in the same dir as output
-		      chipMfileName=ReplaceAll(chipMfileName, "\\\", " ") 'restore spaces in filename
-		      If f <>Nil Then
-		        chipMfile=f.Parent.child(chipMfileName)
-		      End If
-		    End If
+		    'chipMfileName=NthField(chipMout, dataSet, 2)
+		    'chipMfileName=ReplaceAll(chipMfileName, "\ ", "\\\") 'mask escaped spaces in filename
+		    'chipMfileName=NthField(chipMfileName, " ",1)
+		    '
+		    'If InStr(chipMfileName, "/")>0 Then 'hopefully full path
+		    'chipMfileName=ReplaceAll(chipMfileName, "\\\", "\ ") 'restore escaped path
+		    'chipMfile=GetFolderItem(chipMfileName,FolderItem.PathTypeShell)
+		    'Else 'filename only
+		    ''assume input file is in the same dir as output
+		    'chipMfileName=ReplaceAll(chipMfileName, "\\\", " ") 'restore spaces in filename
+		    'If f <>Nil Then
+		    'chipMfile=f.Parent.child(chipMfileName)
+		    'End If
+		    'End If
 		    
 		    If chipMfile=Nil Or (chipMfile<>Nil And (Not chipMfile.Exists)) Then
 		      openF = New OpenDialog

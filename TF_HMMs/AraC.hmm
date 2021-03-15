@@ -20,7 +20,8 @@ WIDTH 17-20
 NOTE  CR tag is derived from structures for MarR, Rob, AdpA and Ada.
 NOTE  Only the first two show contacts for the second DBD.  
 NOTE  The structures used: 1xs9, 1bl0, 1d5y, 3w6v, 1zgw.
-GA    33.60 33.60;
+NOTE  Gathering threshold decreased to accommodate MxiE from Shigella flexneri
+GA    31.60 31.60;
 TC    33.60 33.60;
 NC    33.50 33.50;
 BM    hmmbuild --amino HMM.ann SEED.ann

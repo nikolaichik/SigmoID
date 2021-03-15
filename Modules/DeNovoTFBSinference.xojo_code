@@ -55,7 +55,7 @@ Protected Module DeNovoTFBSinference
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  if outfile.Exists then outfile.Delete
-		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+Str(inFile.ShellPath)
+		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+Str(inFile.NativePath)+"'"
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
 		  for i as integer = 0 to WindowCount - 1
@@ -2258,7 +2258,7 @@ Protected Module DeNovoTFBSinference
 		  #if TargetWin32
 		    cli=TemporaryFolder.child("meme.exe").ShellPath+" "+infile.ShellPath
 		  #else
-		    cli=MEMEpath+" '"+infile.ShellPath+"'"
+		    cli=MEMEpath+" '"+infile.NativePath+"'"
 		  #EndIf
 		  
 		  If cores2use>1 Then 'for parallelised meme
@@ -2274,7 +2274,7 @@ Protected Module DeNovoTFBSinference
 		    
 		  End If
 		  
-		  cli=cli+" -oc '"+outFolder.ShellPath+"' "+Options
+		  cli=cli+" -oc '"+outFolder.NativePath+"' "+Options
 		  
 		  sh=New Shell
 		  sh.mode=1
