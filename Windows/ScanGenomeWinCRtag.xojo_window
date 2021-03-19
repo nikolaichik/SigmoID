@@ -513,9 +513,20 @@ End
 		                    tis.Close
 		                    dim p as Picture = MakeLogoPic(content)
 		                    w.Listbox1.AddRow
+		                    
+		                    // Listbox1 columns are:
+		                    '0 - checkbox
+		                    '1 - Profile name
+		                    '2 - Protein_ID
+		                    '3 - Gene
+		                    '4 – Logo
+		                    '5 - Site #
+		                    '6 - ShellPath to profile file
+		                    '7 - Profile info
+		                    
 		                    w.Listbox1.Cell(w.Listbox1.LastIndex,1)=basename
 		                    w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount)
-		                    w.Listbox1.Cell(w.Listbox1.LastIndex,3)=Nthfield(Nthfield(DeNovoTFBSinference.CDSseqs,protdescr(tagsCount),2)," ",2)
+		                    w.Listbox1.Cell(w.Listbox1.LastIndex,3)=NthField(NthField(DeNovoTFBSinference.CDSseqs,protdescr(tagsCount),2)," ",2)
 		                    w.Listbox1.RowTag(w.Listbox1.LastIndex)=p
 		                    w.Listbox1.Cell(w.Listbox1.LastIndex,5)=str(countSubst(content,">"))
 		                    w.Listbox1.Cell(w.Listbox1.LastIndex,6)=f3.ShellPath

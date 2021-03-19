@@ -1036,7 +1036,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub gbk2fasta(f as folderItem)
-		  dim stre as textInputStream
+		  Dim stre As textInputStream
 		  dim s,s0,features,currentFeature, cf1,name,coord,start,finish,Separator,splitCoords,leftC,FeatureArray(-1) as string
 		  dim en,st,l,m,n,p,p1,p2,p3,p4,p5 as integer
 		  dim t as double
@@ -1199,15 +1199,16 @@ Protected Module Globals
 		  
 		  
 		  
-		  dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+		  Dim prot,separTransl,separProtID,separGene,separLocusTag,separProd,separ2,TitleLine As String
 		  
 		  dim n1,u1 as integer
 		  dim ft as GBFeature
 		  
 		  separTransl="/translation="+chr(34)
 		  separProtID="/protein_id="+chr(34)
-		  separGene="/gene="+chr(34)
-		  separProd="/product="+chr(34)
+		  separGene="/gene="+Chr(34)
+		  separLocusTag="/locus_tag="+Chr(34)
+		  separProd="/product="+Chr(34)
 		  separ2=chr(34)
 		  dim outfile as FolderItem
 		  outfile = TemporaryFolder.child("gbkProtexport.fasta")
@@ -1225,7 +1226,12 @@ Protected Module Globals
 		        prot=NthField(prot,separ2,1)
 		        if prot<>"" then
 		          TitleLine=TitleLine+" "+prot
-		        end if
+		        End If
+		        prot=NthField(ft.FeatureText,separLocusTag,2)              'Locus_tag
+		        prot=NthField(prot,separ2,1)
+		        If prot<>"" Then
+		          TitleLine=TitleLine+" "+prot
+		        End If
 		        prot=NthField(ft.FeatureText,separProd,2)                  'Product
 		        prot=NthField(prot,separ2,1)
 		        TitleLine=TitleLine+" "+prot
