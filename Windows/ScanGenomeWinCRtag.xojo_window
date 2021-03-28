@@ -144,9 +144,18 @@ End
 	#tag EndEvent
 
 
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			Close
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Method, Flags = &h1, Description = 4275696C645369674172726179
 		Protected Sub BuildHMMArrayCR()
-		  dim m,n,k as integer
+		  Dim m,n,k As Integer
 		  dim froot,f,f2, fitemn, fitemk as folderitem
 		  dim aName, sigfolpath, temp as string
 		  
@@ -173,10 +182,27 @@ End
 		      if right(fitemn.Name,4)=".hmm" then 
 		        aName = Replaceall(fitemn.DisplayName, ".hmm","")
 		        'handle special names:
+		        
+		        
+		        // NEED TO STANDARTISE NAMES HERE AND IN GetHmmFromFamilyName
+		        
 		        if InStr(aname, "GerE")>0 then
 		          aName="LuxR"
-		        elseif InStr(aname, "Trans_reg_C")>0 then
+		        Elseif InStr(aname, "Trans_reg_C")>0 Then
 		          aName="OmpR"
+		        Elseif InStr(aname, "MarR_Superfamily")>0 Then
+		          aName="MarR"
+		        Elseif InStr(aname, "XRE_superfamily")>0 Then
+		          aName="XRE"
+		        Elseif InStr(aname, "HTH_8")>0 Then
+		          aName="bEBP"                                  'inconsisted names in other places
+		        Elseif InStr(aname, "HTH_20")>0 Then
+		          aName="ArsR"
+		        Elseif InStr(aname, "HTH_AsnC_type")>0 Then
+		          aName="AsnC"
+		        Elseif InStr(aname, "HTH_Crp_2")>0 Then
+		          aName="CRP"
+		          
 		        end
 		        if InStr(aName,"_")>0 then
 		          aName=NthField(aName,"_",1) 
@@ -188,11 +214,11 @@ End
 		          end
 		          fitemk=f.item(k)
 		          temp= fitemk.DisplayName
-		          if instr(temp, aName)>0 then
+		          if instr(temp, aName)>0 then                          'allows customised (to an extent) folder names
 		            if sigfolpath="" then
 		              sigfolpath=fitemk.NativePath
 		            else
-		              sigfolpath=sigfolpath+";"+fitemk.NativePath
+		              sigfolpath=sigfolpath+";"+fitemk.NativePath       'only the 1st path is used now
 		            end
 		          end
 		        next

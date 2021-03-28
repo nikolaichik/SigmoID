@@ -4470,9 +4470,14 @@ End
 		    WriteToSTDOUT (EndofLine+EndofLine+"Running nhmmer...")
 		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		    If sh.errorCode=0 then
-		      WriteToSTDOUT (EndofLine+Sh.Result)
+		      WriteToSTDOUT (EndOfLine+Sh.Result)
 		      LogoWinToolbar.Item(2).Enabled=true
 		      LastSearch="nhmmer"
+		      
+		      //save number of hits for genome scans
+		      Dim cnt As String = NthField(Sh.Result, "Total number of hits:",2)
+		      HitsNo=Val(cnt)
+		      
 		      return true
 		    else
 		      WriteToSTDOUT (EndofLine+Sh.Result)
@@ -5164,6 +5169,10 @@ End
 
 	#tag Property, Flags = &h0
 		GenomeFile As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		HitsNo As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

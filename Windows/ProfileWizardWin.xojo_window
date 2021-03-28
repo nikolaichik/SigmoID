@@ -1266,6 +1266,8 @@ End
 		    CRtagPositions=GetRealCRtag(hmmPath)
 		    
 		    If SeedProteinArea.TextColor=&c99999900 Then 'placefiller
+		    Elseif SeedProteinArea.Text="" Then          'no sequence
+		      CRtagField.Text=""
 		    Else                                         'hopefully, proper protein sequence
 		      ' write CDS seq to the tmp file
 		      CDSFile=TemporaryFolder.child("CDSfile.fa")

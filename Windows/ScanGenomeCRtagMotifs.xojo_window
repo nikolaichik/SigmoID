@@ -188,7 +188,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub annotateGenome()
-		  dim k,SigCount,HitCount as integer
+		  Dim k,SigCount,HitCount As Integer
 		  dim time as double
 		  dim f as folderitem
 		  dim infileName, summary(-1) as string
@@ -218,19 +218,23 @@ End
 		          app.DoEvents  'otherwise logo picture isn't updated
 		          nhmmerSettingsWin.GenomeField.text=LogoWin.GenomeFile.ShellPath
 		          nhmmerSettingsWin.ReadOptions
-		          if NOT LogoWin.nhmmer then
+		          If Not LogoWin.nhmmer Then
 		            'exit on error
 		            LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to nhmmer error")
 		            return
-		          end if
-		          HmmGenSettingsWin.ReadOptions
-		          LogoWin.outfile=GenomeScanOut
-		          if NOT LogoWin.HmmGen then
-		            'exit on error
-		            LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to HmmGen.py script error")
-		            return
-		          end if
-		          HitCount=HitCount+LogoWin.LastHitNo
+		          End If
+		          
+		          If LogoWin.HitsNo>0 Then       'only run hmmgen when there are nhmmer hits
+		            HmmGenSettingsWin.ReadOptions
+		            LogoWin.outfile=GenomeScanOut
+		            if NOT LogoWin.HmmGen then
+		              'exit on error
+		              LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to HmmGen.py script error")
+		              return
+		            end if
+		            HitCount=HitCount+LogoWin.LastHitNo
+		          End
+		          
 		          dim tmpfile as folderitem
 		          tmpfile=TemporaryFolder.child("GenomeScanIn")
 		          if tmpfile.Exists then
