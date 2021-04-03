@@ -6229,4 +6229,12 @@ End
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HitsNo"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
 #tag EndViewBehavior

@@ -4177,6 +4177,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		AlreadyOpeningTab As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		API_Key As string
 	#tag EndProperty
 

@@ -3,19 +3,19 @@ Begin Window WebBrowserWin
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Composite       =   True
+   Composite       =   False
    Frame           =   9
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
    Height          =   700
    ImplicitInstance=   True
-   LiveResize      =   "True"
+   LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
-   MaximizeButton  =   False
+   MaximizeButton  =   True
    MaxWidth        =   32000
-   MenuBar         =   149806200
+   MenuBar         =   413166614
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -23,56 +23,12 @@ Begin Window WebBrowserWin
    Placement       =   0
    Resizeable      =   True
    Title           =   ""
-   Visible         =   False
+   Visible         =   True
    Width           =   1100
-   Begin TextField AddressField
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFF00FF
-      Bold            =   False
-      Border          =   True
-      CueText         =   ""
-      DataField       =   ""
-      DataSource      =   ""
+   Begin PagePanel BrowserPagePanel
+      AllowAutoDeactivate=   True
       Enabled         =   True
-      Format          =   ""
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   86
-      LimitText       =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Mask            =   ""
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   5
-      Transparent     =   True
-      Underline       =   False
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   978
-   End
-   Begin HTMLViewer WebViewer
-      AutoDeactivate  =   True
-      Enabled         =   True
-      Height          =   667
-      HelpTag         =   ""
+      Height          =   673
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -81,82 +37,82 @@ Begin Window WebBrowserWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Renderer        =   0
+      PanelCount      =   0
+      Panels          =   ""
       Scope           =   0
-      TabIndex        =   2
+      TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   34
+      Tooltip         =   ""
+      Top             =   27
+      Transparent     =   False
+      Value           =   0
       Visible         =   True
       Width           =   1100
    End
-   BeginSegmented SegmentedControl SegmentedControl1
-      Enabled         =   True
-      Height          =   24
+   Begin Timer TitleTimer
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   20
+      LockedInPosition=   False
+      Period          =   1000
+      RunMode         =   "2"
+      Scope           =   0
+      TabPanelIndex   =   "0"
+   End
+   Begin CustomTabPanelTabs BrowserTabs
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EnableTabReordering=   False
+      Facing          =   0
+      Height          =   27
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MacControlStyle =   2
-      Scope           =   0
-      Segments        =   "\nbr_prev_icon16\nFalse\r\nbr_next_icon16\nFalse"
-      SelectionType   =   2
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   "True"
-      Top             =   4
-      Transparent     =   True
-      Visible         =   True
-      Width           =   54
-   End
-   Begin ProgressWheel ProgressWheel1
-      AutoDeactivate  =   True
-      Enabled         =   False
-      Height          =   16
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   1076
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      TabIndex        =   3
+      TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   8
+      Tooltip         =   ""
+      Top             =   0
       Transparent     =   True
-      Visible         =   False
-      Width           =   16
+      value           =   0
+      Visible         =   True
+      Width           =   1100
    End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Event
-		Sub Close()
-		  WebViewer.close
-		  'this should prevent crash if the window is closed while still loading the page
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Sub Open()
-		  
+		  Call AddNewTab
 		  
 		End Sub
 	#tag EndEvent
 
 
 	#tag MenuHandler
-		Function FileClose() As Boolean Handles FileClose.Action
-			Close
+		Function FileCloseTab() As Boolean Handles FileCloseTab.Action
+			CloseTab
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileNewTab() As Boolean Handles FileNewTab.Action
+			Call AddNewTab
+			
 			Return True
 			
 		End Function
@@ -164,145 +120,120 @@ End
 
 
 	#tag Method, Flags = &h0
-		Sub FwdBackCheck()
-		  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
-		  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
+		Function AddNewTab() As HTMLViewer
+		  Var page As Integer
 		  
-		  if WebViewer.CanGoForward then
-		    s1.Enabled=true
-		  else
-		    s1.Enabled=false
-		  end if
+		  'BrowserPagePanel.AddTab("Untitled")
+		  BrowserPagePanel.AddPanel
+		  page = BrowserPagePanel.PanelCount-1
+		  BrowserPagePanel.Value = page
 		  
-		  if WebViewer.CanGoBack then
-		    s0.Enabled=true
-		  else
-		    s0.Enabled=false
-		  end if
+		  Var browser As New HTMLContainer
+		  
+		  'browser.EmbedWithinPanel(BrowserPagePanel, page, 0, 50, Self.Width, BrowserPagePanel.Height-50)
+		  browser.EmbedWithinPanel(BrowserPagePanel, page, 0, 0, Self.Width, BrowserPagePanel.Height)
+		  browser.SelectAddressField
+		  browser.ParentBrowserWindow = Self
+		  
+		  mBrowserTabs.AddRow(browser)
+		  
+		  
+		  BrowserTabs.appendTab("Untitled",True)
+		  Dim va As Integer
+		  va=BrowserPagePanel.value
+		  BrowserTabs.RePaint
+		  
+		  
+		  Return browser.GetHTMLViewer
+		  
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CloseTab()
+		  If BrowserPagePanel.PanelCount > 1 Then
+		    Dim currenTab As Integer = BrowserPagePanel.Value
+		    BrowserTabs.RemoveTab(currenTab) 
+		    BrowserTabs.Repaint
+		  Else
+		    Self.close
+		  End If
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub LoadPage(aFile as FolderItem)
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Refresh
-		  me.WebViewer.LoadPage(aFile)
+		  mBrowserTabs(ubound(mBrowserTabs)).LoadPage(aFile)
 		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub LoadPage(URL as string)
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Refresh
-		  me.WebViewer.LoadURL(URL)
+		  
+		  mBrowserTabs(ubound(mBrowserTabs)).LoadURL(URL)
 		End Sub
 	#tag EndMethod
 
 
+	#tag Property, Flags = &h0
+		mBrowserTabs() As HTMLContainer
+	#tag EndProperty
+
+
 #tag EndWindowCode
 
-#tag Events AddressField
+#tag Events TitleTimer
 	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  if key=chr(13) OR key=chr(3) then 'CR or Enter
-		    LoadPage(trim(me.text))
-		  end if
-		End Function
-	#tag EndEvent
-#tag EndEvents
-#tag Events WebViewer
-	#tag Event
-		Sub DocumentComplete(url as String)
-		  FwdBackCheck
-		  ProgressWheel1.Visible=false
-		  ProgressWheel1.Enabled=false
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub TitleChanged(newTitle as String)
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Refresh
-		  title=newTitle
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  if key=decodehex("1D") then 'right (or chr(124?)
-		    if me.CanGoForward then
-		      ProgressWheel1.Visible=true
-		      ProgressWheel1.Enabled=true
-		      ProgressWheel1.Refresh
-		      me.GoForward
-		    end if
-		  elseif key=decodehex("1C") then ' (chr123)? - left
-		    if me.CanGoBack then
-		      ProgressWheel1.Visible=true
-		      ProgressWheel1.Enabled=true
-		      ProgressWheel1.Refresh
-		      me.GoBack
-		    end if
-		  end if
-		  FwdBackCheck
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub DocumentBegin(url as String)
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Refresh
-		  AddressField.text=URL
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
-		  ProgressWheel1.Refresh
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Function NewWindow() As Object
-		  'we don't want any new windows, thanks
-		  
-		  return me
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub Error(errorNumber as Integer, errorMessage as String)
-		  msgbox "Web viewer error "+str(errorNumber)+errorMessage
+		Sub Action()
+		  '// Checks for title changes for each browser tab and updates the
+		  '// tab caption
+		  'For page As Integer = 0 To BrowserPagePanel.PanelCount-1
+		  ''If mBrowserTabs(page).Title <> BrowserPagePanel.CaptionAt(page) Then
+		  'If mBrowserTabs(page).Title <> BrowserTabs.tabs(page).caption Then
+		  ''BrowserPagePanel.CaptionAt(page) = mBrowserTabs(page).Title
+		  'BrowserTabs.tabs(page).caption = mBrowserTabs(page).Title
+		  'End If
+		  'Next
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SegmentedControl1
-	#tag Event
-		Sub Action(itemIndex as integer)
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Refresh
-		  if itemIndex=0 then
-		    WebViewer.GoBack
-		  else
-		    WebViewer.GoForward
-		  end if
-		  
-		  FwdBackCheck
-		  
-		End Sub
-	#tag EndEvent
+#tag Events BrowserTabs
 	#tag Event
 		Sub Open()
-		  Dim s0 As SegmentedControlItem = me.Items( 0 )
-		  Dim s1 As SegmentedControlItem = me.Items( 1 )
 		  
-		  #if TargetCocoa then
-		    s0.Title=""
-		    s1.Title=""
-		    s0.Icon=SystemIcons.GoLeftTemplate
-		    s1.Icon=SystemIcons.GoRightTemplate
-		  #endif
+		  
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TabChanged(tabIndex as integer)
+		  Dim Tabname As String
+		  
+		  'Tabname=Me.tabs(tabIndex).caption
+		  BrowserPagePanel.value=tabIndex
+		  'ChangeView(TabName)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub TabRemoved(tabIndex as integer)
+		  If BrowserPagePanel.PanelCount > 1 Then
+		    
+		    mBrowserTabs.RemoveRowAt(tabIndex)
+		    BrowserPagePanel.Remove(tabIndex)
+		    
+		    If BrowserPagePanel.value=BrowserPagePanel.PanelCount Then 'removed the last panel, select the previous one
+		      BrowserPagePanel.value=BrowserPagePanel.value-1
+		    End If
+		    
+		  Else
+		    Self.close
+		  End If
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -424,43 +355,11 @@ End
 		EditorType="Color"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Backdrop"
+		Name="Name"
 		Visible=true
-		Group="Appearance"
+		Group="ID"
 		InitialValue=""
-		Type="Picture"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Composite"
-		Visible=true
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="FullScreen"
-		Visible=true
-		Group="Appearance"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Height"
-		Visible=true
-		Group="Position"
-		InitialValue="400"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ImplicitInstance"
-		Visible=true
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
+		Type="String"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
@@ -472,51 +371,43 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="MacProcID"
-		Visible=true
-		Group="Appearance"
-		InitialValue="0"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBar"
-		Visible=true
-		Group="Appearance"
-		InitialValue=""
-		Type="MenuBar"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MenuBarVisible"
-		Visible=true
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Name"
-		Visible=true
-		Group="ID"
-		InitialValue=""
-		Type="String"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Resizeable"
-		Visible=true
-		Group="Appearance"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="Super"
 		Visible=true
 		Group="ID"
 		InitialValue=""
 		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Width"
+		Visible=true
+		Group="Position"
+		InitialValue="600"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Height"
+		Visible=true
+		Group="Position"
+		InitialValue="400"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Composite"
+		Visible=true
+		Group="Appearance"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Backdrop"
+		Visible=true
+		Group="Appearance"
+		InitialValue=""
+		Type="Picture"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
@@ -536,11 +427,51 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Width"
+		Name="FullScreen"
+		Visible=false
+		Group="Appearance"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBarVisible"
+		Visible=false
+		Group="Appearance"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Resizeable"
 		Visible=true
-		Group="Position"
-		InitialValue="600"
+		Group="Appearance"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MacProcID"
+		Visible=true
+		Group="Appearance"
+		InitialValue="0"
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBar"
+		Visible=true
+		Group="Appearance"
+		InitialValue=""
+		Type="MenuBar"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ImplicitInstance"
+		Visible=true
+		Group="Appearance"
+		InitialValue="True"
+		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
