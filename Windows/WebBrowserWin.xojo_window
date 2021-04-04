@@ -15,7 +15,7 @@ Begin Window WebBrowserWin
    MaxHeight       =   32000
    MaximizeButton  =   True
    MaxWidth        =   32000
-   MenuBar         =   413166614
+   MenuBar         =   149806200
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -93,15 +93,23 @@ End
 
 #tag WindowCode
 	#tag Event
+		Sub EnableMenuItems()
+		  FileNewTab.visible=True
+		  FileNewTab.enabled=True
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
-		  Call AddNewTab
+		  'Call AddNewTab
 		  
 		End Sub
 	#tag EndEvent
 
 
 	#tag MenuHandler
-		Function FileCloseTab() As Boolean Handles FileCloseTab.Action
+		Function FileClose() As Boolean Handles FileClose.Action
+			
 			CloseTab
 			
 			Return True

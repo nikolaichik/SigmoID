@@ -2787,7 +2787,7 @@ End
 		      BrowserTabs.removeTab(t)
 		    end if
 		  end if
-		  BrowserTabs.appendTab(TabName,true)
+		  BrowserTabs.appendTab(TabName,True)
 		  dim va as integer
 		  va=BrowserPagePanel.value
 		  'BrowserPagePanel.value=BrowserTabs.tabCount-1
@@ -4206,8 +4206,8 @@ End
 		  ProgressWheel1.top=BrowserPagePanel.top+BrowserPagePanel.Height/3
 		  ProgressWheel1.left=(Self.width-ProgressWheel1.Width)/2
 		  
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
+		  ProgressWheel1.Visible=True
+		  ProgressWheel1.Enabled=True
 		  ProgressWheel1.Refresh
 		End Sub
 	#tag EndMethod
@@ -4752,10 +4752,11 @@ End
 		    Dim URL As String
 		    
 		    URL="https://papers.genomics.lbl.gov/cgi-bin/litSearch.cgi?query="+SelProtTranslation+"&Search=Search"
-		    WebBrowserWin.Title="PaperBlast"
+		    If WebBrowserWin.Title="" Then
+		      WebBrowserWin.Title="PaperBlast"
+		    End If
 		    WebBrowserWin.show
-		    WebBrowserWin.LoadPage(URL)
-		    
+		    WebBrowserWin.AddNewTab.LoadURL(url)
 		  End If
 		  
 		End Sub
@@ -6904,16 +6905,6 @@ End
 #tag EndEvents
 #tag Events SPSearchViewer
 	#tag Event
-		Sub DocumentComplete(url as String)
-		  'msgBox me.UserAgent
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub StatusChanged(newStatus as String)
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
 		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
 		  if instr(URl,"blank.html")>0 then
 		    'just the first blank page
@@ -6926,15 +6917,6 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub DocumentBegin(url as String)
-		  ProgressWheel1.Visible=true
-		  ProgressWheel1.Enabled=true
-		  ProgressWheel1.Refresh(false)
-		  
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
 		Sub Error(errorNumber as Integer, errorMessage as String)
 		  if errorMessage<>"" then
 		    SocketError(errorNumber, errorMessage)
@@ -6943,18 +6925,25 @@ End
 		  end if
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Function CancelLoad(URL as String) As Boolean
+		  If Keyboard.CommandKey Then 'Open this link in new tab
+		    If Not AlreadyOpeningTab Then
+		      AlreadyOpeningTab=True
+		      WebBrowserWin.show
+		      WebBrowserWin.AddNewTab.LoadURL(url)
+		      Return True
+		    End If
+		  End If
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function NewWindow() As Object
+		  Return WebBrowserWin.AddNewTab
+		End Function
+	#tag EndEvent
 #tag EndEvents
 #tag Events UPSearchViewer
-	#tag Event
-		Sub DocumentBegin(url as String)
-		  'ProgressHide
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentComplete(url as String)
-		  
-		End Sub
-	#tag EndEvent
 	#tag Event
 		Sub DocumentProgressChanged(URL as String, percentageComplete as Integer)
 		  if instr(URl,"blank.html")>0 then
@@ -6972,6 +6961,23 @@ End
 		    SocketError errorNumber
 		  end if
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CancelLoad(URL as String) As Boolean
+		  If Keyboard.CommandKey Then 'Open this link in new tab
+		    If Not AlreadyOpeningTab Then
+		      AlreadyOpeningTab=True
+		      WebBrowserWin.show
+		      WebBrowserWin.AddNewTab.LoadURL(url)
+		      Return True
+		    End If
+		  End If
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function NewWindow() As Object
+		  Return WebBrowserWin.AddNewTab
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events BLASTSearchViewer
@@ -6999,9 +7005,21 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub DocumentBegin(url as String)
-		  
-		End Sub
+		Function NewWindow() As Object
+		  Return WebBrowserWin.AddNewTab
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CancelLoad(URL as String) As Boolean
+		  If Keyboard.CommandKey Then 'Open this link in new tab
+		    If Not AlreadyOpeningTab Then
+		      AlreadyOpeningTab=True
+		      WebBrowserWin.show
+		      WebBrowserWin.AddNewTab.LoadURL(url)
+		      Return True
+		    End If
+		  End If
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events SelRange

@@ -68,6 +68,18 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem FileNewTab
+         SpecialMenu = 0
+         Value = "New Tab"
+         Index = -2147483648
+         Text = "New Tab"
+         ShortcutKey = "T"
+         Shortcut = "Cmd+T"
+         MenuModifier = True
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = False
+      End
       Begin MenuItem FileOpen
          SpecialMenu = 0
          Value = "#kOpenGenome"
