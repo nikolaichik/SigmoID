@@ -278,6 +278,16 @@ Inherits Thread
 		    me.Protnames=DeNovoTFBSinference.Protnames
 		    dim match as String
 		    dim localTFentries(0) as Integer
+		    dim multiDomainProteins as New Dictionary
+		    'check multiple DNA-binding domains presence (these protein IDs are repeated in hmmsearch output)
+		    ' and mark them to be skipped in further processing
+		    for n = 1 to UBound(me.ProtNames)
+		      if multiDomainProteins.HasKey(me.ProtNames(n)) then
+		        multiDomainProteins.Value(me.ProtNames(n)) = True
+		      else
+		        multiDomainProteins.Value(me.ProtNames(n)) = False
+		      end
+		    next
 		    for n=1 to ubound(me.CRTags)
 		      localTFentries.Append(-1)
 		    next
@@ -289,11 +299,16 @@ Inherits Thread
 		        for n=1 To ubound(me.CRTags)
 		          match = ""
 		          if CountFields(me.ProtNames(n),"_")>2 then
-		            gene = Nthfield(me.ProtNames(n),"_", CountFields(me.Protnames(n),"_"))
+		            gene = Nthfield(me.ProtNames(n),"_", CountFields(me.ProtNames(n),"_"))
 		            protname = Nthfield(me.ProtNames(n),"_"+gene,1)
 		            match = "/protein_id="+chr(34)+protname
 		          else
-		            match = "/protein_id="+chr(34)+str(Me.Protnames(n))
+		            if instr(Nthfield(me.ProtNames(n),"_", 1),".")>0 then
+		              match = "/protein_id="+chr(34)+Nthfield(me.ProtNames(n),"_", 1)
+		            else
+		              match = "/protein_id="+chr(34)+str(Me.Protnames(n))
+		            end
+		            
 		          end
 		          
 		          if instr(f.FeatureText,match)>0 then
@@ -306,10 +321,15 @@ Inherits Thread
 		    end
 		    For n=1 To ubound(me.CRTags)
 		      app.YieldToNextThread()
+		      if multiDomainProteins.Value(me.ProtNames(n)) = True then
+		        deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has multiple DNA-binding domains. Skipping it."+EndOfLine.unix+EndOfLine.unix)
+		        Continue
+		      end
 		      res=""
 		      try
 		        if me.CRtags(n)="[indel within CR tag region]" then
 		          deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has an indel within CR tag region. Skipping it."+EndOfLine.unix+EndOfLine.unix)
+		          Continue
 		        Else
 		          if localTFentries(n)<>-1 then
 		            deNovoWin.TFfeature=localTFentries(n)

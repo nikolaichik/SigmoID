@@ -774,10 +774,16 @@ Protected Module DeNovoTFBSinference
 		      while HTTPSerror="" and WebContent="" 
 		        app.YieldToNextThread
 		      wend
+		      if hts.HTTPStatusCode <> 200 then
+		        if HTTPSError = "" then
+		          HTTPSError = str(hts.HTTPStatusCode)
+		        end
+		      end
 		      if HTTPSError<>"" then
-		        deNovoWin.rp.writeToWin("An error occured while converting protein ids to EMBL format, "+HTTPSError+EndOfLine.UNIX)
+		        deNovoWin.rp.writeToWin("An HTTPS error occured while converting protein ids to EMBL format,  code:"+HTTPSError+EndOfLine.UNIX)
 		        HTTPSError=""
 		        WebContent=""
+		        Return ""
 		      else
 		        shellres=WebContent.split(Endofline.unix)
 		        HTTPSError=""
