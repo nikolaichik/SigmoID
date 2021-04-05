@@ -780,7 +780,7 @@ Protected Module DeNovoTFBSinference
 		        end
 		      end
 		      if HTTPSError<>"" then
-		        deNovoWin.rp.writeToWin("An HTTPS error occured while converting protein ids to EMBL format,  code:"+HTTPSError+EndOfLine.UNIX)
+		        deNovoWin.rp.writeToWin("A tryout to convert accession codes with uniprot.org/uploadlists/ resulted in HTTPS error, code: "+HTTPSError+EndOfLine.UNIX)
 		        HTTPSError=""
 		        WebContent=""
 		        Return ""

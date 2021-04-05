@@ -177,6 +177,19 @@ Inherits Thread
 		    instream.Close
 		    deNovoWin.rp.writeToWin("OK"+EndOfLine.UNIX)
 		    
+		    'create dictionary for optimal protein codes count determination
+		    dim ECodesPool as New Dictionary
+		    ECodesPool.Value("rp15")=CrBaseECodes_rp15
+		    ECodesPool.Value("rp35")=CrBaseECodes_rp35
+		    ECodesPool.Value("rp55")=CrBaseECodes_rp55
+		    ECodesPool.Value("rp75")=CrBaseECodes_rp75
+		    ECodesPool.Value("full PIR")=CrBaseECodes
+		    dim CrBaseTagPool as New Dictionary
+		    CrBaseTagPool.Value("rp15")=CrBaseTags_rp15
+		    CrBaseTagPool.Value("rp35")=CrBaseTags_rp35
+		    CrBaseTagPool.Value("rp55")=CrBaseTags_rp55
+		    CrBaseTagPool.Value("rp75")=CrBaseTags_rp75
+		    CrBaseTagPool.Value("full PIR")=CrBaseTags
 		    //Run hmmsearch and screen the output for CR tags.
 		    sh=New Shell
 		    sh.mode=1
@@ -537,87 +550,104 @@ Inherits Thread
 		              
 		              
 		              //get the list with the right number of accession codes
-		              crIndex=CrBaseTags_rp15.indexof(me.Crtags(n))
-		              Dim RPname As String = "rp15"
-		              If crIndex>0 Then
-		                filteredRes=CrBaseECodes_rp15(crindex)
-		                If CountFields(filteredRes,",")<RPcodesCountMin Then          '<-- threshold should be user configurable?
-		                  crIndex=CrBaseTags_rp35.indexof(me.Crtags(n))
-		                  filteredRes=CrBaseECodes_rp35(crindex)
-		                  RPname="rp35"
-		                  If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                    crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
-		                    filteredRes=CrBaseECodes_rp55(crindex)
-		                    RPname="rp55"
-		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                      crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
-		                      filteredRes=CrBaseECodes_rp75(crindex)
-		                      RPname="rp75"
-		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                        crIndex=CrBaseTags.indexof(me.Crtags(n))
-		                        filteredRes=CrBaseECodes(crindex)
-		                        RPname="full PIR"
-		                      End If
-		                    End If
-		                  End If
-		                End If
-		                
-		              Else
-		                crIndex=CrBaseTags_rp35.indexof(me.Crtags(n))
-		                If crIndex>0 Then
-		                  filteredRes=CrBaseECodes_rp35(crindex)
-		                  RPname="rp35"
-		                  If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                    crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
-		                    filteredRes=CrBaseECodes_rp55(crindex)
-		                    RPname="rp55"
-		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                      crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
-		                      filteredRes=CrBaseECodes_rp75(crindex)
-		                      RPname="rp75"
-		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                        crIndex=CrBaseTags.indexof(me.Crtags(n))
-		                        filteredRes=CrBaseECodes(crindex)
-		                        RPname="full PIR"
-		                      End If
-		                    End If
-		                  End If
-		                Else
-		                  
-		                  crIndex=CrBaseTags_rp55.indexof(me.CRtags(n))
-		                  If crIndex>0 Then
-		                    filteredRes=CrBaseECodes_rp55(crindex)
-		                    RPname="rp55"
-		                    If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                      crIndex=CrBaseTags_rp75.indexof(me.CRtags(n))
-		                      filteredRes=CrBaseECodes_rp75(crindex)
-		                      RPname="rp75"
-		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                        crIndex=CrBaseTags.indexof(me.CRtags(n))
-		                        filteredRes=CrBaseECodes(crindex)
-		                        RPname="full PIR"
-		                      End If
-		                    End If
-		                    
-		                  Else
-		                    crIndex=CrBaseTags_rp75.indexof(me.CRtags(n))
-		                    If crIndex>0 Then
-		                      filteredRes=CrBaseECodes_rp75(crindex)
-		                      RPname="rp75"
-		                      If CountFields(filteredRes,",")<RPcodesCountMin Then 
-		                        crIndex=CrBaseTags.indexof(me.CRtags(n))
-		                        If crIndex>0 Then
-		                          filteredRes=CrBaseECodes(crindex)
-		                          RPname="full PIR"
-		                        End If
-		                      End If
-		                    End If
-		                    
-		                  End If
-		                  
-		                End If
-		                
-		              End If
+		              Dim RPname as String = ""
+		              Dim codesBase(-1) as String
+		              Dim tagBase(-1) as String
+		              
+		              for each base as DictionaryEntry in CrBaseTagPool
+		                tagBase = base.Value
+		                crindex = tagBase.indexof(me.Crtags(n))
+		                if crIndex > 0 then
+		                  codesBase = ECodesPool.Value(base.Key)
+		                  if CountFields(codesBase(crIndex),",")>=RPcodesCountMin  Or instr("full", base.Key)>0 then
+		                    filteredRes=codesBase(crIndex)
+		                    RPname=base.Key
+		                    exit
+		                  end
+		                end
+		              next
+		              
+		              'crIndex=CrBaseTags_rp15.indexof(me.Crtags(n))
+		              'Dim RPname As String = "rp15"
+		              'If crIndex>0 Then
+		              'filteredRes=CrBaseECodes_rp15(crindex)
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then          '<-- threshold should be user configurable?
+		              'crIndex=CrBaseTags_rp35.indexof(me.Crtags(n))
+		              'filteredRes=CrBaseECodes_rp35(crindex)
+		              'RPname="rp35"
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		              'crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
+		              'filteredRes=CrBaseECodes_rp55(crindex)
+		              'RPname="rp55"
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		              'crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
+		              'filteredRes=CrBaseECodes_rp75(crindex)
+		              'RPname="rp75"
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		              'crIndex=CrBaseTags.indexof(me.Crtags(n))
+		              'filteredRes=CrBaseECodes(crindex)
+		              'RPname="full PIR"
+		              'End If
+		              'End If
+		              'End If
+		              'End If
+		              '
+		              'Else
+		              'crIndex=CrBaseTags_rp35.indexof(me.Crtags(n))
+		              'If crIndex>0 Then
+		              'filteredRes=CrBaseECodes_rp35(crindex)
+		              'RPname="rp35"
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		              'crIndex=CrBaseTags_rp55.indexof(me.Crtags(n))
+		              'filteredRes=CrBaseECodes_rp55(crindex)
+		              'RPname="rp55"
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		              'crIndex=CrBaseTags_rp75.indexof(me.Crtags(n))
+		              'filteredRes=CrBaseECodes_rp75(crindex)
+		              'RPname="rp75"
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		              'crIndex=CrBaseTags.indexof(me.Crtags(n))
+		              'filteredRes=CrBaseECodes(crindex)
+		              'RPname="full PIR"
+		              'End If
+		              'End If
+		              'End If
+		              'Else
+		              '
+		              'crIndex=CrBaseTags_rp55.indexof(me.CRtags(n))
+		              'If crIndex>0 Then
+		              'filteredRes=CrBaseECodes_rp55(crindex)
+		              'RPname="rp55"
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		              'crIndex=CrBaseTags_rp75.indexof(me.CRtags(n))
+		              'filteredRes=CrBaseECodes_rp75(crindex)
+		              'RPname="rp75"
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		              'crIndex=CrBaseTags.indexof(me.CRtags(n))
+		              'filteredRes=CrBaseECodes(crindex)
+		              'RPname="full PIR"
+		              'End If
+		              'End If
+		              '
+		              'Else
+		              'crIndex=CrBaseTags_rp75.indexof(me.CRtags(n))
+		              'If crIndex>0 Then
+		              'filteredRes=CrBaseECodes_rp75(crindex)
+		              'RPname="rp75"
+		              'If CountFields(filteredRes,",")<RPcodesCountMin Then 
+		              'crIndex=CrBaseTags.indexof(me.CRtags(n))
+		              'If crIndex>0 Then
+		              'filteredRes=CrBaseECodes(crindex)
+		              'RPname="full PIR"
+		              'End If
+		              'End If
+		              'End If
+		              '
+		              'End If
+		              '
+		              'End If
+		              '
+		              'End If
 		              
 		              If crIndex>0 Then
 		                #If DebugBuild
