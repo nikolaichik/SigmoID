@@ -4297,6 +4297,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		localTFIndex As Dictionary
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		MASTpath As String
 	#tag EndProperty
 

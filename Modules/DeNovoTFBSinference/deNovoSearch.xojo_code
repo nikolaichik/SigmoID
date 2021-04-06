@@ -301,37 +301,37 @@ Inherits Thread
 		        multiDomainProteins.Value(me.ProtNames(n)) = False
 		      end
 		    next
-		    for n=1 to ubound(me.CRTags)
-		      localTFentries.Append(-1)
-		    next
-		    id =0
-		    if genome <> nil then
-		      for each f as GBFeature in genome.Features
-		        App.YieldToNextThread()
-		        'if instr(f.FeatureText,"/gene="+protname)>0 then 'specify field to match
-		        for n=1 To ubound(me.CRTags)
-		          match = ""
-		          if CountFields(me.ProtNames(n),"_")>2 then
-		            gene = Nthfield(me.ProtNames(n),"_", CountFields(me.ProtNames(n),"_"))
-		            protname = Nthfield(me.ProtNames(n),"_"+gene,1)
-		            match = "/protein_id="+chr(34)+protname
-		          else
-		            if instr(Nthfield(me.ProtNames(n),"_", 1),".")>0 then
-		              match = "/protein_id="+chr(34)+Nthfield(me.ProtNames(n),"_", 1)
-		            else
-		              match = "/protein_id="+chr(34)+str(Me.Protnames(n))
-		            end
-		            
-		          end
-		          
-		          if instr(f.FeatureText,match)>0 then
-		            localTFentries(n)=id
-		            Continue for f
-		          end
-		        next
-		        id=id+1
-		      next
-		    end
+		    'for n=1 to ubound(me.CRTags)
+		    'localTFentries.Append(-1)
+		    'next
+		    'id =0
+		    'if genome <> nil then
+		    'for each f as GBFeature in genome.Features
+		    'App.YieldToNextThread()
+		    ''if instr(f.FeatureText,"/gene="+protname)>0 then 'specify field to match
+		    'for n=1 To ubound(me.CRTags)
+		    'match = ""
+		    'if CountFields(me.ProtNames(n),"_")>2 then
+		    'gene = Nthfield(me.ProtNames(n),"_", CountFields(me.ProtNames(n),"_"))
+		    'protname = Nthfield(me.ProtNames(n),"_"+gene,1)
+		    'match = "/protein_id="+chr(34)+protname
+		    'else
+		    'if instr(Nthfield(me.ProtNames(n),"_", 1),".")>0 then
+		    'match = "/protein_id="+chr(34)+Nthfield(me.ProtNames(n),"_", 1)
+		    'else
+		    'match = "/protein_id="+chr(34)+str(Me.Protnames(n))
+		    'end
+		    '
+		    'end
+		    '
+		    'if instr(f.FeatureText,match)>0 then
+		    'localTFentries(n)=id
+		    'Continue for f
+		    'end
+		    'next
+		    'id=id+1
+		    'next
+		    'end
 		    For n=1 To ubound(me.CRTags)
 		      app.YieldToNextThread()
 		      if multiDomainProteins.Value(me.ProtNames(n)) = True then
@@ -344,11 +344,17 @@ Inherits Thread
 		          deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has an indel within CR tag region. Skipping it."+EndOfLine.unix+EndOfLine.unix)
 		          Continue
 		        Else
-		          if localTFentries(n)<>-1 then
-		            deNovoWin.TFfeature=localTFentries(n)
+		          dim pName As Variant = me.ProtNames(n)
+		          if localTFIndex.HasKey(pName) then
+		            deNovoWin.TFfeature=localTFIndex.Value(me.ProtNames(n))
 		          else
 		            deNovoWin.TFfeature=-1
 		          end
+		          'if localTFentries(n)<>-1 then
+		          'deNovoWin.TFfeature=localTFentries(n)
+		          'else
+		          'deNovoWin.TFfeature=-1
+		          'end
 		          'id =0
 		          'if genome <> nil then
 		          'protname=me.Protnames(n)

@@ -53,6 +53,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -78,6 +79,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -162,6 +164,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -242,6 +245,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -354,6 +358,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -366,6 +371,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -468,6 +474,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -529,6 +536,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -2330,6 +2338,9 @@ End
 		  dim n,u as integer
 		  dim ft as GBFeature
 		  
+		  dim TFindex as new Dictionary
+		  
+		  
 		  separTransl="/translation="+chr(34)
 		  separProtID="/protein_id="+chr(34)
 		  separGene="/gene="+chr(34)
@@ -2349,6 +2360,8 @@ End
 		        If prot<>"" Then
 		          TitleLine=TitleLine+"_"+prot                             'ProteinID_Gene is more convenient for de novo TFBS pipeline
 		        end if
+		        'localTFIndex stores Protein_ID and index of corresponding Genome.Feature
+		        TFindex.Value(Nthfield(TitleLine,">",2))=n
 		        prot=NthField(ft.FeatureText,separProd,2)                  'Product
 		        prot=NthField(prot,separ2,1)
 		        TitleLine=TitleLine+" "+prot
@@ -2362,7 +2375,7 @@ End
 		        end if
 		      end if
 		    next
-		    
+		    localTFIndex=TFindex
 		    s.close
 		    
 		  end if
