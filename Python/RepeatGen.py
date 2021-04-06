@@ -292,7 +292,7 @@ def createparser():
                                 value.''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 1.2 (September 27, 2020)')
+                        version='%(prog)s 1.3 (April 6, 2021)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -424,8 +424,8 @@ for record in records:
                          location=feature_location,
                          type=feature_type,
                          strand=strnd,
-                         qualifiers=dict(qualifier.items() +
-                                         note_qualifier.items()))
+                         qualifiers=dict(list(qualifier.items()) +
+                                         list(note_qualifier.items())))
         if Decimal(hmm_coverage) >= Decimal(enter.coverage) and \
                 (
                  (enter.min_length != 0 and enter.min_length <= feature_length <= enter.max_length) or \
@@ -558,5 +558,5 @@ new_output_file.close()
 input_handle.close()
 t_end = process_time()
 print ('Total features: ', total)
-print ('CPU time: {0:.3f} sec'.format(t_stop-t_start))
+print ('CPU time: {0:.3f} sec'.format(t_end-t_start))
 print ('\n' + "="*50)
