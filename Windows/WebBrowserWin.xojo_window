@@ -10,7 +10,7 @@ Begin Window WebBrowserWin
    HasBackColor    =   False
    Height          =   700
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
@@ -42,6 +42,7 @@ Begin Window WebBrowserWin
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   27
       Transparent     =   False
@@ -50,13 +51,14 @@ Begin Window WebBrowserWin
       Width           =   1100
    End
    Begin Timer TitleTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
       Period          =   1000
       RunMode         =   "2"
       Scope           =   0
-      TabPanelIndex   =   "0"
+      TabPanelIndex   =   0
    End
    Begin CustomTabPanelTabs BrowserTabs
       AllowAutoDeactivate=   True
@@ -173,6 +175,8 @@ End
 
 	#tag Method, Flags = &h0
 		Sub LoadPage(aFile as FolderItem)
+		  if ubound(mBrowserTabs)<0 then call AddNewTab
+		  
 		  mBrowserTabs(ubound(mBrowserTabs)).LoadPage(aFile)
 		  
 		End Sub
@@ -180,6 +184,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub LoadPage(URL as string)
+		  if ubound(mBrowserTabs)<0 then call AddNewTab
 		  
 		  mBrowserTabs(ubound(mBrowserTabs)).LoadURL(URL)
 		End Sub
