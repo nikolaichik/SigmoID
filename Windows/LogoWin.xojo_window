@@ -319,7 +319,24 @@ End
 		    FileSaveProfileAs.enabled=false
 		  end if
 		  
-		  
+		  // workaroung for Ubuntu bug with enabling menu items
+		  #if targetlinux 
+		    if GenomeWin.Visible=true then
+		      GenomeAnnotate.Enabled=true   'not quite correct, but can't enable otherwise
+		      GenomeMASTSearch.Enabled=true   'not quite correct, but can't enable otherwise
+		      GenomeTFfamilySearch.Enabled=true
+		      GenomeListRegulons.Enabled=true
+		      GenomeGenomeInfo.Enabled=true
+		      GenomeGenomeStatistics.Enabled=true
+		      GenomeFind.Enabled=true
+		      GenomeFindAgain.Enabled=true    'not quite correct, but can't enable otherwise
+		      GenomeGoto.Enabled=true
+		      GenomeMergePlotData.Enabled=true
+		      GenomeAddPlot.Enabled=true
+		      GenomeRemovePlots.Enabled=true    'not quite correct, but can't enable otherwise
+		      GenomePrintMap.Enabled=true
+		    end if
+		  #endif
 		  
 		  
 		  if SigFileOpened then
