@@ -200,7 +200,10 @@ Inherits Thread
 		    CDSfile=OutF.Child("CDS.fasta")
 		    if CDSfile<>nil then
 		      if CDSfile.exists then
-		        
+		        'Exctraction from local gbk file needs ExportProteins results, so produce dummy output file
+		        dim CDSfileTemp as FolderItem = TemporaryFolder.Child("CDStemp.fasta")
+		        if CDSfileTemp.Exists then CDSfileTemp.Remove
+		        GenomeWin.ExportProteins(CDSfileTemp)
 		        deNovoWin.rp.writeToWin("An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused."+EndOfLine.UNIX)
 		      else
 		        deNovoWin.rp.writeToWin("Exporting CDS sequences...")
