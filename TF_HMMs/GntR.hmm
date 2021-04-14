@@ -1,5 +1,5 @@
 HMMER3/f [3.1b2 | February 2015]
-NAME  GntR
+NAME  GntR_strict
 ACC   PF00392.19
 DESC  Bacterial regulatory proteins, gntR family
 LENG  64
@@ -9,7 +9,7 @@ MM    no
 CONS  yes
 CS    yes
 MAP   yes
-CRTAG 28,37,38,39,58,59
+CRTAG 27,28,37,38,39,40,43,58,59,62
 PAL   yes
 WIDTH 16-23
 DATE  Sat Apr 23 03:12:44 2016

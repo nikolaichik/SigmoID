@@ -452,7 +452,9 @@ Protected Module DeNovoTFBSinference
 		      'if InStr(ProtName,"|")>0 then        'questionable: this will prevent adding CR tags to hmmsearch result
 		      'ProtName=NthField(ProtName,"|",2)
 		      'end if
-		      ProtNames.Append(ProtName)
+		      if n1 = 0 then
+		        ProtNames.Append(ProtName) 
+		      end if
 		      hitseq=NthField(hitSeq," ",countfields(hitseq," ")) 'the seq goes after the last space
 		      hitSeq=ReplaceAll(hitseq,".","") 'removing gaps resulting from insertions in other seqs: probably not the wise thing to do! 
 		      
