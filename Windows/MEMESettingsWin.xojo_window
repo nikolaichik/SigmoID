@@ -742,7 +742,10 @@ End
 		      'open the result in the browser:
 		      dim res as FolderItem
 		      res=LogoWin.MEMEtmp.child("meme.html")
-		      if res<>NIL then
+		      If res<>Nil Then
+		        If WebBrowserWin.title="" Then
+		          WebBrowserWin.Title="MEME result"
+		        End If
 		        WebBrowserWin.LoadPage(res)
 		        WebBrowserWin.show
 		      end if

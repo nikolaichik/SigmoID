@@ -830,8 +830,9 @@ Inherits Thread
 		                      ttt = new TTshell(f1.child("meme.txt"))
 		                      zclean=true
 		                    else
-		                      deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
-		                      zclean=false
+		                      deNovoWin.rp.writeToWin(" failed."+EndOfLine.unix)
+		                      deNovoWin.rp.writeToWin(MEMEerr+EndOfLine.unix)
+		                      zclean=False
 		                    end if
 		                    
 		                    
@@ -855,6 +856,7 @@ Inherits Thread
 		                        aclean=true
 		                      else
 		                        deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
+		                        deNovoWin.rp.writeToWin(MEMEerr+EndOfLine.unix)
 		                        aclean=false
 		                      end if
 		                      if me.RunChipMunk then

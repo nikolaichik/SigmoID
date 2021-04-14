@@ -89,8 +89,8 @@
 					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
 				End
 				Begin IDEScriptBuildStep Zip , AppliesTo = 2
-					Dim result As String
-					result = DoShellCommand("cd " + currentBuildLocation + " && zip -r SigmoID.zip SigmoID"
+					'Dim result As String
+					'result = DoShellCommand("cd " + currentBuildLocation + " && zip -r SigmoID.zip SigmoID"
 				End
 				Begin CopyFilesBuildStep CopyLibs
 					AppliesTo = 0

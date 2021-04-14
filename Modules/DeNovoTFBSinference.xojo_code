@@ -2294,9 +2294,8 @@ Protected Module DeNovoTFBSinference
 		  If sh.errorCode=0 then
 		    return sh.errorCode
 		  else
-		    '"MEME error code: "+Str(sh.errorCode)
-		    'EndofLine+Sh.Result
-		    
+		    MEMEerr="MEME error code: "+Str(sh.errorCode)+EndOfLine
+		    MEMEerr=MEMEerr+"MEME command was: "+cli+EndOfLine+Sh.Result
 		    return sh.errorCode
 		  end if
 		  
@@ -2892,6 +2891,10 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		MEMEerr As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		MEMEmax As Integer = 30
 	#tag EndProperty
 
@@ -3107,6 +3110,14 @@ Protected Module DeNovoTFBSinference
 			Group="Behavior"
 			InitialValue="300"
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MEMEerr"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="string"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
