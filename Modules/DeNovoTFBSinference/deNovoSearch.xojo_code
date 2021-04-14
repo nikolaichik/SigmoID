@@ -3,8 +3,8 @@ Protected Class deNovoSearch
 Inherits Thread
 	#tag Event
 		Sub Run()
-		  'a fix for wrong log pane height on mac:
-		  while me.isFinished <> True
+		  
+		  While Me.isFinished <> True
 		    'CheckEmail
 		    dim cli, hmmSearchRes, CRtagPositions, table, currentHit as string
 		    dim dataForMeme as string
@@ -561,8 +561,9 @@ Inherits Thread
 		              //get the list with the right number of accession codes
 		              Dim RPname as String = ""
 		              Dim codesBase(-1) as String
-		              Dim tagBase(-1) as String
+		              Dim tagBase(-1) As String
 		              
+		              filteredRes=""
 		              for each base as DictionaryEntry in CrBaseTagPool
 		                tagBase = base.Value
 		                crindex = tagBase.indexof(me.Crtags(n))
