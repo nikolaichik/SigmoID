@@ -568,7 +568,7 @@ Inherits Thread
 		                crindex = tagBase.indexof(me.Crtags(n))
 		                if crIndex > 0 then
 		                  codesBase = ECodesPool.Value(base.Key)
-		                  if CountFields(codesBase(crIndex),",")>=RPcodesCountMin  Or instr("full", base.Key)>0 then
+		                  if CountFields(codesBase(crIndex),",")>=RPcodesCountMin  Or instr(base.Key,"full")>0 then
 		                    filteredRes=codesBase(crIndex)
 		                    RPname=base.Key
 		                    exit
