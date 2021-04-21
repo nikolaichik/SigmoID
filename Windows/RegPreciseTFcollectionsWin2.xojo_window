@@ -1698,7 +1698,7 @@ End
 		  dim res as string
 		  dim jsn as new JSONItem
 		  dim jsn0 as new JSONItem
-		  dim ProteinFasta, vimssId as string
+		  Dim ProteinFasta, vimssId, LocusTag As String
 		  dim uTags(0), uRegulons(0), uNames(0) As string    'Unique CRtags and matching Regulon ID lists
 		  dim PalindromicSite as boolean
 		  dim aline,CRTAG as string
@@ -1847,7 +1847,7 @@ End
 		      // get the seqs of TFs controlling each regulon:
 		      
 		      redim TFs(UBound(RegulonIDs))
-		      logowin.WriteToSTDOUT(EndOfLine.UNIX+"MicrobesOnline: getting protein sequence with ID ")
+		      logowin.WriteToSTDOUT(EndOfLine.UNIX+"EDirect: getting protein sequence with ID ")
 		      For m=0 To UBound(RegulonIDs)
 		        
 		        'RegPrecise is linked to protein seqs via microbesOnline, so we have to get vimssId first
@@ -1868,10 +1868,15 @@ End
 		          else
 		            If res<>"" Then
 		              vimssId=NthField(res,"http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=",2)
-		              vimssId=NthField(vimssId,"&",1)
 		              
-		              ProteinFasta=NthField(res,"<title>Regulon Of ",2)
-		              ProteinFasta=">"+NthField(ProteinFasta,"</title>",1)
+		              'modified to use NCBI system as MicrobesOnline is dying
+		              'vimssId=NthField(vimssId,"&",1)
+		              LocusTag=NthField(vimssId,"<",1)
+		              LocusTag=NthField(LocusTag,">",2)
+		              
+		              
+		              'ProteinFasta=NthField(res,"<title>Regulon Of ",2)
+		              'ProteinFasta=">"+NthField(ProteinFasta,"</title>",1)
 		              
 		            End If
 		            
@@ -1882,44 +1887,49 @@ End
 		            ' html alternative:
 		            ' http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=606816&disp=4
 		            
-		            theURL="http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
+		            'Dim ProteinFasta As String
 		            
-		            hts = new HTTPSocket
+		            ProteinFasta=LocusTag2proteinFasta(LocusTag,GenomeNames(m))
+		            logowin.WriteToSTDOUT(" "+LocusTag)
 		            
-		            hts.Yield=true  'allow background activities while waiting
-		            hts.SetRequestHeader("Content-Type:","text/plain")
-		            
-		            res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
-		            
-		            if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		              if Res="" then
-		                if hts.ErrorCode=-1 then
-		                  logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
-		                else
-		                  LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
-		                end if
-		                
-		                ProteinFasta=""
-		              Else
-		                'parse the server response
-		                dim pseq as string
-		                pseq=NthField(res,">Protein<",2)
-		                pseq=NthField(pseq,")",2)
-		                pseq=NthField(pseq,"</pre>",1)
-		                pseq=trim(replaceall(pseq,"�",""))           'cleanup just in case
-		                ProteinFasta=ProteinFasta+EndOfLine.UNIX+pseq
-		                'tfastx(ProteinFasta)
-		                
-		                logowin.WriteToSTDOUT(" "+vimssId)
-		                
-		              end if
-		            else
-		              
-		              dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
-		              LogoWin.WriteToSTDOUT (httpErr)
-		              
-		              ProteinFasta=""
-		            end if
+		            'theURL="http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
+		            '
+		            'hts = new HTTPSocket
+		            '
+		            'hts.Yield=true  'allow background activities while waiting
+		            'hts.SetRequestHeader("Content-Type:","text/plain")
+		            '
+		            'res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		            '
+		            'if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		            'if Res="" then
+		            'if hts.ErrorCode=-1 then
+		            'logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		            'else
+		            'LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		            'end if
+		            '
+		            'ProteinFasta=""
+		            'Else
+		            ''parse the server response
+		            'dim pseq as string
+		            'pseq=NthField(res,">Protein<",2)
+		            'pseq=NthField(pseq,")",2)
+		            'pseq=NthField(pseq,"</pre>",1)
+		            'pseq=trim(replaceall(pseq,"�",""))           'cleanup just in case
+		            'ProteinFasta=ProteinFasta+EndOfLine.UNIX+pseq
+		            ''tfastx(ProteinFasta)
+		            '
+		            'logowin.WriteToSTDOUT(" "+vimssId)
+		            '
+		            'end if
+		            'else
+		            '
+		            'dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
+		            'LogoWin.WriteToSTDOUT (httpErr)
+		            '
+		            'ProteinFasta=""
+		            'end if
 		            
 		            
 		            
@@ -2225,7 +2235,7 @@ End
 		                    
 		                    
 		                    'get seed protein name and sequence
-		                    ' using the first protein of the family, CRtag may be not quite correct!
+		                    ' using the first protein of the family, CRtag may (and will often) be incorrect!  <-- fix!
 		                    
 		                    Dim proteinID, proteinSeq As String
 		                    Dim lineBreakC As Integer
