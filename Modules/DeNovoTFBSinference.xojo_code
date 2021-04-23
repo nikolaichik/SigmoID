@@ -667,6 +667,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="XRE_superfamily.hmm"
 		  Case "CitT"
 		    hmmFileName="CitT.hmm"
+		  Case "CitB"
+		    hmmFileName="CitT.hmm"
 		  Case "DcuR"
 		    hmmFileName="DcuR.hmm"
 		  Case "Fis"
@@ -2195,14 +2197,14 @@ Protected Module DeNovoTFBSinference
 		    If TopScore>0 Then
 		      Return ">"+Fastas(Scoremax)
 		    Else
-		      MsgBox "Can't find a protein that matches both locus_tag and genome name"
+		      'MsgBox "Can't find a protein that matches both locus_tag and genome name"
 		      Return ""
 		    End If
 		    
 		    
 		    
 		  Else
-		    MsgBox res
+		    'MsgBox res
 		    Return ""
 		  End If
 		  
