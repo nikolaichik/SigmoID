@@ -148,7 +148,6 @@ Begin Window RegPreciseTFcollectionsWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -2183,7 +2182,7 @@ End
 		                  'outstream.WriteLine(Endofline)
 		                  
 		                  outstream.WriteLine("// CRtag coordinates")
-		                  outstream.WriteLine("CRtagCoords "+CRtag)     ' <--- fix!
+		                  outstream.WriteLine("CRtagCoords "+CRtag)  
 		                  'outstream.WriteLine(Endofline)
 		                  
 		                  outstream.WriteLine("// CRtag sequence")

@@ -1887,7 +1887,11 @@ End
 		            ' html alternative:
 		            ' http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=606816&disp=4
 		            
-		            ProteinFasta=LocusTag2proteinFasta(LocusTag,GenomeNames(m))
+		            If LocusTag="null" Then 'rare case
+		              ProteinFasta=""
+		            Else
+		              ProteinFasta=LocusTag2proteinFasta(LocusTag,GenomeNames(m))
+		            End If
 		            
 		            If ProteinFasta="" Then
 		              logowin.WriteToSTDOUT(EndOfLine.UNIX+"Can't find the sequence for "+LocusTag+" from "+GenomeNames(m)+EndOfLine.UNIX)
