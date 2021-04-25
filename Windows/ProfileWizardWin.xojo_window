@@ -1511,7 +1511,7 @@ End
 		  
 		  
 		  SigFile=dlg.ShowModal
-		  If SigFile <> Nil then
+		  If SigFile <> Nil Then
 		    if SigFile.exists then
 		      'a virtualVolume problem
 		      #if TargetLinux
@@ -1820,7 +1820,7 @@ End
 		  else
 		    'cancelled
 		  end if
-		  '#endif
+		  
 		  
 		  
 		  hide

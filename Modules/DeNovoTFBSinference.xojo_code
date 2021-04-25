@@ -638,59 +638,62 @@ Protected Module DeNovoTFBSinference
 	#tag Method, Flags = &h0
 		Function GetHmmFromFamilyName(familyName as string) As FolderItem
 		  // Family names and the matching file names are hard coded here
+		  'some families without CR tag mapped to closest CR tagged family (for RegPrecise export)
 		  
 		  dim TF_HMMs, hmmFile as folderitem
 		  dim hmmFileName as string
 		  
-		  select case familyName
-		  case "OmpR"
-		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
-		  case "LuxR"
-		    hmmFileName="GerE.hmm"
-		  case "GntR/MocR"
-		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
-		    hmmFileName="GntR_strict.hmm"
-		  case "GntR/Others"
-		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
-		    hmmFileName="GntR_strict.hmm"
-		  case "HxlR"
-		    hmmFileName="HxlR.hmm"
-		  case "LacI"
-		    hmmFileName="LacI.hmm"
-		  case "LysR"
-		    hmmFileName="LysR.hmm"
-		  case "MarR"
-		    hmmFileName="MarR_Superfamily.hmm"
-		  case "TetR"
-		    hmmFileName="TetR.hmm"
-		  case "XRE"
-		    hmmFileName="XRE_superfamily.hmm"
-		  Case "CitT"
-		    hmmFileName="CitT.hmm"
+		  Select Case familyName
+		  Case "AraC"
+		    hmmFileName="AraC.hmm"
+		  Case "ArsR"
+		    hmmFileName="HTH_20.hmm"
+		  Case "AsnC"
+		    hmmFileName="HTH_AsnC_type.hmm"
 		  Case "CitB"
 		    hmmFileName="CitT.hmm"
+		  Case "CitT"
+		    hmmFileName="CitT.hmm"
+		  Case "CRP"
+		    hmmFileName="HTH_Crp_2.hmm"
 		  Case "DcuR"
 		    hmmFileName="DcuR.hmm"
 		  Case "Fis"
 		    hmmFileName="HTH_8.hmm"
-		  Case "IclR"
-		    hmmFileName="IclR.hmm"
-		  Case "ArsR"
-		    hmmFileName="HTH_20.hmm"
-		  Case "MerR"
-		    hmmFileName="MerR.hmm"
-		  Case "Rrf2"
-		    hmmFileName="Rrf2.hmm"
-		  Case "AsnC"
-		    hmmFileName="HTH_AsnC_type.hmm"
-		  Case "ROK"
-		    hmmFileName="MarR_Superfamily.hmm"  'this model matches most of TFs from this family in RegPrecise
-		  Case "CRP"
-		    hmmFileName="HTH_Crp_2.hmm"
 		  Case "Fur"
 		    hmmFileName="FUR.hmm"
-		  Case "AraC"
-		    hmmFileName="AraC.hmm"
+		  Case "GntR/MocR"
+		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		    hmmFileName="GntR_strict.hmm"
+		  Case "GntR/Others"
+		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		    hmmFileName="GntR_strict.hmm"
+		  Case "HxlR"
+		    hmmFileName="HxlR.hmm"
+		  Case "IclR"
+		    hmmFileName="IclR.hmm"
+		  Case "LuxR"
+		    hmmFileName="GerE.hmm"
+		  Case "LacI"
+		    hmmFileName="LacI.hmm"
+		  Case "LysR"
+		    hmmFileName="LysR.hmm"
+		  Case "MarR"
+		    hmmFileName="MarR_Superfamily.hmm"
+		  Case "MerR"
+		    hmmFileName="MerR.hmm"
+		  Case "OmpR"
+		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
+		  Case "ROK"
+		    hmmFileName="MarR_Superfamily.hmm"  'this model matches most of TFs from this family in RegPrecise
+		  Case "Rrf2"
+		    hmmFileName="Rrf2.hmm"
+		  Case "TetR"
+		    hmmFileName="TetR.hmm"
+		  case "XRE"
+		    hmmFileName="XRE_superfamily.hmm"
+		    
+		    
 		  Case ""
 		    hmmFileName=""
 		    

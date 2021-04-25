@@ -30,7 +30,7 @@ Begin Window ConvertProfilesToMEMEWin
       AutoHideScrollbars=   True
       Bold            =   False
       Border          =   False
-      ColumnCount     =   6
+      ColumnCount     =   8
       ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
@@ -241,6 +241,38 @@ Begin Window ConvertProfilesToMEMEWin
       Visible         =   True
       Width           =   140
    End
+   Begin PushButton ExportButton
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   0
+      Cancel          =   False
+      Caption         =   "#kExportSelected"
+      Default         =   False
+      Enabled         =   False
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   484
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   382
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   200
+   End
    Begin Label ProgressLabel
       AutoDeactivate  =   True
       Bold            =   False
@@ -274,39 +306,39 @@ Begin Window ConvertProfilesToMEMEWin
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   439
+      Width           =   360
    End
-   Begin PushButton ExportButton
-      AutoDeactivate  =   True
+   Begin PushButton MergeButton
+      AllowAutoDeactivate=   True
       Bold            =   False
-      ButtonStyle     =   0
       Cancel          =   False
-      Caption         =   "#kExportSelected"
+      Caption         =   "Merge..."
       Default         =   False
-      Enabled         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   484
+      Left            =   392
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
+      MacButtonStyle  =   "0"
       Scope           =   0
-      TabIndex        =   16
+      TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   382
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   200
+      Width           =   80
    End
 End
 #tag EndWindow
@@ -563,9 +595,11 @@ End
 		  dim sr as integer=CountSelRows
 		  
 		  if sr>=1 then
-		    DeselectAllButton.enabled=true
+		    DeselectAllButton.enabled=True
+		    MergeButton.Enabled=True
 		  else
-		    DeselectAllButton.enabled=false
+		    DeselectAllButton.enabled=False
+		    MergeButton.Enabled=false
 		  end if
 		  
 		  if sr=0 then
@@ -684,7 +718,14 @@ End
 		  ' 5 (invisible) – Motif source URL
 		  ' 6 (invisible) – TFBS length
 		  
-		  me.ColumnWidths="20,300,50,70,*,0,0" 'the last column just stores the file path 
+		  'added for profile merge:
+		  ' 7 (invisible) - profile info
+		  ' 8 (invisible) - profile options
+		  ' 9 (invisible) - profile name
+		  ' 10(invisible) - TFBS data
+		  
+		  
+		  Me.ColumnWidths="20,300,50,70,*,0,0,0,0,0" 
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		  me.DefaultRowHeight=62  'LogoPic.Height=60
 		  'me.ColumnSortDirection(-1)=ListBox.HeaderTypes.NotSortable 'disable sorting of all the columns
@@ -838,12 +879,19 @@ End
 		      
 		      // CollectionList columns are:
 		      ' 0 - Checkbox
-		      ' 1 - Profile Name
-		      ' 2 - Number of seqs
-		      ' 3 - Information (bits)
+		      ' 1 - Motif collection Name
+		      ' 2 - Number of sites used to build the motif 
+		      ' 3 - Information content (bits)
 		      ' 4 - Logo picture
-		      ' 5 (invisible) - TFBS seqs (in fasta format)
-		      ' 6 (invisible) - TFBS length.
+		      ' 5 (invisible) – Motif source URL
+		      ' 6 (invisible) – TFBS length
+		      
+		      'added for profile merge:
+		      ' 7 (invisible) - profile info
+		      ' 8 (invisible) - profile options
+		      ' 9 (invisible) - profile name
+		      ' 10(invisible) - TFBS data
+		      
 		      
 		      For n=0 To CollectionList.ListCount-1
 		        If CollectionList.CellCheck(n,0) Then
@@ -971,6 +1019,383 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"ConvertProfilesToMEMEWin:ExportButton")
+		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MergeButton
+	#tag Event
+		Sub Action()
+		  // Merge profiles with the same CR tag
+		  '  Mostly meant to combine prоfiles produced by RegPrecise export procedure
+		  '  TFBSs and info are simply combined, hmm and meme profiles are re-created
+		  '  TF protein sequence is taken from the profile with most TFBSs
+		  
+		  '  All info is currently stored in the CollectionList cells which may be suboptimal
+		  
+		  '  Duplicate (identical names and seqs) TFBSs are not removed (plenty of those in RegPrecise)
+		  
+		  '  TF name is left from the original profile (RegPrecise long names should be shortened to the correct ones)
+		  
+		  // Verify names for correct CR tags
+		  '  and determine the 'best' profile 
+		  
+		  Dim Profiles2combine(-1) As String
+		  Dim n As Integer
+		  Dim CR1, CR2 As String
+		  Dim OpCount1, OpCount2, BPno As Integer
+		  
+		  // Double-check the identity of CR tags
+		  
+		  'Check profile names
+		  For n=0 To CollectionList.ListCount-1
+		    If CollectionList.CellCheck(n,0) Then
+		      If CR1="" Then
+		        CR1=NthField(CollectionList.Cell(n,1),"_",1)
+		        OpCount1=Val(CollectionList.Cell(n,2))
+		        BPno=n
+		      Else
+		        CR2=NthField(CollectionList.Cell(n,1),"_",1)
+		        If CR2<>CR1 Then 
+		          MsgBox "Profiles with different CR tags (judged from their names) selected. Can't merge them!"
+		          Return
+		        End If
+		        OpCount2=Val(CollectionList.Cell(n,2))
+		        If OpCount2>OpCount1 Then
+		          OpCount1=OpCount2
+		          BPno=n
+		        End If
+		      End If
+		    End If
+		  Next
+		  
+		  'Check the actual CR tags
+		  CR1=""
+		  Dim separ As String=EndOfLine.UNIX+"CRtag "
+		  Dim db As String
+		  For n=0 To CollectionList.ListCount-1
+		    If CollectionList.CellCheck(n,0) Then
+		      If CR1="" Then
+		        db=CollectionList.Cell(n,8)
+		        CR1=NthField(CollectionList.Cell(n,8),separ,2)
+		        CR1=Trim(NthField(CR1,EndOfLine.UNIX,1))                     'CR1 (common CR tag) will be used later for profile name
+		      Else
+		        CR2=NthField(CollectionList.Cell(n,8),separ,2)
+		        CR2=Trim(NthField(CR2,EndOfLine.UNIX,1))
+		        If CR2<>CR1 Then 
+		          MsgBox "Profiles with different actual CR tags selected. Can't merge them!"
+		          Return
+		        End If
+		      End If
+		    End If
+		  Next
+		  
+		  Logowin.show
+		  LogoWin.WriteToSTDOUT (EndOfLine+"Exporting merged profile... ")
+		  LogoWin.Refresh(False)
+		  
+		  
+		  
+		  // Get and store all the required info from all profiles
+		  
+		  
+		  // CollectionList columns are:
+		  ' 0 - Checkbox
+		  ' 1 - Profile Name
+		  ' 2 - Number of seqs
+		  ' 3 - Information (bits)
+		  ' 4 - Logo picture
+		  ' 5 (invisible) - TFBS seqs (in fasta format)
+		  ' 6 (invisible) - TFBS length.
+		  
+		  'added for profile merge:
+		  ' 7 (invisible) - profile info
+		  ' 8 (invisible) - profile options
+		  ' 9 (invisible) - profile name
+		  
+		  
+		  
+		  ' get suggested profile name from the options string
+		  dim TFname, Pname as string
+		  TFname=NthField(CollectionList.Cell(BPno,8),"HmmGen.-q bound_moiety#",2)
+		  TFname=NthField(TFname,EndOfLine.UNIX,1) 'TF name
+		  Pname=CR1+"_"+TFname
+		  If InStr(Pname," ")>0 Then
+		    Pname=NthField(Pname," ",1)           'remove inapropriate name extention (as in RegPrecise names): should be like CRtag_ProtName
+		  End If
+		  
+		  
+		  // Combine TFBS data and profile info
+		  Dim TFBSs, Infos, Options As String
+		  
+		  Infos="This profile combines the data from several profiles with the same CR tag "+CR1+". The info for the original profiles is listed below."+EndOfLine.unix+EndOfLine.UNIX
+		  
+		  For n=0 To CollectionList.ListCount-1
+		    If CollectionList.CellCheck(n,0) Then
+		      If TFBSs="" Then
+		        TFBSs=CollectionList.Cell(n,5) 'first motif
+		        Infos=Infos+CollectionList.Cell(n,7)
+		      Else
+		        TFBSs=TFBSs+CollectionList.Cell(n,5) 'next motif(s)
+		        Infos=Infos+EndOfLine.unix+EndOfLine.UNIX+CollectionList.Cell(n,7)
+		      End If
+		      
+		    End If
+		  Next
+		  
+		  
+		  
+		  
+		  Dim dlg As New SaveAsDialog
+		  Dim SigFile As FolderItem
+		  Dim f As folderitem
+		  Dim m As Integer
+		  Dim SigFileVV As VirtualVolume
+		  
+		  
+		  'dlg.InitialDirectory=genomefile.Parent
+		  dlg.promptText="Where to save the combined profile?"
+		  dlg.SuggestedFileName=Pname+".sig"
+		  dlg.Title="Save Profile"
+		  dlg.Filter=FileTypes.Sig_file
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  SigFile=dlg.ShowModalwithin(Self)
+		  
+		  
+		  
+		  
+		  // From ProfileWizardWin
+		  
+		  If SigFile <> Nil Then
+		    If SigFile.exists Then
+		      'a virtualVolume problem
+		      #If TargetLinux
+		        'SpecialFolder.Trash returns NIL in Linux, hence we can't do this properly here
+		        MsgBox "Can't overwrithe the existing .sig file. Please remove it or save the new file with a different name"
+		        Return
+		      #Else
+		        Dim fn As String = sigfile.ShellPath
+		        SigFile.MoveFileTo(SpecialFolder.Trash) 'can't just delete because of the VirtualVolume inside
+		        SigFile=GetFolderItem(fn,FolderItem.PathTypeShell)
+		      #EndIf
+		    End If
+		    
+		    // Infer cutoffs from the combined profile
+		    'Calculate Info Content
+		    Dim IC As Double
+		    IC=Fasta2IC(TFBSs)
+		    
+		    'Guess the hmm cutoffs
+		    Dim cutoffs As String
+		    cutoffs=Bits2thresholds(IC)
+		    
+		    'cutoffs are hopefully read, save the alignment in the temp file
+		    ' (no real need to convert to Stockholm format)
+		    
+		    Dim stock As FolderItem = TemporaryFolder.child("stock")
+		    If stock <> Nil Then
+		      Dim AlignmentFile As FolderItem
+		      'copy alignment to temp (for weblogo)
+		      
+		      AlignmentFile=TemporaryFolder.Child("CombinedProfile.fa")
+		      
+		      Dim tos As TextOutputStream
+		      tos = TextOutputStream.Create(AlignmentFile)
+		      If tos=Nil Then Return
+		      tos.Write TFBSs
+		      tos.close
+		      
+		      ''check if the site is marked as palindromic
+		      'If palindromicBox.value Then 'reverse complement every site
+		      '
+		      'If AlignmentFile<>Nil And AlignmentFile.Exists Then
+		      ''check if the alignment is already RC'd
+		      'Dim firstLine,thirdLine As String
+		      'Dim tis As TextInputStream
+		      'tis=AlignmentFile.OpenAsTextFile
+		      'If tis<>Nil Then
+		      'firstLine=tis.readLine
+		      'thirdLine=tis.readLine
+		      'thirdLine=tis.readLine
+		      'tis.Close
+		      'End If
+		      '
+		      'If Left(firstLine,3)=">f_" And Left(thirdLine,3)=">r_" Then
+		      ''looks like the seqs are palindromised already
+		      'Else
+		      'rcAlignmentFile=TemporaryFolder.child("rcAliFile")
+		      'RevCompAlignment(AlignmentFile,rcAlignmentFile,True)
+		      'AlignmentFile.Delete
+		      'AlignmentFile=rcAlignmentFile
+		      'AlignmentFile.name=LogoWin.LogoFile.DisplayName
+		      'End If
+		      'End If
+		      '
+		      'End If
+		      
+		      
+		      If AlignmentFile<>Nil And AlignmentFile.Exists Then
+		        
+		        
+		        SigFileVV = SigFile.CreateVirtualVolume
+		        If SigFileVV <> Nil Then
+		          'first copy the existing files:
+		          CopyFileToVV(AlignmentFile,SigFileVV)                          'alignment
+		          'get the base of profile name
+		          Dim baseName As String
+		          basename= NthField(SigFile.DisplayName,".sig",1)
+		          
+		          'alignment file can have any name, so checking it here:
+		          Dim file2copy As folderitem
+		          If AlignmentFile.Name<>basename+".fasta" Then
+		            Dim wrongFile As folderitem=SigFileVV.Root.child(AlignmentFile.Name)
+		            If wrongFile<>Nil And wrongFile.exists Then
+		              wrongFile.name=basename+".fasta"
+		            Else
+		              logowin.WriteToSTDOUT(EndOfLine+"Error writing .sig file")
+		              Return
+		            End If
+		          End If
+		          
+		          
+		          
+		          // Write options file
+		          '  (only the cutoffs are replaced)
+		          
+		          Dim oldOpt, newOpt As String
+		          
+		          Dim f2 As folderitem =SigFileVV.Root.child(basename+".options")
+		          If f2<>Nil Then
+		            Dim outstream As TextOutputStream
+		            outstream = TextOutputStream.Create(f2)
+		            
+		            'reutilise the header downto nhmmer options
+		            oldOpt=CollectionList.Cell(BPno,8)
+		            newOpt=NthField(oldOpt,"// nhmmer options",1)
+		            newOpt=newOpt+"// nhmmer options"+EndOfLine.UNIX
+		            newOpt=newOpt+"////"+EndOfLine.UNIX+EndOfLine.UNIX
+		            
+		            outstream.write(newOpt)
+		            
+		            outstream.write(cutoffs)
+		            outstream.WriteLine(EndOfLine.UNIX)
+		            outstream.WriteLine(EndOfLine.UNIX)
+		            
+		            outstream.WriteLine("////")
+		            outstream.WriteLine("// HmmGen options")
+		            'outstream.WriteLine("////")
+		            'outstream.WriteLine(EndOfLine.UNIX)
+		            
+		            'reutilise the tail
+		            newOpt=""
+		            separ="// HmmGen options"+EndOfLine.UNIX
+		            newOpt=newOpt+NthField(oldOpt,separ,2)
+		            
+		            outstream.Write(newOpt)
+		            
+		            outstream.Close
+		            
+		            
+		            'Write info file:
+		            
+		            f2=SigFileVV.Root.child(basename+".info")
+		            If f2<>Nil Then
+		              outstream = TextOutputStream.Create(f2)
+		              outstream.Write(Infos)
+		              outstream.close
+		            End If
+		            
+		            'Save MEME data
+		            Dim pal As Boolean =False
+		            If InStr(oldOpt,"HmmGen.-p")>0 Then
+		              pal=True
+		            End If
+		            If MEMEconvert(AlignmentFile,Pal)=0 Then
+		              file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
+		              If file2copy<>Nil And file2copy.exists Then
+		                CopyFileToVV(file2copy,SigFileVV)
+		                
+		                If file2copy.LastErrorCode <> 0 Then
+		                  MsgBox "MEME result file copy error"
+		                End If
+		              Else
+		                'this file is optional
+		              End If
+		            End
+		            
+		            'generate logodata and save it:
+		            'dim weblogo_out as string = weblogo(AlignmentFile)
+		            'f2=SigFileVV.Root.child(basename+".logodata")
+		            'if weblogo_out <>"" then
+		            'if f2<>nil then
+		            'outstream = TextOutputStream.Create(f2)
+		            'outstream.Write(weblogo_out)
+		            'outstream.Close
+		            'else
+		            'msgbox "Can't write logo data file."
+		            'return
+		            'end if
+		            'else
+		            'LogoWin.WriteToSTDOUT (EndofLine+"Conversion to .sig file aborted because of a weblogo problem")
+		            'return
+		            'end if
+		            
+		            
+		            'Stockholm(AlignmentFile,stock, cutoffs)
+		            
+		            
+		            'build hmm:
+		            'need a real file for hmmbuild output:
+		            f2 = TemporaryFolder.child(basename+".hmm")      'place to save
+		            If f2<>Nil Then
+		              FixPath4Windows(f2)
+		              If hmmbuild(stock.ShellPath,f2.ShellPath) Then
+		                If f2.exists Then
+		                  If f2<>Nil Then
+		                    CopyFileToVV(f2,SigFileVV)
+		                    logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
+		                    LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
+		                  Else
+		                    'beep
+		                  End If
+		                Else
+		                  'beep
+		                End If
+		              Else
+		                'error message handled by hmmbuild most of the time
+		                logowin.WriteToSTDOUT(EndOfLine+"hmmbuild error")
+		                Return
+		              End If
+		            Else
+		              MsgBox "Creating hmm failed"
+		              Return
+		            End If
+		          Else
+		            MsgBox "Can't create .sig file here. Please try another location."
+		            
+		          End If
+		        Else
+		          MsgBox "Can't create .sig file here. Please try another location."
+		        End If
+		      Else
+		        MsgBox "No alignment file found in the chosen folder. Can't proceed without it"
+		        Return
+		      End If
+		    Else
+		      MsgBox "Can't create temporary file"
+		      Return
+		    End If
+		    
+		  Else
+		    'cancelled
+		  End If
+		  
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"ConvertProfilesToMEMEWin:MergeButton")
 		    
 		End Sub
 	#tag EndEvent

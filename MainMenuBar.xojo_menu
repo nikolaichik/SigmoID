@@ -711,9 +711,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem RegulonLocalMotifCollections
          SpecialMenu = 0
-         Value = "Local Motif Collections"
+         Value = "Local MEME PWMs"
          Index = -2147483648
-         Text = "Local Motif Collections"
+         Text = "Local MEME PWMs"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
