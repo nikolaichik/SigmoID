@@ -638,57 +638,62 @@ Protected Module DeNovoTFBSinference
 	#tag Method, Flags = &h0
 		Function GetHmmFromFamilyName(familyName as string) As FolderItem
 		  // Family names and the matching file names are hard coded here
+		  'some families without CR tag mapped to closest CR tagged family (for RegPrecise export)
 		  
 		  dim TF_HMMs, hmmFile as folderitem
 		  dim hmmFileName as string
 		  
-		  select case familyName
-		  case "OmpR"
-		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
-		  case "LuxR"
-		    hmmFileName="GerE.hmm"
-		  case "GntR/MocR"
-		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
-		    hmmFileName="GntR_strict.hmm"
-		  case "GntR/Others"
-		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
-		    hmmFileName="GntR_strict.hmm"
-		  case "HxlR"
-		    hmmFileName="HxlR.hmm"
-		  case "LacI"
-		    hmmFileName="LacI.hmm"
-		  case "LysR"
-		    hmmFileName="LysR.hmm"
-		  case "MarR"
-		    hmmFileName="MarR_Superfamily.hmm"
-		  case "TetR"
-		    hmmFileName="TetR.hmm"
-		  case "XRE"
-		    hmmFileName="XRE_superfamily.hmm"
+		  Select Case familyName
+		  Case "AraC"
+		    hmmFileName="AraC.hmm"
+		  Case "ArsR"
+		    hmmFileName="HTH_20.hmm"
+		  Case "AsnC"
+		    hmmFileName="HTH_AsnC_type.hmm"
+		  Case "CitB"
+		    hmmFileName="CitT.hmm"
 		  Case "CitT"
 		    hmmFileName="CitT.hmm"
+		  Case "CRP"
+		    hmmFileName="HTH_Crp_2.hmm"
 		  Case "DcuR"
 		    hmmFileName="DcuR.hmm"
 		  Case "Fis"
 		    hmmFileName="HTH_8.hmm"
-		  Case "IclR"
-		    hmmFileName="IclR.hmm"
-		  Case "ArsR"
-		    hmmFileName="HTH_20.hmm"
-		  Case "MerR"
-		    hmmFileName="MerR.hmm"
-		  Case "Rrf2"
-		    hmmFileName="Rrf2.hmm"
-		  Case "AsnC"
-		    hmmFileName="HTH_AsnC_type.hmm"
-		  Case "ROK"
-		    hmmFileName="MarR_Superfamily.hmm"  'this model matches most of TFs from this family in RegPrecise
-		  Case "CRP"
-		    hmmFileName="HTH_Crp_2.hmm"
 		  Case "Fur"
 		    hmmFileName="FUR.hmm"
-		  Case "AraC"
-		    hmmFileName="AraC.hmm"
+		  Case "GntR/MocR"
+		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		    hmmFileName="GntR_strict.hmm"
+		  Case "GntR/Others"
+		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
+		    hmmFileName="GntR_strict.hmm"
+		  Case "HxlR"
+		    hmmFileName="HxlR.hmm"
+		  Case "IclR"
+		    hmmFileName="IclR.hmm"
+		  Case "LuxR"
+		    hmmFileName="GerE.hmm"
+		  Case "LacI"
+		    hmmFileName="LacI.hmm"
+		  Case "LysR"
+		    hmmFileName="LysR.hmm"
+		  Case "MarR"
+		    hmmFileName="MarR_Superfamily.hmm"
+		  Case "MerR"
+		    hmmFileName="MerR.hmm"
+		  Case "OmpR"
+		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
+		  Case "ROK"
+		    hmmFileName="MarR_Superfamily.hmm"  'this model matches most of TFs from this family in RegPrecise
+		  Case "Rrf2"
+		    hmmFileName="Rrf2.hmm"
+		  Case "TetR"
+		    hmmFileName="TetR.hmm"
+		  case "XRE"
+		    hmmFileName="XRE_superfamily.hmm"
+		    
+		    
 		  Case ""
 		    hmmFileName=""
 		    
@@ -2135,6 +2140,81 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function LocusTag2proteinFasta(locusTag as string, genomeName as string) As string
+		  // Uses locally installed NCBI Entrez Direct (EDirect) that should be installed locally
+		  ' download link:
+		  ' https://www.ncbi.nlm.nih.gov/books/NBK179288/
+		  
+		  
+		  Dim cmdStart As String = "esearch -db protein -query "+Chr(34)
+		  Dim cmdEnd As String = Chr(34)+" | efetch -format fasta"
+		  Dim cmd As String
+		  
+		  cmd=cmdStart+locusTag+cmdEnd
+		  
+		  Dim sh As New Shell
+		  
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  sh.execute ("bash --login -c "+Chr(34)+cmd+Chr(34))
+		  
+		  Dim res As String
+		  Dim m,n As Integer
+		  
+		  res=sh.result
+		  
+		  If InStr(res, ">")>0 Then 'find correct seq among several possible
+		    'we simply check for the presence of all words of genomeName within fasta title
+		    Dim Fastas(-1) As String
+		    Dim genomeWords(-1) As String
+		    
+		    fastas=res.Split(">")
+		    genomeWords=genomeName.Split
+		    
+		    Dim Scores(-1) As Integer
+		    For m=0 To ubound(Fastas)
+		      Scores.append 0
+		    Next
+		    
+		    'find the best match
+		    For m=0 To ubound(Fastas)
+		      For n=0 To ubound(genomeWords)
+		        If InStr(fastas(m),genomeWords(n))>0 Then 
+		          Scores(m)=Scores(m)+1
+		        End If
+		      Next
+		    Next
+		    
+		    Dim TopScore As Integer = Scores(0)
+		    Dim Scoremax As Integer = 0
+		    
+		    If ubound(scores)>0 Then
+		      For m=1 To ubound(Scores)
+		        If Scores(m)>TopScore Then
+		          TopScore=Scores(m)
+		          Scoremax=m
+		        End If
+		      Next
+		    End If
+		    
+		    If TopScore>0 Then
+		      Return ">"+Fastas(Scoremax)
+		    Else
+		      'MsgBox "Can't find a protein that matches both locus_tag and genome name"
+		      Return ""
+		    End If
+		    
+		    
+		    
+		  Else
+		    'MsgBox res
+		    Return ""
+		  End If
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MEME(inFile as folderitem, outFolder as folderitem, options as string) As integer
 		  'Standard MEME run with result display in browser
 		  
@@ -2195,7 +2275,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  
 		  'actual conversion
-		  dim cli as string
+		  Dim cli As String
 		  Dim sh As Shell
 		  
 		  ''need to set MEME_BIN_DIRS for the bundled meme version
@@ -3120,7 +3200,7 @@ Protected Module DeNovoTFBSinference
 			Group="Behavior"
 			InitialValue=""
 			Type="string"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

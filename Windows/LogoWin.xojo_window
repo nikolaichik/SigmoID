@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -1680,11 +1681,11 @@ End
 			MEMEdata=tis.ReadAll
 			tis.Close
 			
-			Dim motifName, nSites, PWMdata, sitelen, FastaData As String 
+			Dim motifName, nSites, PWMdata, sitelen, FastaData, Info, Options  As String 
 			Dim LEloc As Integer
 			
 			motifName=NthField(SigF.Item(n).Name,".sig",1)
-			nSites=Str(Val(NthField(MEMEdata," nsites=",2)))
+			'nSites=Str(Val(NthField(MEMEdata," nsites=",2)))     'MEME ignores duplicates, so this number can be less than the actual number of seqs
 			PWMdata=NthField(MEMEdata," nsites=",2)               'get closer to the data
 			LEloc=InStr(PWMdata,EndOfLine)
 			PWMdata=Right(PWMdata,Len(PWMdata)-LEloc)                 'still has trailing lines
@@ -1703,6 +1704,24 @@ End
 			tis.Close
 			End If
 			
+			nSites=str(countfields(FastaData,">")-1)
+			
+			'get info:
+			f=vv.root.child(basename+".info")
+			If f<> Nil And f.exists Then
+			tis = TextInputStream.Open(f)
+			Info=tis.ReadAll
+			tis.Close
+			End If
+			
+			'get options:
+			f=vv.root.child(basename+".options")
+			If f<> Nil And f.exists Then
+			tis = TextInputStream.Open(f)
+			Options=tis.ReadAll
+			tis.Close
+			End If
+			
 			// CollectionList columns are:
 			' 0 - Checkbox
 			' 1 - Profile Name
@@ -1712,7 +1731,12 @@ End
 			' 5 (invisible) - TFBS seqs (in fasta format)
 			' 6 (invisible) - TFBS length.
 			
-			Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen)  'first column contains checkboxes
+			'added for profile merge:
+			' 7 (invisible) - profile info
+			' 8 (invisible) - profile options
+			' 9 (invisible) - profile name
+			
+			Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen,Info,Options,basename)  'first column contains checkboxes
 			
 			ConvertProfilesToMEMEWin.CollectionList.AddRow(reg)
 			
@@ -3654,7 +3678,7 @@ End
 		        msgbox "No alignment info file ("+ f.Name+") located at "+f.ShellPath
 		      end if
 		      
-		      if vv<>Nil then
+		      If vv<>Nil Then
 		        f=vv.root.child(basename+".options")  'Profile Settings
 		      else
 		        f=tmpfile.child(basename+".options")  
