@@ -2031,6 +2031,189 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub AnnotateMEMEresults()
+		  dim dlg As New SelectFolderDialog
+		  dim MEMEfolder As FolderItem
+		  dim MEMEresult As FolderItem
+		  dim nhmmerOutput As FolderItem = TemporaryFolder.Child("annotateResNhmmer.table")
+		  dim hmmgenOutput As FolderItem = TemporaryFolder.Child("annotateResHmmgen")
+		  dim instream As TextInputStream
+		  dim outstream As TextOutputStream
+		  
+		  dim MotifFile As FolderItem
+		  dim Fasta As String
+		  dim MEMEtxt As String
+		  dim TFMotif(-1) As String
+		  dim TFMotifsFasta As New Dictionary
+		  dim MotifBlocks As New RegEx
+		  dim MotifSeq As New RegEx
+		  dim MotifSeqID As New RegEx
+		  dim MotifBlocksMatch As New RegExMatch
+		  dim IDMatch As New RegExMatch
+		  dim SeqMatch As New RegExMatch
+		  dim sh As Shell
+		  dim cli As String
+		  
+		  MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?\/\/)"
+		  MotifSeqID.SearchPattern="\S*(?=\s\()"
+		  MotifSeq.SearchPattern="(?<=\)\s)\S*"
+		  
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Provide path to the MEME_results folder content"
+		  'dlg.PromptText = ""
+		  MEMEfolder = dlg.ShowModal
+		  If MEMEfolder <> Nil Then
+		    For Each Folder As FolderItem in MEMEfolder.Children
+		      If Folder.IsFolder Then
+		        For Each ModeFolder As FolderItem in Folder.Children
+		          If ModeFolder.IsFolder Then
+		            MEMEresult = ModeFolder.Child("meme.txt")
+		            if MEMEresult <> nil and MEMEresult.Exists Then
+		              instream = TextInputStream.Open(MEMEresult)
+		              MEMEtxt = instream.ReadAll
+		              MotifBlocksMatch = MotifBlocks.Search(MEMEtxt)
+		              dim n As Integer = 1
+		              Do
+		                if MotifBlocksMatch <> Nil Then
+		                  TFMotif = MotifBlocksMatch.SubExpressionString(0).Split(EndOfLine.UNIX)
+		                  Fasta=""
+		                  if UBound(TFMotif) > 0 Then
+		                    For Each Line as String in TFMotif
+		                      IDMatch = MotifSeqID.Search(Line)
+		                      SeqMatch = MotifSeq.Search(Line)
+		                      if IDMatch <> Nil and SeqMatch <> Nil Then
+		                        Fasta = Fasta +">" + IDMatch.SubExpressionString(0) + EndOfLine.UNIX + SeqMatch.SubExpressionString(0) + EndOfLine.UNIX
+		                      End
+		                    Next
+		                    If Fasta <> "" Then 
+		                      TFMotifsFasta.Value(Folder.Name+"-"+ModeFolder.Name+"-"+str(n)) = Fasta
+		                    End
+		                  End
+		                End
+		                MotifBlocksMatch = MotifBlocks.Search
+		                n = n + 1
+		              Loop Until MotifBlocksMatch = Nil
+		            End
+		          End
+		        Next
+		      End
+		    Next
+		  End
+		  If TFMotifsFasta.KeyCount>0 Then
+		    nhmmerSettingsWin.AnnotateRes=True
+		    nhmmerSettingsWin.BitScoreField.enabled=True
+		    nhmmerSettingsWin.BitScoreButton.enabled=True
+		    nhmmerSettingsWin.GenomeField.Enabled = False
+		    nhmmerSettingsWin.PushButton3.Enabled = False
+		    nhmmerSettingsWin.ThresholdsBox.Enabled = True
+		    nhmmerSettingsWin.EvalueButton.Enabled = False
+		    nhmmerSettingsWin.EvalueField.Enabled=False
+		    nhmmerSettingsWin.CutoffBox.Enabled = False
+		    nhmmerSettingsWin.RunButton.Enabled = True
+		    'nhmmerSettingsWin.ShowModalWithin(self)
+		    nhmmerSettingsWin.ShowModal()
+		    dim GBfile As String = Nthfield(GenomeWin.GenomeFile.Name,".gb",1)+"_annotated.gb"
+		    dim AnnotatedGenome As FolderItem = TemporaryFolder.Child(GBfile)
+		    Try
+		      If AnnotatedGenome.Exists then AnnotatedGenome.Remove
+		      outstream = TextOutputStream.Create(AnnotatedGenome)
+		      instream = TextInputStream.Open(GenomeFile)
+		      dim SourceGenome As String = instream.ReadAll
+		      outstream.Write(SourceGenome)
+		      outstream.Close
+		    Catch err as IOException
+		      LogoWin.WriteToSTDOUT("Can't save fasta file with motif sequences."+EndOfLine.UNIX)
+		    End
+		    If nhmmerOptions<>"" Then
+		      MotifFile = TemporaryFolder.Child("TFmotif.fasta")
+		      If MotifFile <> Nil Then
+		        dim MotifsCount As String = str(TFMotifsFasta.KeyCount)
+		        dim i As Integer = 1
+		        For Each Motif As DictionaryEntry In TFMotifsFasta
+		          LogoWin.WriteToSTDOUT("Processing "+Motif.key+" model."+EndOfLine.UNIX)
+		          If nhmmerSettingsWin.BitScoreField.Value="" Then
+		            Dim IC As Double
+		            IC=Fasta2IC(Motif.Value)
+		            'Calcucate model threshold if it's not provided by user
+		            Dim cutoffs,GA As String
+		            cutoffs=Bits2thresholds(IC)
+		            GA=NthField(cutoffs,"#=GF GA ",2)
+		            GA=NthField(GA," ",1)
+		            nhmmerOptions=nhmmerOptions+" -T "+str(GA)
+		            LogoWin.WriteToSTDOUT("Gathering  threshold was automatically calculated, used value: "+str(GA)+EndOfLine.UNIX)
+		          End
+		          If MotifFile.Exists Then MotifFile.Remove
+		          Try
+		            outstream = TextOutputStream.Create(MotifFile)
+		            outstream.Write(Motif.Value)
+		            outstream.Close
+		          Catch err as IOException
+		            LogoWin.WriteToSTDOUT("Can't save fasta file with motif sequences."+EndOfLine.UNIX)
+		            Continue 
+		          End
+		          cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerOutput.shellpath+" "+MotifFile.ShellPath+" "+AnnotatedGenome.ShellPath
+		          sh=New Shell
+		          sh.Mode=0
+		          sh.TimeOut=-1
+		          WriteToSTDOUT ("Running nhmmer..."+EndOfLine.UNIX)
+		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		          If sh.errorCode=0 Then
+		            Dim HitsCount As String = trim(Nthfield(NthField(Sh.Result, "Total number of hits:",2),"(",1))
+		            LogoWin.WriteToSTDOUT("Number of hits found with current model: "+HitsCount+EndOfLine.UNIX)
+		            
+		          Else
+		            WriteToSTDOUT (EndofLine+Sh.Result)
+		            MsgBox "nhmmer error code: "+Str(sh.errorCode)
+		            WriteToSTDOUT (EndofLine+"nhmmer command line was: "+cli+EndofLine)
+		          End if
+		          If hmmgenOutput.Exists Then hmmgenOutput.Remove
+		          cli=pythonPath+hmmGenPath+" "+nhmmerOutput.ShellPath+" "+AnnotatedGenome.ShellPath+" "
+		          'intergenic distance is hardcoded, should be configurable
+		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L 110 -n -f protein_bind -q"+chr(34)
+		          cli = cli + chr(34)+"#"+chr(34)+Motif.Key+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
+		          
+		          sh=New Shell
+		          sh.Mode=0
+		          sh.TimeOut=-1
+		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		          If sh.errorCode=0 Then
+		            instream = TextInputStream.Open(hmmgenOutput)
+		            dim annotation as string = instream.ReadAll
+		            If annotation<>"" Then
+		              If AnnotatedGenome.Exists Then AnnotatedGenome.Remove
+		              outstream = TextOutputStream.Open(AnnotatedGenome)
+		              outstream.Write(annotation)
+		              outstream.Close
+		              nhmmerOutput.Remove
+		              hmmgenOutput.Remove
+		            End
+		          Else
+		            WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(sh.errorCode)+EndofLine.UNIX)
+		            WriteToSTDOUT (EndofLine+Sh.Result)
+		            WriteToSTDOUT (EndofLine+"HmmGen command line was: "+cli+EndofLine.UNIX)
+		          End
+		          If nhmmerSettingsWin.BitScoreField.Value="" Then
+		            nhmmerOptions=Nthfield(nhmmerOptions," -T ",1)
+		          End
+		          LogoWin.WriteToSTDOUT(str(i)+" out of "+MotifsCount+" models processed."+EndOfLine.UNIX+EndOfLine.UNIX)
+		          i = i+1
+		        Next
+		        LogoWin.WriteToSTDOUT("Annotation is complete."+EndOfLine.UNIX)
+		        If AnnotatedGenome.Exists Then
+		          Try 
+		            AnnotatedGenome.CopyTo(MEMEfolder)
+		            LogoWin.WriteToSTDOUT("Annotated genome file location: "+MEMEfolder.NativePath+EndOfLine.UNIX)
+		          Catch err As IOException
+		            LogoWin.WriteToSTDOUT("Can't save annotated file to "+MEMEfolder.NativePath+EndOfLine.UNIX)
+		          End
+		        End
+		      End
+		    End
+		  End
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub BuildTBButtonMenu()
 		  //create the menu for the first toolbar button
 		  Dim ButtMenu as New MenuItem

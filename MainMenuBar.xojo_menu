@@ -799,6 +799,15 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem AnnotateMEMEres
+         SpecialMenu = 0
+         Value = "Annotate MEME results"
+         Index = -2147483648
+         Text = "Annotate MEME results"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledItem5
          SpecialMenu = 0
          Value = "-"
