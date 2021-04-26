@@ -53,6 +53,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -78,6 +79,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -162,6 +164,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -242,6 +245,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -354,6 +358,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -366,6 +371,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -468,6 +474,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -529,6 +536,7 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -585,6 +593,8 @@ End
 		  ViewHideViewer.Visible=false
 		  Separator2.Visible=false
 		  ViewViewDetails.Visible=true
+		  AnnotateMEMEres.Visible=True
+		  AnnotateMEMEres.Enabled=True
 		  
 		  if ubound(genome.ReadDepth1)>0 then
 		    GenomeRemovePlots.enabled=true
@@ -938,6 +948,14 @@ End
 	#tag MenuHandler
 		Function AlignmentConvertToHmm() As Boolean Handles AlignmentConvertToHmm.Action
 			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function AnnotateMEMEres() As Boolean Handles AnnotateMEMEres.Action
+			LogoWin.AnnotateMEMEresults
 			Return True
 			
 		End Function

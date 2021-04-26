@@ -1456,4 +1456,12 @@ End
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
+	#tag ViewProperty
+		Name="AnnotateRes"
+		Visible=false
+		Group="Behavior"
+		InitialValue="False"
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
 #tag EndViewBehavior

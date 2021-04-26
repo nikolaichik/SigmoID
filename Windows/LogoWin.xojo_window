@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -2164,7 +2163,7 @@ End
 		            GA=NthField(cutoffs,"#=GF GA ",2)
 		            GA=NthField(GA," ",1)
 		            nhmmerOptions=nhmmerOptions+" -T "+str(GA)
-		            LogoWin.WriteToSTDOUT("Gathering  threshold was automatically calculated, used value: "+str(GA)+EndOfLine.UNIX)
+		            LogoWin.WriteToSTDOUT("Significance threshold was automatically calculated, used value: "+str(GA)+" bit(s)"+EndOfLine.UNIX)
 		          End
 		          If MotifFile.Exists Then MotifFile.Remove
 		          Try
@@ -2183,7 +2182,7 @@ End
 		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		          If sh.errorCode=0 Then
 		            Dim HitsCount As String = trim(Nthfield(NthField(Sh.Result, "Total number of hits:",2),"(",1))
-		            LogoWin.WriteToSTDOUT("Number of hits found with current model: "+HitsCount+EndOfLine.UNIX)
+		            LogoWin.WriteToSTDOUT("Number of potential TFBS found with current model: "+HitsCount+EndOfLine.UNIX)
 		            
 		          Else
 		            WriteToSTDOUT (EndofLine+Sh.Result)
@@ -2201,6 +2200,9 @@ End
 		          sh.TimeOut=-1
 		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		          If sh.errorCode=0 Then
+		            dim AnnotatedCount as string
+		            AnnotatedCount=NthField(NthField(Sh.Result,"Features added:",3),"CPU time:",1)
+		            LogoWin.WriteToSTDOUT("Number of TFBS added to the genome annotation using current significance threshold: "+trim(AnnotatedCount)+EndOfLine.UNIX)
 		            instream = TextInputStream.Open(hmmgenOutput)
 		            dim annotation as string = instream.ReadAll
 		            If annotation<>"" Then
