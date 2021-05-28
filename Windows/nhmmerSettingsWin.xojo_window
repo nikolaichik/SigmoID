@@ -997,25 +997,27 @@ End
 
 	#tag Method, Flags = &h0
 		Sub EnableRun()
-		  RunButton.enabled=true
-		  
-		  if LogoWin.Genomefile=nil then
-		    RunButton.enabled=false
-		  elseif GenomeField.text<>LogoWin.Genomefile.shellpath then
-		    RunButton.enabled=false
-		  end if
-		  
-		  if BitScoreButton.Enabled=true then
-		    if BitScoreButton.Value=true AND BitScoreField.text="" then
+		  If Not me.AnnotateRes Then
+		    RunButton.enabled=true
+		    
+		    if LogoWin.Genomefile=nil then
+		      RunButton.enabled=false
+		    elseif GenomeField.text<>LogoWin.Genomefile.shellpath then
 		      RunButton.enabled=false
 		    end if
-		  end if
-		  
-		  if EvalueButton.Enabled=true then
-		    if EvalueButton.Value=true AND EvalueField.text="" then
-		      RunButton.enabled=false
+		    
+		    if BitScoreButton.Enabled=true then
+		      if BitScoreButton.Value=true AND BitScoreField.text="" then
+		        RunButton.enabled=false
+		      end if
 		    end if
-		  end if
+		    
+		    if EvalueButton.Enabled=true then
+		      if EvalueButton.Value=true AND EvalueField.text="" then
+		        RunButton.enabled=false
+		      end if
+		    end if
+		  End
 		End Sub
 	#tag EndMethod
 
@@ -1089,6 +1091,11 @@ End
 		    ExceptionHandler(err,"NhmmerSettingsWin:ReadOptions")
 		End Sub
 	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		AnnotateRes As boolean = False
+	#tag EndProperty
 
 
 #tag EndWindowCode
@@ -1447,6 +1454,14 @@ End
 		Group="Position"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="AnnotateRes"
+		Visible=false
+		Group="Behavior"
+		InitialValue="False"
+		Type="boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
