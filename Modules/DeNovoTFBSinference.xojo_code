@@ -685,15 +685,16 @@ Protected Module DeNovoTFBSinference
 		  Case "OmpR"
 		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
 		  Case "ROK"
-		    hmmFileName="MarR_Superfamily.hmm"  'this model matches most of TFs from this family in RegPrecise
+		    'hmmFileName="MarR_Superfamily.hmm"  'this model matches most of TFs from this family in RegPrecise
+		    hmmFileName="ROK.hmm"
 		  Case "Rrf2"
 		    hmmFileName="Rrf2.hmm"
 		  Case "TetR"
 		    hmmFileName="TetR.hmm"
-		  case "XRE"
+		  Case "XRE"
 		    hmmFileName="XRE_superfamily.hmm"
-		    
-		    
+		  Case "PhdYeFM_antitox"
+		    hmmFileName="PhdYeFM_antitox.hmm"
 		  Case ""
 		    hmmFileName=""
 		    
