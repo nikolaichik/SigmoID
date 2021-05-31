@@ -640,6 +640,8 @@ Protected Module DeNovoTFBSinference
 		  // Family names and the matching file names are hard coded here
 		  'some families without CR tag mapped to closest CR tagged family (for RegPrecise export)
 		  
+		  'currently the function is used during RegPrecise export only
+		  
 		  dim TF_HMMs, hmmFile as folderitem
 		  dim hmmFileName as string
 		  
@@ -664,10 +666,10 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="FUR.hmm"
 		  Case "GntR/MocR"
 		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
-		    hmmFileName="GntR_strict.hmm"
+		    hmmFileName="GntR.hmm"
 		  Case "GntR/Others"
 		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
-		    hmmFileName="GntR_strict.hmm"
+		    hmmFileName="GntR.hmm"
 		  Case "HxlR"
 		    hmmFileName="HxlR.hmm"
 		  Case "IclR"
