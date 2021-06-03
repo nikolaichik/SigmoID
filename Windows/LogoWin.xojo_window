@@ -2066,6 +2066,7 @@ End
 		  dim MotifFile As FolderItem
 		  dim Fasta As String
 		  dim MEMEtxt As String
+		  dim MotifWidth As Integer
 		  dim TFMotif(-1) As String
 		  dim TFMotifsFasta As New Dictionary
 		  dim MotifBlocks As New RegEx
@@ -2154,6 +2155,12 @@ End
 		        dim i As Integer = 1
 		        For Each Motif As DictionaryEntry In TFMotifsFasta
 		          LogoWin.WriteToSTDOUT("Processing "+Motif.key+" model."+EndOfLine.UNIX)
+		          'calculate motif width
+		          Fasta=Nthfield(Motif.Value,EndOfLine.UNIX,2)
+		          MotifWidth=len(Fasta)
+		          if MotifWidth=0 then 
+		            LogoWin.WriteToSTDOUT("Incorrect motif width for "+Motif.key+" model. Skipped."+EndOfLine.UNIX)
+		          End
 		          If nhmmerSettingsWin.BitScoreField.Value="" Then
 		            Dim IC As Double
 		            IC=Fasta2IC(Motif.Value)
@@ -2186,13 +2193,13 @@ End
 		            
 		          Else
 		            WriteToSTDOUT (EndofLine+Sh.Result)
-		            MsgBox "nhmmer error code: "+Str(sh.errorCode)
 		            WriteToSTDOUT (EndofLine+"nhmmer command line was: "+cli+EndofLine)
 		          End if
 		          If hmmgenOutput.Exists Then hmmgenOutput.Remove
 		          cli=pythonPath+hmmGenPath+" "+nhmmerOutput.ShellPath+" "+AnnotatedGenome.ShellPath+" "
 		          'intergenic distance is hardcoded, should be configurable
-		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L 110 -n -f protein_bind -q"+chr(34)
+		          'cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L 110 -n -f protein_bind -q"+chr(34)
+		          cli = cli + hmmgenOutput.ShellPath+" -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q"+chr(34)
 		          cli = cli + chr(34)+"#"+chr(34)+Motif.Key+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
 		          
 		          sh=New Shell
