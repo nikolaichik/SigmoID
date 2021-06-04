@@ -2199,7 +2199,7 @@ End
 		          cli=pythonPath+hmmGenPath+" "+nhmmerOutput.ShellPath+" "+AnnotatedGenome.ShellPath+" "
 		          'intergenic distance is hardcoded, should be configurable
 		          'cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L 110 -n -f protein_bind -q"+chr(34)
-		          cli = cli + hmmgenOutput.ShellPath+" -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q"+chr(34)
+		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q"+chr(34)
 		          cli = cli + chr(34)+"#"+chr(34)+Motif.Key+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
 		          
 		          sh=New Shell
