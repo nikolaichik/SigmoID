@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.16 (September 27, 2020)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.17 (June 4, 2021)')
     return parser
 
 args = createParser()
