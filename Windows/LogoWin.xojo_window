@@ -2072,15 +2072,20 @@ End
 		  dim MotifBlocks As New RegEx
 		  dim MotifSeq As New RegEx
 		  dim MotifSeqID As New RegEx
+		  dim MotifEvalue As New RegEx
 		  dim MotifBlocksMatch As New RegExMatch
+		  
 		  dim IDMatch As New RegExMatch
 		  dim SeqMatch As New RegExMatch
+		  dim Evalue As New RegExMatch
 		  dim sh As Shell
 		  dim cli As String
 		  
-		  MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?\/\/)"
+		  'MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?\/\/)"
+		  MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?probability)"
 		  MotifSeqID.SearchPattern="\S*(?=\s\()"
 		  MotifSeq.SearchPattern="(?<=\)\s)\S*"
+		  MotifEvalue.SearchPattern="(?<=\d)e\+" '+ in E-value report denotify insignificant motif
 		  
 		  dlg.ActionButtonCaption = "Select"
 		  dlg.Title = "Provide path to the MEME_results folder content"
@@ -2107,6 +2112,10 @@ End
 		                      SeqMatch = MotifSeq.Search(Line)
 		                      if IDMatch <> Nil and SeqMatch <> Nil Then
 		                        Fasta = Fasta +">" + IDMatch.SubExpressionString(0) + EndOfLine.UNIX + SeqMatch.SubExpressionString(0) + EndOfLine.UNIX
+		                      End
+		                      Evalue = MotifEvalue.Search(Line)
+		                      If Evalue <> Nil Then
+		                        Fasta = "" 'if E-value match contains "+" skip model
 		                      End
 		                    Next
 		                    If Fasta <> "" Then 
@@ -2165,12 +2174,12 @@ End
 		            Dim IC As Double
 		            IC=Fasta2IC(Motif.Value)
 		            'Calcucate model threshold if it's not provided by user
-		            Dim cutoffs,GA As String
+		            Dim cutoffs,NC As String
 		            cutoffs=Bits2thresholds(IC)
-		            GA=NthField(cutoffs,"#=GF GA ",2)
-		            GA=NthField(GA," ",1)
-		            nhmmerOptions=nhmmerOptions+" -T "+str(GA)
-		            LogoWin.WriteToSTDOUT("Significance threshold was automatically calculated, used value: "+str(GA)+" bit(s)"+EndOfLine.UNIX)
+		            NC=NthField(cutoffs,"#=GF NC ",2)
+		            NC=NthField(NC," ",1)
+		            nhmmerOptions=nhmmerOptions+" -T "+str(NC)
+		            LogoWin.WriteToSTDOUT("Significance threshold derived from motif's model IC value, used value: "+str(NC)+" bit(s)"+EndOfLine.UNIX)
 		          End
 		          If MotifFile.Exists Then MotifFile.Remove
 		          Try
@@ -2189,7 +2198,7 @@ End
 		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		          If sh.errorCode=0 Then
 		            Dim HitsCount As String = trim(Nthfield(NthField(Sh.Result, "Total number of hits:",2),"(",1))
-		            LogoWin.WriteToSTDOUT("Number of potential TFBS found with current model: "+HitsCount+EndOfLine.UNIX)
+		            LogoWin.WriteToSTDOUT("Total number of hits: "+HitsCount+EndOfLine.UNIX)
 		            
 		          Else
 		            WriteToSTDOUT (EndofLine+Sh.Result)
@@ -2199,7 +2208,7 @@ End
 		          cli=pythonPath+hmmGenPath+" "+nhmmerOutput.ShellPath+" "+AnnotatedGenome.ShellPath+" "
 		          'intergenic distance is hardcoded, should be configurable
 		          'cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L 110 -n -f protein_bind -q"+chr(34)
-		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q"+chr(34)
+		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q bound_moiety"+chr(34)
 		          cli = cli + chr(34)+"#"+chr(34)+Motif.Key+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
 		          
 		          sh=New Shell
@@ -2208,8 +2217,8 @@ End
 		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		          If sh.errorCode=0 Then
 		            dim AnnotatedCount as string
-		            AnnotatedCount=NthField(NthField(Sh.Result,"Features added:",3),"CPU time:",1)
-		            LogoWin.WriteToSTDOUT("Number of TFBS added to the genome annotation using current significance threshold: "+trim(AnnotatedCount)+EndOfLine.UNIX)
+		            AnnotatedCount=NthField(NthField(Sh.Result,"Features added:",3),"--------------------------------------------------",1)
+		            LogoWin.WriteToSTDOUT("Number of features added: "+trim(AnnotatedCount)+EndOfLine.UNIX)
 		            instream = TextInputStream.Open(hmmgenOutput)
 		            dim annotation as string = instream.ReadAll
 		            If annotation<>"" Then

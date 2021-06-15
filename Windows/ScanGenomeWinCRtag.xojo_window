@@ -278,176 +278,6 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ScanGenomeCR()
-		  dim k,SigCount,HitCount as integer
-		  dim time as double
-		  dim f,f3 as folderitem
-		  dim infileName, crtags(-1), sigtagbase(-1), sigpathbase(-1), protdescr(-1),notfound(-1), summary(-1), hmmsearch, hmmsearchcopy, fname, summstring as string
-		  dim cdsfile as FolderItem
-		  dim count1 as Integer
-		  
-		  cdsfile=TemporaryFolder.child("gbkProtexport.fasta") 'getting converted gbk file 
-		  Logowin.ScanningGenome=true 'to prevent file writing messages
-		  infileName=logowin.genomefile.displayname
-		  
-		  Sigcount=0
-		  dim GenomeScanOut as new FolderItem
-		  GenomeScanOut = TemporaryFolder.child("GenomeScanOut")
-		  time= Microseconds
-		  'HmmGenSettingsWin.EvalueField.text="300"        'workaround for bitscore threshold not available
-		  Dim f2 as FolderItem=GetSaveFolderItem("????","hmm_out.gbk")
-		  If f2 <> nil then
-		    
-		    for k=0 to SigList.ListCount-1
-		      if SigList.CellCheck(k,0) = true then
-		        count1 =0 'counting proteins without crtag in base
-		        redim crtags(-1)
-		        redim protdescr(-1) 
-		        redim sigtagbase(-1)
-		        redim sigpathbase(-1)
-		        redim notfound(-1)
-		        hmmsearch=HMMsearchWithCRtagsCR(cdsfile, str(SigList.Cell(k,3)))
-		        hmmsearchcopy=hmmsearch
-		        dim rx1 as new RegEx
-		        dim rx2 as new RegEx
-		        rx1.SearchPattern = "(?<=^\>)(.*)(?=\>)" ' find a crtag in hmmsearch output, mask for strings like: >CRTAG>
-		        dim match as RegExMatch = rx1.Search(hmmsearchcopy)
-		        dim matchstring, matchstring2 as string = " "
-		        dim c1 as integer = 0
-		        ' making array from crtags, that hmmsearch has found
-		        'while matchs isa Object 'loop
-		        while matchstring<>"" 
-		          try
-		            matchstring=match.SubExpressionString(0)
-		          catch NilObjectException ' some strange thing with cycle, sometimes gets loop
-		          end try
-		          Crtags.append(matchstring)
-		          rx2.SearchPattern = "(?<="+trim(matchstring)+">)\s*\S*\s*\S*" ' getting protein description for given crtag 
-		          dim match2 as RegExMatch = rx2.search(hmmsearchcopy)
-		          try 
-		            matchstring2=match2.SubExpressionString(0)
-		          catch NilObjectException
-		            c1=c1+1 'count exceptions
-		          end try
-		          protdescr.Append(matchstring2) ' creating array with protein description
-		          hmmsearchcopy=Replace(hmmsearchcopy, matchstring, "del")
-		          hmmsearchcopy=Replace(hmmsearchcopy, ">del>", "")
-		          match = rx1.Search(hmmsearchcopy) 
-		          try
-		            matchstring=match.SubExpressionString(0)
-		          catch NilObjectException
-		            exit
-		          end try
-		        wend
-		        dim apath as string=Siglist.Cell(k,2)
-		        dim ftest as FolderItem
-		        if instr(apath, ";")>0 then
-		          apath=NthField(apath, ";", 1) 'multiple pathes for one hmm family is allowed, but not done yet, process first  
-		        end
-		        f=getfolderitem(apath, FolderItem.PathTypeNative)
-		        for j as integer = 1 to f.count
-		          if f.Item(j).Visible<>True then Continue
-		          ftest=f.Item(j)
-		          fname = ftest.DisplayName
-		          if right(fname,4)<>".sig" or instr(fname,"[indel")>0 or instr(fname,"error")>0 or InStr(fname,"no_CRtag")>0 then Continue
-		          sigtagbase.append(NthField(fname,"_",1))
-		          sigpathbase.append(ftest.ShellPath)
-		        next
-		        
-		        for j1 as integer =0 to ubound(crtags)
-		          dim index as integer
-		          index=sigtagbase.indexof(crtags(j1))
-		          if index>-1 then
-		            f3=getfolderitem(sigpathbase(index),FolderItem.PathTypeShell)
-		            if f3.Exists then 
-		              LogoWin.LoadAlignment f3
-		              logowin.ChangeView("Logo")
-		              LogoWin.LogoTabs.TabIndex=0
-		              app.DoEvents  'otherwise logo picture isn't updated
-		              nhmmerSettingsWin.GenomeField.text=LogoWin.GenomeFile.ShellPath
-		              nhmmerSettingsWin.ReadOptions
-		              if NOT LogoWin.nhmmer then
-		                'exit on error
-		                LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to nhmmer error")
-		                return
-		              end if
-		              HmmGenSettingsWin.ReadOptions
-		              LogoWin.outfile=GenomeScanOut
-		              if NOT LogoWin.HmmGen then
-		                'exit on error
-		                LogoWin.WriteToSTDOUT(lineEnd+"Genome scan interrupted due to HmmGen.py script error")
-		                return
-		              end if
-		              HitCount=HitCount+LogoWin.LastHitNo
-		              dim tmpfile as folderitem
-		              tmpfile=TemporaryFolder.child("GenomeScanIn")
-		              if tmpfile.Exists then
-		                tmpfile.Delete
-		              End If
-		              GenomeScanOut.CopyFileTo tmpfile
-		              LogoWin.genomefile=tmpfile
-		              SigCount=SigCount+1
-		            else
-		              LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Model path not found"+EndOfLine.UNIX)
-		              Continue
-		            end if
-		          else
-		            notfound.append(protdescr(j1))
-		            count1=count1+1
-		          end
-		        next
-		        ' summary stats
-		        summstring=EndOfLine.Unix+"For the model "+Str(SigList.Cell(k,3))+" total tags count is: "+Str(ubound(crtags)+1)+", no profiles with matching CR tags found for "+Str(count1)+EndOfLine.Unix+" proteins: "+Str(Join(notfound, ";"))+EndOfLine.Unix
-		        summary.Append(summstring)
-		      end
-		    next
-		    
-		    if f2.Exists then
-		      f2.Delete
-		    End If
-		    'if TerminatorCheckBox.value then
-		    'LogoWin.outfile=f2
-		    'if LogoWin.TermGen then
-		    ''if TermGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		    ''GenomeWin.opengenbankfile(outFile)
-		    ''GenomeWin.ShowGenomeStart
-		    '''genomeWin.ShowHit
-		    ''end if
-		    'end if
-		  else
-		    GenomeScanOut.CopyFileTo f2
-		  End If
-		  
-		  dim min, sec As integer
-		  dim timestring As string
-		  sec=(Microseconds-Time)/1000000
-		  if sec>60 then
-		    min=sec/60
-		    sec=sec-min*60
-		    timestring= str(min)+" minutes "+str(sec)+" seconds "
-		  else
-		    timestring= str(sec)+" seconds "
-		  End If
-		  dim sum as Integer = summary.Ubound
-		  logowin.WriteToSTDOUT(Endofline.unix+"Summary: "+endofline.UNIX)
-		  for i1 as Integer=0 to sum
-		    logowin.WriteToSTDOUT(str(summary(i1)))
-		  next
-		  
-		  logowin.WriteToSTDOUT(EndOfLine+EndOfLine+timestring+"spent scanning "+infileName+" with "+str(SigCount)+" profiles." )
-		  logowin.WriteToSTDOUT(EndOfLine+str(HitCount)+" sites added to feature table.")
-		  logowin.WriteToSTDOUT(EndOfLine+"Modified GenBank file written to "+f2.ShellPath+endofline)
-		  Logowin.ScanningGenome=false
-		  LogoWin.Refresh
-		  //'next
-		  'End If
-		  
-		  Exception err
-		    ExceptionHandler(err,"ScanGenomeWinCRtag:ScanGenomeCR")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub ScanGenomeCR1()
 		  Dim k,SigCount As Integer
 		  'dim time as double
 		  dim f,f3 as folderitem ' f - path to folder with sig files of the selected family, f3 - path to sig with matched crtag 
@@ -708,7 +538,7 @@ End
 		  
 		  
 		  Exception err
-		    ExceptionHandler(err,"ScanGenomeWinCRtag:ScanGenomeCR1")
+		    ExceptionHandler(err,"ScanGenomeWinCRtag:ScanGenomeCR")
 		End Sub
 	#tag EndMethod
 
@@ -725,7 +555,7 @@ End
 		Sub Action()
 		  
 		  self.hide
-		  self.ScanGenomeCR1
+		  self.ScanGenomeCR
 		  
 		End Sub
 	#tag EndEvent
