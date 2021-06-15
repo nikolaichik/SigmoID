@@ -278,7 +278,7 @@ End
 		  LogoWin.Refresh
 		  
 		  Exception err
-		    ExceptionHandler(err,"ScanGenomeWinCRtag:ScanGenomeCR")
+		    ExceptionHandler(err,"ScanGenomeCRtagMotifs:annotateGenome")
 		End Sub
 	#tag EndMethod
 
