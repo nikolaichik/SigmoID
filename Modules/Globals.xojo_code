@@ -1647,7 +1647,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function HMMsearchWithCRtagsCR(CDSfile as folderitem, HMMfilePath as string) As string
-		  dim HmmResultFile as folderitem
+		  Dim HmmResultFile As folderitem
 		  dim hmmSearchRes, cli, table, aline as string
 		  dim instream, tis as TextInputStream
 		  dim sh as new shell
@@ -1678,6 +1678,9 @@ Protected Module Globals
 		    if instr(HMMfilePath, " ")>0 then
 		      HMMfilePath="'"+HMMfilePath+"'"
 		    end
+		    
+		    
+		    // Settings from the HmmSearchSettingsWin should be used here, but they are currently ignored!
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    
