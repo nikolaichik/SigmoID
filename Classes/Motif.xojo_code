@@ -1,11 +1,27 @@
 #tag Class
 Protected Class Motif
 	#tag Property, Flags = &h0
+		fasta As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		mode As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		number As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		Sites() As Site
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TFname As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Threshold As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -81,6 +97,22 @@ Protected Class Motif
 			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TFname"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="fasta"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
