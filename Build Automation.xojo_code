@@ -29,7 +29,7 @@
 					FolderItem = Li4vUHl0aG9uL01hc3RHZW4ucHk=
 					FolderItem = Li4vUHl0aG9uL09wZXJPbi5weQ==
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
-					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
+					FolderItem = 
 					FolderItem = Li4vVEZfSE1Ncy8=
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
 					FolderItem = Li4vLi4vLi4vRGVza3RvcC9Qcm90RmFtaWx5LnB5
@@ -69,7 +69,6 @@
 					FolderItem = Li4vUHl0aG9uL01hc3RHZW4ucHk=
 					FolderItem = Li4vUHl0aG9uL09wZXJPbi5weQ==
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
-					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvY2QtaGl0LWVzdA==
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
@@ -87,6 +86,7 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvdGZhc3R4
 					FolderItem = Li4vUmVnUHJlY2lzZURhdGEv
 					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
+					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 				End
 				Begin IDEScriptBuildStep Zip , AppliesTo = 2
 					'Dim result As String
@@ -129,7 +129,6 @@
 					FolderItem = Li4vUHl0aG9uL01hc3RHZW4ucHk=
 					FolderItem = Li4vUHl0aG9uL09wZXJPbi5weQ==
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
-					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy9jZC1oaXQtZXN0
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
@@ -146,6 +145,7 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL01hYy90ZmFzdHg=
 					FolderItem = Li4vUmVnUHJlY2lzZURhdGEv
 					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
+					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 				End
 			End
 			Begin BuildStepList Windows
@@ -182,7 +182,6 @@
 					FolderItem = Li4vUHl0aG9uL01hc3RHZW4ucHk=
 					FolderItem = Li4vUHl0aG9uL09wZXJPbi5weQ==
 					FolderItem = Li4vUHl0aG9uL3B0dF9jb252ZXJ0ZXIucHk=
-					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vVEZfSE1Ncy8=
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
