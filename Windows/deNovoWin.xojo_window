@@ -301,7 +301,6 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -342,7 +341,6 @@ Begin Window deNovoWin
       Width           =   243
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
@@ -416,7 +414,6 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -939,7 +936,7 @@ Begin Window deNovoWin
          TabStop         =   True
          TextAlignment   =   "0"
          TextColor       =   &c00000000
-         Tooltip         =   "Maximal number of genome fragments to download. If the number of accession codes found in CR tag tables exceeds this parameter, random (parameter) codes are used."
+         Tooltip         =   "Genome fragments shorter than this parameter will be ignored during motif inference. Reducing this parameter may help in certain cases of insufficient number of fragments. However, such reduction may result in incorrect identification of regulatory regions. "
          Top             =   516
          Transparent     =   False
          Underline       =   False
@@ -983,7 +980,7 @@ Begin Window deNovoWin
          TabStop         =   True
          TextAlignment   =   "0"
          TextColor       =   &c00000000
-         Tooltip         =   "We use CR-tag tables based on PIR and its four derivatives with reduced redundancy. Protein accession codes are first looked for in the least redundant table. If the number of accession codes for the given CR tag is less than this parameter, the next (more redundant) table is used."
+         Tooltip         =   "Number of bases to extract before and after the target TF gene. "
          Top             =   516
          Transparent     =   False
          Underline       =   False
@@ -1097,7 +1094,7 @@ Begin Window deNovoWin
       TabStop         =   True
       TextAlignment   =   "0"
       TextColor       =   &c00000000
-      Tooltip         =   "If the number of regulatory fragments exceeds this parameter, homology clustering and taxoonomy filtering are used to reduce their number."
+      Tooltip         =   "If the number of regulatory fragments exceeds this parameter, homology clustering and taxonomy filtering are used to reduce their number."
       Top             =   418
       Transparent     =   False
       Underline       =   False
@@ -2150,16 +2147,16 @@ End
 #tag Events LengthLimitField
 	#tag Event
 		Sub LostFocus()
-		  DownstreamSize=Val(Me.Text)
+		  LengthLimit=Val(Me.Text)
 		  
 		  
-		  If DownstreamSize<GBKfragFlanks Then
-		    Me.Text=Str(GBKfragFlanks)
-		    DownstreamSize=GBKfragFlanks
-		    MsgBox "This parameter should not be less than TF gene flanks"
-		  End If
+		  'If LengthLimit<GBKfragFlanks Then
+		  'Me.Text=Str(GBKfragFlanks)
+		  'LengthLimit=GBKfragFlanks
+		  'MsgBox "This parameter should not be less than TF gene flanks"
+		  'End If
 		  
-		  If DownstreamSize>(2*GBKfragFlanks+1000) Then
+		  If LengthLimit>(2*GBKfragFlanks+1000) Then
 		    'Me.Text="1000"
 		    MsgBox "This parameter is now larger than genome fragment size, hence short fragments will not be excluded."
 		  End If

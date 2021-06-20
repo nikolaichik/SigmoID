@@ -214,7 +214,7 @@ Inherits Thread
 		      'store the CDSs as a string for possible further use:
 		      instream=CDSfile.OpenAsTextFile
 		      
-		      if instream<>nil then
+		      If instream<>Nil Then
 		        CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
 		        instream.close
 		      end if
@@ -230,7 +230,7 @@ Inherits Thread
 		      deNovoWin.rp.writeToWin(EndofLine.unix+"Running hmmsearch...")
 		      dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		      
-		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+me.hmmPath+" "+CDSfile.ShellPath
+		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+Me.hmmPath+" "+CDSfile.ShellPath
 		      
 		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
 		      While sh.IsRunning=true
@@ -677,8 +677,10 @@ Inherits Thread
 		            
 		            
 		            
+		            Dim SkipMEME As Boolean
 		            
 		            if dataForMeme<>"" then
+		              SkipMEME=False
 		              
 		              // Remove extra (repetitive/too close) seqs
 		              ' leave one seq per species,
@@ -710,7 +712,7 @@ Inherits Thread
 		              
 		              resfile2=Fasta_files.child(me.Protnames(n)+"_CDhit_filtered.fasta")
 		              
-		              if resfile2<>nil then
+		              If resfile2<>Nil Then
 		                
 		                If CountFields(DataForMeme,">")>MEMEmax Then 'too many seqs - reduce the number!
 		                  
@@ -750,169 +752,174 @@ Inherits Thread
 		                
 		              else 'resfile2<>nil
 		                deNovoWin.rp.writeToWin("Can't create a file to store superpromoters around the genes coding for "+me.Protnames(n)+"."+EndofLine.unix)
-		                
+		                SkipMEME=True
 		              end if 'resfile2<>nil
 		              
 		            else
-		              deNovoWin.rp.writeToWin(EndOfLine.unix+"No data to run meme for "+me.Protnames(n)+".")
+		              deNovoWin.rp.writeToWin(EndOfLine.unix+"No data to run meme for "+Me.Protnames(n)+".")
+		              SkipMEME=True
 		              
 		            end if 'dataForMeme<>""
 		            
 		            
 		            
 		            
-		            
-		            // Run MEME in two modes
-		            dim memeF,f1 as folderitem
-		            
-		            memeF=MEME_results.child(Me.Protnames(n))
-		            
-		            deNovoWin.rp.writeToWin(EndOfLine.UNIX)
-		            
-		            If memeF <> Nil Then
-		              If memeF.Exists Then
-		                deNovoWin.rp.writeToWin("MEME results folder exists, so MEME will not be run. Remove this folder ("+memeF.shellpath+") and re-run search procedure if you want to re-generate the  results"+EndOfLine.unix)
-		                
-		              else
-		                memeF.createAsFolder
-		                
-		                dim opt as string
-		                dim ErrCode as integer
-		                
-		                '-p option is set in DenovoTFBSinference.meme
-		                
-		                'if CPUcores>1 then
-		                'opt=" -p " + str(CPUcores)  'for parallelised meme
-		                ''opt=" -p 2"
-		                'end if
-		                
-		                'doesn't work dim mWidth as string=me.HmmList.Cell(me.HmmList.ListIndex,5) 'motif widths are stored in the table (and can be changed here)
-		                
-		                opt=opt+" -dna -minw "+ Trim(NthField(mWidth,"-",1))
-		                opt=opt+" -maxw "+ trim(nthfield(mWidth,"-",2))
-		                
-		                
-		                '[-pal]            force palindromes (requires -dna)
-		                if me.palindromic=True then
-		                  ' me.HmmList.Cell(me.HmmList.ListIndex,4)="yes" then
-		                  opt=opt+" -pal"
-		                end if
-		                
-		                '[-revcomp]        allow sites on + or - DNA strands
-		                'if GivenStrandBox.Value then
-		                'else
-		                opt=opt+" -revcomp"
-		                'end if
-		                
-		                '[-nmotifs <nmotifs>]    maximum number of motifs to find
-		                opt=opt+" -nmotifs 5"'+MotifNoPopup.Text
-		                
-		                
-		                
-		                'Run MEME in Zero or One per sequence' mode:
-		                f1=memeF.child("Zoops")
-		                FixPath4Windows(MEMEf)
-		                
-		                if resfile2<>Nil then
-		                  if f1<>NIL then
-		                    if f1.Exists then
-		                      f1.Delete
-		                    end if
-		                    
-		                    'LogoWin.show
-		                    deNovoWin.rp.writeToWin("Running MEME in zoops mode...")
-		                    
-		                    ErrCode=MEME(resfile2, f1, opt+" -mod zoops")
-		                    'sh=New Shell
-		                    'sh.mode=0
-		                    'sh.TimeOut=-1
-		                    dim zclean, aclean as boolean 
-		                    If ErrCode=0 then
-		                      deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
-		                      
-		                      'create TomTom thread
-		                      ttt = new TTshell(f1.child("meme.txt"))
-		                      zclean=true
-		                    else
-		                      deNovoWin.rp.writeToWin(" failed."+EndOfLine.unix)
-		                      deNovoWin.rp.writeToWin(MEMEerr+EndOfLine.unix)
-		                      zclean=False
-		                    end if
-		                    
-		                    
-		                    'Run MEME in Anr mode:
-		                    f1=memeF.child("Anr")
-		                    FixPath4Windows(f1)
-		                    
+		            If Not SkipMEME Then
+		              // Run MEME in two modes
+		              dim memeF,f1 as folderitem
+		              
+		              memeF=MEME_results.child(Me.Protnames(n))
+		              
+		              deNovoWin.rp.writeToWin(EndOfLine.UNIX)
+		              
+		              If memeF <> Nil Then
+		                If memeF.Exists Then
+		                  deNovoWin.rp.writeToWin("MEME results folder exists, so MEME will not be run. Remove this folder ("+memeF.shellpath+") and re-run search procedure if you want to re-generate the  results"+EndOfLine.unix)
+		                  
+		                else
+		                  memeF.createAsFolder
+		                  
+		                  dim opt as string
+		                  dim ErrCode as integer
+		                  
+		                  '-p option is set in DenovoTFBSinference.meme
+		                  
+		                  'if CPUcores>1 then
+		                  'opt=" -p " + str(CPUcores)  'for parallelised meme
+		                  ''opt=" -p 2"
+		                  'end if
+		                  
+		                  'doesn't work dim mWidth as string=me.HmmList.Cell(me.HmmList.ListIndex,5) 'motif widths are stored in the table (and can be changed here)
+		                  
+		                  opt=opt+" -dna -minw "+ Trim(NthField(mWidth,"-",1))
+		                  opt=opt+" -maxw "+ trim(nthfield(mWidth,"-",2))
+		                  
+		                  
+		                  '[-pal]            force palindromes (requires -dna)
+		                  if me.palindromic=True then
+		                    ' me.HmmList.Cell(me.HmmList.ListIndex,4)="yes" then
+		                    opt=opt+" -pal"
+		                  end if
+		                  
+		                  '[-revcomp]        allow sites on + or - DNA strands
+		                  'if GivenStrandBox.Value then
+		                  'else
+		                  opt=opt+" -revcomp"
+		                  'end if
+		                  
+		                  '[-nmotifs <nmotifs>]    maximum number of motifs to find
+		                  opt=opt+" -nmotifs 5"'+MotifNoPopup.Text
+		                  
+		                  
+		                  
+		                  'Run MEME in Zero or One per sequence' mode:
+		                  f1=memeF.child("Zoops")
+		                  FixPath4Windows(MEMEf)
+		                  
+		                  if resfile2<>Nil then
 		                    if f1<>NIL then
 		                      if f1.Exists then
 		                        f1.Delete
 		                      end if
 		                      
 		                      'LogoWin.show
-		                      deNovoWin.rp.writeToWin("Running MEME in anr mode...")
+		                      deNovoWin.rp.writeToWin("Running MEME in zoops mode...")
 		                      
-		                      ErrCode=MEME(resfile2, f1, opt+" -mod anr")
+		                      ErrCode=MEME(resfile2, f1, opt+" -mod zoops")
+		                      'sh=New Shell
+		                      'sh.mode=0
+		                      'sh.TimeOut=-1
+		                      dim zclean, aclean as boolean 
 		                      If ErrCode=0 then
 		                        deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
+		                        
 		                        'create TomTom thread
-		                        ttt2 = new TTshell(f1.child("meme.txt"))
-		                        aclean=true
+		                        ttt = new TTshell(f1.child("meme.txt"))
+		                        zclean=true
 		                      else
-		                        deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
+		                        deNovoWin.rp.writeToWin(" failed."+EndOfLine.unix)
 		                        deNovoWin.rp.writeToWin(MEMEerr+EndOfLine.unix)
-		                        aclean=false
+		                        zclean=False
 		                      end if
-		                      if me.RunChipMunk then
-		                        dim errcodecm as Integer
-		                        ErrCodeCM=ChIPmunk(resfile2, f1.child("ChIPmunk-result"))
-		                        if errcodecm=0 then
+		                      
+		                      
+		                      'Run MEME in Anr mode:
+		                      f1=memeF.child("Anr")
+		                      FixPath4Windows(f1)
+		                      
+		                      if f1<>NIL then
+		                        if f1.Exists then
+		                          f1.Delete
+		                        end if
+		                        
+		                        'LogoWin.show
+		                        deNovoWin.rp.writeToWin("Running MEME in anr mode...")
+		                        
+		                        ErrCode=MEME(resfile2, f1, opt+" -mod anr")
+		                        If ErrCode=0 then
 		                          deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
-		                        end
-		                      end
-		                      
-		                      if me.RunTomTom then 
-		                        'launch TomTom threads
-		                        if ttt<>NIL then
-		                          TTshellArray.Append ttt
-		                          TTshellArray(UBound(TTshellArray)).RunTomTom
-		                          TTthreadsRunning=TTthreadsRunning+1
-		                          ttt = new TTshell(f1.child("meme.txt")) 'remove reference to array element
-		                        end if
-		                        if ttt<>NIL then
-		                          TTshellArray.Append ttt2
-		                          TTshellArray(UBound(TTshellArray)).RunTomTom
-		                          TTthreadsRunning=TTthreadsRunning+1
+		                          'create TomTom thread
 		                          ttt2 = new TTshell(f1.child("meme.txt"))
+		                          aclean=true
+		                        else
+		                          deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
+		                          deNovoWin.rp.writeToWin(MEMEerr+EndOfLine.unix)
+		                          aclean=false
+		                        end if
+		                        if me.RunChipMunk then
+		                          dim errcodecm as Integer
+		                          ErrCodeCM=ChIPmunk(resfile2, f1.child("ChIPmunk-result"))
+		                          if errcodecm=0 then
+		                            deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
+		                          end
+		                        end
+		                        
+		                        if me.RunTomTom then 
+		                          'launch TomTom threads
+		                          if ttt<>NIL then
+		                            TTshellArray.Append ttt
+		                            TTshellArray(UBound(TTshellArray)).RunTomTom
+		                            TTthreadsRunning=TTthreadsRunning+1
+		                            ttt = new TTshell(f1.child("meme.txt")) 'remove reference to array element
+		                          end if
+		                          if ttt<>NIL then
+		                            TTshellArray.Append ttt2
+		                            TTshellArray(UBound(TTshellArray)).RunTomTom
+		                            TTthreadsRunning=TTthreadsRunning+1
+		                            ttt2 = new TTshell(f1.child("meme.txt"))
+		                          end if
+		                          
+		                          
 		                        end if
 		                        
+		                        deNovoWin.rp.writeToWin("Results written to "+outf.Shellpath+EndOfLine.Unix+EndOfLine.Unix)
 		                        
+		                        
+		                      else
+		                        deNovoWin.rp.writeToWin("Can't create MEME output folder!")
+		                        'return -1
 		                      end if
-		                      
-		                      deNovoWin.rp.writeToWin("Results written to "+outf.Shellpath+EndOfLine.Unix+EndOfLine.Unix)
-		                      
 		                      
 		                    else
-		                      deNovoWin.rp.writeToWin("Can't create MEME output folder!")
-		                      'return -1
-		                    end if
-		                    
+		                      
+		                    End If
+		                    resfile2=new FolderItem
 		                  else
+		                    deNovoWin.rp.writeToWin(EndofLine.unix+"Not running MEME (empty file)")
 		                    
 		                  End If
-		                  resfile2=new FolderItem
-		                else
-		                  deNovoWin.rp.writeToWin(EndofLine.unix+"Not running MEME (empty file)")
 		                  
-		                End If
+		                end if
 		                
-		              end if
+		                
+		              Else
+		                deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create a folder to store MEME results for "+me.Protnames(n)+".")
+		                
+		              End If
 		              
-		              
-		            else
-		              deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create a folder to store MEME results for "+me.Protnames(n)+".")
-		              
-		            end if
+		            End If
+		            
+		            
 		          else
 		            deNovoWin.rp.writeToWin(EndOfLine.unix+"Can't create a folder to store genome fragments for "+me.Protnames(n)+".")
 		          end if
