@@ -482,9 +482,11 @@ Protected Module DeNovoTFBSinference
 		        wend
 		        
 		        'get extended hit
-		        CDStmp=UpperCase(NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2))'precaution for paralogues
-		        if len(cdstmp)<50 then
-		          msgbox "Warning! Protein sequence too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
+		        CDStmp="XXXXXXXXXXXXX" 'rough workaround for rare cases when N terminus is shorter than the model
+		        CDStmp=CDStmp+Uppercase(NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2))'precaution for paralogues
+		        If Len(cdstmp)<40 Then 
+		          // will actually cause thread error!
+		          MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
 		        end if
 		        dim gapPos,leftPartStart, rightPartStart as integer
 		        dim leftPart, rightPart, leftExt, rightExt as string

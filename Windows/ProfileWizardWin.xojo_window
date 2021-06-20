@@ -1275,9 +1275,19 @@ End
 		        OutStream = TextOutputStream.Create(CDSFile)
 		        If outStream<>Nil Then
 		          'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
-		          Dim Pseq As String
-		          Pseq=ReplaceAll(SeedProteinArea.Text," ","_")   'hmmer doesn't like spaces
-		          Pseq=ReplaceAll(Pseq,Chr(9),"_")                'hmmer doesn't like tabs
+		          'it also doesn't like spaces within the astual sequence
+		          'we replace spaces/tabs within the title line by underscores and remove them from the sequence. 
+		          Dim Titl,pSeq As String
+		          Dim pArr(-1) As String
+		          
+		          pArr=SeedProteinArea.Text.Split(EndOfLine.Unix)
+		          titl=ReplaceAll(pArr(0)," ","_")   'hmmer doesn't like spaces
+		          titl=ReplaceAll(titl,Chr(9),"_")   'hmmer doesn't like tabs
+		          pArr.RemoveRowAt(0)                   'drop the title line
+		          pSeq=Join(Parr,"")
+		          pSeq=Pseq.ReplaceAll(" ","")
+		          pSeq=Pseq.ReplaceAll(Chr(9),"")
+		          pSeq=titl+EndOfLine.UNIX+pSeq
 		          
 		          outstream.Write(Pseq)
 		          outstream.close
@@ -1855,7 +1865,8 @@ End
 		  Dim l,m,n As Integer
 		  dim f, CDSFile as folderitem
 		  dim OutStream as TextOutputStream
-		  dim hmmPath, fName, aLine, lineStart, hmm, CRtag, hmmSearchRes as string
+		  Dim hmmPath, fName, aLine, lineStart, hmm, CRtag, hmmSearchRes As String
+		  Dim fnames(-1) As String
 		  dim CRtagFileName as string
 		  dim inStream as TextInputStream
 		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
@@ -1871,43 +1882,46 @@ End
 		        'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
 		        'msgbox dis
 		        
-		        if right(f.Item(n).name,4)=".hmm" then
+		        If Right(f.Item(n).name,4)=".hmm" Then
 		          hmmPath = f.Item(n).ShellPath
 		          fName = f.Item(n).DisplayName
-		          
-		          me.AddRow(fName)
 		          
 		          // Get CRtag residue positions
 		          inStream=TextInputStream.Open(f.Item(n))
 		          hmm=inStream.ReadAll
 		          CRtag=NthField(hmm,"CRtag ",2)
 		          CRtag=NthField(CRtag,EndOfLine,1)
-		          CRtags.Append CRtag
 		          
-		          if SeedProteinArea.TextColor=&c99999900 then 'placefiller
-		          else                                                                             'hopefully, proper protein sequence
-		            ' write CDS seq to the tmp file
-		            CDSFile=TemporaryFolder.child("CDSfile.fa")
-		            if CDSFile<>Nil then
-		              OutStream = TextOutputStream.Create(CDSFile)
-		              if outStream<>Nil then
-		                'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
-		                dim Pseq as string
-		                Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
-		                Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
-		                
-		                outstream.Write(Pseq)
-		                outstream.Write(Pseq)
-		                outstream.close
-		              end if
-		            end if
-		            
-		            'extract CRtagresidues :
-		            hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
-		            CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
-		            CRtagSeqField.text=CRtag
-		          end if
+		          fnames.append(fName+"///"+CRtag)
 		          
+		          
+		          
+		          
+		          
+		          'if SeedProteinArea.TextColor=&c99999900 then 'placefiller
+		          'Else                                                                             'hopefully, proper protein sequence
+		          '' write CDS seq to the tmp file
+		          'CDSFile=TemporaryFolder.child("CDSfile.fa")
+		          'if CDSFile<>Nil then
+		          'OutStream = TextOutputStream.Create(CDSFile)
+		          'if outStream<>Nil then
+		          ''hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
+		          'dim Pseq as string
+		          'Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
+		          'Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
+		          '
+		          'outstream.Write(Pseq)
+		          'outstream.Write(Pseq)
+		          'outstream.close
+		          'end if
+		          'end if
+		          '
+		          ''extract CRtagresidues :
+		          'hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
+		          'CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		          'CRtagSeqField.text=CRtag
+		          'end if
+		          '
 		          
 		          
 		        end if
@@ -1915,6 +1929,15 @@ End
 		        
 		        
 		      next
+		      
+		      // sort and fill popup and CRtags()
+		      
+		      fnames.Sort
+		      
+		      For Each p As String In fnames
+		        Me.AddRow(NthField(p,"///",1))
+		        CRtags.Append (NthField(p,"///",2))
+		      Next
 		      
 		    end if
 		  end if
