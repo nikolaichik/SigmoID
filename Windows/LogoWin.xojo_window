@@ -441,7 +441,7 @@ End
 		Sub Open()
 		  Dim cli As String
 		  dim allProgsFine as boolean
-		  Dim sh As Shell
+		  
 		  dim f As FolderItem
 		  
 		  ReadPrefs 'diplicating this function in several places as event order is different on different systems
@@ -522,22 +522,18 @@ End
 		  Dim pythonCheckString As String = "Checking python and scripts... "+EndOfLine.unix
 		  
 		  cli="python --version"
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
-		  If sh.errorCode=0 Then
-		    If InStr(sh.result,"Python 3")>0 Then
-		      
+		  userShell(cli)
+		  If shError=0 Then
+		    If InStr(shResult,"Python 3")>0 Then
+		      pythonCheckString=pythonCheckString+Trim (shResult)
 		      pythonPath=SystemPath("python")+" " 
-		      
 		    Else
 		      cli="python3 --version"
-		      sh=New Shell
-		      sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
-		      If sh.errorCode=0 Then
-		        If InStr(sh.result,"Python 3")>0 Then
-		          pythonPath=SystemPath("python3")+" "  
+		      userShell(cli)
+		      If shError=0 Then
+		        If InStr(shResult,"Python 3")>0 Then
+		          pythonCheckString=pythonCheckString+Trim (shResult)
+		          pythonPath=SystemPath("python3")+" "
 		        Else
 		          pythonPath=""
 		          WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
@@ -549,23 +545,20 @@ End
 		    End If
 		    
 		    
-		    If InStr(Sh.Result,"command not found")>0 Then
-		      WriteToSTDOUT (Sh.Result+EndOfLine.unix)
+		    If InStr(shResult,"command not found")>0 Then
+		      WriteToSTDOUT (shResult+EndOfLine.unix)
 		      allProgsFine=false
 		    else
-		      pythonCheckString=pythonCheckString+Trim (Sh.Result)
+		      'pythonCheckString=pythonCheckString+Trim (shResult)
 		      
 		      'check BioPython:
 		      f=resources_f.child("BioPythonVersion.py")
 		      if f<>Nil then
 		        if f.exists then
 		          cli=pythonPath+f.ShellPath
-		          sh=New Shell
-		          sh.mode=0
-		          sh.TimeOut=-1
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		          If sh.errorCode=0 then
-		            pythonCheckString=pythonCheckString+" with Biopython "+Sh.Result
+		          userShell(cli)
+		          If shError=0 Then
+		            pythonCheckString=pythonCheckString+" with Biopython "+shResult
 		          end if
 		          
 		        end if
@@ -573,7 +566,7 @@ End
 		      
 		    end if
 		  else
-		    WriteToSTDOUT (Sh.Result+EndOfLine.unix)
+		    WriteToSTDOUT (shResult+EndOfLine.unix)
 		    allProgsFine=false
 		  end if
 		  
@@ -590,15 +583,12 @@ End
 		  #else
 		    cli=pythonPath+hmmGenPath+" -v"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  userShell(cli)
 		  dim hmmg as boolean=false
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"HmmGen")>0 then
-		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
+		  If shError=0 Then
+		    dim s As string=shResult
+		    if instr(nthfield((shResult),EndOfLine.unix,1),"HmmGen")>0 then
+		      if CountFields(shResult,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
@@ -618,15 +608,12 @@ End
 		  #else
 		    cli=pythonPath+RepeatGenPath+" -v"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  userShell(cli)
 		  hmmg=false
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"RepeatGen")>0 then
-		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
+		  If shError=0 Then
+		    dim s As string=shResult
+		    if instr(nthfield((shResult),EndOfLine.unix,1),"RepeatGen")>0 then
+		      if CountFields(shResult,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
@@ -647,14 +634,11 @@ End
 		  #else
 		    cli=pythonPath+MastGenPath+" -v"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"MastGen")>0 then
-		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
+		  userShell(cli)
+		  If shError=0 Then
+		    dim s As string=shResult
+		    if instr(nthfield((shResult),EndOfLine.unix,1),"MastGen")>0 then
+		      if CountFields(shResult,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
@@ -675,19 +659,16 @@ End
 		  #else
 		    cli=pythonPath+TermGenPath+" -v"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  userShell(cli)
 		  hmmg=false
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"TermGen")>0 then
-		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
+		  If shError=0 Then
+		    Dim s As String=shResult
+		    if instr(nthfield((shResult),EndOfLine.unix,1),"TermGen")>0 then
+		      if CountFields(shResult,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
-		        'msgbox str(CountFields(Sh.Result,EndOfLine))
+		        'msgbox str(CountFields(shResult,EndOfLine))
 		      End If
 		    end if
 		  end if
@@ -704,26 +685,23 @@ End
 		  #else
 		    cli=pythonPath+OperOnPath+" -v"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  userShell(cli)
 		  hmmg=false
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"OperOn")>0 then
-		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
+		  If shError=0 Then
+		    dim s As string=shResult
+		    if instr(nthfield((shResult),EndOfLine.unix,1),"OperOn")>0 then
+		      if CountFields(shResult,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
-		        'msgbox str(CountFields(Sh.Result,EndOfLine))
+		        'msgbox str(CountFields(shResult,EndOfLine))
 		      End If
 		    end if
 		  end if
 		  if Not hmmg then
 		    WriteToSTDOUT ("OperOn script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
 		    WriteToSTDOUT ("The command was: "+cli+EndOfLine.UNIX)
-		    WriteToSTDOUT ("The result was: "+sh.result+EndOfLine.UNIX)
+		    WriteToSTDOUT ("The result was: "+shResult+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
@@ -736,19 +714,16 @@ End
 		  #else
 		    cli=pythonPath+ptt_converterPath+" -v"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  userShell(cli)
 		  hmmg=false
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine.unix,1),"converter")>0 then
-		      if CountFields(Sh.Result,EndOfLine.unix)=2 then
+		  If shError=0 Then
+		    dim s As string=shResult
+		    if instr(nthfield((shResult),EndOfLine.unix,1),"converter")>0 then
+		      if CountFields(shResult,EndOfLine.unix)=2 then
 		        WriteToSTDOUT (s)
 		        hmmg=true
 		        'else
-		        'msgbox str(CountFields(Sh.Result,EndOfLine))
+		        'msgbox str(CountFields(shResult,EndOfLine))
 		      End If
 		    end if
 		  end if
@@ -768,14 +743,11 @@ End
 		  #else
 		    cli=nhmmerPath+" -h"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 Then
-		    dim s As string=Sh.Result
+		  userShell(cli)
+		  If shError=0 Then
+		    dim s As string=shResult
 		    if instr(nthfield(s,EndOfLine.Unix,1),"nhmmer")>0 then
-		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
+		      s=nthfield((shResult),EndOfLine.Unix,2)
 		      s=nthfield((S),"HMMER",2)
 		      s=trim(nthfield((S),";",1)) 'that will result in smth like "3.1b1 (May 2013)"
 		      WriteToSTDOUT ("nhmmer "+s+EndOfLine.unix)
@@ -796,14 +768,11 @@ End
 		  #else
 		    cli=hmmBuildPath+" -h"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
+		  userShell(cli)
+		  If shError=0 Then
+		    dim s As string=shResult
 		    if instr(nthfield(s,EndOfLine.Unix,1),"hmmbuild")>0 then
-		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
+		      s=nthfield((shResult),EndOfLine.Unix,2)
 		      s=nthfield((S),"HMMER",2)
 		      s=nthfield((S),";",1) 'that will result in smth like "3.1b1 (May 2013)"
 		      WriteToSTDOUT ("hmmbuild "+trim(s)+EndofLine.unix)
@@ -824,14 +793,11 @@ End
 		  #else
 		    cli=alimaskPath+" -h"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
-		    dim s As string=Sh.Result
-		    if instr(nthfield((Sh.Result),EndOfLine.Unix,1),"alimask")>0 then
-		      s=nthfield((Sh.Result),EndOfLine.Unix,2)
+		  userShell(cli)
+		  If shError=0 Then
+		    dim s As string=shResult
+		    if instr(nthfield((shResult),EndOfLine.Unix,1),"alimask")>0 then
+		      s=nthfield((shResult),EndOfLine.Unix,2)
 		      s=nthfield((S),"HMMER",2)
 		      s=nthfield((S),";",1)
 		      WriteToSTDOUT ("alimask "+s+EndofLine.unix)
@@ -859,13 +825,10 @@ End
 		      #else
 		        cli=f.ShellPath+" -h"
 		      #endif
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      If sh.errorCode=0 OR sh.errorCode=3 then 'TransTerm returns error code when run without all args
+		      userShell(cli)
+		      If shError=0 OR shError=3 then 'TransTerm returns error code when run without all args
 		        dim s As string
-		        s=nthfield((Sh.Result),EndOfLine.Unix,1)
+		        s=nthfield((shResult),EndOfLine.Unix,1)
 		        s=replaceall(s,EndOfLine,"") 'otherwise an extra line on some Windows machines
 		        if instr(s,"TransTermHP")>0 then
 		          WriteToSTDOUT (s+EndofLine.unix)
@@ -893,12 +856,9 @@ End
 		  #else
 		    cli=memePath+" -version"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
-		    WriteToSTDOUT ("meme "+Sh.Result)
+		  userShell(cli)
+		  If shError=0 Then
+		    WriteToSTDOUT ("meme "+shResult)
 		  else
 		    WriteToSTDOUT ("No MEME found at "+memePath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
@@ -911,13 +871,10 @@ End
 		  #else
 		    cli=MASTPath+" -version"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
-		    WriteToSTDOUT ("mast "+Sh.Result)
-		    MASTVersion=trim(Sh.Result)
+		  userShell(cli)
+		  If shError=0 Then
+		    WriteToSTDOUT ("mast "+shResult)
+		    MASTVersion=trim(shResult)
 		  else
 		    WriteToSTDOUT ("No MAST found at "+MASTPath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
@@ -930,12 +887,9 @@ End
 		  #else
 		    cli=TomTomPath+" -version"
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
-		    WriteToSTDOUT ("tomtom "+Sh.Result)
+		  userShell(cli)
+		  If shError=0 Then
+		    WriteToSTDOUT ("tomtom "+shResult)
 		  else
 		    WriteToSTDOUT ("No TomTom found at "+TomTomPath+". Please install it from http://meme-suite.org/ or correct the path in the settings."+EndOfLine)
 		    allProgsFine=false
@@ -944,12 +898,9 @@ End
 		  // MeShClust
 		  
 		  If MeshClustPath<>"" Then
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
-		    sh.execute ("bash --login -c "+Chr(34)+MeshClustPath+Chr(34))
-		    If sh.errorCode=1 Then 'running meshclust without args produces this error and help info
-		      Dim s As String=sh.Result
+		    userShell(MeshClustPath)
+		    If sherror=1 Then 'running meshclust without args produces this error and help info
+		      Dim s As String=shResult
 		      If InStr(s,"meshclust")>0 Then
 		        s=NthField(s,"version ",2)
 		        s=NthField(s,EndOfLine.Unix,1)
@@ -974,14 +925,11 @@ End
 		  #else
 		    cli=tfastxPath
 		  #endif
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then 
-		    dim s As string=Sh.Result
+		  userShell(cli)
+		  If shError=0 Then 
+		    dim s As string=shResult
 		    if instr(s,"TFASTX")>0 then
-		      s=nthfield((Sh.Result)," version: ",2)
+		      s=nthfield((shResult)," version: ",2)
 		      s=nthfield((S),EndOfLine.Unix,1)
 		      WriteToSTDOUT ("tfastx "+s+EndOfLine.UNIX)
 		    else
@@ -1041,8 +989,8 @@ End
 		  CPUcores=CountCPUcores  'physical cores only!
 		  lCPUcores=CountCPUcores(true)  'logical cores
 		  If CPUcores>1 Then
-		    sh.execute MEMEpath+" -p 2"
-		    If InStr(sh.Result,"Parallel MEME not configured")>0 Then
+		    userShell(MEMEpath+" -p 2")
+		    If InStr(shResult,"Parallel MEME not configured")>0 Then
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Parallel MEME not configured (refer to install.html from MEME Suite docs for proper installation)."+EndOfLine.unix)
 		      cores2use=1 ' to suppress error message since serial meme can only be run anyway
 		    Else
@@ -2012,7 +1960,6 @@ End
 		  dim mask as string
 		  dim n as integer
 		  dim cli as string
-		  Dim sh As Shell
 		  
 		  'get the temp file to store the output
 		  alimaskTmp=TemporaryFolder.child("alimaskTmp")
@@ -2032,14 +1979,11 @@ End
 		        msgbox "Invalid input file for alimask"
 		      end if
 		      
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      If sh.errorCode=0 then
-		        masked=true 'return Sh.Result
+		      userShell(cli)
+		      If shError=0 Then
+		        masked=true 'return shResult
 		      else
-		        MsgBox "Error Code: "+Str(sh.errorCode)
+		        MsgBox "Error Code: "+Str(shError)
 		      end if
 		    else
 		      msgbox "Nothing to mask. Please select base range(s) first."
@@ -2055,153 +1999,74 @@ End
 
 	#tag Method, Flags = &h0
 		Sub AnnotateMEMEresults()
-		  dim Splitter As String = "********************************************************************************"+EndOfLine.UNIX+"--------------------------------------------------------------------------------"
 		  dim dlg As New SelectFolderDialog
 		  dim MEMEfolder As FolderItem
 		  dim MEMEresult As FolderItem
-		  dim TFFamilyFolder As FolderItem
 		  dim nhmmerOutput As FolderItem = TemporaryFolder.Child("annotateResNhmmer.table")
 		  dim hmmgenOutput As FolderItem = TemporaryFolder.Child("annotateResHmmgen")
-		  dim CalProfiles As FolderItem
 		  dim instream As TextInputStream
 		  dim outstream As TextOutputStream
 		  
-		  dim MotifFile, f As FolderItem
+		  dim MotifFile As FolderItem
 		  dim Fasta As String
 		  dim MEMEtxt As String
 		  dim MotifWidth As Integer
 		  dim TFMotif(-1) As String
-		  dim TFmotifsFasta() As Motif
-		  
-		  dim sh As Shell
+		  dim TFMotifsFasta As New Dictionary
+		  dim MotifBlocks As New RegEx
+		  dim MotifSeq As New RegEx
+		  dim MotifSeqID As New RegEx
+		  dim MotifBlocksMatch As New RegExMatch
+		  dim IDMatch As New RegExMatch
+		  dim SeqMatch As New RegExMatch
 		  dim cli As String
-		  dim SigBases As New Dictionary
-		  dim Tag As String
-		  dim vv As VirtualVolume
-		  dim basename As String
-		  dim Threshold As String
-		  dim HmmsearchFile As String
-		  dim HmmsearchArray(-1) As String
-		  dim CRtag As String
-		  dim  BoundMoietyStr As String
 		  
-		  CalProfiles = Resources_f.Child("CalibratedProfiles")
-		  For Each Family As FolderItem In CalProfiles.Children
-		    If Family.IsFolder Then
-		      For Each SigFile As FolderItem in Family.Children
-		        If SigFile.Type="SigmoidFile" Then
-		          Tag = Nthfield(SigFile.Name,"_",1)
-		          If Tag<>"" Then
-		            dim sig As New Motif
-		            vv=SigFile.openAsVirtualVolume
-		            If vv<>nil then
-		              basename=nthfield(SigFile.DisplayName,".sig",1)
-		              f=vv.root.child(basename+".fasta")
-		              If f<>Nil and f.Exists Then
-		                instream = TextInputStream.Open(f)
-		                sig.fasta=instream.ReadAll
-		                sig.TFname=basename
-		                instream.Close
-		                f=vv.root.child(basename+".options")
-		                If f<>Nil and f.Exists Then
-		                  instream = TextInputStream.Open(f)
-		                  Threshold=instream.ReadAll
-		                  instream.Close
-		                  Threshold=Nthfield(Threshold,"#=GF NC ",2)
-		                  Threshold=Nthfield(Threshold," ",1)
-		                  sig.Threshold=Threshold
-		                End
-		                dim ProfileModels() As Motif
-		                If Not SigBases.HasKey(Tag) Then
-		                  ProfileModels.Append(sig)
-		                  SigBases.Value(Tag)=ProfileModels()
-		                Else
-		                  ProfileModels= SigBases.Value(Tag)
-		                  ProfileModels.Append(sig)
-		                  SigBases.Value(Tag)=ProfileModels()
-		                End
-		              Else
-		                
-		              End
-		            End
-		          End
-		        End
-		      Next
-		    End
-		  Next
-		  
+		  MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?\/\/)"
+		  MotifSeqID.SearchPattern="\S*(?=\s\()"
+		  MotifSeq.SearchPattern="(?<=\)\s)\S*"
 		  
 		  dlg.ActionButtonCaption = "Select"
 		  dlg.Title = "Provide path to the MEME_results folder content"
 		  'dlg.PromptText = ""
-		  TFFamilyFolder = dlg.ShowModal
-		  If TFFamilyFolder <> Nil and TFFamilyFolder.IsFolder Then
-		    For Each Family As FolderItem in TFFamilyFolder.Children
-		      If Family <> Nil and Family.IsFolder Then
-		        MEMEfolder = Family.Child("MEME_results")
-		        If MEMEfolder<>Nil Then
-		          For Each Folder As FolderItem in MEMEfolder.Children
-		            If Folder.IsFolder Then
-		              For Each ModeFolder As FolderItem in Folder.Children
-		                If ModeFolder.IsFolder Then
-		                  MEMEresult = ModeFolder.Child("meme.txt")
-		                  if MEMEresult <> nil and MEMEresult.Exists Then
-		                    instream = TextInputStream.Open(MEMEresult)
-		                    MEMEtxt = instream.ReadAll
-		                    dim MemeModels(-1) As String
-		                    
-		                    MemeModels = MEMEtxt.Split(Splitter)
-		                    
-		                    For n As Integer =1 to UBound(MemeModels)
-		                      Fasta = getMotifFasta(MemeModels(n))
-		                      If Fasta<>"" Then
-		                        dim MotifModel As New Motif
-		                        MotifModel.fasta= Fasta
-		                        MotifModel.mode=ModeFolder.Name
-		                        MotifModel.TFname=Folder.Name
-		                        MotifModel.number=n
-		                        TFmotifsFasta.Append(MotifModel)
+		  MEMEfolder = dlg.ShowModal
+		  If MEMEfolder <> Nil Then
+		    For Each Folder As FolderItem in MEMEfolder.Children
+		      If Folder.IsFolder Then
+		        For Each ModeFolder As FolderItem in Folder.Children
+		          If ModeFolder.IsFolder Then
+		            MEMEresult = ModeFolder.Child("meme.txt")
+		            if MEMEresult <> nil and MEMEresult.Exists Then
+		              instream = TextInputStream.Open(MEMEresult)
+		              MEMEtxt = instream.ReadAll
+		              MotifBlocksMatch = MotifBlocks.Search(MEMEtxt)
+		              dim n As Integer = 1
+		              Do
+		                if MotifBlocksMatch <> Nil Then
+		                  TFMotif = MotifBlocksMatch.SubExpressionString(0).Split(EndOfLine.UNIX)
+		                  Fasta=""
+		                  if UBound(TFMotif) > 0 Then
+		                    For Each Line as String in TFMotif
+		                      IDMatch = MotifSeqID.Search(Line)
+		                      SeqMatch = MotifSeq.Search(Line)
+		                      if IDMatch <> Nil and SeqMatch <> Nil Then
+		                        Fasta = Fasta +">" + IDMatch.SubExpressionString(0) + EndOfLine.UNIX + SeqMatch.SubExpressionString(0) + EndOfLine.UNIX
 		                      End
 		                    Next
+		                    If Fasta <> "" Then 
+		                      TFMotifsFasta.Value(Folder.Name+"-"+ModeFolder.Name+"-"+str(n)) = Fasta
+		                    End
 		                  End
 		                End
-		              Next
-		              f = Family.Child("hmmsearch_result_withCRtags.txt")
-		              If f<>Nil And f.Exists Then 
-		                instream = TextInputStream.Open(f)
-		                HmmsearchFile = instream.ReadAll
-		                HmmsearchFile = Nthfield(HmmsearchFile,"> "+Folder.Name,1)
-		                HmmsearchArray=HmmsearchFile.Split(">")
-		                CRtag=HmmsearchArray(UBound(HmmsearchArray))
-		                If SigBases.HasKey(CRtag) Then
-		                  dim sig As New Motif 
-		                  dim ProfileModels() As Motif = SigBases.Value(CRTag)
-		                  If Ubound(ProfileModels)>1 Then
-		                    For i As Integer =0 to UBound(ProfileModels)
-		                      sig = ProfileModels(i)
-		                      dim TFname As String = sig.TFname
-		                      WriteToSTDOUT(Folder.Name+" CR-tag matches calibrated profile "+sig.TFname+". Model added for genome-wide inference."+EndOfLine.Unix)
-		                      sig.TFname=TFname.ReplaceAll(" ","")+"-"+Folder.Name.ReplaceAll(" ","")
-		                      TFmotifsFasta.Append(sig)
-		                      
-		                    Next
-		                  Else
-		                    sig= ProfileModels(Ubound(ProfileModels))
-		                    WriteToSTDOUT(Folder.Name+" CR-tag matches calibrated profile "+sig.TFname+". Model added for genome-wide infererence."+EndOfLine.Unix)
-		                    dim TFname As String = sig.TFname
-		                    sig.TFname=TFname.ReplaceAll(" ","")+"-"+Folder.Name.ReplaceAll(" ","")
-		                    TFmotifsFasta.Append(sig)
-		                  End If
-		                  
-		                End
-		              End
+		                MotifBlocksMatch = MotifBlocks.Search
+		                n = n + 1
+		              Loop Until MotifBlocksMatch = Nil
 		            End
-		          Next
-		        End
+		          End
+		        Next
 		      End
 		    Next
 		  End
-		  If Ubound(TFMotifsFasta)>0 Then
+		  If TFMotifsFasta.KeyCount>0 Then
 		    nhmmerSettingsWin.AnnotateRes=True
 		    nhmmerSettingsWin.BitScoreField.enabled=True
 		    nhmmerSettingsWin.BitScoreButton.enabled=True
@@ -2229,91 +2094,59 @@ End
 		    If nhmmerOptions<>"" Then
 		      MotifFile = TemporaryFolder.Child("TFmotif.fasta")
 		      If MotifFile <> Nil Then
-		        App.DoEvents
-		        dim MotifsCount As String = str(UBound(TFMotifsFasta))
+		        dim MotifsCount As String = str(TFMotifsFasta.KeyCount)
 		        dim i As Integer = 1
-		        For Each MotifModel As Motif In TFMotifsFasta
-		          BoundMoietyStr=MotifModel.TFname
-		          If MotifModel.mode<>"" Then
-		            BoundMoietyStr= BoundMoietyStr+"-"+MotifModel.mode+"-"+str(MotifModel.number)
-		          End
-		          LogoWin.WriteToSTDOUT("Processing "+BoundMoietyStr+" model."+EndOfLine.UNIX)
+		        For Each Motif As DictionaryEntry In TFMotifsFasta
+		          LogoWin.WriteToSTDOUT("Processing "+Motif.key+" model."+EndOfLine.UNIX)
 		          'calculate motif width
-		          Fasta=MotifModel.fasta
-		          MotifWidth=len(Nthfield(Fasta,EndOfLine.UNIX,2))
+		          Fasta=Nthfield(Motif.Value,EndOfLine.UNIX,2)
+		          MotifWidth=len(Fasta)
 		          if MotifWidth=0 then 
-		            LogoWin.WriteToSTDOUT("Incorrect motif width for "+MotifModel.TFname+"-"+MotifModel.mode+str(MotifModel.number)+" model. Skipped."+EndOfLine.UNIX)
-		            Continue
+		            LogoWin.WriteToSTDOUT("Incorrect motif width for "+Motif.key+" model. Skipped."+EndOfLine.UNIX)
 		          End
 		          If nhmmerSettingsWin.BitScoreField.Value="" Then
-		            If MotifModel.Threshold="" Then
-		              Dim IC As Double
-		              IC=Fasta2IC(Fasta)
-		              'Calcucate model threshold if it's not provided by user
-		              Dim cutoffs,NC As String
-		              cutoffs=Bits2thresholds(IC)
-		              NC=NthField(cutoffs,"#=GF NC ",2)
-		              NC=NthField(NC," ",1)
-		              nhmmerOptions=nhmmerOptions+" -T "+str(NC)
-		              LogoWin.WriteToSTDOUT("Significance threshold derived from motif's model IC value, used value: "+str(NC)+" bit(s)"+EndOfLine.UNIX)
-		            Else
-		              nhmmerOptions=nhmmerOptions+" -T "+MotifModel.Threshold
-		              LogoWin.WriteToSTDOUT("Significance threshold derived from motif's NC options, used value: "+MotifModel.Threshold+" bit(s)"+EndOfLine.UNIX)
-		            End
+		            Dim IC As Double
+		            IC=Fasta2IC(Motif.Value)
+		            'Calcucate model threshold if it's not provided by user
+		            Dim cutoffs,GA As String
+		            cutoffs=Bits2thresholds(IC)
+		            GA=NthField(cutoffs,"#=GF GA ",2)
+		            GA=NthField(GA," ",1)
+		            nhmmerOptions=nhmmerOptions+" -T "+str(GA)
+		            LogoWin.WriteToSTDOUT("Significance threshold was automatically calculated, used value: "+str(GA)+" bit(s)"+EndOfLine.UNIX)
 		          End
 		          If MotifFile.Exists Then MotifFile.Remove
 		          Try
 		            outstream = TextOutputStream.Create(MotifFile)
-		            outstream.Write(MotifModel.fasta)
+		            outstream.Write(Motif.Value)
 		            outstream.Close
 		          Catch err as IOException
 		            LogoWin.WriteToSTDOUT("Can't save fasta file with motif sequences."+EndOfLine.UNIX)
 		            Continue 
 		          End
 		          cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerOutput.shellpath+" "+MotifFile.ShellPath+" "+AnnotatedGenome.ShellPath
-		          sh=New Shell
-		          sh.Mode=1
-		          sh.TimeOut=-1
 		          WriteToSTDOUT ("Running nhmmer..."+EndOfLine.UNIX)
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		          While sh.IsRunning=true
-		            App.DoEvents
-		          wend
-		          
-		          If sh.errorCode=0 Then
-		            Dim HitsCount As String = trim(Nthfield(NthField(Sh.Result, "Total number of hits:",2),"(",1))
-		            LogoWin.WriteToSTDOUT("Total number of hits: "+HitsCount+EndOfLine.UNIX)
+		          userShell(cli)
+		          If shError=0 Then
+		            Dim HitsCount As String = trim(Nthfield(NthField(shResult, "Total number of hits:",2),"(",1))
+		            LogoWin.WriteToSTDOUT("Number of potential TFBS found with current model: "+HitsCount+EndOfLine.UNIX)
 		            
 		          Else
-		            If instr(sh.Result,"No hits detected that satisfy reporting thresholds")>0 Then
-		              WriteToSTDOUT ("No hits detected that satisfy reporting threshold"+EndofLine)
-		            Else
-		              WriteToSTDOUT (EndofLine+Sh.Result)
-		              WriteToSTDOUT (EndofLine+"nhmmer command line was: "+cli+EndofLine)
-		            End
-		            nhmmerOptions=""
-		            Continue
+		            WriteToSTDOUT (EndofLine+shResult)
+		            WriteToSTDOUT (EndofLine+"nhmmer command line was: "+cli+EndofLine)
 		          End if
 		          If hmmgenOutput.Exists Then hmmgenOutput.Remove
 		          cli=pythonPath+hmmGenPath+" "+nhmmerOutput.ShellPath+" "+AnnotatedGenome.ShellPath+" "
 		          'intergenic distance is hardcoded, should be configurable
 		          'cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L 110 -n -f protein_bind -q"+chr(34)
-		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q bound_moiety"+chr(34)
-		          'cli = cli + chr(34)+"#"+chr(34)+MotifModel.TFname+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
-		          cli = cli + chr(34)+"#"+chr(34)+BoundMoietyStr+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
+		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q"+chr(34)
+		          cli = cli + chr(34)+"#"+chr(34)+Motif.Key+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
 		          
-		          sh=New Shell
-		          sh.Mode=1
-		          sh.TimeOut=-1
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		          
-		          While sh.IsRunning=true
-		            App.DoEvents
-		          wend
-		          If sh.errorCode=0 Then
+		          userShell(cli)
+		          If shError=0 Then
 		            dim AnnotatedCount as string
-		            AnnotatedCount=NthField(NthField(Sh.Result,"Features added:",3),"--------------------------------------------------",1)
-		            LogoWin.WriteToSTDOUT("Number of features added: "+trim(AnnotatedCount)+EndOfLine.UNIX)
+		            AnnotatedCount=NthField(NthField(shResult,"Features added:",3),"CPU time:",1)
+		            LogoWin.WriteToSTDOUT("Number of TFBS added to the genome annotation using current significance threshold: "+trim(AnnotatedCount)+EndOfLine.UNIX)
 		            instream = TextInputStream.Open(hmmgenOutput)
 		            dim annotation as string = instream.ReadAll
 		            If annotation<>"" Then
@@ -2325,8 +2158,8 @@ End
 		              hmmgenOutput.Remove
 		            End
 		          Else
-		            WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(sh.errorCode)+EndofLine.UNIX)
-		            WriteToSTDOUT (EndofLine+Sh.Result)
+		            WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(shError)+EndofLine.UNIX)
+		            WriteToSTDOUT (EndofLine+shResult)
 		            WriteToSTDOUT (EndofLine+"HmmGen command line was: "+cli+EndofLine.UNIX)
 		          End
 		          If nhmmerSettingsWin.BitScoreField.Value="" Then
@@ -2338,13 +2171,12 @@ End
 		        LogoWin.WriteToSTDOUT("Annotation is complete."+EndOfLine.UNIX)
 		        If AnnotatedGenome.Exists Then
 		          Try 
-		            AnnotatedGenome.CopyTo(TFFamilyFolder)
-		            LogoWin.WriteToSTDOUT("Annotated genome file location: "+TFFamilyFolder.NativePath+EndOfLine.UNIX)
+		            AnnotatedGenome.CopyTo(MEMEfolder)
+		            LogoWin.WriteToSTDOUT("Annotated genome file location: "+MEMEfolder.NativePath+EndOfLine.UNIX)
 		          Catch err As IOException
-		            LogoWin.WriteToSTDOUT("Can't save annotated file to "+TFFamilyFolder.NativePath+EndOfLine.UNIX)
+		            LogoWin.WriteToSTDOUT("Can't save annotated file to "+MEMEfolder.NativePath+EndOfLine.UNIX)
 		          End
 		        End
-		        App.DoEvents
 		      End
 		    End
 		  End
@@ -3432,7 +3264,7 @@ End
 		  dim HitName as string
 		  if GenomeFile<> nil then
 		    dim cli as string
-		    Dim sh As Shell
+		    
 		    
 		    'usage:
 		    'HmmGen <report_file>  <input_file> <output_file> [options]
@@ -3485,18 +3317,15 @@ End
 		      
 		      cli=pythonPath+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
 		      
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      If sh.errorCode=0 then
+		      userShell(cli)
+		      If shError=0 Then
 		        'store hit number for genome scan:
 		        dim LastHitStr as string
-		        LastHitStr=NthField(Sh.Result,"Features added:",3)
+		        LastHitStr=NthField(shResult,"Features added:",3)
 		        LastHitStr=NthField(LastHitStr,"CPU time:",1)
 		        LastHitNo=Val(LastHitStr)
 		        
-		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+shResult)
 		        
 		        
 		        dim ms,t1 as double
@@ -3514,9 +3343,9 @@ End
 		          dim currentHit,HitInfo, hits2sort(0),hitloc as string
 		          
 		          'sort the hits according to genome position:
-		          m=CountFields(sh.result,"location: [")
+		          m=CountFields(shResult,"location: [")
 		          for n=2 to m
-		            currentHit=nthfield(sh.result,"location: [",n)
+		            currentHit=nthfield(shResult,"location: [",n)
 		            colonPos=instrb(currenthit,":")
 		            hitloc=nthfield(currentHit,":",1)
 		            if lenb(hitLoc)<8 then 'assuming genome length is less than 100Mb
@@ -3606,8 +3435,8 @@ End
 		        end if
 		        return true
 		      else
-		        WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(sh.errorCode)+EndofLine)
-		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(shError)+EndofLine)
+		        WriteToSTDOUT (EndofLine+shResult)
 		        WriteToSTDOUT (EndofLine+"HmmGen command line was: "+cli+EndofLine)
 		        return false
 		      end if
@@ -3661,7 +3490,7 @@ End
 		  end if
 		  
 		  dim cli as string
-		  Dim sh As Shell
+		  
 		  
 		  
 		  if GenomeFile=Nil then
@@ -3696,19 +3525,16 @@ End
 		    cli=HmmSearchPath+" "+hmmSearchSettings+" "+modelFile+" "+CDSfasta.ShellPath ' +" -o "+nhmmerResultFile.shellpath
 		    
 		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
 		    WriteToSTDOUT (EndofLine+"Running hmmsearch...")
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		    If sh.errorCode=0 then
-		      WriteToSTDOUT (EndofLine+Sh.Result)
+		    userShell(cli)
+		    If shError=0 Then
+		      WriteToSTDOUT (EndofLine+shResult)
 		      'LogoWinToolbar.Item(2).Enabled=true
 		      LastSearch="hmmsearch"
 		      return true
 		    else
-		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "hmmsearch error code: "+Str(sh.errorCode)
+		      WriteToSTDOUT (EndofLine+shResult)
+		      MsgBox "hmmsearch error code: "+Str(shError)
 		      WriteToSTDOUT (EndofLine+"hmmsearch command line was: "+cli+EndofLine)
 		      'LogoWinToolbar.Item(2).Enabled=false
 		      return false
@@ -4269,7 +4095,7 @@ End
 		  dim HitName as string
 		  if GenomeFile<> nil then
 		    dim cli as string
-		    Dim sh As Shell
+		    
 		    
 		    'The MastGen.py script is similar to the HmmGen.py,
 		    'but -V is used instad of -E
@@ -4321,18 +4147,15 @@ End
 		      
 		      cli=pythonPath+MastGenPath+" "+MASTResultFile.ShellPath+" "+GenomeFilePath+" "+outFile.ShellPath+" "+HmmGenOptions
 		      
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      If sh.errorCode=0 then
+		      userShell(cli)
+		      If shError=0 Then
 		        'store hit number for genome scan:
 		        dim LastHitStr as string
-		        LastHitStr=NthField(Sh.Result,"Features added:",3)
+		        LastHitStr=NthField(shResult,"Features added:",3)
 		        LastHitStr=NthField(LastHitStr,"CPU time:",1)
 		        LastHitNo=Val(LastHitStr)
 		        
-		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+shResult)
 		        
 		        
 		        'display the hits in the browser:
@@ -4347,9 +4170,9 @@ End
 		          dim currentHit,HitInfo, hits2sort(0),hitloc as string
 		          
 		          'sort the hits according to genome position:
-		          m=CountFields(sh.result,"location: [")
+		          m=CountFields(shResult,"location: [")
 		          for n=2 to m
-		            currentHit=nthfield(sh.result,"location: [",n)
+		            currentHit=nthfield(shResult,"location: [",n)
 		            colonPos=instrb(currenthit,":")
 		            hitloc=nthfield(currentHit,":",1)
 		            if lenb(hitLoc)<8 then 'assuming genome length is less than 100Mb
@@ -4434,8 +4257,8 @@ End
 		        end if
 		        return true
 		      else
-		        WriteToSTDOUT (EndofLine+"MASTGen error code: "+Str(sh.errorCode)+EndofLine)
-		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+"MASTGen error code: "+Str(shError)+EndofLine)
+		        WriteToSTDOUT (EndofLine+shResult)
 		        WriteToSTDOUT (EndofLine+"MASTGen command line was: "+cli+EndofLine)
 		        
 		        return false
@@ -4458,7 +4281,7 @@ End
 		  WriteToSTDOUT (EndofLine+"Running MAST...")
 		  
 		  dim cli as string
-		  dim sh as shell
+		  
 		  
 		  'Convert genome file to fasta format:
 		  dim FastaFile as FolderItem
@@ -4485,19 +4308,16 @@ End
 		  
 		  
 		  cli=MASTpath+" "+ memetmp.shellpath+" "+outfile.shellpath +nhmmerOptions+" -hit_list"
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
-		    WriteToSTDOUT (EndofLine+Sh.Result)
+		  userShell(cli)
+		  If shError=0 Then
+		    WriteToSTDOUT (EndofLine+shResult)
 		    'write results to a temporary file for MastGen.py:
 		    MASTResultFile=TemporaryFolder.child("mast.table")
 		    
 		    if MASTResultFile<>nil then
 		      Dim tos as TextOutputStream
 		      tos=TextOutputStream.Create(MASTResultFile)
-		      tos.Write trim(Sh.Result)
+		      tos.Write trim(shResult)
 		      tos.close
 		      LastSearch="MAST"
 		      
@@ -4506,8 +4326,8 @@ End
 		      return
 		    End If
 		  else
-		    LogoWin.WriteToSTDOUT (EndOfLine + "MAST error code: "+Str(sh.errorCode)+EndOfLine)
-		    WriteToSTDOUT (EndofLine+Sh.Result)
+		    LogoWin.WriteToSTDOUT (EndOfLine + "MAST error code: "+Str(shError)+EndOfLine)
+		    WriteToSTDOUT (EndofLine+shResult)
 		    
 		  End If
 		  
@@ -4531,7 +4351,7 @@ End
 		    dim m,n,o,colonPos as integer
 		    dim HitList,currentHit,HitInfo, hits2sort(0),hitloc as string
 		    
-		    HitList=replaceall(NthField(sh.result,"hit_p-value",2),"  "," ") 'remove double spaces in front of score
+		    HitList=replaceall(NthField(shResult,"hit_p-value",2),"  "," ") 'remove double spaces in front of score
 		    HitList=replaceall(HitList,"  "," ") 'remove double spaces in front of score
 		    HitList=replaceall(HitList,"  "," ") 'remove double spaces in front of score
 		    
@@ -4618,7 +4438,7 @@ End
 		  '
 		  'logowin.show
 		  dim cli as string
-		  Dim sh As Shell
+		  
 		  dim instream as TextInputStream
 		  
 		  
@@ -4703,12 +4523,8 @@ End
 		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+modelFile+" "+CDSfasta.ShellPath
 		      
 		      
-		      
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      If sh.errorCode=0 then
+		      userShell(cli)
+		      If shError=0 Then
 		        'LogoWinToolbar.Item(2).Enabled=true
 		        'logoWin.LastSearch="hmmsearch" 'not used
 		        
@@ -4720,7 +4536,7 @@ End
 		        if instream<>nil then         'save hmmsearch results
 		          Dim table As String=Trim(instream.ReadAll)
 		          instream.close
-		          Dim hmmSearchRes As String = GetCRtags(sh.Result,Table,CRtagCoords)
+		          Dim hmmSearchRes As String = GetCRtags(shResult,Table,CRtagCoords)
 		          logoWin.WriteToSTDOUT (EndOfLine+hmmSearchRes)
 		          
 		          If InStr(hmmSearchRes,">"+CRtag+">")>0 Then
@@ -4732,8 +4548,8 @@ End
 		          return false
 		        end if
 		      else
-		        logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
-		        MsgBox "hmmsearch error code: "+Str(sh.errorCode)
+		        logoWin.WriteToSTDOUT (EndofLine+shResult)
+		        MsgBox "hmmsearch error code: "+Str(shError)
 		        logoWin.WriteToSTDOUT (EndofLine+"hmmsearch command line was: "+cli+EndofLine)
 		        'LogoWinToolbar.Item(2).Enabled=false
 		        return false
@@ -4757,7 +4573,7 @@ End
 		  '(nhmmerSettingsWin.OptionsField.text used instead)
 		  
 		  dim cli as string
-		  Dim sh As Shell
+		  
 		  
 		  
 		  if GenomeFile=Nil then
@@ -4802,24 +4618,21 @@ End
 		      msgbox "Incompatible nhmmer options -E and --cut_"
 		    end if
 		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
 		    WriteToSTDOUT (EndofLine+EndofLine+"Running nhmmer...")
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		    If sh.errorCode=0 then
-		      WriteToSTDOUT (EndOfLine+Sh.Result)
+		    userShell(cli)
+		    If shError=0 Then
+		      WriteToSTDOUT (EndOfLine+shResult)
 		      LogoWinToolbar.Item(2).Enabled=true
 		      LastSearch="nhmmer"
 		      
 		      //save number of hits for genome scans
-		      Dim cnt As String = NthField(Sh.Result, "Total number of hits:",2)
+		      Dim cnt As String = NthField(shResult, "Total number of hits:",2)
 		      HitsNo=Val(cnt)
 		      
 		      return true
 		    else
-		      WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "nhmmer error code: "+Str(sh.errorCode)
+		      WriteToSTDOUT (EndofLine+shResult)
+		      MsgBox "nhmmer error code: "+Str(shError)
 		      WriteToSTDOUT (EndofLine+"nhmmer command line was: "+cli+EndofLine)
 		      LogoWinToolbar.Item(2).Enabled=false
 		      return false
@@ -5076,7 +4889,7 @@ End
 		  dim HitName as string
 		  if GenomeFile<> nil then
 		    dim cli as string
-		    Dim sh As Shell
+		    
 		    
 		    'usage:
 		    'HmmGen <report_file>  <input_file> <output_file> [options]
@@ -5129,18 +4942,15 @@ End
 		      
 		      cli=pythonPath+RepeatGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
 		      
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      If sh.errorCode=0 then
+		      userShell(cli)
+		      If shError=0 Then
 		        'store hit number for genome scan:
 		        dim LastHitStr as string
-		        LastHitStr=NthField(Sh.Result,"Features added:",3)
+		        LastHitStr=NthField(shResult,"Features added:",3)
 		        LastHitStr=NthField(LastHitStr,"CPU time:",1)
 		        LastHitNo=Val(LastHitStr)
 		        
-		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+shResult)
 		        
 		        
 		        dim ms,t1 as double
@@ -5158,9 +4968,9 @@ End
 		          dim currentHit,HitInfo, hits2sort(0),hitloc as string
 		          
 		          'sort the hits according to genome position:
-		          m=CountFields(sh.result,"location: [")
+		          m=CountFields(shResult,"location: [")
 		          for n=2 to m
-		            currentHit=nthfield(sh.result,"location: [",n)
+		            currentHit=nthfield(shResult,"location: [",n)
 		            colonPos=instrb(currenthit,":")
 		            hitloc=nthfield(currentHit,":",1)
 		            if lenb(hitLoc)<8 then 'assuming genome length is less than 100Mb
@@ -5250,8 +5060,8 @@ End
 		        end if
 		        return true
 		      else
-		        WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(sh.errorCode)+EndofLine)
-		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndOfLine+"HmmGen error code: "+Str(shError)+EndOfLine)
+		        WriteToSTDOUT (EndofLine+ShResult)
 		        WriteToSTDOUT (EndofLine+"HmmGen command line was: "+cli+EndofLine)
 		        return false
 		      end if
@@ -5332,7 +5142,7 @@ End
 		  'GenomeFile=GetOpenFolderItem("")
 		  if GenomeFile<> nil then
 		    dim cli as string
-		    Dim sh As Shell
+		    
 		    
 		    'usage:
 		    'TermGen <input_file> <output_file> [options]
@@ -5365,11 +5175,8 @@ End
 		      FixPath4Windows(outfile)
 		      cli=pythonPath+TermGenPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+TermGenOptions
 		      
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      If sh.errorCode=0 then
+		      userShell(cli)
+		      If shError=0 Then
 		        'store hit number for genome scan:
 		        'dim LastHitStr as string
 		        'LastHitStr=NthField(Sh.Result,"Features added:",3)
@@ -5382,7 +5189,7 @@ End
 		        
 		        'transterm output:
 		        '6 terminators were added.
-		        tc=NthField(Sh.Result,"terminators were added",1)
+		        tc=NthField(shResult,"terminators were added",1)
 		        termcount=countfields(tc,EndOfLine)
 		        tc=NthField(tc,EndOfLine,termcount)
 		        WriteToSTDOUT (trim(tc)+" terminators added."+EndofLine)
@@ -5392,7 +5199,7 @@ End
 		        end if
 		        return true
 		      else
-		        WriteToSTDOUT (EndofLine+Sh.Result)
+		        WriteToSTDOUT (EndofLine+shResult)
 		        WriteToSTDOUT (EndofLine+"TermGen command line was: "+cli+EndofLine)
 		        
 		        return false
@@ -5742,7 +5549,7 @@ End
 		      LogoTabs.value=0
 		      logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
 		    end if
-		  Case "LoadGenomeTool"
+		  Case "LoadGenomeTool" 'No such button any more
 		    GenomeFile=GetOpenFolderItem("")
 		    if GenomeFile<> Nil then
 		      WriteToSTDOUT (EndofLine+"Genome from "+GenomeFile.shellpath+" loaded.")

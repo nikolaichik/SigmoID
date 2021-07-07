@@ -22,7 +22,7 @@ Begin Window HelpWin
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   True
-   Title           =   "#kSigmoIDhelp"
+   Title           =   "#kSigmoIDhelpWinTitle"
    Visible         =   False
    Width           =   1100
    Begin HTMLViewer WebViewer
@@ -64,7 +64,6 @@ Begin Window HelpWin
       SelectionType   =   2
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   4
       Transparent     =   False
       Visible         =   True
@@ -109,7 +108,6 @@ Begin Window HelpWin
       SelectionType   =   2
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   4
       Transparent     =   False
       Visible         =   True

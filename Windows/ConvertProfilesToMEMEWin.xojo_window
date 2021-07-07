@@ -998,20 +998,16 @@ End
 		      cli=cli+" "+TFfamily_tmp.ShellPath
 		      
 		      
-		      Dim sh As Shell
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		      userShell(cli)
 		      
 		      
-		      If sh.errorCode=0 Then
-		        s.Write sh.result
+		      If shError=0 Then
+		        s.Write shResult
 		        s.close
 		        LogoWin.WriteToSTDOUT (" Done!")
 		        
 		      Else
-		        MsgBox "Error running sites2meme. Error message: "+sh.result
+		        MsgBox "Error running sites2meme. Error message: "+shResult
 		        MsgBox "Command line was: <"+cli+">"
 		      End If
 		    End If

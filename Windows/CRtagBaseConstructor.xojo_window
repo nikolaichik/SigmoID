@@ -409,7 +409,6 @@ End
 		Sub EmblArrayPrep(Hmmsearchoutput as string)
 		  dim m,n as Integer
 		  dim cli as String
-		  dim sh as Shell
 		  dim reg1 as New RegEx
 		  dim reg2 as new RegEx
 		  dim protcode, emblcode as RegExMatch
@@ -422,15 +421,12 @@ End
 		  redim EmblPrSeq(0)
 		  prot2exclude=""
 		  
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
 		  cli="grep -Po "+chr(34)+"^\>\>.*$"+chr(34)+" "+Hmmsearchoutput ' here we get all lines, that start with ">>" from hmmsearch output file
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
-		    emblcom=sh.Result.Split(EndOfLine.UNIX)
+		  userShell(cli)
+		  If shError=0 Then
+		    emblcom=shResult.Split(EndOfLine.UNIX)
 		  else
-		    LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(sh.Result)+EndOfLine.UNIX)
+		    LogoWin.WriteToSTDOUT(EndOfLine.Unix+str(shResult)+EndOfLine.UNIX)
 		  end if
 		  n=Ubound(EmblCom)
 		  For m=0 to n
@@ -496,7 +492,7 @@ End
 		  ReDim CRtags(0)
 		  // add shell for seq exctration
 		  dim cli as string 
-		  dim sh as Shell
+		  
 		  // Store CR positions
 		  m=CountFields(CRs,",")
 		  for n=1 to m 
@@ -505,19 +501,13 @@ End
 		  fst=CRarray(1)
 		  CRlen=CRarray(m)-fst+1
 		  
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
 		  cli="grep "+chr(34)+"^[^#;]"+chr(34)+" "+SearchResTable 'get lines, that don't start with #
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  AlignmentArray=sh.Result.Split(EndOfLine.UNIX) 
+		  userShell(cli)
+		  AlignmentArray=shResult.Split(EndOfLine.UNIX) 
 		  
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  cli="grep "+chr(34)+"^[^#;]"+chr(34)+" "+SearchResTable+"  "+chr(124)+" grep -Po "+chr(34)+"^\S.*(?=\/)"+chr(34)+"  "+chr(124)+" sort "+chr(124)+" uniq -cd" ' get list of non unique (thus multidomain) seq codes  
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  dim uniqprot as string=sh.Result
+		  cli="grep "+Chr(34)+"^[^#;]"+Chr(34)+" "+SearchResTable+"  "+Chr(124)+" grep -Po "+Chr(34)+"^\S.*(?=\/)"+Chr(34)+"  "+Chr(124)+" sort "+Chr(124)+" uniq -cd" ' get list of non unique (thus multidomain) seq codes  
+		  userShell(cli)
+		  dim uniqprot as string=shResult
 		  uniqprot=uniqprot+prot2exclude ' add seq codes that don't have EMBL codes to multidomain seq list - all of them must be skipped
 		  redim EmblCom(0)
 		  
@@ -563,9 +553,6 @@ End
 		      'get extended hit
 		      CDStmp=NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2)'precaution for paralogues
 		      // get extended hit for base
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
 		      
 		      // cdbyank version:
 		      'assume bash is the normal user shell
@@ -577,14 +564,14 @@ End
 		      'cli="samtools faidx "+fastasource.shellpath+" "+str(ProtNames(ubound(ProtNames)))
 		      'cli="samtools faidx "+trEMBL_fasta.shellpath+" "+str(ProtNames(ubound(ProtNames)))
 		      
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		      userShell(cli)
 		      
-		      if sh.ErrorCode<>0 then
+		      if shError<>0 then
 		        LogoWin.WriteToSTDOUT (EndOfLine.unix+"Error retrieving "+str(ProtNames(ubound(ProtNames)))+" from trEMBL"+EndOfLine.unix)
 		        CDStmp=""
 		      else
-		        cdsID=NthField(Sh.result,EndOfLine.unix,1)
-		        CDStmp=trim(ReplaceAll(NthField(Sh.Result,cdsID,2),EndOfLine.UNIX,""))
+		        cdsID=NthField(shResult,EndOfLine.unix,1)
+		        CDStmp=trim(ReplaceAll(NthField(shResult,cdsID,2),EndOfLine.UNIX,""))
 		      end if
 		      dim gapPos,leftPartStart, rightPartStart as integer
 		      dim leftPart, rightPart, leftExt, rightExt as string
@@ -847,7 +834,7 @@ End
 		  
 		  dim cli as string
 		  'dim dataForMeme as string
-		  dim sh as shell
+		  
 		  dim hmmPath as string
 		  'dim CrTagsCodes as String
 		  'dim CrBaseTags(0) as String
@@ -896,11 +883,9 @@ End
 		      else
 		        cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" -o "+hmmsearchoutput.ShellPath+" "+hmmPath+" "+trEMBL_dat.ShellPath
 		      end
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      If sh.errorCode=0 then
+		      
+		      userShell(cli)
+		      If shError=0 Then
 		        LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		        instream=TextInputStream.Open(hmmsearchoutput)
 		        hmmsTrembl=instream.ReadAll
@@ -926,7 +911,7 @@ End
 		  'end if
 		  
 		  'else
-		  'LogoWin.WriteToSTDOUT sh.Result
+		  'LogoWin.WriteToSTDOUT shResult
 		  '
 		  'End If
 		  'else

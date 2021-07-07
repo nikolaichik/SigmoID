@@ -628,17 +628,14 @@ End
 		        
 		        cli=cli+TToptions+inFolder.Item(n).ShellPath+TTlibString
 		        
-		        dim sh as new shell
-		        sh.mode=0
-		        sh.TimeOut=-1
 		        
-		        sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		        If sh.errorCode=0 then
+		        userShell(cli)
+		        If shError=0 Then
 		          'OK
 		        else
-		          msgbox "Error running TomTom: "+sh.result
+		          msgbox "Error running TomTom: "+shResult
 		        end if
-		        sh.Close
+		        
 		      end if
 		    end if
 		    

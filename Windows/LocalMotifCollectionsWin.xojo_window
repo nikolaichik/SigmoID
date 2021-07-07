@@ -1177,14 +1177,10 @@ End
 		      cli=cli+" "+TFfamily_tmp.ShellPath
 		      
 		      
-		      dim sh As Shell
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		      userShell(cli)
 		      
 		      
-		      If sh.errorCode=0 then
+		      If shError=0 Then
 		        // modify the meme output removing motif ID from the header but adding family name instead 
 		        ' (motif ID remains in the URL anyway)
 		        ' so, 
@@ -1193,7 +1189,7 @@ End
 		        ' MOTIF TfbS LacI-family
 		        
 		        dim memeArr() as string
-		        memeArr=split(sh.Result,EndOfLine)
+		        memeArr=split(shResult,EndOfLine)
 		        
 		        
 		        for n=0 to UBound(memeArr)
@@ -1214,7 +1210,7 @@ End
 		        LogoWin.WriteToSTDOUT (" Done!")
 		        
 		      else
-		        msgbox sh.result
+		        msgbox shResult
 		        Msgbox "Command line was: <"+cli+">"
 		      end if
 		    end if

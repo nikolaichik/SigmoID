@@ -53,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +162,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +242,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -358,7 +354,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -371,7 +366,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -474,7 +468,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -536,7 +529,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -1601,11 +1593,6 @@ End
 			'-f , --family     Adds the name of protein family in GenBank file
 			
 			dim cli as string
-			Dim sh As Shell
-			
-			sh=New Shell
-			sh.mode=0
-			sh.TimeOut=-1
 			
 			logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running the ProtFamily script..."+EndofLine)
 			dim GenomeFilePath,outFilePath as string
@@ -1625,17 +1612,14 @@ End
 			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
 			cli=pythonPath+protFamilyPath+" "+hmmsearchResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" -f "+TFfamilyDesc
 			
-			sh=New Shell
-			sh.mode=0
-			sh.TimeOut=-1
-			sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-			If sh.errorCode=0 then
+			userShell(cli)
+			If shError=0 Then
 			
-			LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+			LogoWin.WriteToSTDOUT (EndofLine+shResult)
 			LogoWin.WriteToSTDOUT (EndofLine.unix+"Genbank file with added TF family notes written to "+gbkFile.ShellPath+EndofLine)
 			else
-			LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily error code: "+Str(sh.errorCode)+EndofLine)
-			LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+			LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily error code: "+Str(shError)+EndofLine)
+			LogoWin.WriteToSTDOUT (EndofLine+shResult)
 			LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily command line was: "+cli+EndofLine)
 			return false
 			end if
@@ -2823,7 +2807,6 @@ End
 	#tag Method, Flags = &h0
 		Sub gbk2fasta()
 		  dim cli,gbk2tblPath as string
-		  Dim sh As Shell
 		  dim outfile As folderitem
 		  
 		  Dim dlg as New SaveAsDialog
@@ -2860,7 +2843,6 @@ End
 	#tag Method, Flags = &h0
 		Sub gbk2protein()
 		  dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
-		  Dim sh As Shell
 		  dim outfile As folderitem
 		  dim n,u as integer
 		  dim ft as GBFeature
@@ -2942,7 +2924,6 @@ End
 		  '-v, --version      show program's version number and exit
 		  
 		  dim cli,gbk2tblPath as string
-		  Dim sh As Shell
 		  dim outfile As folderitem
 		  
 		  Dim dlg as New SaveAsDialog
@@ -2972,17 +2953,14 @@ End
 		    #endif
 		    cli=pythonPath+gbk2tblPath+" "+GenomeFilePath+" -p BSU > "+outFile.ShellPath
 		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		    userShell(cli)
 		    
-		    If sh.errorCode=0 then
+		    If shError=0 Then
 		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
 		      
 		    else
-		      LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error code: "+Str(sh.errorCode)+EndofLine)
-		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		      LogoWin.WriteToSTDOUT (EndofLine+"gbk2tbl error code: "+Str(shError)+EndofLine)
+		      LogoWin.WriteToSTDOUT (EndofLine+shResult)
 		      
 		    end if
 		  end if
@@ -3717,7 +3695,6 @@ End
 		  
 		  logowin.show
 		  dim cli as string
-		  Dim sh As Shell
 		  
 		  
 		  if GenomeFile=Nil then
@@ -3764,20 +3741,17 @@ End
 		    end if
 		    cli=cli+" "+modelFile+" "+CDSfasta.ShellPath
 		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
 		    logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		    If sh.errorCode=0 then
-		      logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    userShell(cli)
+		    If shError=0 Then
+		      logoWin.WriteToSTDOUT (EndofLine+shResult)
 		      'LogoWinToolbar.Item(2).Enabled=true
 		      logoWin.LastSearch="hmmsearch" 'not used
 		      
 		      return true
 		    else
-		      logoWin.WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "hmmsearch error code: "+Str(sh.errorCode)
+		      logoWin.WriteToSTDOUT (EndofLine+shResult)
+		      MsgBox "hmmsearch error code: "+Str(shError)
 		      logoWin.WriteToSTDOUT (EndofLine+"hmmsearch command line was: "+cli+EndofLine)
 		      'LogoWinToolbar.Item(2).Enabled=false
 		      return false
@@ -3804,7 +3778,6 @@ End
 		  
 		  logowin.show
 		  dim cli as string
-		  Dim sh As Shell
 		  
 		  
 		  if GenomeFile=Nil then
@@ -4134,7 +4107,6 @@ End
 	#tag Method, Flags = &h0
 		Sub OperOn()
 		  dim cli as string
-		  Dim sh As Shell
 		  
 		  'usage:
 		  'RegOperon <input_file> [options]
@@ -4160,17 +4132,14 @@ End
 		  
 		  cli=pythonPath+LogoWin.OperOnPath+" "+GenomeFile.ShellPath+" "+OperOnOptions
 		  
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
+		  userShell(cli)
+		  If shError=0 Then
 		    LogoWin.WriteToSTDOUT (EndofLine+"OperOn.py was run with these options: "+nthfield(cli,".gb",2)) ' 
-		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    LogoWin.WriteToSTDOUT (EndofLine+shResult)
 		    
 		  else
-		    LogoWin.WriteToSTDOUT (EndofLine+"OperOn error code: "+Str(sh.errorCode)+EndofLine)
-		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    LogoWin.WriteToSTDOUT (EndofLine+"OperOn error code: "+Str(shError)+EndofLine)
+		    LogoWin.WriteToSTDOUT (EndofLine+shResult)
 		    
 		  end if
 		  

@@ -1292,7 +1292,7 @@ End
 		  dim CDhit as folderitem
 		  dim instream as TextInputStream
 		  dim outstream as TextOutputStream
-		  dim sh as shell
+		  
 		  dim outSeqs as string
 		  
 		  
@@ -1306,12 +1306,9 @@ End
 		    dim cli as string
 		    cli=CDhit.ShellPath+" -i " + infile.ShellPath + " -o "+ outfile.ShellPath + " -d 100  -c 0.8 -n 5 -G 0 -aS 0.1 -aL 0.1"
 		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		    userShell(cli)
 		    
-		    If sh.errorCode <> 0 then
+		    If shError <> 0 then
 		      msgbox "Problem running CD-Hit"
 		      return ""
 		    else
@@ -1396,11 +1393,11 @@ End
 		      sh=New Shell
 		      sh.mode=1
 		      sh.TimeOut=-1
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		      sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
 		      While sh.IsRunning=true
 		        app.YieldToNextThread()
 		      wend
-		      If sh.errorCode <> 0 then
+		      If sh.errorCode <> 0 Then
 		        deNovoWin.rp.writeToWin("Problem running MeShClust"+EndOfLine.Unix+sh.Result+EndOfLine.Unix)
 		        return ""
 		      else

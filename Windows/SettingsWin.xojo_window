@@ -116,10 +116,9 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   False
-      Value           =   3
+      Value           =   0
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -3233,13 +3232,10 @@ End
 		  // Set CPU Cores pane values
 		  
 		  'show OMPI version:
-		  Dim sh As New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
 		  'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  sh.execute user("ompi_info")
-		  If sh.errorCode=0 Then
-		    Dim ompiver As String =sh.Result
+		  userShell("ompi_info")
+		  If shError=0 Then
+		    Dim ompiver As String =shResult
 		    'logowin.WriteToSTDOUT ("ompi_info returned this:"+EndOfLine.UNIX)
 		    'logowin.WriteToSTDOUT (ompiver+EndOfLine.UNIX)
 		    If InStr(ompiver,"Open MPI: ")>0 Then
@@ -3260,7 +3256,7 @@ End
 		    
 		    
 		    'logowin.WriteToSTDOUT ("ompi_info returned this:"+EndOfLine.UNIX)
-		    'logowin.WriteToSTDOUT (sh.result+EndOfLine.UNIX)
+		    'logowin.WriteToSTDOUT (shResult+EndOfLine.UNIX)
 		    
 		    
 		    

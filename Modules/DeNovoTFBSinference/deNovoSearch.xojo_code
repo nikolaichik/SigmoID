@@ -232,11 +232,11 @@ Inherits Thread
 		      
 		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+Me.hmmPath+" "+CDSfile.ShellPath
 		      
-		      sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		      sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
 		      While sh.IsRunning=true
 		        app.YieldToNextThread()
 		      wend
-		      If sh.errorCode=0 then
+		      If sh.errorCode=0 Then
 		        deNovoWin.rp.writeToWin(" OK"+EndofLine.unix)
 		        
 		        instream=alignmentsFile.OpenAsTextFile

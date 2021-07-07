@@ -22,7 +22,7 @@ Begin Window About
    MinWidth        =   64
    Placement       =   0
    Resizeable      =   False
-   Title           =   ""
+   Title           =   "#kAbout"
    Visible         =   False
    Width           =   606
    Begin Label StaticText3

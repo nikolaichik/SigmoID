@@ -1,6 +1,6 @@
 #tag Module
 Protected Module Strings
-	#tag Constant, Name = kAbout, Type = String, Dynamic = True, Default = \"About SigmoID\xE2\x80\xA6", Scope = Public
+	#tag Constant, Name = kAbout, Type = String, Dynamic = True, Default = \"About SigmoID", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9E \xD0\xBF\xD1\x80\xD0\xBE\xD0\xB3\xD1\x80\xD0\xB0\xD0\xBC\xD0\xBC\xD0\xB5 SigmoID"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9F\xD1\x80\xD0\xB0 \xD0\xBF\xD1\x80\xD0\xB0\xD0\xB3\xD1\x80\xD0\xB0\xD0\xBC\xD1\x83 SigmoID"
 	#tag EndConstant
@@ -1643,6 +1643,11 @@ Protected Module Strings
 	#tag Constant, Name = kSigmoIDHelp, Type = String, Dynamic = True, Default = \"SigmoID Help", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA1\xD0\xBF\xD1\x80\xD0\xB0\xD0\xB2\xD0\xBA\xD0\xB0 SigmoID"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x94\xD0\xB0\xD0\xB2\xD0\xB5\xD0\xB4\xD0\xBA\xD0\xB0 SigmoID"
+	#tag EndConstant
+
+	#tag Constant, Name = kSigmoIDhelpWinTitle, Type = String, Dynamic = True, Default = \"SigmoID Help", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\xA1\xD0\xBF\xD1\x80\xD0\xB0\xD0\xB2\xD0\xBA\xD0\xB0 SigmoID "
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x94\xD0\xB0\xD0\xBF\xD0\xB0\xD0\xBC\xD0\xBE\xD0\xB3\xD0\xB0 SigmoID"
 	#tag EndConstant
 
 	#tag Constant, Name = kSigmoIDPreferences, Type = String, Dynamic = True, Default = \"SigmoID Preferences", Scope = Public

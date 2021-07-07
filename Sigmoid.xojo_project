@@ -1,5 +1,5 @@
 Type=Desktop
-RBProjectVersion=2019.031
+RBProjectVersion=2019.021
 MinIDEVersion=20150400
 OrigIDEVersion=20190210
 Class=App;App.xojo_code;&h0000000006C8CC97;&h0000000000000000;false
@@ -663,7 +663,6 @@ Folder=TT's SmartPreferences;Additional Modules/TT's SmartPreferences;&h00000000
 Class=TTsSmartPreferences;Additional Modules/TT's SmartPreferences/TTsSmartPreferences.xojo_code;&h0000000053BE31F0;&h000000000F229F85;false
 Module=XMLDictionary;Additional Modules/TT's SmartPreferences/XMLDictionary.xojo_code;&h000000002A171E2C;&h000000000F229F85;false
 Plist=Info1;Info.plist;&h00000000267187FF;&h0000000000000000;false
-Picture=Sid300x180hbe;Pictures/Sid300x180.png;&h0000000076B26FFF;&h000000001F038CB3;false;0;&h0000000000000000
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=2

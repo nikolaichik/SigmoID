@@ -50,10 +50,6 @@ Protected Module DeNovoTFBSinference
 	#tag Method, Flags = &h0
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
 		  Dim cli As String
-		  Dim sh As Shell
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
 		  if outfile.Exists then outfile.Delete
 		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+Str(inFile.NativePath)+"'"
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
@@ -71,29 +67,29 @@ Protected Module DeNovoTFBSinference
 		  'execute bash with login scripts to set the same env as in terminal
 		  'command must be in single quotes
 		  
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  userShell(cli)
 		  
-		  If sh.errorCode=0 Then
+		  If sherror=0 Then
 		    Dim tos As TextOutputStream
 		    tos = TextOutputStream.Create(outFile)
 		    If tos=Nil Then Return 1
 		    tos.writeline(cli)
-		    tos.Write(sh.result)
+		    tos.Write(shResult)
 		    
-		    return sh.errorCode
+		    Return sherror
 		  else
 		    for i as integer = 0 to WindowCount - 1
 		      if window(i) isa deNovoWin then
-		        deNovoWin.rp.writeToWin(EndOfLine.unix+"ChIPmunk error code: "+Str(sh.errorCode))
-		        deNovoWin.rp.writeToWin(EndofLine+Sh.Result)
+		        deNovoWin.rp.writeToWin(EndOfLine.unix+"ChIPmunk error code: "+Str(shError))
+		        deNovoWin.rp.writeToWin(EndofLine+shResult)
 		        exit
 		      elseif i = WindowCount-1 then
-		        LogoWin.WriteToSTDOUT(EndOfLine.unix+"ChIPmunk error code: "+Str(sh.errorCode))
-		        LogoWin.WriteToSTDOUT(EndofLine+Sh.Result)
+		        LogoWin.WriteToSTDOUT(EndOfLine.unix+"ChIPmunk error code: "+Str(shError))
+		        LogoWin.WriteToSTDOUT(EndofLine+shResult)
 		      end
 		    next i
 		    
-		    return sh.errorCode
+		    return sherror
 		  end if
 		  
 		  Exception err
@@ -756,7 +752,7 @@ Protected Module DeNovoTFBSinference
 		  dim UniProtID, MultiFasta, SingleFasta, cli, genpeptIDs, shellRes(-1)  as string
 		  dim EntryFragmentsF, uniprot2genpept as FolderItem
 		  dim gbkcount as integer = Proteins2process 'Val(deNovoWin.Proteins2processField.text)
-		  dim sh as Shell
+		  
 		  dim rg as New RegEx
 		  Dim rgmatch As RegExMatch
 		  rg.SearchPattern="\S*(?=\.)"
@@ -958,7 +954,7 @@ Protected Module DeNovoTFBSinference
 		  'Using Xojo.Core
 		  'Using Xojo.IO
 		  
-		  dim sh as Shell
+		  
 		  dim cli as String
 		  Dim getprot As FolderItem
 		  Dim extractfragment As  FolderItem 
@@ -1174,7 +1170,7 @@ Protected Module DeNovoTFBSinference
 		        deNovoWin.rp.writeToWin("Getting  fragment from the opened GenBank file: "+str(GenomeWin.GenomeFile.Name)+"... ")
 		        extractfragment=Resources_f.Child("ExtractFragment.py")
 		        If extractfragment.exists and GenomeWin.GenomeFile.exists Then
-		          sh=New Shell
+		          dim sh as New Shell
 		          sh.mode=1
 		          sh.TimeOut=-1
 		          cli=pythonpath+extractfragment.ShellPath+" "+GenomeWin.GenomeFile.ShellPath+" @@coord "+str(leftCOO)+","+str(rightCOO)
@@ -1183,7 +1179,7 @@ Protected Module DeNovoTFBSinference
 		          'execute bash with login scripts to set the same env as in terminal
 		          'command must be in single quotes
 		          
-		          sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		          sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
 		          
 		          While sh.IsRunning=true
 		            app.YieldToNextThread()
@@ -2163,14 +2159,13 @@ Protected Module DeNovoTFBSinference
 		  
 		  Dim sh As New Shell
 		  
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+Chr(34)+cmd+Chr(34))
+		  userShell(cmd)
+		  
 		  
 		  Dim res As String
 		  Dim m,n As Integer
 		  
-		  res=sh.result
+		  res=shResult
 		  
 		  If InStr(res, ">")>0 Then 'find correct seq among several possible
 		    'we simply check for the presence of all words of genomeName within fasta title
@@ -2376,17 +2371,17 @@ Protected Module DeNovoTFBSinference
 		  sh=New Shell
 		  sh.mode=1
 		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		  sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
 		  While sh.IsRunning=true
 		    app.YieldToNextThread()
 		  wend
 		  
 		  'return sh.errorCode
-		  If sh.errorCode=0 then
-		    return sh.errorCode
+		  If sh.errorCode=0 Then
+		    Return sh.errorCode
 		  else
 		    MEMEerr="MEME error code: "+Str(sh.errorCode)+EndOfLine
-		    MEMEerr=MEMEerr+"MEME command was: "+cli+EndOfLine+Sh.Result
+		    MEMEerr=MEMEerr+"MEME command was: "+cli+EndOfLine+sh.Result
 		    return sh.errorCode
 		  end if
 		  

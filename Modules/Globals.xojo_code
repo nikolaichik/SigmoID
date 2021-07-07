@@ -414,11 +414,6 @@ Protected Module Globals
 		  ' not sure how this can work with Windows, so no corresponding option for now
 		  
 		  dim cli as string
-		  Dim sh As Shell
-		  
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
 		  
 		  #If TargetLinux
 		    If logical Then
@@ -426,9 +421,9 @@ Protected Module Globals
 		    Else
 		      cli=pythonPath+"-c 'import psutil; print(psutil.cpu_count(logical=False))'"
 		    End If
-		    sh.execute cli
-		    If sh.errorCode=0 Then
-		      Return Val(sh.result)
+		    userShell(cli)
+		    If shError=0 Then
+		      Return Val(shresult)
 		      
 		      'check if meme is compiled with mp support:
 		      '
@@ -449,19 +444,15 @@ Protected Module Globals
 		      'return 1
 		      'end if
 		    Else
-		      sh=New Shell
-		      sh.mode=0
-		      sh.TimeOut=-1
-		      
-		      sh.execute "lscpu"
-		      If sh.errorCode=0 Then
+		      userShell("lscpu")
+		      If sherror=0 Then
 		        
 		        Dim cpus,threads As Integer
-		        cpus=Val(Trim(NthField(sh.result,"CPU(s):",2)))
+		        cpus=Val(Trim(NthField(shResult,"CPU(s):",2)))
 		        If logical Then
 		          Return cpus
 		        Else
-		          threads=Val(Trim(NthField(sh.result,"Thread(s) per core:",2)))
+		          threads=Val(Trim(NthField(shResult,"Thread(s) per core:",2)))
 		          Return cpus/threads
 		        End If
 		        
@@ -479,9 +470,9 @@ Protected Module Globals
 		    Else
 		      cli="sysctl -n hw.physicalcpu"
 		    End If
-		    sh.execute cli
-		    If sh.errorCode=0 Then
-		      Return Val(sh.result)
+		    userShell(cli)
+		    If shError=0 Then
+		      Return Val(shresult)
 		    Else
 		      Return 1
 		    End If
@@ -1338,54 +1329,6 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function getMotifFasta(MEMEtxt As String) As String
-		  'parse MEME output for Motif sequences and return operator model in Fasta format
-		  
-		  dim MotifBlocks As New RegEx
-		  dim MotifSeq As New RegEx
-		  dim MotifSeqID As New RegEx
-		  dim MotifEvalue As New RegEx
-		  dim MotifBlocksMatch As New RegExMatch
-		  
-		  dim IDMatch As New RegExMatch
-		  dim SeqMatch As New RegExMatch
-		  dim Evalue As New RegExMatch
-		  
-		  dim Fasta As String
-		  dim TFMotif(-1 ) As String
-		  'MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?\/\/)"
-		  MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?probability)"
-		  MotifSeqID.SearchPattern="\S*(?=\s\()"
-		  MotifSeq.SearchPattern="(?<=\)\s)\S*"
-		  MotifEvalue.SearchPattern="(?<=\d)e\+" '+ in E-value report denotify insignificant motif
-		  
-		  MotifBlocksMatch = MotifBlocks.Search(MEMEtxt)
-		  dim n As Integer = 1
-		  Do
-		    if MotifBlocksMatch <> Nil Then
-		      TFMotif = MotifBlocksMatch.SubExpressionString(0).Split(EndOfLine.UNIX)
-		      Fasta=""
-		      if UBound(TFMotif) > 0 Then
-		        For Each Line as String in TFMotif
-		          IDMatch = MotifSeqID.Search(Line)
-		          SeqMatch = MotifSeq.Search(Line)
-		          if IDMatch <> Nil and SeqMatch <> Nil Then
-		            Fasta = Fasta +">" + IDMatch.SubExpressionString(0) + EndOfLine.UNIX + SeqMatch.SubExpressionString(0) + EndOfLine.UNIX
-		          End
-		          Evalue = MotifEvalue.Search(Line)
-		          If Evalue <> Nil Then
-		            Fasta = "" 'if E-value match contains "+" skip model
-		          End
-		        Next
-		      End
-		    End
-		    MotifBlocksMatch = MotifBlocks.Search
-		  Loop Until MotifBlocksMatch = Nil
-		  Return Fasta
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function GetRealCRtag(HMMfilePath as string) As String
 		  Dim f As folderitem
 		  Dim tis As TextInputStream
@@ -1608,23 +1551,19 @@ Protected Module Globals
 		  '--maxinsertlen <n> : pretend all inserts are length <= <n>
 		  
 		  dim cli as string
-		  Dim sh As Shell
+		  
 		  
 		  'Usage: hmmbuild [-options] <hmmfile_out> <msafile>
 		  cli=hmmbuildpath+" --dna "+outfilepath+" "+infilepath
 		  
 		  
 		  
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
-		  If sh.errorCode=0 then
+		  userShell(cli)
+		  If shError=0 Then
 		    return true
 		  else
-		    LogoWin.WriteToSTDOUT (EndOfLine + "hmmbuild error code: "+Str(sh.errorCode)+EndOfLine)
-		    LogoWin.WriteToSTDOUT sh.result
+		    LogoWin.WriteToSTDOUT (EndOfLine + "hmmbuild error code: "+Str(shError)+EndOfLine)
+		    LogoWin.WriteToSTDOUT shresult
 		    return false
 		  end if
 		  
@@ -1660,9 +1599,9 @@ Protected Module Globals
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    
-		    sh.execute ("bash --login -c "+Chr(34)+cli+Chr(34))
+		    userShell(cli)
 		    
-		    If sh.errorCode=0 then
+		    If shError=0 Then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		      
 		      instream=HmmResultFile.OpenAsTextFile
@@ -1672,7 +1611,7 @@ Protected Module Globals
 		        instream.close
 		        'hmmSearchRes="HMM file used: "+HMMfilePath+EndOfLine
 		        hmmSearchRes=hmmSearchRes+"CRtag positions: " +CRtagPositions+EndOfLine
-		        hmmSearchRes=hmmSearchRes+GetCRtags(sh.Result,Table,CRtagPositions)
+		        hmmSearchRes=hmmSearchRes+GetCRtags(shResult,Table,CRtagPositions)
 		        
 		        return HmmSearchRes
 		      end if
@@ -1680,7 +1619,7 @@ Protected Module Globals
 		      
 		      
 		    else
-		      LogoWin.WriteToSTDOUT sh.Result
+		      LogoWin.WriteToSTDOUT shResult
 		      return ""
 		    End If
 		  else
@@ -1732,9 +1671,9 @@ Protected Module Globals
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		    userShell(cli)
 		    //LogoWin.WriteToSTDOUT (EndofLine.UNIX+str(sh.Result)+EndOfLine.UNIX)
-		    If sh.errorCode=0 then
+		    If shError=0 Then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		      
 		      instream=HmmResultFile.OpenAsTextFile
@@ -1744,7 +1683,7 @@ Protected Module Globals
 		        instream.close
 		        'hmmSearchRes="HMM file used: "+HMMfilePath+EndOfLine
 		        hmmSearchRes=hmmSearchRes+"CRtag positions: " +CRtagPositions+EndOfLine
-		        hmmSearchRes=hmmSearchRes+GetCRtags(sh.Result,Table,CRtagPositions)
+		        hmmSearchRes=hmmSearchRes+GetCRtags(shResult,Table,CRtagPositions)
 		        
 		        return HmmSearchRes
 		      end if
@@ -1752,7 +1691,7 @@ Protected Module Globals
 		      
 		      
 		    else
-		      LogoWin.WriteToSTDOUT sh.Result
+		      LogoWin.WriteToSTDOUT shResult
 		      return ""
 		    End If
 		  else
@@ -2618,7 +2557,7 @@ Protected Module Globals
 		    
 		    'actual conversion
 		    dim cli as string
-		    Dim sh As Shell
+		    
 		    
 		    cli=MEMEpath+" -nmotifs 1 -dna -text -w "+str(ml)+" "
 		    if Palindromic then            
@@ -2627,13 +2566,10 @@ Protected Module Globals
 		    cli=cli+alignment_tmp.ShellPath
 		    cli=cli+" > "+MEMEtmp.ShellPath
 		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
 		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		    If sh.errorCode=0 then
-		      Logowin.WriteToSTDOUT (" OK") '(EndofLine+Sh.Result)
+		    userShell(cli)
+		    If shError=0 Then
+		      Logowin.WriteToSTDOUT (" OK") '(EndofLine+shResult)
 		      
 		      'print the result in the log pane:
 		      'dim res as FolderItem
@@ -2644,11 +2580,11 @@ Protected Module Globals
 		      'Logowin.WriteToSTDOUT (EndofLine+InStream.ReadAll)
 		      'end if
 		      'InStream.close
-		      return sh.errorCode
+		      return shError
 		    else
-		      Logowin.WriteToSTDOUT (EndofLine+Sh.Result)
-		      Logowin.WriteToSTDOUT ("MEME error code: "+Str(sh.errorCode)+EndofLine)
-		      return sh.errorCode
+		      Logowin.WriteToSTDOUT (EndofLine+shResult)
+		      Logowin.WriteToSTDOUT ("MEME error code: "+Str(shError)+EndofLine)
+		      return sherror
 		    end if
 		    
 		  else
@@ -3794,19 +3730,9 @@ Protected Module Globals
 		    end if
 		  #endif
 		  
-		  dim cli as string
-		  Dim sh As Shell
-		  
-		  sh=New Shell
-		  sh.mode=0
-		  
-		  'assume bash is the normal user shell
-		  'execute bash with login scripts to set the same env as in terminal
-		  'command must be in single quotes
-		  sh.Execute("bash --login -c '"+"which "+appName+"'")
-		  
-		  if sh.ErrorCode = 0 then
-		    pth=trim(sh.Result)
+		  userShell("which "+appName)
+		  If shError = 0 Then
+		    pth=Trim(shResult)
 		  else
 		    pth=""
 		  End If
@@ -3879,7 +3805,7 @@ Protected Module Globals
 		  logowin.WriteToSTDOUT("Running tfastx..."+EndOfLine.unix)
 		  
 		  dim cli as string
-		  Dim sh As Shell
+		  
 		  
 		  
 		  if LogoWin.GenomeFile=Nil then
@@ -3922,16 +3848,13 @@ Protected Module Globals
 		    
 		    cli=tfastxPath+fastaOptions+TFfastaFile.shellpath+" "+GenomeFilePath
 		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		    If sh.errorCode=0 then
-		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    userShell(cli)
+		    If shError=0 Then
+		      LogoWin.WriteToSTDOUT (EndofLine+shResult)
 		      return
 		    else
-		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "tfastx error code: "+Str(sh.errorCode)
+		      LogoWin.WriteToSTDOUT (EndofLine+shResult)
+		      MsgBox "tfastx error code: "+Str(shError)
 		      LogoWin.WriteToSTDOUT (EndofLine+"tfastx command line was: "+cli+EndofLine)
 		      return
 		    end if
@@ -4065,11 +3988,20 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function User(cli as string) As string
-		  // modify command line to run with user bash settings
+		Sub UserShell(cmd as string)
+		  // Run external command via bash with user settings
+		  'this is required since Xojo shell has different settings
+		  '--login executes bash with login scripts to set the same env as in terminal
+		  'command must be in single quotes
 		  
-		  Return ("bash --login -c "+Chr(34)+cli+Chr(34))
-		End Function
+		  Dim sh As New Shell
+		  sh.mode=0
+		  sh.TimeOut=-1
+		  
+		  sh.execute("bash --login -c '"+cmd+"'")
+		  shError=sh.errorCode
+		  shResult=sh.result
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -4190,7 +4122,7 @@ Protected Module Globals
 		  '(Default: False)
 		  
 		  dim cli as string
-		  Dim sh As Shell
+		  
 		  
 		  if f<>Nil then
 		    'shell within xojo doesn't read .bash_profile - hence PATH isn't set properly
@@ -4201,15 +4133,12 @@ Protected Module Globals
 		    msgbox "Invalid input file for weblogo"
 		  end if
 		  
-		  sh=New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
-		  sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		  If sh.errorCode=0 then
-		    return Sh.Result
+		  userShell(cli)
+		  If shError=0 Then
+		    return shResult
 		  else
-		    LogoWin.WriteToSTDOUT (EndofLine+"Weblogo error code: "+Str(sh.errorCode)+EndofLine)
-		    LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    LogoWin.WriteToSTDOUT (EndofLine+"Weblogo error code: "+Str(shError)+EndofLine)
+		    LogoWin.WriteToSTDOUT (EndofLine+shResult)
 		    return ""
 		  end if
 		  
@@ -4478,6 +4407,14 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		rRNAcolour As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		shError As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		shResult As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

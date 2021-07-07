@@ -796,7 +796,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ReadOptions()
-		  dim PNO as string
+		  Dim PNO As String
 		  
 		  PNO=""
 		  

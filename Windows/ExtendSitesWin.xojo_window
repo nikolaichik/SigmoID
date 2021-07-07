@@ -542,7 +542,7 @@ End
 #tag Events SelectGenomeButt
 	#tag Event
 		Sub Action()
-		  LogoWin.Genomefile=GetOpenFolderItem("")
+		  LogoWin.Genomefile=GetOpenFolderItem("Genbank;Fasta")
 		  if LogoWin.Genomefile<> Nil And LogoWin.Genomefile.exists then
 		    GenomeField.text=LogoWin.Genomefile.shellpath
 		    ExtendButton.enabled=true

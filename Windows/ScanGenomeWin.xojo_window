@@ -614,7 +614,7 @@ End
 #tag Events SelectGenomeButt
 	#tag Event
 		Sub Action()
-		  LogoWin.GenomeFile=GetOpenFolderItem("")
+		  LogoWin.GenomeFile=GetOpenFolderItem("GenBank")
 		  if LogoWin.GenomeFile<> Nil then
 		    LogoWin.WriteToSTDOUT (EndofLine+"Genome from "+LogoWin.GenomeFile.shellpath+" loaded.")
 		    if LogoWin.Logofile<>nil then

@@ -614,7 +614,6 @@ End
 		    end if
 		    'actual conversion
 		    dim cli as string
-		    Dim sh As Shell
 		    
 		    ''need to set MEME_BIN_DIRS for the bundled meme version
 		    'dim MEME_BIN_DIRS as string
@@ -730,14 +729,11 @@ End
 		    'will replace existing directory
 		    cli=cli+" -oc "+LogoWin.MEMEtmp.ShellPath
 		    
-		    sh=New Shell
-		    sh.mode=0
-		    sh.TimeOut=-1
 		    LogoWin.show
 		    LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
-		    sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		    If sh.errorCode=0 then
-		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
+		    userShell(cli)
+		    If shError=0 Then
+		      LogoWin.WriteToSTDOUT (EndofLine+shResult)
 		      
 		      'open the result in the browser:
 		      dim res as FolderItem
@@ -749,11 +745,11 @@ End
 		        WebBrowserWin.LoadPage(res)
 		        WebBrowserWin.show
 		      end if
-		      return sh.errorCode
+		      return shError
 		    else
-		      LogoWin.WriteToSTDOUT (EndofLine+Sh.Result)
-		      MsgBox "MEME error code: "+Str(sh.errorCode)
-		      return sh.errorCode
+		      LogoWin.WriteToSTDOUT (EndofLine+shResult)
+		      MsgBox "MEME error code: "+Str(shError)
+		      return shError
 		    end if
 		    
 		  else
