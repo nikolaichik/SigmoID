@@ -478,8 +478,13 @@ Protected Module DeNovoTFBSinference
 		        wend
 		        
 		        'get extended hit
-		        CDStmp="XXXXXXXXXXXXX" 'rough workaround for rare cases when N terminus is shorter than the model
-		        CDStmp=CDStmp+Uppercase(NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2))'precaution for paralogues
+		        CDStmp=Uppercase(NthField(CDSseqs,">"+ProtName,2))
+		        If Instr(CDStmp, EndOfLine.UNIX)>0 Then
+		          CDStmp=Nthfield(CDStmp, EndOfLine.UNIX, 2)
+		        End
+		        CDStmp="XXXXXXXXXXXXX"+CDStmp 'rough workaround for rare cases when N terminus is shorter than the model
+		        
+		        'CDStmp=CDStmp+Uppercase(NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2))'precaution for paralogues
 		        If Len(cdstmp)<40 Then 
 		          // will actually cause thread error!
 		          MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
@@ -2593,6 +2598,27 @@ Protected Module DeNovoTFBSinference
 		    
 		    
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub setCDSseqs(instream As TextinputStream)
+		  'read fasta file  input stream, iterate strings with multiple EndOfLine in seq entry, reformat sequences to single line and save as FASTA in CDSseqs field
+		  dim rawCDS as String
+		  rawCDS = instream.ReadAll
+		  dim CDSstrings() As String = rawCDS.Split(EndOfLine.UNIX)
+		  For Each line As String in CDSstrings
+		    if instr(line, ">")>0 Then
+		      If CDSseqs<>"" Then
+		        CDSseqs=CDSseqs+EndOfLine.UNIX+line+EndOfLine.UNIX
+		      Else
+		        CDSseqs=CDSseqs+line+EndOfLine.UNIX
+		      End
+		    Else
+		      CDSseqs=CDSseqs+line
+		    end
+		  Next
+		  
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

@@ -215,7 +215,8 @@ Inherits Thread
 		      instream=CDSfile.OpenAsTextFile
 		      
 		      If instream<>Nil Then
-		        CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
+		        'CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
+		        setCDSseqs(instream)
 		        instream.close
 		      end if
 		    else
