@@ -1,7 +1,7 @@
 HMMER3/f [3.1b2 | February 2015]
 NAME  GntR
 ACC   PF00392.19
-DESC  Bacterial regulatory proteins, gntR family
+DESC  Bacterial regulatory proteins, GntR family
 LENG  64
 ALPH  amino
 RF    no

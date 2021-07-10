@@ -1,7 +1,7 @@
 HMMER3/f [3.1b2 | February 2015]
 NAME  HTH_1
 ACC   PF00126.25
-DESC  Bacterial regulatory helix-turn-helix protein, lysR family
+DESC  Bacterial regulatory helix-turn-helix protein, LysR family
 LENG  60
 ALPH  amino
 RF    no

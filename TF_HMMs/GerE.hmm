@@ -1,7 +1,7 @@
 HMMER3/f [3.1b2 | February 2015]
 NAME  GerE
 ACC   PF00196.16
-DESC  Bacterial regulatory proteins, luxR family
+DESC  Bacterial regulatory proteins, LuxR family
 LENG  57
 ALPH  amino
 RF    no

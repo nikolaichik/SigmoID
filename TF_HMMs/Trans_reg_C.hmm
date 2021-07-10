@@ -1,7 +1,7 @@
 HMMER3/f [3.1b2 | February 2015]
 NAME  Trans_reg_C
 ACC   PF00486.26
-DESC  Transcriptional regulatory protein, C terminal
+DESC  OmpR/PhoB family transcriptional regulatory protein, C terminal
 LENG  77
 ALPH  amino
 RF    no

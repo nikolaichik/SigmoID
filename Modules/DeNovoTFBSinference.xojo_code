@@ -663,6 +663,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="HTH_Crp_2.hmm"
 		  Case "DcuR"
 		    hmmFileName="DcuR.hmm"
+		  Case "DeoR"
+		    hmmFileName="HTH_DeoR.hmm"
 		  Case "Fis"
 		    hmmFileName="HTH_8.hmm"
 		  Case "Fur"
@@ -2407,43 +2409,58 @@ Protected Module DeNovoTFBSinference
 		  ' the alternative would be using file names in TF_families folder
 		  
 		  'drop extension
-		  FamilyName=replace(FamilyName,".hmm","")
+		  FamilyName=Replace(FamilyName,".hmm","")
 		  
+		  'Trim TF name to the first space. Add comma to avoid partial matches
+		  TFname=NthField(TFname," ",1)+","
 		  
-		  Select case FamilyName
-		  case "OmpR"               'PF00486
-		    return false 'all direct repeats
+		  Select Case FamilyName
+		  Case "AraC"               'PF12833
+		    Return False 'all direct repeats
 		    
-		  case "CitT"                      'PF12431
+		  Case "CitT"                      'PF12431
 		    'Similar to Trans_reg_C; these two are often treated as one "Response regulator" family
-		    return false 'all direct repeats
+		    Return False 'all direct repeats
 		    
-		  case "HTH_DeoR"                  'PF08220
-		    return false 'all direct repeats
+		  Case "DeoR"                  'PF08220
+		    'many TFBSs are direct repeats
+		    Dim DeoRpal As String = "AgaR2,DeoR,FucR,GalR,GlmR,GlpR,MSMEG_3264,MSMEG_3606,PflR,UlaR,"  
+		    If InStr(DeoRpal,TFname)>0 Then
+		      Return True
+		    Else
+		      Return False
+		    End 
 		    
+		    'Case "GntR/Others"            'PF00392
+		    ''TFBS for (almost) all members are palindromic
+		    'Return True
+		    ''Dim GntRdirect As String = ""            '<-- fill this string with RegPrecise data
+		    ''if instr(GntRdirect,TFname)>0 then
+		    ''return false
+		    ''else
+		    ''return true
+		    ''End 
+		    
+		  Case "GntR/MocR"            'PF00392
+		    'TFBS for most members are not palindromic
+		    Dim GntRpal As String = "BAV2320,BC3039,Bamb_6386,CBY_0654,CD2285,CLOBOL_00921,CsaI_1101,DVU_0030,EF0117,EutR,MII0059,PBPRB0322,PP0486,PTD2_03046,SMU640c,SO2282,SPOA0164,Tola_2572,Tola_2750,VSAC1_09283,VSAL_I1306,"
+		    Return True
+		  Else
+		    Return False
+		  End 
+		  
 		  case "LuxR"                      'PF00196
 		    if TFname="MalT" then 'The only exception with direct repeats
 		      return false
 		    else
 		      return true
-		    end if
+		    End If
 		    
-		  case "GntR/Others"            'PF00392
-		    'TFBS for most, but not all members are palindromic
-		    dim GntRdirect as string = ""            '<-- fill this string with RegPrecise data
-		    if instr(GntRdirect,TFname)>0 then
-		      return false
-		    else
-		      return true
-		    End 
-		  case "GntR/MocR"            'PF00392
-		    'TFBS for most members are not palindromic
-		    dim GntRpal as string = ""            '<-- fill this string with RegPrecise data
-		    if instr(GntRpal,TFname)>0 then
-		      return true
-		    else
-		      return false
-		    End 
+		  Case "OmpR"               'PF00486
+		    Return False 'all direct repeats
+		    
+		    
+		    
 		  else
 		    return true
 		  End Select

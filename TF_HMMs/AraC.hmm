@@ -1,8 +1,7 @@
 HMMER3/f [3.1b2 | February 2015]
 NAME  HTH_18
-DESC  Bacterial regulatory proteins, AraC family
 ACC   PF12833.8
-DESC  Helix-turn-helix domain
+DESC  Bacterial regulatory proteins, AraC family
 LENG  81
 ALPH  amino
 RF    no

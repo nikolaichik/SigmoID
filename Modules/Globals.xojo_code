@@ -5011,6 +5011,22 @@ Protected Module Globals
 			Type="boolean"
 			EditorType=""
 		#tag EndViewProperty
+		#tag ViewProperty
+			Name="shError"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="shResult"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="string"
+			EditorType=""
+		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
 #tag EndModule
