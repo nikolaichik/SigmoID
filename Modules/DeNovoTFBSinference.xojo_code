@@ -2444,16 +2444,17 @@ Protected Module DeNovoTFBSinference
 		  Case "GntR/MocR"            'PF00392
 		    'TFBS for most members are not palindromic
 		    Dim GntRpal As String = "BAV2320,BC3039,Bamb_6386,CBY_0654,CD2285,CLOBOL_00921,CsaI_1101,DVU_0030,EF0117,EutR,MII0059,PBPRB0322,PP0486,PTD2_03046,SMU640c,SO2282,SPOA0164,Tola_2572,Tola_2750,VSAC1_09283,VSAL_I1306,"
-		    Return True
-		  Else
-		    Return False
-		  End 
-		  
-		  case "LuxR"                      'PF00196
+		    If InStr(GntRpal,TFname)>0 Then
+		      Return True
+		    Else
+		      Return False
+		    End 
+		    
+		  Case "LuxR"                      'PF00196
 		    if TFname="MalT" then 'The only exception with direct repeats
-		      return false
-		    else
-		      return true
+		      Return False
+		    Else
+		      Return True
 		    End If
 		    
 		  Case "OmpR"               'PF00486
@@ -2461,8 +2462,8 @@ Protected Module DeNovoTFBSinference
 		    
 		    
 		    
-		  else
-		    return true
+		  Else
+		    Return True
 		  End Select
 		End Function
 	#tag EndMethod

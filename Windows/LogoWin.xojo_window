@@ -1999,74 +1999,153 @@ End
 
 	#tag Method, Flags = &h0
 		Sub AnnotateMEMEresults()
+		  dim Splitter As String = "********************************************************************************"+EndOfLine.UNIX+"--------------------------------------------------------------------------------"
 		  dim dlg As New SelectFolderDialog
 		  dim MEMEfolder As FolderItem
 		  dim MEMEresult As FolderItem
+		  dim TFFamilyFolder As FolderItem
 		  dim nhmmerOutput As FolderItem = TemporaryFolder.Child("annotateResNhmmer.table")
 		  dim hmmgenOutput As FolderItem = TemporaryFolder.Child("annotateResHmmgen")
+		  dim CalProfiles As FolderItem
 		  dim instream As TextInputStream
 		  dim outstream As TextOutputStream
 		  
-		  dim MotifFile As FolderItem
+		  dim MotifFile, f As FolderItem
 		  dim Fasta As String
 		  dim MEMEtxt As String
 		  dim MotifWidth As Integer
 		  dim TFMotif(-1) As String
-		  dim TFMotifsFasta As New Dictionary
-		  dim MotifBlocks As New RegEx
-		  dim MotifSeq As New RegEx
-		  dim MotifSeqID As New RegEx
-		  dim MotifBlocksMatch As New RegExMatch
-		  dim IDMatch As New RegExMatch
-		  dim SeqMatch As New RegExMatch
-		  dim cli As String
+		  dim TFmotifsFasta() As Motif
 		  
-		  MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?\/\/)"
-		  MotifSeqID.SearchPattern="\S*(?=\s\()"
-		  MotifSeq.SearchPattern="(?<=\)\s)\S*"
+		  dim sh As Shell
+		  dim cli As String
+		  dim SigBases As New Dictionary
+		  dim Tag As String
+		  dim vv As VirtualVolume
+		  dim basename As String
+		  dim Threshold As String
+		  dim HmmsearchFile As String
+		  dim HmmsearchArray(-1) As String
+		  dim CRtag As String
+		  dim  BoundMoietyStr As String
+		  
+		  CalProfiles = Resources_f.Child("CalibratedProfiles")
+		  For Each Family As FolderItem In CalProfiles.Children
+		    If Family.IsFolder Then
+		      For Each SigFile As FolderItem in Family.Children
+		        If SigFile.Type="SigmoidFile" Then
+		          Tag = Nthfield(SigFile.Name,"_",1)
+		          If Tag<>"" Then
+		            dim sig As New Motif
+		            vv=SigFile.openAsVirtualVolume
+		            If vv<>nil then
+		              basename=nthfield(SigFile.DisplayName,".sig",1)
+		              f=vv.root.child(basename+".fasta")
+		              If f<>Nil and f.Exists Then
+		                instream = TextInputStream.Open(f)
+		                sig.fasta=instream.ReadAll
+		                sig.TFname=basename
+		                instream.Close
+		                f=vv.root.child(basename+".options")
+		                If f<>Nil and f.Exists Then
+		                  instream = TextInputStream.Open(f)
+		                  Threshold=instream.ReadAll
+		                  instream.Close
+		                  Threshold=Nthfield(Threshold,"#=GF NC ",2)
+		                  Threshold=Nthfield(Threshold," ",1)
+		                  sig.Threshold=Threshold
+		                End
+		                dim ProfileModels() As Motif
+		                If Not SigBases.HasKey(Tag) Then
+		                  ProfileModels.Append(sig)
+		                  SigBases.Value(Tag)=ProfileModels()
+		                Else
+		                  ProfileModels= SigBases.Value(Tag)
+		                  ProfileModels.Append(sig)
+		                  SigBases.Value(Tag)=ProfileModels()
+		                End
+		              Else
+		                
+		              End
+		            End
+		          End
+		        End
+		      Next
+		    End
+		  Next
+		  
 		  
 		  dlg.ActionButtonCaption = "Select"
 		  dlg.Title = "Provide path to the MEME_results folder content"
 		  'dlg.PromptText = ""
-		  MEMEfolder = dlg.ShowModal
-		  If MEMEfolder <> Nil Then
-		    For Each Folder As FolderItem in MEMEfolder.Children
-		      If Folder.IsFolder Then
-		        For Each ModeFolder As FolderItem in Folder.Children
-		          If ModeFolder.IsFolder Then
-		            MEMEresult = ModeFolder.Child("meme.txt")
-		            if MEMEresult <> nil and MEMEresult.Exists Then
-		              instream = TextInputStream.Open(MEMEresult)
-		              MEMEtxt = instream.ReadAll
-		              MotifBlocksMatch = MotifBlocks.Search(MEMEtxt)
-		              dim n As Integer = 1
-		              Do
-		                if MotifBlocksMatch <> Nil Then
-		                  TFMotif = MotifBlocksMatch.SubExpressionString(0).Split(EndOfLine.UNIX)
-		                  Fasta=""
-		                  if UBound(TFMotif) > 0 Then
-		                    For Each Line as String in TFMotif
-		                      IDMatch = MotifSeqID.Search(Line)
-		                      SeqMatch = MotifSeq.Search(Line)
-		                      if IDMatch <> Nil and SeqMatch <> Nil Then
-		                        Fasta = Fasta +">" + IDMatch.SubExpressionString(0) + EndOfLine.UNIX + SeqMatch.SubExpressionString(0) + EndOfLine.UNIX
+		  TFFamilyFolder = dlg.ShowModal
+		  If TFFamilyFolder <> Nil and TFFamilyFolder.IsFolder Then
+		    For Each Family As FolderItem in TFFamilyFolder.Children
+		      If Family <> Nil and Family.IsFolder Then
+		        MEMEfolder = Family.Child("MEME_results")
+		        If MEMEfolder<>Nil And MEMEfolder.Exists Then
+		          For Each Folder As FolderItem in MEMEfolder.Children
+		            If Folder.IsFolder Then
+		              For Each ModeFolder As FolderItem in Folder.Children
+		                If ModeFolder.IsFolder Then
+		                  MEMEresult = ModeFolder.Child("meme.txt")
+		                  if MEMEresult <> nil and MEMEresult.Exists Then
+		                    instream = TextInputStream.Open(MEMEresult)
+		                    MEMEtxt = instream.ReadAll
+		                    dim MemeModels(-1) As String
+		                    MemeModels = MEMEtxt.Split(Splitter)
+		                    For n As Integer =1 to UBound(MemeModels)
+		                      Fasta = getMotifFasta(MemeModels(n))
+		                      If Fasta<>"" Then
+		                        dim MotifModel As New Motif
+		                        MotifModel.fasta= Fasta
+		                        MotifModel.mode=ModeFolder.Name
+		                        MotifModel.TFname=Folder.Name
+		                        MotifModel.number=n
+		                        TFmotifsFasta.Append(MotifModel)
 		                      End
 		                    Next
-		                    If Fasta <> "" Then 
-		                      TFMotifsFasta.Value(Folder.Name+"-"+ModeFolder.Name+"-"+str(n)) = Fasta
-		                    End
 		                  End
 		                End
-		                MotifBlocksMatch = MotifBlocks.Search
-		                n = n + 1
-		              Loop Until MotifBlocksMatch = Nil
+		              Next
+		              f = Family.Child("hmmsearch_result_withCRtags.txt")
+		              If f<>Nil And f.Exists Then 
+		                instream = TextInputStream.Open(f)
+		                HmmsearchFile = instream.ReadAll
+		                HmmsearchFile = Nthfield(HmmsearchFile,"> "+Folder.Name,1)
+		                HmmsearchArray=HmmsearchFile.Split(">")
+		                CRtag=HmmsearchArray(UBound(HmmsearchArray))
+		                If SigBases.HasKey(CRtag) Then
+		                  dim sig As New Motif 
+		                  dim ProfileModels() As Motif = SigBases.Value(CRTag)
+		                  If Ubound(ProfileModels)>1 Then
+		                    For i As Integer =0 to UBound(ProfileModels)
+		                      sig = ProfileModels(i)
+		                      dim TFname As String = sig.TFname
+		                      WriteToSTDOUT(Folder.Name+" CR-tag matches calibrated profile "+sig.TFname+". Model added for genome-wide inference."+EndOfLine.Unix)
+		                      sig.TFname=TFname.ReplaceAll(" ","")+"-"+Folder.Name.ReplaceAll(" ","")
+		                      TFmotifsFasta.Append(sig)
+		                      
+		                    Next
+		                  Else
+		                    sig= ProfileModels(Ubound(ProfileModels))
+		                    WriteToSTDOUT(Folder.Name+" CR-tag matches calibrated profile "+sig.TFname+". Model added for genome-wide infererence."+EndOfLine.Unix)
+		                    dim TFname As String = sig.TFname
+		                    sig.TFname=TFname.ReplaceAll(" ","")+"-"+Folder.Name.ReplaceAll(" ","")
+		                    TFmotifsFasta.Append(sig)
+		                  End If
+		                  
+		                End
+		              End
 		            End
-		          End
-		        Next
+		          Next
+		        Else
+		          WriteToSTDOUT("MEME_results folder not found at "+str(Family.NativePath)+ EndOfLine.Unix)
+		        End
 		      End
 		    Next
 		  End
-		  If TFMotifsFasta.KeyCount>0 Then
+		  If Ubound(TFMotifsFasta)>0 Then
 		    nhmmerSettingsWin.AnnotateRes=True
 		    nhmmerSettingsWin.BitScoreField.enabled=True
 		    nhmmerSettingsWin.BitScoreButton.enabled=True
@@ -2094,59 +2173,91 @@ End
 		    If nhmmerOptions<>"" Then
 		      MotifFile = TemporaryFolder.Child("TFmotif.fasta")
 		      If MotifFile <> Nil Then
-		        dim MotifsCount As String = str(TFMotifsFasta.KeyCount)
+		        App.DoEvents
+		        dim MotifsCount As String = str(UBound(TFMotifsFasta))
 		        dim i As Integer = 1
-		        For Each Motif As DictionaryEntry In TFMotifsFasta
-		          LogoWin.WriteToSTDOUT("Processing "+Motif.key+" model."+EndOfLine.UNIX)
+		        For Each MotifModel As Motif In TFMotifsFasta
+		          BoundMoietyStr=MotifModel.TFname
+		          If MotifModel.mode<>"" Then
+		            BoundMoietyStr= BoundMoietyStr+"-"+MotifModel.mode+"-"+str(MotifModel.number)
+		          End
+		          LogoWin.WriteToSTDOUT("Processing "+BoundMoietyStr+" model."+EndOfLine.UNIX)
 		          'calculate motif width
-		          Fasta=Nthfield(Motif.Value,EndOfLine.UNIX,2)
-		          MotifWidth=len(Fasta)
+		          Fasta=MotifModel.fasta
+		          MotifWidth=len(Nthfield(Fasta,EndOfLine.UNIX,2))
 		          if MotifWidth=0 then 
-		            LogoWin.WriteToSTDOUT("Incorrect motif width for "+Motif.key+" model. Skipped."+EndOfLine.UNIX)
+		            LogoWin.WriteToSTDOUT("Incorrect motif width for "+MotifModel.TFname+"-"+MotifModel.mode+str(MotifModel.number)+" model. Skipped."+EndOfLine.UNIX)
+		            Continue
 		          End
 		          If nhmmerSettingsWin.BitScoreField.Value="" Then
-		            Dim IC As Double
-		            IC=Fasta2IC(Motif.Value)
-		            'Calcucate model threshold if it's not provided by user
-		            Dim cutoffs,GA As String
-		            cutoffs=Bits2thresholds(IC)
-		            GA=NthField(cutoffs,"#=GF GA ",2)
-		            GA=NthField(GA," ",1)
-		            nhmmerOptions=nhmmerOptions+" -T "+str(GA)
-		            LogoWin.WriteToSTDOUT("Significance threshold was automatically calculated, used value: "+str(GA)+" bit(s)"+EndOfLine.UNIX)
+		            If MotifModel.Threshold="" Then
+		              Dim IC As Double
+		              IC=Fasta2IC(Fasta)
+		              'Calcucate model threshold if it's not provided by user
+		              Dim cutoffs,NC As String
+		              cutoffs=Bits2thresholds(IC)
+		              NC=NthField(cutoffs,"#=GF NC ",2)
+		              NC=NthField(NC," ",1)
+		              nhmmerOptions=nhmmerOptions+" -T "+str(NC)
+		              LogoWin.WriteToSTDOUT("Significance threshold derived from motif's model IC value, used value: "+str(NC)+" bit(s)"+EndOfLine.UNIX)
+		            Else
+		              nhmmerOptions=nhmmerOptions+" -T "+MotifModel.Threshold
+		              LogoWin.WriteToSTDOUT("Significance threshold derived from motif's NC options, used value: "+MotifModel.Threshold+" bit(s)"+EndOfLine.UNIX)
+		            End
 		          End
 		          If MotifFile.Exists Then MotifFile.Remove
 		          Try
 		            outstream = TextOutputStream.Create(MotifFile)
-		            outstream.Write(Motif.Value)
+		            outstream.Write(MotifModel.fasta)
 		            outstream.Close
 		          Catch err as IOException
 		            LogoWin.WriteToSTDOUT("Can't save fasta file with motif sequences."+EndOfLine.UNIX)
 		            Continue 
 		          End
 		          cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerOutput.shellpath+" "+MotifFile.ShellPath+" "+AnnotatedGenome.ShellPath
+		          sh=New Shell
+		          sh.Mode=1
+		          sh.TimeOut=-1
 		          WriteToSTDOUT ("Running nhmmer..."+EndOfLine.UNIX)
-		          userShell(cli)
-		          If shError=0 Then
-		            Dim HitsCount As String = trim(Nthfield(NthField(shResult, "Total number of hits:",2),"(",1))
-		            LogoWin.WriteToSTDOUT("Number of potential TFBS found with current model: "+HitsCount+EndOfLine.UNIX)
+		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		          While sh.IsRunning=true
+		            App.DoEvents
+		          wend
+		          
+		          If sh.errorCode=0 Then
+		            Dim HitsCount As String = trim(Nthfield(NthField(Sh.Result, "Total number of hits:",2),"(",1))
+		            LogoWin.WriteToSTDOUT("Total number of hits: "+HitsCount+EndOfLine.UNIX)
 		            
 		          Else
-		            WriteToSTDOUT (EndofLine+shResult)
-		            WriteToSTDOUT (EndofLine+"nhmmer command line was: "+cli+EndofLine)
+		            If instr(sh.Result,"No hits detected that satisfy reporting thresholds")>0 Then
+		              WriteToSTDOUT ("No hits detected that satisfy reporting threshold"+EndofLine)
+		            Else
+		              WriteToSTDOUT (EndofLine+Sh.Result)
+		              WriteToSTDOUT (EndofLine+"nhmmer command line was: "+cli+EndofLine)
+		            End
+		            nhmmerOptions=""
+		            Continue
 		          End if
 		          If hmmgenOutput.Exists Then hmmgenOutput.Remove
 		          cli=pythonPath+hmmGenPath+" "+nhmmerOutput.ShellPath+" "+AnnotatedGenome.ShellPath+" "
 		          'intergenic distance is hardcoded, should be configurable
 		          'cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L 110 -n -f protein_bind -q"+chr(34)
-		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q"+chr(34)
-		          cli = cli + chr(34)+"#"+chr(34)+Motif.Key+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
+		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q bound_moiety"+chr(34)
+		          'cli = cli + chr(34)+"#"+chr(34)+MotifModel.TFname+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
+		          cli = cli + chr(34)+"#"+chr(34)+BoundMoietyStr+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
 		          
-		          userShell(cli)
-		          If shError=0 Then
+		          sh=New Shell
+		          sh.Mode=1
+		          sh.TimeOut=-1
+		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		          
+		          While sh.IsRunning=true
+		            App.DoEvents
+		          wend
+		          If sh.errorCode=0 Then
 		            dim AnnotatedCount as string
-		            AnnotatedCount=NthField(NthField(shResult,"Features added:",3),"CPU time:",1)
-		            LogoWin.WriteToSTDOUT("Number of TFBS added to the genome annotation using current significance threshold: "+trim(AnnotatedCount)+EndOfLine.UNIX)
+		            AnnotatedCount=NthField(NthField(Sh.Result,"Features added:",3),"--------------------------------------------------",1)
+		            LogoWin.WriteToSTDOUT("Number of features added: "+trim(AnnotatedCount)+EndOfLine.UNIX)
 		            instream = TextInputStream.Open(hmmgenOutput)
 		            dim annotation as string = instream.ReadAll
 		            If annotation<>"" Then
@@ -2158,8 +2269,8 @@ End
 		              hmmgenOutput.Remove
 		            End
 		          Else
-		            WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(shError)+EndofLine.UNIX)
-		            WriteToSTDOUT (EndofLine+shResult)
+		            WriteToSTDOUT (EndofLine+"HmmGen error code: "+Str(sh.errorCode)+EndofLine.UNIX)
+		            WriteToSTDOUT (EndofLine+Sh.Result)
 		            WriteToSTDOUT (EndofLine+"HmmGen command line was: "+cli+EndofLine.UNIX)
 		          End
 		          If nhmmerSettingsWin.BitScoreField.Value="" Then
@@ -2171,12 +2282,13 @@ End
 		        LogoWin.WriteToSTDOUT("Annotation is complete."+EndOfLine.UNIX)
 		        If AnnotatedGenome.Exists Then
 		          Try 
-		            AnnotatedGenome.CopyTo(MEMEfolder)
-		            LogoWin.WriteToSTDOUT("Annotated genome file location: "+MEMEfolder.NativePath+EndOfLine.UNIX)
+		            AnnotatedGenome.CopyTo(TFFamilyFolder)
+		            LogoWin.WriteToSTDOUT("Annotated genome file location: "+TFFamilyFolder.NativePath+EndOfLine.UNIX)
 		          Catch err As IOException
-		            LogoWin.WriteToSTDOUT("Can't save annotated file to "+MEMEfolder.NativePath+EndOfLine.UNIX)
+		            LogoWin.WriteToSTDOUT("Can't save annotated file to "+TFFamilyFolder.NativePath+EndOfLine.UNIX)
 		          End
 		        End
+		        App.DoEvents
 		      End
 		    End
 		  End

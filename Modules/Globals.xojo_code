@@ -1329,6 +1329,54 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function getMotifFasta(MEMEtxt As String) As String
+		  'parse MEME output for Motif sequences and return operator model in Fasta format
+		  
+		  dim MotifBlocks As New RegEx
+		  dim MotifSeq As New RegEx
+		  dim MotifSeqID As New RegEx
+		  dim MotifEvalue As New RegEx
+		  dim MotifBlocksMatch As New RegExMatch
+		  
+		  dim IDMatch As New RegExMatch
+		  dim SeqMatch As New RegExMatch
+		  dim Evalue As New RegExMatch
+		  
+		  dim Fasta As String
+		  dim TFMotif(-1 ) As String
+		  'MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?\/\/)"
+		  MotifBlocks.SearchPattern="BL   MOTIF[\s\S]*?(?=\n.*?probability)"
+		  MotifSeqID.SearchPattern="\S*(?=\s\()"
+		  MotifSeq.SearchPattern="(?<=\)\s)\S*"
+		  MotifEvalue.SearchPattern="(?<=\d)e\+" '+ in E-value report denotify insignificant motif
+		  
+		  MotifBlocksMatch = MotifBlocks.Search(MEMEtxt)
+		  dim n As Integer = 1
+		  Do
+		    if MotifBlocksMatch <> Nil Then
+		      TFMotif = MotifBlocksMatch.SubExpressionString(0).Split(EndOfLine.UNIX)
+		      Fasta=""
+		      if UBound(TFMotif) > 0 Then
+		        For Each Line as String in TFMotif
+		          IDMatch = MotifSeqID.Search(Line)
+		          SeqMatch = MotifSeq.Search(Line)
+		          if IDMatch <> Nil and SeqMatch <> Nil Then
+		            Fasta = Fasta +">" + IDMatch.SubExpressionString(0) + EndOfLine.UNIX + SeqMatch.SubExpressionString(0) + EndOfLine.UNIX
+		          End
+		          Evalue = MotifEvalue.Search(Line)
+		          If Evalue <> Nil Then
+		            Fasta = "" 'if E-value match contains "+" skip model
+		          End
+		        Next
+		      End
+		    End
+		    MotifBlocksMatch = MotifBlocks.Search
+		  Loop Until MotifBlocksMatch = Nil
+		  Return Fasta
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetRealCRtag(HMMfilePath as string) As String
 		  Dim f As folderitem
 		  Dim tis As TextInputStream
@@ -5025,7 +5073,7 @@ Protected Module Globals
 			Group="Behavior"
 			InitialValue=""
 			Type="string"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
