@@ -700,6 +700,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="ROK.hmm"
 		  Case "Rrf2"
 		    hmmFileName="Rrf2.hmm"
+		  Case "RpiR"
+		    hmmFileName="HTH_6.hmm"
 		  Case "TetR"
 		    hmmFileName="TetR.hmm"
 		  Case "XRE"
