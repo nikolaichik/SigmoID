@@ -1710,9 +1710,9 @@ Protected Module Globals
 		    end if
 		    'LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
-		    if instr(HMMfilePath, " ")>0 then
-		      HMMfilePath="'"+HMMfilePath+"'"
-		    end
+		    'if instr(HMMfilePath, " ")>0 then
+		    'HMMfilePath="'"+HMMfilePath+"'"
+		    'end
 		    
 		    
 		    // Settings from the HmmSearchSettingsWin should be used here, but they are currently ignored!
@@ -4046,7 +4046,7 @@ Protected Module Globals
 		  sh.mode=0
 		  sh.TimeOut=-1
 		  
-		  sh.execute("bash --login -c '"+cmd+"'")
+		  sh.execute("bash --login -c "+chr(34)+cmd+chr(34))
 		  shError=sh.errorCode
 		  shResult=sh.result
 		End Sub
