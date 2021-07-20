@@ -2574,6 +2574,7 @@ End
 		      next
 		      
 		      'count variable positions
+		      'Incorrect (too large) counts here! <-- needs a fix!
 		      dim varPos as Integer = 0
 		      if UBound(uTags)>1 then
 		        dim AAarr(-1) as string
@@ -2588,7 +2589,7 @@ End
 		          for m=m to UBound(uTags)
 		            for p=0 to UBound(AAarr)
 		              if uTags(m)<>"no_CRtag" AND uTags(m)<>"[indel within CR tag region]" AND uTags(m)<>"errorGettingCRtag" then
-		                aChar=mid(uTags(m),p+1,1)
+		                aChar=Mid(uTags(m),p+1,1)
 		                if instr(AAarr(p),aChar)=0 then
 		                  AAarr(p)=AAarr(p)+aChar
 		                end if
@@ -2603,7 +2604,7 @@ End
 		        for p=0 to UBound(AAarr)
 		          if len(AAarr(p))>1 then
 		            varPos=varPos+1
-		            CRtagVariantCount(p)=CRtagVariantCount(p)+len(AAarr(p))-1 'Increment variable positions counters
+		            CRtagVariantCount(p)=CRtagVariantCount(p)+Len(AAarr(p))-1 'Increment variable positions counters
 		          end if
 		        next 'p
 		        

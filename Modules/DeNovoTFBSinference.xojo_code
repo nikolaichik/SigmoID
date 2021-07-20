@@ -2453,11 +2453,21 @@ Protected Module DeNovoTFBSinference
 		    End 
 		    
 		  Case "LuxR"                      'PF00196
-		    if TFname="MalT" then 'The only exception with direct repeats
+		    If TFname="MalT" Then 'The only exception with direct repeats
 		      Return False
 		    Else
 		      Return True
 		    End If
+		    
+		  Case "MerR"
+		    
+		    Dim MerRpal As String = "BldC,CarH,"  
+		    If InStr(MerRpal,TFname)>0 Then
+		      Return True
+		    Else
+		      Return False
+		    End 
+		    
 		    
 		  Case "OmpR"               'PF00486
 		    Return False 'all direct repeats
