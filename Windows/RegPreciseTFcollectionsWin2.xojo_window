@@ -2574,7 +2574,7 @@ End
 		      next
 		      
 		      'count variable positions
-		      'Incorrect (too large) counts here! <-- needs a fix!
+		      '(numbers can be >20, since we simply count variants for each position in each regulog and sum then across regulogs 
 		      dim varPos as Integer = 0
 		      if UBound(uTags)>1 then
 		        dim AAarr(-1) as string
