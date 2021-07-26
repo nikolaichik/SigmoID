@@ -2166,7 +2166,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  cmd=cmdStart+locusTag+cmdEnd
 		  
-		  Dim sh As New Shell
+		  'Dim sh As New Shell
 		  
 		  userShell(cmd)
 		  
@@ -2377,21 +2377,22 @@ Protected Module DeNovoTFBSinference
 		  
 		  cli=cli+" -oc '"+outFolder.NativePath+"' "+Options
 		  
-		  sh=New Shell
-		  sh.mode=1
-		  sh.TimeOut=-1
-		  sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
-		  While sh.IsRunning=true
-		    app.YieldToNextThread()
-		  wend
+		  'sh=New Shell
+		  'sh.mode=1
+		  'sh.TimeOut=-1
+		  'sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		  UserShell(cli)
+		  'While sh.IsRunning=true
+		  'app.YieldToNextThread()
+		  'wend
 		  
 		  'return sh.errorCode
-		  If sh.errorCode=0 Then
-		    Return sh.errorCode
+		  If shError=0 Then
+		    Return shError
 		  else
-		    MEMEerr="MEME error code: "+Str(sh.errorCode)+EndOfLine
-		    MEMEerr=MEMEerr+"MEME command was: "+cli+EndOfLine+sh.Result
-		    return sh.errorCode
+		    MEMEerr="MEME error code: "+Str(shError)+EndOfLine
+		    MEMEerr=MEMEerr+"MEME command was: "+cli+EndOfLine+shResult
+		    return shError
 		  end if
 		  
 		  Exception err

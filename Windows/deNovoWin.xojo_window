@@ -217,7 +217,7 @@ Begin Window deNovoWin
       GridLinesVertical=   0
       HasHeading      =   True
       HeadingIndex    =   -1
-      Height          =   383
+      Height          =   317
       HelpTag         =   "The genome will be searched with all the profiles checked"
       Hierarchical    =   False
       Index           =   -2147483648
@@ -268,7 +268,7 @@ Begin Window deNovoWin
          HasBorder       =   True
          HasHorizontalScrollbar=   False
          HasVerticalScrollbar=   True
-         Height          =   383
+         Height          =   317
          HideSelection   =   True
          Index           =   -2147483648
          InitialParent   =   "HmmList"
@@ -1138,6 +1138,191 @@ Begin Window deNovoWin
       Visible         =   True
       Width           =   183
    End
+   Begin CheckBox CheckForTFF
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Check for multiple TF family matches"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   22
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   327
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   "1"
+      Width           =   299
+   End
+   Begin Label TFFtableText
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   27
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   20
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   356
+      Transparent     =   False
+      Underline       =   False
+      Value           =   "TF family table:"
+      Visible         =   True
+      Width           =   100
+   End
+   Begin TextField TextField1
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF00
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   27
+      Hint            =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   -512
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   21
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   231
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Value           =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin TextField TextField2
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF00
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   27
+      Hint            =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   145
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   22
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   356
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Value           =   ""
+      Visible         =   True
+      Width           =   765
+   End
+   Begin PushButton ChooseTFFlocation
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Choose"
+      Default         =   True
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   31
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   922
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MacButtonStyle  =   "0"
+      Scope           =   0
+      TabIndex        =   23
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   354
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   90
+   End
 End
 #tag EndWindow
 
@@ -1327,6 +1512,106 @@ End
 		    return ""
 		  end if
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub checkMultiMatch()
+		  Dim cli As String
+		  Dim HmmSearchPath As String = replace(nhmmerPath,"nhmmer","hmmsearch")
+		  Dim HMMfilePath As String
+		  Dim Splitter As String = "    ------- ------ -----    ------- ------ -----   ---- --  --------         -----------"
+		  Dim HmmModel As String
+		  Dim Outstream As TextOutputStream
+		  Dim TFTfile As FolderItem = OutF.Child(GenomeWin.GenomeFile.Name+".tft")
+		  Dim TFTfileContent As String
+		  Dim TFid as String
+		  Dim ScoreColumn as New RegEx
+		  Dim IDColumn as New RegEx
+		  ScoreColumn.SearchPattern="(?:\s*(\S*)){5}"
+		  IDColumn.SearchPattern="(?:\s*(\S*)){9}"
+		  Dim ID As New RegExMatch
+		  Dim Score As New RegexMatch
+		  Dim match As DeNovoTFBSinference.TFfamilyMatch
+		  Dim HmmSearchRes As String
+		  Dim HmmsearchEntries(-1) As String
+		  Dim CDSfile As FolderItem
+		  Dim TFmatchBase As New Dictionary
+		  CDSfile=OutF.Child("CDS.fasta")
+		  if CDSfile<>nil then
+		    if CDSfile.exists then
+		      'Exctraction from local gbk file needs ExportProteins results, so produce dummy output file
+		      dim CDSfileTemp as FolderItem = TemporaryFolder.Child("CDStemp.fasta")
+		      if CDSfileTemp.Exists then CDSfileTemp.Remove
+		      GenomeWin.ExportProteins(CDSfileTemp)
+		      '("An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused."+EndOfLine.UNIX)
+		    else
+		      'deNovoWin.rp.writeToWin("Exporting CDS sequences...")
+		      GenomeWin.ExportProteins(CDSfile)
+		      'deNovoWin.rp.writeToWin(" OK"+EndOfLine.UNIX)
+		    end if
+		  End If
+		  For row As Integer = 0 To HmmList.ListCount-1
+		    
+		    HMMfilePath=HmmList.Cell(row,7)
+		    cli=HmmSearchPath+" --cut_ga --notextw "+HMMfilePath+" "+CDSfile.ShellPath
+		    UserShell(cli)
+		    If shError = 0 Then
+		      HmmSearchRes=shResult
+		      
+		      if instr(HmmSearchRes,"no hit")=0 then 
+		        HmmModel=NthField(HmmSearchRes,"TF_HMMs/",2)
+		        HmmModel=NthField(HmmModel,".hmm",1)
+		        HmmSearchRes=NthField(HmmsearchRes,Splitter,2)
+		        HmmSearchRes=Nthfield(HmmSearchRes,"Domain annotation for each sequence (and alignments):",1)
+		        HmmsearchEntries=HmmSearchRes.split(EndOfline.Unix)
+		        
+		        for each line as String in HmmsearchEntries
+		          If line<>"" Then
+		            match = New DeNovoTFBSinference.TFfamilyMatch
+		            match.name =HmmModel
+		            Score=ScoreColumn.Search(line)
+		            Id=IDColumn.Search(line)
+		            If Score<> Nil and ID<>Nil Then
+		              match.score=val(Score.SubExpressionString(1))
+		              TFid=ID.SubExpressionString(1)
+		              If TFmatchBase.HasKey(TFid) then
+		                dim SourceMatch as New DeNovoTFBSinference.TFfamilyMatch
+		                SourceMatch=TFmatchBase.value(TFid)
+		                If match.score>SourceMatch.score then
+		                  TFmatchbase.Value(TFid)=match
+		                End
+		              else
+		                TFmatchbase.Value(TFid)=match
+		              End
+		            End
+		          End
+		        next
+		      end
+		    else
+		      LogoWin.WriteToSTDOUT("Error code: "+str(shError)+EndOfLine.Unix+shResult+EndOfLine.Unix)
+		    End If
+		    
+		  Next
+		  If TFmatchBase.KeyCount>0 Then
+		    Dim valueObject As DeNovoTFBSinference.TFfamilyMatch
+		    For Each entry As DictionaryEntry In TFmatchBase
+		      valueObject = New DeNovoTFBSinference.TFfamilyMatch
+		      valueObject = entry.Value
+		      TFTfileContent=TFTfileContent + entry.Key+" "+valueObject.Name+";"+str(valueObject.score)+EndOfLine.UNIX
+		    Next
+		    If TFTfileContent<>"" Then
+		      Try 
+		        Outstream=TextOutputStream.Create(TFTfile)
+		        Outstream.Write(TFTfileContent)
+		      Catch IOException
+		        LogoWin.WriteToSTDOUT("IOException occured while writing file "+TFTfile.ShellPath+EndOfLine.Unix)
+		      End Try
+		      rp.TFFbase=TFmatchBase
+		    End
+		  Else
+		    LogoWin.WriteToSTDOUT("TFs DNA-binding domains check for multiple families matches failed."+EndOfLine.Unix)
+		  End
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1689,6 +1974,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		Tffmatchbase As Dictionary
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		TomTom_results As FolderItem
 	#tag EndProperty
 
@@ -1713,6 +2002,15 @@ End
 		  'self.hide
 		  
 		  rp.hmmPath=HmmList.Cell(HmmList.ListIndex,7) 'was five
+		  If CheckForTFF.State = CheckBox.CheckedStates.Checked Then
+		    If Tffmatchbase=Nil Then
+		      checkMultiMatch
+		    Else
+		      rp.TFFbase=Tffmatchbase
+		    End
+		  Else
+		    rp.filterMultipleTff=False
+		  End
 		  rp.CRtagPositions=HmmList.Cell(HmmList.ListIndex,3)
 		  rp.hmmName=HmmList.Cell(HmmList.ListIndex,1)
 		  rp.OutF=OutF
@@ -2210,6 +2508,40 @@ End
 		  If MEMEmax>100 Then
 		    MsgBox "Are you sure? Too many fragments may significantly reduce speed."
 		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChooseTFFlocation
+	#tag Event
+		Sub Action()
+		  Dim f As FolderItem
+		  MessageBox("Select corresponding .tft file for current genome")
+		  f = FolderItem.ShowOpenFileDialog(".tft")
+		  If f<>Nil and f.Exists Then
+		    Dim instream as TextInputStream
+		    Dim TFTfilecontent As String
+		    Dim TFid As String
+		    Dim inputEntries(-1) As String
+		    Dim valueObject as DeNovoTFBSinference.TFfamilyMatch
+		    Dim TFmatchBase As New Dictionary
+		    instream=f.OpenAsTextFile
+		    TFTfilecontent=instream.ReadAll
+		    inputEntries=TFTfilecontent.Split(EndOfLine.UNIX)
+		    For Each entry As String in inputEntries
+		      If entry <>"" then
+		        TFid = Nthfield(entry," ",1)
+		        valueObject = New DeNovoTFBSinference.TFfamilyMatch
+		        valueObject.Name=Nthfield(Nthfield(entry," ",2),";",1)
+		        valueObject.score=val(Nthfield(entry,";",2))
+		        If not TFmatchBase.hasKey(TFid) Then
+		          TFmatchBase.value(TFid)=valueObject
+		        End
+		      End
+		    Next
+		    If TfmatchBase.count<>0 then
+		      Tffmatchbase=TFmatchbase
+		    end
+		  End
 		End Sub
 	#tag EndEvent
 #tag EndEvents

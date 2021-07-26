@@ -3392,8 +3392,8 @@ Protected Module Globals
 		    
 		    // find the paths:
 		    f=GetFolderItem("")
-		    appPath=f.ShellPath+"/SigmoID"
-		    iconPath=f.ShellPath+"/appicon_128.png"
+		    appPath=f.ShellPath+"SigmoID"
+		    iconPath=f.ShellPath+"appicon_128.png"
 		    
 		    f=SpecialFolder.UserHome
 		    f=f.child(".local")
@@ -4042,13 +4042,22 @@ Protected Module Globals
 		  '--login executes bash with login scripts to set the same env as in terminal
 		  'command must be in single quotes
 		  
-		  Dim sh As New Shell
-		  sh.mode=0
-		  sh.TimeOut=-1
+		  'Dim sh as Shell =  New Shell
+		  'sh.mode=1
+		  'sh.TimeOut=-1
+		  'sh.execute("bash --login -c "+chr(34)+cmd+chr(34))
+		  shResult=""
 		  
-		  sh.execute("bash --login -c "+chr(34)+cmd+chr(34))
-		  shError=sh.errorCode
-		  shResult=sh.result
+		  ShellStorage = New ShellTh
+		  ShellStorage.cli = cmd
+		  ShellStorage.start
+		  
+		  While not Globals.ShellStorage.finished
+		    app.YieldToNextThread()
+		  Wend
+		  ShellStorage.stop
+		  shResult=ShellStorage.result
+		  shError=ShellStorage.error
 		End Sub
 	#tag EndMethod
 
@@ -4455,6 +4464,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		rRNAcolour As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ShellStorage As Globals.ShellTh
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
