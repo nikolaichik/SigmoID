@@ -233,11 +233,12 @@ Inherits Thread
 		      
 		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+Me.hmmPath+" "+CDSfile.ShellPath
 		      
-		      sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
-		      While sh.IsRunning=true
-		        app.YieldToNextThread()
-		      wend
-		      If sh.errorCode=0 Then
+		      'sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		      UserShell(cli)
+		      'While sh.IsRunning=true
+		      'app.YieldToNextThread()
+		      'wend
+		      If shError=0 Then
 		        deNovoWin.rp.writeToWin(" OK"+EndofLine.unix)
 		        
 		        instream=alignmentsFile.OpenAsTextFile
@@ -245,7 +246,7 @@ Inherits Thread
 		        if instream<>nil then         'save hmmsearch results
 		          table=trim(instream.ReadAll)
 		          instream.close
-		          hmmSearchRes=GetCRtags(sh.Result,Table,me.CRtagPositions)
+		          hmmSearchRes=GetCRtags(shResult,Table,me.CRtagPositions)
 		          'LogoWin.WriteToSTDOUT EndofLine.unix+hmmSearchRes
 		          
 		          'save HmmSearch results (with CR tags), just in case:
@@ -268,7 +269,7 @@ Inherits Thread
 		        
 		        
 		      else
-		        deNovoWin.rp.writeToWin(sh.Result+EndOfLine.UNIX)
+		        deNovoWin.rp.writeToWin(shResult+EndOfLine.UNIX)
 		        
 		      End If
 		    else
@@ -342,6 +343,18 @@ Inherits Thread
 		        deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has multiple DNA-binding domains. Skipping it."+EndOfLine.unix+EndOfLine.unix)
 		        Continue
 		      end
+		      If me.filterMultipleTff Then
+		        If TFFbase.HasKey(me.ProtNames(n)) Then
+		          dim ValueObject As DeNovoTFBSinference.TFfamilyMatch
+		          ValueObject = New TFfamilyMatch
+		          ValueObject=TFFBase.value(me.ProtNames(n))
+		          dim hmmname as string = Nthfield(Nthfield(Me.hmmPath,".hmm",1),"TF_HMMs/",2)
+		          If hmmname<>ValueObject.Name Then
+		            deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" best DNA-binding domain family hit is "+ValueObject.name+". Skipping it."+EndOfLine.unix+EndOfLine.unix)
+		            Continue
+		          End
+		        End
+		      End
 		      res=""
 		      try
 		        if me.CRtags(n)="[indel within CR tag region]" then
@@ -1014,6 +1027,10 @@ Inherits Thread
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		filterMultipleTff As boolean = true
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		Genome_fragments As FolderItem
 	#tag EndProperty
 
@@ -1063,6 +1080,10 @@ Inherits Thread
 
 	#tag Property, Flags = &h0
 		RunTomTom As boolean = false
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TFFbase As Dictionary
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1200,6 +1221,14 @@ Inherits Thread
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
+			Type="boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="filterMultipleTff"
+			Visible=false
+			Group="Behavior"
+			InitialValue="true"
 			Type="boolean"
 			EditorType=""
 		#tag EndViewProperty
