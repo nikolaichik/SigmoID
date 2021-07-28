@@ -186,24 +186,38 @@ End
 		        
 		        // NEED TO STANDARTISE NAMES HERE AND IN GetHmmFromFamilyName
 		        
-		        if InStr(aname, "GerE")>0 then
-		          aName="LuxR"
-		        Elseif InStr(aname, "Trans_reg_C")>0 Then
-		          aName="OmpR"
-		        Elseif InStr(aname, "MarR_Superfamily")>0 Then
-		          aName="MarR"
-		        Elseif InStr(aname, "XRE_superfamily")>0 Then
-		          aName="XRE"
-		        Elseif InStr(aname, "HTH_8")>0 Then
-		          aName="bEBP"                                  'inconsisted names in other places
-		        Elseif InStr(aname, "HTH_20")>0 Then
+		        
+		        
+		        'inconsisted names in other places
+		        if InStr(aname, "HTH_20")>0 Then
 		          aName="ArsR"
 		        Elseif InStr(aname, "HTH_AsnC_type")>0 Then
 		          aName="AsnC"
+		        Elseif InStr(aname, "HTH_8")>0 Then
+		          aName="bEBP" 
 		        Elseif InStr(aname, "HTH_Crp_2")>0 Then
 		          aName="CRP"
+		        Elseif InStr(aname, "GerE")>0 then
+		          aName="LuxR"
+		        Elseif InStr(aname, "HTH_DeoR")>0 Then
+		          aName="DeoR"
+		        Elseif InStr(aname, "FUR")>0 Then
+		          aName="Fur"
+		        Elseif InStr(aname, "GntR")>0 Then 'needed due to subfamily name extencions
+		          aName="GntR"
+		        Elseif InStr(aname, "MarR")>0 Then  '_superfamily must be dropped
+		          aName="MarR"
+		        Elseif InStr(aname, "MerR")>0 Then '_superfamily must be dropped
+		          aName="MerR"
+		        Elseif InStr(aname, "Trans_reg_C")>0 Then
+		          aName="OmpR"
+		        Elseif InStr(aname, "HTH_6")>0 Then
+		          aName="RpiR"
+		        Elseif InStr(aname, "XRE")>0 Then '_superfamily must be dropped
+		          aName="XRE"
 		          
-		        end
+		        end If
+		        
 		        if InStr(aName,"_")>0 then
 		          aName=NthField(aName,"_",1) 
 		        end

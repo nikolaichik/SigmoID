@@ -2793,6 +2793,8 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub ReadPrefs()
+		  If PrefsRead then return
+		  
 		  For i As Integer = 0 To WindowCount - 1
 		    if window(i) isa SettingsWin then
 		      exit
@@ -3013,6 +3015,8 @@ Protected Module Globals
 		  
 		  
 		  LogoWin.Informer.TextFont=FixedFont
+		  
+		  PrefsRead=true
 		  
 		  Exception err
 		    ExceptionHandler(err,"Globals:ReadPrefs")
@@ -4400,6 +4404,10 @@ Protected Module Globals
 		#tag EndGetter
 		Prefs As TTsSmartPreferences
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		PrefsRead As boolean = false
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		ProfileFpath As String

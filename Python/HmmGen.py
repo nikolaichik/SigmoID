@@ -91,7 +91,7 @@ def is_within_boundary(list_of_features, index, some_hit):
                         else:
                             return False
                     else:
-                        if (list_of_features[index].location.end-list_of_features[index+1].location.start >= enter.intergenic_distance \
+                        if (list_of_features[index+1].location.start - list_of_features[index].location.end >= enter.intergenic_distance \
                                 and list_of_features[index+1].strand == -1) \
                                 or list_of_features[index+1].strand == +1:
                             return True
@@ -281,7 +281,7 @@ def createparser():
              description='''This script allows to add features to a genbank \
                             file according to nhmmer results.\
                             Requires Biopython 1.73 (or newer)''',
-             epilog='(c) Aliaksandr Damienikan, 2014-2017; the original code was ported to Python3.X by /'
+             epilog='(c) Aliaksandr Damienikan, 2014-2017; the original code was ported to Python3.x by /'
                     'Andrei Pleskunou and Pavel Vychyk.')
     parser.add_argument('report_file',
                         help='path to nhmmer report file produced with \
@@ -342,7 +342,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.23 (September 27, 2020)')
+                        version='%(prog)s 2.24 (July 11, 2021)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -355,7 +355,7 @@ def createparser():
                              to exclude senseless sites ''')
     return parser
 
-version='HmmGen 2.23 (September 27, 2020)'
+version='HmmGen 2.24 (July 11, 2021)'
 t_start = process_time()
 args = createparser()
 enter = args.parse_args()
