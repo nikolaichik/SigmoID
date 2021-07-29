@@ -2793,6 +2793,8 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub ReadPrefs()
+		  If PrefsRead Then Return
+		  
 		  For i As Integer = 0 To WindowCount - 1
 		    if window(i) isa SettingsWin then
 		      exit
@@ -3013,6 +3015,8 @@ Protected Module Globals
 		  
 		  
 		  LogoWin.Informer.TextFont=FixedFont
+		  
+		  PrefsRead=true
 		  
 		  Exception err
 		    ExceptionHandler(err,"Globals:ReadPrefs")
@@ -3392,8 +3396,8 @@ Protected Module Globals
 		    
 		    // find the paths:
 		    f=GetFolderItem("")
-		    appPath=f.ShellPath+"SigmoID"
-		    iconPath=f.ShellPath+"appicon_128.png"
+		    appPath=f.ShellPath+"/SigmoID"
+		    iconPath=f.ShellPath+"/appicon_128.png"
 		    
 		    f=SpecialFolder.UserHome
 		    f=f.child(".local")
@@ -4052,8 +4056,8 @@ Protected Module Globals
 		  ShellStorage.cli = cmd
 		  ShellStorage.start
 		  
-		  While not Globals.ShellStorage.finished
-		    app.YieldToNextThread()
+		  While Not Globals.ShellStorage.finished
+		    app.YieldToNextThread
 		  Wend
 		  ShellStorage.stop
 		  shResult=ShellStorage.result
@@ -4411,6 +4415,10 @@ Protected Module Globals
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
+		PrefsRead As boolean = false
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ProfileFpath As String
 	#tag EndProperty
 
@@ -4464,10 +4472,6 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		rRNAcolour As Color
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		ShellStorage As Globals.ShellTh
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -5087,6 +5091,14 @@ Protected Module Globals
 			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PrefsRead"
+			Visible=false
+			Group="Behavior"
+			InitialValue="false"
+			Type="boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

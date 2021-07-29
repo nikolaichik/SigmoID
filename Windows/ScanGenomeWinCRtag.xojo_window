@@ -131,6 +131,38 @@ Begin Window ScanGenomeWinCRtag
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
+   Begin PushButton PushButton1
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   True
+      Caption         =   "Cancel"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   206
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MacButtonStyle  =   "0"
+      Scope           =   0
+      TabIndex        =   20
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   408
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
 End
 #tag EndWindow
 
@@ -186,27 +218,45 @@ End
 		        
 		        // NEED TO STANDARTISE NAMES HERE AND IN GetHmmFromFamilyName
 		        
-		        if InStr(aname, "GerE")>0 then
-		          aName="LuxR"
-		        Elseif InStr(aname, "Trans_reg_C")>0 Then
-		          aName="OmpR"
-		        Elseif InStr(aname, "MarR_Superfamily")>0 Then
-		          aName="MarR"
-		        Elseif InStr(aname, "XRE_superfamily")>0 Then
-		          aName="XRE"
-		        Elseif InStr(aname, "HTH_8")>0 Then
-		          aName="bEBP"                                  'inconsisted names in other places
+		        If InStr(aname, "Arg_repressor")>0 Then
+		          aName="ArgR"
 		        Elseif InStr(aname, "HTH_20")>0 Then
 		          aName="ArsR"
 		        Elseif InStr(aname, "HTH_AsnC_type")>0 Then
 		          aName="AsnC"
+		        Elseif InStr(aname, "HTH_8")>0 Then
+		          aName="bEBP" 
 		        Elseif InStr(aname, "HTH_Crp_2")>0 Then
 		          aName="CRP"
+		        Elseif InStr(aname, "LexA")>0 Then
+		          aName="LexA"
+		        Elseif InStr(aname, "GerE")>0 Then
+		          aName="LuxR"
+		        Elseif InStr(aname, "HTH_DeoR")>0 Then
+		          aName="DeoR"
+		        Elseif InStr(aname, "FUR")>0 Then
+		          aName="Fur"
+		        Elseif InStr(aname, "GntR")>0 Then 'needed due to subfamily name extencions
+		          aName="GntR"
+		        Elseif InStr(aname, "MarR")>0 Then  '_superfamily must be dropped
+		          aName="MarR"
+		        Elseif InStr(aname, "MerR")>0 Then '_superfamily must be dropped
+		          aName="MerR"
+		        Elseif InStr(aname, "Trans_reg_C")>0 Then
+		          aName="OmpR"
+		        Elseif InStr(aname, "PhdYeFM")>0 Then
+		          aName="PhdYefM"
+		        Elseif InStr(aname, "HTH_6")>0 Then
+		          aName="RpiR"
+		        Elseif InStr(aname, "Trp_repressor")>0 Then
+		          aName="TrpR"
+		        Elseif InStr(aname, "XRE")>0 Then '_superfamily must be dropped
+		          aName="XRE"
 		          
-		        end
-		        if InStr(aName,"_")>0 then
-		          aName=NthField(aName,"_",1) 
-		        end
+		        End If
+		        'if InStr(aName,"_")>0 then
+		        'aName=NthField(aName,"_",1) 
+		        'end
 		        
 		        for k=1 to f.Count
 		          if f.Item(k).Directory=false then
@@ -748,6 +798,13 @@ End
 		      End If
 		    Next
 		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton1
+	#tag Event
+		Sub Action()
+		  self.close
 		End Sub
 	#tag EndEvent
 #tag EndEvents
