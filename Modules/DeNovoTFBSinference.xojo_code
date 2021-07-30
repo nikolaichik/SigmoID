@@ -655,6 +655,8 @@ Protected Module DeNovoTFBSinference
 		  Select Case familyName
 		  Case "AraC"
 		    hmmFileName="AraC.hmm"
+		  Case "ArgR"
+		    hmmFileName="Arg_repressor.hmm"
 		  Case "ArsR"
 		    hmmFileName="HTH_20.hmm"
 		  Case "AsnC"
@@ -687,15 +689,19 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="GerE.hmm"
 		  Case "LacI"
 		    hmmFileName="LacI.hmm"
+		  Case "LexA"
+		    hmmFileName="LexA_DNA_bind.hmm"
 		  Case "LysR"
 		    hmmFileName="LysR.hmm"
 		  Case "MarR"
 		    hmmFileName="MarR_Superfamily.hmm"
 		  Case "MerR"
 		    hmmFileName="MerR.hmm"
-		  Case "MetJ"
+		  Case "MetJ"               'RHH sub-family
 		    hmmFileName="RHH.hmm"
-		  Case "NikR"
+		  Case "ModE"               'LysR sub-family
+		    hmmFileName="LysR.hmm" 
+		  Case "NikR"               'RHH sub-family
 		    hmmFileName="RHH.hmm"
 		  Case "OmpR"
 		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
@@ -708,6 +714,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="HTH_6.hmm"
 		  Case "TetR"
 		    hmmFileName="TetR.hmm"
+		  Case "TrpR"
+		    hmmFileName="Trp_repressor.hmm
 		  Case "XRE"
 		    hmmFileName="XRE_superfamily.hmm"
 		  Case "PhdYeFM_antitox"
@@ -2170,7 +2178,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  cmd=cmdStart+locusTag+cmdEnd
 		  
-		  'Dim sh As New Shell
+		  Dim sh As New Shell
 		  
 		  userShell(cmd)
 		  
@@ -2381,22 +2389,21 @@ Protected Module DeNovoTFBSinference
 		  
 		  cli=cli+" -oc '"+outFolder.NativePath+"' "+Options
 		  
-		  'sh=New Shell
-		  'sh.mode=1
-		  'sh.TimeOut=-1
-		  'sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
-		  UserShell(cli)
-		  'While sh.IsRunning=true
-		  'app.YieldToNextThread()
-		  'wend
+		  sh=New Shell
+		  sh.mode=1
+		  sh.TimeOut=-1
+		  sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		  While sh.IsRunning=true
+		    app.YieldToNextThread()
+		  wend
 		  
 		  'return sh.errorCode
-		  If shError=0 Then
-		    Return shError
+		  If sh.errorCode=0 Then
+		    Return sh.errorCode
 		  else
-		    MEMEerr="MEME error code: "+Str(shError)+EndOfLine
-		    MEMEerr=MEMEerr+"MEME command was: "+cli+EndOfLine+shResult
-		    return shError
+		    MEMEerr="MEME error code: "+Str(sh.errorCode)+EndOfLine
+		    MEMEerr=MEMEerr+"MEME command was: "+cli+EndOfLine+sh.Result
+		    return sh.errorCode
 		  end if
 		  
 		  Exception err

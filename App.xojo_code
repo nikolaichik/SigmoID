@@ -146,7 +146,10 @@ Inherits Application
 		  If item<> Nil Then
 		    select case item.Type
 		    case "GenBank"
-		      if GenomeWin.SaveCheck then
+		      If GenomeWin.SaveCheck Then
+		        If gCodes(11)=Nil Then   'translation may be not ready if SigmoID is launched by opening a gbk file 
+		          GeneticCodesInit
+		        End If
 		        GenomeWin.opengenbankfile(item)
 		        GenomeWin.ShowGenomeStart
 		        LogoWin.GenomeFile=item

@@ -2793,7 +2793,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub ReadPrefs()
-		  If PrefsRead then return
+		  If PrefsRead Then Return
 		  
 		  For i As Integer = 0 To WindowCount - 1
 		    if window(i) isa SettingsWin then
@@ -3396,8 +3396,8 @@ Protected Module Globals
 		    
 		    // find the paths:
 		    f=GetFolderItem("")
-		    appPath=f.ShellPath+"SigmoID"
-		    iconPath=f.ShellPath+"appicon_128.png"
+		    appPath=f.ShellPath+"/SigmoID"
+		    iconPath=f.ShellPath+"/appicon_128.png"
 		    
 		    f=SpecialFolder.UserHome
 		    f=f.child(".local")
@@ -4056,8 +4056,8 @@ Protected Module Globals
 		  ShellStorage.cli = cmd
 		  ShellStorage.start
 		  
-		  While not Globals.ShellStorage.finished
-		    app.YieldToNextThread()
+		  While Not Globals.ShellStorage.finished
+		    app.YieldToNextThread
 		  Wend
 		  ShellStorage.stop
 		  shResult=ShellStorage.result
@@ -4472,10 +4472,6 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		rRNAcolour As Color
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		ShellStorage As Globals.ShellTh
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
