@@ -715,7 +715,7 @@ Protected Module DeNovoTFBSinference
 		  Case "TetR"
 		    hmmFileName="TetR.hmm"
 		  Case "TrpR"
-		    hmmFileName="Trp_repressor.hmm
+		    hmmFileName="Trp_repressor.hmm"
 		  Case "XRE"
 		    hmmFileName="XRE_superfamily.hmm"
 		  Case "PhdYeFM_antitox"

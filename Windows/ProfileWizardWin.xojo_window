@@ -8,7 +8,7 @@ Begin Window ProfileWizardWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   696
+   Height          =   894
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,7 +24,7 @@ Begin Window ProfileWizardWin
    Resizeable      =   True
    Title           =   "#kProfileWizard"
    Visible         =   False
-   Width           =   665
+   Width           =   673
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
       Bold            =   False
@@ -52,7 +52,7 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   312
+      Width           =   320
       Begin Label Label1
          AutoDeactivate  =   True
          Bold            =   False
@@ -106,7 +106,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   270
+         Left            =   278
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -185,7 +185,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   270
+         Left            =   278
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -264,7 +264,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   270
+         Left            =   278
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -308,7 +308,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   270
+         Left            =   278
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -380,7 +380,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   336
+      Left            =   344
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -410,7 +410,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   344
+         Left            =   352
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -442,7 +442,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   344
+         Left            =   352
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -480,7 +480,7 @@ Begin Window ProfileWizardWin
          InitialParent   =   "GroupBox3"
          InitialValue    =   ""
          Italic          =   False
-         Left            =   460
+         Left            =   468
          ListIndex       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -519,7 +519,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   424
+         Left            =   432
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -557,7 +557,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   344
+         Left            =   352
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -589,7 +589,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   344
+         Left            =   352
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -631,7 +631,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   543
+         Left            =   551
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -670,7 +670,7 @@ Begin Window ProfileWizardWin
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   234
+      Height          =   181
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -679,7 +679,7 @@ Begin Window ProfileWizardWin
       LimitText       =   0
       LineHeight      =   0.0
       LineSpacing     =   1.0
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
@@ -704,7 +704,7 @@ Begin Window ProfileWizardWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   640
+      Width           =   648
    End
    Begin PushButton SaveButton
       AutoDeactivate  =   True
@@ -719,7 +719,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   562
+      Left            =   570
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -732,7 +732,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   662
+      Top             =   860
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -751,7 +751,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   460
+      Left            =   468
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -764,7 +764,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   662
+      Top             =   860
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -807,7 +807,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   662
+      Top             =   860
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -844,7 +844,7 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   494
+      Width           =   502
    End
    Begin Label Label7
       AutoDeactivate  =   True
@@ -892,7 +892,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   12
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -933,7 +933,7 @@ Begin Window ProfileWizardWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   126
+      Left            =   134
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -992,7 +992,7 @@ Begin Window ProfileWizardWin
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   640
+      Width           =   648
    End
    Begin TextArea SeedProteinArea
       AcceptTabs      =   False
@@ -1040,7 +1040,7 @@ Begin Window ProfileWizardWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   640
+      Width           =   648
    End
    Begin Label Label10
       AutoDeactivate  =   True
@@ -1053,7 +1053,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   336
+      Left            =   344
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -1094,7 +1094,7 @@ Begin Window ProfileWizardWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   476
+      Left            =   484
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -1119,6 +1119,193 @@ Begin Window ProfileWizardWin
       UseFocusRing    =   True
       Visible         =   True
       Width           =   176
+   End
+   Begin TextArea RefsArea
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   True
+      AllowStyledText =   True
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF00
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      Height          =   100
+      HideSelection   =   True
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   12
+      LineHeight      =   0.0
+      LineSpacing     =   1.0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Multiline       =   True
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   609
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Value           =   ""
+      Visible         =   True
+      Width           =   320
+   End
+   Begin Listbox EvidenceList
+      AllowAutoDeactivate=   True
+      AllowAutoHideScrollbars=   True
+      AllowExpandableRows=   False
+      AllowFocusRing  =   True
+      AllowResizableColumns=   False
+      AllowRowDragging=   False
+      AllowRowReordering=   False
+      Bold            =   False
+      ColumnCount     =   1
+      ColumnWidths    =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      GridLinesHorizontalStyle=   "0"
+      GridLinesVerticalStyle=   "0"
+      HasBorder       =   True
+      HasHeader       =   False
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      HeadingIndex    =   -1
+      Height          =   100
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   ""
+      Italic          =   False
+      Left            =   340
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      RequiresSelection=   False
+      RowSelectionType=   "0"
+      Scope           =   0
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   609
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   320
+      _ScrollOffset   =   0
+      _ScrollWidth    =   -1
+   End
+   Begin Label Label11
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   12
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   17
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   733
+      Transparent     =   False
+      Underline       =   False
+      Value           =   "Curators:"
+      Visible         =   True
+      Width           =   100
+   End
+   Begin Listbox CuratorList
+      AllowAutoDeactivate=   True
+      AllowAutoHideScrollbars=   True
+      AllowExpandableRows=   False
+      AllowFocusRing  =   True
+      AllowResizableColumns=   True
+      AllowRowDragging=   True
+      AllowRowReordering=   True
+      Bold            =   False
+      ColumnCount     =   3
+      ColumnWidths    =   ""
+      DataField       =   ""
+      DataSource      =   ""
+      DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      GridLinesHorizontalStyle=   "0"
+      GridLinesVerticalStyle=   "0"
+      HasBorder       =   True
+      HasHeader       =   False
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      HeadingIndex    =   -1
+      Height          =   83
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   "Curator	Address	Curation history"
+      Italic          =   False
+      Left            =   12
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      RequiresSelection=   False
+      RowSelectionType=   "0"
+      Scope           =   0
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   765
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   641
+      _ScrollOffset   =   0
+      _ScrollWidth    =   -1
    End
 End
 #tag EndWindow

@@ -4475,6 +4475,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ShellStorage As ShellTh
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		shError As Integer
 	#tag EndProperty
 
