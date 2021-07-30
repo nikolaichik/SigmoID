@@ -5,6 +5,7 @@ Inherits Thread
 		Sub Run()
 		  
 		  While Me.isFinished <> True
+		    me.DebugIdentifier="deNovoSearch"
 		    'CheckEmail
 		    dim cli, hmmSearchRes, CRtagPositions, table, currentHit as string
 		    dim dataForMeme as string

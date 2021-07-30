@@ -486,8 +486,12 @@ Protected Module DeNovoTFBSinference
 		        
 		        'CDStmp=CDStmp+Uppercase(NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2))'precaution for paralogues
 		        If Len(cdstmp)<40 Then 
-		          // will actually cause thread error!
-		          MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
+		          If App.CurrentThread.DebugIdentifier="deNovoSearch" Then
+		            deNovoWin.rp.writeToWin("Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames)))
+		            
+		          Else
+		            MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
+		          End
 		        end if
 		        dim gapPos,leftPartStart, rightPartStart as integer
 		        dim leftPart, rightPart, leftExt, rightExt as string

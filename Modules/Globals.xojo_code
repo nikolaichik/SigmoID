@@ -5096,6 +5096,14 @@ Protected Module Globals
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PrefsRead"
+			Visible=false
+			Group="Behavior"
+			InitialValue="false"
+			Type="boolean"
+			EditorType=""
+		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
 #tag EndModule

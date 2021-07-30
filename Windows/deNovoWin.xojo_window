@@ -1153,11 +1153,11 @@ Begin Window deNovoWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -1166,6 +1166,7 @@ Begin Window deNovoWin
       Top             =   327
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   "1"
       Width           =   299
@@ -1184,11 +1185,11 @@ Begin Window deNovoWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
@@ -1268,11 +1269,11 @@ Begin Window deNovoWin
       Index           =   -2147483648
       Italic          =   False
       Left            =   145
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       MaximumCharactersAllowed=   0
       Password        =   False
       ReadOnly        =   False
@@ -1306,11 +1307,11 @@ Begin Window deNovoWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   922
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   23
@@ -1519,24 +1520,34 @@ End
 		  Dim cli As String
 		  Dim HmmSearchPath As String = replace(nhmmerPath,"nhmmer","hmmsearch")
 		  Dim HMMfilePath As String
-		  Dim Splitter As String = "    ------- ------ -----    ------- ------ -----   ---- --  --------         -----------"
+		  Dim Splitter As String = "#------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------"
 		  Dim HmmModel As String
 		  Dim Outstream As TextOutputStream
+		  Dim Instream As TextInputStream
 		  Dim TFTfile As FolderItem = OutF.Child(GenomeWin.GenomeFile.Name+".tft")
 		  Dim TFTfileContent As String
 		  Dim TFid as String
 		  Dim ScoreColumn as New RegEx
 		  Dim IDColumn as New RegEx
-		  ScoreColumn.SearchPattern="(?:\s*(\S*)){5}"
-		  IDColumn.SearchPattern="(?:\s*(\S*)){9}"
+		  ScoreColumn.SearchPattern="(?:\s*(\S*)){9}"
+		  IDColumn.SearchPattern="(?:\s*(\S*)){1}"
 		  Dim ID As New RegExMatch
 		  Dim Score As New RegexMatch
 		  Dim match As DeNovoTFBSinference.TFfamilyMatch
 		  Dim HmmSearchRes As String
 		  Dim HmmsearchEntries(-1) As String
 		  Dim CDSfile As FolderItem
+		  Dim HmmSearchTblOut As FolderItem
 		  Dim TFmatchBase As New Dictionary
 		  CDSfile=OutF.Child("CDS.fasta")
+		  HmmSearchTblOut=TemporaryFolder.Child("HmmSearchTblout.txt")
+		  If HmmSearchTblOut.Exists Then
+		    Try
+		      HmmSearchTblOut.Remove
+		    Catch IOException
+		      LogoWin.WriteToSTDOUT("IOexception occurred while removing hmmsearch output file "+str(HmmSearchTblOut.ShellPath+EndOfLine.Unix))
+		    End Try
+		  End
 		  if CDSfile<>nil then
 		    if CDSfile.exists then
 		      'Exctraction from local gbk file needs ExportProteins results, so produce dummy output file
@@ -1553,39 +1564,41 @@ End
 		  For row As Integer = 0 To HmmList.ListCount-1
 		    
 		    HMMfilePath=HmmList.Cell(row,7)
-		    cli=HmmSearchPath+" --cut_ga --notextw "+HMMfilePath+" "+CDSfile.ShellPath
+		    cli=HmmSearchPath+" --cut_ga --notextw --tblout "+HmmSearchTblOut.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
 		    UserShell(cli)
 		    If shError = 0 Then
-		      HmmSearchRes=shResult
-		      
-		      if instr(HmmSearchRes,"no hit")=0 then 
-		        HmmModel=NthField(HmmSearchRes,"TF_HMMs/",2)
-		        HmmModel=NthField(HmmModel,".hmm",1)
-		        HmmSearchRes=NthField(HmmsearchRes,Splitter,2)
-		        HmmSearchRes=Nthfield(HmmSearchRes,"Domain annotation for each sequence (and alignments):",1)
-		        HmmsearchEntries=HmmSearchRes.split(EndOfline.Unix)
-		        
-		        for each line as String in HmmsearchEntries
-		          If line<>"" Then
-		            match = New DeNovoTFBSinference.TFfamilyMatch
-		            match.name =HmmModel
-		            Score=ScoreColumn.Search(line)
-		            Id=IDColumn.Search(line)
-		            If Score<> Nil and ID<>Nil Then
-		              match.score=val(Score.SubExpressionString(1))
-		              TFid=ID.SubExpressionString(1)
-		              If TFmatchBase.HasKey(TFid) then
-		                dim SourceMatch as New DeNovoTFBSinference.TFfamilyMatch
-		                SourceMatch=TFmatchBase.value(TFid)
-		                If match.score>SourceMatch.score then
+		      Instream=HmmSearchTblOut.OpenAsTextFile
+		      if Instream<> Nil Then
+		        HmmSearchRes=Instream.ReadAll
+		        if instr(HmmSearchRes,"No hitst")=0 then 
+		          HmmModel=NthField(HmmSearchRes,"TF_HMMs/",2)
+		          HmmModel=NthField(HmmModel,".hmm",1)
+		          HmmSearchRes=NthField(HmmsearchRes,Splitter,2)
+		          HmmSearchRes=Nthfield(HmmSearchRes,"#"+EndOfLine.Unix,1)
+		          HmmsearchEntries=HmmSearchRes.split(EndOfLine.Unix)
+		          
+		          for each line as String in HmmsearchEntries
+		            If line<>"" Then
+		              match = New DeNovoTFBSinference.TFfamilyMatch
+		              match.name =HmmModel
+		              Score=ScoreColumn.Search(line)
+		              Id=IDColumn.Search(line)
+		              If Score<> Nil and ID<>Nil Then
+		                match.score=val(Score.SubExpressionString(1))
+		                TFid=ID.SubExpressionString(1)
+		                If TFmatchBase.HasKey(TFid) then
+		                  dim SourceMatch as New DeNovoTFBSinference.TFfamilyMatch
+		                  SourceMatch=TFmatchBase.value(TFid)
+		                  If match.score>SourceMatch.score then
+		                    TFmatchbase.Value(TFid)=match
+		                  End
+		                else
 		                  TFmatchbase.Value(TFid)=match
 		                End
-		              else
-		                TFmatchbase.Value(TFid)=match
 		              End
 		            End
-		          End
-		        next
+		          next
+		        end
 		      end
 		    else
 		      LogoWin.WriteToSTDOUT("Error code: "+str(shError)+EndOfLine.Unix+shResult+EndOfLine.Unix)
@@ -2541,6 +2554,7 @@ End
 		    If TfmatchBase.count<>0 then
 		      Tffmatchbase=TFmatchbase
 		    end
+		    TextField2.Text=str(f.ShellPath)
 		  End
 		End Sub
 	#tag EndEvent
