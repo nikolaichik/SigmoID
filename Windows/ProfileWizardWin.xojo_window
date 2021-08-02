@@ -8,7 +8,7 @@ Begin Window ProfileWizardWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   894
+   Height          =   776
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -48,7 +48,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   20
+      Top             =   5
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -82,7 +82,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   56
+         Top             =   41
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -125,7 +125,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   54
+         Top             =   39
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -161,7 +161,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   90
+         Top             =   75
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -204,7 +204,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   88
+         Top             =   73
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -240,7 +240,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   122
+         Top             =   107
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -283,7 +283,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   120
+         Top             =   105
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -327,7 +327,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   152
+         Top             =   137
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -363,7 +363,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   154
+         Top             =   139
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -393,7 +393,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   20
+      Top             =   5
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -424,7 +424,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   88
+         Top             =   73
          Transparent     =   False
          Underline       =   False
          Value           =   False
@@ -460,7 +460,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   120
+         Top             =   105
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -494,7 +494,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   120
+         Top             =   105
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -538,7 +538,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   152
+         Top             =   137
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -571,7 +571,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   56
+         Top             =   41
          Transparent     =   False
          Underline       =   False
          Value           =   False
@@ -607,7 +607,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   153
+         Top             =   138
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -650,7 +650,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   152
+         Top             =   137
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -670,7 +670,7 @@ Begin Window ProfileWizardWin
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   181
+      Height          =   128
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -699,7 +699,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   416
+      Top             =   380
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -732,7 +732,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   860
+      Top             =   742
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -764,7 +764,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   860
+      Top             =   742
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -807,7 +807,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   860
+      Top             =   742
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -840,7 +840,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   202
+      Top             =   187
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -875,7 +875,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   203
+      Top             =   188
       Transparent     =   True
       Underline       =   False
       Visible         =   True
@@ -910,7 +910,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   234
+      Top             =   219
       Transparent     =   True
       Underline       =   False
       Visible         =   True
@@ -952,47 +952,12 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   234
+      Top             =   219
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
       Width           =   198
-   End
-   Begin Label Label9
-      AutoDeactivate  =   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   12
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   11
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "protein_id and sequence of the protein used to seed the profile (fasta format):"
-      TextAlign       =   0
-      TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   262
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   648
    End
    Begin TextArea SeedProteinArea
       AcceptTabs      =   False
@@ -1035,7 +1000,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   287
+      Top             =   251
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -1071,7 +1036,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   235
+      Top             =   220
       Transparent     =   True
       Underline       =   False
       Visible         =   True
@@ -1113,62 +1078,14 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   234
+      Top             =   219
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
       Width           =   176
    End
-   Begin TextArea RefsArea
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   True
-      AllowStyledText =   True
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      HasHorizontalScrollbar=   False
-      HasVerticalScrollbar=   True
-      Height          =   100
-      HideSelection   =   True
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   12
-      LineHeight      =   0.0
-      LineSpacing     =   1.0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Multiline       =   True
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   15
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   609
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Value           =   ""
-      Visible         =   True
-      Width           =   320
-   End
-   Begin Listbox EvidenceList
+   Begin Listbox RefsList
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
       AllowExpandableRows=   False
@@ -1177,7 +1094,7 @@ Begin Window ProfileWizardWin
       AllowRowDragging=   False
       AllowRowReordering=   False
       Bold            =   False
-      ColumnCount     =   1
+      ColumnCount     =   2
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
@@ -1187,19 +1104,19 @@ Begin Window ProfileWizardWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   "2"
+      GridLinesVerticalStyle=   "2"
       HasBorder       =   True
       HasHeader       =   False
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   100
+      Height          =   104
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   ""
+      InitialValue    =   "References	Evidence Codes"
       Italic          =   False
-      Left            =   340
+      Left            =   12
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -1212,48 +1129,13 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   609
+      Top             =   520
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   320
+      Width           =   648
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
-   End
-   Begin Label Label11
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   12
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   17
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   733
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "Curators:"
-      Visible         =   True
-      Width           =   100
    End
    Begin Listbox CuratorList
       AllowAutoDeactivate=   True
@@ -1274,14 +1156,14 @@ Begin Window ProfileWizardWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   "2"
+      GridLinesVerticalStyle=   "2"
       HasBorder       =   True
       HasHeader       =   False
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   83
+      Height          =   97
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   "Curator	Address	Curation history"
@@ -1299,11 +1181,11 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   765
+      Top             =   636
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   641
+      Width           =   648
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -1659,6 +1541,7 @@ End
 		  hmmFile2find=TFhmmPopup.Text
 		  
 		  f=Resources_f.Child("TF_HMMs")
+		  Dim HMM_ACC As String
 		  if f<>Nil then
 		    if f.exists then
 		      
@@ -1670,6 +1553,21 @@ End
 		        if right(f.Item(n).name,4)=".hmm" then
 		          if f.Item(n).DisplayName=hmmFile2find then
 		            hmmPath = f.Item(n).ShellPath
+		            
+		            'get HMM accession code
+		            Dim s,aline As String
+		            Dim instream As textinputstream
+		            InStream = f.Item(n).OpenAsTextFile
+		            If InStream<>Nil Then
+		              While Not InStream.EOF
+		                aLine=InStream.readLine
+		                If Left(aLine,6)="ACC   " Then
+		                  HMM_ACC=Trim(Right(aline,Len(aline)-6))
+		                  InStream.close
+		                  Exit
+		                End If
+		              Wend
+		            End If
 		            exit
 		          end if
 		          
@@ -1832,6 +1730,9 @@ End
 		            outstream.WriteLine("TF_HMM "+trim(TFhmmPopup.Text))
 		            'outstream.WriteLine(Endofline)
 		            
+		            outstream.WriteLine("// TF family HMM accession code")
+		            outstream.WriteLine("HMM_ACC "+HMM_ACC)
+		            
 		            outstream.WriteLine("// CRtag coordinates")
 		            outstream.WriteLine("CRtagCoords "+trim(CRtagField.text))
 		            'outstream.WriteLine(Endofline)
@@ -1923,7 +1824,9 @@ End
 		            'MASTgen p-value
 		            outstream.WriteLine("// MASTgen p-value cutoff")
 		            outstream.WriteLine("mastGen.-V "+MASTField.Text)
-		            outstream.WriteLine(Endofline)
+		            outstream.WriteLine(EndOfLine)
+		            
+		            'HMM accession code
 		            
 		            outstream.Close
 		            
@@ -1935,7 +1838,37 @@ End
 		              outstream = TextOutputStream.Create(f2)
 		              outstream.Write(InfoArea.text)
 		              outstream.close
-		            end if
+		            End If
+		            
+		            'Write refs file:
+		            
+		            f2=SigFileVV.Root.child(basename+".refs")
+		            If f2<>Nil Then
+		              outstream = TextOutputStream.Create(f2)
+		              Dim z as Integer
+		              For z=1 To RefsList.RowCount-1
+		                Dim aline As String=RefsList.CellValueAt(z,0)+Chr(13)+RefsList.CellValueAt(z,1)
+		                If Aline<>"" Then
+		                  outstream.WriteLine(aline)
+		                End If
+		              Next
+		              outstream.close
+		            End If
+		            
+		            'Write curators file:
+		            
+		            f2=SigFileVV.Root.child(basename+".cur")
+		            If f2<>Nil Then
+		              outstream = TextOutputStream.Create(f2)
+		              Dim z As Integer
+		              For z=1 To CuratorList.RowCount-1
+		                Dim aline As String=CuratorList.CellValueAt(z,0)+Chr(13)+CuratorList.CellValueAt(z,1)+Chr(13)+CuratorList.CellValueAt(z,2)
+		                If Aline<>"" Then
+		                  outstream.WriteLine(aline)
+		                End If
+		              Next
+		              outstream.close
+		            End If
 		            
 		            'Save MEME data
 		            If MEMEconvert(LogoWin.Logofile,PalindromicBox.value)=0 then
@@ -2175,6 +2108,74 @@ End
 		  'return false
 		  
 		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events RefsList
+	#tag Event
+		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
+		  If row>0 And column=1 Then
+		    EvidenceCodesWin.LoadCodes(Me.CellValueAt(row,column))
+		    EvidenceCodesWin.showmodal
+		    Me.CellValueAt(row,column)=EvidenceCodesWin.CheckedCodes
+		    
+		  End If
+		  
+		  'check to see if this is the last row and add a new one is so
+		  
+		  If row=Me.RowCount-1 Then'last row
+		    
+		    If Me.CellValueAt(row,1)<>"" Or Me.CellValueAt(row,2)<>"" Then
+		      Me.AddRow
+		    End If
+		    
+		    
+		  End If
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  Me.AddRow
+		  
+		  me.ColumnTypeAt(0) = ListBox.CellTypes.TextArea
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub CellTextChange(row as Integer, column as Integer)
+		  'check to see if this is the last row and add a new one is so
+		  
+		  If row=Me.RowCount-1 Then'last row
+		    
+		    If Me.CellValueAt(row,1)<>"" Or Me.CellValueAt(row,2)<>"" Then
+		      Me.AddRow
+		    End If
+		    
+		    
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CuratorList
+	#tag Event
+		Sub Open()
+		  Me.AddRow
+		  Me.ColumnTypeAt(0) = ListBox.CellTypes.TextArea
+		  Me.ColumnTypeAt(1) = ListBox.CellTypes.TextArea
+		  Me.ColumnTypeAt(2) = ListBox.CellTypes.TextArea
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub CellTextChange(row as Integer, column as Integer)
+		  'check to see if this is the last row and add a new one is so
+		  
+		  If row=Me.RowCount-1 Then'last row
+		    
+		    If Me.CellValueAt(row,1)<>"" Or Me.CellValueAt(row,2)<>""  Or Me.CellValueAt(row,3)<>"" Then
+		      Me.AddRow
+		    End If
+		    
+		    
+		  End If
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior

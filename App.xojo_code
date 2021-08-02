@@ -264,7 +264,16 @@ Inherits Application
 			f=vv.root.child("meme.txt")
 			if f<> NIL and f.exists then
 			f.CopyFileTo SigF
-			end if
+			End If
+			f=vv.root.child(basename+".refs")
+			If f<> Nil And f.exists Then
+			f.CopyFileTo SigF
+			End If
+			f=vv.root.child(basename+".cur")
+			If f<> Nil And f.exists Then
+			f.CopyFileTo SigF
+			End If
+			
 			else
 			'beep
 			end if
@@ -1001,7 +1010,7 @@ Inherits Application
 		  'Read options:
 		  dim optionsFile As FolderItem = SigFolder.Child(sigfolder.displayname+".options")
 		  if optionsFile<>Nil AND optionsFile.Exists then
-		    dim instream as TextInputStream
+		    Dim instream As TextInputStream
 		    dim aline, cutoffs As string
 		    
 		    'read profile calibration values
