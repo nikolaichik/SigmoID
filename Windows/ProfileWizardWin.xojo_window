@@ -8,7 +8,7 @@ Begin Window ProfileWizardWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   776
+   Height          =   766
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -699,7 +699,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   380
+      Top             =   375
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -732,7 +732,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   742
+      Top             =   732
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -764,7 +764,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   742
+      Top             =   732
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -807,7 +807,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   742
+      Top             =   732
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -1000,7 +1000,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   251
+      Top             =   250
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -1129,7 +1129,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   520
+      Top             =   511
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -1181,7 +1181,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   636
+      Top             =   623
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -1516,6 +1516,7 @@ End
 		  Dim SigFileVV As VirtualVolume
 		  
 		  
+		  If Keyboard.AsyncOptionKey Then Return 'allow adding rows to listboxes
 		  
 		  LogoWin.show
 		  
@@ -1846,9 +1847,9 @@ End
 		            If f2<>Nil Then
 		              outstream = TextOutputStream.Create(f2)
 		              Dim z as Integer
-		              For z=1 To RefsList.RowCount-1
-		                Dim aline As String=RefsList.CellValueAt(z,0)+Chr(13)+RefsList.CellValueAt(z,1)
-		                If Aline<>"" Then
+		              For z=0 To RefsList.RowCount-1
+		                Dim aLine As String=RefsList.CellValueAt(z,0)+Chr(9)+RefsList.CellValueAt(z,1) 'ParamArray format for easier loading
+		                If Trim(aLine)<>"" Then
 		                  outstream.WriteLine(aline)
 		                End If
 		              Next
@@ -1861,9 +1862,10 @@ End
 		            If f2<>Nil Then
 		              outstream = TextOutputStream.Create(f2)
 		              Dim z As Integer
-		              For z=1 To CuratorList.RowCount-1
-		                Dim aline As String=CuratorList.CellValueAt(z,0)+Chr(13)+CuratorList.CellValueAt(z,1)+Chr(13)+CuratorList.CellValueAt(z,2)
-		                If Aline<>"" Then
+		              For z=0 To CuratorList.RowCount-1
+		                
+		                Dim aLine As String=CuratorList.CellValueAt(z,0)+Chr(9)+CuratorList.CellValueAt(z,1)+Chr(9)+CuratorList.CellValueAt(z,2)
+		                If Trim(aLine)<>"" Then
 		                  outstream.WriteLine(aline)
 		                End If
 		              Next
@@ -2153,6 +2155,15 @@ End
 		  End If
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  If Key=Chr(08) Then 'Delete key
+		    Me.RemoveRowAt(Me.SelectedRowIndex)
+		  Elseif Key=Chr(&h0D) Then 'Enter key
+		    Me.AddRowAt(Me.SelectedRowIndex,"")
+		  End If
+		End Function
+	#tag EndEvent
 #tag EndEvents
 #tag Events CuratorList
 	#tag Event
@@ -2176,6 +2187,15 @@ End
 		    
 		  End If
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  If Key=Chr(08) Then 'Delete key
+		    Me.RemoveRowAt(Me.SelectedRowIndex)
+		  Elseif Key=Chr(&h0D) Then 'Enter key
+		    Me.AddRowAt(Me.SelectedRowIndex,"")
+		  End If
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior

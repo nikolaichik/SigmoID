@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -3662,6 +3663,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub LoadAlignment(tmpfile as folderitem)
+		  Dim HmmAccession, SigmoIDaccession, SigmoIDtag As String
 		  
 		  if tmpfile<> nil then
 		    TF_HMM=""
@@ -3669,7 +3671,7 @@ End
 		    SeedProteinID=""
 		    SeedProteinSeq=""
 		    
-		    dim vv as VirtualVolume
+		    Dim vv As VirtualVolume
 		    vv=tmpfile.openAsVirtualVolume
 		    If vv<> Nil Or (tmpfile.Directory And Right(tmpfile.Name,4)=".sig") Then ' .sig file or folder
 		      '
@@ -3707,7 +3709,7 @@ End
 		      end if
 		      
 		      'read the accessory files
-		      dim f as folderitem
+		      Dim f As folderitem
 		      dim inStream as TextInputStream
 		      if vv<>Nil then
 		        f=vv.root.child(basename+".info")     'Info
@@ -3725,7 +3727,7 @@ End
 		          inStream.close
 		        else
 		          msgbox "Can't read alignment info"
-		        end if
+		        End If
 		      else
 		        msgbox "No alignment info file ("+ f.Name+") located at "+f.ShellPath
 		      end if
@@ -3755,7 +3757,7 @@ End
 		        dim aline As string
 		        
 		        InStream = f.OpenAsTextFile
-		        while not InStream.EOF
+		        While Not InStream.EOF
 		          aLine=InStream.readLine
 		          dim score as string
 		          if left(aLine,6)="TF_HMM" then
@@ -3771,11 +3773,13 @@ End
 		            next
 		            
 		          elseif left(aLine,6)="CRtag " then 'space to distinguish from CRtagCoords
-		            CRtag=right(aline,len(aline)-6)
+		            CRtag=Right(aline,Len(aline)-6)
 		            ProfileWizardWin.CRtagSeqField.Text=CRtag
-		          elseif left(aLine,11)="CRtagCoords" then
-		            CRtagCoords=right(aline,len(aline)-12)
-		            ProfileWizardWin.CRtagField.text=CRtagCoords
+		          Elseif Left(aLine,11)="CRtagCoords" Then
+		            CRtagCoords=Right(aline,Len(aline)-12)
+		            ProfileWizardWin.CRtagField.Text=CRtagCoords
+		          Elseif Left(aLine,8)="HMM_ACC " Then
+		            HmmAccession=Trim(Right(aline,Len(aline)-8))
 		          Elseif Left(aLine,10)="protein_id" Then
 		            SeedProteinID=trim(NthField(aline,"protein_id",2))
 		            ProfileWizardWin.SeedProteinArea.Text=">"+SeedProteinID+EndOfLine.Unix
@@ -3792,18 +3796,89 @@ End
 		            score=trim(NthField(aline," ",3))
 		            nhmmerSettingsWin.NCvalue.text="("+score+")"
 		            ProfileWizardWin.NoiseField.text=score
-		          elseif left(aLine,7)="#=GF TC" then
+		          Elseif Left(aLine,7)="#=GF TC" Then
 		            score=trim(NthField(aline," ",3))
 		            nhmmerSettingsWin.TCvalue.text="("+score+")"
-		            ProfileWizardWin.TrustedField.text=score
+		            ProfileWizardWin.TrustedField.Text=score
 		          end if
 		        wend
 		        inStream.close
+		        
+		        // Check if the family HMM within SigmoID matches the one in the profile
+		        
+		        '
+		        
+		        
+		        Dim ModelFile As folderitem 
+		        ModelFile=Resources_f.child("TF_HMMs").child(TF_HMM)
+		        If ModelFile<> Nil Then
+		          If ModelFile.exists Then
+		            InStream = ModelFile.OpenAsTextFile
+		            While Not InStream.EOF
+		              aLine=InStream.readLine
+		              If Left(aLine,6)="ACC   " Then
+		                SigmoIDaccession=Trim(Right(aline,Len(aline)-6))
+		              Elseif Left(aLine,6)="CRTAG "Then
+		                SigmoIDtag=Trim(Right(aline,Len(aline)-6))
+		              End If
+		            Wend
+		            If SigmoIDaccession<>HMMaccession Then
+		              MsgBox "TF family accession within SigmoID ("+SigmoIDaccession+") differs from the one used to create this profile ("+HMMaccession+"). The profile may perform suboptimally If the model has changed significantly."
+		            End If
+		            If SigmoIDtag<>CRtagCoords Then
+		              MsgBox "TF family CR tag within SigmoID ("+SigmoIDtag+") differs from the one used to create this profile ("+CRtagCoords+"). The profile should be re-checked and probably re-constructed."
+		            End If
+		          Else
+		            MsgBox "No matching TF family model present in SigmoID"
+		          End If
+		        Else
+		          MsgBox "No matching TF family model present in SigmoID"
+		        End If
+		        
+		        
 		      else
 		        msgbox "Can't read SigmoID file options"
 		      end if
 		      'HmmGenSettingsWin.EvalueField.enabled=false
 		      'HmmGenSettingsWin.EvalueButton.enabled=false
+		      
+		      If vv<>Nil Then
+		        f=vv.root.child(basename+".refs")  'References with evidence codes
+		      Else
+		        f=tmpfile.child(basename+".refs")  
+		      End If
+		      
+		      Dim aLine As String
+		      InStream = f.OpenAsTextFile
+		      If InStream <>Nil Then
+		        
+		        ProfileWizardWin.RefsList.RemoveAllRows
+		        
+		        While Not InStream.EOF
+		          aLine=InStream.readLine
+		          ProfileWizardWin.RefsList.AddRow(aLine.Split(Chr(9)))
+		        Wend
+		        inStream.close
+		      End If
+		      
+		      If vv<>Nil Then
+		        f=vv.root.child(basename+".cur")  'Curator info
+		      Else
+		        f=tmpfile.child(basename+".cur")  
+		      End If
+		      
+		      
+		      InStream = f.OpenAsTextFile
+		      If InStream <>Nil Then
+		        
+		        ProfileWizardWin.CuratorList.RemoveAllRows
+		        
+		        While Not InStream.EOF
+		          aLine=InStream.readLine
+		          ProfileWizardWin.CuratorList.AddRow(aLine.Split(Chr(9)))
+		        Wend
+		        inStream.close
+		      End If
 		      
 		      
 		      if vv<>Nil then
