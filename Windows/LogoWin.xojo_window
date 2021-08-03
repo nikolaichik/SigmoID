@@ -3808,31 +3808,33 @@ End
 		        
 		        '
 		        
-		        
-		        Dim ModelFile As folderitem 
-		        ModelFile=Resources_f.child("TF_HMMs").child(TF_HMM)
-		        If ModelFile<> Nil Then
-		          If ModelFile.exists Then
-		            InStream = ModelFile.OpenAsTextFile
-		            While Not InStream.EOF
-		              aLine=InStream.readLine
-		              If Left(aLine,6)="ACC   " Then
-		                SigmoIDaccession=Trim(Right(aline,Len(aline)-6))
-		              Elseif Left(aLine,6)="CRTAG "Then
-		                SigmoIDtag=Trim(Right(aline,Len(aline)-6))
+		        If TF_HMM<>"" Then
+		          Dim ModelFile As folderitem 
+		          ModelFile=Resources_f.child("TF_HMMs")
+		          If ModelFile<>Nil Then ModelFile=ModelFile.child(TF_HMM)
+		          If ModelFile<> Nil Then
+		            If ModelFile.exists Then
+		              InStream = ModelFile.OpenAsTextFile
+		              While Not InStream.EOF
+		                aLine=InStream.readLine
+		                If Left(aLine,6)="ACC   " Then
+		                  SigmoIDaccession=Trim(Right(aline,Len(aline)-6))
+		                Elseif Left(aLine,6)="CRTAG "Then
+		                  SigmoIDtag=Trim(Right(aline,Len(aline)-6))
+		                End If
+		              Wend
+		              If SigmoIDaccession<>HMMaccession Then
+		                MsgBox "TF family accession within SigmoID ("+SigmoIDaccession+") differs from the one used to create this profile ("+HMMaccession+"). The profile may perform suboptimally If the model has changed significantly."
 		              End If
-		            Wend
-		            If SigmoIDaccession<>HMMaccession Then
-		              MsgBox "TF family accession within SigmoID ("+SigmoIDaccession+") differs from the one used to create this profile ("+HMMaccession+"). The profile may perform suboptimally If the model has changed significantly."
-		            End If
-		            If SigmoIDtag<>CRtagCoords Then
-		              MsgBox "TF family CR tag within SigmoID ("+SigmoIDtag+") differs from the one used to create this profile ("+CRtagCoords+"). The profile should be re-checked and probably re-constructed."
+		              If SigmoIDtag<>CRtagCoords Then
+		                MsgBox "TF family CR tag within SigmoID ("+SigmoIDtag+") differs from the one used to create this profile ("+CRtagCoords+"). The profile should be re-checked and probably re-constructed."
+		              End If
+		            Else
+		              MsgBox "No matching TF family model present in SigmoID"
 		            End If
 		          Else
 		            MsgBox "No matching TF family model present in SigmoID"
 		          End If
-		        Else
-		          MsgBox "No matching TF family model present in SigmoID"
 		        End If
 		        
 		        
