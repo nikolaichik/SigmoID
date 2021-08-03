@@ -1200,7 +1200,7 @@ Protected Module DeNovoTFBSinference
 		          'execute bash with login scripts to set the same env as in terminal
 		          'command must be in single quotes
 		          
-		          sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		          sh.execute("bash --login -c "+Chr(34)+cli+Chr(34)) 'Should be corrected
 		          
 		          While sh.IsRunning=true
 		            app.YieldToNextThread()
@@ -2392,7 +2392,7 @@ Protected Module DeNovoTFBSinference
 		  sh=New Shell
 		  sh.mode=1
 		  sh.TimeOut=-1
-		  sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		  sh.execute("bash --login -c "+Chr(34)+cli+Chr(34)) 'Should be corrected
 		  While sh.IsRunning=true
 		    app.YieldToNextThread()
 		  wend

@@ -457,7 +457,7 @@ End
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then
 		    if f.exists then
-		      hmmgenpath=f.ShellPath
+		      hmmgenpath=PlaceQuotesToPath(f.ShellPath)
 		    else
 		      msgbox "Can't find the HmmGen.py script!"
 		    end if
@@ -468,7 +468,7 @@ End
 		  f=resources_f.child("RepeatGen.py")
 		  if f<>Nil then
 		    if f.exists then
-		      RepeatGenPath=f.ShellPath
+		      RepeatGenPath=PlaceQuotesToPath(f.ShellPath)
 		    else
 		      msgbox "Can't find the RepeatGen.py script!"
 		    end if
@@ -479,7 +479,7 @@ End
 		  f=resources_f.child("MastGen.py")
 		  if f<>Nil then
 		    if f.exists then
-		      mastgenpath=f.ShellPath
+		      mastgenpath=PlaceQuotesToPath(f.ShellPath)
 		      'SettingsWin.mastGenPathField.text=mastgenpath
 		    else
 		      msgbox "Can't find the MastGen.py script"
@@ -491,7 +491,7 @@ End
 		  f=resources_f.child("TermGen.py")
 		  if f<>Nil then
 		    if f.exists then
-		      TermGenpath=f.ShellPath
+		      TermGenpath=PlaceQuotesToPath(f.ShellPath)
 		      'SettingsWin.TermGenPathField.text=TermGenpath
 		    else
 		      msgbox "Can't find the TermGen.py script"
@@ -503,7 +503,7 @@ End
 		  f=resources_f.child("OperOn.py")
 		  if f<>Nil then
 		    if f.exists then
-		      OperOnPath=f.ShellPath
+		      OperOnPath=PlaceQuotesToPath(f.ShellPath)
 		      'SettingsWin.TermGenPathField.text=TermGenpath
 		    else
 		      msgbox "Can't find the OperOn.py script"
@@ -526,7 +526,12 @@ End
 		  If shError=0 Then
 		    If InStr(shResult,"Python 3")>0 Then
 		      pythonCheckString=pythonCheckString+Trim (shResult)
-		      pythonPath=SystemPath("python")+" " 
+		      pythonPath=SystemPath("python")+" "
+		      If pythonPath.Length=1 Then
+		        pythonPath="python "
+		      Else
+		        pythonPath=PlaceQuotesToPath(pythonPath)
+		      End If
 		    Else
 		      cli="python3 --version"
 		      userShell(cli)
@@ -534,6 +539,11 @@ End
 		        If InStr(shResult,"Python 3")>0 Then
 		          pythonCheckString=pythonCheckString+Trim (shResult)
 		          pythonPath=SystemPath("python3")+" "
+		          If pythonPath.Length=1 Then
+		            pythonPath="python "
+		          Else
+		            pythonPath=PlaceQuotesToPath(pythonPath)
+		          End If
 		        Else
 		          pythonPath=""
 		          WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
@@ -555,7 +565,7 @@ End
 		      f=resources_f.child("BioPythonVersion.py")
 		      if f<>Nil then
 		        if f.exists then
-		          cli=pythonPath+f.ShellPath
+		          cli=pythonPath+PlaceQuotesToPath(f.ShellPath)
 		          userShell(cli)
 		          If shError=0 Then
 		            pythonCheckString=pythonCheckString+" with Biopython "+shResult
@@ -578,11 +588,7 @@ End
 		  'WriteToSTDOUT ("Checking python scripts... "+EndOfLine.UNIX)
 		  
 		  'hmmgen
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+hmmGenPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+hmmGenPath+" -v"
-		  #endif
+		  cli=pythonPath+hmmGenPath+" -v"
 		  userShell(cli)
 		  dim hmmg as boolean=false
 		  If shError=0 Then
@@ -603,11 +609,7 @@ End
 		  end if
 		  
 		  'RepeatGen
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+RepeatGenPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+RepeatGenPath+" -v"
-		  #endif
+		  cli=pythonPath+RepeatGenPath+" -v"
 		  userShell(cli)
 		  hmmg=false
 		  If shError=0 Then
@@ -629,11 +631,7 @@ End
 		  
 		  'mastgen
 		  'WriteToSTDOUT ("Checking the MastGen script... ")
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+MastGenPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+MastGenPath+" -v"
-		  #endif
+		  cli=pythonPath+MastGenPath+" -v"
 		  userShell(cli)
 		  If shError=0 Then
 		    dim s As string=shResult
@@ -654,11 +652,7 @@ End
 		  
 		  'TermGen
 		  'WriteToSTDOUT ("Checking the TermGen script... ")
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+TermGenPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+TermGenPath+" -v"
-		  #endif
+		  cli=pythonPath+TermGenPath+" -v"
 		  userShell(cli)
 		  hmmg=false
 		  If shError=0 Then
@@ -680,11 +674,7 @@ End
 		  
 		  'OperOn
 		  'WriteToSTDOUT ("Checking the OperOn script... ")
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+OperOnPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+OperOnPath+" -v"
-		  #endif
+		  cli=pythonPath+OperOnPath+" -v"
 		  userShell(cli)
 		  hmmg=false
 		  If shError=0 Then
@@ -709,11 +699,7 @@ End
 		  'ptt_converter
 		  dim ptt_converterPath as string
 		  ptt_converterPath=Replace(HmmGenPath, "hmmgen.py", "ptt_converter.py")
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+ptt_converterPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+ptt_converterPath+" -v"
-		  #endif
+		  cli=pythonPath+ptt_converterPath+" -v"
 		  userShell(cli)
 		  hmmg=false
 		  If shError=0 Then
@@ -738,11 +724,7 @@ End
 		  
 		  // nhmmer
 		  
-		  #if TargetWin32
-		    cli=chr(34)+nhmmerPath+chr(34)+" -h"
-		  #else
-		    cli=nhmmerPath+" -h"
-		  #endif
+		  cli=nhmmerPath+" -h"
 		  userShell(cli)
 		  If shError=0 Then
 		    dim s As string=shResult
@@ -763,11 +745,7 @@ End
 		  
 		  // hmmbuild
 		  
-		  #if TargetWin32
-		    cli=chr(34)+hmmBuildPath+chr(34)+" -h"
-		  #else
-		    cli=hmmBuildPath+" -h"
-		  #endif
+		  cli=hmmBuildPath+" -h"
 		  userShell(cli)
 		  If shError=0 Then
 		    dim s As string=shResult
@@ -788,11 +766,7 @@ End
 		  
 		  // alimask
 		  
-		  #if TargetWin32
-		    cli=chr(34)+alimaskPath+chr(34)+" -h"
-		  #else
-		    cli=alimaskPath+" -h"
-		  #endif
+		  cli=alimaskPath+" -h"
 		  userShell(cli)
 		  If shError=0 Then
 		    dim s As string=shResult
@@ -820,11 +794,7 @@ End
 		  #endif
 		  if f<>Nil then
 		    if f.exists then
-		      #if TargetWin32
-		        cli=chr(34)+f.ShellPath+chr(34)+" -h"
-		      #else
-		        cli=f.ShellPath+" -h"
-		      #endif
+		      cli=PlaceQuotesToPath(f.ShellPath)+" -h"
 		      userShell(cli)
 		      If shError=0 OR shError=3 then 'TransTerm returns error code when run without all args
 		        dim s As string
@@ -851,11 +821,7 @@ End
 		  
 		  // MEME
 		  
-		  #if TargetWin32
-		    cli=chr(34)+memePath+chr(34)+" -version"
-		  #else
-		    cli=memePath+" -version"
-		  #endif
+		  cli=memePath+" -version"
 		  userShell(cli)
 		  If shError=0 Then
 		    WriteToSTDOUT ("meme "+shResult)
@@ -866,11 +832,7 @@ End
 		  
 		  // MAST
 		  
-		  #if TargetWin32
-		    cli=chr(34)+MASTPath+chr(34)+" -version"
-		  #else
-		    cli=MASTPath+" -version"
-		  #endif
+		  cli=MASTPath+" -version"
 		  userShell(cli)
 		  If shError=0 Then
 		    WriteToSTDOUT ("mast "+shResult)
@@ -882,11 +844,7 @@ End
 		  
 		  // TomTom
 		  
-		  #if TargetWin32
-		    cli=chr(34)+TomTomPath+chr(34)+" -version"
-		  #else
-		    cli=TomTomPath+" -version"
-		  #endif
+		  cli=TomTomPath+" -version"
 		  userShell(cli)
 		  If shError=0 Then
 		    WriteToSTDOUT ("tomtom "+shResult)
@@ -920,11 +878,7 @@ End
 		  
 		  // tfastx
 		  
-		  #if TargetWin32
-		    cli=chr(34)+tfastxPath+chr(34)
-		  #else
-		    cli=tfastxPath
-		  #endif
+		  cli=tfastxPath
 		  userShell(cli)
 		  If shError=0 Then 
 		    dim s As string=shResult
@@ -2219,7 +2173,7 @@ End
 		          sh.Mode=1
 		          sh.TimeOut=-1
 		          WriteToSTDOUT ("Running nhmmer..."+EndOfLine.UNIX)
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
 		          While sh.IsRunning=true
 		            App.DoEvents
 		          wend
@@ -2249,7 +2203,7 @@ End
 		          sh=New Shell
 		          sh.Mode=1
 		          sh.TimeOut=-1
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
 		          
 		          While sh.IsRunning=true
 		            App.DoEvents

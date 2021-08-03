@@ -301,6 +301,7 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -341,6 +342,7 @@ Begin Window deNovoWin
       Width           =   243
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
@@ -414,6 +416,7 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -1691,7 +1694,7 @@ End
 		      sh=New Shell
 		      sh.mode=1
 		      sh.TimeOut=-1
-		      sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		      sh.execute("bash --login -c "+Chr(34)+cli+Chr(34)) 'Should be corrected
 		      While sh.IsRunning=true
 		        app.YieldToNextThread()
 		      wend

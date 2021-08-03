@@ -2687,6 +2687,23 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function PlaceQuotesToPath(path as string) As string
+		  // Place pair of quotes to the path in Win32 system
+		  // Also check if this quotes are already placed
+		  
+		  #if TargetWin32
+		    If path.Left(1)<>chr(34) Then
+		      path=chr(34)+path
+		    End If
+		    If path.Right(1)<>chr(34) Then
+		      path=path+chr(34)
+		    End If
+		  #endif
+		  Return path
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PosNucWeight(A as Integer, C as integer, G as integer, T as integer) As String
 		  'Positional Nucleotide Weight calculated as in Genome Explorer by Mironov et al
 		  

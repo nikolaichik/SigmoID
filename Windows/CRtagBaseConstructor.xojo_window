@@ -558,6 +558,7 @@ End
 		      'assume bash is the normal user shell
 		      'execute bash with login scripts to set the same env as in terminal
 		      'command must be in single quotes
+		      'Should be corrected
 		      cli="bash --login -c 'cdbyank -a "+Str(ProtNames(ubound(ProtNames)))+" "+trEMBL_fasta.ShellPath+"'"
 		      
 		      // samtools version:
