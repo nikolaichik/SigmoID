@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -1927,7 +1928,7 @@ End
 		    if alimaskTmp<>nil then
 		      if infile<>Nil then
 		        FixPath4Windows(alimaskTmp)
-		        cli=alimaskpath+" --alirange "+mask+weighting+inFile.ShellPath+" "+alimaskTmp.shellpath
+		        cli=alimaskpath+" --alirange "+mask+weighting+PlaceQuotesToPath(inFile.ShellPath)+" "+PlaceQuotesToPath(alimaskTmp.shellpath)
 		        
 		      else
 		        msgbox "Invalid input file for alimask"
@@ -2168,7 +2169,7 @@ End
 		            LogoWin.WriteToSTDOUT("Can't save fasta file with motif sequences."+EndOfLine.UNIX)
 		            Continue 
 		          End
-		          cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerOutput.shellpath+" "+MotifFile.ShellPath+" "+AnnotatedGenome.ShellPath
+		          cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerOutput.shellpath)+" "+PlaceQuotesToPath(MotifFile.ShellPath)+" "+PlaceQuotesToPath(AnnotatedGenome.ShellPath)
 		          sh=New Shell
 		          sh.Mode=1
 		          sh.TimeOut=-1
@@ -2193,10 +2194,10 @@ End
 		            Continue
 		          End if
 		          If hmmgenOutput.Exists Then hmmgenOutput.Remove
-		          cli=pythonPath+hmmGenPath+" "+nhmmerOutput.ShellPath+" "+AnnotatedGenome.ShellPath+" "
+		          cli=pythonPath+PlaceQuotesToPath(hmmGenPath)+" "+PlaceQuotesToPath(nhmmerOutput.ShellPath)+" "+PlaceQuotesToPath(AnnotatedGenome.ShellPath)+" "
 		          'intergenic distance is hardcoded, should be configurable
 		          'cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L 110 -n -f protein_bind -q"+chr(34)
-		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q bound_moiety"+chr(34)
+		          cli = cli + PlaceQuotesToPath(hmmgenOutput.ShellPath)+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q bound_moiety"+chr(34)
 		          'cli = cli + chr(34)+"#"+chr(34)+MotifModel.TFname+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
 		          cli = cli + chr(34)+"#"+chr(34)+BoundMoietyStr+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
 		          
@@ -3381,7 +3382,7 @@ End
 		        outFilePath=outFile.ShellPath
 		      #endif
 		      
-		      cli=pythonPath+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
+		      cli=pythonPath+PlaceQuotesToPath(hmmGenPath)+" "+PlaceQuotesToPath(nhmmerResultFile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFilePath)+" "+HmmGenOptions
 		      
 		      userShell(cli)
 		      If shError=0 Then
@@ -3588,7 +3589,7 @@ End
 		    
 		    dim HmmSearchPath as string = replace(nhmmerPath,"/nhmmer","/hmmsearch")
 		    
-		    cli=HmmSearchPath+" "+hmmSearchSettings+" "+modelFile+" "+CDSfasta.ShellPath ' +" -o "+nhmmerResultFile.shellpath
+		    cli=PlaceQuotesToPath(HmmSearchPath)+" "+PlaceQuotesToPath(hmmSearchSettings)+" "+modelFile+" "+PlaceQuotesToPath(CDSfasta.ShellPath) ' +" -o "+nhmmerResultFile.shellpath
 		    
 		    
 		    WriteToSTDOUT (EndofLine+"Running hmmsearch...")
@@ -4211,7 +4212,7 @@ End
 		        GenomeFilePath=GenomeFile.shellpath
 		      #endif
 		      
-		      cli=pythonPath+MastGenPath+" "+MASTResultFile.ShellPath+" "+GenomeFilePath+" "+outFile.ShellPath+" "+HmmGenOptions
+		      cli=pythonPath+PlaceQuotesToPath(MastGenPath)+" "+PlaceQuotesToPath(MASTResultFile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFile.ShellPath)+" "+HmmGenOptions
 		      
 		      userShell(cli)
 		      If shError=0 Then
@@ -4373,7 +4374,7 @@ End
 		  
 		  
 		  
-		  cli=MASTpath+" "+ memetmp.shellpath+" "+outfile.shellpath +nhmmerOptions+" -hit_list"
+		  cli=MASTpath+" "+ PlaceQuotesToPath(memetmp.shellpath)+" "+PlaceQuotesToPath(outfile.shellpath) +nhmmerOptions+" -hit_list"
 		  userShell(cli)
 		  If shError=0 Then
 		    WriteToSTDOUT (EndofLine+shResult)
@@ -4586,7 +4587,7 @@ End
 		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		      HmmSearchPath = replace(nhmmerPath,"nhmmer","hmmsearch")
 		      
-		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+modelFile+" "+CDSfasta.ShellPath
+		      cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(alignmentsFile.ShellPath)+" "+modelFile+" "+PlaceQuotesToPath(CDSfasta.ShellPath)
 		      
 		      
 		      userShell(cli)
@@ -4668,15 +4669,15 @@ End
 		    if SigFileOpened then
 		      HmmFile.CopyFileTo(TemporaryFolder)
 		      dim HmmFileTmp as folderitem = TemporaryFolder.child(HmmFile.DisplayName)
-		      cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+GenomeFilePath
+		      cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerResultFile.shellpath)+" "+PlaceQuotesToPath(HmmFileTmp.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)
 		    else
 		      if masked then
 		        alimask LogoFile
 		        WriteToSTDOUT (EndofLine+EndofLine+"Alignment masked.")
 		        '/usr/local/bin/nhmmer
-		        cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+alimasktmp.ShellPath+" "+GenomeFilePath
+		        cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerResultFile.shellpath)+" "+PlaceQuotesToPath(alimasktmp.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)
 		      else
-		        cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+Logofile.ShellPath+" "+GenomeFilePath
+		        cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerResultFile.shellpath)+" "+PlaceQuotesToPath(Logofile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)
 		      end if
 		    end if
 		    
@@ -5006,7 +5007,7 @@ End
 		        outFilePath=outFile.ShellPath
 		      #endif
 		      
-		      cli=pythonPath+RepeatGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
+		      cli=pythonPath+PlaceQuotesToPath(RepeatGenPath)+" "+PlaceQuotesToPath(nhmmerResultFile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFilePath)+" "+HmmGenOptions
 		      
 		      userShell(cli)
 		      If shError=0 Then
@@ -5239,7 +5240,7 @@ End
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running TermGen script..."+EndofLine)
 		      
 		      FixPath4Windows(outfile)
-		      cli=pythonPath+TermGenPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+TermGenOptions
+		      cli=pythonPath+PlaceQuotesToPath(TermGenPath)+" "+PlaceQuotesToPath(GenomeFile.ShellPath)+" "+PlaceQuotesToPath(outFile.ShellPath)+" "+TermGenOptions
 		      
 		      userShell(cli)
 		      If shError=0 Then

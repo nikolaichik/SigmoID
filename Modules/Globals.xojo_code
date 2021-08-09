@@ -1602,7 +1602,7 @@ Protected Module Globals
 		  
 		  
 		  'Usage: hmmbuild [-options] <hmmfile_out> <msafile>
-		  cli=hmmbuildpath+" --dna "+outfilepath+" "+infilepath
+		  cli=PlaceQuotesToPath(hmmbuildpath)+" --dna "+PlaceQuotesToPath(outfilepath)+" "+PlaceQuotesToPath(infilepath)
 		  
 		  
 		  
@@ -1645,7 +1645,7 @@ Protected Module Globals
 		    'LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
-		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
+		    cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(HmmResultFile.ShellPath)+" "+PlaceQuotesToPath(HMMfilePath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
 		    
 		    userShell(cli)
 		    
@@ -1717,7 +1717,7 @@ Protected Module Globals
 		    
 		    // Settings from the HmmSearchSettingsWin should be used here, but they are currently ignored!
 		    
-		    cli=HmmSearchPath+" --cut_ga --notextw -A "+HmmResultFile.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
+		    cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(HmmResultFile.ShellPath)+" "+PlaceQuotesToPath(HMMfilePath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
 		    
 		    userShell(cli)
 		    //LogoWin.WriteToSTDOUT (EndofLine.UNIX+str(sh.Result)+EndOfLine.UNIX)
@@ -2611,8 +2611,8 @@ Protected Module Globals
 		    if Palindromic then            
 		      cli=cli+"-pal -revcomp "
 		    end if
-		    cli=cli+alignment_tmp.ShellPath
-		    cli=cli+" > "+MEMEtmp.ShellPath
+		    cli=cli+PlaceQuotesToPath(alignment_tmp.ShellPath)
+		    cli=cli+" > "+PlaceQuotesToPath(MEMEtmp.ShellPath)
 		    
 		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
 		    userShell(cli)
@@ -3915,7 +3915,7 @@ Protected Module Globals
 		    
 		    'tfastx36 [-options] query_file library_file [ktup]
 		    
-		    cli=tfastxPath+fastaOptions+TFfastaFile.shellpath+" "+GenomeFilePath
+		    cli=PlaceQuotesToPath(tfastxPath)+fastaOptions+PlaceQuotesToPath(TFfastaFile.shellpath)+" "+PlaceQuotesToPath(GenomeFilePath)
 		    
 		    userShell(cli)
 		    If shError=0 Then
@@ -4206,7 +4206,7 @@ Protected Module Globals
 		    'shell within xojo doesn't read .bash_profile - hence PATH isn't set properly
 		    'hence the full path below
 		    'cli="/usr/local/bin/weblogo -c classic -F logodata -f "+f.ShellPath
-		    cli=WebLogoPath+" -c classic -F logodata -f "+f.ShellPath
+		    cli=PlaceQuotesToPath(WebLogoPath)+" -c classic -F logodata -f "+PlaceQuotesToPath(f.ShellPath)
 		  else
 		    msgbox "Invalid input file for weblogo"
 		  end if

@@ -993,9 +993,9 @@ End
 		      #EndIf
 		      
 		      Dim cli As String
-		      cli=sites2memePath'+" "+"-map "+sitesMap.ShellPath
+		      cli=PlaceQuotesToPath(sites2memePath)'+" "+"-map "+sitesMap.ShellPath
 		      'cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
-		      cli=cli+" "+TFfamily_tmp.ShellPath
+		      cli=cli+" "+PlaceQuotesToPath(TFfamily_tmp.ShellPath)
 		      
 		      
 		      userShell(cli)

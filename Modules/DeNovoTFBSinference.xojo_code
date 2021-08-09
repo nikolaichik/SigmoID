@@ -51,7 +51,7 @@ Protected Module DeNovoTFBSinference
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
 		  Dim cli As String
 		  if outfile.Exists then outfile.Delete
-		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+Str(inFile.NativePath)+"'"
+		  cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+PlaceQuotesToPath(Str(inFile.NativePath))+"'"
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
 		  for i as integer = 0 to WindowCount - 1
@@ -1194,7 +1194,7 @@ Protected Module DeNovoTFBSinference
 		          dim sh as New Shell
 		          sh.mode=1
 		          sh.TimeOut=-1
-		          cli=pythonpath+extractfragment.ShellPath+" "+GenomeWin.GenomeFile.ShellPath+" @@coord "+str(leftCOO)+","+str(rightCOO)
+		          cli=pythonpath+PlaceQuotesToPath(extractfragment.ShellPath)+" "+PlaceQuotesToPath(GenomeWin.GenomeFile.ShellPath)+" @@coord "+str(leftCOO)+","+str(rightCOO)
 		          
 		          'assume bash is the normal user shell
 		          'execute bash with login scripts to set the same env as in terminal
@@ -2369,9 +2369,9 @@ Protected Module DeNovoTFBSinference
 		  '#endif
 		  
 		  #if TargetWin32
-		    cli=TemporaryFolder.child("meme.exe").ShellPath+" "+infile.ShellPath
+		    cli=PlaceQuotesToPath(TemporaryFolder.child("meme.exe").ShellPath)+" "+PlaceQuotesToPath(infile.ShellPath)
 		  #else
-		    cli=MEMEpath+" '"+infile.NativePath+"'"
+		    cli=MEMEpath+" '"+PlaceQuotesToPath(infile.NativePath)+"'"
 		  #EndIf
 		  
 		  If cores2use>1 Then 'for parallelised meme
@@ -2387,7 +2387,7 @@ Protected Module DeNovoTFBSinference
 		    
 		  End If
 		  
-		  cli=cli+" -oc '"+outFolder.NativePath+"' "+Options
+		  cli=cli+" -oc '"+PlaceQuotesToPath(outFolder.NativePath)+"' "+Options
 		  
 		  sh=New Shell
 		  sh.mode=1
