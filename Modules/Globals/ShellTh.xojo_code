@@ -16,8 +16,12 @@ Inherits Thread
 		  dim Sh as New Shell
 		  Sh.mode=0
 		  Sh.TimeOut=-1
-		  
-		  Sh.execute("bash --login -c "+chr(34)+cli+chr(34))
+		  'Correct here
+		  #if TargetWin32
+		    Sh.execute(cli)
+		  #else
+		    Sh.execute("bash --login -c "+chr(34)+cli+chr(34))
+		  #endif
 		  
 		  'shResult=me.result
 		  'shError=me.error

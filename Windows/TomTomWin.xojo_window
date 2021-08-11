@@ -621,12 +621,12 @@ End
 		        
 		        TToptions=" "+Trim(TomTomOptionsField.Text)+" "
 		        
-		        cli=tomtomPath+" -oc "+inFolder.ShellPath
+		        cli=PlaceQuotesToPath(tomtomPath)+" -oc "+PlaceQuotesToPath(inFolder.ShellPath)
 		        
 		        'need to add background model here like this:
 		        '-bfile /Users/Home/Documents/SQ2/LacI/LacI_bacgroundModel.markov
 		        
-		        cli=cli+TToptions+inFolder.Item(n).ShellPath+TTlibString
+		        cli=cli+TToptions+PlaceQuotesToPath(inFolder.Item(n).ShellPath)+TTlibString
 		        
 		        
 		        userShell(cli)

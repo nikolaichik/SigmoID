@@ -51,7 +51,7 @@ Protected Module DeNovoTFBSinference
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
 		  Dim cli As String
 		  if outfile.Exists then outfile.Delete
-		  cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+Str(inFile.NativePath)+"'"
+		  cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+PlaceQuotesToPath(Str(inFile.NativePath))+"'"
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
 		  for i as integer = 0 to WindowCount - 1
@@ -1194,13 +1194,16 @@ Protected Module DeNovoTFBSinference
 		          dim sh as New Shell
 		          sh.mode=1
 		          sh.TimeOut=-1
-		          cli=pythonpath+extractfragment.ShellPath+" "+GenomeWin.GenomeFile.ShellPath+" @@coord "+str(leftCOO)+","+str(rightCOO)
+		          cli=pythonpath+PlaceQuotesToPath(extractfragment.ShellPath)+" "+PlaceQuotesToPath(GenomeWin.GenomeFile.ShellPath)+" @@coord "+str(leftCOO)+","+str(rightCOO)
 		          
 		          'assume bash is the normal user shell
 		          'execute bash with login scripts to set the same env as in terminal
 		          'command must be in single quotes
-		          
-		          sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		          #if TargetWin32
+		            sh.execute(cli)
+		          #else
+		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		          #endif
 		          
 		          While sh.IsRunning=true
 		            app.YieldToNextThread()
@@ -2172,7 +2175,8 @@ Protected Module DeNovoTFBSinference
 		  ' https://www.ncbi.nlm.nih.gov/books/NBK179288/
 		  
 		  
-		  Dim cmdStart As String = "esearch -db protein -query "+Chr(34)
+		  'Dim cmdStart As String = "esearch -db protein -query "+Chr(34)
+		  Dim cmdStart As String = "search -db protein -query "+Chr(34)
 		  Dim cmdEnd As String = Chr(34)+" | efetch -format fasta"
 		  Dim cmd As String
 		  
@@ -2180,7 +2184,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  Dim sh As New Shell
 		  
-		  userShell(cmd)
+		  userShell(cmd) 'Result is error
 		  
 		  
 		  Dim res As String
@@ -2369,9 +2373,9 @@ Protected Module DeNovoTFBSinference
 		  '#endif
 		  
 		  #if TargetWin32
-		    cli=TemporaryFolder.child("meme.exe").ShellPath+" "+infile.ShellPath
+		    cli=PlaceQuotesToPath(TemporaryFolder.child("meme.exe").ShellPath)+" "+PlaceQuotesToPath(infile.ShellPath)
 		  #else
-		    cli=MEMEpath+" '"+infile.NativePath+"'"
+		    cli=MEMEpath+" '"+PlaceQuotesToPath(infile.NativePath)+"'"
 		  #EndIf
 		  
 		  If cores2use>1 Then 'for parallelised meme
@@ -2392,7 +2396,11 @@ Protected Module DeNovoTFBSinference
 		  sh=New Shell
 		  sh.mode=1
 		  sh.TimeOut=-1
-		  sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		  #if TargetWin32
+		    sh.execute(cli)
+		  #else
+		    sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		  #endif
 		  While sh.IsRunning=true
 		    app.YieldToNextThread()
 		  wend

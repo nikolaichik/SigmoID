@@ -301,6 +301,7 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -341,6 +342,7 @@ Begin Window deNovoWin
       Width           =   243
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
@@ -414,6 +416,7 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -1490,7 +1493,7 @@ End
 		  
 		  if CDhit<>nil AND CDhit.exists then
 		    dim cli as string
-		    cli=CDhit.ShellPath+" -i " + infile.ShellPath + " -o "+ outfile.ShellPath + " -d 100  -c 0.8 -n 5 -G 0 -aS 0.1 -aL 0.1"
+		    cli=PlaceQuotesToPath(CDhit.ShellPath)+" -i " + PlaceQuotesToPath(infile.ShellPath) + " -o "+ PlaceQuotesToPath(outfile.ShellPath) + " -d 100  -c 0.8 -n 5 -G 0 -aS 0.1 -aL 0.1"
 		    
 		    userShell(cli)
 		    
@@ -1564,7 +1567,7 @@ End
 		  For row As Integer = 0 To HmmList.ListCount-1
 		    
 		    HMMfilePath=HmmList.Cell(row,7)
-		    cli=HmmSearchPath+" --cut_ga --notextw --tblout "+HmmSearchTblOut.ShellPath+" "+HMMfilePath+" "+CDSfile.ShellPath
+		    cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(HmmSearchTblOut.ShellPath)+" "+PlaceQuotesToPath(HMMfilePath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
 		    UserShell(cli)
 		    If shError = 0 Then
 		      Instream=HmmSearchTblOut.OpenAsTextFile
@@ -1686,12 +1689,16 @@ End
 		      
 		      ' If compiled for OpenMP, MeshClust should use all cores available by default, so we aren't using the --threads setting
 		      
-		      cli=MeshClustPath + " " + infilePath + " --output "+ MeshClustTemp.ShellPath
+		      cli=PlaceQuotesToPath(MeshClustPath) + " " + PlaceQuotesToPath(infilePath) + " --output "+ PlaceQuotesToPath(MeshClustTemp.ShellPath)
 		      
 		      sh=New Shell
 		      sh.mode=1
 		      sh.TimeOut=-1
-		      sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		      #if TargetWin32
+		        sh.execute(cli)
+		      #else
+		        sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		      #endif
 		      While sh.IsRunning=true
 		        app.YieldToNextThread()
 		      wend
