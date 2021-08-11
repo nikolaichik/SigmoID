@@ -1694,7 +1694,11 @@ End
 		      sh=New Shell
 		      sh.mode=1
 		      sh.TimeOut=-1
-		      sh.execute("bash --login -c "+Chr(34)+cli+Chr(34)) 'Should be corrected
+		      #if TargetWin32
+		        sh.execute(cli)
+		      #else
+		        sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		      #endif
 		      While sh.IsRunning=true
 		        app.YieldToNextThread()
 		      wend

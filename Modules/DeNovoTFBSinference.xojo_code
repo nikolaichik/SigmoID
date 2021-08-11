@@ -1199,8 +1199,11 @@ Protected Module DeNovoTFBSinference
 		          'assume bash is the normal user shell
 		          'execute bash with login scripts to set the same env as in terminal
 		          'command must be in single quotes
-		          
-		          sh.execute("bash --login -c "+Chr(34)+cli+Chr(34)) 'Should be corrected
+		          #if TargetWin32
+		            sh.execute(cli)
+		          #else
+		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		          #endif
 		          
 		          While sh.IsRunning=true
 		            app.YieldToNextThread()
@@ -2172,7 +2175,8 @@ Protected Module DeNovoTFBSinference
 		  ' https://www.ncbi.nlm.nih.gov/books/NBK179288/
 		  
 		  
-		  Dim cmdStart As String = "esearch -db protein -query "+Chr(34)
+		  'Dim cmdStart As String = "esearch -db protein -query "+Chr(34)
+		  Dim cmdStart As String = "search -db protein -query "+Chr(34)
 		  Dim cmdEnd As String = Chr(34)+" | efetch -format fasta"
 		  Dim cmd As String
 		  
@@ -2180,7 +2184,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  Dim sh As New Shell
 		  
-		  userShell(cmd)
+		  userShell(cmd) 'Result is error
 		  
 		  
 		  Dim res As String
@@ -2387,12 +2391,16 @@ Protected Module DeNovoTFBSinference
 		    
 		  End If
 		  
-		  cli=cli+" -oc '"+PlaceQuotesToPath(outFolder.NativePath)+"' "+Options
+		  cli=cli+" -oc '"+outFolder.NativePath+"' "+Options
 		  
 		  sh=New Shell
 		  sh.mode=1
 		  sh.TimeOut=-1
-		  sh.execute("bash --login -c "+Chr(34)+cli+Chr(34)) 'Should be corrected
+		  #if TargetWin32
+		    sh.execute(cli)
+		  #else
+		    sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		  #endif
 		  While sh.IsRunning=true
 		    app.YieldToNextThread()
 		  wend

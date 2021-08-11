@@ -127,7 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -2174,7 +2174,11 @@ End
 		          sh.Mode=1
 		          sh.TimeOut=-1
 		          WriteToSTDOUT ("Running nhmmer..."+EndOfLine.UNIX)
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		          #if TargetWin32
+		            sh.execute(cli)
+		          #else
+		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		          #endif
 		          While sh.IsRunning=true
 		            App.DoEvents
 		          wend
@@ -2204,7 +2208,11 @@ End
 		          sh=New Shell
 		          sh.Mode=1
 		          sh.TimeOut=-1
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		          #if TargetWin32
+		            sh.execute(cli)
+		          #else
+		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		          #endif
 		          
 		          While sh.IsRunning=true
 		            App.DoEvents
