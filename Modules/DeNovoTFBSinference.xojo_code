@@ -2170,13 +2170,12 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function LocusTag2proteinFasta(locusTag as string, genomeName as string) As string
-		  // Uses locally installed NCBI Entrez Direct (EDirect) that should be installed locally
+		  // Uses NCBI Entrez Direct (EDirect) that should be installed on the user machine
 		  ' download link:
 		  ' https://www.ncbi.nlm.nih.gov/books/NBK179288/
 		  
 		  
-		  'Dim cmdStart As String = "esearch -db protein -query "+Chr(34)
-		  Dim cmdStart As String = "search -db protein -query "+Chr(34)
+		  Dim cmdStart As String = "esearch -db protein -query "+Chr(34)
 		  Dim cmdEnd As String = Chr(34)+" | efetch -format fasta"
 		  Dim cmd As String
 		  

@@ -16,9 +16,10 @@ CKSUM 236367303
 CRTAG 31,32,33,34,36,37
 PAL   yes
 WIDTH 15-20
-GA    21.10 21.10;
-TC    21.10 21.10;
-NC    21.00 21.00;
+GA    13.50 13.50;
+TC    13.50 13.50;
+NC    13.50 13.50;
+NOTE  Cutoffs lowered as the 21.1 default of original PFAM model was too high for Enterobacterales 
 BM    hmmbuild HMM.ann SEED.ann
 SM    hmmsearch -Z 26740544 -E 1000 --cpu 4 HMM pfamseq
 STATS LOCAL MSV       -7.2763  0.71942
