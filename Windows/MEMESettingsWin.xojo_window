@@ -681,9 +681,9 @@ End
 		    '#endif
 		    
 		    #if TargetWin32
-		      cli=TemporaryFolder.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath
+		      cli=PlaceQuotesToPath(TemporaryFolder.child("meme.exe").ShellPath)+" "+PlaceQuotesToPath(alignment_tmp.ShellPath)
 		    #else
-		      cli=MEMEpath+" "+alignment_tmp.ShellPath
+		      cli=MEMEpath+" "+PlaceQuotesToPath(alignment_tmp.ShellPath)
 		    #endif
 		    
 		    
@@ -727,7 +727,7 @@ End
 		    
 		    '[-oc <output dir>]    name of directory for output files
 		    'will replace existing directory
-		    cli=cli+" -oc "+LogoWin.MEMEtmp.ShellPath
+		    cli=cli+" -oc "+PlaceQuotesToPath(LogoWin.MEMEtmp.ShellPath)
 		    
 		    LogoWin.show
 		    LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")

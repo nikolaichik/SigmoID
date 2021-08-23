@@ -458,7 +458,7 @@ End
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then
 		    if f.exists then
-		      hmmgenpath=f.ShellPath
+		      hmmgenpath=PlaceQuotesToPath(f.ShellPath)
 		    else
 		      msgbox "Can't find the HmmGen.py script!"
 		    end if
@@ -469,7 +469,7 @@ End
 		  f=resources_f.child("RepeatGen.py")
 		  if f<>Nil then
 		    if f.exists then
-		      RepeatGenPath=f.ShellPath
+		      RepeatGenPath=PlaceQuotesToPath(f.ShellPath)
 		    else
 		      msgbox "Can't find the RepeatGen.py script!"
 		    end if
@@ -480,7 +480,7 @@ End
 		  f=resources_f.child("MastGen.py")
 		  if f<>Nil then
 		    if f.exists then
-		      mastgenpath=f.ShellPath
+		      mastgenpath=PlaceQuotesToPath(f.ShellPath)
 		      'SettingsWin.mastGenPathField.text=mastgenpath
 		    else
 		      msgbox "Can't find the MastGen.py script"
@@ -492,7 +492,7 @@ End
 		  f=resources_f.child("TermGen.py")
 		  if f<>Nil then
 		    if f.exists then
-		      TermGenpath=f.ShellPath
+		      TermGenpath=PlaceQuotesToPath(f.ShellPath)
 		      'SettingsWin.TermGenPathField.text=TermGenpath
 		    else
 		      msgbox "Can't find the TermGen.py script"
@@ -504,7 +504,7 @@ End
 		  f=resources_f.child("OperOn.py")
 		  if f<>Nil then
 		    if f.exists then
-		      OperOnPath=f.ShellPath
+		      OperOnPath=PlaceQuotesToPath(f.ShellPath)
 		      'SettingsWin.TermGenPathField.text=TermGenpath
 		    else
 		      msgbox "Can't find the OperOn.py script"
@@ -527,7 +527,12 @@ End
 		  If shError=0 Then
 		    If InStr(shResult,"Python 3")>0 Then
 		      pythonCheckString=pythonCheckString+Trim (shResult)
-		      pythonPath=SystemPath("python")+" " 
+		      pythonPath=SystemPath("python")+" "
+		      If pythonPath.Length=1 Then
+		        pythonPath="python "
+		      Else
+		        pythonPath=PlaceQuotesToPath(pythonPath)
+		      End If
 		    Else
 		      cli="python3 --version"
 		      userShell(cli)
@@ -535,6 +540,11 @@ End
 		        If InStr(shResult,"Python 3")>0 Then
 		          pythonCheckString=pythonCheckString+Trim (shResult)
 		          pythonPath=SystemPath("python3")+" "
+		          If pythonPath.Length=1 Then
+		            pythonPath="python "
+		          Else
+		            pythonPath=PlaceQuotesToPath(pythonPath)
+		          End If
 		        Else
 		          pythonPath=""
 		          WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
@@ -556,7 +566,7 @@ End
 		      f=resources_f.child("BioPythonVersion.py")
 		      if f<>Nil then
 		        if f.exists then
-		          cli=pythonPath+f.ShellPath
+		          cli=pythonPath+PlaceQuotesToPath(f.ShellPath)
 		          userShell(cli)
 		          If shError=0 Then
 		            pythonCheckString=pythonCheckString+" with Biopython "+shResult
@@ -579,11 +589,7 @@ End
 		  'WriteToSTDOUT ("Checking python scripts... "+EndOfLine.UNIX)
 		  
 		  'hmmgen
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+hmmGenPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+hmmGenPath+" -v"
-		  #endif
+		  cli=pythonPath+hmmGenPath+" -v"
 		  userShell(cli)
 		  dim hmmg as boolean=false
 		  If shError=0 Then
@@ -604,11 +610,7 @@ End
 		  end if
 		  
 		  'RepeatGen
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+RepeatGenPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+RepeatGenPath+" -v"
-		  #endif
+		  cli=pythonPath+RepeatGenPath+" -v"
 		  userShell(cli)
 		  hmmg=false
 		  If shError=0 Then
@@ -630,11 +632,7 @@ End
 		  
 		  'mastgen
 		  'WriteToSTDOUT ("Checking the MastGen script... ")
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+MastGenPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+MastGenPath+" -v"
-		  #endif
+		  cli=pythonPath+MastGenPath+" -v"
 		  userShell(cli)
 		  If shError=0 Then
 		    dim s As string=shResult
@@ -655,11 +653,7 @@ End
 		  
 		  'TermGen
 		  'WriteToSTDOUT ("Checking the TermGen script... ")
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+TermGenPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+TermGenPath+" -v"
-		  #endif
+		  cli=pythonPath+TermGenPath+" -v"
 		  userShell(cli)
 		  hmmg=false
 		  If shError=0 Then
@@ -681,11 +675,7 @@ End
 		  
 		  'OperOn
 		  'WriteToSTDOUT ("Checking the OperOn script... ")
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+OperOnPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+OperOnPath+" -v"
-		  #endif
+		  cli=pythonPath+OperOnPath+" -v"
 		  userShell(cli)
 		  hmmg=false
 		  If shError=0 Then
@@ -710,11 +700,7 @@ End
 		  'ptt_converter
 		  dim ptt_converterPath as string
 		  ptt_converterPath=Replace(HmmGenPath, "hmmgen.py", "ptt_converter.py")
-		  #if TargetWin32
-		    cli=pythonPath+chr(34)+ptt_converterPath+chr(34)+" -v"
-		  #else
-		    cli=pythonPath+ptt_converterPath+" -v"
-		  #endif
+		  cli=pythonPath+ptt_converterPath+" -v"
 		  userShell(cli)
 		  hmmg=false
 		  If shError=0 Then
@@ -739,11 +725,7 @@ End
 		  
 		  // nhmmer
 		  
-		  #if TargetWin32
-		    cli=chr(34)+nhmmerPath+chr(34)+" -h"
-		  #else
-		    cli=nhmmerPath+" -h"
-		  #endif
+		  cli=nhmmerPath+" -h"
 		  userShell(cli)
 		  If shError=0 Then
 		    dim s As string=shResult
@@ -764,11 +746,7 @@ End
 		  
 		  // hmmbuild
 		  
-		  #if TargetWin32
-		    cli=chr(34)+hmmBuildPath+chr(34)+" -h"
-		  #else
-		    cli=hmmBuildPath+" -h"
-		  #endif
+		  cli=hmmBuildPath+" -h"
 		  userShell(cli)
 		  If shError=0 Then
 		    dim s As string=shResult
@@ -789,11 +767,7 @@ End
 		  
 		  // alimask
 		  
-		  #if TargetWin32
-		    cli=chr(34)+alimaskPath+chr(34)+" -h"
-		  #else
-		    cli=alimaskPath+" -h"
-		  #endif
+		  cli=alimaskPath+" -h"
 		  userShell(cli)
 		  If shError=0 Then
 		    dim s As string=shResult
@@ -821,11 +795,7 @@ End
 		  #endif
 		  if f<>Nil then
 		    if f.exists then
-		      #if TargetWin32
-		        cli=chr(34)+f.ShellPath+chr(34)+" -h"
-		      #else
-		        cli=f.ShellPath+" -h"
-		      #endif
+		      cli=PlaceQuotesToPath(f.ShellPath)+" -h"
 		      userShell(cli)
 		      If shError=0 OR shError=3 then 'TransTerm returns error code when run without all args
 		        dim s As string
@@ -852,11 +822,7 @@ End
 		  
 		  // MEME
 		  
-		  #if TargetWin32
-		    cli=chr(34)+memePath+chr(34)+" -version"
-		  #else
-		    cli=memePath+" -version"
-		  #endif
+		  cli=memePath+" -version"
 		  userShell(cli)
 		  If shError=0 Then
 		    WriteToSTDOUT ("meme "+shResult)
@@ -867,11 +833,7 @@ End
 		  
 		  // MAST
 		  
-		  #if TargetWin32
-		    cli=chr(34)+MASTPath+chr(34)+" -version"
-		  #else
-		    cli=MASTPath+" -version"
-		  #endif
+		  cli=MASTPath+" -version"
 		  userShell(cli)
 		  If shError=0 Then
 		    WriteToSTDOUT ("mast "+shResult)
@@ -883,11 +845,7 @@ End
 		  
 		  // TomTom
 		  
-		  #if TargetWin32
-		    cli=chr(34)+TomTomPath+chr(34)+" -version"
-		  #else
-		    cli=TomTomPath+" -version"
-		  #endif
+		  cli=TomTomPath+" -version"
 		  userShell(cli)
 		  If shError=0 Then
 		    WriteToSTDOUT ("tomtom "+shResult)
@@ -921,11 +879,7 @@ End
 		  
 		  // tfastx
 		  
-		  #if TargetWin32
-		    cli=chr(34)+tfastxPath+chr(34)
-		  #else
-		    cli=tfastxPath
-		  #endif
+		  cli=tfastxPath
 		  userShell(cli)
 		  If shError=0 Then 
 		    dim s As string=shResult
@@ -1974,7 +1928,7 @@ End
 		    if alimaskTmp<>nil then
 		      if infile<>Nil then
 		        FixPath4Windows(alimaskTmp)
-		        cli=alimaskpath+" --alirange "+mask+weighting+inFile.ShellPath+" "+alimaskTmp.shellpath
+		        cli=alimaskpath+" --alirange "+mask+weighting+PlaceQuotesToPath(inFile.ShellPath)+" "+PlaceQuotesToPath(alimaskTmp.shellpath)
 		        
 		      else
 		        msgbox "Invalid input file for alimask"
@@ -2215,12 +2169,16 @@ End
 		            LogoWin.WriteToSTDOUT("Can't save fasta file with motif sequences."+EndOfLine.UNIX)
 		            Continue 
 		          End
-		          cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerOutput.shellpath+" "+MotifFile.ShellPath+" "+AnnotatedGenome.ShellPath
+		          cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerOutput.shellpath)+" "+PlaceQuotesToPath(MotifFile.ShellPath)+" "+PlaceQuotesToPath(AnnotatedGenome.ShellPath)
 		          sh=New Shell
 		          sh.Mode=1
 		          sh.TimeOut=-1
 		          WriteToSTDOUT ("Running nhmmer..."+EndOfLine.UNIX)
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		          #if TargetWin32
+		            sh.execute(cli)
+		          #else
+		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		          #endif
 		          While sh.IsRunning=true
 		            App.DoEvents
 		          wend
@@ -2240,17 +2198,21 @@ End
 		            Continue
 		          End if
 		          If hmmgenOutput.Exists Then hmmgenOutput.Remove
-		          cli=pythonPath+hmmGenPath+" "+nhmmerOutput.ShellPath+" "+AnnotatedGenome.ShellPath+" "
+		          cli=pythonPath+PlaceQuotesToPath(hmmGenPath)+" "+PlaceQuotesToPath(nhmmerOutput.ShellPath)+" "+PlaceQuotesToPath(AnnotatedGenome.ShellPath)+" "
 		          'intergenic distance is hardcoded, should be configurable
 		          'cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L 110 -n -f protein_bind -q"+chr(34)
-		          cli = cli + hmmgenOutput.ShellPath+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q bound_moiety"+chr(34)
+		          cli = cli + PlaceQuotesToPath(hmmgenOutput.ShellPath)+" -d -S "+trim(Nthfield(Nthfield(nhmmerOptions," -T",2),"--tblout",1))+" -i -b 50 -L "+str(MotifWidth)+" -n -f protein_bind -q bound_moiety"+chr(34)
 		          'cli = cli + chr(34)+"#"+chr(34)+MotifModel.TFname+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
 		          cli = cli + chr(34)+"#"+chr(34)+BoundMoietyStr+"-"+chr(34)+chr(34)+"inference"+chr(34)+chr(34)+"#"+chr(34)+"profile:nhmmer:3.3"
 		          
 		          sh=New Shell
 		          sh.Mode=1
 		          sh.TimeOut=-1
-		          sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
+		          #if TargetWin32
+		            sh.execute(cli)
+		          #else
+		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		          #endif
 		          
 		          While sh.IsRunning=true
 		            App.DoEvents
@@ -3428,7 +3390,7 @@ End
 		        outFilePath=outFile.ShellPath
 		      #endif
 		      
-		      cli=pythonPath+hmmGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
+		      cli=pythonPath+PlaceQuotesToPath(hmmGenPath)+" "+PlaceQuotesToPath(nhmmerResultFile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFilePath)+" "+HmmGenOptions
 		      
 		      userShell(cli)
 		      If shError=0 Then
@@ -3635,7 +3597,7 @@ End
 		    
 		    dim HmmSearchPath as string = replace(nhmmerPath,"/nhmmer","/hmmsearch")
 		    
-		    cli=HmmSearchPath+" "+hmmSearchSettings+" "+modelFile+" "+CDSfasta.ShellPath ' +" -o "+nhmmerResultFile.shellpath
+		    cli=PlaceQuotesToPath(HmmSearchPath)+" "+PlaceQuotesToPath(hmmSearchSettings)+" "+modelFile+" "+PlaceQuotesToPath(CDSfasta.ShellPath) ' +" -o "+nhmmerResultFile.shellpath
 		    
 		    
 		    WriteToSTDOUT (EndofLine+"Running hmmsearch...")
@@ -4334,7 +4296,7 @@ End
 		        GenomeFilePath=GenomeFile.shellpath
 		      #endif
 		      
-		      cli=pythonPath+MastGenPath+" "+MASTResultFile.ShellPath+" "+GenomeFilePath+" "+outFile.ShellPath+" "+HmmGenOptions
+		      cli=pythonPath+PlaceQuotesToPath(MastGenPath)+" "+PlaceQuotesToPath(MASTResultFile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFile.ShellPath)+" "+HmmGenOptions
 		      
 		      userShell(cli)
 		      If shError=0 Then
@@ -4496,7 +4458,7 @@ End
 		  
 		  
 		  
-		  cli=MASTpath+" "+ memetmp.shellpath+" "+outfile.shellpath +nhmmerOptions+" -hit_list"
+		  cli=MASTpath+" "+ PlaceQuotesToPath(memetmp.shellpath)+" "+PlaceQuotesToPath(outfile.shellpath) +nhmmerOptions+" -hit_list"
 		  userShell(cli)
 		  If shError=0 Then
 		    WriteToSTDOUT (EndofLine+shResult)
@@ -4709,7 +4671,7 @@ End
 		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		      HmmSearchPath = replace(nhmmerPath,"nhmmer","hmmsearch")
 		      
-		      cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" "+modelFile+" "+CDSfasta.ShellPath
+		      cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(alignmentsFile.ShellPath)+" "+modelFile+" "+PlaceQuotesToPath(CDSfasta.ShellPath)
 		      
 		      
 		      userShell(cli)
@@ -4791,15 +4753,15 @@ End
 		    if SigFileOpened then
 		      HmmFile.CopyFileTo(TemporaryFolder)
 		      dim HmmFileTmp as folderitem = TemporaryFolder.child(HmmFile.DisplayName)
-		      cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+HmmFileTmp.ShellPath+" "+GenomeFilePath
+		      cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerResultFile.shellpath)+" "+PlaceQuotesToPath(HmmFileTmp.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)
 		    else
 		      if masked then
 		        alimask LogoFile
 		        WriteToSTDOUT (EndofLine+EndofLine+"Alignment masked.")
 		        '/usr/local/bin/nhmmer
-		        cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+alimasktmp.ShellPath+" "+GenomeFilePath
+		        cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerResultFile.shellpath)+" "+PlaceQuotesToPath(alimasktmp.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)
 		      else
-		        cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+nhmmerResultFile.shellpath+" "+Logofile.ShellPath+" "+GenomeFilePath
+		        cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerResultFile.shellpath)+" "+PlaceQuotesToPath(Logofile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)
 		      end if
 		    end if
 		    
@@ -5129,7 +5091,7 @@ End
 		        outFilePath=outFile.ShellPath
 		      #endif
 		      
-		      cli=pythonPath+RepeatGenPath+" "+nhmmerResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" "+HmmGenOptions
+		      cli=pythonPath+PlaceQuotesToPath(RepeatGenPath)+" "+PlaceQuotesToPath(nhmmerResultFile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFilePath)+" "+HmmGenOptions
 		      
 		      userShell(cli)
 		      If shError=0 Then
@@ -5362,7 +5324,7 @@ End
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running TermGen script..."+EndofLine)
 		      
 		      FixPath4Windows(outfile)
-		      cli=pythonPath+TermGenPath+" "+GenomeFile.ShellPath+" "+outFile.ShellPath+" "+TermGenOptions
+		      cli=pythonPath+PlaceQuotesToPath(TermGenPath)+" "+PlaceQuotesToPath(GenomeFile.ShellPath)+" "+PlaceQuotesToPath(outFile.ShellPath)+" "+TermGenOptions
 		      
 		      userShell(cli)
 		      If shError=0 Then

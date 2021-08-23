@@ -558,7 +558,9 @@ End
 		      'assume bash is the normal user shell
 		      'execute bash with login scripts to set the same env as in terminal
 		      'command must be in single quotes
-		      cli="bash --login -c 'cdbyank -a "+Str(ProtNames(ubound(ProtNames)))+" "+trEMBL_fasta.ShellPath+"'"
+		      'Should be corrected
+		      'cli="bash --login -c 'cdbyank -a "+Str(ProtNames(ubound(ProtNames)))+" "+trEMBL_fasta.ShellPath+"'"
+		      cli="'cdbyank -a "+Str(ProtNames(ubound(ProtNames)))+" "+PlaceQuotesToPath(trEMBL_fasta.ShellPath)+"'"
 		      
 		      // samtools version:
 		      'cli="samtools faidx "+fastasource.shellpath+" "+str(ProtNames(ubound(ProtNames)))
@@ -879,9 +881,9 @@ End
 		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		      dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		      if instr(trEMBL_dat.ShellPath,".gz")>0 then
-		        cli="gunzip -c "+trEMBL_dat.ShellPath+" "+chr(124)+" "+ HmmSearchPath+" --cut_tc --notextw -A "+alignmentsFile.ShellPath+" -o "+hmmsearchoutput.ShellPath+" "+hmmPath+" -"
+		        cli="gunzip -c "+PlaceQuotesToPath(trEMBL_dat.ShellPath)+" "+chr(124)+" "+ PlaceQuotesToPath(HmmSearchPath)+" --cut_tc --notextw -A "+PlaceQuotesToPath(alignmentsFile.ShellPath)+" -o "+PlaceQuotesToPath(hmmsearchoutput.ShellPath)+" "+PlaceQuotesToPath(hmmPath)+" -"
 		      else
-		        cli=HmmSearchPath+" --cut_ga --notextw -A "+alignmentsFile.ShellPath+" -o "+hmmsearchoutput.ShellPath+" "+hmmPath+" "+trEMBL_dat.ShellPath
+		        cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(alignmentsFile.ShellPath)+" -o "+PlaceQuotesToPath(hmmsearchoutput.ShellPath)+" "+PlaceQuotesToPath(hmmPath)+" "+PlaceQuotesToPath(trEMBL_dat.ShellPath)
 		      end
 		      
 		      userShell(cli)

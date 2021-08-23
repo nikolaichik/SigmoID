@@ -79,7 +79,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +164,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +245,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -1618,7 +1618,7 @@ End
 			protFamilyPath=replace(logoWin.hmmGenPath,"hmmGen.py","ProtFamily.py")
 			
 			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
-			cli=pythonPath+protFamilyPath+" "+hmmsearchResultFile.ShellPath+" "+GenomeFilePath+" "+outFilePath+" -f "+TFfamilyDesc
+			cli=pythonPath+PlaceQuotesToPath(protFamilyPath)+" "+PlaceQuotesToPath(hmmsearchResultFile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFilePath)+" -f "+TFfamilyDesc
 			
 			userShell(cli)
 			If shError=0 Then
@@ -2959,7 +2959,7 @@ End
 		      GenomeFilePath=GenomeFile.shellpath
 		      outFilePath=outFile.ShellPath
 		    #endif
-		    cli=pythonPath+gbk2tblPath+" "+GenomeFilePath+" -p BSU > "+outFile.ShellPath
+		    cli=pythonPath+PlaceQuotesToPath(gbk2tblPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" -p BSU > "+PlaceQuotesToPath(outFile.ShellPath)
 		    
 		    userShell(cli)
 		    
@@ -3737,17 +3737,17 @@ End
 		    
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
-		    cli=HmmSearchPath+" "+hmmSearchSettings
+		    cli=PlaceQuotesToPath(HmmSearchPath)+" "+hmmSearchSettings
 		    if hmmSearchSettingsWin.AddAnnotationCheckBox.Value then
 		      hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")
 		      
 		      if hmmsearchResultFile<>nil then
-		        cli=cli +" -o "+hmmsearchResultFile.shellpath
+		        cli=cli +" -o "+PlaceQuotesToPath(hmmsearchResultFile.shellpath)
 		      else
 		        return false
 		      end if
 		    end if
-		    cli=cli+" "+modelFile+" "+CDSfasta.ShellPath
+		    cli=cli+" "+modelFile+" "+PlaceQuotesToPath(CDSfasta.ShellPath)
 		    
 		    logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
 		    userShell(cli)
@@ -4138,7 +4138,7 @@ End
 		  Logowin.show
 		  LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running the OperOn script..."+EndofLine)
 		  
-		  cli=pythonPath+LogoWin.OperOnPath+" "+GenomeFile.ShellPath+" "+OperOnOptions
+		  cli=pythonPath+PlaceQuotesToPath(LogoWin.OperOnPath)+" "+PlaceQuotesToPath(GenomeFile.ShellPath)+" "+OperOnOptions
 		  
 		  userShell(cli)
 		  If shError=0 Then

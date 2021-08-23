@@ -1511,7 +1511,7 @@ End
 		      
 		      dim sites2memePath as string
 		      #if targetWin32
-		        sites2memePath=nthfield(MEMEpath,"/meme.exe",1)+"/sites2meme"
+		        sites2memePath=PlaceQuotesToPath(nthfield(MEMEpath,"/meme.exe",1))+"/sites2meme"
 		      #else
 		        MEMEpath=trim(MEMEpath)
 		        if right(MEMEpath,1)="'" then
@@ -1522,9 +1522,9 @@ End
 		      #endif
 		      
 		      dim cli as string
-		      cli=sites2memePath+" "+"-map "+sitesMap.ShellPath
+		      cli=sites2memePath+" "+"-map "+PlaceQuotesToPath(sitesMap.ShellPath)
 		      cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
-		      cli=cli+" "+TFfamily_tmp.ShellPath
+		      cli=cli+" "+PlaceQuotesToPath(TFfamily_tmp.ShellPath)
 		      
 		      
 		      userShell(cli)
