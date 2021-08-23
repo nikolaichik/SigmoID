@@ -87,6 +87,7 @@ Begin Window EvidenceCodesWin
       Top             =   66
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   "0"
       Width           =   560
@@ -547,6 +548,46 @@ End
 		Group="Deprecated"
 		InitialValue="True"
 		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="AllCodes"
+		Visible=false
+		Group="Behavior"
+		InitialValue="[AIBSCS] Automated inference based on similarity to consensus sequences;[AIBSPD] Automated inference based on sequence pattern discovery;[APIORCISFBSCS] A person inferred or reviewed a computer inference of sequence function based on similarity to a consensus sequence;[APPH] Assay of protein purified to homogeneity;[APPHINH] Assay of protein purified to homogeneity from its native host;[BCE] Binding of cellular extracts;[BPP] Binding of purified proteins;[CEEUMA] ChIP-exo evidence used in manual assertion;[EME] Expression microarray evidence;[GEA] Gene expression analysis;[GS] genomic SELEX;[HIFS] Human inference of function from sequence;[IDA] Inferred from direct assay;[IHBCE] Inferred by a human based on computational evidence;[IE] Inferred from experiment;[IEP] Inferred from expression pattern;[IGI] Inferred from genetic interaction;[IMP] Inferred from mutant phenotype;[IPI] Inferred from physical interaction;[RSE] RNA-seq evidence;[SM] Site mutation"
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CheckBcount"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CheckedCodes"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="string"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="StrongCodes"
+		Visible=false
+		Group="Behavior"
+		InitialValue="[APPH][APPHINH][BPP][IDA][SM]"
+		Type="string"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Untitled"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

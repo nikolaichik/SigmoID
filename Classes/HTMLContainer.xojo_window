@@ -141,7 +141,6 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   6
       Transparent     =   False
       Visible         =   True
@@ -164,7 +163,6 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   6
       Transparent     =   False
       Visible         =   True
@@ -196,6 +194,22 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Method, Flags = &h0
+		Sub AdjustTabWidth()
+		  Dim tabNo As Integer = WebBrowserWin.BrowserPagePanel.PanelCount
+		  Dim maxW As Integer = (WebBrowserWin.BrowserTabs.Width-70)/TabNo - 20
+		  For page As Integer = 0 To tabNo-1
+		    If WebBrowserWin.BrowserTabs.tabs(page).width>maxW Then
+		      If maxW>70 Then
+		        WebBrowserWin.BrowserTabs.tabs(page).width=maxW
+		      Else
+		        WebBrowserWin.BrowserTabs.tabs(page).width=70
+		      End If
+		    End If
+		  Next
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub FwdBackCheck()
 		  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
@@ -283,16 +297,26 @@ End
 		  
 		  // Checks for title changes for each browser tab and update tab captions
 		  Dim cap, tit As String
-		  For page As Integer = 0 To WebBrowserWin.BrowserPagePanel.PanelCount-1
+		  Dim tabNo As Integer = WebBrowserWin.BrowserPagePanel.PanelCount
+		  For page As Integer = 0 To tabNo-1
 		    cap=WebBrowserWin.BrowserTabs.tabs(page).caption
 		    tit=WebBrowserWin.mBrowserTabs(page).Title
 		    If WebBrowserWin.mBrowserTabs(page).Title <> WebBrowserWin.BrowserTabs.tabs(page).caption Then
+		      'Update title
 		      WebBrowserWin.BrowserTabs.tabs(page).caption = WebBrowserWin.mBrowserTabs(page).Title
 		    End If
 		  Next
 		  
+		  adjustTabWidth
+		  
+		  
+		  
 		  WebBrowserWin.BrowserTabs.RePaint
 		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"HTMLcontainer:WebViewer:titleChanged")
+		    
 		End Sub
 	#tag EndEvent
 	#tag Event

@@ -1088,14 +1088,14 @@ Begin Window ProfileWizardWin
    Begin Listbox RefsList
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
-      AllowExpandableRows=   False
+      AllowExpandableRows=   True
       AllowFocusRing  =   True
-      AllowResizableColumns=   False
+      AllowResizableColumns=   True
       AllowRowDragging=   False
       AllowRowReordering=   False
       Bold            =   False
-      ColumnCount     =   2
-      ColumnWidths    =   ""
+      ColumnCount     =   3
+      ColumnWidths    =   "*,120,120"
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
@@ -1114,13 +1114,13 @@ Begin Window ProfileWizardWin
       Height          =   104
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "References	Evidence Codes"
+      InitialValue    =   "References	DOI(PMID)	Evidence Codes"
       Italic          =   False
       Left            =   12
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
       RowSelectionType=   "0"
@@ -1172,7 +1172,7 @@ Begin Window ProfileWizardWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
       RowSelectionType=   "0"
@@ -1848,7 +1848,7 @@ End
 		              outstream = TextOutputStream.Create(f2)
 		              Dim z as Integer
 		              For z=0 To RefsList.RowCount-1
-		                Dim aLine As String=RefsList.CellValueAt(z,0)+Chr(9)+RefsList.CellValueAt(z,1) 'ParamArray format for easier loading
+		                Dim aLine As String=RefsList.CellValueAt(z,0)+Chr(9)+RefsList.CellValueAt(z,1)+Chr(9)+RefsList.CellValueAt(z,2)
 		                If Trim(aLine)<>"" Then
 		                  outstream.WriteLine(aline)
 		                End If
@@ -2115,14 +2115,50 @@ End
 #tag Events RefsList
 	#tag Event
 		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
-		  If row>0 And column=1 Then
+		  If row>0 And column=2 Then      'edit evidence
 		    EvidenceCodesWin.LoadCodes(Me.CellValueAt(row,column))
 		    EvidenceCodesWin.showmodal
 		    Me.CellValueAt(row,column)=EvidenceCodesWin.CheckedCodes
 		    
 		  End If
 		  
-		  'check to see if this is the last row and add a new one is so
+		  If Keyboard.CommandKey Or Keyboard.ControlKey Then  'need modifiers as the cell is editable
+		    If row>0 And column=1 Then      'follow link
+		      'check if it's a DOI
+		      Dim linkID As String = Trim(Me.CellValueAt(row,column))
+		      Dim URL As String
+		      If Left(linkID,3)="10." And InStr(linkID,"/")>0 Then
+		        URL="https://doi.org/"
+		      Else 'assume it's a pubmed ID
+		        URL="https://pubmed.ncbi.nlm.nih.gov/"
+		      End If
+		      
+		      URL=URL+linkID
+		      WebBrowserWin.show
+		      'WebBrowserWin.AddNewTab.LoadURL(url)
+		      
+		      Dim pc As Integer
+		      Dim ca As String
+		      
+		      If WebBrowserWin.BrowserPagePanel.PanelCount>0 Then
+		        pc = WebBrowserWin.BrowserPagePanel.PanelCount
+		        ca = WebBrowserWin.BrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption
+		        If WebBrowserWin.BrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption="" Then 'load the page into the empty tab
+		          AlreadyOpeningTab=True
+		        End If
+		      End If
+		      WebBrowserWin.LoadPage(url)
+		      If ubound(WebBrowserWin.BrowserTabs.tabs)>0 Then
+		        If WebBrowserWin.BrowserTabs.tabs(0).caption="" Or WebBrowserWin.BrowserTabs.tabs(0).caption="Untitled" Then
+		          If Not WebBrowserWin.mBrowserTabs(0).webViewer.canGoBack Then
+		            WebBrowserWin.BrowserTabs.removeTab(0)
+		          End If
+		        End If
+		      End If
+		    End If
+		  End If
+		  
+		  'check to see if this is the last row and add a new one if so
 		  
 		  If row=Me.RowCount-1 Then'last row
 		    
@@ -2132,13 +2168,16 @@ End
 		    
 		    
 		  End If
+		  Exception err
+		    ExceptionHandler(err,"ProfileWizardWin:RefsList:CellClick")
 		End Function
 	#tag EndEvent
 	#tag Event
 		Sub Open()
 		  Me.AddRow
 		  
-		  me.ColumnTypeAt(0) = ListBox.CellTypes.TextArea
+		  Me.ColumnTypeAt(0) = ListBox.CellTypes.TextArea
+		  me.ColumnTypeAt(1) = ListBox.CellTypes.TextField
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -2164,6 +2203,13 @@ End
 		  End If
 		End Function
 	#tag EndEvent
+	#tag Event
+		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
+		  If row >0 And column = 1 Then
+		    g.DrawingColor = &c0F7FFE00
+		  End If
+		End Function
+	#tag EndEvent
 #tag EndEvents
 #tag Events CuratorList
 	#tag Event
@@ -2172,6 +2218,7 @@ End
 		  Me.ColumnTypeAt(0) = ListBox.CellTypes.TextArea
 		  Me.ColumnTypeAt(1) = ListBox.CellTypes.TextArea
 		  Me.ColumnTypeAt(2) = ListBox.CellTypes.TextArea
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -2195,6 +2242,59 @@ End
 		  Elseif Key=Chr(&h0D) Then 'Enter key
 		    Me.AddRowAt(Me.SelectedRowIndex,"")
 		  End If
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
+		  If row >0 And column = 1 Then
+		    g.DrawingColor = &c0F7FFE00
+		  End If
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
+		  
+		  If Keyboard.CommandKey Or Keyboard.ControlKey Then  'need modifiers as the cell is editable
+		    
+		    If row>0 And column=1 Then      'follow link
+		      'check whether it's a web link or mail address
+		      Dim linkID As String = Trim(Me.CellValueAt(row,column))
+		      Dim URL As String
+		      If Left(linkID,4)="http" And InStr(linkID,"//")>0 Then
+		        WebBrowserWin.show
+		        'WebBrowserWin.AddNewTab.LoadURL(linkID)
+		        If WebBrowserWin.BrowserPagePanel.PanelCount>0 Then
+		          If WebBrowserWin.BrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption=""  Or WebBrowserWin.BrowserTabs.tabs(0).caption="Untitled" Then 'load the page into the empty tab
+		            AlreadyOpeningTab=True
+		          End If
+		        End If
+		        
+		        
+		        
+		        If WebBrowserWin.BrowserPagePanel.PanelCount>0 Then
+		          If WebBrowserWin.BrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption="" Then 'load the page into the empty tab
+		            AlreadyOpeningTab=True
+		          End If
+		        End If
+		        
+		        WebBrowserWin.LoadPage(linkID)
+		        
+		        If ubound(WebBrowserWin.BrowserTabs.tabs)>0 Then
+		          If WebBrowserWin.BrowserTabs.tabs(0).caption="" Or WebBrowserWin.BrowserTabs.tabs(0).caption="Untitled" Then
+		            If Not WebBrowserWin.mBrowserTabs(0).webViewer.canGoBack Then
+		              WebBrowserWin.BrowserTabs.removeTab(0)
+		            End If
+		          End If
+		        End If
+		      Elseif InStr(linkID,"@")>0 Then 'hopefully an email address
+		        ShowURL("mailto:"+linkID)
+		      End If
+		    End If
+		    
+		  End If
+		  Exception err
+		    ExceptionHandler(err,"ProfileWizardWin:CuratorList:CellClick")
+		    
 		End Function
 	#tag EndEvent
 #tag EndEvents
