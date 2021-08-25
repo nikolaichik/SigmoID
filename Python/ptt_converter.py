@@ -15,7 +15,7 @@ def createParser():
             )
     parser.add_argument('input_file',
                         help='''path to input Genbank file.''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.21 (June 4, 2021)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.21 (August 25, 2021)')
     return parser
 
 
@@ -49,6 +49,8 @@ def ptt_location(feature):
 
 def ptt_pid(feature):
     pid = '-'
+    # Feature of Python 3. 'has_key' is no longer available
+    #if feature.qualifiers.has_key('db_xref'):
     if 'db_xref' in feature.qualifiers:
         pid = feature.qualifiers['db_xref']
         if type(pid) == list and any(value.startswith('GI:') for value in pid):
@@ -65,6 +67,7 @@ def ptt_pid(feature):
 
 def ptt_gene(feature):
     if 'gene' in feature.qualifiers:
+    #if feature.qualifiers.has_key('gene'):
         gene = str(feature.qualifiers['gene'])[2:-2]
     else:
         gene = '-'
@@ -72,7 +75,9 @@ def ptt_gene(feature):
 
 
 def ptt_synonym(feature):
+    # Feature of Python 3. 'has_key' is no longer available
     if 'gene_synonym' in feature.qualifiers:
+    #if feature.qualifiers.has_key('gene_synonym'):
         synonym = str(feature.qualifiers['gene_synonym']).replace('\'', '').replace('[', '').replace(']', '')
     else:
         synonym = '-'
@@ -80,7 +85,9 @@ def ptt_synonym(feature):
 
 
 def ptt_code(feature):
+    # Feature of Python 3. 'has_key' is no longer available
     if 'locus_tag' in feature.qualifiers:
+    #if feature.qualifiers.has_key('locus_tag'):
         code = str(feature.qualifiers['locus_tag'])[2:-2]
     else:
         code = '-'
@@ -88,7 +95,9 @@ def ptt_code(feature):
 
 
 def ptt_product(feature):
+    # Feature of Python 3. 'has_key' is no longer available
     if 'product' in feature.qualifiers:
+    #if feature.qualifiers.has_key('product'):
         product = str(feature.qualifiers['product'])[2:-2]
     else:
         product = '-'
@@ -128,3 +137,4 @@ for record in gbk:
         output += '\n%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s' % (location, strand, length, pid, gene, synonym, code, cog,
                                                             product)
     ptt_writer(record, output, cwd)
+#gbk.close()

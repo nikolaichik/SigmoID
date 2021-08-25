@@ -28,7 +28,7 @@ class GenbankFeature(object):
         out += 'qualifiers %s\n' % self.qualifiers
         return out
 
-class GenbankFile(file):
+class GenbankFile():
     def __init__(self, path=None):
         self.path = path
         self.file = open(self.path, 'r')
