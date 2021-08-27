@@ -51,7 +51,7 @@ Protected Module DeNovoTFBSinference
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
 		  Dim cli As String
 		  if outfile.Exists then outfile.Delete
-		  cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru/autosome/ChIPHorde.class "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+PlaceQuotesToPath(Str(inFile.NativePath))+"'"
+		  cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+Str(inFile.NativePath)+"'"
 		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
 		  for i as integer = 0 to WindowCount - 1
@@ -2179,18 +2179,10 @@ Protected Module DeNovoTFBSinference
 		  Dim cmdEnd As String
 		  #If targetWin32
 		    dim f As FolderItem
-		    'Work in progress here
-		    'f=resources_f.child("test_terminal.py")
-		    'Dim pythonShellPath As String = PlaceQuotesToPath(f.ShellPath) + " "
-		    'Dim pythonShellPath As String = "D:/test_terminal.py "
-		    'cmdStart = pythonPath+pythonShellPath+"'e:/cygwin/bin/bash.exe --login -c \"+chr(34)+"./edirect/esearch -db protein -query "
-		    'cmdEnd = "  ./edirect/efetch -format fasta\"+chr(34)+"'"
-		    'cmdStart = pythonPath+pythonShellPath+"'e:/cygwin/bin/bash.exe --login -c " +chr(34)+chr(34)+ "./edirect/esearch -db protein -query "
-		    'cmdEnd = " | ./edirect/efetch -format fasta"+chr(34)+chr(34)+"'"
-		    'cmdStart = pythonPath+pythonShellPath+"'e:/cygwin/bin/bash.exe --login -c " +chr(34)+chr(34)+ "./edirect/esearch"
-		    'cmdEnd = chr(34)+chr(34)+"'"
-		    cmdStart = "e:/cygwin/bin/bash.exe --login -c './edirect/esearch -db protein -query "+chr(34)
-		    cmdEnd = chr(34)+" | ./edirect/efetch -format fasta'"
+		    ' Work in progress here
+		    cmdStart = "esearch -db protein -query "+Chr(34)
+		    cmdEnd = Chr(34)+" | efetch -format fasta"
+		    
 		  #Else 
 		    cmdStart = "esearch -db protein -query "+Chr(34)
 		    cmdEnd = Chr(34)+" | efetch -format fasta"
@@ -2199,12 +2191,10 @@ Protected Module DeNovoTFBSinference
 		  Dim cmd As String
 		  
 		  cmd=cmdStart+locusTag+cmdEnd
-		  
 		  Dim sh As New Shell
 		  
 		  #If targetWin32
-		    'ExecuteCygWin(cmd)
-		    userShell(cmd)
+		    ExecuteCygWin(cmd)
 		  #Else 
 		    userShell(cmd)
 		  #EndIf

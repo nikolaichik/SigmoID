@@ -826,6 +826,13 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ExecuteCygWin(cmd as string)
+		  userShell("E:\cygwin\bin\bash.exe --login -c '" + cmd+"'")
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Fasta2IC(logoData as string) As Double
 		  // Calculate Information content from alignment data
 		  ' (simlified version of MakeLogoPic)
@@ -2607,7 +2614,8 @@ Protected Module Globals
 		    dim cli as string
 		    
 		    
-		    cli=MEMEpath+" -nmotifs 1 -dna -text -w "+str(ml)+" "
+		    'cli=MEMEpath+" -nmotifs 1 -dna -text -w "+str(ml)+" "
+		    cli="meme -nmotifs 1 -dna -text -w "+str(ml)+" "
 		    if Palindromic then            
 		      cli=cli+"-pal -revcomp "
 		    end if
@@ -2615,7 +2623,11 @@ Protected Module Globals
 		    cli=cli+" > "+PlaceQuotesToPath(MEMEtmp.ShellPath)
 		    
 		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
-		    userShell(cli)
+		    #if TargetWin32
+		      ExecuteCygWin(cli)
+		    #else
+		      userShell(cli)
+		    #endif
 		    If shError=0 Then
 		      Logowin.WriteToSTDOUT (" OK") '(EndofLine+shResult)
 		      

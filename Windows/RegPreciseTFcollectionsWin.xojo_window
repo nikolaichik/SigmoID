@@ -1511,7 +1511,8 @@ End
 		      
 		      dim sites2memePath as string
 		      #if targetWin32
-		        sites2memePath=PlaceQuotesToPath(nthfield(MEMEpath,"/meme.exe",1))+"/sites2meme"
+		        'sites2memePath=PlaceQuotesToPath(nthfield(MEMEpath,"/meme.exe",1))+"/sites2meme"
+		        sites2memePath=""
 		      #else
 		        MEMEpath=trim(MEMEpath)
 		        if right(MEMEpath,1)="'" then
@@ -1527,7 +1528,11 @@ End
 		      cli=cli+" "+PlaceQuotesToPath(TFfamily_tmp.ShellPath)
 		      
 		      
-		      userShell(cli)
+		      #If targetWin32
+		        ExecuteCygWin(cli)
+		      #Else 
+		        userShell(cli)
+		      #EndIf
 		      
 		      
 		      If shError=0 Then
