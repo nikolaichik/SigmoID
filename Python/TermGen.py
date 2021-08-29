@@ -48,7 +48,7 @@ def createParser():
                         type=int,
                         metavar='<integer>',
                         help='''The loop portion can be no longer than n''')
-    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.17 (June 4, 2021)')
+    parser.add_argument('-v','--version', action='version', version='%(prog)s 1.18 (August 25, 2021)')
     return parser
 
 args = createParser()
@@ -87,8 +87,8 @@ else:
     renamed = cwd.split('\\')
     for d in renamed:
         if any(symbol == ' ' for symbol in d):
-            renamed_cwd += '"%s"\\' % d
-            expterm_cwd += '"%s"\\' % d
+            renamed_cwd += '%s\\' % d
+            expterm_cwd += '%s\\' % d
         elif any(symbol == ':' for symbol in d):
             renamed_cwd += '%s\\' % d
             expterm_cwd += '%s\\\\' % d
@@ -98,7 +98,7 @@ else:
 tmp_directory = tempfile.gettempdir()
 
 # creating output info
-print ('\nTermGen 1.15 (March 25, 2017)')
+print ('\nTermGen 1.18 (August 25, 2021)')
 print ("="*50)
 output_args = ''
 for arg in range(1, len(sys.argv)):
@@ -146,9 +146,11 @@ if platform.system() != 'Windows':
     edited_input = edited_input.replace(')', '\)')
     ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, edited_input)
 else:
-    ptt_converter = 'C:\Python27\python %s\ptt_converter.py %s' % (expterm_cwd, enter.input_file.replace(' ', '^ '))
+    # This is an error. We are using Python 3. It is better to use just 'python'.
+    #ptt_converter = 'C:\Python27\python %s\ptt_converter.py %s' % (expterm_cwd, enter.input_file.replace(' ', '^ '))
+    ptt_converter = 'python "%s\ptt_converter.py" %s' % (expterm_cwd, enter.input_file.replace(' ', '^ '))
 os.system(ptt_converter)
-
+    
 # sets paths for TransTerm HP input files
 if platform.system() != 'Windows':
     fasta_name = fusedname.replace(' ', '\\ ')
@@ -185,10 +187,28 @@ if platform.system() != 'Windows':
                                                                                         renamed_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
 else:
-    transterm_cmd = '%stransterm --min-conf=%s %s -S -p %sexpterm.dat %s %s > "%s"' % (renamed_cwd,
+    # In Windows there are .exe programs
+
+    renamed_cwd = ''
+    expterm_cwd = ''
+    renamed = cwd.split('\\')
+    for d in renamed:
+        if any(symbol == ' ' for symbol in d):
+            renamed_cwd += '"%s"\\' % d
+            expterm_cwd += '%s\\' % d
+        elif any(symbol == ':' for symbol in d):
+            renamed_cwd += '%s\\' % d
+            expterm_cwd += '%s\\' % d
+        else:
+            renamed_cwd += '%s\\' % d
+            expterm_cwd += '%s\\' % d
+
+    transterm_cmd = '%stransterm.exe --min-conf=%s %s -S -p "%sexpterm.dat" %s %s > "%s"' % (renamed_cwd,
                                                                                         enter.confidence, additional_options,
                                                                                         expterm_cwd, fasta_file,
                                                                                         ptt_file, transterm_output)
+                                                                                        
+
 os.system(transterm_cmd)
 
 
