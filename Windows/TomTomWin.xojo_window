@@ -619,17 +619,28 @@ End
 		        'run tomtom
 		        dim cli, TToptions as string
 		        
-		        TToptions=" "+Trim(TomTomOptionsField.Text)+" "
 		        
-		        cli=PlaceQuotesToPath(tomtomPath)+" -oc "+PlaceQuotesToPath(inFolder.ShellPath)
-		        
-		        'need to add background model here like this:
-		        '-bfile /Users/Home/Documents/SQ2/LacI/LacI_bacgroundModel.markov
-		        
-		        cli=cli+TToptions+PlaceQuotesToPath(inFolder.Item(n).ShellPath)+TTlibString
-		        
-		        
-		        userShell(cli)
+		        #if TargetWin32
+		          TToptions=" "+Trim(TomTomOptionsField.Text)+" "
+		          
+		          cli="tomtom"+" -oc "+PlaceQuotesToPath(inFolder.ShellPath)
+		          
+		          'need to add background model here like this:
+		          '-bfile /Users/Home/Documents/SQ2/LacI/LacI_bacgroundModel.markov
+		          
+		          cli=cli+TToptions+PlaceQuotesToPath(inFolder.Item(n).ShellPath)+TTlibString
+		          ExecuteCygWin(cli)
+		        #else
+		          TToptions=" "+Trim(TomTomOptionsField.Text)+" "
+		          
+		          cli=PlaceQuotesToPath(tomtomPath)+" -oc "+PlaceQuotesToPath(inFolder.ShellPath)
+		          
+		          'need to add background model here like this:
+		          '-bfile /Users/Home/Documents/SQ2/LacI/LacI_bacgroundModel.markov
+		          
+		          cli=cli+TToptions+PlaceQuotesToPath(inFolder.Item(n).ShellPath)+TTlibString
+		          userShell(cli)
+		        #endif
 		        If shError=0 Then
 		          'OK
 		        else
