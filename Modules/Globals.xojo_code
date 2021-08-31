@@ -826,8 +826,15 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ExecuteCygWin(cmd as string)
-		  userShell("E:\cygwin\bin\bash.exe --login -c '" + cmd+"'")
+		Sub ExecuteCygWin(cmd as string, mode as boolean = true)
+		  ' mode resolves what quotes should be set 
+		  ' false - " 
+		  ' true - '
+		  If mode = true Then
+		    userShell("E:\cygwin\bin\bash.exe --login -c '" + cmd+"'")
+		  Else
+		    userShell("E:\cygwin\bin\bash.exe --login -c "+chr(34)+cmd+chr(34))
+		  End If
 		  
 		End Sub
 	#tag EndMethod
@@ -4541,6 +4548,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		TTlibString As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		UserShellMode As Integer = 0
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

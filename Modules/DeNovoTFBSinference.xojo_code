@@ -51,9 +51,17 @@ Protected Module DeNovoTFBSinference
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
 		  Dim cli As String
 		  if outfile.Exists then outfile.Delete
-		  cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+Str(inFile.NativePath)+"'"
-		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
-		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
+		  #If targetWin32
+		    dim copyDestination As FolderItem
+		    copyDestination=resources_f
+		    inFile.CopyFileTo(copyDestination)
+		    cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+chr(34)+Str(copyDestination.NativePath+inFile.Name)+chr(34)+""
+		    cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
+		  #Else 
+		    cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+Str(copyDestination.NativePath+inFile.Name)+"'"
+		    cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
+		    'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
+		  #EndIf
 		  for i as integer = 0 to WindowCount - 1
 		    if window(i) isa deNovoWin then
 		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Running ChIPmunk...")
@@ -2177,11 +2185,14 @@ Protected Module DeNovoTFBSinference
 		  
 		  Dim cmdStart As String
 		  Dim cmdEnd As String
+		  Dim f As FolderItem
+		  f=Resources_f
+		  Dim OutputFilePath As String = f.NativePath + "output.txt"
+		  'OutputFilePath="D:/output.txt"
 		  #If targetWin32
-		    dim f As FolderItem
 		    ' Work in progress here
-		    cmdStart = "esearch -db protein -query "+Chr(34)
-		    cmdEnd = Chr(34)+" | efetch -format fasta"
+		    cmdStart = "esearch -db protein -query "
+		    cmdEnd = " | efetch -format fasta >> "+chr(34)+chr(34)+OutputFilePath+chr(34)+chr(34)
 		    
 		  #Else 
 		    cmdStart = "esearch -db protein -query "+Chr(34)
@@ -2189,21 +2200,29 @@ Protected Module DeNovoTFBSinference
 		  #EndIf
 		  
 		  Dim cmd As String
-		  
 		  cmd=cmdStart+locusTag+cmdEnd
-		  Dim sh As New Shell
 		  
 		  #If targetWin32
-		    ExecuteCygWin(cmd)
+		    UserShellMode=1
+		    ExecuteCygWin(cmd, false)
 		  #Else 
 		    userShell(cmd)
 		  #EndIf
 		  
-		  
 		  Dim res As String
 		  Dim m,n As Integer
-		  
 		  res=shResult
+		  
+		  #If targetWin32
+		    Dim output As New FolderItem(OutputFilePath)
+		    While output=Nil
+		      App.SleepCurrentThread(50)
+		    Wend
+		    While output.Length=0
+		      App.SleepCurrentThread(50)
+		    Wend
+		    res= TextInputStream.Open(output).ReadAll
+		  #Endif
 		  
 		  If InStr(res, ">")>0 Then 'find correct seq among several possible
 		    'we simply check for the presence of all words of genomeName within fasta title
