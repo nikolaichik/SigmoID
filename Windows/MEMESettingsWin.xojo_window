@@ -736,6 +736,7 @@ End
 		    
 		    
 		    #if TargetWin32
+		      cli = cli.ReplaceAll("\", "/")
 		      ExecuteCygWin(cli)
 		    #else
 		      userShell(cli)
