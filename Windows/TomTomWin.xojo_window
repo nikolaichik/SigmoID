@@ -629,6 +629,7 @@ End
 		          '-bfile /Users/Home/Documents/SQ2/LacI/LacI_bacgroundModel.markov
 		          
 		          cli=cli+TToptions+PlaceQuotesToPath(inFolder.Item(n).ShellPath)+TTlibString
+		          cli = cli.ReplaceAll("\", "/")
 		          ExecuteCygWin(cli)
 		        #else
 		          TToptions=" "+Trim(TomTomOptionsField.Text)+" "
