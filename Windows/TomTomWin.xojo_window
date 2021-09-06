@@ -623,14 +623,13 @@ End
 		        #if TargetWin32
 		          TToptions=" "+Trim(TomTomOptionsField.Text)+" "
 		          
-		          cli="tomtom"+" -oc "+PlaceQuotesToPath(inFolder.ShellPath)
+		          cli="tomtom"+" -oc "+PlaceQuotesToPath(MakeWSLPath(inFolder.ShellPath))
 		          
 		          'need to add background model here like this:
 		          '-bfile /Users/Home/Documents/SQ2/LacI/LacI_bacgroundModel.markov
 		          
-		          cli=cli+TToptions+PlaceQuotesToPath(inFolder.Item(n).ShellPath)+TTlibString
-		          cli = cli.ReplaceAll("\", "/")
-		          ExecuteCygWin(cli)
+		          cli=cli+TToptions+PlaceQuotesToPath(MakeWSLPath(inFolder.Item(n).ShellPath))+TTlibString
+		          ExecuteWSL(cli)
 		        #else
 		          TToptions=" "+Trim(TomTomOptionsField.Text)+" "
 		          
@@ -702,7 +701,7 @@ End
 		      for n=1 to m
 		        
 		        if right(LibFolder.Item(n).Name,5)=".meme" then
-		          libstring=libstring+" "+LibFolder.Item(n).ShellPath
+		          libstring=libstring+" "+PlaceQuotesToPath(MakeWSLPath(LibFolder.Item(n).ShellPath))
 		          
 		        end if
 		        

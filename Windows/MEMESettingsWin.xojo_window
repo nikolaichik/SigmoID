@@ -683,7 +683,7 @@ End
 		    #if TargetWin32
 		      'cli=PlaceQuotesToPath(TemporaryFolder.child("meme.exe").ShellPath)+" "+PlaceQuotesToPath(alignment_tmp.ShellPath)
 		      'cli=MEMEpath+" "+PlaceQuotesToPath(alignment_tmp.ShellPath)
-		      cli="meme "+PlaceQuotesToPath(alignment_tmp.ShellPath)
+		      cli="meme "+PlaceQuotesToPath(MakeWSLPath(alignment_tmp.ShellPath))
 		    #else
 		      cli=MEMEpath+" "+alignment_tmp.ShellPath
 		    #endif
@@ -729,15 +729,14 @@ End
 		    
 		    '[-oc <output dir>]    name of directory for output files
 		    'will replace existing directory
-		    cli=cli+" -oc "+PlaceQuotesToPath(LogoWin.MEMEtmp.ShellPath)
+		    cli=cli+" -oc "+PlaceQuotesToPath(MakeWSLPath(LogoWin.MEMEtmp.ShellPath))
 		    
 		    LogoWin.show
 		    LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
 		    
 		    
 		    #if TargetWin32
-		      cli = cli.ReplaceAll("\", "/")
-		      ExecuteCygWin(cli)
+		      ExecuteWSL(cli)
 		    #else
 		      userShell(cli)
 		    #endif

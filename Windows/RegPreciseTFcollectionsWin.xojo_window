@@ -1523,13 +1523,13 @@ End
 		      #endif
 		      
 		      dim cli as string
-		      cli=sites2memePath+" "+"-map "+PlaceQuotesToPath(sitesMap.ShellPath)
+		      cli=sites2memePath+" "+"-map "+PlaceQuotesToPath(MakeWSLPath(sitesMap.ShellPath))
 		      cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
-		      cli=cli+" "+PlaceQuotesToPath(TFfamily_tmp.ShellPath)
+		      cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(TFfamily_tmp.ShellPath))
 		      
 		      
 		      #If targetWin32
-		        ExecuteCygWin(cli)
+		        ExecuteWSL(cli)
 		      #Else 
 		        userShell(cli)
 		      #EndIf

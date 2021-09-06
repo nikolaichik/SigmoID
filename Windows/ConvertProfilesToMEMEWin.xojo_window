@@ -996,10 +996,10 @@ End
 		      Dim cli As String
 		      cli=sites2memePath'+" "+"-map "+sitesMap.ShellPath
 		      'cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
-		      cli=cli+" "+PlaceQuotesToPath(TFfamily_tmp.ShellPath)
+		      cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(TFfamily_tmp.ShellPath))
 		      
 		      #If targetWin32
-		        ExecuteCygWin(cli)
+		        ExecuteWSL(cli)
 		      #Else 
 		        userShell(cli)
 		      #EndIf
