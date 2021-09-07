@@ -826,6 +826,21 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ExecuteWSL(cmd as string, mode as boolean = true, cmdend as string = "")
+		  ' mode resolves what quotes should be set 
+		  ' false - " 
+		  ' true - '
+		  WSLCommand = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c "
+		  If mode = true Then
+		    userShell(WSLCommand + "'" + cmd+"'" + cmdend)
+		  Else
+		    userShell(WSLCommand+chr(34)+cmd+chr(34)+cmdend)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Fasta2IC(logoData as string) As Double
 		  // Calculate Information content from alignment data
 		  ' (simlified version of MakeLogoPic)
@@ -2555,6 +2570,18 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function MakeWSLPath(path as string) As string
+		  #if TargetWin32
+		    path = path.ReplaceAll("\", "/")
+		    path = path.Lowercase()
+		    path = path.Replace(":", "")
+		    path = "/mnt/"+path
+		  #endif
+		  Return path
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MEMEconvert(FastaFile as folderitem, Palindromic as boolean) As integer
 		  'Converts alignment (fasta format) to minimal MEME format
 		  'results written to MEME.txt in the TemporaryFolder
@@ -2607,15 +2634,25 @@ Protected Module Globals
 		    dim cli as string
 		    
 		    
-		    cli=MEMEpath+" -nmotifs 1 -dna -text -w "+str(ml)+" "
+		    'cli=MEMEpath+" -nmotifs 1 -dna -text -w "+str(ml)+" "
+		    cli="meme -nmotifs 1 -dna -text -w "+str(ml)+" "
 		    if Palindromic then            
 		      cli=cli+"-pal -revcomp "
 		    end if
-		    cli=cli+PlaceQuotesToPath(alignment_tmp.ShellPath)
-		    cli=cli+" > "+PlaceQuotesToPath(MEMEtmp.ShellPath)
+		    cli=cli+PlaceQuotesToPath(MakeWSLPath(alignment_tmp.ShellPath))
+		    If TargetWin32=False Then
+		      cli=cli+" > "+PlaceQuotesToPath(MakeWSLPath(MEMEtmp.ShellPath))
+		    End If
 		    
 		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
-		    userShell(cli)
+		    #if TargetWin32
+		      ExecuteWSL(cli, true, " > "+PlaceQuotesToPath(MEMEtmp.ShellPath))
+		      'cli = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c 'meme -nmotifs 1 -dna -text -w 20 "+chr(34)+"/mnt/c/users/vlad/appdata/local/temp/alignm~1.tmp"+chr(34)+" > "+chr(34)+"/mnt/c/users/vlad/appdata/local/temp/meme.txt"+chr(34)+"'"
+		      'cli = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c 'meme -nmotifs 1 -dna -text -w 20 "+chr(34)+"/mnt/c/users/vlad/appdata/local/temp/alignm~1.tmp"+chr(34)+" > /mnt/C/Users/Vlad/Appdata/Local/Temp/meme.txt'"
+		      'UserShell(cli)
+		    #else
+		      userShell(cli)
+		    #endif
 		    If shError=0 Then
 		      Logowin.WriteToSTDOUT (" OK") '(EndofLine+shResult)
 		      
@@ -4532,7 +4569,15 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		UserShellMode As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		WebLogoPath As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		WSLCommand As string = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c"
 	#tag EndProperty
 
 
@@ -5120,6 +5165,22 @@ Protected Module Globals
 			InitialValue="false"
 			Type="boolean"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UserShellMode"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WSLCommand"
+			Visible=false
+			Group="Behavior"
+			InitialValue="E:/Cygwin/bin/bash.exe --login -c"
+			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -15,6 +15,12 @@ Inherits Thread
 		Sub execute()
 		  dim Sh as New Shell
 		  Sh.mode=0
+		  If UserShellMode <> 0 Then
+		    Sh.mode=UserShellMode
+		    UserShellMode = 0
+		  Else
+		    Sh.mode=0
+		  End If
 		  Sh.TimeOut=-1
 		  'Correct here
 		  #if TargetWin32

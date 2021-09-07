@@ -982,8 +982,8 @@ End
 		      
 		      Dim sites2memePath As String
 		      #If targetWin32
-		        sites2memePath=NthField(MEMEpath,"\meme.exe",1)+"\sites2meme"
-		        'sites2memePath=MEMEpath.NthField("\meme.exe",1)+"\sites2meme"
+		        'sites2memePath=NthField(MEMEpath,"\meme.exe",1)+"\sites2meme"
+		        sites2memePath="sites2meme"
 		      #Else 
 		        MEMEpath=Trim(MEMEpath)
 		        If Right(MEMEpath,1)="'" Then
@@ -994,16 +994,15 @@ End
 		      #EndIf
 		      
 		      Dim cli As String
-		      cli=PlaceQuotesToPath(sites2memePath)'+" "+"-map "+sitesMap.ShellPath
+		      cli=sites2memePath'+" "+"-map "+sitesMap.ShellPath
 		      'cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
-		      cli=cli+" "+PlaceQuotesToPath(TFfamily_tmp.ShellPath)
+		      cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(TFfamily_tmp.ShellPath))
 		      
-		      '#If targetWin32
-		      'ExecuteCugWin(cli)
-		      '#Else 
-		      'userShell(cli)
-		      '#EndIf
-		      userShell(cli)
+		      #If targetWin32
+		        ExecuteWSL(cli)
+		      #Else 
+		        userShell(cli)
+		      #EndIf
 		      
 		      If shError=0 Then
 		        s.Write shResult
