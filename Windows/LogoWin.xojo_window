@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -726,7 +725,12 @@ End
 		  // nhmmer
 		  
 		  cli=nhmmerPath+" -h"
-		  userShell(cli)
+		  ExecuteWSL(cli)
+		  #if TargetWin32
+		    ExecuteWSL(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
 		  If shError=0 Then
 		    dim s As string=shResult
 		    if instr(nthfield(s,EndOfLine.Unix,1),"nhmmer")>0 then
@@ -747,7 +751,11 @@ End
 		  // hmmbuild
 		  
 		  cli=hmmBuildPath+" -h"
-		  userShell(cli)
+		  #if TargetWin32
+		    ExecuteWSL(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
 		  If shError=0 Then
 		    dim s As string=shResult
 		    if instr(nthfield(s,EndOfLine.Unix,1),"hmmbuild")>0 then
@@ -768,7 +776,11 @@ End
 		  // alimask
 		  
 		  cli=alimaskPath+" -h"
-		  userShell(cli)
+		  #if TargetWin32
+		    ExecuteWSL(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
 		  If shError=0 Then
 		    dim s As string=shResult
 		    if instr(nthfield((shResult),EndOfLine.Unix,1),"alimask")>0 then
@@ -788,15 +800,19 @@ End
 		  
 		  // TransTerm
 		  
-		  #if TargetWin32
-		    f=resources_f.child("transterm.exe")
-		  #else
-		    f=resources_f.child("transterm")
-		  #endif
+		  f=resources_f.child("transterm")
 		  if f<>Nil then
 		    if f.exists then
-		      cli=PlaceQuotesToPath(f.ShellPath)+" -h"
-		      userShell(cli)
+		      #if TargetWin32
+		        cli = "transterm -h"
+		      #else
+		        cli=f.ShellPath+" -h"
+		      #endif
+		      #if TargetWin32
+		        ExecuteWSL(cli)
+		      #else
+		        UserShell(cli)
+		      #endif
 		      If shError=0 OR shError=3 then 'TransTerm returns error code when run without all args
 		        dim s As string
 		        s=nthfield((shResult),EndOfLine.Unix,1)
@@ -823,7 +839,11 @@ End
 		  // MEME
 		  
 		  cli=memePath+" -version"
-		  userShell(cli)
+		  #if TargetWin32
+		    ExecuteWSL(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
 		  If shError=0 Then
 		    WriteToSTDOUT ("meme "+shResult)
 		  else
@@ -834,7 +854,11 @@ End
 		  // MAST
 		  
 		  cli=MASTPath+" -version"
-		  userShell(cli)
+		  #if TargetWin32
+		    ExecuteWSL(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
 		  If shError=0 Then
 		    WriteToSTDOUT ("mast "+shResult)
 		    MASTVersion=trim(shResult)
@@ -846,7 +870,11 @@ End
 		  // TomTom
 		  
 		  cli=TomTomPath+" -version"
-		  userShell(cli)
+		  #if TargetWin32
+		    ExecuteWSL(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
 		  If shError=0 Then
 		    WriteToSTDOUT ("tomtom "+shResult)
 		  else
@@ -857,7 +885,11 @@ End
 		  // MeShClust
 		  
 		  If MeshClustPath<>"" Then
-		    userShell(MeshClustPath)
+		    #if TargetWin32
+		      ExecuteWSL(MeshClustPath)
+		    #else
+		      userShell(MeshClustPath)
+		    #endif
 		    If sherror=1 Then 'running meshclust without args produces this error and help info
 		      Dim s As String=shResult
 		      If InStr(s,"meshclust")>0 Then
@@ -880,7 +912,11 @@ End
 		  // tfastx
 		  
 		  cli=tfastxPath
-		  userShell(cli)
+		  #if TargetWin32
+		    ExecuteWSL(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
 		  If shError=0 Then 
 		    dim s As string=shResult
 		    if instr(s,"TFASTX")>0 then
@@ -1928,13 +1964,13 @@ End
 		    if alimaskTmp<>nil then
 		      if infile<>Nil then
 		        FixPath4Windows(alimaskTmp)
-		        cli=alimaskpath+" --alirange "+mask+weighting+PlaceQuotesToPath(inFile.ShellPath)+" "+PlaceQuotesToPath(alimaskTmp.shellpath)
+		        cli=alimaskpath+" --alirange "+mask+weighting+PlaceQuotesToPath(MakeWSLPath(inFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(alimaskTmp.shellpath))
 		        
 		      else
 		        msgbox "Invalid input file for alimask"
 		      end if
 		      
-		      userShell(cli)
+		      ExecuteWSL(cli)
 		      If shError=0 Then
 		        masked=true 'return shResult
 		      else
@@ -3595,13 +3631,18 @@ End
 		    dim modelFile as string
 		    modelFile=hmmSearchSettingsWin.PopupFiles(hmmSearchSettingsWin.PfamPopup.ListIndex-1)
 		    
-		    dim HmmSearchPath as string = replace(nhmmerPath,"/nhmmer","/hmmsearch")
-		    
-		    cli=PlaceQuotesToPath(HmmSearchPath)+" "+PlaceQuotesToPath(hmmSearchSettings)+" "+modelFile+" "+PlaceQuotesToPath(CDSfasta.ShellPath) ' +" -o "+nhmmerResultFile.shellpath
+		    dim HmmSearchPath as string
+		    #if TargetWin32
+		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		      HmmSearchPath=replace(nhmmerPath,"nhmmer","hmmsearch")
+		    #else
+		      HmmSearchPath=replace(nhmmerPath,"/nhmmer","/hmmsearch")
+		    #endif
+		    cli=HmmSearchPath+" "+PlaceQuotesToPath(MakeWSLPath(hmmSearchSettings))+" "+modelFile+" "+PlaceQuotesToPath(MakeWSLPath(CDSfasta.ShellPath)) ' +" -o "+nhmmerResultFile.shellpath
 		    
 		    
 		    WriteToSTDOUT (EndofLine+"Running hmmsearch...")
-		    userShell(cli)
+		    ExecuteWSL(cli)
 		    If shError=0 Then
 		      WriteToSTDOUT (EndofLine+shResult)
 		      'LogoWinToolbar.Item(2).Enabled=true
@@ -4458,8 +4499,8 @@ End
 		  
 		  
 		  
-		  cli=MASTpath+" "+ PlaceQuotesToPath(memetmp.shellpath)+" "+PlaceQuotesToPath(outfile.shellpath) +nhmmerOptions+" -hit_list"
-		  userShell(cli)
+		  cli=MASTpath+" "+ PlaceQuotesToPath(MakeWSLPath(memetmp.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(outfile.shellpath)) +nhmmerOptions+" -hit_list"
+		  ExecuteWSL(cli)
 		  If shError=0 Then
 		    WriteToSTDOUT (EndofLine+shResult)
 		    'write results to a temporary file for MastGen.py:
@@ -4671,10 +4712,10 @@ End
 		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		      HmmSearchPath = replace(nhmmerPath,"nhmmer","hmmsearch")
 		      
-		      cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(alignmentsFile.ShellPath)+" "+modelFile+" "+PlaceQuotesToPath(CDSfasta.ShellPath)
+		      cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" "+modelFile+" "+PlaceQuotesToPath(MakeWSLPath(CDSfasta.ShellPath))
 		      
 		      
-		      userShell(cli)
+		      ExecuteWSL(cli)
 		      If shError=0 Then
 		        'LogoWinToolbar.Item(2).Enabled=true
 		        'logoWin.LastSearch="hmmsearch" 'not used
@@ -4743,25 +4784,20 @@ End
 		    FixPath4Windows(nhmmerResultFile)
 		    
 		    dim genomefilepath as string
-		    #if TargetWin32
-		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
-		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
-		    #else
-		      GenomeFilePath=GenomeFile.shellpath
-		    #endif
+		    GenomeFilePath=GenomeFile.shellpath
 		    
 		    if SigFileOpened then
 		      HmmFile.CopyFileTo(TemporaryFolder)
 		      dim HmmFileTmp as folderitem = TemporaryFolder.child(HmmFile.DisplayName)
-		      cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerResultFile.shellpath)+" "+PlaceQuotesToPath(HmmFileTmp.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)
+		      cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(HmmFileTmp.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		    else
 		      if masked then
 		        alimask LogoFile
 		        WriteToSTDOUT (EndofLine+EndofLine+"Alignment masked.")
 		        '/usr/local/bin/nhmmer
-		        cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerResultFile.shellpath)+" "+PlaceQuotesToPath(alimasktmp.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)
+		        cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(alimasktmp.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		      else
-		        cli=PlaceQuotesToPath(nhmmerpath)+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(nhmmerResultFile.shellpath)+" "+PlaceQuotesToPath(Logofile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)
+		        cli=nhmmerpath+" --dna "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(Logofile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		      end if
 		    end if
 		    
@@ -4770,7 +4806,7 @@ End
 		    end if
 		    
 		    WriteToSTDOUT (EndofLine+EndofLine+"Running nhmmer...")
-		    userShell(cli)
+		    ExecuteWSL(cli)
 		    If shError=0 Then
 		      WriteToSTDOUT (EndOfLine+shResult)
 		      LogoWinToolbar.Item(2).Enabled=true

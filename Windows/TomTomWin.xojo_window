@@ -623,7 +623,7 @@ End
 		        #if TargetWin32
 		          TToptions=" "+Trim(TomTomOptionsField.Text)+" "
 		          
-		          cli="tomtom"+" -oc "+PlaceQuotesToPath(MakeWSLPath(inFolder.ShellPath))
+		          cli=tomtomPath+" -oc "+PlaceQuotesToPath(MakeWSLPath(inFolder.ShellPath))
 		          
 		          'need to add background model here like this:
 		          '-bfile /Users/Home/Documents/SQ2/LacI/LacI_bacgroundModel.markov
@@ -633,12 +633,12 @@ End
 		        #else
 		          TToptions=" "+Trim(TomTomOptionsField.Text)+" "
 		          
-		          cli=PlaceQuotesToPath(tomtomPath)+" -oc "+PlaceQuotesToPath(inFolder.ShellPath)
+		          cli=tomtomPath+" -oc "+inFolder.ShellPath
 		          
 		          'need to add background model here like this:
 		          '-bfile /Users/Home/Documents/SQ2/LacI/LacI_bacgroundModel.markov
 		          
-		          cli=cli+TToptions+PlaceQuotesToPath(inFolder.Item(n).ShellPath)+TTlibString
+		          cli=cli+TToptions+inFolder.Item(n).ShellPath+TTlibString
 		          userShell(cli)
 		        #endif
 		        If shError=0 Then

@@ -1617,11 +1617,11 @@ Protected Module Globals
 		  
 		  
 		  'Usage: hmmbuild [-options] <hmmfile_out> <msafile>
-		  cli=PlaceQuotesToPath(hmmbuildpath)+" --dna "+PlaceQuotesToPath(outfilepath)+" "+PlaceQuotesToPath(infilepath)
+		  cli=hmmbuildpath+" --dna "+PlaceQuotesToPath(MakeWSLPath(outfilepath))+" "+PlaceQuotesToPath(MakeWSLPath(infilepath))
 		  
 		  
 		  
-		  userShell(cli)
+		  ExecuteWSL(cli)
 		  If shError=0 Then
 		    return true
 		  else
@@ -1660,9 +1660,13 @@ Protected Module Globals
 		    'LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
-		    cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(HmmResultFile.ShellPath)+" "+PlaceQuotesToPath(HMMfilePath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
+		    cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		    
-		    userShell(cli)
+		    #if TargetWin32
+		      ExecuteWSL(cli)
+		    #else
+		      userShell(cli)
+		    #endif
 		    
 		    If shError=0 Then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
@@ -1732,9 +1736,13 @@ Protected Module Globals
 		    
 		    // Settings from the HmmSearchSettingsWin should be used here, but they are currently ignored!
 		    
-		    cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(HmmResultFile.ShellPath)+" "+PlaceQuotesToPath(HMMfilePath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
+		    cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		    
-		    userShell(cli)
+		    #if TargetWin32
+		      ExecuteWSL(cli)
+		    #else
+		      userShell(cli)
+		    #endif
 		    //LogoWin.WriteToSTDOUT (EndofLine.UNIX+str(sh.Result)+EndOfLine.UNIX)
 		    If shError=0 Then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
@@ -2634,8 +2642,7 @@ Protected Module Globals
 		    dim cli as string
 		    
 		    
-		    'cli=MEMEpath+" -nmotifs 1 -dna -text -w "+str(ml)+" "
-		    cli="meme -nmotifs 1 -dna -text -w "+str(ml)+" "
+		    cli=MEMEpath+" -nmotifs 1 -dna -text -w "+str(ml)+" "
 		    if Palindromic then            
 		      cli=cli+"-pal -revcomp "
 		    end if
@@ -2647,9 +2654,6 @@ Protected Module Globals
 		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
 		    #if TargetWin32
 		      ExecuteWSL(cli, true, " > "+PlaceQuotesToPath(MEMEtmp.ShellPath))
-		      'cli = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c 'meme -nmotifs 1 -dna -text -w 20 "+chr(34)+"/mnt/c/users/vlad/appdata/local/temp/alignm~1.tmp"+chr(34)+" > "+chr(34)+"/mnt/c/users/vlad/appdata/local/temp/meme.txt"+chr(34)+"'"
-		      'cli = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c 'meme -nmotifs 1 -dna -text -w 20 "+chr(34)+"/mnt/c/users/vlad/appdata/local/temp/alignm~1.tmp"+chr(34)+" > /mnt/C/Users/Vlad/Appdata/Local/Temp/meme.txt'"
-		      'UserShell(cli)
 		    #else
 		      userShell(cli)
 		    #endif
@@ -3936,7 +3940,12 @@ Protected Module Globals
 		    
 		    if instr(LogoWin.GenomeFile.nativepath," ")=0 then
 		      'Other illegal symbols should be checked too!
-		      GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34) 'need the quotes to include gbk format anyway
+		      'need the quotes to include gbk format anyway
+		      #if TargetWin32
+		        GenomeFilePath=LogoWin.GenomeFile.nativepath+" 1"
+		      #else
+		        GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34)
+		      #endif
 		    else
 		      'Fasta can't hadle paths with white space/non-ASCII characters, so we move and rename the library (genome) file
 		      dim genome_tmp as folderitem = TemporaryFolder.child("genome_tmp.gb")
@@ -3945,16 +3954,25 @@ Protected Module Globals
 		          genome_tmp.Delete
 		        end if
 		        LogoWin.GenomeFile.CopyFileTo genome_tmp
-		        GenomeFilePath=chr(34)+genome_tmp.nativepath+" 1"+chr(34)
+		        #if TargetWin32
+		          GenomeFilePath=genome_tmp.nativepath+" 1"
+		        #else
+		          GenomeFilePath=chr(34)+genome_tmp.nativepath+" 1"+chr(34)
+		        #endif
 		        
 		      end if
 		    end if
 		    
 		    'tfastx36 [-options] query_file library_file [ktup]
 		    
-		    cli=PlaceQuotesToPath(tfastxPath)+fastaOptions+PlaceQuotesToPath(TFfastaFile.shellpath)+" "+PlaceQuotesToPath(GenomeFilePath)
+		    cli=tfastxPath+fastaOptions+PlaceQuotesToPath(MakeWSLPath(TFfastaFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		    
-		    userShell(cli)
+		    
+		    #if TargetWin32
+		      ExecuteWSL(cli)
+		    #else
+		      UserShell(cli)
+		    #endif
 		    If shError=0 Then
 		      LogoWin.WriteToSTDOUT (EndofLine+shResult)
 		      return

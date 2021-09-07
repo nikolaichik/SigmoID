@@ -3737,17 +3737,17 @@ End
 		    
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
-		    cli=PlaceQuotesToPath(HmmSearchPath)+" "+hmmSearchSettings
+		    cli=HmmSearchPath+" "+hmmSearchSettings
 		    if hmmSearchSettingsWin.AddAnnotationCheckBox.Value then
 		      hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")
 		      
 		      if hmmsearchResultFile<>nil then
-		        cli=cli +" -o "+PlaceQuotesToPath(hmmsearchResultFile.shellpath)
+		        cli=cli +" -o "+PlaceQuotesToPath(MakeWSLPath(hmmsearchResultFile.shellpath))
 		      else
 		        return false
 		      end if
 		    end if
-		    cli=cli+" "+modelFile+" "+PlaceQuotesToPath(CDSfasta.ShellPath)
+		    cli=cli+" "+modelFile+" "+PlaceQuotesToPath(MakeWSLPath(CDSfasta.ShellPath))
 		    
 		    logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
 		    userShell(cli)

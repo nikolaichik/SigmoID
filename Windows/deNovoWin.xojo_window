@@ -1564,8 +1564,8 @@ End
 		  For row As Integer = 0 To HmmList.ListCount-1
 		    
 		    HMMfilePath=HmmList.Cell(row,7)
-		    cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(HmmSearchTblOut.ShellPath)+" "+PlaceQuotesToPath(HMMfilePath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
-		    UserShell(cli)
+		    cli=HmmSearchPath+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmSearchTblOut.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
+		    ExecuteWSL(cli)
 		    If shError = 0 Then
 		      Instream=HmmSearchTblOut.OpenAsTextFile
 		      if Instream<> Nil Then

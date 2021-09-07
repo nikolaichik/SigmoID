@@ -8,7 +8,7 @@ Begin Window SettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   402
+   Height          =   438
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -51,7 +51,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   362
+      Top             =   398
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -83,7 +83,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   362
+      Top             =   398
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -101,7 +101,7 @@ Begin Window SettingsWin
    Begin PagePanel PagePanel1
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   350
+      Height          =   386
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -116,7 +116,6 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   False
       Value           =   0
@@ -2383,7 +2382,7 @@ Begin Window SettingsWin
          Bold            =   False
          Caption         =   "#kPaths"
          Enabled         =   True
-         Height          =   329
+         Height          =   365
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -3117,6 +3116,85 @@ Begin Window SettingsWin
             Visible         =   True
             Width           =   409
          End
+         Begin Label Label40
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   25
+            TabPanelIndex   =   1
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   334
+            Transparent     =   False
+            Underline       =   False
+            Value           =   "WSL bash"
+            Visible         =   True
+            Width           =   72
+         End
+         Begin TextField TextField1
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF00
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   26
+            TabPanelIndex   =   1
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   333
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   ""
+            Visible         =   True
+            Width           =   410
+         End
       End
    End
    Begin PushButton DefaultPathsButton
@@ -3145,7 +3223,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   362
+      Top             =   398
       Transparent     =   False
       Underline       =   False
       Visible         =   True
