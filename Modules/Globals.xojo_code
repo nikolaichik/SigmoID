@@ -830,11 +830,13 @@ Protected Module Globals
 		  ' mode resolves what quotes should be set 
 		  ' false - " 
 		  ' true - '
-		  WSLCommand = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c "
+		  'WSLCommand = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c "
+		  var WSLBashCommand as string 
+		  WSLBashCommand = " --login -c "
 		  If mode = true Then
-		    userShell(WSLCommand + "'" + cmd+"'" + cmdend)
+		    userShell(WSLBashPath+WSLBashCommand+"'"+cmd+"'"+cmdend)
 		  Else
-		    userShell(WSLCommand+chr(34)+cmd+chr(34)+cmdend)
+		    userShell(WSLBashPath+WSLBashCommand+chr(34)+cmd+chr(34)+cmdend)
 		  End If
 		  
 		End Sub
@@ -2872,6 +2874,7 @@ Protected Module Globals
 		    TomTomPath=Prefs.value("TomTomPath",TomTomPath)
 		    MeshClustPath=Prefs.value("MeshClustPath",MeshClustPath)
 		    Globals.chipset.jarPath=Prefs.Value("ChIPmunkPath", Globals.chipset.jarPath)
+		    WSLBashPath=Prefs.value("WSLBashPath",WSLBashPath)
 		    PathsChanged=False
 		  end if
 		  
@@ -2887,6 +2890,7 @@ Protected Module Globals
 		  SettingsWin.ChIPmunkPathField.Text=Globals.chipset.jarPath
 		  SettingsWin.EmailField.Text=Globals.email
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
+		  SettingsWin.WSLBashPathField.Text=WSLBashPath
 		  
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
@@ -4595,7 +4599,7 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		WSLCommand As string = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c"
+		WSLBashPath As string
 	#tag EndProperty
 
 
@@ -5193,10 +5197,10 @@ Protected Module Globals
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="WSLCommand"
+			Name="WSLBashPath"
 			Visible=false
 			Group="Behavior"
-			InitialValue="E:/Cygwin/bin/bash.exe --login -c"
+			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty

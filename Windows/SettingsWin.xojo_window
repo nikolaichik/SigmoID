@@ -3151,7 +3151,7 @@ Begin Window SettingsWin
             Visible         =   True
             Width           =   72
          End
-         Begin TextField TextField1
+         Begin TextField WSLBashPathField
             AllowAutoDeactivate=   True
             AllowFocusRing  =   True
             AllowSpellChecking=   False
@@ -3261,6 +3261,12 @@ End
 		  Globals.chipset= new ChipMSettings
 		  AdjustLayout4linux(me)
 		  PathsChanged=true
+		  
+		  If TargetWin32=false Then
+		    Label40.Visible = false
+		    WSLBashPathField.Visible = false
+		    self.height = self.height - 38 ' 38 px
+		  End If
 		  
 		  ReadPrefs 'diplicating this function in several places as event order is different on different systems
 		  
@@ -3476,6 +3482,7 @@ End
 		  Prefs.Value("requestCount")=requestCount.text
 		  Prefs.Value("TomTomPath")=TomTomPathField.Text
 		  Prefs.Value("MeshClustPath")=MeshClustPathField.Text
+		  Prefs.Value("WSLBashPath")=WSLBashPathField.Text
 		  
 		  
 		  if LoadPlainResult then
@@ -4134,6 +4141,13 @@ End
 		Sub TextChange()
 		  PathsChanged=true
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events WSLBashPathField
+	#tag Event
+		Sub TextChange()
+		  PathsChanged=true
 		End Sub
 	#tag EndEvent
 #tag EndEvents

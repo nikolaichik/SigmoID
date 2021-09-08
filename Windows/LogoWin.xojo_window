@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -721,6 +722,19 @@ End
 		  
 		  
 		  WriteToSTDOUT EndOfLine.UNIX+"Checking command line programs..."+EndOfLine.UNIX
+		  
+		  // WSL - only for Windows
+		  
+		  #if TargetWin32
+		    cli="uname -a"
+		    ExecuteWSL(cli)
+		    If shError=0 Then
+		      WriteToSTDOUT (shResult)
+		    else
+		      WriteToSTDOUT ("No WSL bash found at "+WSLBashPath+". Please install it or correct the path in the settings."+EndOfLine)
+		      allProgsFine=false
+		    End If
+		  #endif
 		  
 		  // nhmmer
 		  
