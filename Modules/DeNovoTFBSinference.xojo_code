@@ -2216,13 +2216,25 @@ Protected Module DeNovoTFBSinference
 		  
 		  #If targetWin32
 		    Dim output As New FolderItem(OutputFilePath)
-		    While output=Nil
-		      App.SleepCurrentThread(50)
-		    Wend
-		    While output.Length=0
-		      App.SleepCurrentThread(50)
-		    Wend
-		    res= TextInputStream.Open(output).ReadAll
+		    For i As Integer = 1 To 100 ' Wait for 5 seconds, while the asynchronous command is executing
+		      If output=Nil Then
+		        App.SleepCurrentThread(50)
+		      Else
+		        Exit
+		      End If
+		    Next
+		    If output<>Nil Then
+		      For i As Integer = 1 To 100 ' Wait for 5 seconds, while we will get results in file
+		        If output.Length=0 Then
+		          App.SleepCurrentThread(50)
+		        Else
+		          res=TextInputStream.Open(output).ReadAll
+		          Exit
+		        End If
+		      Next
+		    Else
+		      res=""
+		    End If
 		  #Endif
 		  
 		  If InStr(res, ">")>0 Then 'find correct seq among several possible
