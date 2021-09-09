@@ -620,7 +620,7 @@ End
 		        dim cli, TToptions as string
 		        
 		        
-		        #if TargetWin32
+		        #if TargetWindows
 		          TToptions=" "+Trim(TomTomOptionsField.Text)+" "
 		          
 		          cli=tomtomPath+" -oc "+PlaceQuotesToPath(MakeWSLPath(inFolder.ShellPath))

@@ -566,7 +566,7 @@ End
 		      'cli="samtools faidx "+fastasource.shellpath+" "+str(ProtNames(ubound(ProtNames)))
 		      'cli="samtools faidx "+trEMBL_fasta.shellpath+" "+str(ProtNames(ubound(ProtNames)))
 		      
-		      #if TargetWin32
+		      #if TargetWindows
 		        ExecuteWSL(cli)
 		      #else
 		        userShell(cli)
@@ -890,7 +890,7 @@ End
 		        cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" -o "+PlaceQuotesToPath(MakeWSLPath(hmmsearchoutput.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(hmmPath))+" "+PlaceQuotesToPath(MakeWSLPath(trEMBL_dat.ShellPath))
 		      end
 		      
-		      #if TargetWin32
+		      #if TargetWindows
 		        ExecuteWSL(cli)
 		      #else
 		        userShell(cli)

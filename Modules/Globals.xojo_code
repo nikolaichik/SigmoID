@@ -75,7 +75,7 @@ Protected Module Globals
 		          PushButton(aControl).Height = PushButton(aControl).Height + 10
 		        #endif
 		        
-		        '#if TargetWin32 then
+		        '#if TargetWindows then
 		        'PushButton(aControl).Top = PushButton(aControl).Top - 4
 		        'PushButton(aControl).Height = PushButton(aControl).Height + 8
 		        '#endif
@@ -94,7 +94,7 @@ Protected Module Globals
 		        'BevelButton(aControl).Height = BevelButton(aControl).Height + 10
 		        '#endif
 		        '
-		        '#if TargetWin32 then
+		        '#if TargetWindows then
 		        'BevelButton(aControl).Top = BevelButton(aControl).Top - 4
 		        'BevelButton(aControl).Height = BevelButton(aControl).Height + 8
 		        '#endif
@@ -360,7 +360,7 @@ Protected Module Globals
 		  in1.pString(0)=seq    'Shouldn't there be a CString here?
 		  
 		  'setting endiannes here is probably unnecessary, but...
-		  '#if targetWin32
+		  '#if TargetWindows
 		  'in1.littleEndian=true
 		  'out.littleEndian=true
 		  '#endif
@@ -1031,7 +1031,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub FixPath4Windows(aFile as folderitem)
-		  #if TargetWin32
+		  #if TargetWindows
 		    'a workaround for shellpath glitch
 		    if not aFile.exists then
 		      Dim t As TextOutputStream
@@ -1471,7 +1471,7 @@ Protected Module Globals
 		  Dim lpShort,lpLong As MemoryBlock
 		  dim iBuff,iLen As Integer
 		  
-		  #IF TargetWin32 then
+		  #IF TargetWindows then
 		    //Declare Function GetShortPathName
 		    //Lib "kernel32" Alias "GetShortPathNameA" (
 		    //ByVal lpszLongPath As String, --> change to ptr
@@ -1622,7 +1622,7 @@ Protected Module Globals
 		  cli=hmmbuildpath+" --dna "+PlaceQuotesToPath(MakeWSLPath(outfilepath))+" "+PlaceQuotesToPath(MakeWSLPath(infilepath))
 		  
 		  
-		  #if TargetWin32
+		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
 		    UserShell(cli)
@@ -1668,7 +1668,7 @@ Protected Module Globals
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		    
-		    #if TargetWin32
+		    #if TargetWindows
 		      ExecuteWSL(cli)
 		    #else
 		      userShell(cli)
@@ -1744,7 +1744,7 @@ Protected Module Globals
 		    
 		    cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		    
-		    #if TargetWin32
+		    #if TargetWindows
 		      ExecuteWSL(cli)
 		    #else
 		      userShell(cli)
@@ -2585,7 +2585,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function MakeWSLPath(path as string) As string
-		  #if TargetWin32
+		  #if TargetWindows
 		    path = path.ReplaceAll("\", "/")
 		    path = path.Lowercase()
 		    path = path.Replace(":", "")
@@ -2653,12 +2653,12 @@ Protected Module Globals
 		      cli=cli+"-pal -revcomp "
 		    end if
 		    cli=cli+PlaceQuotesToPath(MakeWSLPath(alignment_tmp.ShellPath))
-		    If TargetWin32=False Then
+		    If TargetWindows=False Then
 		      cli=cli+" > "+PlaceQuotesToPath(MakeWSLPath(MEMEtmp.ShellPath))
 		    End If
 		    
 		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
-		    #if TargetWin32
+		    #if TargetWindows
 		      ExecuteWSL(cli, true, " > "+PlaceQuotesToPath(MEMEtmp.ShellPath))
 		    #else
 		      userShell(cli)
@@ -2738,7 +2738,7 @@ Protected Module Globals
 		  // Place pair of quotes to the path in Win32 system
 		  // Also check if this quotes are already placed
 		  
-		  #if TargetWin32
+		  #if TargetWindows
 		    If path.Left(1)<>chr(34) Then
 		      path=chr(34)+path
 		    End If
@@ -2961,7 +2961,7 @@ Protected Module Globals
 		  dim ResultFormat as string
 		  ResultFormat=Prefs.value("LoadPlainResult","false")
 		  
-		  '#if TargetWin32 then
+		  '#if TargetWindows then
 		  'ResultFormat=Prefs.value("LoadPlainResult","true") 
 		  '#elseif TargetLinux
 		  '#if Target32Bit
@@ -3282,7 +3282,7 @@ Protected Module Globals
 		  in1.pString(0)=seq    'Shouldn't there be a CString here?
 		  
 		  'setting endiannes here is probably unnecessary, but...
-		  '#if targetWin32
+		  '#if TargetWindows
 		  'in1.littleEndian=true
 		  'out.littleEndian=true
 		  '#endif
@@ -3312,7 +3312,7 @@ Protected Module Globals
 		  in1.pString(0)=seq    'Shouldn't there be a CString here?
 		  
 		  'setting endiannes here is probably unnecessary, but...
-		  '#if targetWin32
+		  '#if TargetWindows
 		  'in1.littleEndian=true
 		  'out.littleEndian=true
 		  '#endif
@@ -3835,7 +3835,7 @@ Protected Module Globals
 		  dim f as folderitem
 		  dim pth as string
 		  
-		  #if TargetWin32 'only look for included apps, locally installed must be manually configured
+		  #if TargetWindows 'only look for included apps, locally installed must be manually configured
 		    f=resources_f.child(appName+".exe")
 		    if f<>Nil then
 		      if f.exists then
@@ -3949,7 +3949,7 @@ Protected Module Globals
 		    if instr(LogoWin.GenomeFile.nativepath," ")=0 then
 		      'Other illegal symbols should be checked too!
 		      'need the quotes to include gbk format anyway
-		      #if TargetWin32
+		      #if TargetWindows
 		        GenomeFilePath=LogoWin.GenomeFile.nativepath+" 1"
 		      #else
 		        GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34)
@@ -3962,7 +3962,7 @@ Protected Module Globals
 		          genome_tmp.Delete
 		        end if
 		        LogoWin.GenomeFile.CopyFileTo genome_tmp
-		        #if TargetWin32
+		        #if TargetWindows
 		          GenomeFilePath=genome_tmp.nativepath+" 1"
 		        #else
 		          GenomeFilePath=chr(34)+genome_tmp.nativepath+" 1"+chr(34)
@@ -3976,7 +3976,7 @@ Protected Module Globals
 		    cli=tfastxPath+fastaOptions+PlaceQuotesToPath(MakeWSLPath(TFfastaFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		    
 		    
-		    #if TargetWin32
+		    #if TargetWindows
 		      ExecuteWSL(cli)
 		    #else
 		      UserShell(cli)

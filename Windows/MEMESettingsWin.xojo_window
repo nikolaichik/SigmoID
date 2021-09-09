@@ -617,7 +617,7 @@ End
 		    
 		    ''need to set MEME_BIN_DIRS for the bundled meme version
 		    'dim MEME_BIN_DIRS as string
-		    '#if targetWin32
+		    '#if TargetWindows
 		    ''MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
 		    'dim ff as folderitem
 		    'ff=TemporaryFolder.child("meme_xml_to_html")
@@ -674,7 +674,7 @@ End
 		    'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		    'end if
 		    '
-		    '#elseif TargetWin32
+		    '#elseif TargetWindows
 		    'cli=TemporaryFolder.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		    '#else
 		    'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
@@ -728,7 +728,7 @@ End
 		    LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
 		    
 		    
-		    #if TargetWin32
+		    #if TargetWindows
 		      ExecuteWSL(cli)
 		    #else
 		      userShell(cli)

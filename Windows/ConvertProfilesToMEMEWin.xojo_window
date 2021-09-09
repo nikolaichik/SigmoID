@@ -993,7 +993,7 @@ End
 		      'cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
 		      cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(TFfamily_tmp.ShellPath))
 		      
-		      #If targetWin32
+		      #If TargetWindows
 		        ExecuteWSL(cli)
 		      #Else 
 		        userShell(cli)

@@ -116,6 +116,7 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   False
       Value           =   0
@@ -3262,7 +3263,7 @@ End
 		  AdjustLayout4linux(me)
 		  PathsChanged=true
 		  
-		  If TargetWin32=false Then
+		  If TargetWindows=false Then
 		    Label40.Visible = false
 		    WSLBashPathField.Visible = false
 		    self.height = self.height - 38 ' 38 px

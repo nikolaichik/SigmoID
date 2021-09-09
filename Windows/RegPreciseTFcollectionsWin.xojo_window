@@ -1523,7 +1523,7 @@ End
 		      cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(TFfamily_tmp.ShellPath))
 		      
 		      
-		      #If targetWin32
+		      #If TargetWindows
 		        ExecuteWSL(cli)
 		      #Else 
 		        userShell(cli)

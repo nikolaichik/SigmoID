@@ -23,7 +23,7 @@ Inherits Thread
 		  End If
 		  Sh.TimeOut=-1
 		  'Correct here
-		  #if TargetWin32
+		  #if TargetWindows
 		    Sh.execute(cli)
 		  #else
 		    Sh.execute("bash --login -c "+chr(34)+cli+chr(34))

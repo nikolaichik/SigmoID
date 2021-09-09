@@ -51,7 +51,7 @@ Protected Module DeNovoTFBSinference
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
 		  Dim cli As String
 		  if outfile.Exists then outfile.Delete
-		  #If targetWin32
+		  #If TargetWindows
 		    dim copyDestination As FolderItem
 		    copyDestination=resources_f
 		    inFile.CopyFileTo(copyDestination)
@@ -1207,7 +1207,7 @@ Protected Module DeNovoTFBSinference
 		          'assume bash is the normal user shell
 		          'execute bash with login scripts to set the same env as in terminal
 		          'command must be in single quotes
-		          #if TargetWin32
+		          #if TargetWindows
 		            sh.execute(cli)
 		          #else
 		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
@@ -2189,7 +2189,7 @@ Protected Module DeNovoTFBSinference
 		  f=Resources_f
 		  Dim OutputFilePath As String = f.NativePath + "output.txt"
 		  'OutputFilePath="D:/output.txt"
-		  #If targetWin32
+		  #If TargetWindows
 		    ' Work in progress here
 		    'cmdStart = "esearch -db protein -query "
 		    'cmdEnd = " | efetch -format fasta >> "+chr(34)+chr(34)+MakeWSLPath(OutputFilePath)+chr(34)+chr(34)
@@ -2203,7 +2203,7 @@ Protected Module DeNovoTFBSinference
 		  Dim cmd As String
 		  cmd=cmdStart+locusTag+cmdEnd
 		  
-		  #If targetWin32
+		  #If TargetWindows
 		    UserShellMode=1
 		    ExecuteWSL(cmd, false, " > "+PlaceQuotesToPath(OutputFilePath))
 		  #Else 
@@ -2214,7 +2214,7 @@ Protected Module DeNovoTFBSinference
 		  Dim m,n As Integer
 		  res=shResult
 		  
-		  #If targetWin32
+		  #If TargetWindows
 		    Dim output As New FolderItem(OutputFilePath)
 		    For i As Integer = 1 To 100 ' Wait for 5 seconds, while the asynchronous command is executing
 		      If output=Nil Then
@@ -2354,7 +2354,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  ''need to set MEME_BIN_DIRS for the bundled meme version
 		  'dim MEME_BIN_DIRS as string
-		  '#if targetWin32
+		  '#if TargetWindows
 		  ''MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
 		  'dim ff as folderitem
 		  'ff=TemporaryFolder.child("meme_xml_to_html")
@@ -2411,13 +2411,13 @@ Protected Module DeNovoTFBSinference
 		  'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		  'end if
 		  '
-		  '#elseif TargetWin32
+		  '#elseif TargetWindows
 		  'cli=TemporaryFolder.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		  '#else
 		  'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		  '#endif
 		  
-		  #if TargetWin32
+		  #if TargetWindows
 		    cli=PlaceQuotesToPath(TemporaryFolder.child("meme.exe").ShellPath)+" "+PlaceQuotesToPath(infile.ShellPath)
 		  #else
 		    cli=MEMEpath+" '"+PlaceQuotesToPath(infile.NativePath)+"'"
@@ -2441,7 +2441,7 @@ Protected Module DeNovoTFBSinference
 		  sh=New Shell
 		  sh.mode=1
 		  sh.TimeOut=-1
-		  #if TargetWin32
+		  #if TargetWindows
 		    sh.execute(cli)
 		  #else
 		    sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected

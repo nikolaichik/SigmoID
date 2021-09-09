@@ -724,7 +724,7 @@ End
 		  
 		  // WSL - only for Windows
 		  
-		  #if TargetWin32
+		  #if TargetWindows
 		    cli="uname -a"
 		    ExecuteWSL(cli)
 		    If shError=0 Then
@@ -739,7 +739,7 @@ End
 		  
 		  cli=nhmmerPath+" -h"
 		  ExecuteWSL(cli)
-		  #if TargetWin32
+		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
 		    UserShell(cli)
@@ -764,7 +764,7 @@ End
 		  // hmmbuild
 		  
 		  cli=hmmBuildPath+" -h"
-		  #if TargetWin32
+		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
 		    UserShell(cli)
@@ -789,7 +789,7 @@ End
 		  // alimask
 		  
 		  cli=alimaskPath+" -h"
-		  #if TargetWin32
+		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
 		    UserShell(cli)
@@ -815,8 +815,8 @@ End
 		  
 		  f=resources_f.child("transterm")
 		  if f<>Nil then
-		    if f.exists or TargetWin32 then
-		      #if TargetWin32
+		    if f.exists or TargetWindows then
+		      #if TargetWindows
 		        cli = "transterm -h"
 		        ExecuteWSL(cli)
 		      #else
@@ -849,7 +849,7 @@ End
 		  // MEME
 		  
 		  cli=memePath+" -version"
-		  #if TargetWin32
+		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
 		    UserShell(cli)
@@ -864,7 +864,7 @@ End
 		  // MAST
 		  
 		  cli=MASTPath+" -version"
-		  #if TargetWin32
+		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
 		    UserShell(cli)
@@ -880,7 +880,7 @@ End
 		  // TomTom
 		  
 		  cli=TomTomPath+" -version"
-		  #if TargetWin32
+		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
 		    UserShell(cli)
@@ -895,7 +895,7 @@ End
 		  // MeShClust
 		  
 		  If MeshClustPath<>"" Then
-		    #if TargetWin32
+		    #if TargetWindows
 		      ExecuteWSL(MeshClustPath)
 		    #else
 		      userShell(MeshClustPath)
@@ -922,7 +922,7 @@ End
 		  // tfastx
 		  
 		  cli=tfastxPath
-		  #if TargetWin32
+		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
 		    UserShell(cli)
@@ -2220,7 +2220,7 @@ End
 		          sh.Mode=1
 		          sh.TimeOut=-1
 		          WriteToSTDOUT ("Running nhmmer..."+EndOfLine.UNIX)
-		          #if TargetWin32
+		          #if TargetWindows
 		            sh.execute(cli)
 		          #else
 		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
@@ -2254,7 +2254,7 @@ End
 		          sh=New Shell
 		          sh.Mode=1
 		          sh.TimeOut=-1
-		          #if TargetWin32
+		          #if TargetWindows
 		            sh.execute(cli)
 		          #else
 		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
@@ -3426,7 +3426,7 @@ End
 		    if outfile<>nil then
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running the HmmGen script..."+EndofLine)
 		      dim GenomeFilePath,outFilePath as string
-		      #if TargetWin32
+		      #if TargetWindows
 		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		        FixPath4Windows(outfile)
 		        GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
@@ -3631,7 +3631,7 @@ End
 		    FixPath4Windows(CDSfasta)
 		    
 		    dim genomefilepath as string
-		    #if TargetWin32
+		    #if TargetWindows
 		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
 		    #else
@@ -3642,7 +3642,7 @@ End
 		    modelFile=hmmSearchSettingsWin.PopupFiles(hmmSearchSettingsWin.PfamPopup.ListIndex-1)
 		    
 		    dim HmmSearchPath as string
-		    #if TargetWin32
+		    #if TargetWindows
 		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		      HmmSearchPath=replace(nhmmerPath,"nhmmer","hmmsearch")
 		    #else
@@ -4340,7 +4340,7 @@ End
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running the MastGen script..."+EndofLine)
 		      FixPath4Windows(outfile)
 		      dim genomefilepath as string
-		      #if TargetWin32
+		      #if TargetWindows
 		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		        GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
 		      #else
@@ -4687,7 +4687,7 @@ End
 		    FixPath4Windows(CDSfasta)
 		    
 		    dim genomefilepath as string
-		    #if TargetWin32
+		    #if TargetWindows
 		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
 		    #else
@@ -5127,7 +5127,7 @@ End
 		    if outfile<>nil then
 		      WriteToSTDOUT (EndofLine+EndofLine+"Running the HmmGen script..."+EndofLine)
 		      dim GenomeFilePath,outFilePath as string
-		      #if TargetWin32
+		      #if TargetWindows
 		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		        FixPath4Windows(outfile)
 		        GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)

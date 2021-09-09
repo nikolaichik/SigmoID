@@ -301,6 +301,7 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -341,6 +342,7 @@ Begin Window deNovoWin
       Width           =   243
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
@@ -414,6 +416,7 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -1691,7 +1694,7 @@ End
 		      sh=New Shell
 		      sh.mode=1
 		      sh.TimeOut=-1
-		      #if TargetWin32
+		      #if TargetWindows
 		        sh.execute(cli)
 		      #else
 		        sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
