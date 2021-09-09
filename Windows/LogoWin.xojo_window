@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -816,15 +815,12 @@ End
 		  
 		  f=resources_f.child("transterm")
 		  if f<>Nil then
-		    if f.exists then
+		    if f.exists or TargetWin32 then
 		      #if TargetWin32
 		        cli = "transterm -h"
-		      #else
-		        cli=f.ShellPath+" -h"
-		      #endif
-		      #if TargetWin32
 		        ExecuteWSL(cli)
 		      #else
+		        cli=f.ShellPath+" -h"
 		        UserShell(cli)
 		      #endif
 		      If shError=0 OR shError=3 then 'TransTerm returns error code when run without all args

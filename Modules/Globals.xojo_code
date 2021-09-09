@@ -1622,8 +1622,12 @@ Protected Module Globals
 		  cli=hmmbuildpath+" --dna "+PlaceQuotesToPath(MakeWSLPath(outfilepath))+" "+PlaceQuotesToPath(MakeWSLPath(infilepath))
 		  
 		  
+		  #if TargetWin32
+		    ExecuteWSL(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
 		  
-		  ExecuteWSL(cli)
 		  If shError=0 Then
 		    return true
 		  else
