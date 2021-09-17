@@ -1,8 +1,8 @@
 #tag Class
 Protected Class Parser
 	#tag Method, Flags = &h0
-		Sub Constructor()
-		  
+		Sub Constructor(sigPath as string)
+		  WorkingDir = sigPath
 		End Sub
 	#tag EndMethod
 
@@ -16,10 +16,13 @@ Protected Class Parser
 
 	#tag Method, Flags = &h21
 		Private Function getIDFromDB(queryText as string, name as string) As integer
-		  var query as MSSQLServerDatabase
-		  OpenDatabase(query)
+		  var query as new MSSQLServerDatabase
+		  If not OpenDatabase(query) Then
+		    return 0
+		  End If
 		  try
 		    var result as RowSet = query.SelectSQL(queryText+"='"+name+"'")
+		    query.Close()
 		    If result.ColumnCount > 1 Then
 		      return 0
 		    Else
@@ -27,6 +30,7 @@ Protected Class Parser
 		    End If
 		  catch err As DatabaseException
 		    error = "The error was occured while getting information from the database. Error: " + err.Message
+		    query.Close()
 		    return 0
 		  End try
 		End Function
@@ -34,11 +38,14 @@ Protected Class Parser
 
 	#tag Method, Flags = &h21
 		Private Function getIDFromDBPartialMatch(queryText as string, name as string) As integer
-		  var query as MSSQLServerDatabase
-		  OpenDatabase(query)
-		  var q as string = queryText + " LIKE('"+name+"')"
+		  var query as new MSSQLServerDatabase
+		  If not OpenDatabase(query) Then
+		    return 0
+		  End If
+		  var q as string = queryText + " LIKE('%"+name+"%')"
 		  try
 		    var result as RowSet = query.SelectSQL(q)
+		    query.Close()
 		    If result.ColumnCount > 1 Then
 		      return 0
 		    Else
@@ -46,6 +53,7 @@ Protected Class Parser
 		    End If
 		  catch err As DatabaseException
 		    error = "The error was occured while getting information from the database. Error: " + err.Message
+		    query.Close()
 		    return 0
 		  End try
 		End Function
@@ -67,7 +75,7 @@ Protected Class Parser
 		    End If
 		    If line.StartsWith(name) Then
 		      found = true
-		      break
+		      Exit
 		    End If
 		  Wend
 		  If line.Length() - name.Length() > 0 Then
@@ -82,8 +90,8 @@ Protected Class Parser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function Iif(Conditional as Variant, Option1 as Variant, Option2 as Variant) As Variant
+	#tag Method, Flags = &h0
+		Function Iif(Conditional as Variant, Option1 as Variant, Option2 as Variant) As Variant
 		  if Conditional = True then
 		    return Option1
 		  else
@@ -93,26 +101,70 @@ Protected Class Parser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ImportMotifInfo(files() as string, path as string, dirName as string) As boolean
+		Function importDir(item as string) As boolean
+		  var files_() as string
+		  var dirName as string
+		  var path as string = WorkingDir' + "/" + item
+		  
+		  var fi as new FolderItem(path)
+		  If fi.IsFolder Then
+		    dirName = fi.Name
+		    For Each file As FolderItem In fi.Children
+		      files_.AddRow(file.Name)
+		    Next
+		  else
+		    dirName = fi.Name
+		    path = WorkingDir
+		    files_ = files
+		  End If
+		  
+		  If dirName.Right(4)<>".sig" Then
+		    warnings.AddRow("The selected directory does not end with '.sig'. Import is skipped")
+		    return true
+		  End If
+		  
+		  If files_.Count > 2 Then
+		    dirName = dirName.left(dirName.length() - 4)
+		    return importMotifInfo(files_, path, dirName)
+		  else
+		    return true
+		  End If
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function ImportMotifInfo(files() as string, path as string, dirName as string) As boolean
 		  var TFFamily as integer = 0
 		  var CRTagID as integer = 0
 		  
 		  var sl() as string = dirName.split("_")
-		  var query as MSSQLServerDatabase
+		  var query as new MSSQLServerDatabase()
 		  
-		  var TFID as integer = getIDFromDB("SELECT idTF FROM TFs WHERE Name", sl(1))
-		  If TFID > 0 Then
-		    warnings.AddRow("Transcription factor "+sl(1)+" has been already imported")
-		    return true
+		  var sqlReqest as string
+		  
+		  var TFID as integer
+		  'If sl.Count>1 Then
+		  'TFID = getIDFromDB("SELECT idTF FROM TFs WHERE Name", sl(1))
+		  'If TFID > 0 Then
+		  'warnings.AddRow("Transcription factor "+sl(1)+" has been already imported")
+		  'return true
+		  'End If
+		  'Else
+		  'End If
+		  
+		  
+		  var queryCRTag as new MSSQLServerDatabase()
+		  If not OpenDatabase(queryCRTag) Then
+		    return false
 		  End If
-		  
-		  var queryCRTag as MSSQLServerDatabase
-		  OpenDatabase(queryCRTag)
 		  try
-		    CRTagID = queryCRTag.SelectSQL("EXECUTE pr_addCRTag ?, ?", 0, sl(0)).ColumnAt(0).IntegerValue
+		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; EXECUTE pr_addCRTag @ResultForPos OUTPUT, '"+sl(0)+"'; SELECT @ResultForPos;"
+		    var result as RowSet = queryCRTag.SelectSQL(sqlReqest)
+		    CRTagID = result.ColumnAt(0).IntegerValue
 		  catch err As DatabaseException
 		    error = err.Message
 		  End try
+		  queryCRTag.Close()
 		  
 		  //reading info
 		  var info as string = ""
@@ -142,7 +194,11 @@ Protected Class Parser
 		    //reading TF family
 		    HMM_ACC = getNextParameter("HMM_ACC", inOptions)
 		    If HMM_ACC.Length=0 Then
-		      warnings.AddRow("HMM_ACC was not found while importing "+sl(1)+". Import is skipped.")
+		      If sl.Count>1 Then
+		        warnings.AddRow("HMM_ACC was not found while importing "+sl(1)+". Import is skipped.")
+		      Else
+		        warnings.AddRow("HMM_ACC was not found while importing "+dirName+". Import is skipped.")
+		      End If
 		      inOptions.Close()
 		      'fileOptions.close();
 		      return true
@@ -171,14 +227,18 @@ Protected Class Parser
 		  End If
 		  
 		  //writing TF
-		  OpenDatabase(query)
+		  If not OpenDatabase(query) Then
+		    return false
+		  End If
 		  try
-		    var result as RowSet = query.SelectSQL("INSERT INTO TFs([Name], [idTF_family], [idCRTag], [CRTag_coord], [ProteinID], [Sequence], [Description]) VALUES ('"+sl(1)+"', "+TFFamily.ToString()+", "+CRTagID.ToString()+", '"+CRTag_coord+"', '"+ProteinID+"', '"+Sequence+"', '"+info.trim()+"')")
-		    TFID = result.ColumnAt(0).IntegerValue // Need lastInsertId() - make it later
+		    sqlReqest = "INSERT INTO TFs([Name], [idTF_family], [idCRTag], [CRTag_coord], [ProteinID], [Sequence], [Description]) VALUES ('"+sl(1)+"', "+TFFamily.ToString()+", "+CRTagID.ToString()+", '"+CRTag_coord+"', '"+ProteinID+"', '"+Sequence+"', '"+info.trim()+"');"
+		    sqlReqest = sqlReqest + "SELECT MAX(idTF) FROM TFs;"
+		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    TFID = result.ColumnAt(0).IntegerValue
 		  catch err As DatabaseException
 		    error = "The error was occured while insertion of TF. Error: "+err.Message
 		    inOptions.Close()
-		    'fileOptions.close();
+		    query.Close()
 		    return false
 		  End try
 		  
@@ -191,17 +251,20 @@ Protected Class Parser
 		  //reading PWM
 		  var pwm as string = ""
 		  If files.IndexOf("meme.txt")>=0 Then
-		    pwm = TextInputStream.Open(new FolderItem(path+"/meme.txt"+dirName+".info")).ReadAll()
+		    pwm = TextInputStream.Open(new FolderItem(path+"/meme.txt")).ReadAll()
 		  End If
 		  
 		  //writing Motiff
 		  var MotifID as integer = 0
 		  If TFID > 0 and hmm.Length > 0 Then
 		    try
-		      var result as RowSet = query.SelectSQL("INSERT INTO Motifs([idTF], [HMM], [PWM]) VALUES ("+TFID.ToString()+", '"+hmm+"', '"+pwm+"')")
-		      MotifID = result.ColumnAt(0).IntegerValue // Need lastInsertId() - make it later
+		      sqlReqest = "INSERT INTO Motifs([idTF], [HMM], [PWM]) VALUES ("+TFID.ToString()+", '"+hmm+"', '"+pwm+"');"
+		      sqlReqest = sqlReqest + "SELECT MAX(idMotif) FROM Motifs;"
+		      var result as RowSet = query.SelectSQL(sqlReqest)
+		      MotifID = result.ColumnAt(0).IntegerValue
 		    catch err As DatabaseException
 		      error = "The error was occured while insertion of Motif. Error: "+err.Message
+		      query.Close()
 		      return false
 		    End try
 		  End If
@@ -221,12 +284,8 @@ Protected Class Parser
 		        If id.Length > 0 and oper.Length > 0 Then
 		          var res as integer
 		          try
-		            var result as RowSet = query.SelectSQL("INSERT INTO Operators([idMotif], [id], [operator]) VALUES ("+MotifID.ToString()+", '"+id+"', '"+oper+"')")
-		            res = result.ColumnAt(0).IntegerValue
-		            If res < 1 Then
-		              error = "The error was occured while insertion of Motif. Error: " // What error&
-		              break
-		            End If
+		            sqlReqest = "INSERT INTO Operators([idMotif], [id], [operator]) VALUES ("+MotifID.ToString()+", '"+id+"', '"+oper+"')"
+		            query.ExecuteSQL(sqlReqest)
 		          catch err As DatabaseException
 		            error = "The error was occured while insertion of Motif. Error: "+err.Message
 		            break
@@ -235,12 +294,13 @@ Protected Class Parser
 		      Wend
 		      in_.Close()
 		    End If
-		    'fileOperators.close();
 		    If error.Length > 0 Then
 		      error = "The error was occured while insertion of Operator. Error: "+error
+		      query.Close()
 		      return false
 		    End If
 		  End If
+		  query.Close()
 		  
 		  //writing settings
 		  //    nhmmer options 
@@ -291,7 +351,7 @@ Protected Class Parser
 		    return false
 		  End If
 		  
-		  'fileOptions.close();
+		  inOptions.Close()
 		  
 		  return true
 		End Function
@@ -299,20 +359,24 @@ Protected Class Parser
 
 	#tag Method, Flags = &h21
 		Private Function insertSettings(name as string, value as string, program as string, parentID as integer) As boolean
-		  var query as MSSQLServerDatabase
-		  OpenDatabase(query)
+		  var query as new MSSQLServerDatabase
+		  If not OpenDatabase(query) Then
+		    return false
+		  End If
 		  try
-		    var result as RowSet = query.SelectSQL("INSERT INTO Settings([idMotif], [Name], [Value], [Program]) VALUES ("+parentID.ToString()+", '"+name+"', '"+value+"', '"+program+"')")
+		    query.ExecuteSQL("INSERT INTO Settings([idMotif], [Name], [Value], [Program]) VALUES ("+parentID.ToString()+", '"+name+"', '"+value+"', '"+program+"')")
+		    query.Close()
 		    return true
 		  catch err As DatabaseException
 		    error = "The error was occured while insertion of parameter "+name+". Error: " + err.Message
+		    query.Close()
 		    return false
 		  End try
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub OpenDatabase(db as MSSQLServerDatabase)
+		Private Function OpenDatabase(db as MSSQLServerDatabase) As boolean
 		  db.Host = "217.21.43.34\SQLEXPRESS"
 		  db.Port = 1433
 		  db.DatabaseName = "sigmo_id_1"
@@ -320,8 +384,12 @@ Protected Class Parser
 		  db.Password = "rfebiosigmo#id#"
 		  Try
 		    db.Connect
+		    return true
+		  Catch error As DatabaseException
+		    warnings.AddRow("The error occured during connecting to the database. Check settings or connection.")
+		    return false
 		  End try
-		End Sub
+		End Function
 	#tag EndMethod
 
 
@@ -337,8 +405,12 @@ Protected Class Parser
 		Private restart As boolean = false
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		warnings() As String
+	#tag EndProperty
+
 	#tag Property, Flags = &h21
-		Private warnings() As String
+		Private WorkingDir As string
 	#tag EndProperty
 
 
