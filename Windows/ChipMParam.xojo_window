@@ -717,7 +717,26 @@ End
 		          
 		          
 		          outf=dlg.ShowModal
-		          errcode=DeNovoTFBSinference.ChIPmunk(LogoWin.LogoFile, outf)
+		          
+		          If LogoWin.logofile.VirtualVolume<>Nil Then
+		            'copy alignment out of virtual volume:
+		            Dim alignment_tmp As folderitem = TemporaryFolder.child("alignment.tmp")
+		            If alignment_tmp<>Nil Then
+		              If alignment_tmp.Exists Then
+		                alignment_tmp.Delete
+		              End If
+		              LogoWin.LogoFile.CopyFileTo alignment_tmp
+		              
+		            Else
+		              MsgBox "Can't create temporary file!"
+		            End If
+		            errcode=DeNovoTFBSinference.ChIPmunk(alignment_tmp, outf)
+		          Else
+		            errcode=DeNovoTFBSinference.ChIPmunk(LogoWin.LogoFile, outf)
+		          End If
+		          
+		          
+		          
 		          if errcode=0 and LogoWin.LogoFile<>nil and outf<>nil then
 		            ChipMLogo.inputFasta=LogoWin.LogoFile
 		            ChipMLogo.chipmOutput=outf
