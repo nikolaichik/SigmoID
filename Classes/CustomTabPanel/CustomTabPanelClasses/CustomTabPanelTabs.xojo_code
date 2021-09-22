@@ -188,7 +188,7 @@ Inherits canvas
 		  // most of the double buffering code, original from Aaron Ballman.
 		  // Check to see whether the user is on a system that
 		  // requires double buffering
-		  #if TargetWin32
+		  #if TargetWindows
 		    // On Windows, we always want to double buffer
 		    mDoubleBuffer = true
 		  #elseif TargetMacOS
@@ -704,7 +704,7 @@ Inherits canvas
 		  // entire screen erase.  So we override Refresh by making it
 		  // a private function.
 		  
-		  #if TargetWin32
+		  #if TargetWindows
 		    Declare Sub InvalidateRect Lib "User32" ( hwnd as Integer, lpRect as Ptr, erase as Boolean )
 		    
 		    dim r as new MemoryBlock( 16 )

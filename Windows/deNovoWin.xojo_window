@@ -1567,8 +1567,8 @@ End
 		  For row As Integer = 0 To HmmList.ListCount-1
 		    
 		    HMMfilePath=HmmList.Cell(row,7)
-		    cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(HmmSearchTblOut.ShellPath)+" "+PlaceQuotesToPath(HMMfilePath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
-		    UserShell(cli)
+		    cli=HmmSearchPath+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmSearchTblOut.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
+		    ExecuteWSL(cli)
 		    If shError = 0 Then
 		      Instream=HmmSearchTblOut.OpenAsTextFile
 		      if Instream<> Nil Then
@@ -1694,7 +1694,7 @@ End
 		      sh=New Shell
 		      sh.mode=1
 		      sh.TimeOut=-1
-		      #if TargetWin32
+		      #if TargetWindows
 		        sh.execute(cli)
 		      #else
 		        sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected

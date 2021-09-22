@@ -566,7 +566,11 @@ End
 		      'cli="samtools faidx "+fastasource.shellpath+" "+str(ProtNames(ubound(ProtNames)))
 		      'cli="samtools faidx "+trEMBL_fasta.shellpath+" "+str(ProtNames(ubound(ProtNames)))
 		      
-		      userShell(cli)
+		      #if TargetWindows
+		        ExecuteWSL(cli)
+		      #else
+		        userShell(cli)
+		      #endif
 		      
 		      if shError<>0 then
 		        LogoWin.WriteToSTDOUT (EndOfLine.unix+"Error retrieving "+str(ProtNames(ubound(ProtNames)))+" from trEMBL"+EndOfLine.unix)
@@ -881,12 +885,17 @@ End
 		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		      dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		      if instr(trEMBL_dat.ShellPath,".gz")>0 then
-		        cli="gunzip -c "+PlaceQuotesToPath(trEMBL_dat.ShellPath)+" "+chr(124)+" "+ PlaceQuotesToPath(HmmSearchPath)+" --cut_tc --notextw -A "+PlaceQuotesToPath(alignmentsFile.ShellPath)+" -o "+PlaceQuotesToPath(hmmsearchoutput.ShellPath)+" "+PlaceQuotesToPath(hmmPath)+" -"
+		        cli="gunzip -c "+PlaceQuotesToPath(MakeWSLPath(trEMBL_dat.ShellPath))+" "+chr(124)+" "+ PlaceQuotesToPath(MakeWSLPath(HmmSearchPath))+" --cut_tc --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" -o "+PlaceQuotesToPath(MakeWSLPath(hmmsearchoutput.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(hmmPath))+" -"
 		      else
-		        cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(alignmentsFile.ShellPath)+" -o "+PlaceQuotesToPath(hmmsearchoutput.ShellPath)+" "+PlaceQuotesToPath(hmmPath)+" "+PlaceQuotesToPath(trEMBL_dat.ShellPath)
+		        cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" -o "+PlaceQuotesToPath(MakeWSLPath(hmmsearchoutput.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(hmmPath))+" "+PlaceQuotesToPath(MakeWSLPath(trEMBL_dat.ShellPath))
 		      end
 		      
-		      userShell(cli)
+		      #if TargetWindows
+		        ExecuteWSL(cli)
+		      #else
+		        userShell(cli)
+		      #endif
+		      
 		      If shError=0 Then
 		        LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
 		        instream=TextInputStream.Open(hmmsearchoutput)

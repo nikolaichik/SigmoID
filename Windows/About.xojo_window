@@ -226,7 +226,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub CenterMe()
-		  '#if targetWin32 then
+		  '#if TargetWindows then
 		  ''center the win on the screen:
 		  'Left=(app.MDIWindow.Width-width)/2
 		  'Top=(app.MDIWindow.height-height)/4

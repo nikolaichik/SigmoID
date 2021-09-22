@@ -75,7 +75,7 @@ Protected Module Globals
 		          PushButton(aControl).Height = PushButton(aControl).Height + 10
 		        #endif
 		        
-		        '#if TargetWin32 then
+		        '#if TargetWindows then
 		        'PushButton(aControl).Top = PushButton(aControl).Top - 4
 		        'PushButton(aControl).Height = PushButton(aControl).Height + 8
 		        '#endif
@@ -94,7 +94,7 @@ Protected Module Globals
 		        'BevelButton(aControl).Height = BevelButton(aControl).Height + 10
 		        '#endif
 		        '
-		        '#if TargetWin32 then
+		        '#if TargetWindows then
 		        'BevelButton(aControl).Top = BevelButton(aControl).Top - 4
 		        'BevelButton(aControl).Height = BevelButton(aControl).Height + 8
 		        '#endif
@@ -398,7 +398,7 @@ Protected Module Globals
 		  in1.pString(0)=seq    'Shouldn't there be a CString here?
 		  
 		  'setting endiannes here is probably unnecessary, but...
-		  '#if targetWin32
+		  '#if TargetWindows
 		  'in1.littleEndian=true
 		  'out.littleEndian=true
 		  '#endif
@@ -864,6 +864,23 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ExecuteWSL(cmd as string, mode as boolean = true, cmdend as string = "")
+		  ' mode resolves what quotes should be set 
+		  ' false - " 
+		  ' true - '
+		  'WSLCommand = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c "
+		  var WSLBashCommand as string 
+		  WSLBashCommand = " --login -c "
+		  If mode = true Then
+		    userShell(WSLBashPath+WSLBashCommand+"'"+cmd+"'"+cmdend)
+		  Else
+		    userShell(WSLBashPath+WSLBashCommand+chr(34)+cmd+chr(34)+cmdend)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Fasta2IC(logoData as string) As Double
 		  // Calculate Information content from alignment data
 		  ' (simlified version of MakeLogoPic)
@@ -1052,7 +1069,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub FixPath4Windows(aFile as folderitem)
-		  #if TargetWin32
+		  #if TargetWindows
 		    'a workaround for shellpath glitch
 		    if not aFile.exists then
 		      Dim t As TextOutputStream
@@ -1492,7 +1509,7 @@ Protected Module Globals
 		  Dim lpShort,lpLong As MemoryBlock
 		  dim iBuff,iLen As Integer
 		  
-		  #IF TargetWin32 then
+		  #IF TargetWindows then
 		    //Declare Function GetShortPathName
 		    //Lib "kernel32" Alias "GetShortPathNameA" (
 		    //ByVal lpszLongPath As String, --> change to ptr
@@ -1640,11 +1657,15 @@ Protected Module Globals
 		  
 		  
 		  'Usage: hmmbuild [-options] <hmmfile_out> <msafile>
-		  cli=PlaceQuotesToPath(hmmbuildpath)+" --dna "+PlaceQuotesToPath(outfilepath)+" "+PlaceQuotesToPath(infilepath)
+		  cli=hmmbuildpath+" --dna "+PlaceQuotesToPath(MakeWSLPath(outfilepath))+" "+PlaceQuotesToPath(MakeWSLPath(infilepath))
 		  
 		  
+		  #if TargetWindows
+		    ExecuteWSL(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
 		  
-		  userShell(cli)
 		  If shError=0 Then
 		    return true
 		  else
@@ -1683,9 +1704,13 @@ Protected Module Globals
 		    'LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
-		    cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(HmmResultFile.ShellPath)+" "+PlaceQuotesToPath(HMMfilePath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
+		    cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		    
-		    userShell(cli)
+		    #if TargetWindows
+		      ExecuteWSL(cli)
+		    #else
+		      userShell(cli)
+		    #endif
 		    
 		    If shError=0 Then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
@@ -1755,9 +1780,13 @@ Protected Module Globals
 		    
 		    // Settings from the HmmSearchSettingsWin should be used here, but they are currently ignored!
 		    
-		    cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(HmmResultFile.ShellPath)+" "+PlaceQuotesToPath(HMMfilePath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
+		    cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		    
-		    userShell(cli)
+		    #if TargetWindows
+		      ExecuteWSL(cli)
+		    #else
+		      userShell(cli)
+		    #endif
 		    //LogoWin.WriteToSTDOUT (EndofLine.UNIX+str(sh.Result)+EndOfLine.UNIX)
 		    If shError=0 Then
 		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
@@ -2593,6 +2622,18 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function MakeWSLPath(path as string) As string
+		  #if TargetWindows
+		    path = path.ReplaceAll("\", "/")
+		    path = path.Lowercase()
+		    path = path.Replace(":", "")
+		    path = "/mnt/"+path
+		  #endif
+		  Return path
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MEMEconvert(FastaFile as folderitem, Palindromic as boolean) As integer
 		  'Converts alignment (fasta format) to minimal MEME format
 		  'results written to MEME.txt in the TemporaryFolder
@@ -2649,11 +2690,17 @@ Protected Module Globals
 		    if Palindromic then            
 		      cli=cli+"-pal -revcomp "
 		    end if
-		    cli=cli+PlaceQuotesToPath(alignment_tmp.ShellPath)
-		    cli=cli+" > "+PlaceQuotesToPath(MEMEtmp.ShellPath)
+		    cli=cli+PlaceQuotesToPath(MakeWSLPath(alignment_tmp.ShellPath))
+		    If TargetWindows=False Then
+		      cli=cli+" > "+PlaceQuotesToPath(MakeWSLPath(MEMEtmp.ShellPath))
+		    End If
 		    
 		    Logowin.WriteToSTDOUT (EndofLine+"Running MEME...")
-		    userShell(cli)
+		    #if TargetWindows
+		      ExecuteWSL(cli, true, " > "+PlaceQuotesToPath(MEMEtmp.ShellPath))
+		    #else
+		      userShell(cli)
+		    #endif
 		    If shError=0 Then
 		      Logowin.WriteToSTDOUT (" OK") '(EndofLine+shResult)
 		      
@@ -2729,7 +2776,7 @@ Protected Module Globals
 		  // Place pair of quotes to the path in Win32 system
 		  // Also check if this quotes are already placed
 		  
-		  #if TargetWin32
+		  #if TargetWindows
 		    If path.Left(1)<>chr(34) Then
 		      path=chr(34)+path
 		    End If
@@ -2869,6 +2916,7 @@ Protected Module Globals
 		    TomTomPath=Prefs.value("TomTomPath",TomTomPath)
 		    MeshClustPath=Prefs.value("MeshClustPath",MeshClustPath)
 		    Globals.chipset.jarPath=Prefs.Value("ChIPmunkPath", Globals.chipset.jarPath)
+		    WSLBashPath=Prefs.value("WSLBashPath",WSLBashPath)
 		    PathsChanged=False
 		  end if
 		  
@@ -2885,6 +2933,7 @@ Protected Module Globals
 		  SettingsWin.EmailField.Text=Globals.email
 		  SettingsWin.NameField.Text=Globals.CuratorName
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
+		  SettingsWin.WSLBashPathField.Text=WSLBashPath
 		  
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
@@ -2952,7 +3001,7 @@ Protected Module Globals
 		  dim ResultFormat as string
 		  ResultFormat=Prefs.value("LoadPlainResult","false")
 		  
-		  '#if TargetWin32 then
+		  '#if TargetWindows then
 		  'ResultFormat=Prefs.value("LoadPlainResult","true") 
 		  '#elseif TargetLinux
 		  '#if Target32Bit
@@ -3273,7 +3322,7 @@ Protected Module Globals
 		  in1.pString(0)=seq    'Shouldn't there be a CString here?
 		  
 		  'setting endiannes here is probably unnecessary, but...
-		  '#if targetWin32
+		  '#if TargetWindows
 		  'in1.littleEndian=true
 		  'out.littleEndian=true
 		  '#endif
@@ -3303,7 +3352,7 @@ Protected Module Globals
 		  in1.pString(0)=seq    'Shouldn't there be a CString here?
 		  
 		  'setting endiannes here is probably unnecessary, but...
-		  '#if targetWin32
+		  '#if TargetWindows
 		  'in1.littleEndian=true
 		  'out.littleEndian=true
 		  '#endif
@@ -3826,7 +3875,7 @@ Protected Module Globals
 		  dim f as folderitem
 		  dim pth as string
 		  
-		  #if TargetWin32 'only look for included apps, locally installed must be manually configured
+		  #if TargetWindows 'only look for included apps, locally installed must be manually configured
 		    f=resources_f.child(appName+".exe")
 		    if f<>Nil then
 		      if f.exists then
@@ -3939,7 +3988,12 @@ Protected Module Globals
 		    
 		    if instr(LogoWin.GenomeFile.nativepath," ")=0 then
 		      'Other illegal symbols should be checked too!
-		      GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34) 'need the quotes to include gbk format anyway
+		      'need the quotes to include gbk format anyway
+		      #if TargetWindows
+		        GenomeFilePath=LogoWin.GenomeFile.nativepath+" 1"
+		      #else
+		        GenomeFilePath=chr(34)+LogoWin.GenomeFile.nativepath+" 1"+chr(34)
+		      #endif
 		    else
 		      'Fasta can't hadle paths with white space/non-ASCII characters, so we move and rename the library (genome) file
 		      dim genome_tmp as folderitem = TemporaryFolder.child("genome_tmp.gb")
@@ -3948,16 +4002,25 @@ Protected Module Globals
 		          genome_tmp.Delete
 		        end if
 		        LogoWin.GenomeFile.CopyFileTo genome_tmp
-		        GenomeFilePath=chr(34)+genome_tmp.nativepath+" 1"+chr(34)
+		        #if TargetWindows
+		          GenomeFilePath=genome_tmp.nativepath+" 1"
+		        #else
+		          GenomeFilePath=chr(34)+genome_tmp.nativepath+" 1"+chr(34)
+		        #endif
 		        
 		      end if
 		    end if
 		    
 		    'tfastx36 [-options] query_file library_file [ktup]
 		    
-		    cli=PlaceQuotesToPath(tfastxPath)+fastaOptions+PlaceQuotesToPath(TFfastaFile.shellpath)+" "+PlaceQuotesToPath(GenomeFilePath)
+		    cli=tfastxPath+fastaOptions+PlaceQuotesToPath(MakeWSLPath(TFfastaFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		    
-		    userShell(cli)
+		    
+		    #if TargetWindows
+		      ExecuteWSL(cli)
+		    #else
+		      UserShell(cli)
+		    #endif
 		    If shError=0 Then
 		      LogoWin.WriteToSTDOUT (EndofLine+shResult)
 		      return
@@ -4576,7 +4639,15 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		UserShellMode As Integer = 0
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		WebLogoPath As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		WSLBashPath As string
 	#tag EndProperty
 
 
@@ -5164,6 +5235,22 @@ Protected Module Globals
 			InitialValue="false"
 			Type="boolean"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UserShellMode"
+			Visible=false
+			Group="Behavior"
+			InitialValue="0"
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WSLBashPath"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

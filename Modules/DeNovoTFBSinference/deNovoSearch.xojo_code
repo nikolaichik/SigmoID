@@ -232,10 +232,10 @@ Inherits Thread
 		      deNovoWin.rp.writeToWin(EndofLine.unix+"Running hmmsearch...")
 		      dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		      
-		      cli=PlaceQuotesToPath(HmmSearchPath)+" --cut_ga --notextw -A "+PlaceQuotesToPath(alignmentsFile.ShellPath)+" "+PlaceQuotesToPath(Me.hmmPath)+" "+PlaceQuotesToPath(CDSfile.ShellPath)
+		      cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(Me.hmmPath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		      
 		      'sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
-		      UserShell(cli)
+		      ExecuteWSL(cli)
 		      'While sh.IsRunning=true
 		      'app.YieldToNextThread()
 		      'wend

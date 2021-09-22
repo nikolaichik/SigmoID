@@ -57,7 +57,7 @@ Protected Module UnicodeFormsExtension
 		    end select
 		  #endif
 		  
-		  #if TargetWin32
+		  #if TargetWindows
 		    mb = ut16 + Chr( 0 )
 		    
 		    Win32.SetLastError   Win32Error.ERROR_SUCCESS  //IsNormalized does not do it. Sad but true.
@@ -137,13 +137,13 @@ Protected Module UnicodeFormsExtension
 		  ''LibICU = "/usr/lib/libicucore.so"
 		  ''#endif
 		  ''
-		  ''#elseif TargetWin32
+		  ''#elseif TargetWindows
 		  ''
 		  ''
 		  ''#endif
 		  '
 		  '
-		  '#if not TargetWin32
+		  '#if not TargetWindows
 		  'soft declare function unorm2_getInstance lib LibICU ( packageName as Ptr, name as CString, mode as integer, byref pError as integer ) as Ptr
 		  '
 		  'if inited then return
@@ -316,7 +316,7 @@ Protected Module UnicodeFormsExtension
 		    ut16 = s.ConvertEncoding( Encodings.UTF16 )
 		  end if
 		  
-		  #if TargetWin32
+		  #if TargetWindows
 		    mb = ut16 + Chr( 0 )
 		  #else
 		    mb = ut16
@@ -378,7 +378,7 @@ Protected Module UnicodeFormsExtension
 		  #endif
 		  
 		  
-		  #if targetWin32
+		  #if TargetWindows
 		    dim normalizedString as String
 		    
 		    Win32.SetLastError  Win32Error.ERROR_SUCCESS //NormalizeString does not set ERROR_SUCCESS before it starts

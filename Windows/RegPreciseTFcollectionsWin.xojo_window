@@ -1510,24 +1510,24 @@ End
 		      'URL http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=site2
 		      
 		      dim sites2memePath as string
-		      #if targetWin32
-		        sites2memePath=PlaceQuotesToPath(nthfield(MEMEpath,"/meme.exe",1))+"/sites2meme"
-		      #else
-		        MEMEpath=trim(MEMEpath)
-		        if right(MEMEpath,1)="'" then
-		          sites2memePath=left(MEMEpath,len(MEMEpath)-5)+"sites2meme'"
-		        else
-		          sites2memePath=left(MEMEpath,len(MEMEpath)-4)+"sites2meme" 
-		        end if
-		      #endif
+		      MEMEpath=trim(MEMEpath)
+		      if right(MEMEpath,1)="'" then
+		        sites2memePath=left(MEMEpath,len(MEMEpath)-5)+"sites2meme'"
+		      else
+		        sites2memePath=left(MEMEpath,len(MEMEpath)-4)+"sites2meme" 
+		      end if
 		      
 		      dim cli as string
-		      cli=sites2memePath+" "+"-map "+PlaceQuotesToPath(sitesMap.ShellPath)
+		      cli=sites2memePath+" "+"-map "+PlaceQuotesToPath(MakeWSLPath(sitesMap.ShellPath))
 		      cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
-		      cli=cli+" "+PlaceQuotesToPath(TFfamily_tmp.ShellPath)
+		      cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(TFfamily_tmp.ShellPath))
 		      
 		      
-		      userShell(cli)
+		      #If TargetWindows
+		        ExecuteWSL(cli)
+		      #Else 
+		        userShell(cli)
+		      #EndIf
 		      
 		      
 		      If shError=0 Then

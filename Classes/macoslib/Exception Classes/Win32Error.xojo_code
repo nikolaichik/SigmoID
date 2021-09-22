@@ -10,7 +10,7 @@ Inherits OSError
 
 	#tag Method, Flags = &h0
 		Shared Function FormatErrorMessage(errorcode as Integer) As String
-		  #if targetWin32
+		  #if TargetWindows
 		    
 		    const FORMAT_MESSAGE_FROM_SYSTEM = &h1000
 		    
@@ -53,7 +53,7 @@ Inherits OSError
 
 	#tag Method, Flags = &h0
 		Shared Function GetError() As Integer
-		  #if targetWin32
+		  #if TargetWindows
 		    soft declare function GetLastError lib win32.Kernel32 () as Integer
 		    
 		    return GetLastError()

@@ -128,7 +128,7 @@ Inherits Application
 		  ProfileWizardWin.hide 'initialise to avoid showing at profile calibration
 		  
 		  
-		  #if targetwin32 then
+		  #if TargetWindows then
 		    'No luck with this on Windows, use the 'Convert to MEME' command
 		    '(does the same, but outputs plain text to the log pane)
 		    AlignmentMEME.Enabled=false

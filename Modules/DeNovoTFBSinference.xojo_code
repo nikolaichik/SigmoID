@@ -51,9 +51,17 @@ Protected Module DeNovoTFBSinference
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
 		  Dim cli As String
 		  if outfile.Exists then outfile.Delete
-		  cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru/autosome/ChIPHorde.class "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+PlaceQuotesToPath(Str(inFile.NativePath))+"'"
-		  cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
-		  'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
+		  #If TargetWindows
+		    dim copyDestination As FolderItem
+		    copyDestination=resources_f
+		    inFile.CopyFileTo(copyDestination)
+		    cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+chr(34)+Str(copyDestination.NativePath+inFile.Name)+chr(34)+""
+		    cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
+		  #Else 
+		    cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+Str(copyDestination.NativePath+inFile.Name)+"'"
+		    cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
+		    'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
+		  #EndIf
 		  for i as integer = 0 to WindowCount - 1
 		    if window(i) isa deNovoWin then
 		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Running ChIPmunk...")
@@ -1199,7 +1207,7 @@ Protected Module DeNovoTFBSinference
 		          'assume bash is the normal user shell
 		          'execute bash with login scripts to set the same env as in terminal
 		          'command must be in single quotes
-		          #if TargetWin32
+		          #if TargetWindows
 		            sh.execute(cli)
 		          #else
 		            sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
@@ -2177,43 +2185,57 @@ Protected Module DeNovoTFBSinference
 		  
 		  Dim cmdStart As String
 		  Dim cmdEnd As String
-		  #If targetWin32
-		    dim f As FolderItem
-		    'Work in progress here
-		    'f=resources_f.child("test_terminal.py")
-		    'Dim pythonShellPath As String = PlaceQuotesToPath(f.ShellPath) + " "
-		    'Dim pythonShellPath As String = "D:/test_terminal.py "
-		    'cmdStart = pythonPath+pythonShellPath+"'e:/cygwin/bin/bash.exe --login -c \"+chr(34)+"./edirect/esearch -db protein -query "
-		    'cmdEnd = "  ./edirect/efetch -format fasta\"+chr(34)+"'"
-		    'cmdStart = pythonPath+pythonShellPath+"'e:/cygwin/bin/bash.exe --login -c " +chr(34)+chr(34)+ "./edirect/esearch -db protein -query "
-		    'cmdEnd = " | ./edirect/efetch -format fasta"+chr(34)+chr(34)+"'"
-		    'cmdStart = pythonPath+pythonShellPath+"'e:/cygwin/bin/bash.exe --login -c " +chr(34)+chr(34)+ "./edirect/esearch"
-		    'cmdEnd = chr(34)+chr(34)+"'"
-		    cmdStart = "e:/cygwin/bin/bash.exe --login -c './edirect/esearch -db protein -query "+chr(34)
-		    cmdEnd = chr(34)+" | ./edirect/efetch -format fasta'"
+		  Dim f As FolderItem
+		  f=Resources_f
+		  Dim OutputFilePath As String = f.NativePath + "output.txt"
+		  'OutputFilePath="D:/output.txt"
+		  #If TargetWindows
+		    ' Work in progress here
+		    'cmdStart = "esearch -db protein -query "
+		    'cmdEnd = " | efetch -format fasta >> "+chr(34)+chr(34)+MakeWSLPath(OutputFilePath)+chr(34)+chr(34)
+		    cmdStart = "esearch -db protein -query '"
+		    cmdEnd = "' | efetch -format fasta"
 		  #Else 
 		    cmdStart = "esearch -db protein -query "+Chr(34)
 		    cmdEnd = Chr(34)+" | efetch -format fasta"
 		  #EndIf
 		  
 		  Dim cmd As String
-		  
 		  cmd=cmdStart+locusTag+cmdEnd
 		  
-		  Dim sh As New Shell
-		  
-		  #If targetWin32
-		    'ExecuteCygWin(cmd)
-		    userShell(cmd)
+		  #If TargetWindows
+		    UserShellMode=1
+		    ExecuteWSL(cmd, false, " > "+PlaceQuotesToPath(OutputFilePath))
 		  #Else 
 		    userShell(cmd)
 		  #EndIf
 		  
-		  
 		  Dim res As String
 		  Dim m,n As Integer
-		  
 		  res=shResult
+		  
+		  #If TargetWindows
+		    Dim output As New FolderItem(OutputFilePath)
+		    For i As Integer = 1 To 100 ' Wait for 5 seconds, while the asynchronous command is executing
+		      If output=Nil Then
+		        App.SleepCurrentThread(50)
+		      Else
+		        Exit
+		      End If
+		    Next
+		    If output<>Nil Then
+		      For i As Integer = 1 To 100 ' Wait for 5 seconds, while we will get results in file
+		        If output.Length=0 Then
+		          App.SleepCurrentThread(50)
+		        Else
+		          res=TextInputStream.Open(output).ReadAll
+		          Exit
+		        End If
+		      Next
+		    Else
+		      res=""
+		    End If
+		  #Endif
 		  
 		  If InStr(res, ">")>0 Then 'find correct seq among several possible
 		    'we simply check for the presence of all words of genomeName within fasta title
@@ -2332,7 +2354,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  ''need to set MEME_BIN_DIRS for the bundled meme version
 		  'dim MEME_BIN_DIRS as string
-		  '#if targetWin32
+		  '#if TargetWindows
 		  ''MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
 		  'dim ff as folderitem
 		  'ff=TemporaryFolder.child("meme_xml_to_html")
@@ -2389,13 +2411,13 @@ Protected Module DeNovoTFBSinference
 		  'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		  'end if
 		  '
-		  '#elseif TargetWin32
+		  '#elseif TargetWindows
 		  'cli=TemporaryFolder.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		  '#else
 		  'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		  '#endif
 		  
-		  #if TargetWin32
+		  #if TargetWindows
 		    cli=PlaceQuotesToPath(TemporaryFolder.child("meme.exe").ShellPath)+" "+PlaceQuotesToPath(infile.ShellPath)
 		  #else
 		    cli=MEMEpath+" '"+PlaceQuotesToPath(infile.NativePath)+"'"
@@ -2419,7 +2441,7 @@ Protected Module DeNovoTFBSinference
 		  sh=New Shell
 		  sh.mode=1
 		  sh.TimeOut=-1
-		  #if TargetWin32
+		  #if TargetWindows
 		    sh.execute(cli)
 		  #else
 		    sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected

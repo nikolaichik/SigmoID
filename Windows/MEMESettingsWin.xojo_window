@@ -617,7 +617,7 @@ End
 		    
 		    ''need to set MEME_BIN_DIRS for the bundled meme version
 		    'dim MEME_BIN_DIRS as string
-		    '#if targetWin32
+		    '#if TargetWindows
 		    ''MEME_BIN_DIRS=nthfield(MEMEpath,"/meme.exe",1)
 		    'dim ff as folderitem
 		    'ff=TemporaryFolder.child("meme_xml_to_html")
@@ -674,19 +674,14 @@ End
 		    'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		    'end if
 		    '
-		    '#elseif TargetWin32
+		    '#elseif TargetWindows
 		    'cli=TemporaryFolder.child("meme.exe").ShellPath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		    '#else
 		    'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		    '#endif
 		    
-		    #if TargetWin32
-		      cli=PlaceQuotesToPath(TemporaryFolder.child("meme.exe").ShellPath)+" "+PlaceQuotesToPath(alignment_tmp.ShellPath)
-		    #else
-		      cli=MEMEpath+" "+PlaceQuotesToPath(alignment_tmp.ShellPath)
-		    #endif
 		    
-		    
+		    cli=MEMEpath+" "+PlaceQuotesToPath(MakeWSLPath(alignment_tmp.ShellPath))
 		    cli=cli+" -dna -minw "+str(MinField.text)+" -maxw "+str(MaxField.text)
 		    
 		    '[-pal]            force palindromes (requires -dna)
@@ -727,11 +722,17 @@ End
 		    
 		    '[-oc <output dir>]    name of directory for output files
 		    'will replace existing directory
-		    cli=cli+" -oc "+PlaceQuotesToPath(LogoWin.MEMEtmp.ShellPath)
+		    cli=cli+" -oc "+PlaceQuotesToPath(MakeWSLPath(LogoWin.MEMEtmp.ShellPath))
 		    
 		    LogoWin.show
 		    LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME...")
-		    userShell(cli)
+		    
+		    
+		    #if TargetWindows
+		      ExecuteWSL(cli)
+		    #else
+		      userShell(cli)
+		    #endif
 		    If shError=0 Then
 		      LogoWin.WriteToSTDOUT (EndofLine+shResult)
 		      

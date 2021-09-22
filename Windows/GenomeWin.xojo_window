@@ -839,7 +839,7 @@ End
 		  'me.Left=SeqWinLeft
 		  'me.Width=SeqWinWidth
 		  'for some reason setting height on Mac makes controls (editor, scroller, coords) taller than set in the IDE
-		  '#if TargetWin32 then
+		  '#if TargetWindows then
 		  'me.height=SeqWinHeight
 		  '#endif
 		  
@@ -894,7 +894,7 @@ End
 		  
 		  
 		  'HighlightColour=HighlightColor 'set to default until features are read
-		  '#if TargetWin32
+		  '#if TargetWindows
 		  'HighlightColour=&c66CCFF00
 		  '#endif
 		  
@@ -1604,7 +1604,7 @@ End
 			
 			logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running the ProtFamily script..."+EndofLine)
 			dim GenomeFilePath,outFilePath as string
-			#if TargetWin32
+			#if TargetWindows
 			'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 			FixPath4Windows(gbkFile)
 			GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
@@ -2449,7 +2449,7 @@ End
 		      
 		      CurrentFeature=FragmentFeature.FeatureText
 		      
-		      #if targetWin32
+		      #if TargetWindows
 		        CurrentFeature=ReplaceLineEndings(CurrentFeature,EndOfLine.Unix)
 		      #endif
 		      
@@ -2950,7 +2950,7 @@ End
 		    gbk2tblPath=Resources_f.Child("gbk2tbl.py").ShellPath
 		    
 		    dim GenomeFilePath,outFilePath as string
-		    #if TargetWin32
+		    #if TargetWindows
 		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		      FixPath4Windows(outfile)
 		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
@@ -3725,7 +3725,7 @@ End
 		    FixPath4Windows(CDSfasta)
 		    
 		    dim genomefilepath as string
-		    #if TargetWin32
+		    #if TargetWindows
 		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
 		    #else
@@ -3737,17 +3737,17 @@ End
 		    
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
-		    cli=PlaceQuotesToPath(HmmSearchPath)+" "+hmmSearchSettings
+		    cli=HmmSearchPath+" "+hmmSearchSettings
 		    if hmmSearchSettingsWin.AddAnnotationCheckBox.Value then
 		      hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")
 		      
 		      if hmmsearchResultFile<>nil then
-		        cli=cli +" -o "+PlaceQuotesToPath(hmmsearchResultFile.shellpath)
+		        cli=cli +" -o "+PlaceQuotesToPath(MakeWSLPath(hmmsearchResultFile.shellpath))
 		      else
 		        return false
 		      end if
 		    end if
-		    cli=cli+" "+modelFile+" "+PlaceQuotesToPath(CDSfasta.ShellPath)
+		    cli=cli+" "+modelFile+" "+PlaceQuotesToPath(MakeWSLPath(CDSfasta.ShellPath))
 		    
 		    logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running hmmsearch...")
 		    userShell(cli)
@@ -3808,7 +3808,7 @@ End
 		    FixPath4Windows(CDSfasta)
 		    
 		    dim genomefilepath as string
-		    #if TargetWin32
+		    #if TargetWindows
 		      'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		      GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
 		    #else
@@ -5036,7 +5036,7 @@ End
 		  'skimming through the hits
 		  
 		  'HighlightColour=HighlightColor 'reset to avoid feature colours
-		  '#if TargetWin32
+		  '#if TargetWindows
 		  'HighlightColour=&c66CCFF00
 		  '#endif
 		  
@@ -6491,7 +6491,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Activate()
-		  #if TargetWin32 then
+		  #if TargetWindows then
 		    if me.DoubleBuffer then
 		      'picture isn't drawn intil clicked!
 		      me.refresh(false)
@@ -6564,7 +6564,7 @@ End
 		      ttip=seq.Features(PointedFeature).FeatureText
 		    end if
 		    
-		    #if TargetWin32
+		    #if TargetWindows
 		      dim CRLF as string = chr(13)+chr(10)
 		      if instr(ttip, CRLF)=0 then
 		        ttip=replaceall(ttip,EndOfLine.UNIX,EndOfLine) 'different line ends on different Windows machines
@@ -6672,7 +6672,7 @@ End
 		      If TTip="" Then
 		        Global.ToolTip.hide
 		      Else
-		        #if TargetWin32
+		        #if TargetWindows
 		          Global.ToolTip.Show(ttip,System.MouseX, System.MouseY-20, False)
 		        #else
 		          Global.ToolTip.Show(ttip,System.MouseX, System.MouseY-20, True)
@@ -6684,7 +6684,7 @@ End
 		      If TTip="" Then
 		        App.HideTooltip
 		      Else
-		        #If TargetWin32
+		        #If TargetWindows
 		          App.ShowTooltip(ttip,System.MouseX, System.MouseY-20, False)
 		        #Else
 		          App.ShowTooltip(ttip,System.MouseX, System.MouseY-20, True)
@@ -7385,7 +7385,7 @@ End
 		    
 		    me.top=me.top+deltaY
 		    'DragStartY=Y
-		    #if TargetWin32
+		    #if TargetWindows
 		      'too much flicker
 		    #else
 		      self.invalidate(false)
