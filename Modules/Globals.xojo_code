@@ -126,6 +126,44 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CitationFromDOI(DOI as string) As string
+		  // Info on DOI --> citation conversion is from CrossCite:
+		  '  https://citation.crosscite.org/docs.html
+		  
+		  '  An example:
+		  '  curl -LH "Accept: text/x-bibliography; style=apa" https://doi.org/10.1126/science.169.3946.635
+		  
+		  
+		  Dim res As String
+		  Dim cli As String 
+		  
+		  cli="curl -LH "+Chr(34)+"Accept: text/x-bibliography; style=apa"+Chr(34)+" https://doi.org/"+DOI
+		  Dim sh As Shell =  New Shell
+		  sh.TimeOut=-1
+		  sh.execute(cli)
+		  res=Trim(sh.result)
+		  
+		  'UserShell(cli)
+		  
+		  Dim ln As Integer = CountFields(res,EndOfLine.UNIX)
+		  If ln>1 Then
+		    ln=CountFields(res,"--:--:--")
+		    res=NthField(res,"--:--:--",ln)  'four extra lines (at least on a mac), have to remove these
+		    ln=InStr(res,EndOfLine.UNIX)
+		    If ln>0 Then
+		      res=Right(res, Len(res)-ln)
+		    End If
+		    
+		  End If
+		  
+		  res=ReplaceAll(res, EndOfLine.UNIX," ") 'lineEnds might be present – remove 'em
+		  
+		  Return Trim(res)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CleanUp(Ge As string) As string
 		  'Remove numbers, spaces, line ends
 		  '(no complete cleanup for speed reasons!)
@@ -1755,7 +1793,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function HTTPerror(StatusCode as integer, ShowDialog as boolean) As string
-		  dim ErrName, Desc As String
+		  Dim ErrName, Desc As String
 		  
 		  select case StatusCode
 		  case 100 
@@ -2845,6 +2883,7 @@ Protected Module Globals
 		  SettingsWin.APIKeyField.Text=API_Key
 		  SettingsWin.ChIPmunkPathField.Text=Globals.chipset.jarPath
 		  SettingsWin.EmailField.Text=Globals.email
+		  SettingsWin.NameField.Text=Globals.CuratorName
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
 		  
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
@@ -2852,6 +2891,7 @@ Protected Module Globals
 		  BLASTorganism=Prefs.value("BLASTorganism","")
 		  API_Key=Prefs.value("API_Key","")
 		  email=Prefs.value("email","")
+		  CuratorName=Prefs.value("CuratorName","")
 		  requestCount=Val(Prefs.Value("requestCount","100"))
 		  
 		  // Fonts
@@ -4288,6 +4328,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		CRtagPositions As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CuratorName As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

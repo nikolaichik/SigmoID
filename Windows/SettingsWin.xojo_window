@@ -116,10 +116,9 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   556
       Begin GroupBox GroupBox3
@@ -127,7 +126,7 @@ Begin Window SettingsWin
          Bold            =   False
          Caption         =   "#kNCBIserver"
          Enabled         =   True
-         Height          =   250
+         Height          =   201
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -136,7 +135,7 @@ Begin Window SettingsWin
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Scope           =   0
          TabIndex        =   7
@@ -442,7 +441,7 @@ Begin Window SettingsWin
             Visible         =   True
             Width           =   141
          End
-         Begin TextField EmailField
+         Begin TextField requestCount
             AcceptTabs      =   False
             Alignment       =   0
             AutoDeactivate  =   True
@@ -450,7 +449,7 @@ Begin Window SettingsWin
             BackColor       =   &cFFFF00FF
             Bold            =   False
             Border          =   True
-            CueText         =   "valid e-mail is required for some NCBI services "
+            CueText         =   ""
             DataField       =   ""
             DataSource      =   ""
             Enabled         =   True
@@ -471,10 +470,10 @@ Begin Window SettingsWin
             Password        =   False
             ReadOnly        =   False
             Scope           =   0
-            TabIndex        =   8
+            TabIndex        =   9
             TabPanelIndex   =   2
             TabStop         =   True
-            Text            =   ""
+            Text            =   "100"
             TextColor       =   &c00000000
             TextFont        =   "System"
             TextSize        =   0.0
@@ -484,86 +483,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   343
-         End
-         Begin TextField requestCount
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFF00FF
-            Bold            =   False
-            Border          =   True
-            CueText         =   ""
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   26
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   247
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   9
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   "100"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   222
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
             Width           =   80
-         End
-         Begin Label Label35
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   10
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   "E-mail"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   190
-            Transparent     =   True
-            Underline       =   False
-            Visible         =   True
-            Width           =   100
          End
          Begin Label Label38
             AutoDeactivate  =   True
@@ -588,17 +508,17 @@ Begin Window SettingsWin
             TabIndex        =   13
             TabPanelIndex   =   2
             TabStop         =   True
-            Text            =   "Accession codes in batch"
+            Text            =   "Accessions in batch"
             TextAlign       =   0
             TextColor       =   &c00000000
             TextFont        =   "System"
             TextSize        =   0.0
             TextUnit        =   0
-            Top             =   228
+            Top             =   194
             Transparent     =   True
             Underline       =   False
             Visible         =   True
-            Width           =   205
+            Width           =   149
          End
       End
       Begin Label ProfileFolderLabel
@@ -702,95 +622,6 @@ Begin Window SettingsWin
          Underline       =   False
          Visible         =   True
          Width           =   516
-      End
-      Begin GroupBox GroupBox2
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kHMMERserverFormat"
-         Enabled         =   True
-         Height          =   58
-         HelpTag         =   "Set this to simple on Windows!"
-         Index           =   -2147483648
-         InitialParent   =   "PagePanel1"
-         Italic          =   False
-         Left            =   20
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   6
-         TabPanelIndex   =   2
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   272
-         Transparent     =   False
-         Underline       =   False
-         Visible         =   True
-         Width           =   516
-         Begin RadioButton StandardFormatRadioButton
-            AutoDeactivate  =   True
-            Bold            =   False
-            Caption         =   "#kStandardHtml"
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   False
-            Left            =   40
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   0
-            TabPanelIndex   =   2
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   299
-            Transparent     =   False
-            Underline       =   False
-            Value           =   True
-            Visible         =   True
-            Width           =   197
-         End
-         Begin RadioButton PlainFormatRadioButton
-            AutoDeactivate  =   True
-            Bold            =   False
-            Caption         =   "#kPlainText"
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   False
-            Left            =   293
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   1
-            TabPanelIndex   =   2
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   299
-            Transparent     =   False
-            Underline       =   False
-            Value           =   False
-            Visible         =   True
-            Width           =   223
-         End
       End
       Begin Canvas HighlightCanvas
          AcceptFocus     =   False
@@ -3118,6 +2949,193 @@ Begin Window SettingsWin
             Width           =   409
          End
       End
+      Begin GroupBox GroupBox10
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "User Info"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   117
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   8
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   233
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   516
+         Begin Label Label35
+            AutoDeactivate  =   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox10"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   0
+            TabPanelIndex   =   2
+            TabStop         =   True
+            Text            =   "E-mail"
+            TextAlign       =   0
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   306
+            Transparent     =   True
+            Underline       =   False
+            Visible         =   True
+            Width           =   52
+         End
+         Begin TextField EmailField
+            AcceptTabs      =   False
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &cFFFF00FF
+            Bold            =   False
+            Border          =   True
+            CueText         =   "valid e-mail is required for NCBI services and calibrated profile creation "
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            Height          =   26
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox10"
+            Italic          =   False
+            Left            =   85
+            LimitText       =   0
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   1
+            TabPanelIndex   =   2
+            TabStop         =   True
+            Text            =   ""
+            TextColor       =   &c00000000
+            TextFont        =   "System"
+            TextSize        =   0.0
+            TextUnit        =   0
+            Top             =   304
+            Transparent     =   False
+            Underline       =   False
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   441
+         End
+         Begin Label Label36
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox10"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   2
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   268
+            Transparent     =   True
+            Underline       =   False
+            Value           =   "Name"
+            Visible         =   True
+            Width           =   52
+         End
+         Begin TextField NameField
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFF00FF
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   26
+            Hint            =   "Will be used as curator name by default"
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox10"
+            Italic          =   False
+            Left            =   85
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   3
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   266
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   ""
+            Visible         =   True
+            Width           =   441
+         End
+      End
    End
    Begin PushButton DefaultPathsButton
       AutoDeactivate  =   True
@@ -3221,11 +3239,11 @@ End
 		  OrganismField.Text=BLASTorganism
 		  
 		  
-		  if LoadPlainResult then
-		    PlainFormatRadioButton.value=true
-		  else
-		    StandardFormatRadioButton.value=true
-		  end if
+		  'if LoadPlainResult then
+		  'PlainFormatRadioButton.value=true
+		  'else
+		  'StandardFormatRadioButton.value=True
+		  'end if
 		  
 		  
 		  SetDefaultColours
@@ -3394,8 +3412,9 @@ End
 		  Prefs.value("BLASTorganism")=OrganismField.text
 		  Prefs.value("API_Key")=APIKeyField.text
 		  Prefs.Value("ChIPmunkPath")=ChIPmunkPathField.Text
-		  Prefs.Value("email")=emailField.text
-		  Prefs.Value("requestCount")=requestCount.text
+		  Prefs.Value("email")=emailField.Text
+		  Prefs.Value("CuratorName")=NameField.Text
+		  Prefs.Value("requestCount")=requestCount.Text
 		  Prefs.Value("TomTomPath")=TomTomPathField.Text
 		  Prefs.Value("MeshClustPath")=MeshClustPathField.Text
 		  
@@ -3537,20 +3556,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events EmailField
-	#tag Event
-		Sub LostFocus()
-		  Dim rg as New RegEx
-		  Dim rgm as RegExMatch
-		  rg.SearchPattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-		  rgm=rg.Search(self.EmailField.Text)
-		  if rgm = Nil then
-		    MsgBox("Incorrect email! Use only latin letters, numbers, dots, hyphens, at sign.")
-		    self.EmailField.Text=""
-		  end
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events ProfileFolderSelectButt
 	#tag Event
 		Sub Action()
@@ -3571,28 +3576,6 @@ End
 		    // User cancelled
 		  End If
 		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events StandardFormatRadioButton
-	#tag Event
-		Sub Action()
-		  if me.Value then
-		    LoadPlainResult=false
-		  else
-		    LoadPlainResult=true
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PlainFormatRadioButton
-	#tag Event
-		Sub Action()
-		  if me.Value then
-		    LoadPlainResult=true
-		  else
-		    LoadPlainResult=false
-		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -4056,6 +4039,34 @@ End
 		Sub TextChange()
 		  PathsChanged=true
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events EmailField
+	#tag Event
+		Sub LostFocus()
+		  Dim rg as New RegEx
+		  Dim rgm as RegExMatch
+		  rg.SearchPattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+		  rgm=rg.Search(self.EmailField.Text)
+		  if rgm = Nil then
+		    MsgBox("Incorrect email! Use only latin letters, numbers, dots, hyphens, at sign.")
+		    self.EmailField.Text=""
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NameField
+	#tag Event
+		Sub LostFocus()
+		  Dim rg as New RegEx
+		  Dim rgm as RegExMatch
+		  rg.SearchPattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+		  rgm=rg.Search(self.EmailField.Text)
+		  if rgm = Nil then
+		    MsgBox("Incorrect email! Use only latin letters, numbers, dots, hyphens, at sign.")
+		    self.EmailField.Text=""
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents

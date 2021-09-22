@@ -8,7 +8,7 @@ Begin Window ProfileWizardWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   766
+   Height          =   754
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,13 +24,13 @@ Begin Window ProfileWizardWin
    Resizeable      =   True
    Title           =   "#kProfileWizard"
    Visible         =   False
-   Width           =   673
+   Width           =   749
    Begin GroupBox GroupBox1
       AutoDeactivate  =   True
       Bold            =   False
       Caption         =   "#kSearchThresholds"
       Enabled         =   True
-      Height          =   172
+      Height          =   162
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -39,7 +39,7 @@ Begin Window ProfileWizardWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       Scope           =   0
       TabIndex        =   0
@@ -52,7 +52,7 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   320
+      Width           =   358
       Begin Label Label1
          AutoDeactivate  =   True
          Bold            =   False
@@ -82,7 +82,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   41
+         Top             =   34
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -106,12 +106,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   278
+         Left            =   316
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -125,7 +125,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   39
+         Top             =   32
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -161,7 +161,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   75
+         Top             =   68
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -185,12 +185,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   278
+         Left            =   316
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -204,7 +204,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   73
+         Top             =   66
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -240,7 +240,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   107
+         Top             =   100
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -264,12 +264,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   278
+         Left            =   316
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -283,7 +283,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   105
+         Top             =   98
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -308,12 +308,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   278
+         Left            =   316
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -327,7 +327,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   137
+         Top             =   130
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -363,7 +363,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   139
+         Top             =   132
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -375,12 +375,12 @@ Begin Window ProfileWizardWin
       Bold            =   False
       Caption         =   "Post-processing"
       Enabled         =   True
-      Height          =   172
+      Height          =   162
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   344
+      Left            =   382
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -397,7 +397,7 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   316
+      Width           =   354
       Begin CheckBox WithinORFBox
          AutoDeactivate  =   True
          Bold            =   False
@@ -410,7 +410,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   352
+         Left            =   402
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -424,12 +424,12 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   73
+         Top             =   66
          Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   300
+         Width           =   326
       End
       Begin Label Label5
          AutoDeactivate  =   True
@@ -442,7 +442,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   352
+         Left            =   402
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -460,11 +460,11 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   105
+         Top             =   99
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   104
+         Width           =   116
       End
       Begin ComboBox FeatureCombo
          AutoComplete    =   False
@@ -480,7 +480,7 @@ Begin Window ProfileWizardWin
          InitialParent   =   "GroupBox3"
          InitialValue    =   ""
          Italic          =   False
-         Left            =   468
+         Left            =   530
          ListIndex       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -494,12 +494,12 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   105
+         Top             =   98
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   184
+         Width           =   198
       End
       Begin TextField KeyField
          AcceptTabs      =   False
@@ -519,7 +519,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   432
+         Left            =   493
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -538,12 +538,12 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   137
+         Top             =   130
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
          Visible         =   True
-         Width           =   113
+         Width           =   128
       End
       Begin CheckBox PalindromicBox
          AutoDeactivate  =   True
@@ -557,7 +557,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   352
+         Left            =   402
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -571,12 +571,12 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   41
+         Top             =   34
          Transparent     =   False
          Underline       =   False
          Value           =   False
          Visible         =   True
-         Width           =   300
+         Width           =   326
       End
       Begin Label Label6
          AutoDeactivate  =   True
@@ -589,7 +589,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   352
+         Left            =   402
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -607,7 +607,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   138
+         Top             =   130
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -631,7 +631,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   551
+         Left            =   627
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
@@ -650,7 +650,7 @@ Begin Window ProfileWizardWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   137
+         Top             =   130
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -699,12 +699,12 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   375
+      Top             =   365
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   648
+      Width           =   724
    End
    Begin PushButton SaveButton
       AutoDeactivate  =   True
@@ -719,7 +719,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   570
+      Left            =   646
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -732,7 +732,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   732
+      Top             =   720
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -751,7 +751,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   468
+      Left            =   544
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -764,7 +764,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   732
+      Top             =   720
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -807,7 +807,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   732
+      Top             =   720
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -840,11 +840,11 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   187
+      Top             =   177
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   502
+      Width           =   578
    End
    Begin Label Label7
       AutoDeactivate  =   True
@@ -875,7 +875,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   188
+      Top             =   178
       Transparent     =   True
       Underline       =   False
       Visible         =   True
@@ -892,7 +892,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   12
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -910,11 +910,11 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   219
+      Top             =   209
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   112
+      Width           =   134
    End
    Begin TextField CRtagField
       AcceptTabs      =   False
@@ -933,11 +933,11 @@ Begin Window ProfileWizardWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   134
+      Left            =   158
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
@@ -952,12 +952,12 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   219
+      Top             =   209
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   198
+      Width           =   250
    End
    Begin TextArea SeedProteinArea
       AcceptTabs      =   False
@@ -1000,12 +1000,12 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   250
+      Top             =   240
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   648
+      Width           =   724
    End
    Begin Label Label10
       AutoDeactivate  =   True
@@ -1018,7 +1018,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   344
+      Left            =   420
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -1036,11 +1036,11 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   220
+      Top             =   210
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   139
+      Width           =   137
    End
    Begin TextField CRtagSeqField
       AcceptTabs      =   False
@@ -1059,7 +1059,7 @@ Begin Window ProfileWizardWin
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   484
+      Left            =   560
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -1078,7 +1078,7 @@ Begin Window ProfileWizardWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   219
+      Top             =   209
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -1088,14 +1088,14 @@ Begin Window ProfileWizardWin
    Begin Listbox RefsList
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
-      AllowExpandableRows=   True
+      AllowExpandableRows=   False
       AllowFocusRing  =   True
       AllowResizableColumns=   True
       AllowRowDragging=   False
       AllowRowReordering=   False
       Bold            =   False
       ColumnCount     =   3
-      ColumnWidths    =   "*,120,120"
+      ColumnWidths    =   "*,200,120"
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
@@ -1107,7 +1107,7 @@ Begin Window ProfileWizardWin
       GridLinesHorizontalStyle=   "2"
       GridLinesVerticalStyle=   "2"
       HasBorder       =   True
-      HasHeader       =   False
+      HasHeader       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
@@ -1129,11 +1129,11 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   511
+      Top             =   501
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   648
+      Width           =   724
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -1159,7 +1159,7 @@ Begin Window ProfileWizardWin
       GridLinesHorizontalStyle=   "2"
       GridLinesVerticalStyle=   "2"
       HasBorder       =   True
-      HasHeader       =   False
+      HasHeader       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
@@ -1181,13 +1181,77 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   623
+      Top             =   613
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   648
+      Width           =   724
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
+   End
+   Begin PushButton AddRefsButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Add refs"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   178
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      MacButtonStyle  =   "0"
+      Scope           =   0
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   "Scan profile info for DOIs and fill references list with matching citations"
+      Top             =   720
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin PushButton AddCuratorButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Add curation"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   270
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      MacButtonStyle  =   "0"
+      Scope           =   0
+      TabIndex        =   20
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   "Append a line to curation history with current date and curator information from settings"
+      Top             =   720
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   110
    End
 End
 #tag EndWindow
@@ -1216,6 +1280,14 @@ End
 
 	#tag Method, Flags = &h1
 		Protected Sub EnableSave()
+		  // Check for DOIs in the info
+		  If InStr(InfoArea.Text,"DOI:")>0 Then
+		    AddRefsButton.enabled=True
+		  Else
+		    AddRefsButton.enabled=False
+		  End If
+		  
+		  
 		  If LogoWin.LogoFile=Nil Then
 		    SaveButton.enabled=false
 		    return
@@ -1256,7 +1328,8 @@ End
 		  if TFhmmPopup.text="" then
 		    SaveButton.enabled=false
 		    return
-		  end
+		  End
+		  
 		End Sub
 	#tag EndMethod
 
@@ -2115,7 +2188,7 @@ End
 #tag Events RefsList
 	#tag Event
 		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
-		  If row>0 And column=2 Then      'edit evidence
+		  If column=2 Then      'edit evidence
 		    EvidenceCodesWin.LoadCodes(Me.CellValueAt(row,column))
 		    EvidenceCodesWin.showmodal
 		    Me.CellValueAt(row,column)=EvidenceCodesWin.CheckedCodes
@@ -2123,7 +2196,7 @@ End
 		  End If
 		  
 		  If Keyboard.CommandKey Or Keyboard.ControlKey Then  'need modifiers as the cell is editable
-		    If row>0 And column=1 Then      'follow link
+		    If column=1 Then      'follow link
 		      'check if it's a DOI
 		      Dim linkID As String = Trim(Me.CellValueAt(row,column))
 		      Dim URL As String
@@ -2182,6 +2255,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub CellTextChange(row as Integer, column as Integer)
+		  // Is not triggered if text is changed from code!
+		  
 		  'check to see if this is the last row and add a new one is so
 		  
 		  If row=Me.RowCount-1 Then'last row
@@ -2191,6 +2266,12 @@ End
 		    End If
 		    
 		    
+		  End If
+		  
+		  
+		  'Check if a DOI was added/changed
+		  If Column=1 Then
+		    Me.CellValueAt(row,0)=CitationFromDOI(Trim(Me.CellValueAt(row,1)))
 		  End If
 		End Sub
 	#tag EndEvent
@@ -2205,7 +2286,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
-		  If row >0 And column = 1 Then
+		  If column = 1 Then
 		    g.DrawingColor = &c0F7FFE00
 		  End If
 		End Function
@@ -2246,7 +2327,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
-		  If row >0 And column = 1 Then
+		  If column = 1 Then
 		    g.DrawingColor = &c0F7FFE00
 		  End If
 		End Function
@@ -2256,7 +2337,7 @@ End
 		  
 		  If Keyboard.CommandKey Or Keyboard.ControlKey Then  'need modifiers as the cell is editable
 		    
-		    If row>0 And column=1 Then      'follow link
+		    If column=1 Then      'follow link
 		      'check whether it's a web link or mail address
 		      Dim linkID As String = Trim(Me.CellValueAt(row,column))
 		      Dim URL As String
@@ -2296,6 +2377,110 @@ End
 		    ExceptionHandler(err,"ProfileWizardWin:CuratorList:CellClick")
 		    
 		End Function
+	#tag EndEvent
+#tag EndEvents
+#tag Events AddRefsButton
+	#tag Event
+		Sub Action()
+		  Dim Info As String
+		  Dim DOIs(0), Citations(0) As String
+		  Dim CurrentDOI As String
+		  Dim CitNo,n,m,doiNo As Integer
+		  
+		  
+		  Info = InfoArea.Text
+		  CitNo=CountFields(Info,"DOI:")
+		  
+		  If CitNo=1 Then Return  ' No DOI found
+		  
+		  
+		  For n=2 To CitNo
+		    CurrentDOI=NthField(Info,"DOI:",n)
+		    
+		    'try to trim the right edge exactly to the DOI
+		    CurrentDOI=NthField(CurrentDOI,")",1)
+		    
+		    'check for several DOIs within this pair of brackets:
+		    
+		    If InStr(CurrentDOI,";")>0 Then
+		      doiNo=CountFields(CurrentDOI,";")
+		      For m=1 To doiNo
+		        DOIs.append(Trim(NthField(CurrentDOI,";",m)))
+		      Next
+		    Elseif InStr(CurrentDOI,",")>0 Then
+		      doiNo=CountFields(CurrentDOI,",")
+		      For m=1 To doiNo
+		        DOIs.append(Trim(NthField(CurrentDOI,",",m)))
+		      Next
+		    Else
+		      DOIs.append(Trim(CurrentDOI))
+		    End If
+		    
+		  Next
+		  
+		  doiNo=UBound(DOIs)
+		  
+		  'check if the last row is empty and remove it before appending new rows:
+		  Dim LastRowEmpty As Boolean = True
+		  If RefsList.CellValueAt(RefsList.LastRowIndex,0)<>"" Then
+		    LastRowEmpty=False
+		  Elseif RefsList.CellValueAt(RefsList.LastRowIndex,1)<>"" Then
+		    LastRowEmpty=False
+		  Elseif RefsList.CellValueAt(RefsList.LastRowIndex,2)<>"" Then
+		    LastRowEmpty=False
+		  End If
+		  If LastRowEmpty Then
+		    RefsList.RemoveRowAt(RefsList.LastRowIndex)
+		  End If
+		  
+		  'add citations:
+		  For n=1 To doiNo
+		    RefsList.AddRow
+		    RefsList.CellValueAt(RefsList.LastRowIndex,1)=DOIs(n)
+		    RefsList.CellValueAt(RefsList.LastRowIndex,0)=CitationFromDOI(Trim(DOIs(n)))
+		  Next
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"ProfileWizardWin:AddRefsButton")
+		    
+		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events AddCuratorButton
+	#tag Event
+		Sub Action()
+		  'check if the last row is empty and remove it before appending new rows:
+		  Dim LastRowEmpty As Boolean = True
+		  If CuratorList.CellValueAt(CuratorList.LastRowIndex,0)<>"" Then
+		    LastRowEmpty=False
+		  Elseif CuratorList.CellValueAt(CuratorList.LastRowIndex,1)<>"" Then
+		    LastRowEmpty=False
+		  Elseif CuratorList.CellValueAt(CuratorList.LastRowIndex,2)<>"" Then
+		    LastRowEmpty=False
+		  End If
+		  If LastRowEmpty Then
+		    CuratorList.RemoveRowAt(CuratorList.LastRowIndex)
+		  End If
+		  
+		  
+		  'Add curation info
+		  CuratorList.AddRow
+		  Dim lastIdx As Integer = CuratorList.LastRowIndex
+		  CuratorList.CellValueAt(LastIdx,0)=Trim(SettingsWin.NameField.Text)
+		  CuratorList.CellValueAt(LastIdx,1)=Trim(SettingsWin.emailField.Text)
+		  Dim cInfo As String
+		  Dim d As DateTime=DateTime.now
+		  cInfo=d.ToString(Locale.Current, DateTime.FormatStyles.Short, DateTime.FormatStyles.None)+": "
+		  If lastIdx>1 Then 'continue existing list
+		    CuratorList.CellValueAt(LastIdx,2)=cInfo+"profile modified"
+		  Else                               'first entry
+		    CuratorList.CellValueAt(LastIdx,2)=cInfo+"profile created"
+		  End If
+		  
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
