@@ -2399,6 +2399,7 @@ End
 		    
 		    'try to trim the right edge exactly to the DOI
 		    CurrentDOI=NthField(CurrentDOI,")",1)
+		    CurrentDOI=NthField(CurrentDOI,"]",1)
 		    
 		    'check for several DOIs within this pair of brackets:
 		    
@@ -2474,7 +2475,7 @@ End
 		  Dim cInfo As String
 		  Dim d As DateTime=DateTime.now
 		  cInfo=d.ToString(Locale.Current, DateTime.FormatStyles.Short, DateTime.FormatStyles.None)+": "
-		  If lastIdx>1 Then 'continue existing list
+		  If lastIdx>0 Then 'continue existing list
 		    CuratorList.CellValueAt(LastIdx,2)=cInfo+"profile modified"
 		  Else                               'first entry
 		    CuratorList.CellValueAt(LastIdx,2)=cInfo+"profile created"

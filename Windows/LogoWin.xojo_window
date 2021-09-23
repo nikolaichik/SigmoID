@@ -3863,17 +3863,19 @@ End
 		        f=tmpfile.child(basename+".refs")  
 		      End If
 		      
+		      ProfileWizardWin.RefsList.RemoveAllRows
+		      
 		      Dim aLine As String
 		      InStream = f.OpenAsTextFile
 		      If InStream <>Nil Then
-		        
-		        ProfileWizardWin.RefsList.RemoveAllRows
 		        
 		        While Not InStream.EOF
 		          aLine=InStream.readLine
 		          ProfileWizardWin.RefsList.AddRow(aLine.Split(Chr(9)))
 		        Wend
 		        inStream.close
+		      Else
+		        ProfileWizardWin.RefsList.AddRow
 		      End If
 		      
 		      If vv<>Nil Then
@@ -3882,17 +3884,17 @@ End
 		        f=tmpfile.child(basename+".cur")  
 		      End If
 		      
+		      ProfileWizardWin.CuratorList.RemoveAllRows
 		      
 		      InStream = f.OpenAsTextFile
 		      If InStream <>Nil Then
-		        
-		        ProfileWizardWin.CuratorList.RemoveAllRows
-		        
 		        While Not InStream.EOF
 		          aLine=InStream.readLine
 		          ProfileWizardWin.CuratorList.AddRow(aLine.Split(Chr(9)))
 		        Wend
 		        inStream.close
+		      Else
+		        ProfileWizardWin.CuratorList.AddRow
 		      End If
 		      
 		      
