@@ -235,7 +235,11 @@ Inherits Thread
 		      cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(Me.hmmPath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		      
 		      'sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
-		      ExecuteWSL(cli)
+		      #If TargetWindows
+		        ExecuteWSL(cli)
+		      #Else
+		        UserShell(cli)
+		      #endif
 		      'While sh.IsRunning=true
 		      'app.YieldToNextThread()
 		      'wend

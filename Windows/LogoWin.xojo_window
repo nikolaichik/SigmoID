@@ -738,7 +738,6 @@ End
 		  // nhmmer
 		  
 		  cli=nhmmerPath+" -h"
-		  ExecuteWSL(cli)
 		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
@@ -1980,7 +1979,11 @@ End
 		        msgbox "Invalid input file for alimask"
 		      end if
 		      
-		      ExecuteWSL(cli)
+		      #If TargetWindows
+		        ExecuteWSL(cli)
+		      #Else
+		        UserShell(cli)
+		      #endif
 		      If shError=0 Then
 		        masked=true 'return shResult
 		      else
@@ -3652,7 +3655,11 @@ End
 		    
 		    
 		    WriteToSTDOUT (EndofLine+"Running hmmsearch...")
-		    ExecuteWSL(cli)
+		    #If TargetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      UserShell(cli)
+		    #endif
 		    If shError=0 Then
 		      WriteToSTDOUT (EndofLine+shResult)
 		      'LogoWinToolbar.Item(2).Enabled=true
@@ -4512,7 +4519,11 @@ End
 		  
 		  
 		  cli=MASTpath+" "+ PlaceQuotesToPath(MakeWSLPath(memetmp.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(outfile.shellpath)) +nhmmerOptions+" -hit_list"
-		  ExecuteWSL(cli)
+		  #If TargetWindows
+		    ExecuteWSL(cli)
+		  #Else
+		    UserShell(cli)
+		  #endif
 		  If shError=0 Then
 		    WriteToSTDOUT (EndofLine+shResult)
 		    'write results to a temporary file for MastGen.py:
@@ -4727,7 +4738,12 @@ End
 		      cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" "+modelFile+" "+PlaceQuotesToPath(MakeWSLPath(CDSfasta.ShellPath))
 		      
 		      
-		      ExecuteWSL(cli)
+		      #If TargetWindows
+		        ExecuteWSL(cli)
+		      #Else
+		        UserShell(cli)
+		      #EndIf
+		      
 		      If shError=0 Then
 		        'LogoWinToolbar.Item(2).Enabled=true
 		        'logoWin.LastSearch="hmmsearch" 'not used
@@ -4817,8 +4833,13 @@ End
 		      msgbox "Incompatible nhmmer options -E and --cut_"
 		    end if
 		    
-		    WriteToSTDOUT (EndofLine+EndofLine+"Running nhmmer...")
-		    ExecuteWSL(cli)
+		    WriteToSTDOUT (EndOfLine+EndOfLine+"Running nhmmer...")
+		    #If targetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      userShell(cli)
+		    #EndIf
+		    
 		    If shError=0 Then
 		      WriteToSTDOUT (EndOfLine+shResult)
 		      LogoWinToolbar.Item(2).Enabled=true

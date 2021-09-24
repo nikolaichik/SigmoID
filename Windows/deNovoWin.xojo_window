@@ -1568,7 +1568,11 @@ End
 		    
 		    HMMfilePath=HmmList.Cell(row,7)
 		    cli=HmmSearchPath+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmSearchTblOut.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
-		    ExecuteWSL(cli)
+		    #If TargetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      UserShell(cli)
+		    #endif
 		    If shError = 0 Then
 		      Instream=HmmSearchTblOut.OpenAsTextFile
 		      if Instream<> Nil Then
