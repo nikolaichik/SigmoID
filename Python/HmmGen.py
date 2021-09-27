@@ -342,7 +342,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.24 (July 11, 2021)')
+                        version='%(prog)s 2.25 (September 27, 2021)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -355,7 +355,7 @@ def createparser():
                              to exclude senseless sites ''')
     return parser
 
-version='HmmGen 2.24 (July 11, 2021)'
+version='HmmGen 2.25 (September 27, 2021)'
 t_start = process_time()
 args = createparser()
 enter = args.parse_args()
@@ -464,25 +464,22 @@ for record in records:
             ali_from = allign[9]
             ali_to = allign[10]
             ali_diff = ali_to - ali_from
-            if enter.length is not False and \
-               not enter.min_length:
+            if enter.length and not enter.min_length:
                 if hmm_to < enter.max_length:
                     end = (enter.max_length-hmm_to)+ali_to
                 else:
                     end = ali_to
                 if hmm_from > 1:
-
                     start = ali_from-(hmm_from-1)
                 else:
                     start = ali_from
-            elif enter.length is not False and \
-                 enter.min_length is not False:
-                if enter.min_length < hmm_to < enter.max_length:
+            elif enter.length and enter.min_length:
+                if enter.min_length < hmm_to < enter.max_length or \
+                    hmm_to <= enter.min_length < enter.max_length:
                     end = (enter.max_length-hmm_to)+ali_to
                 elif hmm_to <= enter.min_length:
                     end = (enter.min_length-hmm_to)+ali_to
                 if hmm_from > 1:
-
                     start = ali_from-(hmm_from-1)
                 else:
                     start = ali_from
@@ -501,8 +498,7 @@ for record in records:
             ali_from = allign[10]
             ali_to = allign[9]
             ali_diff = ali_to - ali_from
-            if enter.length is not False and \
-               not enter.min_length:
+            if enter.length and not enter.min_length:
                 if hmm_from > 1:
                     end = (hmm_from-1)+ali_to
                 else:
@@ -511,13 +507,13 @@ for record in records:
                     start = ali_from-(enter.max_length-hmm_to)
                 else:
                     start = ali_from
-            elif enter.length is not False and \
-                 enter.min_length is not False:
+            elif enter.length and enter.min_length:
                 if hmm_from > 1:
                     end = (hmm_from-1)+ali_to
                 else:
                     end = ali_to
-                if enter.min_length < hmm_to < enter.max_length:
+                if enter.min_length < hmm_to < enter.max_length or \
+                        hmm_to <= enter.min_length < enter.max_length:
                     start = ali_from-(enter.max_length-hmm_to)
                 elif hmm_to <= enter.min_length:
                     start = ali_from-(enter.min_length-hmm_to)
