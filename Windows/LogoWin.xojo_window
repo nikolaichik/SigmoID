@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -523,62 +524,62 @@ End
 		  
 		  cli="python --version"
 		  userShell(cli)
-		  If shError=0 Then
-		    If InStr(shResult,"Python 3")>0 Then
-		      pythonCheckString=pythonCheckString+Trim (shResult)
-		      pythonPath=SystemPath("python")+" "
-		      If pythonPath.Length=1 Then
-		        pythonPath="python "
-		      Else
-		        pythonPath=PlaceQuotesToPath(pythonPath)
-		      End If
+		  'If shError=0 Then
+		  If InStr(shResult,"Python 3")>0 Then
+		    pythonCheckString=pythonCheckString+Trim(shResult)
+		    pythonPath=SystemPath("python")+" "
+		    If pythonPath.Length=1 Then
+		      pythonPath="python "
 		    Else
-		      cli="python3 --version"
-		      userShell(cli)
-		      If shError=0 Then
-		        If InStr(shResult,"Python 3")>0 Then
-		          pythonCheckString=pythonCheckString+Trim (shResult)
-		          pythonPath=SystemPath("python3")+" "
-		          If pythonPath.Length=1 Then
-		            pythonPath="python "
-		          Else
-		            pythonPath=PlaceQuotesToPath(pythonPath)
-		          End If
+		      pythonPath=PlaceQuotesToPath(pythonPath)
+		    End If
+		  Else
+		    cli="python3 --version"
+		    userShell(cli)
+		    If shError=0 Then
+		      If InStr(shResult,"Python 3")>0 Then
+		        pythonCheckString=pythonCheckString+Trim (shResult)
+		        pythonPath=SystemPath("python3")+" "
+		        If pythonPath.Length=1 Then
+		          pythonPath="python3 "
 		        Else
-		          pythonPath=""
-		          WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
+		          pythonPath=PlaceQuotesToPath(pythonPath)
 		        End If
 		      Else
 		        pythonPath=""
 		        WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
 		      End If
+		    Else
+		      pythonPath=""
+		      WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
 		    End If
-		    
-		    
-		    If InStr(shResult,"command not found")>0 Then
-		      WriteToSTDOUT (shResult+EndOfLine.unix)
-		      allProgsFine=false
-		    else
-		      'pythonCheckString=pythonCheckString+Trim (shResult)
-		      
-		      'check BioPython:
-		      f=resources_f.child("BioPythonVersion.py")
-		      if f<>Nil then
-		        if f.exists then
-		          cli=pythonPath+PlaceQuotesToPath(f.ShellPath)
-		          userShell(cli)
-		          If shError=0 Then
-		            pythonCheckString=pythonCheckString+" with Biopython "+shResult
-		          end if
-		          
-		        end if
-		      end if
-		      
-		    end if
-		  else
+		  End If
+		  
+		  
+		  If InStr(shResult,"command not found")>0 Then
 		    WriteToSTDOUT (shResult+EndOfLine.unix)
 		    allProgsFine=false
+		  else
+		    'pythonCheckString=pythonCheckString+Trim (shResult)
+		    
+		    'check BioPython:
+		    f=resources_f.child("BioPythonVersion.py")
+		    if f<>Nil then
+		      if f.exists then
+		        cli=pythonPath+PlaceQuotesToPath(f.ShellPath)
+		        userShell(cli)
+		        If shError=0 Then
+		          pythonCheckString=pythonCheckString+" with Biopython "+shResult
+		        end if
+		        
+		      end if
+		    end if
+		    
 		  end if
+		  'else
+		  'WriteToSTDOUT (shResult+EndOfLine.unix)
+		  'allProgsFine=false
+		  'end if
 		  
 		  settingsWin.hide  'read prefs
 		  
