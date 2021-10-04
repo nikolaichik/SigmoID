@@ -1400,6 +1400,7 @@ End
 		  
 		  'redim PopupFiles(-1)
 		  'f=Profile_f
+		  if TFhmmPopup.Text="" then return    'no model selected – nothing can be done
 		  f=Resources_f.Child("TF_HMMs")
 		  f=f.Child(TFhmmPopup.Text)
 		  
