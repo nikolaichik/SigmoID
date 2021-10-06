@@ -3356,6 +3356,7 @@ End
 		      mpich=NthField(mpich,"Using built: ",2)
 		      mpich=Trim(NthField(mpich,EndOfLine.unix,1))
 		      OMPinfoLabel.Text=mpich
+		      DeNovoTFBSinference.MPICH=True
 		    Else
 		      logowin.WriteToSTDOUT ("No MPICH: 'string "+EndOfLine.UNIX)
 		      OMPinfoLabel.Text="Open MPI or MPICH not detected. Only serial meme can run on single CPU core."

@@ -515,7 +515,11 @@ Inherits Application
 			' to use threads on CPUs with hyperthreading, use the --use-hwthread-cpus option for mpirun
 			' e.g. on a 4-core processor with 8 threads, meme can be launched like this:
 			' meme -p "8 --use-hwthread-cpus" 
+			If MPICH Then
+			opt=opt+" -p " + Str(cores2use)
+			Else
 			opt=opt+" -p '" + Str(cores2use) + " --use-hwthread-cpus'"
+			End
 			Else
 			opt=opt+" -p " + Str(cores2use)  
 			End If
