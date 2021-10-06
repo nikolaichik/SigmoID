@@ -126,6 +126,15 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem FileWriteSigFileToDatabase
+         SpecialMenu = 0
+         Value = "Write .sig file to database"
+         Index = -2147483648
+         Text = "Write .sig file to database"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem FileConvertSigFilestoFolders
          SpecialMenu = 0
          Value = "#kConvertSig"

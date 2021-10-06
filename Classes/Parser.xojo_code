@@ -1,21 +1,15 @@
 #tag Class
 Protected Class Parser
 	#tag Method, Flags = &h0
-		Sub Constructor(sigPath as string)
-		  WorkingDir = sigPath
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function GetFloatParameter(name as string, input as TextInputStream) As string
+		Function GetFloatParameter(name as string, input as TextInputStream) As string
 		  var par as string = getNextParameter(name, input)
 		  var parl() as string = par.split(" ")
 		  return parl(0)
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function getIDFromDB(queryText as string, name as string) As integer
+	#tag Method, Flags = &h0
+		Function getIDFromDB(queryText as string, name as string) As integer
 		  var query as new MSSQLServerDatabase
 		  If not OpenDatabase(query) Then
 		    return 0
@@ -36,8 +30,8 @@ Protected Class Parser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function getIDFromDBPartialMatch(queryText as string, name as string) As integer
+	#tag Method, Flags = &h0
+		Function getIDFromDBPartialMatch(queryText as string, name as string) As integer
 		  var query as new MSSQLServerDatabase
 		  If not OpenDatabase(query) Then
 		    return 0
@@ -101,39 +95,7 @@ Protected Class Parser
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function importDir(item as string) As boolean
-		  var files_() as string
-		  var dirName as string
-		  var path as string = WorkingDir' + "/" + item
-		  
-		  var fi as new FolderItem(path)
-		  If fi.IsFolder Then
-		    dirName = fi.Name
-		    For Each file As FolderItem In fi.Children
-		      files_.AddRow(file.Name)
-		    Next
-		  else
-		    dirName = fi.Name
-		    path = WorkingDir
-		    files_ = files
-		  End If
-		  
-		  If dirName.Right(4)<>".sig" Then
-		    warnings.AddRow("The selected directory does not end with '.sig'. Import is skipped")
-		    return true
-		  End If
-		  
-		  If files_.Count > 2 Then
-		    dirName = dirName.left(dirName.length() - 4)
-		    return importMotifInfo(files_, path, dirName)
-		  else
-		    return true
-		  End If
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function ImportMotifInfo(files() as string, path as string, dirName as string) As boolean
+		Function ImportFilesToDB(workFolder as folderItem, dirName as string) As boolean
 		  var TFFamily as integer = 0
 		  var CRTagID as integer = 0
 		  
@@ -141,16 +103,17 @@ Protected Class Parser
 		  var query as new MSSQLServerDatabase()
 		  
 		  var sqlReqest as string
+		  var f as FolderItem
 		  
 		  var TFID as integer
-		  'If sl.Count>1 Then
-		  'TFID = getIDFromDB("SELECT idTF FROM TFs WHERE Name", sl(1))
-		  'If TFID > 0 Then
-		  'warnings.AddRow("Transcription factor "+sl(1)+" has been already imported")
-		  'return true
-		  'End If
-		  'Else
-		  'End If
+		  If sl.Count>1 Then
+		    TFID = getIDFromDB("SELECT idTF FROM TFs WHERE Name", sl(1))
+		    If TFID > 0 Then
+		      warnings.AddRow("Transcription factor "+sl(1)+" has been already imported")
+		      'return true
+		    End If
+		  Else
+		  End If
 		  
 		  
 		  var queryCRTag as new MSSQLServerDatabase()
@@ -168,26 +131,24 @@ Protected Class Parser
 		  
 		  //reading info
 		  var info as string = ""
-		  If files.IndexOf(dirName + ".info") >= 0 Then
-		    info = TextInputStream.Open(new FolderItem(path+"/"+dirName+".info")).ReadAll()
+		  f = workFolder.Child(dirName + ".info")
+		  If f<> Nil Then
+		    info = TextInputStream.Open(f).ReadAll()
 		    info = info.ReplaceAll("'s", " is")
 		    info = info.ReplaceAll("'", " ")
 		  End If
 		  
 		  
-		  //reading options
-		  If files.IndexOf(dirName + ".options")=-1 Then
-		    error = "File "+dirName+".options was not found. Import was not performed."
-		    return false
-		  End If
-		  
-		  var fileOptions as new FolderItem(path + "/" + dirName + ".options")
+		  var fileOptions as FolderItem
+		  fileOptions = workFolder.Child(dirName + ".options")
 		  var inOptions as TextInputStream
 		  // var TF_HMM as string= "";
 		  var HMM_ACC as string = ""
 		  var CRTag_coord as string = ""
 		  var Sequence as string = ""
 		  var ProteinID as string = ""
+		  
+		  //reading options
 		  
 		  If fileOptions<>Nil Then
 		    inOptions = inOptions.Open(fileOptions)
@@ -221,9 +182,11 @@ Protected Class Parser
 		      'fileOptions.close();
 		      return true
 		    End If
-		    
 		    ProteinID = getNextParameter("protein_id", inOptions)
 		    Sequence = getNextParameter("Seed_protein", inOptions)
+		  Else
+		    error = "File "+dirName+".options was not found. Import was not performed."
+		    return false
 		  End If
 		  
 		  //writing TF
@@ -244,14 +207,16 @@ Protected Class Parser
 		  
 		  //reading HMM
 		  var hmm as string = ""
-		  if files.IndexOf(dirName + ".hmm")>=0 Then
-		    hmm = TextInputStream.Open(new FolderItem(path+"/"+dirName+".hmm")).ReadAll()
+		  f = workFolder.Child(dirName + ".hmm")
+		  if f <> Nil Then
+		    hmm = TextInputStream.Open(f).ReadAll()
 		  End If
 		  
 		  //reading PWM
 		  var pwm as string = ""
-		  If files.IndexOf("meme.txt")>=0 Then
-		    pwm = TextInputStream.Open(new FolderItem(path+"/meme.txt")).ReadAll()
+		  f = workFolder.Child("meme.txt")
+		  if f <> Nil Then
+		    pwm = TextInputStream.Open(f).ReadAll()
 		  End If
 		  
 		  //writing Motiff
@@ -270,30 +235,28 @@ Protected Class Parser
 		  End If
 		  
 		  //writing operators
-		  If MotifID > 0 and files.IndexOf(dirName + ".fasta")>=0 Then
-		    var fileOperators as new FolderItem(path + "/" + dirName + ".fasta")
-		    If fileOperators<>Nil Then
-		      var in_ as TextInputStream
-		      in_ = in_.Open(fileOperators)
-		      While not in_.EndOfFile()
-		        var id as string = in_.ReadLine()
-		        id = id.right(id.Length() - 1)
-		        id = id.ReplaceAll("'s", " is")
-		        id = id.ReplaceAll("'", " ")
-		        var oper as string = in_.ReadLine()
-		        If id.Length > 0 and oper.Length > 0 Then
-		          var res as integer
-		          try
-		            sqlReqest = "INSERT INTO Operators([idMotif], [id], [operator]) VALUES ("+MotifID.ToString()+", '"+id+"', '"+oper+"')"
-		            query.ExecuteSQL(sqlReqest)
-		          catch err As DatabaseException
-		            error = "The error was occured while insertion of Motif. Error: "+err.Message
-		            break
-		          End try
-		        End IF
-		      Wend
-		      in_.Close()
-		    End If
+		  var fileOperators as FolderItem = workFolder.Child(dirName + ".fasta")
+		  If MotifID > 0 and f<>Nil Then
+		    var in_ as TextInputStream
+		    in_ = in_.Open(fileOperators)
+		    While not in_.EndOfFile()
+		      var id as string = in_.ReadLine()
+		      id = id.right(id.Length() - 1)
+		      id = id.ReplaceAll("'s", " is")
+		      id = id.ReplaceAll("'", " ")
+		      var oper as string = in_.ReadLine()
+		      If id.Length > 0 and oper.Length > 0 Then
+		        var res as integer
+		        try
+		          sqlReqest = "INSERT INTO Operators([idMotif], [id], [operator]) VALUES ("+MotifID.ToString()+", '"+id+"', '"+oper+"')"
+		          query.ExecuteSQL(sqlReqest)
+		        catch err As DatabaseException
+		          error = "The error was occured while insertion of Motif. Error: "+err.Message
+		          break
+		        End try
+		      End IF
+		    Wend
+		    in_.Close()
 		    If error.Length > 0 Then
 		      error = "The error was occured while insertion of Operator. Error: "+error
 		      query.Close()
@@ -357,8 +320,8 @@ Protected Class Parser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function insertSettings(name as string, value as string, program as string, parentID as integer) As boolean
+	#tag Method, Flags = &h0
+		Function insertSettings(name as string, value as string, program as string, parentID as integer) As boolean
 		  var query as new MSSQLServerDatabase
 		  If not OpenDatabase(query) Then
 		    return false
@@ -375,8 +338,8 @@ Protected Class Parser
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Function OpenDatabase(db as MSSQLServerDatabase) As boolean
+	#tag Method, Flags = &h0
+		Function OpenDatabase(db as MSSQLServerDatabase) As boolean
 		  db.Host = "217.21.43.34\SQLEXPRESS"
 		  db.Port = 1433
 		  db.DatabaseName = "sigmo_id_1"
@@ -391,6 +354,55 @@ Protected Class Parser
 		  End try
 		End Function
 	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function WriteSigToDB(path as string, fileName as string) As boolean
+		  var sigFilePath as string = path+"/"+fileName
+		  var sigFile as new FolderItem(sigFilePath)
+		  If sigFile<>Nil Then
+		    var sl() as string = fileName.split("_")
+		    var query as new MSSQLServerDatabase()
+		    var sqlReqest as string
+		    If not OpenDatabase(query) Then
+		      return false
+		    End If
+		    var TFID as integer = 0
+		    If sl.Count>1 Then
+		      TFID = getIDFromDB("SELECT idTF FROM TFs WHERE Name", sl(1))
+		      If TFID > 0 Then
+		        warnings.AddRow("Transcription factor "+sl(1)+" has been already imported")
+		        return true
+		      End If
+		    Else
+		    End If
+		    var CRTagID as integer = 0
+		    try
+		      sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; EXECUTE pr_addCRTag @ResultForPos OUTPUT, '"+sl(0)+"'; SELECT @ResultForPos;"
+		      var result as RowSet = query.SelectSQL(sqlReqest)
+		      CRTagID = result.ColumnAt(0).IntegerValue
+		    catch err As DatabaseException
+		      error = err.Message
+		    End try
+		    
+		    //reading info
+		    var info as string = ""
+		    info = TextInputStream.Open(sigFile).ReadAll()
+		    info = info.ReplaceAll("'s", " is")
+		    info = info.ReplaceAll("'", " ")
+		    
+		  Else
+		    error = "No .sig file"
+		    return false
+		  End If
+		End Function
+	#tag EndMethod
+
+
+	#tag Note, Name = TODO
+		Add possibility to add to DB curators publications, and so on.
+		Change class strucure to best use with 'Export to database' button in ProfileWizardWin
+		
+	#tag EndNote
 
 
 	#tag Property, Flags = &h21
@@ -407,10 +419,6 @@ Protected Class Parser
 
 	#tag Property, Flags = &h0
 		warnings() As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private WorkingDir As string
 	#tag EndProperty
 
 

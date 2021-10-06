@@ -25,7 +25,7 @@ Inherits Application
 		  
 		  dim count, i as Integer
 		  
-		  // Get a handle to our parent sub menu.
+		  //True Get a handle to our parent sub menu.
 		  Dim parent, child as MenuItem
 		  parent = MainMenuBar.Child( kWindows )    // Get the window menu
 		  if parent = nil then return
@@ -232,7 +232,6 @@ Inherits Application
 			'skip folder
 			else
 			if right(Profile_f.Item(n).Name,4)=".sig" then
-			
 			'create the folder:
 			SigF=OutF.child(Profile_f.Item(n).Name)
 			SigF.createAsFolder
@@ -243,6 +242,7 @@ Inherits Application
 			
 			'copy files:
 			vv=Profile_f.Item(n).openAsVirtualVolume
+			dim vv1 as VirtualVolume
 			if vv<> nil then
 			basename=nthfield(Profile_f.Item(n).DisplayName,".sig",1)
 			f=vv.root.child(basename+".fasta")
@@ -273,7 +273,6 @@ Inherits Application
 			If f<> Nil And f.exists Then
 			f.CopyFileTo SigF
 			End If
-			
 			else
 			'beep
 			end if
@@ -431,6 +430,14 @@ Inherits Application
 			
 			Return True
 			end if
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileWriteSigFileToDatabase() As Boolean Handles FileWriteSigFileToDatabase.Action
+			AddSigToDatabaseWin.Show
 			Return True
 			
 		End Function

@@ -1228,7 +1228,6 @@ End
 	#tag Event
 		Sub Open()
 		  AdjustLayout4linux(me)
-		  
 		End Sub
 	#tag EndEvent
 
@@ -2554,7 +2553,7 @@ End
 		          if f2<>nil then
 		            'dim outstream As TextOutputStream
 		            var CRTagID as integer
-		            var pars as new Parser("")
+		            var pars as new Parser()
 		            var error as string
 		            var query as new MSSQLServerDatabase()
 		            If not pars.OpenDatabase(query) Then
