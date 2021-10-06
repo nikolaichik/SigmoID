@@ -116,10 +116,9 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   False
-      Value           =   0
+      Value           =   5
       Visible         =   True
       Width           =   556
       Begin Label ProfileFolderLabel
@@ -3351,16 +3350,21 @@ End
 		      
 		    End If
 		  Else
-		    OMPinfoLabel.Text="Open MPI not detected. Only serial meme can run on single CPU core."
-		    CPUcoresPopup.SelectedRowIndex=0   'single core
-		    CPUcoresPopup.Enabled=False
-		    
-		    
+		    UserShell("mpicc -v")
+		    Dim mpich As String =shResult
+		    If InStr(mpich,"MPICH version ")>0 Then
+		      mpich=NthField(mpich,"Using built: ",2)
+		      mpich=Trim(NthField(mpich,EndOfLine.unix,1))
+		      OMPinfoLabel.Text=mpich
+		      DeNovoTFBSinference.MPICH=True
+		    Else
+		      logowin.WriteToSTDOUT ("No MPICH: 'string "+EndOfLine.UNIX)
+		      OMPinfoLabel.Text="Open MPI or MPICH not detected. Only serial meme can run on single CPU core."
+		      CPUcoresPopup.SelectedRowIndex=0   'single core
+		      CPUcoresPopup.Enabled=False
+		    End If
 		    'logowin.WriteToSTDOUT ("ompi_info returned this:"+EndOfLine.UNIX)
 		    'logowin.WriteToSTDOUT (shResult+EndOfLine.UNIX)
-		    
-		    
-		    
 		  End If
 		  
 		  //Determine and store CPU core number
