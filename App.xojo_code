@@ -709,6 +709,26 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function RegulonCoryneRegNet() As Boolean Handles RegulonCoryneRegNet.Action
+			CoryneRegNetWin.CollecTFfile=Resources_f.child("CoryneRegNet.csv")
+			
+			If CoryneRegNetWin.CollecTFfile<>Nil And CoryneRegNetWin.CollecTFfile.Exists Then
+			CoryneRegNetWin.show
+			CoryneRegNetWin.FillRegulatorList(CoryneRegNetWin.CollecTFfile)
+			else
+			LogoWin.WriteToSTDOUT("CoryneRegNet data file is missing")
+			end if
+			
+			
+			
+			
+			
+			
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function RegulonLocalMotifCollections() As Boolean Handles RegulonLocalMotifCollections.Action
 			LocalMotifCollectionsWin.show
 			Return True

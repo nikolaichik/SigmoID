@@ -134,6 +134,12 @@ Protected Module Globals
 		  '  curl -LH "Accept: text/x-bibliography; style=apa" https://doi.org/10.1126/science.169.3946.635
 		  
 		  
+		  ' check if it's actually a DOI
+		  If doi.InStr("10.")>0 And doi.InStr("/")>0 Then
+		  Else
+		    return ""      'Not a DOI, may look for PubMed ID
+		  End If
+		  
 		  Dim res As String
 		  Dim cli As String 
 		  
@@ -4173,6 +4179,7 @@ Protected Module Globals
 		  'sh.TimeOut=-1
 		  'sh.execute("bash --login -c "+chr(34)+cmd+chr(34))
 		  shResult=""
+		  shError=0
 		  
 		  ShellStorage = New ShellTh
 		  ShellStorage.cli = cmd

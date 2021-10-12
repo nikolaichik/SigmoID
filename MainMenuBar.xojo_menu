@@ -637,6 +637,15 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem RegulonCoryneRegNet
+         SpecialMenu = 0
+         Value = "CoryneRegNet..."
+         Index = -2147483648
+         Text = "CoryneRegNet..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator4
          SpecialMenu = 0
          Value = "-"
