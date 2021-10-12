@@ -1,6 +1,49 @@
 #tag Module
 Protected Module DeNovoTFBSinference
 	#tag Method, Flags = &h0
+		Function BioProspector(inFile as folderitem, outFolder as folderitem) As integer
+		  dim Settings as String = ""
+		  'dim BioProspector as FolderItem
+		  dim BioprospectorFolder as New FolderItem(BioProsPath, FolderItem.pathModes.Native)
+		  dim cli as String
+		  
+		  For Each entry As DictionaryEntry In LogoWin.BioProspectSettings
+		    if entry.Value <> "" and entry.Value<>"runGenomeBg" Then
+		      Settings = Settings +" " + entry.Key + " " + entry.Value
+		    end
+		  Next
+		  
+		  #if TargetWindows
+		    New BioProspector = BioprospectorFolder.child("")
+		    cli=""
+		  #else
+		    dim BioProspector as FolderItem = BioprospectorFolder.child("BioProspector.linux")
+		    cli="'"+BioProspector.NativePath+"'"
+		  #EndIf
+		  
+		  cli=cli+" -i '"+inFile.NativePath+"'"+Settings+" -o '"+outFolder.NativePath+"'"
+		  deNovoWin.rp.writeToWin("Run BioProspector..."+EndofLine.unix)
+		  #if TargetWindows
+		    UserShell(cli)
+		  #else
+		    UserShell(cli)
+		  #endif
+		  
+		  'return sh.errorCode
+		  If shError=0 Then
+		    deNovoWin.rp.writeToWin(" ok."+EndofLine.unix)
+		    Return shError
+		  else
+		    deNovoWin.rp.writeToWin(" run failed."+EndofLine.unix)
+		    return shError
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"DeNovoTFBSinference:BioProspector")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Bits2thresholds(IC as double) As string
 		  // Estimate nhmmer thresholds from profile information content (IC, bits)
 		  '  Coefficients derived from linear regression of threshold values of manually calibrated profiles
@@ -3337,6 +3380,14 @@ Protected Module DeNovoTFBSinference
 			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MPICH"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

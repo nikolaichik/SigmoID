@@ -37,6 +37,7 @@ Inherits Thread
 		    dim phmmerSearchSeparator as string = "================================================================================================================"
 		    dim hitCount,crIndex as integer
 		    CDSseqs=""
+		    'dim BioProspectOutput as FolderItem
 		    
 		    
 		    
@@ -892,7 +893,12 @@ Inherits Thread
 		                            deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
 		                          end
 		                        end
-		                        
+		                        if me.runBioPros then
+		                          'deNovoWin.rp.writeToWin("Running BioProspector..."+EndofLine.unix)
+		                          dim BioProspectOutput as FolderItem  = memeF.Child(str(Me.Protnames(n))+"_bioprospector")
+		                          ErrCode = BioProspector(resFile2,BioProspectOutput)
+		                          
+		                        end
 		                        if me.RunTomTom then 
 		                          'launch TomTom threads
 		                          if ttt<>NIL then
@@ -1080,6 +1086,10 @@ Inherits Thread
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		runBioPros As boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		RunChipMunk As boolean = false
 	#tag EndProperty
 
@@ -1234,6 +1244,14 @@ Inherits Thread
 			Visible=false
 			Group="Behavior"
 			InitialValue="true"
+			Type="boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="runBioPros"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
 			Type="boolean"
 			EditorType=""
 		#tag EndViewProperty

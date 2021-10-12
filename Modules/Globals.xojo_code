@@ -2917,6 +2917,7 @@ Protected Module Globals
 		    MeshClustPath=Prefs.value("MeshClustPath",MeshClustPath)
 		    Globals.chipset.jarPath=Prefs.Value("ChIPmunkPath", Globals.chipset.jarPath)
 		    WSLBashPath=Prefs.value("WSLBashPath",WSLBashPath)
+		    BioProsPath=Prefs.value("BioProsPath",BioProsPath)
 		    PathsChanged=False
 		  end if
 		  
@@ -2934,6 +2935,7 @@ Protected Module Globals
 		  SettingsWin.NameField.Text=Globals.CuratorName
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
 		  SettingsWin.WSLBashPathField.Text=WSLBashPath
+		  SettingsWin.bioProsPathField.Text=BioProsPath
 		  
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
@@ -4350,6 +4352,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		BioProsPath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		BLASTnDB As string
 	#tag EndProperty
 
@@ -5254,6 +5260,14 @@ Protected Module Globals
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="CuratorName"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BioProsPath"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

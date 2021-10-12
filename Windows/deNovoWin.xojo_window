@@ -301,7 +301,6 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -342,7 +341,6 @@ Begin Window deNovoWin
       Width           =   243
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
@@ -416,7 +414,6 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -1327,6 +1324,39 @@ Begin Window deNovoWin
       Visible         =   True
       Width           =   90
    End
+   Begin CheckBox runBioPros
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Run BioProspector"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   22
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   419
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   24
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   600
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      VisualState     =   "0"
+      Width           =   150
+   End
 End
 #tag EndWindow
 
@@ -2051,6 +2081,40 @@ End
 		  if runChipMunk.State = CheckBox.CheckedStates.Checked Then
 		    rp.RunChipMunk = True
 		  end
+		  if runBioPros.State = CheckBox.CheckedStates.Checked Then
+		    rp.runBioPros = True
+		    if LogoWin.BioProspectSettings.Value("runGenomeBg") Then
+		      dim cli as String
+		      dim BioprospectorFolder as New FolderItem(BioProsPath, FolderItem.pathModes.Native)
+		      dim genomBg as FolderItem = BioprospectorFolder.Child("genomebg.linux")
+		      dim genomBgOut as FolderItem = TemporaryFolder.Child(Nthfield(GenomeWin.GenomeFile.Name, ".",1)+"_genomBg_out")
+		      dim interGenRegions as FolderItem = Resources_f.Child("interGenicRegions.py")
+		      deNovoWin.rp.writeToWin("Start extracting intergenic regions from "+GenomeWin.GenomeFile.NativePath+EndofLine.unix)
+		      cli = pythonPath + " '" + PlaceQuotesToPath(interGenRegions.NativePath) + "' '" + PlaceQuotesToPath(GenomeWin.GenomeFile.NativePath) + "' '" + PlaceQuotesToPath(TemporaryFolder.NativePath+"'")
+		      #If TargetWindows
+		        ExecuteWSL(cli)
+		      #Else
+		        UserShell(cli)
+		      #endif
+		      If shError=0 Then
+		        deNovoWin.rp.writeToWin(" OK"+EndofLine.unix)
+		        cli = "'"+genomBg.NativePath + "' -i " + "'"+PlaceQuotesToPath(TemporaryFolder.NativePath + Nthfield(GenomeWin.GenomeFile.Name, ".",1)) + "_intergenic_regions.fasta' -o " +"'"+PlaceQuotesToPath(genomBgOut.NativePath+"'")
+		        #If TargetWindows
+		          ExecuteWSL(cli)
+		        #Else
+		          UserShell(cli)
+		        #endif
+		        if shError=0 Then
+		          LogoWin.BioProspectSettings.Value("-f") = genomBgOut.NativePath
+		        else
+		          deNovoWin.rp.writeToWin(shResult+EndOfLine.UNIX)
+		        end
+		      else
+		        deNovoWin.rp.writeToWin(shResult+EndOfLine.UNIX)
+		      End If
+		      
+		    end
+		  end
 		  rp.hmmlist = HmmList
 		  DeNovoTFBSinference.Proteins2process=Val(deNovoWin.Proteins2processField.text)
 		  
@@ -2567,6 +2631,16 @@ End
 		    end
 		    TextField2.Text=str(f.ShellPath)
 		  End
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events runBioPros
+	#tag Event
+		Sub Action()
+		  select Case me.State
+		  case CheckBox.CheckedStates.Checked
+		    dim w as new BioProspectWin
+		  end Select
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -454,6 +454,8 @@ End
 		  
 		  'PathsChanged=true
 		  
+		  'Dictionary to store Bioprospector's settings
+		  BioProspectSettings = New Dictionary
 		  
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then
@@ -5507,6 +5509,10 @@ End
 
 	#tag Property, Flags = &h0
 		alimaskTmp As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BioProspectSettings As Dictionary
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
