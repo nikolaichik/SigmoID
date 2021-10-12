@@ -127,8 +127,9 @@ Protected Module DeNovoTFBSinference
 		  '<TranslationSet/>
 		  '<QueryTranslation/>
 		  '</eSearchResult>
+		  '110 15090522 15090522[UID] UID -1 N GROUP 15090522[UID]
 		  
-		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=protein&term="
+		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=protein&term="
 		  Dim Separ1 as string="<Id>"
 		  Dim Separ2 as string="</Id>"
 		  dim GenPeptID, theURL as string
@@ -1042,7 +1043,7 @@ Protected Module DeNovoTFBSinference
 		    'getprot=Resources_f.Child("getprot.py")
 		    'replace getprot.py with xojo URLConnection
 		    Const URL As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
-		    dim content as String = "db=protein&rettype=gp&retmode=text&id="+UniProtCodes
+		    Dim content As String = "db=protein&rettype=gp&retmode=text&id="+UniProtCodes
 		    dim hts as new HTTPSconnection
 		    dim tempcontent as FolderItem
 		    tempcontent=TemporaryFolder.Child("gpfile")
@@ -2553,6 +2554,97 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function PMID2DOI(PMID as string) As string
+		  // Converts PubMed ID to DOI using NCBI API
+		  '  works only for records that have PMC ID
+		  
+		  'example URL:
+		  'https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?tool=my_tool&email=my_email@example.com&ids=23193287&idtype=pmid&format=json
+		  
+		  Dim DOI As String
+		  Dim URL As String = "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?tool=SigmoID&email="
+		  
+		  
+		  If globals.email="" Then 
+		    MsgBox("NCBI ID converter API requires user email. Please enter your e-mail address in the preferences.")
+		    Return ""
+		  End If
+		  
+		  
+		  URL=URL+globals.email+"&ids="+PMID+"&versions=no&idtype=pmid&format=json"
+		  
+		  
+		  'curl -LH 'Accept:text/plain' -F format=json -F versions=no -F tool=SigmoID  -F email=nikolaichik@bsu.by -F ids=16204540 https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/
+		  
+		  
+		  Dim cli As String
+		  cli="curl -LH "+"'Accept: text/plain'"+" -F format=json -F versions=no -F tool=SigmoID  -F email="+globals.email+" -F ids="+PMID+" https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/"
+		  Dim sh As Shell =  New Shell
+		  sh.TimeOut=-1
+		  sh.execute(cli)
+		  DOI=Trim(sh.result)
+		  'usershell(cli)
+		  'DOI=shResult
+		  
+		  'Socket doesn't work
+		  
+		  'dim hts As New HTTPSecureSocket
+		  'hts.Secure = True
+		  'Dim res As String
+		  'Dim outfile As folderitem
+		  '
+		  '
+		  '
+		  'hts.Yield=True  'allow background activities while waiting
+		  'hts.SetRequestHeader("Content-Type:","text/plain")
+		  '
+		  '
+		  'DOI=hts.Get(URL,60)  'adjust timeout?
+		  '
+		  ''While hts.LastErrorCode=102
+		  'While hts.IsConnected Or hts.SSLConnected
+		  'app.DoEvents
+		  'Wend
+		  '
+		  'If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		  'If Res="" Then
+		  'If hts.ErrorCode=-1 Then
+		  'logowin.WriteToSTDOUT("NCBI server timeout (No response in one minute"+EndOfLine.UNIX)
+		  'Else
+		  'LogoWin.WriteToSTDOUT ("NCBI server error (empty response)"+EndOfLine)
+		  'End If
+		  'Else
+		  'hts.close
+		  
+		  Dim sep As String="doi"+Chr(34)+": "+Chr(34)
+		  If doi.InStr(sep)>0 Then
+		    'parsing this line:
+		    '    "doi": "10.1128/AEM.71.10.6206-6215.2005"
+		    DOI=NthField(DOI, sep,2)
+		    DOI=NthField(DOI, Chr(34),1)
+		    
+		    Return DOI
+		    'End If
+		  Else
+		    LogoWin.WriteToSTDOUT ("NCBI ID Converter error"+EndOfLine.unix)
+		    'hts.close
+		    Return PMID       'Usually the failure is due to missing PMC identifier
+		  End If
+		  
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:PMID2DOI")
+		    
+		    
+		    
+		    
+		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function RemoveRedundantSeqs(inSeqs as string, genusSpecific as boolean) As string
 		  // There are still empty seqs (NNN) = remove these first and before this method!!!
 		  
@@ -3337,6 +3429,14 @@ Protected Module DeNovoTFBSinference
 			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MPICH"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
