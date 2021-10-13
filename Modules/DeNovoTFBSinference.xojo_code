@@ -8,35 +8,28 @@ Protected Module DeNovoTFBSinference
 		  dim cli as String
 		  
 		  For Each entry As DictionaryEntry In LogoWin.BioProspectSettings
-		    if entry.Value <> "" and entry.Value<>"runGenomeBg" Then
+		    if entry.Value <> "" and entry.Key<>"runGenomeBg" Then
 		      Settings = Settings +" " + entry.Key + " " + entry.Value
 		    end
 		  Next
 		  
 		  #if TargetWindows
-		    New BioProspector = BioprospectorFolder.child("")
-		    cli=""
-		  #else
+		    dim BioProspector as FolderItem = BioprospectorFolder.child("BioProspector.exe")
+		    cli="'"+BioProspector.NativePath+"'"
+		  #Else
 		    dim BioProspector as FolderItem = BioprospectorFolder.child("BioProspector.linux")
 		    cli="'"+BioProspector.NativePath+"'"
 		  #EndIf
 		  
 		  cli=cli+" -i '"+inFile.NativePath+"'"+Settings+" -o '"+outFolder.NativePath+"'"
-		  deNovoWin.rp.writeToWin("Run BioProspector..."+EndofLine.unix)
 		  #if TargetWindows
 		    UserShell(cli)
 		  #else
 		    UserShell(cli)
 		  #endif
 		  
-		  'return sh.errorCode
-		  If shError=0 Then
-		    deNovoWin.rp.writeToWin(" ok."+EndofLine.unix)
-		    Return shError
-		  else
-		    deNovoWin.rp.writeToWin(" run failed."+EndofLine.unix)
-		    return shError
-		  end if
+		  Return shError
+		  
 		  
 		  Exception err
 		    ExceptionHandler(err,"DeNovoTFBSinference:BioProspector")

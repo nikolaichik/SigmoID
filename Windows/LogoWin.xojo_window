@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -1209,6 +1208,14 @@ End
 			
 			ProfileWizardWin.show
 			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FindSBioPros() As Boolean Handles FindSBioPros.Action
+			BioProspectorLogoW
 			Return True
 			
 		End Function
@@ -2307,6 +2314,48 @@ End
 		      End
 		    End
 		  End
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub BioProspectorLogoW()
+		  dim dlg As New SelectFolderDialog
+		  dim BioPOutput As New FolderItem 
+		  dim SeqSource As New FolderItem 
+		  dim w As BioProspectWin
+		  SeqSource = TemporaryFolder.Child("bioprospector_input_seq")
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Select folder to save results "
+		  dlg.PromptText = "BioProspector output location" 
+		  
+		  BioPOutput = dlg.ShowModal
+		  If BioPOutput <> Nil Then
+		    w = New BioProspectWin
+		    While BioProsWinClosed <> True
+		      App.DoEvents
+		    Wend
+		    If BioPrSettingsSaved Then
+		      if SeqSource.Exists Then
+		        SeqSource.delete 
+		      end
+		      dim outstream as TextOutputStream
+		      outstream = TextOutputStream.Create(SeqSource)
+		      outstream.Write(ConvertEncoding(Sequences, Encodings.UTF8))
+		      outstream.Close
+		      dim returncode as Integer
+		      LogoWin.WriteToSTDOUT("Running BioProspector...")
+		      returncode = BioProspector(SeqSource,BioPOutput)
+		      if returncode = 0 Then
+		        LogoWin.WriteToSTDOUT("ok."+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT("failed."+EndOfLine.UNIX)
+		        LogoWin.WriteToSTDOUT(shResult)
+		      end
+		    end
+		    
+		  else
+		    
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -5513,6 +5562,14 @@ End
 
 	#tag Property, Flags = &h0
 		BioProspectSettings As Dictionary
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BioProsWinClosed As Boolean = True
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BioPrSettingsSaved As Boolean = false
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

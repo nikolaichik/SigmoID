@@ -2086,7 +2086,13 @@ End
 		    if LogoWin.BioProspectSettings.Value("runGenomeBg") Then
 		      dim cli as String
 		      dim BioprospectorFolder as New FolderItem(BioProsPath, FolderItem.pathModes.Native)
-		      dim genomBg as FolderItem = BioprospectorFolder.Child("genomebg.linux")
+		      
+		      #If TargetMacOS Then
+		        dim genomBg as FolderItem = BioprospectorFolder.Child("genomebg.mac")
+		      #ElseIf TargetLinux
+		        dim genomBg as FolderItem = BioprospectorFolder.Child("genomebg.linux")
+		      #EndIf
+		      
 		      dim genomBgOut as FolderItem = TemporaryFolder.Child(Nthfield(GenomeWin.GenomeFile.Name, ".",1)+"_genomBg_out")
 		      dim interGenRegions as FolderItem = Resources_f.Child("interGenicRegions.py")
 		      deNovoWin.rp.writeToWin("Start extracting intergenic regions from "+GenomeWin.GenomeFile.NativePath+EndofLine.unix)

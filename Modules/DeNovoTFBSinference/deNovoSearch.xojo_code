@@ -896,7 +896,13 @@ Inherits Thread
 		                        if me.runBioPros then
 		                          'deNovoWin.rp.writeToWin("Running BioProspector..."+EndofLine.unix)
 		                          dim BioProspectOutput as FolderItem  = memeF.Child(str(Me.Protnames(n))+"_bioprospector")
+		                          deNovoWin.rp.writeToWin("Running BioProspector...")
 		                          ErrCode = BioProspector(resFile2,BioProspectOutput)
+		                          If ErrCode = 0 Then
+		                            deNovoWin.rp.writeToWin(" ok."+EndofLine.unix)
+		                          Else
+		                            deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
+		                          end
 		                          
 		                        end
 		                        if me.RunTomTom then 

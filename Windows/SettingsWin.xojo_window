@@ -8,7 +8,7 @@ Begin Window SettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   474
+   Height          =   470
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,7 +24,7 @@ Begin Window SettingsWin
    Resizeable      =   True
    Title           =   "#kSigmoIDPreferences"
    Visible         =   False
-   Width           =   556
+   Width           =   558
    Begin PushButton OKButton
       AutoDeactivate  =   True
       Bold            =   False
@@ -38,7 +38,7 @@ Begin Window SettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   446
+      Left            =   448
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -51,7 +51,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   434
+      Top             =   430
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -70,7 +70,7 @@ Begin Window SettingsWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   344
+      Left            =   346
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -83,7 +83,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   434
+      Top             =   430
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -101,7 +101,7 @@ Begin Window SettingsWin
    Begin PagePanel PagePanel1
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   422
+      Height          =   418
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -120,7 +120,7 @@ Begin Window SettingsWin
       Transparent     =   False
       Value           =   0
       Visible         =   True
-      Width           =   556
+      Width           =   558
       Begin Label ProfileFolderLabel
          AutoDeactivate  =   True
          Bold            =   False
@@ -154,7 +154,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
       End
       Begin PushButton ProfileFolderSelectButt
          AutoDeactivate  =   True
@@ -221,7 +221,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
       End
       Begin Canvas HighlightCanvas
          AcceptFocus     =   False
@@ -234,7 +234,7 @@ Begin Window SettingsWin
          HelpTag         =   "#kColorTag"
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
-         Left            =   340
+         Left            =   342
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -283,7 +283,7 @@ Begin Window SettingsWin
          Transparent     =   True
          Underline       =   False
          Visible         =   True
-         Width           =   176
+         Width           =   178
       End
       Begin GroupBox GroupBox4
          AutoDeactivate  =   True
@@ -1373,7 +1373,7 @@ Begin Window SettingsWin
          Transparent     =   True
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
       End
       Begin Label Label31
          AutoDeactivate  =   True
@@ -1606,7 +1606,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
       End
       Begin Label OMPinfoLabel
          AutoDeactivate  =   True
@@ -1641,7 +1641,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
       End
       Begin GroupBox GroupBox9
          AutoDeactivate  =   True
@@ -1814,7 +1814,7 @@ Begin Window SettingsWin
          Bold            =   False
          Caption         =   "#kPaths"
          Enabled         =   True
-         Height          =   401
+         Height          =   397
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -1836,7 +1836,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
          Begin TextField nhmmerPathField
             AcceptTabs      =   False
             Alignment       =   0
@@ -1879,7 +1879,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label4
             AutoDeactivate  =   True
@@ -1993,7 +1993,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label8
             AutoDeactivate  =   True
@@ -2072,7 +2072,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label9
             AutoDeactivate  =   True
@@ -2151,7 +2151,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label10
             AutoDeactivate  =   True
@@ -2230,7 +2230,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label11
             AutoDeactivate  =   True
@@ -2309,7 +2309,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label33
             AutoDeactivate  =   True
@@ -2388,7 +2388,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin TextField ChipMunkPathField
             AcceptTabs      =   False
@@ -2432,7 +2432,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label34
             AutoDeactivate  =   True
@@ -2546,7 +2546,7 @@ Begin Window SettingsWin
             ValidationMask  =   ""
             Value           =   "/usr/local/bin/meshclust"
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label40
             AllowAutoDeactivate=   True
@@ -2576,7 +2576,7 @@ Begin Window SettingsWin
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   334
+            Top             =   362
             Transparent     =   False
             Underline       =   False
             Value           =   "WSL bash"
@@ -2607,7 +2607,7 @@ Begin Window SettingsWin
             LockBottom      =   False
             LockedInPosition=   False
             LockLeft        =   True
-            LockRight       =   False
+            LockRight       =   True
             LockTop         =   True
             MaximumCharactersAllowed=   0
             Password        =   False
@@ -2619,51 +2619,7 @@ Begin Window SettingsWin
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   333
-            Transparent     =   False
-            Underline       =   False
-            ValidationMask  =   ""
-            Value           =   ""
-            Visible         =   True
-            Width           =   410
-         End
-         Begin TextField bioProsPathField
-            AllowAutoDeactivate=   True
-            AllowFocusRing  =   True
-            AllowSpellChecking=   False
-            AllowTabs       =   False
-            BackgroundColor =   &cFFFFFF00
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            FontName        =   "System"
-            FontSize        =   0.0
-            FontUnit        =   0
-            Format          =   ""
-            HasBorder       =   True
-            Height          =   27
-            Hint            =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox1"
-            Italic          =   False
-            Left            =   114
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            MaximumCharactersAllowed=   0
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   27
-            TabPanelIndex   =   1
-            TabStop         =   True
-            TextAlignment   =   "0"
-            TextColor       =   &c00000000
-            Tooltip         =   ""
-            Top             =   365
+            Top             =   362
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
@@ -2684,7 +2640,7 @@ Begin Window SettingsWin
             Index           =   -2147483648
             InitialParent   =   "GroupBox1"
             Italic          =   False
-            Left            =   24
+            Left            =   26
             LockBottom      =   False
             LockedInPosition=   False
             LockLeft        =   True
@@ -2699,12 +2655,56 @@ Begin Window SettingsWin
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   369
+            Top             =   334
             Transparent     =   False
             Underline       =   False
             Value           =   "BioProspector"
             Visible         =   True
             Width           =   100
+         End
+         Begin TextField bioProsPathField
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF00
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   23
+            Hint            =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   29
+            TabPanelIndex   =   1
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   331
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   ""
+            Visible         =   True
+            Width           =   410
          End
       End
       Begin GroupBox GroupBox3
@@ -2734,7 +2734,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
          Begin PopupMenu ProteinPopup
             AllowAutoDeactivate=   True
             Bold            =   False
@@ -2765,7 +2765,7 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             Visible         =   True
-            Width           =   343
+            Width           =   345
          End
          Begin PopupMenu NucleotidePopup
             AllowAutoDeactivate=   True
@@ -2797,7 +2797,7 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             Visible         =   True
-            Width           =   343
+            Width           =   345
          End
          Begin TextField OrganismField
             AllowAutoDeactivate=   True
@@ -2841,7 +2841,7 @@ Begin Window SettingsWin
             ValidationMask  =   ""
             Value           =   ""
             Visible         =   True
-            Width           =   343
+            Width           =   345
          End
          Begin Label Label12
             AllowAutoDeactivate=   True
@@ -3134,7 +3134,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
          Begin Label Label35
             AllowAutoDeactivate=   True
             Bold            =   False
@@ -3321,7 +3321,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   434
+      Top             =   430
       Transparent     =   False
       Underline       =   False
       Visible         =   True

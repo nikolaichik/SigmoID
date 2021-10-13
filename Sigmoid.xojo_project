@@ -674,11 +674,7 @@ AppMenuBar=MainMenuBar
 MajorVersion=2
 MinorVersion=0
 SubVersion=0
-<<<<<<< HEAD
-NonRelease=371
-=======
-NonRelease=366
->>>>>>> b8d1d365d018ecde185452ad86c03abd7eed582f
+NonRelease=367
 Release=1
 InfoVersion=
 LongVersion=2.0.0a2

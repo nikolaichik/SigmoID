@@ -10,7 +10,7 @@ Begin Window BioProspectWin
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   554
+   Height          =   640
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -23,7 +23,7 @@ Begin Window BioProspectWin
    Title           =   "BioProspector settings"
    Type            =   "0"
    Visible         =   True
-   Width           =   365
+   Width           =   479
    Begin PushButton SaveSettings
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -34,15 +34,15 @@ Begin Window BioProspectWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   30
+      Height          =   116
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   214
-      LockBottom      =   False
+      Left            =   332
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       MacButtonStyle  =   "0"
       Scope           =   0
@@ -50,11 +50,11 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   513
+      Top             =   554
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   118
+      Width           =   117
    End
    Begin TextField WidthField
       AllowAutoDeactivate=   True
@@ -75,7 +75,7 @@ Begin Window BioProspectWin
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   125
+      Left            =   135
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -91,7 +91,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   13
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -99,7 +99,7 @@ Begin Window BioProspectWin
       Visible         =   True
       Width           =   54
    End
-   Begin TextField b
+   Begin TextField df
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
@@ -108,7 +108,7 @@ Begin Window BioProspectWin
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
-      Enabled         =   True
+      Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -122,7 +122,7 @@ Begin Window BioProspectWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
@@ -134,13 +134,13 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   112
+      Top             =   117
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
       Value           =   ""
       Visible         =   True
-      Width           =   294
+      Width           =   408
    End
    Begin TextField n
       AllowAutoDeactivate=   True
@@ -161,11 +161,11 @@ Begin Window BioProspectWin
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   291
+      Left            =   405
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
@@ -177,7 +177,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   151
+      Top             =   215
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -204,11 +204,11 @@ Begin Window BioProspectWin
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   291
+      Left            =   405
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
@@ -220,7 +220,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   188
+      Top             =   251
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -247,11 +247,11 @@ Begin Window BioProspectWin
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   291
+      Left            =   405
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
@@ -263,7 +263,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   227
+      Top             =   291
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -290,11 +290,11 @@ Begin Window BioProspectWin
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   291
+      Left            =   405
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
@@ -306,7 +306,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   287
+      Top             =   349
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -333,11 +333,11 @@ Begin Window BioProspectWin
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   291
+      Left            =   405
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
@@ -349,7 +349,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   325
+      Top             =   382
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -357,7 +357,7 @@ Begin Window BioProspectWin
       Visible         =   True
       Width           =   41
    End
-   Begin Label BGseq
+   Begin Label BGdistText
       AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
@@ -366,17 +366,17 @@ Begin Window BioProspectWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   24
+      Height          =   34
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   38
+      Left            =   40
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Multiline       =   False
+      Multiline       =   True
       Scope           =   0
       Selectable      =   False
       TabIndex        =   10
@@ -385,12 +385,12 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   82
+      Top             =   88
       Transparent     =   False
       Underline       =   False
-      Value           =   "use specific background sequence"
+      Value           =   "use specific background distribution file"
       Visible         =   True
-      Width           =   209
+      Width           =   243
    End
    Begin Label tryouts
       AllowAutoDeactivate=   True
@@ -420,7 +420,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   156
+      Top             =   215
       Transparent     =   False
       Underline       =   False
       Value           =   "number of times trying to find motif"
@@ -455,7 +455,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   195
+      Top             =   256
       Transparent     =   False
       Underline       =   False
       Value           =   "number of reported motifs"
@@ -463,41 +463,6 @@ Begin Window BioProspectWin
       Width           =   208
    End
    Begin Label Label4
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   40
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   13
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   233
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "second motif block width"
-      Visible         =   True
-      Width           =   248
-   End
-   Begin Label Label5
       AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
@@ -519,20 +484,20 @@ Begin Window BioProspectWin
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
-      TabIndex        =   14
+      TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   293
+      Top             =   290
       Transparent     =   False
       Underline       =   False
-      Value           =   "max gap  for two blocks motifs"
+      Value           =   "second motif block width"
       Visible         =   True
-      Width           =   221
+      Width           =   248
    End
-   Begin Label Label6
+   Begin Label Label5
       AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
@@ -554,13 +519,48 @@ Begin Window BioProspectWin
       Multiline       =   False
       Scope           =   0
       Selectable      =   False
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   357
+      Transparent     =   False
+      Underline       =   False
+      Value           =   "max gap  for two blocks motifs"
+      Visible         =   True
+      Width           =   221
+   End
+   Begin Label Label6
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   38
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   329
+      Top             =   389
       Transparent     =   False
       Underline       =   False
       Value           =   "min gap for two blocks motifs"
@@ -595,7 +595,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   465
+      Top             =   522
       Transparent     =   False
       Underline       =   False
       Value           =   "expected base per motif site"
@@ -630,7 +630,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   21
+      Top             =   22
       Transparent     =   False
       Underline       =   False
       Value           =   "motif width"
@@ -695,7 +695,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   266
+      Top             =   323
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -728,7 +728,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   363
+      Top             =   420
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -761,7 +761,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   397
+      Top             =   454
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -794,7 +794,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   431
+      Top             =   488
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -821,11 +821,11 @@ Begin Window BioProspectWin
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   291
+      Left            =   405
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   True
       MaximumCharactersAllowed=   0
       Password        =   False
@@ -837,7 +837,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   458
+      Top             =   515
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -845,13 +845,195 @@ Begin Window BioProspectWin
       Visible         =   True
       Width           =   41
    End
+   Begin PushButton ChooseBGfile
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Choose"
+      Default         =   True
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   366
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MacButtonStyle  =   "0"
+      Scope           =   0
+      TabIndex        =   24
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   85
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Label BGseqText
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   34
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   38
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   True
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   25
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   153
+      Transparent     =   False
+      Underline       =   False
+      Value           =   "use specific background sequence file"
+      Visible         =   True
+      Width           =   243
+   End
+   Begin TextField b
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF00
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   27
+      Hint            =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   40
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   26
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   176
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Value           =   ""
+      Visible         =   True
+      Width           =   408
+   End
+   Begin PushButton ChooseBgSeq
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Choose"
+      Default         =   True
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   366
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MacButtonStyle  =   "0"
+      Scope           =   0
+      TabIndex        =   27
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   151
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
+   End
+   Begin PushButton CancelButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   True
+      Caption         =   "Cancel"
+      Default         =   True
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   116
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   172
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MacButtonStyle  =   "0"
+      Scope           =   0
+      TabIndex        =   28
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   554
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   111
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Event
+		Sub Close()
+		  LogoWin.BioProsWinClosed = True
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  loadSettings
+		  LogoWin.BioPrSettingsSaved = False
+		  LogoWin.BioProsWinClosed = False
 		End Sub
 	#tag EndEvent
 
@@ -862,6 +1044,7 @@ End
 		    'Populate dictionary with default settings
 		    LogoWin.BioProspectSettings.Value("-W") = "10"
 		    LogoWin.BioProspectSettings.Value("runGenomeBg") = True
+		    LogoWin.BioProspectSettings.Value("-b") = ""
 		    LogoWin.BioProspectSettings.Value("-f") = ""
 		    LogoWin.BioProspectSettings.Value("-b") = ""
 		    LogoWin.BioProspectSettings.Value("-n") = "40"
@@ -876,9 +1059,9 @@ End
 		    LogoWin.BioProspectSettings.Value("-e") = ""
 		    
 		    BGdist.Value = True
-		    BGseq.Text = LogoWin.BioProspectSettings.Value("-b")
+		    'BGdist.Text = LogoWin.BioProspectSettings.Value("-f")
 		    a.value = False
-		    b.Text = LogoWin.BioProspectSettings.Value("-b")
+		    'b.Text = LogoWin.BioProspectSettings.Value("-b")
 		    d.value = False
 		    e.Text = LogoWin.BioProspectSettings.Value("-e")
 		    Gmax.Text = LogoWin.BioProspectSettings.Value("-G")
@@ -894,11 +1077,22 @@ End
 		    if LogoWin.BioProspectSettings.Value("runGenomeBg") Then
 		      BGdist.Value = True
 		    end
-		    BGseq.Text = LogoWin.BioProspectSettings.Value("-b")
+		    dim f As New FolderItem
+		    b.Text =  LogoWin.BioProspectSettings.Value("-b")
+		    
+		    'if f <> Nil Then
+		    'b.Text  = f.NativePath
+		    'end
+		    
+		    df.Text = LogoWin.BioProspectSettings.Value("-f")
+		    'if f <> Nil Then
+		    'df.Text = f.NativePath
+		    'end
+		    
 		    if LogoWin.BioProspectSettings.Value("-a") <> "0" then
 		      a.value = True
 		    end
-		    b.Text = LogoWin.BioProspectSettings.Value("-b")
+		    
 		    if LogoWin.BioProspectSettings.Value("-d") <> "2" then
 		      d.value = True
 		    end
@@ -915,6 +1109,7 @@ End
 		    r.Text = LogoWin.BioProspectSettings.Value("-r")
 		    w.Text = LogoWin.BioProspectSettings.Value("-w")
 		    WidthField.Text = LogoWin.BioProspectSettings.Value("-W")
+		    
 		  end
 		End Sub
 	#tag EndMethod
@@ -924,7 +1119,7 @@ End
 		  if BGdist.Value = True Then
 		    LogoWin.BioProspectSettings.value("runGenomeBg")  = True
 		  end
-		  LogoWin.BioProspectSettings.value("-b") = BGseq.Text
+		  'LogoWin.BioProspectSettings.value("-b") = BGseq.Text
 		  if a.value = True  then
 		    LogoWin.BioProspectSettings.value("-a") = "1"
 		  end
@@ -955,6 +1150,51 @@ End
 	#tag Event
 		Sub Action()
 		  saveBSettings
+		  LogoWin.BioPrSettingsSaved = True
+		  'LogoWin.BioProsWinClosed = True
+		  self.Close
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChooseBGfile
+	#tag Event
+		Sub Action()
+		  Dim dlg As New OpenFileDialog
+		  dim BGfile As New FolderItem
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Select distribution file "
+		  dlg.PromptText = "Select distribution file precomputed with genomebg tool, provided by BioProspector"
+		  
+		  BGfile = dlg.ShowModal
+		  If BGfile <> Nil Then
+		    df.text=BGfile.NativePath
+		    LogoWin.BioProspectSettings.Value("-f") = "'"+BGfile.NativePath+"'"
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ChooseBgSeq
+	#tag Event
+		Sub Action()
+		  Dim dlg As New OpenFileDialog
+		  dim BGseq As New FolderItem
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Select background file "
+		  dlg.PromptText = "Select background sequence file" 
+		  
+		  BGseq = dlg.ShowModal
+		  If BGseq <> Nil Then
+		    b.text=BGseq.NativePath
+		    LogoWin.BioProspectSettings.Value("-b") ="'"+BGseq.NativePath+"'"
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CancelButton
+	#tag Event
+		Sub Action()
+		  deNovoWin.runBioPros.Value=False
+		  'LogoWin.BioProsWinClosed = True
 		  self.Close
 		End Sub
 	#tag EndEvent
