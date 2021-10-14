@@ -34,11 +34,11 @@ Begin Window BioProspectWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   116
+      Height          =   31
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   332
+      Left            =   329
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -50,7 +50,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   554
+      Top             =   597
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -651,7 +651,7 @@ Begin Window BioProspectWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   38
+      Left            =   40
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -662,7 +662,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   54
+      Top             =   60
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -997,11 +997,11 @@ Begin Window BioProspectWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   116
+      Height          =   30
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   172
+      Left            =   188
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -1013,7 +1013,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   554
+      Top             =   597
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -1034,6 +1034,11 @@ End
 		  loadSettings
 		  LogoWin.BioPrSettingsSaved = False
 		  LogoWin.BioProsWinClosed = False
+		  #if TargetMacOS
+		    BGdist.Value = False
+		    BGdist.Enabled = False
+		  #EndIf
+		  
 		End Sub
 	#tag EndEvent
 
@@ -1042,73 +1047,64 @@ End
 		Sub loadSettings()
 		  if LogoWin.BioProspectSettings.KeyCount = 0 Then
 		    'Populate dictionary with default settings
-		    LogoWin.BioProspectSettings.Value("-W") = "10"
+		    LogoWin.BioProspectSettings.Value("W_def") = "10"
 		    LogoWin.BioProspectSettings.Value("runGenomeBg") = True
-		    LogoWin.BioProspectSettings.Value("-b") = ""
-		    LogoWin.BioProspectSettings.Value("-f") = ""
-		    LogoWin.BioProspectSettings.Value("-b") = ""
-		    LogoWin.BioProspectSettings.Value("-n") = "40"
-		    LogoWin.BioProspectSettings.Value("-r") = "5"
-		    LogoWin.BioProspectSettings.Value("-w") = ""
-		    LogoWin.BioProspectSettings.Value("-p") = ""
-		    LogoWin.BioProspectSettings.Value("-G") = ""
-		    LogoWin.BioProspectSettings.Value("-g") = ""
-		    LogoWin.BioProspectSettings.Value("-d") = "2"
-		    LogoWin.BioProspectSettings.Value("-a") = "0"
-		    LogoWin.BioProspectSettings.Value("-h") = ""
-		    LogoWin.BioProspectSettings.Value("-e") = ""
+		    LogoWin.BioProspectSettings.Value("b") = ""
+		    LogoWin.BioProspectSettings.Value("f") = ""
+		    LogoWin.BioProspectSettings.Value("b") = ""
+		    LogoWin.BioProspectSettings.Value("n") = "40"
+		    LogoWin.BioProspectSettings.Value("r") = "5"
+		    LogoWin.BioProspectSettings.Value("w") = ""
+		    LogoWin.BioProspectSettings.Value("p") = ""
+		    LogoWin.BioProspectSettings.Value("G_max") = ""
+		    LogoWin.BioProspectSettings.Value("g_min") = ""
+		    LogoWin.BioProspectSettings.Value("d") = "2"
+		    LogoWin.BioProspectSettings.Value("a") = "0"
+		    LogoWin.BioProspectSettings.Value("h") = ""
+		    LogoWin.BioProspectSettings.Value("e") = ""
 		    
 		    BGdist.Value = True
-		    'BGdist.Text = LogoWin.BioProspectSettings.Value("-f")
+		    'BGdist.Text = LogoWin.BioProspectSettings.Value("f")
 		    a.value = False
-		    'b.Text = LogoWin.BioProspectSettings.Value("-b")
+		    'b.Text = LogoWin.BioProspectSettings.Value("b")
 		    d.value = False
-		    e.Text = LogoWin.BioProspectSettings.Value("-e")
-		    Gmax.Text = LogoWin.BioProspectSettings.Value("-G")
-		    gMin.Text = LogoWin.BioProspectSettings.Value("-g")
+		    e.Text = LogoWin.BioProspectSettings.Value("e")
+		    Gmax.Text = LogoWin.BioProspectSettings.Value("G_max")
+		    gMin.Text = LogoWin.BioProspectSettings.Value("g_min")
 		    h.Value = False
-		    n.Text = LogoWin.BioProspectSettings.Value("-n")
+		    n.Text = LogoWin.BioProspectSettings.Value("n")
 		    p.Value = False
-		    r.Text = LogoWin.BioProspectSettings.Value("-r")
-		    w.Text = LogoWin.BioProspectSettings.Value("-w")
-		    WidthField.Text = LogoWin.BioProspectSettings.Value("-W")
+		    r.Text = LogoWin.BioProspectSettings.Value("r")
+		    w.Text = LogoWin.BioProspectSettings.Value("w")
+		    WidthField.Text = LogoWin.BioProspectSettings.Value("W_def")
 		    
 		  else
 		    if LogoWin.BioProspectSettings.Value("runGenomeBg") Then
 		      BGdist.Value = True
 		    end
 		    dim f As New FolderItem
-		    b.Text =  LogoWin.BioProspectSettings.Value("-b")
-		    
-		    'if f <> Nil Then
-		    'b.Text  = f.NativePath
-		    'end
-		    
-		    df.Text = LogoWin.BioProspectSettings.Value("-f")
-		    'if f <> Nil Then
-		    'df.Text = f.NativePath
-		    'end
-		    
-		    if LogoWin.BioProspectSettings.Value("-a") <> "0" then
+		    b.Text =  LogoWin.BioProspectSettings.Value("b")
+		    df.Text = LogoWin.BioProspectSettings.Value("f")
+		    if LogoWin.BioProspectSettings.Value("a") <> "0" then
 		      a.value = True
 		    end
 		    
-		    if LogoWin.BioProspectSettings.Value("-d") <> "2" then
+		    if LogoWin.BioProspectSettings.Value("d") <> "2" then
 		      d.value = True
 		    end
-		    e.Text = LogoWin.BioProspectSettings.Value("-e")
-		    Gmax.Text = LogoWin.BioProspectSettings.Value("-G")
-		    gMin.Text = LogoWin.BioProspectSettings.Value("-g")
-		    if LogoWin.BioProspectSettings.Value("-h") <> "" Then
+		    e.Text = LogoWin.BioProspectSettings.Value("e")
+		    Gmax.Text = LogoWin.BioProspectSettings.Value("G_max")
+		    gMin.Text = LogoWin.BioProspectSettings.Value("g_min")
+		    if LogoWin.BioProspectSettings.Value("h") <> "" Then
 		      h.Value = True
 		    end
-		    n.Text = LogoWin.BioProspectSettings.Value("-n")
-		    if LogoWin.BioProspectSettings.Value("-p") <> "" Then
+		    n.Text = LogoWin.BioProspectSettings.Value("n")
+		    if LogoWin.BioProspectSettings.Value("p") <> "" Then
 		      p.Value = True
 		    end
-		    r.Text = LogoWin.BioProspectSettings.Value("-r")
-		    w.Text = LogoWin.BioProspectSettings.Value("-w")
-		    WidthField.Text = LogoWin.BioProspectSettings.Value("-W")
+		    r.Text = LogoWin.BioProspectSettings.Value("r")
+		    w.Text = LogoWin.BioProspectSettings.Value("w")
+		    WidthField.Text = LogoWin.BioProspectSettings.Value("W_def")
 		    
 		  end
 		End Sub
@@ -1119,29 +1115,33 @@ End
 		  if BGdist.Value = True Then
 		    LogoWin.BioProspectSettings.value("runGenomeBg")  = True
 		  end
-		  'LogoWin.BioProspectSettings.value("-b") = BGseq.Text
 		  if a.value = True  then
-		    LogoWin.BioProspectSettings.value("-a") = "1"
+		    LogoWin.BioProspectSettings.value("a") = "1"
 		  end
-		  LogoWin.BioProspectSettings.value("-b") = b.Text
-		  if LogoWin.BioProspectSettings.value("-d") <> "2" Then
+		  LogoWin.BioProspectSettings.value("b") = b.Text
+		  if LogoWin.BioProspectSettings.value("d") <> "2" Then
 		    d.value = True
 		  end
-		  LogoWin.BioProspectSettings.value("-e") = e.Text 
-		  LogoWin.BioProspectSettings.value("-G") = Gmax.Text 
-		  LogoWin.BioProspectSettings.value("-g") = gMin.Text
+		  LogoWin.BioProspectSettings.value("e") = e.Text 
+		  LogoWin.BioProspectSettings.value("G_max") = Gmax.Text 
+		  LogoWin.BioProspectSettings.value("g_min") = gMin.Text
 		  if h.Value = True Then
-		    LogoWin.BioProspectSettings.value("-h") = "1"
+		    LogoWin.BioProspectSettings.value("h") = "1"
 		  end
-		  LogoWin.BioProspectSettings.value("-n") = n.Text
+		  LogoWin.BioProspectSettings.value("n") = n.Text
 		  if p.Value = True Then
-		    LogoWin.BioProspectSettings.value("-p") = "1" 
+		    LogoWin.BioProspectSettings.value("p") = "1" 
 		  end
-		  LogoWin.BioProspectSettings.value("-r") = r.Text 
-		  LogoWin.BioProspectSettings.value("-w") = w.Text
-		  LogoWin.BioProspectSettings.value("-W") = WidthField.Text
+		  LogoWin.BioProspectSettings.value("r") = r.Text 
+		  LogoWin.BioProspectSettings.value("w") = w.Text
+		  LogoWin.BioProspectSettings.value("W_def") = WidthField.Text
 		End Sub
 	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		launcher As String
+	#tag EndProperty
 
 
 #tag EndWindowCode
@@ -1168,7 +1168,7 @@ End
 		  BGfile = dlg.ShowModal
 		  If BGfile <> Nil Then
 		    df.text=BGfile.NativePath
-		    LogoWin.BioProspectSettings.Value("-f") = "'"+BGfile.NativePath+"'"
+		    LogoWin.BioProspectSettings.Value("f") = "'"+BGfile.NativePath+"'"
 		  End If
 		End Sub
 	#tag EndEvent
@@ -1185,7 +1185,7 @@ End
 		  BGseq = dlg.ShowModal
 		  If BGseq <> Nil Then
 		    b.text=BGseq.NativePath
-		    LogoWin.BioProspectSettings.Value("-b") ="'"+BGseq.NativePath+"'"
+		    LogoWin.BioProspectSettings.Value("b") ="'"+BGseq.NativePath+"'"
 		  End If
 		End Sub
 	#tag EndEvent
@@ -1193,9 +1193,258 @@ End
 #tag Events CancelButton
 	#tag Event
 		Sub Action()
-		  deNovoWin.runBioPros.Value=False
-		  'LogoWin.BioProsWinClosed = True
+		  if self.launcher = "denovo" Then
+		    deNovoWin.runBioPros.Value=False
+		  end
+		  LogoWin.BioProsWinClosed = True
 		  self.Close
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag ViewBehavior
+	#tag ViewProperty
+		Name="Name"
+		Visible=true
+		Group="ID"
+		InitialValue=""
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Interfaces"
+		Visible=true
+		Group="ID"
+		InitialValue=""
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Super"
+		Visible=true
+		Group="ID"
+		InitialValue=""
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Width"
+		Visible=true
+		Group="Size"
+		InitialValue="600"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Height"
+		Visible=true
+		Group="Size"
+		InitialValue="400"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinimumWidth"
+		Visible=true
+		Group="Size"
+		InitialValue="64"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinimumHeight"
+		Visible=true
+		Group="Size"
+		InitialValue="64"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MaximumWidth"
+		Visible=true
+		Group="Size"
+		InitialValue="32000"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MaximumHeight"
+		Visible=true
+		Group="Size"
+		InitialValue="32000"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Type"
+		Visible=true
+		Group="Frame"
+		InitialValue="0"
+		Type="Types"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Document"
+			"1 - Movable Modal"
+			"2 - Modal Dialog"
+			"3 - Floating Window"
+			"4 - Plain Box"
+			"5 - Shadowed Box"
+			"6 - Rounded Window"
+			"7 - Global Floating Window"
+			"8 - Sheet Window"
+			"9 - Metal Window"
+			"11 - Modeless Dialog"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Title"
+		Visible=true
+		Group="Frame"
+		InitialValue="Untitled"
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HasCloseButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HasMaximizeButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HasMinimizeButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HasFullScreenButton"
+		Visible=true
+		Group="Frame"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Resizeable"
+		Visible=true
+		Group="Frame"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Composite"
+		Visible=false
+		Group="OS X (Carbon)"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MacProcID"
+		Visible=false
+		Group="OS X (Carbon)"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="FullScreen"
+		Visible=false
+		Group="Behavior"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ImplicitInstance"
+		Visible=true
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="DefaultLocation"
+		Visible=true
+		Group="Behavior"
+		InitialValue="0"
+		Type="Locations"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Default"
+			"1 - Parent Window"
+			"2 - Main Screen"
+			"3 - Parent Window Screen"
+			"4 - Stagger"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Visible"
+		Visible=true
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="HasBackgroundColor"
+		Visible=true
+		Group="Background"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="BackgroundColor"
+		Visible=true
+		Group="Background"
+		InitialValue="&hFFFFFF"
+		Type="Color"
+		EditorType="Color"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Backdrop"
+		Visible=true
+		Group="Background"
+		InitialValue=""
+		Type="Picture"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBar"
+		Visible=true
+		Group="Menus"
+		InitialValue=""
+		Type="MenuBar"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MenuBarVisible"
+		Visible=true
+		Group="Deprecated"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="launcher"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+#tag EndViewBehavior

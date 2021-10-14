@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -2319,18 +2320,21 @@ End
 
 	#tag Method, Flags = &h0
 		Sub BioProspectorLogoW()
-		  dim dlg As New SelectFolderDialog
+		  dim dlg As New SaveFileDialog
 		  dim BioPOutput As New FolderItem 
 		  dim SeqSource As New FolderItem 
 		  dim w As BioProspectWin
+		  
 		  SeqSource = TemporaryFolder.Child("bioprospector_input_seq")
 		  dlg.ActionButtonCaption = "Select"
-		  dlg.Title = "Select folder to save results "
-		  dlg.PromptText = "BioProspector output location" 
+		  dlg.Title = "File for search results "
+		  dlg.PromptText = "BioProspector output file" 
 		  
 		  BioPOutput = dlg.ShowModal
+		  
 		  If BioPOutput <> Nil Then
 		    w = New BioProspectWin
+		    w.launcher = "logowin"
 		    While BioProsWinClosed <> True
 		      App.DoEvents
 		    Wend
@@ -2343,6 +2347,7 @@ End
 		      outstream.Write(ConvertEncoding(Sequences, Encodings.UTF8))
 		      outstream.Close
 		      dim returncode as Integer
+		      LogoWin.WriteToSTDOUT("Path to store output result: "+BioPOutput.NativePath+EndOfLine.UNIX))
 		      LogoWin.WriteToSTDOUT("Running BioProspector...")
 		      returncode = BioProspector(SeqSource,BioPOutput)
 		      if returncode = 0 Then
@@ -6664,6 +6669,22 @@ End
 		Group="Behavior"
 		InitialValue=""
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="BioProsWinClosed"
+		Visible=false
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="BioPrSettingsSaved"
+		Visible=false
+		Group="Behavior"
+		InitialValue="false"
+		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

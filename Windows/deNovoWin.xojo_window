@@ -2083,43 +2083,41 @@ End
 		  end
 		  if runBioPros.State = CheckBox.CheckedStates.Checked Then
 		    rp.runBioPros = True
-		    if LogoWin.BioProspectSettings.Value("runGenomeBg") Then
-		      dim cli as String
-		      dim BioprospectorFolder as New FolderItem(BioProsPath, FolderItem.pathModes.Native)
-		      
-		      #If TargetMacOS Then
-		        dim genomBg as FolderItem = BioprospectorFolder.Child("genomebg.mac")
-		      #ElseIf TargetLinux
-		        dim genomBg as FolderItem = BioprospectorFolder.Child("genomebg.linux")
-		      #EndIf
-		      
-		      dim genomBgOut as FolderItem = TemporaryFolder.Child(Nthfield(GenomeWin.GenomeFile.Name, ".",1)+"_genomBg_out")
-		      dim interGenRegions as FolderItem = Resources_f.Child("interGenicRegions.py")
-		      deNovoWin.rp.writeToWin("Start extracting intergenic regions from "+GenomeWin.GenomeFile.NativePath+EndofLine.unix)
-		      cli = pythonPath + " '" + PlaceQuotesToPath(interGenRegions.NativePath) + "' '" + PlaceQuotesToPath(GenomeWin.GenomeFile.NativePath) + "' '" + PlaceQuotesToPath(TemporaryFolder.NativePath+"'")
-		      #If TargetWindows
-		        ExecuteWSL(cli)
-		      #Else
-		        UserShell(cli)
-		      #endif
-		      If shError=0 Then
-		        deNovoWin.rp.writeToWin(" OK"+EndofLine.unix)
-		        cli = "'"+genomBg.NativePath + "' -i " + "'"+PlaceQuotesToPath(TemporaryFolder.NativePath + Nthfield(GenomeWin.GenomeFile.Name, ".",1)) + "_intergenic_regions.fasta' -o " +"'"+PlaceQuotesToPath(genomBgOut.NativePath+"'")
+		    #If TargetLinux Then
+		      dim genomBg as FolderItem = BioprospectorFolder.Child("genomebg.linux")
+		      if LogoWin.BioProspectSettings.Value("runGenomeBg") Then
+		        dim cli as String
+		        dim BioprospectorFolder as New FolderItem(Nthfield(BioProsPath,"/", CountFields(BioProsPath,"/")), FolderItem.pathModes.Native)
+		        dim genomBgOut as FolderItem = TemporaryFolder.Child(Nthfield(GenomeWin.GenomeFile.Name, ".",1)+"_genomBg_out")
+		        dim interGenRegions as FolderItem = Resources_f.Child("interGenicRegions.py")
+		        deNovoWin.rp.writeToWin("Start extracting intergenic regions from "+GenomeWin.GenomeFile.NativePath+EndofLine.unix)
+		        cli = pythonPath + " '" + PlaceQuotesToPath(interGenRegions.NativePath) + "' '" + PlaceQuotesToPath(GenomeWin.GenomeFile.NativePath) 
+		        cli = cli + "' '" + PlaceQuotesToPath(TemporaryFolder.NativePath+"'")
 		        #If TargetWindows
 		          ExecuteWSL(cli)
 		        #Else
 		          UserShell(cli)
 		        #endif
-		        if shError=0 Then
-		          LogoWin.BioProspectSettings.Value("-f") = genomBgOut.NativePath
+		        If shError=0 Then
+		          deNovoWin.rp.writeToWin(" OK"+EndofLine.unix)
+		          cli = "'"+genomBg.NativePath + "' -i " + "'"+PlaceQuotesToPath(TemporaryFolder.NativePath + Nthfield(GenomeWin.GenomeFile.Name, ".",1))
+		          cli = cli + "_intergenic_regions.fasta' -o " +"'"+PlaceQuotesToPath(genomBgOut.NativePath+"'")
+		          #If TargetWindows
+		            ExecuteWSL(cli)
+		          #Else
+		            UserShell(cli)
+		          #endif
+		          if shError=0 Then
+		            LogoWin.BioProspectSettings.Value("f") = genomBgOut.NativePath
+		          else
+		            deNovoWin.rp.writeToWin(shResult+EndOfLine.UNIX)
+		          end
 		        else
 		          deNovoWin.rp.writeToWin(shResult+EndOfLine.UNIX)
-		        end
-		      else
-		        deNovoWin.rp.writeToWin(shResult+EndOfLine.UNIX)
-		      End If
-		      
-		    end
+		        End If
+		        
+		      end
+		    #Endif 
 		  end
 		  rp.hmmlist = HmmList
 		  DeNovoTFBSinference.Proteins2process=Val(deNovoWin.Proteins2processField.text)
@@ -2646,6 +2644,7 @@ End
 		  select Case me.State
 		  case CheckBox.CheckedStates.Checked
 		    dim w as new BioProspectWin
+		    w.launcher = "denovo"
 		  end Select
 		End Sub
 	#tag EndEvent

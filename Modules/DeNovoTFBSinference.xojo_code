@@ -2,34 +2,26 @@
 Protected Module DeNovoTFBSinference
 	#tag Method, Flags = &h0
 		Function BioProspector(inFile as folderitem, outFolder as folderitem) As integer
+		  
 		  dim Settings as String = ""
-		  'dim BioProspector as FolderItem
-		  dim BioprospectorFolder as New FolderItem(BioProsPath, FolderItem.pathModes.Native)
 		  dim cli as String
 		  
 		  For Each entry As DictionaryEntry In LogoWin.BioProspectSettings
 		    if entry.Value <> "" and entry.Key<>"runGenomeBg" Then
-		      Settings = Settings +" " + entry.Key + " " + entry.Value
+		      if instr(entry.key, "_") > 0 Then
+		        Settings = Settings +" -" + Nthfield(entry.Key,"_",1) + " " + entry.Value
+		      else
+		        Settings = Settings +" -" + entry.Key + " " + entry.Value
+		      end
 		    end
 		  Next
-		  
-		  #if TargetWindows
-		    dim BioProspector as FolderItem = BioprospectorFolder.child("BioProspector.exe")
-		    cli="'"+BioProspector.NativePath+"'"
+		  cli="'"+BioProsPath+"' -i '"+inFile.NativePath+"'"+Settings+" -o '"+outFolder.NativePath+"'"
+		  #If TargetWindows
+		    ExecuteWSL(cli)
 		  #Else
-		    dim BioProspector as FolderItem = BioprospectorFolder.child("BioProspector.linux")
-		    cli="'"+BioProspector.NativePath+"'"
-		  #EndIf
-		  
-		  cli=cli+" -i '"+inFile.NativePath+"'"+Settings+" -o '"+outFolder.NativePath+"'"
-		  #if TargetWindows
-		    UserShell(cli)
-		  #else
 		    UserShell(cli)
 		  #endif
-		  
 		  Return shError
-		  
 		  
 		  Exception err
 		    ExceptionHandler(err,"DeNovoTFBSinference:BioProspector")
