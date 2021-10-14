@@ -143,7 +143,7 @@ Protected Module Globals
 		  Dim res As String
 		  Dim cli As String 
 		  
-		  cli="curl -LH "+Chr(34)+"Accept: text/x-bibliography; style=apa"+Chr(34)+" https://doi.org/"+DOI
+		  cli="curl -LH "+Chr(34)+"Accept: text/x-bibliography; style=apa"+Chr(34)+" https://doi.org/"+EncodeURLComponent(DOI)  'brackets within DOIs are problematic
 		  Dim sh As Shell =  New Shell
 		  sh.TimeOut=-1
 		  sh.execute(cli)
@@ -4043,6 +4043,92 @@ Protected Module Globals
 		  Exception err
 		    ExceptionHandler(err,"Globals:tfastx")
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function TFfamily(ProtSeq as string) As String
+		  // Scans the library of all TF family HMMs included with SigmoID and returns the name of the best matching HMM
+		  '  (returns empty string if no matching family was found)
+		  
+		  'good hit:
+		  '#------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------
+		  'GntR                 (many spaces)
+		  
+		  
+		  'no hits:
+		  '#------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------
+		  '#
+		  '# Program:         hmmscan
+		  
+		  // To avoid creating temporary file, query sequence is piped into hmmscan from STDIN
+		  
+		  Dim HmmResultFile As folderitem
+		  Dim hmmlibFile As folderitem
+		  Dim hmmSearchRes, cli, table As String
+		  Dim instream As TextInputStream
+		  '
+		  ''store the CDSs as a string for further use:
+		  'instream=ProtFile.OpenAsTextFile
+		  '
+		  'If instream<>Nil Then
+		  'CDSseqs=ReplaceAll(Trim(instream.ReadAll),EndOfLine.unix,"")
+		  'instream.close
+		  'End If
+		  
+		  hmmlibFile=Resources_f.child("hmmlib.hmm")
+		  If hmmlibFile=Nil Then
+		    Return ""
+		  End If
+		  
+		  HmmResultFile=TemporaryFolder.Child("alignments.table")
+		  If HmmResultFile<>Nil Then
+		    If HmmResultFile.exists Then
+		      HmmResultFile.Delete
+		    End If
+		    'LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
+		    Dim HmmSearchPath As String = Replace(nhmmerPath,"nhmmer","hmmscan")
+		    
+		    'cli=HmmSearchPath+" --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(hmmlibFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(ProtFile.ShellPath))
+		    
+		    cli="echo '"+ProtSeq+ "' | "   'query sequence to STDOUT
+		    cli=cli+HmmSearchPath+" --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(hmmlibFile.ShellPath))+" -" 'query sequence from STDIN
+		    #If TargetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      userShell(cli)
+		    #EndIf
+		    
+		    If shError=0 Then
+		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
+		      
+		      instream=HmmResultFile.OpenAsTextFile
+		      
+		      If instream<>Nil Then         'process hmmscan results
+		        table=Trim(instream.ReadAll)
+		        instream.close
+		        'hmmSearchRes="HMM file used: "+HMMfilePath+EndOfLine
+		        hmmSearchRes=NthField(table,"---------------------"+EndOfLine.UNIX,2)
+		        hmmSearchRes=NthField(hmmSearchRes," ",1)
+		        If Left(hmmSearchRes,1)="#" Then 'no match in HMMlib
+		          hmmSearchRes=""
+		        End If
+		        Return HmmSearchRes
+		      End If
+		      
+		      
+		      
+		    Else
+		      LogoWin.WriteToSTDOUT shResult
+		      Return ""
+		    End If
+		  Else
+		    LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create temporary file, have to abort search.")
+		    Return ""
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:TFfamily")
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

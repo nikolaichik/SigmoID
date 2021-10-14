@@ -88,6 +88,11 @@
 					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0NvcnluZVJlZ05ldC5jc3Y=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNm
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNp
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNt
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNw
 				End
 				Begin IDEScriptBuildStep Zip , AppliesTo = 2
 					'Dim result As String
@@ -148,6 +153,11 @@
 					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0NvcnluZVJlZ05ldC5jc3Y=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNm
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNp
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNt
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNw
 				End
 			End
 			Begin BuildStepList Windows
@@ -196,6 +206,11 @@
 					FolderItem = Li4vUHl0aG9uL0V4dHJhY3RGcmFnbWVudC5weQ==
 					FolderItem = Li4vUHl0aG9uL1Rlcm1HZW4ucHk=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0NvcnluZVJlZ05ldC5jc3Y=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNm
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNp
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNt
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNw
 				End
 			End
 #tag EndBuildAutomation

@@ -714,6 +714,7 @@ Inherits Application
 			
 			If CoryneRegNetWin.CollecTFfile<>Nil And CoryneRegNetWin.CollecTFfile.Exists Then
 			CoryneRegNetWin.show
+			App.DoEvents
 			CoryneRegNetWin.FillRegulatorList(CoryneRegNetWin.CollecTFfile)
 			else
 			LogoWin.WriteToSTDOUT("CoryneRegNet data file is missing")

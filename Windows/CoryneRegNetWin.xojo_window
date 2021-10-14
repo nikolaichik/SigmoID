@@ -34,8 +34,8 @@ Begin Window CoryneRegNetWin
       AllowRowDragging=   False
       AllowRowReordering=   False
       Bold            =   False
-      ColumnCount     =   5
-      ColumnWidths    =   "*,70,70,70"
+      ColumnCount     =   8
+      ColumnWidths    =   "*,100,110,70,0,110,0,0"
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
@@ -54,7 +54,7 @@ Begin Window CoryneRegNetWin
       Height          =   468
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "#kTFname	#kNumberOfSites	#kGenesControlled	#kSiteWidth"
+      InitialValue    =   "#kTFname	#kNumberOfSites	#kGenesControlled	#kSiteWidth	Locus_tag	#kFamily	TF sequence"
       Italic          =   False
       Left            =   0
       LockBottom      =   True
@@ -63,7 +63,7 @@ Begin Window CoryneRegNetWin
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "1"
+      RowSelectionType=   "0"
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -192,7 +192,7 @@ Begin Window CoryneRegNetWin
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   False
       Multiline       =   False
       Scope           =   0
@@ -200,7 +200,7 @@ Begin Window CoryneRegNetWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      TextAlignment   =   "2"
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   480
@@ -208,13 +208,12 @@ Begin Window CoryneRegNetWin
       Underline       =   False
       Value           =   "CoryneRegNet 7.0 (2020)"
       Visible         =   True
-      Width           =   279
+      Width           =   171
    End
    Begin mHTTPSocket RegulonDBSocket
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -233,7 +232,6 @@ Begin Window CoryneRegNetWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -247,6 +245,41 @@ Begin Window CoryneRegNetWin
       Scope           =   0
       TabPanelIndex   =   0
       yield           =   False
+   End
+   Begin Label ProgressLabel
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   237
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   12
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   480
+      Transparent     =   False
+      Underline       =   False
+      Value           =   ""
+      Visible         =   True
+      Width           =   283
    End
 End
 #tag EndWindow
@@ -369,7 +402,7 @@ End
 		Sub FillRegulatorList(RegulonDBfile as folderitem)
 		  // Modified CollecTF window
 		  
-		  'tab-sepaprated columns:
+		  'CollecTF tab-sepaprated columns:
 		  '# Columns:
 		  '1 TF name
 		  '2 TF_accession
@@ -383,7 +416,7 @@ End
 		  '10 experimental_evidence
 		  '11 regulated genes (locus_tags)
 		  
-		  'comma-sepaprated columns:
+		  'CoryneRegNet comma-sepaprated columns:
 		  '# Columns:
 		  '1 TF_locusTag    
 		  '2 TF_altLocusTag    
@@ -421,7 +454,7 @@ End
 		  if tis<>nil then
 		    'reinitialise the list and the array
 		    RegulatorList.DeleteAllRows
-		    redim regulatorArray(-1)
+		    Redim regulatorArray(-1)
 		    
 		    
 		    aLine=tis.readLine 'skip header line
@@ -451,12 +484,12 @@ End
 		          if GeneNo>0 then
 		            RegulatorArray.Append TFdata
 		            'RegulatorList columns are:
-		            'TF name    Number of sites    Genes controlled    Site width    RegulonDB_TF_ID
-		            dim reg() as string
+		            'TF name    Number of sites    Genes controlled    Site width    TF_ID(hidden)    Family    TF_sequence(hidden; fasta)    Operators_fasta(hidden)
+		            Dim reg() As String
 		            if MinLen=MaxLen then
 		              reg=array(currentOrg, str(linecount), str(GeneNo), str(minLen), TF_ID)
 		            else
-		              reg=array(currentOrg, str(linecount), str(GeneNo), str(minLen)+"-"+str(maxLen), TF_ID)
+		              reg=Array(currentOrg, Str(linecount), Str(GeneNo), Str(minLen)+"-"+Str(maxLen), TF_ID)
 		            end if
 		            RegulatorList.AddRow(reg)
 		          end if
@@ -471,7 +504,7 @@ End
 		          TFdata=""
 		          'TF_ID=BSarr(2)
 		          TF_ID=BSarr(1)
-		        end if
+		        End If
 		        
 		        linecount=linecount+1
 		        
@@ -486,7 +519,7 @@ End
 		        next
 		        if newgene then
 		          geneArr.append(currentGene)
-		        end if
+		        End If
 		        
 		        'BSarr(11)+"_"+BSarr(5) gives unique name
 		        
@@ -510,7 +543,7 @@ End
 		          Dim theSeqGroup As String = theSeq
 		          For o=1 To m
 		            theSeq=NthField(theSeqGroup,";",o)
-		            tline=">"+TFBSname+"_"+BSarr(3)+"_"+Str(o)+" TF_locus_tag:"+BSarr(1)+" "+" TF_role:"+BSarr(10)+" PMID:"+BSarr(13)
+		            tline=">"+TFBSname+"_"+BSarr(3)+"_"+Str(o)+" TF_locus_tag:"+BSarr(1)+" "+" TF_role:"+BSarr(10)+" "+" Evidence:"+BSarr(12)+" PMID:"+BSarr(13)
 		            
 		            If LenB(theSeq)<minLen Then
 		              minLen=LenB(theSeq)
@@ -528,7 +561,7 @@ End
 		          
 		          
 		        Else
-		          tline=">"+TFBSname+"_"+BSarr(3)+" TF_locus_tag:"+BSarr(1)+" "+" TF_role:"+BSarr(10)+" PMID:"+BSarr(13)
+		          tline=">"+TFBSname+"_"+BSarr(3)+" TF_locus_tag:"+BSarr(1)+" "+" TF_role:"+BSarr(10)+" "+" Evidence:"+BSarr(12)+" PMID:"+BSarr(13)
 		          
 		          If LenB(theSeq)<minLen Then
 		            minLen=lenb(theSeq)
@@ -550,7 +583,7 @@ End
 		    if GeneNo>0 then
 		      RegulatorArray.Append TFdata
 		      'RegulatorList columns are:
-		      'TF name    Number of sites    Genes controlled    Site width
+		      'TF name    Number of sites    Genes controlled    Site width    TF_ID(hidden)    Family    TF_sequence(hidden; fasta)    Operators_fasta(hidden)
 		      dim reg() as string
 		      if MinLen=MaxLen then
 		        reg=array(currentOrg, str(linecount), str(GeneNo), str(minLen), TF_ID)
@@ -561,7 +594,49 @@ End
 		    end if
 		    
 		    
-		  end if
+		  End If
+		  
+		  'Fetch TF sequences and determine their families
+		  Me.show 
+		  
+		  Dim pFasta As String
+		  Dim fst, Species, locusTag As String
+		  
+		  'Get species name from locus_tag pattern:
+		  locusTag=RegulatorList.Cell(1,4)
+		  fst=Left(locusTag,2)
+		  Select Case fst
+		  Case "cg"
+		    Species="Corynebacterium glutamicum"
+		  Case "BS"
+		    Species="Bacillus subtilis"
+		  Case "Rv"
+		    Species="Mycobacterium tuberculosis"
+		  Case "b0"
+		    Species="Escherichia coli"
+		  Case "b1"
+		    Species="Escherichia coli"
+		  Case "b2"
+		    Species="Escherichia coli"
+		  Case "b3"
+		    Species="Escherichia coli"
+		  Case "b4"
+		    Species="Escherichia coli"
+		  End Select
+		  
+		  Dim RowNo As Integer = RegulatorList.LastRowIndex
+		  For n=0 To RowNo
+		    'get the TF protein sequence 
+		    locusTag=RegulatorList.CellValueAt(n,4)
+		    pFasta=LocusTag2proteinFasta(locusTag,Species)
+		    RegulatorList.CellValueAt(n,5)=TFfamily(pFasta)  'Family
+		    RegulatorList.CellValueAt(n,6)=pFasta            'TF seq
+		    RegulatorList.CellValueAt(n,7)=regulatorArray(n) 'Operators
+		    ProgressLabel.Text="Loading TF seqs: "+Str(n+1)+"/"+Str(RowNo+1)
+		    RegulatorList.Refresh
+		    app.DoEvents
+		  Next
+		  ProgressLabel.Text=Str(RowNo+1)+" TFs"
 		  
 		  
 		  Exception err
@@ -603,7 +678,7 @@ End
 		    dim OutStream As TextOutputStream
 		    OutStream = TextOutputStream.Create(tmpfile)
 		    if OutStream<>Nil then
-		      outstream.Write(RegulatorArray(RegulatorList.ListIndex))
+		      outstream.Write(RegulatorList.CellValueAt(RegulatorList.ListIndex,7))
 		      OutStream.Close
 		      logowin.Title="SigmoID: "+TFname+" (RegulonDB)"
 		      logowin.LoadAlignment(tmpfile)
@@ -618,7 +693,7 @@ End
 		      end if
 		      HmmGenSettingsWin.ValueField.text=TFname
 		      MASTGenSettingsWin.ValueField.text=TFname
-		      ProfileWizardWin.ValueField.text=TFname
+		      ProfileWizardWin.ValueField.Text=TFname.Titlecase
 		      
 		      'determine site width(s) and collect citation data:
 		      dim instream as TextInputStream
@@ -636,23 +711,27 @@ End
 		          If Left(aLine,1)=">" Then
 		            Dim PMID,PMIDs(-1) As String
 		            PMID=NthField(aline,"PMID:",2)
+		            PMID=ReplaceAll(PMID,chr(34),"")  'sometimes these slip through
 		            PMIDs=PMID.Split(";")
-		            If allPMIDs.LastRowIndex=-1 Then
-		              allPMIDs.Append(PMIDs(0))
-		            End If
 		            
-		            For n As Integer = PMIDs.FirstRowIndex To PMIDs.LastRowIndex
-		              match=False
-		              For M  As Integer = allPMIDs.FirstRowIndex To allPMIDs.LastRowIndex
-		                If PMIDs(n)=allPMIDs(m) Then 
-		                  match=True
-		                  Exit
+		            If UBound(PMIDs)>-1 Then      'some entries have no citation data
+		              If allPMIDs.LastRowIndex=-1 Then
+		                allPMIDs.Append(PMIDs(0))
+		              End If
+		              
+		              For n As Integer = PMIDs.FirstRowIndex To PMIDs.LastRowIndex
+		                match=False
+		                For M  As Integer = allPMIDs.FirstRowIndex To allPMIDs.LastRowIndex
+		                  If PMIDs(n)=allPMIDs(m) Then 
+		                    match=True
+		                    Exit
+		                  End If
+		                Next
+		                If Not match Then
+		                  allPMIDs.Append(PMIDs(n))
 		                End If
 		              Next
-		              If Not match Then
-		                allPMIDs.Append(PMIDs(n))
-		              End If
-		            Next
+		            End If
 		            
 		          else
 		            if lenb(aline)<minLen then
@@ -668,7 +747,11 @@ End
 		        maxLen=maxLen-20
 		        
 		        'fill the references list in ProfileWizard
-		        
+		        LogoWin.show
+		        app.DoEvents
+		        LogoWin.WriteToSTDOUT("Looking for citation data (")
+		        LogoWin.WriteToSTDOUT(Str(allPMIDs.LastRowIndex+1))
+		        LogoWin.WriteToSTDOUT(" citations)... ")
 		        ProfileWizardWin.RefsList.RemoveAllRows
 		        Dim DOI As String
 		        For L  As Integer = allPMIDs.FirstRowIndex To allPMIDs.LastRowIndex
@@ -677,35 +760,38 @@ End
 		          ProfileWizardWin.RefsList.CellValueAt(ProfileWizardWin.RefsList.LastRowIndex,1)=DOI
 		          ProfileWizardWin.RefsList.CellValueAt(ProfileWizardWin.RefsList.LastRowIndex,0)=CitationFromDOI(Trim(DOI))
 		        Next
+		        LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
 		        
-		        'get the TF protein sequence 
-		        'TFname contains the locus_tag
+		        'set the TF protein sequence 
+		        ProfileWizardWin.SeedProteinArea.Text=RegulatorList.Cell(RegulatorList.ListIndex,6)
+		        ProfileWizardWin.SeedProteinArea.Italic=False
+		        ProfileWizardWin.SeedProteinArea.TextColor=&c00000000 'black
 		        
-		        'Get species name from locustag pattern:
-		        Dim fst, Species As String
+		        'set TF family
+		        Dim fName As String = RegulatorList.Cell(RegulatorList.ListIndex,5)
+		        If fName<>"" Then
+		          Dim TFhmmName As String = GetHmmFromFamilyName(fName).DisplayName
+		          For i As Integer=0 To ProfileWizardWin.TFhmmPopup.LastRowIndex 
+		            If ProfileWizardWin.TFhmmPopup.RowValueAt(i)=TFhmmName Then
+		              ProfileWizardWin.TFhmmPopup.SelectedRowIndex=i
+		              Exit
+		            End If
+		          Next
+		        End 
 		        
-		        fst=Left(TFname,2)
+		        'Add curation info
+		        ProfileWizardWin.CuratorList.RemoveAllRows
+		        ProfileWizardWin.CuratorList.AddRow
+		        Dim lastIdx As Integer = ProfileWizardWin.CuratorList.LastRowIndex
+		        ProfileWizardWin.CuratorList.CellValueAt(LastIdx,0)="CoryneRegNet 7.0" 
+		        ProfileWizardWin.CuratorList.CellValueAt(LastIdx,1)="https://www.exbio.wzw.tum.de/coryneregnet/"
+		        Dim cInfo As String
+		        Dim d As DateTime=DateTime.now
+		        cInfo=d.ToString(Locale.Current, DateTime.FormatStyles.Short, DateTime.FormatStyles.None)+": "
+		        ProfileWizardWin.CuratorList.CellValueAt(LastIdx,2)=cInfo+": import from CoryneRegNet"
 		        
-		        Select Case fst
-		        Case "cg"
-		          Species="Corynebacterium glutamicum"
-		        Case "BS"
-		          Species="Bacillus subtilis"
-		        Case "Rv"
-		          Species="Mycobacteriu tuberculosis"
-		        Case "b0"
-		          Species="Escherichia coli"
-		        Case "b1"
-		          Species="Escherichia coli"
-		        Case "b2"
-		          Species="Escherichia coli"
-		        Case "b3"
-		          Species="Escherichia coli"
-		        Case "b4"
-		          Species="Escherichia coli"
-		        End Select
 		        
-		        ProfileWizardWin.SeedProteinArea.Text=LocusTag2proteinFasta(TFname, Species)
+		        
 		        
 		      else
 		        msgbox "can't read temporary file "+tmpfile.ShellPath
@@ -779,7 +865,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  me.ColumnWidths="25%,25%,25%,25%,0%"
+		  'me.ColumnWidths="25%,25%,25%,25%,0%"
 		  'the last column is invisible and holds RegulonDB ID
 		End Sub
 	#tag EndEvent
