@@ -141,7 +141,7 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   6
       Transparent     =   False
       Visible         =   True
@@ -164,7 +164,7 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   6
       Transparent     =   False
       Visible         =   True

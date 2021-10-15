@@ -943,6 +943,27 @@ End
 		    allProgsFine=false
 		  end if
 		  
+		  // NCBI Edirect
+		  
+		  #If TargetWindows
+		    ExecuteWSL("esearch -h")
+		  #Else
+		    userShell("esearch -h")
+		  #EndIf
+		  If sherror=0 Then 
+		    Dim s As String=shResult
+		    If Left(s,7)="esearch" Then
+		      s=NthField(s,"esearch ",2)
+		      s=NthField(s,EndOfLine.Unix,1)
+		      WriteToSTDOUT ("NCBI Edirect "+s+EndOfLine.UNIX)
+		    Else
+		      WriteToSTDOUT ("No NCBI Edirect found on your PATH. Please follow install instructions at https://www.ncbi.nlm.nih.gov/books/NBK179288/"+EndOfLine.unix)
+		      'allProgsFine=False
+		    End If
+		  Else
+		    WriteToSTDOUT ("No NCBI Edirect found on your PATH. Please follow install instructions at https://www.ncbi.nlm.nih.gov/books/NBK179288/"+EndOfLine.unix)
+		    'allProgsFine=False
+		  End If
 		  
 		  // RegPrecise
 		  ' web services don't work after the move to new server
@@ -2674,7 +2695,7 @@ End
 		  'end if
 		  
 		  dim FileLocation as folderitem = TemporaryFolder.child("1"+tmpfile.Name)
-		  dim tos as TextOutputStream
+		  Dim tos As TextOutputStream
 		  dim tis as TextInputStream
 		  dim RawRead, Seq, Achar as String
 		  

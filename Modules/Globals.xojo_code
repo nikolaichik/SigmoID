@@ -3177,7 +3177,7 @@ Protected Module Globals
 		  
 		  'Evidence confidence level added in version 9
 		  
-		  dim tis as TextInputStream
+		  Dim tis As TextInputStream
 		  Dim tos As TextOutputStream
 		  dim BSarr() as string
 		  dim tab as string = chr(9)
@@ -3193,7 +3193,7 @@ Protected Module Globals
 		  if tis<>nil then
 		    
 		    minlen=100
-		    while not tis.EOF
+		    While Not tis.EOF
 		      aLine=tis.readLine
 		      if len(aline)>60 then 'skip empty lines
 		        BSarr()=split(aline,tab)

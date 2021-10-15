@@ -431,7 +431,9 @@ End
 
 	#tag Method, Flags = &h0
 		Sub FillRegulatorList(RegulonDBfile as folderitem)
-		  // Modified CollecTF window
+		  // Loads saved RegulatorList state or fills the list anew if no saved state is found
+		  
+		  // Original import uses modified CollecTF window procedure
 		  
 		  'CollecTF tab-sepaprated columns:
 		  '# Columns:
@@ -470,15 +472,49 @@ End
 		  dim BSarr() as string
 		  Dim tab As String = ","
 		  dim aline, tline as string
-		  dim theSeq, aGene, currentGene, geneArr() as string
-		  dim linecount, n, GeneNo, Confidence,currentConfidence as integer
-		  dim newgene, isPromoterSet as boolean
+		  Dim theSeq, currentGene, geneArr() As String
+		  Dim linecount, n, GeneNo As Integer
+		  Dim newgene As Boolean
 		  dim aTF, currentTF, TFdata, TF_ID as string
 		  dim TFBSname as string
-		  dim anOrg, currentOrg as string
-		  dim siteSeq, conf as string
+		  Dim anOrg, currentOrg As String
+		  Dim siteSeq As String
+		  Dim fname As folderitem
 		  
+		  'check for saved RegulatorList states
+		  fname=Resources_f.Child("CoryneRegNet")
+		  If fname<>Nil Then
+		    If fname.exists Then
+		      Select Case RegulonDBfile.name
+		      Case "Bsubtilis.csv"
+		        fname=fname.child("Bs.tsv")
+		      Case "Cglutamicum.csv"
+		        fname=fname.child("Cg.tsv")
+		      Case "Mtuberculosis.csv"
+		        fname=fname.child("Mt.tsv")
+		      Case "Ecoli.csv"
+		        fname=fname.child("Ec.tsv")
+		      End Select
+		    End If
+		  End If
 		  
+		  Dim rowItems() As String
+		  If fname<>Nil Then
+		    If fname.exists Then             'load RegulatorList
+		      tis=fname.OpenAsTextFile
+		      If tis<>Nil Then
+		        RegulatorList.RemoveAllRows
+		        While Not tis.EOF
+		          aLine=tis.readLine
+		          aLine=ReplaceAll(aline,"||",EndOfLine.UNIX)
+		          rowItems=aline.Split(Chr(9))
+		          RegulatorList.AddRow(rowItems)
+		        Wend
+		        tis.close
+		        return
+		      End If
+		    End If
+		  End If
 		  
 		  tis=RegulonDBfile.OpenAsTextFile
 		  
@@ -537,8 +573,6 @@ End
 		          TF_ID=BSarr(1)
 		        End If
 		        
-		        linecount=linecount+1
-		        
 		        'currentGene=BSarr(11)
 		        currentGene=BSarr(5)
 		        newgene=true
@@ -587,7 +621,7 @@ End
 		            TFdata=TFdata+tline+EndOfLine.Unix
 		            TFdata=TFdata+theSeq+EndOfLine.Unix
 		            
-		            
+		            linecount=linecount+1
 		          Next
 		          
 		          
@@ -604,6 +638,8 @@ End
 		          
 		          TFdata=TFdata+tline+EndOfLine.Unix
 		          TFdata=TFdata+theSeq+EndOfLine.Unix
+		          
+		          linecount=linecount+1
 		        End If
 		        
 		      end if
@@ -669,6 +705,36 @@ End
 		  Next
 		  ProgressLabel.Text=Str(RowNo+1)+" TFs"
 		  
+		  'Save all the data for reuse the next time
+		  Dim outList As folderitem
+		  outList=Resources_f.Child("CoryneRegNet")
+		  If outList<>Nil Then
+		    If outList.exists Then
+		      Select Case species
+		      Case "Corynebacterium glutamicum ATCC 13032"
+		        outList=outList.Child("Cg.tsv")
+		      Case "Bacillus subtilis subsp. subtilis str. 168"
+		        outList=outList.Child("Bs.tsv")
+		      Case "Mycobacterium tuberculosis H37Rv"
+		        outList=outList.Child("Mt.tsv")
+		      Case "Escherichia coli str. K-12 substr. MG1655"
+		        outList=outList.Child("Ec.tsv")
+		      End Select
+		      tos = TextOutputStream.Create(outlist) 
+		      
+		      'replace endOfLines in two columns to avoid breaking rows during export
+		      For n=0 To RowNo
+		        RegulatorList.CellValueAt(n,6)=ReplaceAll(Trim(RegulatorList.CellValueAt(n,6)),EndOfLine.UNIX,"||")  'TF seq
+		        RegulatorList.CellValueAt(n,7)=ReplaceAll(Trim(RegulatorList.CellValueAt(n,7)),EndOfLine.UNIX,"||")  'Operators
+		      Next
+		      Dim RL As String = RegulatorList.cellValueAt(-1,-1) 
+		      
+		      If tos<>Nil Then
+		        tos.Write(RL)
+		        tos.close
+		      End If
+		    End If
+		  End If
 		  
 		  Exception err
 		    ExceptionHandler(err,"CoryneRegNetWin:FillRegulatorList")
@@ -729,7 +795,6 @@ End
 		      'determine site width(s) and collect citation data:
 		      dim instream as TextInputStream
 		      Dim aLine As String
-		      Dim Citations(0) As String
 		      minLen=100
 		      maxLen=0
 		      InStream = tmpfile.OpenAsTextFile
