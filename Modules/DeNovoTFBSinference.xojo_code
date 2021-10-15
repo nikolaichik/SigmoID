@@ -395,6 +395,19 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function FixProtName(ProtName as string) As string
+		  // Capitalise the first letter of protein name
+		  
+		  Dim f,l As String
+		  
+		  f=Left(ProtName,1)
+		  l=Right(ProtName,Len(ProtName)-1)
+		  
+		  return f.uppercase+l
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetCRtags(SearchResRaw as string, SearchResTable as string, CRs as string) As string
 		  // Add Critical Residues (CRs) according to Sahota and Stormo (2010; doi:10.1093/bioinformatics/btq501) 
 		  ' to hmmsearch output 
@@ -2276,6 +2289,7 @@ Protected Module DeNovoTFBSinference
 		  ' https://www.ncbi.nlm.nih.gov/books/NBK179288/
 		  
 		  
+		  
 		  Dim cmdStart As String
 		  Dim cmdEnd As String
 		  Dim f As FolderItem
@@ -2289,12 +2303,12 @@ Protected Module DeNovoTFBSinference
 		    cmdStart = "esearch -db protein -query '"
 		    cmdEnd = "' | efetch -format fasta"
 		  #Else 
-		    cmdStart = "esearch -db protein -query "+Chr(34)
-		    cmdEnd = Chr(34)+" | efetch -format fasta"
+		    cmdStart = "esearch -db protein -query '"
+		    cmdEnd = "' | efetch -format fasta"
 		  #EndIf
 		  
 		  Dim cmd As String
-		  cmd=cmdStart+locusTag+cmdEnd
+		  cmd=cmdStart+locusTag+" [GENE] AND "+genomeName+" [ORGN]"+cmdEnd
 		  
 		  #If TargetWindows
 		    UserShellMode=1

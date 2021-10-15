@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -2347,7 +2346,7 @@ End
 		      outstream.Write(ConvertEncoding(Sequences, Encodings.UTF8))
 		      outstream.Close
 		      dim returncode as Integer
-		      LogoWin.WriteToSTDOUT("Path to store output result: "+BioPOutput.NativePath+EndOfLine.UNIX))
+		      LogoWin.WriteToSTDOUT("Path to store output result: "+BioPOutput.NativePath+EndOfLine.UNIX)
 		      LogoWin.WriteToSTDOUT("Running BioProspector...")
 		      returncode = BioProspector(SeqSource,BioPOutput)
 		      if returncode = 0 Then

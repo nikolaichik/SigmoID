@@ -710,15 +710,7 @@ Inherits Application
 
 	#tag MenuHandler
 		Function RegulonCoryneRegNet() As Boolean Handles RegulonCoryneRegNet.Action
-			CoryneRegNetWin.CollecTFfile=Resources_f.child("CoryneRegNet.csv")
-			
-			If CoryneRegNetWin.CollecTFfile<>Nil And CoryneRegNetWin.CollecTFfile.Exists Then
 			CoryneRegNetWin.show
-			App.DoEvents
-			CoryneRegNetWin.FillRegulatorList(CoryneRegNetWin.CollecTFfile)
-			else
-			LogoWin.WriteToSTDOUT("CoryneRegNet data file is missing")
-			end if
 			
 			
 			

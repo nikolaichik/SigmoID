@@ -51,7 +51,7 @@ Begin Window CoryneRegNetWin
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   468
+      Height          =   416
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   "#kTFname	#kNumberOfSites	#kGenesControlled	#kSiteWidth	Locus_tag	#kFamily	TF sequence"
@@ -69,7 +69,7 @@ Begin Window CoryneRegNetWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   0
+      Top             =   52
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -210,42 +210,6 @@ Begin Window CoryneRegNetWin
       Visible         =   True
       Width           =   171
    End
-   Begin mHTTPSocket RegulonDBSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      IsConnected     =   False
-      LocalAddress    =   ""
-      LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
-      Scope           =   0
-      TabPanelIndex   =   0
-      yield           =   False
-   End
-   Begin mHTTPSocket RDBSocket
-      Address         =   ""
-      BytesAvailable  =   0
-      BytesLeftToSend =   0
-      Handle          =   0
-      httpProxyAddress=   ""
-      httpProxyPort   =   0
-      Index           =   -2147483648
-      InitialParent   =   ""
-      IsConnected     =   False
-      LocalAddress    =   ""
-      LockedInPosition=   False
-      Port            =   0
-      RemoteAddress   =   ""
-      Scope           =   0
-      TabPanelIndex   =   0
-      yield           =   False
-   End
    Begin Label ProgressLabel
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -280,6 +244,73 @@ Begin Window CoryneRegNetWin
       Value           =   ""
       Visible         =   True
       Width           =   283
+   End
+   Begin Label Label2
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   13
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Value           =   "#kGenome_"
+      Visible         =   True
+      Width           =   76
+   End
+   Begin PopupMenu GenomesPopup
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      InitialValue    =   "#kSelectGenome"
+      Italic          =   False
+      Left            =   100
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      SelectedRowIndex=   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   19
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   558
    End
 End
 #tag EndWindow
@@ -607,21 +638,21 @@ End
 		  fst=Left(locusTag,2)
 		  Select Case fst
 		  Case "cg"
-		    Species="Corynebacterium glutamicum"
+		    Species="Corynebacterium glutamicum ATCC 13032"
 		  Case "BS"
-		    Species="Bacillus subtilis"
+		    Species="Bacillus subtilis subsp. subtilis str. 168"
 		  Case "Rv"
-		    Species="Mycobacterium tuberculosis"
+		    Species="Mycobacterium tuberculosis H37Rv"
 		  Case "b0"
-		    Species="Escherichia coli"
+		    Species="Escherichia coli str. K-12 substr. MG1655"
 		  Case "b1"
-		    Species="Escherichia coli"
+		    Species="Escherichia coli str. K-12 substr. MG1655"
 		  Case "b2"
-		    Species="Escherichia coli"
+		    Species="Escherichia coli str. K-12 substr. MG1655"
 		  Case "b3"
-		    Species="Escherichia coli"
+		    Species="Escherichia coli str. K-12 substr. MG1655"
 		  Case "b4"
-		    Species="Escherichia coli"
+		    Species="Escherichia coli str. K-12 substr. MG1655"
 		  End Select
 		  
 		  Dim RowNo As Integer = RegulatorList.LastRowIndex
@@ -693,7 +724,7 @@ End
 		      end if
 		      HmmGenSettingsWin.ValueField.text=TFname
 		      MASTGenSettingsWin.ValueField.text=TFname
-		      ProfileWizardWin.ValueField.Text=TFname.Titlecase
+		      ProfileWizardWin.ValueField.Text=FixProtName(TFname)
 		      
 		      'determine site width(s) and collect citation data:
 		      dim instream as TextInputStream
@@ -894,79 +925,52 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events RegulonDBSocket
+#tag Events Label2
 	#tag Event
-		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
-		  dim ProteinID, fastaURL as string
-		  dim n,geneNo as integer
-		  
-		  'get the gene/ProteinID from the first (there'll be many) html tag that look like this:
-		  '<a href="/gene?term=ECK120000719&organism=ECK12&format=jsp&type=gene">phoB</a></span></td>
-		  
-		  'the page may contain several genes (e.g. the rcsB page), hence the dances below
-		  
-		  if httpStatus>=200 AND httpStatus<300 then 'successful
-		    geneno=CountFields(Content,"/gene?term=")
-		    for n=2 to geneNo+2
-		      ProteinID=NthField(Content,"/gene?term=",n)
-		      ProteinID=NthField(ProteinID,"</a>",1)
-		      if instr(ProteinID,TF_name)>0 then
-		        ProteinID=NthField(ProteinID,"&organism=",1)
-		        exit
-		      end if
-		    next
-		    
-		    if ProteinID<>"" then
-		      fastaURL="http://regulondb.ccg.unam.mx/sequence?type=PD&term="+ProteinID+"&format=fasta"
-		      
-		      RDBSocket.Get(fastaURL)
-		    else
-		      msgbox "Can't get TF data from RegulonDB."
-		    end if
-		    
-		  else
-		    MsgBox "Can't connect to RegulonDB (HTTP status code "+str(httpStatus)+")"
-		  end if
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Connected()
-		  logowin.WriteToSTDOUT("OK."+EndOfLine.unix)
-		  
-		  logowin.WriteToSTDOUT("Getting TF protein ID... ")
-		  
+		Sub Open()
+		  'me.text=kGenome+":"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events RDBSocket
+#tag Events GenomesPopup
 	#tag Event
-		Sub PageReceived(url as string, httpStatus as integer, headers as internetHeaders, content as string)
-		  dim ProteinFasta as string
+		Sub Change()
+		  Dim genus, fName As String
 		  
-		  'extract Fasta formatted protein seq
-		  'the seq is within the <pre> tag, but there are two of those, so we're searching for "<pre>>"
-		  'content supposedly has the ISO-8859-1 encoding, but Xojo gets line ends wrongx
+		  genus=NthField(Me.SelectedRowValue," ",1)
 		  
-		  if httpStatus>=200 AND httpStatus<300 then 'successful
-		    ProteinFasta=defineEncoding(NthField(Content,"<pre>>",2),Encodings.ISOLatin1)
-		    ProteinFasta=">"+NthField(ProteinFasta,"</pre>",1)
-		    ProteinFasta=ConvertEncoding(trim(ProteinFasta),Encodings.ASCII)
-		    
-		    'msgbox ProteinFasta
-		    
-		    tfastx(ProteinFasta)
-		  else
-		    MsgBox "Can't connect to RegulonDB (HTTP status code "+str(httpStatus)+")"
-		  end if
+		  Select Case Genus
+		  Case "Bacillus"
+		    fname="Bsubtilis.csv"
+		  Case "Corynebacterium"
+		    fname="Cglutamicum.csv"
+		  Case "Mycobacterium"
+		    fname="Mtuberculosis.csv"
+		  Case "Escherichia"
+		    fname="Ecoli.csv"
+		  End Select
+		  
+		  CollecTFfile=Resources_f.child("CoryneRegNet")
+		  If CollecTFfile<>Nil Then
+		    If CollecTFfile.exists Then
+		      CollecTFfile=CollecTFfile.child(fName)
+		    End If
+		  End If
+		  
+		  If CollecTFfile<>Nil Then
+		    If CollecTFfile.exists Then
+		      CoryneRegNetWin.FillRegulatorList(CoryneRegNetWin.CollecTFfile)
+		    End If
+		  End If
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub Connected()
-		  logowin.WriteToSTDOUT("OK."+EndOfLine.unix)
-		  
-		  logowin.WriteToSTDOUT("Getting TF protein sequence... ")
-		  
+		Sub Open()
+		  Me.AddRow("Bacillus subtilis 168")
+		  Me.AddRow("Corynebacterium glutamicum DSM 20300")
+		  Me.AddRow("Mycobacterium tuberculosis H37Rv")
+		  Me.AddRow("Escherichia coli K-12")
+		  me.enabled=true
 		End Sub
 	#tag EndEvent
 #tag EndEvents
