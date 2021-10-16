@@ -679,7 +679,7 @@ Begin Window ProfileWizardWin
       LimitText       =   0
       LineHeight      =   0.0
       LineSpacing     =   1.0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
@@ -1117,11 +1117,11 @@ Begin Window ProfileWizardWin
       InitialValue    =   "References	DOI(PMID)	Evidence Codes"
       Italic          =   False
       Left            =   12
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       RequiresSelection=   False
       RowSelectionType=   "0"
       Scope           =   0
@@ -1169,11 +1169,11 @@ Begin Window ProfileWizardWin
       InitialValue    =   "Curator	Address	Curation history"
       Italic          =   False
       Left            =   12
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       RequiresSelection=   False
       RowSelectionType=   "0"
       Scope           =   0
