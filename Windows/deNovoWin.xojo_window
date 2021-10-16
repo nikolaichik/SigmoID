@@ -2084,10 +2084,14 @@ End
 		  if runBioPros.State = CheckBox.CheckedStates.Checked Then
 		    rp.runBioPros = True
 		    #If TargetLinux Then
-		      dim genomBg as FolderItem = BioprospectorFolder.Child("genomebg.linux")
+		      dim genomBg as New FolderItem(Replace(BioProsPath,Nthfield(BioProsPath,"/", CountFields(BioProsPath,"/")),"genomebg.linux"), FolderItem.pathModes.Native)
+		      'BioprospectorFolder.Child("genomebg.linux")
+		      'dim genomBg as FolderItem =BioprospectorFolder.child("genomebg.linux")
+		      
+		      
 		      if LogoWin.BioProspectSettings.Value("runGenomeBg") Then
 		        dim cli as String
-		        dim BioprospectorFolder as New FolderItem(Nthfield(BioProsPath,"/", CountFields(BioProsPath,"/")), FolderItem.pathModes.Native)
+		        
 		        dim genomBgOut as FolderItem = TemporaryFolder.Child(Nthfield(GenomeWin.GenomeFile.Name, ".",1)+"_genomBg_out")
 		        dim interGenRegions as FolderItem = Resources_f.Child("interGenicRegions.py")
 		        deNovoWin.rp.writeToWin("Start extracting intergenic regions from "+GenomeWin.GenomeFile.NativePath+EndofLine.unix)
