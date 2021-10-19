@@ -51,10 +51,10 @@ Protected Module DeNovoTFBSinference
 		Function ChIPmunk(infile as folderItem, outfile as folderItem) As integer
 		  Dim cli As String
 		  if outfile.Exists then outfile.Delete
+		  dim copyDestination As FolderItem
+		  copyDestination=resources_f
+		  inFile.CopyFileTo(copyDestination)
 		  #If TargetWindows
-		    dim copyDestination As FolderItem
-		    copyDestination=resources_f
-		    inFile.CopyFileTo(copyDestination)
 		    cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+chr(34)+Str(copyDestination.NativePath+inFile.Name)+chr(34)+""
 		    cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  #Else 

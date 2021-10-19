@@ -314,7 +314,6 @@ Protected Class Parser
 		  inOptions.Close()
 		  
 		  //import references
-		  var MotifID as integer = 158
 		  var fileReferebces as FolderItem = workFolder.Child(dirName + ".refs")
 		  If MotifID > 0 and fileReferebces<>Nil Then
 		    var in_ as TextInputStream
