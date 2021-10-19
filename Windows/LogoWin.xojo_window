@@ -1142,6 +1142,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function BioProspData2Logo() As Boolean Handles BioProspData2Logo.Action
+			BioProspectData2Logo
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function FileSaveAlignmentSelection() As Boolean Handles FileSaveAlignmentSelection.Action
 			if ubound(SelArray1)=1 then
 			
@@ -2335,6 +2343,29 @@ End
 		      End
 		    End
 		  End
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub BioProspectData2Logo()
+		  Dim dlg As New OpenFileDialog
+		  Dim inputData As New FolderItem
+		  Dim instream As TextInputStream
+		  Dim rawData As String
+		  Dim motifBlocks(-1) As String
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "BioProspector results to logo"
+		  dlg.PromptText = "Select BioProspector file with motifs search results"
+		  ' match \d+(?=\))  -  check 
+		  inputData = dlg.ShowModal
+		  If inputData <> Nil Then
+		    instream = TextInputStream.Open(inputData)
+		    rawData = instream.ReadAll
+		    motifBlocks = rawData.split("Motif #")
+		    for i = 2 to ubound(motifBlocks)
+		      
+		    next
+		  End If
 		End Sub
 	#tag EndMethod
 
