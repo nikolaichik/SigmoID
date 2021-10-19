@@ -1552,7 +1552,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub checkMultiMatch()
+		Function checkMultiMatch() As boolean
 		  Dim cli As String
 		  Dim HmmSearchPath As String = replace(nhmmerPath,"nhmmer","hmmsearch")
 		  Dim HMMfilePath As String
@@ -1575,6 +1575,8 @@ End
 		  Dim CDSfile As FolderItem
 		  Dim HmmSearchTblOut As FolderItem
 		  Dim TFmatchBase As New Dictionary
+		  dim CDSfileTemp as FolderItem
+		  
 		  CDSfile=OutF.Child("CDS.fasta")
 		  HmmSearchTblOut=TemporaryFolder.Child("HmmSearchTblout.txt")
 		  If HmmSearchTblOut.Exists Then
@@ -1582,12 +1584,13 @@ End
 		      HmmSearchTblOut.Remove
 		    Catch IOException
 		      LogoWin.WriteToSTDOUT("IOexception occurred while removing hmmsearch output file "+str(HmmSearchTblOut.ShellPath+EndOfLine.Unix))
+		      Return False
 		    End Try
 		  End
 		  if CDSfile<>nil then
 		    if CDSfile.exists then
 		      'Exctraction from local gbk file needs ExportProteins results, so produce dummy output file
-		      dim CDSfileTemp as FolderItem = TemporaryFolder.Child("CDStemp.fasta")
+		      CDSfileTemp = TemporaryFolder.Child("CDStemp.fasta")
 		      if CDSfileTemp.Exists then CDSfileTemp.Remove
 		      GenomeWin.ExportProteins(CDSfileTemp)
 		      '("An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused."+EndOfLine.UNIX)
@@ -1597,10 +1600,14 @@ End
 		      'deNovoWin.rp.writeToWin(" OK"+EndOfLine.UNIX)
 		    end if
 		  End If
+		  If Not CDSfile.Exists or Not CDSfileTemp.Exists Then
+		    Return False
+		  End
 		  For row As Integer = 0 To HmmList.ListCount-1
 		    
 		    HMMfilePath=HmmList.Cell(row,7)
-		    cli=HmmSearchPath+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmSearchTblOut.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
+		    cli=HmmSearchPath+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmSearchTblOut.ShellPath))
+		    cli =cli +" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		    #If TargetWindows
 		      ExecuteWSL(cli)
 		    #Else
@@ -1616,7 +1623,6 @@ End
 		          HmmSearchRes=NthField(HmmsearchRes,Splitter,2)
 		          HmmSearchRes=Nthfield(HmmSearchRes,"#"+EndOfLine.Unix,1)
 		          HmmsearchEntries=HmmSearchRes.split(EndOfLine.Unix)
-		          
 		          for each line as String in HmmsearchEntries
 		            If line<>"" Then
 		              match = New DeNovoTFBSinference.TFfamilyMatch
@@ -1643,8 +1649,8 @@ End
 		    else
 		      LogoWin.WriteToSTDOUT("Error code: "+str(shError)+EndOfLine.Unix+shResult+EndOfLine.Unix)
 		    End If
-		    
 		  Next
+		  
 		  If TFmatchBase.KeyCount>0 Then
 		    Dim valueObject As DeNovoTFBSinference.TFfamilyMatch
 		    For Each entry As DictionaryEntry In TFmatchBase
@@ -1656,15 +1662,18 @@ End
 		      Try 
 		        Outstream=TextOutputStream.Create(TFTfile)
 		        Outstream.Write(TFTfileContent)
+		        rp.TFFbase=TFmatchBase
+		        Return True
 		      Catch IOException
 		        LogoWin.WriteToSTDOUT("IOException occured while writing file "+TFTfile.ShellPath+EndOfLine.Unix)
+		        Return False
 		      End Try
-		      rp.TFFbase=TFmatchBase
 		    End
 		  Else
 		    LogoWin.WriteToSTDOUT("TFs DNA-binding domains check for multiple families matches failed."+EndOfLine.Unix)
+		    Return False
 		  End
-		End Sub
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -2061,7 +2070,9 @@ End
 		  rp.hmmPath=HmmList.Cell(HmmList.ListIndex,7) 'was five
 		  If CheckForTFF.State = CheckBox.CheckedStates.Checked Then
 		    If Tffmatchbase=Nil Then
-		      checkMultiMatch
+		      If Not checkMultiMatch Then
+		        rp.filterMultipleTff=False
+		      End
 		    Else
 		      rp.TFFbase=Tffmatchbase
 		    End

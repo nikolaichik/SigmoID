@@ -349,7 +349,7 @@ Inherits Thread
 		        deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has multiple DNA-binding domains. Skipping it."+EndOfLine.unix+EndOfLine.unix)
 		        Continue
 		      end
-		      If me.filterMultipleTff Then
+		      If me.filterMultipleTff and TFFbase <> Nil Then
 		        If TFFbase.HasKey(me.ProtNames(n)) Then
 		          dim ValueObject As DeNovoTFBSinference.TFfamilyMatch
 		          ValueObject = New TFfamilyMatch
