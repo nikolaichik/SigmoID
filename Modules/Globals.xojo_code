@@ -126,6 +126,50 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CitationFromDOI(DOI as string) As string
+		  // Info on DOI --> citation conversion is from CrossCite:
+		  '  https://citation.crosscite.org/docs.html
+		  
+		  '  An example:
+		  '  curl -LH "Accept: text/x-bibliography; style=apa" https://doi.org/10.1126/science.169.3946.635
+		  
+		  
+		  ' check if it's actually a DOI
+		  If doi.InStr("10.")>0 And doi.InStr("/")>0 Then
+		  Else
+		    return ""      'Not a DOI, may look for PubMed ID
+		  End If
+		  
+		  Dim res As String
+		  Dim cli As String 
+		  
+		  cli="curl -LH "+Chr(34)+"Accept: text/x-bibliography; style=apa"+Chr(34)+" https://doi.org/"+EncodeURLComponent(DOI)  'brackets within DOIs are problematic
+		  Dim sh As Shell =  New Shell
+		  sh.TimeOut=-1
+		  sh.execute(cli)
+		  res=Trim(sh.result)
+		  
+		  'UserShell(cli)
+		  
+		  Dim ln As Integer = CountFields(res,EndOfLine.UNIX)
+		  If ln>1 Then
+		    ln=CountFields(res,"--:--:--")
+		    res=NthField(res,"--:--:--",ln)  'four extra lines (at least on a mac), have to remove these
+		    ln=InStr(res,EndOfLine.UNIX)
+		    If ln>0 Then
+		      res=Right(res, Len(res)-ln)
+		    End If
+		    
+		  End If
+		  
+		  res=ReplaceAll(res, EndOfLine.UNIX," ") 'lineEnds might be present – remove 'em
+		  
+		  Return Trim(res)
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CleanUp(Ge As string) As string
 		  'Remove numbers, spaces, line ends
 		  '(no complete cleanup for speed reasons!)
@@ -1784,7 +1828,7 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function HTTPerror(StatusCode as integer, ShowDialog as boolean) As string
-		  dim ErrName, Desc As String
+		  Dim ErrName, Desc As String
 		  
 		  select case StatusCode
 		  case 100 
@@ -2879,6 +2923,7 @@ Protected Module Globals
 		    MeshClustPath=Prefs.value("MeshClustPath",MeshClustPath)
 		    Globals.chipset.jarPath=Prefs.Value("ChIPmunkPath", Globals.chipset.jarPath)
 		    WSLBashPath=Prefs.value("WSLBashPath",WSLBashPath)
+		    BioProsPath=Prefs.value("BioProsPath",BioProsPath)
 		    PathsChanged=False
 		  end if
 		  
@@ -2893,14 +2938,17 @@ Protected Module Globals
 		  SettingsWin.APIKeyField.Text=API_Key
 		  SettingsWin.ChIPmunkPathField.Text=Globals.chipset.jarPath
 		  SettingsWin.EmailField.Text=Globals.email
+		  SettingsWin.NameField.Text=Globals.CuratorName
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
 		  SettingsWin.WSLBashPathField.Text=WSLBashPath
+		  SettingsWin.bioProsPathField.Text=BioProsPath
 		  
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
 		  BLASTorganism=Prefs.value("BLASTorganism","")
 		  API_Key=Prefs.value("API_Key","")
 		  email=Prefs.value("email","")
+		  CuratorName=Prefs.value("CuratorName","")
 		  requestCount=Val(Prefs.Value("requestCount","100"))
 		  
 		  // Fonts
@@ -3129,7 +3177,7 @@ Protected Module Globals
 		  
 		  'Evidence confidence level added in version 9
 		  
-		  dim tis as TextInputStream
+		  Dim tis As TextInputStream
 		  Dim tos As TextOutputStream
 		  dim BSarr() as string
 		  dim tab as string = chr(9)
@@ -3145,7 +3193,7 @@ Protected Module Globals
 		  if tis<>nil then
 		    
 		    minlen=100
-		    while not tis.EOF
+		    While Not tis.EOF
 		      aLine=tis.readLine
 		      if len(aline)>60 then 'skip empty lines
 		        BSarr()=split(aline,tab)
@@ -3998,6 +4046,92 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function TFfamily(ProtSeq as string) As String
+		  // Scans the library of all TF family HMMs included with SigmoID and returns the name of the best matching HMM
+		  '  (returns empty string if no matching family was found)
+		  
+		  'good hit:
+		  '#------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------
+		  'GntR                 (many spaces)
+		  
+		  
+		  'no hits:
+		  '#------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------
+		  '#
+		  '# Program:         hmmscan
+		  
+		  // To avoid creating temporary file, query sequence is piped into hmmscan from STDIN
+		  
+		  Dim HmmResultFile As folderitem
+		  Dim hmmlibFile As folderitem
+		  Dim hmmSearchRes, cli, table As String
+		  Dim instream As TextInputStream
+		  '
+		  ''store the CDSs as a string for further use:
+		  'instream=ProtFile.OpenAsTextFile
+		  '
+		  'If instream<>Nil Then
+		  'CDSseqs=ReplaceAll(Trim(instream.ReadAll),EndOfLine.unix,"")
+		  'instream.close
+		  'End If
+		  
+		  hmmlibFile=Resources_f.child("hmmlib.hmm")
+		  If hmmlibFile=Nil Then
+		    Return ""
+		  End If
+		  
+		  HmmResultFile=TemporaryFolder.Child("alignments.table")
+		  If HmmResultFile<>Nil Then
+		    If HmmResultFile.exists Then
+		      HmmResultFile.Delete
+		    End If
+		    'LogoWin.WriteToSTDOUT (EndofLine.unix+"Running hmmsearch...")
+		    Dim HmmSearchPath As String = Replace(nhmmerPath,"nhmmer","hmmscan")
+		    
+		    'cli=HmmSearchPath+" --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(hmmlibFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(ProtFile.ShellPath))
+		    
+		    cli="echo '"+ProtSeq+ "' | "   'query sequence to STDOUT
+		    cli=cli+HmmSearchPath+" --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(hmmlibFile.ShellPath))+" -" 'query sequence from STDIN
+		    #If TargetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      userShell(cli)
+		    #EndIf
+		    
+		    If shError=0 Then
+		      'LogoWin.WriteToSTDOUT (" OK"+EndofLine.unix)
+		      
+		      instream=HmmResultFile.OpenAsTextFile
+		      
+		      If instream<>Nil Then         'process hmmscan results
+		        table=Trim(instream.ReadAll)
+		        instream.close
+		        'hmmSearchRes="HMM file used: "+HMMfilePath+EndOfLine
+		        hmmSearchRes=NthField(table,"---------------------"+EndOfLine.UNIX,2)
+		        hmmSearchRes=NthField(hmmSearchRes," ",1)
+		        If Left(hmmSearchRes,1)="#" Then 'no match in HMMlib
+		          hmmSearchRes=""
+		        End If
+		        Return HmmSearchRes
+		      End If
+		      
+		      
+		      
+		    Else
+		      LogoWin.WriteToSTDOUT shResult
+		      Return ""
+		    End If
+		  Else
+		    LogoWin.WriteToSTDOUT (EndOfLine.unix+"Can't create temporary file, have to abort search.")
+		    Return ""
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:TFfamily")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Translate3(Gene As string, code as integer) As string
 		  Dim  m,n,GeneLength,aa0,up  As Integer
 		  dim protein,codon,codons,aa1st as string
@@ -4131,6 +4265,7 @@ Protected Module Globals
 		  'sh.TimeOut=-1
 		  'sh.execute("bash --login -c "+chr(34)+cmd+chr(34))
 		  shResult=""
+		  shError=0
 		  
 		  ShellStorage = New ShellTh
 		  ShellStorage.cli = cmd
@@ -4310,6 +4445,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		BioProsPath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		BLASTnDB As string
 	#tag EndProperty
 
@@ -4351,6 +4490,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		CRtagPositions As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CuratorName As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -5206,6 +5349,22 @@ Protected Module Globals
 			Group="Behavior"
 			InitialValue=""
 			Type="string"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CuratorName"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BioProsPath"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior

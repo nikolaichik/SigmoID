@@ -565,6 +565,15 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem FindSBioPros
+         SpecialMenu = 0
+         Value = "Find Sites with BioProspector"
+         Index = -2147483648
+         Text = "Find Sites with BioProspector"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator6
          SpecialMenu = 0
          Value = "-"
@@ -642,6 +651,15 @@ Begin Menu MainMenuBar
          Value = "CollecTF..."
          Index = -2147483648
          Text = "CollecTF..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem RegulonCoryneRegNet
+         SpecialMenu = 0
+         Value = "CoryneRegNet..."
+         Index = -2147483648
+         Text = "CoryneRegNet..."
          AutoEnabled = True
          AutoEnable = True
          Visible = True

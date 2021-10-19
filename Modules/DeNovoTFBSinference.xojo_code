@@ -1,6 +1,34 @@
 #tag Module
 Protected Module DeNovoTFBSinference
 	#tag Method, Flags = &h0
+		Function BioProspector(inFile as folderitem, outFolder as folderitem) As integer
+		  
+		  dim Settings as String = ""
+		  dim cli as String
+		  
+		  For Each entry As DictionaryEntry In LogoWin.BioProspectSettings
+		    if entry.Value <> "" and entry.Key<>"runGenomeBg" Then
+		      if instr(entry.key, "_") > 0 Then
+		        Settings = Settings +" -" + Nthfield(entry.Key,"_",1) + " " + entry.Value
+		      else
+		        Settings = Settings +" -" + entry.Key + " " + entry.Value
+		      end
+		    end
+		  Next
+		  cli="'"+BioProsPath+"' -i '"+inFile.NativePath+"'"+Settings+" -o '"+outFolder.NativePath+"'"
+		  #If TargetWindows
+		    ExecuteWSL(cli)
+		  #Else
+		    UserShell(cli)
+		  #endif
+		  Return shError
+		  
+		  Exception err
+		    ExceptionHandler(err,"DeNovoTFBSinference:BioProspector")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Bits2thresholds(IC as double) As string
 		  // Estimate nhmmer thresholds from profile information content (IC, bits)
 		  '  Coefficients derived from linear regression of threshold values of manually calibrated profiles
@@ -58,8 +86,11 @@ Protected Module DeNovoTFBSinference
 		    cli="java -cp "+PlaceQuotesToPath(globals.chipset.jarPath)+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:"+chr(34)+Str(copyDestination.NativePath+inFile.Name)+chr(34)+""
 		    cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
 		  #Else 
-		    cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+Str(copyDestination.NativePath+inFile.Name)+"'"
+		    cli="java -cp "+globals.chipset.jarPath+" ru.autosome.ChIPHorde "+globals.chipset.motifLength+" "+globals.chipset.mode+" yes 1 s:'"+inFile.NativePath+"'"
 		    cli=cli+" "+globals.chipset.tryLimit+" "+globals.chipset.stepLimit+" 1 "+globals.chipset.threadCount+" random "+globals.chipset.gcPercent+" "+globals.chipset.motifShape
+		    
+		    
+		    
 		    'cli=cli+" > "+str(outfile.ShellPath)+"_outputChIPmunk"
 		  #EndIf
 		  for i as integer = 0 to WindowCount - 1
@@ -124,8 +155,9 @@ Protected Module DeNovoTFBSinference
 		  '<TranslationSet/>
 		  '<QueryTranslation/>
 		  '</eSearchResult>
+		  '110 15090522 15090522[UID] UID -1 N GROUP 15090522[UID]
 		  
-		  Const URLstart as string="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=protein&term="
+		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=protein&term="
 		  Dim Separ1 as string="<Id>"
 		  Dim Separ2 as string="</Id>"
 		  dim GenPeptID, theURL as string
@@ -359,6 +391,19 @@ Protected Module DeNovoTFBSinference
 		    end if
 		    ExceptionHandler(err,"FetchGenPeptEntry")
 		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function FixProtName(ProtName as string) As string
+		  // Capitalise the first letter of protein name
+		  
+		  Dim f,l As String
+		  
+		  f=Left(ProtName,1)
+		  l=Right(ProtName,Len(ProtName)-1)
+		  
+		  return f.uppercase+l
 		End Function
 	#tag EndMethod
 
@@ -655,15 +700,17 @@ Protected Module DeNovoTFBSinference
 		  // Family names and the matching file names are hard coded here
 		  'some families without CR tag mapped to closest CR tagged family (for RegPrecise export)
 		  
-		  'currently the function is used during RegPrecise export only
+		  'currently the function is used during RegPrecise export and in CoryneRegNetWin
 		  
-		  dim TF_HMMs, hmmFile as folderitem
-		  dim hmmFileName as string
+		  Dim TF_HMMs, hmmFile As folderitem
+		  Dim hmmFileName As String
 		  
 		  Select Case familyName
 		  Case "AraC"
 		    hmmFileName="AraC.hmm"
 		  Case "ArgR"
+		    hmmFileName="Arg_repressor.hmm"
+		  Case "ArgR_repressor"
 		    hmmFileName="Arg_repressor.hmm"
 		  Case "ArsR"
 		    hmmFileName="HTH_20.hmm"
@@ -679,31 +726,79 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="DcuR.hmm"
 		  Case "DeoR"
 		    hmmFileName="HTH_DeoR.hmm"
+		  Case "ECF02"
+		    hmmFileName="ECF02.hmm"
+		  Case "RpoE"
+		    hmmFileName="ECF02.hmm"
+		  Case "ECF26"
+		    hmmFileName="ECF26.hmm"
+		  Case "ECF32"
+		    hmmFileName="ECF32.hmm"
+		  Case "HrpL"
+		    hmmFileName="ECF32.hmm"
+		  Case "ECF243"
+		    hmmFileName="ECF243.hmm"
+		  Case "FecI"
+		    hmmFileName="ECF243.hmm"
 		  Case "Fis"
 		    hmmFileName="HTH_8.hmm"
 		  Case "Fur"
 		    hmmFileName="FUR.hmm"
+		  Case "GerE"
+		    hmmFileName="GerE.hmm"
 		  Case "GntR/MocR"
 		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
 		    hmmFileName="GntR.hmm"
 		  Case "GntR/Others"
 		    'hmmFileName="GntR.hmm" 'RegPrecise divides GntR into two families - have to pick proper model for each one
 		    hmmFileName="GntR.hmm"
+		  Case "GntR"
+		    hmmFileName="GntR.hmm"
+		  Case "GntRx2"
+		    hmmFileName="GntRx2.hmm"
+		  Case "HTH_1"
+		    hmmFileName="LysR.hmm"
+		  Case "HTH_6"
+		    hmmFileName="HTH_6.hmm"
+		  Case "HTH_8"
+		    hmmFileName="HTH_8.hmm"
+		  Case "HTH_18"
+		    hmmFileName="AraC.hmm"
+		  Case "HTH_20"
+		    hmmFileName="HTH_20.hmm"
+		  Case "HTH_AsnC-type"
+		    hmmFileName="HTH_AsnC_type.hmm"
+		  Case "HTH_AsnC_type"
+		    hmmFileName="HTH_AsnC_type.hmm"
+		  Case "HTH_Crp_2"
+		    hmmFileName="HTH_Crp_2.hmm"
+		  Case "HTH_DeoR"
+		    hmmFileName="HTH_DeoR.hmm"
+		  Case "HTH_IclR"
+		    hmmFileName="IclR.hmm"
+		  Case "HTH_LacI"
+		    hmmFileName="LacI.hmm"
+		  Case "HTH_MARR"
+		    hmmFileName="MarR_Superfamily.hmm"
 		  Case "HxlR"
 		    hmmFileName="HxlR.hmm"
 		  Case "IclR"
 		    hmmFileName="IclR.hmm"
-		  Case "LuxR"
-		    hmmFileName="GerE.hmm"
 		  Case "LacI"
 		    hmmFileName="LacI.hmm"
 		  Case "LexA"
 		    hmmFileName="LexA_DNA_bind.hmm"
+		  Case "LexA_DNA_bind"
+		    hmmFileName="LexA_DNA_bind.hmm"
+		  Case "LuxR"
+		    hmmFileName="GerE.hmm"
 		  Case "LysR"
 		    hmmFileName="LysR.hmm"
 		  Case "MarR"
 		    hmmFileName="MarR_Superfamily.hmm"
 		  Case "MerR"
+		    hmmFileName="MerR.hmm"
+		  Case "MerR_superfamily"
 		    hmmFileName="MerR.hmm"
 		  Case "MetJ"               'RHH sub-family
 		    hmmFileName="RHH.hmm"
@@ -713,27 +808,38 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="RHH.hmm"
 		  Case "OmpR"
 		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
+		  Case "PhdYeFM_antitox"
+		    hmmFileName="PhdYeFM_antitox.hmm"
+		  Case "RHH"
+		    hmmFileName="RHH.hmm"
 		  Case "ROK"
-		    'hmmFileName="MarR_Superfamily.hmm"  'this model matches most of TFs from this family in RegPrecise
 		    hmmFileName="ROK.hmm"
 		  Case "Rrf2"
 		    hmmFileName="Rrf2.hmm"
 		  Case "RpiR"
 		    hmmFileName="HTH_6.hmm"
+		  Case "Sigma54_DBD"
+		    hmmFileName="Sigma54_DBD.hmm"
 		  Case "TetR"
 		    hmmFileName="TetR.hmm"
+		  Case "TetR_N"
+		    hmmFileName="TetR.hmm"
+		  Case "Trans_reg_C"
+		    hmmFileName="Trans_reg_C.hmm"
+		  Case "Trp_repressor"
+		    hmmFileName="Trp_repressor.hmm"
 		  Case "TrpR"
 		    hmmFileName="Trp_repressor.hmm"
 		  Case "XRE"
 		    hmmFileName="XRE_superfamily.hmm"
-		  Case "PhdYeFM_antitox"
-		    hmmFileName="PhdYeFM_antitox.hmm"
+		  Case "XRE_superfamily"
+		    hmmFileName="XRE_superfamily.hmm"
 		  Case ""
 		    hmmFileName=""
 		    
 		  Else
 		    'can't find the proper .hmm file, so asking the user to choose it
-		    Dim dlg2 as New OpenDialog
+		    Dim dlg2 As New OpenDialog
 		    dlg2.InitialDirectory=Resources_f.child("TF_HMMs")          'only these are meaningful
 		    dlg2.promptText="Select hmm file with the model matching this TF family"
 		    'dlg2.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
@@ -741,26 +847,26 @@ Protected Module DeNovoTFBSinference
 		    dlg2.Filter=FileTypes.All
 		    dlg2.CancelButtonCaption=kCancel
 		    dlg2.ActionButtonCaption=kOpen_
-		    HMMfile=dlg2.ShowModal()
+		    HMMfile=dlg2.ShowModal
 		    
-		  end select
+		  End Select
 		  
-		  if hmmFileName<>"" then
+		  If hmmFileName<>"" Then
 		    TF_HMMs=Resources_f.Child("TF_HMMs")
 		    
-		    if TF_HMMs=Nil then
-		      msgbox "Can't find TF_HMMs folder"
-		    end if
+		    If TF_HMMs=Nil Then
+		      MsgBox "Can't find TF_HMMs folder"
+		    End If
 		    
 		    HMMfile=TF_HMMs.Child(hmmFileName)
 		    
-		  end if
+		  End If
 		  
-		  if HMMfile=nil then 
-		    msgbox "Can't open the hmm file"
-		  end if
+		  If HMMfile=Nil Then 
+		    MsgBox "Can't open the hmm file"
+		  End If
 		  
-		  return HMMfile
+		  Return HMMfile
 		  
 		  
 		End Function
@@ -1039,7 +1145,7 @@ Protected Module DeNovoTFBSinference
 		    'getprot=Resources_f.Child("getprot.py")
 		    'replace getprot.py with xojo URLConnection
 		    Const URL As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
-		    dim content as String = "db=protein&rettype=gp&retmode=text&id="+UniProtCodes
+		    Dim content As String = "db=protein&rettype=gp&retmode=text&id="+UniProtCodes
 		    dim hts as new HTTPSconnection
 		    dim tempcontent as FolderItem
 		    tempcontent=TemporaryFolder.Child("gpfile")
@@ -2183,6 +2289,7 @@ Protected Module DeNovoTFBSinference
 		  ' https://www.ncbi.nlm.nih.gov/books/NBK179288/
 		  
 		  
+		  
 		  Dim cmdStart As String
 		  Dim cmdEnd As String
 		  Dim f As FolderItem
@@ -2196,12 +2303,12 @@ Protected Module DeNovoTFBSinference
 		    cmdStart = "esearch -db protein -query '"
 		    cmdEnd = "' | efetch -format fasta"
 		  #Else 
-		    cmdStart = "esearch -db protein -query "+Chr(34)
-		    cmdEnd = Chr(34)+" | efetch -format fasta"
+		    cmdStart = "esearch -db protein -query '"
+		    cmdEnd = "' | efetch -format fasta"
 		  #EndIf
 		  
 		  Dim cmd As String
-		  cmd=cmdStart+locusTag+cmdEnd
+		  cmd=cmdStart+locusTag+" [GENE] AND "+genomeName+" [ORGN]"+cmdEnd
 		  
 		  #If TargetWindows
 		    UserShellMode=1
@@ -2429,7 +2536,11 @@ Protected Module DeNovoTFBSinference
 		      ' to use threads on CPUs with hyperthreading, use the --use-hwthread-cpus option for mpirun
 		      ' e.g. on a 4-core processor with 8 threads, meme can be launched like this:
 		      ' meme -p "8 --use-hwthread-cpus" 
-		      cli=cli+" -p '" + Str(cores2use) + " --use-hwthread-cpus'"
+		      If MPICH Then
+		        cli=cli+" -p " + Str(cores2use)
+		      Else
+		        cli=cli+" -p '" + Str(cores2use) + " --use-hwthread-cpus'"
+		      End
 		    Else
 		      cli=cli+" -p " + Str(cores2use)  
 		    End If
@@ -2542,6 +2653,94 @@ Protected Module DeNovoTFBSinference
 		  Else
 		    Return True
 		  End Select
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function PMID2DOI(PMID as string) As string
+		  // Converts PubMed ID to DOI using NCBI PubMed pages
+		  '  Simple requests: https://pubmed.ncbi.nlm.nih.gov/16179344, where 16179344 is the PMID
+		  '  The resulting page has both the PMID and DOI within the same meta tag like this:
+		  '  <meta name="keywords" content="pmid:16179344, doi:10.1074/jbc.M508693200,
+		  
+		  // Corresponding NCBI API works only for records that have PMC ID
+		  '  The code to use it was tried first, but is commented out as too many PMIDs were not processed.
+		  'example URL:
+		  'https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?tool=my_tool&email=my_email@example.com&ids=23193287&idtype=pmid&format=json
+		  
+		  Dim DOI As String
+		  Dim URL As String = " https://pubmed.ncbi.nlm.nih.gov/"+PMID
+		  
+		  'curl -LH 'Accept:text/plain' -F format=json -F versions=no -F tool=SigmoID  -F email=nikolaichik@bsu.by -F ids=16204540 https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/
+		  
+		  
+		  Dim cli As String
+		  cli="curl -LH "+"'Accept: text/plain' "+URL
+		  'Dim sh As Shell =  New Shell
+		  'sh.TimeOut=-1
+		  'sh.execute(cli)
+		  'DOI=Trim(sh.result)
+		  
+		  usershell(cli)
+		  DOI=shResult
+		  
+		  
+		  'Socket doesn't work
+		  
+		  'Dim hts As New HTTPSecureSocket
+		  'hts.Secure = True
+		  'Dim res As String
+		  'Dim outfile As folderitem
+		  '
+		  '
+		  '
+		  'hts.Yield=True  'allow background activities while waiting
+		  'hts.SetRequestHeader("Content-Type:","text/plain")
+		  
+		  
+		  'DOI=hts.Get(URL,0)  'adjust timeout?
+		  
+		  ''While hts.LastErrorCode=102
+		  'While hts.IsConnected Or hts.SSLConnected
+		  'app.DoEvents
+		  'Wend
+		  '
+		  'If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		  'If DOI="" Then
+		  'If hts.ErrorCode=-1 Then
+		  'logowin.WriteToSTDOUT("NCBI server timeout (No response in one minute"+EndOfLine.UNIX)
+		  'Else
+		  'LogoWin.WriteToSTDOUT ("NCBI server error (empty response)"+EndOfLine)
+		  'End If
+		  '
+		  'End If
+		  'End If
+		  '
+		  'hts.close
+		  'pmid:16179344, doi:
+		  
+		  Dim sep As String="pmid:"+PMID '+", doi:"   <-- there might be a PMCID between PMID and DOI
+		  If doi.InStr(sep)>0 Then
+		    'parsing this line:
+		    '    "doi": "10.1128/AEM.71.10.6206-6215.2005"
+		    DOI=NthField(DOI, sep,2)
+		    DOI=NthField(DOI,", doi:",2)
+		    DOI=NthField(DOI, ",",1)
+		    
+		    Return DOI
+		    'End If
+		  Else
+		    LogoWin.WriteToSTDOUT ("NCBI ID Converter error"+EndOfLine.unix)
+		    'hts.close
+		    Return PMID       'Usually the failure is due to missing PMC identifier
+		  End If
+		  
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:PMID2DOI")
+		    
 		End Function
 	#tag EndMethod
 
@@ -3106,6 +3305,10 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		MPICH As Boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		operonGap As Integer = 100
 	#tag EndProperty
 
@@ -3326,6 +3529,14 @@ Protected Module DeNovoTFBSinference
 			InitialValue=""
 			Type="string"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MPICH"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

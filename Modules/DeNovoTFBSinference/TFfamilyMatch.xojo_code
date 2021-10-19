@@ -55,7 +55,7 @@ Protected Class TFfamilyMatch
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Integer"
+			Type="Double"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

@@ -37,6 +37,7 @@ Inherits Thread
 		    dim phmmerSearchSeparator as string = "================================================================================================================"
 		    dim hitCount,crIndex as integer
 		    CDSseqs=""
+		    'dim BioProspectOutput as FolderItem
 		    
 		    
 		    
@@ -235,7 +236,11 @@ Inherits Thread
 		      cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(Me.hmmPath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		      
 		      'sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
-		      ExecuteWSL(cli)
+		      #If TargetWindows
+		        ExecuteWSL(cli)
+		      #Else
+		        UserShell(cli)
+		      #endif
 		      'While sh.IsRunning=true
 		      'app.YieldToNextThread()
 		      'wend
@@ -344,7 +349,7 @@ Inherits Thread
 		        deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has multiple DNA-binding domains. Skipping it."+EndOfLine.unix+EndOfLine.unix)
 		        Continue
 		      end
-		      If me.filterMultipleTff Then
+		      If me.filterMultipleTff and TFFbase <> Nil Then
 		        If TFFbase.HasKey(me.ProtNames(n)) Then
 		          dim ValueObject As DeNovoTFBSinference.TFfamilyMatch
 		          ValueObject = New TFfamilyMatch
@@ -888,7 +893,18 @@ Inherits Thread
 		                            deNovoWin.rp.writeToWin(" done."+EndofLine.unix)
 		                          end
 		                        end
-		                        
+		                        if me.runBioPros then
+		                          'deNovoWin.rp.writeToWin("Running BioProspector..."+EndofLine.unix)
+		                          dim BioProspectOutput as FolderItem  = memeF.Child(str(Me.Protnames(n))+"_bioprospector")
+		                          deNovoWin.rp.writeToWin("Running BioProspector...")
+		                          ErrCode = BioProspector(resFile2,BioProspectOutput)
+		                          If ErrCode = 0 Then
+		                            deNovoWin.rp.writeToWin(" ok."+EndofLine.unix)
+		                          Else
+		                            deNovoWin.rp.writeToWin(" failed."+EndofLine.unix)
+		                          end
+		                          
+		                        end
 		                        if me.RunTomTom then 
 		                          'launch TomTom threads
 		                          if ttt<>NIL then
@@ -1076,6 +1092,10 @@ Inherits Thread
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		runBioPros As boolean = False
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		RunChipMunk As boolean = false
 	#tag EndProperty
 
@@ -1230,6 +1250,14 @@ Inherits Thread
 			Visible=false
 			Group="Behavior"
 			InitialValue="true"
+			Type="boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="runBioPros"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
 			Type="boolean"
 			EditorType=""
 		#tag EndViewProperty

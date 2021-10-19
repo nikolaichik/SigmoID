@@ -77,7 +77,7 @@ Begin Window EvidenceCodesWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       TabIndex        =   1
@@ -268,7 +268,7 @@ End
 
 
 	#tag Property, Flags = &h0
-		AllCodes As String = "[AIBSCS] Automated inference based on similarity to consensus sequences;[AIBSPD] Automated inference based on sequence pattern discovery;[APIORCISFBSCS] A person inferred or reviewed a computer inference of sequence function based on similarity to a consensus sequence;[APPH] Assay of protein purified to homogeneity;[APPHINH] Assay of protein purified to homogeneity from its native host;[BCE] Binding of cellular extracts;[BPP] Binding of purified proteins;[CEEUMA] ChIP-exo evidence used in manual assertion;[EME] Expression microarray evidence;[GEA] Gene expression analysis;[GS] genomic SELEX;[HIFS] Human inference of function from sequence;[IDA] Inferred from direct assay;[IHBCE] Inferred by a human based on computational evidence;[IE] Inferred from experiment;[IEP] Inferred from expression pattern;[IGI] Inferred from genetic interaction;[IMP] Inferred from mutant phenotype;[IPI] Inferred from physical interaction;[RSE] RNA-seq evidence;[SM] Site mutation"
+		AllCodes As String = "[AIBSCS] Automated inference based on similarity to consensus sequences;[AIBSPD] Automated inference based on sequence pattern discovery;[APIORCISFBSCS] A person inferred or reviewed a computer inference of sequence function based on similarity to a consensus sequence;[APPH] Assay of protein purified to homogeneity;[APPHINH] Assay of protein purified to homogeneity from its native host;[BCE] Binding of cellular extracts;[BPP] Binding of purified proteins;[CEEUMA] ChIP-exo evidence used in manual assertion;[EME] Expression microarray evidence;[GEA] Gene expression analysis;[GS] genomic SELEX;[HIFS] Human inference of function from sequence;[IC] Inferred by curator;[IDA] Inferred from direct assay;[IHBCE] Inferred by a human based on computational evidence;[IE] Inferred from experiment;[IEP] Inferred from expression pattern;[IGI] Inferred from genetic interaction;[IMP] Inferred from mutant phenotype;[IPI] Inferred from physical interaction;[RSE] RNA-seq evidence;[SM] Site mutation"
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

@@ -1327,6 +1327,39 @@ Begin Window deNovoWin
       Visible         =   True
       Width           =   90
    End
+   Begin CheckBox runBioPros
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Run BioProspector"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   22
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   419
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   24
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   600
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      VisualState     =   "0"
+      Width           =   150
+   End
 End
 #tag EndWindow
 
@@ -1519,7 +1552,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub checkMultiMatch()
+		Function checkMultiMatch() As boolean
 		  Dim cli As String
 		  Dim HmmSearchPath As String = replace(nhmmerPath,"nhmmer","hmmsearch")
 		  Dim HMMfilePath As String
@@ -1542,6 +1575,8 @@ End
 		  Dim CDSfile As FolderItem
 		  Dim HmmSearchTblOut As FolderItem
 		  Dim TFmatchBase As New Dictionary
+		  dim CDSfileTemp as FolderItem
+		  
 		  CDSfile=OutF.Child("CDS.fasta")
 		  HmmSearchTblOut=TemporaryFolder.Child("HmmSearchTblout.txt")
 		  If HmmSearchTblOut.Exists Then
@@ -1549,12 +1584,13 @@ End
 		      HmmSearchTblOut.Remove
 		    Catch IOException
 		      LogoWin.WriteToSTDOUT("IOexception occurred while removing hmmsearch output file "+str(HmmSearchTblOut.ShellPath+EndOfLine.Unix))
+		      Return False
 		    End Try
 		  End
 		  if CDSfile<>nil then
 		    if CDSfile.exists then
 		      'Exctraction from local gbk file needs ExportProteins results, so produce dummy output file
-		      dim CDSfileTemp as FolderItem = TemporaryFolder.Child("CDStemp.fasta")
+		      CDSfileTemp = TemporaryFolder.Child("CDStemp.fasta")
 		      if CDSfileTemp.Exists then CDSfileTemp.Remove
 		      GenomeWin.ExportProteins(CDSfileTemp)
 		      '("An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused."+EndOfLine.UNIX)
@@ -1564,11 +1600,19 @@ End
 		      'deNovoWin.rp.writeToWin(" OK"+EndOfLine.UNIX)
 		    end if
 		  End If
+		  If Not CDSfile.Exists or Not CDSfileTemp.Exists Then
+		    Return False
+		  End
 		  For row As Integer = 0 To HmmList.ListCount-1
 		    
 		    HMMfilePath=HmmList.Cell(row,7)
-		    cli=HmmSearchPath+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmSearchTblOut.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
-		    ExecuteWSL(cli)
+		    cli=HmmSearchPath+" --cut_ga --notextw --tblout "+PlaceQuotesToPath(MakeWSLPath(HmmSearchTblOut.ShellPath))
+		    cli =cli +" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
+		    #If TargetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      UserShell(cli)
+		    #endif
 		    If shError = 0 Then
 		      Instream=HmmSearchTblOut.OpenAsTextFile
 		      if Instream<> Nil Then
@@ -1579,7 +1623,6 @@ End
 		          HmmSearchRes=NthField(HmmsearchRes,Splitter,2)
 		          HmmSearchRes=Nthfield(HmmSearchRes,"#"+EndOfLine.Unix,1)
 		          HmmsearchEntries=HmmSearchRes.split(EndOfLine.Unix)
-		          
 		          for each line as String in HmmsearchEntries
 		            If line<>"" Then
 		              match = New DeNovoTFBSinference.TFfamilyMatch
@@ -1606,8 +1649,8 @@ End
 		    else
 		      LogoWin.WriteToSTDOUT("Error code: "+str(shError)+EndOfLine.Unix+shResult+EndOfLine.Unix)
 		    End If
-		    
 		  Next
+		  
 		  If TFmatchBase.KeyCount>0 Then
 		    Dim valueObject As DeNovoTFBSinference.TFfamilyMatch
 		    For Each entry As DictionaryEntry In TFmatchBase
@@ -1619,15 +1662,18 @@ End
 		      Try 
 		        Outstream=TextOutputStream.Create(TFTfile)
 		        Outstream.Write(TFTfileContent)
+		        rp.TFFbase=TFmatchBase
+		        Return True
 		      Catch IOException
 		        LogoWin.WriteToSTDOUT("IOException occured while writing file "+TFTfile.ShellPath+EndOfLine.Unix)
+		        Return False
 		      End Try
-		      rp.TFFbase=TFmatchBase
 		    End
 		  Else
 		    LogoWin.WriteToSTDOUT("TFs DNA-binding domains check for multiple families matches failed."+EndOfLine.Unix)
+		    Return False
 		  End
-		End Sub
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -2024,7 +2070,9 @@ End
 		  rp.hmmPath=HmmList.Cell(HmmList.ListIndex,7) 'was five
 		  If CheckForTFF.State = CheckBox.CheckedStates.Checked Then
 		    If Tffmatchbase=Nil Then
-		      checkMultiMatch
+		      If Not checkMultiMatch Then
+		        rp.filterMultipleTff=False
+		      End
 		    Else
 		      rp.TFFbase=Tffmatchbase
 		    End
@@ -2046,6 +2094,48 @@ End
 		  end
 		  if runChipMunk.State = CheckBox.CheckedStates.Checked Then
 		    rp.RunChipMunk = True
+		  end
+		  if runBioPros.State = CheckBox.CheckedStates.Checked Then
+		    rp.runBioPros = True
+		    #If TargetLinux Then
+		      dim genomBg as New FolderItem(Replace(BioProsPath,Nthfield(BioProsPath,"/", CountFields(BioProsPath,"/")),"genomebg.linux"), FolderItem.pathModes.Native)
+		      'BioprospectorFolder.Child("genomebg.linux")
+		      'dim genomBg as FolderItem =BioprospectorFolder.child("genomebg.linux")
+		      
+		      
+		      if LogoWin.BioProspectSettings.Value("runGenomeBg") Then
+		        dim cli as String
+		        
+		        dim genomBgOut as FolderItem = TemporaryFolder.Child(Nthfield(GenomeWin.GenomeFile.Name, ".",1)+"_genomBg_out")
+		        dim interGenRegions as FolderItem = Resources_f.Child("interGenicRegions.py")
+		        deNovoWin.rp.writeToWin("Start extracting intergenic regions from "+GenomeWin.GenomeFile.NativePath+EndofLine.unix)
+		        cli = pythonPath + " '" + PlaceQuotesToPath(interGenRegions.NativePath) + "' '" + PlaceQuotesToPath(GenomeWin.GenomeFile.NativePath) 
+		        cli = cli + "' '" + PlaceQuotesToPath(TemporaryFolder.NativePath+"'")
+		        #If TargetWindows
+		          ExecuteWSL(cli)
+		        #Else
+		          UserShell(cli)
+		        #endif
+		        If shError=0 Then
+		          deNovoWin.rp.writeToWin(" OK"+EndofLine.unix)
+		          cli = "'"+genomBg.NativePath + "' -i " + "'"+PlaceQuotesToPath(TemporaryFolder.NativePath + Nthfield(GenomeWin.GenomeFile.Name, ".",1))
+		          cli = cli + "_intergenic_regions.fasta' -o " +"'"+PlaceQuotesToPath(genomBgOut.NativePath+"'")
+		          #If TargetWindows
+		            ExecuteWSL(cli)
+		          #Else
+		            UserShell(cli)
+		          #endif
+		          if shError=0 Then
+		            LogoWin.BioProspectSettings.Value("f") = genomBgOut.NativePath
+		          else
+		            deNovoWin.rp.writeToWin(shResult+EndOfLine.UNIX)
+		          end
+		        else
+		          deNovoWin.rp.writeToWin(shResult+EndOfLine.UNIX)
+		        End If
+		        
+		      end
+		    #Endif 
 		  end
 		  rp.hmmlist = HmmList
 		  DeNovoTFBSinference.Proteins2process=Val(deNovoWin.Proteins2processField.text)
@@ -2563,6 +2653,17 @@ End
 		    end
 		    TextField2.Text=str(f.ShellPath)
 		  End
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events runBioPros
+	#tag Event
+		Sub Action()
+		  select Case me.State
+		  case CheckBox.CheckedStates.Checked
+		    dim w as new BioProspectWin
+		    w.launcher = "denovo"
+		  end Select
 		End Sub
 	#tag EndEvent
 #tag EndEvents

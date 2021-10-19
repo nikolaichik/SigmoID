@@ -8,7 +8,7 @@ Begin Window SettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   438
+   Height          =   470
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -17,14 +17,14 @@ Begin Window SettingsWin
    MaxWidth        =   32000
    MenuBar         =   0
    MenuBarVisible  =   True
-   MinHeight       =   320
+   MinHeight       =   450
    MinimizeButton  =   True
    MinWidth        =   400
    Placement       =   0
    Resizeable      =   True
    Title           =   "#kSigmoIDPreferences"
    Visible         =   False
-   Width           =   556
+   Width           =   558
    Begin PushButton OKButton
       AutoDeactivate  =   True
       Bold            =   False
@@ -33,12 +33,12 @@ Begin Window SettingsWin
       Caption         =   "#kOK"
       Default         =   True
       Enabled         =   True
-      Height          =   20
+      Height          =   30
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   446
+      Left            =   448
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -51,7 +51,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   398
+      Top             =   430
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -65,12 +65,12 @@ Begin Window SettingsWin
       Caption         =   "#kCancel"
       Default         =   False
       Enabled         =   True
-      Height          =   20
+      Height          =   30
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   344
+      Left            =   346
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -83,7 +83,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   398
+      Top             =   430
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -101,7 +101,7 @@ Begin Window SettingsWin
    Begin PagePanel PagePanel1
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   386
+      Height          =   418
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -121,486 +121,7 @@ Begin Window SettingsWin
       Transparent     =   False
       Value           =   0
       Visible         =   True
-      Width           =   556
-      Begin GroupBox GroupBox3
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kNCBIserver"
-         Enabled         =   True
-         Height          =   250
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "PagePanel1"
-         Italic          =   False
-         Left            =   20
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   7
-         TabPanelIndex   =   2
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   20
-         Transparent     =   False
-         Underline       =   False
-         Visible         =   True
-         Width           =   516
-         Begin PopupMenu ProteinPopup
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   "Will be used for all blastp and blastx searches"
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            InitialValue    =   "UniProtKB/SwissProt (swissprot)\nReference proteins (refseq_protein)\nNon-redundant protein sequences (nr)"
-            Italic          =   False
-            Left            =   183
-            ListIndex       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   0
-            TabPanelIndex   =   2
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   56
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   343
-         End
-         Begin PopupMenu NucleotidePopup
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   "Will be used for all blastn searches"
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            InitialValue    =   "Reference genomic sequences (refseq_genomic)\nNucleotide collection (nr)"
-            Italic          =   False
-            Left            =   183
-            ListIndex       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   1
-            TabPanelIndex   =   2
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   88
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   343
-         End
-         Begin TextField OrganismField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "Enter organism name or NCBI ID"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   "Taxonomy restriction applied to BLAST (but not HMMER!) searches"
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   183
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   True
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   2
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   ""
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   120
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   343
-         End
-         Begin Label Label12
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   3
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   "Organism (optional)"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   122
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   149
-         End
-         Begin Label Label1
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   4
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   "Protein database"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   58
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   149
-         End
-         Begin Label Label2
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   "Will be used for all blastn searches"
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   5
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   "Nucleotide database"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   90
-            Transparent     =   False
-            Underline       =   False
-            Visible         =   True
-            Width           =   149
-         End
-         Begin TextField APIKeyField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFFFF00
-            Bold            =   False
-            Border          =   True
-            CueText         =   "API Key from your NCBI account allows more requests"
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   183
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   6
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   ""
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   154
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   343
-         End
-         Begin Label Label13
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   7
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   "API Key"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   156
-            Transparent     =   True
-            Underline       =   False
-            Visible         =   True
-            Width           =   141
-         End
-         Begin TextField EmailField
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFF00FF
-            Bold            =   False
-            Border          =   True
-            CueText         =   "valid e-mail is required for some NCBI services "
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   26
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   183
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   8
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   ""
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   188
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   343
-         End
-         Begin TextField requestCount
-            AcceptTabs      =   False
-            Alignment       =   0
-            AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &cFFFF00FF
-            Bold            =   False
-            Border          =   True
-            CueText         =   ""
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Format          =   ""
-            Height          =   26
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   247
-            LimitText       =   0
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Mask            =   ""
-            Password        =   False
-            ReadOnly        =   False
-            Scope           =   0
-            TabIndex        =   9
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   "100"
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   222
-            Transparent     =   False
-            Underline       =   False
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   80
-         End
-         Begin Label Label35
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   False
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   10
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   "E-mail"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   190
-            Transparent     =   True
-            Underline       =   False
-            Visible         =   True
-            Width           =   100
-         End
-         Begin Label Label38
-            AutoDeactivate  =   True
-            Bold            =   False
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox3"
-            Italic          =   False
-            Left            =   30
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Multiline       =   True
-            Scope           =   0
-            Selectable      =   False
-            TabIndex        =   13
-            TabPanelIndex   =   2
-            TabStop         =   True
-            Text            =   "Accession codes in batch"
-            TextAlign       =   0
-            TextColor       =   &c00000000
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   228
-            Transparent     =   True
-            Underline       =   False
-            Visible         =   True
-            Width           =   205
-         End
-      End
+      Width           =   558
       Begin Label ProfileFolderLabel
          AutoDeactivate  =   True
          Bold            =   False
@@ -634,7 +155,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
       End
       Begin PushButton ProfileFolderSelectButt
          AutoDeactivate  =   True
@@ -701,96 +222,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
-      End
-      Begin GroupBox GroupBox2
-         AutoDeactivate  =   True
-         Bold            =   False
-         Caption         =   "#kHMMERserverFormat"
-         Enabled         =   True
-         Height          =   58
-         HelpTag         =   "Set this to simple on Windows!"
-         Index           =   -2147483648
-         InitialParent   =   "PagePanel1"
-         Italic          =   False
-         Left            =   20
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   6
-         TabPanelIndex   =   2
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
-         Top             =   272
-         Transparent     =   False
-         Underline       =   False
-         Visible         =   True
-         Width           =   516
-         Begin RadioButton StandardFormatRadioButton
-            AutoDeactivate  =   True
-            Bold            =   False
-            Caption         =   "#kStandardHtml"
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   False
-            Left            =   40
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   False
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   0
-            TabPanelIndex   =   2
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   299
-            Transparent     =   False
-            Underline       =   False
-            Value           =   True
-            Visible         =   True
-            Width           =   197
-         End
-         Begin RadioButton PlainFormatRadioButton
-            AutoDeactivate  =   True
-            Bold            =   False
-            Caption         =   "#kPlainText"
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   False
-            Left            =   293
-            LockBottom      =   False
-            LockedInPosition=   False
-            LockLeft        =   False
-            LockRight       =   True
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   1
-            TabPanelIndex   =   2
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0.0
-            TextUnit        =   0
-            Top             =   299
-            Transparent     =   False
-            Underline       =   False
-            Value           =   False
-            Visible         =   True
-            Width           =   223
-         End
+         Width           =   518
       End
       Begin Canvas HighlightCanvas
          AcceptFocus     =   False
@@ -803,7 +235,7 @@ Begin Window SettingsWin
          HelpTag         =   "#kColorTag"
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
-         Left            =   340
+         Left            =   342
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -852,7 +284,7 @@ Begin Window SettingsWin
          Transparent     =   True
          Underline       =   False
          Visible         =   True
-         Width           =   176
+         Width           =   178
       End
       Begin GroupBox GroupBox4
          AutoDeactivate  =   True
@@ -1942,7 +1374,7 @@ Begin Window SettingsWin
          Transparent     =   True
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
       End
       Begin Label Label31
          AutoDeactivate  =   True
@@ -2175,7 +1607,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
       End
       Begin Label OMPinfoLabel
          AutoDeactivate  =   True
@@ -2210,7 +1642,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
       End
       Begin GroupBox GroupBox9
          AutoDeactivate  =   True
@@ -2383,7 +1815,7 @@ Begin Window SettingsWin
          Bold            =   False
          Caption         =   "#kPaths"
          Enabled         =   True
-         Height          =   365
+         Height          =   397
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -2405,7 +1837,7 @@ Begin Window SettingsWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   516
+         Width           =   518
          Begin TextField nhmmerPathField
             AcceptTabs      =   False
             Alignment       =   0
@@ -2448,7 +1880,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label4
             AutoDeactivate  =   True
@@ -2562,7 +1994,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label8
             AutoDeactivate  =   True
@@ -2641,7 +2073,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label9
             AutoDeactivate  =   True
@@ -2720,7 +2152,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label10
             AutoDeactivate  =   True
@@ -2799,7 +2231,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label11
             AutoDeactivate  =   True
@@ -2878,7 +2310,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label33
             AutoDeactivate  =   True
@@ -2957,7 +2389,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin TextField ChipMunkPathField
             AcceptTabs      =   False
@@ -3001,7 +2433,7 @@ Begin Window SettingsWin
             Underline       =   False
             UseFocusRing    =   True
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label34
             AutoDeactivate  =   True
@@ -3115,7 +2547,7 @@ Begin Window SettingsWin
             ValidationMask  =   ""
             Value           =   "/usr/local/bin/meshclust"
             Visible         =   True
-            Width           =   409
+            Width           =   411
          End
          Begin Label Label40
             AllowAutoDeactivate=   True
@@ -3145,7 +2577,7 @@ Begin Window SettingsWin
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   334
+            Top             =   362
             Transparent     =   False
             Underline       =   False
             Value           =   "WSL bash"
@@ -3176,7 +2608,7 @@ Begin Window SettingsWin
             LockBottom      =   False
             LockedInPosition=   False
             LockLeft        =   True
-            LockRight       =   False
+            LockRight       =   True
             LockTop         =   True
             MaximumCharactersAllowed=   0
             Password        =   False
@@ -3188,13 +2620,679 @@ Begin Window SettingsWin
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   333
+            Top             =   362
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
             Value           =   ""
             Visible         =   True
             Width           =   410
+         End
+         Begin Label Label41
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   26
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   28
+            TabPanelIndex   =   1
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   334
+            Transparent     =   False
+            Underline       =   False
+            Value           =   "BioProspector"
+            Visible         =   True
+            Width           =   100
+         End
+         Begin TextField bioProsPathField
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF00
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   23
+            Hint            =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox1"
+            Italic          =   False
+            Left            =   114
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   29
+            TabPanelIndex   =   1
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   331
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   ""
+            Visible         =   True
+            Width           =   410
+         End
+      End
+      Begin GroupBox GroupBox3
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "#kNCBIserver"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   201
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   20
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   518
+         Begin PopupMenu ProteinPopup
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            InitialValue    =   "UniProtKB/SwissProt (swissprot)\nReference proteins (refseq_protein)\nNon-redundant protein sequences (nr)"
+            Italic          =   False
+            Left            =   183
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   0
+            SelectedRowIndex=   0
+            TabIndex        =   0
+            TabPanelIndex   =   2
+            TabStop         =   True
+            Tooltip         =   "Will be used for all blastp and blastx searches"
+            Top             =   56
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   345
+         End
+         Begin PopupMenu NucleotidePopup
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            InitialValue    =   "Reference genomic sequences (refseq_genomic)\nNucleotide collection (nr)"
+            Italic          =   False
+            Left            =   183
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            Scope           =   0
+            SelectedRowIndex=   0
+            TabIndex        =   1
+            TabPanelIndex   =   2
+            TabStop         =   True
+            Tooltip         =   "Will be used for all blastn searches"
+            Top             =   88
+            Transparent     =   False
+            Underline       =   False
+            Visible         =   True
+            Width           =   345
+         End
+         Begin TextField OrganismField
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF00
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "Enter organism name or NCBI ID"
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            Italic          =   False
+            Left            =   183
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   2
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   "Taxonomy restriction applied to BLAST (but not HMMER!) searches"
+            Top             =   120
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   ""
+            Visible         =   True
+            Width           =   345
+         End
+         Begin Label Label12
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   3
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   122
+            Transparent     =   False
+            Underline       =   False
+            Value           =   "Organism (optional)"
+            Visible         =   True
+            Width           =   149
+         End
+         Begin Label Label1
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   4
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   58
+            Transparent     =   False
+            Underline       =   False
+            Value           =   "Protein database"
+            Visible         =   True
+            Width           =   149
+         End
+         Begin Label Label2
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   5
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   "Will be used for all blastn searches"
+            Top             =   90
+            Transparent     =   False
+            Underline       =   False
+            Value           =   "Nucleotide database"
+            Visible         =   True
+            Width           =   149
+         End
+         Begin TextField APIKeyField
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFFFF00
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   22
+            Hint            =   "API Key from your NCBI account allows more requests"
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            Italic          =   False
+            Left            =   183
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   6
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   154
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   ""
+            Visible         =   True
+            Width           =   343
+         End
+         Begin Label Label13
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   7
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   156
+            Transparent     =   True
+            Underline       =   False
+            Value           =   "API Key"
+            Visible         =   True
+            Width           =   141
+         End
+         Begin TextField requestCount
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFF00FF
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   26
+            Hint            =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            Italic          =   False
+            Left            =   183
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   8
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   188
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   "100"
+            Visible         =   True
+            Width           =   80
+         End
+         Begin Label Label38
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox3"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   True
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   9
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   194
+            Transparent     =   True
+            Underline       =   False
+            Value           =   "Accessions in batch"
+            Visible         =   True
+            Width           =   149
+         End
+      End
+      Begin GroupBox GroupBox10
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "User Info"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   117
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   1
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   233
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   518
+         Begin Label Label35
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox10"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   0
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   306
+            Transparent     =   True
+            Underline       =   False
+            Value           =   "E-mail"
+            Visible         =   True
+            Width           =   52
+         End
+         Begin TextField EmailField
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFF00FF
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   26
+            Hint            =   "valid e-mail is required for NCBI services and calibrated profile creation "
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox10"
+            Italic          =   False
+            Left            =   85
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   1
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   304
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   ""
+            Visible         =   True
+            Width           =   441
+         End
+         Begin Label Label36
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox10"
+            Italic          =   False
+            Left            =   30
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   2
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   268
+            Transparent     =   True
+            Underline       =   False
+            Value           =   "Name"
+            Visible         =   True
+            Width           =   52
+         End
+         Begin TextField NameField
+            AllowAutoDeactivate=   True
+            AllowFocusRing  =   True
+            AllowSpellChecking=   False
+            AllowTabs       =   False
+            BackgroundColor =   &cFFFF00FF
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Format          =   ""
+            HasBorder       =   True
+            Height          =   26
+            Hint            =   "Will be used as curator name by default"
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox10"
+            Italic          =   False
+            Left            =   85
+            LockBottom      =   False
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            MaximumCharactersAllowed=   0
+            Password        =   False
+            ReadOnly        =   False
+            Scope           =   0
+            TabIndex        =   3
+            TabPanelIndex   =   2
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   266
+            Transparent     =   False
+            Underline       =   False
+            ValidationMask  =   ""
+            Value           =   ""
+            Visible         =   True
+            Width           =   441
          End
       End
    End
@@ -3206,7 +3304,7 @@ Begin Window SettingsWin
       Caption         =   "#kRestoreDefaultPaths"
       Default         =   False
       Enabled         =   True
-      Height          =   20
+      Height          =   30
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -3224,7 +3322,7 @@ Begin Window SettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   398
+      Top             =   430
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -3306,11 +3404,7 @@ End
 		  OrganismField.Text=BLASTorganism
 		  
 		  
-		  if LoadPlainResult then
-		    PlainFormatRadioButton.value=true
-		  else
-		    StandardFormatRadioButton.value=true
-		  end if
+		  
 		  
 		  
 		  SetDefaultColours
@@ -3336,16 +3430,21 @@ End
 		      
 		    End If
 		  Else
-		    OMPinfoLabel.Text="Open MPI not detected. Only serial meme can run on single CPU core."
-		    CPUcoresPopup.SelectedRowIndex=0   'single core
-		    CPUcoresPopup.Enabled=False
-		    
-		    
+		    UserShell("mpicc -v")
+		    Dim mpich As String =shResult
+		    If InStr(mpich,"MPICH version ")>0 Then
+		      mpich=NthField(mpich,"Using built: ",2)
+		      mpich=Trim(NthField(mpich,EndOfLine.unix,1))
+		      OMPinfoLabel.Text=mpich
+		      DeNovoTFBSinference.MPICH=True
+		    Else
+		      logowin.WriteToSTDOUT ("No MPICH: 'string "+EndOfLine.UNIX)
+		      OMPinfoLabel.Text="Open MPI or MPICH not detected. Only serial meme can run on single CPU core."
+		      CPUcoresPopup.SelectedRowIndex=0   'single core
+		      CPUcoresPopup.Enabled=False
+		    End If
 		    'logowin.WriteToSTDOUT ("ompi_info returned this:"+EndOfLine.UNIX)
 		    'logowin.WriteToSTDOUT (shResult+EndOfLine.UNIX)
-		    
-		    
-		    
 		  End If
 		  
 		  //Determine and store CPU core number
@@ -3480,10 +3579,12 @@ End
 		  Prefs.value("API_Key")=APIKeyField.text
 		  Prefs.Value("ChIPmunkPath")=ChIPmunkPathField.Text
 		  Prefs.Value("email")=emailField.text
+		  Prefs.Value("CuratorName")=NameField.Text
 		  Prefs.Value("requestCount")=requestCount.text
 		  Prefs.Value("TomTomPath")=TomTomPathField.Text
 		  Prefs.Value("MeshClustPath")=MeshClustPathField.Text
 		  Prefs.Value("WSLBashPath")=WSLBashPathField.Text
+		  Prefs.Value("BioProsPath")=bioProsPathField.Text
 		  
 		  
 		  if LoadPlainResult then
@@ -3623,20 +3724,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events EmailField
-	#tag Event
-		Sub LostFocus()
-		  Dim rg as New RegEx
-		  Dim rgm as RegExMatch
-		  rg.SearchPattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
-		  rgm=rg.Search(self.EmailField.Text)
-		  if rgm = Nil then
-		    MsgBox("Incorrect email! Use only latin letters, numbers, dots, hyphens, at sign.")
-		    self.EmailField.Text=""
-		  end
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events ProfileFolderSelectButt
 	#tag Event
 		Sub Action()
@@ -3657,28 +3744,6 @@ End
 		    // User cancelled
 		  End If
 		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events StandardFormatRadioButton
-	#tag Event
-		Sub Action()
-		  if me.Value then
-		    LoadPlainResult=false
-		  else
-		    LoadPlainResult=true
-		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PlainFormatRadioButton
-	#tag Event
-		Sub Action()
-		  if me.Value then
-		    LoadPlainResult=true
-		  else
-		    LoadPlainResult=false
-		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -4149,6 +4214,34 @@ End
 	#tag Event
 		Sub TextChange()
 		  PathsChanged=true
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events EmailField
+	#tag Event
+		Sub LostFocus()
+		  Dim rg As New RegEx
+		  Dim rgm as RegExMatch
+		  rg.SearchPattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+		  rgm=rg.Search(self.EmailField.Text)
+		  if rgm = Nil then
+		    MsgBox("Incorrect email! Use only latin letters, numbers, dots, hyphens, at sign.")
+		    self.EmailField.Text=""
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NameField
+	#tag Event
+		Sub LostFocus()
+		  Dim rg as New RegEx
+		  Dim rgm as RegExMatch
+		  rg.SearchPattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+		  rgm=rg.Search(self.EmailField.Text)
+		  if rgm = Nil then
+		    MsgBox("Incorrect email! Use only latin letters, numbers, dots, hyphens, at sign.")
+		    self.EmailField.Text=""
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents

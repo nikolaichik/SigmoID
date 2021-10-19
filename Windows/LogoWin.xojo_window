@@ -453,6 +453,8 @@ End
 		  
 		  'PathsChanged=true
 		  
+		  'Dictionary to store Bioprospector's settings
+		  BioProspectSettings = New Dictionary
 		  
 		  f=resources_f.child("HmmGen.py")
 		  if f<>Nil then
@@ -523,62 +525,62 @@ End
 		  
 		  cli="python --version"
 		  userShell(cli)
-		  If shError=0 Then
-		    If InStr(shResult,"Python 3")>0 Then
-		      pythonCheckString=pythonCheckString+Trim (shResult)
-		      pythonPath=SystemPath("python")+" "
-		      If pythonPath.Length=1 Then
-		        pythonPath="python "
-		      Else
-		        pythonPath=PlaceQuotesToPath(pythonPath)
-		      End If
+		  'If shError=0 Then
+		  If InStr(shResult,"Python 3")>0 Then
+		    pythonCheckString=pythonCheckString+Trim(shResult)
+		    pythonPath=SystemPath("python")+" "
+		    If pythonPath.Length=1 Then
+		      pythonPath="python "
 		    Else
-		      cli="python3 --version"
-		      userShell(cli)
-		      If shError=0 Then
-		        If InStr(shResult,"Python 3")>0 Then
-		          pythonCheckString=pythonCheckString+Trim (shResult)
-		          pythonPath=SystemPath("python3")+" "
-		          If pythonPath.Length=1 Then
-		            pythonPath="python "
-		          Else
-		            pythonPath=PlaceQuotesToPath(pythonPath)
-		          End If
+		      pythonPath=PlaceQuotesToPath(pythonPath)
+		    End If
+		  Else
+		    cli="python3 --version"
+		    userShell(cli)
+		    If shError=0 Then
+		      If InStr(shResult,"Python 3")>0 Then
+		        pythonCheckString=pythonCheckString+Trim (shResult)
+		        pythonPath=SystemPath("python3")+" "
+		        If pythonPath.Length=1 Then
+		          pythonPath="python3 "
 		        Else
-		          pythonPath=""
-		          WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
+		          pythonPath=PlaceQuotesToPath(pythonPath)
 		        End If
 		      Else
 		        pythonPath=""
 		        WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
 		      End If
+		    Else
+		      pythonPath=""
+		      WriteToSTDOUT ("Can't find working Python 3 command. Python scripts won't work. ")
 		    End If
-		    
-		    
-		    If InStr(shResult,"command not found")>0 Then
-		      WriteToSTDOUT (shResult+EndOfLine.unix)
-		      allProgsFine=false
-		    else
-		      'pythonCheckString=pythonCheckString+Trim (shResult)
-		      
-		      'check BioPython:
-		      f=resources_f.child("BioPythonVersion.py")
-		      if f<>Nil then
-		        if f.exists then
-		          cli=pythonPath+PlaceQuotesToPath(f.ShellPath)
-		          userShell(cli)
-		          If shError=0 Then
-		            pythonCheckString=pythonCheckString+" with Biopython "+shResult
-		          end if
-		          
-		        end if
-		      end if
-		      
-		    end if
-		  else
+		  End If
+		  
+		  
+		  If InStr(shResult,"command not found")>0 Then
 		    WriteToSTDOUT (shResult+EndOfLine.unix)
 		    allProgsFine=false
+		  else
+		    'pythonCheckString=pythonCheckString+Trim (shResult)
+		    
+		    'check BioPython:
+		    f=resources_f.child("BioPythonVersion.py")
+		    if f<>Nil then
+		      if f.exists then
+		        cli=pythonPath+PlaceQuotesToPath(f.ShellPath)
+		        userShell(cli)
+		        If shError=0 Then
+		          pythonCheckString=pythonCheckString+" with Biopython "+shResult
+		        end if
+		        
+		      end if
+		    end if
+		    
 		  end if
+		  'else
+		  'WriteToSTDOUT (shResult+EndOfLine.unix)
+		  'allProgsFine=false
+		  'end if
 		  
 		  settingsWin.hide  'read prefs
 		  
@@ -738,7 +740,6 @@ End
 		  // nhmmer
 		  
 		  cli=nhmmerPath+" -h"
-		  ExecuteWSL(cli)
 		  #if TargetWindows
 		    ExecuteWSL(cli)
 		  #else
@@ -942,6 +943,27 @@ End
 		    allProgsFine=false
 		  end if
 		  
+		  // NCBI Edirect
+		  
+		  #If TargetWindows
+		    ExecuteWSL("esearch -h")
+		  #Else
+		    userShell("esearch -h")
+		  #EndIf
+		  If sherror=0 Then 
+		    Dim s As String=shResult
+		    If Left(s,7)="esearch" Then
+		      s=NthField(s,"esearch ",2)
+		      s=NthField(s,EndOfLine.Unix,1)
+		      WriteToSTDOUT ("NCBI Edirect "+s+EndOfLine.UNIX)
+		    Else
+		      WriteToSTDOUT ("No NCBI Edirect found on your PATH. Please follow install instructions at https://www.ncbi.nlm.nih.gov/books/NBK179288/"+EndOfLine.unix)
+		      'allProgsFine=False
+		    End If
+		  Else
+		    WriteToSTDOUT ("No NCBI Edirect found on your PATH. Please follow install instructions at https://www.ncbi.nlm.nih.gov/books/NBK179288/"+EndOfLine.unix)
+		    'allProgsFine=False
+		  End If
 		  
 		  // RegPrecise
 		  ' web services don't work after the move to new server
@@ -1207,6 +1229,14 @@ End
 			
 			ProfileWizardWin.show
 			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FindSBioPros() As Boolean Handles FindSBioPros.Action
+			BioProspectorLogoW
 			Return True
 			
 		End Function
@@ -1980,7 +2010,11 @@ End
 		        msgbox "Invalid input file for alimask"
 		      end if
 		      
-		      ExecuteWSL(cli)
+		      #If TargetWindows
+		        ExecuteWSL(cli)
+		      #Else
+		        UserShell(cli)
+		      #endif
 		      If shError=0 Then
 		        masked=true 'return shResult
 		      else
@@ -2305,6 +2339,52 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub BioProspectorLogoW()
+		  dim dlg As New SaveFileDialog
+		  dim BioPOutput As New FolderItem 
+		  dim SeqSource As New FolderItem 
+		  dim w As BioProspectWin
+		  
+		  SeqSource = TemporaryFolder.Child("bioprospector_input_seq")
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "File for search results "
+		  dlg.PromptText = "BioProspector output file" 
+		  
+		  BioPOutput = dlg.ShowModal
+		  
+		  If BioPOutput <> Nil Then
+		    w = New BioProspectWin
+		    w.launcher = "logowin"
+		    While BioProsWinClosed <> True
+		      App.DoEvents
+		    Wend
+		    If BioPrSettingsSaved Then
+		      if SeqSource.Exists Then
+		        SeqSource.delete 
+		      end
+		      dim outstream as TextOutputStream
+		      outstream = TextOutputStream.Create(SeqSource)
+		      outstream.Write(ConvertEncoding(Sequences, Encodings.UTF8))
+		      outstream.Close
+		      dim returncode as Integer
+		      LogoWin.WriteToSTDOUT("Path to store output result: "+BioPOutput.NativePath+EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT("Running BioProspector...")
+		      returncode = BioProspector(SeqSource,BioPOutput)
+		      if returncode = 0 Then
+		        LogoWin.WriteToSTDOUT("ok."+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT("failed."+EndOfLine.UNIX)
+		        LogoWin.WriteToSTDOUT(shResult)
+		      end
+		    end
+		    
+		  else
+		    
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub BuildTBButtonMenu()
 		  //create the menu for the first toolbar button
 		  Dim ButtMenu as New MenuItem
@@ -2615,7 +2695,7 @@ End
 		  'end if
 		  
 		  dim FileLocation as folderitem = TemporaryFolder.child("1"+tmpfile.Name)
-		  dim tos as TextOutputStream
+		  Dim tos As TextOutputStream
 		  dim tis as TextInputStream
 		  dim RawRead, Seq, Achar as String
 		  
@@ -3652,7 +3732,11 @@ End
 		    
 		    
 		    WriteToSTDOUT (EndofLine+"Running hmmsearch...")
-		    ExecuteWSL(cli)
+		    #If TargetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      UserShell(cli)
+		    #endif
 		    If shError=0 Then
 		      WriteToSTDOUT (EndofLine+shResult)
 		      'LogoWinToolbar.Item(2).Enabled=true
@@ -3863,17 +3947,19 @@ End
 		        f=tmpfile.child(basename+".refs")  
 		      End If
 		      
+		      ProfileWizardWin.RefsList.RemoveAllRows
+		      
 		      Dim aLine As String
 		      InStream = f.OpenAsTextFile
 		      If InStream <>Nil Then
-		        
-		        ProfileWizardWin.RefsList.RemoveAllRows
 		        
 		        While Not InStream.EOF
 		          aLine=InStream.readLine
 		          ProfileWizardWin.RefsList.AddRow(aLine.Split(Chr(9)))
 		        Wend
 		        inStream.close
+		      Else
+		        ProfileWizardWin.RefsList.AddRow
 		      End If
 		      
 		      If vv<>Nil Then
@@ -3882,17 +3968,17 @@ End
 		        f=tmpfile.child(basename+".cur")  
 		      End If
 		      
+		      ProfileWizardWin.CuratorList.RemoveAllRows
 		      
 		      InStream = f.OpenAsTextFile
 		      If InStream <>Nil Then
-		        
-		        ProfileWizardWin.CuratorList.RemoveAllRows
-		        
 		        While Not InStream.EOF
 		          aLine=InStream.readLine
 		          ProfileWizardWin.CuratorList.AddRow(aLine.Split(Chr(9)))
 		        Wend
 		        inStream.close
+		      Else
+		        ProfileWizardWin.CuratorList.AddRow
 		      End If
 		      
 		      
@@ -4510,7 +4596,11 @@ End
 		  
 		  
 		  cli=MASTpath+" "+ PlaceQuotesToPath(MakeWSLPath(memetmp.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(outfile.shellpath)) +nhmmerOptions+" -hit_list"
-		  ExecuteWSL(cli)
+		  #If TargetWindows
+		    ExecuteWSL(cli)
+		  #Else
+		    UserShell(cli)
+		  #endif
 		  If shError=0 Then
 		    WriteToSTDOUT (EndofLine+shResult)
 		    'write results to a temporary file for MastGen.py:
@@ -4725,7 +4815,12 @@ End
 		      cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" "+modelFile+" "+PlaceQuotesToPath(MakeWSLPath(CDSfasta.ShellPath))
 		      
 		      
-		      ExecuteWSL(cli)
+		      #If TargetWindows
+		        ExecuteWSL(cli)
+		      #Else
+		        UserShell(cli)
+		      #EndIf
+		      
 		      If shError=0 Then
 		        'LogoWinToolbar.Item(2).Enabled=true
 		        'logoWin.LastSearch="hmmsearch" 'not used
@@ -4815,8 +4910,13 @@ End
 		      msgbox "Incompatible nhmmer options -E and --cut_"
 		    end if
 		    
-		    WriteToSTDOUT (EndofLine+EndofLine+"Running nhmmer...")
-		    ExecuteWSL(cli)
+		    WriteToSTDOUT (EndOfLine+EndOfLine+"Running nhmmer...")
+		    #If targetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      userShell(cli)
+		    #EndIf
+		    
 		    If shError=0 Then
 		      WriteToSTDOUT (EndOfLine+shResult)
 		      LogoWinToolbar.Item(2).Enabled=true
@@ -5483,6 +5583,18 @@ End
 
 	#tag Property, Flags = &h0
 		alimaskTmp As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BioProspectSettings As Dictionary
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BioProsWinClosed As Boolean = True
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		BioPrSettingsSaved As Boolean = false
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -6577,6 +6689,22 @@ End
 		Group="Behavior"
 		InitialValue=""
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="BioProsWinClosed"
+		Visible=false
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="BioPrSettingsSaved"
+		Visible=false
+		Group="Behavior"
+		InitialValue="false"
+		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
