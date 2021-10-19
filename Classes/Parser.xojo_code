@@ -113,21 +113,20 @@ Protected Class Parser
 		      'return true
 		    End If
 		  Else
+		    return false
 		  End If
 		  
 		  
-		  var queryCRTag as new MSSQLServerDatabase()
-		  If not OpenDatabase(queryCRTag) Then
+		  If not OpenDatabase(query) Then
 		    return false
 		  End If
 		  try
 		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; EXECUTE pr_addCRTag @ResultForPos OUTPUT, '"+sl(0)+"'; SELECT @ResultForPos;"
-		    var result as RowSet = queryCRTag.SelectSQL(sqlReqest)
+		    var result as RowSet = query.SelectSQL(sqlReqest)
 		    CRTagID = result.ColumnAt(0).IntegerValue
 		  catch err As DatabaseException
 		    error = err.Message
 		  End try
-		  queryCRTag.Close()
 		  
 		  //reading info
 		  var info as string = ""
@@ -190,9 +189,7 @@ Protected Class Parser
 		  End If
 		  
 		  //writing TF
-		  If not OpenDatabase(query) Then
-		    return false
-		  End If
+		  
 		  try
 		    sqlReqest = "INSERT INTO TFs([Name], [idTF_family], [idCRTag], [CRTag_coord], [ProteinID], [Sequence], [Description]) VALUES ('"+sl(1)+"', "+TFFamily.ToString()+", "+CRTagID.ToString()+", '"+CRTag_coord+"', '"+ProteinID+"', '"+Sequence+"', '"+info.trim()+"');"
 		    sqlReqest = sqlReqest + "SELECT MAX(idTF) FROM TFs;"
@@ -316,8 +313,203 @@ Protected Class Parser
 		  
 		  inOptions.Close()
 		  
+		  //import references
+		  var MotifID as integer = 158
+		  var fileReferebces as FolderItem = workFolder.Child(dirName + ".refs")
+		  If MotifID > 0 and fileReferebces<>Nil Then
+		    var in_ as TextInputStream
+		    in_ = in_.Open(fileReferebces)
+		    While not in_.EndOfFile()
+		      var line as string = in_.ReadLine()
+		      var tokens() as string = line.split(chr(9))
+		      var reference as string
+		      var DOI as string
+		      var evidenceTypes as string
+		      If tokens.Count() > 1 Then
+		        reference = tokens(0)
+		        DOI = tokens(1)
+		      End if
+		      If tokens.Count() > 2 Then
+		        evidenceTypes = tokens(2)
+		      End if
+		      
+		      //extract year
+		      var year as string
+		      var pYstart as integer = reference.IndexOf(" (")
+		      var pYend as integer = reference.IndexOf(").")
+		      If pYstart > 0 and pYend > 0 and pYend - pYstart > 2 Then
+		        year = reference.Middle(pYstart + 2, pYend - pYstart - 2)
+		      End if
+		      
+		      //extract evidence types
+		      var types() as string = evidenceTypes.split("][")
+		      
+		      For i as integer = 0 to types.Count()-1
+		        var type as string = types(i)
+		        If not type.BeginsWith("[") then
+		          type = "[" + type
+		        End if
+		        If not type.EndsWith("]", ComparisonOptions.CaseSensitive, Locale.Current) then
+		          type = type + "]"
+		        End if
+		        types(i) = type
+		      Next
+		      If reference.Length > 0 Then
+		        insertReference(MotifID, reference, year, DOI, types) // Make function
+		      End if
+		    Wend
+		    in_.Close()
+		    If error.Length() > 0 Then
+		      error = "The error was occured while insertion of References. Error: " + error
+		      return false
+		    End if
+		  End If
+		  
+		  //import curators
+		  
+		  var fileCurators as FolderItem = workFolder.Child(dirName + ".cur")
+		  If MotifID > 0 and fileCurators<>Nil Then
+		    var in_ as TextInputStream
+		    in_ = in_.Open(fileCurators)
+		    While not in_.EndOfFile()
+		      var line as string = in_.readLine()
+		      var tokens() as string = line.split(chr(9))
+		      var name as string = ""
+		      var email as string
+		      var type as string
+		      
+		      If tokens.Count() > 0 Then
+		        name = tokens(0)
+		      End if
+		      If tokens.Count() > 2 Then
+		        email = tokens(1)
+		        type = tokens(2)
+		      End if
+		      If name.Length > 0 Then
+		        var l() as string = type.Split(": ")
+		        If l.Count() > 1 Then
+		          insertCurator(MotifID, name, email, l(0), l(1)) // Make function
+		        Else
+		          insertCurator(MotifID, name, email, l(0), "")
+		        End if
+		      End if
+		    Wend
+		    in_.Close()
+		    If error.Length() > 0 Then
+		      error = "The error was occured while insertion of Curators. Error: " + error
+		      return false
+		    End if
+		    
+		  End If
+		  
 		  return true
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub insertCurator(idMotif as integer, name as string, email as string, date as string, type as string)
+		  var query as new MSSQLServerDatabase
+		  var sqlReqest as string
+		  If not OpenDatabase(query) Then
+		    return
+		  End If
+		  var ID as integer
+		  try
+		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; "
+		    sqlReqest = sqlReqest + "EXECUTE pr_addCurator @ResultForPos OUTPUT, '"+name+"', '"+email+"'; SELECT @ResultForPos;"
+		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    ID = result.ColumnAt(0).IntegerValue
+		  catch err As DatabaseException
+		    error = "The error was occured while insertion of curator "+type+". Error: " + err.Message
+		    query.Close()
+		    return
+		  End try
+		  try
+		    sqlReqest = "INSERT INTO Motif_curators ([idCurator], [idMotif], [Date], [Type]) VALUES("+ID.ToString+", "+idMotif.ToString+", '"+date+"', '"+type+"')"
+		    query.ExecuteSQL(sqlReqest)
+		  catch err As DatabaseException
+		    error = "The error was occured while insertion of curator "+type+". Error: " + err.Message
+		    query.Close()
+		    return
+		  End try
+		  query.Close()
+		  return
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function insertEvidenceType(type as string) As integer
+		  var query as new MSSQLServerDatabase
+		  var sqlReqest as string
+		  If not OpenDatabase(query) Then
+		    return -1
+		  End If
+		  var ID as integer
+		  try
+		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; "
+		    sqlReqest = sqlReqest + "EXECUTE pr_addEvidenceType @ResultForPos OUTPUT, '"+type+"'; SELECT @ResultForPos;"
+		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    ID = result.ColumnAt(0).IntegerValue
+		  catch err As DatabaseException
+		    error = "The error was occured while insertion of curator "+type+". Error: " + err.Message
+		    query.Close()
+		    return -1
+		  End try
+		  query.Close()
+		  return ID
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub InsertReference(idMotif as integer, reference as string, year as string, DOI as string, evidenceTypes() as string)
+		  var query as new MSSQLServerDatabase
+		  var sqlReqest as string
+		  If not OpenDatabase(query) Then
+		    return
+		  End If
+		  var referenceID as integer
+		  try
+		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; "
+		    sqlReqest = sqlReqest + "EXECUTE pr_addReference @ResultForPos OUTPUT, '"+reference+"', "+year+", '"+DOI+"'; SELECT @ResultForPos;"
+		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    referenceID = result.ColumnAt(0).IntegerValue
+		  catch err As DatabaseException
+		    error = "The error was occured while insertion of reference "+DOI+". Error: " + err.Message
+		    query.Close()
+		    return
+		  End try
+		  var motifReferenceID as integer
+		  try
+		    sqlReqest = "INSERT INTO Motif_references ([idMotif] ,[idPublication]) VALUES ("+idMotif.ToString+", "+referenceID.ToString+")"
+		    sqlReqest = sqlReqest + "SELECT MAX(idMotif_reference) FROM Motif_references;"
+		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    motifReferenceID = result.ColumnAt(0).IntegerValue
+		  catch err As DatabaseException
+		    error = "The error was occured while insertion of publication reference "+referenceID.ToString+". Error: " + err.Message
+		    query.Close()
+		    return
+		  End try
+		  
+		  //inesrtion evidence types
+		  For each type as string in evidenceTypes
+		    var evidenceTypeID as integer = insertEvidenceType(type)
+		    If evidenceTypeID < 0 Then
+		      return
+		    End if
+		    try
+		      sqlReqest = "INSERT INTO Motif_references_evidence ([idMotif_reference], [idEvidence_type]) VALUES ("+motifReferenceID.ToString+", "+evidenceTypeID.ToString+")"
+		      sqlReqest = sqlReqest + "SELECT MAX(idMotif_reference) FROM Motif_references;"
+		      query.ExecuteSQL(sqlReqest)
+		    catch err As DatabaseException
+		      error = "The error was occured while insertion of publication reference "+referenceID.ToString+". Error: " + err.Message
+		      query.Close()
+		      return
+		    End try
+		    query.Close()
+		  Next
+		  query.Close()
+		  return
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -399,7 +591,6 @@ Protected Class Parser
 
 
 	#tag Note, Name = TODO
-		Add possibility to add to DB curators publications, and so on.
 		Change class strucure to best use with 'Export to database' button in ProfileWizardWin
 		
 	#tag EndNote
