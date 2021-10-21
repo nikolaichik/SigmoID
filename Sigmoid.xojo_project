@@ -670,6 +670,7 @@ Picture=tabTopMostSeparatorS;Classes/tabGraphicsPNG/tabTopMostSeparatorS.png;&h0
 Picture=tabTopMostSeparatorW;Classes/tabGraphicsPNG/tabTopMostSeparatorW.png;&h00000000643647FF;&h000000003421B7FF;false;0;&h0000000000000000
 Window=BioProspectWin;Windows/BioProspectWin.xojo_window;&h00000000771F27FF;&h000000002250E847;false
 Window=BioProspectLogo;Windows/BioProspectLogo.xojo_window;&h0000000063EDBFFF;&h000000002250E847;false
+Class=BioProsMotifSite;Classes/BioProsMotifSite.xojo_code;&h000000007A2A2FFF;&h0000000047302C04;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=2

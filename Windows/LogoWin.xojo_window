@@ -2351,20 +2351,110 @@ End
 		  Dim dlg As New OpenFileDialog
 		  Dim inputData As New FolderItem
 		  Dim instream As TextInputStream
+		  Dim motifEntry As String
 		  Dim rawData As String
 		  Dim motifBlocks(-1) As String
+		  Dim logoSequences As New Dictionary
+		  Dim heading As String
+		  Dim motifSite As BioProsMotifSite
+		  
+		  
+		  Dim values(-1) As Integer
+		  Dim motifEntries(-1) As BioProsMotifSite
+		  Dim FirstBlock  As new RegEx
+		  Dim SecBlock  As new RegEx
+		  Dim StrandCheck As new RegEx
+		  Dim FBlockWidth As new RegEx
+		  Dim RBlockWidth As new RegEx
+		  Dim FastaHeader As new RegEx
+		  Dim secBlockWith As String = ""
+		  Dim firstBlockWith As String = ""
+		  Dim firstBlockMatch As RegExMatch
+		  Dim secBlockMatch As RegExMatch
+		  
+		  
+		  Dim valueMatch As RegExMatch
+		  Dim FastaHeaderMatch As RegExMatch
+		  Dim twoBlockMotif As Boolean = True
+		  FirstBlock.SearchPattern = "(?<=\()\d+"
+		  SecBlock.SearchPattern = "\d+(?=\))"
+		  FastaHeader.SearchPattern = "\>.*"
+		  FBlockWidth.SearchPattern = "(?<=f )\d+"
+		  RBlockWidth.SearchPattern = "(?<=r )\d+"
+		  StrandCheck.SearchPattern = "\sf\s\d"
+		  
+		  
+		  
+		  '(?<=f )\d+
+		  '(?<=r )\d+
+		  '(?<=\>)\S+
+		  
 		  dlg.ActionButtonCaption = "Select"
 		  dlg.Title = "BioProspector results to logo"
 		  dlg.PromptText = "Select BioProspector file with motifs search results"
-		  ' match \d+(?=\))  -  check 
 		  inputData = dlg.ShowModal
+		  
+		  
 		  If inputData <> Nil Then
 		    instream = TextInputStream.Open(inputData)
 		    rawData = instream.ReadAll
+		    firstBlockMatch = FirstBlock.Search(rawData)
+		    secBlockMatch = SecBlock.Search(rawData)
+		    If firstBlockMatch <> Nil Then
+		      firstBlockWith = firstBlockMatch.SubExpressionString(0)
+		    End
+		    If secBlockMatch <> Nil Then
+		      secBlockWith = secBlockMatch.SubExpressionString(0)
+		      If secBlockWith = "0" Then
+		        twoBlockMotif = False
+		      End 
+		    End
 		    motifBlocks = rawData.split("Motif #")
-		    for i = 2 to ubound(motifBlocks)
+		    For i as Integer = 1 to ubound(motifBlocks)
+		      motifSite = New BioProsMotifSite
+		      FastaHeaderMatch = FastaHeader.Search(motifBlocks(i))
+		      do
+		        if FastaHeaderMatch <> Nil Then
+		          heading = FastaHeaderMatch.SubExpressionString(0)
+		          motifSite.heading = Rtrim(Nthfield(heading, "len", 1))
+		          'check forward strand
+		          valueMatch = StrandCheck.Search(heading)
+		          if valueMatch <> Nil Then
+		            motifSite.strand = "f"
+		            valueMatch = FBlockWidth.Search(heading)
+		            do
+		              If valueMatch <> Nil then
+		                values.Append(val(valueMatch.SubExpressionString(0)))
+		              End
+		              valueMatch = FBlockWidth.Search
+		            loop until valueMatch = Nil
+		          else
+		            motifSite.strand = "r"
+		            valueMatch = RBlockWidth.Search(heading)
+		            do
+		              If valueMatch <> Nil then
+		                values.Append(val(valueMatch.SubExpressionString(0)))
+		              End
+		              valueMatch = RBlockWidth.Search
+		            loop until valueMatch = Nil
+		          end
+		          
+		          if Ubound(values) = 0 Then
+		            motifSite.firstBlockStart = values(0)
+		          ElseIf Ubound(values) = 1 Then
+		            motifSite.firstBlockStart = values(0)
+		            motifSite.secondBlockStart = values(1)
+		          End
+		          redim values(-1)
+		          motifEntries.append(motifSite)
+		        end if
+		        FastaHeaderMatch = FastaHeader.Search
+		      loop until FastaHeaderMatch = nil
+		      'process motifEntries
 		      
-		    next
+		      
+		    Next
+		    msgbox("ok")
 		  End If
 		End Sub
 	#tag EndMethod
