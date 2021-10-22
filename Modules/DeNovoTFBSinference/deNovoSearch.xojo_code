@@ -325,7 +325,7 @@ Inherits Thread
 		      End
 		    next
 		    If Ubound(multiDomainTf) > -1 Then
-		      deNovoWin.rp.writeToWin("The hmmsearch results for following protein sequences gives two or more matches with current model of DNA-binding domain:"+EndOfLine.UNIX)
+		      deNovoWin.rp.writeToWin("The hmmsearch result for following protein sequences gives two or more matches with the current model of DNA-binding domain:"+EndOfLine.UNIX)
 		      deNovoWin.rp.writeToWin(Join(multiDomainTf, ", ") + EndOfLine.UNIX)
 		      deNovoWin.rp.writeToWin("Skipping them." + EndOfLine.UNIX)
 		    end

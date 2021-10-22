@@ -2384,6 +2384,7 @@ End
 		  case "stopped"
 		    if rp.ThreadState<>Thread.ThreadStates.NotRunning then
 		      rp.Stop
+		      Self.rp = Nil
 		    end
 		    dim resFile as FolderItem
 		    dim OutStream as TextOutputStream
@@ -2414,9 +2415,11 @@ End
 		    me.enabled=False
 		    
 		  end
-		  if rp.ThreadState=Thread.ThreadStates.NotRunning and CancelButton.Caption="Stop" then
-		    CancelButton.Caption="Save log"
-		    PauseButton.Enabled=False
+		  if rp <> Nil then
+		    if rp.ThreadState=Thread.ThreadStates.NotRunning and CancelButton.Caption="Stop" then
+		      CancelButton.Caption="Save log"
+		      PauseButton.Enabled=False
+		    end
 		  end
 		End Sub
 	#tag EndEvent
