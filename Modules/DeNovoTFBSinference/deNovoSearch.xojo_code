@@ -233,17 +233,13 @@ Inherits Thread
 		      deNovoWin.rp.writeToWin(EndofLine.unix+"Running hmmsearch...")
 		      dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		      
-		      cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(Me.hmmPath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
-		      
-		      'sh.execute("bash --login -c "+Chr(34)+cli+Chr(34))
+		      cli=HmmSearchPath + " --cut_ga --notextw -A " + PlaceQuotesToPath(MakeWSLPath(alignmentsFile.ShellPath)) + " "
+		      cli = cli + PlaceQuotesToPath(MakeWSLPath(Me.hmmPath)) + " " + PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		      #If TargetWindows
 		        ExecuteWSL(cli)
 		      #Else
 		        UserShell(cli)
 		      #endif
-		      'While sh.IsRunning=true
-		      'app.YieldToNextThread()
-		      'wend
 		      If shError=0 Then
 		        deNovoWin.rp.writeToWin(" OK"+EndofLine.unix)
 		        
@@ -302,16 +298,44 @@ Inherits Thread
 		    me.Protnames=DeNovoTFBSinference.Protnames
 		    dim match as String
 		    dim localTFentries(0) as Integer
-		    dim multiDomainProteins as New Dictionary
+		    dim skipInSearch as New Dictionary
+		    dim multiDomainTf(-1) as String
+		    dim multiMatchTf(-1) as String
+		    'multiDomainProteins
 		    'check multiple DNA-binding domains presence (these protein IDs are repeated in hmmsearch output)
 		    ' and mark them to be skipped in further processing
 		    for n = 1 to UBound(me.ProtNames)
-		      if multiDomainProteins.HasKey(me.ProtNames(n)) then
-		        multiDomainProteins.Value(me.ProtNames(n)) = True
+		      if skipInSearch.HasKey(me.ProtNames(n)) then
+		        skipInSearch.Value(me.ProtNames(n)) = True
+		        multiDomainTf.append(Str(Me.Protnames(n)))
 		      else
-		        multiDomainProteins.Value(me.ProtNames(n)) = False
+		        skipInSearch.Value(me.ProtNames(n)) = False
 		      end
+		      If me.filterMultipleTff and TFFbase <> Nil Then
+		        If TFFbase.HasKey(me.ProtNames(n)) Then
+		          dim ValueObject As DeNovoTFBSinference.TFfamilyMatch
+		          ValueObject = New TFfamilyMatch
+		          ValueObject=TFFBase.value(me.ProtNames(n))
+		          dim hmmname as string = Nthfield(Nthfield(Me.hmmPath,".hmm",1),"TF_HMMs/",2)
+		          If hmmname<>ValueObject.Name Then
+		            skipInSearch.Value(me.ProtNames(n)) = True
+		            multiMatchTf.append(Me.Protnames(n) + " - " + ValueObject.Name)
+		          End
+		        End
+		      End
 		    next
+		    If Ubound(multiDomainTf) > -1 Then
+		      deNovoWin.rp.writeToWin("The hmmsearch results for following protein sequences gives two or more matches with current model of DNA-binding domain:"+EndOfLine.UNIX)
+		      deNovoWin.rp.writeToWin(Join(multiDomainTf, ", ") + EndOfLine.UNIX)
+		      deNovoWin.rp.writeToWin("Skipping them." + EndOfLine.UNIX)
+		    end
+		    if Ubound(multiMatchTf) > -1 Then
+		      deNovoWin.rp.writeToWin("The following proteins have other best matching model of DNA-binding domain:"+EndOfLine.UNIX)
+		      deNovoWin.rp.writeToWin(Join(multiMatchTf, ", ") + EndOfLine.UNIX)
+		      deNovoWin.rp.writeToWin("Skipping them." + EndOfLine.UNIX)
+		    end
+		    
+		    
 		    'for n=1 to ubound(me.CRTags)
 		    'localTFentries.Append(-1)
 		    'next
@@ -345,22 +369,10 @@ Inherits Thread
 		    'end
 		    For n=1 To ubound(me.CRTags)
 		      app.YieldToNextThread()
-		      if multiDomainProteins.Value(me.ProtNames(n)) = True then
-		        deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has multiple DNA-binding domains. Skipping it."+EndOfLine.unix+EndOfLine.unix)
+		      if skipInSearch.Value(me.ProtNames(n)) = True then
+		        'deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" has multiple DNA-binding domains. Skipping it."+EndOfLine.unix+EndOfLine.unix)
 		        Continue
 		      end
-		      If me.filterMultipleTff and TFFbase <> Nil Then
-		        If TFFbase.HasKey(me.ProtNames(n)) Then
-		          dim ValueObject As DeNovoTFBSinference.TFfamilyMatch
-		          ValueObject = New TFfamilyMatch
-		          ValueObject=TFFBase.value(me.ProtNames(n))
-		          dim hmmname as string = Nthfield(Nthfield(Me.hmmPath,".hmm",1),"TF_HMMs/",2)
-		          If hmmname<>ValueObject.Name Then
-		            deNovoWin.rp.writeToWin(Str(Me.Protnames(n))+" best DNA-binding domain family hit is "+ValueObject.name+". Skipping it."+EndOfLine.unix+EndOfLine.unix)
-		            Continue
-		          End
-		        End
-		      End
 		      res=""
 		      try
 		        if me.CRtags(n)="[indel within CR tag region]" then
