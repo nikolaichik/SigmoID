@@ -2110,6 +2110,16 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Iif(Conditional as Variant, Option1 as Variant, Option2 as Variant) As Variant
+		  if Conditional = True then
+		    return Option1
+		  else
+		    return Option2
+		  end if
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function JSON2Fasta(JSONin as JSONItem) As string
 		  dim sites,site as JSONItem
 		  dim FastaHeader, FastaSequence, AllFasta as string

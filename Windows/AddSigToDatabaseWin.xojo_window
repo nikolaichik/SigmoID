@@ -336,41 +336,31 @@ End
 		    if SigList.CellCheck(n,0) = true AND Profile_f.Item(n+1).DisplayName=SigList.Cell(n,1)+".sig" then
 		      basename=SigList.Cell(n,1)
 		      vv=Profile_f.Item(n+1).openAsVirtualVolume
-		      f=vv.root.child(basename+".fasta")
-		      if f<> NIL and f.exists then
-		        logowin.WriteToSTDOUT(basename+".fasta +"+EndOfLine)
-		      end if
-		      f=vv.root.child(basename+".hmm")
-		      if f<> NIL and f.exists then
-		        logowin.WriteToSTDOUT(basename+".hmm +"+EndOfLine)
-		      end if
-		      f=vv.root.child(basename+".info")
-		      if f<> NIL and f.exists then
-		        logowin.WriteToSTDOUT(basename+".info +"+EndOfLine)
-		      end if
-		      f=vv.root.child(basename+".options")
-		      if f<> NIL and f.exists then
-		        logowin.WriteToSTDOUT(basename+".options +"+EndOfLine)
-		      end if
-		      f=vv.root.child("meme.txt")
-		      if f<> NIL and f.exists then
-		        logowin.WriteToSTDOUT("meme.txt +"+EndOfLine)
-		      End If
-		      f=vv.root.child(basename+".refs")
-		      If f<> Nil And f.exists Then
-		        logowin.WriteToSTDOUT(basename+".refs +"+EndOfLine)
-		      End If
-		      f=vv.root.child(basename+".cur")
-		      If f<> Nil And f.exists Then
-		        logowin.WriteToSTDOUT(basename+".cur +"+EndOfLine)
-		      End If
-		      var pars as new Parser()
-		      var res as boolean = pars.ImportFilesToDB(vv.root, basename)
-		      logowin.WriteToSTDOUT(pars.Iif(res, "True", "False") +EndOfLine)
-		      For i as integer=0 to pars.warnings.Count-1
-		        logowin.WriteToSTDOUT(pars.warnings(i)+EndOfLine)
-		      Next
-		    end if
+		      If vv.root <> Nil Then
+		        var pars as new Parser()
+		        var res as boolean = pars.ParseFolder(vv.root, basename)
+		        var map as new Dictionary()
+		        If res Then
+		          map = pars.outputMap
+		        Else
+		          logowin.WriteToSTDOUT("Error in parsing sig.-file." + EndOfLine)
+		        End if
+		        For i as integer=0 to pars.warnings.Count-1
+		          logowin.WriteToSTDOUT(pars.warnings(i)+EndOfLine)
+		        Next
+		        'map.Value("ProteinID") = "TEST"+map.Value("ProteinID") // This is for tests
+		        var importer as new DBimporter()
+		        res = importer.import(map)
+		        If not res Then
+		          logowin.WriteToSTDOUT(importer.error + EndOfLine)
+		        End if
+		        For i as integer=0 to importer.warnings.Count-1
+		          logowin.WriteToSTDOUT(importer.warnings(i)+EndOfLine)
+		        Next
+		      Else
+		        logowin.WriteToSTDOUT("Error: sig.-file not found." + EndOfLine)
+		      End if
+		    End if
 		  next
 		End Sub
 	#tag EndMethod
