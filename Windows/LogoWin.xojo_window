@@ -2354,70 +2354,77 @@ End
 		  Dim motifEntry As String
 		  Dim rawData As String
 		  Dim motifBlocks(-1) As String
-		  Dim logoSequences As New Dictionary
+		  Dim LogoWinSequences As New Dictionary
+		  Dim Motifs As New Dictionary
 		  Dim heading As String
 		  Dim motifSite As BioProsMotifSite
-		  
-		  
+		  Dim siteSeq As string
 		  Dim values(-1) As Integer
-		  Dim motifEntries(-1) As BioProsMotifSite
+		  Dim seqLength As Integer
+		  Dim motifEntries as BioProsMotifs
 		  Dim FirstBlock  As new RegEx
 		  Dim SecBlock  As new RegEx
 		  Dim StrandCheck As new RegEx
 		  Dim FBlockWidth As new RegEx
 		  Dim RBlockWidth As new RegEx
 		  Dim FastaHeader As new RegEx
-		  Dim secBlockWith As String = ""
-		  Dim firstBlockWith As String = ""
+		  'Dim secBlockWidth As String = ""
+		  'Dim firstBlockWidth As String = ""
+		  Dim firstBlockWidth As Integer
+		  Dim secBlockWidth As Integer 
 		  Dim firstBlockMatch As RegExMatch
 		  Dim secBlockMatch As RegExMatch
-		  
-		  
 		  Dim valueMatch As RegExMatch
 		  Dim FastaHeaderMatch As RegExMatch
 		  Dim twoBlockMotif As Boolean = True
+		  Dim outstream As TextOutputStream
 		  FirstBlock.SearchPattern = "(?<=\()\d+"
 		  SecBlock.SearchPattern = "\d+(?=\))"
 		  FastaHeader.SearchPattern = "\>.*"
 		  FBlockWidth.SearchPattern = "(?<=f )\d+"
 		  RBlockWidth.SearchPattern = "(?<=r )\d+"
 		  StrandCheck.SearchPattern = "\sf\s\d"
-		  
-		  
-		  
-		  '(?<=f )\d+
-		  '(?<=r )\d+
-		  '(?<=\>)\S+
-		  
+		  If LogoWin.Sequences <> "" then
+		    Dim seqsFasta(-1) As String = LogoWin.Sequences.split(EndOfLine.UNIX)
+		    Dim fastaHeading As String
+		    for i As Integer = 0 to UBound(seqsFasta)
+		      if seqsFasta(i).BeginsWith(">") then
+		        fastaHeading = ReplaceAll(seqsFasta(i), " ", "_")
+		        LogoWinSequences.Value(fastaHeading) = seqsFasta(i + 1)
+		      end
+		    next
+		    
+		  else
+		    msgBox("LogoWin motif window should contain sequences on which bioprospector search was performed")
+		    Return
+		  end
 		  dlg.ActionButtonCaption = "Select"
 		  dlg.Title = "BioProspector results to logo"
 		  dlg.PromptText = "Select BioProspector file with motifs search results"
 		  inputData = dlg.ShowModal
-		  
-		  
 		  If inputData <> Nil Then
 		    instream = TextInputStream.Open(inputData)
 		    rawData = instream.ReadAll
 		    firstBlockMatch = FirstBlock.Search(rawData)
 		    secBlockMatch = SecBlock.Search(rawData)
 		    If firstBlockMatch <> Nil Then
-		      firstBlockWith = firstBlockMatch.SubExpressionString(0)
+		      firstBlockWidth = val(firstBlockMatch.SubExpressionString(0))
 		    End
 		    If secBlockMatch <> Nil Then
-		      secBlockWith = secBlockMatch.SubExpressionString(0)
-		      If secBlockWith = "0" Then
+		      secBlockWidth = val(secBlockMatch.SubExpressionString(0))
+		      If secBlockWidth = 0 Then
 		        twoBlockMotif = False
 		      End 
 		    End
 		    motifBlocks = rawData.split("Motif #")
 		    For i as Integer = 1 to ubound(motifBlocks)
-		      motifSite = New BioProsMotifSite
+		      motifEntries = New BioProsMotifs
 		      FastaHeaderMatch = FastaHeader.Search(motifBlocks(i))
 		      do
+		        motifSite = New BioProsMotifSite
 		        if FastaHeaderMatch <> Nil Then
 		          heading = FastaHeaderMatch.SubExpressionString(0)
 		          motifSite.heading = Rtrim(Nthfield(heading, "len", 1))
-		          'check forward strand
 		          valueMatch = StrandCheck.Search(heading)
 		          if valueMatch <> Nil Then
 		            motifSite.strand = "f"
@@ -2438,23 +2445,67 @@ End
 		              valueMatch = RBlockWidth.Search
 		            loop until valueMatch = Nil
 		          end
-		          
+		          heading = ReplaceAll(motifSite.heading, " ", "_")
+		          if motifSite.strand = "r" then
+		            siteSeq = ReverseComplement(LogoWinSequences.Value(heading))
+		          else
+		            siteSeq = LogoWinSequences.Value(heading)
+		          end
+		          seqLength = lenb(siteSeq)
 		          if Ubound(values) = 0 Then
-		            motifSite.firstBlockStart = values(0)
+		            if motifSite.strand = "r" Then
+		              motifSite.firstBlockStart = seqLength-values(0)
+		            else
+		              motifSite.firstBlockStart = values(0)
+		            end
+		            motifSite.firstBlockSeq = mid(siteSeq, motifSite.firstBlockStart, firstBlockWidth)
 		          ElseIf Ubound(values) = 1 Then
-		            motifSite.firstBlockStart = values(0)
-		            motifSite.secondBlockStart = values(1)
+		            if motifSite.strand = "r" Then
+		              motifSite.firstBlockStart = seqLength-values(0)+1
+		              motifSite.secondBlockStart = seqLength-values(1)+1
+		            else
+		              motifSite.firstBlockStart = values(0)
+		              motifSite.secondBlockStart = values(1)
+		            end
+		            motifSite.firstBlockSeq = mid(siteSeq, motifSite.firstBlockStart, firstBlockWidth)
+		            motifSite.SecondBlockSeq = mid(siteSeq, motifSite.secondBlockStart, secBlockWidth)
+		            motifSite.interBlockSeq = mid(siteSeq, motifSite.firstBlockStart+firstBlockWidth, motifSite.secondBlockStart-(motifSite.firstBlockStart+firstBlockWidth))
 		          End
 		          redim values(-1)
-		          motifEntries.append(motifSite)
+		          motifEntries.MotifEntries.append(motifSite)
 		        end if
 		        FastaHeaderMatch = FastaHeader.Search
 		      loop until FastaHeaderMatch = nil
-		      'process motifEntries
-		      
-		      
+		      Motifs.value("Motif#"+str(i)) = motifEntries
 		    Next
-		    msgbox("ok")
+		    dim clustalalign as FolderItem = TemporaryFolder.Child("gapmotifseq.align")
+		    if clustalalign.Exists Then
+		      clustalalign.Remove
+		    end
+		    Dim cli as String = ""
+		    Dim motifEntryFasta As String
+		    Dim output As String
+		    dim EntryM as BioProsMotifs
+		    if Motifs.KeyCount <> 0 then
+		      for each Entry as DictionaryEntry in Motifs
+		        
+		        EntryM = Entry.Value
+		        for each Site as BioProsMotifSite in EntryM.MotifEntries
+		          motifEntryFasta = motifEntryFasta + Site.heading + EndOfLine.UNIX + Site.interBlockSeq + EndOfLine.UNIX
+		        next
+		        outstream = TextOutputStream.Create(clustalalign)
+		        outstream.Write(ConvertEncoding(motifEntryFasta, Encodings.UTF8))
+		        outstream.Close
+		        cli = cli + " -i "+clustalalign.NativePath
+		        #If TargetWindows
+		          ExecuteWSL(cli)
+		        #Else
+		          UserShell(cli)
+		        #endif
+		        output = shResult
+		      next
+		    end
+		    
 		  End If
 		End Sub
 	#tag EndMethod
