@@ -1377,6 +1377,57 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetHMMaccession(HMMname as string) As string
+		  Dim HMM_ACC,hmmPath As String
+		  Dim f As folderitem
+		  Dim m,n As Integer
+		  
+		  f=Resources_f.Child("TF_HMMs")
+		  If f<>Nil Then
+		    If f.exists Then
+		      
+		      m=f.Count
+		      For n=1 To m
+		        'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
+		        'msgbox dis
+		        
+		        If Right(f.Item(n).name,4)=".hmm" Then
+		          If f.Item(n).DisplayName=hmmname Then
+		            hmmPath = f.Item(n).ShellPath
+		            
+		            'get HMM accession code
+		            Dim s,aline As String
+		            Dim instream As textinputstream
+		            InStream = f.Item(n).OpenAsTextFile
+		            If InStream<>Nil Then
+		              While Not InStream.EOF
+		                aLine=InStream.readLine
+		                If Left(aLine,6)="ACC   " Then
+		                  HMM_ACC=Trim(Right(aline,Len(aline)-6))
+		                  InStream.close
+		                  Exit
+		                End If
+		              Wend
+		            End If
+		            Exit
+		          End If
+		          
+		        End If
+		      Next
+		      
+		      If hmmpath="" Then
+		        MsgBox "Can't find the HMM file"
+		      End If
+		      
+		    End If
+		  End If
+		  
+		  return HMM_ACC
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetLocus_tag(FeatureText as string) As string
 		  'extract locus_tag from feature text
 		  

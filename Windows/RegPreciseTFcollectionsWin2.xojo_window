@@ -2232,6 +2232,13 @@ End
 		                    outstream.WriteLine("TF_HMM "+Hmmfile.name)
 		                    'outstream.WriteLine(Endofline)
 		                    
+		                    'find HMM file path:
+		                    Dim hmmname As String = GenomesPopup.Text
+		                    hmmname=NthField(hmmname," ",1)
+		                    Dim HMM_ACC As String = GetHMMaccession(GetHmmFromFamilyName(hmmname).displayname)
+		                    outstream.WriteLine("// TF family HMM accession code")
+		                    outstream.WriteLine("HMM_ACC "+HMM_ACC)
+		                    
 		                    outstream.WriteLine("// CRtag coordinates")
 		                    outstream.WriteLine("CRtagCoords "+CRtag)     
 		                    'outstream.WriteLine(Endofline)
