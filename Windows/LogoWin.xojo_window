@@ -2482,13 +2482,20 @@ End
 		    if clustalalign.Exists Then
 		      clustalalign.Remove
 		    end
-		    Dim cli as String = ""
+		    ' to do: make run only for two block motifs
+		    ' imrove window for logo demonstration
+		    Dim cli as String
 		    Dim motifEntryFasta As String
-		    Dim output As String
-		    dim EntryM as BioProsMotifs
+		    Dim output(-1) As String
+		    Dim EntryM as BioProsMotifs
+		    Dim alignedSeq as Dictionary
+		    Dim m as Motif
+		    Dim s as Site
+		    Dim w as New ChipMLogo
+		    Dim count as integer = 1
 		    if Motifs.KeyCount <> 0 then
 		      for each Entry as DictionaryEntry in Motifs
-		        
+		        m = New Motif
 		        EntryM = Entry.Value
 		        for each Site as BioProsMotifSite in EntryM.MotifEntries
 		          motifEntryFasta = motifEntryFasta + Site.heading + EndOfLine.UNIX + Site.interBlockSeq + EndOfLine.UNIX
@@ -2496,15 +2503,42 @@ End
 		        outstream = TextOutputStream.Create(clustalalign)
 		        outstream.Write(ConvertEncoding(motifEntryFasta, Encodings.UTF8))
 		        outstream.Close
-		        cli = cli + " -i "+clustalalign.NativePath
+		        cli = ClustalPath + " -i "+clustalalign.NativePath
 		        #If TargetWindows
 		          ExecuteWSL(cli)
 		        #Else
 		          UserShell(cli)
 		        #endif
-		        output = shResult
+		        if shError <> 0 then
+		        else
+		          output = shResult.split(EndOfLine.UNIX)
+		          alignedSeq = new Dictionary
+		          for  i as integer = 0 to UBound(output)
+		            if output(i).BeginsWith(">") then
+		              alignedSeq.value(ReplaceAll(output(i), " ", "_")) = output(i+1)
+		            end
+		          next
+		          redim output(-1)
+		          
+		          for each Site as BioProsMotifSite in EntryM.MotifEntries
+		            s = New Site
+		            heading = ReplaceAll(Site.heading, " ", "_")
+		            Site.seqComplete = Site.firstBlockSeq + alignedSeq.value(heading) +  Site.SecondBlockSeq
+		            s.id = heading
+		            s.seq = Site.seqComplete
+		            m.Sites.Append(s)
+		            m.fasta = m.fasta + s.id + EndOfLine.UNIX + s.seq  + EndOfLine.UNIX
+		          next
+		        end
+		        m.number = count
+		        count = count + 1
+		        w.Motifs.Append(m)
 		      next
 		    end
+		    
+		    w.populateListbox
+		    w.Title="Bioprospector Logo" 
+		    w.Visible=True
 		    
 		  End If
 		End Sub
