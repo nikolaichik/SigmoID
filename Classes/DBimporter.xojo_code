@@ -126,7 +126,7 @@ Protected Class DBimporter
 		  End if
 		  try
 		    // There is a bug
-		    sqlReqest = "INSERT INTO TFs([Name], [idTF_family], [idCRTag], [CRTag_coord], [ProteinID], [Sequence], [Description]) VALUES ('"+sl(1)+"', "+TFFamily.ToString()+", "+CRTagID.ToString()+", '"+inputMap.Value("CRTag_coord").StringValue+"', '"+inputMap.Value("ProteinID").StringValue+"', '"+inputMap.Value("Sequence").StringValue+"', '"+inputMap.Value("info").StringValue.Trim()+"');"
+		    sqlReqest = "INSERT INTO TFs([Name], [idTF_family], [idCRTag], [CRTag_coord], [ProteinID], [Sequence], [Description]) VALUES ('"+dirName+"', "+TFFamily.ToString()+", "+CRTagID.ToString()+", '"+inputMap.Value("CRTag_coord").StringValue+"', '"+inputMap.Value("ProteinID").StringValue+"', '"+inputMap.Value("Sequence").StringValue+"', '"+inputMap.Value("info").StringValue.Trim()+"');"
 		    sqlReqest = sqlReqest + "SELECT MAX(idTF) FROM TFs;"
 		    var result as RowSet = query.SelectSQL(sqlReqest)
 		    TFID = result.ColumnAt(0).IntegerValue
@@ -179,8 +179,8 @@ Protected Class DBimporter
 		    Next
 		  End If
 		  
-		  writing settings
-		  nhmmer options 
+		  // writing settings
+		  // nhmmer options 
 		  
 		  If not CheckValue(inputMap, "TC") Then
 		    return false
@@ -283,7 +283,6 @@ Protected Class DBimporter
 		  End if
 		  
 		  //import curators
-		  
 		  If MotifID > 0 Then
 		    If not (CheckValue(inputMap, "name") and CheckValue(inputMap, "email") and CheckValue(inputMap, "type_cur")) Then
 		      return false

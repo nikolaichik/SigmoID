@@ -751,7 +751,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   321
+      Left            =   397
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -1199,11 +1199,11 @@ Begin Window ProfileWizardWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   22
+      Height          =   20
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   423
+      Left            =   499
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -1215,7 +1215,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   731
+      Top             =   720
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -1307,6 +1307,343 @@ End
 		    End If
 		  End If
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function CollectInfo() As Dictionary
+		  Dim SigFile As FolderItem
+		  Dim dlg As New SaveAsDialog
+		  Dim f, CDSFile as folderitem
+		  Dim hmmSearchRes, hmmFile2find, hmmPath, ProtName as string
+		  dim m,n as integer
+		  Dim SigFileVV As VirtualVolume
+		  
+		  
+		  If Keyboard.AsyncOptionKey Then Return Nil 'allow adding rows to listboxes
+		  
+		  LogoWin.show
+		  
+		  'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
+		  dim Pseq as string
+		  Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
+		  Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
+		  
+		  
+		  
+		  'find HMM file path:
+		  hmmFile2find=TFhmmPopup.Text
+		  
+		  f=Resources_f.Child("TF_HMMs")
+		  Dim HMM_ACC As String
+		  if f<>Nil then
+		    if f.exists then
+		      
+		      m=f.Count
+		      for n=1 to m
+		        'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
+		        'msgbox dis
+		        
+		        if right(f.Item(n).name,4)=".hmm" then
+		          if f.Item(n).DisplayName=hmmFile2find then
+		            hmmPath = f.Item(n).ShellPath
+		            
+		            'get HMM accession code
+		            Dim s,aline As String
+		            Dim instream As textinputstream
+		            InStream = f.Item(n).OpenAsTextFile
+		            If InStream<>Nil Then
+		              While Not InStream.EOF
+		                aLine=InStream.readLine
+		                If Left(aLine,6)="ACC   " Then
+		                  HMM_ACC=Trim(Right(aline,Len(aline)-6))
+		                  InStream.close
+		                  Exit
+		                End If
+		              Wend
+		            End If
+		            exit
+		          end if
+		          
+		        end if
+		      next
+		      
+		      if hmmpath="" then
+		        msgbox "Can't find the HMM file"
+		      end if
+		      
+		    end if
+		  end if
+		  
+		  
+		  
+		  'cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
+		  dim stock as FolderItem = TemporaryFolder.child("stock")
+		  if stock <> nil then
+		    dim AlignmentFile,rcAlignmentFile as FolderItem
+		    'copy alignment to temp (for weblogo)
+		    
+		    AlignmentFile=TemporaryFolder.Child(LogoWin.LogoFile.DisplayName)
+		    
+		    'CopyFileTo fails if the target exists, hence this check:
+		    If AlignmentFile <> Nil then
+		      if AlignmentFile.exists then
+		        if AlignmentFile.ShellPath<>LogoWin.LogoFile.ShellPath then
+		          AlignmentFile.delete
+		          LogoWin.LogoFile.CopyFileTo(TemporaryFolder)
+		        else
+		          'the file is already there
+		        end if
+		      else
+		        LogoWin.LogoFile.CopyFileTo(TemporaryFolder)
+		      End If
+		    End If
+		    
+		    
+		    'check if the site is marked as palindromic
+		    if palindromicBox.value then 'reverse complement every site
+		      
+		      if AlignmentFile<>Nil AND AlignmentFile.Exists then
+		        'check if the alignment is already RC'd
+		        dim firstLine,thirdLine as string
+		        dim tis as TextInputStream
+		        tis=AlignmentFile.OpenAsTextFile
+		        if tis<>nil then
+		          firstLine=tis.readLine
+		          thirdLine=tis.readLine
+		          thirdLine=tis.readLine
+		          tis.Close
+		        End If
+		        
+		        if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
+		          'looks like the seqs are palindromised already
+		        else
+		          rcAlignmentFile=TemporaryFolder.child("rcAliFile")
+		          RevCompAlignment(AlignmentFile,rcAlignmentFile,true)
+		          AlignmentFile.Delete
+		          AlignmentFile=rcAlignmentFile
+		          AlignmentFile.name=LogoWin.LogoFile.DisplayName
+		        End If
+		      end if
+		      
+		    end if
+		    
+		    
+		    if AlignmentFile<>Nil AND AlignmentFile.Exists then
+		      
+		      
+		      'SigFileVV = SigFile.CreateVirtualVolume
+		      'If SigFileVV <> nil Then
+		      If True Then
+		        'first copy the existing files:
+		        'AlignmentFile.CopyFileTo(SigFileVV.Root)    'broken in Linux
+		        'CopyFileToVV(AlignmentFile,SigFileVV)                          'alignment
+		        'get the base of profile name
+		        dim baseName as string
+		        'basename= NthField(SigFile.DisplayName,".sig",1)
+		        var temp() as string = LogoWin.Title.Split("SigmoID: ")
+		        basename = temp(1)
+		        
+		        'alignment file can have any name, so checking it here:
+		        
+		        var CRTagID as integer
+		        var error as string
+		        var query as new MSSQLServerDatabase()
+		        var outputMap as new Dictionary()
+		        outputMap.Value("dirName") = baseName
+		        outputMap.Value("sl") = baseName.Split("_")
+		        
+		        
+		        'get seed protein name and sequence
+		        dim proteinID, proteinSeq as string
+		        dim lineBreakC as integer
+		        proteinSeq=trim(Pseq)
+		        #if TargetWindows
+		          
+		          lineBreakC=instr(proteinSeq,chr(13))
+		          if lineBreakC=0 then
+		            msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
+		            return Nil
+		          End If
+		          proteinID=NthField(proteinSeq,chr(13),1)
+		        #else
+		          lineBreakC=instr(proteinSeq,EndOfLine.Unix)
+		          if lineBreakC=0 then
+		            msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
+		            return Nil
+		          End If
+		          proteinID=NthField(proteinSeq,EndOfLine.Unix,1)
+		        #endif
+		        proteinID=right(proteinID,len(proteinID)-1) 'remove the > sign
+		        proteinSeq=CleanUp(right(proteinSeq,len(proteinSeq)-lineBreakC))
+		        
+		        outputMap.Value("HMM_ACC") = HMM_ACC
+		        outputMap.Value("CRTag_coord") = trim(CRtagField.text)
+		        outputMap.Value("ProteinID") = proteinID
+		        outputMap.Value("Sequence") = proteinSeq
+		        outputMap.Value("info") = InfoArea.text.trim()
+		        
+		        
+		        
+		        'Save MEME data
+		        var pwm as string = ""
+		        dim file2copy as folderitem
+		        If MEMEconvert(LogoWin.Logofile,PalindromicBox.value)=0 then
+		          file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
+		          if file2copy<>Nil AND file2copy.exists then
+		            pwm = TextInputStream.Open(file2copy).ReadAll()
+		            If file2copy.LastErrorCode <> 0 Then
+		              msgbox "MEME result file copy error"
+		            Else
+		              outputMap.Value("pwm") = pwm
+		            End If
+		          end if
+		        end if
+		        
+		        'build hmm:
+		        'need a real file for hmmbuild output:
+		        var hmm as string = ""
+		        var f2 as FolderItem = TemporaryFolder.child(basename+".hmm")      'place to save
+		        if f2<>nil then
+		          FixPath4Windows(f2)
+		          if hmmbuild(stock.ShellPath,f2.ShellPath) then
+		            if f2.exists then
+		              if f2<>Nil then
+		                hmm = TextInputStream.Open(f2).ReadAll()
+		                outputMap.Value("hmm") = hmm
+		              else
+		                'beep
+		              end if
+		            else
+		              'beep
+		            end if
+		          else
+		            'error message handled by hmmbuild most of the time
+		            logowin.WriteToSTDOUT(EndOfLine+"hmmbuild error")
+		            return Nil
+		          end if
+		        else
+		          msgbox "Creating hmm failed"
+		          return Nil
+		        end if
+		        
+		        
+		        //writing operators
+		        
+		        If AlignmentFile<>Nil Then
+		          var in_ as TextInputStream
+		          in_ = in_.Open(AlignmentFile)
+		          var id() as string
+		          var oper() as string
+		          While not in_.EndOfFile()
+		            var id_temp as string = in_.ReadLine()
+		            id_temp = id_temp.right(id_temp.Length() - 1)
+		            id_temp = id_temp.ReplaceAll("'s", " is")
+		            id_temp = id_temp.ReplaceAll("'", " ")
+		            var oper_temp as string = in_.ReadLine()
+		            If id_temp.Length > 0 and oper_temp.Length > 0 Then
+		              id.AddRow(id_temp)
+		              oper.AddRow(oper_temp)
+		            End If
+		          Wend
+		          in_.Close()
+		          outputMap.Value("id") = id
+		          outputMap.Value("operator") = oper
+		        End If
+		        
+		        outputMap.Value("TC") = trim(TrustedField.text)
+		        outputMap.Value("GA") = trim(GatheringField.text)
+		        outputMap.Value("NC") = trim(NoiseField.text)
+		        outputMap.Value("cut_ga") = "True"
+		        if PalindromicBox.value then
+		          outputMap.Value("HmmGenP") = "True"
+		        else
+		          outputMap.Value("HmmGenP") = "False"
+		        end if
+		        if WithinORFBox.value then
+		          outputMap.Value("HmmGenI") = "True"
+		        else
+		          outputMap.Value("HmmGenI") = "False"
+		        end if
+		        outputMap.Value("HmmGenF") = FeatureCombo.Text
+		        outputMap.Value("HmmGenQ") = KeyField.Text+"#"+ValueField.Text
+		        if MASTField.Text.Length > 0 then
+		          outputMap.Value("mastGenV") = "True"
+		        else
+		          outputMap.Value("mastGenV") = "False"
+		        end if
+		        
+		        
+		        // Reference
+		        
+		        var reference() as string
+		        var DOI() as string
+		        var evidenceTypes() as string
+		        var year() as string
+		        For i as integer = 0 To RefsList.RowCount-1
+		          var reference_temp as string = CuratorList.CellValueAt(i,0)
+		          var DOI_temp as string = CuratorList.CellValueAt(i,1)
+		          var evidenceTypes_temp as string = CuratorList.CellValueAt(i,2)
+		          
+		          //extract year
+		          var year_temp as string
+		          var pYstart as integer = reference.IndexOf(" (")
+		          var pYend as integer = reference.IndexOf(").")
+		          If pYstart > 0 and pYend > 0 and pYend - pYstart > 2 Then
+		            year_temp = reference_temp.Middle(pYstart + 2, pYend - pYstart - 2)
+		          End if
+		          
+		          reference.AddRow(reference_temp)
+		          DOI.AddRow(DOI_temp)
+		          evidenceTypes.AddRow(evidenceTypes_temp)
+		          year.AddRow(year_temp)
+		        Next
+		        outputMap.Value("reference") = reference
+		        outputMap.Value("DOI") = DOI
+		        outputMap.Value("type_ref") = evidenceTypes
+		        outputMap.Value("year") = year
+		        
+		        
+		        // Curators
+		        
+		        var name() as string
+		        var email() as string
+		        var type() as string
+		        For i as integer = 0 To CuratorList.RowCount-1
+		          var name_temp as string = CuratorList.CellValueAt(i,0)
+		          var email_temp as string = CuratorList.CellValueAt(i,1)
+		          var type_temp as string = CuratorList.CellValueAt(i,2)
+		          
+		          If name_temp.Length > 0 Then
+		            name.AddRow(name_temp)
+		            email.AddRow(email_temp)
+		            type.AddRow(type_temp)
+		          End if
+		        Next
+		        outputMap.Value("name") = name
+		        outputMap.Value("email") = email
+		        outputMap.Value("type_cur") = type
+		        
+		        return outputMap
+		        
+		        
+		      else
+		        Msgbox "Can't create .sig file here. Please try another location."
+		      end if
+		    else
+		      msgbox "No alignment file found in the chosen folder. Can't proceed without it"
+		      return Nil
+		    end if
+		  else
+		    msgbox "Can't create temporary file"
+		    return Nil
+		  end if
+		  
+		  
+		  
+		  hide
+		  Exception err
+		    ExceptionHandler(err,"ProfileWisardWin:SaveButton:Action")
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
@@ -2424,526 +2761,16 @@ End
 #tag Events SaveToDatabaseButton
 	#tag Event
 		Sub Action()
-		  'Dim SigFile As FolderItem
-		  'Dim dlg As New SaveAsDialog
-		  'Dim f, CDSFile as folderitem
-		  'Dim hmmSearchRes, hmmFile2find, hmmPath, ProtName as string
-		  'dim m,n as integer
-		  'Dim SigFileVV As VirtualVolume
-		  '
-		  '
-		  'If Keyboard.AsyncOptionKey Then Return 'allow adding rows to listboxes
-		  '
-		  'LogoWin.show
-		  '
-		  ''hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
-		  'dim Pseq as string
-		  'Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
-		  'Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
-		  '
-		  '
-		  '// Get CRtag sequence
-		  '' write CDS seq to the tmp file
-		  'dim outStream as TextOutputStream
-		  'CDSFile=TemporaryFolder.child("CDSfile.fa")
-		  'if CDSFile<>Nil then
-		  'OutStream = TextOutputStream.Create(CDSFile)
-		  'if outStream<>Nil then
-		  'outstream.Write(Pseq)
-		  'outstream.close
-		  'end if
-		  'end if
-		  '
-		  ''find HMM file path:
-		  'hmmFile2find=TFhmmPopup.Text
-		  '
-		  'f=Resources_f.Child("TF_HMMs")
-		  'Dim HMM_ACC As String
-		  'if f<>Nil then
-		  'if f.exists then
-		  '
-		  'm=f.Count
-		  'for n=1 to m
-		  ''dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
-		  ''msgbox dis
-		  '
-		  'if right(f.Item(n).name,4)=".hmm" then
-		  'if f.Item(n).DisplayName=hmmFile2find then
-		  'hmmPath = f.Item(n).ShellPath
-		  '
-		  ''get HMM accession code
-		  'Dim s,aline As String
-		  'Dim instream As textinputstream
-		  'InStream = f.Item(n).OpenAsTextFile
-		  'If InStream<>Nil Then
-		  'While Not InStream.EOF
-		  'aLine=InStream.readLine
-		  'If Left(aLine,6)="ACC   " Then
-		  'HMM_ACC=Trim(Right(aline,Len(aline)-6))
-		  'InStream.close
-		  'Exit
-		  'End If
-		  'Wend
-		  'End If
-		  'exit
-		  'end if
-		  '
-		  'end if
-		  'next
-		  '
-		  'if hmmpath="" then
-		  'msgbox "Can't find the HMM file"
-		  'end if
-		  '
-		  'end if
-		  'end if
-		  '
-		  '
-		  '
-		  '''extract CRtag:
-		  ''hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
-		  ''CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
-		  ''CRtagSeqField.text=CRtag
-		  '
-		  '// Guess protein name 
-		  '''assume the name goes first in the fasta title line
-		  ''ProtName=NthField(Pseq, ">",2)
-		  '''ProtName=NthField(ProtName, " ", 1)   'should be separated by space...
-		  ''ProtName=NthField(ProtName, EndOfLine, 1)   '... or EndOfLine
-		  'ProtName=ValueField.text
-		  '
-		  'dlg.ActionButtonCaption = "Save"
-		  'dlg.Title = "Save .sig File"
-		  'dlg.PromptText = "Save calibrated profile with postprocessing settings"
-		  'dlg.SuggestedFileName=CRtagSeqField.text+"_"+ProtName+".sig"
-		  'dlg.filter = "Sig_file"
-		  ''dlg.InitialDirectory = Profile_f
-		  'dlg.CancelButtonCaption=kCancel
-		  'dlg.ActionButtonCaption=kSave
-		  '
-		  '
-		  'SigFile=dlg.ShowModal
-		  'If SigFile <> Nil Then
-		  'if SigFile.exists then
-		  ''a virtualVolume problem
-		  '#if TargetLinux
-		  ''SpecialFolder.Trash returns NIL in Linux, hence we can't do this properly here
-		  'msgbox "Can't overwrithe the existing .sig file. Please remove it or save the new file with a different name"
-		  'return
-		  '#else
-		  'dim fn as string = sigfile.ShellPath
-		  'SigFile.MoveFileTo(SpecialFolder.Trash) 'can't just delete because of the VirtualVolume inside
-		  'SigFile=GetFolderItem(fn,FolderItem.PathTypeShell)
-		  '#endif
-		  'end if
-		  '
-		  '
-		  '
-		  '
-		  ''read profile calibration values
-		  'dim cutoffs as string
-		  'if TrustedField.text<>"" then
-		  'cutoffs="#=GF TC "+trim(TrustedField.text)+" "+trim(TrustedField.text)+Endofline
-		  'else
-		  ''cutoffs="#=GF TC "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
-		  'end if
-		  'cutoffs=cutoffs+"#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
-		  'if NoiseField.text<>"" then
-		  'cutoffs=cutoffs+"#=GF NC "+trim(NoiseField.text)+" "+trim(NoiseField.text)+Endofline
-		  'else
-		  ''cutoffs=cutoffs+"#=GF GA "+trim(GatheringField.text)+" "+trim(GatheringField.text)+Endofline
-		  'end if
-		  '
-		  '
-		  ''cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
-		  'dim stock as FolderItem = TemporaryFolder.child("stock")
-		  'if stock <> nil then
-		  'dim AlignmentFile,rcAlignmentFile as FolderItem
-		  ''copy alignment to temp (for weblogo)
-		  '
-		  'AlignmentFile=TemporaryFolder.Child(LogoWin.LogoFile.DisplayName)
-		  '
-		  ''CopyFileTo fails if the target exists, hence this check:
-		  'If AlignmentFile <> Nil then
-		  'if AlignmentFile.exists then
-		  'if AlignmentFile.ShellPath<>LogoWin.LogoFile.ShellPath then
-		  'AlignmentFile.delete
-		  'LogoWin.LogoFile.CopyFileTo(TemporaryFolder)
-		  'else
-		  ''the file is already there
-		  'end if
-		  'else
-		  'LogoWin.LogoFile.CopyFileTo(TemporaryFolder)
-		  'End If
-		  'End If
-		  '
-		  '
-		  ''check if the site is marked as palindromic
-		  'if palindromicBox.value then 'reverse complement every site
-		  '
-		  'if AlignmentFile<>Nil AND AlignmentFile.Exists then
-		  ''check if the alignment is already RC'd
-		  'dim firstLine,thirdLine as string
-		  'dim tis as TextInputStream
-		  'tis=AlignmentFile.OpenAsTextFile
-		  'if tis<>nil then
-		  'firstLine=tis.readLine
-		  'thirdLine=tis.readLine
-		  'thirdLine=tis.readLine
-		  'tis.Close
-		  'End If
-		  '
-		  'if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
-		  ''looks like the seqs are palindromised already
-		  'else
-		  'rcAlignmentFile=TemporaryFolder.child("rcAliFile")
-		  'RevCompAlignment(AlignmentFile,rcAlignmentFile,true)
-		  'AlignmentFile.Delete
-		  'AlignmentFile=rcAlignmentFile
-		  'AlignmentFile.name=LogoWin.LogoFile.DisplayName
-		  'End If
-		  'end if
-		  '
-		  'end if
-		  '
-		  '
-		  'if AlignmentFile<>Nil AND AlignmentFile.Exists then
-		  '
-		  '
-		  'SigFileVV = SigFile.CreateVirtualVolume
-		  'If SigFileVV <> nil Then
-		  ''first copy the existing files:
-		  ''AlignmentFile.CopyFileTo(SigFileVV.Root)    'broken in Linux
-		  'CopyFileToVV(AlignmentFile,SigFileVV)                          'alignment
-		  ''get the base of profile name
-		  'dim baseName as string
-		  'basename= NthField(SigFile.DisplayName,".sig",1)
-		  '
-		  ''alignment file can have any name, so checking it here:
-		  'dim file2copy as folderitem
-		  'if AlignmentFile.Name<>basename+".fasta" then
-		  'dim wrongFile as folderitem=SigFileVV.Root.child(AlignmentFile.Name)
-		  'if wrongFile<>nil and wrongFile.exists then
-		  'wrongFile.name=basename+".fasta"
-		  'else
-		  'logowin.WriteToSTDOUT(EndOfLine+"Error writing .sig file")
-		  'return
-		  'End If
-		  'End If
-		  '
-		  'dim f2 as folderitem =SigFileVV.Root.child(basename+".options")
-		  'if f2<>nil then
-		  ''dim outstream As TextOutputStream
-		  'var CRTagID as integer
-		  'var pars as new Parser()
-		  'var error as string
-		  'var query as new MSSQLServerDatabase()
-		  'If not pars.OpenDatabase(query) Then
-		  'return
-		  'End If
-		  'var sqlReqest as string
-		  'try
-		  'sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; EXECUTE pr_addCRTag @ResultForPos OUTPUT, '"+ProtName+"'; SELECT @ResultForPos;"
-		  'var result as RowSet = query.SelectSQL(sqlReqest)
-		  'CRTagID = result.ColumnAt(0).IntegerValue
-		  'catch err As DatabaseException
-		  'error = err.Message
-		  'End try
-		  '
-		  'var TFFamily as integer = 0
-		  'TFFamily = pars.getIDFromDBPartialMatch("SELECT idTF_family FROM TF_families WHERE Accession", HMM_ACC)
-		  'If TFFamily = 0 Then
-		  'error = "TF family '"+HMM_ACC+"' was not found"
-		  'return
-		  'End If
-		  '
-		  '
-		  '
-		  ''get seed protein name and sequence
-		  'dim proteinID, proteinSeq as string
-		  'dim lineBreakC as integer
-		  'proteinSeq=trim(Pseq)
-		  '#if TargetWindows
-		  '
-		  'lineBreakC=instr(proteinSeq,chr(13))
-		  'if lineBreakC=0 then
-		  'msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
-		  'return
-		  'End If
-		  'proteinID=NthField(proteinSeq,chr(13),1)
-		  '#else
-		  'lineBreakC=instr(proteinSeq,EndOfLine.Unix)
-		  'if lineBreakC=0 then
-		  'msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
-		  'return
-		  'End If
-		  'proteinID=NthField(proteinSeq,EndOfLine.Unix,1)
-		  '#endif
-		  'proteinID=right(proteinID,len(proteinID)-1) 'remove the > sign
-		  'proteinSeq=CleanUp(right(proteinSeq,len(proteinSeq)-lineBreakC))
-		  '
-		  'var TFID as integer = 0
-		  'try
-		  'sqlReqest = "INSERT INTO TFs([Name], [idTF_family], [idCRTag], [CRTag_coord], [ProteinID], [Sequence], [Description]) VALUES ('"+ProtName+"', "+TFFamily.ToString()+", "+CRTagID.ToString()+", '"+trim(CRtagField.text)+"', '"+proteinID+"', '"+proteinSeq+"', '"+InfoArea.text.trim()+"');"
-		  'sqlReqest = sqlReqest + "SELECT MAX(idTF) FROM TFs;"
-		  'var result as RowSet = query.SelectSQL(sqlReqest)
-		  'TFID = result.ColumnAt(0).IntegerValue
-		  'catch err As DatabaseException
-		  'error = "The error was occured while insertion of TF. Error: "+err.Message
-		  'query.Close()
-		  'return
-		  'End try
-		  '
-		  ''Save MEME data
-		  'var pwm as string = ""
-		  'If MEMEconvert(LogoWin.Logofile,PalindromicBox.value)=0 then
-		  'file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
-		  'if file2copy<>Nil AND file2copy.exists then
-		  'pwm = TextInputStream.Open(file2copy).ReadAll()
-		  'If file2copy.LastErrorCode <> 0 Then
-		  'msgbox "MEME result file copy error"
-		  'End If
-		  'end if
-		  'end if
-		  '
-		  ''build hmm:
-		  ''need a real file for hmmbuild output:
-		  'var hmm as string = ""
-		  'f2 = TemporaryFolder.child(basename+".hmm")      'place to save
-		  'if f2<>nil then
-		  'FixPath4Windows(f2)
-		  'if hmmbuild(stock.ShellPath,f2.ShellPath) then
-		  'if f2.exists then
-		  'if f2<>Nil then
-		  'hmm = TextInputStream.Open(f2).ReadAll()
-		  'else
-		  ''beep
-		  'end if
-		  'else
-		  ''beep
-		  'end if
-		  'else
-		  ''error message handled by hmmbuild most of the time
-		  'logowin.WriteToSTDOUT(EndOfLine+"hmmbuild error")
-		  'return
-		  'end if
-		  'else
-		  'msgbox "Creating hmm failed"
-		  'return
-		  'end if
-		  '
-		  '
-		  '//writing Motiff
-		  'var MotifID as integer = 0
-		  'If TFID > 0 and hmm.Length > 0 Then
-		  'try
-		  'sqlReqest = "INSERT INTO Motifs([idTF], [HMM], [PWM]) VALUES ("+TFID.ToString()+", '"+hmm+"', '"+pwm+"');"
-		  'sqlReqest = sqlReqest + "SELECT MAX(idMotif) FROM Motifs;"
-		  'var result as RowSet = query.SelectSQL(sqlReqest)
-		  'MotifID = result.ColumnAt(0).IntegerValue
-		  'catch err As DatabaseException
-		  'error = "The error was occured while insertion of Motif. Error: "+err.Message
-		  'query.Close()
-		  'return
-		  'End try
-		  'End If
-		  '
-		  '//writing operators
-		  'If MotifID > 0 Then
-		  'If AlignmentFile<>Nil Then
-		  'var in_ as TextInputStream
-		  'in_ = in_.Open(AlignmentFile)
-		  'While not in_.EndOfFile()
-		  'var id as string = in_.ReadLine()
-		  'id = id.right(id.Length() - 1)
-		  'id = id.ReplaceAll("'s", " is")
-		  'id = id.ReplaceAll("'", " ")
-		  'var oper as string = in_.ReadLine()
-		  'If id.Length > 0 and oper.Length > 0 Then
-		  'var res as integer
-		  'try
-		  'sqlReqest = "INSERT INTO Operators([idMotif], [id], [operator]) VALUES ("+MotifID.ToString()+", '"+id+"', '"+oper+"')"
-		  'query.ExecuteSQL(sqlReqest)
-		  'catch err As DatabaseException
-		  'error = "The error was occured while insertion of Operator. Error: "+err.Message
-		  'break
-		  'End try
-		  'End IF
-		  'Wend
-		  'in_.Close()
-		  'End If
-		  'If error.Length > 0 Then
-		  'error = "The error was occured while insertion of Operator. Error: "+error
-		  'query.Close()
-		  'return
-		  'End If
-		  'End If
-		  '
-		  '
-		  'If not pars.insertSettings("GF TC", trim(TrustedField.text), "nhmmer", MotifID) Then
-		  'return
-		  'End If
-		  '
-		  'If not pars.insertSettings("GF GA", trim(GatheringField.text), "nhmmer", MotifID) Then
-		  'return
-		  'End If
-		  '
-		  'If not pars.insertSettings("GF NC", trim(NoiseField.text), "nhmmer", MotifID) Then
-		  'return
-		  'End If
-		  '
-		  'If not pars.insertSettings("cut_ga", "True", "nhmmer", MotifID) Then
-		  'return
-		  'End If
-		  '
-		  '//    HmmGen options
-		  'var toInsert as string
-		  'if PalindromicBox.value then
-		  'toInsert = "True"
-		  'else
-		  'toInsert = "False"
-		  'end if
-		  'If not pars.insertSettings("HmmGen.-p", toInsert, "HmmGen", MotifID) Then
-		  'return
-		  'End If
-		  '
-		  'if WithinORFBox.value then
-		  'toInsert = "True"
-		  'else
-		  'toInsert = "False"
-		  'end if
-		  'If not pars.insertSettings("HmmGen.-i", toInsert, "HmmGen", MotifID) Then
-		  'return
-		  'End If
-		  '
-		  'If not pars.insertSettings("HmmGen.-f", FeatureCombo.Text, "HmmGen", MotifID) Then
-		  'return
-		  'End If
-		  '
-		  'If not pars.insertSettings("HmmGen.-q", KeyField.Text+"#"+ValueField.Text, "HmmGen", MotifID) Then
-		  'return
-		  'End If
-		  '
-		  'if MASTField.Text.Length > 0 then
-		  'toInsert = "True"
-		  'else
-		  'toInsert = "False"
-		  'end if
-		  'If not pars.insertSettings("mastGen.-V", toInsert, "HmmGen", MotifID) Then
-		  'return
-		  'End If
-		  '
-		  ''Write Curators:
-		  '
-		  'var CuratorIDs() as integer
-		  'Dim z As Integer
-		  'For z=1 To CuratorList.RowCount-1
-		  'Dim aLine As String=CuratorList.CellValueAt(z,0)+Chr(9)+CuratorList.CellValueAt(z,1)+Chr(9)+CuratorList.CellValueAt(z,2)
-		  'If Trim(aLine)<>"" Then
-		  'try
-		  'sqlReqest = "INSERT INTO Curators([Name], [Email]) VALUES ('"+CuratorList.CellValueAt(z,0).trim()+"', '"+CuratorList.CellValueAt(z,1).trim()+"');"
-		  'sqlReqest = sqlReqest + "SELECT MAX(idCurator) FROM Curators;"
-		  'var result as RowSet = query.SelectSQL(sqlReqest)
-		  'CuratorIDs.AddRow(result.ColumnAt(0).IntegerValue)
-		  'catch err As DatabaseException
-		  'error = "The error was occured while insertion of Curators. Error: "+err.Message
-		  'query.Close()
-		  'return
-		  'End try
-		  'End If
-		  'Next
-		  '
-		  ''Write MotifCurators:
-		  'var MotifCuratorIDs() as integer
-		  'If CuratorIDs.Count > 0 and MotifID > 0 Then
-		  'For z=0 To CuratorIDs.Count-1
-		  'try
-		  'sqlReqest = "INSERT INTO Motif_curators([idCurator], [idMotif]) VALUES ("+CuratorIDs(z).ToString+", "+MotifID.ToString+");"
-		  'sqlReqest = sqlReqest + "SELECT MAX(idMotif_curator) FROM Motif_curators;"
-		  'var result as RowSet = query.SelectSQL(sqlReqest)
-		  'MotifCuratorIDs.AddRow(result.ColumnAt(0).IntegerValue)
-		  'catch err As DatabaseException
-		  'error = "The error was occured while insertion of Curators. Error: "+err.Message
-		  'query.Close()
-		  'return
-		  'End try
-		  'Next
-		  'End If
-		  '
-		  ''Write Publications:
-		  'If MotifCuratorIDs.Count > 0 Then
-		  'For z=0 To MotifCuratorIDs.Count-1
-		  'try
-		  'sqlReqest = "INSERT INTO Publications([idMotif_curator]) VALUES ("+MotifCuratorIDs(z).ToString+");" ' Add fields 'Reference' and 'Publication_year'
-		  'query.ExecuteSQL(sqlReqest)
-		  'catch err As DatabaseException
-		  'error = "The error was occured while insertion of Publications. Error: "+err.Message
-		  'query.Close()
-		  'return
-		  'End try
-		  'Next
-		  'End If
-		  '
-		  'var EvidenceTypeIDs() as integer
-		  '
-		  ''Write Evidence_types:
-		  'For z=1 To RefsList.RowCount-1
-		  'try
-		  'sqlReqest = "INSERT INTO Evidence_types([Evidence_type]) VALUES ('"+RefsList.CellValueAt(z,1)+"');"
-		  'sqlReqest = sqlReqest + "SELECT MAX(idEvidence_type) FROM Evidence_types;"
-		  'var result as RowSet = query.SelectSQL(sqlReqest)
-		  'EvidenceTypeIDs.AddRow(result.ColumnAt(0).IntegerValue)
-		  'catch err As DatabaseException
-		  'error = "The error was occured while insertion of Evidence types. Error: "+err.Message
-		  'query.Close()
-		  'return
-		  'End try
-		  'Next
-		  '
-		  ''Write Motif_evidence:
-		  'If MotifCuratorIDs.Count > 0 and EvidenceTypeIDs.Count > 0 Then
-		  'For z=0 To MotifCuratorIDs.Count-1
-		  'try
-		  'sqlReqest = "INSERT INTO Motif_evidence([idMotif_curator], [idEvidence_type]) VALUES ("+MotifCuratorIDs(z).ToString+", "+EvidenceTypeIDs(z).ToString+");"
-		  'sqlReqest = sqlReqest + "SELECT MAX(idEvidence_type) FROM Motif_evidence;"
-		  'var result as RowSet = query.SelectSQL(sqlReqest)
-		  'EvidenceTypeIDs.AddRow(result.ColumnAt(0).IntegerValue)
-		  'catch err As DatabaseException
-		  'error = "The error was occured while insertion of Publications. Error: "+err.Message
-		  'query.Close()
-		  'return
-		  'End try
-		  'Next
-		  'End If
-		  '
-		  '
-		  '
-		  'query.Close()
-		  'else
-		  'Msgbox "Can't create .sig file here. Please try another location."
-		  '
-		  'end if
-		  'else
-		  'Msgbox "Can't create .sig file here. Please try another location."
-		  'end if
-		  'else
-		  'msgbox "No alignment file found in the chosen folder. Can't proceed without it"
-		  'return
-		  'end if
-		  'else
-		  'msgbox "Can't create temporary file"
-		  'return
-		  'end if
-		  '
-		  'else
-		  ''cancelled
-		  'end if
-		  '
-		  '
-		  '
-		  'hide
-		  'Exception err
-		  'ExceptionHandler(err,"ProfileWisardWin:SaveButton:Action")
+		  var map as Dictionary = CollectInfo()
+		  'map.Value("ProteinID") = "TEST"+map.Value("ProteinID") // This is for tests
+		  var importer as new DBimporter()
+		  var res as boolean = importer.import(map)
+		  If not res Then
+		    logowin.WriteToSTDOUT(importer.error + EndOfLine)
+		  End if
+		  For i as integer=0 to importer.warnings.Count-1
+		    logowin.WriteToSTDOUT(importer.warnings(i)+EndOfLine)
+		  Next
 		  
 		End Sub
 	#tag EndEvent
