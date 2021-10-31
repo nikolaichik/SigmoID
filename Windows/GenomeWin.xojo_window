@@ -53,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +162,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +242,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -358,7 +354,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -371,7 +366,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -474,7 +468,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -536,7 +529,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -1617,8 +1609,17 @@ End
 			dim protFamilyPath as string
 			protFamilyPath=replace(logoWin.hmmGenPath,"hmmGen.py","ProtFamily.py")
 			
+			
+			TFfamilyDesc=Trim(NthField(hmmSearchSettingsWin.PfamPopup.SelectedRowValue,"|",1))
+			TFfamilyDesc=TFfamilyDesc+" family transcription factor'"    'should handle sigma factors differently
 			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
-			cli=pythonPath+PlaceQuotesToPath(protFamilyPath)+" "+PlaceQuotesToPath(hmmsearchResultFile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFilePath)+" -f "+TFfamilyDesc
+			cli=pythonPath+PlaceQuotesToPath(protFamilyPath)+" "
+			hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")  'should not be required
+			If hmmsearchResultFile=Nil Then Return False        
+			cli=cli+PlaceQuotesToPath(hmmsearchResultFile.ShellPath)+" "
+			cli=cli+PlaceQuotesToPath(GenomeFilePath)+" "
+			cli=cli+PlaceQuotesToPath(outFilePath)
+			cli=cli+" -f '"+TFfamilyDesc
 			
 			userShell(cli)
 			If shError=0 Then
@@ -2334,7 +2335,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ExportProteins(Outfile as folderitem)
+		Sub ExportProteins(Outfile as folderitem, addGeneNames as boolean)
 		  Dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine As String
 		  
 		  dim n,u as integer
@@ -2347,7 +2348,7 @@ End
 		  separProtID="/protein_id="+chr(34)
 		  separGene="/gene="+chr(34)
 		  separProd="/product="+chr(34)
-		  separ2=chr(34)
+		  separ2=Chr(34)
 		  
 		  Dim s as TextOutputStream=TextOutputStream.Create(outfile)
 		  if s<> NIL then
@@ -2359,9 +2360,12 @@ End
 		        TitleLine=">"+NthField(TitleLine,separ2,1)
 		        prot=NthField(ft.FeatureText,separGene,2)                  'Gene
 		        prot=NthField(prot,separ2,1)
-		        If prot<>"" Then
-		          TitleLine=TitleLine+"_"+prot                             'ProteinID_Gene is more convenient for de novo TFBS pipeline
-		        end if
+		        If addGeneNames Then 
+		          If prot<>"" Then
+		            TitleLine=TitleLine+"_"+prot                             'ProteinID_Gene is more convenient for de novo TFBS pipeline
+		          End If
+		        End If
+		        
 		        'localTFIndex stores Protein_ID and index of corresponding Genome.Feature
 		        TFindex.Value(Nthfield(TitleLine,">",2))=n
 		        prot=NthField(ft.FeatureText,separProd,2)                  'Product
@@ -3718,7 +3722,7 @@ End
 		  CDSfasta=TemporaryFolder.child("CDS.fasta")
 		  
 		  if CDSfasta<>nil then
-		    ExportProteins(CDSfasta)
+		    ExportProteins(CDSfasta,false)
 		    cli=""
 		    
 		    
@@ -3738,7 +3742,7 @@ End
 		    dim HmmSearchPath as string = replace(nhmmerPath,"nhmmer","hmmsearch")
 		    
 		    cli=HmmSearchPath+" "+hmmSearchSettings
-		    if hmmSearchSettingsWin.AddAnnotationCheckBox.Value then
+		    If hmmSearchSettingsWin.AddAnnotationCheckBox.Value Then
 		      hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")
 		      
 		      if hmmsearchResultFile<>nil then
@@ -3801,7 +3805,7 @@ End
 		  CDSfasta=TemporaryFolder.child("CDS.fasta")
 		  
 		  if CDSfasta<>nil then
-		    ExportProteins(CDSfasta)
+		    ExportProteins(CDSfasta, false)
 		    cli=""
 		    
 		    
@@ -3821,11 +3825,11 @@ End
 		    
 		    'HMMsearchWithCRtagsCR (CDSfile as folderitem, HMMfilePath as string)
 		    
-		    logoWin.WriteToSTDOUT (EndofLine+HMMsearchWithCRtagsCR(CDSfasta,modelFile))
+		    logoWin.WriteToSTDOUT (EndofLine+HMMsearchWithCRtagsCR(CDSfasta,modelFile,hmmSearchSettingsWin.AddAnnotationCheckBox.value))
 		    
 		    
 		  end if
-		  
+		  return true
 		  
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:hmmsearchCR")
@@ -4820,7 +4824,7 @@ End
 		  DeselectShapes(Seq.map)
 		  
 		  'Select Sequence in the TextMap pane:
-		  HighlightColour=Seq.Features(selFeatureNo).linShape.Colour
+		  'HighlightColour=Seq.Features(selFeatureNo).linShape.Colour <-- changing highlight colour wasn't a good idea
 		  if Seq.Features(selFeatureNo).complement  then
 		    FeatureLeft=Seq.Features(selFeatureNo).start-Seq.Features(selFeatureNo).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(selFeatureNo).length-1
@@ -6837,6 +6841,13 @@ End
 		Function KeyDown(Key As String) As Boolean
 		  SkimHits
 		End Function
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  If gCodes(11)=Nil Then   'translation may be not ready if SigmoID is launched by opening a gbk file 
+		    GeneticCodesInit
+		  End If
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events BrowserTabs

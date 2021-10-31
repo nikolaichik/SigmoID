@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -3462,6 +3463,7 @@ End
 		  
 		  'GenomeFile=GetOpenFolderItem("")
 		  
+		  
 		  dim HitName as string
 		  if GenomeFile<> nil then
 		    dim cli as string
@@ -3503,8 +3505,8 @@ End
 		    
 		    
 		    
-		    if outfile<>nil then
-		      WriteToSTDOUT (EndofLine+EndofLine+"Running the HmmGen script..."+EndofLine)
+		    If outfile<>Nil Then
+		      WriteToSTDOUT (EndOfLine+EndOfLine+"Running the HmmGen script..."+EndOfLine)
 		      dim GenomeFilePath,outFilePath as string
 		      #if TargetWindows
 		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
@@ -3704,7 +3706,7 @@ End
 		  CDSfasta=TemporaryFolder.child("CDS.fasta")
 		  
 		  if CDSfasta<>nil then
-		    GenomeWin.ExportProteins(CDSfasta)
+		    GenomeWin.ExportProteins(CDSfasta,true)
 		    cli=""
 		    
 		    
@@ -4760,7 +4762,7 @@ End
 		      CDSfasta.Delete
 		    end if
 		    'LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Exporting CDS sequences...")
-		    GenomeWin.ExportProteins(CDSfasta)
+		    GenomeWin.ExportProteins(CDSfasta),true
 		    LogoWin.WriteToSTDOUT (" OK"+EndOfLine.UNIX)
 		    
 		    

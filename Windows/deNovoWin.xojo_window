@@ -301,6 +301,7 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -341,6 +342,7 @@ Begin Window deNovoWin
       Width           =   243
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
@@ -414,6 +416,7 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -1588,11 +1591,11 @@ End
 		      'Exctraction from local gbk file needs ExportProteins results, so produce dummy output file
 		      CDSfileTemp = TemporaryFolder.Child("CDStemp.fasta")
 		      if CDSfileTemp.Exists then CDSfileTemp.Remove
-		      GenomeWin.ExportProteins(CDSfileTemp)
+		      GenomeWin.ExportProteins(CDSfileTemp,true)
 		      '("An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused."+EndOfLine.UNIX)
 		    else
 		      'deNovoWin.rp.writeToWin("Exporting CDS sequences...")
-		      GenomeWin.ExportProteins(CDSfile)
+		      GenomeWin.ExportProteins(CDSfile,true)
 		      'deNovoWin.rp.writeToWin(" OK"+EndOfLine.UNIX)
 		    end if
 		  End If

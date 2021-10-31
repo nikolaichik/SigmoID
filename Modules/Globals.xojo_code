@@ -887,6 +887,55 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function FamilyNameFromHmmName(aName as string) As string
+		  // NEED TO STANDARTISE NAMES HERE AND IN GetHmmFromFamilyName
+		  
+		  If InStr(aname, "Arg_repressor")>0 Then
+		    aName="ArgR"
+		  Elseif InStr(aname, "HTH_20")>0 Then
+		    aName="ArsR"
+		  Elseif InStr(aname, "HTH_AsnC_type")>0 Then
+		    aName="AsnC"
+		  Elseif InStr(aname, "HTH_8")>0 Then
+		    aName="bEBP" 
+		  Elseif InStr(aname, "HTH_Crp_2")>0 Then
+		    aName="CRP"
+		  Elseif InStr(aname, "LexA")>0 Then
+		    aName="LexA"
+		  Elseif InStr(aname, "GerE")>0 Then
+		    aName="LuxR"
+		  Elseif InStr(aname, "HTH_DeoR")>0 Then
+		    aName="DeoR"
+		  Elseif InStr(aname, "FUR")>0 Then
+		    aName="Fur"
+		  Elseif InStr(aname, "GntR")>0 Then 'needed due to subfamily name extencions
+		    aName="GntR"
+		  Elseif InStr(aname, "MarR")>0 Then  '_superfamily must be dropped
+		    aName="MarR"
+		  Elseif InStr(aname, "MerR")>0 Then '_superfamily must be dropped
+		    aName="MerR"
+		  Elseif InStr(aname, "Trans_reg_C")>0 Then
+		    aName="OmpR"
+		  Elseif InStr(aname, "PhdYeFM")>0 Then
+		    aName="PhdYefM"
+		  Elseif InStr(aname, "HTH_6")>0 Then
+		    aName="RpiR"
+		  Elseif InStr(aname, "Trp_repressor")>0 Then
+		    aName="TrpR"
+		  Elseif InStr(aname, "XRE")>0 Then '_superfamily must be dropped
+		    aName="XRE"
+		    
+		  Else
+		    
+		    'return the name unchanged
+		    
+		  End If
+		  
+		  Return aName
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Fasta2IC(logoData as string) As Double
 		  // Calculate Information content from alignment data
 		  ' (simlified version of MakeLogoPic)
@@ -1801,7 +1850,7 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function HMMsearchWithCRtagsCR(CDSfile as folderitem, HMMfilePath as string) As string
+		Function HMMsearchWithCRtagsCR(CDSfile as folderitem, HMMfilePath as string, add2annotation as boolean) As string
 		  Dim HmmResultFile As folderitem
 		  dim hmmSearchRes, cli, table, aline as string
 		  dim instream, tis as TextInputStream
@@ -1837,7 +1886,23 @@ Protected Module Globals
 		    
 		    // Settings from the HmmSearchSettingsWin should be used here, but they are currently ignored!
 		    
-		    cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
+		    
+		    cli=HmmSearchPath+" --cut_ga --notextw"
+		    
+		    If add2annotation Then
+		      Dim hmmsearchResultFile as folderitem
+		      hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")
+		      
+		      If hmmsearchResultFile<>Nil Then
+		        cli=cli +" -o "+PlaceQuotesToPath(MakeWSLPath(hmmsearchResultFile.shellpath))
+		        'Else
+		        'RetValue=False
+		      End If
+		    Else
+		      
+		    End If
+		    
+		    cli=cli+" -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		    
 		    #if TargetWindows
 		      ExecuteWSL(cli)
@@ -4186,9 +4251,11 @@ Protected Module Globals
 		Function Translate3(Gene As string, code as integer) As string
 		  Dim  m,n,GeneLength,aa0,up  As Integer
 		  dim protein,codon,codons,aa1st as string
-		  dim gC as gCode
+		  Dim gC As gCode
 		  gc=gCodes(code)
-		  
+		  If gc=Nil Then
+		    GeneticCodesInit
+		  End If
 		  protein=""
 		  GeneLength=lenB(Gene)
 		  for n=1 to (GeneLength - 2) step 3
