@@ -1,7 +1,7 @@
 #tag Class
 Protected Class BioProsMotifs
 	#tag Property, Flags = &h0
-		MotifEntries() As BioProsMotifSite
+		Entries() As BioProsMotifSite
 	#tag EndProperty
 
 
@@ -47,7 +47,7 @@ Protected Class BioProsMotifs
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="MotifEntries()"
+			Name="Entries()"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

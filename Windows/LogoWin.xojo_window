@@ -2368,8 +2368,6 @@ End
 		  Dim FBlockWidth As new RegEx
 		  Dim RBlockWidth As new RegEx
 		  Dim FastaHeader As new RegEx
-		  'Dim secBlockWidth As String = ""
-		  'Dim firstBlockWidth As String = ""
 		  Dim firstBlockWidth As Integer
 		  Dim secBlockWidth As Integer 
 		  Dim firstBlockMatch As RegExMatch
@@ -2472,7 +2470,7 @@ End
 		            motifSite.interBlockSeq = mid(siteSeq, motifSite.firstBlockStart+firstBlockWidth, motifSite.secondBlockStart-(motifSite.firstBlockStart+firstBlockWidth))
 		          End
 		          redim values(-1)
-		          motifEntries.MotifEntries.append(motifSite)
+		          motifEntries.Entries.append(motifSite)
 		        end if
 		        FastaHeaderMatch = FastaHeader.Search
 		      loop until FastaHeaderMatch = nil
@@ -2491,45 +2489,58 @@ End
 		    Dim alignedSeq as Dictionary
 		    Dim m as Motif
 		    Dim s as Site
-		    Dim w as New ChipMLogo
+		    Dim w as ChipMLogo
+		    me.bioprospectLogo =True
+		    w = New ChipMLogo
 		    Dim count as integer = 1
 		    if Motifs.KeyCount <> 0 then
 		      for each Entry as DictionaryEntry in Motifs
 		        m = New Motif
 		        EntryM = Entry.Value
-		        for each Site as BioProsMotifSite in EntryM.MotifEntries
-		          motifEntryFasta = motifEntryFasta + Site.heading + EndOfLine.UNIX + Site.interBlockSeq + EndOfLine.UNIX
-		        next
-		        outstream = TextOutputStream.Create(clustalalign)
-		        outstream.Write(ConvertEncoding(motifEntryFasta, Encodings.UTF8))
-		        outstream.Close
-		        cli = ClustalPath + " -i "+clustalalign.NativePath
-		        #If TargetWindows
-		          ExecuteWSL(cli)
-		        #Else
-		          UserShell(cli)
-		        #endif
-		        if shError <> 0 then
-		        else
-		          output = shResult.split(EndOfLine.UNIX)
-		          alignedSeq = new Dictionary
-		          for  i as integer = 0 to UBound(output)
-		            if output(i).BeginsWith(">") then
-		              alignedSeq.value(ReplaceAll(output(i), " ", "_")) = output(i+1)
-		            end
+		        if twoBlockMotif then
+		          for each Site as BioProsMotifSite in EntryM.Entries
+		            motifEntryFasta = motifEntryFasta + Site.heading + EndOfLine.UNIX + Site.interBlockSeq + EndOfLine.UNIX
 		          next
-		          redim output(-1)
-		          
-		          for each Site as BioProsMotifSite in EntryM.MotifEntries
+		          outstream = TextOutputStream.Create(clustalalign)
+		          outstream.Write(ConvertEncoding(motifEntryFasta, Encodings.UTF8))
+		          outstream.Close
+		          cli = ClustalPath + " -i "+clustalalign.NativePath
+		          #If TargetWindows
+		            ExecuteWSL(cli)
+		          #Else
+		            UserShell(cli)
+		          #endif
+		          if shError <> 0 then
+		          else
+		            output = shResult.split(EndOfLine.UNIX)
+		            alignedSeq = new Dictionary
+		            for  i as integer = 0 to UBound(output)
+		              if output(i).BeginsWith(">") then
+		                alignedSeq.value(ReplaceAll(output(i), " ", "_")) = output(i+1)
+		              end
+		            next
+		            redim output(-1)
+		            for each Site as BioProsMotifSite in EntryM.Entries
+		              s = New Site
+		              heading = ReplaceAll(Site.heading, " ", "_")
+		              Site.seqComplete = Site.firstBlockSeq + alignedSeq.value(heading) +  Site.SecondBlockSeq
+		              s.id = heading
+		              s.seq = Site.seqComplete
+		              m.Sites.Append(s)
+		              m.fasta = m.fasta + s.id + EndOfLine.UNIX + s.seq  + EndOfLine.UNIX
+		            next
+		          end
+		        else
+		          for each Site as BioProsMotifSite in EntryM.Entries
 		            s = New Site
 		            heading = ReplaceAll(Site.heading, " ", "_")
-		            Site.seqComplete = Site.firstBlockSeq + alignedSeq.value(heading) +  Site.SecondBlockSeq
 		            s.id = heading
-		            s.seq = Site.seqComplete
+		            s.seq = Site.firstBlockSeq
 		            m.Sites.Append(s)
 		            m.fasta = m.fasta + s.id + EndOfLine.UNIX + s.seq  + EndOfLine.UNIX
 		          next
 		        end
+		        
 		        m.number = count
 		        count = count + 1
 		        w.Motifs.Append(m)
@@ -2537,8 +2548,10 @@ End
 		    end
 		    
 		    w.populateListbox
-		    w.Title="Bioprospector Logo" 
+		    w.Title="Found motifs" 
 		    w.Visible=True
+		    me.bioprospectLogo = False
+		    
 		    
 		  End If
 		End Sub
@@ -5789,6 +5802,10 @@ End
 
 	#tag Property, Flags = &h0
 		alimaskTmp As folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		bioprospectLogo As boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
