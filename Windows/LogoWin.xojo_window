@@ -2387,7 +2387,7 @@ End
 		    Dim fastaHeading As String
 		    for i As Integer = 0 to UBound(seqsFasta)
 		      if seqsFasta(i).BeginsWith(">") then
-		        fastaHeading = ReplaceAll(seqsFasta(i), " ", "_")
+		        fastaHeading = Rtrim(ReplaceAll(seqsFasta(i), " ", "_"))
 		        LogoWinSequences.Value(fastaHeading) = seqsFasta(i + 1)
 		      end
 		    next
@@ -2424,6 +2424,7 @@ End
 		          heading = FastaHeaderMatch.SubExpressionString(0)
 		          motifSite.heading = Rtrim(Nthfield(heading, "len", 1))
 		          valueMatch = StrandCheck.Search(heading)
+		          
 		          if valueMatch <> Nil Then
 		            motifSite.strand = "f"
 		            valueMatch = FBlockWidth.Search(heading)
@@ -2433,6 +2434,17 @@ End
 		              End
 		              valueMatch = FBlockWidth.Search
 		            loop until valueMatch = Nil
+		            
+		            if twoBlockMotif then
+		              valueMatch = RBlockWidth.Search(heading)
+		              do
+		                If valueMatch <> Nil then
+		                  values.Append(val(valueMatch.SubExpressionString(0)))
+		                  motifSite.strand = "f/r"
+		                End
+		                valueMatch = RBlockWidth.Search
+		              loop until valueMatch = Nil
+		            end
 		          else
 		            motifSite.strand = "r"
 		            valueMatch = RBlockWidth.Search(heading)
@@ -2443,12 +2455,19 @@ End
 		              valueMatch = RBlockWidth.Search
 		            loop until valueMatch = Nil
 		          end
-		          heading = ReplaceAll(motifSite.heading, " ", "_")
-		          if motifSite.strand = "r" then
-		            siteSeq = ReverseComplement(LogoWinSequences.Value(heading))
-		          else
-		            siteSeq = LogoWinSequences.Value(heading)
-		          end
+		          
+		          heading = Rtrim(ReplaceAll(motifSite.heading, " ", "_"))
+		          try 
+		            if motifSite.strand = "r" then
+		              siteSeq = ReverseComplement(LogoWinSequences.Value(heading))
+		            else
+		              siteSeq = LogoWinSequences.Value(heading)
+		            end
+		          catch KeyNotFoundException
+		            WriteToSTDOUT(motifSIte.heading + " sequence was not found in LogoWin sequences, check if it present or correct fasta id format" + EndOfLine.UNIX)
+		            Continue for i
+		          end try
+		          
 		          seqLength = lenb(siteSeq)
 		          if Ubound(values) = 0 Then
 		            if motifSite.strand = "r" Then
@@ -2465,9 +2484,17 @@ End
 		              motifSite.firstBlockStart = values(0)
 		              motifSite.secondBlockStart = values(1)
 		            end
-		            motifSite.firstBlockSeq = mid(siteSeq, motifSite.firstBlockStart, firstBlockWidth)
-		            motifSite.SecondBlockSeq = mid(siteSeq, motifSite.secondBlockStart, secBlockWidth)
-		            motifSite.interBlockSeq = mid(siteSeq, motifSite.firstBlockStart+firstBlockWidth, motifSite.secondBlockStart-(motifSite.firstBlockStart+firstBlockWidth))
+		            if motifSite.strand = "r" or motifSite.strand = "f" then
+		              motifSite.firstBlockSeq = mid(siteSeq, motifSite.firstBlockStart, firstBlockWidth)
+		              motifSite.SecondBlockSeq = mid(siteSeq, motifSite.secondBlockStart, secBlockWidth)
+		              motifSite.interBlockSeq = mid(siteSeq, motifSite.firstBlockStart+firstBlockWidth, motifSite.secondBlockStart-(motifSite.firstBlockStart+firstBlockWidth))
+		            else
+		              motifSite.firstBlockSeq = mid(siteSeq, motifSite.firstBlockStart, firstBlockWidth)
+		              motifSite.interBlockSeq = mid(siteSeq, motifSite.firstBlockStart+firstBlockWidth, motifSite.secondBlockStart-(motifSite.firstBlockStart+firstBlockWidth))
+		              siteSeq = ReverseComplement(LogoWinSequences.Value(heading))
+		              motifSite.secondBlockStart=seqLength-values(1)+1
+		              motifSite.SecondBlockSeq = mid(siteSeq, motifSite.secondBlockStart, secBlockWidth)
+		            end
 		          End
 		          redim values(-1)
 		          motifEntries.Entries.append(motifSite)
@@ -2480,12 +2507,11 @@ End
 		    if clustalalign.Exists Then
 		      clustalalign.Remove
 		    end
-		    ' to do: make run only for two block motifs
-		    ' imrove window for logo demonstration
+		    
 		    Dim cli as String
 		    Dim motifEntryFasta As String
 		    Dim output(-1) As String
-		    Dim EntryM as BioProsMotifs
+		    Dim motifSites as BioProsMotifs
 		    Dim alignedSeq as Dictionary
 		    Dim m as Motif
 		    Dim s as Site
@@ -2496,9 +2522,9 @@ End
 		    if Motifs.KeyCount <> 0 then
 		      for each Entry as DictionaryEntry in Motifs
 		        m = New Motif
-		        EntryM = Entry.Value
+		        motifSites= Entry.Value
 		        if twoBlockMotif then
-		          for each Site as BioProsMotifSite in EntryM.Entries
+		          for each Site as BioProsMotifSite in motifSites.Entries
 		            motifEntryFasta = motifEntryFasta + Site.heading + EndOfLine.UNIX + Site.interBlockSeq + EndOfLine.UNIX
 		          next
 		          outstream = TextOutputStream.Create(clustalalign)
@@ -2520,7 +2546,7 @@ End
 		              end
 		            next
 		            redim output(-1)
-		            for each Site as BioProsMotifSite in EntryM.Entries
+		            for each Site as BioProsMotifSite in motifSites.Entries
 		              s = New Site
 		              heading = ReplaceAll(Site.heading, " ", "_")
 		              Site.seqComplete = Site.firstBlockSeq + alignedSeq.value(heading) +  Site.SecondBlockSeq
@@ -2531,7 +2557,7 @@ End
 		            next
 		          end
 		        else
-		          for each Site as BioProsMotifSite in EntryM.Entries
+		          for each Site as BioProsMotifSite in motifSites.Entries
 		            s = New Site
 		            heading = ReplaceAll(Site.heading, " ", "_")
 		            s.id = heading
@@ -2545,14 +2571,13 @@ End
 		        count = count + 1
 		        w.Motifs.Append(m)
 		      next
+		      w.populateListbox
+		      w.Title="Found motifs" 
+		      w.Visible=True
+		      me.bioprospectLogo = False
+		    else
+		      WriteToSTDOUT("No motifs are found: incorrect sequnces present in LogoWin or BioProspector search results")
 		    end
-		    
-		    w.populateListbox
-		    w.Title="Found motifs" 
-		    w.Visible=True
-		    me.bioprospectLogo = False
-		    
-		    
 		  End If
 		End Sub
 	#tag EndMethod
