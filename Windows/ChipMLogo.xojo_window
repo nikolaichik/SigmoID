@@ -190,8 +190,10 @@ End
 		    dim p as Picture = MakeLogoPic(fasta)
 		    me.Listbox1.AddRow
 		    me.Listbox1.Cell(me.Listbox1.LastIndex,0)="Motif #"+str(m.number)+" "+m.type
-		    me.Listbox1.Cell(me.Listbox1.LastIndex,1)=m.valrange
-		    me.Listbox1.Cell(me.Listbox1.LastIndex,2)="input value here"
+		    if not LogoWin.bioprospectLogo  Then
+		      me.Listbox1.Cell(me.Listbox1.LastIndex,1)=m.valrange
+		      me.Listbox1.Cell(me.Listbox1.LastIndex,2)="input value here"
+		    end
 		    me.Listbox1.Cell(me.Listbox1.LastIndex,3)=str(UBound(m.Sites)+1)
 		    me.Listbox1.RowTag(me.Listbox1.LastIndex)=p
 		    me.Listbox1.CellTag(me.Listbox1.LastIndex,5)=m
@@ -225,15 +227,25 @@ End
 	#tag Event
 		Sub Open()
 		  'me.ColumnWidths="15%,20%,15%,200,0%,0%"
-		  Me.ColumnWidths="130,100,130,40,*,0,0"
+		  if LogoWin.bioprospectLogo Then
+		    Me.ColumnWidths="130,0,0,40,*,0,0"
+		    me.Heading(0)="#"
+		    me.Heading(1)=""
+		    me.Heading(2)=""
+		    me.Heading(3)="number of seq"
+		    me.Heading(4)="Logo"
+		  else
+		    Me.ColumnWidths="130,100,130,40,*,0,0"
+		    me.Heading(0)="#"
+		    me.Heading(1)="Value range"
+		    me.Heading(2)="define sites threshold"
+		    me.Heading(3)="number of seq"
+		    me.Heading(4)="Logo"
+		  end
 		  
 		  Me.DefaultRowHeight=62  
 		  me.ColumnType(2)=Listbox.TypeEditable
-		  me.Heading(0)="#"
-		  me.Heading(1)="Value range"
-		  me.Heading(2)="define sites threshold"
-		  me.Heading(3)="number of seq"
-		  me.Heading(4)="Logo"
+		  
 		  
 		End Sub
 	#tag EndEvent

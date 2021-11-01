@@ -3040,6 +3040,7 @@ Protected Module Globals
 		    Globals.chipset.jarPath=Prefs.Value("ChIPmunkPath", Globals.chipset.jarPath)
 		    WSLBashPath=Prefs.value("WSLBashPath",WSLBashPath)
 		    BioProsPath=Prefs.value("BioProsPath",BioProsPath)
+		    ClustalPath = Prefs.value("ClustalPath", ClustalPath)
 		    PathsChanged=False
 		  end if
 		  
@@ -3058,6 +3059,7 @@ Protected Module Globals
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
 		  SettingsWin.WSLBashPathField.Text=WSLBashPath
 		  SettingsWin.bioProsPathField.Text=BioProsPath
+		  SettingsWin.clustalPathField.Text = ClustalPath
 		  
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
@@ -4591,6 +4593,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ClustalPath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		CodonList As string
 	#tag EndProperty
 
@@ -5484,6 +5490,14 @@ Protected Module Globals
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ClustalPath"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
