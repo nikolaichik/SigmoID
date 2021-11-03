@@ -35,9 +35,9 @@ Protected Class DBimporter
 
 	#tag Method, Flags = &h21
 		Private Function getIDFromDB(queryText as string, name as string) As integer
-		  var sqlRequest as string = queryText+"='"+name+"'"
+		  var sqlRequest as string = queryText+"=?"
 		  try
-		    var result as RowSet = query.SelectSQL(sqlRequest)
+		    var result as RowSet = query.SelectSQL(sqlRequest, name)
 		    If result.ColumnCount > 1 Then
 		      return 0
 		    Else
@@ -95,8 +95,8 @@ Protected Class DBimporter
 		  
 		  var CRTagID as integer = 0
 		  try
-		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; EXECUTE pr_addCRTag @ResultForPos OUTPUT, '"+sl(0)+"'; SELECT @ResultForPos;"
-		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; EXECUTE pr_addCRTag @ResultForPos OUTPUT, ?; SELECT @ResultForPos;"
+		    var result as RowSet = query.SelectSQL(sqlReqest, sl(0))
 		    CRTagID = result.ColumnAt(0).IntegerValue
 		  catch err As DatabaseException
 		    error = err.Message
@@ -125,10 +125,8 @@ Protected Class DBimporter
 		    return false
 		  End if
 		  try
-		    // There is a bug
-		    sqlReqest = "INSERT INTO TFs([Name], [idTF_family], [idCRTag], [CRTag_coord], [ProteinID], [Sequence], [Description]) VALUES ('"+dirName+"', "+TFFamily.ToString()+", "+CRTagID.ToString()+", '"+inputMap.Value("CRTag_coord").StringValue+"', '"+inputMap.Value("ProteinID").StringValue+"', '"+inputMap.Value("Sequence").StringValue+"', '"+inputMap.Value("info").StringValue.Trim()+"');"
-		    sqlReqest = sqlReqest + "SELECT MAX(idTF) FROM TFs;"
-		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    sqlReqest = "INSERT INTO TFs([Name], [idTF_family], [idCRTag], [CRTag_coord], [ProteinID], [Sequence], [Description]) OUTPUT IDENT_CURRENT('TFs') VALUES (?, ?, ?, ?, ?, ?, ?);"
+		    var result as RowSet = query.SelectSQL(sqlReqest, dirName, TFFamily.ToString(), CRTagID.ToString(), inputMap.Value("CRTag_coord").StringValue, inputMap.Value("ProteinID").StringValue, inputMap.Value("Sequence").StringValue, inputMap.Value("info").StringValue.Trim())
 		    TFID = result.ColumnAt(0).IntegerValue
 		  catch err As DatabaseException
 		    error = "The error was occured while insertion of TF. Error: "+err.Message
@@ -144,9 +142,8 @@ Protected Class DBimporter
 		  var MotifID as integer = 0
 		  If TFID > 0 and inputMap.Value("hmm").StringValue.Length() > 0 Then
 		    try
-		      sqlReqest = "INSERT INTO Motifs([idTF], [HMM], [PWM]) VALUES ("+TFID.ToString()+", '"+inputMap.Value("hmm").StringValue+"', '"+inputMap.Value("pwm").StringValue+"');"
-		      sqlReqest = sqlReqest + "SELECT MAX(idMotif) FROM Motifs;"
-		      var result as RowSet = query.SelectSQL(sqlReqest)
+		      sqlReqest = "INSERT INTO Motifs([idTF], [HMM], [PWM]) OUTPUT IDENT_CURRENT('Motifs') VALUES (?, ?, ?);"
+		      var result as RowSet = query.SelectSQL(sqlReqest, TFID.ToString(), inputMap.Value("hmm").StringValue, inputMap.Value("pwm").StringValue)
 		      MotifID = result.ColumnAt(0).IntegerValue
 		    catch err As DatabaseException
 		      error = "The error was occured while insertion of Motif. Error: "+err.Message
@@ -169,8 +166,8 @@ Protected Class DBimporter
 		    For i as integer=0 to id.Count-1
 		      If id(i).Length > 0 and oper(i).Length > 0 Then
 		        try
-		          sqlReqest = "INSERT INTO Operators([idMotif], [id], [operator]) VALUES ("+MotifID.ToString()+", '"+id(i)+"', '"+oper(i)+"')"
-		          query.ExecuteSQL(sqlReqest)
+		          sqlReqest = "INSERT INTO Operators([idMotif], [id], [operator]) VALUES (?, ?, ?)"
+		          query.ExecuteSQL(sqlReqest, MotifID.ToString(), id(i), oper(i))
 		        catch err As DatabaseException
 		          error = "The error was occured while insertion of Motif. Error: "+err.Message
 		          return false
@@ -317,8 +314,8 @@ Protected Class DBimporter
 		  var ID as integer
 		  try
 		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; "
-		    sqlReqest = sqlReqest + "EXECUTE pr_addCurator @ResultForPos OUTPUT, '"+name+"', '"+email+"'; SELECT @ResultForPos;"
-		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    sqlReqest = sqlReqest + "EXECUTE pr_addCurator @ResultForPos OUTPUT, ?, ?; SELECT @ResultForPos;"
+		    var result as RowSet = query.SelectSQL(sqlReqest, name, email)
 		    ID = result.ColumnAt(0).IntegerValue
 		  catch err As DatabaseException
 		    error = "The error was occured while insertion of curator "+type+". Error: " + err.Message
@@ -326,8 +323,8 @@ Protected Class DBimporter
 		    return
 		  End try
 		  try
-		    sqlReqest = "INSERT INTO Motif_curators ([idCurator], [idMotif], [Date], [Type]) VALUES("+ID.ToString+", "+idMotif.ToString+", '"+date+"', '"+type+"')"
-		    query.ExecuteSQL(sqlReqest)
+		    sqlReqest = "INSERT INTO Motif_curators ([idCurator], [idMotif], [Date], [Type]) VALUES(?, ?, ?, ?)"
+		    query.ExecuteSQL(sqlReqest, ID.ToString, idMotif.ToString, date, type)
 		  catch err As DatabaseException
 		    error = "The error was occured while insertion of curator "+type+". Error: " + err.Message
 		    query.Close()
@@ -343,8 +340,8 @@ Protected Class DBimporter
 		  var ID as integer
 		  try
 		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; "
-		    sqlReqest = sqlReqest + "EXECUTE pr_addEvidenceType @ResultForPos OUTPUT, '"+type+"'; SELECT @ResultForPos;"
-		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    sqlReqest = sqlReqest + "EXECUTE pr_addEvidenceType @ResultForPos OUTPUT, ?; SELECT @ResultForPos;"
+		    var result as RowSet = query.SelectSQL(sqlReqest, type)
 		    ID = result.ColumnAt(0).IntegerValue
 		  catch err As DatabaseException
 		    error = "The error was occured while insertion of curator "+type+". Error: " + err.Message
@@ -361,8 +358,8 @@ Protected Class DBimporter
 		  var referenceID as integer
 		  try
 		    sqlReqest = "DECLARE @ResultForPos INT; SET @ResultForPos=0; "
-		    sqlReqest = sqlReqest + "EXECUTE pr_addReference @ResultForPos OUTPUT, '"+reference+"', '"+year+"', '"+DOI+"'; SELECT @ResultForPos;"
-		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    sqlReqest = sqlReqest + "EXECUTE pr_addReference @ResultForPos OUTPUT, ?, ?, ?; SELECT @ResultForPos;"
+		    var result as RowSet = query.SelectSQL(sqlReqest, reference, year, DOI)
 		    referenceID = result.ColumnAt(0).IntegerValue
 		  catch err As DatabaseException
 		    error = "The error was occured while insertion of reference "+DOI+". Error: " + err.Message
@@ -371,9 +368,9 @@ Protected Class DBimporter
 		  End try
 		  var motifReferenceID as integer
 		  try
-		    sqlReqest = "INSERT INTO Motif_references ([idMotif] ,[idPublication]) VALUES ("+idMotif.ToString+", "+referenceID.ToString+")"
+		    sqlReqest = "INSERT INTO Motif_references ([idMotif] ,[idPublication]) OUTPUT IDENT_CURRENT('Motif_references') VALUES (?, ?)"
 		    sqlReqest = sqlReqest + "SELECT MAX(idMotif_reference) FROM Motif_references;"
-		    var result as RowSet = query.SelectSQL(sqlReqest)
+		    var result as RowSet = query.SelectSQL(sqlReqest, idMotif.ToString, referenceID.ToString)
 		    motifReferenceID = result.ColumnAt(0).IntegerValue
 		  catch err As DatabaseException
 		    error = "The error was occured while insertion of publication reference "+referenceID.ToString+". Error: " + err.Message
@@ -388,9 +385,8 @@ Protected Class DBimporter
 		      return
 		    End if
 		    try
-		      sqlReqest = "INSERT INTO Motif_references_evidence ([idMotif_reference], [idEvidence_type]) VALUES ("+motifReferenceID.ToString+", "+evidenceTypeID.ToString+")"
-		      sqlReqest = sqlReqest + "SELECT MAX(idMotif_reference) FROM Motif_references;"
-		      query.ExecuteSQL(sqlReqest)
+		      sqlReqest = "INSERT INTO Motif_references_evidence ([idMotif_reference], [idEvidence_type]) VALUES (?, ?)"
+		      query.ExecuteSQL(sqlReqest, motifReferenceID.ToString, evidenceTypeID.ToString)
 		    catch err As DatabaseException
 		      error = "The error was occured while insertion of publication reference "+referenceID.ToString+". Error: " + err.Message
 		      query.Close()
@@ -404,7 +400,8 @@ Protected Class DBimporter
 	#tag Method, Flags = &h21
 		Private Function insertSettings(name as string, value as string, program as string, parentID as integer) As boolean
 		  try
-		    query.ExecuteSQL("INSERT INTO Settings([idMotif], [Name], [Value], [Program]) VALUES ("+parentID.ToString()+", '"+name+"', '"+value+"', '"+program+"')")
+		    var sqlReqest as string = "INSERT INTO Settings([idMotif], [Name], [Value], [Program]) VALUES (?, ?, ?, ?)"
+		    query.ExecuteSQL(sqlReqest, parentID.ToString(), name, value, program)
 		    return true
 		  catch err As DatabaseException
 		    error = "The error was occured while insertion of parameter "+name+". Error: " + err.Message
