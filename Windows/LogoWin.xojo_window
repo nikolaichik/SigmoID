@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -1143,8 +1144,7 @@ End
 
 	#tag MenuHandler
 		Function BioProspData2Logo() As Boolean Handles BioProspData2Logo.Action
-			dim f as FolderItem
-			BioProspectData2Logo(f)
+			BioProspectData2Logo
 			Return True
 			
 		End Function
@@ -2348,8 +2348,9 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub BioProspectData2Logo(inputData As FolderItem)
+		Sub BioProspectData2Logo()
 		  Dim dlg As New OpenFileDialog
+		  Dim inputData As New FolderItem
 		  Dim instream As TextInputStream
 		  Dim motifEntry As String
 		  Dim rawData As String
@@ -2396,12 +2397,10 @@ End
 		    msgBox("LogoWin motif window should contain sequences on which bioprospector search was performed")
 		    Return
 		  end
-		  if inputData = Nil then
-		    dlg.ActionButtonCaption = "Select"
-		    dlg.Title = "BioProspector results to logo"
-		    dlg.PromptText = "Select BioProspector file with motifs search results"
-		    inputData = dlg.ShowModal
-		  end
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "BioProspector results to logo"
+		  dlg.PromptText = "Select BioProspector file with motifs search results"
+		  inputData = dlg.ShowModal
 		  If inputData <> Nil Then
 		    instream = TextInputStream.Open(inputData)
 		    rawData = instream.ReadAll
@@ -2586,9 +2585,47 @@ End
 
 	#tag Method, Flags = &h0
 		Sub BioProspectorLogoW()
+		  dim dlg As New SaveFileDialog
+		  dim BioPOutput As New FolderItem 
+		  dim SeqSource As New FolderItem 
 		  dim w As BioProspectWin
-		  w = New BioProspectWin
-		  w.launcher = "logowin"
+		  
+		  SeqSource = TemporaryFolder.Child("bioprospector_input_seq")
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "File for search results "
+		  dlg.PromptText = "BioProspector output file" 
+		  
+		  BioPOutput = dlg.ShowModal
+		  
+		  If BioPOutput <> Nil Then
+		    w = New BioProspectWin
+		    w.launcher = "logowin"
+		    While BioProsWinClosed <> True
+		      App.DoEvents
+		    Wend
+		    If BioPrSettingsSaved Then
+		      if SeqSource.Exists Then
+		        SeqSource.delete 
+		      end
+		      dim outstream as TextOutputStream
+		      outstream = TextOutputStream.Create(SeqSource)
+		      outstream.Write(ConvertEncoding(Sequences, Encodings.UTF8))
+		      outstream.Close
+		      dim returncode as Integer
+		      LogoWin.WriteToSTDOUT("Path to store output result: "+BioPOutput.NativePath+EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT("Running BioProspector...")
+		      returncode = BioProspector(SeqSource,BioPOutput)
+		      if returncode = 0 Then
+		        LogoWin.WriteToSTDOUT("ok."+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT("failed."+EndOfLine.UNIX)
+		        LogoWin.WriteToSTDOUT(shResult)
+		      end
+		    end
+		    
+		  else
+		    
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -6918,14 +6955,6 @@ End
 		Group="Behavior"
 		InitialValue="false"
 		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="bioprospectLogo"
-		Visible=false
-		Group="Behavior"
-		InitialValue="False"
-		Type="boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

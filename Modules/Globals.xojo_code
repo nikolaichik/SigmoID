@@ -5497,7 +5497,7 @@ Protected Module Globals
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType="MultiLineEditor"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
