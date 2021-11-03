@@ -389,7 +389,7 @@ Begin Window BioProspectWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "8"
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -1168,6 +1168,42 @@ End
 		  LogoWin.BioProspectSettings.value("r") = r.Text 
 		  LogoWin.BioProspectSettings.value("w") = w.Text
 		  LogoWin.BioProspectSettings.value("W_def") = WidthField.Text
+		  if me.launcher = "logowin" then
+		    dim dlg As New SaveFileDialog
+		    dim BioPOutput As New FolderItem 
+		    dim SeqSource As New FolderItem
+		    
+		    SeqSource = TemporaryFolder.Child("bioprospector_input_seq")
+		    dlg.ActionButtonCaption = "Select"
+		    dlg.Title = "File for search results "
+		    dlg.PromptText = "BioProspector output file" 
+		    BioPOutput = dlg.ShowModal
+		    If BioPOutput <> Nil Then
+		      'While LogoWin.BioProsWinClosed <> True
+		      'App.DoEvents
+		      'Wend
+		      'If LogoWin.BioPrSettingsSaved Then
+		      if SeqSource.Exists Then
+		        SeqSource.delete 
+		      end
+		      dim outstream as TextOutputStream
+		      outstream = TextOutputStream.Create(SeqSource)
+		      outstream.Write(ConvertEncoding(LogoWin.Sequences, Encodings.UTF8))
+		      outstream.Close
+		      dim returncode as Integer
+		      LogoWin.WriteToSTDOUT("Path to store output result: "+BioPOutput.NativePath+EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT("Running BioProspector...")
+		      returncode = BioProspector(SeqSource,BioPOutput)
+		      if returncode = 0 Then
+		        LogoWin.WriteToSTDOUT("ok."+EndOfLine.UNIX)
+		        LogoWin.BioProspectData2Logo(BioPOutput)
+		      else
+		        LogoWin.WriteToSTDOUT("failed."+EndOfLine.UNIX)
+		        LogoWin.WriteToSTDOUT(shResult)
+		      end
+		      'end
+		    End If
+		  end
 		End Sub
 	#tag EndMethod
 
