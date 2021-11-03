@@ -348,7 +348,7 @@ End
 		        For i as integer=0 to pars.warnings.Count-1
 		          logowin.WriteToSTDOUT(pars.warnings(i)+EndOfLine)
 		        Next
-		        'map.Value("ProteinID") = "TEST"+map.Value("ProteinID") // This is for tests
+		        map.Value("ProteinID") = "TEST"+map.Value("ProteinID") // This is for tests
 		        var importer as new DBimporter()
 		        res = importer.import(map)
 		        If not res Then

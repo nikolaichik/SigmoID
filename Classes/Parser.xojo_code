@@ -199,8 +199,8 @@ Protected Class Parser
 		      
 		      //extract year
 		      var year_temp as string
-		      var pYstart as integer = reference.IndexOf(" (")
-		      var pYend as integer = reference.IndexOf(").")
+		      var pYstart as integer = reference_temp.IndexOf(" (")
+		      var pYend as integer = reference_temp.IndexOf(").")
 		      If pYstart > 0 and pYend > 0 and pYend - pYstart > 2 Then
 		        year_temp = reference_temp.Middle(pYstart + 2, pYend - pYstart - 2)
 		      End if
