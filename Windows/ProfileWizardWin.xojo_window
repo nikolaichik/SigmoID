@@ -1983,46 +1983,8 @@ End
 		  'find HMM file path:
 		  hmmFile2find=TFhmmPopup.Text
 		  
-		  f=Resources_f.Child("TF_HMMs")
-		  Dim HMM_ACC As String
-		  if f<>Nil then
-		    if f.exists then
-		      
-		      m=f.Count
-		      for n=1 to m
-		        'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
-		        'msgbox dis
-		        
-		        if right(f.Item(n).name,4)=".hmm" then
-		          if f.Item(n).DisplayName=hmmFile2find then
-		            hmmPath = f.Item(n).ShellPath
-		            
-		            'get HMM accession code
-		            Dim s,aline As String
-		            Dim instream As textinputstream
-		            InStream = f.Item(n).OpenAsTextFile
-		            If InStream<>Nil Then
-		              While Not InStream.EOF
-		                aLine=InStream.readLine
-		                If Left(aLine,6)="ACC   " Then
-		                  HMM_ACC=Trim(Right(aline,Len(aline)-6))
-		                  InStream.close
-		                  Exit
-		                End If
-		              Wend
-		            End If
-		            exit
-		          end if
-		          
-		        end if
-		      next
-		      
-		      if hmmpath="" then
-		        msgbox "Can't find the HMM file"
-		      end if
-		      
-		    end if
-		  end if
+		  Dim HMM_ACC As String = GetHMMaccession(hmmFile2find)
+		  
 		  
 		  
 		  

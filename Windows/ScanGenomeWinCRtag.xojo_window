@@ -216,44 +216,8 @@ End
 		        'handle special names:
 		        
 		        
-		        // NEED TO STANDARTISE NAMES HERE AND IN GetHmmFromFamilyName
+		        aname=FamilyNameFromHmmName(aname)
 		        
-		        If InStr(aname, "Arg_repressor")>0 Then
-		          aName="ArgR"
-		        Elseif InStr(aname, "HTH_20")>0 Then
-		          aName="ArsR"
-		        Elseif InStr(aname, "HTH_AsnC_type")>0 Then
-		          aName="AsnC"
-		        Elseif InStr(aname, "HTH_8")>0 Then
-		          aName="bEBP" 
-		        Elseif InStr(aname, "HTH_Crp_2")>0 Then
-		          aName="CRP"
-		        Elseif InStr(aname, "LexA")>0 Then
-		          aName="LexA"
-		        Elseif InStr(aname, "GerE")>0 Then
-		          aName="LuxR"
-		        Elseif InStr(aname, "HTH_DeoR")>0 Then
-		          aName="DeoR"
-		        Elseif InStr(aname, "FUR")>0 Then
-		          aName="Fur"
-		        Elseif InStr(aname, "GntR")>0 Then 'needed due to subfamily name extencions
-		          aName="GntR"
-		        Elseif InStr(aname, "MarR")>0 Then  '_superfamily must be dropped
-		          aName="MarR"
-		        Elseif InStr(aname, "MerR")>0 Then '_superfamily must be dropped
-		          aName="MerR"
-		        Elseif InStr(aname, "Trans_reg_C")>0 Then
-		          aName="OmpR"
-		        Elseif InStr(aname, "PhdYeFM")>0 Then
-		          aName="PhdYefM"
-		        Elseif InStr(aname, "HTH_6")>0 Then
-		          aName="RpiR"
-		        Elseif InStr(aname, "Trp_repressor")>0 Then
-		          aName="TrpR"
-		        Elseif InStr(aname, "XRE")>0 Then '_superfamily must be dropped
-		          aName="XRE"
-		          
-		        End If
 		        'if InStr(aName,"_")>0 then
 		        'aName=NthField(aName,"_",1) 
 		        'end
@@ -355,7 +319,7 @@ End
 		        redim sigtagbase(-1)
 		        redim sigpathbase(-1)
 		        redim notfound(-1)
-		        hmmsearch=HMMsearchWithCRtagsCR(cdsfile, str(SigList.Cell(k,3)))
+		        hmmsearch=HMMsearchWithCRtagsCR(cdsfile, str(SigList.Cell(k,3)),true)
 		        hmmsearchcopy=hmmsearch
 		        dim rx1 as new RegEx
 		        dim rx2 as new RegEx
@@ -530,7 +494,7 @@ End
 		      redim sigtagbase(-1)
 		      redim sigpathbase(-1)
 		      redim notfound(-1)
-		      hmmsearch=HMMsearchWithCRtagsCR(cdsfile, Str(SigList.Cell(k,3)))
+		      hmmsearch=HMMsearchWithCRtagsCR(cdsfile, Str(SigList.Cell(k,3)),false)
 		      for tagCount as integer =1 to UBound(DeNovoTFBSinference.CRtags)
 		        tag=DeNovoTFBSinference.CRtags(tagCount)
 		        if instr(tag,"[indel")>0 or instr(tag,"error")>0 or InStr(tag,"no_CRtag")>0 then Continue

@@ -709,6 +709,15 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem BioProspData2Logo
+         SpecialMenu = 0
+         Value = "Logo from BioProspector data"
+         Index = -2147483648
+         Text = "Logo from BioProspector data"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator5
          SpecialMenu = 0
          Value = "-"

@@ -700,11 +700,12 @@ End
 
 	#tag Method, Flags = &h1, Description = 4275696C645369674172726179
 		Protected Sub BuildPfamPopup()
-		  dim l,m,n as integer
+		  Dim l,m,n As Integer
 		  dim f as folderitem
 		  dim hmmPath, fName, aLine,lineStart as string
 		  dim inStream as TextInputStream
-		  dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
+		  Dim aNAME, ACC, DESC, CRtag, CRtagFileName As String
+		  Dim PParray(-1) As String
 		  
 		  redim PopupFiles(-1)
 		  'f=Profile_f
@@ -747,8 +748,9 @@ End
 		            
 		          end if
 		          
-		          PfamPopup.AddRow(ACC+" | "+aNAME+" | "+DESC)
-		          PopupFiles.append hmmPath
+		          'PfamPopup.AddRow(ACC+" | "+aNAME+" | "+DESC)
+		          
+		          PParray.Append aNAME+" | "+ACC+" | "+DESC+"||"+hmmPath
 		          
 		          
 		        end if
@@ -756,6 +758,12 @@ End
 		        
 		        
 		      next
+		      
+		      PParray.Sort
+		      For n=0 To PParray.ubound
+		        PfamPopup.AddRow(NthField(PParray(n),"||",1))
+		        PopupFiles.append NthField(PParray(n),"||",2)
+		      Next
 		      
 		    end if
 		  end if

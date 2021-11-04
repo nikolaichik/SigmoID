@@ -301,7 +301,6 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -342,7 +341,6 @@ Begin Window deNovoWin
       Width           =   243
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
@@ -416,7 +414,6 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -1556,7 +1553,6 @@ End
 		  Dim cli As String
 		  Dim HmmSearchPath As String = replace(nhmmerPath,"nhmmer","hmmsearch")
 		  Dim HMMfilePath As String
-		  Dim Splitter As String = "#------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------"
 		  Dim HmmModel As String
 		  Dim Outstream As TextOutputStream
 		  Dim Instream As TextInputStream
@@ -1592,15 +1588,15 @@ End
 		      'Exctraction from local gbk file needs ExportProteins results, so produce dummy output file
 		      CDSfileTemp = TemporaryFolder.Child("CDStemp.fasta")
 		      if CDSfileTemp.Exists then CDSfileTemp.Remove
-		      GenomeWin.ExportProteins(CDSfileTemp)
+		      GenomeWin.ExportProteins(CDSfileTemp,true)
 		      '("An existing CDS sequences file was found at "+CDSfile.shellpath+" and will be reused."+EndOfLine.UNIX)
 		    else
 		      'deNovoWin.rp.writeToWin("Exporting CDS sequences...")
-		      GenomeWin.ExportProteins(CDSfile)
+		      GenomeWin.ExportProteins(CDSfile,true)
 		      'deNovoWin.rp.writeToWin(" OK"+EndOfLine.UNIX)
 		    end if
 		  End If
-		  If Not CDSfile.Exists or Not CDSfileTemp.Exists Then
+		  If CDSfile = Nil and CDSfileTemp = Nil Then
 		    Return False
 		  End
 		  For row As Integer = 0 To HmmList.ListCount-1
@@ -1620,11 +1616,9 @@ End
 		        if instr(HmmSearchRes,"No hitst")=0 then 
 		          HmmModel=NthField(HmmSearchRes,"TF_HMMs/",2)
 		          HmmModel=NthField(HmmModel,".hmm",1)
-		          HmmSearchRes=NthField(HmmsearchRes,Splitter,2)
-		          HmmSearchRes=Nthfield(HmmSearchRes,"#"+EndOfLine.Unix,1)
 		          HmmsearchEntries=HmmSearchRes.split(EndOfLine.Unix)
 		          for each line as String in HmmsearchEntries
-		            If line<>"" Then
+		            If line <> "" and not line.BeginsWith("#") Then
 		              match = New DeNovoTFBSinference.TFfamilyMatch
 		              match.name =HmmModel
 		              Score=ScoreColumn.Search(line)
@@ -2390,6 +2384,7 @@ End
 		  case "stopped"
 		    if rp.ThreadState<>Thread.ThreadStates.NotRunning then
 		      rp.Stop
+		      Self.rp = Nil
 		    end
 		    dim resFile as FolderItem
 		    dim OutStream as TextOutputStream
@@ -2420,9 +2415,11 @@ End
 		    me.enabled=False
 		    
 		  end
-		  if rp.ThreadState=Thread.ThreadStates.NotRunning and CancelButton.Caption="Stop" then
-		    CancelButton.Caption="Save log"
-		    PauseButton.Enabled=False
+		  if rp <> Nil then
+		    if rp.ThreadState=Thread.ThreadStates.NotRunning and CancelButton.Caption="Stop" then
+		      CancelButton.Caption="Save log"
+		      PauseButton.Enabled=False
+		    end
 		  end
 		End Sub
 	#tag EndEvent

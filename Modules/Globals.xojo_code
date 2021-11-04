@@ -887,6 +887,55 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function FamilyNameFromHmmName(aName as string) As string
+		  // NEED TO STANDARTISE NAMES HERE AND IN GetHmmFromFamilyName
+		  
+		  If InStr(aname, "Arg_repressor")>0 Then
+		    aName="ArgR"
+		  Elseif InStr(aname, "HTH_20")>0 Then
+		    aName="ArsR"
+		  Elseif InStr(aname, "HTH_AsnC_type")>0 Then
+		    aName="AsnC"
+		  Elseif InStr(aname, "HTH_8")>0 Then
+		    aName="bEBP" 
+		  Elseif InStr(aname, "HTH_Crp_2")>0 Then
+		    aName="CRP"
+		  Elseif InStr(aname, "LexA")>0 Then
+		    aName="LexA"
+		  Elseif InStr(aname, "GerE")>0 Then
+		    aName="LuxR"
+		  Elseif InStr(aname, "HTH_DeoR")>0 Then
+		    aName="DeoR"
+		  Elseif InStr(aname, "FUR")>0 Then
+		    aName="Fur"
+		  Elseif InStr(aname, "GntR")>0 Then 'needed due to subfamily name extencions
+		    aName="GntR"
+		  Elseif InStr(aname, "MarR")>0 Then  '_superfamily must be dropped
+		    aName="MarR"
+		  Elseif InStr(aname, "MerR")>0 Then '_superfamily must be dropped
+		    aName="MerR"
+		  Elseif InStr(aname, "Trans_reg_C")>0 Then
+		    aName="OmpR"
+		  Elseif InStr(aname, "PhdYeFM")>0 Then
+		    aName="PhdYefM"
+		  Elseif InStr(aname, "HTH_6")>0 Then
+		    aName="RpiR"
+		  Elseif InStr(aname, "Trp_repressor")>0 Then
+		    aName="TrpR"
+		  Elseif InStr(aname, "XRE")>0 Then '_superfamily must be dropped
+		    aName="XRE"
+		    
+		  Else
+		    
+		    'return the name unchanged
+		    
+		  End If
+		  
+		  Return aName
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Fasta2IC(logoData as string) As Double
 		  // Calculate Information content from alignment data
 		  ' (simlified version of MakeLogoPic)
@@ -1377,6 +1426,57 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetHMMaccession(HMMname as string) As string
+		  Dim HMM_ACC,hmmPath As String
+		  Dim f As folderitem
+		  Dim m,n As Integer
+		  
+		  f=Resources_f.Child("TF_HMMs")
+		  If f<>Nil Then
+		    If f.exists Then
+		      
+		      m=f.Count
+		      For n=1 To m
+		        'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
+		        'msgbox dis
+		        
+		        If Right(f.Item(n).name,4)=".hmm" Then
+		          If f.Item(n).DisplayName=hmmname Then
+		            hmmPath = f.Item(n).ShellPath
+		            
+		            'get HMM accession code
+		            Dim s,aline As String
+		            Dim instream As textinputstream
+		            InStream = f.Item(n).OpenAsTextFile
+		            If InStream<>Nil Then
+		              While Not InStream.EOF
+		                aLine=InStream.readLine
+		                If Left(aLine,6)="ACC   " Then
+		                  HMM_ACC=Trim(Right(aline,Len(aline)-6))
+		                  InStream.close
+		                  Exit
+		                End If
+		              Wend
+		            End If
+		            Exit
+		          End If
+		          
+		        End If
+		      Next
+		      
+		      If hmmpath="" Then
+		        MsgBox "Can't find the HMM file"
+		      End If
+		      
+		    End If
+		  End If
+		  
+		  return HMM_ACC
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetLocus_tag(FeatureText as string) As string
 		  'extract locus_tag from feature text
 		  
@@ -1750,7 +1850,7 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function HMMsearchWithCRtagsCR(CDSfile as folderitem, HMMfilePath as string) As string
+		Function HMMsearchWithCRtagsCR(CDSfile as folderitem, HMMfilePath as string, add2annotation as boolean) As string
 		  Dim HmmResultFile As folderitem
 		  dim hmmSearchRes, cli, table, aline as string
 		  dim instream, tis as TextInputStream
@@ -1786,7 +1886,23 @@ Protected Module Globals
 		    
 		    // Settings from the HmmSearchSettingsWin should be used here, but they are currently ignored!
 		    
-		    cli=HmmSearchPath+" --cut_ga --notextw -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
+		    
+		    cli=HmmSearchPath+" --cut_ga --notextw"
+		    
+		    If add2annotation Then
+		      Dim hmmsearchResultFile as folderitem
+		      hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")
+		      
+		      If hmmsearchResultFile<>Nil Then
+		        cli=cli +" -o "+PlaceQuotesToPath(MakeWSLPath(hmmsearchResultFile.shellpath))
+		        'Else
+		        'RetValue=False
+		      End If
+		    Else
+		      
+		    End If
+		    
+		    cli=cli+" -A "+PlaceQuotesToPath(MakeWSLPath(HmmResultFile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(HMMfilePath))+" "+PlaceQuotesToPath(MakeWSLPath(CDSfile.ShellPath))
 		    
 		    #if TargetWindows
 		      ExecuteWSL(cli)
@@ -2934,6 +3050,7 @@ Protected Module Globals
 		    Globals.chipset.jarPath=Prefs.Value("ChIPmunkPath", Globals.chipset.jarPath)
 		    WSLBashPath=Prefs.value("WSLBashPath",WSLBashPath)
 		    BioProsPath=Prefs.value("BioProsPath",BioProsPath)
+		    ClustalPath = Prefs.value("ClustalPath", ClustalPath)
 		    PathsChanged=False
 		  end if
 		  
@@ -2952,6 +3069,7 @@ Protected Module Globals
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
 		  SettingsWin.WSLBashPathField.Text=WSLBashPath
 		  SettingsWin.bioProsPathField.Text=BioProsPath
+		  SettingsWin.clustalPathField.Text = ClustalPath
 		  
 		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
 		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
@@ -4145,9 +4263,11 @@ Protected Module Globals
 		Function Translate3(Gene As string, code as integer) As string
 		  Dim  m,n,GeneLength,aa0,up  As Integer
 		  dim protein,codon,codons,aa1st as string
-		  dim gC as gCode
+		  Dim gC As gCode
 		  gc=gCodes(code)
-		  
+		  If gc=Nil Then
+		    GeneticCodesInit
+		  End If
 		  protein=""
 		  GeneLength=lenB(Gene)
 		  for n=1 to (GeneLength - 2) step 3
@@ -4480,6 +4600,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		cLineEnd As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ClustalPath As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -5371,6 +5495,14 @@ Protected Module Globals
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="BioProsPath"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ClustalPath"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

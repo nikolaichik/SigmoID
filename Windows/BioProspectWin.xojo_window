@@ -24,11 +24,356 @@ Begin Window BioProspectWin
    Type            =   "0"
    Visible         =   True
    Width           =   479
+   Begin GroupBox GroupBox2
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Motif search parametrs"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   193
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   28
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   34
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   7
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   431
+      Begin Label motifwidth
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   38
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "first block width"
+         Visible         =   True
+         Width           =   100
+      End
+      Begin Label Label4
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   262
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   "leave blank for one block motifs"
+         Top             =   43
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "second block width"
+         Visible         =   True
+         Width           =   126
+      End
+      Begin TextField WidthField
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   28
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   150
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   35
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Value           =   ""
+         Visible         =   True
+         Width           =   43
+      End
+      Begin TextField w
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   29
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   408
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   35
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Value           =   ""
+         Visible         =   True
+         Width           =   39
+      End
+      Begin Label Label6
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   38
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   156
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "min gap for two blocks motifs"
+         Visible         =   True
+         Width           =   217
+      End
+      Begin TextField gMin
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   27
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   405
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   5
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   149
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Value           =   ""
+         Visible         =   True
+         Width           =   41
+      End
+      Begin TextField Gmax
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   27
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   405
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   6
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   108
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Value           =   ""
+         Visible         =   True
+         Width           =   41
+      End
+      Begin Label Label5
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   38
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   7
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   116
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "max gap  for two blocks motifs"
+         Visible         =   True
+         Width           =   221
+      End
+   End
    Begin PushButton SaveSettings
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "Save Settings"
+      Caption         =   "Run!"
       Default         =   True
       Enabled         =   True
       FontName        =   "System"
@@ -43,7 +388,7 @@ Begin Window BioProspectWin
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   1
@@ -55,49 +400,6 @@ Begin Window BioProspectWin
       Underline       =   False
       Visible         =   True
       Width           =   117
-   End
-   Begin TextField WidthField
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   28
-      Hint            =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   135
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   20
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Value           =   ""
-      Visible         =   True
-      Width           =   54
    End
    Begin TextField df
       AllowAutoDeactivate=   True
@@ -134,7 +436,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   117
+      Top             =   250
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -177,7 +479,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   215
+      Top             =   351
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -220,136 +522,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   251
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Value           =   ""
-      Visible         =   True
-      Width           =   41
-   End
-   Begin TextField w
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   27
-      Hint            =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   405
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   291
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Value           =   ""
-      Visible         =   True
-      Width           =   41
-   End
-   Begin TextField Gmax
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   27
-      Hint            =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   405
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   349
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Value           =   ""
-      Visible         =   True
-      Width           =   41
-   End
-   Begin TextField gMin
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   27
-      Hint            =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   405
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   9
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   382
+      Top             =   387
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -385,7 +558,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   88
+      Top             =   224
       Transparent     =   False
       Underline       =   False
       Value           =   "use specific background distribution file"
@@ -420,7 +593,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   215
+      Top             =   351
       Transparent     =   False
       Underline       =   False
       Value           =   "number of times trying to find motif"
@@ -455,117 +628,12 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   256
+      Top             =   392
       Transparent     =   False
       Underline       =   False
       Value           =   "number of reported motifs"
       Visible         =   True
       Width           =   208
-   End
-   Begin Label Label4
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   38
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   13
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   290
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "second motif block width"
-      Visible         =   True
-      Width           =   248
-   End
-   Begin Label Label5
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   40
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   14
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   357
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "max gap  for two blocks motifs"
-      Visible         =   True
-      Width           =   221
-   End
-   Begin Label Label6
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   38
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   15
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   389
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "min gap for two blocks motifs"
-      Visible         =   True
-      Width           =   217
    End
    Begin Label expBase
       AllowAutoDeactivate=   True
@@ -602,41 +670,6 @@ Begin Window BioProspectWin
       Visible         =   True
       Width           =   194
    End
-   Begin Label motifwidth
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   38
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   17
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   22
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "motif width"
-      Visible         =   True
-      Width           =   100
-   End
    Begin CheckBox BGdist
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -662,7 +695,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   60
+      Top             =   198
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -680,7 +713,7 @@ Begin Window BioProspectWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   22
+      Height          =   67
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -695,7 +728,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   323
+      Top             =   59
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -855,7 +888,7 @@ Begin Window BioProspectWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   20
+      Height          =   33
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -871,7 +904,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   85
+      Top             =   215
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -905,7 +938,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   153
+      Top             =   289
       Transparent     =   False
       Underline       =   False
       Value           =   "use specific background sequence file"
@@ -947,7 +980,7 @@ Begin Window BioProspectWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   176
+      Top             =   314
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -965,7 +998,7 @@ Begin Window BioProspectWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   20
+      Height          =   31
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -981,7 +1014,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   151
+      Top             =   281
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -1006,7 +1039,7 @@ Begin Window BioProspectWin
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   28
@@ -1135,6 +1168,42 @@ End
 		  LogoWin.BioProspectSettings.value("r") = r.Text 
 		  LogoWin.BioProspectSettings.value("w") = w.Text
 		  LogoWin.BioProspectSettings.value("W_def") = WidthField.Text
+		  if me.launcher = "logowin" then
+		    dim dlg As New SaveFileDialog
+		    dim BioPOutput As New FolderItem 
+		    dim SeqSource As New FolderItem
+		    
+		    SeqSource = TemporaryFolder.Child("bioprospector_input_seq")
+		    dlg.ActionButtonCaption = "Select"
+		    dlg.Title = "File for search results "
+		    dlg.PromptText = "BioProspector output file" 
+		    BioPOutput = dlg.ShowModal
+		    If BioPOutput <> Nil Then
+		      'While LogoWin.BioProsWinClosed <> True
+		      'App.DoEvents
+		      'Wend
+		      'If LogoWin.BioPrSettingsSaved Then
+		      if SeqSource.Exists Then
+		        SeqSource.delete 
+		      end
+		      dim outstream as TextOutputStream
+		      outstream = TextOutputStream.Create(SeqSource)
+		      outstream.Write(ConvertEncoding(LogoWin.Sequences, Encodings.UTF8))
+		      outstream.Close
+		      dim returncode as Integer
+		      LogoWin.WriteToSTDOUT("Path to store output result: "+BioPOutput.NativePath+EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT("Running BioProspector...")
+		      returncode = BioProspector(SeqSource,BioPOutput)
+		      if returncode = 0 Then
+		        LogoWin.WriteToSTDOUT("ok."+EndOfLine.UNIX)
+		        LogoWin.BioProspectData2Logo(BioPOutput)
+		      else
+		        LogoWin.WriteToSTDOUT("failed."+EndOfLine.UNIX)
+		        LogoWin.WriteToSTDOUT(shResult)
+		      end
+		      'end
+		    End If
+		  end
 		End Sub
 	#tag EndMethod
 
