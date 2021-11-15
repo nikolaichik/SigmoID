@@ -2368,6 +2368,7 @@ End
 		  Dim FBlockWidth As new RegEx
 		  Dim RBlockWidth As new RegEx
 		  Dim FastaHeader As new RegEx
+		  Var RemoveSpaces As New RegEx
 		  Dim firstBlockWidth As Integer
 		  Dim secBlockWidth As Integer 
 		  Dim firstBlockMatch As RegExMatch
@@ -2382,12 +2383,17 @@ End
 		  FBlockWidth.SearchPattern = "(?<=f )\d+"
 		  RBlockWidth.SearchPattern = "(?<=r )\d+"
 		  StrandCheck.SearchPattern = "\sf\s\d"
+		  RemoveSpaces.SearchPattern = "\s"
+		  RemoveSpaces.ReplacementPattern = "_"
+		  RemoveSpaces.Options.ReplaceAllMatches = True
+		  
 		  If LogoWin.Sequences <> "" then
 		    Dim seqsFasta(-1) As String = LogoWin.Sequences.split(EndOfLine.UNIX)
 		    Dim fastaHeading As String
 		    for i As Integer = 0 to UBound(seqsFasta)
 		      if seqsFasta(i).BeginsWith(">") then
-		        fastaHeading = Rtrim(ReplaceAll(seqsFasta(i), " ", "_"))
+		        'fastaHeading = Rtrim(ReplaceAll(seqsFasta(i), " ", "_"))
+		        fastaHeading = RemoveSpaces.Replace(Rtrim(seqsFasta(i)))
 		        LogoWinSequences.Value(fastaHeading) = seqsFasta(i + 1)
 		      end
 		    next
@@ -2425,6 +2431,7 @@ End
 		        if FastaHeaderMatch <> Nil Then
 		          heading = FastaHeaderMatch.SubExpressionString(0)
 		          motifSite.heading = Rtrim(Nthfield(heading, "len", 1))
+		          'motifSite.heading = RemoveSpaces.Replace(Rtrim(heading))
 		          valueMatch = StrandCheck.Search(heading)
 		          
 		          if valueMatch <> Nil Then
@@ -2459,6 +2466,7 @@ End
 		          end
 		          
 		          heading = Rtrim(ReplaceAll(motifSite.heading, " ", "_"))
+		          
 		          try 
 		            if motifSite.strand = "r" then
 		              siteSeq = ReverseComplement(LogoWinSequences.Value(heading))
@@ -2492,7 +2500,8 @@ End
 		              motifSite.interBlockSeq = mid(siteSeq, motifSite.firstBlockStart+firstBlockWidth, motifSite.secondBlockStart-(motifSite.firstBlockStart+firstBlockWidth))
 		            else
 		              motifSite.firstBlockSeq = mid(siteSeq, motifSite.firstBlockStart, firstBlockWidth)
-		              motifSite.interBlockSeq = mid(siteSeq, motifSite.firstBlockStart+firstBlockWidth, motifSite.secondBlockStart-(motifSite.firstBlockStart+firstBlockWidth))
+		              'motifSite.interBlockSeq = mid(siteSeq, motifSite.firstBlockStart+firstBlockWidth, motifSite.secondBlockStart-(motifSite.firstBlockStart+firstBlockWidth))
+		              motifSite.interBlockSeq = mid(siteSeq, motifSite.firstBlockStart+firstBlockWidth, motifSite.secondBlockStart - secBlockWidth - motifSite.firstBlockStart - firstBlockWidth + 1)
 		              siteSeq = ReverseComplement(LogoWinSequences.Value(heading))
 		              motifSite.secondBlockStart=seqLength-values(1)+1
 		              motifSite.SecondBlockSeq = mid(siteSeq, motifSite.secondBlockStart, secBlockWidth)
@@ -2505,10 +2514,6 @@ End
 		      loop until FastaHeaderMatch = nil
 		      Motifs.value("Motif#"+str(i)) = motifEntries
 		    Next
-		    dim clustalalign as FolderItem = TemporaryFolder.Child("gapmotifseq.align")
-		    if clustalalign.Exists Then
-		      clustalalign.Remove
-		    end
 		    
 		    Dim cli as String
 		    Dim motifEntryFasta As String
@@ -2525,13 +2530,22 @@ End
 		      for each Entry as DictionaryEntry in Motifs
 		        m = New Motif
 		        motifSites= Entry.Value
+		        motifEntryFasta = ""
 		        if twoBlockMotif then
 		          for each Site as BioProsMotifSite in motifSites.Entries
-		            motifEntryFasta = motifEntryFasta + Site.heading + EndOfLine.UNIX + Site.interBlockSeq + EndOfLine.UNIX
+		            Site.heading = Site.heading + "_" + str(Site.firstBlockStart) + "_" + str(Site.secondBlockStart) + "_" + Site.strand
+		            motifEntryFasta = motifEntryFasta + Site.heading + EndOfLine.UNIX 
+		            motifEntryFasta = motifEntryFasta + Site.firstBlockSeq + Site.interBlockSeq +Site.SecondBlockSeq + EndOfLine.UNIX
+		            'motifEntryFasta = motifEntryFasta + Site.interBlockSeq + EndOfLine.UNIX
 		          next
+		          dim clustalalign as FolderItem = TemporaryFolder.Child("gapmotifseq-"+str(count)+".align")
+		          if clustalalign.Exists Then
+		            clustalalign.Remove
+		          end
 		          outstream = TextOutputStream.Create(clustalalign)
 		          outstream.Write(ConvertEncoding(motifEntryFasta, Encodings.UTF8))
 		          outstream.Close
+		          
 		          cli = ClustalPath + " -i "+clustalalign.NativePath
 		          #If TargetWindows
 		            ExecuteWSL(cli)
@@ -2539,7 +2553,10 @@ End
 		            UserShell(cli)
 		          #endif
 		          if shError <> 0 then
+		            WriteToSTDOUT(shResult+EndOfLine.UNIX)
 		          else
+		            ' write output for debugging
+		            'WriteToSTDOUT("Alignment-"+str(count)+EndOfLine.UNIX+shResult)
 		            output = shResult.split(EndOfLine.UNIX)
 		            alignedSeq = new Dictionary
 		            for  i as integer = 0 to UBound(output)
@@ -2552,6 +2569,7 @@ End
 		              s = New Site
 		              heading = ReplaceAll(Site.heading, " ", "_")
 		              Site.seqComplete = Site.firstBlockSeq + alignedSeq.value(heading) +  Site.SecondBlockSeq
+		              'Site.seqComplete = alignedSeq.value(heading)
 		              s.id = heading
 		              s.seq = Site.seqComplete
 		              m.Sites.Append(s)
