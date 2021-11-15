@@ -9,13 +9,14 @@ MM    no
 CONS  yes
 CS    no
 MAP   yes
-CRTAG 33,37,39,40,41,42,43,44,45,46,48,49,50,52,53,54,57,58,59,60,61,63|143,144,145,146,148,149,152,153
+CRTAG 33,41,42,44,45,46,49,61|145,148,149,152,153
 PAL   no
 WIDTH 26-32
 GA    171.00 171.00;
 TC    263.00 263.00;
 NC    79.00 79.00;
 NOTE  Based on ECF classification from ECH hub (https://www.computational.bio.uni-giessen.de/ecfhub/groups/ecf02)
+NOTE  CR tag is a compromise between contacts seen in PDB structures and mutual information analysis (Todor 2020; 10.1073/pnas.2020204117) 
 DATE  Thu Aug 26 23:26:23 2021
 NSEQ  2262
 EFFN  0.824055
