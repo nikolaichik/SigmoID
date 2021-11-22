@@ -5658,6 +5658,108 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub scanWithHmmlib()
+		  dim tempCDS As FolderItem = TemporaryFolder.Child("temp_CDS.fasta")
+		  dim alignment As FolderItem =  TemporaryFolder.Child("alignmentHmmlib")
+		  dim row As String
+		  dim tempRow As String
+		  dim Dict As New Dictionary
+		  dim trimmed As Integer
+		  dim storedRowArray(-1) As Variant
+		  dim columnArray(-1) As String
+		  
+		  dim columns(-1) As String
+		  dim table(-1) As Variant
+		  dim outstream As TextOutputStream
+		  dim instream As TextInputStream
+		  dim HmmSearchPath As String = Replace(nhmmerPath,"nhmmer","hmmscan")
+		  dim cli As String
+		  dim  RemoveSpaces As New RegEx
+		  RemoveSpaces.SearchPattern = "[ |\t|]{1,}"
+		  RemoveSpaces.ReplacementPattern = "*_*"
+		  RemoveSpaces.Options.ReplaceAllMatches = True
+		  
+		  if tempCDS.Exists then
+		    tempCDS.Remove
+		  end
+		  
+		  if GenomeWin.GenomeFile <> Nil then
+		    GenomeWin.ExportProteins(tempCDS, True)
+		    cli=HmmSearchPath+" --cut_ga --notextw"+" --tblout "+PlaceQuotesToPath(MakeWSLPath(alignment.ShellPath))
+		    cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(Resources_f.ShellPath+"/hmmlib.hmm"))+" "+PlaceQuotesToPath(MakeWSLPath(tempCDS.ShellPath))
+		    #If TargetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      userShell(cli)
+		    #EndIf
+		    if shError = 0 then
+		      if alignment <> Nil then
+		        instream = alignment.OpenAsTextFile
+		        while not instream.EndOfFile
+		          row = instream.ReadLine
+		          
+		          if not row.StartsWith("#") then
+		            tempRow = row
+		            while not IsNumeric(right(tempRow, 1))
+		              tempRow = left(tempRow, len(tempRow) - 1)
+		            wend
+		            trimmed = len(row) - len(tempRow)
+		            tempRow = RemoveSpaces.Replace(tempRow)
+		            columns = tempRow.Split("*_*")
+		            columns.append(right(row, trimmed))
+		            table.append(columns)
+		            if Dict.HasKey(columns(2)) then
+		              redim storedRowArray(-1)
+		              storedRowArray.append(table(Dict.value(columns(2))))
+		              columnArray = storedRowArray(0)
+		              if not CompareEvals(columns(7), columnArray(7)) then 
+		                ' take entry with smaller e-value
+		                Dict.value(columns(2)) = Ubound(table)
+		              end
+		            else
+		              Dict.Value(columns(2)) = Ubound(table)
+		            end
+		            
+		          end
+		          
+		        wend
+		        
+		      end 
+		    else
+		      
+		    end
+		    if Dict.BinCount <> 0 and UBound(table) <> -1 then
+		      dim w as New HmmLibResults
+		      dim rowOutput(-1) As String
+		      for each entry As DictionaryEntry in Dict
+		        rowOutput = table(entry.Value)
+		        w.OutputBox.AddRow
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,0) = rowOutput(0)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,1) = rowOutput(1)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,2) = rowOutput(2)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,3) = rowOutput(7)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,4) = rowOutput(8)
+		        if Ubound(rowOutput) > 18 then
+		          dim descr As String
+		          for i as Integer = 18 to Ubound(rowOutput)
+		            descr = descr + " " + rowOutput(i)
+		          next
+		          w.OutputBox.Cell(w.OutputBox.LastIndex,5) = descr
+		        else
+		          w.OutputBox.Cell(w.OutputBox.LastIndex,5) = rowOutput(Ubound(rowOutput))
+		        end
+		        
+		      next
+		      
+		      w.Show
+		    end
+		  else
+		    
+		  end
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function TermGen() As boolean
 		  'returns true if completed without errors
 		  

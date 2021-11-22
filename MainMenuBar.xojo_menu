@@ -871,6 +871,15 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem GenomeListencodedTFs
+         SpecialMenu = 0
+         Value = "List encoded TFs..."
+         Index = -2147483648
+         Text = "List encoded TFs..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator10
          SpecialMenu = 0
          Value = "-"

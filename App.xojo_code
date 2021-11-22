@@ -476,6 +476,14 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeListencodedTFs() As Boolean Handles GenomeListencodedTFs.Action
+			LogoWin.scanWithHmmlib
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeRedundantSeqs() As Boolean Handles GenomeRedundantSeqs.Action
 			RedundantSeqWin.show
 			
