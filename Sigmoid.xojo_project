@@ -674,6 +674,7 @@ Class=DBimporter;Classes/DBimporter.xojo_code;&h0000000034F47FFF;&h0000000047302
 Class=Parser;Classes/Parser.xojo_code;&h000000000BF19FFF;&h0000000047302C04;false
 Class=BioProsMotifSite;Classes/BioProsMotifSite.xojo_code;&h000000007A2A2FFF;&h0000000047302C04;false
 Class=BioProsMotifs;Classes/BioProsMotifs.xojo_code;&h000000003413A7FF;&h0000000047302C04;false
+Window=HmmLibResults;Windows/HmmLibResults.xojo_window;&h0000000063B0BFFF;&h000000002250E847;false
 DefaultWindow=LogoWin
 AppMenuBar=MainMenuBar
 MajorVersion=2

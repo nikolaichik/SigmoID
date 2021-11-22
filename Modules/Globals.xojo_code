@@ -241,6 +241,98 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CompareEvals(num1 As String, num2 As String) As Boolean
+		  ' method compares if num1 is greater than num2, numbers in scientific notations
+		  ' are expected.
+		  ' comparision is rougth and should performe correct for small numbers, 
+		  ' e.g. 1e+4 and 10000 is not the input, which will be precessed correctly 
+		  
+		  dim base1 As String
+		  dim base2 As String
+		  dim mult1 As String
+		  dim mult2 As String
+		  
+		  
+		  if instr(num1, "e") > 0 and instr(num2, "e") > 0 then
+		    if instr(num1, "+") > 0 and instr(num2, "+") > 0 then
+		      mult1 = nthfield(num1, "e+",1)
+		      base1 = nthfield(num1, "e+",2)
+		      mult2 = nthfield(num2, "e+",1)
+		      base2 = nthfield(num2, "e+",2)
+		      if instr(base1,"0") > 0 then
+		        while base1.BeginsWith("0")
+		          base1 = base1.right(len(base1)-1)
+		        wend
+		      end
+		      if instr(base2,"0") > 0 then
+		        while base2.BeginsWith("0")
+		          base2 = base2.right(len(base2)-1)
+		        wend
+		      end
+		      if val(base1) > val(base2) then
+		        return True
+		      elseif val(base1) < val(base2) then
+		        return False
+		      else
+		        if val(mult1) > val(mult2) then
+		          return True
+		        else
+		          return False
+		        end
+		      end
+		    elseif  instr(num1, "+") > 0 and instr(num2, "-") > 0 then
+		      return True
+		    elseif  instr(num1, "-") > 0 and instr(num2, "+") > 0 then
+		      return False
+		    else
+		      'both e-
+		      mult1 = nthfield(num1, "e-",1)
+		      base1 = nthfield(num1, "e-",2)
+		      mult2 = nthfield(num2, "e-",1)
+		      base2 = nthfield(num2, "e-",2)
+		      if instr(base1,"0") > 0 then
+		        while base1.BeginsWith("0")
+		          base1 = base1.right(len(base1)-1)
+		        wend
+		      end
+		      if instr(base2,"0") > 0 then
+		        while base2.BeginsWith("0")
+		          base2 = base2.right(len(base2)-1)
+		        wend
+		      end
+		      if val(base1) > val(base2) then
+		        return False
+		      elseif val(base1) < val(base2) then
+		        return True
+		      else
+		        if val(mult1) > val(mult2) then
+		          return True
+		        else
+		          return False
+		        end
+		      end
+		    end
+		  elseif instr(num1, "e") > 0 and instr(num2, "e") = 0 then
+		    if instr(num1, "-") > 0 then
+		      return False
+		    end
+		  elseif instr(num1, "e") = 0 and instr(num2, "e") > 0 then
+		    if instr(num2, "-") > 0 then
+		      return True
+		    end
+		  else
+		    if val(num1) > val(num2) then
+		      return True
+		    elseif val(num1) < val(num2) then
+		      Return False
+		    else 
+		      Return False
+		    end
+		  end
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CompareScores(SigmoIDhits as string, TrainingData as string) As double
 		  'Sigmoid gives a fasta file with headers like this:
 		  '>2469306:2469325 (-) AscG Score=11.5 E-value=1.6
