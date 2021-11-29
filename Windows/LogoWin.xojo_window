@@ -5659,11 +5659,16 @@ End
 
 	#tag Method, Flags = &h0
 		Sub scanWithHmmlib()
+		  ' Parsing of HmmScan output strongly relies on 18 space delimited columns,
+		  ' without spaces in the first 17 row values
 		  dim tempCDS As FolderItem = TemporaryFolder.Child("temp_CDS.fasta")
 		  dim alignment As FolderItem =  TemporaryFolder.Child("alignmentHmmlib")
 		  dim row As String
 		  dim tempRow As String
-		  dim Dict As New Dictionary
+		  dim TfEntryDict As New Dictionary
+		  dim HmmLibraries As New Dictionary
+		  HmmLibraries.Value("Full_version") = Resources_f.ShellPath + "hmmlibL.hmm"
+		  Hmmlibraries.Value("Small_version") = Resources_f.ShellPath + "hmmlib.hmm"
 		  dim trimmed As Integer
 		  dim storedRowArray(-1) As Variant
 		  dim columnArray(-1) As String
@@ -5686,7 +5691,7 @@ End
 		  if GenomeWin.GenomeFile <> Nil then
 		    GenomeWin.ExportProteins(tempCDS, True)
 		    cli=HmmSearchPath+" --cut_ga --notextw"+" --tblout "+PlaceQuotesToPath(MakeWSLPath(alignment.ShellPath))
-		    cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(Resources_f.ShellPath+"/hmmlib.hmm"))+" "+PlaceQuotesToPath(MakeWSLPath(tempCDS.ShellPath))
+		    cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(HmmLibraries.Value(HmmLibrary)))+" "+PlaceQuotesToPath(MakeWSLPath(tempCDS.ShellPath))
 		    #If TargetWindows
 		      ExecuteWSL(cli)
 		    #Else
@@ -5699,62 +5704,74 @@ End
 		          row = instream.ReadLine
 		          
 		          if not row.StartsWith("#") then
-		            tempRow = row
-		            while not IsNumeric(right(tempRow, 1))
-		              tempRow = left(tempRow, len(tempRow) - 1)
-		            wend
-		            trimmed = len(row) - len(tempRow)
-		            tempRow = RemoveSpaces.Replace(tempRow)
-		            columns = tempRow.Split("*_*")
-		            columns.append(right(row, trimmed))
+		            row = RemoveSpaces.Replace(row)
+		            columns = row.Split("*_*")
 		            table.append(columns)
-		            if Dict.HasKey(columns(2)) then
+		            if TfEntryDict.HasKey(columns(2)) then
 		              redim storedRowArray(-1)
-		              storedRowArray.append(table(Dict.value(columns(2))))
+		              storedRowArray.append(table(TfEntryDict.value(columns(2))))
 		              columnArray = storedRowArray(0)
 		              if not CompareEvals(columns(7), columnArray(7)) then 
 		                ' take entry with smaller e-value
-		                Dict.value(columns(2)) = Ubound(table)
+		                TfEntryDict.value(columns(2)) = Ubound(table)
 		              end
 		            else
-		              Dict.Value(columns(2)) = Ubound(table)
+		              TfEntryDict.Value(columns(2)) = Ubound(table)
 		            end
-		            
 		          end
-		          
 		        wend
-		        
 		      end 
 		    else
-		      
+		      WriteToSTDOUT(shResult)
 		    end
-		    if Dict.BinCount <> 0 and UBound(table) <> -1 then
+		    if TfEntryDict.KeyCount <> 0 and UBound(table) <> -1 then
 		      dim w as New HmmLibResults
+		      dim TfFamiles(-1) As String
+		      dim TfFamCount(-1) As Integer
+		      dim indx as Integer
 		      dim rowOutput(-1) As String
-		      for each entry As DictionaryEntry in Dict
+		      
+		      w.Title = "TFs encoded in the " + GenomeFile.Name
+		      for each entry As DictionaryEntry in TfEntryDict
 		        rowOutput = table(entry.Value)
+		        indx = TfFamiles.IndexOf(rowOutput(0)+Chr(9)+Chr(9)+rowOutput(1))
+		        if indx  <> -1 then
+		          TfFamCount(indx) = TfFamCount(indx) + 1
+		        else
+		          TfFamiles.Append(rowOutput(0)+Chr(9)+Chr(9)+rowOutput(1))
+		          TfFamCount.Append(1)
+		        end
 		        w.OutputBox.AddRow
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,0) = rowOutput(0)
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,1) = rowOutput(1)
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,2) = rowOutput(2)
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,3) = rowOutput(7)
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,4) = rowOutput(8)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,0) = nthfield(rowOutput(2), "_", 1)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,1) = nthfield(rowOutput(2), "_", 2)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,2) = rowOutput(0)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,3) = rowOutput(1)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,4) = rowOutput(7)
+		        w.OutputBox.Cell(w.OutputBox.LastIndex,5) = rowOutput(8)
 		        if Ubound(rowOutput) > 18 then
 		          dim descr As String
 		          for i as Integer = 18 to Ubound(rowOutput)
 		            descr = descr + " " + rowOutput(i)
 		          next
-		          w.OutputBox.Cell(w.OutputBox.LastIndex,5) = descr
+		          w.OutputBox.Cell(w.OutputBox.LastIndex, 6) = descr
 		        else
-		          w.OutputBox.Cell(w.OutputBox.LastIndex,5) = rowOutput(Ubound(rowOutput))
+		          w.OutputBox.Cell(w.OutputBox.LastIndex, 6) = rowOutput(Ubound(rowOutput))
 		        end
-		        
 		      next
-		      
+		      dim logowinout as String
+		      logowinout = EndOfLine.UNIX+GenomeFile.Name + " encodes " + str(TfEntryDict.KeyCount) + " putative TFs. Search was performed with " + HmmLibrary
+		      logowinout = logowinout + " of the hmm library." + EndOfLine.UNIX + "Total number of TF Families: " + str(Ubound(TfFamiles)+1) + EndOfLine.UNIX
+		      logowinout = logowinout + "TF Family"+Chr(9)+Chr(9)+"Accession code"+Chr(9)+Chr(9)+"Count" + EndOfLine.UNIX
+		      w.Label1.Text = "Total count of TFs: " + str(TfEntryDict.KeyCount) + ". Hmm library version: " + HmmLibrary
+		      TfFamCount.SortWith(TfFamiles)
+		      for i as Integer = 0 to Ubound(TfFamiles)
+		        logowinout = logowinout + TfFamiles(i)+Chr(9)+Chr(9)+str(TfFamCount(i)) + EndOfLine.UNIX
+		      next
+		      WriteToSTDOUT(logowinout)
 		      w.Show
 		    end
 		  else
-		    
+		    WriteToSTDOUT("Open the genome file first!"+EndOfLine.UNIX)
 		  end
 		End Sub
 	#tag EndMethod

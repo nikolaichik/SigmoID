@@ -116,7 +116,6 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   False
       Value           =   0
@@ -2824,7 +2823,7 @@ Begin Window SettingsWin
             FontName        =   "System"
             FontSize        =   0.0
             FontUnit        =   0
-            Height          =   20
+            Height          =   26
             Index           =   -2147483648
             InitialParent   =   "GroupBox3"
             InitialValue    =   "UniProtKB/SwissProt (swissprot)\nReference proteins (refseq_protein)\nNon-redundant protein sequences (nr)"
@@ -2856,7 +2855,7 @@ Begin Window SettingsWin
             FontName        =   "System"
             FontSize        =   0.0
             FontUnit        =   0
-            Height          =   20
+            Height          =   27
             Index           =   -2147483648
             InitialParent   =   "GroupBox3"
             InitialValue    =   "Reference genomic sequences (refseq_genomic)\nNucleotide collection (nr)"
@@ -3070,7 +3069,7 @@ Begin Window SettingsWin
             ValidationMask  =   ""
             Value           =   ""
             Visible         =   True
-            Width           =   343
+            Width           =   339
          End
          Begin Label Label13
             AllowAutoDeactivate=   True
@@ -3210,7 +3209,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   2
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   233
+         Top             =   273
          Transparent     =   False
          Underline       =   False
          Visible         =   True
@@ -3243,7 +3242,7 @@ Begin Window SettingsWin
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   306
+            Top             =   346
             Transparent     =   True
             Underline       =   False
             Value           =   "E-mail"
@@ -3286,7 +3285,7 @@ Begin Window SettingsWin
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   304
+            Top             =   344
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
@@ -3322,7 +3321,7 @@ Begin Window SettingsWin
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   268
+            Top             =   308
             Transparent     =   True
             Underline       =   False
             Value           =   "Name"
@@ -3365,7 +3364,7 @@ Begin Window SettingsWin
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
-            Top             =   266
+            Top             =   306
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
@@ -3373,6 +3372,73 @@ Begin Window SettingsWin
             Visible         =   True
             Width           =   441
          End
+      End
+      Begin PopupMenu PopupMenuHmmLib
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   28
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         InitialValue    =   "Full_version\nSmall_version"
+         Italic          =   False
+         Left            =   183
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         SelectedRowIndex=   0
+         TabIndex        =   2
+         TabPanelIndex   =   2
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   233
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   337
+      End
+      Begin Label Label46
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   30
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   3
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   241
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "Hmm Library"
+         Visible         =   True
+         Width           =   151
       End
    End
    Begin PushButton DefaultPathsButton
@@ -3475,13 +3541,20 @@ End
 		  
 		  for n=0 to ProteinPopup.ListCount
 		    if instr(ProteinPopup.List(n),BLASTpDB)>0 then
-		      ProteinPopup.ListIndex=n
+		      ProteinPopup.SelectedRowIndex=n
+		      exit
+		    end if
+		  next
+		  
+		  ' Set default Hmm Library 
+		  for n=0 to PopupMenuHmmLib.ListCount
+		    if instr(PopupMenuHmmLib.List(n),HmmLibrary)>0 then
+		      PopupMenuHmmLib.SelectedRowIndex=n
 		      exit
 		    end if
 		  next
 		  
 		  OrganismField.Text=BLASTorganism
-		  
 		  
 		  
 		  
@@ -3654,6 +3727,7 @@ End
 		  Prefs.value("ProfileFpath")=ProfileFpath
 		  Prefs.value("BLASTnDB")=nthfield(nthfield(NucleotidePopup.Text,"(",2),")",1)
 		  Prefs.value("BLASTpDB")=nthfield(nthfield(ProteinPopup.Text,"(",2),")",1)
+		  Prefs.value("HmmLibrary") = PopupMenuHmmLib.Text
 		  Prefs.value("BLASTorganism")=OrganismField.text
 		  Prefs.value("API_Key")=APIKeyField.text
 		  Prefs.Value("ChIPmunkPath")=ChIPmunkPathField.Text

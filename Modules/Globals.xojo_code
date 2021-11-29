@@ -3146,6 +3146,15 @@ Protected Module Globals
 		    PathsChanged=False
 		  end if
 		  
+		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
+		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
+		  BLASTorganism=Prefs.value("BLASTorganism","")
+		  HmmLibrary=Prefs.value("HmmLibrary", "Full_version")
+		  API_Key=Prefs.value("API_Key","")
+		  email=Prefs.value("email","")
+		  CuratorName=Prefs.value("CuratorName","")
+		  requestCount=Val(Prefs.Value("requestCount","100"))
+		  
 		  SettingsWin.tfastxPathField.text=tfastxPath
 		  SettingsWin.alimaskPathField.text=alimaskpath
 		  SettingsWin.nhmmerpathField.text=nhmmerpath
@@ -3163,13 +3172,6 @@ Protected Module Globals
 		  SettingsWin.bioProsPathField.Text=BioProsPath
 		  SettingsWin.clustalPathField.Text = ClustalPath
 		  
-		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
-		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
-		  BLASTorganism=Prefs.value("BLASTorganism","")
-		  API_Key=Prefs.value("API_Key","")
-		  email=Prefs.value("email","")
-		  CuratorName=Prefs.value("CuratorName","")
-		  requestCount=Val(Prefs.Value("requestCount","100"))
 		  
 		  // Fonts
 		  Dim LRI As Integer = SettingsWin.PropFontSelMenu.LastRowIndex
@@ -4759,6 +4761,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		HmmLibrary As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		hmmSearchSettings As String
 	#tag EndProperty
 
@@ -5595,6 +5601,14 @@ Protected Module Globals
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ClustalPath"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HmmLibrary"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
