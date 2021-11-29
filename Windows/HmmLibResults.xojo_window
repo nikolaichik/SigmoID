@@ -20,7 +20,7 @@ Begin Window HmmLibResults
    MinimumHeight   =   64
    MinimumWidth    =   64
    Resizeable      =   True
-   Title           =   "TFs encoded in the genome"
+   Title           =   "None"
    Type            =   "0"
    Visible         =   True
    Width           =   600
@@ -33,7 +33,7 @@ Begin Window HmmLibResults
       AllowRowDragging=   False
       AllowRowReordering=   False
       Bold            =   False
-      ColumnCount     =   6
+      ColumnCount     =   7
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
@@ -108,6 +108,41 @@ Begin Window HmmLibResults
       Visible         =   True
       Width           =   187
    End
+   Begin Label Label1
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   11
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   398
+      Transparent     =   False
+      Underline       =   False
+      Value           =   "Untitled"
+      Visible         =   True
+      Width           =   383
+   End
 End
 #tag EndWindow
 
@@ -122,13 +157,14 @@ End
 #tag Events OutputBox
 	#tag Event
 		Sub Open()
-		  Me.ColumnWidths="15%, 15%, 20%, 10%, 10%, *"
-		  me.Heading(0)="Target name"
-		  me.Heading(1)="Accession"
-		  me.Heading(2)="Query"
-		  me.Heading(3)="E-value"
-		  me.Heading(4)="Score"
-		  me.Heading(5)="Description"
+		  Me.ColumnWidths="10%, 10%, 20%, 10%, 10%, *"
+		  me.Heading(0)="Protein ID"
+		  me.Heading(1)="Gene"
+		  me.Heading(2)="Family"
+		  me.Heading(3) = "Accession"
+		  me.Heading(4)="E-value"
+		  me.Heading(5)="Score"
+		  me.Heading(6)="Description"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
