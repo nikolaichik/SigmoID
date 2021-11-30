@@ -873,9 +873,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomeListencodedTFs
          SpecialMenu = 0
-         Value = "List encoded TFs..."
+         Value = "List encoded TFs"
          Index = -2147483648
-         Text = "List encoded TFs..."
+         Text = "List encoded TFs"
          AutoEnabled = True
          AutoEnable = True
          Visible = True

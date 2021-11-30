@@ -5664,18 +5664,17 @@ End
 		  dim tempCDS As FolderItem = TemporaryFolder.Child("temp_CDS.fasta")
 		  dim alignment As FolderItem =  TemporaryFolder.Child("alignmentHmmlib")
 		  dim row As String
-		  dim tempRow As String
 		  dim TfEntryDict As New Dictionary
 		  dim HmmLibraries As New Dictionary
+		  dim DesrDict As New Dictionary
 		  HmmLibraries.Value("Full_version") = Resources_f.ShellPath + "hmmlibL.hmm"
 		  Hmmlibraries.Value("Small_version") = Resources_f.ShellPath + "hmmlib.hmm"
-		  dim trimmed As Integer
 		  dim storedRowArray(-1) As Variant
 		  dim columnArray(-1) As String
-		  
+		  dim scanOutput(-1) As String
+		  dim scanEntry(-1) As String
 		  dim columns(-1) As String
 		  dim table(-1) As Variant
-		  dim outstream As TextOutputStream
 		  dim instream As TextInputStream
 		  dim HmmSearchPath As String = Replace(nhmmerPath,"nhmmer","hmmscan")
 		  dim cli As String
@@ -5683,6 +5682,9 @@ End
 		  RemoveSpaces.SearchPattern = "[ |\t|]{1,}"
 		  RemoveSpaces.ReplacementPattern = "*_*"
 		  RemoveSpaces.Options.ReplaceAllMatches = True
+		  dim geneName As New RegEx
+		  geneName.SearchPattern = "(?<=\_)[a-z]\S+"
+		  dim rgm As RegExMatch
 		  
 		  if tempCDS.Exists then
 		    tempCDS.Remove
@@ -5690,14 +5692,25 @@ End
 		  
 		  if GenomeWin.GenomeFile <> Nil then
 		    GenomeWin.ExportProteins(tempCDS, True)
-		    cli=HmmSearchPath+" --cut_ga --notextw"+" --tblout "+PlaceQuotesToPath(MakeWSLPath(alignment.ShellPath))
-		    cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(HmmLibraries.Value(HmmLibrary)))+" "+PlaceQuotesToPath(MakeWSLPath(tempCDS.ShellPath))
+		    cli=HmmSearchPath+" --cut_ga --notextw"+" --tblout "+PlaceQuotesToPath(MakeWSLPath(alignment.ShellPath))+" "
+		    cli=cli+PlaceQuotesToPath(MakeWSLPath(HmmLibraries.Value(HmmLibrary)))+" "+PlaceQuotesToPath(MakeWSLPath(tempCDS.ShellPath))
 		    #If TargetWindows
 		      ExecuteWSL(cli)
 		    #Else
 		      userShell(cli)
 		    #EndIf
 		    if shError = 0 then
+		      scanOutput =  shResult.Split("Query:       ")
+		      for i as Integer = 0 to UBound(ScanOutput)
+		        if instr(scanOutput(i), "No hits detected") > 0 then
+		          Continue 
+		        else
+		          scanEntry = scanOutput(i).Split(EndOfLine.UNIX)
+		          DesrDict.value(trim(Nthfield(scanEntry(0)," [", 1))) = Nthfield(scanEntry(1), ": ", 2)
+		        end
+		      next
+		      
+		      
 		      if alignment <> Nil then
 		        instream = alignment.OpenAsTextFile
 		        while not instream.EndOfFile
@@ -5742,21 +5755,26 @@ End
 		          TfFamCount.Append(1)
 		        end
 		        w.OutputBox.AddRow
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,0) = nthfield(rowOutput(2), "_", 1)
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,1) = nthfield(rowOutput(2), "_", 2)
+		        
+		        rgm = geneName.Search(rowOutput(2))
+		        if rgm <> Nil then
+		          w.OutputBox.Cell(w.OutputBox.LastIndex,0) = nthfield(rowOutput(2), "_"+rgm.SubExpressionString(0), 1)
+		          w.OutputBox.Cell(w.OutputBox.LastIndex,1) = rgm.SubExpressionString(0)
+		        else
+		          w.OutputBox.Cell(w.OutputBox.LastIndex,0) = rowOutput(2)
+		          w.OutputBox.Cell(w.OutputBox.LastIndex,1) = "-"
+		        end
+		        
 		        w.OutputBox.Cell(w.OutputBox.LastIndex,2) = rowOutput(0)
 		        w.OutputBox.Cell(w.OutputBox.LastIndex,3) = rowOutput(1)
 		        w.OutputBox.Cell(w.OutputBox.LastIndex,4) = rowOutput(7)
 		        w.OutputBox.Cell(w.OutputBox.LastIndex,5) = rowOutput(8)
-		        if Ubound(rowOutput) > 18 then
-		          dim descr As String
-		          for i as Integer = 18 to Ubound(rowOutput)
-		            descr = descr + " " + rowOutput(i)
-		          next
-		          w.OutputBox.Cell(w.OutputBox.LastIndex, 6) = descr
+		        if DesrDict.HasKey(rowOutput(2)) then
+		          w.OutputBox.Cell(w.OutputBox.LastIndex, 6) = DesrDict.value(rowOutput(2))
 		        else
-		          w.OutputBox.Cell(w.OutputBox.LastIndex, 6) = rowOutput(Ubound(rowOutput))
+		          w.OutputBox.Cell(w.OutputBox.LastIndex, 6) = "-"
 		        end
+		        
 		      next
 		      dim logowinout as String
 		      logowinout = EndOfLine.UNIX+GenomeFile.Name + " encodes " + str(TfEntryDict.KeyCount) + " putative TFs. Search was performed with " + HmmLibrary
