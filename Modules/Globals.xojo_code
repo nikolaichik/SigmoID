@@ -241,6 +241,98 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CompareEvals(num1 As String, num2 As String) As Boolean
+		  ' method compares if num1 is greater than num2, numbers in scientific notations
+		  ' are expected.
+		  ' comparision is rougth and should performe correct for small numbers, 
+		  ' e.g. 1e+4 and 10000 is not the input, which will be precessed correctly 
+		  
+		  dim base1 As String
+		  dim base2 As String
+		  dim mult1 As String
+		  dim mult2 As String
+		  
+		  
+		  if instr(num1, "e") > 0 and instr(num2, "e") > 0 then
+		    if instr(num1, "+") > 0 and instr(num2, "+") > 0 then
+		      mult1 = nthfield(num1, "e+",1)
+		      base1 = nthfield(num1, "e+",2)
+		      mult2 = nthfield(num2, "e+",1)
+		      base2 = nthfield(num2, "e+",2)
+		      if instr(base1,"0") > 0 then
+		        while base1.BeginsWith("0")
+		          base1 = base1.right(len(base1)-1)
+		        wend
+		      end
+		      if instr(base2,"0") > 0 then
+		        while base2.BeginsWith("0")
+		          base2 = base2.right(len(base2)-1)
+		        wend
+		      end
+		      if val(base1) > val(base2) then
+		        return True
+		      elseif val(base1) < val(base2) then
+		        return False
+		      else
+		        if val(mult1) > val(mult2) then
+		          return True
+		        else
+		          return False
+		        end
+		      end
+		    elseif  instr(num1, "+") > 0 and instr(num2, "-") > 0 then
+		      return True
+		    elseif  instr(num1, "-") > 0 and instr(num2, "+") > 0 then
+		      return False
+		    else
+		      'both e-
+		      mult1 = nthfield(num1, "e-",1)
+		      base1 = nthfield(num1, "e-",2)
+		      mult2 = nthfield(num2, "e-",1)
+		      base2 = nthfield(num2, "e-",2)
+		      if instr(base1,"0") > 0 then
+		        while base1.BeginsWith("0")
+		          base1 = base1.right(len(base1)-1)
+		        wend
+		      end
+		      if instr(base2,"0") > 0 then
+		        while base2.BeginsWith("0")
+		          base2 = base2.right(len(base2)-1)
+		        wend
+		      end
+		      if val(base1) > val(base2) then
+		        return False
+		      elseif val(base1) < val(base2) then
+		        return True
+		      else
+		        if val(mult1) > val(mult2) then
+		          return True
+		        else
+		          return False
+		        end
+		      end
+		    end
+		  elseif instr(num1, "e") > 0 and instr(num2, "e") = 0 then
+		    if instr(num1, "-") > 0 then
+		      return False
+		    end
+		  elseif instr(num1, "e") = 0 and instr(num2, "e") > 0 then
+		    if instr(num2, "-") > 0 then
+		      return True
+		    end
+		  else
+		    if val(num1) > val(num2) then
+		      return True
+		    elseif val(num1) < val(num2) then
+		      Return False
+		    else 
+		      Return False
+		    end
+		  end
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CompareScores(SigmoIDhits as string, TrainingData as string) As double
 		  'Sigmoid gives a fasta file with headers like this:
 		  '>2469306:2469325 (-) AscG Score=11.5 E-value=1.6
@@ -3054,6 +3146,15 @@ Protected Module Globals
 		    PathsChanged=False
 		  end if
 		  
+		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
+		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
+		  BLASTorganism=Prefs.value("BLASTorganism","")
+		  HmmLibrary=Prefs.value("HmmLibrary", "Full_version")
+		  API_Key=Prefs.value("API_Key","")
+		  email=Prefs.value("email","")
+		  CuratorName=Prefs.value("CuratorName","")
+		  requestCount=Val(Prefs.Value("requestCount","100"))
+		  
 		  SettingsWin.tfastxPathField.text=tfastxPath
 		  SettingsWin.alimaskPathField.text=alimaskpath
 		  SettingsWin.nhmmerpathField.text=nhmmerpath
@@ -3071,13 +3172,6 @@ Protected Module Globals
 		  SettingsWin.bioProsPathField.Text=BioProsPath
 		  SettingsWin.clustalPathField.Text = ClustalPath
 		  
-		  BLASTnDB=Prefs.value("BLASTnDB","refseq_genomic")
-		  BLASTpDB=Prefs.value("BLASTpDB","SwissProt")
-		  BLASTorganism=Prefs.value("BLASTorganism","")
-		  API_Key=Prefs.value("API_Key","")
-		  email=Prefs.value("email","")
-		  CuratorName=Prefs.value("CuratorName","")
-		  requestCount=Val(Prefs.Value("requestCount","100"))
 		  
 		  // Fonts
 		  Dim LRI As Integer = SettingsWin.PropFontSelMenu.LastRowIndex
@@ -4667,6 +4761,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		HmmLibrary As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		hmmSearchSettings As String
 	#tag EndProperty
 
@@ -5503,6 +5601,14 @@ Protected Module Globals
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ClustalPath"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HmmLibrary"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
