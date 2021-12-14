@@ -968,11 +968,12 @@ Protected Module Globals
 		  ' true - '
 		  'WSLCommand = "C:\Windows\WinSxS\amd64_microsoft-windows-lxss-bash_31bf3856ad364e35_10.0.19041.1151_none_b46b739f71bbb8b7\bash.exe --login -c "
 		  var WSLBashCommand as string 
-		  WSLBashCommand = " --login -c "
+		  WSLBashCommand = " sudo -u user bash --login -c "
 		  If mode = true Then
-		    userShell(WSLBashPath+WSLBashCommand+"'"+cmd+"'"+cmdend)
+		    userShell(WSLBashPath+" -c '"+WSLBashCommand+chr(34)+cmd+chr(34)+"'"+cmdend)
 		  Else
-		    userShell(WSLBashPath+WSLBashCommand+chr(34)+cmd+chr(34)+cmdend)
+		    'userShell(WSLBashPath+chr(34)+WSLBashCommand+chr(34)+cmd+chr(34)+chr(34)+cmdend)
+		    userShell(WSLBashPath+" -c "+chr(34)+WSLBashCommand+"'"+cmd+"'"+chr(34)+cmdend)
 		  End If
 		  
 		End Sub

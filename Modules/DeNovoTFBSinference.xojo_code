@@ -2308,8 +2308,8 @@ Protected Module DeNovoTFBSinference
 		    ' Work in progress here
 		    'cmdStart = "esearch -db protein -query "
 		    'cmdEnd = " | efetch -format fasta >> "+chr(34)+chr(34)+MakeWSLPath(OutputFilePath)+chr(34)+chr(34)
-		    cmdStart = "esearch -db protein -query '"
-		    cmdEnd = "' | efetch -format fasta"
+		    cmdStart = "esearch -db protein -query ''"
+		    cmdEnd = "'' | efetch -format fasta"
 		  #Else 
 		    cmdStart = "esearch -db protein -query '"
 		    cmdEnd = "' | efetch -format fasta"
@@ -2321,6 +2321,7 @@ Protected Module DeNovoTFBSinference
 		  #If TargetWindows
 		    UserShellMode=1
 		    ExecuteWSL(cmd, false, " > "+PlaceQuotesToPath(OutputFilePath))
+		    'ExecuteWSL("esearch", false, " > "+PlaceQuotesToPath(OutputFilePath))
 		  #Else 
 		    userShell(cmd)
 		  #EndIf
