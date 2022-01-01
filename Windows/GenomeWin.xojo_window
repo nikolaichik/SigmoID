@@ -79,7 +79,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +164,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +245,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -4356,35 +4356,234 @@ End
 		  // Only TFBSs handled at this time
 		  
 		  Dim n,u As Integer
+		  Dim Ftype As String = seq.Features(FeatureNo).type
+		  Dim FtypeSelector As String
+		  Dim Ftname As String
+		  Dim Fcount As Integer
+		  Dim AlreadyRemoved as boolean
+		  
+		  u=ubound(Genome.Features)
 		  
 		  If FeatureNo=0 Then Return 'Nothing selected
 		  
-		  // get feature type and name
-		  ' Annotation sample:
-		  ' protein_bind    223284..223298
-		  ' /inference="profile:nhmmer:3.1b1"
-		  ' /bound_moiety="CpxR"
-		  
 		  Dim fname As String = seq.Features(FeatureNo).FeatureText
-		  fname=NthField(fname,"/bound_moiety=",2)
-		  fname=NthField(fname,Chr(34),2)
-		  fname="/bound_moiety="+Chr(34)+fname+Chr(34)
 		  
-		  // Delete features
+		  If Ftype="promoter" Then
+		    FtypeSelector="protein_bind"
+		  Elseif Ftype="riboswitch" Then
+		    FtypeSelector="protein_bind"
+		  Else
+		    FtypeSelector=Ftype
+		  End If
 		  
-		  u=ubound(Genome.Features)
-		  For n=u DownTo 1
-		    If InStr(Genome.Features(n).FeatureText,fname)>0 Then
-		      Genome.Features.Remove n
+		  Select Case FtypeSelector
+		  Case "mobile_element"
+		    ' Annotation sample:
+		    'mobile_element  1885723..1887005
+		    '/mobile_element_type="insertion sequence:ISPcc1"
+		    fname=NthField(fname,"/mobile_element_type=",2)
+		    fname=NthField(fname,Chr(34),2)
+		    Ftname=fname
+		    fname="/mobile_element_type="+Chr(34)+fname+Chr(34)
+		  Case "ncRNA"
+		    ' Annotation sample:
+		    'ncRNA           18607..18756
+		    '/ncRNA_class="other"
+		    '/locus_tag="OA04_00180"
+		    '/product="StyR-44"
+		    '/inference="COORDINATES: profile:Infernal:1.1"
+		    '
+		    'Annotation sample:
+		    'ncRNA           396517..396895
+		    '/ncRNA_class="RNase_P_RNA"
+		    '/gene="rnpB"
+		    '/locus_tag="OA04_03670"
+		    '/product="RNaseP RNA"
+		    '/inference="COORDINATES: profile:Infernal:1.1"
+		    '
+		    'Annotation sample:
+		    'ncRNA           502324..502411
+		    '/ncRNA_class="antisense_RNA"
+		    '/locus_tag="OA04_04660"
+		    '/product="C4 antisense RNA"
+		    '/inference="COORDINATES: profile:Infernal:1.1"
+		    
+		    fname=NthField(fname,"/product=",2)
+		    fname=NthField(fname,Chr(34),2)
+		    Ftname=fname
+		    fname="/product="+Chr(34)+fname+Chr(34)
+		    
+		  Case "protein_bind"      '"protein_bind" OR "promoter" OR "riboswitch"
+		    ' Annotation sample:
+		    ' protein_bind    223284..223298
+		    ' /inference="profile:nhmmer:3.1b1"
+		    ' /bound_moiety="CpxR"
+		    
+		    fname=NthField(fname,"/bound_moiety=",2)
+		    fname=NthField(fname,Chr(34),2)
+		    Ftname=fname
+		    fname="/bound_moiety="+Chr(34)+fname+Chr(34)
+		    
+		    'Case "promoter"
+		    ' Annotation sample:
+		    'regulatory      complement(3791743..3791772)
+		    '/regulatory_class="promoter"
+		    '/inference="profile:nhmmer:3.1b1"
+		    '/bound_moiety="RpoN alternative sigma factor"
+		  Case "repeat_region"
+		    ' Annotation sample:
+		    'repeat_region   294656..294782
+		    '/note="nhmmer score 108.8 E-value 5e-31"
+		    '/rpt_type=inverted
+		    '/rpt_family="ERIC"
+		    '
+		    'Annotation sample2:
+		    'repeat_region   440205..440222
+		    '/note="ISPcc1, terminal inverted repeat"
+		    '/rpt_type=inverted
+		    
+		    If InStr(fname,"/rpt_family=")>0 Then
+		      fname=NthField(fname,"/rpt_family=",2)
+		      fname=NthField(fname,Chr(34),2)
+		      Ftname=fname
+		      fname="/rpt_family="+Chr(34)+fname+Chr(34)
+		    Else
+		      fname=NthField(fname,"/rpt_type",2)
+		      fname=NthField(fname,"=",2)
+		      fname=NthField(fname,EndOfLine.UNIX,1)
+		      Ftname=fname
+		      fname="/rpt_type="+fname
 		    End If
-		  Next
+		    
+		    'Case "riboswitch"
+		    ' Annotation sample:
+		    'regulatory      complement(289320..289474)
+		    '/regulatory_class="riboswitch"
+		    '/gene="thiC"
+		    '/locus_tag="OA04_02610"
+		    '/inference="COORDINATES: profile:Infernal:1.1"
+		    '/note="TPP riboswitch (THI element)"
+		    '/bound_moiety="thiamin/thiaminpyrophosphate"
+		    'Case "terminator"
+		    ' Annotation sample:
+		    'regulatory      complement(3792119..3792158)
+		    '/regulatory_class="terminator"
+		    '/locus_tag="OA04_35030"
+		    'Case "sig_peptide"
+		    ' Annotation sample:
+		    'sig_peptide     complement(310075..310143)
+		    '/locus_tag="OA04_02820"
+		    '/inference="ab initio prediction:SignalP:4.1"
+		    '/note="predicted cleavage at residue 23"
+		    '/gene="tcyA"
+		    
+		  Else           'Features without subtypes
+		    Dim d As New MessageDialog  //declare the MessageDialog object
+		    Dim b As MessageDialogButton //for handling the result
+		    d.icon=MessageDialog.GraphicCaution   //display warning icon
+		    d.ActionButton.Caption=kRemove
+		    d.CancelButton.Visible=True     //show the Cancel button
+		    d.CancelButton.Caption=kCancel
+		    
+		    d.Message="Really remove all "+Ftype+" features?"
+		    'd.Explanation="If you don't save, your changes will be lost. "
+		    
+		    b=d.ShowModalwithin(Self)     //display the dialog
+		    Select Case b //determine which button was pressed.
+		    Case d.ActionButton
+		      
+		      Dim txt2search As String
+		      
+		      Select Case Ftype
+		      Case "CDS"
+		        txt2search="CDS             "
+		      Case "sig_peptide"
+		        txt2search="sig_peptide     "
+		      Case "rRNA"
+		         txt2search="rRNA            "
+		      Case "tRNA"
+		        txt2search="tRNA            "
+		      Case "gene"
+		        txt2search="gene            "
+		      Case "operon"
+		        txt2search="operon          "
+		      Case "mobile_element"
+		        txt2search="mobile_element  "
+		      Case  "terminator"
+		        txt2search="/regulatory_class="+Chr(34)+"terminator"+Chr(34)
+		      Else
+		        txt2search=ftype+"  "   'two spaces to prevent accidental deletions of irrelevant features
+		      End Select
+		      
+		      
+		      
+		      For n=u DownTo 1
+		        If InStr(Genome.Features(n).FeatureText,txt2search)>0 Then
+		          Genome.Features.Remove n
+		          Fcount=Fcount+1
+		        End If
+		      Next
+		      AlreadyRemoved=True
+		      
+		    Case d.CancelButton
+		      Return //cancel feature removal
+		    End Select
+		    
+		    
+		    
+		    
+		    
+		  End Select
 		  
-		  // update the display to reflech deletion
-		  ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
+		  If Not AlreadyRemoved Then
+		    // Delete features of particular subtype
+		    
+		    
+		    Dim d As New MessageDialog  //declare the MessageDialog object
+		    Dim b As MessageDialogButton //for handling the result
+		    d.icon=MessageDialog.GraphicCaution   //display warning icon
+		    d.ActionButton.Caption=kYes
+		    d.CancelButton.Visible=True     //show the Cancel button
+		    d.CancelButton.Caption=kCancel
+		    
+		    d.Message="All "+Ftype+" features named "+Chr(34)+Ftname+Chr(34)+" will be removed. Proceed?"
+		    'd.Explanation="If you don't save, your changes will be lost. "
+		    
+		    b=d.ShowModalwithin(Self)     //display the dialog
+		    Select Case b //determine which button was pressed.
+		    Case d.ActionButton
+		      
+		      For n=u DownTo 1
+		        If InStr(Genome.Features(n).FeatureText,fname)>0 Then
+		          Genome.Features.Remove n
+		          Fcount=Fcount+1
+		        End If
+		      Next
+		      
+		      
+		    Case d.CancelButton
+		      Return //cancel feature removal
+		    End Select
+		    
+		  End If
 		  
-		  // mark genome changed:
-		  GenomeChanged=True
-		  Self.IsModified=True
+		  If Fcount>0 Then
+		    Dim msg As String
+		    If Ftname<>"" Then
+		      msg=Str(Fcount)+" "+Ftype+" features named "+Ftname+" removed."
+		    Else
+		      msg=Str(Fcount)+" "+Ftype+" features removed."
+		    End If
+		    
+		    MsgBox msg
+		    
+		    // update the display to reflect deletion
+		    ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
+		    
+		    // mark genome changed:
+		    GenomeChanged=True
+		    Self.IsModified=True
+		  End If
 		  
 		  
 		  
@@ -6361,9 +6560,8 @@ End
 		    base.Append mItem(kEditFeature)
 		    base.Append mItem(kEditGene)
 		    base.Append mItem(kRemoveFeature)
-		    If  seq.Features(ContextFeature).type="protein_bind" Then
-		      base.Append mItem(kRemoveFeatures)   'other types can be added, but not handled yet
-		    End If
+		    base.Append mItem(kRemoveFeatures)
+		    
 		    if seq.Features(ContextFeature).protein_id<>"" then
 		      ContextProteinName=seq.Features(ContextFeature).protein_id
 		    else
