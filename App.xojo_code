@@ -60,10 +60,10 @@ Inherits Application
 		  
 		  'hide debug/development menus for builds
 		  #if DebugBuild
-		    GenomeGetCRtags.visible=true
-		    GenomeCRtagfilteredsearch.visible=true
+		    'GenomeGetCRtags.visible=true
+		    'GenomeCRtagfilteredsearch.visible=true
 		    GenomeRunMEMEtwice.visible=true
-		    GenomeRedundantSeqs.visible=true
+		    'GenomeRedundantSeqs.visible=true
 		    LogoFromPWMtest.visible=true
 		  #else
 		    GenomeGetCRtags.visible=false
@@ -193,9 +193,13 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function CRtagbase(index as Integer) As Boolean Handles CRtagbase.Action
-			CRtagBaseConstructor.Show
-			return true
+		Function CRtagbase() As Boolean Handles CRtagbase.Action
+			
+			// replaced with CRtagExtractor.py script
+			
+			
+			'CRtagBaseConstructor.Show
+			'return true
 		End Function
 	#tag EndMenuHandler
 

@@ -889,36 +889,6 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem GenomeGenomeInfo
-         SpecialMenu = 0
-         Value = "Genome Info"
-         Index = -2147483648
-         Text = "Genome Info"
-         ShortcutKey = "I"
-         Shortcut = "Cmd+I"
-         MenuModifier = True
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem GenomeGenomeStatistics
-         SpecialMenu = 0
-         Value = "#kGenomeStatistics"
-         Index = -2147483648
-         Text = "#kGenomeStatistics"
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem UntitledItem6
-         SpecialMenu = 0
-         Value = "-"
-         Index = -2147483648
-         Text = "-"
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
       Begin MenuItem GenomeGoto
          SpecialMenu = 0
          Value = "#kGoTo"
@@ -965,6 +935,60 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem GenomeNewFeature
+         SpecialMenu = 0
+         Value = "#kNewFeature"
+         Index = -2147483648
+         Text = "#kNewFeature"
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem GenomeEditFeature
+         SpecialMenu = 0
+         Value = "#kEditFeature"
+         Index = -2147483648
+         Text = "#kEditFeature"
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem GenomeEditGene
+         SpecialMenu = 0
+         Value = "#kEditGene"
+         Index = -2147483648
+         Text = "#kEditGene"
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem GenomeRemoveFeature
+         SpecialMenu = 0
+         Value = "#kRemoveFeature"
+         Index = -2147483648
+         Text = "#kRemoveFeature"
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem GenomeRemoveFeatures
+         SpecialMenu = 0
+         Value = "#kRemoveFeatures"
+         Index = -2147483648
+         Text = "#kRemoveFeatures"
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator11
+         SpecialMenu = 0
+         Value = "-"
+         Index = -2147483648
+         Text = "-"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem GenomeAddPlot
          SpecialMenu = 0
          Value = "#kAddPlot"
@@ -992,20 +1016,20 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem UntitledSeparator8
-         SpecialMenu = 0
-         Value = "-"
-         Index = -2147483648
-         Text = "-"
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
       Begin MenuItem GenomePrintMap
          SpecialMenu = 0
          Value = "#kPrintMap"
          Index = -2147483648
          Text = "#kPrintMap"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator8
+         SpecialMenu = 0
+         Value = "-"
+         Index = -2147483648
+         Text = "-"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -1046,20 +1070,32 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem GenomeRedundantSeqs
+      Begin MenuItem UntitledItem6
          SpecialMenu = 0
-         Value = "Redundant Seqs"
+         Value = "-"
          Index = -2147483648
-         Text = "Redundant Seqs"
+         Text = "-"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem Crtagbase
+      Begin MenuItem GenomeGenomeInfo
          SpecialMenu = 0
-         Value = "Create CRtag base"
-         Index = 0
-         Text = "Create CRtag base"
+         Value = "Genome Info"
+         Index = -2147483648
+         Text = "Genome Info"
+         ShortcutKey = "I"
+         Shortcut = "Cmd+I"
+         MenuModifier = True
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeGenomeStatistics
+         SpecialMenu = 0
+         Value = "#kGenomeStatistics"
+         Index = -2147483648
+         Text = "#kGenomeStatistics"
          AutoEnabled = True
          AutoEnable = True
          Visible = True

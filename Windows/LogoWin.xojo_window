@@ -5667,8 +5667,8 @@ End
 		  dim TfEntryDict As New Dictionary
 		  dim HmmLibraries As New Dictionary
 		  dim DesrDict As New Dictionary
-		  HmmLibraries.Value("Full_version") = Resources_f.ShellPath + "hmmlibL.hmm"
-		  Hmmlibraries.Value("Small_version") = Resources_f.ShellPath + "hmmlib.hmm"
+		  HmmLibraries.Value("Full_version") = Resources_f.ShellPath + "/hmmlibL.hmm"
+		  Hmmlibraries.Value("Small_version") = Resources_f.ShellPath + "/hmmlib.hmm"
 		  dim storedRowArray(-1) As Variant
 		  dim columnArray(-1) As String
 		  dim scanOutput(-1) As String

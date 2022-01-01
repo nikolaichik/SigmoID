@@ -53,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +162,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -245,7 +242,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -358,7 +354,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -371,7 +366,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -474,7 +468,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -536,7 +529,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -642,15 +634,22 @@ End
 		    RegPreciseCompareScores.Enable
 		  end if
 		  
-		  'enable copying if anything is selected:
+		  'enable copying/editing if anything is selected:
 		  if AnythingSelected then
-		    EditCopy.enabled=true
-		    'enable copying of protein sequence, but only if a CDS is selected
+		    EditCopy.enabled=True
+		    GenomeNewFeature.enabled=True
 		    if SelFeatureNo>0 then
-		      if SelFeatureNo<=Ubound(seq.features) then 'workaround for scrolling problem
-		        if seq.Features(SelFeatureNo).type="CDS" then
-		          EditCopyTranslation.enabled=true
-		        end if
+		      If SelFeatureNo<=Ubound(seq.features) Then 'workaround for scrolling problem
+		        If seq.Features(SelFeatureNo).type="CDS" Then 'enable copying of protein sequence, but only if a CDS is selected
+		          EditCopyTranslation.enabled=True
+		          GenomeEditGene.enabled=True
+		        Elseif seq.Features(SelFeatureNo).type="gene" Then
+		          GenomeEditGene.enabled=True
+		        End If
+		        GenomeEditFeature.enabled=True
+		        GenomeEditGene.enabled=True
+		        GenomeRemoveFeature.enabled=True
+		        GenomeRemoveFeatures.enabled=True
 		      end if
 		    end if
 		  else
@@ -1364,6 +1363,22 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeEditFeature() As Boolean Handles GenomeEditFeature.Action
+			EditFeature(seq.Features(SelFeatureNo))
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeEditGene() As Boolean Handles GenomeEditGene.Action
+			EditGene(seq.Features(SelFeatureNo))
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeFind() As Boolean Handles GenomeFind.Action
 			#if TargetMacOS then
 			'#If Target64Bit Then
@@ -1473,8 +1488,32 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeNewFeature() As Boolean Handles GenomeNewFeature.Action
+			AddFeature
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomePrintMap() As Boolean Handles GenomePrintMap.Action
 			PrintMap
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeRemoveFeature() As Boolean Handles GenomeRemoveFeature.Action
+			RemoveFeature(SelFeatureNo)
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeRemoveFeatures() As Boolean Handles GenomeRemoveFeatures.Action
+			RemoveFeatures(SelFeatureNo)
 			Return True
 			
 		End Function
@@ -4570,7 +4609,7 @@ End
 		  If Fcount>0 Then
 		    Dim msg As String
 		    If Ftname<>"" Then
-		      msg=Str(Fcount)+" "+Ftype+" features named "+Ftname+" removed."
+		      msg=Str(Fcount)+" "+Ftype+" features named "+Chr(34)+Ftname+Chr(34)+" removed."
 		    Else
 		      msg=Str(Fcount)+" "+Ftype+" features removed."
 		    End If
@@ -6546,7 +6585,7 @@ End
 		  
 		  
 		  if ContextFeature>0 then
-		    if seq.Features(ContextFeature).type="CDS" then
+		    If seq.Features(ContextFeature).type="CDS" Then
 		      base.Append mItem(kCopyProtein)
 		      base.Append mItem(kSearchLiterature)  'PaperBlast with this CDS sequence
 		      'extract translation from feature table if present
@@ -6558,7 +6597,11 @@ End
 		      base.Append mItem(kCopyDNA)
 		    end if
 		    base.Append mItem(kEditFeature)
-		    base.Append mItem(kEditGene)
+		    
+		    If seq.Features(ContextFeature).type="CDS" Or seq.Features(ContextFeature).type="gene" Then
+		      base.Append mItem(kEditGene)
+		    End If
+		    
 		    base.Append mItem(kRemoveFeature)
 		    base.Append mItem(kRemoveFeatures)
 		    
@@ -6636,7 +6679,7 @@ End
 		    SearchLiterature(true)
 		  Case kCopyDNA
 		    CopyDNA
-		  case kEditFeature
+		  Case kEditFeature
 		    EditFeature(seq.Features(ContextFeature))
 		  case kEditGene
 		    EditGene(seq.Features(ContextFeature))
@@ -6657,7 +6700,7 @@ End
 		    BLASTNsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
 		  case kBLASTXsearch+BLASTpDB
 		    BLASTXsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
-		  case kNewFeature
+		  Case kNewFeature
 		    AddFeature
 		  case kScalePlotsSeparately
 		    Genome.ScalePlotsSeparately=true
