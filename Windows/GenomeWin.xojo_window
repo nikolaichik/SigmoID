@@ -1942,7 +1942,7 @@ End
 		  else
 		    FeatureLeft=Seq.Features(ContextFeature).start
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
-		    theSeq=gcodes(gCodeNo).Translate(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
+		    theSeq=gcodes(gCodeNo).Translate(MidB(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
 		  end
 		  
 		  'format the BLASTP request:
@@ -3965,7 +3965,7 @@ End
 		  dim t as double
 		  dim exitParsing as boolean
 		  dim w, toClose as GenomeWin
-		  dim NewFeature as GBFeature
+		  Dim NewFeature As GBFeature
 		  
 		  w=self
 		  genome=new cSeqObject
@@ -3983,6 +3983,9 @@ End
 		    Stre=f.OpenAsTextFile
 		    stre.Encoding=Encodings.ASCII   'Otherwise encoding can happen to be anything
 		    s=stre.readall
+		    w.FormattedSequence=Trim(RightB(s,Len(s)-InStrB(s,"ORIGIN")-7)) 
+		    w.Genome.sequence=CleanUp(w.FormattedSequence)
+		    
 		    Stre.Close
 		  End if
 		  
@@ -4062,7 +4065,7 @@ End
 		    Separator=cLineEnd+"     "
 		    m=countfields(features,Separator)
 		    currentFeature=""
-		    w.Genome.features(0)=new GBfeature(w.Genome.baselineY)   'this will store map title/sequence size
+		    w.Genome.features(0)=New GBfeature(w.Genome.baselineY)   'this will store map title/sequence size
 		    
 		    
 		    features=ConvertEncoding(features,Encodings.ASCII)
@@ -4102,7 +4105,7 @@ End
 		            NewFeature.finish=val(nthFieldB(coord,"..",1))  'replacement to correct for partial features
 		          end if
 		        else
-		          if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then
+		          If InStrB(17,cf1,"order")>0 Or InStrB(17,cf1,"join")>0 Then
 		            'split feature:
 		            'misc_feature    order(343373..343441,343469..343537,343652..343720,
 		            '343799..343867,343925..343984)
@@ -4115,20 +4118,31 @@ End
 		          else
 		            'NewFeature.complement=false false is the default
 		            coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
-		            NewFeature.start=val(NthFieldB(coord,"..",1))
+		            NewFeature.start=Val(NthFieldB(coord,"..",1))
 		            NewFeature.finish=val(nthFieldB(coord,"..",2))
 		          end if
-		        end if
+		        End If
+		        
+		        If InStrB(currentFeature,"CDS             ")>0  Then
+		          If InStrB(currentFeature,"/translation=")=0  Then 'missing translation, have to restore
+		            
+		            Dim theSeq As String
+		            If NewFeature.complement  Then
+		              theSeq=gcodes(gCodeNo).Translate(ReverseComplement(MidB(Genome.Sequence,NewFeature.finish,NewFeature.start-NewFeature.finish+1)))
+		            Else
+		              theSeq=gcodes(gCodeNo).Translate(MidB(Genome.Sequence,NewFeature.start,NewFeature.finish-NewFeature.start+1))
+		            End
+		            theSeq=Left(theSeq,Len(theSeq)-1) 'Remove the asterisk
+		            NewFeature.featureText=NewFeature.featureText+EndOfLine.UNIX+"/translation="+Chr(34)+theSeq+Chr(34)
+		            
+		          End If
+		        End If
+		        
 		        w.Genome.features.Append NewFeature
 		      end if
 		      
 		    next 'n
 		    
-		    's=DefineEncoding ("",Encodings.ASCII)
-		    
-		    w.FormattedSequence=trim(rightb(s,len(s)-instrb(s,"ORIGIN")-7)) 
-		    'w.FormattedSequence=trim(rightb(s,lenb(s)-instrb(s,"ORIGIN")-7)) предлагаю вариант на замену
-		    w.Genome.sequence=CleanUp(w.FormattedSequence)
 		    
 		  else
 		    msgbox kInvalidGenbankFile
