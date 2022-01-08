@@ -2156,7 +2156,7 @@ End
 		              
 		              
 		              ' check if the profile should be palindromic!!!!!              <---!
-		              ' we guess from family name here, which is far from being safe
+		              ' we guess from family name and TF name here, which is far from being safe
 		              
 		              
 		              PalindromicSite=palindromicFamily(FamilyName,TFname)

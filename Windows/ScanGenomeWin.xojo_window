@@ -8,7 +8,7 @@ Begin Window ScanGenomeWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   494
+   Height          =   566
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -54,7 +54,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   419
+      Top             =   491
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -96,7 +96,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   420
+      Top             =   492
       Transparent     =   False
       Underline       =   False
       UseFocusRing    =   True
@@ -129,7 +129,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   454
+      Top             =   526
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -161,7 +161,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   454
+      Top             =   526
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -193,7 +193,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   421
+      Top             =   493
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -225,7 +225,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   376
+      Top             =   448
       Transparent     =   False
       Underline       =   False
       Value           =   True
@@ -249,7 +249,7 @@ Begin Window ScanGenomeWin
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   396
+      Top             =   468
       Transparent     =   False
       Visible         =   True
       Width           =   406
@@ -272,7 +272,7 @@ Begin Window ScanGenomeWin
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   341
+      Height          =   413
       HelpTag         =   "The genome will be searched with all the profiles checked"
       Hierarchical    =   False
       Index           =   -2147483648
@@ -330,11 +330,11 @@ Begin Window ScanGenomeWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   20
       TabPanelIndex   =   0
@@ -343,7 +343,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   342
+      Top             =   414
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -374,11 +374,11 @@ Begin Window ScanGenomeWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   119
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   21
       TabPanelIndex   =   0
@@ -387,7 +387,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   342
+      Top             =   414
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -418,11 +418,11 @@ Begin Window ScanGenomeWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   238
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   22
       TabPanelIndex   =   0
@@ -431,7 +431,7 @@ Begin Window ScanGenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   342
+      Top             =   414
       Transparent     =   False
       Underline       =   False
       Value           =   False

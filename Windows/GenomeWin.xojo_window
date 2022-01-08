@@ -4553,7 +4553,7 @@ End
 		      Case "sig_peptide"
 		        txt2search="sig_peptide     "
 		      Case "rRNA"
-		         txt2search="rRNA            "
+		        txt2search="rRNA            "
 		      Case "tRNA"
 		        txt2search="tRNA            "
 		      Case "gene"
@@ -6635,7 +6635,8 @@ End
 		      boo=NOT UniProtSocket.IsConnected
 		      base.Append mItem(kHmmerSearchUniprot,boo)
 		      base.Append mItem(kCDsearch,true)
-		      base.Append mItem(kBLASTPsearch+BLASTpDB,true)
+		      base.Append mItem(kBLASTPsearch+BLASTpDB,True)
+		      base.Append mItem(kThreeSearches,True)
 		    else
 		      dim boo as boolean
 		      boo=NOT BLASTSocket.IsConnected
@@ -6690,7 +6691,7 @@ End
 		  case kCopyProtein
 		    CopyAA(true)
 		  Case kSearchLiterature
-		    SearchLiterature(true)
+		    SearchLiterature(True)
 		  Case kCopyDNA
 		    CopyDNA
 		  Case kEditFeature
@@ -6712,8 +6713,12 @@ End
 		    CDsearch(ContextProteinName)
 		  case kBLASTNsearch+BLASTnDB
 		    BLASTNsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
-		  case kBLASTXsearch+BLASTpDB
-		    BLASTXsearch(NthField(selrange.text,":",1)) 'use selection coords for tab name
+		  Case kBLASTXsearch+BLASTpDB
+		    BLASTXsearch(NthField(selrange.Text,":",1)) 'use selection coords for tab name
+		  Case kThreeSearches 'launch three searches at once
+		    CDsearch(ContextProteinName)
+		    HmmerSearchSwissProt(ContextProteinName)
+		    SearchLiterature(true)
 		  Case kNewFeature
 		    AddFeature
 		  case kScalePlotsSeparately
@@ -7128,7 +7133,7 @@ End
 		  Tabname=BrowserTabs.tabs(tabIndex).caption
 		  
 		  if instr(TabName,"SP:")>0 then
-		    SPSearchViewer.Visible=true
+		    SPSearchViewer.Visible=True
 		    BrowserPagePanel.value=0
 		  elseif instr(TabName,"UP:")>0 then
 		    UPSearchViewer.Visible=true
@@ -7154,7 +7159,9 @@ End
 		Function CancelRemoveTab(tabIndex as integer) As boolean
 		  
 		  if tabIndex>0 then
-		    me.value=tabIndex-1
+		    Me.value=tabIndex-1
+		  Else
+		    Me.value=0
 		  end if
 		  
 		  ''BrowserPagePanel positions are fixed as follows:

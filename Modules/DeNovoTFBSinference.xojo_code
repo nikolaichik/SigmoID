@@ -2588,6 +2588,8 @@ Protected Module DeNovoTFBSinference
 
 	#tag Method, Flags = &h0
 		Function PalindromicFamily(FamilyName as string, TFname as string) As boolean
+		  // Used in RegPrecise export
+		  
 		  // Guess if the profile should be palindromic
 		  '  Based solely on family name,
 		  '  in case of known exceptions TF name is taken into account 
@@ -2655,9 +2657,13 @@ Protected Module DeNovoTFBSinference
 		    
 		    
 		  Case "OmpR"               'PF00486
-		    Return False 'all direct repeats
 		    
-		    
+		    Dim OmpRpal As String = "CusR,CopR,CzcR,"  'Copper resistance regulators presumably recognise palindromes
+		    If InStr(OmpRpal,TFname)>0 Then
+		      Return True
+		    Else
+		      Return False
+		    End 
 		    
 		  Else
 		    Return True

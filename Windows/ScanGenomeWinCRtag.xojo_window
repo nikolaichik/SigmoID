@@ -8,7 +8,7 @@ Begin Window ScanGenomeWinCRtag
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   450
+   Height          =   516
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -51,7 +51,7 @@ Begin Window ScanGenomeWinCRtag
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   403
+      Top             =   469
       Transparent     =   True
       Underline       =   False
       Visible         =   True
@@ -74,7 +74,7 @@ Begin Window ScanGenomeWinCRtag
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   378
+      Top             =   444
       Transparent     =   True
       Visible         =   True
       Width           =   408
@@ -97,7 +97,7 @@ Begin Window ScanGenomeWinCRtag
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   380
+      Height          =   373
       HelpTag         =   "The genome will be searched with all the profiles checked"
       Hierarchical    =   False
       Index           =   -2147483648
@@ -122,7 +122,7 @@ Begin Window ScanGenomeWinCRtag
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   0
+      Top             =   73
       Transparent     =   True
       Underline       =   False
       UseFocusRing    =   True
@@ -146,22 +146,57 @@ Begin Window ScanGenomeWinCRtag
       InitialParent   =   ""
       Italic          =   False
       Left            =   206
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   20
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   408
+      Top             =   474
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   80
+   End
+   Begin Label Label1
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   52
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   9
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Multiline       =   True
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   21
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Value           =   "Search the built-in CR tagged TFBS profile library for CR tags matching TFs  from this genome. One TF family at a time."
+      Visible         =   True
+      Width           =   390
    End
 End
 #tag EndWindow

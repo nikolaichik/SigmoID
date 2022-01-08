@@ -62,14 +62,14 @@ Inherits Application
 		  #if DebugBuild
 		    'GenomeGetCRtags.visible=true
 		    'GenomeCRtagfilteredsearch.visible=true
-		    GenomeRunMEMEtwice.visible=true
+		    GenomeRunMEMEtwice.visible=True
 		    'GenomeRedundantSeqs.visible=true
 		    LogoFromPWMtest.visible=true
 		  #else
-		    GenomeGetCRtags.visible=false
-		    GenomeCRtagfilteredsearch.visible=false
+		    'GenomeGetCRtags.visible=false
+		    'GenomeCRtagfilteredsearch.visible=false
 		    GenomeRunMEMEtwice.visible=false
-		    GenomeRedundantSeqs.visible=false
+		    'GenomeRedundantSeqs.visible=false
 		    LogoFromPWMtest.visible=false
 		  #endif
 		  

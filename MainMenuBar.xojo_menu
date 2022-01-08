@@ -799,20 +799,47 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem GenomeScanGenome
+      Begin MenuItem GenomeRepeatSearch
          SpecialMenu = 0
-         Value = "#kScanGenome"
+         Value = "Repeat Search..."
          Index = -2147483648
-         Text = "#kScanGenome"
+         Text = "Repeat Search..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem UntitledSeparator8
+         SpecialMenu = 0
+         Value = "-"
+         Index = -2147483648
+         Text = "-"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
       End
       Begin MenuItem GenomeScanCr
          SpecialMenu = 0
-         Value = "Scan Genome (CRtag)..."
+         Value = "#kCRtagScan"
          Index = -2147483648
-         Text = "Scan Genome (CRtag)..."
+         Text = "#kCRtagScan"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeDeNovoTFBSinference
+         SpecialMenu = 0
+         Value = "De novo TFBS inference"
+         Index = -2147483648
+         Text = "De novo TFBS inference"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeScanGenome
+         SpecialMenu = 0
+         Value = "#kScanGenome"
+         Index = -2147483648
+         Text = "#kScanGenome"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -826,15 +853,6 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin MenuItem GenomeRepeatSearch
-         SpecialMenu = 0
-         Value = "Repeat Search..."
-         Index = -2147483648
-         Text = "Repeat Search..."
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
       Begin MenuItem AnnotateMEMEres
          SpecialMenu = 0
          Value = "Annotate MEME results"
@@ -842,6 +860,15 @@ Begin Menu MainMenuBar
          Text = "Annotate MEME results"
          AutoEnabled = True
          AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem GenomeRunMEMEtwice
+         SpecialMenu = 0
+         Value = "Run MEME twice"
+         Index = -2147483648
+         Text = "Run MEME twice"
+         AutoEnabled = False
+         AutoEnable = False
          Visible = True
       End
       Begin MenuItem UntitledItem5
@@ -1021,51 +1048,6 @@ Begin Menu MainMenuBar
          Value = "#kPrintMap"
          Index = -2147483648
          Text = "#kPrintMap"
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem UntitledSeparator8
-         SpecialMenu = 0
-         Value = "-"
-         Index = -2147483648
-         Text = "-"
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem GenomeGetCRtags
-         SpecialMenu = 0
-         Value = "Get CR tags"
-         Index = -2147483648
-         Text = "Get CR tags"
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem GenomeCRtagfilteredsearch
-         SpecialMenu = 0
-         Value = "CR tag filtered search..."
-         Index = -2147483648
-         Text = "CR tag filtered search..."
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem GenomeDeNovoTFBSinference
-         SpecialMenu = 0
-         Value = "de novo TFBS inference"
-         Index = -2147483648
-         Text = "de novo TFBS inference"
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem GenomeRunMEMEtwice
-         SpecialMenu = 0
-         Value = "Run MEME twice"
-         Index = -2147483648
-         Text = "Run MEME twice"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
