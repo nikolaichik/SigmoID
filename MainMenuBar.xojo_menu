@@ -328,6 +328,18 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem EditFind
+         SpecialMenu = 0
+         Value = "#kFind"
+         Index = -2147483648
+         Text = "#kFind"
+         ShortcutKey = "F"
+         Shortcut = "Cmd+F"
+         MenuModifier = True
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = True
+      End
       Begin MenuItem EditSeparator2
          SpecialMenu = 0
          Value = "-"

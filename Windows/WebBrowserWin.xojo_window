@@ -28,7 +28,7 @@ Begin Window WebBrowserWin
    Begin PagePanel BrowserPagePanel
       AllowAutoDeactivate=   True
       Enabled         =   True
-      Height          =   673
+      Height          =   646
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -42,7 +42,6 @@ Begin Window WebBrowserWin
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Tooltip         =   ""
       Top             =   27
       Transparent     =   False
@@ -51,7 +50,6 @@ Begin Window WebBrowserWin
       Width           =   1100
    End
    Begin Timer TitleTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -90,6 +88,49 @@ Begin Window WebBrowserWin
       Visible         =   True
       Width           =   1100
    End
+   Begin TextField SearchField
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   False
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFF00FF
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   24
+      Hint            =   "#kSearch"
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   676
+      Transparent     =   True
+      Underline       =   False
+      ValidationMask  =   ""
+      Value           =   ""
+      Visible         =   True
+      Width           =   200
+   End
 End
 #tag EndWindow
 
@@ -98,6 +139,8 @@ End
 		Sub EnableMenuItems()
 		  FileNewTab.visible=True
 		  FileNewTab.enabled=True
+		  EditFind.Enabled=True
+		  
 		End Sub
 	#tag EndEvent
 
@@ -108,6 +151,22 @@ End
 		End Sub
 	#tag EndEvent
 
+
+	#tag MenuHandler
+		Function EditFind() As Boolean Handles EditFind.Action
+			FindText("")
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function EditSelectAll() As Boolean Handles EditSelectAll.Action
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
@@ -128,6 +187,17 @@ End
 		End Function
 	#tag EndMenuHandler
 
+
+	#tag Method, Flags = &h0
+		Function ActiveBrowser() As HTMLViewer
+		  For Each w As weakRef In Self.ContainerRefs
+		    If htmlcontainer(w.value).WebViewer.PanelIndex=BrowserPagePanel.value Then
+		      Return HTMLContainer(w.value).WebViewer
+		    End If
+		  Next
+		  
+		End Function
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function AddNewTab() As HTMLViewer
@@ -174,6 +244,28 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub FindText(txt2find as string)
+		  // Uses JavaScript to search for the text displayed in the currently vivible HTMLviewer
+		  ' syntax from https://developer.mozilla.org/en-US/docs/Web/API/Window/find:
+		  'window.find(aString, aCaseSensitive, aBackwards, aWrapAround,aWholeWord, aSearchInFrames, aShowDialog);
+		  
+		  'txt2find="Hits"
+		  
+		  'ActiveBrowser.ExecuteJavascript("window.find("""+txt2find+""",false,false,true,false,true,true).toString();")
+		  
+		  
+		  'window.status is used here to return value from JavaScript function
+		  'it can be accessed from the ActiveBrowser.StatusChanged event
+		  ActiveBrowser.ExecuteJavascript("window.status=window.find("""+txt2find+""",false,false,true).toString();")
+		  
+		  
+		  'Beep
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub LoadPage(aFile as FolderItem)
 		  if ubound(mBrowserTabs)<0 then call AddNewTab
 		  
@@ -190,6 +282,44 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub RegisterContainerControl(cc as HTMLcontainer)
+		  Var ref As WeakRef
+		  ref = New WeakRef(cc)
+		  If ref.Value <> Nil Then
+		    ContainerRefs.append ref
+		  End If
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub unRegisterContainerControl(cc as HTMLcontainer)
+		  Var ref As WeakRef
+		  
+		  ref = New WeakRef(cc)
+		  If ref.Value <> Nil Then
+		    Var n As Integer
+		    For n=0 To UBound(ContainerRefs)
+		      If ContainerRefs(n)=ref Then
+		        ContainerRefs.RemoveRowAt(n)
+		        Exit
+		      End If
+		    Next
+		    
+		  End If
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		ContainerRefs(-1) As WeakRef
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		mBrowserTabs() As HTMLContainer
@@ -247,6 +377,46 @@ End
 		  End If
 		  
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SearchField
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  
+		  
+		  'check for CR/enter key
+		  if key=chr(13) OR key=chr(3) then
+		    
+		    ActiveBrowser.ExecuteJavascript("window.status=window.find("""+Me.Text+""",false,false,true).toString();")
+		    
+		  end if
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub GotFocus()
+		  '#If TargetLinux Then
+		  'if leftarrow then
+		  'leftarrow=false
+		  'MapCanvas.SetFocus
+		  'end if
+		  '#endif
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  '#If targetLinux
+		  ''probably relevant to 64-bit only
+		  'me.Enabled=true
+		  '#endif
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  #if targetLinux
+		    'probably relevant to 64-bit only
+		    me.Enabled=true
+		  #endif
 		End Sub
 	#tag EndEvent
 #tag EndEvents

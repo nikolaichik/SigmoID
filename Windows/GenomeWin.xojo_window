@@ -244,7 +244,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       Top             =   359
       Transparent     =   True
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer

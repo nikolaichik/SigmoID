@@ -141,7 +141,6 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   6
       Transparent     =   False
       Visible         =   True
@@ -164,7 +163,6 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   6
       Transparent     =   False
       Visible         =   True
@@ -196,6 +194,23 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Close()
+		  If Me.TrueWindow=WebBrowserWin Then
+		    WebBrowserWin(Me.TrueWindow).unRegisterContainerControl(Me)
+		  End If
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Open()
+		  If Me.TrueWindow=WebBrowserWin Then
+		    WebBrowserWin(Me.TrueWindow).RegisterContainerControl(Me)
+		  End If
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
 		Sub AdjustTabWidth()
 		  Dim tabNo As Integer = WebBrowserWin.BrowserPagePanel.PanelCount
