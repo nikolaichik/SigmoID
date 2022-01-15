@@ -207,6 +207,7 @@ End
 		  If Me.TrueWindow=WebBrowserWin Then
 		    WebBrowserWin(Me.TrueWindow).RegisterContainerControl(Me)
 		  End If
+		  
 		End Sub
 	#tag EndEvent
 
@@ -310,26 +311,35 @@ End
 		  ProgressWheel1.Visible=True
 		  ProgressWheel1.Enabled=True
 		  ProgressWheel1.Refresh
-		  Title = newTitle
-		  
-		  // Checks for title changes for each browser tab and update tab captions
-		  Dim cap, tit As String
-		  Dim tabNo As Integer = WebBrowserWin.BrowserPagePanel.PanelCount
-		  For page As Integer = 0 To tabNo-1
-		    cap=WebBrowserWin.BrowserTabs.tabs(page).caption
-		    tit=WebBrowserWin.mBrowserTabs(page).Title
-		    If WebBrowserWin.mBrowserTabs(page).Title <> WebBrowserWin.BrowserTabs.tabs(page).caption Then
-		      'Update title
-		      WebBrowserWin.BrowserTabs.tabs(page).caption = WebBrowserWin.mBrowserTabs(page).Title
-		    End If
-		  Next
-		  
-		  adjustTabWidth
-		  
-		  
-		  
-		  WebBrowserWin.BrowserTabs.RePaint
-		  
+		  if instr(newTitle, "count ")>0 then
+		    WebBrowserWin.matchCount = val(Nthfield(Nthfield(newTitle, "count ", 2), ";", 1))
+		    if WebBrowserWin.matchCount <> 0 then
+		      WebBrowserWin.shiftMatch(1)
+		    else
+		      WebBrowserWin.CountField.Text = "Not found"
+		      WebBrowserWin.SearchField.TextColor = &cFF0000
+		    end
+		  else
+		    Title = newTitle
+		    
+		    // Checks for title changes for each browser tab and update tab captions
+		    Dim cap, tit As String
+		    Dim tabNo As Integer = WebBrowserWin.BrowserPagePanel.PanelCount
+		    For page As Integer = 0 To tabNo-1
+		      cap=WebBrowserWin.BrowserTabs.tabs(page).caption
+		      tit=WebBrowserWin.mBrowserTabs(page).Title
+		      If WebBrowserWin.mBrowserTabs(page).Title <> WebBrowserWin.BrowserTabs.tabs(page).caption Then
+		        'Update title
+		        WebBrowserWin.BrowserTabs.tabs(page).caption = WebBrowserWin.mBrowserTabs(page).Title
+		      End If
+		    Next
+		    
+		    adjustTabWidth
+		    
+		    
+		    
+		    WebBrowserWin.BrowserTabs.RePaint
+		  end
 		  
 		  Exception err
 		    ExceptionHandler(err,"HTMLcontainer:WebViewer:titleChanged")
@@ -339,6 +349,9 @@ End
 	#tag Event
 		Sub StatusChanged(newStatus as String)
 		  StatusLabel.Value = newStatus
+		  'if instr(newStatus, "count ")>0 then
+		  'WebBrowserWin.matchCount = val(Nthfield(Nthfield(newStatus, "count ", 2), ";", 1))
+		  'end
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -357,6 +370,12 @@ End
 		  AlreadyOpeningTab=False
 		  
 		  FwdBackCheck
+		  
+		  dim js as String
+		  ' js code by https://github.com/sstahurski/SearchWebView/blob/master/SearchWebView
+		  
+		  js = "var currSelected = -1; var MyApp_SearchResultCount = 0; function MyApp_HighlightAllOccurencesOfStringForElement(element,keyword,casens, matchall) { if (casens == false) { keyword = keyword.toLowerCase() } if (element) { if (element.nodeType == 3) { while (true) { var value = element.nodeValue; if (casens) { var idx = value.indexOf(keyword); } else { var idx = value.toLowerCase().indexOf(keyword); } if (idx < 0) break; var span = document.createElement("+chr(34)+"span"+chr(34)+"); var text = document.createTextNode(value.substr(idx,keyword.length)); span.appendChild(text); span.setAttribute("+chr(34)+"class"+chr(34)+","+chr(34)+"MyAppHighlight"+chr(34)+"); if (matchall){ span.style.backgroundColor="+chr(34)+"yellow"+chr(34)+"; span.style.color="+chr(34)+"black"+chr(34)+"; } else { span.style.backgroundColor="+chr(34)+""+chr(34)+"; span.style.color="+chr(34)+""+chr(34)+"; } text = document.createTextNode(value.substr(idx+keyword.length)); element.deleteData(idx, value.length - idx); var next = element.nextSibling; element.parentNode.insertBefore(span, next); element.parentNode.insertBefore(text, next); element = text; MyApp_SearchResultCount++; } } else if (element.nodeType == 1) { if (element.style.display != "+chr(34)+"none"+chr(34)+" && element.nodeName.toLowerCase() != 'select') { for (var i=element.childNodes.length-1; i>=0; i--) { MyApp_HighlightAllOccurencesOfStringForElement(element.childNodes[i],keyword, casens, matchall); } } } } } function searchNext(){ jump(1); } function searchPrev(){ jump(-1); } function jump(increment){ prevSelected = currSelected; currSelected = currSelected + increment; if (currSelected < 0){ currSelected = MyApp_SearchResultCount + currSelected; } if (currSelected >= MyApp_SearchResultCount){ currSelected = currSelected - MyApp_SearchResultCount; } prevEl = document.getElementsByClassName("+chr(34)+"MyAppHighlight"+chr(34)+")[prevSelected]; if (prevEl){ prevEl.style.backgroundColor="+chr(34)+"yellow"+chr(34)+"; } el = document.getElementsByClassName("+chr(34)+"MyAppHighlight"+chr(34)+")[currSelected]; el.style.backgroundColor="+chr(34)+"green"+chr(34)+"; el.scrollIntoView(true); } function MyApp_HighlightAllOccurencesOfString(keyword, casens, matchall) { MyApp_RemoveAllHighlights(); MyApp_HighlightAllOccurencesOfStringForElement(document.body, keyword, casens, matchall); if (matchall == false) { searchNext() } } function MyApp_RemoveAllHighlightsForElement(element) { if (element) { if (element.nodeType == 1) { if (element.getAttribute("+chr(34)+"class"+chr(34)+") == "+chr(34)+"MyAppHighlight"+chr(34)+") { var text = element.removeChild(element.firstChild); element.parentNode.insertBefore(text,element); element.parentNode.removeChild(element); return true; } else { var normalize = false; for (var i=element.childNodes.length-1; i>=0; i--) { if (MyApp_RemoveAllHighlightsForElement(element.childNodes[i])) { normalize = true; } } if (normalize) { element.normalize(); } } } } return false; } function MyApp_RemoveAllHighlights() { MyApp_SearchResultCount = 0; currSelected = -1; MyApp_RemoveAllHighlightsForElement(document.body); } function getCount() { document.title= 'count '+MyApp_SearchResultCount+';';}"
+		  Me.ExecuteJavaScript(js)
 		End Sub
 	#tag EndEvent
 	#tag Event
