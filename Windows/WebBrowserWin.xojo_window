@@ -8,7 +8,7 @@ Begin Window WebBrowserWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   700
+   Height          =   602
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,11 +24,11 @@ Begin Window WebBrowserWin
    Resizeable      =   True
    Title           =   ""
    Visible         =   True
-   Width           =   1100
+   Width           =   1014
    Begin PagePanel BrowserPagePanel
       AllowAutoDeactivate=   True
       Enabled         =   True
-      Height          =   646
+      Height          =   543
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -47,16 +47,7 @@ Begin Window WebBrowserWin
       Transparent     =   False
       Value           =   0
       Visible         =   True
-      Width           =   1100
-   End
-   Begin Timer TitleTimer
-      Index           =   -2147483648
-      InitialParent   =   ""
-      LockedInPosition=   False
-      Period          =   1000
-      RunMode         =   "2"
-      Scope           =   0
-      TabPanelIndex   =   0
+      Width           =   1014
    End
    Begin CustomTabPanelTabs BrowserTabs
       AllowAutoDeactivate=   True
@@ -86,7 +77,142 @@ Begin Window WebBrowserWin
       Transparent     =   True
       value           =   0
       Visible         =   True
-      Width           =   1100
+      Width           =   1014
+   End
+   Begin Timer TitleTimer
+      Index           =   -2147483648
+      InitialParent   =   ""
+      LockedInPosition=   False
+      Period          =   1000
+      RunMode         =   "2"
+      Scope           =   0
+      TabPanelIndex   =   0
+   End
+   Begin Rectangle searchBar
+      AllowAutoDeactivate=   True
+      BorderThickness =   1.0
+      BottomRightColor=   &c00000000
+      Enabled         =   False
+      FillColor       =   &cD6D6D600
+      Height          =   28
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      Tooltip         =   ""
+      Top             =   574
+      TopLeftColor    =   &c00000000
+      Transparent     =   False
+      Visible         =   False
+      Width           =   1014
+      Begin CheckBox CaseSens
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "case sensitive"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   False
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "searchBar"
+         Italic          =   False
+         Left            =   236
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   575
+         Transparent     =   False
+         Underline       =   False
+         Value           =   False
+         Visible         =   False
+         VisualState     =   "0"
+         Width           =   111
+      End
+      Begin Label CountField
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   False
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "searchBar"
+         Italic          =   False
+         Left            =   457
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   576
+         Transparent     =   False
+         Underline       =   False
+         Value           =   ""
+         Visible         =   False
+         Width           =   107
+      End
+      Begin CheckBox HighlightAllBox
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "highlight all"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   False
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   22
+         Index           =   -2147483648
+         InitialParent   =   "searchBar"
+         Italic          =   False
+         Left            =   351
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   576
+         Transparent     =   False
+         Underline       =   False
+         Value           =   False
+         Visible         =   False
+         VisualState     =   "0"
+         Width           =   121
+      End
    End
    Begin TextField SearchField
       AllowAutoDeactivate=   True
@@ -97,15 +223,16 @@ Begin Window WebBrowserWin
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
-      Enabled         =   True
+      Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
       Format          =   ""
       HasBorder       =   True
-      Height          =   24
+      Height          =   26
       Hint            =   "#kSearch"
       Index           =   -2147483648
+      InitialParent   =   ""
       Italic          =   False
       Left            =   0
       LockBottom      =   True
@@ -117,24 +244,56 @@ Begin Window WebBrowserWin
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
-      TabIndex        =   2
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   676
+      Top             =   574
       Transparent     =   True
       Underline       =   False
       ValidationMask  =   ""
       Value           =   ""
-      Visible         =   True
+      Visible         =   False
       Width           =   200
+   End
+   Begin UpDownArrows SearchArrows
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      Enabled         =   False
+      Height          =   25
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   204
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   575
+      Transparent     =   False
+      Visible         =   False
+      Width           =   13
    End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Activate()
+		  'dim js as String
+		  '' js code by https://github.com/sstahurski/SearchWebView/blob/master/SearchWebView
+		  'js = "var currSelected = -1; var MyApp_SearchResultCount = 0; function MyApp_HighlightAllOccurencesOfStringForElement(element,keyword,casens, matchall) { if (casens == false) { keyword = keyword.toLowerCase() } if (element) { if (element.nodeType == 3) { while (true) { var value = element.nodeValue; if (casens) { var idx = value.indexOf(keyword); } else { var idx = value.toLowerCase().indexOf(keyword); } if (idx < 0) break; var span = document.createElement("+chr(34)+"span"+chr(34)+"); var text = document.createTextNode(value.substr(idx,keyword.length)); span.appendChild(text); span.setAttribute("+chr(34)+"class"+chr(34)+","+chr(34)+"MyAppHighlight"+chr(34)+"); if (matchall){ span.style.backgroundColor="+chr(34)+"yellow"+chr(34)+"; span.style.color="+chr(34)+"black"+chr(34)+"; } else { span.style.backgroundColor="+chr(34)+""+chr(34)+"; span.style.color="+chr(34)+""+chr(34)+"; } text = document.createTextNode(value.substr(idx+keyword.length)); element.deleteData(idx, value.length - idx); var next = element.nextSibling; element.parentNode.insertBefore(span, next); element.parentNode.insertBefore(text, next); element = text; MyApp_SearchResultCount++; } } else if (element.nodeType == 1) { if (element.style.display != "+chr(34)+"none"+chr(34)+" && element.nodeName.toLowerCase() != 'select') { for (var i=element.childNodes.length-1; i>=0; i--) { MyApp_HighlightAllOccurencesOfStringForElement(element.childNodes[i],keyword, casens, matchall); } } } } } function searchNext(){ jump(1); } function searchPrev(){ jump(-1); } function jump(increment){ prevSelected = currSelected; currSelected = currSelected + increment; if (currSelected < 0){ currSelected = MyApp_SearchResultCount + currSelected; } if (currSelected >= MyApp_SearchResultCount){ currSelected = currSelected - MyApp_SearchResultCount; } prevEl = document.getElementsByClassName("+chr(34)+"MyAppHighlight"+chr(34)+")[prevSelected]; if (prevEl){ prevEl.style.backgroundColor="+chr(34)+"yellow"+chr(34)+"; } el = document.getElementsByClassName("+chr(34)+"MyAppHighlight"+chr(34)+")[currSelected]; el.style.backgroundColor="+chr(34)+"green"+chr(34)+"; el.scrollIntoView(true); } function MyApp_HighlightAllOccurencesOfString(keyword, casens, matchall) { MyApp_RemoveAllHighlights(); MyApp_HighlightAllOccurencesOfStringForElement(document.body, keyword, casens, matchall); if (matchall == false) { searchNext() } } function MyApp_RemoveAllHighlightsForElement(element) { if (element) { if (element.nodeType == 1) { if (element.getAttribute("+chr(34)+"class"+chr(34)+") == "+chr(34)+"MyAppHighlight"+chr(34)+") { var text = element.removeChild(element.firstChild); element.parentNode.insertBefore(text,element); element.parentNode.removeChild(element); return true; } else { var normalize = false; for (var i=element.childNodes.length-1; i>=0; i--) { if (MyApp_RemoveAllHighlightsForElement(element.childNodes[i])) { normalize = true; } } if (normalize) { element.normalize(); } } } } return false; } function MyApp_RemoveAllHighlights() { MyApp_SearchResultCount = 0; currSelected = -1; MyApp_RemoveAllHighlightsForElement(document.body); }"
+		  'ActiveBrowser.ExecuteJavaScript(js)
+		End Sub
+	#tag EndEvent
+
 	#tag Event
 		Sub EnableMenuItems()
 		  FileNewTab.visible=True
@@ -148,13 +307,15 @@ End
 		Sub Open()
 		  'Call AddNewTab
 		  
+		  
+		  
 		End Sub
 	#tag EndEvent
 
 
 	#tag MenuHandler
 		Function EditFind() As Boolean Handles EditFind.Action
-			FindText("")
+			showSearchBar
 			Return True
 			
 		End Function
@@ -296,6 +457,110 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub resetCounting()
+		  if matchCount>0 then
+		    ActiveBrowser.ExecuteJavascript("MyApp_RemoveAllHighlights();")
+		    ActiveBrowser.ExecuteJavascript("getCount();")
+		    while matchCount<>0
+		      App.DoEvents
+		    wend
+		  end
+		  
+		  Self.searchRun = False
+		  SearchField.TextColor = &c000000
+		  CountField.Text = ""
+		  matchCount = -1
+		  currentMatch = 0
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub searchText()
+		  
+		  dim sensitive as String = "true"
+		  dim allmatch as String = "true"
+		  dim js as String
+		  
+		  if CaseSens.State = CheckBox.CheckedStates.Unchecked then
+		    sensitive = "false"
+		  end
+		  if HighlightAllBox.State = CheckBox.CheckedStates.Unchecked then
+		    allmatch = "false"
+		  end
+		  
+		  js = "MyApp_HighlightAllOccurencesOfString('"+SearchField.Text+"',"+sensitive+", "+allmatch+");"
+		  
+		  ActiveBrowser.ExecuteJavascript(js)
+		  ActiveBrowser.ExecuteJavaScript("getCount()")
+		  Self.searchRun = True
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub shiftMatch(shift As Integer)
+		  while matchCount = -1
+		    app.DoEvents
+		  wend
+		  if matchCount > 0 then
+		    SearchField.TextColor = &c000000
+		    currentMatch = currentMatch + shift
+		    if currentMatch = 0 then
+		      currentMatch = matchCount
+		    elseif currentMatch > matchCount then
+		      currentMatch = 1
+		    end
+		    if shift = -1 then
+		      ActiveBrowser.ExecuteJavaScript("searchPrev()")
+		    elseif shift = 1 then
+		      ActiveBrowser.ExecuteJavaScript("searchNext()")
+		    end
+		    CountField.Text = str(currentMatch) + " of " + str(matchCount)
+		  elseif SearchField.text <> "" then
+		    CountField.Text = "Not found"
+		    SearchField.TextColor = &cFF0000
+		  end
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub showSearchBar()
+		  if searchBar.Enabled then
+		    searchBar.Enabled = False
+		    searchBar.Visible = False
+		    CountField.Enabled = False
+		    CountField.Visible = False
+		    SearchArrows.Enabled = False
+		    SearchArrows.Visible = False
+		    HighlightAllBox.Enabled = False
+		    HighlightAllBox.Visible = False
+		    CaseSens.Enabled = False
+		    CaseSens.Visible =False
+		    SearchField.Enabled = False
+		    SearchField.Visible = False
+		  else
+		    searchBar.Enabled = True
+		    searchBar.Visible = True
+		    CountField.Enabled = True
+		    CountField.Visible = True
+		    SearchArrows.Enabled = True
+		    SearchArrows.Visible = True
+		    HighlightAllBox.Enabled = True
+		    HighlightAllBox.Visible = True
+		    CaseSens.Enabled = True
+		    CaseSens.Visible =True
+		    SearchField.Enabled = True
+		    SearchField.Visible = True
+		    SearchField.SetFocus
+		  end
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub unRegisterContainerControl(cc as HTMLcontainer)
 		  Var ref As WeakRef
 		  
@@ -322,27 +587,24 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		currentMatch As Integer = 1
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		matchCount As Integer = -1
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		mBrowserTabs() As HTMLContainer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		searchRun As Boolean = False
 	#tag EndProperty
 
 
 #tag EndWindowCode
 
-#tag Events TitleTimer
-	#tag Event
-		Sub Action()
-		  '// Checks for title changes for each browser tab and updates the
-		  '// tab caption
-		  'For page As Integer = 0 To BrowserPagePanel.PanelCount-1
-		  ''If mBrowserTabs(page).Title <> BrowserPagePanel.CaptionAt(page) Then
-		  'If mBrowserTabs(page).Title <> BrowserTabs.tabs(page).caption Then
-		  ''BrowserPagePanel.CaptionAt(page) = mBrowserTabs(page).Title
-		  'BrowserTabs.tabs(page).caption = mBrowserTabs(page).Title
-		  'End If
-		  'Next
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events BrowserTabs
 	#tag Event
 		Sub Open()
@@ -380,16 +642,57 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events TitleTimer
+	#tag Event
+		Sub Action()
+		  '// Checks for title changes for each browser tab and updates the
+		  '// tab caption
+		  'For page As Integer = 0 To BrowserPagePanel.PanelCount-1
+		  ''If mBrowserTabs(page).Title <> BrowserPagePanel.CaptionAt(page) Then
+		  'If mBrowserTabs(page).Title <> BrowserTabs.tabs(page).caption Then
+		  ''BrowserPagePanel.CaptionAt(page) = mBrowserTabs(page).Title
+		  'BrowserTabs.tabs(page).caption = mBrowserTabs(page).Title
+		  'End If
+		  'Next
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CaseSens
+	#tag Event
+		Sub Action()
+		  resetCounting
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events HighlightAllBox
+	#tag Event
+		Sub Action()
+		  if me.State = CheckBox.CheckedStates.Checked and SearchField.Text <> "" then
+		    searchText
+		    while matchCount = -1 
+		      App.DoEvents
+		    wend
+		    if matchCount>0 then
+		      CountField.Text = str(matchCount)+" matches"
+		    else
+		      CountField.Text = "not found"
+		    end
+		  ElseIf me.State = CheckBox.CheckedStates.Unchecked then
+		    resetCounting
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events SearchField
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
-		  
-		  
-		  'check for CR/enter key
 		  if key=chr(13) OR key=chr(3) then
-		    
-		    ActiveBrowser.ExecuteJavascript("window.status=window.find("""+Me.Text+""",false,false,true).toString();")
-		    
+		    if not searchRun then
+		      searchText
+		      'shiftMatch(1)
+		    else 
+		      shiftMatch(1)
+		    end
 		  end if
 		End Function
 	#tag EndEvent
@@ -417,6 +720,30 @@ End
 		    'probably relevant to 64-bit only
 		    me.Enabled=true
 		  #endif
+		  
+		  resetCounting
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SearchArrows
+	#tag Event
+		Sub Up()
+		  If searchRun then
+		    shiftMatch(-1)
+		  else
+		    searchText
+		    'shiftMatch(-1)
+		  end
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Down()
+		  If searchRun then
+		    shiftMatch(1)
+		  else
+		    searchText
+		    'shiftMatch(1)
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -655,6 +982,30 @@ End
 		Group="Appearance"
 		InitialValue="True"
 		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="matchCount"
+		Visible=false
+		Group="Behavior"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="searchRun"
+		Visible=false
+		Group="Behavior"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="currentMatch"
+		Visible=false
+		Group="Behavior"
+		InitialValue="1"
+		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
