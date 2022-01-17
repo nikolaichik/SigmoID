@@ -244,7 +244,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       Top             =   359
       Transparent     =   True
-      Value           =   3
+      Value           =   0
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
@@ -2029,7 +2029,11 @@ End
 
 	#tag Method, Flags = &h0
 		Sub CDsearch(ProtName as string)
-		  const URLstart as String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?DATABASE=cdd&SERVICE=rpsblast&PROGRAM=blastp&CMD=Put&CDD_SEARCH=true&QUERY="
+		  // Command parameters described here: https://www.ncbi.nlm.nih.gov/Structure/cdd/cdd_help.shtml#BatchRPSBWebAPI_parameters
+		  ' dmode=full doesn't work 
+		  ' switch to the newer base URL (https://www.ncbi.nlm.nih.gov/Structure/bwrpsb/bwrpsb.cgi?) makes things worse
+		  
+		  Const URLstart As String = "https://blast.ncbi.nlm.nih.gov/Blast.cgi?DATABASE=cdd&SERVICE=rpsblast&PROGRAM=blastp&CMD=Put&CDD_SEARCH=true&dmode=full&QUERY="
 		  const URLend as string= "%0A%0A" 'protein seq is supposed to end with two newline chars, but works fine without those
 		  dim URL as string
 		  dim theSeq, command, UUID, theURL as string

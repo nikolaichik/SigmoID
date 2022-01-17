@@ -28,7 +28,7 @@ Begin Window WebBrowserWin
    Begin PagePanel BrowserPagePanel
       AllowAutoDeactivate=   True
       Enabled         =   True
-      Height          =   543
+      Height          =   575
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -88,9 +88,9 @@ Begin Window WebBrowserWin
       Scope           =   0
       TabPanelIndex   =   0
    End
-   Begin Rectangle searchBar
+   Begin Rectangle SearchBar
       AllowAutoDeactivate=   True
-      BorderThickness =   1.0
+      BorderThickness =   0.0
       BottomRightColor=   &c00000000
       Enabled         =   False
       FillColor       =   &cD6D6D600
@@ -122,9 +122,9 @@ Begin Window WebBrowserWin
          FontName        =   "System"
          FontSize        =   0.0
          FontUnit        =   0
-         Height          =   22
+         Height          =   26
          Index           =   -2147483648
-         InitialParent   =   "searchBar"
+         InitialParent   =   "SearchBar"
          Italic          =   False
          Left            =   236
          LockBottom      =   True
@@ -154,11 +154,11 @@ Begin Window WebBrowserWin
          FontName        =   "System"
          FontSize        =   0.0
          FontUnit        =   0
-         Height          =   20
+         Height          =   26
          Index           =   -2147483648
-         InitialParent   =   "searchBar"
+         InitialParent   =   "SearchBar"
          Italic          =   False
-         Left            =   457
+         Left            =   473
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
@@ -173,12 +173,12 @@ Begin Window WebBrowserWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   576
+         Top             =   575
          Transparent     =   False
          Underline       =   False
          Value           =   ""
          Visible         =   False
-         Width           =   107
+         Width           =   141
       End
       Begin CheckBox HighlightAllBox
          AllowAutoDeactivate=   True
@@ -190,9 +190,9 @@ Begin Window WebBrowserWin
          FontName        =   "System"
          FontSize        =   0.0
          FontUnit        =   0
-         Height          =   22
+         Height          =   26
          Index           =   -2147483648
-         InitialParent   =   "searchBar"
+         InitialParent   =   "SearchBar"
          Italic          =   False
          Left            =   351
          LockBottom      =   True
@@ -205,7 +205,7 @@ Begin Window WebBrowserWin
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   576
+         Top             =   575
          Transparent     =   False
          Underline       =   False
          Value           =   False
@@ -213,73 +213,117 @@ Begin Window WebBrowserWin
          VisualState     =   "0"
          Width           =   121
       End
-   End
-   Begin TextField SearchField
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   False
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFF00FF
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   False
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   26
-      Hint            =   "#kSearch"
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   574
-      Transparent     =   True
-      Underline       =   False
-      ValidationMask  =   ""
-      Value           =   ""
-      Visible         =   False
-      Width           =   200
-   End
-   Begin UpDownArrows SearchArrows
-      AllowAutoDeactivate=   True
-      AllowFocus      =   False
-      Enabled         =   False
-      Height          =   25
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   204
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   575
-      Transparent     =   False
-      Visible         =   False
-      Width           =   13
+      Begin UpDownArrows SearchArrows
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         Enabled         =   False
+         Height          =   26
+         Index           =   -2147483648
+         InitialParent   =   "SearchBar"
+         Left            =   211
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   575
+         Transparent     =   False
+         Visible         =   False
+         Width           =   16
+      End
+      Begin TextField SearchField
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   False
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFF00FF
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   False
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   28
+         Hint            =   "#kSearch"
+         Index           =   -2147483648
+         InitialParent   =   "SearchBar"
+         Italic          =   False
+         Left            =   0
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   574
+         Transparent     =   True
+         Underline       =   False
+         ValidationMask  =   ""
+         Value           =   ""
+         Visible         =   False
+         Width           =   200
+      End
+      Begin BevelButton BevelButton1
+         AllowAutoDeactivate=   True
+         AllowFocus      =   False
+         BackgroundColor =   &c00000000
+         BevelStyle      =   "4"
+         Bold            =   False
+         ButtonStyle     =   "0"
+         Caption         =   "X"
+         CaptionAlignment=   "3"
+         CaptionDelta    =   0
+         CaptionPosition =   "1"
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         HasBackgroundColor=   True
+         Height          =   28
+         Icon            =   0
+         IconAlignment   =   "1"
+         IconDeltaX      =   0
+         IconDeltaY      =   0
+         Index           =   -2147483648
+         InitialParent   =   "SearchBar"
+         Italic          =   False
+         Left            =   986
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         MenuStyle       =   "0"
+         Scope           =   0
+         TabIndex        =   5
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   574
+         Transparent     =   False
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         Width           =   28
+      End
    End
 End
 #tag EndWindow
@@ -299,6 +343,7 @@ End
 		  FileNewTab.visible=True
 		  FileNewTab.enabled=True
 		  EditFind.Enabled=True
+		  EditFindAgain.enabled=searchRun
 		  
 		End Sub
 	#tag EndEvent
@@ -316,6 +361,14 @@ End
 	#tag MenuHandler
 		Function EditFind() As Boolean Handles EditFind.Action
 			showSearchBar
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function EditFindAgain() As Boolean Handles EditFindAgain.Action
+			shiftMatch(1)
 			Return True
 			
 		End Function
@@ -502,7 +555,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub shiftMatch(shift As Integer)
-		  while matchCount = -1
+		  While matchCount = -1
 		    app.DoEvents
 		  wend
 		  if matchCount > 0 then
@@ -529,7 +582,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub showSearchBar()
-		  if searchBar.Enabled then
+		  If searchBar.Enabled Then
 		    searchBar.Enabled = False
 		    searchBar.Visible = False
 		    CountField.Enabled = False
@@ -542,6 +595,7 @@ End
 		    CaseSens.Visible =False
 		    SearchField.Enabled = False
 		    SearchField.Visible = False
+		    BrowserPagePanel.height=BrowserPagePanel.height+SearchBar.height
 		  else
 		    searchBar.Enabled = True
 		    searchBar.Visible = True
@@ -556,6 +610,7 @@ End
 		    SearchField.Enabled = True
 		    SearchField.Visible = True
 		    SearchField.SetFocus
+		    BrowserPagePanel.height=BrowserPagePanel.height-SearchBar.height
 		  end
 		End Sub
 	#tag EndMethod
@@ -683,16 +738,38 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events SearchArrows
+	#tag Event
+		Sub Up()
+		  If searchRun then
+		    shiftMatch(-1)
+		  else
+		    searchText
+		    'shiftMatch(-1)
+		  end
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Down()
+		  If searchRun then
+		    shiftMatch(1)
+		  else
+		    searchText
+		    'shiftMatch(1)
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events SearchField
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
-		  if key=chr(13) OR key=chr(3) then
-		    if not searchRun then
+		  If key=Chr(13) Or key=Chr(3) Then
+		    If Not searchRun Then
 		      searchText
 		      'shiftMatch(1)
 		    else 
 		      shiftMatch(1)
-		    end
+		    End
 		  end if
 		End Function
 	#tag EndEvent
@@ -725,25 +802,22 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SearchArrows
+#tag Events BevelButton1
 	#tag Event
-		Sub Up()
-		  If searchRun then
-		    shiftMatch(-1)
-		  else
-		    searchText
-		    'shiftMatch(-1)
-		  end
+		Sub Action()
+		  'SearchBar.visible=false
+		  ShowSearchBar
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub Down()
-		  If searchRun then
-		    shiftMatch(1)
-		  else
-		    searchText
-		    'shiftMatch(1)
-		  end
+		Sub Open()
+		  #If TargetCocoa
+		    Me.icon=SystemIcons.StopProgressTemplate
+		    Me.Caption=""
+		    
+		  #EndIf
+		  
+		  me.BackgroundColor=SearchBar.FillColor
 		End Sub
 	#tag EndEvent
 #tag EndEvents

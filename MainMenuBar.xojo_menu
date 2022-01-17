@@ -340,6 +340,18 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem EditFindAgain
+         SpecialMenu = 0
+         Value = "#kFindAgain"
+         Index = -2147483648
+         Text = "#kFindAgain"
+         ShortcutKey = "G"
+         Shortcut = "Cmd+G"
+         MenuModifier = True
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem EditSeparator2
          SpecialMenu = 0
          Value = "-"

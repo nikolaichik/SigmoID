@@ -45,6 +45,66 @@ Begin ContainerControl HTMLContainer
       Top             =   34
       Visible         =   True
       Width           =   590
+      Begin Rectangle LabelBack
+         AllowAutoDeactivate=   True
+         BorderThickness =   0.0
+         BottomRightColor=   &c00000000
+         Enabled         =   True
+         FillColor       =   &cFFFFFF00
+         Height          =   21
+         Index           =   -2147483648
+         InitialParent   =   "WebViewer"
+         Left            =   0
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         Tooltip         =   ""
+         Top             =   369
+         TopLeftColor    =   &c00000000
+         Transparent     =   False
+         Visible         =   True
+         Width           =   590
+         Begin Label StatusLabel
+            AllowAutoDeactivate=   True
+            Bold            =   False
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            FontName        =   "System"
+            FontSize        =   0.0
+            FontUnit        =   0
+            Height          =   20
+            Index           =   -2147483648
+            InitialParent   =   "LabelBack"
+            Italic          =   False
+            Left            =   5
+            LockBottom      =   True
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   True
+            LockTop         =   False
+            Multiline       =   False
+            Scope           =   0
+            Selectable      =   False
+            TabIndex        =   0
+            TabPanelIndex   =   0
+            TabStop         =   True
+            TextAlignment   =   "0"
+            TextColor       =   &c00000000
+            Tooltip         =   ""
+            Top             =   370
+            Transparent     =   False
+            Underline       =   False
+            Value           =   ""
+            Visible         =   True
+            Width           =   585
+         End
+      End
    End
    Begin TextField AddressField
       AllowAutoDeactivate=   True
@@ -88,41 +148,6 @@ Begin ContainerControl HTMLContainer
       Value           =   ""
       Visible         =   True
       Width           =   402
-   End
-   Begin Label StatusLabel
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   5
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   False
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   368
-      Transparent     =   False
-      Underline       =   False
-      Value           =   ""
-      Visible         =   True
-      Width           =   585
    End
    BeginSegmented SegmentedControl SegmentedControl1
       Enabled         =   True
@@ -348,6 +373,11 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub StatusChanged(newStatus as String)
+		  If newStatus="" Then 
+		    LabelBack.visible=False
+		  Else
+		    LabelBack.visible=True
+		  End If
 		  StatusLabel.Value = newStatus
 		  'if instr(newStatus, "count ")>0 then
 		  'WebBrowserWin.matchCount = val(Nthfield(Nthfield(newStatus, "count ", 2), ";", 1))
