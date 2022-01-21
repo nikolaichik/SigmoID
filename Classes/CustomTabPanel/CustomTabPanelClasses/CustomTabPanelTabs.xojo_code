@@ -594,8 +594,8 @@ Inherits canvas
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub fixLocations()
+	#tag Method, Flags = &h0
+		Sub fixLocations()
 		  //fixes indexes and coordinates of all tabs
 		  dim i as Integer
 		  
