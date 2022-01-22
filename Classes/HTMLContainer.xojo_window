@@ -449,12 +449,14 @@ End
 		  //trying To intercept command-clicking a link
 		  'crashes without error
 		  
-		  If Keyboard.CommandKey Then 'Open this link in new tab
+		  If Keyboard.CommandKey or Keyboard.AsyncControlKey Then 'Open this link in new tab
 		    If Not AlreadyOpeningTab Then
 		      AlreadyOpeningTab=True
 		      If ParentBrowserWindow <> Nil Then
 		        Dim page2load As String = url
 		        ParentBrowserWindow.AddNewTab.LoadURL(page2load)
+		        AdjustTabWidth
+		        WebBrowserWin.BrowserTabs.fixLocations
 		        Return True
 		      End If
 		    End
@@ -483,6 +485,8 @@ End
 		    End If
 		    
 		    LoadURL(address)
+		    AdjustTabWidth
+		    WebBrowserWin.BrowserTabs.fixLocations
 		    Return True
 		  End If
 		End Function
