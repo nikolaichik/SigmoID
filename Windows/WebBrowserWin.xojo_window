@@ -88,12 +88,13 @@ Begin Window WebBrowserWin
       Scope           =   0
       TabPanelIndex   =   0
    End
-   Begin Rectangle SearchBar
+   Begin Canvas SearchBar
       AllowAutoDeactivate=   True
-      BorderThickness =   0.0
-      BottomRightColor=   &c00000000
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
+      Backdrop        =   0
       Enabled         =   False
-      FillColor       =   &cD6D6D600
       Height          =   28
       Index           =   -2147483648
       InitialParent   =   ""
@@ -106,9 +107,9 @@ Begin Window WebBrowserWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   574
-      TopLeftColor    =   &c00000000
       Transparent     =   False
       Visible         =   False
       Width           =   1014
@@ -279,50 +280,6 @@ Begin Window WebBrowserWin
          Value           =   ""
          Visible         =   False
          Width           =   200
-      End
-      Begin BevelButton BevelButton1
-         AllowAutoDeactivate=   True
-         AllowFocus      =   False
-         BackgroundColor =   &c00000000
-         BevelStyle      =   "4"
-         Bold            =   False
-         ButtonStyle     =   "0"
-         Caption         =   "X"
-         CaptionAlignment=   "3"
-         CaptionDelta    =   0
-         CaptionPosition =   "1"
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         HasBackgroundColor=   True
-         Height          =   28
-         Icon            =   0
-         IconAlignment   =   "1"
-         IconDeltaX      =   0
-         IconDeltaY      =   0
-         Index           =   -2147483648
-         InitialParent   =   "SearchBar"
-         Italic          =   False
-         Left            =   986
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   False
-         MenuStyle       =   "0"
-         Scope           =   0
-         TabIndex        =   5
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextColor       =   &c00000000
-         Tooltip         =   ""
-         Top             =   574
-         Transparent     =   False
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         Width           =   28
       End
    End
 End
@@ -638,6 +595,10 @@ End
 
 
 	#tag Property, Flags = &h0
+		CloseBox As CloseBoxButton
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ContainerRefs(-1) As WeakRef
 	#tag EndProperty
 
@@ -651,6 +612,10 @@ End
 
 	#tag Property, Flags = &h0
 		mBrowserTabs() As HTMLContainer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		SBclosing As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -709,6 +674,77 @@ End
 		  'BrowserTabs.tabs(page).caption = mBrowserTabs(page).Title
 		  'End If
 		  'Next
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SearchBar
+	#tag Event
+		Sub Open()
+		  'closeBox=New LittleMiscButton(closeBoxData,closeBoxMask,closeBoxMaskOver,closeBoxMaskClicked)
+		  
+		  '//code to be used once
+		  'Dim p As picture = SystemIcons.StopProgressTemplate
+		  'Dim f As FolderItem
+		  'If p <> Nil Then
+		  '// Get a temporary file to save the image to
+		  'If p.IsExportFormatSupported(Picture.Formats.PNG) Then
+		  'f = SpecialFolder.Temporary.Child("CloseBox.png")
+		  '
+		  '// Save the image out to the file
+		  'p.Save(f, Picture.Formats.PNG)
+		  'End If
+		  'End If
+		  
+		  
+		  
+		  'closeBox=New closeBoxButton(p.CopyColorChannels, p.CopyMask,p.CopyColorChannels,p.CopyColorChannels)
+		  'data as picture, mask as picture, over as picture, clicked as picture
+		  closeBox=New closeBoxButton(CloseBoxNorm.CopyColorChannels, CloseBoxNorm.CopyMask,CloseBoxNorm.CopyColorChannels,CloseBoxDark.CopyColorChannels)
+		  
+		  closebox.toggle=True
+		  closebox.clicked=True
+		  closeBox.x=searchBar.Width-closeBoxData.Width-13
+		  closeBox.y=(searchBar.Height-closeBoxData.Height)/2
+		  Me.RefreshRect(closeBox.x,closeBox.y,closeBox.width,closeBox.height)
+		  closebox.clicked=False
+		  closebox.toggle=False
+		  Me.RefreshRect(closeBox.x,closeBox.y,closeBox.width,closeBox.height)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  
+		  
+		  SBclosing=closeBox.mouseDown(x,y)
+		  
+		  If closeBox.clicked Then
+		    ShowSearchBar
+		  End If
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseUp(X As Integer, Y As Integer)
+		  If SBclosing Then
+		    SBclosing=False
+		    call closeBox.mouseUp(-1,-1)
+		  End If
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  If Me.Visible Then
+		    'closeBox.paint(g, closeBox.x+SearchBar.Left, closeBox.y+SearchBar.Top)
+		    'closeBox.paint(g, 0, SearchBar.Top)
+		    closeBox.paint(g, 0, 0)
+		    
+		  End If
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseMove(X As Integer, Y As Integer)
+		  If closeBox.mouseMove(x,y) Then
+		    me.invalidate
+		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -799,25 +835,6 @@ End
 		  #endif
 		  
 		  resetCounting
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events BevelButton1
-	#tag Event
-		Sub Action()
-		  'SearchBar.visible=false
-		  ShowSearchBar
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  #If TargetCocoa
-		    Me.icon=SystemIcons.StopProgressTemplate
-		    Me.Caption=""
-		    
-		  #EndIf
-		  
-		  me.BackgroundColor=SearchBar.FillColor
 		End Sub
 	#tag EndEvent
 #tag EndEvents

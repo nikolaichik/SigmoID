@@ -67,7 +67,7 @@ Begin ContainerControl HTMLContainer
          Top             =   369
          TopLeftColor    =   &c00000000
          Transparent     =   False
-         Visible         =   True
+         Visible         =   False
          Width           =   590
          Begin Label StatusLabel
             AllowAutoDeactivate=   True

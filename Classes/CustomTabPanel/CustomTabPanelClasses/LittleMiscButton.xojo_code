@@ -2,10 +2,10 @@
 Protected Class LittleMiscButton
 	#tag Method, Flags = &h0
 		Sub Constructor(data as picture, mask as picture, over as picture, clicked as picture)
-		  self.data=data
+		  Self.data=data
 		  self.mask=mask
 		  self.over=over
-		  down=clicked
+		  self.down=clicked
 		  
 		  pic=New Picture(data.Width,data.Height,32)
 		  pic.graphics.DrawPicture(data,0,0)
@@ -38,8 +38,11 @@ Protected Class LittleMiscButton
 
 	#tag Method, Flags = &h0
 		Function mouseMove(mx as integer, my as integer) As boolean
-		  if not visible then Return False
+		  If Not visible Then Return False
 		  dim changed as Boolean
+		  Dim c,t As Boolean
+		  c=clicked
+		  t=toggle
 		  
 		  Changed=toggle
 		  toggle = hit(mx,my)
@@ -48,6 +51,9 @@ Protected Class LittleMiscButton
 		  //trigger it only if our state has changed
 		  Changed=changed<>toggle
 		  
+		  
+		  c=clicked
+		  t=toggle
 		  Return Changed
 		End Function
 	#tag EndMethod
@@ -61,12 +67,12 @@ Protected Class LittleMiscButton
 
 	#tag Method, Flags = &h0
 		Sub paint(g as graphics, xoffset as integer = 0, yoffset as integer = 0)
-		  if not visible then Return
+		  If Not visible Then Return
 		  if pic=nil then Return
 		  
 		  dim oldC as color=g.ForeColor
 		  
-		  if clicked then
+		  If clicked Then
 		    pic.mask.graphics.DrawPicture down,0,0
 		  elseif toggle then
 		    pic.mask.graphics.DrawPicture over,0,0
@@ -86,16 +92,16 @@ Protected Class LittleMiscButton
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h21
-		Private clicked As boolean
+	#tag Property, Flags = &h0
+		clicked As boolean
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private data As picture
+	#tag Property, Flags = &h0
+		data As picture
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private down As picture
+	#tag Property, Flags = &h0
+		down As picture
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -107,20 +113,20 @@ Protected Class LittleMiscButton
 		height As Integer
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h21
-		Private mask As picture
+	#tag Property, Flags = &h0
+		mask As picture
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private over As picture
+	#tag Property, Flags = &h0
+		over As picture
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private pic As picture
+	#tag Property, Flags = &h0
+		pic As picture
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private toggle As boolean
+	#tag Property, Flags = &h0
+		toggle As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
