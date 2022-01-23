@@ -244,7 +244,7 @@ End
 		  For page As Integer = 0 To tabNo-1
 		    If WebBrowserWin.BrowserTabs.tabs(page).width>maxW Then
 		      If maxW>70 Then
-		        WebBrowserWin.BrowserTabs.tabs(page).width=maxW
+		        WebBrowserWin.BrowserTabs.tabs(page).width=70
 		      Else
 		        WebBrowserWin.BrowserTabs.tabs(page).width=70
 		      End If
@@ -359,7 +359,7 @@ End
 		      End If
 		    Next
 		    
-		    adjustTabWidth
+		    'adjustTabWidth
 		    
 		    
 		    
@@ -465,7 +465,7 @@ End
 		      If ParentBrowserWindow <> Nil Then
 		        Dim page2load As String = url
 		        ParentBrowserWindow.AddNewTab.LoadURL(page2load)
-		        AdjustTabWidth
+		        'AdjustTabWidth
 		        WebBrowserWin.BrowserTabs.fixLocations
 		        Return True
 		      End If
@@ -495,7 +495,7 @@ End
 		    End If
 		    
 		    LoadURL(address)
-		    AdjustTabWidth
+		    'AdjustTabWidth
 		    WebBrowserWin.BrowserTabs.fixLocations
 		    Return True
 		  End If
