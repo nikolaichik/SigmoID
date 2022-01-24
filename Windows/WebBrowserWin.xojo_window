@@ -94,6 +94,7 @@ Begin Window WebBrowserWin
       AllowFocusRing  =   True
       AllowTabs       =   False
       Backdrop        =   0
+      DoubleBuffer    =   False
       Enabled         =   False
       Height          =   28
       Index           =   -2147483648
@@ -1097,6 +1098,14 @@ End
 		Group="Behavior"
 		InitialValue="1"
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="SBclosing"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

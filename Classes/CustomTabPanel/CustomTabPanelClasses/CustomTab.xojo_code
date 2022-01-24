@@ -85,7 +85,8 @@ Protected Class CustomTab
 		  
 		  //create the tabPicture, which will hold the composed Picture
 		  alphaTabPicture = nil
-		  tabPicture=New Picture(tabW, tabBackground.Height,32)
+		  'tabPicture = New Picture(tabW, tabBackground.Height,32)
+		  tabPicture = New Picture(170, tabBackground.Height, 32)
 		  tabPicture.graphics.TextSize=11
 		  tabPicture.graphics.TextFont="System"
 		  
