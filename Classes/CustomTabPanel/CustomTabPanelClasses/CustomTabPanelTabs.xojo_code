@@ -138,6 +138,7 @@ Inherits canvas
 		  for Each tmp in tabs
 		    if tmp.mouseMove(x,y) then
 		      over=true
+		      App.ShowTooltip(tmp.caption, System.MouseX, System.MouseY + 20)
 		    end if
 		  next
 		  
