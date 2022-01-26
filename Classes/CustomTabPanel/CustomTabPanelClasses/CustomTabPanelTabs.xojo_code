@@ -132,17 +132,31 @@ Inherits canvas
 	#tag Event
 		Sub MouseMove(X As Integer, Y As Integer)
 		  //visual feedback
-		  dim tmp as CustomTab
-		  dim over as Boolean
+		  Dim tmp As CustomTab
+		  Dim over As Boolean
 		  
-		  for Each tmp in tabs
-		    if tmp.mouseMove(x,y) then
-		      over=true
-		      App.ShowTooltip(tmp.caption, System.MouseX, System.MouseY + 20)
-		    end if
-		  next
+		  For Each tmp In tabs
+		    If tmp.width>tmp.height Then 'only horyzontal tabs
+		      If x>=tmp.x And x<=tmp.x+tmp.Width Then
+		        over=True
+		        Dim strW As Integer
+		        strw = p.Graphics.StringWidth(tmp.caption)
+		        If strw>tmp.width-20 Then  'only if there's hidden text
+		          ToolTipTimer = New Timer
+		          ToolTipTimer.Period = 700
+		          ToolTipTimer.RunMode = Timer.RunModes.Single
+		          AddHandler ToolTipTimer.Action, AddressOf TimerRun
+		          TTtext=tmp.caption
+		        Else
+		          TTtext=""
+		        End If
+		        
+		        'App.ShowTooltip(tmp.caption, System.MouseX, System.MouseY + 10)
+		      End If
+		    End If
+		  Next
 		  
-		  over=over or scrollRightIcn.mouseMove(x,y)
+		  over=over Or scrollRightIcn.mouseMove(x,y)
 		  
 		  if over then self.Repaint
 		End Sub
@@ -186,6 +200,8 @@ Inherits canvas
 
 	#tag Event
 		Sub Open()
+		  p=New Picture(1,1,1) 'needed to get string widths
+		  
 		  // most of the double buffering code, original from Aaron Ballman.
 		  // Check to see whether the user is on a system that
 		  // requires double buffering
@@ -913,6 +929,16 @@ Inherits canvas
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub TimerRun(sender as Timer)
+		  
+		  If TTtext<>"" Then
+		    App.ShowTooltip(TTtext,System.MouseX,System.MouseY+15)
+		  End If
+		  RemoveHandler ToolTipTimer.action, AddressOf TimerRun
+		End Sub
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0
 		Event CancelRemoveTab(tabIndex as integer) As boolean
@@ -1105,6 +1131,10 @@ Inherits canvas
 		Private nextLoc As Integer
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		p As picture
+	#tag EndProperty
+
 	#tag Property, Flags = &h21
 		Private panel As pagePanel
 	#tag EndProperty
@@ -1119,6 +1149,14 @@ Inherits canvas
 
 	#tag Property, Flags = &h0
 		tabs() As customTab
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ToolTipTimer As Timer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TTtext As string
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -1385,6 +1423,22 @@ Inherits canvas
 			InitialValue="100"
 			Type="Integer"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="p"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TTtext"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="string"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

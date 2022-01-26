@@ -68,6 +68,7 @@ Begin Window WebBrowserWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      p               =   0
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -506,8 +507,11 @@ End
 		  ActiveBrowser.ExecuteJavaScript("getCount()")
 		  Self.searchRun = True
 		  
-		  
-		  
+		  Exception err
+		    ExceptionHandler(err,"WebBrowserWin:SearchText")
+		    
+		    
+		    
 		End Sub
 	#tag EndMethod
 
@@ -535,6 +539,8 @@ End
 		    SearchField.TextColor = &cFF0000
 		  end
 		  
+		  Exception err
+		    ExceptionHandler(err,"WebBrowserWin:ShiftMatch")
 		End Sub
 	#tag EndMethod
 

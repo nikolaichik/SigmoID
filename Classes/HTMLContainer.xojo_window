@@ -337,7 +337,7 @@ End
 		  ProgressWheel1.Visible=True
 		  ProgressWheel1.Enabled=True
 		  ProgressWheel1.Refresh
-		  if instr(newTitle, "count ")>0 then
+		  If InStr(newTitle, "count ")>0 Then
 		    WebBrowserWin.matchCount = val(Nthfield(Nthfield(newTitle, "count ", 2), ";", 1))
 		    if WebBrowserWin.matchCount <> 0 then
 		      WebBrowserWin.shiftMatch(1)
@@ -345,7 +345,17 @@ End
 		      WebBrowserWin.CountField.Text = "Not found"
 		      WebBrowserWin.SearchField.TextColor = &cFF0000
 		    end
-		  else
+		  Else
+		    
+		    // ignore side frame titles
+		    If InStr(newTitle, "Twitter Widget")>0 Then
+		      Return
+		    Elseif InStr(newTitle, "reCAPTCHA")>0 Then
+		      Return
+		    Elseif InStr(newTitle, "YouTube")>0 Then
+		      Return
+		    End If
+		    
 		    Title = newTitle
 		    
 		    // Checks for title changes for each browser tab and update tab captions
