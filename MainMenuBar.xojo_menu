@@ -70,9 +70,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FileNewTab
          SpecialMenu = 0
-         Value = "New Tab"
+         Value = "#kNewTab"
          Index = -2147483648
-         Text = "New Tab"
+         Text = "#kNewTab"
          ShortcutKey = "T"
          Shortcut = "Cmd+T"
          MenuModifier = True

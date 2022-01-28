@@ -320,6 +320,10 @@ End
 	#tag EndMethod
 
 
+	#tag Property, Flags = &h0
+		LoadedURL As String
+	#tag EndProperty
+
 	#tag Property, Flags = &h21
 		Private mPageURL As String
 	#tag EndProperty
@@ -347,16 +351,32 @@ End
 		    end
 		  Else
 		    
-		    // ignore side frame titles
-		    If InStr(newTitle, "Twitter Widget")>0 Then
+		    // Working around HTMLviewer bug by ignoring iFrame titles
+		    If InStr(newTitle, "Twitter Widget")>0 Then 'EcoCyc
 		      Return
-		    Elseif InStr(newTitle, "reCAPTCHA")>0 Then
+		    Elseif InStr(newTitle, "reCAPTCHA")>0 Then 'ASM journals
 		      Return
 		    Elseif InStr(newTitle, "YouTube")>0 Then
 		      Return
+		    Elseif InStr(newTitle, "AddThis Utility Frame")>0 Then 'Oxford Academic
+		      Return
+		    Elseif InStr(newTitle, "SafeFrame Container")>0 Then 'Oxford Academic
+		      Return
+		    Elseif InStr(newTitle, "Tweet Button")>0 Then  'BioRchiv
+		      Return
+		    Elseif newTitle="Hypothesis" Then  'Elife
+		      Return
+		    Elseif InStr(newTitle, "Cross Domain")>0 Then 'Nasty Springer tracking
+		      Return
+		      'Elseif InStr(newTitle, "")>0 Then
+		      'Return
+		    Elseif newTitle="" Then 'empty title -> use the URL
+		      Title=AddressField.Text
+		    Else
+		      Title = newTitle
 		    End If
 		    
-		    Title = newTitle
+		    
 		    
 		    // Checks for title changes for each browser tab and update tab captions
 		    Dim cap, tit As String
@@ -427,6 +447,8 @@ End
 		  ' PaleGreen #98FB98
 		  ' PaleTurquoise #AFEEEE
 		  ' PowderBlue #B0E0E6
+		  
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -436,6 +458,8 @@ End
 		  ProgressWheel1.Refresh
 		  
 		  Self.AddressField.Text=url
+		  
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -783,5 +807,13 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LoadedURL"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 #tag EndViewBehavior

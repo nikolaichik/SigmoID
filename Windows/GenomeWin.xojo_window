@@ -213,6 +213,7 @@ Begin Window GenomeWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
+      p               =   0
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
@@ -4137,7 +4138,7 @@ End
 		              theSeq=gcodes(gCodeNo).Translate(MidB(Genome.Sequence,NewFeature.start,NewFeature.finish-NewFeature.start+1))
 		            End
 		            theSeq=Left(theSeq,Len(theSeq)-1) 'Remove the asterisk
-		            NewFeature.featureText=NewFeature.featureText+EndOfLine.UNIX+"/translation="+Chr(34)+theSeq+Chr(34)
+		            NewFeature.featureText=NewFeature.featureText+EndOfLine.UNIX+"/translation="+Chr(34)+theSeq+Chr(34) 'need to respect formatting (left padding) here!!
 		            
 		          End If
 		        End If
@@ -4759,7 +4760,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub SaveGenBankFile(f as folderitem)
-		  dim stream as TextOutputStream = TextOutputStream.Create(f)
+		  Dim stream As TextOutputStream = TextOutputStream.Create(f)
 		  dim m,n as integer
 		  
 		  

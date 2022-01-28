@@ -364,8 +364,10 @@ End
 	#tag Method, Flags = &h0
 		Function ActiveBrowser() As HTMLViewer
 		  For Each w As weakRef In Self.ContainerRefs
-		    If htmlcontainer(w.value).WebViewer.PanelIndex=BrowserPagePanel.value Then
-		      Return HTMLContainer(w.value).WebViewer
+		    If w.value<>Nil Then
+		      If htmlcontainer(w.value).WebViewer.PanelIndex=BrowserPagePanel.value Then
+		        Return HTMLContainer(w.value).WebViewer
+		      End If
 		    End If
 		  Next
 		  
