@@ -194,7 +194,7 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   1067
    End
-   Begin CustomTabPanelTabs BrowserTabs
+   Begin CustomTabPanelTabs gBrowserTabs
       AcceptFocus     =   False
       AcceptTabs      =   False
       AutoDeactivate  =   True
@@ -772,10 +772,10 @@ End
 		  TMLineHeight=TextMapPic.Graphics.StringHeight("Ay",TextMapPic.width)
 		  TMdisplay.Height=10*TMLineHeight+TMLineHeight/2
 		  Splitter.top=TMdisplay.top+TMdisplay.Height+1
-		  BrowserTabs.top=Splitter.top+Splitter.Height'+1 
-		  BrowserTabs.height=self.Height-BrowserTabs.top
-		  BrowserPagePanel.top=BrowserTabs.top+1
-		  BrowserPagePanel.height=BrowserTabs.height-1
+		  gBrowserTabs.top=Splitter.top+Splitter.Height'+1 
+		  gBrowserTabs.height=Self.Height-gBrowserTabs.top
+		  BrowserPagePanel.top=gBrowserTabs.top+1
+		  BrowserPagePanel.height=gBrowserTabs.height-1
 		  
 		  
 		  TMCharWidth=TextMapPic.Graphics.StringWidth("A")
@@ -1880,7 +1880,7 @@ End
 		  
 		  'name the search tab:
 		  FindTab("GB:"+GeneName)
-		  BrowserTabs.RePaint
+		  gBrowserTabs.RePaint
 		  
 		  'get the seq to search with:
 		  
@@ -1931,7 +1931,7 @@ End
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
 		  FindTab("GB:"+ProtName)
-		  BrowserTabs.RePaint
+		  gBrowserTabs.RePaint
 		  
 		  ProgressShow
 		  
@@ -1989,7 +1989,7 @@ End
 		  
 		  'name the search tab:
 		  FindTab("GB:"+GeneName)
-		  BrowserTabs.RePaint
+		  gBrowserTabs.RePaint
 		  
 		  ProgressShow
 		  
@@ -2043,7 +2043,7 @@ End
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
 		  FindTab("CDD:"+ProtName)
-		  BrowserTabs.RePaint
+		  gBrowserTabs.RePaint
 		  ProgressShow
 		  
 		  'get the seq to search with:
@@ -2834,10 +2834,10 @@ End
 		  
 		  
 		  
-		  if BrowserTabs.tabCount>0 then
+		  If gBrowserTabs.tabCount>0 Then
 		    if Tab2find="GB:" or tab2find="CDD:" then
-		      for n=0 to BrowserTabs.tabCount-1
-		        if instr(BrowserTabs.tabs(n).caption,"GB:")>0 OR instr(BrowserTabs.tabs(n).caption,"CDD:")>0 then
+		      For n=0 To gBrowserTabs.tabCount-1
+		        if instr(gBrowserTabs.tabs(n).caption,"GB:")>0 OR instr(gBrowserTabs.tabs(n).caption,"CDD:")>0 then
 		          t=n
 		          exit
 		        end if
@@ -2845,8 +2845,8 @@ End
 		      
 		      
 		    else
-		      for n=0 to BrowserTabs.tabCount-1
-		        if instr(BrowserTabs.tabs(n).caption,tab2find)>0 then
+		      For n=0 To gBrowserTabs.tabCount-1
+		        if instr(gBrowserTabs.tabs(n).caption,tab2find)>0 then
 		          t=n
 		          exit
 		        end if
@@ -2855,10 +2855,10 @@ End
 		    
 		    'remove the tab of the current type and append a new one
 		    if t>-1 then
-		      BrowserTabs.removeTab(t)
+		      gBrowserTabs.removeTab(t)
 		    end if
 		  end if
-		  BrowserTabs.appendTab(TabName,True)
+		  gBrowserTabs.appendTab(TabName,True)
 		  dim va as integer
 		  va=BrowserPagePanel.value
 		  'BrowserPagePanel.value=BrowserTabs.tabCount-1
@@ -3637,7 +3637,7 @@ End
 		  'name the search tab:
 		  'BrowserTabs.tabs(0).Caption=ProtName+":SwissProt"
 		  FindTab("SP:"+ProtName)
-		  BrowserTabs.RePaint
+		  gBrowserTabs.RePaint
 		  
 		  'get the seq to search with:
 		  if Seq.Features(ContextFeature).complement  then
@@ -3707,7 +3707,7 @@ End
 		  
 		  'name the search tab:
 		  FindTab("UP:"+ProtName)
-		  BrowserTabs.RePaint
+		  gBrowserTabs.RePaint
 		  
 		  ProgressShow
 		  
@@ -5515,20 +5515,20 @@ End
 	#tag Method, Flags = &h0
 		Sub TMDisplayAdjustment()
 		  if TMdisplay.visible then
-		    BrowserTabs.top=BrowserTabs.top+TMdisplay.height
+		    gBrowserTabs.top=gBrowserTabs.top+TMdisplay.height
 		    'BrowserTabs.height=BrowserTabs.height-TMdisplay.height
 		    BrowserPagePanel.top=BrowserPagePanel.top+TMdisplay.height
 		    'BrowserPagePanel.height=BrowserPagePanel.height-TMdisplay.height
 		    Splitter.top=Splitter.Top+TMdisplay.height
 		  else
-		    BrowserTabs.top=BrowserTabs.top-TMdisplay.height
+		    gBrowserTabs.top=gBrowserTabs.top-TMdisplay.height
 		    'BrowserTabs.height=BrowserTabs.height+TMdisplay.height
 		    BrowserPagePanel.top=BrowserPagePanel.top-TMdisplay.height
 		    'BrowserPagePanel.height=BrowserPagePanel.height+TMdisplay.height
 		    Splitter.top=Splitter.Top-TMdisplay.height
 		  end if
-		  BrowserTabs.height=self.height-BrowserTabs.top
-		  BrowserPagePanel.height=self.height-BrowserTabs.top
+		  gBrowserTabs.height=Self.height-gBrowserTabs.top
+		  BrowserPagePanel.height=self.height-gBrowserTabs.top
 		End Sub
 	#tag EndMethod
 
@@ -7123,7 +7123,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BrowserTabs
+#tag Events gBrowserTabs
 	#tag Event
 		Sub TabChanged(tabIndex as integer)
 		  'BrowserPagePanel positions are fixed as follows:
@@ -7135,7 +7135,7 @@ End
 		  
 		  dim Tabname as string
 		  
-		  Tabname=BrowserTabs.tabs(tabIndex).caption
+		  Tabname=me.tabs(tabIndex).caption
 		  
 		  if instr(TabName,"SP:")>0 then
 		    SPSearchViewer.Visible=True
@@ -7648,11 +7648,11 @@ End
 		    'HscrollBar.height=HscrollBar.height-deltaY
 		    HscrollBar.top=HscrollBar.top+deltaY
 		    
-		    BrowserTabs.height=BrowserTabs.height-deltaY
-		    BrowserTabs.top=BrowserTabs.top+deltaY
+		    gBrowserTabs.height=gBrowserTabs.height-deltaY
+		    gBrowserTabs.top=gBrowserTabs.top+deltaY
 		    
-		    BrowserPagePanel.height=BrowserTabs.height
-		    BrowserPagePanel.top=BrowserTabs.top
+		    BrowserPagePanel.height=gBrowserTabs.height
+		    BrowserPagePanel.top=gBrowserTabs.top
 		    'BrowserPagePanel.height=BrowserPagePanel.height-deltaY
 		    'BrowserPagePanel.top=BrowserPagePanel.top+deltaY
 		    '

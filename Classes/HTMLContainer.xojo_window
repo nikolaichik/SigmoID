@@ -241,13 +241,13 @@ End
 		Sub AdjustTabWidth()
 		  'masked due to issues with dynamical tab resize in WebBrowserWin
 		  'Dim tabNo As Integer = WebBrowserWin.BrowserPagePanel.PanelCount
-		  'Dim maxW As Integer = (WebBrowserWin.BrowserTabs.Width-70)/TabNo - 20
+		  'Dim maxW As Integer = (WebBrowserWin.wBrowserTabs.Width-70)/TabNo - 20
 		  'For page As Integer = 0 To tabNo-1
-		  'If WebBrowserWin.BrowserTabs.tabs(page).width>maxW Then
+		  'If WebBrowserWin.wBrowserTabs.tabs(page).width>maxW Then
 		  'If maxW>70 Then
-		  'WebBrowserWin.BrowserTabs.tabs(page).width=maxW
+		  'WebBrowserWin.wBrowserTabs.tabs(page).width=maxW
 		  'Else
-		  'WebBrowserWin.BrowserTabs.tabs(page).width=70
+		  'WebBrowserWin.wBrowserTabs.tabs(page).width=70
 		  'End If
 		  'End If
 		  'Next
@@ -382,11 +382,11 @@ End
 		    Dim cap, tit As String
 		    Dim tabNo As Integer = WebBrowserWin.BrowserPagePanel.PanelCount
 		    For page As Integer = 0 To tabNo-1
-		      cap=WebBrowserWin.BrowserTabs.tabs(page).caption
+		      cap=WebBrowserWin.wBrowserTabs.tabs(page).caption
 		      tit=WebBrowserWin.mBrowserTabs(page).Title
-		      If WebBrowserWin.mBrowserTabs(page).Title <> WebBrowserWin.BrowserTabs.tabs(page).caption Then
+		      If WebBrowserWin.mBrowserTabs(page).Title <> WebBrowserWin.wBrowserTabs.tabs(page).caption Then
 		        'Update title
-		        WebBrowserWin.BrowserTabs.tabs(page).caption = WebBrowserWin.mBrowserTabs(page).Title
+		        WebBrowserWin.wBrowserTabs.tabs(page).caption = WebBrowserWin.mBrowserTabs(page).Title
 		      End If
 		    Next
 		    
@@ -394,7 +394,7 @@ End
 		    
 		    
 		    
-		    WebBrowserWin.BrowserTabs.RePaint
+		    WebBrowserWin.wBrowserTabs.RePaint
 		  end
 		  
 		  Exception err
@@ -501,7 +501,7 @@ End
 		        Dim page2load As String = url
 		        ParentBrowserWindow.AddNewTab.LoadURL(page2load)
 		        'AdjustTabWidth
-		        WebBrowserWin.BrowserTabs.fixLocations
+		        WebBrowserWin.wBrowserTabs.fixLocations
 		        Return True
 		      End If
 		    End
@@ -531,7 +531,7 @@ End
 		    
 		    LoadURL(address)
 		    'AdjustTabWidth
-		    WebBrowserWin.BrowserTabs.fixLocations
+		    WebBrowserWin.wBrowserTabs.fixLocations
 		    Return True
 		  End If
 		End Function

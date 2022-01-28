@@ -2556,16 +2556,16 @@ End
 		      
 		      If WebBrowserWin.BrowserPagePanel.PanelCount>0 Then
 		        pc = WebBrowserWin.BrowserPagePanel.PanelCount
-		        ca = WebBrowserWin.BrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption
-		        If WebBrowserWin.BrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption="" Then 'load the page into the empty tab
+		        ca = WebBrowserWin.wBrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption
+		        If WebBrowserWin.wBrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption="" Then 'load the page into the empty tab
 		          AlreadyOpeningTab=True
 		        End If
 		      End If
 		      WebBrowserWin.LoadPage(url)
-		      If ubound(WebBrowserWin.BrowserTabs.tabs)>0 Then
-		        If WebBrowserWin.BrowserTabs.tabs(0).caption="" Or WebBrowserWin.BrowserTabs.tabs(0).caption="Untitled" Then
+		      If ubound(WebBrowserWin.wBrowserTabs.tabs)>0 Then
+		        If WebBrowserWin.wBrowserTabs.tabs(0).caption="" Or WebBrowserWin.wBrowserTabs.tabs(0).caption="Untitled" Then
 		          If Not WebBrowserWin.mBrowserTabs(0).webViewer.canGoBack Then
-		            WebBrowserWin.BrowserTabs.removeTab(0)
+		            WebBrowserWin.wBrowserTabs.removeTab(0)
 		          End If
 		        End If
 		      End If
@@ -2686,7 +2686,7 @@ End
 		        WebBrowserWin.show
 		        'WebBrowserWin.AddNewTab.LoadURL(linkID)
 		        If WebBrowserWin.BrowserPagePanel.PanelCount>0 Then
-		          If WebBrowserWin.BrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption=""  Or WebBrowserWin.BrowserTabs.tabs(0).caption="Untitled" Then 'load the page into the empty tab
+		          If WebBrowserWin.wBrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption=""  Or WebBrowserWin.wBrowserTabs.tabs(0).caption="Untitled" Then 'load the page into the empty tab
 		            AlreadyOpeningTab=True
 		          End If
 		        End If
@@ -2694,17 +2694,17 @@ End
 		        
 		        
 		        If WebBrowserWin.BrowserPagePanel.PanelCount>0 Then
-		          If WebBrowserWin.BrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption="" Then 'load the page into the empty tab
+		          If WebBrowserWin.wBrowserTabs.tabs(WebBrowserWin.BrowserPagePanel.PanelCount-1).caption="" Then 'load the page into the empty tab
 		            AlreadyOpeningTab=True
 		          End If
 		        End If
 		        
 		        WebBrowserWin.LoadPage(linkID)
 		        
-		        If ubound(WebBrowserWin.BrowserTabs.tabs)>0 Then
-		          If WebBrowserWin.BrowserTabs.tabs(0).caption="" Or WebBrowserWin.BrowserTabs.tabs(0).caption="Untitled" Then
+		        If ubound(WebBrowserWin.wBrowserTabs.tabs)>0 Then
+		          If WebBrowserWin.wBrowserTabs.tabs(0).caption="" Or WebBrowserWin.wBrowserTabs.tabs(0).caption="Untitled" Then
 		            If Not WebBrowserWin.mBrowserTabs(0).webViewer.canGoBack Then
-		              WebBrowserWin.BrowserTabs.removeTab(0)
+		              WebBrowserWin.wBrowserTabs.removeTab(0)
 		            End If
 		          End If
 		        End If

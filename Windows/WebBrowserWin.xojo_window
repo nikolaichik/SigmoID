@@ -49,7 +49,7 @@ Begin Window WebBrowserWin
       Visible         =   True
       Width           =   1014
    End
-   Begin CustomTabPanelTabs BrowserTabs
+   Begin CustomTabPanelTabs wBrowserTabs
       AllowAutoDeactivate=   True
       AllowFocus      =   False
       AllowFocusRing  =   True
@@ -393,10 +393,10 @@ End
 		  mBrowserTabs.AddRow(browser)
 		  
 		  
-		  BrowserTabs.appendTab("Untitled",True)
+		  wBrowserTabs.appendTab("Untitled",True)
 		  Dim va As Integer
 		  va=BrowserPagePanel.value
-		  BrowserTabs.RePaint
+		  wBrowserTabs.RePaint
 		  
 		  
 		  Return browser.GetHTMLViewer
@@ -410,8 +410,8 @@ End
 		Sub CloseTab()
 		  If BrowserPagePanel.PanelCount > 1 Then
 		    Dim currenTab As Integer = BrowserPagePanel.Value
-		    BrowserTabs.RemoveTab(currenTab) 
-		    BrowserTabs.Repaint
+		    wBrowserTabs.RemoveTab(currenTab) 
+		    wBrowserTabs.Repaint
 		  Else
 		    Self.close
 		  End If
@@ -634,7 +634,7 @@ End
 
 #tag EndWindowCode
 
-#tag Events BrowserTabs
+#tag Events wBrowserTabs
 	#tag Event
 		Sub Open()
 		  

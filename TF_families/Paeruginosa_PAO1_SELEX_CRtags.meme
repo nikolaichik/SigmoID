@@ -7,7 +7,7 @@ strands: + -
 Background letter frequencies (from uniform background):
 A 0.25000 C 0.25000 G 0.25000 T 0.25000 
 
-MOTIF PA0032_pwm 
+MOTIF FTTQPASQR_PA0032_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 2710 E= 0
   0.000311	  0.776050	  0.104821	  0.118818	
@@ -25,7 +25,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 2710 E= 0
   0.998399	  0.000400	  0.000800	  0.000400	
   0.118818	  0.104821	  0.776050	  0.000311	
 
-MOTIF PA0037_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ISTHGASRR_PA0037_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 3630 E= 0
   0.080818	  0.041220	  0.723791	  0.154171	
@@ -42,7 +44,9 @@ letter-probability matrix: alength= 4 w= 13 nsites= 3630 E= 0
   0.882330	  0.019806	  0.054369	  0.043495	
   0.147764	  0.733636	  0.041154	  0.077447	
 
-MOTIF PA0048_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF QRTVSQRHGG_PA0048_pwm XRE-family
 
 letter-probability matrix: alength= 4 w= 11 nsites= 503 E= 0
   0.116829	  0.310153	  0.147427	  0.425591	
@@ -57,7 +61,9 @@ letter-probability matrix: alength= 4 w= 11 nsites= 503 E= 0
   0.349418	  0.371048	  0.064892	  0.214642	
   0.432285	  0.146375	  0.302326	  0.119015	
 
-MOTIF PA0120_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF QRSRPSRPGK_PA0120_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 2344 E= 0
   0.371261	  0.050390	  0.294538	  0.283810	
@@ -76,7 +82,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 2344 E= 0
   0.140773	  0.000729	  0.832969	  0.025529	
   0.283810	  0.294538	  0.050390	  0.371261	
 
-MOTIF PA0123_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF MATPSASQR_PA0123_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 9 nsites= 6903 E= 0
   0.752823	  0.033402	  0.083188	  0.130587	
@@ -89,7 +97,9 @@ letter-probability matrix: alength= 4 w= 9 nsites= 6903 E= 0
   0.998130	  0.001454	  0.000208	  0.000208	
   0.078332	  0.125505	  0.661281	  0.134882	
 
-MOTIF PA0159_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTSTAQSRR_PA0159_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 396 E= 0
   0.133909	  0.161987	  0.641469	  0.062635	
@@ -111,7 +121,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 396 E= 0
   0.326336	  0.141221	  0.318702	  0.213740	
   0.062635	  0.641469	  0.161987	  0.133909	
 
-MOTIF PA0181_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FATPAGGKR_PA0181_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 1790 E= 0
   0.156586	  0.033602	  0.008737	  0.801075	
@@ -134,7 +146,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 1790 E= 0
   0.017544	  0.258224	  0.653509	  0.070724	
   0.801075	  0.008737	  0.033602	  0.156586	
 
-MOTIF PA0191_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FVTQPASRK_PA0191_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 568 E= 0
   0.517787	  0.072464	  0.050066	  0.359684	
@@ -154,7 +168,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 568 E= 0
   0.011765	  0.002353	  0.061176	  0.924706	
   0.359684	  0.050066	  0.072464	  0.517787	
 
-MOTIF PA0225_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LETKSYSKLN_PA0225_pwm1 XRE-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 718 E= 0
   0.160138	  0.107143	  0.542627	  0.190092	
@@ -171,7 +187,9 @@ letter-probability matrix: alength= 4 w= 13 nsites= 718 E= 0
   0.044402	  0.019305	  0.027027	  0.909266	
   0.188787	  0.542334	  0.106407	  0.162471	
 
-MOTIF PA0225_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LETKSYSKLN_PA0225_pwm2 XRE-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 296 E= 0
   0.178683	  0.166144	  0.514107	  0.141066	
@@ -189,7 +207,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 296 E= 0
   0.172549	  0.027451	  0.156863	  0.643137	
   0.141066	  0.514107	  0.166144	  0.178683	
 
-MOTIF PA0236_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LQPKSAHR_PA0236_pwm IclR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 3588 E= 0
   0.012776	  0.394289	  0.002756	  0.590180	
@@ -209,7 +229,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 3588 E= 0
   0.987580	  0.006388	  0.005323	  0.000710	
   0.590078	  0.002756	  0.394387	  0.012779	
 
-MOTIF PA0248_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SAHNGPAYTR_PA0248_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 11 nsites= 4973 E= 0
   0.264888	  0.064526	  0.368310	  0.302276	
@@ -224,7 +246,9 @@ letter-probability matrix: alength= 4 w= 11 nsites= 4973 E= 0
   0.071522	  0.000262	  0.882106	  0.046110	
   0.299838	  0.370075	  0.061827	  0.268260	
 
-MOTIF PA0268_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF TRSRKTSVGS_PA0268_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 11 nsites= 88351 E= 0
   0.260660	  0.082607	  0.386523	  0.270211	
@@ -239,7 +263,9 @@ letter-probability matrix: alength= 4 w= 11 nsites= 88351 E= 0
   0.056573	  0.034231	  0.852725	  0.056471	
   0.260352	  0.393898	  0.081491	  0.264260	
 
-MOTIF PA0275_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRQTNQ_PA0275_pwm Crp-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 4766 E= 0
   0.004335	  0.012428	  0.020520	  0.962717	
@@ -260,7 +286,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 4766 E= 0
   0.003811	  0.524043	  0.013972	  0.458175	
   0.962620	  0.020574	  0.012460	  0.004347	
 
-MOTIF PA0294_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IYPPSSYHF_PA0294_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 3292 E= 0
   0.303613	  0.231360	  0.222905	  0.242121	
@@ -277,7 +305,9 @@ letter-probability matrix: alength= 4 w= 13 nsites= 3292 E= 0
   0.276265	  0.194066	  0.179475	  0.350195	
   0.215158	  0.372845	  0.179957	  0.232040	
 
-MOTIF PA0436_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF MGPRSNHYY_PA0436_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 5250 E= 0
   0.040841	  0.202494	  0.284055	  0.472609	
@@ -301,7 +331,9 @@ letter-probability matrix: alength= 4 w= 20 nsites= 5250 E= 0
   0.000772	  0.994597	  0.004374	  0.000257	
   0.472609	  0.284055	  0.202494	  0.040841	
 
-MOTIF PA0463_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF GERNDSHKS_PA0463_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 7686 E= 0
   0.130363	  0.370253	  0.129029	  0.370355	
@@ -320,7 +352,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 7686 E= 0
   0.135701	  0.299628	  0.015199	  0.549473	
   0.370251	  0.134095	  0.364086	  0.131568	
 
-MOTIF PA0477_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VGSASASHN_PA0477_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 1113 E= 0
   0.020038	  0.640576	  0.013776	  0.325611	
@@ -341,7 +375,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 1113 E= 0
   0.000827	  0.044665	  0.846154	  0.108354	
   0.000972	  0.003887	  0.000972	  0.994169	
 
-MOTIF PA0479_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FQSHPAFAY_PA0479_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 7601 E= 0
   0.132369	  0.226152	  0.212129	  0.429350	
@@ -365,7 +401,9 @@ letter-probability matrix: alength= 4 w= 20 nsites= 7601 E= 0
   0.168887	  0.570839	  0.001689	  0.258585	
   0.402934	  0.194552	  0.301844	  0.100671	
 
-MOTIF PA0491_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ISSQSATSQ_PA0491_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 330 E= 0
   0.003155	  0.965300	  0.015773	  0.015773	
@@ -385,7 +423,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 330 E= 0
   0.003236	  0.990291	  0.003236	  0.003236	
   0.990291	  0.003236	  0.003236	  0.003236	
 
-MOTIF PA0528_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VGSQPASQK_PA0528_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 19645 E= 0
   0.211030	  0.431541	  0.301250	  0.056179	
@@ -406,7 +446,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 19645 E= 0
   0.782776	  0.022305	  0.177200	  0.017720	
   0.055702	  0.298057	  0.442669	  0.203572	
 
-MOTIF PA0535_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LQSVGFSQLS_PA0535_pwm XRE-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 1101 E= 0
   0.125392	  0.159875	  0.177116	  0.537618	
@@ -426,7 +468,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 1101 E= 0
   0.860571	  0.001143	  0.019429	  0.118857	
   0.536528	  0.177533	  0.160251	  0.125687	
 
-MOTIF PA0547_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF QSGSH_PA0547_pwm HTH_20-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 176 E= 0
   0.493776	  0.103734	  0.398340	  0.004149	
@@ -448,7 +492,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 176 E= 0
   0.054688	  0.007812	  0.929688	  0.007812	
   0.004149	  0.398340	  0.103734	  0.493776	
 
-MOTIF PA0564_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SASVREAASR_PA0564_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 194 E= 0
   0.596567	  0.025751	  0.012876	  0.364807	
@@ -471,7 +517,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 194 E= 0
   0.604444	  0.155556	  0.013333	  0.226667	
   0.364807	  0.012876	  0.025751	  0.596567	
 
-MOTIF PA0652_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SREMGR_PA0652_pwm Crp-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 579 E= 0
   0.657534	  0.021918	  0.089041	  0.231507	
@@ -487,7 +535,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 579 E= 0
   0.618438	  0.012804	  0.065301	  0.303457	
   0.230559	  0.088677	  0.021828	  0.658936	
 
-MOTIF PA0708_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IAVPSNTTN_PA0708_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 167 E= 0
   0.143939	  0.007576	  0.068182	  0.780303	
@@ -504,7 +554,9 @@ letter-probability matrix: alength= 4 w= 13 nsites= 167 E= 0
   0.235294	  0.186275	  0.480392	  0.098039	
   0.619048	  0.007937	  0.166667	  0.206349	
 
-MOTIF PA0739_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF YASQPASRR_PA0739_pwm1 LysR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 186 E= 0
   0.778443	  0.101796	  0.047904	  0.071856	
@@ -522,7 +574,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 186 E= 0
   0.151515	  0.030303	  0.812121	  0.006061	
   0.070175	  0.046784	  0.099415	  0.783626	
 
-MOTIF PA0739_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF YASQPASRR_PA0739_pwm2 LysR-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 161 E= 0
   0.645349	  0.005814	  0.081395	  0.267442	
@@ -539,7 +593,9 @@ letter-probability matrix: alength= 4 w= 13 nsites= 161 E= 0
   0.139073	  0.006623	  0.735099	  0.119205	
   0.267442	  0.081395	  0.005814	  0.645349	
 
-MOTIF PA0784_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FKTPTASHR_PA0784_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 1735 E= 0
   0.031632	  0.594686	  0.049346	  0.324336	
@@ -557,7 +613,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 1735 E= 0
   0.996594	  0.001362	  0.000681	  0.001362	
   0.324336	  0.049346	  0.594686	  0.031632	
 
-MOTIF PA0791_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRSNRPAAST_PA0791_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 1296 E= 0
   0.134483	  0.133103	  0.071724	  0.660690	
@@ -577,7 +635,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 1296 E= 0
   0.650975	  0.059180	  0.034970	  0.254876	
   0.418584	  0.180634	  0.189318	  0.211463	
 
-MOTIF PA0828_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ANSRRTYKY_PA0828_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 12538 E= 0
   0.111104	  0.531383	  0.167076	  0.190436	
@@ -596,7 +656,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 12538 E= 0
   0.073008	  0.787317	  0.008177	  0.131498	
   0.191216	  0.167760	  0.529465	  0.111559	
 
-MOTIF PA0839_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VLPKGSYHY_PA0839_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 1193 E= 0
   0.598992	  0.123830	  0.174226	  0.102952	
@@ -616,7 +678,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 1193 E= 0
   0.266850	  0.340440	  0.107978	  0.284732	
   0.104167	  0.174569	  0.122845	  0.598420	
 
-MOTIF PA0864_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRTSRPSASD_PA0864_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 950 E= 0
   0.060362	  0.076459	  0.059356	  0.803823	
@@ -637,7 +701,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 950 E= 0
   0.914286	  0.001143	  0.066286	  0.018286	
   0.099054	  0.179811	  0.505994	  0.215142	
 
-MOTIF PA0906_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF QVTQTSSDKS_PA0906_pwm XRE-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 246 E= 0
   0.183962	  0.797170	  0.004717	  0.014151	
@@ -661,7 +727,9 @@ letter-probability matrix: alength= 4 w= 20 nsites= 246 E= 0
   0.014493	  0.014493	  0.956522	  0.014493	
   0.014151	  0.004717	  0.797170	  0.183962	
 
-MOTIF PA0929_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF QDRSDMHSH_PA0929_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 1263 E= 0
   0.196053	  0.253070	  0.139035	  0.411842	
@@ -679,7 +747,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 1263 E= 0
   0.843172	  0.040529	  0.065198	  0.051101	
   0.011055	  0.943719	  0.001005	  0.044221	
 
-MOTIF PA1097_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF RRTTVE_PA1097_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 5379 E= 0
   0.042216	  0.551655	  0.405180	  0.000949	
@@ -701,7 +771,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 5379 E= 0
   0.176222	  0.002573	  0.784822	  0.036384	
   0.000949	  0.405180	  0.551655	  0.042216	
 
-MOTIF PA1099_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SPRTRY_PA1099_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 10 nsites= 2906 E= 0
   0.105569	  0.504018	  0.200333	  0.190080	
@@ -715,7 +787,9 @@ letter-probability matrix: alength= 4 w= 10 nsites= 2906 E= 0
   0.133550	  0.736971	  0.061075	  0.068404	
   0.233766	  0.146288	  0.446704	  0.173242	
 
-MOTIF PA1128_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FRSTSASHR_PA1128_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 2460 E= 0
   0.107359	  0.022681	  0.869456	  0.000504	
@@ -736,7 +810,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 2460 E= 0
   0.963687	  0.011732	  0.001676	  0.022905	
   0.000504	  0.869456	  0.022681	  0.107359	
 
-MOTIF PA1141_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTTQSTSQR_PA1141_pwm1 LysR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 273 E= 0
   0.640264	  0.297030	  0.059406	  0.003300	
@@ -754,7 +830,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 273 E= 0
   0.113725	  0.043137	  0.756863	  0.086275	
   0.003311	  0.059603	  0.298013	  0.639073	
 
-MOTIF PA1141_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTTQSTSQR_PA1141_pwm2 LysR-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 198 E= 0
   0.660287	  0.210526	  0.043062	  0.086124	
@@ -771,7 +849,9 @@ letter-probability matrix: alength= 4 w= 13 nsites= 198 E= 0
   0.178571	  0.005952	  0.809524	  0.005952	
   0.086957	  0.043478	  0.202899	  0.666667	
 
-MOTIF PA1141_pwm3 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTTQSTSQR_PA1141_pwm3 LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 220 E= 0
   0.701357	  0.153846	  0.117647	  0.027149	
@@ -790,7 +870,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 220 E= 0
   0.124378	  0.019900	  0.771144	  0.084577	
   0.027149	  0.117647	  0.153846	  0.701357	
 
-MOTIF PA1142_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ERTRITRERR_PA1142_pwm1 GntR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 6301 E= 0
   0.075791	  0.045254	  0.805556	  0.073400	
@@ -811,7 +893,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 6301 E= 0
   0.010223	  0.008179	  0.747657	  0.233941	
   0.073640	  0.805825	  0.045613	  0.074922	
 
-MOTIF PA1142_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ERTRITRERR_PA1142_pwm2 GntR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 6109 E= 0
   0.061263	  0.053044	  0.812477	  0.073216	
@@ -831,7 +915,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 6109 E= 0
   0.015187	  0.010347	  0.728972	  0.245494	
   0.072466	  0.812966	  0.053838	  0.060730	
 
-MOTIF PA1142_pwm3 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ERTRITRERR_PA1142_pwm3 GntR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 5362 E= 0
   0.070319	  0.034383	  0.838509	  0.056788	
@@ -850,7 +936,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 5362 E= 0
   0.021518	  0.001395	  0.752540	  0.224547	
   0.055420	  0.840168	  0.034804	  0.069608	
 
-MOTIF PA1145_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTSQSNSMG_PA1145_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 21 nsites= 332 E= 0
   0.519856	  0.129964	  0.129964	  0.220217	
@@ -875,7 +963,9 @@ letter-probability matrix: alength= 4 w= 21 nsites= 332 E= 0
   0.139640	  0.193694	  0.033784	  0.632883	
   0.278986	  0.054348	  0.278986	  0.387681	
 
-MOTIF PA1196_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF PRTTLG_PA1196_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 3641 E= 0
   0.066667	  0.401885	  0.041932	  0.489517	
@@ -895,7 +985,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 3641 E= 0
   0.000429	  0.887554	  0.012446	  0.099571	
   0.492380	  0.041970	  0.399297	  0.066354	
 
-MOTIF PA1201_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ISSKSVSKR_PA1201_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 11 nsites= 848 E= 0
   0.338316	  0.362707	  0.097561	  0.201416	
@@ -910,7 +1002,9 @@ letter-probability matrix: alength= 4 w= 11 nsites= 848 E= 0
   0.076250	  0.576250	  0.103750	  0.243750	
   0.201416	  0.097561	  0.362707	  0.338316	
 
-MOTIF PA1223_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VTSQPSSVR_PA1223_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 2250 E= 0
   0.737175	  0.015613	  0.110409	  0.136803	
@@ -926,7 +1020,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 2250 E= 0
   0.699471	  0.008113	  0.056437	  0.235979	
   0.136803	  0.110409	  0.015613	  0.737175	
 
-MOTIF PA1226_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LGTKPVYDH_PA1226_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 948 E= 0
   0.001427	  0.039943	  0.191155	  0.767475	
@@ -943,7 +1039,9 @@ letter-probability matrix: alength= 4 w= 13 nsites= 948 E= 0
   0.020896	  0.791045	  0.186567	  0.001493	
   0.771552	  0.191092	  0.035920	  0.001437	
 
-MOTIF PA1235_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRTTRQSASA_PA1235_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 10 nsites= 6089 E= 0
   0.139440	  0.071049	  0.033310	  0.756201	
@@ -957,7 +1055,9 @@ letter-probability matrix: alength= 4 w= 10 nsites= 6089 E= 0
   0.173533	  0.178488	  0.069361	  0.578618	
   0.131054	  0.447828	  0.078348	  0.342771	
 
-MOTIF PA1241_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF METKASYHH_PA1241_pwm1 TetR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 439 E= 0
   0.033175	  0.018957	  0.938389	  0.009479	
@@ -978,7 +1078,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 439 E= 0
   0.042755	  0.014252	  0.940618	  0.002375	
   0.002506	  0.992481	  0.002506	  0.002506	
 
-MOTIF PA1241_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF METKASYHH_PA1241_pwm2 TetR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 398 E= 0
   0.037975	  0.020253	  0.918987	  0.022785	
@@ -998,7 +1100,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 398 E= 0
   0.002740	  0.002740	  0.991781	  0.002740	
   0.007673	  0.925831	  0.033248	  0.033248	
 
-MOTIF PA1264_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FLSPSASTQ_PA1264_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 21 nsites= 2327 E= 0
   0.008043	  0.000670	  0.000670	  0.990617	
@@ -1023,7 +1127,9 @@ letter-probability matrix: alength= 4 w= 21 nsites= 2327 E= 0
   0.178945	  0.368850	  0.166454	  0.285751	
   0.990673	  0.000666	  0.000666	  0.007995	
 
-MOTIF PA1269_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF QDSKIPRRNK_PA1269_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 31945 E= 0
   0.239212	  0.066634	  0.473832	  0.220322	
@@ -1040,7 +1146,9 @@ letter-probability matrix: alength= 4 w= 13 nsites= 31945 E= 0
   0.427875	  0.215783	  0.196325	  0.160018	
   0.224456	  0.473629	  0.066261	  0.235654	
 
-MOTIF PA1290_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IDTKGAYHH_PA1290_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 26020 E= 0
   0.464126	  0.081100	  0.450708	  0.004066	
@@ -1059,7 +1167,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 26020 E= 0
   0.013469	  0.981144	  0.000752	  0.004636	
   0.004025	  0.452673	  0.080678	  0.462625	
 
-MOTIF PA1315_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ISAKGTYHY_PA1315_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 39474 E= 0
   0.015469	  0.394796	  0.032922	  0.556813	
@@ -1080,7 +1190,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 39474 E= 0
   0.000950	  0.940102	  0.000141	  0.058807	
   0.556853	  0.032919	  0.394760	  0.015468	
 
-MOTIF PA1328_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTTPAASQR_PA1328_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 1047 E= 0
   0.697321	  0.000893	  0.201786	  0.100000	
@@ -1100,7 +1212,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 1047 E= 0
   0.989989	  0.004449	  0.004449	  0.001112	
   0.100000	  0.201786	  0.000893	  0.697321	
 
-MOTIF PA1359_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF QESRRMVGDV_PA1359_pwm XRE-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 606 E= 0
   0.002347	  0.002347	  0.002347	  0.992958	
@@ -1124,7 +1238,9 @@ letter-probability matrix: alength= 4 w= 20 nsites= 606 E= 0
   0.917570	  0.002169	  0.078091	  0.002169	
   0.992958	  0.002347	  0.002347	  0.002347	
 
-MOTIF PA1397_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF HYTRIHSS_PA1397_pwm LuxR-family
 
 letter-probability matrix: alength= 4 w= 10 nsites= 31547 E= 0
   0.319406	  0.089226	  0.461549	  0.129818	
@@ -1138,7 +1254,9 @@ letter-probability matrix: alength= 4 w= 10 nsites= 31547 E= 0
   0.400784	  0.156845	  0.213122	  0.229249	
   0.125140	  0.459020	  0.092667	  0.323174	
 
-MOTIF PA1399_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LTSQSASHR_PA1399_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 947 E= 0
   0.036005	  0.562137	  0.061556	  0.340302	
@@ -1159,7 +1277,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 947 E= 0
   0.003257	  0.032573	  0.009772	  0.954397	
   0.340302	  0.061556	  0.562137	  0.036005	
 
-MOTIF PA1413_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IAVPSNSTQ_PA1413_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 3703 E= 0
   0.050373	  0.474136	  0.001355	  0.474136	
@@ -1182,7 +1302,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 3703 E= 0
   0.056994	  0.455757	  0.398377	  0.088872	
   0.474136	  0.001355	  0.474136	  0.050373	
 
-MOTIF PA1430_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF EANNFHGN_PA1430_pwm LuxR-family
 
 letter-probability matrix: alength= 4 w= 28 nsites= 5544 E= 0
   0.499601	  0.000133	  0.000266	  0.500000	
@@ -1214,6 +1336,8 @@ letter-probability matrix: alength= 4 w= 28 nsites= 5544 E= 0
   0.048940	  0.875787	  0.000699	  0.074575	
   0.500000	  0.000266	  0.000133	  0.499601	
 
+URL https://doi.org/10.7554/eLife.61885 
+
 MOTIF PA1431_pwm 
 
 letter-probability matrix: alength= 4 w= 15 nsites= 200122 E= 0
@@ -1233,7 +1357,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 200122 E= 0
   0.000008	  0.000008	  0.000008	  0.999975	
   0.548682	  0.000005	  0.409152	  0.042160	
 
-MOTIF PA1437_pwm 
+MOTIF TTNVEVAKR_PA1437_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 554 E= 0
   0.204873	  0.231451	  0.167220	  0.396456	
@@ -1254,7 +1378,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 554 E= 0
   0.858824	  0.136471	  0.002353	  0.002353	
   0.059259	  0.229630	  0.358025	  0.353086	
 
-MOTIF PA1490_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VDSQETRR_PA1490_pwm DeoR-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 10746 E= 0
   0.537882	  0.000069	  0.000207	  0.461841	
@@ -1277,7 +1403,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 10746 E= 0
   0.435989	  0.189291	  0.000280	  0.374440	
   0.461841	  0.000207	  0.000069	  0.537882	
 
-MOTIF PA1520_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF EESRTIRPNR_PA1520_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 11 nsites= 13113 E= 0
   0.371961	  0.171598	  0.272123	  0.184318	
@@ -1292,7 +1420,9 @@ letter-probability matrix: alength= 4 w= 11 nsites= 13113 E= 0
   0.344181	  0.193458	  0.080594	  0.381766	
   0.530927	  0.033436	  0.144905	  0.290732	
 
-MOTIF PA1526_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF EQSRGSRPRR_PA1526_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 11 nsites= 747 E= 0
   0.165323	  0.282258	  0.203226	  0.349194	
@@ -1307,7 +1437,9 @@ letter-probability matrix: alength= 4 w= 11 nsites= 747 E= 0
   0.638760	  0.068217	  0.235659	  0.057364	
   0.340232	  0.210265	  0.285596	  0.163907	
 
-MOTIF PA1570_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTTQPASDR_PA1570_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 787 E= 0
   0.289501	  0.104995	  0.127421	  0.478084	
@@ -1330,7 +1462,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 787 E= 0
   0.526980	  0.050517	  0.238806	  0.183697	
   0.478084	  0.127421	  0.104995	  0.289501	
 
-MOTIF PA1599_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRTARTSAIS_PA1599_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 11143 E= 0
   0.069490	  0.228903	  0.027219	  0.674388	
@@ -1353,7 +1487,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 11143 E= 0
   0.192852	  0.059597	  0.015569	  0.731983	
   0.144330	  0.239150	  0.049446	  0.567074	
 
-MOTIF PA1603_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF NMDAATKGRA_PA1603_pwm MarR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 3032 E= 0
   0.304787	  0.184256	  0.154844	  0.356113	
@@ -1373,7 +1509,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 3032 E= 0
   0.504287	  0.131074	  0.068599	  0.296039	
   0.356113	  0.154844	  0.184256	  0.304787	
 
-MOTIF PA1627_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF EPSRNTRQGD_PA1627_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 22 nsites= 161 E= 0
   0.131078	  0.078224	  0.120507	  0.670190	
@@ -1399,7 +1537,9 @@ letter-probability matrix: alength= 4 w= 22 nsites= 161 E= 0
   0.183432	  0.233728	  0.189349	  0.393491	
   0.670190	  0.120507	  0.078224	  0.131078	
 
-MOTIF PA1630_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF NQPKPTSR_PA1630_pwm IclR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 31573 E= 0
   0.132962	  0.000756	  0.696320	  0.169962	
@@ -1420,7 +1560,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 31573 E= 0
   0.011761	  0.000040	  0.987801	  0.000397	
   0.169962	  0.696320	  0.000756	  0.132962	
 
-MOTIF PA1637_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ETHYRVVGH_PA1637_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 124 E= 0
   0.252033	  0.439024	  0.113821	  0.195122	
@@ -1442,6 +1584,8 @@ letter-probability matrix: alength= 4 w= 18 nsites= 124 E= 0
   0.016667	  0.891667	  0.083333	  0.008333	
   0.293103	  0.008621	  0.629310	  0.068966	
 
+URL https://doi.org/10.7554/eLife.61885 
+
 MOTIF PA1704_pwm 
 
 letter-probability matrix: alength= 4 w= 15 nsites= 83080 E= 0
@@ -1461,7 +1605,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 83080 E= 0
   0.051554	  0.948289	  0.000017	  0.000140	
   0.000121	  0.453255	  0.074809	  0.471816	
 
-MOTIF PA1713_pwm 
+MOTIF GTTKEQSYTQ_PA1713_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 154 E= 0
   0.343750	  0.111607	  0.223214	  0.321429	
@@ -1482,7 +1626,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 154 E= 0
   0.601695	  0.161017	  0.008475	  0.228814	
   0.309417	  0.224215	  0.112108	  0.354260	
 
-MOTIF PA1738_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FRTPPTSHR_PA1738_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 8608 E= 0
   0.669430	  0.011421	  0.077554	  0.241595	
@@ -1498,7 +1644,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 8608 E= 0
   0.600295	  0.018056	  0.036441	  0.345207	
   0.245568	  0.078559	  0.011569	  0.664303	
 
-MOTIF PA1754_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VSSQPGSKK_PA1754_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 581 E= 0
   0.051696	  0.064620	  0.567044	  0.316640	
@@ -1518,7 +1666,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 581 E= 0
   0.487484	  0.148880	  0.088274	  0.275362	
   0.316640	  0.567044	  0.064620	  0.051696	
 
-MOTIF PA1760_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF EATKWHHN_PA1760_pwm LuxR-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 182525 E= 0
   0.640223	  0.019539	  0.093368	  0.246869	
@@ -1534,7 +1684,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 182525 E= 0
   0.647993	  0.015568	  0.050298	  0.286142	
   0.243566	  0.093659	  0.019704	  0.643072	
 
-MOTIF PA1799_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF GNRSDVCSK_PA1799_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 724 E= 0
   0.206551	  0.119199	  0.200182	  0.474067	
@@ -1554,7 +1706,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 724 E= 0
   0.018622	  0.977654	  0.001862	  0.001862	
   0.719178	  0.089041	  0.132877	  0.058904	
 
-MOTIF PA1826_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FRAQPPTTR_PA1826_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 13250 E= 0
   0.231644	  0.256652	  0.184000	  0.327704	
@@ -1576,7 +1730,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 13250 E= 0
   0.234262	  0.252070	  0.307720	  0.205948	
   0.322552	  0.185296	  0.258877	  0.233276	
 
-MOTIF PA1864_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LSAKANLYY_PA1864_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 4220 E= 0
   0.060533	  0.420647	  0.023773	  0.495047	
@@ -1596,7 +1752,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 4220 E= 0
   0.766006	  0.107666	  0.078955	  0.047373	
   0.495704	  0.023794	  0.419916	  0.060586	
 
-MOTIF PA1884_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LASKAMSRQS_PA1884_pwm XRE-family
 
 letter-probability matrix: alength= 4 w= 10 nsites= 198063 E= 0
   0.163822	  0.271310	  0.110704	  0.454164	
@@ -1610,7 +1768,9 @@ letter-probability matrix: alength= 4 w= 10 nsites= 198063 E= 0
   0.016870	  0.185702	  0.010693	  0.786734	
   0.453760	  0.106985	  0.272496	  0.166759	
 
-MOTIF PA1945_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRPTYR_PA1945_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 149270 E= 0
   0.000685	  0.327920	  0.000070	  0.671326	
@@ -1632,7 +1792,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 149270 E= 0
   0.000085	  0.999773	  0.000057	  0.000085	
   0.671326	  0.000070	  0.327920	  0.000685	
 
-MOTIF PA1980_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF AKTSNHSL_PA1980_pwm LuxR-family
 
 letter-probability matrix: alength= 4 w= 10 nsites= 2458 E= 0
   0.277454	  0.131372	  0.162820	  0.428354	
@@ -1646,7 +1808,9 @@ letter-probability matrix: alength= 4 w= 10 nsites= 2458 E= 0
   0.641074	  0.173222	  0.038578	  0.147126	
   0.429909	  0.163462	  0.129808	  0.276822	
 
-MOTIF PA2005_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF GRSTYK_PA2005_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 9833 E= 0
   0.303985	  0.109450	  0.432638	  0.153928	
@@ -1666,7 +1830,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 9833 E= 0
   0.919865	  0.045447	  0.009635	  0.025052	
   0.144349	  0.432898	  0.110234	  0.312519	
 
-MOTIF PA2028_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF TSQSPW_PA2028_pwm AsnC-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 10406 E= 0
   0.035578	  0.430019	  0.173749	  0.360655	
@@ -1684,7 +1850,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 10406 E= 0
   0.998674	  0.001085	  0.000121	  0.000121	
   0.355638	  0.175724	  0.433663	  0.034975	
 
-MOTIF PA2100_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF HRTAGTSVGD_PA2100_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 1705 E= 0
   0.395289	  0.123912	  0.300563	  0.180236	
@@ -1702,7 +1870,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 1705 E= 0
   0.721560	  0.080173	  0.006501	  0.191766	
   0.180236	  0.300563	  0.123912	  0.395289	
 
-MOTIF PA2118_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SFHHRNSRYE_PA2118_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 2590 E= 0
   0.994473	  0.002303	  0.002764	  0.000461	
@@ -1722,7 +1892,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 2590 E= 0
   0.151471	  0.499392	  0.075614	  0.273523	
   0.000461	  0.002769	  0.000461	  0.996308	
 
-MOTIF PA2121_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LSSQPASNK_PA2121_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 19986 E= 0
   0.200992	  0.344168	  0.201448	  0.253392	
@@ -1744,7 +1916,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 19986 E= 0
   0.001815	  0.038389	  0.174217	  0.785580	
   0.253392	  0.201448	  0.344168	  0.200992	
 
-MOTIF PA2206_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LRTQPATKR_PA2206_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 877 E= 0
   0.870968	  0.049731	  0.033602	  0.045699	
@@ -1762,7 +1936,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 877 E= 0
   0.044604	  0.001439	  0.933813	  0.020144	
   0.045394	  0.033378	  0.049399	  0.871829	
 
-MOTIF PA2220_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTTQSASQR_PA2220_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 26378 E= 0
   0.123383	  0.073994	  0.152375	  0.650248	
@@ -1781,7 +1957,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 26378 E= 0
   0.413950	  0.211736	  0.010705	  0.363608	
   0.647980	  0.154194	  0.075366	  0.122459	
 
-MOTIF PA2258_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTSKSLSER_PA2258_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 6155 E= 0
   0.653623	  0.211272	  0.063929	  0.071176	
@@ -1800,7 +1978,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 6155 E= 0
   0.109581	  0.040161	  0.815452	  0.034806	
   0.065175	  0.060033	  0.202782	  0.672010	
 
-MOTIF PA2259_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF indel_PA2259_pwm1 LacI-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 18064 E= 0
   0.064046	  0.039722	  0.826587	  0.069645	
@@ -1821,7 +2001,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 18064 E= 0
   0.905941	  0.018404	  0.010993	  0.064662	
   0.041386	  0.891717	  0.026994	  0.039904	
 
-MOTIF PA2259_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF indel_PA2259_pwm2 LacI-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 16845 E= 0
   0.060677	  0.040351	  0.821998	  0.076974	
@@ -1841,7 +2023,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 16845 E= 0
   0.904554	  0.018068	  0.010075	  0.067303	
   0.048044	  0.880725	  0.027747	  0.043484	
 
-MOTIF PA2259_pwm3 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF indel_PA2259_pwm3 LacI-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 7623 E= 0
   0.056456	  0.037637	  0.849313	  0.056593	
@@ -1863,7 +2047,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 7623 E= 0
   0.925159	  0.008135	  0.008874	  0.057832	
   0.036366	  0.902439	  0.025267	  0.035928	
 
-MOTIF PA2267_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LADVSTFRS_PA2267_pwm1 LysR-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 55623 E= 0
   0.085835	  0.006088	  0.084956	  0.823122	
@@ -1880,7 +2066,9 @@ letter-probability matrix: alength= 4 w= 13 nsites= 55623 E= 0
   0.000177	  0.960166	  0.000025	  0.039632	
   0.887512	  0.087275	  0.016465	  0.008747	
 
-MOTIF PA2267_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LADVSTFRS_PA2267_pwm2 LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 77787 E= 0
   0.138469	  0.028537	  0.063103	  0.769890	
@@ -1899,7 +2087,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 77787 E= 0
   0.075259	  0.022837	  0.011575	  0.890329	
   0.800381	  0.017068	  0.119114	  0.063437	
 
-MOTIF PA2316_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IVSASAGKR_PA2316_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 24 nsites= 64033 E= 0
   0.945467	  0.010777	  0.027287	  0.016468	
@@ -1927,7 +2117,9 @@ letter-probability matrix: alength= 4 w= 24 nsites= 64033 E= 0
   0.373203	  0.372881	  0.055935	  0.197981	
   0.016468	  0.027287	  0.010777	  0.945467	
 
-MOTIF PA2332_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SSAFKTAATR_PA2332_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 295 E= 0
   0.101266	  0.004219	  0.067511	  0.827004	
@@ -1946,7 +2138,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 295 E= 0
   0.563218	  0.117816	  0.031609	  0.287356	
   0.827004	  0.067511	  0.004219	  0.101266	
 
-MOTIF PA2334_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FVSQSASRK_PA2334_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 1020 E= 0
   0.143727	  0.353228	  0.049939	  0.453106	
@@ -1970,7 +2164,9 @@ letter-probability matrix: alength= 4 w= 20 nsites= 1020 E= 0
   0.008172	  0.332095	  0.191679	  0.468053	
   0.453106	  0.049939	  0.353228	  0.143727	
 
-MOTIF PA2337_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF TTYSRLSNNR_PA2337_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 765 E= 0
   0.873016	  0.001221	  0.039072	  0.086691	
@@ -1985,6 +2181,8 @@ letter-probability matrix: alength= 4 w= 12 nsites= 765 E= 0
   0.994437	  0.001391	  0.001391	  0.002782	
   0.761597	  0.010787	  0.020496	  0.207120	
   0.088529	  0.039900	  0.001247	  0.870324	
+
+URL https://doi.org/10.7554/eLife.61885 
 
 MOTIF PA2354_pwm 
 
@@ -2030,7 +2228,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 10952 E= 0
   0.081471	  0.004774	  0.000610	  0.913145	
   0.458624	  0.000060	  0.028608	  0.512708	
 
-MOTIF PA2376_pwm 
+MOTIF PFTRVHSS_PA2376_pwm LuxR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 64449 E= 0
   0.385294	  0.163720	  0.418874	  0.032112	
@@ -2049,7 +2247,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 64449 E= 0
   0.159000	  0.777666	  0.023337	  0.039998	
   0.032211	  0.418812	  0.164493	  0.384484	
 
-MOTIF PA2383_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FETGSASKR_PA2383_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 532 E= 0
   0.024119	  0.964750	  0.009276	  0.001855	
@@ -2068,7 +2268,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 532 E= 0
   0.001887	  0.992453	  0.001887	  0.003774	
   0.001838	  0.027574	  0.966912	  0.003676	
 
-MOTIF PA2469_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LSTQPGSKR_PA2469_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 7482 E= 0
   0.748753	  0.028265	  0.118603	  0.104378	
@@ -2086,7 +2288,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 7482 E= 0
   0.213709	  0.074798	  0.006906	  0.704587	
   0.169496	  0.071710	  0.056906	  0.701888	
 
-MOTIF PA2479_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VSNANVHHH_PA2479_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 3246 E= 0
   0.246523	  0.089448	  0.236451	  0.427578	
@@ -2107,7 +2311,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 3246 E= 0
   0.732592	  0.069221	  0.055624	  0.142563	
   0.428163	  0.237551	  0.089350	  0.244937	
 
-MOTIF PA2489_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF EWSSRQSHTR_PA2489_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 26 nsites= 10983 E= 0
   0.288273	  0.000099	  0.711529	  0.000099	
@@ -2137,7 +2343,9 @@ letter-probability matrix: alength= 4 w= 26 nsites= 10983 E= 0
   0.986733	  0.012996	  0.000135	  0.000135	
   0.000099	  0.711529	  0.000099	  0.288273	
 
-MOTIF PA2492_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF RRGQPASAR_PA2492_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 934 E= 0
   0.034545	  0.169091	  0.060909	  0.735455	
@@ -2158,7 +2366,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 934 E= 0
   0.927918	  0.004577	  0.034325	  0.033181	
   0.001101	  0.892070	  0.067181	  0.039648	
 
-MOTIF PA2497_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTTQSTSQR_PA2497_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 2222 E= 0
   0.648101	  0.089114	  0.172152	  0.090633	
@@ -2176,7 +2386,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 2222 E= 0
   0.141287	  0.000523	  0.670330	  0.187860	
   0.090587	  0.172065	  0.089069	  0.648279	
 
-MOTIF PA2510_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF indel_PA2510_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 319 E= 0
   0.119734	  0.201774	  0.419069	  0.259424	
@@ -2199,7 +2411,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 319 E= 0
   0.135734	  0.329640	  0.011080	  0.523546	
   0.259424	  0.419069	  0.201774	  0.119734	
 
-MOTIF PA2519_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRSYALGRAE_PA2519_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 21081 E= 0
   0.752823	  0.051923	  0.123445	  0.071809	
@@ -2217,7 +2431,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 21081 E= 0
   0.040943	  0.021202	  0.701660	  0.236194	
   0.073832	  0.126805	  0.054210	  0.745153	
 
-MOTIF PA2534_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FGPRASTQR_PA2534_pwm1 LysR-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 287 E= 0
   0.712803	  0.107266	  0.096886	  0.083045	
@@ -2240,7 +2456,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 287 E= 0
   0.077253	  0.017167	  0.021459	  0.884120	
   0.083045	  0.096886	  0.107266	  0.712803	
 
-MOTIF PA2534_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FGPRASTQR_PA2534_pwm2 LysR-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 296 E= 0
   0.716172	  0.082508	  0.029703	  0.171617	
@@ -2264,7 +2482,9 @@ letter-probability matrix: alength= 4 w= 20 nsites= 296 E= 0
   0.057613	  0.045267	  0.004115	  0.893004	
   0.171617	  0.029703	  0.082508	  0.716172	
 
-MOTIF PA2534_pwm3 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FGPRASTQR_PA2534_pwm3 LysR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 272 E= 0
   0.688811	  0.090909	  0.097902	  0.122378	
@@ -2286,7 +2506,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 272 E= 0
   0.035874	  0.004484	  0.058296	  0.901345	
   0.120690	  0.096552	  0.089655	  0.693103	
 
-MOTIF PA2586_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF PKTNTYYR_PA2586_pwm LuxR-family
 
 letter-probability matrix: alength= 4 w= 21 nsites= 86173 E= 0
   0.507765	  0.000966	  0.490755	  0.000513	
@@ -2311,7 +2533,9 @@ letter-probability matrix: alength= 4 w= 21 nsites= 86173 E= 0
   0.837736	  0.024992	  0.134771	  0.002502	
   0.000513	  0.490763	  0.000966	  0.507757	
 
-MOTIF PA2588_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF TRTRRTSSRH_PA2588_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 1324 E= 0
   0.037500	  0.004412	  0.000735	  0.957353	
@@ -2330,7 +2554,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 1324 E= 0
   0.000766	  0.997703	  0.000766	  0.000766	
   0.015108	  0.937410	  0.012950	  0.034532	
 
-MOTIF PA2657_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF RSNVEVHNH_PA2657_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 249 E= 0
   0.302326	  0.430233	  0.142442	  0.125000	
@@ -2351,7 +2577,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 249 E= 0
   0.716049	  0.156379	  0.123457	  0.004115	
   0.021164	  0.264550	  0.476190	  0.238095	
 
-MOTIF PA2681_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FAHPSVSKR_PA2681_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 23 nsites= 3759 E= 0
   0.018011	  0.227947	  0.340592	  0.413449	
@@ -2378,7 +2606,9 @@ letter-probability matrix: alength= 4 w= 23 nsites= 3759 E= 0
   0.042973	  0.011095	  0.470764	  0.475167	
   0.413449	  0.340592	  0.227947	  0.018011	
 
-MOTIF PA2758_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FSVPSASMR_PA2758_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 77432 E= 0
   0.712690	  0.074059	  0.142750	  0.070501	
@@ -2396,7 +2626,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 77432 E= 0
   0.065181	  0.028123	  0.630187	  0.276509	
   0.072271	  0.147349	  0.075868	  0.704512	
 
-MOTIF PA2802_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ERTRITRNRR_PA2802_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 14146 E= 0
   0.630695	  0.203429	  0.069723	  0.096152	
@@ -2415,7 +2647,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 14146 E= 0
   0.095976	  0.053281	  0.794838	  0.055906	
   0.096897	  0.070730	  0.202749	  0.629624	
 
-MOTIF PA2809_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF STNVEVARR_PA2809_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 24 nsites= 41145 E= 0
   0.333400	  0.338045	  0.271873	  0.056682	
@@ -2443,7 +2677,9 @@ letter-probability matrix: alength= 4 w= 24 nsites= 41145 E= 0
   0.904908	  0.027607	  0.027362	  0.040123	
   0.054930	  0.280159	  0.337798	  0.327113	
 
-MOTIF PA2838_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTSPATSRR_PA2838_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 36271 E= 0
   0.092223	  0.026616	  0.155531	  0.725630	
@@ -2462,7 +2698,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 36271 E= 0
   0.994734	  0.003260	  0.001956	  0.000050	
   0.725239	  0.155753	  0.026654	  0.092355	
 
-MOTIF PA2846_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF indel_PA2846_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 2937 E= 0
   0.779372	  0.031020	  0.081427	  0.108181	
@@ -2481,7 +2719,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 2937 E= 0
   0.732507	  0.046647	  0.111880	  0.108965	
   0.108181	  0.081427	  0.031020	  0.779372	
 
-MOTIF PA2877_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTPRATSAR_PA2877_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 1617 E= 0
   0.409438	  0.146966	  0.000449	  0.443146	
@@ -2503,7 +2743,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 1617 E= 0
   0.359808	  0.087953	  0.395522	  0.156716	
   0.443146	  0.000449	  0.146966	  0.409438	
 
-MOTIF PA2879_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FSSQSTSER_PA2879_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 80449 E= 0
   0.162511	  0.317215	  0.211456	  0.308818	
@@ -2524,7 +2766,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 80449 E= 0
   0.143344	  0.101643	  0.119312	  0.635701	
   0.349927	  0.216743	  0.305739	  0.127590	
 
-MOTIF PA2897_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VRSHATLPQS_PA2897_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 238 E= 0
   0.552083	  0.003472	  0.156250	  0.288194	
@@ -2546,7 +2790,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 238 E= 0
   0.071795	  0.117949	  0.805128	  0.005128	
   0.290210	  0.157343	  0.003497	  0.548951	
 
-MOTIF PA2921_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IRSQAATRS_PA2921_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 2069 E= 0
   0.017273	  0.001234	  0.024059	  0.957434	
@@ -2565,7 +2811,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 2069 E= 0
   0.784443	  0.054906	  0.002542	  0.158109	
   0.956549	  0.024559	  0.001259	  0.017632	
 
-MOTIF PA3006_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LRNLAANYH_PA3006_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 11 nsites= 406 E= 0
   0.075342	  0.778539	  0.061644	  0.084475	
@@ -2580,7 +2828,9 @@ letter-probability matrix: alength= 4 w= 11 nsites= 406 E= 0
   0.019830	  0.966006	  0.011331	  0.002833	
   0.084475	  0.061644	  0.778539	  0.075342	
 
-MOTIF PA3034_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IDAKMTYKH_PA3034_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 12432 E= 0
   0.391868	  0.305740	  0.230421	  0.071972	
@@ -2598,7 +2848,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 12432 E= 0
   0.321546	  0.145503	  0.011098	  0.521852	
   0.382527	  0.191332	  0.249098	  0.177043	
 
-MOTIF PA3067_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SMRSSNAAEA_PA3067_pwm MarR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 81694 E= 0
   0.440880	  0.130769	  0.204274	  0.224077	
@@ -2616,7 +2868,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 81694 E= 0
   0.314616	  0.102558	  0.026211	  0.556614	
   0.217361	  0.190657	  0.102664	  0.489318	
 
-MOTIF PA3077_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF PSNTNVHHH_PA3077_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 10 nsites= 4723 E= 0
   0.233079	  0.153846	  0.264878	  0.348197	
@@ -2630,7 +2884,9 @@ letter-probability matrix: alength= 4 w= 10 nsites= 4723 E= 0
   0.415186	  0.166195	  0.125000	  0.293619	
   0.351542	  0.264518	  0.155092	  0.228847	
 
-MOTIF PA3133_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VGTVGGYAH_PA3133_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 609 E= 0
   0.215774	  0.108631	  0.519345	  0.156250	
@@ -2649,7 +2905,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 609 E= 0
   0.080725	  0.471170	  0.263591	  0.184514	
   0.129430	  0.554700	  0.135593	  0.180277	
 
-MOTIF PA3135_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTQKSTSRR_PA3135_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 18424 E= 0
   0.250095	  0.180034	  0.401403	  0.168468	
@@ -2668,7 +2926,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 18424 E= 0
   0.073063	  0.402065	  0.299040	  0.225831	
   0.165530	  0.397873	  0.180457	  0.256140	
 
-MOTIF PA3184_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IAAQVEPTNR_PA3184_pwm RpiR-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 2750 E= 0
   0.245706	  0.300573	  0.154580	  0.299141	
@@ -2684,7 +2944,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 2750 E= 0
   0.068212	  0.793377	  0.064238	  0.074172	
   0.299667	  0.155312	  0.299667	  0.245355	
 
-MOTIF PA3192_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF PERIDMASR_PA3192_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 342147 E= 0
   0.006605	  0.014298	  0.972946	  0.006151	
@@ -2703,7 +2965,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 342147 E= 0
   0.976434	  0.000008	  0.016073	  0.007486	
   0.003355	  0.989581	  0.000334	  0.006729	
 
-MOTIF PA3204_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LDRSDMHSN_PA3204_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 720 E= 0
   0.078269	  0.332413	  0.058932	  0.530387	
@@ -2723,7 +2987,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 720 E= 0
   0.850812	  0.033973	  0.088626	  0.026588	
   0.039936	  0.921725	  0.001597	  0.036741	
 
-MOTIF PA3225_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FASQSSSYR_PA3225_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 13663 E= 0
   0.079343	  0.417867	  0.191612	  0.311178	
@@ -2741,7 +3007,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 13663 E= 0
   0.999208	  0.000079	  0.000634	  0.000079	
   0.261787	  0.161199	  0.510265	  0.066749	
 
-MOTIF PA3249_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ERTRITRERR_PA3249_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 98843 E= 0
   0.091494	  0.378091	  0.239884	  0.290532	
@@ -2759,7 +3027,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 98843 E= 0
   0.998682	  0.000158	  0.000172	  0.000988	
   0.286032	  0.244865	  0.378660	  0.090443	
 
-MOTIF PA3341_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF RVEGPTARGA_PA3341_pwm MarR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 2365 E= 0
   0.296313	  0.025180	  0.183453	  0.495054	
@@ -2779,7 +3049,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 2365 E= 0
   0.829668	  0.006650	  0.065473	  0.098210	
   0.427702	  0.144127	  0.032288	  0.395882	
 
-MOTIF PA3381_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF EINRHTRQGK_PA3381_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 1687 E= 0
   0.595309	  0.002132	  0.176972	  0.225586	
@@ -2799,7 +3071,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 1687 E= 0
   0.002676	  0.506690	  0.469224	  0.021409	
   0.225586	  0.176972	  0.002132	  0.595309	
 
-MOTIF PA3385_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ADKFVR_PA3385_pwm RHH-family
 
 letter-probability matrix: alength= 4 w= 21 nsites= 263799 E= 0
   0.540682	  0.143655	  0.227513	  0.088149	
@@ -2824,7 +3098,9 @@ letter-probability matrix: alength= 4 w= 21 nsites= 263799 E= 0
   0.801542	  0.010130	  0.099673	  0.088654	
   0.087734	  0.226399	  0.142956	  0.542911	
 
-MOTIF PA3398_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VSSQSASTK_PA3398_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 225 E= 0
   0.180000	  0.068000	  0.636000	  0.116000	
@@ -2844,7 +3120,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 225 E= 0
   0.031579	  0.836842	  0.005263	  0.126316	
   0.116000	  0.636000	  0.068000	  0.180000	
 
-MOTIF PA3458_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF TLSQASSGRR_PA3458_pwm MarR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 4625 E= 0
   0.041733	  0.000264	  0.053354	  0.904649	
@@ -2862,7 +3140,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 4625 E= 0
   0.022771	  0.962414	  0.012620	  0.002195	
   0.908787	  0.048818	  0.000257	  0.042138	
 
-MOTIF PA3594_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FGSQPASFK_PA3594_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 10155 E= 0
   0.262820	  0.327641	  0.288486	  0.121053	
@@ -2883,7 +3163,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 10155 E= 0
   0.010010	  0.017351	  0.000167	  0.972472	
   0.119033	  0.291841	  0.324895	  0.264230	
 
-MOTIF PA3630_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTSSSHSRR_PA3630_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 772 E= 0
   0.235789	  0.442105	  0.123158	  0.198947	
@@ -2903,7 +3185,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 772 E= 0
   0.002899	  0.534300	  0.068599	  0.394203	
   0.198947	  0.123158	  0.442105	  0.235789	
 
-MOTIF PA3757_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF ERSRVTRQGS_PA3757_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 52 E= 0
   0.108527	  0.775194	  0.015504	  0.100775	
@@ -2925,7 +3209,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 52 E= 0
   0.387097	  0.129032	  0.451613	  0.032258	
   0.100775	  0.015504	  0.775194	  0.108527	
 
-MOTIF PA3771_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF PNTRHHRT_PA3771_pwm LuxR-family
 
 letter-probability matrix: alength= 4 w= 22 nsites= 1508 E= 0
   0.658859	  0.340122	  0.000509	  0.000509	
@@ -2951,7 +3237,9 @@ letter-probability matrix: alength= 4 w= 22 nsites= 1508 E= 0
   0.004577	  0.008391	  0.000763	  0.986270	
   0.318737	  0.000509	  0.340122	  0.340631	
 
-MOTIF PA3778_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LRDPSASRQ_PA3778_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 3626 E= 0
   0.042963	  0.008519	  0.042593	  0.905926	
@@ -2970,7 +3258,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 3626 E= 0
   0.552906	  0.138738	  0.000227	  0.308129	
   0.905821	  0.042640	  0.008528	  0.043011	
 
-MOTIF PA3782_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRTTRAVSRQ_PA3782_pwm1 AraC-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 281 E= 0
   0.116667	  0.104167	  0.725000	  0.054167	
@@ -2993,7 +3283,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 281 E= 0
   0.192308	  0.743590	  0.004274	  0.059829	
   0.054167	  0.725000	  0.104167	  0.116667	
 
-MOTIF PA3782_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRTTRAVSRQ_PA3782_pwm2 AraC-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 276 E= 0
   0.069444	  0.064815	  0.800926	  0.064815	
@@ -3017,7 +3309,9 @@ letter-probability matrix: alength= 4 w= 20 nsites= 276 E= 0
   0.230453	  0.711934	  0.053498	  0.004115	
   0.064815	  0.800926	  0.064815	  0.069444	
 
-MOTIF PA3782_pwm3 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRTTRAVSRQ_PA3782_pwm3 AraC-family
 
 letter-probability matrix: alength= 4 w= 21 nsites= 303 E= 0
   0.092050	  0.016736	  0.853556	  0.037657	
@@ -3041,6 +3335,8 @@ letter-probability matrix: alength= 4 w= 21 nsites= 303 E= 0
   0.088235	  0.857143	  0.033613	  0.021008	
   0.026906	  0.914798	  0.017937	  0.040359	
   0.037657	  0.853556	  0.016736	  0.092050	
+
+URL https://doi.org/10.7554/eLife.61885 
 
 MOTIF PA3864_pwm1 
 
@@ -3081,7 +3377,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 2721 E= 0
   0.019498	  0.472816	  0.028496	  0.479190	
   0.541010	  0.337729	  0.070441	  0.050820	
 
-MOTIF PA3879_pwm 
+MOTIF EGTKVHKR_PA3879_pwm LuxR-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 732 E= 0
   0.012987	  0.001443	  0.431457	  0.554113	
@@ -3105,7 +3401,9 @@ letter-probability matrix: alength= 4 w= 20 nsites= 732 E= 0
   0.165517	  0.296552	  0.073563	  0.464368	
   0.554113	  0.431457	  0.001443	  0.012987	
 
-MOTIF PA3895_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FTTTAYSRR_PA3895_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 924 E= 0
   0.525997	  0.033795	  0.000867	  0.439341	
@@ -3124,7 +3422,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 924 E= 0
   0.853727	  0.047820	  0.071730	  0.026723	
   0.439341	  0.000867	  0.033795	  0.525997	
 
-MOTIF PA3995_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FATPSASGR_PA3995_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 21 nsites= 15284 E= 0
   0.593344	  0.000199	  0.000080	  0.406378	
@@ -3149,7 +3449,9 @@ letter-probability matrix: alength= 4 w= 21 nsites= 15284 E= 0
   0.383892	  0.033402	  0.000171	  0.582535	
   0.406378	  0.000080	  0.000199	  0.593344	
 
-MOTIF PA4021_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRNTYR_PA4021_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 335 E= 0
   0.095238	  0.011905	  0.011905	  0.880952	
@@ -3171,7 +3473,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 335 E= 0
   0.334764	  0.346209	  0.105866	  0.213162	
   0.880952	  0.011905	  0.011905	  0.095238	
 
-MOTIF PA4032_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LSRPDTHYR_PA4032_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 5468 E= 0
   0.362123	  0.180376	  0.237172	  0.220329	
@@ -3187,7 +3491,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 5468 E= 0
   0.049190	  0.321146	  0.184508	  0.445156	
   0.220063	  0.227326	  0.232038	  0.320573	
 
-MOTIF PA4101_pwm1 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IDRSDLLSR_PA4101_pwm1 OmpR-family
 
 letter-probability matrix: alength= 4 w= 11 nsites= 1478 E= 0
   0.224829	  0.263930	  0.178397	  0.332845	
@@ -3202,7 +3508,9 @@ letter-probability matrix: alength= 4 w= 11 nsites= 1478 E= 0
   0.144770	  0.432398	  0.077168	  0.345663	
   0.331229	  0.183099	  0.262263	  0.223409	
 
-MOTIF PA4101_pwm2 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF IDRSDLLSR_PA4101_pwm2 OmpR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 5871 E= 0
   0.175258	  0.274116	  0.134757	  0.415869	
@@ -3222,7 +3530,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 5871 E= 0
   0.174826	  0.324371	  0.209213	  0.291591	
   0.416312	  0.134825	  0.272610	  0.176253	
 
-MOTIF PA4120_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF TARNDPAYSR_PA4120_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 1188 E= 0
   0.022704	  0.001032	  0.969040	  0.007224	
@@ -3241,7 +3551,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 1188 E= 0
   0.979145	  0.001043	  0.018770	  0.001043	
   0.007224	  0.969040	  0.001032	  0.022704	
 
-MOTIF PA4135_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF YILRPSTGRK_PA4135_pwm MarR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 338 E= 0
   0.243243	  0.229730	  0.229730	  0.297297	
@@ -3263,7 +3575,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 338 E= 0
   0.197248	  0.316514	  0.348624	  0.137615	
   0.288835	  0.257282	  0.257282	  0.196602	
 
-MOTIF PA4184_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRQERPSHSK_PA4184_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 11998 E= 0
   0.364935	  0.169116	  0.369427	  0.096521	
@@ -3283,7 +3597,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 11998 E= 0
   0.087187	  0.354449	  0.140021	  0.418344	
   0.251089	  0.430267	  0.172858	  0.145785	
 
-MOTIF PA4203_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VTAQSNTTK_PA4203_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 677 E= 0
   0.001443	  0.425685	  0.060606	  0.512266	
@@ -3305,7 +3621,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 677 E= 0
   0.087366	  0.403226	  0.477151	  0.032258	
   0.512266	  0.060606	  0.425685	  0.001443	
 
-MOTIF PA4227_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF NRKTAPAHSI_PA4227_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 415 E= 0
   0.691429	  0.051429	  0.026667	  0.230476	
@@ -3321,7 +3639,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 415 E= 0
   0.756250	  0.010417	  0.060417	  0.172917	
   0.230476	  0.026667	  0.051429	  0.691429	
 
-MOTIF PA4288_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF TRTARPSAIS_PA4288_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 3500 E= 0
   0.307637	  0.165190	  0.444338	  0.082835	
@@ -3338,6 +3658,8 @@ letter-probability matrix: alength= 4 w= 14 nsites= 3500 E= 0
   0.665030	  0.194490	  0.053464	  0.087016	
   0.657120	  0.081600	  0.177520	  0.083761	
   0.082316	  0.446040	  0.165111	  0.306533	
+
+URL https://doi.org/10.7554/eLife.61885 
 
 MOTIF PA4315_pwm 
 
@@ -3359,7 +3681,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 2323 E= 0
   0.015461	  0.893267	  0.000499	  0.090773	
   0.016296	  0.409383	  0.529877	  0.044444	
 
-MOTIF PA4436_pwm 
+MOTIF SRNMRASFAR_PA4436_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 23 nsites= 704 E= 0
   0.668919	  0.001351	  0.010811	  0.318919	
@@ -3386,6 +3708,8 @@ letter-probability matrix: alength= 4 w= 23 nsites= 704 E= 0
   0.119919	  0.362805	  0.380081	  0.137195	
   0.318919	  0.010811	  0.001351	  0.668919	
 
+URL https://doi.org/10.7554/eLife.61885 
+
 MOTIF PA4462_pwm 
 
 letter-probability matrix: alength= 4 w= 18 nsites= 10215 E= 0
@@ -3408,7 +3732,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 10215 E= 0
   0.906568	  0.022330	  0.045782	  0.025320	
   0.847366	  0.036933	  0.043410	  0.072291	
 
-MOTIF PA4499_pwm 
+MOTIF LHTASFSQLT_PA4499_pwm XRE-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 398 E= 0
   0.702703	  0.007371	  0.046683	  0.243243	
@@ -3424,7 +3748,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 398 E= 0
   0.683673	  0.028571	  0.087755	  0.200000	
   0.144254	  0.095355	  0.036675	  0.723716	
 
-MOTIF PA4508_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF NSPSPL_PA4508_pwm AsnC-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 915 E= 0
   0.071872	  0.230701	  0.292813	  0.404614	
@@ -3446,7 +3772,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 915 E= 0
   0.523727	  0.025884	  0.427092	  0.023296	
   0.404614	  0.292813	  0.230701	  0.071872	
 
-MOTIF PA4547_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF TFRSRY_PA4547_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 676 E= 0
   0.285307	  0.341655	  0.243937	  0.129101	
@@ -3466,6 +3794,8 @@ letter-probability matrix: alength= 4 w= 17 nsites= 676 E= 0
   0.026316	  0.690283	  0.119433	  0.163968	
   0.653257	  0.030651	  0.249042	  0.067050	
   0.129378	  0.243746	  0.340958	  0.285919	
+
+URL https://doi.org/10.7554/eLife.61885 
 
 MOTIF PA4581_pwm 
 
@@ -3489,7 +3819,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 6764 E= 0
   0.320921	  0.169034	  0.466661	  0.043384	
   0.193244	  0.421253	  0.271217	  0.114286	
 
-MOTIF PA4600_pwm 
+MOTIF LKSKATHRF_PA4600_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 1154 E= 0
   0.174552	  0.540281	  0.148977	  0.136189	
@@ -3509,7 +3839,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 1154 E= 0
   0.038871	  0.426959	  0.017555	  0.516614	
   0.136189	  0.148977	  0.540281	  0.174552	
 
-MOTIF PA4659_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF HVTRARRH_PA4659_pwm MerR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 763 E= 0
   0.013193	  0.729551	  0.001319	  0.255937	
@@ -3528,6 +3860,8 @@ letter-probability matrix: alength= 4 w= 16 nsites= 763 E= 0
   0.001326	  0.001326	  0.006631	  0.990716	
   0.007947	  0.989404	  0.001325	  0.001325	
   0.002674	  0.001337	  0.327540	  0.668449	
+
+URL https://doi.org/10.7554/eLife.61885 
 
 MOTIF PA4726_pwm 
 
@@ -3550,7 +3884,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 5483 E= 0
   0.000293	  0.952548	  0.004394	  0.042765	
   0.374799	  0.110715	  0.424580	  0.089906	
 
-MOTIF PA4769_pwm 
+MOTIF ERSRPSRQGG_PA4769_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 11 nsites= 438 E= 0
   0.337449	  0.137860	  0.113169	  0.411523	
@@ -3565,7 +3899,9 @@ letter-probability matrix: alength= 4 w= 11 nsites= 438 E= 0
   0.420935	  0.445434	  0.097996	  0.035635	
   0.411523	  0.113169	  0.137860	  0.337449	
 
-MOTIF PA4776_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VSNAEVHHH_PA4776_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 44363 E= 0
   0.204111	  0.129204	  0.597021	  0.069664	
@@ -3587,7 +3923,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 44363 E= 0
   0.334452	  0.156192	  0.295539	  0.213818	
   0.071349	  0.594197	  0.130570	  0.203884	
 
-MOTIF PA4787_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF PRRREPSTYR_PA4787_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 2478 E= 0
   0.744404	  0.016706	  0.066154	  0.172736	
@@ -3603,7 +3941,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 2478 E= 0
   0.757711	  0.001371	  0.031871	  0.209047	
   0.172276	  0.067311	  0.016661	  0.743752	
 
-MOTIF PA4902_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VTTQPSSYD_PA4902_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 21 nsites= 2679 E= 0
   0.368762	  0.123429	  0.000762	  0.507048	
@@ -3628,7 +3968,9 @@ letter-probability matrix: alength= 4 w= 21 nsites= 2679 E= 0
   0.048526	  0.405002	  0.080254	  0.466219	
   0.507048	  0.000762	  0.123429	  0.368762	
 
-MOTIF PA4906_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF indel_PA4906_pwm GntR-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 110 E= 0
   0.058824	  0.239496	  0.273109	  0.428571	
@@ -3644,7 +3986,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 110 E= 0
   0.056000	  0.164000	  0.436000	  0.344000	
   0.428571	  0.273109	  0.239496	  0.058824	
 
-MOTIF PA4983_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF PDRSDVLGR_PA4983_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 10 nsites= 2222 E= 0
   0.238114	  0.053183	  0.643030	  0.065673	
@@ -3658,7 +4002,9 @@ letter-probability matrix: alength= 4 w= 10 nsites= 2222 E= 0
   0.754601	  0.060878	  0.083058	  0.101463	
   0.099761	  0.545268	  0.121968	  0.233003	
 
-MOTIF PA4984_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VRSVGLNHH_PA4984_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 372 E= 0
   0.058651	  0.038123	  0.035191	  0.868035	
@@ -3676,7 +4022,9 @@ letter-probability matrix: alength= 4 w= 14 nsites= 372 E= 0
   0.014793	  0.875740	  0.026627	  0.082840	
   0.865269	  0.035928	  0.038922	  0.059880	
 
-MOTIF PA4987_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF LATAGYSQLA_PA4987_pwm XRE-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 6494 E= 0
   0.614454	  0.072270	  0.298949	  0.014327	
@@ -3696,7 +4044,9 @@ letter-probability matrix: alength= 4 w= 16 nsites= 6494 E= 0
   0.991707	  0.002884	  0.003245	  0.002163	
   0.014304	  0.298633	  0.072155	  0.614908	
 
-MOTIF PA4989_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF FSVQSASNG_PA4989_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 23 nsites= 4792 E= 0
   0.164831	  0.151110	  0.471625	  0.212434	
@@ -3723,7 +4073,9 @@ letter-probability matrix: alength= 4 w= 23 nsites= 4792 E= 0
   0.105490	  0.044403	  0.100108	  0.750000	
   0.212075	  0.471334	  0.151700	  0.164891	
 
-MOTIF PA5059_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF TLSPGNYYH_PA5059_pwm TetR-family
 
 letter-probability matrix: alength= 4 w= 27 nsites= 3966 E= 0
   0.000922	  0.002766	  0.962656	  0.033656	
@@ -3754,7 +4106,9 @@ letter-probability matrix: alength= 4 w= 27 nsites= 3966 E= 0
   0.673548	  0.006129	  0.318065	  0.002258	
   0.033656	  0.962656	  0.002766	  0.000922	
 
-MOTIF PA5125_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF GRNTTR_PA5125_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 4310 E= 0
   0.121762	  0.512508	  0.100731	  0.264999	
@@ -3773,7 +4127,9 @@ letter-probability matrix: alength= 4 w= 15 nsites= 4310 E= 0
   0.003689	  0.228726	  0.160600	  0.606985	
   0.265261	  0.100999	  0.511654	  0.122087	
 
-MOTIF PA5189_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VSSQPASNR_PA5189_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 435 E= 0
   0.174672	  0.155022	  0.041485	  0.628821	
@@ -3794,7 +4150,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 435 E= 0
   0.003390	  0.013559	  0.006780	  0.976271	
   0.628821	  0.041485	  0.155022	  0.174672	
 
-MOTIF PA5200_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF AERSDVQSR_PA5200_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 4899 E= 0
   0.076646	  0.028832	  0.873378	  0.021144	
@@ -3812,6 +4170,8 @@ letter-probability matrix: alength= 4 w= 15 nsites= 4899 E= 0
   0.499242	  0.118093	  0.179413	  0.203252	
   0.668345	  0.054810	  0.033930	  0.242916	
   0.065878	  0.668919	  0.128003	  0.137200	
+
+URL https://doi.org/10.7554/eLife.61885 
 
 MOTIF PA5261_pwm 
 
@@ -3832,7 +4192,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 1396 E= 0
   0.203235	  0.605485	  0.073840	  0.117440	
   0.071708	  0.370926	  0.219035	  0.338331	
 
-MOTIF PA5293_pwm 
+MOTIF FTTQSASRR_PA5293_pwm LysR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 695 E= 0
   0.001497	  0.050898	  0.001497	  0.946108	
@@ -3853,7 +4213,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 695 E= 0
   0.011889	  0.101717	  0.055482	  0.830911	
   0.055276	  0.046482	  0.790201	  0.108040	
 
-MOTIF PA5324_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SRTRRIRSRR_PA5324_pwm AraC-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 11369 E= 0
   0.040193	  0.064290	  0.585251	  0.310266	
@@ -3869,7 +4231,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 11369 E= 0
   0.102303	  0.660303	  0.172235	  0.065159	
   0.313501	  0.580726	  0.064804	  0.040968	
 
-MOTIF PA5360_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF VERTDVHRR_PA5360_pwm OmpR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 15684 E= 0
   0.113153	  0.241595	  0.157439	  0.487814	
@@ -3890,7 +4254,9 @@ letter-probability matrix: alength= 4 w= 17 nsites= 15684 E= 0
   0.826936	  0.012585	  0.102142	  0.058337	
   0.095235	  0.435417	  0.043277	  0.426072	
 
-MOTIF PA5403_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF SKTEQNSLKV_PA5403_pwm XRE-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 946 E= 0
   0.176216	  0.535135	  0.112432	  0.176216	
@@ -3906,7 +4272,9 @@ letter-probability matrix: alength= 4 w= 12 nsites= 946 E= 0
   0.121306	  0.034215	  0.068429	  0.776050	
   0.119390	  0.265709	  0.166966	  0.447935	
 
-MOTIF PA5483_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF DASTYR_PA5483_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 297 E= 0
   0.179122	  0.059312	  0.606168	  0.155397	
@@ -3929,7 +4297,9 @@ letter-probability matrix: alength= 4 w= 19 nsites= 297 E= 0
   0.296078	  0.017647	  0.598039	  0.088235	
   0.155397	  0.606168	  0.059312	  0.179122	
 
-MOTIF PA5499_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF indel_PA5499_pwm FUR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 252 E= 0
   0.237057	  0.171662	  0.444142	  0.147139	
@@ -3951,7 +4321,9 @@ letter-probability matrix: alength= 4 w= 18 nsites= 252 E= 0
   0.260223	  0.204461	  0.275093	  0.260223	
   0.147139	  0.444142	  0.171662	  0.237057	
 
-MOTIF PA5511_pwm 
+URL https://doi.org/10.7554/eLife.61885 
+
+MOTIF PRRTNE_PA5511_pwm Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 1021 E= 0
   0.269275	  0.211738	  0.341772	  0.177215	
@@ -3972,4 +4344,6 @@ letter-probability matrix: alength= 4 w= 18 nsites= 1021 E= 0
   0.304054	  0.222222	  0.115616	  0.358108	
   0.266857	  0.240266	  0.228870	  0.264008	
   0.177215	  0.341772	  0.211738	  0.269275	
+
+URL https://doi.org/10.7554/eLife.61885 
 
