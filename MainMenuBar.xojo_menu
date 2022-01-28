@@ -128,9 +128,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FileWriteSigFileToDatabase
          SpecialMenu = 0
-         Value = "Write .sig file to database"
+         Value = "#kExport2DB"
          Index = -2147483648
-         Text = "Write .sig file to database"
+         Text = "#kExport2DB"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -489,18 +489,18 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem ProfilePalindromise
          SpecialMenu = 0
-         Value = "Palindromise"
+         Value = "#kPalindromise"
          Index = -2147483648
-         Text = "Palindromise"
+         Text = "#kPalindromise"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
       End
       Begin MenuItem ProfileReverseComplement
          SpecialMenu = 0
-         Value = "Reverse Complement"
+         Value = "#kRevCompl"
          Index = -2147483648
-         Text = "Reverse Complement"
+         Text = "#kRevCompl"
          ShortcutKey = "R"
          Shortcut = "Cmd+R"
          MenuModifier = True
@@ -510,9 +510,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem FilterDuplicateSites
          SpecialMenu = 0
-         Value = "Filter duplicate sites"
+         Value = "#kRemoveDuplicates"
          Index = -2147483648
-         Text = "Filter duplicate sites"
+         Text = "#kRemoveDuplicates"
          AutoEnabled = False
          AutoEnable = False
          Visible = True
@@ -582,18 +582,18 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem findSitesChipM
          SpecialMenu = 0
-         Value = "Find Sites with ChIPmunk"
+         Value = "#kFindWithChIPmunk"
          Index = -2147483648
-         Text = "Find Sites with ChIPmunk"
+         Text = "#kFindWithChIPmunk"
          AutoEnabled = False
          AutoEnable = False
          Visible = True
       End
       Begin MenuItem FindSBioPros
          SpecialMenu = 0
-         Value = "Find Sites with BioProspector"
+         Value = "#kFindWithBioProspector"
          Index = -2147483648
-         Text = "Find Sites with BioProspector"
+         Text = "#kFindWithBioProspector"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -616,11 +616,20 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem LogoFromPWMtest
+      Begin MenuItem ChipMdata2Logo0
          SpecialMenu = 0
-         Value = "Logo From PWM test"
+         Value = "#kLoadChIPmunk"
          Index = -2147483648
-         Text = "Logo From PWM test"
+         Text = "#kLoadChIPmunk"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem BioProspData2Logo
+         SpecialMenu = 0
+         Value = "Logo from BioProspector data"
+         Index = -2147483648
+         Text = "Logo from BioProspector data"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -645,9 +654,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem RegulonRegPreciseTFFamilies
          SpecialMenu = 0
-         Value = "RegPrecise TF Families"
+         Value = "#kRegPreciseTFFamilies"
          Index = -2147483648
-         Text = "RegPrecise TF Families"
+         Text = "#kRegPreciseTFFamilies"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -724,24 +733,6 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem ChipMdata2Logo
-         SpecialMenu = 0
-         Value = "Logo from ChIPmunk data "
-         Index = -2147483648
-         Text = "Logo from ChIPmunk data "
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
-      Begin MenuItem BioProspData2Logo
-         SpecialMenu = 0
-         Value = "Logo from BioProspector data"
-         Index = -2147483648
-         Text = "Logo from BioProspector data"
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
-      End
       Begin MenuItem UntitledSeparator5
          SpecialMenu = 0
          Value = "-"
@@ -771,9 +762,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem RegulonLocalMotifCollections
          SpecialMenu = 0
-         Value = "Local MEME PWMs"
+         Value = "#kShowLocalPWMs"
          Index = -2147483648
-         Text = "Local MEME PWMs"
+         Text = "#kShowLocalPWMs"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -825,9 +816,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomeRepeatSearch
          SpecialMenu = 0
-         Value = "Repeat Search..."
+         Value = "#kRepeatSearch"
          Index = -2147483648
-         Text = "Repeat Search..."
+         Text = "#kRepeatSearch"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -852,9 +843,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomeDeNovoTFBSinference
          SpecialMenu = 0
-         Value = "De novo TFBS inference"
+         Value = "#kDeNovoTFBSinference"
          Index = -2147483648
-         Text = "De novo TFBS inference"
+         Text = "#kDeNovoTFBSinference"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -879,9 +870,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem AnnotateMEMEres
          SpecialMenu = 0
-         Value = "Annotate MEME results"
+         Value = "#kAnnotateMEMEresults"
          Index = -2147483648
-         Text = "Annotate MEME results"
+         Text = "#kAnnotateMEMEresults"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -924,9 +915,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomeListencodedTFs
          SpecialMenu = 0
-         Value = "List encoded TFs"
+         Value = "#kListTFs"
          Index = -2147483648
-         Text = "List encoded TFs"
+         Text = "#kListTFs"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -1087,9 +1078,9 @@ Begin Menu MainMenuBar
       End
       Begin MenuItem GenomeGenomeInfo
          SpecialMenu = 0
-         Value = "Genome Info"
+         Value = "#kGenomeInfo"
          Index = -2147483648
-         Text = "Genome Info"
+         Text = "#kGenomeInfo"
          ShortcutKey = "I"
          Shortcut = "Cmd+I"
          MenuModifier = True

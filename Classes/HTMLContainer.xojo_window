@@ -239,18 +239,18 @@ End
 
 	#tag Method, Flags = &h0
 		Sub AdjustTabWidth()
-		  'masked due to issues with dynamical tab resize in WebBrowserWin
-		  'Dim tabNo As Integer = WebBrowserWin.BrowserPagePanel.PanelCount
-		  'Dim maxW As Integer = (WebBrowserWin.wBrowserTabs.Width-70)/TabNo - 20
-		  'For page As Integer = 0 To tabNo-1
-		  'If WebBrowserWin.wBrowserTabs.tabs(page).width>maxW Then
-		  'If maxW>70 Then
-		  'WebBrowserWin.wBrowserTabs.tabs(page).width=maxW
-		  'Else
-		  'WebBrowserWin.wBrowserTabs.tabs(page).width=70
-		  'End If
-		  'End If
-		  'Next
+		  'masked due To issues With dynamical tab resize In WebBrowserWin
+		  Dim tabNo As Integer = WebBrowserWin.BrowserPagePanel.PanelCount
+		  Dim maxW As Integer = (WebBrowserWin.wBrowserTabs.Width-70)/TabNo - 20
+		  For page As Integer = 0 To tabNo-1
+		    If WebBrowserWin.wBrowserTabs.tabs(page).width>maxW Then
+		      If maxW>70 Then
+		        WebBrowserWin.wBrowserTabs.tabs(page).width=maxW
+		      Else
+		        WebBrowserWin.wBrowserTabs.tabs(page).width=70
+		      End If
+		    End If
+		  Next
 		End Sub
 	#tag EndMethod
 

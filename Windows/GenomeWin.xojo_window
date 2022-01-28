@@ -225,7 +225,7 @@ Begin Window GenomeWin
       Visible         =   True
       Width           =   27
    End
-   Begin PagePanel BrowserPagePanel
+   Begin PagePanel gBrowserPagePanel
       AutoDeactivate  =   True
       Enabled         =   True
       Height          =   391
@@ -254,7 +254,7 @@ Begin Window GenomeWin
          Height          =   391
          HelpTag         =   ""
          Index           =   -2147483648
-         InitialParent   =   "BrowserPagePanel"
+         InitialParent   =   "gBrowserPagePanel"
          Left            =   27
          LockBottom      =   True
          LockedInPosition=   False
@@ -276,7 +276,7 @@ Begin Window GenomeWin
          Height          =   391
          HelpTag         =   ""
          Index           =   -2147483648
-         InitialParent   =   "BrowserPagePanel"
+         InitialParent   =   "gBrowserPagePanel"
          Left            =   27
          LockBottom      =   True
          LockedInPosition=   False
@@ -298,7 +298,7 @@ Begin Window GenomeWin
          Height          =   391
          HelpTag         =   ""
          Index           =   -2147483648
-         InitialParent   =   "BrowserPagePanel"
+         InitialParent   =   "gBrowserPagePanel"
          Left            =   27
          LockBottom      =   True
          LockedInPosition=   False
@@ -774,8 +774,8 @@ End
 		  Splitter.top=TMdisplay.top+TMdisplay.Height+1
 		  gBrowserTabs.top=Splitter.top+Splitter.Height'+1 
 		  gBrowserTabs.height=Self.Height-gBrowserTabs.top
-		  BrowserPagePanel.top=gBrowserTabs.top+1
-		  BrowserPagePanel.height=gBrowserTabs.height-1
+		  gBrowserPagePanel.top=gBrowserTabs.top+1
+		  gBrowserPagePanel.height=gBrowserTabs.height-1
 		  
 		  
 		  TMCharWidth=TextMapPic.Graphics.StringWidth("A")
@@ -928,7 +928,7 @@ End
 		Sub Resized()
 		  setMapCanvasScrollers
 		  
-		  ProgressWheel1.top=BrowserPagePanel.top+BrowserPagePanel.Height/3
+		  ProgressWheel1.top=gBrowserPagePanel.top+gBrowserPagePanel.Height/3
 		  ProgressWheel1.left=(Self.width-ProgressWheel1.Width)/2
 		  
 		  if (HScrollbar.Value-DisplayInterval/2)<1 then
@@ -2860,8 +2860,8 @@ End
 		  end if
 		  gBrowserTabs.appendTab(TabName,True)
 		  dim va as integer
-		  va=BrowserPagePanel.value
-		  'BrowserPagePanel.value=BrowserTabs.tabCount-1
+		  va=gBrowserPagePanel.value
+		  'gBrowserPagePanel.value=gBrowserTabs.tabCount-1
 		  
 		  
 		  
@@ -4273,7 +4273,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ProgressShow()
-		  ProgressWheel1.top=BrowserPagePanel.top+BrowserPagePanel.Height/3
+		  ProgressWheel1.top=gBrowserPagePanel.top+gBrowserPagePanel.Height/3
 		  ProgressWheel1.left=(Self.width-ProgressWheel1.Width)/2
 		  
 		  ProgressWheel1.Visible=True
@@ -5517,18 +5517,18 @@ End
 		  if TMdisplay.visible then
 		    gBrowserTabs.top=gBrowserTabs.top+TMdisplay.height
 		    'BrowserTabs.height=BrowserTabs.height-TMdisplay.height
-		    BrowserPagePanel.top=BrowserPagePanel.top+TMdisplay.height
+		    gBrowserPagePanel.top=gBrowserPagePanel.top+TMdisplay.height
 		    'BrowserPagePanel.height=BrowserPagePanel.height-TMdisplay.height
 		    Splitter.top=Splitter.Top+TMdisplay.height
 		  else
 		    gBrowserTabs.top=gBrowserTabs.top-TMdisplay.height
 		    'BrowserTabs.height=BrowserTabs.height+TMdisplay.height
-		    BrowserPagePanel.top=BrowserPagePanel.top-TMdisplay.height
+		    gBrowserPagePanel.top=gBrowserPagePanel.top-TMdisplay.height
 		    'BrowserPagePanel.height=BrowserPagePanel.height+TMdisplay.height
 		    Splitter.top=Splitter.Top-TMdisplay.height
 		  end if
 		  gBrowserTabs.height=Self.height-gBrowserTabs.top
-		  BrowserPagePanel.height=self.height-gBrowserTabs.top
+		  gBrowserPagePanel.height=Self.height-gBrowserTabs.top
 		End Sub
 	#tag EndMethod
 
@@ -6606,7 +6606,6 @@ End
 		  if ContextFeature>0 then
 		    If seq.Features(ContextFeature).type="CDS" Then
 		      base.Append mItem(kCopyProtein)
-		      base.Append mItem(kSearchLiterature)  'PaperBlast with this CDS sequence
 		      'extract translation from feature table if present
 		      '(takes care of frameshifts)
 		      SelProtTranslation=NthField(seq.Features(ContextFeature).FeatureText,"/translation="+Chr(34),2)
@@ -6632,14 +6631,15 @@ End
 		    'Add a Separator
 		    base.Append( New MenuItem( MenuItem.TextSeparator ) )
 		    'hmmer & BLAST searches
-		    if seq.Features(ContextFeature).type="CDS" then
+		    If seq.Features(ContextFeature).type="CDS" Then
+		      base.Append mItem(kSearchLiterature)  'PaperBlast with this CDS sequence
 		      'if previous search is still running, add menus as disabled
 		      dim boo as boolean
+		      base.Append mItem(kCDsearch,True)
 		      boo=NOT SPSocket.IsConnected
 		      base.Append mItem(kHmmerSearchSwissprot,boo)
 		      boo=NOT UniProtSocket.IsConnected
 		      base.Append mItem(kHmmerSearchUniprot,boo)
-		      base.Append mItem(kCDsearch,true)
 		      base.Append mItem(kBLASTPsearch+BLASTpDB,True)
 		      base.Append mItem(kThreeSearches,True)
 		    else
@@ -7139,13 +7139,13 @@ End
 		  
 		  if instr(TabName,"SP:")>0 then
 		    SPSearchViewer.Visible=True
-		    BrowserPagePanel.value=0
+		    gBrowserPagePanel.value=0
 		  elseif instr(TabName,"UP:")>0 then
 		    UPSearchViewer.Visible=true
-		    BrowserPagePanel.value=1
+		    gBrowserPagePanel.value=1
 		  elseif instr(TabName,"GB:")>0 OR instr(TabName,"CDD:")>0 then
 		    BLASTSearchViewer.Visible=true
-		    BrowserPagePanel.value=3
+		    gBrowserPagePanel.value=3
 		  end if
 		  
 		  'dim va as integer
@@ -7651,8 +7651,8 @@ End
 		    gBrowserTabs.height=gBrowserTabs.height-deltaY
 		    gBrowserTabs.top=gBrowserTabs.top+deltaY
 		    
-		    BrowserPagePanel.height=gBrowserTabs.height
-		    BrowserPagePanel.top=gBrowserTabs.top
+		    gBrowserPagePanel.height=gBrowserTabs.height
+		    gBrowserPagePanel.top=gBrowserTabs.top
 		    'BrowserPagePanel.height=BrowserPagePanel.height-deltaY
 		    'BrowserPagePanel.top=BrowserPagePanel.top+deltaY
 		    '

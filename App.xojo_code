@@ -64,7 +64,7 @@ Inherits Application
 		    'GenomeCRtagfilteredsearch.visible=true
 		    GenomeRunMEMEtwice.visible=True
 		    'GenomeRedundantSeqs.visible=true
-		    LogoFromPWMtest.visible=true
+		    'LogoFromPWMtest.visible=true
 		  #else
 		    'GenomeGetCRtags.visible=false
 		    'GenomeCRtagfilteredsearch.visible=false
