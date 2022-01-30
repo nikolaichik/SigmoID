@@ -548,21 +548,22 @@ End
 
 	#tag Method, Flags = &h0
 		Sub showSearchBar()
-		  If searchBar.Enabled Then
-		    searchBar.Enabled = False
-		    searchBar.Visible = False
-		    CountField.Enabled = False
-		    CountField.Visible = False
-		    SearchArrows.Enabled = False
-		    SearchArrows.Visible = False
-		    HighlightAllBox.Enabled = False
-		    HighlightAllBox.Visible = False
-		    CaseSens.Enabled = False
-		    CaseSens.Visible =False
-		    SearchField.Enabled = False
-		    SearchField.Visible = False
-		    BrowserPagePanel.height=BrowserPagePanel.height+SearchBar.height
-		  else
+		  'If searchBar.Enabled Then
+		  'searchBar.Enabled = False
+		  'searchBar.Visible = False
+		  'CountField.Enabled = False
+		  'CountField.Visible = False
+		  'SearchArrows.Enabled = False
+		  'SearchArrows.Visible = False
+		  'HighlightAllBox.Enabled = False
+		  'HighlightAllBox.Visible = False
+		  'CaseSens.Enabled = False
+		  'CaseSens.Visible =False
+		  'SearchField.Enabled = False
+		  'SearchField.Visible = False
+		  'BrowserPagePanel.height=BrowserPagePanel.height+SearchBar.height
+		  'else
+		  If searchBar.Enabled=False Then
 		    searchBar.Enabled = True
 		    searchBar.Visible = True
 		    CountField.Enabled = True
@@ -575,9 +576,10 @@ End
 		    CaseSens.Visible =True
 		    SearchField.Enabled = True
 		    SearchField.Visible = True
-		    SearchField.SetFocus
 		    BrowserPagePanel.height=BrowserPagePanel.height-SearchBar.height
-		  end
+		  End
+		  SearchField.SetFocus
+		  SearchField.SelectAll
 		End Sub
 	#tag EndMethod
 
@@ -727,7 +729,20 @@ End
 		  SBclosing=closeBox.mouseDown(x,y)
 		  
 		  If closeBox.clicked Then
-		    ShowSearchBar
+		    'ShowSearchBar
+		    searchBar.Enabled = False
+		    searchBar.Visible = False
+		    'CountField.Enabled = False
+		    'CountField.Visible = False
+		    'SearchArrows.Enabled = False
+		    'SearchArrows.Visible = False
+		    'HighlightAllBox.Enabled = False
+		    'HighlightAllBox.Visible = False
+		    'CaseSens.Enabled = False
+		    'CaseSens.Visible =False
+		    'SearchField.Enabled = False
+		    'SearchField.Visible = False
+		    BrowserPagePanel.height=BrowserPagePanel.height+SearchBar.height
 		  End If
 		End Function
 	#tag EndEvent

@@ -7297,14 +7297,17 @@ End
 	#tag EndEvent
 	#tag Event
 		Function CancelLoad(URL as String) As Boolean
-		  If Keyboard.CommandKey Then 'Open this link in new tab
-		    If Not AlreadyOpeningTab Then
-		      AlreadyOpeningTab=True
-		      WebBrowserWin.show
-		      WebBrowserWin.AddNewTab.LoadURL(url)
-		      Return True
-		    End If
-		  End If
+		  // The idea of opening search results in a separate window is controversial
+		  
+		  'If Keyboard.CommandKey Then 'Open this link in new tab
+		  'if instr(URL,"blank.html")>0 then return true
+		  'If Not AlreadyOpeningTab Then
+		  'AlreadyOpeningTab=True
+		  'WebBrowserWin.show
+		  'WebBrowserWin.AddNewTab.LoadURL(url)
+		  'Return True
+		  'End If
+		  'End If
 		End Function
 	#tag EndEvent
 #tag EndEvents

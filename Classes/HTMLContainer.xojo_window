@@ -321,6 +321,10 @@ End
 
 
 	#tag Property, Flags = &h0
+		docComplete As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		LoadedURL As String
 	#tag EndProperty
 
@@ -330,6 +334,10 @@ End
 
 	#tag Property, Flags = &h0
 		ParentBrowserWindow As WebBrowserWin
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		titleFinalised As boolean
 	#tag EndProperty
 
 
@@ -352,9 +360,12 @@ End
 		  Else
 		    
 		    // Working around HTMLviewer bug by ignoring iFrame titles
+		    
 		    If InStr(newTitle, "Twitter Widget")>0 Then 'EcoCyc
 		      Return
 		    Elseif InStr(newTitle, "reCAPTCHA")>0 Then 'ASM journals
+		      Return
+		    Elseif InStr(newTitle, "Crossmark")>0 Then 'mBio
 		      Return
 		    Elseif InStr(newTitle, "YouTube")>0 Then
 		      Return
@@ -363,6 +374,8 @@ End
 		    Elseif InStr(newTitle, "SafeFrame Container")>0 Then 'Oxford Academic
 		      Return
 		    Elseif InStr(newTitle, "Tweet Button")>0 Then  'BioRchiv
+		      Return
+		    Elseif InStr(newTitle, "Disqus Comments")>0 Then 'BioRchiv
 		      Return
 		    Elseif newTitle="Hypothesis" Then  'Elife
 		      Return
@@ -373,7 +386,13 @@ End
 		    Elseif newTitle="" Then 'empty title -> use the URL
 		      Title=AddressField.Text
 		    Else
-		      Title = newTitle
+		      If Not titleFinalised Then
+		        Title = newTitle
+		      End If
+		      
+		      If docComplete=True Then
+		        titleFinalised=True
+		      End If
 		    End If
 		    
 		    
@@ -432,6 +451,8 @@ End
 		  
 		  FwdBackCheck
 		  
+		  docComplete=True
+		  
 		  dim js as String
 		  ' js code by https://github.com/sstahurski/SearchWebView/blob/master/SearchWebView
 		  
@@ -459,14 +480,17 @@ End
 		  
 		  Self.AddressField.Text=url
 		  
-		  
+		  docComplete=False
+		  titleFinalised=false
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Error(errorNumber as Integer, errorMessage as String)
 		  ProgressWheel1.Visible=False
 		  ProgressWheel1.Enabled=False
-		  MsgBox "Web viewer error "+Str(errorNumber)+":"+EndOfLine+errorMessage
+		  If errorNumber <> -999 Then
+		    MsgBox "Web viewer error "+Str(errorNumber)+":"+EndOfLine+errorMessage
+		  End If
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -815,5 +839,21 @@ End
 		InitialValue=""
 		Type="String"
 		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="titleFinalised"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="docComplete"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
