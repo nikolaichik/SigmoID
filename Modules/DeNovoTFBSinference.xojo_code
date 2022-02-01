@@ -332,69 +332,6 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function FetchGenPeptEntry1(Entry as string) As string
-		  'Currently unused
-		  
-		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
-		  Const URLend as string="&rettype=gp" 
-		  Dim Separ1 as string="reference id="+chr(34)
-		  Dim Separ2 as string=chr(34)
-		  dim theURL as string
-		  
-		  
-		  dim hts as new HTTPSecureSocket
-		  hts.Secure = True
-		  dim res as string
-		  dim outfile as folderitem
-		  
-		  
-		  LogoWin.WriteToSTDOUT ("Getting GenPept entries... ")
-		  'LogoWin.show
-		  
-		  hts.Yield=true  'allow background activities while waiting
-		  hts.SetRequestHeader("Content-Type:","text/plain")
-		  
-		  theURL=URLstart+Entry+URLend
-		  
-		  res=DefineEncoding(hts.post(theURL,60), Encodings.ASCII)  'no encoding is set
-		  
-		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-		    if Res="" then
-		      if hts.ErrorCode=-1 then
-		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
-		      else
-		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
-		      end if
-		    else
-		      'LogoWin.WriteToSTDOUT (EndOfLine)
-		      LogoWin.WriteToSTDOUT "OK" '(res)
-		      LogoWin.WriteToSTDOUT (EndOfLine)
-		      
-		    end if
-		  else
-		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
-		  end if
-		  
-		  hts.close
-		  return res
-		  '
-		  'Exception err
-		  'ExceptionHandler(err,"SeqRetrieval:FetchGenPeptEntry")
-		  
-		  
-		  Exception err
-		    if err isa IOException then
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"IOException has occurred.")
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
-		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
-		    end if
-		    ExceptionHandler(err,"FetchGenPeptEntry")
-		    
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function FixProtName(ProtName as string) As string
 		  // Capitalise the first letter of protein name
 		  
@@ -1471,7 +1408,9 @@ Protected Module DeNovoTFBSinference
 		              NewFeature.finish=val(nthFieldB(coord,"..",2))
 		            end if
 		          end if
-		          eSeq.features.Append NewFeature
+		          If abs(NewFeature.finish - NewFeature.start) >= MinORFSize Then
+		            eSeq.features.Append NewFeature
+		          end
 		        end if
 		        
 		      next 'n
@@ -2405,6 +2344,69 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function maskedFetchGenPeptEntry(Entry as string) As string
+		  'Currently unused
+		  
+		  Const URLstart As String="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&id="
+		  Const URLend as string="&rettype=gp" 
+		  Dim Separ1 as string="reference id="+chr(34)
+		  Dim Separ2 as string=chr(34)
+		  dim theURL as string
+		  
+		  
+		  dim hts as new HTTPSecureSocket
+		  hts.Secure = True
+		  dim res as string
+		  dim outfile as folderitem
+		  
+		  
+		  LogoWin.WriteToSTDOUT ("Getting GenPept entries... ")
+		  'LogoWin.show
+		  
+		  hts.Yield=true  'allow background activities while waiting
+		  hts.SetRequestHeader("Content-Type:","text/plain")
+		  
+		  theURL=URLstart+Entry+URLend
+		  
+		  res=DefineEncoding(hts.post(theURL,60), Encodings.ASCII)  'no encoding is set
+		  
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if Res="" then
+		      if hts.ErrorCode=-1 then
+		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		      end if
+		    else
+		      'LogoWin.WriteToSTDOUT (EndOfLine)
+		      LogoWin.WriteToSTDOUT "OK" '(res)
+		      LogoWin.WriteToSTDOUT (EndOfLine)
+		      
+		    end if
+		  else
+		    LogoWin.WriteToSTDOUT ("eutils error "+str(hts.HTTPStatusCode)+EndOfLine.unix)
+		  end if
+		  
+		  hts.close
+		  return res
+		  '
+		  'Exception err
+		  'ExceptionHandler(err,"SeqRetrieval:FetchGenPeptEntry")
+		  
+		  
+		  Exception err
+		    if err isa IOException then
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"IOException has occurred.")
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"ErrorNumber: "+str(err.ErrorNumber))
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Message: "+err.Message)
+		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Reason: "+err.Reason)
+		    end if
+		    ExceptionHandler(err,"FetchGenPeptEntry")
+		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MEME(inFile as folderitem, outFolder as folderitem, options as string) As integer
 		  'Standard MEME run with result display in browser
 		  
@@ -3320,6 +3322,10 @@ Protected Module DeNovoTFBSinference
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		MinORFSize As Integer = 150
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		MPICH As Boolean = False
 	#tag EndProperty
 
@@ -3353,10 +3359,6 @@ Protected Module DeNovoTFBSinference
 
 	#tag Property, Flags = &h0
 		TTshellArray(-1) As TTshell
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		Untitled As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -3498,7 +3500,7 @@ Protected Module DeNovoTFBSinference
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Untitled"
+			Name="MinORFSize"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
