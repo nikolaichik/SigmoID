@@ -636,7 +636,7 @@ Begin Window deNovoWin
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   419
+      Top             =   403
       Transparent     =   False
       Underline       =   False
       Value           =   "Inter-operon gap:"
@@ -678,7 +678,7 @@ Begin Window deNovoWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Two adjasent CDSs will be treated as belonging to different operons if the distance between their borders exceeds this parameter."
-      Top             =   418
+      Top             =   402
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -1095,7 +1095,7 @@ Begin Window deNovoWin
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "If the number of regulatory fragments exceeds this parameter, homology clustering and taxonomy filtering are used to reduce their number."
-      Top             =   418
+      Top             =   402
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -1131,7 +1131,7 @@ Begin Window deNovoWin
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   419
+      Top             =   403
       Transparent     =   False
       Underline       =   False
       Value           =   "Max fragments for MEME:"
@@ -1356,6 +1356,84 @@ Begin Window deNovoWin
       Visible         =   True
       VisualState     =   "0"
       Width           =   150
+   End
+   Begin TextField MinORFSizeField
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF00
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   21
+      Hint            =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   635
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   25
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   435
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Value           =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Label MinORFText
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   521
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   26
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   436
+      Transparent     =   False
+      Underline       =   False
+      Value           =   "Min ORF size, bp:"
+      Visible         =   True
+      Width           =   100
    End
 End
 #tag EndWindow
@@ -2661,6 +2739,24 @@ End
 		    dim w as new BioProspectWin
 		    w.launcher = "denovo"
 		  end Select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MinORFSizeField
+	#tag Event
+		Sub LostFocus()
+		  If Me.Text <> "" and val(Me.Text) >= 30 Then
+		    MinORFSize = val(Me.Text)
+		  else
+		    MsgBox("30 bp is the smallest value allowed")
+		    Me.Text = str(MinORFSize)
+		  end
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  Me.Text = str(MinORFSize)
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
