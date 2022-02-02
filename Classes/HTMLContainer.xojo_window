@@ -381,6 +381,8 @@ End
 		      Return
 		    Elseif InStr(newTitle, "Cross Domain")>0 Then 'Nasty Springer tracking
 		      Return
+		    Elseif InStr(newTitle, "Adobe Audience")>0 Then 'Society for Applied Microbiology
+		      Return
 		      'Elseif InStr(newTitle, "")>0 Then
 		      'Return
 		    Elseif newTitle="" Then 'empty title -> use the URL

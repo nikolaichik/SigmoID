@@ -669,7 +669,7 @@ End
 		Function KeyDown(Key As String) As Boolean
 		  
 		  
-		  if Keyboard.AltKey AND Keyboard.CommandKey then
+		  If Keyboard.AltKey And Keyboard.CommandKey Then
 		    if Keyboard.AsynckeyDown(&h0C) then
 		      quit
 		    end if
@@ -677,6 +677,12 @@ End
 		  
 		  SkimHits
 		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub KeyUp(Key As String)
+		  arrowsHandled=false
+		End Sub
 	#tag EndEvent
 
 	#tag Event
@@ -5309,8 +5315,10 @@ End
 		  'HighlightColour=&c66CCFF00
 		  '#endif
 		  
+		  If arrowsHandled Then Return 'avoid jumping over several hits at once
 		  
-		  if Keyboard.AsynckeyDown(&h7C) OR Keyboard.AsynckeyDown(&h7B) then
+		  If Keyboard.AsynckeyDown(&h7C) Or Keyboard.AsynckeyDown(&h7B) Then
+		    arrowsHandled=true
 		    if CurrentHit > 0 then
 		      if Keyboard.AsynckeyDown(&h7C) then 'Right
 		        if CurrentHit<ubound(GenomeWin.HmmHits) then
@@ -5694,6 +5702,10 @@ End
 
 	#tag Property, Flags = &h0
 		AnythingSelected As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ArrowsHandled As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -6924,11 +6936,6 @@ End
 	#tag Event
 		Sub MouseExit()
 		  Global.ToolTip.hide
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Deactivate()
-		  'ToolTip.hide
 		End Sub
 	#tag EndEvent
 	#tag Event
