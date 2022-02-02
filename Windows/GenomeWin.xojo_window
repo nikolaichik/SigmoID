@@ -220,6 +220,7 @@ Begin Window GenomeWin
       TabStop         =   True
       Top             =   358
       Transparent     =   True
+      TTtext          =   ""
       UseFocusRing    =   False
       value           =   0
       Visible         =   True
@@ -8827,6 +8828,14 @@ End
 		Group="Position"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ArrowsHandled"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

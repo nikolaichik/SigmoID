@@ -448,7 +448,7 @@ Begin Window deNovoWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   447
+      Width           =   489
       Begin TextField Proteins2processField
          AcceptTabs      =   False
          Alignment       =   0
@@ -467,12 +467,12 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   386
+         Left            =   182
          LimitText       =   0
          LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   False
          Mask            =   ""
          Password        =   False
@@ -486,7 +486,7 @@ Begin Window deNovoWin
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   431
+         Top             =   433
          Transparent     =   False
          Underline       =   False
          UseFocusRing    =   True
@@ -513,11 +513,11 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   148
+         Left            =   78
          LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   False
          MaximumCharactersAllowed=   0
          Password        =   False
@@ -529,13 +529,13 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   "We use CR-tag tables based on PIR and its four derivatives with reduced redundancy. Protein accession codes are first looked for in the least redundant table. If the number of accession codes for the given CR tag is less than this parameter, the next (more redundant) table is used."
-         Top             =   431
+         Top             =   433
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
          Value           =   "30"
          Visible         =   True
-         Width           =   60
+         Width           =   41
       End
       Begin Label Label4
          AllowAutoDeactivate=   True
@@ -550,12 +550,12 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   28
-         LockBottom      =   False
+         Left            =   29
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   False
-         LockTop         =   True
+         LockTop         =   False
          Multiline       =   False
          Scope           =   0
          Selectable      =   False
@@ -565,12 +565,12 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   432
+         Top             =   433
          Transparent     =   False
          Underline       =   False
          Value           =   "Min:"
          Visible         =   True
-         Width           =   108
+         Width           =   46
       End
       Begin Label Label5
          AllowAutoDeactivate=   True
@@ -585,7 +585,7 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   305
+         Left            =   134
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -600,120 +600,121 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   432
+         Top             =   433
          Transparent     =   False
          Underline       =   False
          Value           =   "Max:"
          Visible         =   True
-         Width           =   69
+         Width           =   45
       End
-   End
-   Begin Label Label6
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   482
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   13
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "3"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   403
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "Inter-operon gap:"
-      Visible         =   True
-      Width           =   144
-   End
-   Begin TextField InterOperonGapField
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   22
-      Hint            =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   635
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   14
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   "Two adjasent CDSs will be treated as belonging to different operons if the distance between their borders exceeds this parameter."
-      Top             =   402
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Value           =   "100"
-      Visible         =   True
-      Width           =   80
+      Begin Label Label11
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   268
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "3"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   433
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "Max fragments for MEME:"
+         Visible         =   True
+         Width           =   183
+      End
+      Begin TextField MEMEmaxField
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox1"
+         Italic          =   False
+         Left            =   453
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   5
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   "If the number of regulatory fragments exceeds this parameter, homology clustering and taxonomy filtering are used to reduce their number."
+         Top             =   433
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Value           =   "30"
+         Visible         =   True
+         Width           =   36
+      End
    End
    Begin GroupBox GroupBox2
       AllowAutoDeactivate=   True
       Bold            =   False
-      Caption         =   "Regulatory region limits relative to ORF start"
+      Caption         =   "Regulatory region limits"
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   73
+      Height          =   157
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   20
+      Left            =   537
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockLeft        =   False
+      LockRight       =   True
       LockTop         =   False
       Scope           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "These parameters determine the boundaries of the regulatory region. The upstream parameter is ignored for divergons (the whole intergene region is used)."
-      Top             =   480
+      Top             =   395
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   447
+      Width           =   465
       Begin TextField DownstreamSizeField
          AllowAutoDeactivate=   True
          AllowFocusRing  =   True
@@ -734,7 +735,7 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   386
+         Left            =   921
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   False
@@ -750,7 +751,7 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   516
+         Top             =   433
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -778,7 +779,7 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   147
+         Left            =   690
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   False
@@ -794,7 +795,7 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   516
+         Top             =   433
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -815,12 +816,12 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   28
-         LockBottom      =   False
+         Left            =   563
+         LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
          Multiline       =   False
          Scope           =   0
          Selectable      =   False
@@ -830,12 +831,12 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   517
+         Top             =   433
          Transparent     =   False
          Underline       =   False
-         Value           =   "Upstream:"
+         Value           =   "Upstream of ORF:"
          Visible         =   True
-         Width           =   107
+         Width           =   115
       End
       Begin Label Label8
          AllowAutoDeactivate=   True
@@ -850,12 +851,12 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
-         Left            =   265
-         LockBottom      =   False
+         Left            =   778
+         LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
          Multiline       =   False
          Scope           =   0
          Selectable      =   False
@@ -865,12 +866,192 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
+         Top             =   433
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "Downstream of ORF:"
+         Visible         =   True
+         Width           =   131
+      End
+      Begin TextField InterOperonGapField
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   690
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   "Two adjasent CDSs will be treated as belonging to different operons if the distance between their borders exceeds this parameter."
          Top             =   517
          Transparent     =   False
          Underline       =   False
-         Value           =   "Downstream:"
+         ValidationMask  =   ""
+         Value           =   "100"
          Visible         =   True
-         Width           =   109
+         Width           =   60
+      End
+      Begin Label MinORFText
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   809
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   5
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   517
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "Min ORF size, bp:"
+         Visible         =   True
+         Width           =   100
+      End
+      Begin TextField MinORFSizeField
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFFFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   21
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   921
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   6
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "0"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   517
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Value           =   "150"
+         Visible         =   True
+         Width           =   61
+      End
+      Begin Label Label6
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   563
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   7
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextAlignment   =   "3"
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   517
+         Transparent     =   False
+         Underline       =   False
+         Value           =   "Inter-operon gap:"
+         Visible         =   True
+         Width           =   118
+      End
+      Begin Separator Separator1
+         AllowAutoDeactivate=   True
+         Enabled         =   True
+         Height          =   2
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Left            =   552
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   8
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   482
+         Transparent     =   False
+         Visible         =   True
+         Width           =   435
       End
    End
    Begin GroupBox GroupBox3
@@ -885,7 +1066,7 @@ Begin Window deNovoWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   516
+      Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -900,7 +1081,7 @@ Begin Window deNovoWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   486
+      Width           =   489
       Begin TextField LengthLimitField
          AllowAutoDeactivate=   True
          AllowFocusRing  =   True
@@ -921,11 +1102,11 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   920
+         Left            =   417
          LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   False
          MaximumCharactersAllowed=   0
          Password        =   False
@@ -937,7 +1118,7 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   "Genome fragments shorter than this parameter will be ignored during motif inference. Reducing this parameter may help in certain cases of insufficient number of fragments. However, such reduction may result in incorrect identification of regulatory regions. "
-         Top             =   516
+         Top             =   517
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -965,11 +1146,11 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   635
+         Left            =   135
          LockBottom      =   True
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   False
          MaximumCharactersAllowed=   0
          Password        =   False
@@ -981,13 +1162,13 @@ Begin Window deNovoWin
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   "Number of bases to extract before and after the target TF gene. "
-         Top             =   516
+         Top             =   517
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
          Value           =   "20000"
          Visible         =   True
-         Width           =   80
+         Width           =   55
       End
       Begin Label Label10
          AllowAutoDeactivate=   True
@@ -1002,12 +1183,12 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   711
-         LockBottom      =   False
+         Left            =   207
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   False
-         LockTop         =   True
+         LockTop         =   False
          Multiline       =   False
          Scope           =   0
          Selectable      =   False
@@ -1022,7 +1203,7 @@ Begin Window deNovoWin
          Underline       =   False
          Value           =   "Ignore fragments shorter than:"
          Visible         =   True
-         Width           =   197
+         Width           =   206
       End
       Begin Label Label9
          AllowAutoDeactivate=   True
@@ -1037,12 +1218,12 @@ Begin Window deNovoWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   516
-         LockBottom      =   False
+         Left            =   29
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   False
-         LockTop         =   True
+         LockTop         =   False
          Multiline       =   False
          Scope           =   0
          Selectable      =   False
@@ -1052,91 +1233,13 @@ Begin Window deNovoWin
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   515
+         Top             =   517
          Transparent     =   False
          Underline       =   False
          Value           =   "TF gene flanks:"
          Visible         =   True
-         Width           =   110
+         Width           =   101
       End
-   End
-   Begin TextField MEMEmaxField
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   22
-      Hint            =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   922
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   17
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   "If the number of regulatory fragments exceeds this parameter, homology clustering and taxonomy filtering are used to reduce their number."
-      Top             =   402
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Value           =   "30"
-      Visible         =   True
-      Width           =   80
-   End
-   Begin Label Label11
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   727
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   18
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "3"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   403
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "Max fragments for MEME:"
-      Visible         =   True
-      Width           =   183
    End
    Begin CheckBox CheckForTFF
       AllowAutoDeactivate=   True
@@ -1356,84 +1459,6 @@ Begin Window deNovoWin
       Visible         =   True
       VisualState     =   "0"
       Width           =   150
-   End
-   Begin TextField MinORFSizeField
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   21
-      Hint            =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   635
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   25
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   435
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Value           =   ""
-      Visible         =   True
-      Width           =   80
-   End
-   Begin Label MinORFText
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   521
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   26
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextAlignment   =   "0"
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   436
-      Transparent     =   False
-      Underline       =   False
-      Value           =   "Min ORF size, bp:"
-      Visible         =   True
-      Width           =   100
    End
 End
 #tag EndWindow
@@ -2556,18 +2581,22 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events InterOperonGapField
+#tag Events MEMEmaxField
 	#tag Event
 		Sub Open()
-		  me.text=str(operonGap)
+		  me.text=str(MEMEmax)
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub LostFocus()
-		  operonGap=Val(Me.Text)
+		  MEMEmax=Val(Me.Text)
 		  
-		  If operonGap<50 Or operonGap>200 Then
-		    MsgBox "Are you sure? Too small or too large interval may result in incorrect operon inference and extraction of spurious regulatory fragments."
+		  If MEMEmax<20 Then
+		    MsgBox "Are you sure? Too few fragments will reduce motif quality."
+		  End If
+		  
+		  If MEMEmax>100 Then
+		    MsgBox "Are you sure? Too many fragments may significantly reduce speed."
 		  End If
 		End Sub
 	#tag EndEvent
@@ -2624,6 +2653,40 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events InterOperonGapField
+	#tag Event
+		Sub Open()
+		  me.text=str(operonGap)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub LostFocus()
+		  operonGap=Val(Me.Text)
+		  
+		  If operonGap<50 Or operonGap>200 Then
+		    MsgBox "Are you sure? Too small or too large interval may result in incorrect operon inference and extraction of spurious regulatory fragments."
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MinORFSizeField
+	#tag Event
+		Sub LostFocus()
+		  If Me.Text <> "" and val(Me.Text) >= 30 Then
+		    MinORFSize = val(Me.Text)
+		  else
+		    MsgBox("30 bp is the smallest value allowed")
+		    Me.Text = str(MinORFSize)
+		  end
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  Me.Text = str(MinORFSize)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events LengthLimitField
 	#tag Event
 		Sub LostFocus()
@@ -2676,26 +2739,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events MEMEmaxField
-	#tag Event
-		Sub Open()
-		  me.text=str(MEMEmax)
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub LostFocus()
-		  MEMEmax=Val(Me.Text)
-		  
-		  If MEMEmax<20 Then
-		    MsgBox "Are you sure? Too few fragments will reduce motif quality."
-		  End If
-		  
-		  If MEMEmax>100 Then
-		    MsgBox "Are you sure? Too many fragments may significantly reduce speed."
-		  End If
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events ChooseTFFlocation
 	#tag Event
 		Sub Action()
@@ -2739,24 +2782,6 @@ End
 		    dim w as new BioProspectWin
 		    w.launcher = "denovo"
 		  end Select
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events MinORFSizeField
-	#tag Event
-		Sub LostFocus()
-		  If Me.Text <> "" and val(Me.Text) >= 30 Then
-		    MinORFSize = val(Me.Text)
-		  else
-		    MsgBox("30 bp is the smallest value allowed")
-		    Me.Text = str(MinORFSize)
-		  end
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  Me.Text = str(MinORFSize)
-		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
