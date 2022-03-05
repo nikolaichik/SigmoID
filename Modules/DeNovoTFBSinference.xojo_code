@@ -669,6 +669,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="DcuR.hmm"
 		  Case "DeoR"
 		    hmmFileName="HTH_DeoR.hmm"
+		  Case "DtxR"
+		    hmmFileName="MarR_Superfamily.hmm" 'Most of DtxR family TFs are covered by MarR superfamily model
 		  Case "ECF02"
 		    hmmFileName="ECF02.hmm"
 		  Case "RpoE"
@@ -753,10 +755,14 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="RHH.hmm"
 		  Case "ModE"               'LysR sub-family
 		    hmmFileName="LysR.hmm" 
+		  Case "NadR"
+		    hmmFileName="XRE_Superfamily.hmm" 'NadR is covered by XRE superfamily model
 		  Case "NikR"               'RHH sub-family
 		    hmmFileName="RHH.hmm"
 		  Case "OmpR"
-		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise mixes OmpR family with CitT one, so this fails for CitT family members
+		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise "OmpR family" is a mix with LuxR (LiaR and NreC) and CitT (DctR) family TFs
+		  Case "PadR"
+		    hmmFileName="MarR_Superfamily.hmm" 'Most of PadR family TFs are covered by MarR superfamily model
 		  Case "PhdYeFM_antitox"
 		    hmmFileName="PhdYeFM_antitox.hmm"
 		  Case "RHH"
