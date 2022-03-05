@@ -19,7 +19,7 @@ Begin Window ProfileWizardWin
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
-   MinWidth        =   64
+   MinWidth        =   710
    Placement       =   1
    Resizeable      =   True
    Title           =   "#kProfileWizard"
@@ -39,7 +39,7 @@ Begin Window ProfileWizardWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       Scope           =   0
       TabIndex        =   0
@@ -52,7 +52,7 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   358
+      Width           =   354
       Begin Label Label1
          AutoDeactivate  =   True
          Bold            =   False
@@ -106,12 +106,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   316
+         Left            =   312
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -185,12 +185,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   316
+         Left            =   312
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -264,12 +264,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   316
+         Left            =   312
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -308,12 +308,12 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   316
+         Left            =   312
          LimitText       =   0
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
-         LockRight       =   False
+         LockRight       =   True
          LockTop         =   True
          Mask            =   ""
          Password        =   False
@@ -895,8 +895,8 @@ Begin Window ProfileWizardWin
       Left            =   12
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Multiline       =   False
       Scope           =   0
@@ -1204,11 +1204,11 @@ Begin Window ProfileWizardWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   499
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   19
@@ -1235,7 +1235,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   178
+      Left            =   113
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -1267,7 +1267,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   270
+      Left            =   205
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -2821,7 +2821,9 @@ End
 		    LastRowEmpty=False
 		  End If
 		  If LastRowEmpty Then
-		    CuratorList.RemoveRowAt(CuratorList.LastRowIndex)
+		    If CuratorList.RowCount>0 Then
+		      CuratorList.RemoveRowAt(CuratorList.LastRowIndex)
+		    End If
 		  End If
 		  
 		  
@@ -2839,6 +2841,9 @@ End
 		    CuratorList.CellValueAt(LastIdx,2)=cInfo+"profile created"
 		  End If
 		  
+		  Exception err
+		    ExceptionHandler(err,"ProfileWizardWin:AddCuratorButton:Action")
+		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents

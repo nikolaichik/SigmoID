@@ -616,7 +616,7 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem ChipMdata2Logo0
+      Begin MenuItem ChipMdata2Logo
          SpecialMenu = 0
          Value = "#kLoadChIPmunk"
          Index = -2147483648

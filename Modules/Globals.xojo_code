@@ -137,7 +137,13 @@ Protected Module Globals
 		  ' check if it's actually a DOI
 		  If doi.InStr("10.")>0 And doi.InStr("/")>0 Then
 		  Else
-		    return ""      'Not a DOI, may look for PubMed ID
+		    'Return ""      'Not a DOI, may look for PubMed ID
+		    Dim di As String =PMID2DOI(doi)
+		    If di=doi Then
+		      Return ""
+		    Else
+		      doi=di
+		    End If
 		  End If
 		  
 		  Dim res As String

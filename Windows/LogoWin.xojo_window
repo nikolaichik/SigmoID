@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -257,12 +258,14 @@ Begin Window LogoWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      p               =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
       Transparent     =   True
+      TTtext          =   ""
       UseFocusRing    =   True
       value           =   0
       Visible         =   True

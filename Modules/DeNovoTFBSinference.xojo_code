@@ -476,13 +476,17 @@ Protected Module DeNovoTFBSinference
 		        
 		        'CDStmp=CDStmp+Uppercase(NthField(CDSseqs,">"+ProtNames(ubound(ProtNames)),2))'precaution for paralogues
 		        If Len(cdstmp)<40 Then 
-		          If App.CurrentThread.DebugIdentifier="deNovoSearch" Then
-		            deNovoWin.rp.writeToWin("Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames)))
-		            
+		          If App.CurrentThread<>Nil Then
+		            If App.CurrentThread.DebugIdentifier="deNovoSearch" Then
+		              deNovoWin.rp.writeToWin("Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames)))
+		              
+		            Else
+		              MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
+		            End
 		          Else
 		            MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
-		          End
-		        end if
+		          End If
+		        End If
 		        dim gapPos,leftPartStart, rightPartStart as integer
 		        dim leftPart, rightPart, leftExt, rightExt as string
 		        
@@ -627,7 +631,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  Return SearchResRaw
 		  Exception err
-		    ExceptionHandler(err,"Globals:GetCRtags")
+		    ExceptionHandler(err,"DeNovoTFBSinference:GetCRtags")
 		    
 		End Function
 	#tag EndMethod
@@ -2607,7 +2611,13 @@ Protected Module DeNovoTFBSinference
 		  
 		  Select Case FamilyName
 		  Case "AraC"               'PF12833
-		    Return False 'all direct repeats
+		    Dim AraCpal As String = "RhaS,RhaR"  
+		    If InStr(AraCpal,TFname)>0 Then
+		      Return True
+		    Else
+		      Return False 'most AraC family TFs have direct repeats in operators or don't have repeats at all
+		    End 
+		    
 		    
 		  Case "CitT"                      'PF12431
 		    'Similar to Trans_reg_C; these two are often treated as one "Response regulator" family
@@ -3503,7 +3513,7 @@ Protected Module DeNovoTFBSinference
 			Name="MinORFSize"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="150"
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty

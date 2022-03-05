@@ -63,6 +63,7 @@ Begin ContainerControl HTMLContainer
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   0
+         TabStop         =   True
          Tooltip         =   ""
          Top             =   369
          TopLeftColor    =   &c00000000
@@ -166,6 +167,7 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   6
       Transparent     =   False
       Visible         =   True
@@ -188,6 +190,7 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   6
       Transparent     =   False
       Visible         =   True
@@ -362,6 +365,8 @@ End
 		    // Working around HTMLviewer bug by ignoring iFrame titles
 		    
 		    If InStr(newTitle, "Twitter Widget")>0 Then 'EcoCyc
+		      Return
+		    Elseif InStr(newTitle, "Facebook")>0 Then 'PNAS
 		      Return
 		    Elseif InStr(newTitle, "reCAPTCHA")>0 Then 'ASM journals
 		      Return

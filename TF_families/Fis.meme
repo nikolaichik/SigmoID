@@ -7,6 +7,27 @@ strands: + -
 Background letter frequencies (from uniform background):
 A 0.25000 C 0.25000 G 0.25000 T 0.25000 
 
+MOTIF SRSAYR_VfmH Fis-family
+
+ 0.388889  0.000000  0.422222  0.188889 
+ 0.044444  0.000000  0.033333  0.922222 
+ 0.022222  0.833333  0.000000  0.144444 
+ 0.000000  0.866667  0.011111  0.122222 
+ 0.011111  0.988889  0.000000  0.000000 
+ 0.666667  0.000000  0.322222  0.011111 
+ 0.422222  0.077778  0.100000  0.400000 
+ 0.322221  0.000000  0.033332  0.644443 
+ 0.644444  0.033333  0.000000  0.322222 
+ 0.399999  0.099999  0.077777  0.422221 
+ 0.011110  0.322221  0.000000  0.666666 
+ 0.000000  0.000000  0.988888  0.011110 
+ 0.122221  0.011110  0.866666  0.000000 
+ 0.144443  0.000000  0.833332  0.022221 
+ 0.922221  0.033332  0.000000  0.044443 
+ 0.188888  0.422221  0.000000  0.388888 
+ 
+URL https://doi.org/10.1111/1462-2920.12049
+
 MOTIF SRRAMY_AtoC Fis-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 41 E= 1.7e-322 
@@ -171,7 +192,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 52 E= 2.4e-255
 
 URL http://regulondb.ccg.unam.mx/regulon?term=ECK120011394&organism=ECK12&format=jsp&type=regulon
 
-MOTIF DASNHK_NorR_Ralstonia 
+MOTIF DASNHK_NorR_Ralstonia Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 60 E= 0
   0.216667	  0.400000	  0.133333	  0.250000	
@@ -197,7 +218,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 60 E= 0
 URL http://regprecise.lbl.gov/RegPrecise/regulog.jsp?regulog_id=1085
 
 
-MOTIF DRANAR_NorR_Pseudomonadaceae 
+MOTIF DRANAR_NorR_Pseudomonadaceae Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 12 E= 0
   0.333333	  0.166667	  0.166667	  0.333333	
@@ -220,7 +241,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 12 E= 0
   0.166667	  0.666667	  0.000000	  0.166667	
   0.333333	  0.166667	  0.166667	  0.333333	
 
-MOTIF DRANHR_NorR_Pseudomonadaceae 
+MOTIF DRANHR_NorR_Pseudomonadaceae Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 12 E= 0
   0.166667	  0.500000	  0.000000	  0.333333	
@@ -243,7 +264,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 12 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.333333	  0.000000	  0.500000	  0.166667	
 
-MOTIF DRANSR_NorR_Pseudomonadaceae 
+MOTIF DRANSR_NorR_Pseudomonadaceae Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 56 E= 0
   0.214286	  0.107143	  0.232143	  0.446429	
@@ -266,7 +287,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 56 E= 0
   0.142857	  0.535714	  0.071429	  0.250000	
   0.446429	  0.232143	  0.107143	  0.214286	
 
-MOTIF DRASWR_DVU3305_Desulfovibrionales 
+MOTIF DRASWR_DVU3305_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 24 E= 0
   0.000000	  0.333333	  0.000000	  0.666667	
@@ -287,7 +308,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 24 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.666667	  0.000000	  0.333333	  0.000000	
 
-MOTIF DRGNYR_NorR2_Vibrionales 
+MOTIF DRGNYR_NorR2_Vibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 20 E= 0
   0.000000	  0.350000	  0.050000	  0.600000	
@@ -310,7 +331,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 20 E= 0
   0.000000	  0.900000	  0.100000	  0.000000	
   0.600000	  0.050000	  0.350000	  0.000000	
 
-MOTIF DRSNLR_NorR_Oceanospirillales_Alteromonadales 
+MOTIF DRSNLR_NorR_Oceanospirillales_Alteromonadales Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 4 E= 0
   0.000000	  0.500000	  0.000000	  0.500000	
@@ -333,7 +354,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 4 E= 0
   0.500000	  0.500000	  0.000000	  0.000000	
   0.500000	  0.000000	  0.500000	  0.000000	
 
-MOTIF DRSTFR_DVU2827_Desulfovibrionales 
+MOTIF DRSTFR_DVU2827_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 8 E= 0
   0.000000	  0.500000	  0.250000	  0.250000	
@@ -355,7 +376,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 8 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.250000	  0.250000	  0.500000	  0.000000	
 
-MOTIF DRTTWR_DVU3305_Desulfovibrionales 
+MOTIF DRTTWR_DVU3305_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 4 E= 0
   0.000000	  0.500000	  0.000000	  0.500000	
@@ -376,7 +397,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 4 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.500000	  0.000000	  0.500000	  0.000000	
 
-MOTIF DRVSWR_DVU3305_Desulfovibrionales 
+MOTIF DRVSWR_DVU3305_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 12 E= 0
   0.000000	  0.416667	  0.000000	  0.583333	
@@ -397,7 +418,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 12 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.583333	  0.000000	  0.416667	  0.000000	
 
-MOTIF ERFTQK_DVU0539_DVU0946_Desulfovibrionales 
+MOTIF ERFTQK_DVU0539_DVU0946_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 10 E= 0
   0.000000	  0.100000	  0.000000	  0.900000	
@@ -419,7 +440,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 10 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.900000	  0.000000	  0.100000	  0.000000	
 
-MOTIF ERVSQK_DVU0539_DVU0946_Desulfovibrionales 
+MOTIF ERVSQK_DVU0539_DVU0946_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 6 E= 0
   0.000000	  0.333333	  0.000000	  0.666667	
@@ -441,7 +462,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 6 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.666667	  0.000000	  0.333333	  0.000000	
 
-MOTIF GRKTYR_DVU2394_Desulfovibrionales 
+MOTIF GRKTYR_DVU2394_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 18 E= 0
   0.111111	  0.000000	  0.055556	  0.833333	
@@ -462,7 +483,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 18 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.833333	  0.055556	  0.000000	  0.111111	
 
-MOTIF GRNTSR_NtrC_Various betaproteobacteria 
+MOTIF GRNTSR_NtrC_Various betaproteobacteria Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 18 E= 0
   0.055556	  0.555556	  0.000000	  0.388889	
@@ -483,7 +504,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 18 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.388889	  0.000000	  0.555556	  0.055556	
 
-MOTIF GRNTTR_NtrC_Enterobacteriales  
+MOTIF GRNTTR_NtrC_Enterobacteriales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 260 E= 0
   0.107692	  0.215385	  0.061538	  0.615385	
@@ -504,7 +525,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 260 E= 0
   0.023077	  0.973077	  0.000000	  0.003846	
   0.615385	  0.061538	  0.215385	  0.107692	
 
-MOTIF GYHQRG_PspF_Desulfovibrionales 
+MOTIF GYHQRG_PspF_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 4 E= 0
   0.500000	  0.250000	  0.000000	  0.250000	
@@ -527,7 +548,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 4 E= 0
   0.000000	  0.250000	  0.500000	  0.250000	
   0.250000	  0.000000	  0.250000	  0.500000	
 
-MOTIF HRGTRN_OhcR_Desulfovibrionales 
+MOTIF HRGTRN_OhcR_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 8 E= 0
   0.125000	  0.375000	  0.375000	  0.125000	
@@ -551,7 +572,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 8 E= 0
   0.000000	  0.000000	  0.750000	  0.250000	
   0.125000	  0.375000	  0.375000	  0.125000	
 
-MOTIF KRTTIE_DVU2894_Desulfovibrionales 
+MOTIF KRTTIE_DVU2894_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 52 E= 0
   0.038462	  0.480769	  0.076923	  0.403846	
@@ -571,7 +592,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 52 E= 0
   0.000000	  0.980769	  0.000000	  0.019231	
   0.403846	  0.076923	  0.480769	  0.038462	
 
-MOTIF KRTTLE_DVU2894_Desulfovibrionales 
+MOTIF KRTTLE_DVU2894_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 2 E= 0
   0.500000	  0.000000	  0.000000	  0.500000	
@@ -591,7 +612,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 2 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.500000	  0.000000	  0.000000	  0.500000	
 
-MOTIF NRNTRA_NtrC_Rhodobacterales 
+MOTIF NRNTRA_NtrC_Rhodobacterales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 6 E= 0
   0.166667	  0.333333	  0.000000	  0.500000	
@@ -612,7 +633,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 6 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.500000	  0.000000	  0.333333	  0.166667	
 
-MOTIF NRNTRK_NtrC 
+MOTIF NRNTRK_NtrC Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 308 E= 0
   0.035714	  0.204545	  0.009740	  0.750000	
@@ -653,7 +674,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 6 E= 0
   0.166667	  0.333333	  0.166667	  0.333333	
   0.833333	  0.000000	  0.166667	  0.000000	
 
-MOTIF PRSTYK_AcoR_Bacillales 
+MOTIF PRSTYK_AcoR_Bacillales Fis-family
 
 letter-probability matrix: alength= 4 w= 32 nsites= 12 E= 0
   0.083333	  0.000000	  0.833333	  0.083333	
@@ -689,7 +710,7 @@ letter-probability matrix: alength= 4 w= 32 nsites= 12 E= 0
   0.000000	  0.083333	  0.000000	  0.916667	
   0.083333	  0.833333	  0.000000	  0.083333	
 
-MOTIF SARQGY_DVUA0143_Desulfovibrionales 
+MOTIF SARQGY_DVUA0143_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 8 E= 0
   0.000000	  0.750000	  0.250000	  0.000000	
@@ -707,7 +728,7 @@ letter-probability matrix: alength= 4 w= 14 nsites= 8 E= 0
   1.000000	  0.000000	  0.000000	  0.000000	
   0.000000	  0.250000	  0.750000	  0.000000	
 
-MOTIF SHSALN_DVU0569_Desulfovibrionales 
+MOTIF SHSALN_DVU0569_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 2 E= 0
   0.000000	  0.000000	  0.000000	  1.000000	
@@ -729,7 +750,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 2 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   1.000000	  0.000000	  0.000000	  0.000000	
 
-MOTIF SHSSLA_DVU0569_Desulfovibrionales 
+MOTIF SHSSLA_DVU0569_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 6 E= 0
   0.000000	  0.166667	  0.000000	  0.833333	
@@ -751,7 +772,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 6 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.833333	  0.000000	  0.166667	  0.000000	
 
-MOTIF SHTALD_DVU0569_Desulfovibrionales 
+MOTIF SHTALD_DVU0569_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 6 E= 0
   0.000000	  0.166667	  0.000000	  0.833333	
@@ -773,7 +794,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 6 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.833333	  0.000000	  0.166667	  0.000000	
 
-MOTIF SIRNYY_BkdR_Bacillales 
+MOTIF SIRNYY_BkdR_Bacillales Fis-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 32 E= 0
   0.000000	  0.031250	  0.000000	  0.968750	
@@ -791,7 +812,7 @@ letter-probability matrix: alength= 4 w= 14 nsites= 32 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.968750	  0.000000	  0.031250	  0.000000	
 
-MOTIF SIRSYY_BkdR_Bacillales 
+MOTIF SIRSYY_BkdR_Bacillales Fis-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 2 E= 0
   0.000000	  0.000000	  0.000000	  1.000000	
@@ -809,7 +830,7 @@ letter-probability matrix: alength= 4 w= 14 nsites= 2 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   1.000000	  0.000000	  0.000000	  0.000000	
 
-MOTIF SKDTRR_DVU2106_Desulfovibrionales 
+MOTIF SKDTRR_DVU2106_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 4 E= 0
   0.000000	  0.000000	  1.000000	  0.000000	
@@ -830,7 +851,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 4 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.000000	  1.000000	  0.000000	  0.000000	
 
-MOTIF SPKNWN_DVU2114_Desulfovibrionales 
+MOTIF SPKNWN_DVU2114_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 8 E= 0
   0.500000	  0.000000	  0.500000	  0.000000	
@@ -853,7 +874,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 8 E= 0
   0.250000	  0.250000	  0.250000	  0.250000	
   0.000000	  0.500000	  0.000000	  0.500000	
 
-MOTIF SPRTRH_DVU2956_Desulfovibrionales 
+MOTIF SPRTRH_DVU2956_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 6 E= 0
   0.333333	  0.000000	  0.666667	  0.000000	
@@ -875,7 +896,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 6 E= 0
   0.000000	  0.000000	  1.000000	  0.000000	
   0.000000	  0.666667	  0.000000	  0.333333	
 
-MOTIF SPRTRY_DVU2956_Desulfovibrionales 
+MOTIF SPRTRY_DVU2956_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 12 E= 0
   0.166667	  0.333333	  0.500000	  0.000000	
@@ -897,7 +918,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 12 E= 0
   0.000000	  0.000000	  1.000000	  0.000000	
   0.000000	  0.500000	  0.333333	  0.166667	
 
-MOTIF SRGTHN_OhcR_Desulfovibrionales 
+MOTIF SRGTHN_OhcR_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 2 E= 0
   1.000000	  0.000000	  0.000000	  0.000000	
@@ -921,7 +942,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 2 E= 0
   0.000000	  0.000000	  1.000000	  0.000000	
   0.000000	  0.000000	  0.000000	  1.000000	
 
-MOTIF SRGTLN_OhcR_Desulfovibrionales 
+MOTIF SRGTLN_OhcR_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 2 E= 0
   0.500000	  0.000000	  0.500000	  0.000000	
@@ -945,7 +966,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 2 E= 0
   0.000000	  0.000000	  1.000000	  0.000000	
   0.000000	  0.500000	  0.000000	  0.500000	
 
-MOTIF SRKTYR_DVU2394_Desulfovibrionales 
+MOTIF SRKTYR_DVU2394_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 12 E= 0
   0.000000	  0.083333	  0.000000	  0.916667	
@@ -966,7 +987,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 12 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.916667	  0.000000	  0.083333	  0.000000	
 
-MOTIF SRPTYD_DVUA0057_Desulfovibrionales 
+MOTIF SRPTYD_DVUA0057_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 56 E= 0
   0.017857	  0.017857	  0.000000	  0.964286	
@@ -987,7 +1008,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 56 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.964286	  0.000000	  0.017857	  0.017857	
 
-MOTIF SRRTQY_DVU1419_Desulfovibrionales 
+MOTIF SRRTQY_DVU1419_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 22 E= 0
   0.045455	  0.045455	  0.000000	  0.909091	
@@ -1009,7 +1030,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 22 E= 0
   0.000000	  0.863636	  0.045455	  0.090909	
   0.909091	  0.000000	  0.045455	  0.045455	
 
-MOTIF SRTTFR_DVU2827_Desulfovibrionales 
+MOTIF SRTTFR_DVU2827_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 14 E= 0
   0.000000	  0.357143	  0.214286	  0.428571	
@@ -1031,7 +1052,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 14 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.428571	  0.214286	  0.357143	  0.000000	
 
-MOTIF SRVAQK_DVU0539_DVU0946_Desulfovibrionales 
+MOTIF SRVAQK_DVU0539_DVU0946_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 24 E= 0
   0.041667	  0.000000	  0.000000	  0.958333	
@@ -1053,7 +1074,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 24 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.958333	  0.000000	  0.000000	  0.041667	
 
-MOTIF SRVSQK_DVU0539_DVU0946_Desulfovibrionales 
+MOTIF SRVSQK_DVU0539_DVU0946_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 16 E= 0
   0.000000	  0.250000	  0.000000	  0.750000	
@@ -1075,7 +1096,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 16 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.750000	  0.000000	  0.250000	  0.000000	
 
-MOTIF SRVTYN_OhcR_Desulfovibrionales 
+MOTIF SRVTYN_OhcR_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 4 E= 0
   0.500000	  0.500000	  0.000000	  0.000000	
@@ -1099,7 +1120,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 4 E= 0
   0.000000	  0.000000	  0.500000	  0.500000	
   0.000000	  0.000000	  0.500000	  0.500000	
 
-MOTIF SVRNYY_BkdR_Bacillales 
+MOTIF SVRNYY_BkdR_Bacillales Fis-family
 
 letter-probability matrix: alength= 4 w= 14 nsites= 18 E= 0
   0.000000	  0.111111	  0.000000	  0.888889	
@@ -1117,7 +1138,7 @@ letter-probability matrix: alength= 4 w= 14 nsites= 18 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.888889	  0.000000	  0.111111	  0.000000	
 
-MOTIF SYDQRG_PspF_Desulfovibrionales 
+MOTIF SYDQRG_PspF_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 2 E= 0
   0.000000	  0.000000	  0.000000	  1.000000	
@@ -1140,7 +1161,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 2 E= 0
   0.500000	  0.000000	  0.500000	  0.000000	
   1.000000	  0.000000	  0.000000	  0.000000	
 
-MOTIF TGAGRY_DVU2275_Desulfovibrionales 
+MOTIF TGAGRY_DVU2275_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 8 E= 0
   1.000000	  0.000000	  0.000000	  0.000000	
@@ -1159,7 +1180,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 8 E= 0
   0.000000	  0.000000	  0.000000	  1.000000	
   0.000000	  0.000000	  0.000000	  1.000000	
 
-MOTIF TPAGHY_DVU2275_Desulfovibrionales 
+MOTIF TPAGHY_DVU2275_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 4 E= 0
   0.750000	  0.250000	  0.000000	  0.000000	
@@ -1178,7 +1199,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 4 E= 0
   0.000000	  0.250000	  0.000000	  0.750000	
   0.000000	  0.000000	  0.250000	  0.750000	
 
-MOTIF TPKNWA_DVU2114_Desulfovibrionales 
+MOTIF TPKNWA_DVU2114_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 26 E= 0
   0.500000	  0.153846	  0.153846	  0.192308	
@@ -1201,7 +1222,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 26 E= 0
   0.038462	  0.230769	  0.192308	  0.538462	
   0.192308	  0.153846	  0.153846	  0.500000	
 
-MOTIF TRATHK_ZraR_Desulfovibrionales 
+MOTIF TRATHK_ZraR_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 2 E= 0
   0.000000	  0.000000	  0.000000	  1.000000	
@@ -1222,7 +1243,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 2 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   1.000000	  0.000000	  0.000000	  0.000000	
 
-MOTIF TRATHN_ZraR_Desulfovibrionales 
+MOTIF TRATHN_ZraR_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 46 E= 0
   0.043478	  0.173913	  0.000000	  0.782609	
@@ -1243,7 +1264,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 46 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.782609	  0.000000	  0.173913	  0.043478	
 
-MOTIF TREGRK_DVUA0100_Desulfovibrionales 
+MOTIF TREGRK_DVUA0100_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 15 nsites= 36 E= 0
   0.083333	  0.000000	  0.777778	  0.138889	
@@ -1262,7 +1283,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 36 E= 0
   0.083333	  0.333333	  0.555556	  0.027778	
   0.138889	  0.777778	  0.000000	  0.083333	
 
-MOTIF TTRQHK_DVU0619_Desulfovibrionales 
+MOTIF TTRQHK_DVU0619_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 12 E= 0
   0.666667	  0.166667	  0.166667	  0.000000	
@@ -1283,7 +1304,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 12 E= 0
   0.000000	  0.250000	  0.000000	  0.750000	
   0.000000	  0.166667	  0.166667	  0.666667	
 
-MOTIF TTRQSK_DVU0619_Desulfovibrionales 
+MOTIF TTRQSK_DVU0619_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 6 E= 0
   0.833333	  0.000000	  0.166667	  0.000000	
@@ -1304,7 +1325,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 6 E= 0
   0.000000	  0.333333	  0.000000	  0.666667	
   0.000000	  0.166667	  0.000000	  0.833333	
 
-MOTIF TTRQSY_NifA_Rhodospirillales 
+MOTIF TTRQSY_NifA_Rhodospirillales Fis-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 12 E= 1.3e-042 
  0.000000  0.000000  0.083333  0.916667 
@@ -1324,7 +1345,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 12 E= 1.3e-042
  0.000000  0.999999  0.000000  0.000000 
  0.916666  0.083332  0.000000  0.000000 
 
-MOTIF TPRQGY_NifA 
+MOTIF TPRQGY_NifA Fis-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 78 E= 4.6e-328 
  0.000000  0.025641  0.089744  0.884615 
@@ -1344,7 +1365,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 78 E= 4.6e-328
  0.012820  0.987178  0.000000  0.000000 
  0.884614  0.089743  0.025640  0.000000 
  
-MOTIF TYDQRG_PspF_Desulfovibrionales 
+MOTIF TYDQRG_PspF_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 2 E= 0
   0.500000	  0.000000	  0.000000	  0.500000	
@@ -1367,7 +1388,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 2 E= 0
   0.500000	  0.000000	  0.500000	  0.000000	
   0.500000	  0.000000	  0.000000	  0.500000	
 
-MOTIF TYHQRG_PspF_Desulfovibrionales 
+MOTIF TYHQRG_PspF_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 19 nsites= 6 E= 0
   0.333333	  0.166667	  0.000000	  0.500000	
@@ -1390,7 +1411,7 @@ letter-probability matrix: alength= 4 w= 19 nsites= 6 E= 0
   0.000000	  0.333333	  0.000000	  0.666667	
   0.500000	  0.000000	  0.166667	  0.333333	
 
-MOTIF YRGTRN_OhcR_Desulfovibrionales 
+MOTIF YRGTRN_OhcR_Desulfovibrionales Fis-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 4 E= 0
   0.000000	  0.500000	  0.250000	  0.250000	

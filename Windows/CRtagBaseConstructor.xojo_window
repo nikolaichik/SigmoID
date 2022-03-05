@@ -729,7 +729,7 @@ End
 		  return readyf
 		  
 		  Exception err
-		    ExceptionHandler(err,"Globals:GetCRtags")
+		    ExceptionHandler(err,"CRtagBaseConstructor:GetCRtags")
 		    
 		End Function
 	#tag EndMethod

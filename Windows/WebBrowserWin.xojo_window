@@ -42,6 +42,7 @@ Begin Window WebBrowserWin
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   27
       Transparent     =   False
@@ -76,11 +77,13 @@ Begin Window WebBrowserWin
       Tooltip         =   ""
       Top             =   0
       Transparent     =   True
+      TTtext          =   ""
       value           =   0
       Visible         =   True
       Width           =   1014
    End
    Begin Timer TitleTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -312,6 +315,22 @@ End
 		  'Call AddNewTab
 		  
 		  
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Resized()
+		  closeBox.x=searchBar.Width-closeBoxData.Width-13
+		  closeBox.y=(searchBar.Height-closeBoxData.Height)/2
+		  
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Resizing()
+		  closeBox.x=searchBar.Width-closeBoxData.Width-13
+		  closeBox.y=(searchBar.Height-closeBoxData.Height)/2
 		  
 		End Sub
 	#tag EndEvent

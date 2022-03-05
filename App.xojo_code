@@ -70,7 +70,7 @@ Inherits Application
 		    'GenomeCRtagfilteredsearch.visible=false
 		    GenomeRunMEMEtwice.visible=false
 		    'GenomeRedundantSeqs.visible=false
-		    LogoFromPWMtest.visible=false
+		    'LogoFromPWMtest.visible=false
 		  #endif
 		  
 		End Sub
