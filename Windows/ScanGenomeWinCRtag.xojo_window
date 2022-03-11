@@ -237,7 +237,7 @@ End
 		  f=froot.child("CalibratedProfiles")
 		  
 		  if not f.Exists then
-		    MsgBox("Folder with sig profiles not found, check path: "+str(f.NativePath))
+		    MsgBox("Folder with sig profiles not found, check path: "+str(f.ShellPath))
 		    exit
 		  end 
 		  m=f2.Count
@@ -265,14 +265,14 @@ End
 		          temp= fitemk.DisplayName
 		          if instr(temp, aName)>0 then                          'allows customised (to an extent) folder names
 		            if sigfolpath="" then
-		              sigfolpath=fitemk.NativePath
+		              sigfolpath=fitemk.ShellPath
 		            else
-		              sigfolpath=sigfolpath+";"+fitemk.NativePath       'only the 1st path is used now
+		              sigfolpath=sigfolpath+";"+fitemk.ShellPath       'only the 1st path is used now
 		            end
 		          end
 		        next
 		        SigList.AddRow
-		        SigList.Cell(SigList.LastIndex, 3)= fitemn.NativePath
+		        SigList.Cell(SigList.LastIndex, 3)= fitemn.ShellPath
 		        SigList.Cell(SigList.LastIndex, 1) = fitemn.DisplayName
 		        siglist.Cell(SigList.LastIndex,2)=sigfolpath
 		        SigList.CellCheck(SigList.LastIndex,0) = false
@@ -544,7 +544,7 @@ End
 		        apath=NthField(apath, ";", 1) 'multiple paths for one hmm family are allowed, but not done yet, processing just the first one  
 		        ' put all profiles for the family into one folder for now
 		      end
-		      f=getfolderitem(apath, FolderItem.PathTypeNative)
+		      f=getfolderitem(apath, FolderItem.PathTypeShell)
 		      for j as integer = 1 to f.count
 		        if f.Item(j).Visible<>True then Continue
 		        sigf=f.Item(j)
