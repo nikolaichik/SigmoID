@@ -8,7 +8,7 @@ Begin Window HmmGenSettingsWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   349
+   Height          =   363
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -51,7 +51,7 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   309
+      Top             =   331
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -83,7 +83,7 @@ Begin Window HmmGenSettingsWin
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   309
+      Top             =   331
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -168,11 +168,11 @@ Begin Window HmmGenSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   20
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
@@ -198,7 +198,7 @@ Begin Window HmmGenSettingsWin
          InitialParent   =   "GroupBox1"
          Italic          =   False
          Left            =   29
-         LockBottom      =   False
+         LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   True
@@ -617,6 +617,39 @@ Begin Window HmmGenSettingsWin
       Visible         =   True
       Width           =   410
    End
+   Begin CheckBox StatsCheckbox
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Display annotation statistics"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   22
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   23
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   307
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      VisualState     =   "0"
+      Width           =   206
+   End
 End
 #tag EndWindow
 
@@ -923,6 +956,27 @@ End
 	#tag Event
 		Sub TextChange()
 		  RunCheck
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events StatsCheckbox
+	#tag Event
+		Sub Action()
+		  If not me.Value then
+		    LogoWin.TFsitesData = ""
+		  else
+		    dim dlg As OpenFileDialog
+		    dim f As FolderItem
+		    dlg = New OpenFileDialog
+		    dlg.InitialFolder = LogoWin.genomefile.Parent
+		    dlg.Title = "Provide file with Transcription factor binding sites (TFBSs) arrangements (RegulonDB format)"
+		    f = dlg.ShowModal
+		    if f <> Nil then
+		      LogoWin.TFsitesData = f.ShellPath
+		    else
+		      LogoWin.TFsitesData = ""
+		    end
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents

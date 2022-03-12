@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -3901,6 +3900,47 @@ End
 		              WriteToSTDOUT (" done."+EndofLine)
 		            end if
 		          end if
+		          If HmmGenSettingsWin.StatsCheckbox.State = CheckBox.CheckedStates.Checked then
+		            dim tfprocessing as FolderItem = Resources_f.Child("matches_score_analysis.py")
+		            ' regex
+		            ' get TF name (?<=moiety"#")\w+(?=\")
+		            ' bit score (?<=\-S\s)[0-9.]+
+		            dim TFname as New RegEx
+		            dim TF as String
+		            dim threshold as String
+		            dim bitscore as New RegEx
+		            dim rgmatch As RegExMatch
+		            TFname.SearchPattern = "(?<=moiety"+chr(34)+"#"+chr(34)+")\w+(?=\"+chr(34)+")"
+		            bitscore.SearchPattern = "(?<=\-S\s)[0-9.]+"
+		            rgmatch = TFname.Search(HmmGenOptions)
+		            if rgmatch <> NIl then
+		              TF = rgmatch.SubExpressionString(0)
+		            end
+		            rgmatch = bitscore.Search(HmmGenOptions)
+		            if rgmatch <> Nil then
+		              threshold = rgmatch.SubExpressionString(0)
+		            end
+		            if threshold <> "" and TF <> "" then
+		              dim plotpath as FolderItem = TemporaryFolder.Child(OutFile.Name+"threshold_"+threshold+".png")
+		              dim cli as String
+		              cli = pythonPath + " " + tfprocessing.ShellPath + " " + OutFile.ShellPath + "  " + plotpath.ShellPath + " " + TF + " " + TFsitesData + " " + threshold
+		              #If TargetWindows
+		                ExecuteWSL(cli)
+		              #Else
+		                UserShell(cli)
+		              #endif
+		              WriteToSTDOUT(shResult)
+		              if plotpath.Exists then
+		                dim statspic As Picture
+		                statspic = Picture.Open(plotpath)
+		                dim w as new ViewerWin
+		                w.Title = OutFile.Name + " bindig sites score distribution for " + TF + ", bitscore threshold: "+threshold
+		                w.ImageWell1.Image = statspic
+		              end
+		            else
+		              WriteToSTDOUT("Bitscore threshold or TF name  is not set. Distribution plotting aborted.")
+		            end
+		          end
 		        end if
 		      end if
 		    else
@@ -5276,7 +5316,6 @@ End
 		      me.WriteToSTDOUT "No CRtag data in this profile. Please make sure that the TF able to recognise these sites is actually encoded in the genome."+EndOfLine.unix
 		      if nhmmer then
 		        if nhmmerSettingsWin.AddAnnotationCheckBox.value then
-		          
 		          Dim dlg as New SaveAsDialog
 		          dlg.InitialDirectory=genomefile.Parent
 		          dlg.promptText="Select where to save the modified genome file"
@@ -5302,13 +5341,8 @@ End
 		      end if
 		    else
 		      If MatchingTFpresent Then
-		        
-		        
-		        
-		        
 		        if nhmmer then
 		          if nhmmerSettingsWin.AddAnnotationCheckBox.value then
-		            
 		            Dim dlg as New SaveAsDialog
 		            dlg.InitialDirectory=genomefile.Parent
 		            dlg.promptText="Select where to save the modified genome file"
@@ -5332,14 +5366,10 @@ End
 		            end if
 		          end if
 		        end if
-		        
 		      else
 		        Me.WriteToSTDOUT "No TF with matching CRtag could be found."+EndOfLine.unix
-		        
 		      end if
 		    end if
-		    
-		    
 		  end if
 		End Sub
 	#tag EndMethod
@@ -6178,6 +6208,10 @@ End
 
 	#tag Property, Flags = &h0
 		TermGenPath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		TFsitesData As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -7085,5 +7119,13 @@ End
 		InitialValue="False"
 		Type="boolean"
 		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TFsitesData"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 #tag EndViewBehavior
