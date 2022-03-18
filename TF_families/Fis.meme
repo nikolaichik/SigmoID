@@ -9,6 +9,7 @@ A 0.25000 C 0.25000 G 0.25000 T 0.25000
 
 MOTIF SRSAYR_VfmH Fis-family
 
+letter-probability matrix: alength= 4 w= 16 nsites= 90 E= 1.5e-430 
  0.388889  0.000000  0.422222  0.188889 
  0.044444  0.000000  0.033333  0.922222 
  0.022222  0.833333  0.000000  0.144444 
@@ -483,7 +484,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 18 E= 0
   0.000000	  1.000000	  0.000000	  0.000000	
   0.833333	  0.055556	  0.000000	  0.111111	
 
-MOTIF GRNTSR_NtrC_Various betaproteobacteria Fis-family
+MOTIF GRNTSR_NtrC_Various_betaproteobacteria Fis-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 18 E= 0
   0.055556	  0.555556	  0.000000	  0.388889	

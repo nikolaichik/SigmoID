@@ -469,7 +469,7 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9F\xD0\xBE\xD1\x88\xD1\x83\xD0\xBA"
 	#tag EndConstant
 
-	#tag Constant, Name = kFindWithBioProspector, Type = String, Dynamic = True, Default = \"Find Motif with ChIPmunk", Scope = Public
+	#tag Constant, Name = kFindWithBioProspector, Type = String, Dynamic = True, Default = \"Find Motif with BioProspector", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9D\xD0\xB0\xD0\xB9\xD1\x82\xD0\xB8 \xD0\xBC\xD0\xBE\xD1\x82\xD0\xB8\xD0\xB2 \xD1\x81 \xD0\xBF\xD0\xBE\xD0\xBC\xD0\xBE\xD1\x89\xD1\x8C\xD1\x8E BioProspector"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x97\xD0\xBD\xD0\xB0\xD0\xB9\xD1\x81\xD1\x86\xD1\x96 \xD0\xBC\xD0\xB0\xD1\x82\xD1\x8B\xD1\x9E \xD0\xB7 \xD0\xB4\xD0\xB0\xD0\xBF\xD0\xB0\xD0\xBC\xD0\xBE\xD0\xB3\xD0\xB0\xD0\xB9 BioProspector"
 	#tag EndConstant
