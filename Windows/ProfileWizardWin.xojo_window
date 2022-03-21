@@ -1580,9 +1580,9 @@ End
 		        var evidenceTypes() as string
 		        var year() as string
 		        For i as integer = 0 To RefsList.RowCount-1
-		          var reference_temp as string = CuratorList.CellValueAt(i,0)
-		          var DOI_temp as string = CuratorList.CellValueAt(i,1)
-		          var evidenceTypes_temp as string = CuratorList.CellValueAt(i,2)
+		          Var reference_temp As String = RefsList.CellValueAt(i,0)
+		          Var DOI_temp As String = RefsList.CellValueAt(i,1)
+		          var evidenceTypes_temp as string = RefsList.CellValueAt(i,2)
 		          
 		          //extract year
 		          var year_temp as string
@@ -1642,7 +1642,7 @@ End
 		  
 		  hide
 		  Exception err
-		    ExceptionHandler(err,"ProfileWisardWin:SaveButton:Action")
+		    ExceptionHandler(err,"ProfileWisardWin:CollectInfo")
 		End Function
 	#tag EndMethod
 
@@ -1815,6 +1815,9 @@ End
 		  End If
 		  
 		  EnableSave
+		  
+		  Exception err
+		    ExceptionHandler(err,"ProfileWizardWin:UpdateCRtag")
 		End Sub
 	#tag EndMethod
 
@@ -1908,11 +1911,6 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events ValueField
-	#tag Event
-		Function KeyDown(Key As String) As Boolean
-		  
-		End Function
-	#tag EndEvent
 	#tag Event
 		Sub TextChange()
 		  EnableSave
@@ -2614,6 +2612,9 @@ End
 		  If Column=1 Then
 		    Me.CellValueAt(row,0)=CitationFromDOI(Trim(Me.CellValueAt(row,1)))
 		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"ProfileWisardWin:RefsList:CellTextChange")
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -2664,6 +2665,8 @@ End
 		  Elseif Key=Chr(&h0D) Then 'Enter key
 		    Me.AddRowAt(Me.SelectedRowIndex,"")
 		  End If
+		  
+		  
 		End Function
 	#tag EndEvent
 	#tag Event

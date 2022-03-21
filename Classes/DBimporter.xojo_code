@@ -13,16 +13,17 @@ Protected Class DBimporter
 
 	#tag Method, Flags = &h0
 		Sub Constructor()
-		  query = new MSSQLServerDatabase()
+		  query = New MSSQLServerDatabase()
 		  query.Host = "217.21.43.34\SQLEXPRESS"
 		  query.Port = 1433
 		  query.DatabaseName = "sigmo_id_1"
 		  query.UserName = "sigmo_id_oper"
 		  query.Password = "rfebiosigmo#id#"
+		  
 		  Try
 		    query.Connect
 		  Catch err As DatabaseException
-		    error = "The error occured during connecting to the database. Check settings or connection."
+		    error = "The error occured during connecting to the database: "+Err.message
 		  End try
 		End Sub
 	#tag EndMethod
