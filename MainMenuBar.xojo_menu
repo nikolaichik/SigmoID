@@ -616,6 +616,15 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem ProfileCombineCRtags
+         SpecialMenu = 0
+         Value = "Combine Profiles..."
+         Index = -2147483648
+         Text = "Combine Profiles..."
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = False
+      End
       Begin MenuItem ChipMdata2Logo
          SpecialMenu = 0
          Value = "#kLoadChIPmunk"

@@ -587,7 +587,7 @@ Begin Window hmmSearchSettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   1
+      State           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
@@ -597,7 +597,7 @@ Begin Window hmmSearchSettingsWin
       Top             =   262
       Transparent     =   False
       Underline       =   False
-      Value           =   True
+      Value           =   False
       Visible         =   True
       Width           =   496
    End

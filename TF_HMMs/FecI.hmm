@@ -12,7 +12,7 @@ MAP   yes
 CRTAG 33,40,41,43,44,45,48,60|136,139,140,143,144
 PAL   no
 WIDTH 26-32
-GA    131.00 131.00;
+GA    100.00 100.00;
 TC    200.00 200.00;
 NC    62.00 62.00;
 NOTE  Based on ECF classification from ECH hub (https://www.computational.bio.uni-giessen.de/ecfhub/groups/ecf243)

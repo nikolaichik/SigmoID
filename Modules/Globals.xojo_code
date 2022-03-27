@@ -2620,10 +2620,10 @@ Protected Module Globals
 		  'where i is the position within site, b refers to each of the four bases,
 		  'and Fb,i is the frequency of each base at that position
 		  
-		  dim replicas, baseX, currentX,letterData as integer
+		  Dim replicas, baseX, currentX,letterData As Integer
 		  dim entropy, LetterHeight, baseY, nextY,freq As double
 		  dim posarray(4),letterName, Acount, Ccount, Gcount, Tcount as string
-		  dim totalEntropy as double=0
+		  Dim totalEntropy As Double=0
 		  
 		  
 		  baseX= -3
@@ -2648,7 +2648,8 @@ Protected Module Globals
 		    Arow=trim(LogoDatarr(n)) 'trimming just in case
 		    Achar=left(Arow,1)
 		    if Achar<>">" then
-		      SeqLen=len(Arow)
+		      SeqLen=Len(Arow)
+		      ProfileSeqLen=SeqLen
 		      RegPreciseTFcollectionsWin.siteLength=SeqLen
 		      RegPreciseTFcollectionsWin2.siteLength=SeqLen
 		      Exit
@@ -2845,6 +2846,7 @@ Protected Module Globals
 		  LogoPicScaled.Transparent=1
 		  RegPreciseTFcollectionsWin.InfoBits=totalEntropy
 		  RegPreciseTFcollectionsWin2.InfoBits=totalEntropy
+		  NumberOfSites=replicas
 		  return LogoPicScaled
 		  
 		  Exception err
@@ -4844,6 +4846,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		NumberOfSites As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		operonColour As color
 	#tag EndProperty
 
@@ -4861,6 +4867,18 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		PathsChanged As boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Pcollection As Collection
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		PgroupKeys(0) As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		PgroupPaths(0) As string
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -4882,6 +4900,10 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		ProfileFpath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		ProfileSeqLen As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

@@ -2792,7 +2792,9 @@ End
 		    LastRowEmpty=False
 		  End If
 		  If LastRowEmpty Then
-		    RefsList.RemoveRowAt(RefsList.LastRowIndex)
+		    If RefsList.LastRowIndex>-1 Then
+		      RefsList.RemoveRowAt(RefsList.LastRowIndex)
+		    End If
 		  End If
 		  
 		  'add citations:

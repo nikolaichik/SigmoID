@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -3048,7 +3049,7 @@ End
 		  
 		  
 		  dim Acounter(0) as integer
-		  dim Ccounter(0) as integer
+		  Dim Ccounter(0) As Integer
 		  dim Gcounter(0) as integer
 		  dim Tcounter(0) as integer
 		  dim tis as TextInputStream
@@ -3066,7 +3067,8 @@ End
 		      Arow=trim(Arow) 'just in case
 		      Achar=left(Arow,1)
 		      if Achar<>">" then
-		        SeqLen=len(Arow)
+		        SeqLen=Len(Arow)
+		        tis.close
 		        exit
 		      end if
 		    Wend
@@ -3246,12 +3248,12 @@ End
 		  masked=false
 		  
 		  #if DebugBuild
-		    WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    WriteToSTDOUT (EndOfLine+"Alignment from "+LogoFile.shellpath+" ("+Str(replicas)+" seqs) loaded."+EndOfLine)
 		  #else
-		    WriteToSTDOUT (EndofLine+"The alignment "+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		    WriteToSTDOUT (EndOfLine+"The alignment ("+Str(replicas)+" seqs) loaded."+EndOfLine)
 		    
 		  #endif
-		  WriteToSTDOUT ("Information content of this site is "+str(totalEntropy)+" bits."+EndofLine)
+		  WriteToSTDOUT ("Information content of this profile is "+Str(totalEntropy)+" bits."+EndOfLine)
 		  LogoCanvas.Invalidate(false) 'there are problems updating the logo pic when scanning genome
 		  self.refresh(false) 'needed if logo of the same size is drawn and to remove selection
 		  
@@ -3447,10 +3449,10 @@ End
 		    #if DebugBuild
 		      WriteToSTDOUT (EndofLine+"Alignment from "+LogoFile.shellpath+" ("+str(replicas)+" seqs) loaded."+EndofLine)
 		    #else
-		      WriteToSTDOUT (EndofLine+"The alignment "+" ("+str(replicas)+" seqs) loaded."+EndofLine)
+		      WriteToSTDOUT (EndOfLine+"The alignment ("+Str(replicas)+" seqs) loaded."+EndOfLine)
 		      
 		    #endif
-		    WriteToSTDOUT ("Information content of this site is "+str(totalEntropy)+" bits."+EndofLine)
+		    WriteToSTDOUT ("Information content of this profile is "+Str(totalEntropy)+" bits."+EndOfLine)
 		    
 		    'Palindromic=false
 		    'ChangeView("Logo")
@@ -4065,7 +4067,7 @@ End
 		      nhmmerSettingsWin.CutoffBox.HelpTag="Use score tresholds stored in the profile."
 		      nhmmerSettingsWin.ThresholdsBox.HelpTag="Thresholds to use with uncalibrated profile. Disabled as the cutoffs from the opened calibrated profile will be used."
 		      'Read data
-		      dim basename as string=nthfield(tmpfile.DisplayName,".sig",1)
+		      Dim basename As String=NthField(tmpfile.DisplayName,".sig",1)
 		      
 		      if vv<>Nil then
 		        LogoFile=vv.root.child(basename+".fasta")

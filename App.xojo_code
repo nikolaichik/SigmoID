@@ -13,12 +13,16 @@ Inherits Application
 		  
 		  FileMakeSigFile.visible=false
 		  FileConvertSigFilestoFolders.visible=false
+		  ProfileCombineCRtags.visible=False
+		  ProfileCombineCRtags.Enabled=False
 		  
-		  if Keyboard.AltKey then
+		  If Keyboard.AltKey Then
 		    FileMakeSigFile.Visible=true
 		    FileMakeSigFile.Enabled=true
 		    FileConvertSigFilestoFolders.visible=True
 		    FileConvertSigFilestoFolders.Enabled=True
+		    ProfileCombineCRtags.visible=True
+		    ProfileCombineCRtags.Enabled=True
 		  end if
 		  
 		  'Build dynamic Window Menu
@@ -692,6 +696,61 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function ProfileCombineCRtags() As Boolean Handles ProfileCombineCRtags.Action
+			// Combine profiles with identical CR tags
+			
+			'Get folder to (recursively) scan for possible duplicated tags
+			Dim Profile_f, f As FolderItem
+			Dim m,n,p,q As Integer
+			Dim basename As String
+			Dim CRtag As String
+			Dim dlg As New SelectFolderDialog
+			dlg.ActionButtonCaption = "Select"
+			dlg.Title = "Select Profiles Folder"
+			dlg.PromptText = "Select a Folder with Profiles to Be Combined"
+			'dlg.InitialDirectory = Profile_f.parent
+			
+			'Build collection of sig files with CR tag keys
+			Profile_f = dlg.ShowModal
+			If Profile_f <> Nil Then
+			
+			'Pcollection=New collection
+			Redim PgroupKeys(0)
+			Redim PgroupPaths(0)
+			
+			ScanProfiles(Profile_f)
+			End If
+			
+			
+			'Remove non-redundant profiles (leave only groups)
+			m=PgroupPaths.Count-1
+			For n=m DownTo 1
+			If CountFields(PgroupPaths(n),"|;|")=1 Then
+			PgroupPaths.RemoveRowAt(n)
+			PgroupKeys.RemoveRowAt(n)
+			End If
+			Next
+			
+			Beep
+			
+			'Open ProfileMergeWin with the first profile group
+			' (or display a note if no groups were found)
+			If PgroupPaths.Count=1 Then '
+			MsgBox "No profiles with identical CR tags were found"
+			Else
+			ProfileMergeWin.NumberOfGroups=ubound(PgroupPaths)
+			ProfileMergeWin.LoadGroup(1)
+			ProfileMergeWin.show
+			End If
+			
+			
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function RegPreciseRegulogs() As Boolean Handles RegPreciseRegulogs.Action
 			RegPreciseWin.title="RegPrecise: regulogs"
 			RegPreciseWin.show
@@ -767,6 +826,29 @@ Inherits Application
 		End Function
 	#tag EndMenuHandler
 
+
+	#tag Method, Flags = &h0
+		Sub AddProfile(CRtag as string, Ppath as string)
+		  // Assemble groups of profiles with identical CR tags:
+		  '  add profile path to the existing CRtag group
+		  '  or create a new group 
+		  
+		  Dim m,n As Integer
+		  
+		  m=Ubound(PgroupKeys)
+		  
+		  For n=1 To m
+		    If CRtag=PgroupKeys(n) Then
+		      PgroupPaths(n)=PgroupPaths(n)+"|;|"+Ppath
+		      Return
+		    End If
+		  Next
+		  
+		  'new CRtag
+		  PgroupKeys.Append CRtag
+		  PgroupPaths.Append Ppath
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub ChipMdata2Logo()
@@ -1071,7 +1153,7 @@ Inherits Application
 		    else
 		      
 		      'cutoffs are hopefully read, convert the alignment to Stockholm format and store it in the temp file
-		      dim stock as FolderItem = TemporaryFolder.child("stock")
+		      Dim stock As FolderItem = TemporaryFolder.child("stock")
 		      if stock <> nil then
 		        dim AlignmentFile,rcAlignmentFile as FolderItem
 		        'check if the site is marked as palindromic
@@ -1237,6 +1319,32 @@ Inherits Application
 	#tag Method, Flags = &h1
 		Protected Sub ScanGenomeCR()
 		  ScanGenomeWinCRtag.show
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ScanProfiles(Profile_f as folderitem)
+		  Dim m,n As Integer
+		  Dim CRtag As String
+		  Dim f As FolderItem
+		  
+		  m=Profile_f.Count
+		  For n=1 To m
+		    f=Profile_f.Item(n)
+		    If f.name<>".DS_Store" Then
+		      If f.Directory Then
+		        ScanProfiles(f)  'Recursion
+		      Else
+		        If Right(f.Name,4)=".sig" Then
+		          CRtag=NthField(f.name,"_",1)
+		          AddProfile(CRtag,f.NativePath)
+		        End If
+		      End If
+		    End If
+		  Next
+		  
+		  Exception err
+		    ExceptionHandler(err,"App:ScanProfiles")
 		End Sub
 	#tag EndMethod
 
