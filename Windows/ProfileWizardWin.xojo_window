@@ -1114,7 +1114,7 @@ Begin Window ProfileWizardWin
       Height          =   104
       Index           =   -2147483648
       InitialParent   =   ""
-      InitialValue    =   "References	DOI(PMID)	Evidence Codes"
+      InitialValue    =   "References	DOI/PMID/DB Link	Evidence Codes"
       Italic          =   False
       Left            =   12
       LockBottom      =   True
@@ -2541,11 +2541,15 @@ End
 		      Dim URL As String
 		      If Left(linkID,3)="10." And InStr(linkID,"/")>0 Then
 		        URL="https://doi.org/"
+		        URL=URL+linkID
+		      Elseif Left(linkID,4)="http" And InStr(linkID,"://")>0 Then'Database link
+		        URL=linkID
 		      Else 'assume it's a pubmed ID
 		        URL="https://pubmed.ncbi.nlm.nih.gov/"
+		        URL=URL+linkID
 		      End If
 		      
-		      URL=URL+linkID
+		      
 		      WebBrowserWin.show
 		      'WebBrowserWin.AddNewTab.LoadURL(url)
 		      
@@ -2559,7 +2563,7 @@ End
 		          AlreadyOpeningTab=True
 		        End If
 		      End If
-		      WebBrowserWin.LoadPage(url)
+		      WebBrowserWin.LoadPage(URL)
 		      If ubound(WebBrowserWin.wBrowserTabs.tabs)>0 Then
 		        If WebBrowserWin.wBrowserTabs.tabs(0).caption="" Or WebBrowserWin.wBrowserTabs.tabs(0).caption="Untitled" Then
 		          If Not WebBrowserWin.mBrowserTabs(0).webViewer.canGoBack Then
@@ -2574,7 +2578,7 @@ End
 		  
 		  If row=Me.RowCount-1 Then'last row
 		    
-		    If Me.CellValueAt(row,1)<>"" Or Me.CellValueAt(row,2)<>"" Then
+		    If Me.CellValueAt(row,0)<>"" Or Me.CellValueAt(row,1)<>"" Or Me.CellValueAt(row,2)<>"" Then
 		      Me.AddRow
 		    End If
 		    
@@ -2610,6 +2614,9 @@ End
 		  
 		  'Check if a DOI was added/changed
 		  If Column=1 Then
+		    Dim link As String = Trim(Me.CellValueAt(row,1))
+		    If left(link,4)="http" Then return      'Presumably a DB link, no need to process any further
+		    
 		    Me.CellValueAt(row,0)=CitationFromDOI(Trim(Me.CellValueAt(row,1)))
 		  End If
 		  

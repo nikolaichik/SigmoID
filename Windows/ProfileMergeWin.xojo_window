@@ -24,7 +24,7 @@ Begin Window ProfileMergeWin
    Resizeable      =   True
    Title           =   "Merge Profiles"
    Visible         =   False
-   Width           =   678
+   Width           =   878
    Begin Listbox RegulatorList
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -73,7 +73,7 @@ Begin Window ProfileMergeWin
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   678
+      Width           =   878
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -97,7 +97,7 @@ Begin Window ProfileMergeWin
       Top             =   -58
       Transparent     =   False
       Visible         =   True
-      Width           =   94
+      Width           =   294
    End
    Begin PushButton LogoButton
       AutoDeactivate  =   True
@@ -112,7 +112,7 @@ Begin Window ProfileMergeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   531
+      Left            =   731
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -247,7 +247,7 @@ Begin Window ProfileMergeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   439
+      Left            =   639
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -295,7 +295,7 @@ Begin Window ProfileMergeWin
       Underline       =   False
       Visible         =   True
       VisualState     =   "0"
-      Width           =   305
+      Width           =   505
    End
    Begin BevelButton BevelButton3
       AllowAutoDeactivate=   True
@@ -339,7 +339,7 @@ Begin Window ProfileMergeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   307
+      Width           =   507
    End
    Begin BevelButton DeselectAllButton
       AllowAutoDeactivate=   True
@@ -348,7 +348,7 @@ Begin Window ProfileMergeWin
       BevelStyle      =   "4"
       Bold            =   False
       ButtonStyle     =   "0"
-      Caption         =   "#kDeselectAll"
+      Caption         =   "Uncheck All"
       CaptionAlignment=   "3"
       CaptionDelta    =   0
       CaptionPosition =   "1"
@@ -392,7 +392,7 @@ Begin Window ProfileMergeWin
       BevelStyle      =   "4"
       Bold            =   False
       ButtonStyle     =   "0"
-      Caption         =   "#kSelectAll"
+      Caption         =   "Check All"
       CaptionAlignment=   "3"
       CaptionDelta    =   0
       CaptionPosition =   "1"
@@ -431,7 +431,7 @@ Begin Window ProfileMergeWin
    End
    Begin BevelButton TrashButton
       AllowAutoDeactivate=   True
-      AllowFocus      =   True
+      AllowFocus      =   False
       BackgroundColor =   &c00000000
       BevelStyle      =   "4"
       Bold            =   False
@@ -453,7 +453,7 @@ Begin Window ProfileMergeWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   380
+      Left            =   580
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -467,7 +467,7 @@ Begin Window ProfileMergeWin
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   622
-      Transparent     =   False
+      Transparent     =   True
       Underline       =   False
       Value           =   False
       Visible         =   True
@@ -1314,11 +1314,12 @@ End
 		  
 		  'move original profiles to trash
 		  If TrashBox.value Then
-		    For n=0 To m
+		    For n=m downto 0
 		      If RegulatorList.CellCheckBoxValueAt(n,0) Then
 		        f=New FolderItem(RegulatorList.CellValueAt(n,6), FolderItem.PathModes.Native)
 		        If f<>Nil Then
 		          f.MoveToTrash
+		          RegulatorList.RemoveRowAt(RegulatorList.n)
 		        End If
 		      End If
 		    Next
@@ -1401,6 +1402,7 @@ End
 		    Case d.ActionButton
 		      //user pressed Trash
 		      f.MoveToTrash
+		      RegulatorList.RemoveRowAt(RegulatorList.SelectedRowIndex)
 		      'Case d.AlternateActionButton
 		      //user pressed Don't Trash
 		    Case d.CancelButton
