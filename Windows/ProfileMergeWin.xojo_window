@@ -293,6 +293,7 @@ Begin Window ProfileMergeWin
       Top             =   622
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   "0"
       Width           =   505
@@ -1319,7 +1320,7 @@ End
 		        f=New FolderItem(RegulatorList.CellValueAt(n,6), FolderItem.PathModes.Native)
 		        If f<>Nil Then
 		          f.MoveToTrash
-		          RegulatorList.RemoveRowAt(RegulatorList.n)
+		          RegulatorList.RemoveRowAt(n)
 		        End If
 		      End If
 		    Next
@@ -1328,8 +1329,6 @@ End
 		  
 		End Sub
 	#tag EndEvent
-#tag EndEvents
-#tag Events BevelButton3
 #tag EndEvents
 #tag Events DeselectAllButton
 	#tag Event
@@ -1657,6 +1656,22 @@ End
 		Visible=true
 		Group="Position"
 		InitialValue="600"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CurrentGroup"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="NumberOfGroups"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty

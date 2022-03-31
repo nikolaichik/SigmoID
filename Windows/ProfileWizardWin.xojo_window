@@ -2846,7 +2846,9 @@ End
 		  CuratorList.CellValueAt(LastIdx,1)=Trim(SettingsWin.emailField.Text)
 		  Dim cInfo As String
 		  Dim d As DateTime=DateTime.now
-		  cInfo=d.ToString(Locale.Current, DateTime.FormatStyles.Short, DateTime.FormatStyles.None)+": "
+		  'cInfo=d.ToString(Locale.Current, DateTime.FormatStyles.Short, DateTime.FormatStyles.None)+": "
+		  'fix for unified data format DD/MM/YYYY
+		  cinfo = d.Day.ToString + "/" + d.Month.ToString + "/" + d.Year.ToString + ":"
 		  If lastIdx>0 Then 'continue existing list
 		    CuratorList.CellValueAt(LastIdx,2)=cInfo+"profile modified"
 		  Else                               'first entry
