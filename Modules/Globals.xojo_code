@@ -3151,7 +3151,7 @@ Protected Module Globals
 		    Globals.chipset.jarPath=Prefs.Value("ChIPmunkPath", Globals.chipset.jarPath)
 		    WSLBashPath=Prefs.value("WSLBashPath",WSLBashPath)
 		    BioProsPath=Prefs.value("BioProsPath",BioProsPath)
-		    ClustalPath = Prefs.value("ClustalPath", ClustalPath)
+		    AlignerPath = Prefs.value("AlignerPath", AlignerPath)
 		    PathsChanged=False
 		  end if
 		  
@@ -3179,7 +3179,7 @@ Protected Module Globals
 		  SettingsWin.requestCount.Text=Str(Globals.requestCount)
 		  SettingsWin.WSLBashPathField.Text=WSLBashPath
 		  SettingsWin.bioProsPathField.Text=BioProsPath
-		  SettingsWin.clustalPathField.Text = ClustalPath
+		  SettingsWin.AlignerPathField.Text = AlignerPath
 		  
 		  
 		  // Fonts
@@ -4528,7 +4528,7 @@ Protected Module Globals
 		  'Input/Output Options:
 		  '-f --fin FILENAME           Sequence input file (default: stdin)
 		  '-D --datatype FORMAT        Type of multiple sequence alignment or
-		  'position weight matrix file: (clustal, fasta,
+		  'position weight matrix file: (Aligner, fasta,
 		  'plain, msf, genbank, nbrf, nexus, phylip,
 		  'stockholm, intelligenetics, table, array,
 		  'transfac)
@@ -4662,6 +4662,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		AlignerPath As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		alimaskpath As string
 	#tag EndProperty
 
@@ -4703,10 +4707,6 @@ Protected Module Globals
 
 	#tag Property, Flags = &h0
 		cLineEnd As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		ClustalPath As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -5629,7 +5629,7 @@ Protected Module Globals
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="ClustalPath"
+			Name="AlignerPath"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
@@ -5643,6 +5643,22 @@ Protected Module Globals
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="NumberOfSites"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ProfileSeqLen"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module
