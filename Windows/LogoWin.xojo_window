@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -2435,6 +2434,8 @@ End
 		          heading = FastaHeaderMatch.SubExpressionString(0)
 		          motifSite.heading = Rtrim(Nthfield(heading, "len", 1))
 		          'motifSite.heading = RemoveSpaces.Replace(Rtrim(heading))
+		          ' work with last part of heading string
+		          heading = Nthfield(heading, "#", heading.CountFields("#"))
 		          valueMatch = StrandCheck.Search(heading)
 		          
 		          if valueMatch <> Nil Then
@@ -2541,15 +2542,15 @@ End
 		            motifEntryFasta = motifEntryFasta + Site.firstBlockSeq + Site.interBlockSeq +Site.SecondBlockSeq + EndOfLine.UNIX
 		            'motifEntryFasta = motifEntryFasta + Site.interBlockSeq + EndOfLine.UNIX
 		          next
-		          dim clustalalign as FolderItem = TemporaryFolder.Child("gapmotifseq-"+str(count)+".align")
-		          if clustalalign.Exists Then
-		            clustalalign.Remove
+		          dim mafft_align as FolderItem = TemporaryFolder.Child("gapmotifseq-"+str(count)+".fasta")
+		          if mafft_align.Exists Then
+		            mafft_align.Remove
 		          end
-		          outstream = TextOutputStream.Create(clustalalign)
+		          outstream = TextOutputStream.Create(mafft_align)
 		          outstream.Write(ConvertEncoding(motifEntryFasta, Encodings.UTF8))
 		          outstream.Close
 		          
-		          cli = ClustalPath + " -i "+clustalalign.NativePath
+		          cli = AlignerPath + " --auto "+mafft_align.NativePath
 		          #If TargetWindows
 		            ExecuteWSL(cli)
 		          #Else
