@@ -415,6 +415,8 @@ End
 		  dim aLine,title, seq,seqRevSeq,site, newsite,s0, targetSeq, seqname as string
 		  dim sitecount,sitepos, leftExt, rightExt, en, n As integer
 		  dim isMultiFasta as boolean 
+		  dim extendedSites(-1) as String
+		  dim nonExtendedSites(-1) as String
 		  
 		  InStream = LogoWin.logofile.OpenAsTextFile
 		  InStream2 = LogoWin.genomefile.OpenAsTextFile
@@ -485,7 +487,8 @@ End
 		      
 		      aLine=InStream.readLine
 		      if left(aLine,1)=">" then
-		        LogoWin.WriteToSTDOUT (aline+EndofLine)
+		        'LogoWin.WriteToSTDOUT (aline+EndofLine)
+		        extendedSites.append(aline+EndOfLine)
 		        title=aline
 		        if isMultiFasta then 'find the proper target among many
 		          if instr(aline," ")>0 then 'meme truncates names at first space
@@ -511,21 +514,28 @@ End
 		        sitecount=CountFields(targetSeq,site)-1
 		        if sitecount>0 then
 		          if sitecount>1 then
-		            LogoWin.WriteToSTDOUT (str(sitecount)+" sites found:"+EndofLine)
+		            LogoWin.WriteToSTDOUT(str(sitecount)+" sites found:"+EndofLine)
 		          end if
 		          sitepos=0
 		          for n=1 to sitecount
 		            sitepos=instr(sitepos+1,targetSeq,site)
 		            newsite=mid(targetSeq,sitepos-leftExt, leftExt+len(site)+rightExt)
-		            LogoWin.WriteToSTDOUT (newsite+EndofLine)
+		            'LogoWin.WriteToSTDOUT (newsite+EndofLine)
+		            extendedSites.append(newsite+EndofLine)
 		          next
 		        else
-		          LogoWin.WriteToSTDOUT ("No site found!"+EndofLine)
+		          'LogoWin.WriteToSTDOUT ("No site found!"+EndofLine)
+		          nonExtendedSites.Append(extendedSites.Pop)
 		        end if
 		      end if
 		      
 		    wend
 		    InStream.close
+		    LogoWin.WriteToSTDOUT(join(extendedSites, ""))
+		    if Ubound(nonExtendedSites) > 0 then
+		      LogoWin.WriteToSTDOUT("No site found:"+EndOfLine)
+		      LogoWin.WriteToSTDOUT(join(nonExtendedSites, ""))
+		    end
 		  end if
 		  
 		  'OutStream.close
