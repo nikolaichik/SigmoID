@@ -597,7 +597,7 @@ End
 		      alignment_tmp.Delete
 		    end if
 		    LogoWin.LogoFile.CopyFileTo alignment_tmp
-		    
+		    alignment_tmp = MemeInputCheck(alignment_tmp)
 		  else
 		    msgbox "Can't create temporary file!"
 		    return -1

@@ -2545,6 +2545,9 @@ Protected Module DeNovoTFBSinference
 		  'cli="MEME_BIN_DIRS="+MEME_BIN_DIRS+" "+MEMEpath+" "+alignment_tmp.ShellPath+" -dna -minw "+str(MinField.text)
 		  '#endif
 		  
+		  
+		  inFile = MemeInputCheck(inFile)
+		  
 		  #if TargetWindows
 		    cli=PlaceQuotesToPath(TemporaryFolder.child("meme.exe").ShellPath)+" "+PlaceQuotesToPath(infile.ShellPath)
 		  #else
@@ -2595,6 +2598,71 @@ Protected Module DeNovoTFBSinference
 		    ExceptionHandler(err,"DeNovoTFBSinference:MEME")
 		    
 		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function MEMEInputCheck(inFile as FolderItem) As FolderItem
+		  'MEME processes fasta ids extracting id part before first space occurence - resulting in ids similiarity conflict. For prevention 
+		  'We load input file content and add indices for matching id parts
+		  
+		  
+		  dim instream as TextInputStream
+		  dim outstream as TextOutputStream
+		  dim counter as Integer
+		  dim line as String
+		  dim out_path as String
+		  dim id as String
+		  dim fasta_ids as New Dictionary
+		  dim fixed_fasta as String
+		  dim fix_ids as Boolean
+		  dim no_space as Boolean
+		  
+		  
+		  if inFile.Exists then
+		    try
+		      instream = TextInputStream.Open(inFile)
+		      Do
+		        line = instream.ReadLine()
+		        if instr(line, " ") > 0 then
+		          id = Nthfield(line, " ", 1)
+		          no_space = False
+		        else
+		          id = line
+		          no_space = True
+		        end
+		        if line.StartsWith(">") then
+		          if fasta_ids.HasKey(id) then
+		            counter = fasta_ids.Value(id) 
+		            fasta_ids.Value(id) = counter + 1
+		            if no_space then
+		              id = id + "_" + str(counter)
+		            else
+		              id = id + "_" + str(counter) + Nthfield(line, id, 2)
+		            end
+		            fix_ids = True
+		          else
+		            fasta_ids.Value(id) = 1
+		            if not no_space then
+		              id = id + Nthfield(line, id, 2)
+		            end
+		          end
+		          fixed_fasta = fixed_fasta + id + EndOfLine.UNIX
+		        else
+		          fixed_fasta = fixed_fasta + line + EndOfLine.UNIX
+		        end
+		      Loop Until instream.EndOfFile
+		    catch e as IOException
+		    end try
+		  end
+		  
+		  if fix_ids then
+		    out_path = inFile.ShellPath + "_corrected.fasta"
+		    inFile = new FolderItem(out_path, FolderItem.PathModes.Shell)
+		    outstream = TextOutputStream.Create(inFIle)
+		    outstream.Write(fixed_fasta)
+		  end
+		  return inFile
 		End Function
 	#tag EndMethod
 
