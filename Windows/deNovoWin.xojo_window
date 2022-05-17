@@ -301,7 +301,6 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -323,8 +322,8 @@ Begin Window deNovoWin
       Left            =   224
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   False
       Scope           =   0
       State           =   0
@@ -342,7 +341,6 @@ Begin Window deNovoWin
       Width           =   243
    End
    Begin Timer TTtimer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
@@ -365,8 +363,8 @@ Begin Window deNovoWin
       Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   False
       Scope           =   0
       State           =   0
@@ -416,7 +414,6 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -1072,8 +1069,8 @@ Begin Window deNovoWin
       Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   False
       Scope           =   0
       TabIndex        =   16
@@ -1261,8 +1258,8 @@ Begin Window deNovoWin
       Left            =   20
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   False
       Scope           =   0
       TabIndex        =   19
@@ -1377,7 +1374,7 @@ Begin Window deNovoWin
       Left            =   145
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
       MaximumCharactersAllowed=   0

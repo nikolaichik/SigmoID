@@ -2737,11 +2737,11 @@ Begin Window SettingsWin
             Top             =   365
             Transparent     =   False
             Underline       =   False
-            Value           =   "ClustalOmega"
+            Value           =   "Aligner path"
             Visible         =   True
             Width           =   85
          End
-         Begin TextField clustalPathField
+         Begin TextField AlignerPathField
             AllowAutoDeactivate=   True
             AllowFocusRing  =   True
             AllowSpellChecking=   False
@@ -3738,7 +3738,7 @@ End
 		  Prefs.Value("MeshClustPath")=MeshClustPathField.Text
 		  Prefs.Value("WSLBashPath")=WSLBashPathField.Text
 		  Prefs.Value("BioProsPath")=bioProsPathField.Text
-		  Prefs.Value("ClustalPath")=clustalPathField.Text
+		  Prefs.Value("AlignerPath")=AlignerPathField.Text
 		  
 		  
 		  if LoadPlainResult then

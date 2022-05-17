@@ -4005,6 +4005,9 @@ End
 		    Stre=f.OpenAsTextFile
 		    stre.Encoding=Encodings.ASCII   'Otherwise encoding can happen to be anything
 		    s=stre.readall
+		    If CountFieldsB(s,"ORIGIN")<>2 Then
+		      MsgBox"Can't find ORIGIN of the sequence field. GenBank format problem?"
+		    End If
 		    w.FormattedSequence=Trim(RightB(s,Len(s)-InStrB(s,"ORIGIN")-7)) 
 		    w.Genome.sequence=CleanUp(w.FormattedSequence)
 		    

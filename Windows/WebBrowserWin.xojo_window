@@ -42,7 +42,7 @@ Begin Window WebBrowserWin
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
+      TabStop         =   "True"
       Tooltip         =   ""
       Top             =   27
       Transparent     =   False

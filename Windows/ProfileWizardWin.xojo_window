@@ -712,7 +712,7 @@ Begin Window ProfileWizardWin
       ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Save..."
-      Default         =   True
+      Default         =   False
       Enabled         =   False
       Height          =   20
       HelpTag         =   ""
