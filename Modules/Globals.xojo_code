@@ -149,7 +149,7 @@ Protected Module Globals
 		  Dim res As String
 		  Dim cli As String 
 		  
-		  cli="curl -LH "+Chr(34)+"Accept: text/x-bibliography; style=apa"+Chr(34)+" https://doi.org/"+EncodeURLComponent(DOI)  'brackets within DOIs are problematic
+		  cli="curl -k -LH "+Chr(34)+"Accept: text/x-bibliography; style=apa"+Chr(34)+" https://doi.org/"+EncodeURLComponent(DOI)  'brackets within DOIs are problematic
 		  Dim sh As Shell =  New Shell
 		  sh.TimeOut=-1
 		  sh.execute(cli)
