@@ -2878,6 +2878,8 @@ Protected Module Globals
 		      alignment_tmp.Delete
 		    end if
 		    FastaFile.CopyFileTo alignment_tmp
+		    'fix duplicative headers in alignment
+		    alignment_tmp = MEMEInputCheck(alignment_tmp)
 		    
 		  else
 		    msgbox "Can't create temporary file!"

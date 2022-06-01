@@ -454,7 +454,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -473,7 +472,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -873,7 +871,198 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FillRegulatorList2(RegulonDBfile as folderitem)
+		Sub FillRegulatorListPromoters(RegulonDBfile as folderitem)
+		  
+		  'tab-sepaprated columns:
+		  '# Columns:
+		  '# (1) Transcription Factor (TF) identifier assigned by RegulonDB
+		  '# (2) TF name
+		  '# (3) TF binding site (TF-bs) identifier assigned by RegulonDB
+		  '# (4) TF-bs left end position in the genome
+		  '# (5) TF-bs right end position in the genome
+		  '# (6) DNA strand where the  TF-bs is located
+		  '# (7) TF-Gene interaction identifier assigned by RegulonDB (related to the "TF gene interactions" file)
+		  '# (8) Transcription unit regulated by the TF
+		  '# (9) Gene expression effect caused by the TF bound to the  TF-bs (+ activation, - repression, +- dual, ? unknown)
+		  '# (10) Promoter name
+		  '# (11) Center position of TF-bs, relative to Transcription Start Site
+		  '# (12) TF-bs sequence (upper case)
+		  '# (13) Evidence that supports the existence of the TF-bs
+		  '# (14) Evidence confidence level (Confirmed, Strong, Weak)
+		  'ECK125140816    AccB    ECK120011222    0    0    forward    ECK120032360    accBC    -    accBp
+		  'ECK120015994    AcrR    ECK120018491    484933    484956    reverse    ECK120033472    acrAB    -    acrAp    -22.5    gcgttagattTACATACATTTGTGAATGTATGTAccatagcacg    [BCE|W|Binding of cellular extracts],[GEA|W|Gene expression analysis]
+		  
+		  
+		  'This is the version modofied for promoters
+		  
+		  'Promoter set:
+		  '# Columns:
+		  '# (1) Promoter identifier assigned by RegulonDB
+		  '# (2) Promoter Name
+		  '# (3) DNA strand where the promoter is located
+		  '# (4) Genome map position of Transcription Start Site (+1)
+		  '# (5) Sigma Factor that recognize the promoter
+		  '# (6) Promoter Sequence (+1 upper case)
+		  '# (7) Evidence that supports the existence of the promoter
+		  '# (8) Evidence confidence level (Confirmed, Strong, Weak)
+		  
+		  
+		  dim tis as TextInputStream
+		  dim tos as TextOutputStream
+		  dim BSarr() as string
+		  dim tab as string = chr(9)
+		  dim aline, tline as string
+		  dim theSeq, aGene, currentGene, geneArr() as string
+		  dim linecount, n, GeneNo, Confidence,currentConfidence as integer
+		  dim newgene, isPromoterSet as boolean
+		  dim aTF, currentTF, TFdata, TF_ID as string
+		  dim siteSeq, conf as string
+		  dim SigmaList as New Dictionary
+		  
+		  
+		  'Evidence confidence level:
+		  if WeakRadio.Value then
+		    Confidence=0
+		  elseif StrongRadio.value then
+		    Confidence=1
+		  else
+		    confidence=2 'confirmed
+		  end if
+		  
+		  tis=RegulonDBfile.OpenAsTextFile
+		  
+		  if tis<>nil then
+		    'reinitialise the list and the array
+		    RegulatorList.DeleteAllRows
+		    redim regulatorArray(-1)
+		    'skip the header, but get version number:
+		    while not tis.EOF
+		      aLine=tis.readLine
+		      if instr(aline,"# Release:")>0 then
+		        RegulonDBVersion=NthField(aline,"# Release: ",2)
+		        RegulonDBVersion=replace(RegulonDBVersion," Date: "," (")
+		        RegulonDBVersion=RegulonDBVersion+")"
+		        exit
+		      end if
+		    wend
+		    while not tis.EOF
+		      aLine=tis.readLine
+		      if instr(aline,"Evidence confidence level")>0 then
+		        exit
+		      end if
+		    wend
+		    if PromotersRadio.value then
+		      isPromoterSet=true
+		    end if
+		    while not tis.EOF
+		      aLine=tis.readLine
+		      if len(aline)>60 then 'skip empty lines
+		        BSarr()=split(aline,tab)
+		        BSarr.Insert(0,"") 'zero based array correction
+		        if isPromoterSet then
+		          siteSeq=BSarr(6)
+		        else
+		          siteSeq=BSarr(12)
+		        end if
+		        if siteSeq<>"" then 'filter out empty sites
+		          'check confidence:
+		          if isPromoterSet then
+		            conf=BSarr(8)
+		          else
+		            conf=BSarr(14)
+		          end if
+		          if conf="Confirmed" then
+		            currentConfidence=2
+		          elseif conf="Strong" then
+		            currentConfidence=1
+		          else
+		            currentConfidence=0 'Weak
+		          end if
+		          if currentConfidence>=Confidence then
+		            aTF=BSarr(5)
+		            if aTF<> "" and siteSeq<>"" then
+		              currentGene=BSarr(2)
+		              'get seq size range
+		              theSeq=siteSeq
+		              TF_ID=BSarr(1)
+		              if right(currentGene,1)<>"p" then 'drop the number
+		                currentGene=left(currentGene,lenb(currentGene)-1)
+		              end if
+		              if SigmaList.HasKey(aTF) then
+		                dim saved_reg() as Variant
+		                dim saved_length_range() as Integer
+		                dim saved_list_sites() as String
+		                dim saved_genes() as String
+		                saved_reg = SigmaList.Value(aTF)
+		                'check if TF is already processed
+		                saved_genes = saved_reg(2)
+		                if saved_genes.IndexOf(currentGene) = -1 then
+		                  saved_genes.Append(currentGene)
+		                  saved_reg(2) = saved_genes
+		                end
+		                
+		                saved_length_range = saved_reg(3)
+		                if len(theSeq) < saved_length_range(0)  then
+		                  saved_length_range(0) = len(theSeq)
+		                ElseIf len(theSeq) > saved_length_range(1) then
+		                  saved_length_range(1) = len(theSeq)
+		                end if
+		                saved_reg(3) = saved_length_range
+		                saved_list_sites = saved_reg(5)
+		                tline=">"+BSarr(2)+" "+BSarr(5)+" "+BSarr(3)+" "+BSarr(4)+" "+BSarr(7)+" "+BSarr(8)
+		                tline = tline + EndOfLine.UNIX + theSeq + EndOfLine.UNIX
+		                saved_list_sites.Append(tline)
+		                saved_reg(5) = saved_list_sites
+		                SigmaList.Value(aTF)=saved_reg
+		              else
+		                dim reg() as Variant
+		                dim length_range() as Integer
+		                dim list_sites() as String
+		                dim genes() as String
+		                tline=">"+BSarr(2)+" "+BSarr(5)+" "+BSarr(3)+" "+BSarr(4)+" "+BSarr(7)+" "+BSarr(8)
+		                tline = tline + EndOfLine.UNIX + theSeq + EndOfLine.UNIX
+		                list_sites.Append(tline)
+		                length_range.append(len(theSeq))
+		                length_range.append(len(theSeq))
+		                genes.append(currentGene)
+		                reg = array(currentTF, genes, genes, length_range, TF_ID, list_sites)
+		                SigmaList.value(aTF) = reg
+		              end
+		            end if
+		          end if
+		        end if
+		      end if
+		    wend
+		    For Each promoter_entry As DictionaryEntry In SigmaList
+		      dim  feature_array() As Variant = promoter_entry.Value
+		      dim regulatorList_entry() As String
+		      dim feature_sites_list() as String = feature_array(5)
+		      dim feature_gene_list() as string = feature_array(2)
+		      regulatorList_entry.append(promoter_entry.Key)
+		      regulatorList_entry.append(str(Ubound(feature_sites_list) + 1))
+		      regulatorList_entry.append(str(Ubound(feature_gene_list) + 1))
+		      dim ranges() as Integer = feature_array(3)
+		      if ranges(0) <> ranges(1) then
+		        dim double_range as String = str(ranges(0))+"-"+str(ranges(1))
+		        regulatorList_entry.append(double_range)
+		      else
+		        regulatorList_entry.append(str(ranges(0)))
+		      end
+		      regulatorList_entry.append(feature_array(4))
+		      RegulatorList.AddRow(regulatorList_entry)
+		      dim sites as String = join(feature_array(5),"")
+		      RegulatorArray.append(sites)
+		    Next
+		  end if
+		  RegulonDBinfoLabel.text="RegulonDB "+RegulonDBVersion+". "+str(RegulatorList.ListCount)+" TFs."
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub FillRegulatorList_backup(RegulonDBfile as folderitem)
 		  
 		  'tab-sepaprated columns:
 		  '# Columns:
@@ -1279,7 +1468,7 @@ End
 		  if TFBSRadio.value then
 		    FillRegulatorList(RegulonDBfile)
 		  else
-		    FillRegulatorList2(RegulonDBfile)
+		    FillRegulatorListPromoters(RegulonDBfile)
 		  end if
 		End Sub
 	#tag EndEvent
@@ -1290,7 +1479,7 @@ End
 		  if TFBSRadio.value then
 		    FillRegulatorList(RegulonDBfile)
 		  else
-		    FillRegulatorList2(RegulonDBfile)
+		    FillRegulatorListPromoters(RegulonDBfile)
 		  end if
 		End Sub
 	#tag EndEvent
@@ -1301,7 +1490,7 @@ End
 		  if TFBSRadio.value then
 		    FillRegulatorList(RegulonDBfile)
 		  else
-		    FillRegulatorList2(RegulonDBfile)
+		    FillRegulatorListPromoters(RegulonDBfile)
 		  end if
 		End Sub
 	#tag EndEvent
@@ -1323,7 +1512,7 @@ End
 		Sub Action()
 		  ConfirmedRadio.Enabled=true
 		  RegulonDBfile=Resources_f.child("RegulonDB").child("PromoterSet.txt")
-		  FillRegulatorList2(RegulonDBfile)
+		  FillRegulatorListPromoters(RegulonDBfile)
 		  
 		End Sub
 	#tag EndEvent
