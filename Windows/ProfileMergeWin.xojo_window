@@ -179,6 +179,7 @@ Begin Window ProfileMergeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -197,6 +198,7 @@ Begin Window ProfileMergeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -228,6 +230,7 @@ Begin Window ProfileMergeWin
       SelectionType   =   2
       TabIndex        =   12
       TabPanelIndex   =   0
+      TabStop         =   "True"
       Top             =   5
       Transparent     =   True
       Visible         =   True
