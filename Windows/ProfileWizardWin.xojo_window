@@ -2070,7 +2070,7 @@ End
 		        if AlignmentFile<>Nil AND AlignmentFile.Exists then
 		          'check if the alignment is already RC'd
 		          dim firstLine,thirdLine as string
-		          dim tis as TextInputStream
+		          Dim tis As TextInputStream
 		          tis=AlignmentFile.OpenAsTextFile
 		          if tis<>nil then
 		            firstLine=tis.readLine
@@ -2285,18 +2285,30 @@ End
 		            End If
 		            
 		            'Save MEME data
-		            If MEMEconvert(LogoWin.Logofile,PalindromicBox.value)=0 then
-		              file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
-		              if file2copy<>Nil AND file2copy.exists then
-		                CopyFileToVV(file2copy,SigFileVV)
-		                
-		                If file2copy.LastErrorCode <> 0 Then
-		                  msgbox "MEME result file copy error"
-		                End If
-		              else
-		                'this file is optional
-		              end if
-		            end
+		            Dim tis As TextInputStream
+		            tis=AlignmentFile.OpenAsTextFile
+		            If tis<>Nil Then
+		              f2=SigFileVV.Root.child("meme.txt")
+		              If f2<>Nil Then
+		                outstream = TextOutputStream.Create(f2)
+		                outstream.Write(fasta2meme(tis.ReadAll))
+		                tis.close
+		                outstream.close
+		              End If
+		            End If
+		            
+		            'If MEMEconvert(LogoWin.Logofile,PalindromicBox.value)=0 then
+		            'file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
+		            'if file2copy<>Nil AND file2copy.exists then
+		            'CopyFileToVV(file2copy,SigFileVV)
+		            '
+		            'If file2copy.LastErrorCode <> 0 Then
+		            'msgbox "MEME result file copy error"
+		            'End If
+		            'else
+		            ''this file is optional
+		            'end if
+		            'end
 		            
 		            'generate logodata and save it:
 		            'dim weblogo_out as string = weblogo(AlignmentFile)

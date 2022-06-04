@@ -1160,6 +1160,107 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function fasta2meme(fasta As string) As string
+		  // With MEME-Suite v.5+, sites2meme isn't on the path anymore. 
+		  '  This routine expects sites2meme to sit in the same folder as meme, which may not be the case!
+		  
+		  // make tmp folder
+		  Dim TFfamily_tmp As FolderItem = TemporaryFolder.child("TFfamily_tmp")
+		  If TFfamily_tmp <> Nil Then
+		    
+		    
+		    'the folder may be there from the previous run, we have delete it!
+		    If TFfamily_tmp.Exists Then
+		      Dim i As Integer
+		      i=deleteEntireFolder(TFfamily_tmp) 'return code isn't handled yet
+		    End If
+		    TFfamily_tmp.CreateAsFolder
+		  Else 
+		    MsgBox "Can't create tmp folder"
+		    Return ""
+		  End If
+		  
+		  // write 'sites' files to tmp folder
+		  ' (simple text files named a la regulogID.txt
+		  ' regulogID will be used as motif ID and will be added to RegPrecise URL when converting 
+		  
+		  ' for palindromic sites, rev. complements should probably be added here
+		  ' as RegPrecise ignores site symmetry (currently, sites are written as they are) 
+		  
+		  Dim m,n As Integer
+		  Dim fastaLines(-1) As String
+		  Dim sitesFile As folderitem
+		  Dim tos As TextOutputStream
+		  
+		  // CollectionList columns are:
+		  ' 0 - Checkbox
+		  ' 1 - Motif collection Name
+		  ' 2 - Number of sites used to build the motif 
+		  ' 3 - Information content (bits)
+		  ' 4 - Logo picture
+		  ' 5 (invisible) – Motif source URL
+		  ' 6 (invisible) – TFBS length
+		  
+		  'added for profile merge:
+		  ' 7 (invisible) - profile info
+		  ' 8 (invisible) - profile options
+		  ' 9 (invisible) - profile name
+		  ' 10(invisible) - TFBS data
+		  
+		  
+		  sitesFile=TFfamily_tmp.Child("fasta.txt") 
+		  If sitesFile<>Nil Then
+		    tos=TextOutputStream.Create(sitesFile)
+		    If tos <>Nil Then
+		      fastaLines=Split(fasta, EndOfLine.UNIX)
+		      For m=0 To ubound(fastaLines)-1
+		        If Left(fastaLines(m),1)<>">" Then
+		          tos.Writeline fastaLines(m)
+		          
+		        End If
+		      Next
+		      tos.close
+		    Else
+		      MsgBox "can't write to tmp file"
+		    End If
+		  Else
+		    MsgBox "Can't create tmp file"
+		  End If
+		  
+		  Dim sites2memePath As String
+		  MEMEpath=Trim(MEMEpath)
+		  If Right(MEMEpath,1)="'" Then
+		    sites2memePath=Left(MEMEpath,Len(MEMEpath)-5)+"sites2meme'"
+		  Else
+		    sites2memePath=Left(MEMEpath,Len(MEMEpath)-4)+"sites2meme" 
+		  End If
+		  
+		  Dim cli As String
+		  cli=sites2memePath
+		  cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(TFfamily_tmp.ShellPath))+" 2>/dev/null" 'redirect stderr to nowhere, otherwise number of converted motifs is appended
+		  
+		  #If TargetWindows
+		    ExecuteWSL(cli)
+		  #Else 
+		    userShell(cli)
+		  #EndIf
+		  
+		  If shError=0 Then
+		    Return shResult
+		  Else
+		    MsgBox "Error running sites2meme. Error message: "+shResult
+		    MsgBox "Command line was: <"+cli+">"
+		    Return ""
+		  End If
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:fasta2meme")
+		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub FastaButtonsCheck()
 		  
 		  if RegPreciseWin.RegulatorList.SelCount=1 then

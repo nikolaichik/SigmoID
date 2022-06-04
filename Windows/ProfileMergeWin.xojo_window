@@ -1248,27 +1248,36 @@ End
 		        outstream.close
 		      End If
 		      
-		      'Save MEME data
-		      Dim palindromic As Boolean
-		      If InStr(Options, "HmmGen.-p")>0 Then
-		        palindromic=True
-		      Else
-		        palindromic=False
+		      'Write meme file:
+		      
+		      f2=SigFileVV.Root.child("meme.txt")
+		      If f2<>Nil Then
+		        outstream = TextOutputStream.Create(f2)
+		        outstream.Write(fasta2meme(operators))
+		        outstream.close
 		      End If
 		      
-		      If MEMEconvert(Fastafile,Palindromic)=0 Then
-		        Dim file2copy As folderitem
-		        file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
-		        If file2copy<>Nil And file2copy.exists Then
-		          CopyFileToVV(file2copy,SigFileVV)
-		          
-		          If file2copy.LastErrorCode <> 0 Then
-		            MsgBox "MEME result file copy error"
-		          End If
-		        Else
-		          'this file is optional
-		        End If
-		      End
+		      ''Save MEME data
+		      'Dim palindromic As Boolean
+		      'If InStr(Options, "HmmGen.-p")>0 Then
+		      'palindromic=True
+		      'Else
+		      'palindromic=False
+		      'End If
+		      '
+		      'If MEMEconvert(Fastafile,Palindromic)=0 Then
+		      'Dim file2copy As folderitem
+		      'file2copy=TemporaryFolder.child("meme.txt")                     'meme.txt
+		      'If file2copy<>Nil And file2copy.exists Then
+		      'CopyFileToVV(file2copy,SigFileVV)
+		      '
+		      'If file2copy.LastErrorCode <> 0 Then
+		      'MsgBox "MEME result file copy error"
+		      'End If
+		      'Else
+		      ''this file is optional
+		      'End If
+		      'End
 		      
 		      Dim stock As FolderItem = TemporaryFolder.child("stock")
 		      Stockholm(FastaFile,stock, cutoffs)
