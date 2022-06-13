@@ -8,7 +8,9 @@ import re
 import wget
 import pathlib
 
+
 ### The only input part
+### Defining what sigma factor will be researched
 sigma = 'RpoE'
 
 
