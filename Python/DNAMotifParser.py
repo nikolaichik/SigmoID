@@ -320,7 +320,13 @@ def find_regions():
         return (id, seq)
 
     ### Open input files with different sequences
-    with open('dna_seq.fa', 'r') as dna, open('proteins_3.fa', 'r') as prot:
+    with open('dna_seq.fa', 'r') as dna, open('proteins_3.fa', 'r') as prot, open('dictionary.txt', 'r') as dic:
+        dic_lines = dic.read().splitlines()
+        dictionary = {}
+        for line in dic_lines:
+            key, val = line.split('\t')
+            dictionary[key] = val
+            
         dna_list = dna.read().split('>')
         prot_list = prot.read().split('>')
         genomes_list = list(map(get_idseq, dna_list[1:]))
