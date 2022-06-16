@@ -405,17 +405,17 @@ def protdnakorr_adaptation():
                 if prot[0][:-8] in genome[0]:
                     f4.write(f'{prot[1]}\t{genome[1][5:15]}\n')
 
-#
+
 # ncbi_labels, processed = make_labels_for_ncbi_from_hmmer()
-#
+
 # processed_2 = download_ncbi_proteins(ncbi_labels)
-#
+
 # places = find_places()
-#
+
 # dictionary = parce_dna(places, processed_2)
-#
+
 # install_files(sigma)
-#
+
 # find_regions()
 
-protdnakorr_adaptation()
+# protdnakorr_adaptation()
