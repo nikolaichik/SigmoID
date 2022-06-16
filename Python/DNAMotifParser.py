@@ -174,12 +174,13 @@ def parce_dna(places, protein_labels):
     ### Write sequences in file
     with open('dna_seq.fa', 'w') as dna_file:
         dna_file.write('\n'.join(genomes_list))
-
+    ### Write dictionary file
     with open('dictionary.txt', 'w') as dic:
     for key in dictionary:
         dic.write(f'{key}\t{dictionary[key]}\n')
 
 
+        
 def install_files(sigma):
     ### Download the necessary files form github repository
     directory_path = pathlib.Path(__file__).parent.resolve()
