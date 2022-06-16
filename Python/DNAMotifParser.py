@@ -175,7 +175,9 @@ def parce_dna(places, protein_labels):
     with open('dna_seq.fa', 'w') as dna_file:
         dna_file.write('\n'.join(genomes_list))
 
-    return dictionary
+    with open('dictionary.txt', 'w') as dic:
+    for key in dictionary:
+        dic.write(f'{key}\t{dictionary[key]}\n')
 
 
 def install_files(sigma):
