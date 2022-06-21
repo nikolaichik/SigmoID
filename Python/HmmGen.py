@@ -1,10 +1,13 @@
 import sys
 import argparse
 import copy
-from time import process_time
+import subprocess
 import Bio
+import re
 from Bio.SeqFeature import FeatureLocation
 from Bio.SeqFeature import SeqFeature
+
+from time import process_time
 
 
 class MySeqFeature(SeqFeature):
@@ -30,6 +33,12 @@ class MySeqFeature(SeqFeature):
                 for sub_feature in self._sub_features:
                     out += "{}\n".sub_feature
         return out
+
+
+class AlignmentFeature:
+    def __init__(self, length_correction, warning=False):
+        self.correction = length_correction
+        self.warning = warning
 
 
 def wrong_promoter_strand(up_feature, hit_feature, down_feature):
@@ -128,6 +137,70 @@ def qualifiers_function(qualifiers, var):
                 value_list.append(qual_var[index][1])
                 var[qual_var[number][0]] = value_list
     return var
+
+
+def correction_from_alignments_nhmmer(nhmmer_output_path):
+    alignments_correction_features = {}
+
+    def process_entry(alignment_entry):
+        '''
+        we have written all entry's lines to list, have to process "alifrom" "ali to" (3rd line) as alignment id
+        and check presence of chars '-' and '.' in  alignment sequences (lines 7 and 9, zero based count)
+        nhmmer alignment entry example:
+        >> CP024842  Pectobacterium carotovorum strain 3-2 chromosome, complete genome.
+        score  bias    Evalue   hmmfrom    hmm to     alifrom    ali to      envfrom    env to       sq len      acc
+       ------ ----- ---------   -------   -------    --------- ---------    --------- ---------    ---------    ----
+         ?    7.6   0.0        16         2        30 ..    979114    979140 ..    979113    979140 ..   4977763    0.85
+
+      Alignment:
+      score: 7.6 bits
+      1OA04_13340_Verified+originalNR+    2 gcggTGtCaCTTTTccttccTcgTTGCAC 30
+                                            gcg+TG C CTTTTc+ttc   +TTGCAC
+                            CP024842 979114 GCGCTGGCGCTTTTCTTTC--TATTGCAC 979140
+                                            6899999*********998..48888876 PP
+        '''
+        values_list = re.split(r"\W+", alignment_entry[3])
+        alifrom, ali_to = values_list[-8], values_list[-7]
+        alignment_to_model = re.split(r"\W+", alignment_entry[7])[-2]
+        alignment_to_target = re.split(r"\W+", alignment_entry[9])[-2]
+        insertions_model_count = alignment_to_model.count('.')
+        deletions_model_count = alignment_to_model.count('-')
+        insertions_target_count = alignment_to_target.count('.')
+        deletions_target_count = alignment_to_target.count('-')
+        alignment_features = AlignmentFeature(0)
+        # check if insertions/deletions count is greater than 1, in that case issue warning and
+        # no further correction is needed
+        if any(map(lambda value: value > 1, (insertions_model_count, deletions_model_count,
+                                             insertions_target_count, deletions_target_count))):
+            alignment_features.warning = True
+        if not alignment_features.warning:
+            if insertions_model_count == 1 and not (all(deletions_model_count,
+                                                        insertions_target_count,
+                                                        deletions_target_count)):
+                alignment_features.correction = 1
+            elif deletions_model_count == 1 and not (all(insertions_model_count,
+                                                         insertions_target_count,
+                                                         deletions_target_count)):
+                alignment_features.correction = -1
+        alignments_correction_features[f"{alifrom}-{ali_to}"] = alignment_features
+
+
+    try:
+        with open(nhmmer_output_path, 'r', encoding='UTF=8') as nhmmer_output_content:
+            alignment_entry = []
+            for line in nhmmer_output_content:
+                if line.startswith('>>'):
+                    if alignment_entry:
+                        process_entry(alignment_entry)
+                        alignment_entry = []
+                    alignment_entry.append(line)
+                if alignment_entry and alignment_entry[0] != line:
+                    alignment_entry.append(line)
+            process_entry(alignment_entry)
+        return alignments_correction_features
+    except IOError:
+        print('nhmmer output parsing for alignment features failed')
+        return none
 
 
 def nhmm_parser(path_to_file, x):
@@ -261,8 +334,8 @@ def dna_topology(path, topo_list):
 
 
 def intergenic_distance_correct(featurelist, i):
-    if len(featurelist)>1:
-        if i>0:
+    if len(featurelist) > 1:
+        if i > 0:
             if featurelist[i].location.start-featurelist[i-1].location.end >= enter.intergenic_distance:
                 return True
             else:
@@ -281,7 +354,7 @@ def createparser():
              description='''This script allows to add features to a genbank \
                             file according to nhmmer results.\
                             Requires Biopython 1.73 (or newer)''',
-             epilog='(c) Aliaksandr Damienikan, 2014-2017; the original code was ported to Python3.x by /'
+             epilog='(c) Aliaksandr Damienikan, 2014-2017; the original code was ported to Python3 by'
                     'Andrei Pleskunou and Pavel Vychyk.')
     parser.add_argument('report_file',
                         help='path to nhmmer report file produced with \
@@ -353,6 +426,18 @@ def createparser():
                         default=100,
                         help='''defines average intergenic distance in annotated genome \'
                              to exclude senseless sites ''')
+    parser.add_argument('--nhmmer_output_path',
+                        type=str,
+                        required=False,
+                        help='''path to file containing nhmmer alignments quality output''')
+    parser.add_argument('--hmm_model_path',
+                        type=str,
+                        required='--nhmmer_output_path' in sys.argv,
+                        help='''path to hmm model''')
+    parser.add_argument('--model_fasta_path',
+                        type=str,
+                        required='--nhmmer_output_path' in sys.argv,
+                        help='''path to fasta file containing sequences representig motif''')
     return parser
 
 version='HmmGen 2.25 (September 27, 2021)'
@@ -361,7 +446,7 @@ args = createparser()
 enter = args.parse_args()
 arguments = sys.argv[1:0]
 max_eval = enter.eval
-if enter.length is not False:
+if enter.length and not enter.nhmmer_output_path:
     enter.length = enter.length.split(':')
     if len(enter.length) == 1:
         enter.min_length = False
@@ -369,6 +454,26 @@ if enter.length is not False:
     else:
         enter.min_length = int(enter.length[0])
         enter.max_length = int(enter.length[1])
+elif enter.nhmmer_output_path:
+    p = subprocess.run(f"hmmemit -c '{enter.hmm_model_path}'",
+                       shell=True,
+                       capture_output=True,
+                       text=True)
+    enter.max_length = len(p.stdout.split('\n')[-2])
+    min_length = 0
+    with open(enter.model_fasta_path, 'r', encoding='UTF-8') as fasta_file:
+        for line in fasta_file:
+            if not line.startswith(">"):
+                line = line.rstrip('\n')
+                if '-' in line:
+                    line = line.replace('-','')
+                line_length = len(line)
+                if not min_length:
+                    min_length = line_length
+                elif min_length > line_length:
+                    min_length = line_length
+    enter.min_length = min_length
+
 try:
     from Bio import SeqIO
 except ImportError:
@@ -411,8 +516,8 @@ allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
 total = 0
 print('\nOnly first contig will be processed.\n')
 for record in records:
-    print ('\n' + "-"*50 + "\nCONTIG: " + record.id)
-    print ('\n   FEATURES ADDED: \n')
+    print('\n' + "-"*50 + "\nCONTIG: " + record.id)
+    print('\n   FEATURES ADDED: \n')
     allowed_features_list = []
     replaced_location_features = []
     # first sort features by location start value
@@ -420,12 +525,16 @@ for record in records:
     for index, feature in enumerate(record.features):
         # check feature coordinates, replace coordinates for features with incorrect parts joining
         try:
-            if feature.location.start == 0 and feature.location.end == len(record.seq) and feature.type != 'source':
+            if (feature.location.start == 0
+                    and feature.location.end == len(record.seq)
+                    and feature.type != 'source'):
                 replaced_location_features.append(feature)
                 edited_feature = SeqFeature()
-                for property,value in feature.__dict__.items():
+                for property, value in feature.__dict__.items():
                     if property == 'location':
-                        edited_feature.location  = FeatureLocation(value.parts[0].start, value.parts[0].end, strand = value.strand)
+                        edited_feature.location = FeatureLocation(value.parts[0].start,
+                                                                  value.parts[0].end,
+                                                                  strand = value.strand)
                     else:
                         edited_feature.__dict__[property] = copy.deepcopy(value)
                 record.features[index] = edited_feature
@@ -433,7 +542,7 @@ for record in records:
             pass
         except KeyError:
             pass
-    if len(replaced_location_features)>0:
+    if len(replaced_location_features) > 0:
         record.features.sort(key=lambda SeqFeature: SeqFeature.location.start)
     for feature in record.features:
         if feature.type in allowed_types:
@@ -446,7 +555,7 @@ for record in records:
         cds_loc_end = allowed_features_list[-1]
     except:
         cds_loc_end = record.features[-1]
-
+    alignment_features_dict = correction_from_alignments_nhmmer(enter.nhmmer_output_path)
     for allign in allign_list:
         from Bio import SeqFeature
         if allign[2] == +1:
@@ -455,7 +564,7 @@ for record in records:
             strnd = int(allign[2])
             e_value = float(allign[3])
             score = allign[4]
-            feature_length = end - (start-1)
+            feature_length = end - (start - 1)
             locus = allign[5]
             version = allign[6]
             hmm_from = allign[7]
@@ -464,23 +573,25 @@ for record in records:
             ali_from = allign[9]
             ali_to = allign[10]
             ali_diff = ali_to - ali_from
+            alignment_features = alignment_features_dict.get(f"{ali_from}-{ali_to}")
+            # the problem lies here
             if enter.length and not enter.min_length:
                 if hmm_to < enter.max_length:
-                    end = (enter.max_length-hmm_to)+ali_to
+                    end = (enter.max_length + alignment_features.correction - hmm_to) + ali_to
                 else:
                     end = ali_to
                 if hmm_from > 1:
-                    start = ali_from-(hmm_from-1)
+                    start = ali_from - (hmm_from - 1)
                 else:
                     start = ali_from
             elif enter.length and enter.min_length:
-                if enter.min_length < hmm_to < enter.max_length or \
-                    hmm_to <= enter.min_length < enter.max_length:
-                    end = (enter.max_length-hmm_to)+ali_to
+                if (enter.min_length < hmm_to < enter.max_length or
+                        hmm_to <= enter.min_length < enter.max_length):
+                    end = (enter.max_length + alignment_features.correction - hmm_to) + ali_to
                 elif hmm_to <= enter.min_length:
-                    end = (enter.min_length-hmm_to)+ali_to
+                    end = (enter.min_length - hmm_to) + ali_to
                 if hmm_from > 1:
-                    start = ali_from-(hmm_from-1)
+                    start = ali_from - (hmm_from - 1)
                 else:
                     start = ali_from
         else:
@@ -498,25 +609,27 @@ for record in records:
             ali_from = allign[10]
             ali_to = allign[9]
             ali_diff = ali_to - ali_from
+            alignment_features = alignment_features_dict.get(f"{ali_from}-{ali_to}")
+            # the problem lies here
             if enter.length and not enter.min_length:
                 if hmm_from > 1:
-                    end = (hmm_from-1)+ali_to
+                    end = (hmm_from - 1) + ali_to
                 else:
                     end = ali_to
                 if hmm_to < enter.max_length:
-                    start = ali_from-(enter.max_length-hmm_to)
+                    start = ali_from - (enter.max_length + alignment_features.correction - hmm_to)
                 else:
                     start = ali_from
             elif enter.length and enter.min_length:
                 if hmm_from > 1:
-                    end = (hmm_from-1)+ali_to
+                    end = (hmm_from - 1) + ali_to
                 else:
                     end = ali_to
                 if enter.min_length < hmm_to < enter.max_length or \
                         hmm_to <= enter.min_length < enter.max_length:
-                    start = ali_from-(enter.max_length-hmm_to)
+                    start = ali_from - (enter.max_length + alignment_features.correction - hmm_to)
                 elif hmm_to <= enter.min_length:
-                    start = ali_from-(enter.min_length-hmm_to)
+                    start = ali_from - (enter.min_length-hmm_to)
         start_pos = SeqFeature.ExactPosition(start-1)
         end_pos = SeqFeature.ExactPosition(end)
         feature_location = FeatureLocation(start_pos, end_pos)
@@ -533,12 +646,12 @@ for record in records:
         if (hmm_diff - ali_diff == 0 or
                 hmm_diff - ali_diff == 1 or
                 hmm_diff - ali_diff == (-1)) and \
-                (score >= enter.score or enter.score is False):
+                (score >= enter.score or not enter.score):
             for i in reversed(range(len(record.features))):
                 if record.features[i].location.start < \
                         my_feature.location.start and \
-                   (enter.eval is False or e_value <= enter.eval or
-                   enter.score is not False):
+                   (not enter.eval or e_value <= enter.eval or
+                   enter.score):
                     for c in range(len(allowed_features_list)-1):
                         if allowed_features_list[c].location.start <= \
                                 my_feature.location.start <= \
@@ -552,10 +665,10 @@ for record in records:
                         my_feature.location.start:
                     record.features.insert(i, my_feature)
                     break
-                if i == len(record.features)-1 and \
+                if i == len(record.features) - 1 and \
                         record.features[i].location.start < \
                         my_feature.location.start:
-                    record.features.insert(i+1, my_feature)
+                    record.features.insert(i + 1, my_feature)
                     break
 
     if enter.insert:
@@ -564,8 +677,8 @@ for record in records:
             if 'CHECK' in record.features[i].qualifiers.keys():
                 hit_list.append(record.features[i])
         for i in reversed(range(len(hit_list))):
-            i = len(hit_list)-1-i
-            for n in range(len(allowed_features_list)-1):
+            i = len(hit_list) - 1 - i
+            for n in range(len(allowed_features_list) - 1):
                 if (
                     is_within_feature(allowed_features_list,
                                       n,
@@ -576,7 +689,7 @@ for record in records:
                     ) or \
                     wrong_promoter_strand(allowed_features_list[n],
                                          hit_list[i],
-                                         allowed_features_list[n+1]):
+                                         allowed_features_list[n + 1]):
                     hit_list.pop(i)
                     break
         for i in reversed(range(len(record.features))):

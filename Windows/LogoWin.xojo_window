@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -3739,6 +3738,7 @@ End
 		    If outfile<>Nil Then
 		      WriteToSTDOUT (EndOfLine+EndOfLine+"Running the HmmGen script..."+EndOfLine)
 		      dim GenomeFilePath,outFilePath as string
+		      
 		      #if TargetWindows
 		        'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
 		        FixPath4Windows(outfile)
@@ -5193,6 +5193,7 @@ End
 		    
 		    If shError=0 Then
 		      WriteToSTDOUT (EndOfLine+shResult)
+		      LogoWin.nhmmerOutput = shResult
 		      LogoWinToolbar.Item(2).Enabled=true
 		      LastSearch="nhmmer"
 		      
@@ -6122,6 +6123,10 @@ End
 		nhmmerOptions As string
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		nhmmerOutput As string
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected nhmmerResultFile As folderitem
 	#tag EndProperty
@@ -6202,8 +6207,8 @@ End
 		Sequences As string
 	#tag EndProperty
 
-	#tag Property, Flags = &h1
-		Protected SigFileOpened As boolean
+	#tag Property, Flags = &h0
+		SigFileOpened As boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

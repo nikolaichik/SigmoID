@@ -723,6 +723,7 @@ End
 		Sub ReadOptions()
 		  dim opt as string
 		  dim featureType as string
+		  dim outstream as TextOutputStream
 		  
 		  opt="-d " 'remove duplicates of the same site at the same position (happen when two or more profiles are used for the same TF and rarely with palindromic sites)
 		  
@@ -749,7 +750,36 @@ End
 		  if NOT NextLocusBox.value then
 		    opt=opt+" -n"
 		  end if
-		  
+		  if LogoWin.nhmmerOutput <> "" then
+		    dim nhmmerOutFile as FolderItem = TemporaryFolder.Child(LogoWin.LogoFile.Name + "_" + GenomeWin.GenomeFile.Name + "_nhmmer_output")
+		    if nhmmerOutFile.Exists then
+		      nhmmerOutFile.Remove
+		    end
+		    outstream = TextOutputStream.Create(nhmmerOutFile)
+		    outstream.write(Logowin.nhmmerOutput)
+		    outstream.close
+		    LogoWin.nhmmerOutput = ""
+		    opt = opt + " --nhmmer_output_path " + nhmmerOutFile.ShellPath
+		  end
+		  dim TmpLogoFile as FolderItem = TemporaryFolder.Child(LogoWin.LogoFile.Name)
+		  if TmpLogoFile.Exists then
+		    TmpLogoFile.Remove
+		  end
+		  Logowin.LogoFile.CopyTo(TmpLogoFile)
+		  opt = opt + " --model_fasta_path " + TmpLogoFile.ShellPath
+		  dim TmpHmm as FolderItem = TemporaryFolder.Child(LogoWin.LogoFile.Name + ".hmm")
+		  if TmpHmm.Exists then
+		    TmpHmm.Remove
+		  end
+		  if LogoWin.SigFileOpened then
+		    LogoWin.HmmFile.CopyTo(TmpHmm)
+		    opt = opt + " --hmm_model_path " + TmpHmm.ShellPath
+		  else
+		    if hmmBuild(TmpLogoFile.ShellPath, TmpHmm.ShellPath) then
+		      opt = opt + " --hmm_model_path " + TmpHmm.ShellPath
+		    end
+		    
+		  end
 		  featureType=trim(FeatureCombo.text)
 		  if featureType<>"" then
 		    if featureType="promoter" then
