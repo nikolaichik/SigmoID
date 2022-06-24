@@ -222,9 +222,11 @@ Inherits Application
 			
 			Dim OutF, SigF, f As FolderItem
 			Dim m,n,p,q as integer
-			dim basename as string
-			dim vv as VirtualVolume
+			Dim basename as string
+			Dim vv as VirtualVolume
 			Dim dlg As New SelectFolderDialog
+			Dim instream As TextInputStream
+			Dim logoPNG As Picture
 			dlg.ActionButtonCaption = "Select"
 			dlg.Title = "Select Folder for Converted Profiles"
 			dlg.PromptText = "Select a Folder to store converted .sig files"
@@ -256,6 +258,14 @@ Inherits Application
 			f=vv.root.child(basename+".fasta")
 			if f<> NIL and f.exists then
 			f.CopyFileTo SigF
+			'save motif pic as png
+			instream = TextInputStream.Open(f)
+			dim profileFasta as String = instream.ReadAll
+			logoPNG = MakeLogoPic(profileFasta)
+			If logoPNG <> Nil then
+			dim PNGpath As FolderItem = SigF.child(basename+".png")
+			logoPNG.Save(PNGpath, Picture.SaveAsPNG)
+			End
 			end if
 			f=vv.root.child(basename+".hmm")
 			if f<> NIL and f.exists then
