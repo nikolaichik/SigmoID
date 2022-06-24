@@ -2941,7 +2941,7 @@ Protected Module Globals
 		  'dim LogoPicScaled as new Picture (LogoPic.width*50/170,45,32)
 		  'LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPic.width*50/170,45,0,0,LogoPic.width,LogoPic.Height)
 		  
-		  Dim LogoPicScaled As New Picture (LogoPic.width*70/170,60,32)
+		  Dim LogoPicScaled As New Picture (LogoPic.width*70/85,150,32)
 		  LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,LogoPic.width,LogoPic.Height)
 		  
 		  LogoPicScaled.Transparent=1
