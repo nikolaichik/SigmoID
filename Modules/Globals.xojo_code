@@ -143,6 +143,8 @@ Protected Module Globals
 		      Return ""
 		    Else
 		      doi=di
+		      'Replace PMID with DOI:
+		      NewDOI=di
 		    End If
 		  End If
 		  
@@ -168,7 +170,15 @@ Protected Module Globals
 		    
 		  End If
 		  
+		  'DOI.org URL is appended by the converter to the very end of the reference, but is not reqired here – removing
+		  res=NthField(res,"https://doi.org/", 1)
+		  
 		  res=ReplaceAll(res, EndOfLine.UNIX," ") 'lineEnds might be present – remove 'em
+		  
+		  'remove extra spaces
+		  While InStr(res,"  ")>0
+		    res=ReplaceAll(res, "  "," ")
+		  Wend
 		  
 		  Return Trim(res)
 		  
@@ -4941,6 +4951,10 @@ Protected Module Globals
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		NewDOI As string
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		nhmmerPath As string
 	#tag EndProperty
 
@@ -5761,6 +5775,14 @@ Protected Module Globals
 			Group="Behavior"
 			InitialValue=""
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="NewDOI"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="string"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

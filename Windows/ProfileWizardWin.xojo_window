@@ -2628,8 +2628,11 @@ End
 		  If Column=1 Then
 		    Dim link As String = Trim(Me.CellValueAt(row,1))
 		    If left(link,4)="http" Then return      'Presumably a DB link, no need to process any further
-		    
+		    NewDOI=""
 		    Me.CellValueAt(row,0)=CitationFromDOI(Trim(Me.CellValueAt(row,1)))
+		    If NewDOI<>"" Then
+		      Me.CellValueAt(row,1)=NewDOI
+		    End If
 		  End If
 		  
 		  Exception err
