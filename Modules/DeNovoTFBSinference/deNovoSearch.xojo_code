@@ -739,7 +739,7 @@ Inherits Thread
 		              
 		              
 		              
-		              deNovoWin.rp.writeToWin(deNovoWin.CountSeqs(dataForMeme)+" fragments collected."+EndofLine.unix)
+		              deNovoWin.rp.writeToWin(deNovoWin.CountSeqs(dataForMeme)+" fragments collected.")
 		              
 		              
 		              resfile2=Fasta_files.child(me.Protnames(n)+"_CDhit_filtered.fasta")

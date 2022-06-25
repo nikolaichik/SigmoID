@@ -2861,7 +2861,7 @@ Protected Module DeNovoTFBSinference
 		  
 		  // Check if any filtering is actually required (don't do anything with less than 30 seqs)
 		  
-		  if countfields(inSeqs,">")<30 then
+		  If CountFields(inSeqs,">")<minProteins2process Then
 		    return inSeqs
 		  end if
 		  
@@ -2965,14 +2965,31 @@ Protected Module DeNovoTFBSinference
 		    end if
 		    
 		    
-		  next
+		  Next
 		  
 		  
 		  // Generate (filtered) fasta file to return
 		  dim nr_fasta As string
-		  for n=1 to ubound(SpeciesGrouped)
+		  For n=1 To ubound(SpeciesGrouped)
 		    nr_fasta=nr_fasta+">"+SpeciesGrouped(n) +EndOfLine.UNIX
 		  next 
+		  
+		  // We don't really want too few seqs, so checking for the required minimum here:
+		  If ubound(SpeciesGrouped)<10 Then
+		    m=UBound(inArray)
+		    Dim SeqName As String
+		    Dim counter as integer = ubound(SpeciesGrouped)
+		    For n=1 To m
+		      SeqName=NthField(inArray(n),"|",1)
+		      If InStr(nr_fasta,SeqName)=0 Then  'No randomisation, adding in the original order
+		        nr_fasta=nr_fasta+">"+inArray(n) +EndOfLine.UNIX
+		        counter=counter+1
+		        If counter>9 Then 'stop at 10 seqs
+		          Exit
+		        End If
+		      End If
+		    Next
+		  End If
 		  
 		  nr_fasta=replaceall(nr_fasta,EndOfLine.UNIX+EndOfLine.UNIX,EndOfLine.UNIX)
 		  
@@ -3407,6 +3424,10 @@ Protected Module DeNovoTFBSinference
 
 	#tag Property, Flags = &h0
 		MinORFSize As Integer = 150
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		minProteins2process As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
