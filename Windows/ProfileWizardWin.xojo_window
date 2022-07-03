@@ -2564,7 +2564,9 @@ End
 		      
 		      WebBrowserWin.show
 		      'WebBrowserWin.AddNewTab.LoadURL(url)
-		      
+		      If WebBrowserWin.Title="" Then
+		        WebBrowserWin.Title="View Reference"
+		      End If
 		      Dim pc As Integer
 		      Dim ca As String
 		      

@@ -866,8 +866,8 @@ Protected Module DeNovoTFBSinference
 		      Const URL As String="https://www.uniprot.org/uploadlists/?"
 		      HTTPSError=""
 		      WebContent=""
-		      dim content as String = "&from=ACC&to=EMBL&format=tab&query="
-		      dim hts as new HTTPSconnection
+		      Dim content As String = "&from=UniProtKB_AC-ID&to=EMBL-GenBank-DDBJ&format=tab&query="
+		      Dim hts As New HTTPSconnection
 		      dim tempcontent as FolderItem
 		      tempcontent=TemporaryFolder.Child("gpfile")
 		      if tempcontent.Exists then tempcontent.Remove
