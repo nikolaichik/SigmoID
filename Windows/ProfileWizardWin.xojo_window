@@ -712,7 +712,7 @@ Begin Window ProfileWizardWin
       ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Save..."
-      Default         =   True
+      Default         =   False
       Enabled         =   False
       Height          =   20
       HelpTag         =   ""
@@ -1974,18 +1974,26 @@ End
 		  splitP(0)=ReplaceAll(splitP(0),chr(9),"_")                'hmmer doesn't like tabs
 		  
 		  'find NCBI ID (should be at the line end and prefixed with "_GB=" 
-		  dim ncbiID As string
-		  ncbiID=nthfield(splitP(0),"_GB=" ,2)
-		  if instr(ncbiID,".")>0 then
-		    ncbiID=nthfield(ncbiID,"." ,1)   'drop version
-		  end if
-		  
-		  'get matching UniProt ID and append it at the end
-		  dim UniProtID as string
-		  UniProtID=GenPept2UniProt(ncbiID)
-		  splitP(0)=splitP(0)+"|UP="+UniProtID
-		  Pseq=Join(splitP,endOfLine.UNIX)
-		  SeedProteinArea.text=Pseq
+		  If InStr(splitP(0),"_GB=")>0 Then
+		    If InStr(splitP(0),"|UP=")=0 Then
+		      Dim ncbiID As String
+		      ncbiID=NthField(splitP(0),"_GB=" ,2)
+		      if instr(ncbiID,".")>0 then
+		        ncbiID=nthfield(ncbiID,"." ,1)   'drop version
+		      end if
+		      
+		      'get matching UniProt ID and append it at the end
+		      dim UniProtID as string
+		      UniProtID=GenPept2UniProt(ncbiID)
+		      splitP(0)=splitP(0)+"|UP="+UniProtID
+		      Pseq=Join(splitP,endOfLine.UNIX)
+		      SeedProteinArea.Text=Pseq
+		    Else
+		      pseq=SeedProteinArea.Text
+		    End If
+		  Else
+		    pseq=SeedProteinArea.Text
+		  End If
 		  
 		  // Get CRtag sequence
 		  ' write CDS seq to the tmp file
