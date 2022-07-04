@@ -712,7 +712,7 @@ Begin Window ProfileWizardWin
       ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Save..."
-      Default         =   False
+      Default         =   True
       Enabled         =   False
       Height          =   20
       HelpTag         =   ""
@@ -1960,11 +1960,32 @@ End
 		  
 		  LogoWin.show
 		  
+		  
+		  'add missing UniProt/ NCBI IDs
+		  
+		  
+		  dim splitP() as String
+		  splitp=SeedProteinArea.text.split(EndOfLine.UNIX)
+		  
+		  'modify title line
 		  'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
 		  dim Pseq as string
-		  Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
-		  Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
+		  splitP(0)=ReplaceAll(trim(splitP(0))," ","_")   'hmmer doesn't like spaces
+		  splitP(0)=ReplaceAll(splitP(0),chr(9),"_")                'hmmer doesn't like tabs
 		  
+		  'find NCBI ID (should be at the line end and prefixed with "_GB=" 
+		  dim ncbiID As string
+		  ncbiID=nthfield(splitP(0),"_GB=" ,2)
+		  if instr(ncbiID,".")>0 then
+		    ncbiID=nthfield(ncbiID,"." ,1)   'drop version
+		  end if
+		  
+		  'get matching UniProt ID and append it at the end
+		  dim UniProtID as string
+		  UniProtID=GenPept2UniProt(ncbiID)
+		  splitP(0)=splitP(0)+"|UP="+UniProtID
+		  Pseq=Join(splitP,endOfLine.UNIX)
+		  SeedProteinArea.text=Pseq
 		  
 		  // Get CRtag sequence
 		  ' write CDS seq to the tmp file

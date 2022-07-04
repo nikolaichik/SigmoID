@@ -1237,13 +1237,13 @@ Protected Module Globals
 		    MsgBox "Can't create tmp file"
 		  End If
 		  
-		  Dim sites2memePath As String
-		  MEMEpath=Trim(MEMEpath)
-		  If Right(MEMEpath,1)="'" Then
-		    sites2memePath=Left(MEMEpath,Len(MEMEpath)-5)+"sites2meme'"
-		  Else
-		    sites2memePath=Left(MEMEpath,Len(MEMEpath)-4)+"sites2meme" 
-		  End If
+		  Dim sites2memePath As String = "sites2meme"    'we expect libexec/meme-<version> folder to be on the PATH
+		  'MEMEpath=Trim(MEMEpath)
+		  'If Right(MEMEpath,1)="'" Then
+		  'sites2memePath=Left(MEMEpath,Len(MEMEpath)-5)+"sites2meme'"
+		  'Else
+		  'sites2memePath=Left(MEMEpath,Len(MEMEpath)-4)+"sites2meme" 
+		  'End If
 		  
 		  Dim cli As String
 		  cli=sites2memePath
@@ -1258,7 +1258,7 @@ Protected Module Globals
 		  If shError=0 Then
 		    Return shResult
 		  Else
-		    MsgBox "Error running sites2meme. Error message: "+shResult
+		    MsgBox "Error running sites2meme. Make sure it's on your PATH. Error message: "+shResult
 		    MsgBox "Command line was: <"+cli+">"
 		    Return ""
 		  End If
@@ -5783,7 +5783,7 @@ Protected Module Globals
 			Group="Behavior"
 			InitialValue=""
 			Type="string"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Module

@@ -345,6 +345,69 @@ Protected Module DeNovoTFBSinference
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GenPept2UniProt(ncbiID as string) As string
+		  // Converts NCBI GenPept IDs to UniProf ones 
+		  '  intended for use with ProfileWizardWin
+		   
+		  'Sample request:
+		  'http://www.ebi.ac.uk/ebisearch/ws/rest/coding_std/entry/AAO53896/xref/uniprot 'version numbers must be dropped from NCBI ID (e.g. AAO53896.1 --> AAO53896)
+		  
+		  'run the above URL without "/uniprot" to see possible conversion variants
+		  
+		  Const URLstart as string="http://www.ebi.ac.uk/ebisearch/ws/rest/coding_std/entry/"
+		  Const URLend as string="/xref/uniprot "
+		  Dim Separ1 as string="reference acc="+chr(34)  
+		  Dim Separ2 as string=chr(34)
+		  dim UniProtID, theURL as string
+		  
+		  
+		  dim hts as new HTTPSocket
+		  dim res as string
+		  dim outfile as folderitem
+		  
+		  
+		  'LogoWin.WriteToSTDOUT ("Contacting EBI for protein ID usable @NCBI... ")
+		  'LogoWin.show
+		  
+		  hts.Yield=true  'allow background activities while waiting
+		  hts.SetRequestHeader("Content-Type:","text/plain")
+		  
+		  theURL=URLstart+ncbiID+URLend
+		  
+		  res=hts.Get(theURL,60)  'adjust timeout?
+		  
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if Res="" then
+		      if hts.ErrorCode=-1 then
+		        logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		      else
+		        LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		      end if
+		    else
+		      UniProtID=NthField(res,separ1,2)
+		      UniProtID=NthField(UniProtID,separ2,1)
+		      'LogoWin.WriteToSTDOUT (UniProtID)
+		      'LogoWin.WriteToSTDOUT (EndOfLine)
+		      
+		      
+		    end if
+		  else
+		    
+		    dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
+		    LogoWin.WriteToSTDOUT (httpErr)
+		    
+		  end if
+		  
+		  hts.close
+		  return UniProtID
+		  
+		  Exception err
+		    ExceptionHandler(err,"SeqRetrieval:GenPept2UniProt")
+		    
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetCRtags(SearchResRaw as string, SearchResTable as string, CRs as string) As string
 		  // Add Critical Residues (CRs) according to Sahota and Stormo (2010; doi:10.1093/bioinformatics/btq501) 
 		  ' to hmmsearch output 
@@ -3057,7 +3120,6 @@ Protected Module DeNovoTFBSinference
 		  dim outfile as folderitem
 		  
 		  
-		  LogoWin.WriteToSTDOUT ("Contacting EBI for protein ID usable @NCBI... ")
 		  'LogoWin.show
 		  
 		  hts.Yield=true  'allow background activities while waiting
@@ -3658,6 +3720,14 @@ Protected Module DeNovoTFBSinference
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="minProteins2process"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
