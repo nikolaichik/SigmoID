@@ -842,6 +842,9 @@ Protected Module DeNovoTFBSinference
 		  dim UniProtID, MultiFasta, SingleFasta, cli, genpeptIDs, shellRes(-1)  as string
 		  dim EntryFragmentsF, uniprot2genpept as FolderItem
 		  dim gbkcount as integer = Proteins2process 'Val(deNovoWin.Proteins2processField.text)
+		  Dim uniqueCodes As New Dictionary
+		  Dim newCodes() As String
+		  Dim conversionJson As Dictionary
 		  
 		  dim rg as New RegEx
 		  Dim rgmatch As RegExMatch
@@ -863,16 +866,16 @@ Protected Module DeNovoTFBSinference
 		      'command must be in single quotes
 		      
 		      'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      Const URL As String="https://www.uniprot.org/uploadlists/?"
+		      Dim URL As String = "https://rest.uniprot.org/idmapping/run"
 		      HTTPSError=""
 		      WebContent=""
-		      Dim content As String = "&from=UniProtKB_AC-ID&to=EMBL-GenBank-DDBJ&format=tab&query="
+		      Dim postParams As String = "ids=" + ecodes + "&from=UniProtKB_AC-ID&to=EMBL-GenBank-DDBJ_CDS"
 		      Dim hts As New HTTPSconnection
-		      dim tempcontent as FolderItem
-		      tempcontent=TemporaryFolder.Child("gpfile")
-		      if tempcontent.Exists then tempcontent.Remove
-		      hts.SetRequestContent(content+ecodes, "application/x-www-form-urlencoded")
-		      hts.Send("POST", URL, tempcontent)
+		      'dim tempcontent as FolderItem
+		      'tempcontent=TemporaryFolder.Child("gpfile")
+		      'if tempcontent.Exists then tempcontent.Remove
+		      hts.SetRequestContent(postParams, "application/x-www-form-urlencoded")
+		      hts.Send("POST", URL)
 		      while HTTPSerror="" and WebContent="" 
 		        app.YieldToNextThread
 		      wend
@@ -887,84 +890,101 @@ Protected Module DeNovoTFBSinference
 		        WebContent=""
 		        Return ""
 		      else
-		        shellres=WebContent.split(Endofline.unix)
+		        dim status_response as New JSONItem
+		        status_response.Load(WebContent)
 		        HTTPSError=""
 		        WebContent=""
-		        if UBound(shellRes)>1 then
-		          if instr(shellRes(0),"from")<>0 then  shellRes.RemoveRowAt(0)
+		        URL = "https://rest.uniprot.org/idmapping/results/" + status_response.Value("jobId")
+		        hts.Send("GET", URL)
+		        while HTTPSerror="" and WebContent="" 
+		          app.YieldToNextThread
+		        wend
+		        if hts.HTTPStatusCode <> 200 then
+		          if HTTPSError = "" then
+		            HTTPSError = str(hts.HTTPStatusCode)
+		          end
+		        else
+		          conversionJson = ParseJSON(WebContent)
+		          Dim conversionResults() As Variant = conversionJson.Value("results")
+		          for each conversionEntry as Dictionary in conversionResults
+		            dim oldID as String = conversionEntry.Value("from")
+		            if not uniqueCodes.HasKey(oldID) then
+		              uniqueCodes.Value(oldID) = True
+		              rgmatch=rg.Search(conversionEntry.value("to"))
+		              If rgmatch<> Nil Then
+		                newCodes.append(rgmatch.SubExpressionString(0))
+		              End
+		            end
+		          next
 		        end
 		      end
-		      
-		      
 		      'If sh.ErrorCode<>0 Then
 		      'doesn't work logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
 		      'Else
 		      'shellRes=sh.Result.Split(EndOfLine.UNIX)
 		      'shellRes=sh.Result.Split("\n")
 		      
-		      deNovoWin.rp.writeToWin("converted to "+Str(Ubound(shellRes)-1)+" NCBI accessions. ")
+		      deNovoWin.rp.writeToWin("converted to "+Str(Ubound(newCodes) + 1) + " unique NCBI accessions. ")
 		      
 		      'check for duplicate (multiple) GenBank accessions per given UniProt ID and leave just the first one
 		      
 		      'Why this If block? All redundancies must always be removed 
 		      'If ubound(shellRes)>shellResMax Then     ' <-- 50(default) is rather arbitrary, can be user configurable
-		      Dim y As Integer
-		      Dim lastCode As String = NthField(shellRes(ubound(shellRes)),Chr(9),1)
-		      For y=ubound(shellRes)-1 DownTo 1
-		        App.YieldToNextThread()
-		        If NthField(shellRes(y),Chr(9),1)=LastCode Then
-		          'If NthField(shellRes(y),"\t",1)=LastCode Then
-		          shellRes.RemoveRowAt(y+1)
-		        Else
-		          lastCode=NthField(shellRes(y),Chr(9),1)
-		        End If
-		      Next
+		      'Dim y As Integer
+		      'Dim lastCode As String = NthField(shellRes(ubound(newCodes)),Chr(9),1)
+		      'For y=ubound(shellRes)-1 DownTo 1
+		      'App.YieldToNextThread()
+		      'If NthField(shellRes(y),Chr(9),1)=LastCode Then
+		      ''If NthField(shellRes(y),"\t",1)=LastCode Then
+		      'shellRes.RemoveRowAt(y+1)
+		      'Else
+		      'lastCode=NthField(shellRes(y),Chr(9),1)
 		      'End If
-		      
-		      For id=0 To UBound(shellRes)
-		        App.YieldToNextThread()
-		        rgmatch=rg.Search(shellRes(id))
-		        If rgmatch<> Nil Then
-		          If genpeptIDs="" Then 
-		            genpeptIDs=rgmatch.SubExpressionString(0)
-		          Else
-		            genpeptIDs=genpeptIDs+","+rgmatch.SubExpressionString(0)
-		          End
-		        End
-		      Next
-		      ecodes=genpeptIDs  'a Uniprot accession can be converted to several NCBI ones due to identical proteins. Most often we need just one of those 
-		      deNovoWin.rp.writeToWin(Str(CountFields(ecodes,","))+" left after removing redundancies."+EndOfLine.unix)
-		      
+		      'Next
 		      'End If
+		      '
+		      'For id=0 To UBound(newCodes)
+		      'App.YieldToNextThread()
+		      'rgmatch=rg.Search(shellRes(id))
+		      'If rgmatch<> Nil Then
+		      'If genpeptIDs="" Then 
+		      'genpeptIDs=rgmatch.SubExpressionString(0)
+		      'Else
+		      'genpeptIDs=genpeptIDs+","+rgmatch.SubExpressionString(0)
+		      'End
+		      'End
+		      'Next
+		      'End If
+		      ecodes = join(newCodes, ",")
 		    End
 		  Else
 		    'MsgBox("Path to SigmoID folder is Nil")
 		    Return ""
 		  end
-		  if instr(ecodes,",")>0 then
+		  if instr(ecodes,",") > 0 then
 		    ResArray=split(eCodes,",") 'if only one tag, then exception, fix
 		    ResArray.Shuffle 'random distribution of the codes to prevent not using codes in the string's "tail"  
-		    if ubound(ResArray) +1>gbkcount then
-		      ecodes=""
-		      for i=0 to gbkcount-1
+		    if ubound(ResArray) +1 > gbkcount then
+		      ecodes= ""
+		      for i=0 to gbkcount - 1
 		        App.YieldToNextThread()
-		        if i<>gbkcount-1 then 
-		          ecodes=ecodes+ResArray(i)+","
+		        if i <> gbkcount - 1 then 
+		          ecodes=ecodes + ResArray(i)+","
 		        else
-		          ecodes=ecodes+ResArray(i)
+		          ecodes=ecodes + ResArray(i)
 		        end
 		      next
 		      ResArray=ecodes.Split(",")
-		      m=ubound(ResArray)+1
+		      m=ubound(ResArray) + 1
 		    else
 		      ecodes=join(ResArray,",")
-		      m=ubound(ResArray)+1
+		      m=ubound(ResArray) + 1
 		    end
 		  else
 		    ecodes=ecodes.NthField("\t", ecodes.CountFields("\t"))
 		    if ecodes<>"" then
 		      ResArray.Append(ecodes)
-		      m = UBound(ResArray)+1
+		      m = UBound(ResArray) + 1
 		      'singleCodeTags=singleCodeTags+1
 		    else
 		      return ""
@@ -976,7 +996,7 @@ Protected Module DeNovoTFBSinference
 		  if m>requestCount then
 		    deNovoWin.rp.writeToWin("Extracting genome fragments around TF genes..."+EndOfLine.unix)
 		    EntryFragmentsF=GBfragmentFolder'.child(UniProtID)
-		    k=m\requestCount 
+		    k=m \ requestCount 
 		    z=m mod requestCount
 		    for i=1 to k
 		      if requestCount<UBound(ResArray) then
@@ -3658,6 +3678,14 @@ Protected Module DeNovoTFBSinference
 			Group="Behavior"
 			InitialValue="False"
 			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="minProteins2process"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
