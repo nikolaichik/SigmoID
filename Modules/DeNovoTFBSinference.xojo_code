@@ -348,7 +348,7 @@ Protected Module DeNovoTFBSinference
 		Function GenPept2UniProt(ncbiID as string) As string
 		  // Converts NCBI GenPept IDs to UniProf ones 
 		  '  intended for use with ProfileWizardWin
-		   
+		  
 		  'Sample request:
 		  'http://www.ebi.ac.uk/ebisearch/ws/rest/coding_std/entry/AAO53896/xref/uniprot 'version numbers must be dropped from NCBI ID (e.g. AAO53896.1 --> AAO53896)
 		  
@@ -916,109 +916,18 @@ Protected Module DeNovoTFBSinference
 		  uniprot2genpept=Resources_f.Child("uniprot2genpept.py")
 		  If uniprot2genpept<>Nil Then
 		    If Not uniprot2genpept.Exists Then
-		      'doesn't work MsgBox("Check "+uniprot2genpept.ShellPath+" for uniprot2genpept.py")
 		      Return ""
 		    Else
-		      'cli= "python "+uniprot2genpept.ShellPath+" '"+ecodes+"' | grep -o -Pe '\S*(?=\.)' - | paste -s -d, -" 'convert UniprotKB IDs to Genpept IDs and replace end of line with comma 
-		      'change from python to to xojo urlconnection
-		      'cli= pythonpath+uniprot2genpept.ShellPath+" '"+ecodes+"'"
-		      '
-		      
-		      ''assume bash is the normal user shell
-		      'execute bash with login scripts to set the same env as in terminal
-		      'command must be in single quotes
-		      
-		      'sh.execute ("bash --login -c "+chr(34)+cli+chr(34))
-		      Dim URL As String = "https://rest.uniprot.org/idmapping/run"
-		      HTTPSError=""
-		      WebContent=""
-		      Dim postParams As String = "ids=" + ecodes + "&from=UniProtKB_AC-ID&to=EMBL-GenBank-DDBJ_CDS"
-		      Dim hts As New HTTPSconnection
-		      'dim tempcontent as FolderItem
-		      'tempcontent=TemporaryFolder.Child("gpfile")
-		      'if tempcontent.Exists then tempcontent.Remove
-		      hts.SetRequestContent(postParams, "application/x-www-form-urlencoded")
-		      hts.Send("POST", URL)
-		      while HTTPSerror="" and WebContent="" 
-		        app.YieldToNextThread
-		      wend
-		      if hts.HTTPStatusCode <> 200 then
-		        if HTTPSError = "" then
-		          HTTPSError = str(hts.HTTPStatusCode)
-		        end
-		      end
-		      if HTTPSError<>"" then
-		        deNovoWin.rp.writeToWin("A tryout to convert accession codes with uniprot.org/uploadlists/ resulted in HTTPS error, code: "+HTTPSError+EndOfLine.UNIX)
-		        HTTPSError=""
-		        WebContent=""
-		        Return ""
+		      Dim hts As New DeNovoTFBSinference.HTTPSconnection
+		      Dim convertedCodes As Dictionary
+		      convertedCodes = hts.uniprotIDmapping(ecodes, "UniProtKB_AC-ID", "EMBL-GenBank-DDBJ_CDS")
+		      if convertedCodes.value("status") = True then
+		        deNovoWin.rp.writeToWin( convertedCodes.value("logs") + EndOfLine.unix)
+		        ecodes = convertedCodes.value("convertedCodes")
 		      else
-		        dim status_response as New JSONItem
-		        status_response.Load(WebContent)
-		        HTTPSError=""
-		        WebContent=""
-		        URL = "https://rest.uniprot.org/idmapping/results/" + status_response.Value("jobId")
-		        hts.Send("GET", URL)
-		        while HTTPSerror="" and WebContent="" 
-		          app.YieldToNextThread
-		        wend
-		        if hts.HTTPStatusCode <> 200 then
-		          if HTTPSError = "" then
-		            HTTPSError = str(hts.HTTPStatusCode)
-		          end
-		        else
-		          conversionJson = ParseJSON(WebContent)
-		          Dim conversionResults() As Variant = conversionJson.Value("results")
-		          for each conversionEntry as Dictionary in conversionResults
-		            dim oldID as String = conversionEntry.Value("from")
-		            if not uniqueCodes.HasKey(oldID) then
-		              uniqueCodes.Value(oldID) = True
-		              rgmatch=rg.Search(conversionEntry.value("to"))
-		              If rgmatch<> Nil Then
-		                newCodes.append(rgmatch.SubExpressionString(0))
-		              End
-		            end
-		          next
-		        end
+		        deNovoWin.rp.writeToWin( convertedCodes.value("logs") + EndOfLine.unix)
+		        return ""
 		      end
-		      'If sh.ErrorCode<>0 Then
-		      'doesn't work logoWin.WriteToSTDOUT (EndOfLine.unix+"Error converting UniprotKB IDs: "+sh.Result+EndOfLine.unix)
-		      'Else
-		      'shellRes=sh.Result.Split(EndOfLine.UNIX)
-		      'shellRes=sh.Result.Split("\n")
-		      
-		      deNovoWin.rp.writeToWin("converted to "+Str(Ubound(newCodes) + 1) + " unique NCBI accessions. ")
-		      
-		      'check for duplicate (multiple) GenBank accessions per given UniProt ID and leave just the first one
-		      
-		      'Why this If block? All redundancies must always be removed 
-		      'If ubound(shellRes)>shellResMax Then     ' <-- 50(default) is rather arbitrary, can be user configurable
-		      'Dim y As Integer
-		      'Dim lastCode As String = NthField(shellRes(ubound(newCodes)),Chr(9),1)
-		      'For y=ubound(shellRes)-1 DownTo 1
-		      'App.YieldToNextThread()
-		      'If NthField(shellRes(y),Chr(9),1)=LastCode Then
-		      ''If NthField(shellRes(y),"\t",1)=LastCode Then
-		      'shellRes.RemoveRowAt(y+1)
-		      'Else
-		      'lastCode=NthField(shellRes(y),Chr(9),1)
-		      'End If
-		      'Next
-		      'End If
-		      '
-		      'For id=0 To UBound(newCodes)
-		      'App.YieldToNextThread()
-		      'rgmatch=rg.Search(shellRes(id))
-		      'If rgmatch<> Nil Then
-		      'If genpeptIDs="" Then 
-		      'genpeptIDs=rgmatch.SubExpressionString(0)
-		      'Else
-		      'genpeptIDs=genpeptIDs+","+rgmatch.SubExpressionString(0)
-		      'End
-		      'End
-		      'Next
-		      'End If
-		      ecodes = join(newCodes, ",")
 		    End
 		  Else
 		    'MsgBox("Path to SigmoID folder is Nil")
