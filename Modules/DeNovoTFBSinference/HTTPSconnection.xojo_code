@@ -39,8 +39,6 @@ Inherits URLConnection
 		  Dim ConvertionResults As New Dictionary
 		  Dim logging() As String
 		  Dim URL As String = "https://rest.uniprot.org/idmapping/run"
-		  'Dim hts as New HTTPSconnection
-		  'convertionDirection should be provided in appropriate format https://www.uniprot.org/help/id_mapping with '*' asterix as convertion direction separator
 		  Dim postParams As String = "ids=" + rawIDs + "&from=" + source_ID_type +  "&to=" + target_ID_type
 		  Dim response_status as New JSONItem
 		  
@@ -48,75 +46,86 @@ Inherits URLConnection
 		  ConvertionResults.Value("status") = False
 		  ConvertionResults.Value("logs") = ""
 		  ConvertionResults.Value("convertedCodes") = ""
-		  logging.Append("Attempt to convert" + str(CountFields(rawIDs, ",") + 1) + "accession codes from " +source_ID_type + " to " +  target_ID_type)
-		  me.SetRequestContent(postParams, "application/x-www-form-urlencoded")
-		  me.Send("POST", URL)
-		  while me.content = "" and me.errorMessage = ""
-		    app.DoEvents
-		  wend
-		  if me.HTTPStatusCode <> 200 then 
-		    logging.Append("uniprot id mapping service returned HTTPS error: " + str(me.HTTPStatusCode))
-		    ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
-		  else
-		    ' At first uniprot returns jobId, which could be used furhter to retrieve converted codes, after the job status will be "FINISHED"
-		    response_status.Load(me.content)
-		    
-		    while True
-		      me.content = ""
-		      me.errorMessage = ""
-		      me.Send("GET", "https://rest.uniprot.org/idmapping/status/" + response_status.Value("jobId"))
-		      while me.content = "" and me.errorMessage = ""
-		        app.DoEvents
-		      wend
-		      if me.HTTPStatusCode = 200 then
-		        Dim jobStatus as New JSONItem
-		        jobStatus.Load(me.content)
-		        if jobStatus.HasName("jobStatus") then
-		          if jobStatus.value("jobStatus") = "RUNNING" then
-		            ' Wait 3 sec before check status again
-		            App.CurrentThread.Sleep(3000)
-		          else
-		            me.content = ""
-		            me.errorMessage = ""
-		            exit
-		          end
-		        end
-		      end
-		    wend
-		    
-		    URL = "https://rest.uniprot.org/idmapping/results/" + response_status.Value("jobId")
-		    me.Send("GET", URL)
-		    while  me.content = "" and me.errorMessage = ""
+		  ConvertionResults.Value("initialCount") = 0
+		  ConvertionResults.Value("finalCount") = 0
+		  if rawIDs <> "" and rawIDs <> " " then
+		    ConvertionResults.Value("initialCount") = str(CountFields(rawIDs, ",") + 1)
+		    logging.Append("Attempt to convert " + ConvertionResults.Value("initialCount") + " accession code(s) from " +source_ID_type + " to " +  target_ID_type)
+		    me.SetRequestContent(postParams, "application/x-www-form-urlencoded")
+		    me.Send("POST", URL)
+		    while me.content = "" and me.errorMessage = ""
 		      app.DoEvents
 		    wend
-		    if me.HTTPStatusCode <> 200 then
-		      logging.Append("uniprot id mapping service returned HTTPS error trying to retrive jobID " + response_status.Value("jobId") + " , code:" + str(me.HTTPStatusCode))
-		      logging.Append(errorMessage)
+		    if me.HTTPStatusCode <> 200 then 
+		      logging.Append("uniprot id mapping service returned HTTPS error: " + str(me.HTTPStatusCode))
 		      ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
 		    else
-		      conversionJson = ParseJSON(me.content)
-		      Dim conversionResults() As Variant = conversionJson.Value("results")
-		      'filter duplicative matches
-		      for each conversionEntry as Dictionary in conversionResults
-		        Dim oldID as String = conversionEntry.Value("from")
-		        if not uniqueCodes.HasKey(oldID) then
-		          uniqueCodes.Value(oldID) = True
-		          'don't include id part after dot if present
-		          rgmatch=rg.Search(conversionEntry.value("to"))
-		          If rgmatch <> Nil Then
-		            convertedCodes.append(rgmatch.SubExpressionString(0))
-		          Elseif conversionEntry.value("to") <> "" then
-		            convertedCodes.Append(conversionEntry.value("to"))
-		          End
+		      ' At first uniprot returns jobId, which could be used furhter to retrieve converted codes, after the job status will be "FINISHED"
+		      response_status.Load(me.content)
+		      
+		      while True
+		        me.content = ""
+		        me.errorMessage = ""
+		        me.Send("GET", "https://rest.uniprot.org/idmapping/status/" + response_status.Value("jobId"))
+		        while me.content = "" and me.errorMessage = ""
+		          app.DoEvents
+		        wend
+		        if me.HTTPStatusCode = 200 then
+		          Dim jobStatus as New JSONItem
+		          jobStatus.Load(me.content)
+		          if jobStatus.HasName("jobStatus") then
+		            if jobStatus.value("jobStatus") = "RUNNING" then
+		              ' Wait 3 sec before check status again
+		              App.CurrentThread.Sleep(3000)
+		            else
+		              me.content = ""
+		              me.errorMessage = ""
+		              exit
+		            end
+		          end
 		        end
-		      next
-		      if Ubound(convertedCodes) > -1 then
-		        logging.Append("converted to "+Str(Ubound(convertedCodes) + 1) + " unique NCBI accessions. ")
-		        ConvertionResults.Value("status") = True
+		      wend
+		      
+		      URL = "https://rest.uniprot.org/idmapping/results/" + response_status.Value("jobId")
+		      me.Send("GET", URL)
+		      while  me.content = "" and me.errorMessage = ""
+		        app.DoEvents
+		      wend
+		      if me.HTTPStatusCode <> 200 then
+		        logging.Append("uniprot id mapping service returned HTTPS error trying to retrive jobID " + response_status.Value("jobId") + " , code:" + str(me.HTTPStatusCode))
+		        logging.Append(errorMessage)
 		        ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
-		        ConvertionResults.Value("convertedCodes") = join(convertedCodes, ",")
+		      else
+		        conversionJson = ParseJSON(me.content)
+		        Dim conversionResults() As Variant = conversionJson.Value("results")
+		        'filter duplicative matches
+		        for each conversionEntry as Dictionary in conversionResults
+		          Dim oldID as String = conversionEntry.Value("from")
+		          if not uniqueCodes.HasKey(oldID) then
+		            uniqueCodes.Value(oldID) = True
+		            'don't include id part after dot if present
+		            rgmatch=rg.Search(conversionEntry.value("to"))
+		            If rgmatch <> Nil Then
+		              convertedCodes.append(rgmatch.SubExpressionString(0))
+		            Elseif conversionEntry.value("to") <> "" then
+		              convertedCodes.Append(conversionEntry.value("to"))
+		            End
+		          end
+		        next
+		        if Ubound(convertedCodes) > -1 then
+		          ConvertionResults.Value("finalCount") = Str(Ubound(convertedCodes) + 1)
+		          logging.Append("resulted in " + ConvertionResults.Value("finalCount") + " unique NCBI accessions. ")
+		          ConvertionResults.Value("status") = True
+		          ConvertionResults.Value("convertedCodes") = join(convertedCodes, ",")
+		        else
+		          ConvertionResults.Value("finalCount") = "0"
+		          logging.Append("resulted in " + ConvertionResults.Value("finalCount") + " unique NCBI accessions. ")
+		        end
+		        ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
 		      end
 		    end
+		  else
+		    ConvertionResults.Value("logs") = "Input IDs string is empty of Nil"
 		  end
 		  
 		  Return ConvertionResults
