@@ -1826,6 +1826,10 @@ End
 		CRtags(0) As string
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		status As boolean = false
+	#tag EndProperty
+
 
 #tag EndWindowCode
 
@@ -1950,12 +1954,15 @@ End
 		  
 		  Dim SigFile As FolderItem
 		  Dim dlg As New SaveAsDialog
-		  Dim f, CDSFile as folderitem
+		  Dim f, CDSFile As folderitem
 		  Dim hmmSearchRes, hmmFile2find, hmmPath, ProtName as string
-		  dim m,n as integer
+		  Dim m,n as integer
 		  Dim SigFileVV As VirtualVolume
-		  
-		  
+		  Dim id_mapping As New Dictionary
+		  Dim rgmatch As New RegExMatch
+		  Dim refseq_id As New RegEx
+		  refseq_id.SearchPattern = "(?<=sp\|)[a-zA-Z0-9_]+"
+		  dim hts as New DeNovoTFBSinference.HTTPSconnection
 		  If Keyboard.AsyncOptionKey Then Return 'allow adding rows to listboxes
 		  
 		  LogoWin.show
@@ -1974,25 +1981,28 @@ End
 		  splitP(0)=ReplaceAll(splitP(0),chr(9),"_")                'hmmer doesn't like tabs
 		  
 		  'find NCBI ID (should be at the line end and prefixed with "_GB=" 
-		  If InStr(splitP(0),"_GB=")>0 Then
-		    If InStr(splitP(0),"|UP=")=0 Then
-		      Dim ncbiID As String
-		      ncbiID=NthField(splitP(0),"_GB=" ,2)
-		      if instr(ncbiID,".")>0 then
-		        ncbiID=nthfield(ncbiID,"." ,1)   'drop version
-		      end if
-		      
-		      'get matching UniProt ID and append it at the end
-		      dim UniProtID as string
-		      UniProtID=GenPept2UniProt(ncbiID)
-		      splitP(0)=splitP(0)+"|UP="+UniProtID
+		  If InStr(splitP(0),"_GB=") > 0 and  InStr(splitP(0),"|UP=") >0 Then
+		    pseq=SeedProteinArea.Text
+		  ElseIf InStr(splitP(0),"_GB=") > 0 Then
+		    id_mapping = hts.uniprotIDmapping(NthField(splitP(0),"_GB=", 2), "EMBL-GenBank-DDBJ_CDS", "UniProtKB_AC-ID")
+		    if id_mapping.Value("status") then
+		      splitP(0)=splitP(0)+"|UP=" + ID_mapping.Value("convertedCodes")
 		      Pseq=Join(splitP,endOfLine.UNIX)
 		      SeedProteinArea.Text=Pseq
-		    Else
-		      pseq=SeedProteinArea.Text
-		    End If
+		    end
 		  Else
-		    pseq=SeedProteinArea.Text
+		    rgmatch=refseq_id.Search(splitP(0))
+		    If rgmatch <> Nil Then
+		      id_mapping = hts.uniprotIDmapping((rgmatch.SubExpressionString(0)), "UniProtKB_AC-ID", "EMBL-GenBank-DDBJ_CDS")
+		      if ID_mapping.Value("status") then
+		        splitP(0)=splitP(0) +"_GB=" + ID_mapping.Value("convertedCodes") + "|UP=" + rgmatch.SubExpressionString(0)
+		        Pseq=Join(splitP,endOfLine.UNIX)
+		        SeedProteinArea.Text=Pseq
+		      end
+		    else
+		      pseq=SeedProteinArea.Text
+		    End
+		    
 		  End If
 		  
 		  // Get CRtag sequence
