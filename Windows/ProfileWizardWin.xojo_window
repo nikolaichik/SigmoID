@@ -1981,8 +1981,9 @@ End
 		  splitP(0)=ReplaceAll(splitP(0),chr(9),"_")                'hmmer doesn't like tabs
 		  
 		  'find NCBI ID (should be at the line end and prefixed with "_GB=" 
+		  pseq=SeedProteinArea.Text
 		  If InStr(splitP(0),"_GB=") > 0 and  InStr(splitP(0),"|UP=") >0 Then
-		    pseq=SeedProteinArea.Text
+		    'pseq=SeedProteinArea.Text
 		  ElseIf InStr(splitP(0),"_GB=") > 0 Then
 		    id_mapping = hts.uniprotIDmapping(NthField(splitP(0),"_GB=", 2), "EMBL-GenBank-DDBJ_CDS", "UniProtKB_AC-ID")
 		    if id_mapping.Value("status") then
@@ -1999,8 +2000,7 @@ End
 		        Pseq=Join(splitP,endOfLine.UNIX)
 		        SeedProteinArea.Text=Pseq
 		      end
-		    else
-		      pseq=SeedProteinArea.Text
+		      
 		    End
 		    
 		  End If
@@ -3152,6 +3152,14 @@ End
 		Group="Position"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="status"
+		Visible=false
+		Group="Behavior"
+		InitialValue="false"
+		Type="boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
