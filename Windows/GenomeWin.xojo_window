@@ -2159,6 +2159,56 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function createCDSfasta(addGeneNames As Boolean = True) As String
+		  Dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine As String
+		  
+		  dim n,u as integer
+		  dim ft as GBFeature
+		  Dim cdsFasta As String
+		  dim TFindex as new Dictionary
+		  
+		  
+		  separTransl="/translation="+chr(34)
+		  separProtID="/protein_id="+chr(34)
+		  separGene="/gene="+chr(34)
+		  separProd="/product="+chr(34)
+		  separ2=Chr(34)
+		  
+		  u=ubound(Genome.Features)
+		  for n=1 to u
+		    ft=Genome.Features(n)
+		    if left(ft.featuretext,3)="CDS" then
+		      TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
+		      TitleLine=">"+NthField(TitleLine,separ2,1)
+		      prot=NthField(ft.FeatureText,separGene,2)                  'Gene
+		      prot=NthField(prot,separ2,1)
+		      If addGeneNames Then 
+		        If prot<>"" Then
+		          TitleLine=TitleLine+"_"+prot                             'ProteinID_Gene is more convenient for de novo TFBS pipeline
+		        End If
+		      End If
+		      
+		      'localTFIndex stores Protein_ID and index of corresponding Genome.Feature
+		      TFindex.Value(Nthfield(TitleLine,">",2))=n
+		      prot=NthField(ft.FeatureText,separProd,2)                  'Product
+		      prot=NthField(prot,separ2,1)
+		      TitleLine=TitleLine+" "+prot
+		      TitleLine=replaceall(TitleLine,EndOfLine," ")
+		      
+		      prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
+		      prot=trim(NthField(prot,separ2,1))
+		      if prot<>"" then
+		        'Write >Title and AA seq
+		        cdsFasta = cdsFasta + TitleLine + EndOfLine.UNIX + prot + EndOfLine.UNIX
+		      end if
+		    end if
+		  next
+		  localTFIndex=TFindex
+		  return cdsFasta
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function DeselectNames(p as picture) As integer
 		  dim z, topObj as integer
 		  
@@ -2405,55 +2455,20 @@ End
 
 	#tag Method, Flags = &h0
 		Sub ExportProteins(Outfile as folderitem, addGeneNames as boolean)
-		  Dim prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine As String
+		  Dim cdsFasta As String
 		  
-		  dim n,u as integer
-		  dim ft as GBFeature
-		  
-		  dim TFindex as new Dictionary
-		  
-		  
-		  separTransl="/translation="+chr(34)
-		  separProtID="/protein_id="+chr(34)
-		  separGene="/gene="+chr(34)
-		  separProd="/product="+chr(34)
-		  separ2=Chr(34)
-		  
-		  Dim s as TextOutputStream=TextOutputStream.Create(outfile)
-		  if s<> NIL then
-		    u=ubound(Genome.Features)
-		    for n=1 to u
-		      ft=Genome.Features(n)
-		      if left(ft.featuretext,3)="CDS" then
-		        TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
-		        TitleLine=">"+NthField(TitleLine,separ2,1)
-		        prot=NthField(ft.FeatureText,separGene,2)                  'Gene
-		        prot=NthField(prot,separ2,1)
-		        If addGeneNames Then 
-		          If prot<>"" Then
-		            TitleLine=TitleLine+"_"+prot                             'ProteinID_Gene is more convenient for de novo TFBS pipeline
-		          End If
-		        End If
-		        
-		        'localTFIndex stores Protein_ID and index of corresponding Genome.Feature
-		        TFindex.Value(Nthfield(TitleLine,">",2))=n
-		        prot=NthField(ft.FeatureText,separProd,2)                  'Product
-		        prot=NthField(prot,separ2,1)
-		        TitleLine=TitleLine+" "+prot
-		        TitleLine=replaceall(TitleLine,EndOfLine," ")
-		        
-		        prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
-		        prot=trim(NthField(prot,separ2,1))
-		        if prot<>"" then
-		          s.Writeline TitleLine                                      'Write >Title
-		          s.write prot+EndOfLine.unix                                'and AA seq
-		        end if
+		  if Outfile <> Nil then
+		    Try 
+		      Dim outstream As TextOutputStream = TextOutputStream.Create(outfile)
+		      if outstream <> NIL then
+		        cdsFasta = createCDSfasta
+		        outstream.Write(cdsFasta)
+		        outstream.close
 		      end if
-		    next
-		    localTFIndex=TFindex
-		    s.close
-		    
-		  end if
+		    catch IOException
+		      LogoWin.writeToSTDOUT("Can't create output file " + Outfile.ShellPath + EndOfLine.UNIX)
+		    end
+		  end
 		End Sub
 	#tag EndMethod
 

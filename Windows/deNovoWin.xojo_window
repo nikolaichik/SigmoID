@@ -301,6 +301,7 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -341,6 +342,7 @@ Begin Window deNovoWin
       Width           =   243
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Mode            =   0
@@ -414,6 +416,7 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
@@ -2472,21 +2475,21 @@ End
 		  
 		  Select case RunThreadState
 		  case "running"
-		    if rp.ThreadState<>Thread.ThreadStates.Running then
+		    if rp.ThreadState = Thread.ThreadStates.NotRunning then
 		      rp.Start
 		    end
 		  case "paused"
-		    if rp.ThreadState=Thread.ThreadStates.Running then
+		    if rp.ThreadState = Thread.ThreadStates.Running or rp.ThreadState = Thread.ThreadStates.Sleeping then
 		      rp.Pause
 		      rp.writeToWin("Thread paused...")
 		    end
 		  case "resume"
-		    if rp.ThreadState=Thread.ThreadStates.Paused then
+		    if rp.ThreadState = Thread.ThreadStates.Paused then
 		      rp.Resume
 		      rp.writeToWin("Thread resumed"+EndOfLine.UNIX)
 		    end
 		  case "stopped"
-		    if rp.ThreadState<>Thread.ThreadStates.NotRunning then
+		    if rp.ThreadState <> Thread.ThreadStates.NotRunning then
 		      rp.Stop
 		      Self.rp = Nil
 		    end

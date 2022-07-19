@@ -1774,7 +1774,7 @@ End
 		  
 		  If f<>Nil Then
 		    hmmPath = f.ShellPath
-		    CRtagPositions=GetRealCRtag(hmmPath)
+		    'CRtagPositions=GetRealCRtag(hmmPath)
 		    
 		    If SeedProteinArea.TextColor=&c99999900 Then 'placefiller
 		    Elseif SeedProteinArea.Text="" Then          'no sequence
@@ -3152,6 +3152,14 @@ End
 		Group="Position"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="status"
+		Visible=false
+		Group="Behavior"
+		InitialValue="false"
+		Type="boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
