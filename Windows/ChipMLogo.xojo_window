@@ -243,7 +243,7 @@ End
 		    me.Heading(4)="Logo"
 		  end
 		  
-		  Me.DefaultRowHeight=62  
+		  Me.DefaultRowHeight=132  
 		  me.ColumnType(2)=Listbox.TypeEditable
 		  
 		  

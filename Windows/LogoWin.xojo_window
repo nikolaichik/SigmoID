@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -4134,7 +4135,8 @@ End
 		Sub LoadAlignment(tmpfile as folderitem)
 		  Dim HmmAccession, SigmoIDaccession, SigmoIDtag As String
 		  
-		  if tmpfile<> nil then
+		  If tmpfile<> Nil Then
+		    Self.documentfile=tmpFile  'Set Proxy icon for MacOS
 		    TF_HMM=""
 		    CRtag=""
 		    SeedProteinID=""

@@ -171,14 +171,22 @@ Protected Module Globals
 		  End If
 		  
 		  'DOI.org URL is appended by the converter to the very end of the reference, but is not reqired here – removing
-		  res=NthField(res,"https://doi.org/", 1)
+		  res=NthField(res,"https://doi.org/", 1) 'sometimes it's a URL
+		  res=NthField(res," doi:", 1)            'sometimes it's just doi:
 		  
 		  res=ReplaceAll(res, EndOfLine.UNIX," ") 'lineEnds might be present – remove 'em
 		  
-		  'remove extra spaces
+		  res=ReplaceAll(res, "Portico."," ")     'Some more junk cleaning
+		  
+		  'remove extra spaces:
 		  While InStr(res,"  ")>0
 		    res=ReplaceAll(res, "  "," ")
 		  Wend
+		  
+		  'Replace some non-ASCII characters:
+		  res=ReplaceAll(res, "…","...")
+		  res=ReplaceAll(res, "–","-") 'short dash
+		  res=ReplaceAll(res, "—","-") 'long dash
 		  
 		  Return Trim(res)
 		  
