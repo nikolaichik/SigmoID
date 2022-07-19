@@ -33,7 +33,7 @@ Begin Window HmmLibResults
       AllowRowDragging=   False
       AllowRowReordering=   False
       Bold            =   False
-      ColumnCount     =   7
+      ColumnCount     =   9
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
@@ -147,8 +147,55 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Method, Flags = &h0
+		Sub fillTable()
+		  if Me.Storage <> NIL then
+		    Dim entryDictionary As Dictionary
+		    Dim keysToIndicies As New Dictionary
+		    
+		    Me.OutputBox.ColumnWidths = "5%, 5%, 5%, 5%, 20%, 10%, 10%, *"
+		    Me.OutputBox.Heading(0) = "Protein ID"
+		    Me.OutputBox.Heading(1) = "Gene"
+		    Me.OutputBox.Heading(2) = "Locus tag"
+		    Me.OutputBox.Heading(3) = "CR-tag"
+		    Me.OutputBox.Heading(4) = "Family"
+		    Me.OutputBox.Heading(5) = "Accession"
+		    Me.OutputBox.Heading(6) = "E-value"
+		    Me.OutputBox.Heading(7) = "Score"
+		    Me.OutputBox.Heading(8) = "Description"
+		    
+		    keysToIndicies.Value("protein_id") = 0
+		    keysToIndicies.Value("gene") = 1
+		    keysToIndicies.Value("locus_tag") = 2
+		    keysToIndicies.Value("cr_tag") = 3
+		    keysToIndicies.Value("target_name") = 4
+		    keysToIndicies.Value("accession") = 5
+		    keysToIndicies.Value("E-value_domain") = 6
+		    keysToIndicies.Value("score_domain") = 7
+		    keysToIndicies.Value("description") = 8
+		    
+		    for each entry As DictionaryEntry in Me.Storage
+		      if entry.key <> "status" then
+		        Me.OutputBox.AddRow
+		        entryDictionary = entry.Value
+		        for each tf As DictionaryEntry in entryDictionary
+		          if keysToIndicies.HasKey(tf.key) then
+		            Me.OutputBox.Cell(Me.OutputBox.LastIndex, keysToIndicies.Value(tf.key)) = tf.Value
+		          end
+		        next
+		      end
+		    next
+		    Me.show
+		  end
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+
 	#tag Property, Flags = &h0
-		StorageTable(-1) As String
+		storage As Dictionary
 	#tag EndProperty
 
 
@@ -157,14 +204,7 @@ End
 #tag Events OutputBox
 	#tag Event
 		Sub Open()
-		  Me.ColumnWidths="10%, 10%, 20%, 10%, 10%, *"
-		  me.Heading(0)="Protein ID"
-		  me.Heading(1)="Gene"
-		  me.Heading(2)="Family"
-		  me.Heading(3) = "Accession"
-		  me.Heading(4)="E-value"
-		  me.Heading(5)="Score"
-		  me.Heading(6)="Description"
+		  fillTable
 		End Sub
 	#tag EndEvent
 #tag EndEvents

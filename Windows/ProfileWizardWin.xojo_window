@@ -1774,7 +1774,7 @@ End
 		  
 		  If f<>Nil Then
 		    hmmPath = f.ShellPath
-		    CRtagPositions=GetRealCRtag(hmmPath)
+		    'CRtagPositions=GetRealCRtag(hmmPath)
 		    
 		    If SeedProteinArea.TextColor=&c99999900 Then 'placefiller
 		    Elseif SeedProteinArea.Text="" Then          'no sequence

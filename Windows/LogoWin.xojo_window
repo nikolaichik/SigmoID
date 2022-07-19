@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -2667,6 +2666,105 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWinToolbar:BuildTBButtonMenu")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub categorizeTFs()
+		  Dim parsedHMMtbl as Dictionary
+		  Dim cdsFasta As String
+		  Dim HMMscanResult as Dictionary
+		  Dim entryGBfeature As GBFeature
+		  Dim aaSeq As String
+		  Dim HMMmodels As New Dictionary
+		  Dim TF_HMMs As FolderItem =  Resources_f.Child("TF_HMMs")
+		  Dim instream As TextInputStream
+		  Dim outstream As TextOutputStream
+		  Dim line As String
+		  Dim accHMM As String
+		  Dim CDSfile As Folderitem = TemporaryFolder.Child("CDS_classifier.fasta")
+		  Dim hmmsearchres as string
+		  Dim description As String
+		  
+		  for each item As FolderItem in TF_HMMs.Children
+		    if item.isReadable and not item.Directory then
+		      instream = TextInputStream.Open(item)
+		      while not instream.EOF
+		        line = instream.ReadLine
+		        if left(line, 3) = "ACC" then
+		          accHMM = trim(getFlankedText(line, "  "))
+		          HMMmodels.Value(accHMM) = item.ShellPath
+		        end
+		      wend
+		    end
+		  next
+		  if GenomeWin.GenomeFile <> Nil then
+		    cdsFasta = GenomeWin.createCDSfasta
+		    If cdsFasta <> "" then
+		      HMMscanResult = HMMlibScan(cdsFasta)
+		      if HmmScanResult.Value("status") = True then
+		        parsedHMMtbl = parseHMMscan(HmmScanResult)
+		      end
+		    end
+		  end
+		  
+		  
+		  if  parsedHMMtbl <> Nil then
+		    Dim w as New HmmLibResults
+		    Dim statsTFs As New Dictionary
+		    Dim TFentry As Dictionary
+		    w.Title = "TFs encoded in the " + GenomeFile.Name
+		    for each entry As DictionaryEntry in parsedHMMtbl
+		      if entry.Key <> "status" then
+		        TFentry = entry.Value
+		        'count TFs 
+		        if statsTFs.hasKey(TFentry.Value("target_name")) then
+		          statsTFs.Value(TFentry.Value("target_name")) = statsTFs.Value(TFentry.Value("target_name")) + 1
+		        else
+		          statsTFs.Value(TFentry.Value("target_name")) = 1
+		        end
+		        ' add gene name, protein id, locus tag as in GBfeature text
+		        entryGBfeature = TFEntry.Value("gbfeature")
+		        TFentry.Value("protein_id") = getFlankedText(entryGBfeature.FeatureText, "/protein_id=" + chr(34), chr(34))
+		        TFentry.Value("gene") = getFlankedText(entryGBfeature.FeatureText, "/gene=" + chr(34), chr(34))
+		        TFentry.Value("locus_tag") = GetLocus_tag(entryGBfeature.FeatureText)
+		        description = getFlankedText(entryGBfeature.FeatureText, "/product=" + chr(34), chr(34))
+		        if description.IndexOf(EndOfLine.UNIX) > -1 then
+		          description = description.ReplaceAll(EndOfLine.UNIX, " ")
+		        end
+		        TFentry.Value("description") = description
+		        ' find CR-tag
+		        if HMMmodels.HasKey(TFentry.Value("accession")) then
+		          aaSeq = getFlankedText(entryGBfeature.FeatureText, "/translation=" + chr(34), chr(34))
+		          if aaSeq <> "" then
+		            if CDSfile.exists then
+		              CDSfile.Remove
+		            end
+		            outstream = TextOutputStream.open(CDSfile)
+		            outstream.Write(">" + entry.Key + EndOfLine.UNIX + aaSeq + EndOfLine.UNIX)
+		            outstream.close
+		          end
+		          hmmSearchRes = HMMsearchWithCRtags(CDSFile, Hmmmodels.Value(TFentry.Value("accession")))
+		          TFentry.Value("cr_tag") = getFlankedText(hmmSearchRes,">")
+		        else
+		          TFentry.Value("cr_tag") = "-"
+		        end
+		        parsedHMMtbl.Value(entry.Key) = TFentry
+		      end
+		    next
+		    w.storage = parsedHMMtbl
+		    w.fillTable
+		    dim logoWinOut as String
+		    logowinout = EndOfLine.UNIX+GenomeFile.Name + " encodes " + str(parsedHMMtbl.KeyCount - 1) + " putative TFs."
+		    logowinout = logowinout + EndOfLine.UNIX + "Total number of TF Families: " + str(statsTFs.KeyCount) + EndOfLine.UNIX
+		    logowinout = logowinout + "TF Family"+Chr(9)+Chr(9)+"Accession code"+Chr(9)+Chr(9)+"Count" + EndOfLine.UNIX
+		    w.Label1.Text = "Total count of TFs: " + str(parsedHMMtbl.KeyCount - 1)
+		    for each family As DictionaryEntry in statsTFs
+		      logowinout = logowinout + family.key + Chr(9) + Chr(9) + str(family.Value) + EndOfLine.UNIX
+		    next 
+		    WriteToSTDOUT(logowinout)
+		  end
+		  
 		End Sub
 	#tag EndMethod
 
@@ -5691,143 +5789,6 @@ End
 		    
 		    
 		    
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub scanWithHmmlib()
-		  ' Parsing of HmmScan output strongly relies on 18 space delimited columns,
-		  ' without spaces in the first 17 row values
-		  dim tempCDS As FolderItem = TemporaryFolder.Child("temp_CDS.fasta")
-		  dim alignment As FolderItem =  TemporaryFolder.Child("alignmentHmmlib")
-		  dim row As String
-		  dim TfEntryDict As New Dictionary
-		  dim HmmLibraries As New Dictionary
-		  dim DesrDict As New Dictionary
-		  HmmLibraries.Value("Full_version") = Resources_f.ShellPath + "/hmmlibL.hmm"
-		  Hmmlibraries.Value("Small_version") = Resources_f.ShellPath + "/hmmlib.hmm"
-		  dim storedRowArray(-1) As Variant
-		  dim columnArray(-1) As String
-		  dim scanOutput(-1) As String
-		  dim scanEntry(-1) As String
-		  dim columns(-1) As String
-		  dim table(-1) As Variant
-		  dim instream As TextInputStream
-		  dim HmmSearchPath As String = Replace(nhmmerPath,"nhmmer","hmmscan")
-		  dim cli As String
-		  dim  RemoveSpaces As New RegEx
-		  RemoveSpaces.SearchPattern = "[ |\t|]{1,}"
-		  RemoveSpaces.ReplacementPattern = "*_*"
-		  RemoveSpaces.Options.ReplaceAllMatches = True
-		  dim geneName As New RegEx
-		  geneName.SearchPattern = "(?<=\_)[a-z]\S+"
-		  dim rgm As RegExMatch
-		  
-		  if tempCDS.Exists then
-		    tempCDS.Remove
-		  end
-		  
-		  if GenomeWin.GenomeFile <> Nil then
-		    GenomeWin.ExportProteins(tempCDS, True)
-		    cli=HmmSearchPath+" --cut_ga --notextw"+" --tblout "+PlaceQuotesToPath(MakeWSLPath(alignment.ShellPath))+" "
-		    cli=cli+PlaceQuotesToPath(MakeWSLPath(HmmLibraries.Value(HmmLibrary)))+" "+PlaceQuotesToPath(MakeWSLPath(tempCDS.ShellPath))
-		    #If TargetWindows
-		      ExecuteWSL(cli)
-		    #Else
-		      userShell(cli)
-		    #EndIf
-		    if shError = 0 then
-		      scanOutput =  shResult.Split("Query:       ")
-		      for i as Integer = 0 to UBound(ScanOutput)
-		        if instr(scanOutput(i), "No hits detected") > 0 then
-		          Continue 
-		        else
-		          scanEntry = scanOutput(i).Split(EndOfLine.UNIX)
-		          DesrDict.value(trim(Nthfield(scanEntry(0)," [", 1))) = Nthfield(scanEntry(1), ": ", 2)
-		        end
-		      next
-		      
-		      
-		      if alignment <> Nil then
-		        instream = alignment.OpenAsTextFile
-		        while not instream.EndOfFile
-		          row = instream.ReadLine
-		          
-		          if not row.StartsWith("#") then
-		            row = RemoveSpaces.Replace(row)
-		            columns = row.Split("*_*")
-		            table.append(columns)
-		            if TfEntryDict.HasKey(columns(2)) then
-		              redim storedRowArray(-1)
-		              storedRowArray.append(table(TfEntryDict.value(columns(2))))
-		              columnArray = storedRowArray(0)
-		              if not CompareEvals(columns(7), columnArray(7)) then 
-		                ' take entry with smaller e-value
-		                TfEntryDict.value(columns(2)) = Ubound(table)
-		              end
-		            else
-		              TfEntryDict.Value(columns(2)) = Ubound(table)
-		            end
-		          end
-		        wend
-		      end 
-		    else
-		      WriteToSTDOUT(shResult)
-		    end
-		    if TfEntryDict.KeyCount <> 0 and UBound(table) <> -1 then
-		      dim w as New HmmLibResults
-		      dim TfFamiles(-1) As String
-		      dim TfFamCount(-1) As Integer
-		      dim indx as Integer
-		      dim rowOutput(-1) As String
-		      
-		      w.Title = "TFs encoded in the " + GenomeFile.Name
-		      for each entry As DictionaryEntry in TfEntryDict
-		        rowOutput = table(entry.Value)
-		        indx = TfFamiles.IndexOf(rowOutput(0)+Chr(9)+Chr(9)+rowOutput(1))
-		        if indx  <> -1 then
-		          TfFamCount(indx) = TfFamCount(indx) + 1
-		        else
-		          TfFamiles.Append(rowOutput(0)+Chr(9)+Chr(9)+rowOutput(1))
-		          TfFamCount.Append(1)
-		        end
-		        w.OutputBox.AddRow
-		        
-		        rgm = geneName.Search(rowOutput(2))
-		        if rgm <> Nil then
-		          w.OutputBox.Cell(w.OutputBox.LastIndex,0) = nthfield(rowOutput(2), "_"+rgm.SubExpressionString(0), 1)
-		          w.OutputBox.Cell(w.OutputBox.LastIndex,1) = rgm.SubExpressionString(0)
-		        else
-		          w.OutputBox.Cell(w.OutputBox.LastIndex,0) = rowOutput(2)
-		          w.OutputBox.Cell(w.OutputBox.LastIndex,1) = "-"
-		        end
-		        
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,2) = rowOutput(0)
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,3) = rowOutput(1)
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,4) = rowOutput(7)
-		        w.OutputBox.Cell(w.OutputBox.LastIndex,5) = rowOutput(8)
-		        if DesrDict.HasKey(rowOutput(2)) then
-		          w.OutputBox.Cell(w.OutputBox.LastIndex, 6) = DesrDict.value(rowOutput(2))
-		        else
-		          w.OutputBox.Cell(w.OutputBox.LastIndex, 6) = "-"
-		        end
-		        
-		      next
-		      dim logowinout as String
-		      logowinout = EndOfLine.UNIX+GenomeFile.Name + " encodes " + str(TfEntryDict.KeyCount) + " putative TFs. Search was performed with " + HmmLibrary
-		      logowinout = logowinout + " of the hmm library." + EndOfLine.UNIX + "Total number of TF Families: " + str(Ubound(TfFamiles)+1) + EndOfLine.UNIX
-		      logowinout = logowinout + "TF Family"+Chr(9)+Chr(9)+"Accession code"+Chr(9)+Chr(9)+"Count" + EndOfLine.UNIX
-		      w.Label1.Text = "Total count of TFs: " + str(TfEntryDict.KeyCount) + ". Hmm library version: " + HmmLibrary
-		      TfFamCount.SortWith(TfFamiles)
-		      for i as Integer = 0 to Ubound(TfFamiles)
-		        logowinout = logowinout + TfFamiles(i)+Chr(9)+Chr(9)+str(TfFamCount(i)) + EndOfLine.UNIX
-		      next
-		      WriteToSTDOUT(logowinout)
-		      w.Show
-		    end
-		  else
-		    WriteToSTDOUT("Open the genome file first!"+EndOfLine.UNIX)
-		  end
 		End Sub
 	#tag EndMethod
 

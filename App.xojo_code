@@ -495,7 +495,7 @@ Inherits Application
 
 	#tag MenuHandler
 		Function GenomeListencodedTFs() As Boolean Handles GenomeListencodedTFs.Action
-			LogoWin.scanWithHmmlib
+			LogoWin.categorizeTFs
 			Return True
 			
 		End Function
