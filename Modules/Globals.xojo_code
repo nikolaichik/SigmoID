@@ -170,23 +170,7 @@ Protected Module Globals
 		    
 		  End If
 		  
-		  'DOI.org URL is appended by the converter to the very end of the reference, but is not reqired here – removing
-		  res=NthField(res,"https://doi.org/", 1) 'sometimes it's a URL
-		  res=NthField(res," doi:", 1)            'sometimes it's just doi:
-		  
-		  res=ReplaceAll(res, EndOfLine.UNIX," ") 'lineEnds might be present – remove 'em
-		  
-		  res=ReplaceAll(res, "Portico."," ")     'Some more junk cleaning
-		  
-		  'remove extra spaces:
-		  While InStr(res,"  ")>0
-		    res=ReplaceAll(res, "  "," ")
-		  Wend
-		  
-		  'Replace some non-ASCII characters:
-		  res=ReplaceAll(res, "…","...")
-		  res=ReplaceAll(res, "–","-") 'short dash
-		  res=ReplaceAll(res, "—","-") 'long dash
+		  res=CleanUpRefs(res)
 		  
 		  Return Trim(res)
 		  
@@ -227,6 +211,35 @@ Protected Module Globals
 		  
 		  Exception err
 		    ExceptionHandler(err,"Globals:CleanUp")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function CleanUpRefs(res As string) As string
+		  // To be used both with new refs and with existing profiles when re-saving them
+		  
+		  'DOI.org URL might be appended by the converter to the very end of the reference, but is not reqired here – removing
+		  res=NthField(res,"https://doi.org/", 1) 'sometimes it's a URL
+		  res=NthField(res," doi:", 1)            'sometimes it's just doi:
+		  res=ReplaceAll(res, "Portico."," ")     'Some more junk cleaning
+		  
+		  'Replace some non-ASCII characters:
+		  res=ReplaceAll(res, "…","...")
+		  res=ReplaceAll(res, "–","-") 'short dash
+		  res=ReplaceAll(res, "—","-") 'long dash
+		  res=ReplaceAll(res, "’","'") 'single quote
+		  
+		  res=ReplaceAll(res, EndOfLine.UNIX," ") 'lineEnds might be present – remove 'em
+		  
+		  'remove extra spaces:
+		  While InStr(res,"  ")>0
+		    res=ReplaceAll(res, "  "," ")
+		  Wend
+		  
+		  'one more thing
+		  res=ReplaceAll(res, " ,",",")
+		  
+		  Return res
 		End Function
 	#tag EndMethod
 

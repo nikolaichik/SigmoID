@@ -2301,7 +2301,8 @@ End
 		              For z=0 To RefsList.RowCount-1
 		                Dim aLine As String=RefsList.CellValueAt(z,0)+Chr(9)+RefsList.CellValueAt(z,1)+Chr(9)+RefsList.CellValueAt(z,2)
 		                If Trim(aLine)<>"" Then
-		                  outstream.WriteLine(aline)
+		                  aline=ReplaceAll(aline, EndOfLine.UNIX," ") 'lineEnds might be present – remove 'em
+		                  outstream.WriteLine(CleanUpRefs(aline))   'cleanUp only needed when re-saving old .sig files
 		                End If
 		              Next
 		              outstream.close

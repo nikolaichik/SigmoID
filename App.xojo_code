@@ -285,7 +285,33 @@ Inherits Application
 			End If
 			f=vv.root.child(basename+".refs")
 			If f<> Nil And f.exists Then
-			f.CopyFileTo SigF
+			'f.CopyFileTo SigF
+			
+			'try to fix few encoding and extra symbol problems
+			Dim r As String
+			Dim tis As TextInputStream
+			tis = TextInputStream.Open(f)
+			r=tis.ReadAll
+			tis.Close
+			
+			Dim f2 As folderitem
+			f2=SigF.child(basename+".refs")
+			If f2<>Nil Then
+			Dim outstream As TextOutputStream
+			outstream = TextOutputStream.Create(f2)
+			If outstream<>Nil Then
+			Dim rfs() As String
+			rfs=r.Split(EndOfLine.UNIX)
+			Dim n3 As Integer
+			For n3=0 To Ubound(rfs)
+			rfs(n3)=CleanUpRefs(rfs(n3))
+			Next
+			r=Join(rfs,EndOfLine.UNIX)
+			outstream.Write(r)  'cleanUp only needed when re-saving old .sig files
+			outstream.close
+			End If
+			
+			End If
 			End If
 			f=vv.root.child(basename+".cur")
 			If f<> Nil And f.exists Then
