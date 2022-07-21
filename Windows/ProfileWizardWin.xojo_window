@@ -2316,7 +2316,37 @@ End
 		              Dim z As Integer
 		              For z=0 To CuratorList.RowCount-1
 		                
-		                Dim aLine As String=CuratorList.CellValueAt(z,0)+Chr(9)+CuratorList.CellValueAt(z,1)+Chr(9)+CuratorList.CellValueAt(z,2)
+		                
+		                //check date format which might be different in old profiles
+		                'current format is DD/MM/YYYY
+		                'old default is MM/DD/YY
+		                Dim cl,dt As String
+		                cl=CuratorList.CellValueAt(z,2)
+		                dt=Trim(NthField(cl,":",1))
+		                Dim kbD,kbM,YY As String
+		                kbD=NthField(dt,"/",1)
+		                kbM=NthField(dt,"/",2)
+		                YY=NthField(dt,"/",3)
+		                If Len(yy)=2 Then
+		                  YY="20"+YY
+		                  If Val(kbD)>12 Then 'really days
+		                    dt=kbd+"/"+kbM+"/"+YY
+		                  Else 'assume the default US-en locale
+		                    dt=kbM+"/"+kbD+"/"+YY
+		                  End If
+		                Else 'format is likely correct, but still checking to make sure
+		                  If Val(kbM)>12 Then 'Oops
+		                    dt=kbM+"/"+kbD+"/"+YY
+		                  Else
+		                    'just leave as is
+		                    'dt=kbD+"/"+kbM+"/"+YY
+		                  End If
+		                End If
+		                
+		                dt=dt+":"+NthField(cl,":",2) 'add curation type
+		                
+		                Dim aLine As String=CuratorList.CellValueAt(z,0)+Chr(9)+CuratorList.CellValueAt(z,1)+Chr(9)+dt 'CuratorList.CellValueAt(z,2)
+		                
 		                If Trim(aLine)<>"" Then
 		                  outstream.WriteLine(aline)
 		                End If
