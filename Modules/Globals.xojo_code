@@ -2449,92 +2449,58 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Function isFirstEvalueGreater(num1 As String, num2 As String) As Boolean
-		  ' method compares if num1 is greater than num2, numbers in scientific notations
-		  ' are expected.
-		  ' comparison is rough and should perform correct for small numbers, 
-		  ' e.g. 1e+4 and 10000 is not the input, which will be processed correctly 
+		  ' method checks numbers in scientific nottations, e.g. if num1 is greater than num2,
 		  
-		  dim base1 As String
-		  dim base2 As String
-		  dim mult1 As String
-		  dim mult2 As String
+		  Dim base1 As Double
+		  Dim base2 As Double
+		  Dim mult1 As Integer
+		  Dim mult2 As Integer
+		  Dim product1 As Double
+		  Dim product2 As Double
+		  Dim numArray(-1) As String
 		  
-		  
-		  if instr(num1, "e") > 0 and instr(num2, "e") > 0 then
-		    if instr(num1, "+") > 0 and instr(num2, "+") > 0 then
-		      mult1 = nthfield(num1, "e+",1)
-		      base1 = nthfield(num1, "e+",2)
-		      mult2 = nthfield(num2, "e+",1)
-		      base2 = nthfield(num2, "e+",2)
-		      if instr(base1,"0") > 0 then
-		        while base1.BeginsWith("0")
-		          base1 = base1.right(len(base1)-1)
-		        wend
-		      end
-		      if instr(base2,"0") > 0 then
-		        while base2.BeginsWith("0")
-		          base2 = base2.right(len(base2)-1)
-		        wend
-		      end
-		      if val(base1) > val(base2) then
-		        return True
-		      elseif val(base1) < val(base2) then
-		        return False
-		      else
-		        if val(mult1) > val(mult2) then
-		          return True
-		        else
-		          return False
-		        end
-		      end
-		    elseif  instr(num1, "+") > 0 and instr(num2, "-") > 0 then
-		      return True
-		    elseif  instr(num1, "-") > 0 and instr(num2, "+") > 0 then
-		      return False
-		    else
-		      'both e-
-		      mult1 = nthfield(num1, "e-",1)
-		      base1 = nthfield(num1, "e-",2)
-		      mult2 = nthfield(num2, "e-",1)
-		      base2 = nthfield(num2, "e-",2)
-		      if instr(base1,"0") > 0 then
-		        while base1.BeginsWith("0")
-		          base1 = base1.right(len(base1)-1)
-		        wend
-		      end
-		      if instr(base2,"0") > 0 then
-		        while base2.BeginsWith("0")
-		          base2 = base2.right(len(base2)-1)
-		        wend
-		      end
-		      if val(base1) > val(base2) then
-		        return False
-		      elseif val(base1) < val(base2) then
-		        return True
-		      else
-		        if val(mult1) > val(mult2) then
-		          return True
-		        else
-		          return False
-		        end
-		      end
+		  if num1.IndexOf("e-") > -1 then
+		    numArray = num1.Split("e-")
+		    if Ubound(numArray) = 1 then
+		      base1 = Val(numArray(0))
+		      mult1 = Val(numArray(1))
+		      product1 = base1 / (10 ^ mult1)
 		    end
-		  elseif instr(num1, "e") > 0 and instr(num2, "e") = 0 then
-		    if instr(num1, "-") > 0 then
-		      return False
-		    end
-		  elseif instr(num1, "e") = 0 and instr(num2, "e") > 0 then
-		    if instr(num2, "-") > 0 then
-		      return True
+		  elseif num1.indexOf("e+") > -1 then
+		    numArray = num1.Split("e+")
+		    if Ubound(numArray) = 1 then
+		      base1 = Val(numArray(0))
+		      mult1 = Val(numArray(1))
+		      product1 = base1 * (10 ^ mult1)
 		    end
 		  else
-		    if val(num1) > val(num2) then
-		      return True
-		    elseif val(num1) < val(num2) then
-		      Return False
-		    else 
-		      Return False
+		    product1 = val(num1)
+		  end
+		  
+		  
+		  if num2.IndexOf("e-") > -1 then
+		    numArray = num2.Split("e-")
+		    if Ubound(numArray) = 1 then
+		      base2 = Val(numArray(0))
+		      mult2 = Val(numArray(1))
+		      product2 = base2 / (10 ^ mult2)
 		    end
+		  elseif num2.indexOf("e+") > -1 then
+		    numArray = num2.Split("e+")
+		    if Ubound(numArray) = 1 then
+		      base2 = Val(numArray(0))
+		      mult2 = Val(numArray(1))
+		      product2 = base2 * (10 ^ mult2)
+		    end
+		  else
+		    product2 = val(num2)
+		  end
+		  
+		  
+		  if product1 > product2 then
+		    return True
+		  else
+		    return False
 		  end
 		End Function
 	#tag EndMethod

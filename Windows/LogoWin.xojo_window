@@ -2724,15 +2724,23 @@ End
 		          statsTFs.Value(TFentry.Value("target_name")) = 1
 		        end
 		        ' add gene name, protein id, locus tag as in GBfeature text
-		        entryGBfeature = TFEntry.Value("gbfeature")
-		        TFentry.Value("protein_id") = getFlankedText(entryGBfeature.FeatureText, "/protein_id=" + chr(34), chr(34))
-		        TFentry.Value("gene") = getFlankedText(entryGBfeature.FeatureText, "/gene=" + chr(34), chr(34))
-		        TFentry.Value("locus_tag") = GetLocus_tag(entryGBfeature.FeatureText)
-		        description = getFlankedText(entryGBfeature.FeatureText, "/product=" + chr(34), chr(34))
-		        if description.IndexOf(EndOfLine.UNIX) > -1 then
-		          description = description.ReplaceAll(EndOfLine.UNIX, " ")
+		        if TFentry.HasKey("gbfeature") then
+		          entryGBfeature = TFEntry.Value("gbfeature")
+		          TFentry.Value("protein_id") = getFlankedText(entryGBfeature.FeatureText, "/protein_id=" + chr(34), chr(34))
+		          TFentry.Value("gene") = getFlankedText(entryGBfeature.FeatureText, "/gene=" + chr(34), chr(34))
+		          TFentry.Value("locus_tag") = GetLocus_tag(entryGBfeature.FeatureText)
+		          description = getFlankedText(entryGBfeature.FeatureText, "/product=" + chr(34), chr(34))
+		          if description.IndexOf(EndOfLine.UNIX) > -1 then
+		            description = description.ReplaceAll(EndOfLine.UNIX, " ")
+		          end
+		          TFentry.Value("description") = description
+		        else
+		          TFentry.Value("protein_id") = TFentry.Value("query_name")
+		          TFentry.Value("gene") = "-"
+		          TFentry.Value("locus_tag") = "-"
+		          TFentry.Value("description") = "-"
 		        end
-		        TFentry.Value("description") = description
+		        
 		        ' find CR-tag
 		        if HMMmodels.HasKey(TFentry.Value("accession")) then
 		          aaSeq = getFlankedText(entryGBfeature.FeatureText, "/translation=" + chr(34), chr(34))

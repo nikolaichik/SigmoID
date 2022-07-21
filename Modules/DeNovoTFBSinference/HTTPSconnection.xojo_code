@@ -82,7 +82,17 @@ Inherits URLConnection
 		              me.errorMessage = ""
 		              exit
 		            end
+		          elseif jobStatus.HasName("results") then
+		            me.content = ""
+		            me.errorMessage = ""
+		            exit
 		          end
+		        else
+		          logging.Append("uniprot id mapping service returned HTTPS error: " + str(me.HTTPStatusCode))
+		          logging.Append(me.content)
+		          logging.Append(me.errorMessage)
+		          ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
+		          exit
 		        end
 		      wend
 		      
