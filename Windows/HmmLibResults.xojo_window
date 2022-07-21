@@ -10,7 +10,7 @@ Begin Window HmmLibResults
    HasFullScreenButton=   True
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   432
+   Height          =   700
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -23,7 +23,7 @@ Begin Window HmmLibResults
    Title           =   "None"
    Type            =   "0"
    Visible         =   True
-   Width           =   600
+   Width           =   1200
    Begin Listbox OutputBox
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
@@ -50,7 +50,7 @@ Begin Window HmmLibResults
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   386
+      Height          =   654
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   ""
@@ -72,7 +72,7 @@ Begin Window HmmLibResults
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   600
+      Width           =   1200
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -90,7 +90,7 @@ Begin Window HmmLibResults
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   406
+      Left            =   1006
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -102,7 +102,7 @@ Begin Window HmmLibResults
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   391
+      Top             =   659
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -136,12 +136,12 @@ Begin Window HmmLibResults
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   398
+      Top             =   666
       Transparent     =   False
       Underline       =   False
       Value           =   "Untitled"
       Visible         =   True
-      Width           =   383
+      Width           =   983
    End
 End
 #tag EndWindow
@@ -204,6 +204,7 @@ End
 #tag Events OutputBox
 	#tag Event
 		Sub Open()
+		  
 		  fillTable
 		End Sub
 	#tag EndEvent

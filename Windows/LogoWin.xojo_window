@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -2671,8 +2670,8 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub categorizeTFs()
-		  Dim parsedHMMtbl as Dictionary
+		Sub CategorizeTFs()
+		  Dim parsedHMMtbl As Dictionary
 		  Dim cdsFasta As String
 		  Dim HMMscanResult as Dictionary
 		  Dim entryGBfeature As GBFeature
@@ -2764,8 +2763,11 @@ End
 		      logowinout = logowinout + family.key + Chr(9) + Chr(9) + str(family.Value) + EndOfLine.UNIX
 		    next 
 		    WriteToSTDOUT(logowinout)
-		  end
+		  End
 		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:CategorizeTFs")
+		    
 		End Sub
 	#tag EndMethod
 
@@ -3754,8 +3756,8 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub filerRedundancy()
-		  dim InputStream as TextInputStream
+		Sub FilerRedundancy()
+		  Dim InputStream As TextInputStream
 		  dim fasta as String
 		  dim sequence, revSequence as String
 		  dim FastaArray(-1), UniqueSites as String
@@ -3781,7 +3783,10 @@ End
 		    if UniqueSites<>"" then
 		      LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sequences set without duplicates ("+str(count)+" sequences have been removed):"+EndOfLine.UNIX+UniqueSites)
 		    end
-		  end
+		  End
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:FilerRedundancy")
 		End Sub
 	#tag EndMethod
 
