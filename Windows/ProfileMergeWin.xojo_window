@@ -628,7 +628,7 @@ End
 		        tis=TextInputStream.Open(FastaFile)
 		        If tis<>Nil Then
 		          LogoData=tis.ReadAll
-		          LogoPic=MakeLogoPic(LogoData)
+		          LogoPic=MakeLogoPic(LogoData, 45)
 		        End If
 		        
 		        'Append profile stats And logo As a New row To RegulatorList

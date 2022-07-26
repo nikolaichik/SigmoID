@@ -922,7 +922,7 @@ End
 		            logowin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
 		          end if
 		          
-		          Dim p as picture = MakeLogoPic(fa)
+		          Dim p as picture = MakeLogoPic(fa, 45)
 		          Dim reg() As String = Array("",s1, s2, s3, Str(InfoBits),"", s6, s7, str(Sitelength))  'first column contains checkboxes
 		          CollectionList.AddRow(reg)
 		          
@@ -1013,7 +1013,7 @@ End
 		        logowin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
 		      end if
 		      
-		      Dim p as picture = MakeLogoPic(fa)
+		      Dim p as picture = MakeLogoPic(fa, 45)
 		      Dim reg() As String = Array("",s1, s2, s3, Str(InfoBits),"", s6, s7, str(Sitelength))  'first column contains checkboxes
 		      CollectionList.AddRow(reg)
 		      

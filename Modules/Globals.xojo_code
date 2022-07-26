@@ -2783,7 +2783,7 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function MakeLogoPic(logoData as string) As picture
+		Function MakeLogoPic(logoData As String, picHeight As Integer) As picture
 		  'Information content per position as defined by Schneider et al, 1986
 		  '
 		  ' Ii=2+sum(Fb,i*log2(Fb,i)),
@@ -3007,12 +3007,9 @@ Protected Module Globals
 		  
 		  'return LogoPic
 		  
-		  'scale the picture down to 60 pixel heigh and stretch it horisontally a bit
-		  'dim LogoPicScaled as new Picture (LogoPic.width*50/170,45,32)
-		  'LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPic.width*50/170,45,0,0,LogoPic.width,LogoPic.Height)
+		  'scale the picture down to user provided height in pixels 
 		  
-		  'Dim LogoPicScaled As New Picture (LogoPic.width*70/85,150,32)
-		  Dim LogoPicScaled As New Picture (LogoPic.width*50/170,45,32)
+		  Dim LogoPicScaled As New Picture (LogoPic.width * (picHeight / LogoPic.Height), picHeight,32)
 		  LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,LogoPic.width,LogoPic.Height)
 		  
 		  LogoPicScaled.Transparent=1

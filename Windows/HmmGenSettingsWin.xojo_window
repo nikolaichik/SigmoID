@@ -39,7 +39,7 @@ Begin Window HmmGenSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   340
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
@@ -71,7 +71,7 @@ Begin Window HmmGenSettingsWin
       InitialParent   =   ""
       Italic          =   False
       Left            =   238
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True

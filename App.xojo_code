@@ -261,7 +261,7 @@ Inherits Application
 			'save motif pic as png
 			instream = TextInputStream.Open(f)
 			dim profileFasta as String = instream.ReadAll
-			logoPNG = MakeLogoPic(profileFasta)
+			logoPNG = MakeLogoPic(profileFasta, 150)
 			If logoPNG <> Nil then
 			dim PNGpath As FolderItem = SigF.child(basename+".png")
 			logoPNG.Save(PNGpath, Picture.SaveAsPNG)
