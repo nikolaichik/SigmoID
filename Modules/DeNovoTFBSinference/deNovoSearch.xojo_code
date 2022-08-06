@@ -59,7 +59,7 @@ Inherits Thread
 		    
 		    'rp15
 		    BaseLocation=Resources_f.Child("CRtagBase").Child(me.hmmName+"_rp15.crtag")
-		    deNovoWin.rp.writeToWin("Loading crtag bases...")
+		    deNovoWin.rp.writeToWin("Loading CR-tag bases...")
 		    If BaseLocation<>Nil Then
 		      If BaseLocation.Exists Then
 		        instream=BaseLocation.OpenAsTextFile
@@ -693,9 +693,9 @@ Inherits Thread
 		              
 		              If crIndex>0 Then
 		                #If DebugBuild
-		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... ")
+		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,",") + 1) + " accessions from "+RPname+" to process... ")
 		                #Else
-		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
+		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,",") + 1) + " seqs to download..."+EndOfLine.unix)
 		                #EndIf
 		              Else
 		                deNovoWin.rp.writeToWin("CRtag "+me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
