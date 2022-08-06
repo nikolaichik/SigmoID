@@ -98,6 +98,7 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
+					FolderItem = Li4vUHl0aG9uL21hdGNoZXNfc2NvcmVfYW5hbHlzaXMucHk=
 				End
 				Begin IDEScriptBuildStep Zip , AppliesTo = 2
 					'Dim result As String
@@ -168,6 +169,7 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
+					FolderItem = Li4vUHl0aG9uL21hdGNoZXNfc2NvcmVfYW5hbHlzaXMucHk=
 				End
 			End
 			Begin BuildStepList Windows
@@ -193,7 +195,7 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL21hc3QuZXhl
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL21lbWUuZXhl
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2xpYmdjY19zX2R3Mi0xLmRsbA==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2xpYnN0ZGMrKy02LmRsbA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2xpYnN0ZGMlMkIlMkItNi5kbGw=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2xpYndpbnB0aHJlYWQtMS5kbGw=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1JlZ3Vsb25EQi8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL3RmYXN0eC5leGU=

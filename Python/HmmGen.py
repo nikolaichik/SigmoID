@@ -11,24 +11,21 @@ class MySeqFeature(SeqFeature):
     def __str__(self):
         out = "type: {}\n".format(self.type)
         if self.strand == 1:
-            out += "location: [{}:{}]({})\n".format(self.location.start+1,
-                                                self.location.end, '+')
+            out += f"location: [{self.location.start + 1}:{self.location.end}](+)\n"
         if self.strand == -1:
-            out += "location: [{}:{}]({})\n".format(self.location.start+1,
-                                                self.location.end, '-')
+            out += f"location: [{self.location.start+1}:{self.location.end}](-)\n"
         if self.id and self.id != "<unknown id>":
-            out += "id: {}\n".self.id
+            out += f"id: {self.id}\n"
         out += "qualifiers:\n"
         for qual_key in sorted(self.qualifiers):
-            out += " Key: {}, Value: {}\n".format(qual_key,
-                                              self.qualifiers[qual_key])
+            out += f" Key: {qual_key}, Value: {self.qualifiers[qual_key]}\n"
         if Bio.__version__ != '1.73': # to avoid problems with diff biopython versions
             if not hasattr(self, "_sub_features"):
                 self._sub_features = []
             if len(self._sub_features) != 0:
                 out += "Sub-Features\n"
                 for sub_feature in self._sub_features:
-                    out += "{}\n".sub_feature
+                    out += f"{sub_feature}\n"
         return out
 
 
@@ -51,20 +48,19 @@ def wrong_promoter_strand(up_feature, hit_feature, down_feature):
 
 def is_within_feature(list_of_features, index, some_hit):
     # 'index' is for feature's index within 'list_of_features'
-    if (list_of_features[index].location.start <
-        some_hit.location.start <
-        list_of_features[index].location.end or
-        list_of_features[index].location.start <
-        some_hit.location.end <
-        list_of_features[index].location.end) or \
-        (list_of_features[index].location.start <
-            some_hit.location.start <
-             some_hit.location.end <
-            list_of_features[index+1].location.start and \
+    if list_of_features[index].location.start < some_hit.location.start < list_of_features[index].location.end or \
+        list_of_features[index].location.start < some_hit.location.end < list_of_features[index].location.end:
+        return True
+    else:
+        return False
+
+
+def is_within_convergon(list_of_features, index, some_hit):
+    # checking if hit is within other features or is between two convergent ones.
+    if list_of_features[index].location.start < some_hit.location.start and \
+            some_hit.location.end < list_of_features[index + 1].location.start and \
             list_of_features[index].strand == +1 and \
-            list_of_features[index].strand !=
-                list_of_features[index+1].strand):
-        # checking if hit is within other features or is between two convergent ones.
+            list_of_features[index].strand != list_of_features[index+1].strand:
         return True
     else:
         return False
@@ -73,7 +69,7 @@ def is_within_feature(list_of_features, index, some_hit):
 def is_within_boundary(list_of_features, index, some_hit):
     for feature in list_of_features[index:]:
         if (feature.location.start - list_of_features[index].location.end) < (enter.boundary+1):
-            if (list_of_features[index].location.start+enter.boundary > \
+            if (list_of_features[index].location.start + enter.boundary > \
                   some_hit.location.end > \
                   list_of_features[index].location.start and \
                   list_of_features[index].strand == +1) or \
@@ -106,8 +102,7 @@ def is_within_boundary(list_of_features, index, some_hit):
 
 
 def is_divergent(feature_1, feature_2):
-    if feature_1.strand == -1 and \
-       feature_1.strand != feature_2.strand:
+    if feature_1.strand == -1 and feature_2.strand == +1:
         return True
     else:
        return False
@@ -455,7 +450,7 @@ for record in records:
             strnd = int(allign[2])
             e_value = float(allign[3])
             score = allign[4]
-            feature_length = end - (start-1)
+            feature_length = end - (start - 1)
             locus = allign[5]
             version = allign[6]
             hmm_from = allign[7]
@@ -466,21 +461,21 @@ for record in records:
             ali_diff = ali_to - ali_from
             if enter.length and not enter.min_length:
                 if hmm_to < enter.max_length:
-                    end = (enter.max_length-hmm_to)+ali_to
+                    end = (enter.max_length-hmm_to) + ali_to
                 else:
                     end = ali_to
                 if hmm_from > 1:
-                    start = ali_from-(hmm_from-1)
+                    start = ali_from - (hmm_from - 1)
                 else:
                     start = ali_from
             elif enter.length and enter.min_length:
                 if enter.min_length < hmm_to < enter.max_length or \
                     hmm_to <= enter.min_length < enter.max_length:
-                    end = (enter.max_length-hmm_to)+ali_to
+                    end = (enter.max_length - hmm_to) + ali_to
                 elif hmm_to <= enter.min_length:
-                    end = (enter.min_length-hmm_to)+ali_to
+                    end = (enter.min_length - hmm_to) + ali_to
                 if hmm_from > 1:
-                    start = ali_from-(hmm_from-1)
+                    start = ali_from - (hmm_from - 1)
                 else:
                     start = ali_from
         else:
@@ -489,7 +484,7 @@ for record in records:
             strnd = int(allign[2])
             e_value = float(allign[3])
             score = allign[4]
-            feature_length = end - (start-1)
+            feature_length = end - (start - 1)
             locus = allign[5]
             version = allign[6]
             hmm_from = allign[7]
@@ -500,24 +495,24 @@ for record in records:
             ali_diff = ali_to - ali_from
             if enter.length and not enter.min_length:
                 if hmm_from > 1:
-                    end = (hmm_from-1)+ali_to
+                    end = hmm_from - 1 + ali_to
                 else:
                     end = ali_to
                 if hmm_to < enter.max_length:
-                    start = ali_from-(enter.max_length-hmm_to)
+                    start = ali_from - (enter.max_length - hmm_to)
                 else:
                     start = ali_from
             elif enter.length and enter.min_length:
                 if hmm_from > 1:
-                    end = (hmm_from-1)+ali_to
+                    end = hmm_from - 1 + ali_to
                 else:
                     end = ali_to
                 if enter.min_length < hmm_to < enter.max_length or \
                         hmm_to <= enter.min_length < enter.max_length:
-                    start = ali_from-(enter.max_length-hmm_to)
+                    start = ali_from - (enter.max_length - hmm_to)
                 elif hmm_to <= enter.min_length:
-                    start = ali_from-(enter.min_length-hmm_to)
-        start_pos = SeqFeature.ExactPosition(start-1)
+                    start = ali_from-(enter.min_length - hmm_to)
+        start_pos = SeqFeature.ExactPosition(start - 1)
         end_pos = SeqFeature.ExactPosition(end)
         feature_location = FeatureLocation(start_pos, end_pos)
         feature_type = enter.feature
@@ -566,7 +561,7 @@ for record in records:
         for i in reversed(range(len(hit_list))):
             i = len(hit_list)-1-i
             for n in range(len(allowed_features_list)-1):
-                if (
+                if ((
                     is_within_feature(allowed_features_list,
                                       n,
                                       hit_list[i]) and \
@@ -576,7 +571,10 @@ for record in records:
                     ) or \
                     wrong_promoter_strand(allowed_features_list[n],
                                          hit_list[i],
-                                         allowed_features_list[n+1]):
+                                         allowed_features_list[n+1])
+                and not is_within_convergon(allowed_features_list,
+                                      n,
+                                      hit_list[i])):
                     hit_list.pop(i)
                     break
         for i in reversed(range(len(record.features))):
@@ -590,33 +588,30 @@ for record in records:
             if 'CHECK' in record.features[i].qualifiers.keys():
                 individual_qualifiers = {}
                 hit = record.features[i]
+                cds_up = ""
+                cds_down = ""
                 for n in range(i+1, len(record.features)):
                     if record.features[n].type in allowed_types and \
                        record.features[n].location.start > hit.location.end:
                         cds_up = record.features[n]
                         break
-                if hit.location.start > \
-                        allowed_features_list[-1].location.end:
+                if hit.location.start > allowed_features_list[-1].location.end:
                     cds_up = allowed_features_list[0]
                 for c in reversed(range(len(allowed_features_list))):
-                    if allowed_features_list[c].location.end < \
-                            hit.location.start:
+                    if allowed_features_list[c].location.end < hit.location.start:
                         cds_down = allowed_features_list[c]
                         break
-                    elif hit.location.end < \
-                            allowed_features_list[0].location.start:
+                    elif hit.location.end < allowed_features_list[0].location.start:
                         cds_down = allowed_features_list[-1]
                         break
                 if not enter.palindromic:
                     if hit.strand == int('-1'):
                         try:
-                            individual_qualifiers['gene'] = \
-                                cds_down.qualifiers['gene']
+                            individual_qualifiers['gene'] = cds_down.qualifiers['gene']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['locus_tag'] = \
-                                cds_down.qualifiers['locus_tag']
+                            individual_qualifiers['locus_tag'] = cds_down.qualifiers['locus_tag']
                         except KeyError:
                             pass
                         individual_qualifiers.update(hit.qualifiers)
@@ -631,13 +626,11 @@ for record in records:
 
                     elif hit.strand == int('+1'):
                         try:
-                            individual_qualifiers['gene'] = \
-                                cds_up.qualifiers['gene']
+                            individual_qualifiers['gene'] = cds_up.qualifiers['gene']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['locus_tag'] = \
-                                cds_up.qualifiers['locus_tag']
+                            individual_qualifiers['locus_tag'] = cds_up.qualifiers['locus_tag']
                         except KeyError:
                             pass
 
@@ -650,17 +643,14 @@ for record in records:
                         record.features.pop(i)
                         if hit.strand == cds_up.strand:
                             record.features.insert(i, new_feature)
-                elif enter.palindromic and \
-                        cds_up.strand == cds_down.strand:
+                elif enter.palindromic and cds_up.strand == cds_down.strand:
                     if cds_up.strand == 1: # then cds_down is (+) too and couldn't be regulated
                         try:
-                            individual_qualifiers['gene'] = \
-                                cds_up.qualifiers['gene']
+                            individual_qualifiers['gene'] = cds_up.qualifiers['gene']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['locus_tag'] = \
-                                cds_up.qualifiers['locus_tag']
+                            individual_qualifiers['locus_tag'] = cds_up.qualifiers['locus_tag']
                         except KeyError:
                             pass
                         individual_qualifiers.update(hit.qualifiers)
@@ -673,13 +663,11 @@ for record in records:
                         record.features.insert(i, new_feature)
                     if cds_down.strand == -1: # then cds_up is (-) too and couldn't be regulated
                         try:
-                            individual_qualifiers['gene'] = \
-                                cds_down.qualifiers['gene']
+                            individual_qualifiers['gene'] = cds_down.qualifiers['gene']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['locus_tag'] = \
-                                cds_down.qualifiers['locus_tag']
+                            individual_qualifiers['locus_tag'] = cds_down.qualifiers['locus_tag']
                         except KeyError:
                             pass
                         individual_qualifiers.update(hit.qualifiers)
@@ -693,23 +681,19 @@ for record in records:
                 elif enter.palindromic and cds_up.strand != cds_down.strand:
                     if hit.strand == int('-1'):
                         try:
-                            individual_qualifiers['cds_down_gene'] =\
-                                cds_down.qualifiers['gene']
+                            individual_qualifiers['cds_down_gene'] = cds_down.qualifiers['gene']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['cds_down_locus_tag'] = \
-                                cds_down.qualifiers['locus_tag']
+                            individual_qualifiers['cds_down_locus_tag'] = cds_down.qualifiers['locus_tag']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['cds_up_gene'] = \
-                                cds_up.qualifiers['gene']
+                            individual_qualifiers['cds_up_gene'] = cds_up.qualifiers['gene']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['cds_up_locus_tag'] = \
-                                cds_up.qualifiers['locus_tag']
+                            individual_qualifiers['cds_up_locus_tag'] = cds_up.qualifiers['locus_tag']
                         except KeyError:
                             pass
                         individual_qualifiers.update(hit.qualifiers)
@@ -719,28 +703,23 @@ for record in records:
                                           strand=hit.strand,
                                           qualifiers=individual_qualifiers)
                         record.features.pop(i)
-                        if hit.strand == cds_down.strand or \
-                           not enter.insert:
+                        if hit.strand == cds_down.strand or not enter.insert:
                             record.features.insert(i, new_feature)
                     if hit.strand == int('+1'):
                         try:
-                            individual_qualifiers['cds_up_gene'] = \
-                                cds_down.qualifiers['gene']
+                            individual_qualifiers['cds_up_gene'] = cds_down.qualifiers['gene']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['cds_up_locus_tag'] = \
-                                cds_down.qualifiers['locus_tag']
+                            individual_qualifiers['cds_up_locus_tag'] = cds_down.qualifiers['locus_tag']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['cds_down_gene'] = \
-                                cds_up.qualifiers['gene']
+                            individual_qualifiers['cds_down_gene'] = cds_up.qualifiers['gene']
                         except KeyError:
                             pass
                         try:
-                            individual_qualifiers['cds_down_locus_tag'] = \
-                                cds_up.qualifiers['locus_tag']
+                            individual_qualifiers['cds_down_locus_tag'] = cds_up.qualifiers['locus_tag']
                         except KeyError:
                             pass
                         individual_qualifiers.update(hit.qualifiers)
@@ -750,8 +729,7 @@ for record in records:
                                           strand=hit.strand,
                                           qualifiers=individual_qualifiers)
                         record.features.pop(i)
-                        if hit.strand == cds_up.strand or \
-                           not enter.insert:
+                        if hit.strand == cds_up.strand or not enter.insert:
                             record.features.insert(i, new_feature)
                 if enter.boundary != 0:
                     for n in range(len(allowed_features_list)):
@@ -761,13 +739,11 @@ for record in records:
                                ((hit.strand != cds_up.strand and hit.strand == -1) or \
                                  (hit.strand != cds_down.strand and hit.strand == +1)))):
                             try:
-                                individual_qualifiers['gene'] = \
-                                    allowed_features_list[n].qualifiers['gene']
+                                individual_qualifiers['gene'] = allowed_features_list[n].qualifiers['gene']
                             except KeyError:
                                 pass
                             try:
-                                individual_qualifiers['locus_tag'] = \
-                                allowed_features_list[n].qualifiers['locus_tag']
+                                individual_qualifiers['locus_tag'] = allowed_features_list[n].qualifiers['locus_tag']
                             except KeyError:
                                 pass
                             individual_qualifiers.update(hit.qualifiers)
@@ -788,81 +764,66 @@ for record in records:
         except:
             last_cds = record.features[-1]
         for i in reversed(range(1, len(record.features))):
-            i = len(record.features)-1-i
-            if 'CHECK' in record.features[i].qualifiers.keys() and \
-                    i < len(record.features):
+            i = len(record.features) - 1 - i
+            cds_down = ""
+            cds_up = ""
+            if 'CHECK' in record.features[i].qualifiers.keys() and i < len(record.features):
                 hit = record.features[i]
                 for c in reversed(range(len(allowed_features_list))):
-                    if allowed_features_list[c].location.end < \
-                            hit.location.start:
+                    if allowed_features_list[c].location.end < hit.location.start:
                         cds_down = allowed_features_list[c]
                         break
-                    elif hit.location.end < \
-                            allowed_features_list[0].location.start:
+                    elif hit.location.end < allowed_features_list[0].location.end:
                         cds_down = allowed_features_list[-1] # for circular chromosomes
                         break
                 for c in range(len(allowed_features_list)):
-                    if allowed_features_list[c].location.start > \
-                            hit.location.end:
+                    if allowed_features_list[c].location.start > hit.location.end:
                         cds_up = allowed_features_list[c]
                         break
-                    elif hit.location.start > \
-                            allowed_features_list[-1].location.end:
+                    elif hit.location.start > allowed_features_list[-1].location.end:
                         cds_up = allowed_features_list[0] # for circular chromosomes
                         break
-                if 'CHECK' in record.features[i+1].qualifiers.keys() and \
-                        (hit.location.start ==
-                         record.features[i+1].location.start and
-                         hit.location.end ==
-                         record.features[i+1].location.end):
+                if (cds_down and cds_up) and \
+                        'CHECK' in record.features[i + 1].qualifiers.keys() and \
+                        (hit.location.start == record.features[i + 1].location.start and
+                         hit.location.end == record.features[i + 1].location.end):
                     left_distance = hit.location.start - cds_down.location.end
                     right_distance = cds_up.location.start - hit.location.end
                     if is_divergent(cds_down, cds_up) and \
-                       last_cds.location.start > hit.location.start > \
-                            first_cds.location.start:
-                        if left_distance > right_distance and \
-                           hit.strand == (+1):
-                            del record.features[i+1]
-                        elif left_distance > right_distance and \
-                                hit.strand == (-1):
+                       last_cds.location.start > hit.location.start > first_cds.location.start:
+                        if left_distance > right_distance and hit.strand == +1:
+                            del record.features[i + 1]
+                        elif left_distance > right_distance and hit.strand == -1:
                             del record.features[i]
-                        elif left_distance < right_distance and \
-                                hit.strand == (+1):
+                        elif left_distance < right_distance and hit.strand == +1:
                             del record.features[i]
-                        elif left_distance < right_distance and \
-                                hit.strand == (-1):
-                            del record.features[i+1]
-                    elif not is_divergent(cds_down, cds_up) and \
-                         cds_up.strand == cds_down.strand:
+                        elif left_distance < right_distance and hit.strand == -1:
+                            del record.features[i + 1]
+                    elif not is_divergent(cds_down, cds_up) and cds_up.strand == cds_down.strand:
                         if hit.strand == cds_up.strand:
-                            del record.features[i+1]
+                            del record.features[i + 1]
                         elif hit.strand != cds_up.strand:
-                            del record.features[i]  # delets "hit"'''
-                    elif not is_divergent(cds_down, cds_up) and \
-                         cds_up.strand != cds_down.strand:
-                         del record.features[i+1]
+                            del record.features[i]  # deletes "hit"
+                    elif not is_divergent(cds_down, cds_up) and cds_up.strand != cds_down.strand:
+                         del record.features[i + 1]
 
     if enter.duplicate is True:
         for i in reversed(range(1, len(record.features))):
-            i = len(record.features)-1-i
+            i = len(record.features) - 1 - i
             if (record.features[i].type in ['protein_bind', 'promoter']) and \
-                    record.features[i].type == record.features[i+1].type:
+                    record.features[i].type == record.features[i + 1].type:
                 if 'bound_moiety' in record.features[i].qualifiers.keys() and \
-                   'bound_moiety' in record.features[i+1].qualifiers.keys():
-                    bound_moiety_one = \
-                        record.features[i].qualifiers['bound_moiety']
-                    bound_moiety_two = \
-                        record.features[i+1].qualifiers['bound_moiety']
+                   'bound_moiety' in record.features[i + 1].qualifiers.keys():
+                    bound_moiety_one = record.features[i].qualifiers['bound_moiety']
+                    bound_moiety_two = record.features[i + 1].qualifiers['bound_moiety']
                     if bound_moiety_one == bound_moiety_two and \
-                        record.features[i].strand == \
-                            record.features[i+1].strand and \
-                       0 <= record.features[i+1].location.start - \
-                            record.features[i].location.start <= 2:
-                        if score_parser(record.features[i]) != None and score_parser(record.features[i+1]) != None :
-                            if score_parser(record.features[i]) > score_parser(record.features[i+1]):
-                                del record.features[i+1]
-                            elif score_parser(record.features[i]) < \
-                                    score_parser(record.features[i+1]):
+                        record.features[i].strand == record.features[i + 1].strand and \
+                       0 <= record.features[i + 1].location.start - record.features[i].location.start <= 2:
+                        if score_parser(record.features[i]) != None and \
+                                score_parser(record.features[i + 1]) != None :
+                            if score_parser(record.features[i]) > score_parser(record.features[i + 1]):
+                                del record.features[i + 1]
+                            else:
                                 del record.features[i]
     output_features = []
     # if some features coordinates were replaced due to incorrect location parts joining, restore original values
