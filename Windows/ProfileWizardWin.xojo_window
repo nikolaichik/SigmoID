@@ -2939,7 +2939,7 @@ End
 		  If lastIdx>0 Then 'continue existing list
 		    CuratorList.CellValueAt(LastIdx,2)=cInfo+"profile modified"
 		  Else                               'first entry
-		    CuratorList.CellValueAt(LastIdx,2)=cInfo+"profile created"
+		    CuratorList.CellValueAt(LastIdx,2)=cInfo+" profile created"
 		  End If
 		  
 		  Exception err

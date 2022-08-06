@@ -962,14 +962,15 @@ End
 #tag Events StatsCheckbox
 	#tag Event
 		Sub Action()
-		  If not me.Value then
+		  If Not Me.Value Then
 		    LogoWin.TFsitesData = ""
 		  else
 		    dim dlg As OpenFileDialog
 		    dim f As FolderItem
 		    dlg = New OpenFileDialog
 		    dlg.InitialFolder = LogoWin.genomefile.Parent
-		    dlg.Title = "Provide file with Transcription factor binding sites (TFBSs) arrangements (RegulonDB format)"
+		    'dlg.Title = "Provide file with Transcription factor binding sites (TFBSs) arrangements (RegulonDB format)"
+		    dlg.PromptText = "Select a file with Transcription factor binding sites (TFBSs) arrangements (RegulonDB format)"
 		    f = dlg.ShowModal
 		    if f <> Nil then
 		      LogoWin.TFsitesData = f.ShellPath
