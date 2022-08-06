@@ -59,7 +59,7 @@ Inherits Thread
 		    
 		    'rp15
 		    BaseLocation=Resources_f.Child("CRtagBase").Child(me.hmmName+"_rp15.crtag")
-		    deNovoWin.rp.writeToWin("Loading crtag bases...")
+		    deNovoWin.rp.writeToWin("Loading CR-tag bases...")
 		    If BaseLocation<>Nil Then
 		      If BaseLocation.Exists Then
 		        instream=BaseLocation.OpenAsTextFile
