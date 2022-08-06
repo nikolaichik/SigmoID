@@ -26,6 +26,16 @@ Inherits URLConnection
 		End Sub
 	#tag EndEvent
 
+	#tag Event
+		Sub HeadersReceived(URL As String, HTTPStatus As Integer)
+		  Dim content As New Dictionary
+		  For Each header As Pair In me.ResponseHeaders
+		    content.Value(header.left) = header.right
+		  Next
+		  me.responseHeadersDict = content
+		End Sub
+	#tag EndEvent
+
 
 	#tag Method, Flags = &h0
 		Function uniprotIDmapping(rawIDs as String, source_ID_type as String, target_ID_type as String) As Dictionary
@@ -41,7 +51,6 @@ Inherits URLConnection
 		  Dim URL As String = "https://rest.uniprot.org/idmapping/run"
 		  Dim postParams As String = "ids=" + rawIDs + "&from=" + source_ID_type +  "&to=" + target_ID_type
 		  Dim response_status as New JSONItem
-		  
 		  
 		  ConvertionResults.Value("status") = False
 		  ConvertionResults.Value("logs") = ""
@@ -60,9 +69,8 @@ Inherits URLConnection
 		      logging.Append("uniprot id mapping service returned HTTPS error: " + str(me.HTTPStatusCode))
 		      ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
 		    else
-		      ' At first uniprot returns jobId, which could be used furhter to retrieve converted codes, after the job status will be "FINISHED"
+		      ' At first uniprot returns jobId, which could be used to retrieve converted codes, after the job status will be "FINISHED"
 		      response_status.Load(me.content)
-		      
 		      while True
 		        me.content = ""
 		        me.errorMessage = ""
@@ -95,8 +103,15 @@ Inherits URLConnection
 		          exit
 		        end
 		      wend
-		      
-		      URL = "https://rest.uniprot.org/idmapping/results/" + response_status.Value("jobId")
+		      if me.responseHeadersDict <> NIL then
+		        if me.responseHeadersDict.hasKey("Link") AND me.responseHeadersDict.HasKey("X-Total-Results") then
+		          Dim partURL As String = me.responseHeadersDict.value("Link")
+		          partURL = getFlankedText(partURL, "<", "&size=")
+		          URL = partURL + "&size=" + me.responseHeadersDict.value("X-Total-Results")
+		        end
+		      else
+		        URL = "https://rest.uniprot.org/idmapping/results/" + response_status.Value("jobId")
+		      end
 		      me.Send("GET", URL)
 		      while  me.content = "" and me.errorMessage = ""
 		        app.DoEvents
@@ -149,6 +164,10 @@ Inherits URLConnection
 
 	#tag Property, Flags = &h0
 		errorMessage As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		responseHeadersDict As Dictionary
 	#tag EndProperty
 
 

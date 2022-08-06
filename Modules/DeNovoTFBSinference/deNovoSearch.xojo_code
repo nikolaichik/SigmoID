@@ -693,9 +693,9 @@ Inherits Thread
 		              
 		              If crIndex>0 Then
 		                #If DebugBuild
-		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" accessions from "+RPname+" to process... ")
+		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,",") + 1) + " accessions from "+RPname+" to process... ")
 		                #Else
-		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,","))+" seqs to download..."+EndOfLine.unix)
+		                  deNovoWin.rp.writeToWin(Str(CountFields(filteredRes,",") + 1) + " seqs to download..."+EndOfLine.unix)
 		                #EndIf
 		              Else
 		                deNovoWin.rp.writeToWin("CRtag "+me.Crtags(n)+" was not found in the local bases (protein seq accession "+theProtName+")"+EndOfLine.unix)
