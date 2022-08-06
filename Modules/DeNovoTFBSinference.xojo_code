@@ -3009,7 +3009,9 @@ Protected Module DeNovoTFBSinference
 		  'read fasta file  input stream, iterate strings with multiple EndOfLine in seq entry, reformat sequences to single line and save as FASTA in CDSseqs field
 		  dim rawCDS as String
 		  rawCDS = instream.ReadAll
-		  dim CDSstrings() As String = rawCDS.Split(EndOfLine.UNIX)
+		  rawCDS = ReplaceAll(rawCDS,"(","_") 'very rare case in manualy asembled CDS.fasta
+		  rawCDS = ReplaceAll(rawCDS,")","_")
+		  Dim CDSstrings() As String = rawCDS.Split(EndOfLine.UNIX)
 		  For Each line As String in CDSstrings
 		    if instr(line, ">")>0 Then
 		      If CDSseqs<>"" Then
