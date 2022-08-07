@@ -41,6 +41,7 @@ Inherits URLConnection
 		Function uniprotIDmapping(rawIDs as String, source_ID_type as String, target_ID_type as String) As Dictionary
 		  Dim uniqueCodes As New Dictionary
 		  Dim convertedCodes() As String
+		  Dim codesBatch As String
 		  Dim conversionJson As Dictionary
 		  Dim rg as New RegEx
 		  Dim rgmatch As RegExMatch
@@ -86,13 +87,9 @@ Inherits URLConnection
 		              ' Wait 3 sec before check status again
 		              App.CurrentThread.Sleep(3000)
 		            else
-		              me.content = ""
-		              me.errorMessage = ""
 		              exit
 		            end
 		          elseif jobStatus.HasName("results") then
-		            me.content = ""
-		            me.errorMessage = ""
 		            exit
 		          end
 		        else
@@ -103,6 +100,9 @@ Inherits URLConnection
 		          exit
 		        end
 		      wend
+		      codesBatch = getFlankedText(me.content, "[", "]")
+		      me.content = ""
+		      me.errorMessage = ""
 		      if me.responseHeadersDict <> NIL then
 		        if me.responseHeadersDict.hasKey("Link") AND me.responseHeadersDict.HasKey("X-Total-Results") then
 		          Dim partURL As String = me.responseHeadersDict.value("Link")
@@ -121,7 +121,14 @@ Inherits URLConnection
 		        logging.Append(errorMessage)
 		        ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
 		      else
-		        conversionJson = ParseJSON(me.content)
+		        'merge codes batch from initial jobstatus request with results retrieved later
+		        if codesBatch <> "" then
+		          Dim mergedCodes As String = Nthfield(me.Content, "{"+chr(34) + "results" + chr(34) +":[", 2)
+		          mergedCodes = "{"+chr(34) + "results" + chr(34) +":[" + codesBatch +","+ mergedCodes
+		          conversionJson = ParseJSON(mergedCodes)
+		        else
+		          conversionJson = ParseJSON(me.Content)
+		        end
 		        Dim conversionResults() As Variant = conversionJson.Value("results")
 		        'filter duplicative matches
 		        for each conversionEntry as Dictionary in conversionResults
