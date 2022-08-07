@@ -108,6 +108,8 @@ Inherits URLConnection
 		          Dim partURL As String = me.responseHeadersDict.value("Link")
 		          partURL = getFlankedText(partURL, "<", "&size=")
 		          URL = partURL + "&size=" + me.responseHeadersDict.value("X-Total-Results")
+		        else
+		          URL = "https://rest.uniprot.org/idmapping/results/" + response_status.Value("jobId")
 		        end
 		      else
 		        URL = "https://rest.uniprot.org/idmapping/results/" + response_status.Value("jobId")
