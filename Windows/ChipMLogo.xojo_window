@@ -187,7 +187,7 @@ End
 		    for i as integer = 0 to Ubound(m.Sites)
 		      fasta=fasta+str(m.Sites(i).id)+" "+str(m.Sites(i).qualValue)+" "+m.Sites(i).strand+EndOfLine.UNIX+m.Sites(i).seq+EndOfLine.UNIX
 		    next
-		    dim p as Picture = MakeLogoPic(fasta, 45)
+		    dim p as Picture = MakeLogoPic(fasta, 100)
 		    me.Listbox1.AddRow
 		    me.Listbox1.Cell(me.Listbox1.LastIndex,0)="Motif #"+str(m.number)+" "+m.type
 		    if not LogoWin.bioprospectLogo  Then
@@ -271,7 +271,7 @@ End
 		  if b then
 		    value = val(Me.Cell(row,column))
 		    filfasta=filterSitesVal(value, row)
-		    dim p as Picture = MakeLogoPic(filfasta, 45)
+		    dim p as Picture = MakeLogoPic(filfasta, 100)
 		    Self.Listbox1.RowTag(row)=p
 		    
 		    self.Listbox1.CellTag(row,6)=filfasta

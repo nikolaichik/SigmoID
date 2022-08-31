@@ -586,7 +586,7 @@ End
 		                  if tis<>nil then
 		                    content=tis.ReadAll   'hmmfile
 		                    tis.Close
-		                    dim p as Picture = MakeLogoPic(content, 45)
+		                    dim p as Picture = MakeLogoPic(content, 60)
 		                    w.Listbox1.AddRow
 		                    
 		                    // Listbox1 columns are:
@@ -634,7 +634,7 @@ End
 		                              if tis<>nil then
 		                                content=tis.ReadAll   'hmmfile
 		                                tis.Close
-		                                dim p as Picture = MakeLogoPic(content, 45)
+		                                dim p as Picture = MakeLogoPic(content, 60)
 		                                w.Listbox1.AddRow
 		                                w.Listbox1.Cell(w.Listbox1.LastIndex,1) = str(tagsDiff)+"~"+str(basename)
 		                                w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount) 'added TF name
@@ -700,7 +700,7 @@ End
 		                      if tis<>nil then
 		                        content=tis.ReadAll   'hmmfile
 		                        tis.Close
-		                        dim p as Picture = MakeLogoPic(content, 45)
+		                        dim p as Picture = MakeLogoPic(content, 60)
 		                        w.Listbox1.AddRow
 		                        w.Listbox1.Cell(w.Listbox1.LastIndex,1)="!_"+str(tagsDiff)+"_"+basename
 		                        w.Listbox1.Cell(w.Listbox1.LastIndex,2)=protdescr(tagsCount) 'added TF name
