@@ -163,6 +163,9 @@ Inherits URLConnection
 		  end
 		  
 		  Return ConvertionResults
+		  
+		  Exception err
+		    ExceptionHandler(err,"deNovoSearch:uniprotIDmapping")
 		End Function
 	#tag EndMethod
 

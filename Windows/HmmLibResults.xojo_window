@@ -149,15 +149,14 @@ End
 #tag WindowCode
 	#tag Method, Flags = &h0
 		Sub fillTable()
-		  if Me.Storage <> NIL then
+		  If Me.Storage <> Nil Then
 		    Dim entryDictionary As Dictionary
 		    Dim keysToIndicies As New Dictionary
 		    
-		    Me.OutputBox.ColumnWidths = "5%, 5%, 5%, 5%, 20%, 10%, 10%, *"
 		    Me.OutputBox.Heading(0) = "Protein ID"
 		    Me.OutputBox.Heading(1) = "Gene"
-		    Me.OutputBox.Heading(2) = "Locus tag"
-		    Me.OutputBox.Heading(3) = "CR-tag"
+		    Me.OutputBox.Heading(2) = "Locus Tag"
+		    Me.OutputBox.Heading(3) = "Critical Residue Tag"
 		    Me.OutputBox.Heading(4) = "Family"
 		    Me.OutputBox.Heading(5) = "Accession"
 		    Me.OutputBox.Heading(6) = "E-value"

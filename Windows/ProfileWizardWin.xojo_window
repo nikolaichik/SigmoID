@@ -2323,6 +2323,7 @@ End
 		                Dim cl,dt As String
 		                cl=CuratorList.CellValueAt(z,2)
 		                dt=Trim(NthField(cl,":",1))
+		                if dt="" then exit 'empty line
 		                Dim kbD,kbM,YY As String
 		                kbD=NthField(dt,"/",1)
 		                kbM=NthField(dt,"/",2)
