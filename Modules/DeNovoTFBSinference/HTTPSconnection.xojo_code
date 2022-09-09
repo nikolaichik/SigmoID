@@ -104,40 +104,60 @@ Inherits URLConnection
 		      me.content = ""
 		      me.errorMessage = ""
 		      if me.responseHeadersDict <> NIL then
-		        if me.responseHeadersDict.hasKey("Link") AND me.responseHeadersDict.HasKey("X-Total-Results") then
-		          Dim partURL As String = me.responseHeadersDict.value("Link")
-		          partURL = getFlankedText(partURL, "<", "&size=")
-		          URL = partURL + "&size=" + me.responseHeadersDict.value("X-Total-Results")
+		        if me.responseHeadersDict.hasKey("Link") then
+		          while me.responseHeadersDict.hasKey("Link")
+		            Dim batchURL As String = me.responseHeadersDict.value("Link")
+		            me.responseHeadersDict.Clear
+		            ' mapping service returns batches with "Link" parameter in response headers
+		            ' we use the the max allowed batch size - 500, and retrieve codes until "Link" parameter is presented in response
+		            batchURL = getFlankedText(batchURL, "<",  "&size=")
+		            batchURL = batchURL + "&size=500"
+		            me.Send("GET", batchURL)
+		            while  me.content = "" and me.errorMessage = ""
+		              app.DoEvents
+		            wend
+		            if me.HTTPStatusCode <> 200 then
+		              logging.Append("uniprot id mapping service returned HTTPS error trying to retrive jobID " + response_status.Value("jobId") + " , code:" + str(me.HTTPStatusCode))
+		              logging.Append(errorMessage)
+		              ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
+		            else
+		              if codesBatch <> "" then
+		                codesBatch = codesBatch + "," + getFlankedText(me.content, "[", "]")
+		              else
+		                codesBatch = getFlankedText(me.content, "[", "]")
+		              end
+		            end
+		            me.content = ""
+		            me.errorMessage = ""
+		          wend
+		          
 		        else
 		          URL = "https://rest.uniprot.org/idmapping/results/" + response_status.Value("jobId")
+		          me.Send("GET", URL)
+		          while  me.content = "" and me.errorMessage = ""
+		            app.DoEvents
+		          wend
+		          if me.HTTPStatusCode <> 200 then
+		            logging.Append("uniprot id mapping service returned HTTPS error trying to retrive jobID " + response_status.Value("jobId") + " , code:" + str(me.HTTPStatusCode))
+		            logging.Append(errorMessage)
+		            ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
+		          else
+		            if codesBatch <> "" then
+		              codesBatch = codesBatch + "," + getFlankedText(me.content, "[", "]")
+		            else
+		              codesBatch = getFlankedText(me.content, "[", "]")
+		            end
+		          end
 		        end
-		      else
-		        URL = "https://rest.uniprot.org/idmapping/results/" + response_status.Value("jobId")
-		      end
-		      me.Send("GET", URL)
-		      while  me.content = "" and me.errorMessage = ""
-		        app.DoEvents
-		      wend
-		      if me.HTTPStatusCode <> 200 then
-		        logging.Append("uniprot id mapping service returned HTTPS error trying to retrive jobID " + response_status.Value("jobId") + " , code:" + str(me.HTTPStatusCode))
-		        logging.Append(errorMessage)
-		        ConvertionResults.Value("logs") = join(logging, EndOfLine.UNIX)
-		      else
-		        'merge codes batch from initial jobstatus request with results retrieved later
-		        if codesBatch <> "" then
-		          Dim mergedCodes As String = Nthfield(me.Content, "{"+chr(34) + "results" + chr(34) +":[", 2)
-		          mergedCodes = "{"+chr(34) + "results" + chr(34) +":[" + codesBatch +","+ mergedCodes
-		          conversionJson = ParseJSON(mergedCodes)
-		        else
-		          conversionJson = ParseJSON(me.Content)
-		        end
+		        codesBatch = "{"+chr(34) + "results" + chr(34) +":[" + codesBatch +"]}"
+		        conversionJson = ParseJSON(codesBatch)
 		        Dim conversionResults() As Variant = conversionJson.Value("results")
 		        'filter duplicative matches
 		        for each conversionEntry as Dictionary in conversionResults
 		          Dim oldID as String = conversionEntry.Value("from")
 		          if not uniqueCodes.HasKey(oldID) then
 		            uniqueCodes.Value(oldID) = True
-		            'don't include id part after dot if present
+		            'don't include id part after dot
 		            rgmatch=rg.Search(conversionEntry.value("to"))
 		            If rgmatch <> Nil Then
 		              convertedCodes.append(rgmatch.SubExpressionString(0))
