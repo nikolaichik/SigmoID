@@ -3,11 +3,11 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	<title></title>
-	<meta name="generator" content="LibreOffice 6.3.6.2 (MacOSX)"/>
+	<meta name="generator" content="LibreOffice 7.1.6.2 (MacOSX)"/>
 	<meta name="author" content="Yevgeny Nikolaichik"/>
 	<meta name="created" content="2020-07-21T09:42:10.876451124"/>
 	<meta name="changedby" content="Yevgeny Nikolaichik"/>
-	<meta name="changed" content="2020-07-21T09:43:08.485943109"/>
+	<meta name="changed" content="2022-10-07T08:16:06.672374429"/>
 	<style type="text/css">
 		h1.cjk { font-family: "Arial Unicode MS" }
 		h1.ctl { font-family: "Arial Unicode MS" }
@@ -15,60 +15,55 @@
 </head>
 <body lang="en-GB" dir="ltr"><h1 class="western">SigmoID Installation</h1>
 <p>&nbsp;&nbsp;&nbsp; Please don’t launch SigmoID until all the
-requirements listed below are satisfied! <br/>
-&nbsp;&nbsp;&nbsp; On
-Mac OS, we strongly recommend moving SigmoID.app to the Applications
-folder before the first launch.   <br/>
-&nbsp;&nbsp;&nbsp; SigmoID
-v.2 is known to work on OS X (10.10 and up) and 64-bit Linux
-distributions (Ubuntu 16.04 and Mint 16 were tested).  Windows
-support is possible, but not planned unless there is sufficient
-interest. Other Linux distributions may work provided Xojo
-requirements are met. <br/>
-&nbsp;&nbsp;&nbsp; Full list of
-platform-specific system requirements is located at <a href="https://docs.xojo.com/Resources:System_Requirements">Xojo
+requirements listed below are satisfied! 
+</p>
+<p><br/>
+&nbsp;&nbsp;&nbsp; On Mac OS, we strongly recommend moving
+SigmoID.app to the Applications folder before the first launch. We
+also recommend to launch SigmoID for the first time only after all
+required software is installed.<br/>
+&nbsp;&nbsp;&nbsp; SigmoID v.2
+works on OS X (10.10 and up) and 64-bit Linux distributions (Ubuntu
+16 and Mint 16 and up were tested). Other Linux distributions may
+work provided Xojo requirements are met.<br/>
+&nbsp;&nbsp;&nbsp; Full
+list of platform-specific system requirements is located at <a href="https://docs.xojo.com/Resources:System_Requirements">Xojo
 web site</a>.<br/>
 &nbsp;&nbsp;&nbsp; SigmoID relies heavily on
 Python and will have severely limited functionality without it. The
-various python scripts included with SigmoID require python version
-2.7 and will not work with version 3 yet (conversion to Python3
-should be complete by the end of 2020). <br/>
+various python scripts included with SigmoID require python 3 with a
+matching version of Biopython.</p>
+<p>&nbsp;&nbsp;&nbsp; Requirements listed below should be installed in the following
+order:</p>
+<p>1) <a href="https://www.open-mpi.org/">OpenMPI</a> or <a href="https://www.mpich.org/">MPICH</a>
+to allow MEME and MeShClust to use multiple threads. Absence of
+OpenMPI will be especially noticeable in the <i>de novo</i> TFBS
+inference pipeline: meme will run in a single thread slowing the
+pipeline down significantly. MeShClust will not run at all, so one of
+the clustering steps will be skipped which will decrease the quality
+of the motifs inferred.<br>
+2) Install <a href="https://meme-suite.org/meme/">MEME
+Suite</a>. Depending on your system set-up, MEME may require
+additional libraries and perl modules (html output generation may not
+work without those).<br>
+3) Install <a href="https://github.com/BioinformaticsToolsmith/MeShClust">MeShClust</a>.<br>
+4) Install <a href="https://www.ncbi.nlm.nih.gov/books/NBK179288/">NCBI
+Entrez Direct (EDirect)</a>.<br>
+5) <a href="http://hmmer.org/">HMMER</a>.</p>
+<p>&nbsp;&nbsp;&nbsp; The paths to all external programs can be
+changed in the preferences. SigmoID will try to find the paths to the
+versions installed on your system (via the PATH variable). Any
+missing programs will be reported in the main window at launch.</p>
+<p><u>Optional software</u><br/>
+&nbsp;&nbsp;&nbsp;  <br/>
 &nbsp;&nbsp;&nbsp;
-Biopython (v. 1.66+) should be installed on top of python 2.7. You
-can download the distribution and read the installation details for
-your system at <a href="http://biopython.org/wiki/Download">biopython.org</a>.
-Please make sure you download and install the correct version for
-your system and python version.<br/>
-&nbsp;&nbsp;&nbsp; Proper
-installation of the MEME suite is essential for inference of new
-motifs. Depending on your system set-up, MEME may require additional
-python and perl modules (html output generation suffers most often
-without those).  MEME within SigmoID could be called in two ways: as
-a simple converter of the aligned sequences to MEME format (via the
-<a href="#Convert_to_MEME">Convert to MEME</a> menu command) or for
-finding binding sites within unaligned sequences (via the <a href="#Find_Sites_with_MEME">Find
-Sites with MEME</a> menu command). The second option generates html
-output via a perl script and relies on template files that MEME
-expects to find in certain locations, hence this is only likely to
-work when MEME is installed on the user system and the path to the
-system version is appropriately set in SigmoID preferences.<br/>
-&nbsp;&nbsp;&nbsp;
-Install <a href="https://www.open-mpi.org/">OpenMPI</a> to allow MEME
-and MeShClust to use multiple threads. Absence of OpenMPI will be
-especially noticeable in the <i>de novo</i> TFBS inference pipeline:
-meme will run in a single thread slowing the pipeline down
-significantly. MeShClust will not run at all, so one of the
-clustering steps will be skipped which may decrease the quality of
-the motifs inferred. <br/>
-&nbsp;&nbsp;&nbsp; <a href="http://autosome.ru/ChIPMunk/">ChIPMunk</a>
-is not required for standard operation of SigmoID, but we have found
-it very helpful for inference of nonpalindromic motifs. Automatic
-ChIPMunk launching within the <i>de novo</i> TFBS inference pipeline
-requires setting of the path to chipmunk.jar file in the preferences.
-<br/>
-&nbsp;&nbsp;&nbsp; The paths to all external programs can be
-changed in the preferences. SigmoID will try to set the paths to the
-versions installed on your system (via the PATH variable) and will
-default to the versions included in the distribution if this fails.</p>
+<a href="http://autosome.ru/ChIPMunk/">ChIPMunk</a> is not required
+for standard operation of SigmoID, but may be very helpful for inference
+of nonpalindromic motifs. To use ChIPmunk, please set the path to the
+chipmunk.jar file in the preferences.<br>
+</p>Promoter inference requires Clustal Omega and BioProspector. The
+paths to the executables of these programs should also be set in the
+preferences.
+
 </body>
 </html>
