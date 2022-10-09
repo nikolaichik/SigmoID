@@ -53,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +162,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -247,7 +244,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -360,7 +356,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -373,7 +368,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -476,7 +470,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -538,7 +531,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -1023,6 +1015,14 @@ End
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
 			Close
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function FileExportCDSsequences() As Boolean Handles FileExportCDSsequences.Action
+			gbk2CDS
 			Return True
 			
 		End Function
@@ -2901,8 +2901,73 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub gbk2cds()
+		  Dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine As String
+		  dim outfile As folderitem
+		  dim n,u as integer
+		  Dim ft As GBFeature
+		  Dim theSeq As String
+		  
+		  separTransl="/translation="+chr(34)
+		  separProtID="/locus_tag="+Chr(34)
+		  separGene="/gene="+chr(34)
+		  separProd="/product="+chr(34)
+		  separ2=chr(34)
+		  Dim dlg as New SaveAsDialog
+		  dlg.InitialDirectory=genomefile.Parent
+		  dlg.promptText="Select a name for Fasta file to export CDS sequences to."
+		  dlg.SuggestedFileName=NthField(GenomeFile.Name,".",1)+"_CDS.fasta"
+		  dlg.Title="Export CDS sequences in Fasta format"
+		  dlg.Filter=FileTypes.Fasta
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  outfile=dlg.ShowModalwithin(self)
+		  if outfile<>nil then
+		    LogoWin.WriteToSTDOUT (EndOfLine+"Exporting each CDS sequence annotated in this genome in Fasta format...")
+		    LogoWin.STDOUT.Refresh(false)
+		    Logowin.show
+		    
+		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
+		    if s<> NIL then
+		      u=ubound(Genome.Features)
+		      for n=1 to u
+		        ft=Genome.Features(n)
+		        if left(ft.featuretext,3)="CDS" then
+		          TitleLine=NthField(ft.FeatureText,separProtID,2)           'locus_tag
+		          TitleLine=">"+NthField(TitleLine,separ2,1)
+		          prot=NthField(ft.FeatureText,separGene,2)                  'Gene
+		          prot=NthField(prot,separ2,1)
+		          if prot<>"" then
+		            TitleLine=TitleLine+" "+prot
+		          end if
+		          prot=NthField(ft.FeatureText,separProd,2)                  'Product
+		          prot=NthField(prot,separ2,1)
+		          TitleLine=TitleLine+" "+prot
+		          TitleLine=replaceall(TitleLine,EndOfLine," ")
+		          
+		          theSeq=GetFeatureSeq(n)
+		          if prot<>"" then
+		            s.Writeline TitleLine                                      'Write >Title
+		            s.write theSeq+EndOfLine.unix                                'and CDS seq
+		          end if
+		        end if
+		      next
+		      
+		      s.close
+		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		    end if
+		    
+		    
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:gbk2cds")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub gbk2fasta()
-		  dim cli,gbk2tblPath as string
+		  Dim cli,gbk2tblPath As String
 		  dim outfile As folderitem
 		  
 		  Dim dlg as New SaveAsDialog
@@ -2932,13 +2997,13 @@ End
 		  end if
 		  
 		  Exception err
-		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
+		    ExceptionHandler(err,"GenomeWin:gbk2fasta")
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub gbk2protein()
-		  dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine as string
+		  Dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine As String
 		  dim outfile As folderitem
 		  dim n,u as integer
 		  dim ft as GBFeature
@@ -2997,7 +3062,7 @@ End
 		  end if
 		  
 		  Exception err
-		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
+		    ExceptionHandler(err,"GenomeWin:gbk2protein")
 		End Sub
 	#tag EndMethod
 
@@ -3458,7 +3523,9 @@ End
 
 	#tag Method, Flags = &h0
 		Function GetFeatureSeq() As string
-		  if Seq.Features(ContextFeature).complement  then
+		  'Contrary to GetFeatureSeq(FeatureNo as integer), this function uses features of the partial Seq cSeqObject that only has features currently shown in the GenomeWin
+		  
+		  If Seq.Features(ContextFeature).complement  Then
 		    FeatureLeft=Seq.Features(ContextFeature).start-Seq.Features(ContextFeature).length+1
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length-1
 		    return ReverseComplement(midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft))
@@ -3467,6 +3534,23 @@ End
 		    FeatureRight=FeatureLeft+Seq.Features(ContextFeature).length
 		    return midb(Genome.Sequence,FeatureLeft+GBrowseShift,FeatureRight-FeatureLeft)
 		  end
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetFeatureSeq(FeatureNo as integer) As string
+		  'Contrary to GetFeatureSeq, this function uses features of the complete Genome cSeqObject
+		  
+		  FeatureLeft=Genome.Features(FeatureNo).start
+		  FeatureRight=Genome.Features(FeatureNo).finish
+		  
+		  If Genome.Features(FeatureNo).complement  Then
+		    Return ReverseComplement(MidB(Genome.Sequence,FeatureRight,FeatureLeft-FeatureRight+1))
+		  Else
+		    Return MidB(Genome.Sequence,FeatureLeft,FeatureRight-FeatureLeft)
+		  End
+		  
+		  
 		End Function
 	#tag EndMethod
 

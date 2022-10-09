@@ -153,6 +153,15 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem FileExportCDSsequences
+         SpecialMenu = 0
+         Value = "#kExportCDSsequences"
+         Index = -2147483648
+         Text = "#kExportCDSsequences"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem FileExportProteinSequences
          SpecialMenu = 0
          Value = "#kExportProteinSequences"
