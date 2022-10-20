@@ -15,7 +15,7 @@ Begin Window EvidenceCodesWin
    MacProcID       =   0
    MaximumHeight   =   32000
    MaximumWidth    =   32000
-   MenuBar         =   0
+   MenuBar         =   149806200
    MenuBarVisible  =   True
    MinimumHeight   =   64
    MinimumWidth    =   64
@@ -92,7 +92,7 @@ Begin Window EvidenceCodesWin
       VisualState     =   "0"
       Width           =   560
    End
-   Begin PushButton PushButton1
+   Begin PushButton OKButton
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
@@ -124,7 +124,7 @@ Begin Window EvidenceCodesWin
       Visible         =   True
       Width           =   80
    End
-   Begin PushButton PushButton2
+   Begin PushButton CancelButton
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   True
@@ -162,6 +162,7 @@ End
 #tag WindowCode
 	#tag Event
 		Function CancelClose(appQuitting as Boolean) As Boolean
+		  CheckedCodes=""
 		  hide
 		End Function
 	#tag EndEvent
@@ -172,6 +173,15 @@ End
 		  
 		End Sub
 	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			hide
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 
 	#tag Method, Flags = &h0
@@ -290,7 +300,7 @@ End
 
 #tag EndWindowCode
 
-#tag Events PushButton1
+#tag Events OKButton
 	#tag Event
 		Sub Action()
 		  Dim n As Integer
@@ -305,9 +315,10 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton2
+#tag Events CancelButton
 	#tag Event
 		Sub Action()
+		  CheckedCodes=""
 		  Self.hide
 		  
 		End Sub

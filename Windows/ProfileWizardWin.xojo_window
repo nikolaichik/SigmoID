@@ -15,7 +15,7 @@ Begin Window ProfileWizardWin
    MaxHeight       =   32000
    MaximizeButton  =   False
    MaxWidth        =   32000
-   MenuBar         =   0
+   MenuBar         =   149806200
    MenuBarVisible  =   True
    MinHeight       =   64
    MinimizeButton  =   True
@@ -1290,10 +1290,25 @@ End
 
 #tag WindowCode
 	#tag Event
+		Function CancelClose(appQuitting as Boolean) As Boolean
+		  me.hide
+		End Function
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  AdjustLayout4linux(me)
 		End Sub
 	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			me.Hide
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 
 	#tag Method, Flags = &h0
