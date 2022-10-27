@@ -1973,6 +1973,7 @@ Protected Module Globals
 		  Try
 		    outstream = TextOutputStream.Create(inputData)
 		    outstream.write(inputQuery)
+		    outstream.close
 		  catch IOexception
 		    ScanResults.Value("logging") = "HmmScan input data preparation failed, can't create a file: " + inputData.NativePath + EndofLine.UNIX
 		    return ScanResults
