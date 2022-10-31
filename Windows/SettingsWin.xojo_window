@@ -116,7 +116,6 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   False
       Value           =   0
@@ -3625,6 +3624,15 @@ End
 		    
 		End Sub
 	#tag EndEvent
+
+
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			me.Hide
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
 
 
 	#tag Method, Flags = &h0

@@ -698,6 +698,15 @@ End
 	#tag EndEvent
 
 
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			me.Hide
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Method, Flags = &h1, Description = 4275696C645369674172726179
 		Protected Sub BuildPfamPopup()
 		  Dim l,m,n As Integer

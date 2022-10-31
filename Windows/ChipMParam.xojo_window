@@ -606,6 +606,15 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			me.Hide
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Note, Name = Defaults
 		
 		Defaults are set as default values of ChipMSettings class properties. 

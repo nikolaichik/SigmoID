@@ -995,6 +995,15 @@ End
 	#tag EndEvent
 
 
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			me.Hide
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Method, Flags = &h0
 		Sub EnableRun()
 		  If Not me.AnnotateRes Then

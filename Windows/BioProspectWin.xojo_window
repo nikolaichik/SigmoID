@@ -1076,6 +1076,15 @@ End
 	#tag EndEvent
 
 
+	#tag MenuHandler
+		Function FileClose() As Boolean Handles FileClose.Action
+			me.Hide
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+
 	#tag Method, Flags = &h0
 		Sub loadSettings()
 		  if LogoWin.BioProspectSettings.KeyCount = 0 Then
