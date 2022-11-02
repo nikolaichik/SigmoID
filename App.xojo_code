@@ -87,6 +87,9 @@ Inherits Application
 		  SetLinuxIcon
 		  DisableAppAutoTabbing
 		  
+		  MyRandom = New Random
+		  App.MyRandom.Seed = system.Microseconds
+		  
 		  GetResources_f
 		  
 		  ReadPrefs 'diplicating this function in several places as event order is different on different systems
@@ -1483,6 +1486,10 @@ Inherits Application
 
 	#tag Property, Flags = &h0
 		Genome As cSeqObject
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		MyRandom As Random
 	#tag EndProperty
 
 

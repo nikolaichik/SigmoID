@@ -127,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -353,8 +354,8 @@ End
 		    AlignmentConvertToHmm.enabled=true
 		    AlignmentConvertToMEME.enabled=true
 		    AlignmentConverttoStockholm.enabled=true
-		    GenomeRepeatSearch.Enabled=true
-		    
+		    GenomeRepeatSearch.Enabled=True
+		    ProfilePermuteColumns.Enabled=True
 		  else
 		    ViewAlignmentInfo.enabled=false
 		    ViewHmmerSettings.enabled=false
@@ -382,13 +383,15 @@ End
 		      AlignmentConvertToMEME.enabled=true
 		      AlignmentConverttoStockholm.enabled=true
 		      ProfilePalindromise.Enabled=true
-		      ProfileReverseComplement.Enabled=true
+		      ProfileReverseComplement.Enabled=True
+		      ProfilePermuteColumns.Enabled=True
 		      'if WebLogoAvailable then
 		      
 		      
-		      'else
+		    Else
+		      ProfilePermuteColumns.Enabled=False
 		      'ViewLogo.enabled=false
-		      'FileSaveLogo.enabled=false
+		      FileSaveLogo.enabled=false
 		      'end if
 		    end if
 		    
@@ -1793,6 +1796,31 @@ End
 	#tag MenuHandler
 		Function ProfilePalindromise() As Boolean Handles ProfilePalindromise.Action
 			Palindromise
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ProfilePermuteColumns() As Boolean Handles ProfilePermuteColumns.Action
+			PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
+			
+			'since we change data, that's not the .sig any more!
+			SigFileOpened=false
+			
+			If PalindromeLogoFile <> Nil then
+			PermuteFasta(logofile, palindromeLogofile)
+			logofile=PalindromeLogoFile
+			
+			'replace contents of the Sequence variable (for viewing)
+			dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
+			Sequences=Instream.ReadAll
+			instream.Close
+			DrawLogo
+			End If
+			
+			Exception err
+			ExceptionHandler(err,"LogoWin:ProfilePermuteColumns")
 			Return True
 			
 		End Function

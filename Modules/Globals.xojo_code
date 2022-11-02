@@ -3258,6 +3258,92 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub PermuteFasta(AlignmentFile as folderitem, PermutedFile as folderitem)
+		  // Permute columns of an alignment in FASTA format
+		  '  Properly aligned seqs of equal lengths are expected
+		  
+		  Dim InStream As TextInputStream
+		  dim OutStream As TextOutputStream
+		  dim aline as string
+		  Dim titles(0) As String
+		  Dim seqs(0) As String
+		  Dim seqCount As Integer = 0
+		  Dim r,m,n,o,columNo As Integer
+		  Dim Columns(0),NewColumns(0) As Integer
+		  Dim ColumnOrder As String
+		  Dim PermutedSeq As String
+		  Dim nextCol As String
+		  
+		  InStream = AlignmentFile.OpenAsTextFile
+		  If instream=Nil Then Return
+		  
+		  
+		  
+		  //read the data
+		  While Not InStream.EOF                        
+		    aLine=InStream.readLine
+		    If Left(aLine,1)=">" Then                    'seq title
+		      seqCount=seqCount+1
+		      titles.Append ">PermutedSeq"+Str(seqCount)
+		    Else                                         'actual seq
+		      seqs.Append aline
+		    end if
+		  Wend
+		  instream.Close
+		  
+		  // Get the order of permuted columns
+		  columNo=Len(seqs(1))
+		  For n=1 To columNo
+		    columns.Append (n)
+		  Next
+		  'For n=columNo DownTo 1
+		  'Do 
+		  'r=App.MyRandom.InRange(1,n)
+		  'nextCol=Str(r)+","
+		  'If InStr(ColumnOrder,nextCol)=0 Then
+		  'ColumnOrder=ColumnOrder+nextCol
+		  'Exit
+		  'End If
+		  'Loop
+		  'Next
+		  ColumnOrder=" "
+		  Do 
+		    r=App.MyRandom.InRange(1,columNo)
+		    'r=App.MyRandom.lessThan(columNo-1)
+		    'App.MyRandom.Seed = System.Microseconds
+		    nextCol=" "+Str(r)+","
+		    If InStr(ColumnOrder,nextCol)=0 Then
+		      ColumnOrder=ColumnOrder+nextCol
+		    End If
+		  Loop Until CountFields(ColumnOrder,",")=columNo+1
+		  
+		  //generate permuted seqs 
+		  OutStream = TextOutputStream.Create(PermutedFile)
+		  If outstream=Nil Then Return
+		  m=UBound(Titles)
+		  
+		  'get new column order
+		  For n=1 To columNo
+		    NewColumns.Append Val(Trim(NthField(ColumnOrder,",",n)))
+		  Next
+		  'write permuted seqs to disc
+		  For n=1 To m
+		    PermutedSeq=""
+		    For o=1 To columNo
+		      PermutedSeq=PermutedSeq+Mid(Seqs(n),NewColumns(o),1)
+		    Next
+		    outstream.writeline Titles(n)
+		    outstream.writeline PermutedSeq
+		  Next
+		  
+		  outstream.close
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:FastaPermute")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function PlaceQuotesToPath(path as string) As string
 		  // Place pair of quotes to the path in Win32 system
 		  // Also check if this quotes are already placed
@@ -4314,7 +4400,9 @@ Protected Module Globals
 		  dim n as integer
 		  
 		  OutStream = TextOutputStream.Create(StockholmFile)
+		  If outstream=Nil Then Return
 		  InStream = AlignmentFile.OpenAsTextFile
+		  If instream=Nil Then Return
 		  
 		  outstream.WriteLine "# STOCKHOLM 1.0"         'Stockholm header
 		  if cutoffs<>"" then

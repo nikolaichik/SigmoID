@@ -526,6 +526,15 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem ProfilePermuteColumns
+         SpecialMenu = 0
+         Value = "#kPermuteColumns"
+         Index = -2147483648
+         Text = "#kPermuteColumns"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem UntitledSeparator7
          SpecialMenu = 0
          Value = "-"
