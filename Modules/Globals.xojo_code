@@ -331,6 +331,7 @@ Protected Module Globals
 		  dim FPhits(0) as boolean 'to mark hits as true or "false positive"
 		  redim FPhits(hitNum)
 		  
+		  Dim CompareScoresReport As String = EndOfLine.unix
 		  
 		  for m=1 to ubound(TSSeq) 'training set
 		    
@@ -343,35 +344,35 @@ Protected Module Globals
 		    for n=1 to hitNum 'the hits
 		      if instr(SigSeq(n),cTSseq)>0 then
 		        hitCount=hitCount+1
-		        LogoWin.WriteToSTDOUT(cTSname+EndOfLine)
+		        CompareScoresReport=CompareScoresReport+cTSname+EndOfLine
 		        FPhits(n)=true
 		        if HitCount=1 then
-		          LogoWin.WriteToSTDOUT("corresponds to:"+EndOfLine)
-		          LogoWin.WriteToSTDOUT(SigName(n)+EndOfLine)
-		          LogoWin.WriteToSTDOUT(SigSeq(n)+EndOfLine)
+		          CompareScoresReport=CompareScoresReport+"corresponds to:"+EndOfLine
+		          CompareScoresReport=CompareScoresReport+SigName(n)+EndOfLine
+		          CompareScoresReport=CompareScoresReport+SigSeq(n)+EndOfLine
 		        else
-		          LogoWin.WriteToSTDOUT("hit number "+str(n)+"! Corresponds to:"+EndOfLine)
-		          LogoWin.WriteToSTDOUT(SigName(n)+EndOfLine)
-		          LogoWin.WriteToSTDOUT(SigSeq(n)+EndOfLine)
+		          CompareScoresReport=CompareScoresReport+"hit number "+Str(n)+"! Corresponds to:"+EndOfLine
+		          CompareScoresReport=CompareScoresReport+SigName(n)+EndOfLine
+		          CompareScoresReport=CompareScoresReport+SigSeq(n)+EndOfLine
 		        end if
-		        LogoWin.WriteToSTDOUT(SigName(0)+EndOfLine)
+		        CompareScoresReport=CompareScoresReport+SigName(0)+EndOfLine
 		        if SigScore(n)<MinScore then
 		          MinScore=SigScore(n)
 		        end if
 		      elseif instr(SigSeq(n),RevTSseq)>0 then
 		        hitCount=hitCount+1
-		        LogoWin.WriteToSTDOUT(cTSname+EndOfLine)
+		        CompareScoresReport=CompareScoresReport+cTSname+EndOfLine
 		        FPhits(n)=true
 		        if HitCount=1 then
-		          LogoWin.WriteToSTDOUT("corresponds to:"+EndOfLine)
-		          LogoWin.WriteToSTDOUT(SigName(n)+EndOfLine)
-		          LogoWin.WriteToSTDOUT(SigSeq(n)+EndOfLine)
+		          CompareScoresReport=CompareScoresReport+"corresponds to:"+EndOfLine
+		          CompareScoresReport=CompareScoresReport+SigName(n)+EndOfLine
+		          CompareScoresReport=CompareScoresReport+SigSeq(n)+EndOfLine
 		        else
-		          LogoWin.WriteToSTDOUT("hit number "+str(n)+"! Corresponds to:"+EndOfLine)
-		          LogoWin.WriteToSTDOUT(SigName(n)+EndOfLine)
-		          LogoWin.WriteToSTDOUT(SigSeq(n)+EndOfLine)
+		          CompareScoresReport=CompareScoresReport+"hit number "+Str(n)+"! Corresponds to:"+EndOfLine
+		          CompareScoresReport=CompareScoresReport+SigName(n)+EndOfLine
+		          CompareScoresReport=CompareScoresReport+SigSeq(n)+EndOfLine
 		        end if
-		        LogoWin.WriteToSTDOUT(SigName(0)+EndOfLine)
+		        CompareScoresReport=CompareScoresReport+SigName(0)+EndOfLine
 		        if SigScore(n)<MinScore then
 		          MinScore=SigScore(n)
 		        end if
@@ -397,23 +398,25 @@ Protected Module Globals
 		  next
 		  
 		  
+		  CompareScoresReport = CompareScoresReport+EndOfLine.unix
 		  
-		  LogoWin.WriteToSTDOUT(EndOfLine.unix)
-		  if ubound(missedHits)>0 then
-		    LogoWin.WriteToSTDOUT("Some training set sites were missed by SigmoID:"+EndOfLine.unix)
-		    for n=1 to ubound(missedHits)
-		      LogoWin.WriteToSTDOUT(missedHits(n)+EndOfLine.unix)
-		    next
-		  end if
+		  If ubound(missedHits)>0 Then
+		    CompareScoresReport=CompareScoresReport+"Some training set sites were missed by SigmoID:"+EndOfLine.unix
+		    For n=1 To ubound(missedHits)
+		      CompareScoresReport=CompareScoresReport+missedHits(n)+EndOfLine.unix
+		    Next
+		  End If
 		  
-		  LogoWin.WriteToSTDOUT(EndOfLine+"Min. score for hits matching training set: "+str(minScore)+EndOfLine.unix)
-		  if maxFPscore>0 then
-		    LogoWin.WriteToSTDOUT("Max. score for hits not matching training set: "+str(maxFPscore)+EndOfLine.unix)
-		  else
-		    LogoWin.WriteToSTDOUT("No false positive hits found.")
-		  end if
-		  LogoWin.WriteToSTDOUT(EndOfLine.Unix+EndOfLine.Unix)
+		  CompareScoresReport=CompareScoresReport+EndOfLine+"Min. score for hits matching training set: "+Str(minScore)+EndOfLine.unix
+		  If maxFPscore>0 Then
+		    CompareScoresReport=CompareScoresReport+"Max. score for hits not matching training set: "+Str(maxFPscore)+EndOfLine.unix
+		  Else
+		    CompareScoresReport=CompareScoresReport+"No false positive hits found."
+		  End If
+		  CompareScoresReport=CompareScoresReport+EndOfLine.Unix+EndOfLine.Unix
 		  
+		  
+		  LogoWin.WriteToSTDOUT(CompareScoresReport)
 		  
 		  ProfileWizardWin.TrustedField.Text=str(minScore)
 		  if maxFPscore>0 then
