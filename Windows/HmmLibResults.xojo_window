@@ -212,6 +212,18 @@ End
 #tag Events OutputBox
 	#tag Event
 		Sub Open()
+		  //allow selection and copying
+		  
+		  Me.ColumnTypeAt(0) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(1) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(2) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(3) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(4) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(5) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(6) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(7) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(8) = ListBox.CellTypes.
+		  TextField
 		  
 		  fillTable
 		End Sub

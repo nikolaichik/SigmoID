@@ -349,8 +349,12 @@ End
 		  'me.ColumnWidths="20,300,100,*,0"
 		  Me.ColumnWidths="30,200,100,100,*,70,0,0"      'Adjust CellBackgroundPaint if changed!
 		  Me.DefaultRowHeight=59  'LogoPic.Height=45
-		  me.ColumnType(0)=Listbox.TypeCheckbox
-		  me.Heading(0)=" "
+		  Me.ColumnType(0)=Listbox.TypeCheckbox
+		  Me.ColumnTypeAt(0) = ListBox.CellTypes.CheckBox
+		  Me.ColumnTypeAt(1) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(2) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(3) = ListBox.CellTypes.TextField
+		  Me.Heading(0)=" "
 		  Me.Heading(1)="Profile Name"
 		  Me.Heading(2)="Protein_ID"
 		  Me.Heading(3) = "Gene"
