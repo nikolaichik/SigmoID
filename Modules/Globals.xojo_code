@@ -931,6 +931,8 @@ Protected Module Globals
 		Function FamilyNameFromHmmName(aName as string) As string
 		  // NEED TO STANDARTISE NAMES HERE AND IN GetHmmFromFamilyName
 		  
+		  aname=nthfield(aname,".hmm",1)    'just in case extension is present
+		  
 		  If InStr(aname, "Arg_repressor")>0 Then
 		    aName="ArgR"
 		  Elseif InStr(aname, "HTH_20")>0 Then

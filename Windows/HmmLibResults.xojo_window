@@ -222,8 +222,7 @@ End
 		  Me.ColumnTypeAt(5) = ListBox.CellTypes.TextField
 		  Me.ColumnTypeAt(6) = ListBox.CellTypes.TextField
 		  Me.ColumnTypeAt(7) = ListBox.CellTypes.TextField
-		  Me.ColumnTypeAt(8) = ListBox.CellTypes.
-		  TextField
+		  Me.ColumnTypeAt(8) = ListBox.CellTypes.TextField
 		  
 		  fillTable
 		End Sub

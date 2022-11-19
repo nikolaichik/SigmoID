@@ -127,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -1639,12 +1638,13 @@ End
 		Function ProfileConvertFolderToMEME() As Boolean Handles ProfileConvertFolderToMEME.Action
 			// Select a folder with .sig files and convert all of them into a single file in the minimal meme format
 			
-			
 			Dim SigF, f As FolderItem
 			Dim m,n,q As Integer
 			Dim basename As String
 			Dim vv As VirtualVolume
 			Dim tis As TextInputStream
+			Dim SigPath as string
+			dim memeData as string
 			Dim dlg As New SelectFolderDialog
 			dlg.ActionButtonCaption = "Select"
 			dlg.Title = "Select Folder with .sig files"
@@ -1653,6 +1653,7 @@ End
 			
 			SigF = dlg.ShowModal
 			If SigF <> Nil Then
+			ConvertProfilesToMEMEWin.close
 			ConvertProfilesToMEMEWin.Foldername=SigF.DisplayName
 			m=SigF.Count
 			For n=1 To m
@@ -1665,6 +1666,7 @@ End
 			'Get MEME data:
 			vv=SigF.Item(n).openAsVirtualVolume
 			If vv<> Nil Then
+			sigPath=SigF.Item(n).nativePath
 			basename=NthField(SigF.Item(n).DisplayName,".sig",1)
 			f=vv.root.child("meme.txt")
 			If f<> Nil And f.exists Then
@@ -1714,6 +1716,14 @@ End
 			tis.Close
 			End If
 			
+			'get meme data:
+			f=vv.root.child("meme.txt")
+			If f<> Nil And f.exists Then
+			tis = TextInputStream.Open(f)
+			memeData=tis.ReadAll
+			tis.Close
+			End If
+			
 			// CollectionList columns are:
 			' 0 - Checkbox
 			' 1 - Profile Name
@@ -1726,9 +1736,10 @@ End
 			'added for profile merge:
 			' 7 (invisible) - profile info
 			' 8 (invisible) - profile options
-			' 9 (invisible) - profile name
+			' 9 (invisible) - meme data
+			' 10(invisible) - sig path
 			
-			Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen,Info,Options,basename)  'first column contains checkboxes
+			Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen,Info,Options,memeData,sigpath)  'first column contains checkboxes
 			
 			ConvertProfilesToMEMEWin.CollectionList.AddRow(reg)
 			

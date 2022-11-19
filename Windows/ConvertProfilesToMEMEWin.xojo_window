@@ -723,9 +723,10 @@ End
 		  ' 8 (invisible) - profile options
 		  ' 9 (invisible) - profile name
 		  ' 10(invisible) - TFBS data
+		  ' 11(invisible) - sig path
 		  
 		  
-		  Me.ColumnWidths="20,300,50,70,*,0,0,0,0,0" 
+		  Me.ColumnWidths="20,300,50,70,*,0,0,0,0,0,0" 
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		  me.DefaultRowHeight=62  'LogoPic.Height=60
 		  'me.ColumnSortDirection(-1)=ListBox.HeaderTypes.NotSortable 'disable sorting of all the columns
@@ -777,10 +778,15 @@ End
 #tag Events RegulogLogoButton
 	#tag Event
 		Sub Action()
-		  msgbox "Opening motifs in MEME format in the main window isn't implemented yet ((("
+		  dim sigPath as string
 		  
-		  'RegulogLogo
+		  sigPath=CollectionList.Cell(CollectionList.SelectedRowIndex,10)
 		  
+		  dim f As New FolderItem(sigPath, FolderItem.pathModes.Native)
+		  
+		  if f <> nil then
+		    logoWin.LoadAlignment(f)
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -828,10 +834,9 @@ End
 		  
 		  Dim dlg As New SaveAsDialog
 		  Dim outfile As folderitem
-		  Dim FamilyName As String
+		  Dim ProfileName, FamilyName, PWM, multiMEME As String
 		  
 		  
-		  'dlg.InitialDirectory=genomefile.Parent
 		  dlg.promptText=kTFfamilyExportDesc
 		  dlg.SuggestedFileName=FolderName+".meme"
 		  dlg.Title=kExportProfiles
@@ -840,175 +845,63 @@ End
 		  dlg.ActionButtonCaption=kSave
 		  outfile=dlg.ShowModalwithin(Self)
 		  If outfile<>Nil Then
-		    LogoWin.WriteToSTDOUT (EndOfLine+kExportingProfiles)
-		    LogoWin.stdout.Refresh(False)
-		    Logowin.show
-		    
 		    Dim s As TextOutputStream=TextOutputStream.Create(outfile)
 		    If s<> Nil Then
-		      
-		      
-		      // make tmp folder
-		      Dim TFfamily_tmp As FolderItem = TemporaryFolder.child("TFfamily_tmp")
-		      If TFfamily_tmp <> Nil Then
-		        
-		        
-		        'the folder may be there from the previous run, we have delete it!
-		        If TFfamily_tmp.Exists Then
-		          Dim i As Integer
-		          i=deleteEntireFolder(TFfamily_tmp) 'return code isn't handled yet
-		        End If
-		        TFfamily_tmp.CreateAsFolder
-		      Else 
-		        MsgBox "Can't create tmp folder"
-		        Return
-		      End If
-		      
-		      // write 'sites' files to tmp folder
-		      ' (simple text files named a la regulogID.txt
-		      ' regulogID will be used as motif ID and will be added to RegPrecise URL when converting 
-		      
-		      ' for palindromic sites, rev. complements should probably be added here
-		      ' as RegPrecise ignores site symmetry (currently, sites are written as they are) 
+		      LogoWin.WriteToSTDOUT (EndOfLine+kExportingProfiles)
+		      LogoWin.stdout.Refresh(False)
+		      Logowin.show
 		      
 		      Dim m,n As Integer
-		      Dim fastaLines(-1) As String
-		      Dim sitesFile As folderitem
-		      Dim tos As TextOutputStream
-		      Dim RegulonID As String
 		      
 		      // CollectionList columns are:
 		      ' 0 - Checkbox
-		      ' 1 - Motif collection Name
-		      ' 2 - Number of sites used to build the motif 
-		      ' 3 - Information content (bits)
+		      ' 1 - Profile Name
+		      ' 2 - Number of seqs
+		      ' 3 - Information (bits)
 		      ' 4 - Logo picture
-		      ' 5 (invisible) – Motif source URL
-		      ' 6 (invisible) – TFBS length
+		      ' 5 (invisible) - TFBS seqs (in fasta format)
+		      ' 6 (invisible) - TFBS length.
 		      
 		      'added for profile merge:
 		      ' 7 (invisible) - profile info
 		      ' 8 (invisible) - profile options
-		      ' 9 (invisible) - profile name
-		      ' 10(invisible) - TFBS data
+		      ' 9 (invisible) - meme data
+		      ' 10(invisible) - sig path
+		      
+		      'Assemble MEME header:
+		      multiMEME="MEME version 5"+EndOfLine.UNIX+EndOfLine.UNIX
+		      multiMEME=multiMEME+"ALPHABET= ACGT"+EndOfLine.UNIX+EndOfLine.UNIX
+		      multiMEME=multiMEME+"strands: + -"+EndOfLine.UNIX+EndOfLine.UNIX
+		      multiMEME=multiMEME+"Background letter frequencies (from uniform background):"+EndOfLine.UNIX
+		      multiMEME=multiMEME+"A 0.25000 C 0.25000 G 0.25000 T 0.25000"+EndOfLine.UNIX+EndOfLine.UNIX
 		      
 		      
+		      'Add PWMs for selected motifs:
 		      For n=0 To CollectionList.ListCount-1
 		        If CollectionList.CellCheck(n,0) Then
-		          sitesFile=TFfamily_tmp.Child(CollectionList.Cell(n,1)+".txt")   'will be used as motif name
-		          If sitesFile<>Nil Then
-		            tos=TextOutputStream.Create(sitesFile)
-		            If tos <>Nil Then
-		              fastaLines=Split(CollectionList.Cell(n,5), EndOfLine.UNIX)
-		              For m=0 To ubound(fastaLines)-1
-		                If Left(fastaLines(m),1)<>">" Then
-		                  tos.Writeline fastaLines(m)
-		                  
-		                End If
-		              Next
-		              tos.close
-		            Else
-		              MsgBox "can't write to tmp file"
-		            End If
-		          Else
-		            MsgBox "Can't create tmp file"
-		          End If
 		          
+		          ProfileName=CollectionList.Cell(n,1)
 		          
+		          FamilyName=NthField(CollectionList.Cell(n,8),"TF_HMM ",2)
+		          FamilyName=NthField(FamilyName,EndOfLine.UNIX,1)          'That's HMM filename
+		          FamilyName=FamilyNameFromHmmName(FamilyName)
+		          
+		          PWM="MOTIF "+ProfileName+" "+FamilyName+"-family"+EndOfLine.UNIX+EndOfLine.UNIX
+		          PWM=PWM+"letter-probability matrix: "+trim(NthField(CollectionList.Cell(n,9),"letter-probability matrix:",2))+EndOfLine.UNIX+EndOfLine.UNIX
+		          
+		          'We expect everything to be in BacRegDB, so
+		          PWM=PWM+"URL http://bacregdb.bsu.by/tffamilies/"+FamilyName+"?tfName="+ProfileName+EndOfLine.UNIX+EndOfLine.UNIX
+		          
+		          multiMEME=multiMEME+PWM
 		        End If
 		      Next
 		      
-		      // add sites.map file to the same folder pairing motif ID with its name
-		      ' (one space separated pair per line)
-		      'Dim sitesMap As folderitem
-		      '
-		      'sitesMap=TFfamily_tmp.Child("sites.map")
-		      'If sitesMap<>Nil Then
-		      'tos=TextOutputStream.Create(sitesMap)
-		      'If tos<>Nil Then
-		      'For n=0 To CollectionList.ListCount-1
-		      'If CollectionList.CellCheck(n,0) Then
-		      'tos.writeline CollectionList.Cell(n,6)+" "+Replace(CollectionList.Cell(n,1)," – ","_")
-		      'End If
-		      'Next
-		      'tos.close
-		      'Else
-		      'MsgBox "can't write to sites.map file"
-		      'End If
-		      '
-		      'Else
-		      'MsgBox "Can't create the sites.map file"
-		      'End If
-		      
-		      // convert all tmp files to a single minimal meme file
-		      ' sites2meme command should look like 
-		      ' sites2meme -map /Users/Home/Desktop/sites2meme_test/sites.map -url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME /Users/Home/Desktop/sites2meme_test
-		      
-		      ' sample output is like this:
-		      'MEME version 4
-		      '
-		      'ALPHABET= ACGT
-		      '
-		      'strands: + -
-		      '
-		      'Background letter frequencies (from uniform background):
-		      'A 0.25000 C 0.25000 G 0.25000 T 0.25000 
-		      '
-		      'MOTIF site1 TfbS
-		      '
-		      'letter-probability matrix: alength= 4 w= 7 nsites= 14 E= 0
-		      '0.714286      0.214286      0.071429      0.000000    
-		      '0.714286      0.000000      0.285714      0.000000    
-		      '0.000000      0.000000      1.000000      0.000000    
-		      '0.000000      0.000000      1.000000      0.000000    
-		      '0.000000      0.000000      0.000000      1.000000    
-		      '0.000000      1.000000      0.000000      0.000000    
-		      '0.928571      0.000000      0.071429      0.000000    
-		      '
-		      'URL http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=site1
-		      '
-		      'MOTIF site2 RegR
-		      '
-		      'letter-probability matrix: alength= 4 w= 7 nsites= 14 E= 0
-		      '0.500000      0.428571      0.071429      0.000000    
-		      '0.714286      0.000000      0.285714      0.000000    
-		      '0.000000      0.000000      1.000000      0.000000    
-		      '0.000000      0.000000      1.000000      0.000000    
-		      '0.000000      0.000000      0.000000      1.000000    
-		      '0.000000      1.000000      0.000000      0.000000    
-		      '0.785714      0.000000      0.214286      0.000000    
-		      '
-		      'URL http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=site2
-		      
-		      Dim sites2memePath As String
-		      MEMEpath=Trim(MEMEpath)
-		      If Right(MEMEpath,1)="'" Then
-		        sites2memePath=Left(MEMEpath,Len(MEMEpath)-5)+"sites2meme'"
-		      Else
-		        sites2memePath=Left(MEMEpath,Len(MEMEpath)-4)+"sites2meme" 
-		      End If
-		      
-		      Dim cli As String
-		      cli=sites2memePath'+" "+"-map "+sitesMap.ShellPath
-		      'cli=cli+" "+"-url http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id=MOTIF_NAME"
-		      cli=cli+" "+PlaceQuotesToPath(MakeWSLPath(TFfamily_tmp.ShellPath))
-		      
-		      #If TargetWindows
-		        ExecuteWSL(cli)
-		      #Else 
-		        userShell(cli)
-		      #EndIf
-		      
-		      If shError=0 Then
-		        s.Write shResult
-		        s.close
-		        LogoWin.WriteToSTDOUT (" Done!")
-		        
-		      Else
-		        MsgBox "Error running sites2meme. Error message: "+shResult
-		        MsgBox "Command line was: <"+cli+">"
-		      End If
+		      'Save the file
+		      s.Write multiMEME
+		      s.close
+		      LogoWin.WriteToSTDOUT (EndOfLine.UNIX+"Wrote PWMs to "+outfile.NativePath + EndOfLine.UNIX)
 		    End If
+		    
 		  End If
 		  
 		  Exception err
@@ -1105,8 +998,8 @@ End
 		  'added for profile merge:
 		  ' 7 (invisible) - profile info
 		  ' 8 (invisible) - profile options
-		  ' 9 (invisible) - profile name
-		  
+		  ' 9 (invisible) - meme data
+		  ' 10(invisible) - sig path
 		  
 		  
 		  ' get suggested profile name from the options string
