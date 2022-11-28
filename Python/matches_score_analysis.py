@@ -31,24 +31,29 @@ PUTATIVE_INCORRECT = {}
 MAX_SCORE = 0
 
 
-def compare_seq(found, confirmed):
-    if (str(found.complement()) in confirmed) \
-        or (str(found.reverse_complement) in confirmed) \
-            or (str(found) in confirmed):
-        return True
-    else:
-        return False
+def compare_seq(found, sites_db):
+    # confirmed
+    for site in sites_db:
+        if len(site) >= len(found):
+            if (str(found.complement()) in site.seq) \
+                    or (str(found.reverse_complement) in site.seq) \
+                    or (str(found) in site.seq):
+                return True
+        else:
+            if (str(site.seq in found.complement())) \
+                or (site.seq in str(found.reverse_complement)) \
+                    or (site.seq in str(found)):
+                return True
+    return False
 
 
-def check_targets(found, confirmed):
+def get_targets(found, sites_db):
+    # confirmed
     if ',' in found.targets[1]:
         targets = found.targets[1].split(',')
-        if any(target in confirmed.targets for target in targets):
-            return True
-    elif found.targets[1] in confirmed.targets[1]:
-        return True
     else:
-        return False
+        targets = [found.targets[1]]
+    return [target for target in targets if target in site.targets for site in sites_db]
 
 
 def correct_location(tf_feature, left_gene, right_gene, down_length):
@@ -203,7 +208,7 @@ def operon_members(i, direction, gap):
     elif direction == 1:
         return (1, (','.join(right_located(i, gap))))
     else:
-        return (0, (','.join(left_located(i, gap)[::-1])), (','.join(right_located(i, gap))))
+        return (0, (','.join(left_located(i, gap)[::-1])), (','.join(right_located(i+1, gap))))
 
 
 def intergenic_reg(feature):
@@ -212,7 +217,7 @@ def intergenic_reg(feature):
 
 PRINT_FEATURE = {"gene": print_gene,
                  "locus_tag": print_qualifiers,
-                 "coordinats": print_location,
+                 "coordinates": print_location,
                  "strand": print_strand,
                  "protein_id": print_protID,
                  "product": print_product,
@@ -230,7 +235,6 @@ def populate_tfbs(site, feature_index, direction, operon_gap, seq_record):
                            )
     if not site_ext.intergenic[0] <= site_ext.coord[0] <= site_ext.intergenic[1]:
        pass
-
     ANNOTATED_SITES.append(site_ext)
 
 
@@ -244,6 +248,7 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
         seq_record = SeqIO.read(handle, 'genbank')
     tf_sites = []
     seq_record.features.sort(key = lambda SeqFeature: SeqFeature.location.start)
+    sites_not_passed_threshold = 0
     for feature in seq_record.features:
         if feature.type == "gene":
             GENE_ENTRIES.append(feature)
@@ -257,6 +262,7 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
                         tf_sites.append(feature)
                     else:
                         print(f"TFBS filtered by bitscore: {feature.location.start}-{feature.location.end}")
+                        sites_not_passed_threshold += 1
                 else:
                     print(f"failed to get feature bitscore: {feature.location.start}-{feature.location.end}")
     # parse regdb info
@@ -268,11 +274,11 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
                 site = BindingSite({'seq': tabs[7].upper(),
                                       'targets': re.sub('[\s+]', '', tabs[6]),
                                       'evidence': tabs[10],
-                                      })
+                                    })
                 REG_DB_SITES.append(site)
 
     for site in tf_sites:
-        for i,feature in enumerate(GENE_ENTRIES[1:]):
+        for i, feature in enumerate(GENE_ENTRIES[1:]):
             if GENE_ENTRIES[i].location.start <= site.location.start <= site.location.end <= feature.location.end:
                 if correct_location(site, GENE_ENTRIES[i], feature, down_length):
                     if GENE_ENTRIES[i].location.strand == 1 and feature.location.strand == 1:
@@ -303,36 +309,36 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
                         PUTATIVE_INCORRECT[f"{site.location.start}-{site.location.end}"] = True
 
 
-    threshold_confirmed = []
+    threshold_confirmed = "no sites matching/overlaping confirmed RegulonDB targets"
     threshold_highest = 0
-    threshold_conf_match = 0
+    threshold_conf_match = "no sites near confirmed targets"
     confirmed_save = []
     unconfirmed_save = []
+    confirmed_targets = []
     for site in ANNOTATED_SITES:
-        found = False
-        for conf_site in REG_DB_SITES:
-            if check_targets(site, conf_site):
-                if compare_seq(site.seq, conf_site.seq):
-                    site.match = True
-                    if not threshold_conf_match:
-                        threshold_conf_match = site.score
-                    elif site.score < threshold_conf_match:
-                        threshold_conf_match = site.score
-                threshold_confirmed.append(site.score)
-                if len(threshold_confirmed) > 1:
-                    if threshold_confirmed[0] >= threshold_confirmed[-1]:
-                        threshold_confirmed[0] = threshold_confirmed.pop()
-                    else:
-                        threshold_confirmed.pop()
-                found = True
-                confirmed_save.append(site)
-        if not found:
+        site_target = get_targets(site, REG_DB_SITES)
+        if site_target:
+            confirmed_targets.extend(site_target)
+            if compare_seq(site.seq, REG_DB_SITES):
+                site.match = True
+                if isinstance(threshold_conf_match, str):
+                    threshold_conf_match = site.score
+                elif site.score < threshold_conf_match:
+                    threshold_conf_match = site.score
+            elif isinstance(threshold_confirmed, str):
+                threshold_confirmed = site.score
+            elif threshold_confirmed < site.score:
+                threshold_confirmed = site.score
+            confirmed_save.append(site)
+        else:
+            unconfirmed_save.append(site)
             if threshold_highest < site.score:
                 threshold_highest = site.score
-            unconfirmed_save.append(site)
     confirmed_save.sort(key=lambda BindingSite: BindingSite.intergenic[0])
     unconfirmed_save.sort(key=lambda BindingSite: BindingSite.intergenic[0])
-    OUTPUT.append(f"Locations of {len(confirmed_save)} TFBS match to {len(REG_DB_SITES)} known targets."
+    OUTPUT.append(f"Total number of sites in RegulonDB {len(REG_DB_SITES)}, {len(tf_sites)}/{len(tf_sites) + sites_not_passed_threshold} sites"
+                  f"passed the user set threshold {score_filter}."
+                  f"Locations of {len(confirmed_save)}/{len(tf_sites)} TFBS match to {len(set(confirmed_targets))}/{len(REG_DB_SITES)} known targets."
                   f" {len([True for site in confirmed_save if site.match])}"
                   f" of {len(REG_DB_SITES)} TFBS matches confirmed sequence(s).\n"
                   f"Lowest score for confirmed sites sequence: {threshold_conf_match}\n"
