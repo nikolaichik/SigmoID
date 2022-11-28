@@ -23,8 +23,8 @@ NOTE  Contacts come from the structures of CopG, Arc, MetJ, PutA, Omega, NikR, F
 NOTE  PDB structures used for determining CRs: 
 NOTE  3vea,4d8J,6mrj,6gts,5zgn,1ea4,1b01,1bdv,1bdt,1par,1cma,2rbf,2jxi,2bnw,2bnz,2cax,2hzv,2bsq,2h1o,2h3a,3qoq
 NOTE  Variable contacts from the very N termini of CopG, Arc and AmrZ are not included. 
-GA    15.50 15.50;
-TC    14.70 14.70;
+TC    15.50 15.50;
+GA    14.70 14.70;
 NC    14.00 14.00;
 STATS LOCAL MSV       -7.5371  0.72708
 STATS LOCAL VITERBI   -7.9524  0.72708

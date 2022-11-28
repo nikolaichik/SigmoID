@@ -466,12 +466,12 @@ Module FileManager
 		    return url.Path
 		    
 		  #elseif TargetLinux
-		    #if RBVersion >= 2013.0
-		      return f.AbsolutePath
-		    #else
-		      return f.NativePath
-		    #endif
-		    
+		    '#if RBVersion >= 2013.0
+		    'Return f.AbsolutePath
+		    '#else
+		    'return f.NativePath
+		    '#endif
+		    return f.NativePath ' AbsolutePath not supported any more
 		  #else
 		    
 		    break // Windows has no POSIX paths, or does it?

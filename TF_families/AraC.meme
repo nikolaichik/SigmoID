@@ -1350,7 +1350,7 @@ letter-probability matrix: alength= 4 w= 38 nsites= 32 E= 0
 
 URL https://doi.org/10.1128/AAC.00585-17
 
-MOTIF TRQERPSYSR_СdhR AraC-family
+MOTIF TRQERPSYSR_CdhR AraC-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 37 E= 0
   0.324324	  0.459459	  0.189189	  0.027027	
