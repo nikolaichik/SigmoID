@@ -972,7 +972,7 @@ Begin Window ProfileWizardWin
       Enabled         =   True
       Format          =   ""
       Height          =   117
-      HelpTag         =   ""
+      HelpTag         =   "Fasta title line should end with _GB=<Accession>|UP=<Accession> (or just GB=<Accession>). For GenBank, the accession should be RefSeq protein ID."
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
@@ -2000,7 +2000,7 @@ End
 		  If InStr(splitP(0),"_GB=") > 0 and  InStr(splitP(0),"|UP=") >0 Then
 		    'pseq=SeedProteinArea.Text
 		  ElseIf InStr(splitP(0),"_GB=") > 0 Then
-		    id_mapping = hts.uniprotIDmapping(NthField(splitP(0),"_GB=", 2), "EMBL-GenBank-DDBJ_CDS", "UniProtKB_AC-ID")
+		    id_mapping = hts.uniprotIDmapping(NthField(splitP(0),"_GB=", 2), "RefSeq_Protein", "UniProtKB")
 		    if id_mapping.Value("status") then
 		      splitP(0)=splitP(0)+"|UP=" + ID_mapping.Value("convertedCodes")
 		      Pseq=Join(splitP,endOfLine.UNIX)
@@ -2009,7 +2009,7 @@ End
 		  Else
 		    rgmatch=refseq_id.Search(splitP(0))
 		    If rgmatch <> Nil Then
-		      id_mapping = hts.uniprotIDmapping((rgmatch.SubExpressionString(0)), "UniProtKB_AC-ID", "EMBL-GenBank-DDBJ_CDS")
+		      id_mapping = hts.uniprotIDmapping((rgmatch.SubExpressionString(0)), "UniProtKB_AC-ID", "RefSeq_Protein") 
 		      if ID_mapping.Value("status") then
 		        splitP(0)=splitP(0) +"_GB=" + ID_mapping.Value("convertedCodes") + "|UP=" + rgmatch.SubExpressionString(0)
 		        Pseq=Join(splitP,endOfLine.UNIX)
@@ -2693,7 +2693,7 @@ End
 		  Me.AddRow
 		  
 		  Me.ColumnTypeAt(0) = ListBox.CellTypes.TextArea
-		  me.ColumnTypeAt(1) = ListBox.CellTypes.TextField
+		  Me.ColumnTypeAt(1) = ListBox.CellTypes.TextField
 		End Sub
 	#tag EndEvent
 	#tag Event
