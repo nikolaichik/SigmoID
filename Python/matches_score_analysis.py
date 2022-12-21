@@ -9,8 +9,11 @@ from Bio.SeqRecord import SeqRecord
 from Bio.SeqIO import FastaIO
 from pathlib import Path
 
-import numpy
+import numpy as np
+from math import ceil
 from matplotlib import pyplot
+from mpl_toolkits.mplot3d.axes3d import Axes3D
+from matplotlib import cm
 
 
 # The script extracts potential targets of TFs from a user provided genbank file with annotated TFBS
@@ -23,7 +26,8 @@ class BindingSite:
 
 
 ANNOTATED_SITES = []
-REG_DB_SITES = []
+# REG_DB_SITES = []
+REG_DB_SITES = {}
 GENE_ENTRIES = []
 CDS_list = {}
 OUTPUT = []
@@ -31,30 +35,66 @@ PUTATIVE_INCORRECT = {}
 MAX_SCORE = 0
 
 
-def compare_seq(found, sites_db):
+def compare_seq(found, sites_db, tf_name):
     # confirmed
-    for site in sites_db:
-        if len(site) >= len(found):
-            if (str(found.complement()) in site.seq) \
-                    or (str(found.reverse_complement) in site.seq) \
-                    or (str(found) in site.seq):
-                return True
-        else:
-            if (str(site.seq in found.complement())) \
-                or (site.seq in str(found.reverse_complement)) \
-                    or (site.seq in str(found)):
-                return True
-    return False
-
-
-def get_targets(found, sites_db):
-    # confirmed
-    if ',' in found.targets[1]:
-        targets = found.targets[1].split(',')
+    # for site in sites_db:
+    #     try:
+    #         if len(site.seq) >= len(found):
+    #             if (str(found.complement()) in site.seq) \
+    #                     or (str(found.reverse_complement()) in site.seq) \
+    #                     or (str(found) in site.seq):
+    #                 return True
+    #         else:
+    #             if (site.seq in str(found.complement())) \
+    #                 or (site.seq in str(found.reverse_complement())) \
+    #                     or (site.seq in str(found)):
+    #                 return True
+    #     except TypeError:
+    #         return False
+    # return False
+    tfbs_data = sites_db.get(tf_name)
+    if tfbs_data:
+        for entry in tfbs_data:
+            if len(entry.seq) >= len(found):
+                try:
+                    if (str(found.complement()) in entry.seq) \
+                            or (str(found.reverse_complement()) in entry.seq) \
+                            or (str(found) in entry.seq):
+                        return True
+                    else:
+                        if (entry.seq in str(found.complement())) \
+                            or (entry.seq in str(found.reverse_complement())) \
+                                or (entry.seq in str(found)):
+                            return True
+                except TypeError:
+                    return False
     else:
-        targets = [found.targets[1]]
-    return [target for target in targets if target in site.targets for site in sites_db]
+        print(f"{tf_name} not found in RegDB TFBSs data")
 
+
+def get_targets(found, sites_db, tf_name):
+    # # confirmed
+    # if ',' in found.targets[1]:
+    #     targets = found.targets[1].split(',')
+    # else:
+    #     targets = [found.targets[1]]
+    # # return [target for target in targets if target in site.targets for site in sites_db]
+    # out = []
+    # for site in sites_db:
+    #     for target in targets:
+    #         if target in site.targets:
+    #             out.append(target)
+    # return out
+    out = []
+    tfbs_data = sites_db.get(tf_name)
+    if tfbs_data:
+        for entry in tfbs_data:
+           if found.coord[0] > int(entry.coord[0]) - 50 and found.coord[1] < int(entry.coord[1]) + 50:
+               if entry.targets:
+                   out.append(entry.targets)
+    else:
+        print(f"{tf_name} not found in RegDB TFBSs data")
+    return out
 
 def correct_location(tf_feature, left_gene, right_gene, down_length):
     if left_gene.strand == 1 and right_gene.strand == -1:
@@ -77,9 +117,9 @@ def get_site_features(site, **kwargs):
     else:
         features['seq'] = None
     features['coord'] = (site.location.start, site.location.end)
-    features['targets'] = kwargs.get('members')
-    features['intergenic'] = kwargs.get('intergenic')
-    features['evidence'] = kwargs.get('evidence')
+    features['targets'] = kwargs.get('members', None)
+    features['intergenic'] = kwargs.get('intergenic', None)
+    features['evidence'] = kwargs.get('evidence', None)
     features['score'] = get_bitscore(site)
     features['match'] = None
     return features
@@ -150,13 +190,15 @@ def print_output(site, i):
     OUTPUT.append(f"\tscore: {site.score}")
     if site.match:
         OUTPUT.append(f"\tfound site matches confirmed operator")
-    OUTPUT.append(f"\tseq: {site.seq}")
-    if site.targets[0] == -1:
-        OUTPUT.append(f"\ttargets: {site.targets[1]} <--")
-    elif site.targets[0] == 1:
-        OUTPUT.append(f"\ttargets: --> {site.targets[1]}")
-    else:
-        OUTPUT.append(f"\ttargets: {site.targets[1]} <-- --> {site.targets[2]}")
+    if site.seq:
+        OUTPUT.append(f"\tseq: {site.seq}")
+    if site.targets:
+        if site.targets[0] == -1:
+            OUTPUT.append(f"\ttargets: {site.targets[1]} <--")
+        elif site.targets[0] == 1:
+            OUTPUT.append(f"\ttargets: --> {site.targets[1]}")
+        else:
+            OUTPUT.append(f"\ttargets: {site.targets[1]} <-- --> {site.targets[2]}")
 
 
 def get_member_identifier(feature_index):
@@ -226,13 +268,22 @@ PRINT_FEATURE = {"gene": print_gene,
 
 
 def populate_tfbs(site, feature_index, direction, operon_gap, seq_record):
-    site_ext = BindingSite(get_site_features(site,
-                                             members=operon_members(feature_index, direction, operon_gap),
-                                             records=seq_record,
-                                             intergenic=(GENE_ENTRIES[feature_index].location.end,
-                                                         GENE_ENTRIES[feature_index + 1].location.start)
-                                             )
-                           )
+    try:
+        site_ext = BindingSite(get_site_features(site,
+                                                 members=operon_members(feature_index, direction, operon_gap),
+                                                 records=seq_record,
+                                                 intergenic=(GENE_ENTRIES[feature_index].location.end,
+                                                             GENE_ENTRIES[feature_index + 1].location.start)
+                                                 )
+                               )
+    except IndexError:
+        site_ext = BindingSite(get_site_features(site,
+                                                 members=operon_members(feature_index, direction, operon_gap),
+                                                 records=seq_record,
+                                                 intergenic=(GENE_ENTRIES[feature_index - 1].location.end,
+                                                             GENE_ENTRIES[feature_index].location.start)
+                                                 )
+                               )        
     if not site_ext.intergenic[0] <= site_ext.coord[0] <= site_ext.intergenic[1]:
        pass
     ANNOTATED_SITES.append(site_ext)
@@ -267,15 +318,48 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
                     print(f"failed to get feature bitscore: {feature.location.start}-{feature.location.end}")
     # parse regdb info
     with open(regdb_info, 'r') as tfbs_info:
+        # for line in tfbs_info:
+        #     match = re.search("^.+\d.+", line)
+        #     if match:
+        #         tabs = line.split('\t')
+        #         site = BindingSite({'seq': tabs[7].upper(),
+        #                               'targets': re.sub('[\s+]', '', tabs[6]),
+        #                               'evidence': tabs[10],
+        #                             })
+        #         REG_DB_SITES.append(site)
+
+        # Columns:
+        # (1) Transcription Factor (TF) identifier assigned by RegulonDB
+        # (2) TF name
+        # (3) Confornation name
+        # (4) TF binding site (TF-bs) identifier assigned by RegulonDB
+        # (5) TF-bs left end position in the genome
+        # (6) TF-bs right end position in the genome
+        # (7) DNA strand where the  TF-bs is located
+        # (8) TF-Gene interaction identifier assigned by RegulonDB (related to the "TF gene interactions" file)
+        # (9) Transcription unit id regulated by the TF
+        # (10) Transcription unit name regulated by the TF
+        # (11) Gene expression effect caused by the TF bound to the  TF-bs (+ activation, - repression, +- dual, ? unknown)
+        # (12) Promoter name
+        # (13) Center position of TF-bs, relative to Transcription Start Site
+        # (14) TF-bs sequence (upper case)
+        # (15) Distance to first gene
+        # (16) Evidence that supports the existence of the TF-bs
+        # (17) Evidence confidence level (Confirmed, Strong, Weak)
+        # (18) Evidence tech code related to TF-bs function
+        # (19) Evidence tech code related to TF-bs
         for line in tfbs_info:
-            match = re.search("^.+\d.+", line)
-            if match:
+            if not line.startswith('#'):
                 tabs = line.split('\t')
-                site = BindingSite({'seq': tabs[7].upper(),
-                                      'targets': re.sub('[\s+]', '', tabs[6]),
-                                      'evidence': tabs[10],
+                site = BindingSite({'seq': tabs[13].upper(),
+                                    'coord': (tabs[4], tabs[5]),
+                                    'evidence': tabs[16],
+                                    'targets': tabs[9]
                                     })
-                REG_DB_SITES.append(site)
+                if tabs[1] in REG_DB_SITES:
+                    REG_DB_SITES[tabs[1]].append(site)
+                else:
+                    REG_DB_SITES[tabs[1]] = [site]
 
     for site in tf_sites:
         for i, feature in enumerate(GENE_ENTRIES[1:]):
@@ -306,7 +390,7 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
                             populate_tfbs(site, i, 0, operon_gap, seq_record)
                             break
                 elif not PUTATIVE_INCORRECT.get(f"{site.location.start}-{site.location.end}", None):
-                        PUTATIVE_INCORRECT[f"{site.location.start}-{site.location.end}"] = True
+                        PUTATIVE_INCORRECT[f"{site.location.start}-{site.location.end}"] = BindingSite(get_site_features(site))
 
 
     threshold_confirmed = "no sites matching/overlaping confirmed RegulonDB targets"
@@ -316,10 +400,10 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
     unconfirmed_save = []
     confirmed_targets = []
     for site in ANNOTATED_SITES:
-        site_target = get_targets(site, REG_DB_SITES)
+        site_target = get_targets(site, REG_DB_SITES, tf_name)
         if site_target:
             confirmed_targets.extend(site_target)
-            if compare_seq(site.seq, REG_DB_SITES):
+            if compare_seq(site.seq, REG_DB_SITES, tf_name):
                 site.match = True
                 if isinstance(threshold_conf_match, str):
                     threshold_conf_match = site.score
@@ -327,7 +411,7 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
                     threshold_conf_match = site.score
             elif isinstance(threshold_confirmed, str):
                 threshold_confirmed = site.score
-            elif threshold_confirmed < site.score:
+            elif threshold_confirmed > site.score:
                 threshold_confirmed = site.score
             confirmed_save.append(site)
         else:
@@ -335,15 +419,22 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
             if threshold_highest < site.score:
                 threshold_highest = site.score
     confirmed_save.sort(key=lambda BindingSite: BindingSite.intergenic[0])
-    unconfirmed_save.sort(key=lambda BindingSite: BindingSite.intergenic[0])
-    OUTPUT.append(f"Total number of sites in RegulonDB {len(REG_DB_SITES)}, {len(tf_sites)}/{len(tf_sites) + sites_not_passed_threshold} sites"
-                  f"passed the user set threshold {score_filter}."
-                  f"Locations of {len(confirmed_save)}/{len(tf_sites)} TFBS match to {len(set(confirmed_targets))}/{len(REG_DB_SITES)} known targets."
+    # unconfirmed_save.sort(key=lambda BindingSite: BindingSite.intergenic[0])
+    unconfirmed_save.sort(key=lambda BindingSite: BindingSite.score)
+    OUTPUT.append(f"Total number of sites in RegulonDB {len(REG_DB_SITES)}, "
+                  f"{len(tf_sites)}/{len(tf_sites) + sites_not_passed_threshold} sites"
+                  f"passed the user set threshold {score_filter}.\n"
+                  f"Locations of {len(confirmed_save)}/{len(tf_sites)} "
+                  f"TFBS match to {len(set(confirmed_targets))}/{len(REG_DB_SITES)} known targets."
                   f" {len([True for site in confirmed_save if site.match])}"
                   f" of {len(REG_DB_SITES)} TFBS matches confirmed sequence(s).\n"
                   f"Lowest score for confirmed sites sequence: {threshold_conf_match}\n"
                   f"Lowest score for site near confirmed target: {threshold_confirmed}\n"
-                  f"Highest score for unconfirmed site: {threshold_highest}")
+                  f"Highest score for unconfirmed site: {threshold_highest}\n"
+                  f"Total number of putative incorrect sites: {len(PUTATIVE_INCORRECT)}"
+                  )
+    if len(PUTATIVE_INCORRECT):
+        OUTPUT.append(f"The highest score among putative incorrect sites: {max([site.score for site in PUTATIVE_INCORRECT.values()])} \n")
     sites_batch = []
     processed_count = 1
     if len(confirmed_save):
@@ -389,26 +480,60 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
             print_output(item, processed_count)
             processed_count += 1
             clear_site(item)
+    if len(PUTATIVE_INCORRECT):
+        OUTPUT.append(f"=========== Putative incorrect sites ===========")
+        for i, site in enumerate(sorted(PUTATIVE_INCORRECT.values(), key=lambda site: site.score, reverse=True)):
+            print_output(site, i)
     with open(f"{genbank_path}_sites", "w") as f:
         f.writelines('\n'.join(OUTPUT))
 
-    bins = [i for i in range(1, 31)]
-
     conf_data = [site.score for site in confirmed_save]
+    conf_seqs_data = [site.score for site in confirmed_save if site.match]
     unconf_data = [site.score for site in unconfirmed_save]
+    incorrect_data = [site.score for _, site in PUTATIVE_INCORRECT.items()]
+    fig1, (ax1,ax2,ax3,ax4) = pyplot.subplots(4, 1)
+    fig1.tight_layout(h_pad=3)
+    bins = list(range(1, 1 + ceil(max([*incorrect_data, *conf_data, *unconf_data]))))
 
+    if len(PUTATIVE_INCORRECT):
 
-    arr = pyplot.hist(conf_data, bins=bins, alpha=0.7, label='confirmed targets', color="blue", edgecolor='black')
-    for i in range(len(bins)-1):
-        if arr[0][i]:
-            pyplot.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
-    arr = pyplot.hist(unconf_data, bins=bins, alpha=0.5, label='unconfirmed', color="yellow", edgecolor='black')
+        arr = ax1.hist(incorrect_data, bins=bins, alpha=0.25,
+                       label='incorrect', color="r", edgecolor='black', log=True)
+        for i in range(len(bins) - 1):
+            if arr[0][i]:
+                ax1.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
+
+    arr = ax2.hist(unconf_data, bins=bins, alpha=0.25,
+                   label='unconfirmed', color="b", edgecolor='black', log=True)
     for i in range(len(bins) - 1):
         if arr[0][i]:
-            pyplot.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
-    pyplot.legend(loc='upper right')
-    pyplot.xlabel("bits")
-    pyplot.ylabel("sites count")
+            ax2.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
+
+    arr = ax3.hist(conf_data, bins=bins, alpha=0.25,
+                   label='near confirmed targets', color="g", edgecolor='black', log=True)
+    for i in range(len(bins) - 1):
+        if arr[0][i]:
+            ax3.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
+
+    arr = ax4.hist(conf_seqs_data, bins=bins, alpha=0.25,
+                   label='overlapping confirmed seqs', color="c", edgecolor='black', log=True)
+    for i in range(len(bins) - 1):
+        if arr[0][i]:
+            ax4.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
+
+    # set top and right boundaries invisible, add bins ticks
+    for ax in (ax1, ax2, ax3, ax4):
+        ax.legend(loc='best')
+        for side in ("top", 'right'):
+            ax.spines[side].set_visible(False)
+            ax.set_xticks(bins)
+    ax3.set_xlabel("bits")
+    ax2.set_ylabel("sites count")
+    # merge subplot's legends
+    # h1, l1 = ax1.get_legend_handles_labels()
+    # h2, l2 = ax2.get_legend_handles_labels()
+    # ax1.legend(h1 + h2, l1 + l2, loc=2)
+
     pyplot.xticks(bins)
     pyplot.gca().margins(x=0)
     pyplot.gcf().canvas.draw()
@@ -419,12 +544,42 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
     margin = m / pyplot.gcf().get_size_inches()[0]
     pyplot.gcf().subplots_adjust(left=margin, right=1. - margin)
     pyplot.gcf().set_size_inches(s, pyplot.gcf().get_size_inches()[1])
-    pyplot.savefig(savefig_path, bbox_inches='tight')
+    fig1.savefig(f"{genbank_path}_hist.png", bbox_inches='tight')
+    pyplot.close(fig1)
+    hist_incorrect, _ = np.histogram(incorrect_data, bins=bins)
+    hist_unconf, _ = np.histogram(unconf_data, bins=bins)
+    hist_conf, _ = np.histogram(conf_data, bins=bins)
+    hist_conf_seq, _ = np.histogram(conf_seqs_data, bins=bins)
+    levels = ["incorrect position", "unconfirmed sites",  "near confirmed targets", "overlapping confirmed seqs"]
+    hist_scores = np.array([hist_incorrect, hist_unconf, hist_conf, hist_conf_seq])
+    fig2, ax = pyplot.subplots()
+    im = pyplot.imshow(hist_scores)
+    # Show all ticks and label them with the respective list entries
+    ax.set_xticks(np.arange(len(bins) - 1))
+    ax.set_xticklabels(bins[:-1])
+    ax.set_yticks(np.arange(len(levels)))
+    ax.set_yticklabels(levels)
+
+    # Rotate the tick labels and set their alignment.
+    pyplot.setp(ax.get_xticklabels())
+    # Loop over data dimensions and create text annotations.
+    for i in range(len(levels)):
+        for j in range(len(bins) - 1):
+            text = ax.text(j, i, hist_scores[i, j],
+                           ha="center", va="center", color="w")
+
+    ax.set_title("Bit-scores distribution of TFBSs")
+    fig2.tight_layout()
+    # pyplot.show()
+    fig2.savefig(f"{genbank_path}_heatmap.png", bbox_inches='tight')
+    pyplot.close(fig2)
     if len(PUTATIVE_INCORRECT):
         for site in PUTATIVE_INCORRECT:
             print(f"check location: {site}")
     print('\n'.join(OUTPUT))
     print("done.")
+    with open(f"{genbank_path}_.log", 'w') as f:
+        f.writelines('\n'.join(OUTPUT))
 
 
 if __name__ == "__main__":

@@ -192,6 +192,23 @@ Inherits Application
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function CalibrateProfilelibrary() As Boolean Handles CalibrateProfilelibrary.Action
+			'LogoWin.ProfileLibSearch
+			dim wExists As Boolean = False
+			for i as integer = 0 to WindowCount - 1
+			if window(i) isa ProfileSearchSettings then
+			wExists = True
+			end
+			next i
+			if Not wExists then
+			dim w As new ProfileSearchSettings
+			end
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function ChipMdata2Logo() As Boolean Handles ChipMdata2Logo.Action
 			ChipMdata2Logo
 			Return True

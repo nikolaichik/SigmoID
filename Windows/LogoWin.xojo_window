@@ -78,6 +78,7 @@ Begin Window LogoWin
       Top             =   28
       Transparent     =   True
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
       Visible         =   True
       Width           =   1000
@@ -127,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -177,6 +179,7 @@ Begin Window LogoWin
          Top             =   27
          Transparent     =   True
          Underline       =   False
+         UnicodeMode     =   0
          UseFocusRing    =   True
          Visible         =   False
          Width           =   1000
@@ -1654,7 +1657,142 @@ End
 			SigF = dlg.ShowModal
 			If SigF <> Nil Then
 			ConvertProfilesToMEMEWin.close
-			ConvertFolder2MEME(SigF)
+			ConvertProfilesToMEMEWin.Foldername=SigF.DisplayName
+			m=SigF.Count
+			For n=1 To m
+			If SigF.Item(n).name<>".DS_Store" Then
+			If SigF.Item(n).Directory Then
+			'skip folder
+			Else
+			If Right(SigF.Item(n).Name,4)=".sig" Then
+			
+			'Get MEME data:
+			vv=SigF.Item(n).openAsVirtualVolume
+			If vv<> Nil Then
+			sigPath=SigF.Item(n).nativePath
+			basename=NthField(SigF.Item(n).DisplayName,".sig",1)
+			f=vv.root.child("meme.txt")
+			If f<> Nil And f.exists Then
+			'tis = New TextInputStream
+			tis = TextInputStream.Open(f)
+			MEMEdata=tis.ReadAll
+			tis.Close
+			
+			Dim motifName, nSites, PWMdata, sitelen, FastaData, Info, Options  As String 
+			Dim LEloc As Integer
+			
+			motifName=NthField(SigF.Item(n).Name,".sig",1)
+			'nSites=Str(Val(NthField(MEMEdata," nsites=",2)))     'MEME ignores duplicates, so this number can be less than the actual number of seqs
+			PWMdata=NthField(MEMEdata," nsites=",2)               'get closer to the data
+			LEloc=InStr(PWMdata,EndOfLine)
+			PWMdata=Right(PWMdata,Len(PWMdata)-LEloc)                 'still has trailing lines
+			PWMdata=NthField(PWMdata,"--",1)
+			'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine) 'remove empty lines
+			'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
+			'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
+			
+			sitelen=Str(CountFields(PWMdata,EndOfLine))
+			
+			'get fasta data:
+			f=vv.root.child(basename+".fasta")
+			If f<> Nil And f.exists Then
+			tis = TextInputStream.Open(f)
+			FastaData=tis.ReadAll
+			tis.Close
+			End If
+			
+			nSites=str(countfields(FastaData,">")-1)
+			
+			'get info:
+			f=vv.root.child(basename+".info")
+			If f<> Nil And f.exists Then
+			tis = TextInputStream.Open(f)
+			Info=tis.ReadAll
+			tis.Close
+			End If
+			
+			'get options:
+			f=vv.root.child(basename+".options")
+			If f<> Nil And f.exists Then
+			tis = TextInputStream.Open(f)
+			Options=tis.ReadAll
+			tis.Close
+			End If
+			
+			'get meme data:
+			f=vv.root.child("meme.txt")
+			If f<> Nil And f.exists Then
+			tis = TextInputStream.Open(f)
+			memeData=tis.ReadAll
+			tis.Close
+			End If
+			
+			// CollectionList columns are:
+			' 0 - Checkbox
+			' 1 - Profile Name
+			' 2 - Number of seqs
+			' 3 - Information (bits)
+			' 4 - Logo picture
+			' 5 (invisible) - TFBS seqs (in fasta format)
+			' 6 (invisible) - TFBS length.
+			
+			'added for profile merge:
+			' 7 (invisible) - profile info
+			' 8 (invisible) - profile options
+			' 9 (invisible) - meme data
+			' 10(invisible) - sig path
+			
+			Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen,Info,Options,memeData,sigpath)  'first column contains checkboxes
+			
+			ConvertProfilesToMEMEWin.CollectionList.AddRow(reg)
+			
+			Dim p As picture = LogoFromPWM(PWMdata)
+			''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
+			'dim LogoPicScaled as new Picture (p.width*50/170,35,32)
+			'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
+			'LogoPicScaled.Transparent=1
+			
+			''scale the picture down to 60 pixel heigh and stretch it horisontally a bit
+			'dim LogoPicScaled as new Picture (p.width*50/170,45,32)
+			'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,45,0,0,p.width,p.Height)
+			Dim LogoPicScaled As New Picture (p.width*70/170,60,32)
+			LogoPicScaled.Graphics.DrawPicture (p,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,p.width,p.Height)
+			
+			LogoPicScaled.Transparent=1
+			
+			
+			'add picture to the last row as variant, so it is sorted properly 
+			ConvertProfilesToMEMEWin.CollectionList.RowTag(ConvertProfilesToMEMEWin.collectionlist.LastIndex)=LogoPicScaled
+			
+			'Update progress text
+			ConvertProfilesToMEMEWin.ProgressLabel.Text="Loading profiles: "+Str(ConvertProfilesToMEMEWin.CollectionList.ListCount)
+			
+			
+			ConvertProfilesToMEMEWin.CollectionList.Enabled=True
+			
+			
+			
+			
+			
+			
+			Else
+			WriteToSTDOUT(EndOfLine.UNIX+"No MEME data in "+SigF.Item(n).DisplayName+EndOfLine.UNIX)
+			
+			
+			
+			End If
+			Else
+			Beep
+			End If
+			
+			
+			End If
+			End If
+			End If
+			Next
+			
+			'logowin.WriteToSTDOUT(EndOfLine+"Converted sig files written to "+OutF.ShellPath+EndOfLine)
+			
 			Else
 			// User cancelled
 			End If
@@ -1679,21 +1817,7 @@ End
 
 	#tag MenuHandler
 		Function ProfilePermuteColumns() As Boolean Handles ProfilePermuteColumns.Action
-			PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
-			
-			'since we change data, that's not the .sig any more!
-			SigFileOpened=false
-			
-			If PalindromeLogoFile <> Nil then
-			PermuteFasta(logofile, palindromeLogofile)
-			logofile=PalindromeLogoFile
-			
-			'replace contents of the Sequence variable (for viewing)
-			dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
-			Sequences=Instream.ReadAll
-			instream.Close
-			DrawLogo
-			End If
+			PermuteColumns
 			
 			Exception err
 			ExceptionHandler(err,"LogoWin:ProfilePermuteColumns")
@@ -3703,7 +3827,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function HmmGen() As boolean
+		Function HmmGen(BindingSitesSet As FolderItem = Nil) As boolean
 		  'returns true if completed without errors
 		  
 		  'outfile must be set before calling this method
@@ -3765,7 +3889,8 @@ End
 		        outFilePath=outFile.ShellPath
 		      #endif
 		      
-		      cli=pythonPath+PlaceQuotesToPath(hmmGenPath)+" "+PlaceQuotesToPath(nhmmerResultFile.ShellPath)+" "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFilePath)+" "+HmmGenOptions
+		      cli=pythonPath+PlaceQuotesToPath(hmmGenPath)+" "+PlaceQuotesToPath(nhmmerResultFile.ShellPath)
+		      cli = cli + " "+PlaceQuotesToPath(GenomeFilePath)+" "+PlaceQuotesToPath(outFilePath)+" "+HmmGenOptions
 		      
 		      userShell(cli)
 		      If shError=0 Then
@@ -3776,7 +3901,9 @@ End
 		        LastHitNo=Val(LastHitStr)
 		        
 		        WriteToSTDOUT (EndofLine+shResult)
-		        
+		        if BindingSitesSet <> Nil then
+		          matchesScoreAnalysis(BindingSitesSet)
+		        end
 		        
 		        dim ms,t1 as double
 		        ms=microseconds
@@ -3904,7 +4031,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Sub HmmGenSearch()
+		Protected Sub HmmGenSearch(BindingSiteSet As FolderItem = Nil)
 		  HmmGenOptions=""
 		  HmmGenSettingsWin.showmodalwithin(self)
 		  if HmmGenSettingsWin.OKpressed then
@@ -3921,52 +4048,53 @@ End
 		            end if
 		          end if
 		          If HmmGenSettingsWin.StatsCheckbox.State = CheckBox.CheckedStates.Checked then
-		            dim tfprocessing as FolderItem = Resources_f.Child("matches_score_analysis.py")
-		            ' regex
-		            ' get TF name (?<=moiety"#")\w+(?=\")
-		            ' bit score (?<=\-S\s)[0-9.]+
-		            dim TFname as New RegEx
-		            dim TF as String
-		            dim threshold as String
-		            dim bitscore as New RegEx
-		            dim rgmatch As RegExMatch
-		            TFname.SearchPattern = "(?<=moiety"+chr(34)+"#"+chr(34)+")\w+(?=\"+chr(34)+")"
-		            bitscore.SearchPattern = "(?<=\-S\s)[0-9.]+"
-		            rgmatch = TFname.Search(HmmGenOptions)
-		            if rgmatch <> NIl then
-		              TF = rgmatch.SubExpressionString(0)
-		            end
-		            rgmatch = bitscore.Search(HmmGenOptions)
-		            if rgmatch <> Nil then
-		              threshold = rgmatch.SubExpressionString(0)
-		            end
-		            if threshold <> "" and TF <> "" then
-		              dim plotpath as FolderItem = TemporaryFolder.Child(OutFile.Name+"threshold_"+threshold+".png")
-		              dim cli as String
-		              cli = pythonPath + " " + tfprocessing.ShellPath + " " + OutFile.ShellPath + "  " + plotpath.ShellPath + " " + TF + " " + TFsitesData + " " + threshold
-		              #If TargetWindows
-		                ExecuteWSL(cli)
-		              #Else
-		                UserShell(cli)
-		              #endif
-		              WriteToSTDOUT(shResult)
-		              if plotpath.Exists then
-		                dim statspic As Picture
-		                statspic = Picture.Open(plotpath)
-		                dim w as new ViewerWin
-		                w.Title = OutFile.Name + " bindig sites score distribution for " + TF + ", bitscore threshold: "+threshold
-		                w.ImageWell1.Image = statspic
-		              end
-		            else
-		              WriteToSTDOUT("Bitscore threshold or TF name  is not set. Distribution plotting aborted.")
-		            end
+		            matchesScoreAnalysis(BindingSiteSet)
+		            'dim tfprocessing as FolderItem = Resources_f.Child("matches_score_analysis.py")
+		            '' regex
+		            '' get TF name (?<=moiety"#")\w+(?=\")
+		            '' bit score (?<=\-S\s)[0-9.]+
+		            'dim TFname as New RegEx
+		            'dim TF as String
+		            'dim threshold as String
+		            'dim bitscore as New RegEx
+		            'dim rgmatch As RegExMatch
+		            'TFname.SearchPattern = "(?<=moiety"+chr(34)+"#"+chr(34)+")\w+(?=\"+chr(34)+")"
+		            'bitscore.SearchPattern = "(?<=\-S\s)[0-9.]+"
+		            'rgmatch = TFname.Search(HmmGenOptions)
+		            'if rgmatch <> NIl then
+		            'TF = rgmatch.SubExpressionString(0)
+		            'end
+		            'rgmatch = bitscore.Search(HmmGenOptions)
+		            'if rgmatch <> Nil then
+		            'threshold = rgmatch.SubExpressionString(0)
+		            'end
+		            'if threshold <> "" and TF <> "" then
+		            'dim plotpath as FolderItem = TemporaryFolder.Child(OutFile.Name+"threshold_"+threshold+".png")
+		            'dim cli as String
+		            'cli = pythonPath + " " + tfprocessing.ShellPath + " " + OutFile.ShellPath + "  " + plotpath.ShellPath + " " + TF + " " + TFsitesData + " " + threshold
+		            '#If TargetWindows
+		            'ExecuteWSL(cli)
+		            '#Else
+		            'UserShell(cli)
+		            '#endif
+		            'WriteToSTDOUT(shResult)
+		            'if plotpath.Exists then
+		            'dim statspic As Picture
+		            'statspic = Picture.Open(plotpath)
+		            'dim w as new ViewerWin
+		            'w.Title = OutFile.Name + " bindig sites score distribution for " + TF + ", bitscore threshold: "+threshold
+		            'w.ImageWell1.Image = statspic
+		            'end
+		          else
+		            WriteToSTDOUT("Bitscore threshold or TF name  is not set. Distribution plotting aborted.")
 		          end
-		        end if
+		        end
 		      end if
-		    else
-		      MsgBox "No genome file selected. Please repeat nhmmer search."
 		    end if
+		  else
+		    MsgBox "No genome file selected. Please repeat nhmmer search."
 		  end if
+		  'end if
 		End Sub
 	#tag EndMethod
 
@@ -5009,6 +5137,52 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub matchesScoreAnalysis(TFsitesData As FolderItem)
+		  If HmmGenOptions <> "" then
+		    dim tfprocessing as FolderItem = Resources_f.Child("matches_score_analysis.py")
+		    ' regex
+		    ' get TF name (?<=moiety"#")\w+(?=\")
+		    ' bit score (?<=\-S\s)[0-9.]+
+		    dim TFname as New RegEx
+		    dim TF as String
+		    dim threshold as String
+		    dim bitscore as New RegEx
+		    dim rgmatch As RegExMatch
+		    'TFname.SearchPattern = "(?<=moiety"+chr(34)+"#"+chr(34)+")\w+(?=\"+chr(34)+")"
+		    TFname.SearchPattern = "(?<=moiety"+chr(34)+"#"+chr(34)+")\w+"
+		    bitscore.SearchPattern = "(?<=\-S\s)[0-9.]+"
+		    rgmatch = TFname.Search(HmmGenOptions)
+		    if rgmatch <> NIl then
+		      TF = rgmatch.SubExpressionString(0)
+		    end
+		    rgmatch = bitscore.Search(HmmGenOptions)
+		    if rgmatch <> Nil then
+		      threshold = rgmatch.SubExpressionString(0)
+		    end
+		    if threshold <> "" and TF <> "" then
+		      dim plotpath as FolderItem = TemporaryFolder.Child(OutFile.Name+"threshold_"+threshold+".png")
+		      dim cli as String
+		      'cli = pythonPath + " " + tfprocessing.ShellPath + " " + OutFile.ShellPath + "  " + praphicsResultsPath.ShellPath + " " + TF + " " + TFsitesData.ShellPath + " " + threshold
+		      cli = pythonPath + " " + tfprocessing.ShellPath + " " + OutFile.ShellPath + " /home/aither/test.png " + TF + " " + TFsitesData.ShellPath + " " + threshold
+		      #If TargetWindows
+		        ExecuteWSL(cli)
+		      #Else
+		        UserShell(cli)
+		      #endif
+		      WriteToSTDOUT(shResult)
+		      'if plotpath.Exists then
+		      'dim statspic As Picture
+		      'statspic = Picture.Open(plotpath)
+		      'dim w as new ViewerWin
+		      'w.Title = OutFile.Name + " bindig sites score distribution for " + TF + ", bitscore threshold: "+threshold
+		      'w.ImageWell1.Image = statspic
+		      'end
+		    end
+		  end
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function MatchingTFpresent() As boolean
 		  ' searches the genome with hmmsearch,
 		  ' returns true if there's a hit with the specified CRtag
@@ -5301,7 +5475,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub nhmmerSearch()
+		Sub nhmmerSearch(profileOptions As String = "", annotatedOutput As Folderitem = Nil, score As String = "", BindingSitesSet As FolderItem = Nil)
 		  if NOT SigFileOpened then
 		    if masked then
 		      nhmmerSettingsWin.MaskingBox.Enabled=true
@@ -5323,32 +5497,46 @@ End
 		    nhmmerSettingsWin.RunButton.Enabled=false
 		    '#endif
 		  end if
-		  nhmmerSettingsWin.EnableRun
-		  nhmmerSettingsWin.ShowModalWithin(self)
+		  if profileOptions = "" then
+		    nhmmerSettingsWin.EnableRun
+		    nhmmerSettingsWin.ShowModalWithin(self)
+		  else
+		    nhmmerOptions = profileOptions
+		  end
 		  'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
 		  
 		  'need a pref checkbox to enable CRtag-filtered search
 		  
 		  if nhmmerOptions <> "" then
-		    
 		    'check if the orthologous TF with matching CRtag is present in the genome
-		    
-		    if CRtag="" then
-		      me.WriteToSTDOUT "No CRtag data in this profile. Please make sure that the TF able to recognise these sites is actually encoded in the genome."+EndOfLine.unix
+		    If MatchingTFpresent or CRtag="" Then
+		      if CRtag="" then
+		        WriteToSTDOUT("No CRtag data in this profile. Please make sure that the TF able to recognise these sites is actually encoded in the genome."+EndOfLine.unix)
+		      end
 		      if nhmmer then
 		        if nhmmerSettingsWin.AddAnnotationCheckBox.value then
-		          Dim dlg as New SaveAsDialog
-		          dlg.InitialDirectory=genomefile.Parent
-		          dlg.promptText="Select where to save the modified genome file"
-		          dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-		          dlg.Title="Save genome file"
-		          dlg.Filter=FileTypes.genbank
-		          dlg.CancelButtonCaption=kCancel
-		          dlg.ActionButtonCaption=kSave
-		          outfile=dlg.ShowModal()
+		          if annotatedOutput = Nil then
+		            Dim dlg as New SaveAsDialog
+		            dlg.InitialDirectory=genomefile.Parent
+		            dlg.promptText="Select where to save the modified genome file"
+		            dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		            dlg.Title="Save genome file"
+		            dlg.Filter=FileTypes.genbank
+		            dlg.CancelButtonCaption=kCancel
+		            dlg.ActionButtonCaption=kSave
+		            outfile=dlg.ShowModal()
+		          else
+		            outfile = annotatedOutput
+		          end
 		          if outfile<>nil then
 		            HmmGenSettingsWin.ReadOptions
-		            if HmmGen then
+		            if score <> "" then
+		              dim re As New RegEx
+		              re.SearchPattern = "(?<=-S )[\d\.]+"
+		              re.ReplacementPattern = score
+		              LogoWin.HmmGenOptions = re.Replace(LogoWin.HmmGenOptions)
+		            end
+		            if HmmGen(BindingSitesSet) then
 		              if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
 		                if ubound(GenomeWin.HmmHitDescriptions)>0 then
 		                  GenomeWin.opengenbankfile(outFile)
@@ -5361,35 +5549,7 @@ End
 		        end if
 		      end if
 		    else
-		      If MatchingTFpresent Then
-		        if nhmmer then
-		          if nhmmerSettingsWin.AddAnnotationCheckBox.value then
-		            Dim dlg as New SaveAsDialog
-		            dlg.InitialDirectory=genomefile.Parent
-		            dlg.promptText="Select where to save the modified genome file"
-		            dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-		            dlg.Title="Save genome file"
-		            dlg.Filter=FileTypes.genbank
-		            dlg.CancelButtonCaption=kCancel
-		            dlg.ActionButtonCaption=kSave
-		            outfile=dlg.ShowModal()
-		            if outfile<>nil then
-		              HmmGenSettingsWin.ReadOptions
-		              if HmmGen then
-		                if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-		                  if ubound(GenomeWin.HmmHitDescriptions)>0 then
-		                    GenomeWin.opengenbankfile(outFile)
-		                    genomeWin.ShowHit
-		                    WriteToSTDOUT (" done."+EndofLine)
-		                  end if
-		                end if
-		              end if
-		            end if
-		          end if
-		        end if
-		      else
-		        Me.WriteToSTDOUT "No TF with matching CRtag could be found."+EndOfLine.unix
-		      end if
+		      Me.WriteToSTDOUT "No TF with matching CRtag could be found."+EndOfLine.unix
 		    end if
 		  end if
 		End Sub
@@ -5418,6 +5578,66 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"LogoWin:Palindromise")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub PermuteColumns()
+		  PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
+		  
+		  'since we change data, that's not the .sig any more!
+		  SigFileOpened=false
+		  
+		  If PalindromeLogoFile <> Nil then
+		    PermuteFasta(logofile, palindromeLogofile)
+		    logofile=PalindromeLogoFile
+		    
+		    'replace contents of the Sequence variable (for viewing)
+		    dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
+		    Sequences=Instream.ReadAll
+		    instream.Close
+		    DrawLogo
+		  End If
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ProfileLibSearch(outputFolder As FolderItem, scoreThreshold As String, BindingSiteSet As FolderItem)
+		  dim annotatedGBfile As Folderitem
+		  dim profileSearch As FolderItem
+		  dim settings As String = "--max --nonull2 -T " + scoreThreshold
+		  dim counter As Integer
+		  if Profile_f <> NIL then
+		    for each profile as FolderItem in Profile_f.Children
+		      logowin.Title="SigmoID: "+Nthfield(profile.name,".",1)
+		      logowin.LoadAlignment(profile)
+		      logowin.ChangeView("Logo")
+		      logowin.LogoTabs.TabIndex=0
+		      'search with original profile
+		      profileSearch = outputFolder.child(Nthfield(profile.name,".",1))
+		      if Not profileSearch.Exists then
+		        try
+		          profileSearch.CreateFolder
+		          annotatedGBfile = profileSearch.child(Nthfield(profile.name,".",1) + "_" + GenomeFile.Name)
+		        catch IOException
+		          msgbox("Can't create "+profileSearch.ShellPath)
+		        end try
+		      end
+		      if annotatedGBfile <> Nil then
+		        nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet)
+		        counter = 1
+		        while counter <= 10
+		          annotatedGBfile = profileSearch.child("permutated_" + str(counter) + "_"+Nthfield(profile.name,".",1)+GenomeFile.Name)
+		          PermuteColumns
+		          nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet)
+		          counter = counter + 1
+		        wend
+		      else
+		        WriteToSTDOUT("No output folder " + annotatedGBfile.ShellPath)
+		      end
+		    next
+		    
+		  end
 		End Sub
 	#tag EndMethod
 
