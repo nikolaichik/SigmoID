@@ -10,7 +10,7 @@ Begin Window ProfileSearchSettings
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   210
+   Height          =   266
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -23,7 +23,7 @@ Begin Window ProfileSearchSettings
    Title           =   "Profile search settings"
    Type            =   0
    Visible         =   True
-   Width           =   374
+   Width           =   408
    Begin PushButton PushButton1
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -34,11 +34,11 @@ Begin Window ProfileSearchSettings
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   27
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   274
+      Left            =   289
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -50,11 +50,11 @@ Begin Window ProfileSearchSettings
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   165
+      Top             =   202
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   81
    End
    Begin TextField TextField1
       AllowAutoDeactivate=   True
@@ -75,7 +75,7 @@ Begin Window ProfileSearchSettings
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   206
+      Left            =   234
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -92,7 +92,7 @@ Begin Window ProfileSearchSettings
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   33
+      Top             =   19
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -112,7 +112,7 @@ Begin Window ProfileSearchSettings
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   51
+      Left            =   54
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -128,7 +128,7 @@ Begin Window ProfileSearchSettings
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   39
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -148,7 +148,7 @@ Begin Window ProfileSearchSettings
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   51
+      Left            =   37
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -160,11 +160,11 @@ Begin Window ProfileSearchSettings
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   115
+      Top             =   151
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   159
+      Width           =   164
    End
    Begin PushButton PushButton3
       AllowAutoDeactivate=   True
@@ -180,7 +180,7 @@ Begin Window ProfileSearchSettings
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   50
+      Left            =   37
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -192,11 +192,11 @@ Begin Window ProfileSearchSettings
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   163
+      Top             =   201
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   160
+      Width           =   165
    End
    Begin Label Label2
       AllowAutoDeactivate=   True
@@ -211,7 +211,7 @@ Begin Window ProfileSearchSettings
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   51
+      Left            =   37
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -227,11 +227,89 @@ Begin Window ProfileSearchSettings
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   76
+      Top             =   119
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   304
+   End
+   Begin TextField TextField2
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF00
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   29
+      Hint            =   ""
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   234
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   6
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextAlignment   =   0
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   78
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Visible         =   True
+      Width           =   43
+   End
+   Begin Label Label3
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   37
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Number of permutations"
+      TextAlignment   =   0
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   87
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   159
    End
 End
 #tag EndWindow
@@ -246,6 +324,10 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		permutationsCount As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		scoreThreshold As String
 	#tag EndProperty
 
@@ -255,16 +337,18 @@ End
 #tag Events PushButton1
 	#tag Event
 		Sub Action()
-		  if outputFolder <> Nil and scoreThreshold <> "" then
+		  if outputFolder <> Nil and scoreThreshold <> "" and BindingSiteSet <> Nil and permutationsCount <> "" then
 		    if outputFolder.Exists then
-		      if IsNumeric(scoreThreshold) then
-		        if val(scoreThreshold) > 0 then
-		          LogoWin.ProfileLibSearch(outputFolder, scoreThreshold, BindingSiteSet)
+		      if IsNumeric(scoreThreshold) and isNumeric(permutationsCount) then
+		        if val(scoreThreshold) > 0 and val(permutationsCount) > 0 then
+		          LogoWin.ProfileLibSearch(outputFolder, scoreThreshold, BindingSiteSet, val(permutationsCount))
 		          self.close
 		        else
-		          msgbox("Use only positive numbers for score threshold")
+		          msgbox("Use only positive numbers for score threshold and permutations count")
 		        end
-		      else
+		      elseif not IsNumeric(permutationsCount) then
+		        msgbox("Permutations count is not valid")
+		      elseif not isNumeric(scoreThreshold) then
 		        msgbox("Score threshold is not a number")
 		      end
 		    else
@@ -274,6 +358,8 @@ End
 		    msgbox("Choose the output folder")
 		  elseif scoreThreshold = "" then
 		    msgbox("Set the lower bitscore threshold")
+		  elseif BindingSiteSet = Nil then
+		    msgbox("Provide the RegulonDB BindingSiteSet file")
 		  end
 		End Sub
 	#tag EndEvent
@@ -310,6 +396,13 @@ End
 		  
 		  BindingSiteSet = dlg.ShowModal
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TextField2
+	#tag Event
+		Sub TextChange()
+		  permutationsCount = trim(me.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

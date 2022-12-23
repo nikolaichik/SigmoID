@@ -4049,35 +4049,6 @@ End
 		          end if
 		          If HmmGenSettingsWin.StatsCheckbox.State = CheckBox.CheckedStates.Checked then
 		            matchesScoreAnalysis(BindingSiteSet)
-		            'dim tfprocessing as FolderItem = Resources_f.Child("matches_score_analysis.py")
-		            '' regex
-		            '' get TF name (?<=moiety"#")\w+(?=\")
-		            '' bit score (?<=\-S\s)[0-9.]+
-		            'dim TFname as New RegEx
-		            'dim TF as String
-		            'dim threshold as String
-		            'dim bitscore as New RegEx
-		            'dim rgmatch As RegExMatch
-		            'TFname.SearchPattern = "(?<=moiety"+chr(34)+"#"+chr(34)+")\w+(?=\"+chr(34)+")"
-		            'bitscore.SearchPattern = "(?<=\-S\s)[0-9.]+"
-		            'rgmatch = TFname.Search(HmmGenOptions)
-		            'if rgmatch <> NIl then
-		            'TF = rgmatch.SubExpressionString(0)
-		            'end
-		            'rgmatch = bitscore.Search(HmmGenOptions)
-		            'if rgmatch <> Nil then
-		            'threshold = rgmatch.SubExpressionString(0)
-		            'end
-		            'if threshold <> "" and TF <> "" then
-		            'dim plotpath as FolderItem = TemporaryFolder.Child(OutFile.Name+"threshold_"+threshold+".png")
-		            'dim cli as String
-		            'cli = pythonPath + " " + tfprocessing.ShellPath + " " + OutFile.ShellPath + "  " + plotpath.ShellPath + " " + TF + " " + TFsitesData + " " + threshold
-		            '#If TargetWindows
-		            'ExecuteWSL(cli)
-		            '#Else
-		            'UserShell(cli)
-		            '#endif
-		            'WriteToSTDOUT(shResult)
 		            'if plotpath.Exists then
 		            'dim statspic As Picture
 		            'statspic = Picture.Open(plotpath)
@@ -5160,10 +5131,10 @@ End
 		      threshold = rgmatch.SubExpressionString(0)
 		    end
 		    if threshold <> "" and TF <> "" then
-		      dim plotpath as FolderItem = TemporaryFolder.Child(OutFile.Name+"threshold_"+threshold+".png")
+		      'dim plotpath as FolderItem = TemporaryFolder.Child(OutFile.Name+"threshold_"+threshold+".png")
 		      dim cli as String
 		      'cli = pythonPath + " " + tfprocessing.ShellPath + " " + OutFile.ShellPath + "  " + praphicsResultsPath.ShellPath + " " + TF + " " + TFsitesData.ShellPath + " " + threshold
-		      cli = pythonPath + " " + tfprocessing.ShellPath + " " + OutFile.ShellPath + " /home/aither/test.png " + TF + " " + TFsitesData.ShellPath + " " + threshold
+		      cli = pythonPath + " " + tfprocessing.ShellPath + " " + OutFile.ShellPath +" "+ TF + " " + TFsitesData.ShellPath + " " + threshold
 		      #If TargetWindows
 		        ExecuteWSL(cli)
 		      #Else
@@ -5602,41 +5573,43 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ProfileLibSearch(outputFolder As FolderItem, scoreThreshold As String, BindingSiteSet As FolderItem)
+		Sub ProfileLibSearch(outputFolder As FolderItem, scoreThreshold As String, BindingSiteSet As FolderItem, permutationsCount As Double)
 		  dim annotatedGBfile As Folderitem
 		  dim profileSearch As FolderItem
 		  dim settings As String = "--max --nonull2 -T " + scoreThreshold
 		  dim counter As Integer
 		  if Profile_f <> NIL then
 		    for each profile as FolderItem in Profile_f.Children
-		      logowin.Title="SigmoID: "+Nthfield(profile.name,".",1)
-		      logowin.LoadAlignment(profile)
-		      logowin.ChangeView("Logo")
-		      logowin.LogoTabs.TabIndex=0
-		      'search with original profile
-		      profileSearch = outputFolder.child(Nthfield(profile.name,".",1))
-		      if Not profileSearch.Exists then
-		        try
-		          profileSearch.CreateFolder
-		          annotatedGBfile = profileSearch.child(Nthfield(profile.name,".",1) + "_" + GenomeFile.Name)
-		        catch IOException
-		          msgbox("Can't create "+profileSearch.ShellPath)
-		        end try
-		      end
-		      if annotatedGBfile <> Nil then
-		        nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet)
-		        counter = 1
-		        while counter <= 10
-		          annotatedGBfile = profileSearch.child("permutated_" + str(counter) + "_"+Nthfield(profile.name,".",1)+GenomeFile.Name)
-		          PermuteColumns
+		      if instr(profile.Name, ".sig") > 0 then
+		        logowin.Title="SigmoID: "+Nthfield(profile.name,".",1)
+		        logowin.LoadAlignment(profile)
+		        logowin.ChangeView("Logo")
+		        logowin.LogoTabs.TabIndex=0
+		        'search with original profile
+		        profileSearch = outputFolder.child(Nthfield(profile.name,".",1))
+		        annotatedGBfile = Nil
+		        if Not profileSearch.Exists then
+		          try
+		            profileSearch.CreateFolder
+		            annotatedGBfile = profileSearch.child(Nthfield(profile.name,".",1) + "_" + GenomeFile.Name)
+		          catch IOException
+		            msgbox("Can't create "+profileSearch.ShellPath)
+		          end try
+		        end
+		        if annotatedGBfile <> Nil then
 		          nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet)
-		          counter = counter + 1
-		        wend
-		      else
-		        WriteToSTDOUT("No output folder " + annotatedGBfile.ShellPath)
+		          counter = 1
+		          while counter <= permutationsCount
+		            annotatedGBfile = profileSearch.child("permutated_" + str(counter) + "_"+Nthfield(profile.name,".",1)+GenomeFile.Name)
+		            PermuteColumns
+		            nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet)
+		            counter = counter + 1
+		          wend
+		        else
+		          WriteToSTDOUT("No output folder " + annotatedGBfile.ShellPath)
+		        end
 		      end
 		    next
-		    
 		  end
 		End Sub
 	#tag EndMethod

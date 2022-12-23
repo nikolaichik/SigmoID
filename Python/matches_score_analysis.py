@@ -12,8 +12,6 @@ from pathlib import Path
 import numpy as np
 from math import ceil
 from matplotlib import pyplot
-from mpl_toolkits.mplot3d.axes3d import Axes3D
-from matplotlib import cm
 
 
 # The script extracts potential targets of TFs from a user provided genbank file with annotated TFBS
@@ -26,7 +24,6 @@ class BindingSite:
 
 
 ANNOTATED_SITES = []
-# REG_DB_SITES = []
 REG_DB_SITES = {}
 GENE_ENTRIES = []
 CDS_list = {}
@@ -36,22 +33,6 @@ MAX_SCORE = 0
 
 
 def compare_seq(found, sites_db, tf_name):
-    # confirmed
-    # for site in sites_db:
-    #     try:
-    #         if len(site.seq) >= len(found):
-    #             if (str(found.complement()) in site.seq) \
-    #                     or (str(found.reverse_complement()) in site.seq) \
-    #                     or (str(found) in site.seq):
-    #                 return True
-    #         else:
-    #             if (site.seq in str(found.complement())) \
-    #                 or (site.seq in str(found.reverse_complement())) \
-    #                     or (site.seq in str(found)):
-    #                 return True
-    #     except TypeError:
-    #         return False
-    # return False
     tfbs_data = sites_db.get(tf_name)
     if tfbs_data:
         for entry in tfbs_data:
@@ -73,18 +54,6 @@ def compare_seq(found, sites_db, tf_name):
 
 
 def get_targets(found, sites_db, tf_name):
-    # # confirmed
-    # if ',' in found.targets[1]:
-    #     targets = found.targets[1].split(',')
-    # else:
-    #     targets = [found.targets[1]]
-    # # return [target for target in targets if target in site.targets for site in sites_db]
-    # out = []
-    # for site in sites_db:
-    #     for target in targets:
-    #         if target in site.targets:
-    #             out.append(target)
-    # return out
     out = []
     tfbs_data = sites_db.get(tf_name)
     if tfbs_data:
@@ -294,7 +263,7 @@ def clear_site(site):
         del PUTATIVE_INCORRECT[f"{site.coord[0]}-{site.coord[1]}"]
 
 
-def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filter=4.0, down_length=50, operon_gap=75):
+def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_length=50, operon_gap=75):
     with open(genbank_path, 'r') as handle:
         seq_record = SeqIO.read(handle, 'genbank')
     tf_sites = []
@@ -318,17 +287,7 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
                     print(f"failed to get feature bitscore: {feature.location.start}-{feature.location.end}")
     # parse regdb info
     with open(regdb_info, 'r') as tfbs_info:
-        # for line in tfbs_info:
-        #     match = re.search("^.+\d.+", line)
-        #     if match:
-        #         tabs = line.split('\t')
-        #         site = BindingSite({'seq': tabs[7].upper(),
-        #                               'targets': re.sub('[\s+]', '', tabs[6]),
-        #                               'evidence': tabs[10],
-        #                             })
-        #         REG_DB_SITES.append(site)
-
-        # Columns:
+        # Columns after splitting BindingSiteSet line:
         # (1) Transcription Factor (TF) identifier assigned by RegulonDB
         # (2) TF name
         # (3) Confornation name
@@ -484,7 +443,7 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
         OUTPUT.append(f"=========== Putative incorrect sites ===========")
         for i, site in enumerate(sorted(PUTATIVE_INCORRECT.values(), key=lambda site: site.score, reverse=True)):
             print_output(site, i)
-    with open(f"{genbank_path}_sites", "w") as f:
+    with open(f"{genbank_path}.log", "w") as f:
         f.writelines('\n'.join(OUTPUT))
 
     conf_data = [site.score for site in confirmed_save]
@@ -496,7 +455,6 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
     bins = list(range(1, 1 + ceil(max([*incorrect_data, *conf_data, *unconf_data]))))
 
     if len(PUTATIVE_INCORRECT):
-
         arr = ax1.hist(incorrect_data, bins=bins, alpha=0.25,
                        label='incorrect', color="r", edgecolor='black', log=True)
         for i in range(len(bins) - 1):
@@ -523,17 +481,12 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
 
     # set top and right boundaries invisible, add bins ticks
     for ax in (ax1, ax2, ax3, ax4):
-        ax.legend(loc='best')
+        ax.legend(bbox_to_anchor=(1, 0), loc="lower left")
         for side in ("top", 'right'):
             ax.spines[side].set_visible(False)
             ax.set_xticks(bins)
     ax3.set_xlabel("bits")
     ax2.set_ylabel("sites count")
-    # merge subplot's legends
-    # h1, l1 = ax1.get_legend_handles_labels()
-    # h2, l2 = ax2.get_legend_handles_labels()
-    # ax1.legend(h1 + h2, l1 + l2, loc=2)
-
     pyplot.xticks(bins)
     pyplot.gca().margins(x=0)
     pyplot.gcf().canvas.draw()
@@ -553,7 +506,7 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
     levels = ["incorrect position", "unconfirmed sites",  "near confirmed targets", "overlapping confirmed seqs"]
     hist_scores = np.array([hist_incorrect, hist_unconf, hist_conf, hist_conf_seq])
     fig2, ax = pyplot.subplots()
-    im = pyplot.imshow(hist_scores)
+    pyplot.imshow(hist_scores)
     # Show all ticks and label them with the respective list entries
     ax.set_xticks(np.arange(len(bins) - 1))
     ax.set_xticklabels(bins[:-1])
@@ -570,7 +523,6 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
 
     ax.set_title("Bit-scores distribution of TFBSs")
     fig2.tight_layout()
-    # pyplot.show()
     fig2.savefig(f"{genbank_path}_heatmap.png", bbox_inches='tight')
     pyplot.close(fig2)
     if len(PUTATIVE_INCORRECT):
@@ -578,16 +530,14 @@ def get_nearby_genes(genbank_path, savefig_path, tf_name, regdb_info, score_filt
             print(f"check location: {site}")
     print('\n'.join(OUTPUT))
     print("done.")
-    with open(f"{genbank_path}_.log", 'w') as f:
-        f.writelines('\n'.join(OUTPUT))
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 6:
-        get_nearby_genes(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], float(sys.argv[5]))
-    elif len(sys.argv) == 7:
-        get_nearby_genes(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], float(sys.argv[5]), int(sys.argv[6]))
+    if len(sys.argv) == 5:
+        get_nearby_genes(sys.argv[1], sys.argv[2], sys.argv[3], float(sys.argv[4]))
+    elif len(sys.argv) == 6:
+        get_nearby_genes(sys.argv[1], sys.argv[2], sys.argv[3], float(sys.argv[4]), int(sys.argv[5]))
     else:
-        print("Usage: matches_score_analysis.py gb_file path_to_save_plot "
+        print("Usage: matches_score_analysis.py gb_file "
               "tf_name TFBS_info [score filter, default=4] [downstream_length, default=50]")
         sys.exit(0)
