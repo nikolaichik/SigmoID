@@ -647,7 +647,7 @@ Begin Window HmmGenSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   206
    End
 End

@@ -702,6 +702,7 @@ Begin Window ProfileWizardWin
       Top             =   365
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
       Visible         =   True
       Width           =   724
@@ -1003,6 +1004,7 @@ Begin Window ProfileWizardWin
       Top             =   240
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
       Visible         =   True
       Width           =   724
@@ -1104,8 +1106,8 @@ Begin Window ProfileWizardWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "2"
-      GridLinesVerticalStyle=   "2"
+      GridLinesHorizontalStyle=   2
+      GridLinesVerticalStyle=   2
       HasBorder       =   True
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -1123,7 +1125,7 @@ Begin Window ProfileWizardWin
       LockRight       =   True
       LockTop         =   False
       RequiresSelection=   False
-      RowSelectionType=   "0"
+      RowSelectionType=   0
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
@@ -1156,8 +1158,8 @@ Begin Window ProfileWizardWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "2"
-      GridLinesVerticalStyle=   "2"
+      GridLinesHorizontalStyle=   2
+      GridLinesVerticalStyle=   2
       HasBorder       =   True
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -1175,7 +1177,7 @@ Begin Window ProfileWizardWin
       LockRight       =   True
       LockTop         =   False
       RequiresSelection=   False
-      RowSelectionType=   "0"
+      RowSelectionType=   0
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
@@ -1209,7 +1211,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -1241,7 +1243,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -1273,7 +1275,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   20
       TabPanelIndex   =   0
