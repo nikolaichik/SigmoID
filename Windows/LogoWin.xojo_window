@@ -5578,6 +5578,8 @@ End
 		  dim profileSearch As FolderItem
 		  dim settings As String = "--max --nonull2 -T " + scoreThreshold
 		  dim counter As Integer
+		  dim cli As String
+		  dim collectStats as FolderItem = Resources_f.Child("collect_stats.py")
 		  if Profile_f <> NIL then
 		    for each profile as FolderItem in Profile_f.Children
 		      if instr(profile.Name, ".sig") > 0 then
@@ -5610,6 +5612,13 @@ End
 		        end
 		      end
 		    next
+		    cli = pythonPath + " " + collectStats.ShellPath + " " + outputFolder.ShellPath + " " +str(permutationsCount)
+		    #If TargetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      UserShell(cli)
+		    #endif
+		    WriteToSTDOUT(shResult)
 		  end
 		End Sub
 	#tag EndMethod
