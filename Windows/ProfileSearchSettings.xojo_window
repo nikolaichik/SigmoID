@@ -644,11 +644,19 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="outputFolder"
+		Name="permutationsCount"
 		Visible=false
 		Group="Behavior"
 		InitialValue=""
-		Type="Integer"
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="scoreThreshold"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
