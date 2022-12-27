@@ -44,7 +44,7 @@ Begin Window ProfileSearchSettings
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -424,7 +424,6 @@ End
 		    Label2.text=""
 		    Output=false
 		  end
-		  
 		  EnableOK
 		End Sub
 	#tag EndEvent
@@ -438,13 +437,11 @@ End
 		  dlg.PromptText = "Provide path to the BindingSiteSet file"
 		  
 		  BindingSiteSet = dlg.ShowModal
-		  
 		  if BindingSiteSet<>Nil then
 		    Regulondb=true
 		  else
 		    Regulondb=false
 		  end if
-		  
 		  EnableOK
 		End Sub
 	#tag EndEvent
