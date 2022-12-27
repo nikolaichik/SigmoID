@@ -20,7 +20,11 @@ Begin Window ProfileSearchSettings
    MinimumHeight   =   64
    MinimumWidth    =   64
    Resizeable      =   True
+<<<<<<< Updated upstream
    Title           =   "Profile search settings"
+=======
+   Title           =   "Profile Search Settings"
+>>>>>>> Stashed changes
    Type            =   0
    Visible         =   True
    Width           =   408
@@ -41,9 +45,15 @@ Begin Window ProfileSearchSettings
       Left            =   289
       LockBottom      =   False
       LockedInPosition=   False
+<<<<<<< Updated upstream
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
+=======
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+>>>>>>> Stashed changes
       MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   0
@@ -88,7 +98,11 @@ Begin Window ProfileSearchSettings
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+<<<<<<< Updated upstream
       Text            =   ""
+=======
+      Text            =   "4"
+>>>>>>> Stashed changes
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -124,7 +138,11 @@ Begin Window ProfileSearchSettings
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+<<<<<<< Updated upstream
       Text            =   "Bitscore threshold"
+=======
+      Text            =   "Bitscore threshold:"
+>>>>>>> Stashed changes
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -153,7 +171,11 @@ Begin Window ProfileSearchSettings
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
+<<<<<<< Updated upstream
       LockTop         =   True
+=======
+      LockTop         =   False
+>>>>>>> Stashed changes
       MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   3
@@ -185,7 +207,11 @@ Begin Window ProfileSearchSettings
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
+<<<<<<< Updated upstream
       LockTop         =   True
+=======
+      LockTop         =   False
+>>>>>>> Stashed changes
       MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   5
@@ -223,7 +249,11 @@ Begin Window ProfileSearchSettings
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
+<<<<<<< Updated upstream
       Text            =   ""
+=======
+      Text            =   "10"
+>>>>>>> Stashed changes
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -265,7 +295,11 @@ Begin Window ProfileSearchSettings
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+<<<<<<< Updated upstream
       Text            =   ""
+=======
+      Text            =   "Number of permutations:"
+>>>>>>> Stashed changes
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -301,7 +335,11 @@ Begin Window ProfileSearchSettings
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
+<<<<<<< Updated upstream
       Text            =   "Number of permutations"
+=======
+      Text            =   ""
+>>>>>>> Stashed changes
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -368,6 +406,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  scoreThreshold = trim(me.Text)
+		  EnableOK
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -383,6 +422,7 @@ End
 		  If outputFolder <> Nil Then
 		    Label2.text=outputFolder.ShellPath
 		  end
+		  EnableOK
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -396,6 +436,15 @@ End
 		  
 		  BindingSiteSet = dlg.ShowModal
 		  
+<<<<<<< Updated upstream
+=======
+		  if BindingSiteSet<>Nil then
+		    Regulondb=true
+		  else
+		    Regulondb=false
+		  end if
+		  EnableOK
+>>>>>>> Stashed changes
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -403,6 +452,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  permutationsCount = trim(me.Text)
+		  EnableOK
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -648,7 +698,35 @@ End
 		Visible=false
 		Group="Behavior"
 		InitialValue=""
+<<<<<<< Updated upstream
 		Type="Integer"
+=======
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="scoreThreshold"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Output"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Regulondb"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+>>>>>>> Stashed changes
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

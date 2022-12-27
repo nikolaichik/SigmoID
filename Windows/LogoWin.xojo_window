@@ -5140,7 +5140,9 @@ End
 		      #Else
 		        UserShell(cli)
 		      #endif
-		      WriteToSTDOUT(shResult)
+		      if shError <> 0 then
+		        WriteToSTDOUT(shResult)
+		      end
 		      'if plotpath.Exists then
 		      'dim statspic As Picture
 		      'statspic = Picture.Open(plotpath)
@@ -5154,7 +5156,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function MatchingTFpresent() As boolean
+		Function MatchingTFpresent(exportProteomeOnce As Boolean = False) As boolean
 		  ' searches the genome with hmmsearch,
 		  ' returns true if there's a hit with the specified CRtag
 		  
@@ -5173,9 +5175,10 @@ End
 		  if GenomeFile=Nil then
 		    logoWin.WriteToSTDOUT("Please select a file to search first.")
 		    return false
-		  else
+		  elseif exportProteomeOnce and not CDSfastaSaved or not exportProteomeOnce then
 		    logoWin.WriteToSTDOUT(EndOfLine.UNIX+"Exporting protein seqs... ")
-		    
+		  else
+		    logoWin.WriteToSTDOUT(EndOfLine.UNIX+"Using existing CDS.fasta. " + EndOfLine.UNIX)
 		  end if
 		  
 		  'export protein fastas:
@@ -5191,14 +5194,15 @@ End
 		  
 		  
 		  if CDSfasta<>nil then
-		    if CDSfasta.exists then
-		      'LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"An existing CDS sequences file was found at "+CDSfasta.shellpath+" and will be reused.")
-		      CDSfasta.Delete
-		    end if
-		    'LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"Exporting CDS sequences...")
-		    GenomeWin.ExportProteins(CDSfasta),true
-		    LogoWin.WriteToSTDOUT (" OK"+EndOfLine.UNIX)
-		    
+		    if exportProteomeOnce and not CDSfastaSaved or not exportProteomeOnce then
+		      if CDSfasta.exists then
+		        'LogoWin.WriteToSTDOUT (EndofLine.unix+EndofLine.unix+"An existing CDS sequences file was found at "+CDSfasta.shellpath+" and will be reused.")
+		        CDSfasta.Delete
+		      end if
+		      GenomeWin.ExportProteins(CDSfasta),true
+		      LogoWin.WriteToSTDOUT (" OK"+EndOfLine.UNIX)
+		      CDSfastaSaved = True
+		    end
 		    
 		    instream=CDSfasta.OpenAsTextFile
 		    
@@ -5446,7 +5450,8 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub nhmmerSearch(profileOptions As String = "", annotatedOutput As Folderitem = Nil, score As String = "", BindingSitesSet As FolderItem = Nil)
+		Sub nhmmerSearch(profileOptions As String = "", annotatedOutput As Folderitem = Nil, score As String = "", BindingSitesSet As FolderItem = Nil, pipeline As Boolean = False)
+		  Dim TFIsPresent As Boolean
 		  if NOT SigFileOpened then
 		    if masked then
 		      nhmmerSettingsWin.MaskingBox.Enabled=true
@@ -5480,7 +5485,13 @@ End
 		  
 		  if nhmmerOptions <> "" then
 		    'check if the orthologous TF with matching CRtag is present in the genome
-		    If MatchingTFpresent or CRtag="" Then
+		    'check if we run method in the pipeline, CDS.fasta should be created once
+		    if not pipeline then
+		      TFIsPresent = MatchingTFpresent
+		    else
+		      TFIsPresent = MatchingTFpresent(True)
+		    end
+		    If TFIsPresent or CRtag="" Then
 		      if CRtag="" then
 		        WriteToSTDOUT("No CRtag data in this profile. Please make sure that the TF able to recognise these sites is actually encoded in the genome."+EndOfLine.unix)
 		      end
@@ -5597,12 +5608,12 @@ End
 		          end try
 		        end
 		        if annotatedGBfile <> Nil then
-		          nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet)
+		          nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet, True)
 		          counter = 1
 		          while counter <= permutationsCount
 		            annotatedGBfile = profileSearch.child("permutated_" + str(counter) + "_"+Nthfield(profile.name,".",1)+GenomeFile.Name)
 		            PermuteColumns
-		            nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet)
+		            nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet, True)
 		            counter = counter + 1
 		          wend
 		        else
@@ -5610,6 +5621,17 @@ End
 		        end
 		      end
 		    next
+<<<<<<< Updated upstream
+=======
+		    CDSfastaSaved = False
+		    cli = pythonPath + " " + collectStats.ShellPath + " " + outputFolder.ShellPath + " " +str(permutationsCount)
+		    #If TargetWindows
+		      ExecuteWSL(cli)
+		    #Else
+		      UserShell(cli)
+		    #endif
+		    WriteToSTDOUT(shResult)
+>>>>>>> Stashed changes
 		  end
 		End Sub
 	#tag EndMethod
@@ -6073,6 +6095,10 @@ End
 
 	#tag Property, Flags = &h0
 		BioPrSettingsSaved As Boolean = false
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		CDSfastaSaved As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
