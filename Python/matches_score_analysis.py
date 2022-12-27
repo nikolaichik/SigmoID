@@ -58,9 +58,11 @@ def get_targets(found, sites_db, tf_name):
     tfbs_data = sites_db.get(tf_name)
     if tfbs_data:
         for entry in tfbs_data:
-           if found.coord[0] > int(entry.coord[0]) - 50 and found.coord[1] < int(entry.coord[1]) + 50:
-               if entry.targets:
-                   out.append(entry.targets)
+            if entry.coord[1] != '' and entry.coord[0] != '':
+                   if found.coord[0] > int(entry.coord[0]) - 50 and\
+                           found.coord[1] < int(entry.coord[1]) + 50:
+                       if entry.targets:
+                           out.append(entry.targets)
     else:
         print(f"{tf_name} not found in RegDB TFBSs data")
     return out
@@ -352,9 +354,9 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
                         PUTATIVE_INCORRECT[f"{site.location.start}-{site.location.end}"] = BindingSite(get_site_features(site))
 
 
-    threshold_confirmed = "no sites matching/overlaping confirmed RegulonDB targets"
+    threshold_confirmed = "no sites near confirmed RegulonDB targets"
     threshold_highest = 0
-    threshold_conf_match = "no sites near confirmed targets"
+    threshold_conf_match = "no sites overlaping confirmed sequences"
     confirmed_save = []
     unconfirmed_save = []
     confirmed_targets = []
@@ -394,6 +396,8 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
                   )
     if len(PUTATIVE_INCORRECT):
         OUTPUT.append(f"The highest score among putative incorrect sites: {max([site.score for site in PUTATIVE_INCORRECT.values()])} \n")
+    else:
+        OUTPUT.append(f"The highest score among putative incorrect sites: no sites")
     sites_batch = []
     processed_count = 1
     if len(confirmed_save):

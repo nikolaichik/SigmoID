@@ -3,14 +3,14 @@ Begin Window ProfileSearchSettings
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF00
    Composite       =   False
-   DefaultLocation =   0
+   DefaultLocation =   "0"
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   266
+   Height          =   172
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -20,21 +20,17 @@ Begin Window ProfileSearchSettings
    MinimumHeight   =   64
    MinimumWidth    =   64
    Resizeable      =   True
-<<<<<<< Updated upstream
-   Title           =   "Profile search settings"
-=======
    Title           =   "Profile Search Settings"
->>>>>>> Stashed changes
-   Type            =   0
+   Type            =   "0"
    Visible         =   True
-   Width           =   408
-   Begin PushButton PushButton1
+   Width           =   458
+   Begin PushButton OKButton
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
       Caption         =   "OK"
       Default         =   True
-      Enabled         =   True
+      Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -42,25 +38,19 @@ Begin Window ProfileSearchSettings
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   289
-      LockBottom      =   False
+      Left            =   367
+      LockBottom      =   True
       LockedInPosition=   False
-<<<<<<< Updated upstream
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-=======
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
->>>>>>> Stashed changes
       MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   202
+      Top             =   120
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -81,11 +71,11 @@ Begin Window ProfileSearchSettings
       FontUnit        =   0
       Format          =   ""
       HasBorder       =   True
-      Height          =   31
+      Height          =   29
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   234
+      Left            =   148
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -98,12 +88,8 @@ Begin Window ProfileSearchSettings
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-<<<<<<< Updated upstream
-      Text            =   ""
-=======
       Text            =   "4"
->>>>>>> Stashed changes
-      TextAlignment   =   0
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   19
@@ -126,7 +112,7 @@ Begin Window ProfileSearchSettings
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   54
+      Left            =   20
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -138,25 +124,21 @@ Begin Window ProfileSearchSettings
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-<<<<<<< Updated upstream
-      Text            =   "Bitscore threshold"
-=======
       Text            =   "Bitscore threshold:"
->>>>>>> Stashed changes
-      TextAlignment   =   0
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   120
+      Width           =   124
    End
    Begin PushButton PushButton2
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "Select output folder"
+      Caption         =   "Select Output Folder"
       Default         =   False
       Enabled         =   True
       FontName        =   "System"
@@ -166,33 +148,29 @@ Begin Window ProfileSearchSettings
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   37
-      LockBottom      =   False
+      Left            =   20
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-<<<<<<< Updated upstream
-      LockTop         =   True
-=======
       LockTop         =   False
->>>>>>> Stashed changes
-      MacButtonStyle  =   0
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   151
+      Top             =   70
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   164
+      Width           =   202
    End
    Begin PushButton PushButton3
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "Select RegulonDB TFBS"
+      Caption         =   "Select RegulonDB TFBS File"
       Default         =   False
       Enabled         =   True
       FontName        =   "System"
@@ -202,66 +180,23 @@ Begin Window ProfileSearchSettings
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   37
-      LockBottom      =   False
+      Left            =   20
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-<<<<<<< Updated upstream
-      LockTop         =   True
-=======
       LockTop         =   False
->>>>>>> Stashed changes
-      MacButtonStyle  =   0
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   201
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   165
-   End
-   Begin Label Label2
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   37
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   4
-      TabPanelIndex   =   0
-      TabStop         =   True
-<<<<<<< Updated upstream
-      Text            =   ""
-=======
-      Text            =   "10"
->>>>>>> Stashed changes
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
       Top             =   119
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   304
+      Width           =   202
    End
    Begin TextField TextField2
       AllowAutoDeactivate=   True
@@ -282,7 +217,7 @@ Begin Window ProfileSearchSettings
       Hint            =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   234
+      Left            =   395
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -295,15 +230,11 @@ Begin Window ProfileSearchSettings
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-<<<<<<< Updated upstream
-      Text            =   ""
-=======
-      Text            =   "Number of permutations:"
->>>>>>> Stashed changes
-      TextAlignment   =   0
+      Text            =   "10"
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   78
+      Top             =   19
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -323,7 +254,7 @@ Begin Window ProfileSearchSettings
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   37
+      Left            =   234
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -335,26 +266,89 @@ Begin Window ProfileSearchSettings
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
-<<<<<<< Updated upstream
-      Text            =   "Number of permutations"
-=======
-      Text            =   ""
->>>>>>> Stashed changes
-      TextAlignment   =   0
+      Text            =   "Number of permutations:"
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   87
+      Top             =   20
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   159
    End
+   Begin Label Label2
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   218
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Multiline       =   False
+      Scope           =   0
+      Selectable      =   False
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextAlignment   =   "0"
+      TextColor       =   &c00000000
+      Tooltip         =   ""
+      Top             =   79
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   227
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Open()
+		  EnableOK
+		End Sub
+	#tag EndEvent
+
+
+	#tag Method, Flags = &h0
+		Sub EnableOK()
+		  dim Score, Permutations as boolean
+		  
+		  if val(scoreThreshold)>1 then
+		    Score=true
+		  end if
+		  
+		  if val(permutationsCount)>1 then
+		    Permutations=true
+		  end if
+		  
+		  if Score And Permutations And Output And Regulondb then
+		    OKButton.enabled=true
+		  else
+		    OKButton.enabled=false
+		  end if
+		End Sub
+	#tag EndMethod
+
+
 	#tag Property, Flags = &h0
 		BindingSiteSet As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Output As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -362,17 +356,21 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		permutationsCount As String
+		permutationsCount As String = "10"
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		scoreThreshold As String
+		Regulondb As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		scoreThreshold As String = "4"
 	#tag EndProperty
 
 
 #tag EndWindowCode
 
-#tag Events PushButton1
+#tag Events OKButton
 	#tag Event
 		Sub Action()
 		  if outputFolder <> Nil and scoreThreshold <> "" and BindingSiteSet <> Nil and permutationsCount <> "" then
@@ -415,12 +413,16 @@ End
 		Sub Action()
 		  Dim dlg As New SelectFolderDialog
 		  dlg.ActionButtonCaption = "Select"
-		  dlg.Title = "Select folder for temporary data"
-		  dlg.PromptText = "Provide path to the folder for temp data storage"
+		  dlg.Title = "Select folder for storing results"
+		  dlg.PromptText = "Provide path to the folder for storing results"
 		  
 		  outputFolder = dlg.ShowModal
 		  If outputFolder <> Nil Then
 		    Label2.text=outputFolder.ShellPath
+		    Output=true
+		  else
+		    Label2.text=""
+		    Output=false
 		  end
 		  EnableOK
 		End Sub
@@ -435,16 +437,12 @@ End
 		  dlg.PromptText = "Provide path to the BindingSiteSet file"
 		  
 		  BindingSiteSet = dlg.ShowModal
-		  
-<<<<<<< Updated upstream
-=======
 		  if BindingSiteSet<>Nil then
 		    Regulondb=true
 		  else
 		    Regulondb=false
 		  end if
 		  EnableOK
->>>>>>> Stashed changes
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -694,13 +692,10 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="outputFolder"
+		Name="permutationsCount"
 		Visible=false
 		Group="Behavior"
 		InitialValue=""
-<<<<<<< Updated upstream
-		Type="Integer"
-=======
 		Type="String"
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty
@@ -726,7 +721,6 @@ End
 		Group="Behavior"
 		InitialValue=""
 		Type="Boolean"
->>>>>>> Stashed changes
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior
