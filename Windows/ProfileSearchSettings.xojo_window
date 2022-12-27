@@ -315,15 +315,22 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Open()
+		  EnableOK
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
 		Sub EnableOK()
 		  dim Score, Permutations as boolean
 		  
-		  if val(TextField1.text)>1 then
+		  if val(scoreThreshold)>1 then
 		    Score=true
 		  end if
 		  
-		  if val(TextField2.text)>1 then
+		  if val(permutationsCount)>1 then
 		    Permutations=true
 		  end if
 		  
@@ -349,7 +356,7 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		permutationsCount As String
+		permutationsCount As String = "10"
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -357,7 +364,7 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		scoreThreshold As String
+		scoreThreshold As String = "4"
 	#tag EndProperty
 
 
@@ -397,6 +404,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  scoreThreshold = trim(me.Text)
+		  EnableOK
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -416,6 +424,8 @@ End
 		    Label2.text=""
 		    Output=false
 		  end
+		  
+		  EnableOK
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -435,6 +445,7 @@ End
 		    Regulondb=false
 		  end if
 		  
+		  EnableOK
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -442,6 +453,7 @@ End
 	#tag Event
 		Sub TextChange()
 		  permutationsCount = trim(me.Text)
+		  EnableOK
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -688,7 +700,7 @@ End
 		Group="Behavior"
 		InitialValue=""
 		Type="String"
-		EditorType=""
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="scoreThreshold"
@@ -696,6 +708,22 @@ End
 		Group="Behavior"
 		InitialValue=""
 		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Output"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Regulondb"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

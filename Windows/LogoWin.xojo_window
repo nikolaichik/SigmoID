@@ -78,7 +78,6 @@ Begin Window LogoWin
       Top             =   28
       Transparent     =   True
       Underline       =   False
-      UnicodeMode     =   0
       UseFocusRing    =   True
       Visible         =   True
       Width           =   1000
@@ -128,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -179,7 +177,6 @@ Begin Window LogoWin
          Top             =   27
          Transparent     =   True
          Underline       =   False
-         UnicodeMode     =   0
          UseFocusRing    =   True
          Visible         =   False
          Width           =   1000
@@ -5336,9 +5333,9 @@ End
 		        alimask LogoFile
 		        WriteToSTDOUT (EndofLine+EndofLine+"Alignment masked.")
 		        '/usr/local/bin/nhmmer
-		        cli=nhmmerpath+" --dna --qformat afa "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(alimasktmp.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
+		        cli=nhmmerpath+" --dna  --qmsa --qformat afa "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(alimasktmp.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		      else
-		        cli=nhmmerpath+" --dna --qformat afa "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(Logofile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
+		        cli=nhmmerpath+" --dna  --qmsa --qformat afa "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(Logofile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		      end if
 		    end if
 		    
