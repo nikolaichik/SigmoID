@@ -78,6 +78,7 @@ Begin Window LogoWin
       Top             =   28
       Transparent     =   True
       Underline       =   False
+      UnicodeMode     =   0
       UseFocusRing    =   True
       Visible         =   True
       Width           =   1000
@@ -127,6 +128,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -177,6 +179,7 @@ Begin Window LogoWin
          Top             =   27
          Transparent     =   True
          Underline       =   False
+         UnicodeMode     =   0
          UseFocusRing    =   True
          Visible         =   False
          Width           =   1000
@@ -5353,7 +5356,16 @@ End
 		    #Else
 		      userShell(cli)
 		    #EndIf
-		    
+		    if shError <> 0 Then
+		      if instr(shResult, "No such option") > 0 then
+		        cli = ReplaceAll(cli, "--qmsa ", "")
+		        #If targetWindows
+		          ExecuteWSL(cli)
+		        #Else
+		          userShell(cli)
+		        #EndIf
+		      end
+		    end
 		    If shError=0 Then
 		      WriteToSTDOUT (EndOfLine+shResult)
 		      LogoWinToolbar.Item(2).Enabled=true
@@ -7226,5 +7238,13 @@ End
 		InitialValue=""
 		Type="String"
 		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="CDSfastaSaved"
+		Visible=false
+		Group="Behavior"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

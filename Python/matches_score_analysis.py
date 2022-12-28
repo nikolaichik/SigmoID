@@ -47,16 +47,15 @@ def compare_seq(found, sites_db, tf_name):
                         or (entry.seq in str(found.seq.reverse_complement())) \
                             or (entry.seq in str(found.seq)):
                         return True
+                if len(entry.coord) == 2 and len(found.coord) == 2:
+                    if all(True if field != '' else False for field in [*entry.coord, *found.coord]):
+                        if int(entry.coord[1]) > found.coord[0] > int(entry.coord[0]) or \
+                            int(entry.coord[1]) > found.coord[1] > int(entry.coord[0]):
+                            return True
+                        else:
+                            return False
             except TypeError:
                 return False
-        if len(entry.coord) == 2 and len(found.coord) == 2:
-            if not '' in all(entry.coord, found.coord):
-                if entry.coord[1] > found.coord[0] > entry.coord[0] or \
-                    entry.coord[1] > found.coord[1] > entry.coord[0]:
-                    return True
-                else:
-                    return False
-
     else:
         print(f"{tf_name} not found in RegDB TFBSs data")
 
