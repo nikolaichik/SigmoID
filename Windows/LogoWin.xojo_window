@@ -5600,7 +5600,7 @@ End
 		  dim counter As Integer
 		  dim cli As String
 		  dim collectStats as FolderItem = Resources_f.Child("collect_stats.py")
-		  if Profile_f <> NIL then
+		  if Profile_f <> NIL and outputFolder <> NIL then
 		    for each profile as FolderItem in Profile_f.Children
 		      if instr(profile.Name, ".sig") > 0 then
 		        logowin.Title="SigmoID: "+Nthfield(profile.name,".",1)
@@ -5609,7 +5609,7 @@ End
 		        logowin.LogoTabs.TabIndex=0
 		        'search with original profile
 		        profileSearch = outputFolder.child(Nthfield(profile.name,".",1))
-		        annotatedGBfile = Nil
+		        annotatedGBfile = NIL
 		        if Not profileSearch.Exists then
 		          try
 		            profileSearch.CreateFolder
@@ -5617,8 +5617,10 @@ End
 		          catch IOException
 		            msgbox("Can't create "+profileSearch.ShellPath)
 		          end try
+		        elseif profileSearch <> NIL then
+		          annotatedGBfile = profileSearch.child(Nthfield(profile.name,".",1) + "_" + GenomeFile.Name)
 		        end
-		        if annotatedGBfile <> Nil then
+		        if annotatedGBfile <> NIL then
 		          nhmmerSearch(settings, annotatedGBfile, scoreThreshold, BindingSiteSet, True)
 		          counter = 1
 		          while counter <= permutationsCount
@@ -5628,7 +5630,7 @@ End
 		            counter = counter + 1
 		          wend
 		        else
-		          WriteToSTDOUT("No output folder " + annotatedGBfile.ShellPath)
+		          WriteToSTDOUT("Can't create output file for annotated genome, check folder permissions " + outputFolder.ShellPath)
 		        end
 		      end
 		    next
@@ -5641,6 +5643,8 @@ End
 		    #endif
 		    WriteToSTDOUT(shResult)
 		  end
+		  Exception err
+		    ExceptionHandler(err, CurrentMethodName)
 		End Sub
 	#tag EndMethod
 
