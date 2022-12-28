@@ -36,19 +36,27 @@ def compare_seq(found, sites_db, tf_name):
     tfbs_data = sites_db.get(tf_name)
     if tfbs_data:
         for entry in tfbs_data:
-            if len(entry.seq) >= len(found):
-                try:
-                    if (str(found.complement()) in entry.seq) \
-                            or (str(found.reverse_complement()) in entry.seq) \
-                            or (str(found) in entry.seq):
+            try:
+                if len(entry.seq) >= len(found.seq):
+                    if (str(found.seq.complement()) in entry.seq) \
+                            or (str(found.seq.reverse_complement()) in entry.seq) \
+                            or (str(found.seq) in entry.seq):
                         return True
-                    else:
-                        if (entry.seq in str(found.complement())) \
-                            or (entry.seq in str(found.reverse_complement())) \
-                                or (entry.seq in str(found)):
-                            return True
-                except TypeError:
+                else:
+                    if (entry.seq in str(found.seq.complement())) \
+                        or (entry.seq in str(found.seq.reverse_complement())) \
+                            or (entry.seq in str(found.seq)):
+                        return True
+            except TypeError:
+                return False
+        if len(entry.coord) == 2 and len(found.coord) == 2:
+            if not '' in all(entry.coord, found.coord):
+                if entry.coord[1] > found.coord[0] > entry.coord[0] or \
+                    entry.coord[1] > found.coord[1] > entry.coord[0]:
+                    return True
+                else:
                     return False
+
     else:
         print(f"{tf_name} not found in RegDB TFBSs data")
 
@@ -364,7 +372,7 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
         site_target = get_targets(site, REG_DB_SITES, tf_name)
         if site_target:
             confirmed_targets.extend(site_target)
-            if compare_seq(site.seq, REG_DB_SITES, tf_name):
+            if compare_seq(site, REG_DB_SITES, tf_name):
                 site.match = True
                 if isinstance(threshold_conf_match, str):
                     threshold_conf_match = site.score
