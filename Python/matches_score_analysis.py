@@ -60,19 +60,20 @@ def compare_seq(found, sites_db, tf_name):
         print(f"{tf_name} not found in RegDB TFBSs data")
 
 
-def get_targets(found, sites_db, tf_name):
-    out = []
-    tfbs_data = sites_db.get(tf_name)
+def within_coord_of_known_sites(found_site, targets_source, tf_name):
+    # putative_targets = []
+    tfbs_data = targets_source.get(tf_name)
     if tfbs_data:
         for entry in tfbs_data:
             if entry.coord[1] != '' and entry.coord[0] != '':
-                   if found.coord[0] > int(entry.coord[0]) - 50 and\
-                           found.coord[1] < int(entry.coord[1]) + 50:
-                       if entry.targets:
-                           out.append(entry.targets)
+                   if found_site.coord[0] > int(entry.coord[0]) - 50 and\
+                           found_site.coord[1] < int(entry.coord[1]) + 50:
+                       return True
+                       # if entry.targets:
+                       #     putative_targets.append(entry.targets)
     else:
-        print(f"{tf_name} not found in RegDB TFBSs data")
-    return out
+        print(f"{tf_name} not found in DB TFBSs data")
+    return False
 
 def correct_location(tf_feature, left_gene, right_gene, down_length):
     if left_gene.strand == 1 and right_gene.strand == -1:
@@ -359,60 +360,59 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
                             break
                 elif not PUTATIVE_INCORRECT.get(f"{site.location.start}-{site.location.end}", None):
                         PUTATIVE_INCORRECT[f"{site.location.start}-{site.location.end}"] = BindingSite(get_site_features(site))
-
-
-    threshold_confirmed = "no sites near confirmed RegulonDB targets"
-    threshold_highest = 0
-    threshold_conf_match = "no sites overlaping confirmed sequences"
-    confirmed_save = []
-    unconfirmed_save = []
-    confirmed_targets = []
+    near_target_gene = []
+    scores_near_target_gene = []
+    overlaps_DB_site = []
+    scores_overlaps_DB_site = []
+    unconfirmed_sites = []
+    scores_unconfirmed_sites = []
     for site in ANNOTATED_SITES:
-        site_target = get_targets(site, REG_DB_SITES, tf_name)
-        if site_target:
-            confirmed_targets.extend(site_target)
+        if within_coord_of_known_sites(site, REG_DB_SITES, tf_name):
             if compare_seq(site, REG_DB_SITES, tf_name):
                 site.match = True
-                if isinstance(threshold_conf_match, str):
-                    threshold_conf_match = site.score
-                elif site.score < threshold_conf_match:
-                    threshold_conf_match = site.score
-            elif isinstance(threshold_confirmed, str):
-                threshold_confirmed = site.score
-            elif threshold_confirmed > site.score:
-                threshold_confirmed = site.score
-            confirmed_save.append(site)
+                overlaps_DB_site.append(site)
+                scores_overlaps_DB_site.append(site.score)
+            # confirmed_save.append(site)
+            near_target_gene.append(site)
+            scores_near_target_gene.append(site.score)
         else:
-            unconfirmed_save.append(site)
-            if threshold_highest < site.score:
-                threshold_highest = site.score
-    confirmed_save.sort(key=lambda BindingSite: BindingSite.intergenic[0])
-    # unconfirmed_save.sort(key=lambda BindingSite: BindingSite.intergenic[0])
-    unconfirmed_save.sort(key=lambda BindingSite: BindingSite.score)
-    OUTPUT.append(f"Total number of sites in RegulonDB {len(REG_DB_SITES)}, "
+            unconfirmed_sites.append(site)
+            scores_unconfirmed_sites.append(site.score)
+    overlaps_DB_site.sort(key=lambda BindingSite: BindingSite.intergenic[0])
+    unconfirmed_sites.sort(key=lambda BindingSite: BindingSite.score)
+    OUTPUT.append(f"Total number of sites in the DB {len(REG_DB_SITES)}, "
                   f"{len(tf_sites)}/{len(tf_sites) + sites_not_passed_threshold} sites"
-                  f"passed the user set threshold {score_filter}.\n"
-                  f"Locations of {len(confirmed_save)}/{len(tf_sites)} "
-                  f"TFBS match to {len(set(confirmed_targets))}/{len(REG_DB_SITES)} known targets."
-                  f" {len([True for site in confirmed_save if site.match])}"
-                  f" of {len(REG_DB_SITES)} TFBS matches confirmed sequence(s).\n"
-                  f"Lowest score for confirmed sites sequence: {threshold_conf_match}\n"
-                  f"Lowest score for site near confirmed target: {threshold_confirmed}\n"
-                  f"Highest score for unconfirmed site: {threshold_highest}\n"
-                  f"Total number of putative incorrect sites: {len(PUTATIVE_INCORRECT)}"
+                  f" passed the score threshold {score_filter} set by user.\n"
+                  f"Location(s) of the {len(near_target_gene)} "
+                  f"out of total {len(tf_sites)} found TFBS match to known targets."
+                  f" {len(scores_overlaps_DB_site)} found site(s) overlap"
+                  f" with confirmed sequence(s) in DB.\n"
+                  f"The lowest score for the site overlapping DB sequence: "
+                  f"{min(scores_overlaps_DB_site) if scores_overlaps_DB_site else 'no sites'}\n"
+                  f"The highest score for the site overlapping DB sequence: "
+                  f"{max(scores_overlaps_DB_site) if scores_overlaps_DB_site else 'no sites'}\n"
+                  f"The lowest score for the site near its target gene: "
+                  f"{min(scores_near_target_gene) if scores_near_target_gene else 'no sites'}\n"
+                  f"The highest score for the site near its target gene: "
+                  f"{max(scores_near_target_gene) if scores_near_target_gene else 'no sites'}\n"
+                  f"The highest score for the unconfirmed site: "
+                  f"{max(scores_unconfirmed_sites) if scores_unconfirmed_sites else 'no sites'}\n"
+                  f"Total number of putative incorrect sites: "
+                  f"{len(PUTATIVE_INCORRECT) if PUTATIVE_INCORRECT else 'no sites'}"
                   )
-    if len(PUTATIVE_INCORRECT):
-        OUTPUT.append(f"The highest score among putative incorrect sites: {max([site.score for site in PUTATIVE_INCORRECT.values()])} \n")
+    if PUTATIVE_INCORRECT:
+        OUTPUT.append(f"The highest score among the incorrectly positioned sites: "
+                      f"{max([site.score for site in PUTATIVE_INCORRECT.values()])} \n")
     else:
-        OUTPUT.append(f"The highest score among putative incorrect sites: no sites")
+        OUTPUT.append(f"The highest score among the incorrectly positioned sites: no sites")
     sites_batch = []
     processed_count = 1
-    if len(confirmed_save):
-        OUTPUT.append(f"=========== Confirmed sites ===========")
-        OUTPUT.append(f"Intergenic region: {intergenic_reg(confirmed_save[0])}")
-        sites_batch.append(confirmed_save[0])
-        for i, site in enumerate(confirmed_save[1:], 2):
-            if intergenic_reg(site) == intergenic_reg(confirmed_save[i - 2]):
+    if overlaps_DB_site:
+        OUTPUT.append(f"=========== Sites overlapping with DB seqs ===========")
+        OUTPUT.append(f"Intergenic region: {intergenic_reg(overlaps_DB_site[0])}")
+        sites_batch.append(overlaps_DB_site[0])
+        for i, site in enumerate(overlaps_DB_site[1:], 2):
+            if intergenic_reg(site) == intergenic_reg(overlaps_DB_site[i - 2]):
                 sites_batch.append(site)
             else:
                 sites_batch.sort(key=lambda site: site.score)
@@ -422,7 +422,7 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
                 sites_batch = []
                 OUTPUT.append(f"Intergenic region: {intergenic_reg(site)}")
                 sites_batch.append(site)
-    if len(sites_batch):
+    if sites_batch:
         sites_batch.sort(key=lambda x: x.score)
         for item in sites_batch:
             print_output(item, processed_count)
@@ -430,12 +430,12 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
             clear_site(item)
     sites_batch = []
     processed_count = 1
-    if len(unconfirmed_save):
+    if unconfirmed_sites:
         OUTPUT.append(f"=========== Unconfirmed sites ===========")
-        OUTPUT.append(f"Intergenic region: {intergenic_reg(unconfirmed_save[0])}")
-        sites_batch.append(unconfirmed_save[0])
-        for i, site in enumerate(unconfirmed_save[1:], 2):
-            if intergenic_reg(site) == intergenic_reg(unconfirmed_save[i - 2]):
+        OUTPUT.append(f"Intergenic region: {intergenic_reg(unconfirmed_sites[0])}")
+        sites_batch.append(unconfirmed_sites[0])
+        for i, site in enumerate(unconfirmed_sites[1:], 2):
+            if intergenic_reg(site) == intergenic_reg(unconfirmed_sites[i - 2]):
                 sites_batch.append(site)
             else:
                 sites_batch.sort(key=lambda x: x.score)
@@ -445,51 +445,44 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
                 sites_batch = []
                 sites_batch.append(site)
                 OUTPUT.append(f"Intergenic region: {intergenic_reg(site)}")
-    if len(sites_batch):
+    if sites_batch:
         for item in sites_batch:
             print_output(item, processed_count)
             processed_count += 1
             clear_site(item)
-    if len(PUTATIVE_INCORRECT):
+    if PUTATIVE_INCORRECT:
         OUTPUT.append(f"=========== Putative incorrect sites ===========")
         for i, site in enumerate(sorted(PUTATIVE_INCORRECT.values(), key=lambda site: site.score, reverse=True)):
             print_output(site, i)
     with open(f"{genbank_path}.log", "w") as f:
         f.writelines('\n'.join(OUTPUT))
-
-    conf_data = [site.score for site in confirmed_save]
-    conf_seqs_data = [site.score for site in confirmed_save if site.match]
-    unconf_data = [site.score for site in unconfirmed_save]
     incorrect_data = [site.score for _, site in PUTATIVE_INCORRECT.items()]
     fig1, (ax1,ax2,ax3,ax4) = pyplot.subplots(4, 1)
     fig1.tight_layout(h_pad=3)
-    bins = list(range(1, 1 + ceil(max([*incorrect_data, *conf_data, *unconf_data]))))
-
-    if len(PUTATIVE_INCORRECT):
+    bins = list(range(1, 1 + ceil(max([*incorrect_data, *scores_overlaps_DB_site,
+                                       *scores_near_target_gene, *scores_unconfirmed_sites]))))
+    if PUTATIVE_INCORRECT:
         arr = ax1.hist(incorrect_data, bins=bins, alpha=0.25,
-                       label='incorrect', color="r", edgecolor='black', log=True)
+                       label='Incorrect', color="r", edgecolor='black', log=True)
         for i in range(len(bins) - 1):
             if arr[0][i]:
                 ax1.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
 
-    arr = ax2.hist(unconf_data, bins=bins, alpha=0.25,
-                   label='unconfirmed', color="b", edgecolor='black', log=True)
+    arr = ax2.hist(scores_unconfirmed_sites, bins=bins, alpha=0.25,
+                   label='Unconfirmed', color="b", edgecolor='black', log=True)
     for i in range(len(bins) - 1):
         if arr[0][i]:
             ax2.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
-
-    arr = ax3.hist(conf_data, bins=bins, alpha=0.25,
-                   label='near confirmed targets', color="g", edgecolor='black', log=True)
+    arr = ax3.hist(scores_near_target_gene, bins=bins, alpha=0.25,
+                   label='Near Target Gene', color="g", edgecolor='black', log=True)
     for i in range(len(bins) - 1):
         if arr[0][i]:
             ax3.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
-
-    arr = ax4.hist(conf_seqs_data, bins=bins, alpha=0.25,
-                   label='overlapping confirmed seqs', color="c", edgecolor='black', log=True)
+    arr = ax4.hist(scores_overlaps_DB_site, bins=bins, alpha=0.25,
+                   label='Overlaps DB Site', color="c", edgecolor='black', log=True)
     for i in range(len(bins) - 1):
         if arr[0][i]:
             ax4.text(arr[1][i], arr[0][i], str(int(arr[0][i])))
-
     # set top and right boundaries invisible, add bins ticks
     for ax in (ax1, ax2, ax3, ax4):
         ax.legend(bbox_to_anchor=(1, 0), loc="lower left")
@@ -511,11 +504,11 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
     fig1.savefig(f"{genbank_path}_hist.png", bbox_inches='tight')
     pyplot.close(fig1)
     hist_incorrect, _ = np.histogram(incorrect_data, bins=bins)
-    hist_unconf, _ = np.histogram(unconf_data, bins=bins)
-    hist_conf, _ = np.histogram(conf_data, bins=bins)
-    hist_conf_seq, _ = np.histogram(conf_seqs_data, bins=bins)
-    levels = ["incorrect position", "unconfirmed sites",  "near confirmed targets", "overlapping confirmed seqs"]
-    hist_scores = np.array([hist_incorrect, hist_unconf, hist_conf, hist_conf_seq])
+    hist_unconfirmed, _ = np.histogram(scores_unconfirmed_sites, bins=bins)
+    hist_near_target, _ = np.histogram(scores_near_target_gene, bins=bins)
+    hist_overlaps, _ = np.histogram(scores_overlaps_DB_site, bins=bins)
+    levels = ["Incorrectly Positioned", "Unconfirmed Sites",  "Near Target Gene", "Overlaps DB Site"]
+    hist_scores = np.array([hist_incorrect, hist_unconfirmed, hist_near_target, hist_overlaps])
     fig2, ax = pyplot.subplots()
     pyplot.imshow(hist_scores)
     # Show all ticks and label them with the respective list entries
@@ -523,7 +516,6 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
     ax.set_xticklabels(bins[:-1])
     ax.set_yticks(np.arange(len(levels)))
     ax.set_yticklabels(levels)
-
     # Rotate the tick labels and set their alignment.
     pyplot.setp(ax.get_xticklabels())
     # Loop over data dimensions and create text annotations.
@@ -531,14 +523,13 @@ def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_l
         for j in range(len(bins) - 1):
             text = ax.text(j, i, hist_scores[i, j],
                            ha="center", va="center", color="w")
-
     ax.set_title("Bit-scores distribution of TFBSs")
     fig2.tight_layout()
     fig2.savefig(f"{genbank_path}_heatmap.png", bbox_inches='tight')
     pyplot.close(fig2)
-    if len(PUTATIVE_INCORRECT):
-        for site in PUTATIVE_INCORRECT:
-            print(f"check location: {site}")
+    if PUTATIVE_INCORRECT:
+        print(f"locations for putative incorrectly positioned sites:\n")
+        print('\n'.join(PUTATIVE_INCORRECT))
     print('\n'.join(OUTPUT))
     print("done.")
 

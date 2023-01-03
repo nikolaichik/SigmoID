@@ -5,10 +5,10 @@ import sys
 
 STATS_FILE_EXTENSION = ".log"
 PERMUTATION_PREFIX = "permutated"
-FEATURE_STRINGS = {'confirmed seq threshold':'Lowest score for confirmed sites sequence',
-                  'confirmed target threshold':'Lowest score for site near confirmed target',
-                  'unconfirmed target threshold':'Highest score for unconfirmed site',
-                  'incorrect sites threshold':'The highest score among putative incorrect sites'}
+FEATURE_STRINGS = {'Overlaps DB site':'The lowest score for the site overlapping DB sequence',
+                  'Near Target Gene':'The lowest score for the site near its target gene',
+                  'Unconfirmed Sites':'The highest score for the unconfirmed site',
+                  'Incorrectly Positioned':'The highest score among the incorrectly positioned sites'}
 
 
 def get_dir_logs(directory, STATS_DICT_TEMPLATE, permutation_prefix):
@@ -52,13 +52,15 @@ def create_stats_df(path, permutations_number):
     fields = ['source']
     fields.extend([f"{PERMUTATION_PREFIX}{i}" for i in range(1, int(permutations_number))])
     STATS_DICT_TEMPLATE = {field: [] for field in fields}
-    df = []
-    for item in results_dir.iterdir():
-        if item.is_dir():
-            profile_stats = get_dir_logs(item, STATS_DICT_TEMPLATE, PERMUTATION_PREFIX)
+    top_dict = {}
+    for dir_item in results_dir.iterdir():
+        if dir_item.is_dir():
+            profile_stats = get_dir_logs(dir_item, STATS_DICT_TEMPLATE, PERMUTATION_PREFIX)
             if profile_stats:
-                model_entry = {"model name":item.stem}
                 for stat, feature in FEATURE_STRINGS.items():
+                    if stat not in top_dict:
+                        top_dict[stat] = []
+                    model_entry = {"Model name": dir_item.stem}
                     values = get_feature_values(profile_stats, feature)
                     filtered_values = [val for model, val in values.items() if val != "-" and model != "source"]
                     values_count = len(values) - len(filtered_values) - 1
@@ -68,13 +70,18 @@ def create_stats_df(path, permutations_number):
                     else:
                         max_stat = '-'
                         average_stat = '-'
-                    model_entry[f"{stat} max"] = max_stat
-                    model_entry[f"{stat} average max"] = average_stat
-                    model_entry[f"{stat} number of missed values"] = values_count
-                    model_entry[f"{stat} source model value"] = values.get("source", 'no key')
-                df.append(model_entry)
+                    model_entry[f"Permutated max"] = max_stat
+                    model_entry[f"Permutated Average max"] = average_stat
+                    model_entry[f"Permutated Models with no Matches to DB Sites"] = values_count
+                    model_entry[f"Minimal score for Original Model Matches to DB Sites"] = values.get("source", 'no key')
+                    top_dict[stat].append(model_entry)
 
-    pd.DataFrame(df).to_csv(f"{results_dir}/stats.tsv", sep="\t")
+    df = pd.concat({k: pd.DataFrame(v).set_index("Model name") for k, v in top_dict.items()}, axis=1)
+    try:
+        df.to_html(f"{results_dir}/stats.html")
+        df.to_excel(f"{results_dir}/stats.xlsx", header=True)
+    except IOError:
+        print(f"Can't save stats files to {results_dir}, check folder permissions")
 
 if __name__ == "__main__":
     if len(sys.argv) == 3:
