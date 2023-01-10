@@ -738,6 +738,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="ECF02.hmm"
 		  Case "RpoE"
 		    hmmFileName="ECF02.hmm"
+		  Case "ECF12"
+		    hmmFileName="ECF12.hmm"
 		  Case "ECF16"
 		    hmmFileName="ECF16.hmm"
 		  Case "ECF26"

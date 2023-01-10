@@ -274,6 +274,7 @@ End
 		        SigList.AddRow
 		        SigList.Cell(SigList.LastIndex, 3)= fitemn.ShellPath
 		        SigList.Cell(SigList.LastIndex, 1) = fitemn.DisplayName
+		        if sigfolpath="" then msgbox("Missing CalibratedProfiles sub-folder for"+" "+aname)
 		        siglist.Cell(SigList.LastIndex,2)=sigfolpath
 		        SigList.CellCheck(SigList.LastIndex,0) = false
 		        sigfolpath=""
