@@ -52,7 +52,7 @@ Inherits URLConnection
 		  Dim URL As String = "https://rest.uniprot.org/idmapping/run"
 		  Dim postParams As String = "ids=" + rawIDs + "&from=" + source_ID_type +  "&to=" + target_ID_type
 		  Dim response_status as New JSONItem
-		  
+		  Dim test As String
 		  ConvertionResults.Value("status") = False
 		  ConvertionResults.Value("logs") = ""
 		  ConvertionResults.Value("convertedCodes") = ""
@@ -81,7 +81,19 @@ Inherits URLConnection
 		        wend
 		        if me.HTTPStatusCode = 200 then
 		          Dim jobStatus as New JSONItem
-		          jobStatus.Load(me.content)
+		          try
+		            jobStatus.Load(me.content)
+		          catch err as JSONException
+		            if instr(me.content, "}{") > 0 then
+		              me.content = me.content.Replace("}{",",")
+		            end
+		            try
+		              jobStatus.Load(me.content)
+		            catch err2 as JSONException
+		              logging.Append("Incorrect JSON format in Uniprot response: " + me.content)
+		              exit
+		            end
+		          end 
 		          if jobStatus.HasName("jobStatus") then
 		            if jobStatus.value("jobStatus") = "RUNNING" then
 		              ' Wait 3 sec before check status again
