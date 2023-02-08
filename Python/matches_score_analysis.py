@@ -273,7 +273,7 @@ def clear_site(site):
         del PUTATIVE_INCORRECT[f"{site.coord[0]}-{site.coord[1]}"]
 
 
-def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_length=50, operon_gap=75):
+def get_nearby_genes(genbank_path, tf_name, regdb_info, score_filter=2.0, down_length=100, operon_gap=75):
     with open(genbank_path, 'r') as handle:
         seq_record = SeqIO.read(handle, 'genbank')
     tf_sites = []

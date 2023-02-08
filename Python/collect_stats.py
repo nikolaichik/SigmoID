@@ -72,8 +72,8 @@ def create_stats_df(path, permutations_number):
                         average_stat = '-'
                     model_entry[f"Permutated max"] = max_stat
                     model_entry[f"Permutated Average max"] = average_stat
-                    model_entry[f"Permutated Models with no Matches to DB Sites"] = values_count
-                    model_entry[f"Minimal score for Original Model Matches to DB Sites"] = values.get("source", 'no key')
+                    model_entry[f"Permutated Models Searches without Matches"] = values_count
+                    model_entry[f"Minimal score for Original Model"] = values.get("source", 'no data')
                     top_dict[stat].append(model_entry)
 
     df = pd.concat({k: pd.DataFrame(v).set_index("Model name") for k, v in top_dict.items()}, axis=1)
