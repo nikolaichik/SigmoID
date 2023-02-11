@@ -1323,7 +1323,7 @@ Inherits Application
 		                  if f2.exists then
 		                    if f2<>Nil then
 		                      CopyFileToVV(F2,SigFileVV)
-		                      logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
+		                      logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath+EndOfLine.UNIX)
 		                    else
 		                      'beep
 		                    end if

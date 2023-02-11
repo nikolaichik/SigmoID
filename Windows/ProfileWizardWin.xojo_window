@@ -2423,6 +2423,13 @@ End
 		            if f2<>nil then
 		              FixPath4Windows(f2)
 		              'change stockholm file name to fix NAME field inside the .hmm file
+		              dim f3 as folderitem
+		              f3=TemporaryFolder.child(basename)
+		              if f3<>nil then
+		                if f3.exists then
+		                  f3.MoveToTrash
+		                End If
+		              End If
 		              stock.Name=basename
 		              if hmmbuild(stock.ShellPath,f2.ShellPath) then
 		                if f2.exists then
