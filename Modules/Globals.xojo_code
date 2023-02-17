@@ -1607,7 +1607,9 @@ Protected Module Globals
 		  
 		  
 		  
-		  Dim prot,separTransl,separProtID,separGene,separLocusTag,separProd,separ2,TitleLine As String
+		  Dim prot as string  = DefineEncoding ("",Encodings.ASCII)
+		  Dim TitleLine as string  = DefineEncoding ("",Encodings.ASCII)
+		  Dim separTransl,separProtID,separGene,separLocusTag,separProd,separ2 As String
 		  
 		  dim n1,u1 as integer
 		  dim ft as GBFeature

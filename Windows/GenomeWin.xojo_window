@@ -53,7 +53,6 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -79,7 +78,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -164,7 +162,6 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -247,7 +244,6 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   "True"
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -360,7 +356,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -373,7 +368,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -476,7 +470,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   5
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -538,7 +531,6 @@ Begin Window GenomeWin
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   3
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -2172,7 +2164,7 @@ End
 		  
 		  dim n,u as integer
 		  dim ft as GBFeature
-		  Dim cdsFasta As String
+		  Dim cdsFasta As String = DefineEncoding ("",Encodings.ASCII)
 		  dim TFindex as new Dictionary
 		  
 		  
@@ -2468,9 +2460,12 @@ End
 		  if Outfile <> Nil then
 		    Try 
 		      Dim outstream As TextOutputStream = TextOutputStream.Create(outfile)
+		      outstream.Encoding = Encodings.ASCII             'may b undefined in some cases
+		      
 		      if outstream <> NIL then
 		        cdsFasta = createCDSfasta
-		        outstream.Write(cdsFasta)
+		        outstream.Write(ConvertEncoding(cdsFasta, Encodings.ASCII))
+		        
 		        outstream.close
 		      end if
 		    catch IOException
@@ -2910,7 +2905,9 @@ End
 
 	#tag Method, Flags = &h0
 		Sub gbk2cds()
-		  Dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine As String
+		  Dim prot as string  = DefineEncoding ("",Encodings.ASCII)
+		  Dim TitleLine as string  = DefineEncoding ("",Encodings.ASCII)
+		  Dim cli,gbk2tblPath,separTransl,separProtID,separGene,separProd,separ2 As String
 		  dim outfile As folderitem
 		  dim n,u as integer
 		  Dim ft As GBFeature
@@ -3011,7 +3008,9 @@ End
 
 	#tag Method, Flags = &h0
 		Sub gbk2protein()
-		  Dim cli,gbk2tblPath,prot,separTransl,separProtID,separGene,separProd,separ2,TitleLine As String
+		  Dim prot as string  = DefineEncoding ("",Encodings.ASCII)
+		  Dim TitleLine as string  = DefineEncoding ("",Encodings.ASCII)
+		  Dim cli,gbk2tblPath,separTransl,separProtID,separGene,separProd,separ2 As String
 		  dim outfile As folderitem
 		  dim n,u as integer
 		  dim ft as GBFeature

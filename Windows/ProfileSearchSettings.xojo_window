@@ -44,7 +44,7 @@ Begin Window ProfileSearchSettings
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   0
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -695,7 +695,7 @@ End
 		Name="permutationsCount"
 		Visible=false
 		Group="Behavior"
-		InitialValue=""
+		InitialValue="10"
 		Type="String"
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty
@@ -703,7 +703,7 @@ End
 		Name="scoreThreshold"
 		Visible=false
 		Group="Behavior"
-		InitialValue=""
+		InitialValue="4"
 		Type="String"
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty

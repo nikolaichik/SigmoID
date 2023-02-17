@@ -78,7 +78,6 @@ Begin Window LogoWin
       Top             =   28
       Transparent     =   True
       Underline       =   False
-      UnicodeMode     =   0
       UseFocusRing    =   True
       Visible         =   True
       Width           =   1000
@@ -128,7 +127,6 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   27
       Transparent     =   True
       Value           =   0
@@ -179,7 +177,6 @@ Begin Window LogoWin
          Top             =   27
          Transparent     =   True
          Underline       =   False
-         UnicodeMode     =   0
          UseFocusRing    =   True
          Visible         =   False
          Width           =   1000
@@ -5340,7 +5337,7 @@ End
 		        alimask LogoFile
 		        WriteToSTDOUT (EndofLine+EndofLine+"Alignment masked.")
 		        '/usr/local/bin/nhmmer
-		        cli=nhmmerpath+" --dna  --qmsa --qformat afa "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(alimasktmp.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
+		        cli=nhmmerpath+" --dna  --qmsa --qformat stockholm "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(alimasktmp.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		      else
 		        cli=nhmmerpath+" --dna  --qmsa --qformat afa "+nhmmeroptions+" --tblout "+PlaceQuotesToPath(MakeWSLPath(nhmmerResultFile.shellpath))+" "+PlaceQuotesToPath(MakeWSLPath(Logofile.ShellPath))+" "+PlaceQuotesToPath(MakeWSLPath(GenomeFilePath))
 		      end if
@@ -5495,11 +5492,15 @@ End
 		  if nhmmerOptions <> "" then
 		    'check if the orthologous TF with matching CRtag is present in the genome
 		    'check if we run method in the pipeline, CDS.fasta should be created once
-		    if not pipeline then
-		      TFIsPresent = MatchingTFpresent
+		    if SigFileOpened AND CRtag<>"" then
+		      if not pipeline then
+		        TFIsPresent = MatchingTFpresent
+		      else
+		        TFIsPresent = MatchingTFpresent(True)
+		      end
 		    else
-		      TFIsPresent = MatchingTFpresent(True)
-		    end
+		      TFIsPresent=true   'just run the search
+		    end if
 		    If TFIsPresent or CRtag="" Then
 		      if CRtag="" then
 		        WriteToSTDOUT("No CRtag data in this profile. Please make sure that the TF able to recognise these sites is actually encoded in the genome."+EndOfLine.unix)
