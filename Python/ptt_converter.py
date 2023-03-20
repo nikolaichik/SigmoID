@@ -33,7 +33,7 @@ if platform.system() != 'Windows':
     renamed_cwd = cwd.replace(' ', '\\ ')
 else:
     renamed_cwd = cwd.replace(' ', '^ ')
-def list_of_features(genbank_record, feature_type):
+def list_of_features(genbank_record, feature_type="CDS"):
     list = []
     for feature in genbank_record.features:
         if feature.type == feature_type:
@@ -48,20 +48,10 @@ def ptt_location(feature):
 
 
 def ptt_pid(feature):
-    pid = '-'
-    # Feature of Python 3. 'has_key' is no longer available
-    #if feature.qualifiers.has_key('db_xref'):
-    if 'db_xref' in feature.qualifiers:
-        pid = feature.qualifiers['db_xref']
-        if type(pid) == list and any(value.startswith('GI:') for value in pid):
-            for id in pid:
-                if id.startswith('GI:'):
-                    pid = id[3:]
-                    break
-        elif type(pid) == str and pid.startswith('GI:'):
-                pid = pid[3:]
-        else:
-            pid = '-'
+    if 'protein_id' in feature.qualifiers:
+        pid = str(feature.qualifiers['protein_id'])[2:-2]
+    else:
+        pid = '-'
     return pid
 
 
@@ -96,6 +86,8 @@ def ptt_code(feature):
 
 def ptt_product(feature):
     # Feature of Python 3. 'has_key' is no longer available
+    #for key,val in feature.qualifiers.items():
+    #    print(f"{key} - {val}")
     if 'product' in feature.qualifiers:
     #if feature.qualifiers.has_key('product'):
         product = str(feature.qualifiers['product'])[2:-2]
@@ -112,11 +104,12 @@ def ptt_writer(genbank_record, ptt_output, cwd):
     ptt_file.write(ptt_output)
     ptt_file.close()
 
+
 for record in gbk:
     output = ''
     record_start = str(int(record.features[0].location.start))
     record_end = str(record.features[0].location.end)
-    features = list_of_features(record, 'gene')
+    features = list_of_features(record)
     feature_amount = str(len(features))
     output += '%s - %s..%s' % (record.description, record_start, record_end)
     output += '\n%s genes' % feature_amount
