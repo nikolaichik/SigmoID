@@ -6798,6 +6798,7 @@ End
 		      
 		    else
 		      'plot-related commands
+		      '(Currently shown over the whole map. Not sure if showing only over plot area is better)
 		      if ubound(Genome.ReadDepth1)>0 then
 		        base.Append( New MenuItem( MenuItem.TextSeparator ) )
 		        
@@ -6810,6 +6811,8 @@ End
 		        
 		      end if
 		      
+		      base.Append( New MenuItem( MenuItem.TextSeparator ) )
+		      base.Append mItem(kPrintMap)
 		      
 		    end if
 		    
@@ -6866,6 +6869,8 @@ End
 		    MapScrollUpdate 'apply change
 		  case kSetPlotScaleMax
 		    PlotScaleMaxWin.show
+		  case kPrintMap
+		    PrintMap
 		  End
 		  
 		  ContextFeature=0
