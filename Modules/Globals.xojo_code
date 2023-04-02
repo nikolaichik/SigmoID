@@ -1129,7 +1129,9 @@ Protected Module Globals
 		  Elseif InStr(aname, "Trp_repressor")>0 Then
 		    aName="TrpR"
 		  Elseif InStr(aname, "XRE")>0 Then '_superfamily must be dropped
-		    aName="XRE"
+		    if aname<>"XRE.C" then            'Exclude special case for a small XRE subfamily
+		      aName="XRE"
+		    End If
 		    
 		  Else
 		    

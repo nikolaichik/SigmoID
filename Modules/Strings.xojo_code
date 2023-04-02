@@ -110,6 +110,11 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = be, Definition  = \" \xD0\xB7\xD0\xB1\xD0\xBE\xD1\x80\xD0\xBA\xD0\xB0 "
 	#tag EndConstant
 
+	#tag Constant, Name = kCalibrateProfilelibrary, Type = String, Dynamic = True, Default = \"Calibrate Profile Library...", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9A\xD0\xB0\xD0\xBB\xD0\xB8\xD0\xB1\xD1\x80\xD0\xBE\xD0\xB2\xD0\xB0\xD1\x82\xD1\x8C \xD0\xB1\xD0\xB8\xD0\xB1\xD0\xBB\xD0\xB8\xD0\xBE\xD1\x82\xD0\xB5\xD0\xBA\xD1\x83 \xD0\xBF\xD1\x80\xD0\xBE\xD1\x84\xD0\xB8\xD0\xBB\xD0\xB5\xD0\xB9..."
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9A\xD0\xB0\xD0\xBB\xD1\x96\xD0\xB1\xD1\x80\xD0\xB0\xD0\xB2\xD0\xB0\xD1\x86\xD1\x8C \xD0\xB1\xD1\x96\xD0\xB1\xD0\xBB\xD1\x96\xD1\x8F\xD1\x82\xD1\x8D\xD0\xBA\xD1\x83 \xD0\xBF\xD1\x80\xD0\xBE\xD1\x84\xD1\x96\xD0\xBB\xD1\x8F\xD1\x9E..."
+	#tag EndConstant
+
 	#tag Constant, Name = kCancel, Type = String, Dynamic = True, Default = \"Cancel", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9E\xD1\x82\xD0\xBC\xD0\xB5\xD0\xBD\xD0\xB8\xD1\x82\xD1\x8C"
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\xA1\xD0\xBA\xD0\xB0\xD1\x81\xD0\xB0\xD0\xB2\xD0\xB0\xD1\x86\xD1\x8C"
@@ -757,6 +762,11 @@ Protected Module Strings
 	#tag Constant, Name = kLogo, Type = String, Dynamic = True, Default = \"Logo", Scope = Public
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9B\xD0\xBE\xD0\xB3\xD0\xB0"
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9B\xD0\xBE\xD0\xB3\xD0\xBE"
+	#tag EndConstant
+
+	#tag Constant, Name = kLogoFromBioProspectorData, Type = String, Dynamic = True, Default = \"Logo fromrom BioProspector Data...", Scope = Public
+		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9B\xD0\xBE\xD0\xB3\xD0\xBE \xD0\xB8\xD0\xB7 \xD1\x80\xD0\xB5\xD0\xB7\xD1\x83\xD0\xBB\xD1\x8C\xD1\x82\xD0\xB0\xD1\x82\xD0\xBE\xD0\xB2 BioProspector..."
+		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9B\xD0\xBE\xD0\xB3\xD0\xB0 \xD0\xB7 \xD0\xB2\xD1\x8B\xD0\xBD\xD1\x96\xD0\xBA\xD0\xB0\xD1\x9E BioProspector..."
 	#tag EndConstant
 
 	#tag Constant, Name = kMakeSigFile, Type = String, Dynamic = True, Default = \"Make Sig File...", Scope = Public

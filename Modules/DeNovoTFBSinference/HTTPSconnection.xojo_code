@@ -197,7 +197,7 @@ Inherits URLConnection
 		  Return ConvertionResults
 		  
 		  Exception err
-		    ExceptionHandler(err,"deNovoSearch:uniprotIDmapping")
+		    ExceptionHandler(err,"HTTPSconnection:uniprotIDmapping")
 		End Function
 	#tag EndMethod
 

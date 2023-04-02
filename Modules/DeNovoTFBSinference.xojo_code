@@ -854,6 +854,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="XRE_superfamily.hmm"
 		  Case "XRE_superfamily"
 		    hmmFileName="XRE_superfamily.hmm"
+		  Case "XRE.C"
+		    hmmFileName="XRE.C.hmm"
 		  Case ""
 		    hmmFileName=""
 		    
