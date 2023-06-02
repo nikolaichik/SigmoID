@@ -751,7 +751,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   397
+      Left            =   544
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -1195,7 +1195,7 @@ Begin Window ProfileWizardWin
       Cancel          =   False
       Caption         =   "Export to database"
       Default         =   False
-      Enabled         =   True
+      Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -1203,7 +1203,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   499
+      Left            =   357
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -1218,7 +1218,7 @@ Begin Window ProfileWizardWin
       Top             =   720
       Transparent     =   False
       Underline       =   False
-      Visible         =   True
+      Visible         =   False
       Width           =   135
    End
    Begin PushButton AddRefsButton

@@ -103,7 +103,7 @@ Begin Window LocalMotifCollectionsWin
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
-      Enabled         =   False
+      Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
       GridLinesHorizontal=   0
@@ -1019,6 +1019,13 @@ End
 #tag Events ExportButton
 	#tag Event
 		Sub Action()
+		  msgbox "This function is currently broken. You may try 'Convert Profiles to MEME' from 'Profile' menu instead."
+		  return
+		  
+		  // Currently disabled due to error
+		  'Sites files generated are empty
+		  'Code from RegPreciseTFcollectionsWin2 can be used as a working example
+		  
 		  Dim dlg as New SaveAsDialog
 		  dim outfile as folderitem
 		  dim FamilyName as string
