@@ -2434,6 +2434,28 @@ End
 		              if hmmbuild(stock.ShellPath,f2.ShellPath) then
 		                if f2.exists then
 		                  if f2<>Nil then
+		                    
+		                    // Add TF family name to the HMM file to use in local search output
+		                    Dim TFFname as string
+		                    dim HMMstr, hmmb, hmme as string
+		                    Dim HMMin as TextInputStream
+		                    Dim HMMout As TextOutputStream
+		                    
+		                    TFFname=FamilyNameFromHmmName(hmmFile2find)
+		                    HMMin=f2.OpenASTextFile
+		                    try
+		                      HMMstr=HMMin.ReadAll
+		                      HMMin.Close
+		                      hmmb=nthfield(HMMstr,"STATS LOCAL MSV",1)
+		                      hmme="STATS LOCAL MSV"+nthfield(HMMstr,"STATS LOCAL MSV",2)
+		                      HMMstr=hmmb+"TFFAM "+TFFname+EndOfLine.UNIX+hmme
+		                      HMMout=TextOutputStream.Create(f2)
+		                      HMMout.Write(ConvertEncoding(HMMstr, Encodings.UTF8))
+		                      HMMout.Close
+		                    catch e as NilObjectException
+		                      Msgbox "Can't save HMM file."
+		                    end try
+		                    
 		                    CopyFileToVV(f2,SigFileVV)
 		                    logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
 		                    LogoWin.BuildTBButtonMenu 'in case the .sig is saved to the active profiles dir
