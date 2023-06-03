@@ -2000,7 +2000,13 @@ End
 		  If InStr(splitP(0),"_GB=") > 0 and  InStr(splitP(0),"|UP=") >0 Then
 		    'pseq=SeedProteinArea.Text
 		  ElseIf InStr(splitP(0),"_GB=") > 0 Then
-		    id_mapping = hts.uniprotIDmapping(NthField(splitP(0),"_GB=", 2), "RefSeq_Protein", "UniProtKB")
+		    dim GBid as string = NthField(splitP(0),"_GB=", 2)
+		    if instr(GBid,"_")=0 then
+		      id_mapping = hts.uniprotIDmapping(GBid, "EMBL-GenBank-DDBJ_CDS", "UniProtKB")   'INSDC CDS ID
+		    else
+		      id_mapping = hts.uniprotIDmapping(GBid, "RefSeq_Protein", "UniProtKB")                       'RefSeq CDS ID
+		    end if
+		    
 		    if id_mapping.Value("status") then
 		      splitP(0)=splitP(0)+"|UP=" + ID_mapping.Value("convertedCodes")
 		      Pseq=Join(splitP,endOfLine.UNIX)
