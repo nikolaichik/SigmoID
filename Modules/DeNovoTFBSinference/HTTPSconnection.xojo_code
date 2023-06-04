@@ -80,30 +80,45 @@ Inherits URLConnection
 		          app.DoEvents
 		        wend
 		        if me.HTTPStatusCode = 200 then
-		          Dim jobStatus as New JSONItem
-		          try
-		            jobStatus.Load(me.content)
-		          catch err as JSONException
-		            if instr(me.content, "}{") > 0 then
-		              me.content = me.content.Replace("}{",",")
-		            end
+		          dim EmptyRez as string = "{"+chr(34)+"results"+chr(34)+":[]"
+		          if instr(me.content, EmptyRez)>0 then
+		            msgbox "UniProt ID mapping service returned empty result"
+		            exit
+		          else
+		            Dim jobStatus as New JSONItem
 		            try
 		              jobStatus.Load(me.content)
-		            catch err2 as JSONException
-		              logging.Append("Incorrect JSON format in Uniprot response: " + me.content)
+		            catch err as JSONException
+		              if instr(me.content, "}{") > 0 then
+		                me.content = me.content.Replace("}{",",")
+		              end
+		              try
+		                jobStatus.Load(me.content)
+		              catch err2 as JSONException
+		                logging.Append("Incorrect JSON format in Uniprot response: " + me.content)
+		                exit
+		              end
+		            end 
+		            if jobStatus.HasName("jobStatus") then
+		              if jobStatus.value("jobStatus") = "RUNNING" then
+		                ' Wait 3 sec before check status again
+		                try
+		                  App.CurrentThread.Sleep(3000)
+		                catch err3 as NilobjectException 
+		                  'debug mode problem.
+		                  dim MS As Double
+		                  MS=System.Microseconds
+		                  while System.Microseconds-MS<3000000
+		                    '
+		                  wend
+		                end try
+		              else
+		                exit
+		              end
+		            elseif jobStatus.HasName("results") then
 		              exit
 		            end
-		          end 
-		          if jobStatus.HasName("jobStatus") then
-		            if jobStatus.value("jobStatus") = "RUNNING" then
-		              ' Wait 3 sec before check status again
-		              App.CurrentThread.Sleep(3000)
-		            else
-		              exit
-		            end
-		          elseif jobStatus.HasName("results") then
-		            exit
-		          end
+		          end if
 		        else
 		          logging.Append("uniprot id mapping service returned HTTPS error: " + str(me.HTTPStatusCode))
 		          logging.Append(me.content)

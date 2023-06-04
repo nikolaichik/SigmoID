@@ -972,7 +972,7 @@ Begin Window ProfileWizardWin
       Enabled         =   True
       Format          =   ""
       Height          =   117
-      HelpTag         =   "Fasta title line should end with _GB=<Accession>|UP=<Accession> (or just GB=<Accession>). For GenBank, the accession should be RefSeq protein ID."
+      HelpTag         =   "Fasta title line should end with _GB=<Accession>|UP=<Accession> (or just GB=<Accession>)."
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
