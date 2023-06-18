@@ -473,6 +473,14 @@ Begin Window RegPreciseTFcollectionsWin2
       Visible         =   True
       Width           =   254
    End
+   Begin URLConnection WebConnection
+      AllowCertificateValidation=   False
+      HTTPStatusCode  =   0
+      Index           =   -2147483648
+      LockedInPosition=   False
+      Scope           =   0
+      TabPanelIndex   =   0
+   End
 End
 #tag EndWindow
 
@@ -1161,6 +1169,68 @@ End
 		  ProgressWheel1.Visible=True
 		  ProgressWheel1.Enabled=True
 		  
+		  'Dim regulators As String
+		  'Dim regulogID As String
+		  'Dim fa As String
+		  'Dim tabarray(-1) As String
+		  'Dim n As Integer
+		  '
+		  'Redim logopix(-1)
+		  'CollectionList.DeleteAllRows
+		  '
+		  'Redim regulatorArray(-1)
+		  'Dim res As String
+		  
+		  // get the list of regulogs for the TF family from RegPrecise
+		  ' the URL sould look like this
+		  ' http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/collection_tffam.jsp?tffamily_id=1
+		  ' or like this:
+		  ' https://regprecise.lbl.gov/collection_tffam.jsp?tffamily_id=1
+		  
+		  Dim hts As New HTTPSecureSocket
+		  
+		  Dim TheURL As String
+		  'hts.Yield=True  'allow background activities while waiting
+		  'hts.SetRequestHeader("Content-Type:","text/plain")
+		  
+		  theURL=RegPreciseBase+"collection_tffam.jsp?tffamily_id="+TFfamilyID
+		  
+		  WebConnection.SetRequestContent("Content-Type:","text/plain")
+		  WebConnection.Send("GET", theURL)
+		  
+		  
+		  
+		  CollectionList.Enabled=True
+		  EnableButtons
+		  
+		  ProgressWheel1.Visible=False
+		  ProgressWheel1.Enabled=False
+		  
+		  Exception err
+		    ExceptionHandler(err,"RegPreciseWin:FillRegulatorList")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub WLoadRegulators1(TFfamilyID as string)
+		  // Populates the RegulatorList and stores regulator JSONs in an array
+		  ' the popup and array indices are the same
+		  
+		  // CollectionList columns are:
+		  ' 0 - Checkbox
+		  ' 1 - Regulog Name
+		  ' 2 - Number of regulons in the regulog
+		  ' 3 - Number of TFBSs in the regulog
+		  ' 4 - Information (bits)
+		  ' 5 - Logo picture
+		  ' 6 (invisible) – RegulogID
+		  ' 7 (invisible) - TFBS seqs (in fasta format)
+		  ' 8 - TFBS length.
+		  ' (three last columns are here, because it's easier to access these data when sorting the listbox)
+		  
+		  ProgressWheel1.Visible=True
+		  ProgressWheel1.Enabled=True
+		  
 		  Dim regulators As String
 		  Dim regulogID As String
 		  Dim fa As String
@@ -1178,7 +1248,8 @@ End
 		  ' or like this:
 		  ' https://regprecise.lbl.gov/collection_tffam.jsp?tffamily_id=1
 		  
-		  Dim hts As New HTTPSocket
+		  Dim hts As New HTTPSecureSocket
+		  
 		  Dim TheURL As String
 		  Dim res As String
 		  hts.Yield=True  'allow background activities while waiting
@@ -1187,7 +1258,9 @@ End
 		  theURL=RegPreciseBase+"collection_tffam.jsp?tffamily_id="+TFfamilyID
 		  
 		  res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
-		  
+		  'while hts.
+		  'lastErrorCode=102  'Processing request
+		  'wend
 		  If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
 		    hts.close
 		    If Res="" Then
@@ -1229,7 +1302,7 @@ End
 		        
 		        // get TFBS sequences
 		        
-		        hts = New HTTPSocket
+		        hts = New HTTPSecureSocket
 		        hts.Yield=True 
 		        hts.SetRequestHeader("Content-Type:","text/plain")
 		        
@@ -1320,7 +1393,7 @@ End
 	#tag EndProperty
 
 
-	#tag Constant, Name = RegPreciseBase, Type = String, Dynamic = False, Default = \"http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/", Scope = Public
+	#tag Constant, Name = RegPreciseBase, Type = String, Dynamic = False, Default = \"https://regprecise.lbl.gov/", Scope = Public
 	#tag EndConstant
 
 
@@ -1690,7 +1763,7 @@ End
 		  dim tos as TextOutputStream
 		  dim outStream as TextOutputStream
 		  dim FamilyName as string
-		  dim hts as HTTPSocket
+		  dim hts as URLConnection
 		  dim res as string
 		  dim jsn as new JSONItem
 		  dim jsn0 as new JSONItem
@@ -1808,14 +1881,14 @@ End
 		      Dim RegulonIds(0) As Integer
 		      Dim GenomeNames(0), gn As String
 		      redim CRtagStatArray(0)
-		      hts = New HTTPSocket
+		      hts = New URLConnection
 		      
-		      hts.Yield=True  'allow background activities while waiting
-		      hts.SetRequestHeader("Content-Type:","text/plain")
+		      'hts.Yield=True  'allow background activities while waiting
+		      hts.SetRequestContent("Content-Type:","text/plain")
 		      
 		      theURL=RegPreciseBase+"regulog.jsp?regulog_id="+RegulogID
 		      
-		      res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		      res=DefineEncoding(hts.sendSync("Get",theURL,60),encodings.ASCII)
 		      
 		      If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
 		        'store RegRpecise version (approach valid for http://regprecise.sbpdiscovery.org as of Jan 2021)
@@ -1847,14 +1920,14 @@ End
 		      For m=0 To UBound(RegulonIDs)
 		        
 		        
-		        hts = New HTTPSocket
+		        hts = New URLConnection
 		        
-		        hts.Yield=True  'allow background activities while waiting
-		        hts.SetRequestHeader("Content-Type:","text/plain")
+		        'hts.Yield=True  'allow background activities while waiting
+		        hts.SetRequestContent("Content-Type:","text/plain")
 		        
 		        theURL=RegPreciseBase+"regulon.jsp?regulon_id="+Str(RegulonIDs(m))
 		        
-		        res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		        res=DefineEncoding(hts.sendSync("Get",theURL,60),encodings.ASCII)
 		        
 		        If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
 		          if res="null" then
@@ -2041,12 +2114,11 @@ End
 		          
 		          'Get TFBS seqs:
 		          res=""
-		          hts = New HTTPSocket
-		          hts.Yield=true
+		          hts = New URLConnection
 		          
 		          theURL=RegPreciseBase+"ExportServlet?type=site&regulonId="+ID
 		          
-		          res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		          res=DefineEncoding(hts.sendSync("Get",theURL,60),encodings.ASCII)
 		          
 		          if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
 		            if res<>"" then
@@ -2442,11 +2514,11 @@ End
 		                    
 		                    For w=1 To regCount
 		                      res=""
-		                      hts = New HTTPSocket
-		                      hts.Yield=True
+		                      hts = New URLConnection
+		                      'hts.Yield=True
 		                      
 		                      theURL=RegPreciseBase+"ExportServlet?type=site&regulonId="+NthField(uRegulons(r),";",w)
-		                      res=DefineEncoding(hts.Get(theURL,60),encodings.ASCII)
+		                      res=DefineEncoding(hts.SendSync("Get",theURL,60),encodings.ASCII)
 		                      
 		                      If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
 		                        If res<>"" Then
@@ -2662,6 +2734,126 @@ End
 		  Exception err
 		    ExceptionHandler(err,"RegPreciseTFcollectionsWin:ExportSigButton")
 		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events WebConnection
+	#tag Event
+		Sub ContentReceived(URL As String, HTTPStatus As Integer, content As String)
+		  Dim regulators As String
+		  Dim regulogID As String
+		  Dim fa As String
+		  Dim tabarray(-1) As String
+		  Dim n As Integer
+		  
+		  Redim logopix(-1)
+		  CollectionList.DeleteAllRows
+		  
+		  Redim regulatorArray(-1)
+		  Dim res As String
+		  
+		  
+		  
+		  
+		  
+		  
+		  res=DefineEncoding(content,encodings.ASCII)
+		  'If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		  'hts.close
+		  'If Res="" Then
+		  'If hts.ErrorCode=-1 Then
+		  'logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		  'Else
+		  'LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		  'End If
+		  'Else
+		  
+		  'Convert RegPrecise response to a string array
+		  Dim RPD As String
+		  
+		  RPD=NthField(Res,"</h2>",2)
+		  RPD=NthField(RPD,"<tbody>",2)
+		  RPD=NthField(RPD,"</tbody>",1)
+		  
+		  tabarray=split(RPD,"</tr>")
+		  
+		  Dim reg As String
+		  
+		  For n=0 To ubound(tabarray)-1
+		    Dim s1, s2, s3, s4, s6, s7 As String
+		    'Dim RegulogID As String
+		    
+		    reg=Trim(tabarray(n))
+		    s1= NthField(reg,Chr(34)+"><a href="+Chr(34)+"regulog.jsp?regulog_id=",2)
+		    s2=s1
+		    s3=s1
+		    s1=NthField(s1,">",2)
+		    s1=NthField(s1,"</a",1)  'regulog name
+		    s2=NthField(s2,"<b>",2)
+		    s2=NthField(s2,"</b>",1)  'regulon # (studied genomes ignored)
+		    s3=NthField(reg,"><a href="+Chr(34)+"sites.jsp?regulog_id=",2)
+		    RegulogID=NthField(s3,Chr(34),1)          'Regulog ID 
+		    s6=RegulogID
+		    s3=NthField(s3,">",2)
+		    s3=NthField(s3,"<",1)      'TFBS #
+		    
+		    // get TFBS sequences
+		    
+		    Dim hts as New URLConnection
+		    hts.SetRequestContent("Content-Type:","text/plain")
+		    
+		    dim theURL as string
+		    theURL=RegPreciseBase+"ExportServlet?type=site&regulogId="+regulogID
+		    
+		    res=DefineEncoding(hts.sendSync("GET", theURL,60),encodings.ASCII)
+		    
+		    If hts.HTTPStatusCode>=200 And hts.HTTPStatusCode<300 Then 'successful
+		      'hts.close
+		      If res<>"" Then
+		        
+		        fa=res
+		        fa=FillGaps(fa,True)
+		        s7=fa
+		        
+		      Else
+		        logowin.WriteToSTDOUT("no response in 15 sec.")
+		      End If
+		    Else
+		      logowin.WriteToSTDOUT ("Server error (HTTPS status code "+Str(hts.HTTPStatusCode)+")")
+		    End If
+		    
+		    
+		    Dim p As picture = MakeLogoPic(fa, 45)
+		    
+		    Dim reg2() As String = Array("",s1, s2, s3, Str(InfoBits),"", s6, s7, Str(Sitelength))  'first column contains checkboxes
+		    
+		    
+		    CollectionList.AddRow(reg2)
+		    'add picture to the last row as variant, so it is sorted properly 
+		    CollectionList.RowTag(collectionlist.LastIndex)=p
+		    
+		    'Update progress text
+		    ProgressLabel.Text="Loading profiles: "+Str(CollectionList.ListCount)
+		    
+		  Next n
+		  
+		  
+		  'End If
+		  'Else
+		  'LogoWin.WriteToSTDOUT ("RegPrecise error "+Str(hts.HTTPStatusCode)+EndOfLine.unix)
+		  'End If
+		  
+		  
+		  
+		  
+		  
+		  CollectionList.Enabled=True
+		  EnableButtons
+		  
+		  ProgressWheel1.Visible=False
+		  ProgressWheel1.Enabled=False
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

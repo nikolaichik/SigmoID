@@ -13,7 +13,7 @@ DATE  Tue Apr 21 21:29:07 2020
 NSEQ  24
 EFFN  2.041992
 CKSUM 1501635552
-CRTAG 5,27,41,42,43,44,46,47
+CRTAG 5|27,41,42,43,44,46,47
 PAL   yes
 WIDTH 23-27
 NOTE  CR tag is derived from structures of Fur and Zur.
