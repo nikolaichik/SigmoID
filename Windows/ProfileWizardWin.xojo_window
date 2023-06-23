@@ -2142,11 +2142,12 @@ End
 		          if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
 		            'looks like the seqs are palindromised already
 		          else
-		            rcAlignmentFile=TemporaryFolder.child("rcAliFile")
-		            RevCompAlignment(AlignmentFile,rcAlignmentFile,true)
-		            AlignmentFile.Delete
-		            AlignmentFile=rcAlignmentFile
-		            AlignmentFile.name=LogoWin.LogoFile.DisplayName
+		            msgbox "The profile is marked as palindromic, but fasta sequences don't seem to be palindromised. I'll proceed with saving the profile, but you should verify its palindromic status and cutoff values."
+		            'rcAlignmentFile=TemporaryFolder.child("rcAliFile")
+		            'RevCompAlignment(AlignmentFile,rcAlignmentFile,true)
+		            'AlignmentFile.Delete
+		            'AlignmentFile=rcAlignmentFile
+		            'AlignmentFile.name=LogoWin.LogoFile.DisplayName
 		          End If
 		        end if
 		        
