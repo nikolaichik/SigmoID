@@ -9,13 +9,13 @@ MM    no
 CONS  yes
 CS    yes
 MAP   yes
-DATE  Tue Apr 21 21:29:07 2020
+DATE  Tue Jun 27 11:05:55 2023
 NSEQ  24
 EFFN  2.041992
 CKSUM 1501635552
 CRTAG 5|27,41,42,43,44,46,47
-PAL   yes
-WIDTH 23-27
+PAL   no
+WIDTH 19-24
 NOTE  CR tag is derived from structures of Fur and Zur.
 NOTE  The structures used: 4mtd, 4mte, 4rb1, 4rb2, 4rb3.
 GA    23.10 23.10;
