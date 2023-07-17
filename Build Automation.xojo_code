@@ -4,6 +4,7 @@
 				End
 				Begin CopyFilesBuildStep CopyResources32bit
 					AppliesTo = 3
+					Architecture = 0
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vUHJvZmlsZXMv
@@ -37,15 +38,29 @@
 					FolderItem = Li4vLi4vQ1J0YWdCYXNlLw==
 					FolderItem = Li4vLi4vUmVnUHJlY2lzZUV4cG9ydC8=
 					FolderItem = Li4vUHl0aG9uL3VuaXByb3QyZ2VucGVwdC5weQ==
+					FolderItem = Li4vUHl0aG9uL3RmX2NsYXNzaWZpZXIucHk=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1t
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzZg==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzaQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzbQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzcA==
+					FolderItem = Li4vUHl0aG9uL2FkZF90ZmJzX3RvX2diay5weQ==
 				End
 				Begin CopyFilesBuildStep Copy2AppFolder
 					AppliesTo = 1
+					Architecture = 0
 					Destination = 0
 					Subdirectory = 
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0luc3RhbGwuaHRtbA==
 				End
 				Begin CopyFilesBuildStep CopyResources64bit
 					AppliesTo = 0
+					Architecture = 0
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vR2VuZXRpYy5jb2Rlcw==
@@ -100,13 +115,21 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
 					FolderItem = Li4vUHl0aG9uL21hdGNoZXNfc2NvcmVfYW5hbHlzaXMucHk=
 					FolderItem = Li4vUHl0aG9uL2NvbGxlY3Rfc3RhdHMucHk=
+					FolderItem = Li4vUHl0aG9uL3RmX2NsYXNzaWZpZXIucHk=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1t
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzZg==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzaQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzbQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzcA==
+					FolderItem = Li4vUHl0aG9uL2FkZF90ZmJzX3RvX2diay5weQ==
 				End
-				Begin IDEScriptBuildStep Zip , AppliesTo = 2
+				Begin IDEScriptBuildStep Zip , AppliesTo = 2, Architecture = 0
 					'Dim result As String
 					'result = DoShellCommand("cd " + currentBuildLocation + " && zip -r SigmoID.zip SigmoID"
 				End
 				Begin CopyFilesBuildStep CopyLibs
 					AppliesTo = 0
+					Architecture = 0
 					Destination = 2
 					Subdirectory = 
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0xpbnV4NjRiaXQvTGlidW53aW5kL2xpYjY0L2xpYnVud2luZC14ODZfNjQuc28uOA==
@@ -118,6 +141,7 @@
 				End
 				Begin CopyFilesBuildStep CopyFiles1
 					AppliesTo = 0
+					Architecture = 0
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vUHJvZmlsZXMv
@@ -172,6 +196,18 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
 					FolderItem = Li4vUHl0aG9uL21hdGNoZXNfc2NvcmVfYW5hbHlzaXMucHk=
 					FolderItem = Li4vUHl0aG9uL2NvbGxlY3Rfc3RhdHMucHk=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1t
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzZg==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzaQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzbQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzcA==
+					FolderItem = Li4vUHl0aG9uL2FkZF90ZmJzX3RvX2diay5weQ==
+					FolderItem = Li4vUHl0aG9uL3RmX2NsYXNzaWZpZXIucHk=
 				End
 			End
 			Begin BuildStepList Windows
@@ -179,6 +215,7 @@
 				End
 				Begin CopyFilesBuildStep CopyFiles3
 					AppliesTo = 0
+					Architecture = 0
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vUHJvZmlsZXMv
@@ -197,7 +234,7 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL21hc3QuZXhl
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL21lbWUuZXhl
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2xpYmdjY19zX2R3Mi0xLmRsbA==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2xpYnN0ZGMrKy02LmRsbA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2xpYnN0ZGMlMkIlMkItNi5kbGw=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL2xpYndpbnB0aHJlYWQtMS5kbGw=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1JlZ3Vsb25EQi8=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL1dpbjMyL3RmYXN0eC5leGU=
