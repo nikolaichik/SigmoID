@@ -78,6 +78,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -162,6 +163,7 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
@@ -244,6 +246,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   359
       Transparent     =   True
       Value           =   0
@@ -5158,6 +5161,164 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub searchLocalTFBS()
+		  Dim selectionStart, selectionEnd, HitInfo, tfsites_json As String
+		  Dim hmmliblPath, nhmmlibPath, addTfbsToGbk, tfClassifierPy As FolderItem
+		  Dim cli As String
+		  Dim absentExternalFiles As Boolean = False
+		  Dim tfoutput() As Variant
+		  Dim outstream As TextOutputStream
+		  Dim file As FolderItem = TemporaryFolder.Child("json_tfbs.txt")
+		  
+		  hmmliblPath = Resources_f.Child("hmmlibL.hmm") 
+		  nhmmlibPath = Resources_f.Child("nhmmer_lib.hmm") 
+		  tfClassifierPy = Resources_f.Child("tf_classifier.py") 
+		  addTfbsToGbk = Resources_f.Child("add_tfbs_to_gbk.py")
+		  
+		  If Not hmmliblPath.Exists Then 
+		    LogoWin.WriteToSTDOUT("File not found: " + hmmliblPath.ShellPath + EndOfLine.Unix)
+		    absentExternalFiles = True
+		  End
+		  
+		  If Not nhmmlibPath.Exists Then 
+		    LogoWin.WriteToSTDOUT("FIle not found: " + nhmmlibPath.ShellPath + EndOfLine.Unix)
+		    absentExternalFiles = True
+		  End
+		  
+		  If Not tfClassifierPy.Exists Then 
+		    LogoWin.WriteToSTDOUT("FIle not found: " + tfClassifierPy.ShellPath + EndOfLine.Unix)
+		    absentExternalFiles = True
+		  End
+		  
+		  If Not addTfbsToGbk.Exists Then 
+		    LogoWin.WriteToSTDOUT("FIle not found: " + addTfbsToGbk.ShellPath + EndOfLine.Unix)
+		    absentExternalFiles = True
+		  End
+		  
+		  If absentExternalFiles Then
+		    Return
+		  End
+		  
+		  selectionStart=nthField(SelRange.Text,"-",1)
+		  selectionEnd=nthField(SelRange.Text,"-",2)
+		  selectionEnd = nthField(selectionEnd, ":", 1)
+		  
+		  cli = pythonPath + " " + tfClassifierPy.ShellPath + " --gbk_file_path " + GenomeFile.ShellPath 
+		  cli = cli + " --temp_dir_path " + TemporaryFolder.ShellPath + " --hmmlib_file_path " 
+		  cli = cli + hmmliblPath.ShellPath + " --nhmmlib_file_path " + nhmmlibPath.ShellPath + " --coordinates " + selectionStart + "," + selectionEnd
+		  UserShell(cli)
+		  
+		  If shError <> 0 Then
+		    LogoWin.WriteToSTDOUT(shResult)
+		  Else
+		    Try
+		      tfoutput = ParseJSON(shResult)
+		    Catch JSONException
+		      LogoWin.WriteToSTDOUT(shResult)
+		      Return
+		    End Try
+		    
+		    Redim GenomeWin.HmmHits(0)
+		    Redim GenomeWin.HmmHitDescriptions(0)
+		    Redim genomeWin.HmmHitNames(0)
+		    
+		    If ubound(tfoutput) > 0 Then
+		      Try 
+		        tfsites_json = GenerateJSON(tfoutput)
+		      Catch JSONException
+		        Msgbox("Error occured during tf_classifier.py output parsing into JSON format.")
+		        Return 
+		      End Try
+		      
+		      
+		      If file.Exists Then
+		        Try 
+		          file.Remove
+		        Catch IOException
+		          MsgBox("Can't delete temporary files in " + TemporaryFolder.ShellPath + ", check user permissions.")
+		          Return
+		        End
+		      End
+		      
+		      If file <> Nil then
+		        Try
+		          outstream = TextOutputStream.Open(file)
+		          outstream.Write(tfsites_json)
+		          outstream.Close
+		        Catch IOException
+		          MsgBox("Failed to save JSON file to " + file.ShellPath)
+		          Return
+		        End Try
+		      End If
+		      
+		      For Each entry As Dictionary In tfoutput
+		        If entry.HasKey("errorMessage") Then
+		          LogoWin.WriteToSTDOUT(entry.Value("errorMessage"))
+		          Return 
+		        End
+		        GenomeWin.HmmHits.append(val(nthfield(entry.Value("coordinates"),":",1)))
+		        HitInfo = entry.Value("coordinates") + " (" + entry.Value("strand") + ") " + entry.Value("profile_name") 
+		        HitInfo = HitInfo + " E-value=" + entry.Value("e-value") + " Score=" + entry.Value("bit_score")
+		        genomeWin.HmmHitDescriptions.append(HitInfo)
+		        genomeWin.HmmHitNames.append(entry.Value("profile_name"))
+		        
+		      Next
+		      
+		      Dim dlg as New SaveAsDialog
+		      dim outfile As FolderItem
+		      dlg.InitialDirectory=genomefile.Parent
+		      dlg.promptText="Select where to save the modified genome file"
+		      dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_local_tfbs.gb"
+		      dlg.Title="Save genome file"
+		      dlg.Filter=FileTypes.genbank
+		      dlg.CancelButtonCaption=kCancel
+		      dlg.ActionButtonCaption=kSave
+		      outfile=dlg.ShowModal()
+		      
+		      cli = pythonPath + " " + addTfbsToGbk.ShellPath + " " + GenomeFile.ShellPath 
+		      cli = cli + " " + file.ShellPath + " " + outfile.ShellPath
+		      
+		      UserShell(cli)
+		      If shError <> 0 Then
+		        LogoWin.WriteToSTDOUT(shResult)
+		      Else
+		        Redim genomeWin.HmmHitChecked(ubound(tfoutput) + 1)
+		        
+		        for n As Integer = 1 to ubound(tfoutput)
+		          genomeWin.HmmHitChecked(n)=true
+		        next
+		        genomeWin.AnyHitDeselected=false
+		        'Set the genome map scrollbar:
+		        Genomewin.SetScrollbar
+		        
+		        'Display the hit:
+		        genomeWin.CurrentHit = 1
+		        Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
+		        s0.Enabled=false 'first hit: there's no previous one
+		        Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
+		        s1.Title="1/"+str(UBound(genomeWin.HmmHits))
+		        Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
+		        If Ubound(genomeWin.HmmHits) > 1 then
+		          s2.enabled=true
+		        Else
+		          s2.enabled=false
+		        End if
+		        if ubound(GenomeWin.HmmHitDescriptions) > 0 then
+		          GenomeWin.opengenbankfile(outFile)
+		          genomeWin.ShowHit
+		        End if
+		      End
+		      
+		    Else
+		      MsgBox("No matches to profiles library within the selected genomic range")
+		    End
+		    
+		  End
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SelChange()
 		  dim p as picture
 		  dim m,n as integer
@@ -6795,6 +6956,9 @@ End
 		      'new feature
 		      base.Append( New MenuItem( MenuItem.TextSeparator ) )
 		      base.Append mItem(kNewFeature)
+		      base.Append( New MenuItem( MenuItem.TextSeparator ) )
+		      'TFBS search in selected region
+		      base.Append mItem(kRegTFBSsearch)
 		      
 		    else
 		      'plot-related commands
@@ -6871,6 +7035,8 @@ End
 		    PlotScaleMaxWin.show
 		  case kPrintMap
 		    PrintMap
+		  case kRegTFBSsearch
+		    searchLocalTFBS()
 		  End
 		  
 		  ContextFeature=0
@@ -7356,7 +7522,7 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As Object
+		Function NewWindow() As HTMLViewer
 		  Return WebBrowserWin.AddNewTab
 		End Function
 	#tag EndEvent
@@ -7393,7 +7559,7 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As Object
+		Function NewWindow() As HTMLViewer
 		  Return WebBrowserWin.AddNewTab
 		End Function
 	#tag EndEvent
@@ -7423,7 +7589,7 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As Object
+		Function NewWindow() As HTMLViewer
 		  Return WebBrowserWin.AddNewTab
 		End Function
 	#tag EndEvent
