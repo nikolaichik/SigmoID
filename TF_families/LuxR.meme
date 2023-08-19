@@ -6,80 +6,138 @@ strands: +-
 
 Background letter frequencies (from unknown source):
  A 0.287 C 0.213 G 0.213 T 0.287
+ 
+MOTIF LATSLHTS_PipR LuxR_family
 
-MOTIF QTKVHR_NarL_NarP_Ecoli LuxR_family
+letter-probability matrix: alength= 4 w= 24 nsites= 44 E= 0
+  0.636364	  0.363636	  0.000000	  0.000000	
+  1.000000	  0.000000	  0.000000	  0.000000	
+  1.000000	  0.000000	  0.000000	  0.000000	
+  0.000000	  0.500000	  0.500000	  0.000000	
+  0.000000	  1.000000	  0.000000	  0.000000	
+  0.000000	  0.000000	  0.000000	  1.000000	
+  1.000000	  0.000000	  0.000000	  0.000000	
+  0.000000	  0.000000	  0.500000	  0.500000	
+  0.454545	  0.000000	  0.000000	  0.545455	
+  0.545455	  0.000000	  0.454545	  0.000000	
+  0.000000	  0.068182	  0.431818	  0.500000	
+  0.500000	  0.000000	  0.000000	  0.500000	
+  0.500000	  0.000000	  0.000000	  0.500000	
+  0.500000	  0.431818	  0.068182	  0.000000	
+  0.000000	  0.454545	  0.000000	  0.545455	
+  0.545455	  0.000000	  0.000000	  0.454545	
+  0.500000	  0.500000	  0.000000	  0.000000	
+  0.000000	  0.000000	  0.000000	  1.000000	
+  1.000000	  0.000000	  0.000000	  0.000000	
+  0.000000	  0.000000	  1.000000	  0.000000	
+  0.000000	  0.500000	  0.500000	  0.000000	
+  0.000000	  0.000000	  0.000000	  1.000000	
+  0.000000	  0.000000	  0.000000	  1.000000	
+  0.000000	  0.000000	  0.363636	  0.636364	
 
-letter-probability matrix: alength= 4 w= 18 nsites= 108 E= 8.9e-492
- 0.555556  0.138889  0.138889  0.166667
- 0.009259  0.129630  0.000000  0.861111
- 0.898148  0.055556  0.046296  0.000000
- 0.175926  0.814815  0.000000  0.009259
- 0.000000  0.768519  0.000000  0.231481
- 0.037037  0.518519  0.027778  0.416667
- 0.444444  0.537037  0.000000  0.018519
- 0.074074  0.250000  0.018519  0.657407
- 0.370370  0.000000  0.018519  0.611111
- 0.611111  0.018519  0.000000  0.370370
- 0.657407  0.018519  0.250000  0.074074
- 0.018519  0.000000  0.537037  0.444444
- 0.416667  0.027778  0.518519  0.037037
- 0.231481  0.000000  0.768519  0.000000
- 0.009259  0.000000  0.814815  0.175926
- 0.000000  0.046296  0.055556  0.898148
- 0.861111  0.000000  0.129630  0.009259
- 0.166667  0.138889  0.138889  0.555556
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=LATSLHTS_PipR
 
-URL http://githib.com/nikolaichik/SigmoID
+MOTIF ERTVFHSN_MalR LuxR_family
 
-MOTIF KTSSQK_RcsB_Pectobacterium LuxR_family
+letter-probability matrix: alength= 4 w= 16 nsites= 8 E= 0
+  0.000000	  0.875000	  0.000000	  0.125000	
+  0.000000	  0.125000	  0.000000	  0.875000	
+  0.125000	  0.000000	  0.875000	  0.000000	
+  0.000000	  0.500000	  0.000000	  0.500000	
+  0.625000	  0.125000	  0.250000	  0.000000	
+  1.000000	  0.000000	  0.000000	  0.000000	
+  0.125000	  0.250000	  0.250000	  0.375000	
+  0.375000	  0.250000	  0.125000	  0.250000	
+  0.250000	  0.125000	  0.250000	  0.375000	
+  0.375000	  0.250000	  0.250000	  0.125000	
+  0.000000	  0.000000	  0.000000	  1.000000	
+  0.000000	  0.250000	  0.125000	  0.625000	
+  0.500000	  0.000000	  0.500000	  0.000000	
+  0.000000	  0.875000	  0.000000	  0.125000	
+  0.875000	  0.000000	  0.125000	  0.000000	
+  0.125000	  0.000000	  0.875000	  0.000000	
 
-letter-probability matrix: alength= 4 w= 18 nsites= 64 E= 5.9e-246
-0.328125 0.093750 0.187500 0.390625
-0.171875 0.093750 0.093750 0.640625
-0.125000 0.000000 0.015625 0.859375
-0.484375 0.312500 0.203125 0.000000
-0.859375 0.000000 0.140625 0.000000
-0.000000 0.000000 1.000000 0.000000
-1.000000 0.000000 0.000000 0.000000
-0.312500 0.171875 0.156250 0.359375
-0.249998 0.062498 0.015624 0.671873
-0.671874 0.015624 0.062499 0.249999
-0.359374 0.156249 0.171874 0.312499
-0.000000 0.000000 0.000000 0.999999
-0.000000 0.999999 0.000000 0.000000
-0.000000 0.140624 0.000000 0.859374
-0.000000 0.203124 0.312499 0.484374
-0.859374 0.015624 0.000000 0.124999
-0.640624 0.093749 0.093749 0.171874
-0.390624 0.187499 0.093749 0.328124
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=ERTVFHSN_MalR
 
-URL http://githib.com/nikolaichik/SigmoID
+MOTIF EQQTKVHRN_NarP LuxR_family
 
-MOTIF +-STKFHG_ExpR_VirR_Pectobacterium LuxR_family
+letter-probability matrix: alength= 4 w= 24 nsites= 20 E= 0
+  0.250000	  0.050000	  0.200000	  0.500000	
+  0.300000	  0.050000	  0.250000	  0.400000	
+  0.200000	  0.350000	  0.050000	  0.400000	
+  0.400000	  0.300000	  0.000000	  0.300000	
+  0.000000	  0.000000	  0.050000	  0.950000	
+  0.900000	  0.000000	  0.100000	  0.000000	
+  0.150000	  0.800000	  0.000000	  0.050000	
+  0.100000	  0.750000	  0.000000	  0.150000	
+  0.050000	  0.650000	  0.050000	  0.250000	
+  0.300000	  0.700000	  0.000000	  0.000000	
+  0.200000	  0.000000	  0.350000	  0.450000	
+  0.650000	  0.000000	  0.000000	  0.350000	
+  0.350000	  0.000000	  0.000000	  0.650000	
+  0.450000	  0.350000	  0.000000	  0.200000	
+  0.000000	  0.000000	  0.700000	  0.300000	
+  0.250000	  0.050000	  0.650000	  0.050000	
+  0.150000	  0.000000	  0.750000	  0.100000	
+  0.050000	  0.000000	  0.800000	  0.150000	
+  0.000000	  0.100000	  0.000000	  0.900000	
+  0.950000	  0.050000	  0.000000	  0.000000	
+  0.300000	  0.000000	  0.300000	  0.400000	
+  0.400000	  0.050000	  0.350000	  0.200000	
+  0.400000	  0.250000	  0.050000	  0.300000	
+  0.500000	  0.200000	  0.050000	  0.250000
+  
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=EQQTKVHRN_NarP
 
-letter-probability matrix: alength= 4 w= 20 nsites= 27 E= 3.6e-071
-0.425926 0.296296 0.203704 0.074074
-0.425926 0.240741 0.277778 0.055556
-0.055556 0.666667 0.037037 0.240741
-0.055556 0.018519 0.074074 0.851852
-0.833333 0.037037 0.037037 0.092593
-0.037037 0.203704 0.240741 0.518519
-0.888889 0.018519 0.000000 0.092593
-0.000000 0.722222 0.000000 0.277778
-0.203704 0.259259 0.185185 0.351852
-0.388887 0.000000 0.000000 0.611110
-0.611111 0.000000 0.000000 0.388888
-0.351851 0.185184 0.259258 0.203703
-0.277777 0.000000 0.722221 0.000000
-0.092592 0.000000 0.018518 0.888888
-0.518518 0.240740 0.203703 0.037036
-0.092592 0.037036 0.037036 0.833332
-0.851851 0.074073 0.018518 0.055555
-0.240740 0.037036 0.666666 0.055555
-0.055555 0.277777 0.240740 0.425925
-0.074073 0.203703 0.296295 0.425925
+MOTIF IKTSSQKS_RcsB LuxR_family
 
-URL http://githib.com/nikolaichik/SigmoID
+letter-probability matrix: alength= 4 w= 18 nsites= 76 E= 4.1e-290 
+ 0.328947  0.078947  0.157895  0.434211 
+ 0.184211  0.092105  0.092105  0.631579 
+ 0.131579  0.000000  0.013158  0.855263 
+ 0.486842  0.342105  0.171053  0.000000 
+ 0.855263  0.000000  0.144737  0.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.986842  0.000000  0.013158  0.000000 
+ 0.302632  0.171053  0.157895  0.368421 
+ 0.289472  0.052630  0.026314  0.631577 
+ 0.631578  0.026315  0.052631  0.289473 
+ 0.368420  0.157894  0.171052  0.302631 
+ 0.000000  0.013157  0.000000  0.986841 
+ 0.000000  0.999999  0.000000  0.000000 
+ 0.000000  0.144736  0.000000  0.855262 
+ 0.000000  0.171052  0.342104  0.486841 
+ 0.855262  0.013157  0.000000  0.131578 
+ 0.631578  0.092104  0.092104  0.184210 
+ 0.434210  0.157894  0.078946  0.328946 
+ 
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=IKTSSQKS_RcsB
+
+MOTIF ISTKFHGN_VirR LuxR_family
+
+letter-probability matrix: alength= 4 w= 20 nsites= 36 E= 1.1e-111 
+ 0.361111  0.305556  0.250000  0.083333 
+ 0.527778  0.277778  0.138889  0.055556 
+ 0.055556  0.694444  0.000000  0.250000 
+ 0.027778  0.000000  0.138889  0.833333 
+ 0.777778  0.027778  0.055556  0.138889 
+ 0.055556  0.222222  0.250000  0.472222 
+ 0.944444  0.000000  0.000000  0.055556 
+ 0.000000  0.722222  0.000000  0.277778 
+ 0.194444  0.194444  0.222222  0.388889 
+ 0.416665  0.000000  0.000000  0.583332 
+ 0.583333  0.000000  0.000000  0.416666 
+ 0.388888  0.222221  0.194443  0.194443 
+ 0.277777  0.000000  0.722221  0.000000 
+ 0.055555  0.000000  0.000000  0.944443 
+ 0.472221  0.249999  0.222221  0.055555 
+ 0.138888  0.055555  0.027777  0.777777 
+ 0.833332  0.138888  0.000000  0.027777 
+ 0.249999  0.000000  0.694443  0.055555 
+ 0.055555  0.138888  0.277777  0.527777 
+ 0.083332  0.249999  0.305555  0.361110 
+
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=ISTKFHGN_VirR
 
 MOTIF +RTEVHA_TtrR_PhsR_Gammaproteobacteria LuxR_family
 
@@ -163,7 +221,7 @@ letter-probability matrix: alength= 4 w= 24 nsites= 30 E= 6.5e-130
  0.000000  0.266666  0.633332  0.099999 
  0.433332  0.099999  0.366666  0.099999 
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF +-RTEVHA_TtrR_Senterica LuxR_family
 
@@ -187,7 +245,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 40 E= 6.2e-141
 0.962499 0.000000 0.024999 0.012499
 0.137499 0.087499 0.362499 0.412499
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF +GTRNYS_DesR_YvfU_Bacillales LuxR_family
 
@@ -209,7 +267,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 196 E= 6.6e-1041
 0.000000 0.285713 0.061223 0.653060
 0.311223 0.229591 0.290815 0.168366
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF RSEYST_ComA_Bacillus LuxR_family
 
@@ -377,7 +435,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 21 E= 1.3e-074
 0.857142 0.142856 0.000000 0.000000
 0.428570 0.404761 0.119047 0.047618
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF NSRVKR_TraR_Atumefaciens LuxR_family
 
@@ -429,7 +487,7 @@ letter-probability matrix: alength= 4 w= 22 nsites= 38 E= 3.5e-151
 0.131578 0.157894 0.078946 0.631578
 0.368420 0.105262 0.131578 0.394736
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF +VTKFHN_CarR_Pectobacterium LuxR_family
 
@@ -461,7 +519,7 @@ letter-probability matrix: alength= 4 w= 26 nsites= 11 E= 9.0e-046
 0.000000 0.818181 0.000000 0.181817
 0.045454 0.318181 0.000000 0.636363
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF KTHVHA_UhpA_Pectobacterium LuxR_family
 
@@ -484,7 +542,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 8 E= 4.0e-027
 0.874999 0.000000 0.124999 0.000000
 0.124999 0.000000 0.812499 0.062499
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF KTNSYY_GacA_Proteobacteria LuxR_family
 
@@ -885,7 +943,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 22 E= 3.0e-093
  0.954544  0.045454  0.000000  0.000000 
  0.863635  0.090908  0.045454  0.000000
  
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF TTKTHR_MalT_Ecoli LuxR-family
 
@@ -941,7 +999,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 11 E= 5.5e-033
 0.000000 0.000000 0.499999 0.499999
 0.045454 0.000000 0.000000 0.954544
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF RTKFHV_QscR_PfsR_Pseudomonas LuxR-family
 
@@ -967,7 +1025,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 30 E= 3.2e-189
  0.000000  0.299999  0.599999  0.099999 
  0.066666  0.033332  0.166666  0.733332 
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF +RTRFFT_SinR_Sinorhizobium_meliloti LuxR-family
 
@@ -993,7 +1051,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 36 E= 1.5e-090
 0.041666 0.000000 0.486110 0.472221
 0.263888 0.000000 0.000000 0.736110
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF +RTNFHN_BpsR_Bpseudomallei LuxR-family
 
@@ -1015,7 +1073,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 19 E= 1.0e-017
 0.973683 0.026315 0.000000 0.000000
 0.000000 0.105262 0.894736 0.000000
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF HTDWYN_ExpR_Smeliloti LuxR-family
 
@@ -1041,7 +1099,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 18 E= 1.2e-085
 0.055555 0.055555 0.888888 0.000000
 0.555555 0.055555 0.388888 0.000000
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF +RTKFHK_PcoR_Pseudomonas_corrugata LuxR-family
 
@@ -1067,7 +1125,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 26 E= 2.0e-147
 0.000000 0.076922 0.384614 0.538461
 0.230768 0.076922 0.115384 0.576922
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF RTKFHS_AurR_Pchlororaphis LuxR-family
 
@@ -1093,7 +1151,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 20 E= 6.5e-089
 0.049999 0.074999 0.699999 0.174999
 0.149999 0.074999 0.199999 0.574999
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF DTNYHR_PhzR_Pchlororaphis LuxR-family
 
@@ -1119,7 +1177,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 16 E= 3.8e-116
 0.000000 0.124999 0.374999 0.499999
 0.000000 0.000000 0.312499 0.687499
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF TTKYHG_SprR_Serratia_proteamaculans LuxR-family
 
@@ -1141,7 +1199,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 13 E= 6.3e-004
 0.846153 0.000000 0.153845 0.000000
 0.038461 0.000000 0.961537 0.000000
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF +HTRDYK_CinR_MrtR_Rhizobiaceae LuxR-family
 
@@ -1167,7 +1225,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 32 E= 1.1e-125
 0.624999 0.000000 0.343749 0.031249
 0.249999 0.218749 0.093749 0.437499
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF +SADFHK_PpuR_Pseudomonas_putida LuxR-family
 
@@ -1193,7 +1251,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 6 E= 6.0e+002
 0.000000 0.083332 0.916666 0.000000
 0.083332 0.083332 0.000000 0.833332
 
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF +ETKSYR_RamA_Corynebacterium_glutamicum  LuxR-family
 
@@ -1219,7 +1277,7 @@ letter-probability matrix: alength= 4 w= 20 nsites= 72 E= 3.3e-278
  0.402777  0.069443  0.444443  0.083332 
  0.277777  0.152777  0.347221  0.222221 
  
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF KTEYHT_PcaO_tandem_Corynebacterium_glutamicum  LuxR-family
 
@@ -1247,7 +1305,7 @@ letter-probability matrix: alength= 4 w= 22 nsites= 26 E= 3.8e-126
 0.153846 0.076923 0.192308 0.576923
 0.038462 0.076923 0.769231 0.115385
  
-URL http://githib.com/nikolaichik/SigmoID
+URL http://bacregdb.bsu.by/tffamilies/GerE?tfName=
 
 MOTIF ERTKFHAN_CviR LuxR-family
 
