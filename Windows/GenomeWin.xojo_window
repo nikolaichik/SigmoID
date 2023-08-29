@@ -26,14 +26,14 @@ Begin Window GenomeWin
    Visible         =   False
    Width           =   1067
    Begin Canvas MapCanvas
-      AcceptFocus     =   True
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   True
+      AllowFocusRing  =   False
+      AllowTabs       =   False
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
       Height          =   176
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -46,9 +46,9 @@ Begin Window GenomeWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   28
       Transparent     =   True
-      UseFocusRing    =   False
       Visible         =   True
       Width           =   1067
    End
@@ -56,8 +56,8 @@ Begin Window GenomeWin
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
-      Mode            =   1
       Period          =   700
+      RunMode         =   "1"
       Scope           =   0
       TabPanelIndex   =   0
    End
@@ -78,21 +78,22 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
       Width           =   177
    End
    Begin CheckBox FeatureBox
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       Caption         =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   24
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -103,43 +104,41 @@ Begin Window GenomeWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   0
       Transparent     =   True
       Underline       =   False
       Value           =   False
       Visible         =   True
+      VisualState     =   "0"
       Width           =   390
    End
    Begin ScrollBar HScrollBar
-      AcceptFocus     =   False
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowLiveScrolling=   False
       Enabled         =   True
       Height          =   15
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
       LineStep        =   1
-      LiveScroll      =   False
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Maximum         =   100
-      Minimum         =   0
+      MaximumValue    =   100
+      MinimumValue    =   0
       PageStep        =   20
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   205
       Transparent     =   True
       Value           =   0
@@ -163,21 +162,20 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Transparent     =   True
       Visible         =   True
       Width           =   41
    End
    Begin Canvas TMdisplay
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   False
+      AllowTabs       =   False
       Backdrop        =   0
       DoubleBuffer    =   True
       Enabled         =   True
       Height          =   132
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -190,23 +188,23 @@ Begin Window GenomeWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   221
       Transparent     =   False
-      UseFocusRing    =   False
       Visible         =   True
       Width           =   1067
    End
    Begin CustomTabPanelTabs gBrowserTabs
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   False
+      AllowTabs       =   False
       Backdrop        =   0
       DoubleBuffer    =   True
       Enabled         =   True
       EnableTabReordering=   False
       Facing          =   3
       Height          =   392
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -220,19 +218,18 @@ Begin Window GenomeWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   358
       Transparent     =   True
       TTtext          =   ""
-      UseFocusRing    =   False
       value           =   0
       Visible         =   True
       Width           =   27
    End
    Begin PagePanel gBrowserPagePanel
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Enabled         =   True
       Height          =   391
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   27
@@ -246,17 +243,16 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
-      TabStop         =   True
+      Tooltip         =   ""
       Top             =   359
       Transparent     =   True
       Value           =   0
       Visible         =   True
       Width           =   1041
       Begin HTMLViewer SPSearchViewer
-         AutoDeactivate  =   True
+         AllowAutoDeactivate=   True
          Enabled         =   True
          Height          =   391
-         HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "gBrowserPagePanel"
          Left            =   27
@@ -270,15 +266,15 @@ Begin Window GenomeWin
          TabIndex        =   0
          TabPanelIndex   =   1
          TabStop         =   True
+         Tooltip         =   ""
          Top             =   359
          Visible         =   True
          Width           =   1041
       End
       Begin HTMLViewer UPSearchViewer
-         AutoDeactivate  =   True
+         AllowAutoDeactivate=   True
          Enabled         =   True
          Height          =   391
-         HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "gBrowserPagePanel"
          Left            =   27
@@ -292,15 +288,15 @@ Begin Window GenomeWin
          TabIndex        =   0
          TabPanelIndex   =   2
          TabStop         =   True
+         Tooltip         =   ""
          Top             =   359
          Visible         =   True
          Width           =   1041
       End
       Begin HTMLViewer BLASTSearchViewer
-         AutoDeactivate  =   True
+         AllowAutoDeactivate=   True
          Enabled         =   True
          Height          =   391
-         HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "gBrowserPagePanel"
          Left            =   27
@@ -314,19 +310,22 @@ Begin Window GenomeWin
          TabIndex        =   0
          TabPanelIndex   =   4
          TabStop         =   True
+         Tooltip         =   ""
          Top             =   359
          Visible         =   True
          Width           =   1041
       End
    End
    Begin Label SelRange
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   24
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -342,15 +341,13 @@ Begin Window GenomeWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlign       =   2
+      TextAlignment   =   "3"
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   2
       Transparent     =   False
       Underline       =   False
+      Value           =   ""
       Visible         =   True
       Width           =   194
    End
@@ -358,32 +355,33 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      ConnectionType  =   5
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
+      SSLConnectionType=   "5"
       TabPanelIndex   =   0
    End
    Begin sHTTPSocket UniProtSocket
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      ConnectionType  =   5
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
+      SSLConnectionType=   "5"
       TabPanelIndex   =   0
    End
    Begin Cocoa.NSSearchField NSSearchField1
-      AcceptFocus     =   True
-      AcceptTabs      =   False
       Alignment       =   ""
+      AllowAutoDeactivate=   True
+      AllowFocus      =   True
+      AllowFocusRing  =   False
       AllowsExpansionToolTips=   False
-      AutoDeactivate  =   True
+      AllowTabs       =   False
       autoresizesSubviews=   False
       Backdrop        =   0
       Bold            =   False
@@ -394,7 +392,6 @@ Begin Window GenomeWin
       FloatValue      =   0.0
       FocusRing       =   True
       Height          =   24
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       IntegerValue    =   0
@@ -418,53 +415,53 @@ Begin Window GenomeWin
       TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0.0
+      Tooltip         =   ""
       Top             =   0
       Transparent     =   True
       Underlined      =   False
-      UseFocusRing    =   False
       Visible         =   True
       Width           =   200
    End
    Begin TextField SearchField
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFF00FF
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   False
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFF00FF
       Bold            =   False
-      Border          =   True
-      CueText         =   "#kSearch"
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Format          =   ""
+      HasBorder       =   True
       Height          =   24
-      HelpTag         =   ""
+      Hint            =   "#kSearch"
       Index           =   -2147483648
       Italic          =   False
       Left            =   800
-      LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      Mask            =   ""
+      MaximumCharactersAllowed=   0
       Password        =   False
       ReadOnly        =   False
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   -54
       Transparent     =   True
       Underline       =   False
-      UseFocusRing    =   False
+      ValidationMask  =   ""
+      Value           =   ""
       Visible         =   False
       Width           =   200
    End
@@ -472,19 +469,18 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      ConnectionType  =   5
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
+      SSLConnectionType=   "5"
       TabPanelIndex   =   0
    End
    Begin ProgressWheel ProgressWheel1
-      AutoDeactivate  =   False
+      AllowAutoDeactivate=   False
       Enabled         =   True
       Height          =   24
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   525
@@ -497,20 +493,21 @@ Begin Window GenomeWin
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   -89
       Transparent     =   True
       Visible         =   False
       Width           =   24
    End
    Begin Canvas Splitter
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   False
+      AllowTabs       =   False
       Backdrop        =   0
       DoubleBuffer    =   True
       Enabled         =   True
       Height          =   4
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -523,9 +520,9 @@ Begin Window GenomeWin
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   354
       Transparent     =   True
-      UseFocusRing    =   False
       Visible         =   True
       Width           =   1067
    End
@@ -533,11 +530,11 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      ConnectionType  =   3
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
+      SSLConnectionType=   "3"
       TabPanelIndex   =   0
    End
 End
@@ -3033,7 +3030,7 @@ End
 		  dlg.ActionButtonCaption=kSave
 		  outfile=dlg.ShowModalwithin(self)
 		  if outfile<>nil then
-		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting each protein sequence annotated in this genome in Fasta format...")
+		    LogoWin.WriteToSTDOUT (EndofLine+"Exporting each protein sequence annotated in this genome in Fasta format..."+EndOfLine.UNIX)
 		    LogoWin.STDOUT.Refresh(false)
 		    Logowin.show
 		    
@@ -3043,23 +3040,36 @@ End
 		      for n=1 to u
 		        ft=Genome.Features(n)
 		        if left(ft.featuretext,3)="CDS" then
-		          TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
-		          TitleLine=">"+NthField(TitleLine,separ2,1)
-		          prot=NthField(ft.FeatureText,separGene,2)                  'Gene
-		          prot=NthField(prot,separ2,1)
-		          if prot<>"" then
-		            TitleLine=TitleLine+" "+prot
-		          end if
-		          prot=NthField(ft.FeatureText,separProd,2)                  'Product
-		          prot=NthField(prot,separ2,1)
-		          TitleLine=TitleLine+" "+prot
-		          TitleLine=replaceall(TitleLine,EndOfLine," ")
-		          
-		          prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
-		          prot=trim(NthField(prot,separ2,1))
-		          if prot<>"" then
-		            s.Writeline TitleLine                                      'Write >Title
-		            s.write prot+EndOfLine.unix                                'and AA seq
+		          if instr(ft.featuretext,"/pseudo")>0 then 'a pseudogene – don't export, just report
+		            LogoWin.WriteToSTDOUT (locusTag(ft.featuretext)+" is a pseudogene, hence was not exported"+EndOfLine)
+		            
+		          else
+		            TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
+		            TitleLine=">"+trim(NthField(TitleLine,separ2,1))
+		            prot=NthField(ft.FeatureText,separGene,2)                  'Gene
+		            prot=NthField(prot,separ2,1)
+		            if prot<>"" then
+		              TitleLine=TitleLine+" "+prot
+		            end if
+		            prot=NthField(ft.FeatureText,separProd,2)                  'Product
+		            prot=NthField(prot,separ2,1)
+		            if instr(prot,"*")>0 then 'contains internal stop-codon (a pseudogene?) – don't export, just report
+		              LogoWin.WriteToSTDOUT (locusTag(ft.featuretext)+" contains internal stop-codon, hence was not exported"+EndOfLine)
+		            else
+		              
+		              TitleLine=TitleLine+" "+prot
+		              TitleLine=replaceall(TitleLine,EndOfLine," ")
+		              prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
+		              prot=trim(NthField(prot,separ2,1))
+		              if instr(prot,"U")>0 then 'Selenocysteine codon  – export, but warn
+		                LogoWin.WriteToSTDOUT (locusTag(ft.featuretext)+" contains  a selenocysteine codon"+EndOfLine)
+		              end if
+		              if prot<>"" then
+		                s.Writeline TitleLine                                      'Write >Title
+		                s.write prot+EndOfLine.unix                                'and AA seq
+		              end if
+		              
+		            end if
 		          end if
 		        end if
 		      next
@@ -4029,6 +4039,21 @@ End
 		  next
 		  
 		  return true
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function locusTag(featureText as string) As string
+		  'Extract Locus_tag from feature text. The line to look for:
+		  '/locus_tag="OI69_02845"
+		  
+		  Dim Separ2 as string=chr(34)
+		  Dim Separ1 as string="/locus_tag="+Separ2
+		  Dim lTag As string
+		  lTag=NthField(featureText,separ1,2)
+		  lTag=NthField(lTag,separ2,1)
+		  
+		  return lTag
 		End Function
 	#tag EndMethod
 
@@ -5274,6 +5299,8 @@ End
 		      dlg.CancelButtonCaption=kCancel
 		      dlg.ActionButtonCaption=kSave
 		      outfile=dlg.ShowModal()
+		      
+		      if outfile=NIL then exit
 		      
 		      cli = pythonPath + " " + addTfbsToGbk.ShellPath + " " + GenomeFile.ShellPath 
 		      cli = cli + " " + file.ShellPath + " " + outfile.ShellPath
@@ -7522,7 +7549,7 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As HTMLViewer
+		Function NewWindow() As Object
 		  Return WebBrowserWin.AddNewTab
 		End Function
 	#tag EndEvent
@@ -7559,7 +7586,7 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As HTMLViewer
+		Function NewWindow() As Object
 		  Return WebBrowserWin.AddNewTab
 		End Function
 	#tag EndEvent
@@ -7589,7 +7616,7 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As HTMLViewer
+		Function NewWindow() As Object
 		  Return WebBrowserWin.AddNewTab
 		End Function
 	#tag EndEvent

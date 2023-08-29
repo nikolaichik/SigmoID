@@ -26,10 +26,9 @@ Begin Window HelpWin
    Visible         =   False
    Width           =   1100
    Begin HTMLViewer WebViewer
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Enabled         =   True
       Height          =   667
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -43,6 +42,7 @@ Begin Window HelpWin
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   34
       Visible         =   True
       Width           =   1100
@@ -64,16 +64,16 @@ Begin Window HelpWin
       SelectionType   =   2
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   4
       Transparent     =   False
       Visible         =   True
       Width           =   54
    End
    Begin ProgressWheel ProgressWheel1
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Enabled         =   False
       Height          =   16
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   1076
@@ -86,6 +86,7 @@ Begin Window HelpWin
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   8
       Transparent     =   False
       Visible         =   False
@@ -108,6 +109,7 @@ Begin Window HelpWin
       SelectionType   =   2
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   4
       Transparent     =   False
       Visible         =   True

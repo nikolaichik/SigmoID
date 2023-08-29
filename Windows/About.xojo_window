@@ -26,13 +26,15 @@ Begin Window About
    Visible         =   False
    Width           =   606
    Begin Label StaticText3
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   12.0
+      FontUnit        =   0
       Height          =   24
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -48,26 +50,26 @@ Begin Window About
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "#kAboutText"
-      TextAlign       =   1
+      TextAlignment   =   "2"
       TextColor       =   &c00000000
-      TextFont        =   "SmallSystem"
-      TextSize        =   12.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   264
       Transparent     =   False
       Underline       =   False
+      Value           =   "#kAboutText"
       Visible         =   True
       Width           =   606
    End
    Begin Label Version
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   12.0
+      FontUnit        =   0
       Height          =   19
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -83,27 +85,25 @@ Begin Window About
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "1.0 alpha 1"
-      TextAlign       =   1
+      TextAlignment   =   "2"
       TextColor       =   &c00000000
-      TextFont        =   "SmallSystem"
-      TextSize        =   12.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   240
       Transparent     =   False
       Underline       =   False
+      Value           =   "1.0 alpha 1"
       Visible         =   True
       Width           =   580
    End
    Begin Canvas Canvas1
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   False
+      AllowTabs       =   False
       Backdrop        =   184883199
       DoubleBuffer    =   False
       Enabled         =   True
       Height          =   180
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   153
@@ -116,20 +116,22 @@ Begin Window About
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   20
       Transparent     =   True
-      UseFocusRing    =   False
       Visible         =   True
       Width           =   300
    End
    Begin Label Title1
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   18.0
+      FontUnit        =   0
       Height          =   24
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -145,26 +147,26 @@ Begin Window About
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "SigmoID"
-      TextAlign       =   1
+      TextAlignment   =   "2"
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   18.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   212
       Transparent     =   False
       Underline       =   False
+      Value           =   "SigmoID"
       Visible         =   True
       Width           =   606
    End
    Begin Label Label1
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "SmallSystem"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   141
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -180,15 +182,13 @@ Begin Window About
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "SigmoID includes the following open source software:\n- nhmmer, hmmbuild and alimask from the HMMER package (http://hmmer.org);\n- meme, tomtom and mast from the MEME Suite (http://MEME-suite.org/);\n- TransTerm HP (http://transterm.cbcb.umd.edu);\n- tfastx from the FASTA package (http://fasta.bioch.virginia.edu/fasta_www2/fasta_list2.shtml);\n- MeShClust (https://github.com/TulsaBioinformaticsToolsmith/MeShClust);\n- RBCustomTabPanel (https://github.com/alexrestrepo/RBCustomTabPanel);\n- MacOSLib (https://github.com/macoslib)."
-      TextAlign       =   0
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
-      TextFont        =   "SmallSystem"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   300
       Transparent     =   False
       Underline       =   False
+      Value           =   "SigmoID includes the following open source software:\n- nhmmer, hmmbuild and alimask from the HMMER package (http://hmmer.org);\n- meme, tomtom and mast from the MEME Suite (http://MEME-suite.org/);\n- TransTerm HP (http://transterm.cbcb.umd.edu);\n- tfastx from the FASTA package (http://fasta.bioch.virginia.edu/fasta_www2/fasta_list2.shtml);\n- MeShClust (https://github.com/TulsaBioinformaticsToolsmith/MeShClust);\n- RBCustomTabPanel (https://github.com/alexrestrepo/RBCustomTabPanel);\n- MacOSLib (https://github.com/macoslib)."
       Visible         =   True
       Width           =   580
    End

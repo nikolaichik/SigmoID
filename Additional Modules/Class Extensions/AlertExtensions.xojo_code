@@ -6,10 +6,21 @@ Protected Module AlertExtensions
 		  
 		  dim nsa as New NSAlert( Message )
 		  
-		  if Message.Contains( splitValue ) then
-		    nsa.MessageText = Message.NthField( splitValue, 1 )
-		    nsa.InformativeText = Message.NthField( splitValue, 2 )
-		  end if
+		  #If XojoVersion < 2019.03
+		    
+		    if Message.Contains( splitValue ) then
+		      nsa.MessageText = Message.NthField( splitValue, 1 )
+		      nsa.InformativeText = Message.NthField( splitValue, 2 )
+		    end if
+		    
+		  #else
+		    
+		    if Message.Contains( splitValue, ComparisonOptions.CaseInsensitive ) then
+		      nsa.MessageText = Message.NthField( splitValue, 1 )
+		      nsa.InformativeText = Message.NthField( splitValue, 2 )
+		    end if
+		    
+		  #endif
 		  
 		  nsa.RunModal
 		End Sub

@@ -1174,8 +1174,8 @@ Protected Module DeNovoTFBSinference
 		  'we just skip those for now
 		  for i=0 to k
 		    'App.YieldToNextThread()
-		    Dim Separ1 as string="/locus_tag="+chr(34)
 		    Dim Separ2 as string=chr(34)
+		    Dim Separ1 as string="/locus_tag="+Separ2
 		    Dim LocusTag As string
 		    if entryarray(i)<>"" then
 		      'LocusTag=NthField(Entry,separ1,2)

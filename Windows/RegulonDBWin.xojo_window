@@ -26,26 +26,32 @@ Begin Window RegulonDBWin
    Visible         =   False
    Width           =   678
    Begin Listbox RegulatorList
-      AutoDeactivate  =   True
-      AutoHideScrollbars=   True
+      AllowAutoDeactivate=   True
+      AllowAutoHideScrollbars=   True
+      AllowExpandableRows=   False
+      AllowFocusRing  =   True
+      AllowResizableColumns=   True
+      AllowRowDragging=   False
+      AllowRowReordering=   False
       Bold            =   False
-      Border          =   False
       ColumnCount     =   5
-      ColumnsResizable=   True
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
       Enabled         =   True
-      EnableDrag      =   False
-      EnableDragReorder=   False
-      GridLinesHorizontal=   0
-      GridLinesVertical=   0
-      HasHeading      =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      GridLinesHorizontalStyle=   "0"
+      GridLinesVerticalStyle=   "0"
+      HasBorder       =   False
+      HasHeader       =   True
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
       HeadingIndex    =   -1
       Height          =   391
-      HelpTag         =   ""
-      Hierarchical    =   False
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   "#kTFname	#kNumberOfSites	#kGenesControlled	#kSiteWidth"
@@ -57,31 +63,24 @@ Begin Window RegulonDBWin
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
+      RowSelectionType=   "1"
       Scope           =   0
-      ScrollbarHorizontal=   False
-      ScrollBarVertical=   True
-      SelectionType   =   1
-      ShowDropIndicator=   False
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   77
       Transparent     =   False
       Underline       =   False
-      UseFocusRing    =   True
       Visible         =   True
       Width           =   678
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
    Begin ProgressWheel ProgressWheel1
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Enabled         =   False
       Height          =   16
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   292
@@ -94,21 +93,23 @@ Begin Window RegulonDBWin
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   -58
       Transparent     =   False
       Visible         =   True
       Width           =   94
    End
    Begin PushButton LogoButton
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
-      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "#kShowLogo"
       Default         =   True
       Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -118,13 +119,12 @@ Begin Window RegulonDBWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   480
       Transparent     =   False
       Underline       =   False
@@ -132,25 +132,26 @@ Begin Window RegulonDBWin
       Width           =   126
    End
    Begin BevelButton InfoButton
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
-      BackColor       =   &c00000000
-      Bevel           =   4
+      AllowAutoDeactivate=   True
+      AllowFocus      =   True
+      BackgroundColor =   &c00000000
+      BevelStyle      =   "4"
       Bold            =   False
-      ButtonType      =   0
+      ButtonStyle     =   "0"
       Caption         =   ""
-      CaptionAlign    =   3
+      CaptionAlignment=   "3"
       CaptionDelta    =   0
-      CaptionPlacement=   1
+      CaptionPosition =   "1"
       Enabled         =   False
-      HasBackColor    =   False
-      HasMenu         =   0
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      HasBackgroundColor=   False
       Height          =   22
-      HelpTag         =   ""
       Icon            =   495161343
-      IconAlign       =   1
-      IconDX          =   0
-      IconDY          =   0
+      IconAlignment   =   "1"
+      IconDeltaX      =   0
+      IconDeltaY      =   0
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -160,14 +161,13 @@ Begin Window RegulonDBWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
+      MenuStyle       =   "0"
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   478
       Transparent     =   False
       Underline       =   False
@@ -176,13 +176,15 @@ Begin Window RegulonDBWin
       Width           =   22
    End
    Begin Label RegulonDBinfoLabel
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -198,25 +200,25 @@ Begin Window RegulonDBWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
-      TextAlign       =   1
+      TextAlignment   =   "2"
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   480
       Transparent     =   False
       Underline       =   False
+      Value           =   ""
       Visible         =   True
       Width           =   279
    End
    Begin GroupBox GroupBox1
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       Caption         =   "#kEvidenceConfidenceLevel"
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   56
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -230,21 +232,21 @@ Begin Window RegulonDBWin
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   9
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   350
       Begin RadioButton ConfirmedRadio
-         AutoDeactivate  =   True
+         AllowAutoDeactivate=   True
          Bold            =   False
          Caption         =   "#kConfirmed"
          Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
          Height          =   20
-         HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
@@ -258,9 +260,7 @@ Begin Window RegulonDBWin
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
+         Tooltip         =   ""
          Top             =   35
          Transparent     =   False
          Underline       =   False
@@ -269,12 +269,14 @@ Begin Window RegulonDBWin
          Width           =   126
       End
       Begin RadioButton WeakRadio
-         AutoDeactivate  =   True
+         AllowAutoDeactivate=   True
          Bold            =   False
          Caption         =   "#kWeak"
          Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
          Height          =   20
-         HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
@@ -288,9 +290,7 @@ Begin Window RegulonDBWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
+         Tooltip         =   ""
          Top             =   35
          Transparent     =   False
          Underline       =   False
@@ -299,12 +299,14 @@ Begin Window RegulonDBWin
          Width           =   77
       End
       Begin RadioButton StrongRadio
-         AutoDeactivate  =   True
+         AllowAutoDeactivate=   True
          Bold            =   False
          Caption         =   "#kStrong"
          Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
          Height          =   20
-         HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
@@ -318,9 +320,7 @@ Begin Window RegulonDBWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
+         Tooltip         =   ""
          Top             =   35
          Transparent     =   False
          Underline       =   False
@@ -330,12 +330,14 @@ Begin Window RegulonDBWin
       End
    End
    Begin GroupBox GroupBox2
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
       Caption         =   "#kDataset"
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   56
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -349,21 +351,21 @@ Begin Window RegulonDBWin
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   9
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   280
       Begin RadioButton TFBSRadio
-         AutoDeactivate  =   True
+         AllowAutoDeactivate=   True
          Bold            =   False
          Caption         =   "#kTFbindingsites"
          Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
          Height          =   20
-         HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
@@ -377,9 +379,7 @@ Begin Window RegulonDBWin
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
+         Tooltip         =   ""
          Top             =   35
          Transparent     =   False
          Underline       =   False
@@ -388,12 +388,14 @@ Begin Window RegulonDBWin
          Width           =   130
       End
       Begin RadioButton PromotersRadio
-         AutoDeactivate  =   True
+         AllowAutoDeactivate=   True
          Bold            =   False
          Caption         =   "#kPromoters"
          Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
          Height          =   20
-         HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "GroupBox2"
          Italic          =   False
@@ -407,9 +409,7 @@ Begin Window RegulonDBWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
+         Tooltip         =   ""
          Top             =   35
          Transparent     =   False
          Underline       =   False
@@ -419,15 +419,16 @@ Begin Window RegulonDBWin
       End
    End
    Begin PushButton FastaButton
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Bold            =   False
-      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "#kCheckTF"
       Default         =   False
       Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Height          =   20
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -437,13 +438,12 @@ Begin Window RegulonDBWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
+      MacButtonStyle  =   "0"
       Scope           =   0
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   480
       Transparent     =   False
       Underline       =   False
@@ -454,7 +454,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -473,7 +472,6 @@ Begin Window RegulonDBWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0

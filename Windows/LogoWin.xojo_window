@@ -35,24 +35,28 @@ Begin Window LogoWin
       Visible         =   True
    End
    Begin TextArea STDOUT
-      AcceptTabs      =   False
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   False
-      BackColor       =   &cFFFF00FF
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowStyledText =   True
+      AllowTabs       =   False
+      BackgroundColor =   &cFEFFFF00
       Bold            =   False
-      Border          =   True
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
       Format          =   ""
+      HasBorder       =   True
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
       Height          =   744
-      HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
       Left            =   0
-      LimitText       =   0
       LineHeight      =   0.0
       LineSpacing     =   1.0
       LockBottom      =   True
@@ -60,37 +64,33 @@ Begin Window LogoWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Mask            =   ""
+      MaximumCharactersAllowed=   0
       Multiline       =   True
       ReadOnly        =   False
       Scope           =   0
-      ScrollbarHorizontal=   False
-      ScrollbarVertical=   True
-      Styled          =   True
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   ""
+      TextAlignment   =   "0"
       TextColor       =   &c00000000
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
+      Tooltip         =   ""
       Top             =   28
       Transparent     =   True
       Underline       =   False
-      UseFocusRing    =   True
+      ValidationMask  =   ""
+      Value           =   ""
       Visible         =   True
       Width           =   1000
    End
    Begin Canvas Splitter
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   False
+      AllowTabs       =   False
       Backdrop        =   0
       DoubleBuffer    =   True
       Enabled         =   True
       Height          =   5
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   1001
@@ -103,17 +103,16 @@ Begin Window LogoWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   229
       Transparent     =   True
-      UseFocusRing    =   False
       Visible         =   True
       Width           =   1000
    End
    Begin PagePanel TopPanel
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
       Enabled         =   True
       Height          =   175
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   1001
@@ -127,31 +126,36 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      Tooltip         =   ""
       Top             =   27
       Transparent     =   True
       Value           =   0
       Visible         =   True
       Width           =   1000
       Begin TextArea Informer
-         AcceptTabs      =   False
-         Alignment       =   0
-         AutoDeactivate  =   True
-         AutomaticallyCheckSpelling=   False
-         BackColor       =   &cFFFF00FF
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowStyledText =   True
+         AllowTabs       =   False
+         BackgroundColor =   &cFEFFFF00
          Bold            =   False
-         Border          =   True
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
          Format          =   ""
+         HasBorder       =   True
+         HasHorizontalScrollbar=   False
+         HasVerticalScrollbar=   True
          Height          =   175
-         HelpTag         =   ""
          HideSelection   =   True
          Index           =   -2147483648
          InitialParent   =   "TopPanel"
          Italic          =   False
          Left            =   1001
-         LimitText       =   0
          LineHeight      =   0.0
          LineSpacing     =   1.0
          LockBottom      =   True
@@ -159,52 +163,48 @@ Begin Window LogoWin
          LockLeft        =   True
          LockRight       =   True
          LockTop         =   True
-         Mask            =   ""
+         MaximumCharactersAllowed=   0
          Multiline       =   True
          ReadOnly        =   False
          Scope           =   0
-         ScrollbarHorizontal=   False
-         ScrollbarVertical=   True
-         Styled          =   True
          TabIndex        =   0
          TabPanelIndex   =   1
          TabStop         =   True
-         Text            =   "Informer\n"
+         TextAlignment   =   "0"
          TextColor       =   &c00000000
-         TextFont        =   "System"
-         TextSize        =   0.0
-         TextUnit        =   0
+         Tooltip         =   ""
          Top             =   27
          Transparent     =   True
          Underline       =   False
-         UseFocusRing    =   True
+         ValidationMask  =   ""
+         Value           =   "Informer\n"
          Visible         =   False
          Width           =   1000
       End
    End
    Begin ScrollBar HScrollBar
-      AcceptFocus     =   True
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   True
+      AllowLiveScrolling=   False
       Enabled         =   True
       Height          =   11
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
       LineStep        =   200
-      LiveScroll      =   False
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Maximum         =   100
-      Minimum         =   0
+      MaximumValue    =   100
+      MinimumValue    =   0
       PageStep        =   200
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   0
       Transparent     =   True
       Value           =   0
@@ -212,14 +212,14 @@ Begin Window LogoWin
       Width           =   1000
    End
    Begin Canvas LogoCanvas
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
       Backdrop        =   0
       DoubleBuffer    =   True
       Enabled         =   True
       Height          =   175
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -11
@@ -232,23 +232,23 @@ Begin Window LogoWin
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   27
       Transparent     =   True
-      UseFocusRing    =   True
       Visible         =   True
       Width           =   1000
    End
    Begin CustomTabPanelTabs LogoTabs
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   True
+      AllowTabs       =   False
       Backdrop        =   0
       DoubleBuffer    =   False
       Enabled         =   True
       EnableTabReordering=   False
       Facing          =   0
       Height          =   27
-      HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   -11
@@ -262,10 +262,10 @@ Begin Window LogoWin
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
+      Tooltip         =   ""
       Top             =   0
       Transparent     =   True
       TTtext          =   ""
-      UseFocusRing    =   True
       value           =   0
       Visible         =   True
       Width           =   1000
@@ -720,7 +720,7 @@ End
 		    end if
 		  end if
 		  if Not hmmg then
-		    WriteToSTDOUT (EndOfLine.Unix+"Converter script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
+		    WriteToSTDOUT (EndOfLine.Unix+"ptt_converter script doesn't work properly. Please verify that biopython is installed."+EndOfLine.UNIX)
 		    WriteToSTDOUT (EndOfLine.Unix)
 		    allProgsFine=false
 		  end if
@@ -968,6 +968,24 @@ End
 		    WriteToSTDOUT ("No NCBI Edirect found on your PATH. Please follow install instructions at https://www.ncbi.nlm.nih.gov/books/NBK179288/"+EndOfLine.unix)
 		    'allProgsFine=False
 		  End If
+		  
+		  
+		  #if DebugBuild
+		    
+		    '//debug "missing" numpy
+		    'dim numpyCheckPath as string
+		    'numpyCheckPath=Replace(HmmGenPath, "hmmgen.py", "numpyCheck.py")
+		    'cli=pythonPath+numpyCheckPath
+		    'userShell(cli)
+		    'WriteToSTDOUT (EndOfLine.UNIX+shResult)
+		    'cli="which python3"
+		    'userShell(cli)
+		    'WriteToSTDOUT (EndOfLine.UNIX+shResult)
+		    'cli="env"
+		    'userShell(cli)
+		    'WriteToSTDOUT (EndOfLine.UNIX+shResult)
+		    
+		  #endif
 		  
 		  // RegPrecise
 		  ' web services don't work after the move to new server
