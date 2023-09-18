@@ -1,6 +1,7 @@
 import sys
 import argparse
 import copy
+import re
 from time import process_time
 import Bio
 from Bio.SeqFeature import FeatureLocation
@@ -19,7 +20,7 @@ class MySeqFeature(SeqFeature):
         out += "qualifiers:\n"
         for qual_key in sorted(self.qualifiers):
             out += f" Key: {qual_key}, Value: {self.qualifiers[qual_key]}\n"
-        if Bio.__version__ != '1.73': # to avoid problems with diff biopython versions
+        if Bio.__version__ != '1.73':  # to avoid problems with diff biopython versions
             if not hasattr(self, "_sub_features"):
                 self._sub_features = []
             if len(self._sub_features) != 0:
@@ -29,6 +30,12 @@ class MySeqFeature(SeqFeature):
         return out
 
 
+class NhmmerTable:
+    # Class creates custom object with fields defined in function nhmm_parser
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+
 def wrong_promoter_strand(up_feature, hit_feature, down_feature):
     if 'regulatory_class' in hit_feature.qualifiers.keys() and \
        hit_feature.qualifiers['regulatory_class'][0] == 'promoter' and \
@@ -36,76 +43,69 @@ def wrong_promoter_strand(up_feature, hit_feature, down_feature):
        hit_feature.location.start < \
        hit_feature.location.end < \
        down_feature.location.start:
-        if hit_feature.strand == -1 and \
-           hit_feature.strand != up_feature.strand:
+        if hit_feature.strand == -1 and hit_feature.strand != up_feature.strand:
             return True
-        elif hit_feature.strand == 1 and \
-             hit_feature.strand != down_feature.strand:
+        elif hit_feature.strand == 1 and hit_feature.strand != down_feature.strand:
             return True
         else:
             return False
 
 
-def is_within_feature(list_of_features, index, some_hit):
+def correct_location_within_either_features(some_hit, ignore_within_orf=False, *args):
     # 'index' is for feature's index within 'list_of_features'
-    if list_of_features[index].location.start < some_hit.location.start < list_of_features[index].location.end or \
-        list_of_features[index].location.start < some_hit.location.end < list_of_features[index].location.end:
-        return True
-    else:
-        return False
+    for feature in args:
+        if feature.strand == +1 and ignore_within_orf:
+            if enter.boundary + feature.location.start >= some_hit.location.end > feature.location.start:
+                return True
+        elif feature.strand == -1 and ignore_within_orf:
+            if feature.location.end - enter.boundary <= some_hit.location.start < feature.location.end:
+                return True
+        elif not ignore_within_orf:
+            if feature.location.start < some_hit.location.start < feature.location.end or \
+                    feature.location.start < some_hit.location.end < feature.location.end:
+                return True
+    return False
 
 
-def is_within_convergon(list_of_features, index, some_hit):
-    # checking if hit is within other features or is between two convergent ones.
-    if list_of_features[index].location.start < some_hit.location.start and \
-            some_hit.location.end < list_of_features[index + 1].location.start and \
-            list_of_features[index].strand == +1 and \
-            list_of_features[index].strand != list_of_features[index+1].strand:
-        return True
-    else:
-        return False
+def is_within_correct_intergenic_region(f_feature, s_feature, some_hit):
+    def features_relative_location_correct(left_feature, right_feature):
+        if right_feature.location.start - left_feature.location.end < enter.intergenic_distance:
+            return False
+        if left_feature.strand == -1 and right_feature.strand == -1:
+            return True
+        elif left_feature.strand == -1 and right_feature.strand == +1:
+            return True
+        elif left_feature.strand == +1 and right_feature.strand == +1:
+            return True
+        elif left_feature.strand == +1 and right_feature.strand == -1:
+            return False
 
-
-def is_within_boundary(list_of_features, index, some_hit):
-    for feature in list_of_features[index:]:
-        if (feature.location.start - list_of_features[index].location.end) < (enter.boundary+1):
-            if (list_of_features[index].location.start + enter.boundary > \
-                  some_hit.location.end > \
-                  list_of_features[index].location.start and \
-                  list_of_features[index].strand == +1) or \
-                     (list_of_features[index].location.end-enter.boundary < \
-                      some_hit.location.start < \
-                      list_of_features[index].location.end and \
-                      list_of_features[index].strand == -1):
-                # check intergenic distance between feature and one located upstream on the same strand
-                try:
-                    if list_of_features[index].strand == +1:
-                        if (list_of_features[index].location.start-list_of_features[index-1].location.end >= enter.intergenic_distance \
-                            and list_of_features[index+1].strand == +1) \
-                                or list_of_features[index+1].strand == -1:
-                            return True
-                        else:
-                            return False
-                    else:
-                        if (list_of_features[index+1].location.start - list_of_features[index].location.end >= enter.intergenic_distance \
-                                and list_of_features[index+1].strand == -1) \
-                                or list_of_features[index+1].strand == +1:
-                            return True
-                        else:
-                            return False
-                except KeyError:
-                    pass
+    if f_feature.location.start < s_feature.location.start:
+        if features_relative_location_correct(left_feature=f_feature, right_feature=s_feature):
+            if f_feature.location.end <= some_hit.location.start \
+                    and some_hit.location.end <= s_feature.location.start:
+                return True
             else:
                 return False
         else:
             return False
+    elif f_feature.location.start > s_feature.location.start:
+        if features_relative_location_correct(left_feature=s_feature, right_feature=f_feature):
+            if s_feature.location.end <= some_hit.location.start \
+                    and some_hit.location.end <= f_feature.location.start:
+                return True
+            else:
+                return False
+        else:
+            return False
+    return False
 
 
 def is_divergent(feature_1, feature_2):
     if feature_1.strand == -1 and feature_2.strand == +1:
         return True
     else:
-       return False
+        return False
 
 
 def qualifiers_function(qualifiers, var):
@@ -125,55 +125,41 @@ def qualifiers_function(qualifiers, var):
     return var
 
 
-def nhmm_parser(path_to_file, x):
+def nhmm_parser(path_to_file):
+    # parser expects columns in the following order:
+    # target name, accession, query name, accession, hmmfrom, hmm to,
+    # alifrom, ali to, envfrom, env to, sq len, strand,
+    # E-value, score, bias, description of target
+    keys = ("target_name", "accession", "query_name", "accession",
+            "hmmfrom", "hmm_to", "alifrom", "ali_to", "envfrom",
+            "env_to", "sq_len", "strand", "e_value", "score",
+            "bias", "description"
+            )
+    int_pos = tuple(range(4, 11))  # convert to int: hmmfrom, hmm_to, alifrom, ali_to, envfrom, env_to, sq_len
+    float_pos = (12, 13, 14)  # convert to float: e_value, score, bias
+    out_list = []
     try:
         a = open(path_to_file, 'r')
     except IOError:
         sys.exit('Open error! Please check your nhmmer report input file!')
-    r = a.readlines()
-    b = []
-    d = []
-    e = []
-    for index in range(len(r)):
-        d.append([])
-        if not r[index].startswith('#') or r[index].startswith('\n'):
-            item = r[index].split(' ')
-            if len(item) >= 2:
-                for part in item:
-                    if part != '' and len(part) != 0:
-                        part = part.replace('\n', '')
-                        d[index].append(part)
-    for index in range(len(d)):
-        if len(d[index]) != 0:
-            b.append(d[index])
-    for index in range(len(b)):
-        if len(b[index]) <= 10:
-            for number in range(len(b[index])):
-                b[index+1].insert(number, b[index][number])
-    for index in range(len(b)):
-        if len(b[index]) > 10:
-            e.append(b[index])
-    for item in e:
-        for num_of_spaces in range(len(e[0])):
-            # to avoid problems with additional spaces... e[0] - firstly \
-            # splitted string by ' '
-            try:
-                x.append([item[8+num_of_spaces],
-                          item[9+num_of_spaces],
-                          int(item[11+num_of_spaces]+'1'),
-                          float(item[12+num_of_spaces]),
-                          float(item[13+num_of_spaces]),
-                          item[0+num_of_spaces],
-                          item[1+num_of_spaces],
-                          int(item[4+num_of_spaces]),
-                          int(item[5+num_of_spaces]),
-                          int(item[6+num_of_spaces]),
-                          int(item[7+num_of_spaces])
-                          ])
-            except ValueError:
-                pass
-            else:
-                break
+    line = a.readline().strip()
+    while line:
+        if not line.startswith("#"):
+            fields = re.split(r"[\s]{1,}", line)
+            for pos in int_pos:
+                fields[pos] = int(fields[pos])
+            for pos in float_pos:
+                fields[pos] = float(fields[pos])
+            if fields[11] == '+':
+                fields[11] = +1
+            elif fields[11] == '-':
+                fields[11] = -1
+            if len(fields) < 16:
+                raise Exception
+            dict_fields = {key: (fields[k] if k < 15 else " ".join(fields[k::])) for k, key in enumerate(keys)}
+            out_list.append(NhmmerTable(**dict_fields))
+        line = a.readline().strip()
+    return out_list
 
 
 def nhmm_prog(path_to_file, e):
@@ -204,32 +190,39 @@ def sorting_output_features(lst):
 
 
 def score_parser(some_feature):
-    for key in some_feature.qualifiers.keys():
-        if key == 'note' and type(some_feature.qualifiers['note']) != list:
-            temp = some_feature.qualifiers[key]
-            temp = temp.split(' ')
+    if "note" in some_feature.qualifiers:
+        note_entry = some_feature.qualifiers["note"]
+        score = None
+        if type(note_entry) == str:
+            score = note_entry.split(' ')[-3]
+        elif type(note_entry) == list:
+            for list_feature in some_feature.qualifiers['note']:
+                if list_feature.startswith('nhmmer'):
+                    score = list_feature.split(' ')[-3]
+        if score:
             try:
-                bit_score = float(temp[-3])
+                return float(score)
             except ValueError:
-                bit_score = None
-            return bit_score
-        elif key == 'note' and type(some_feature.qualifiers['note']) == list:
-            for note in some_feature.qualifiers['note']:
-                if note.startswith('nhmmer'):
-                    temp = note
-                    temp = temp.split(' ')
-                    try:
-                        bit_score = float(temp[-3])
-                    except ValueError:
-                        bit_score = None
-                    return bit_score
+                return None
+        else:
+            return None
+    else:
+        return None
+
+
+def remove_feature_with_lowest_score(feature_list, f1_index, f2_index):
+    if score_parser(feature_list[f1_index]) and score_parser(feature_list[f2_index]):
+        if score_parser(feature_list[f1_index]) > score_parser(feature_list[f2_index]):
+            del feature_list[f2_index]
+        else:
+            del feature_list[f1_index]
 
 
 def output(score_list, output_features):
     for val in score_list:
         for some_feature in output_features:
             if val == feature_score(some_feature):
-                print (some_feature)
+                print(some_feature)
                 output_features = [f for f in output_features if f != some_feature]
 
 
@@ -256,9 +249,9 @@ def dna_topology(path, topo_list):
 
 
 def intergenic_distance_correct(featurelist, i):
-    if len(featurelist)>1:
-        if i>0:
-            if featurelist[i].location.start-featurelist[i-1].location.end >= enter.intergenic_distance:
+    if len(featurelist) > 1:
+        if i > 0:
+            if featurelist[i].location.start-featurelist[i - 1].location.end >= enter.intergenic_distance:
                 return True
             else:
                 return False
@@ -268,7 +261,6 @@ def intergenic_distance_correct(featurelist, i):
         return False
 
 
-
 def createparser():
     parser = argparse.ArgumentParser(
              prog='HmmGen',
@@ -276,7 +268,7 @@ def createparser():
              description='''This script allows to add features to a genbank \
                             file according to nhmmer results.\
                             Requires Biopython 1.73 (or newer)''',
-             epilog='(c) Aliaksandr Damienikan, 2014-2017; the original code was ported to Python3.x by /'
+             epilog='(c) Aliaksandr Damienikan, 2014-2017; original code was ported to Python3.x by /'
                     'Andrei Pleskunou and Pavel Vychyk.')
     parser.add_argument('report_file',
                         help='path to nhmmer report file produced with \
@@ -337,7 +329,7 @@ def createparser():
                                 value''')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 2.25 (September 27, 2021)')
+                        version=version)
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -345,15 +337,16 @@ def createparser():
                                 etc.)''')
     parser.add_argument('-s', '--intergenic_distance',
                         type=int,
-                        default=100,
+                        default=50,
                         help='''defines average intergenic distance in annotated genome \'
                              to exclude senseless sites ''')
     return parser
 
-version='HmmGen 2.25 (September 27, 2021)'
+
+version = 'HmmGen 2.28 (September, 2023)'
 t_start = process_time()
-args = createparser()
-enter = args.parse_args()
+arguments = createparser()
+enter = arguments.parse_args()
 arguments = sys.argv[1:0]
 max_eval = enter.eval
 if enter.length is not False:
@@ -370,6 +363,8 @@ except ImportError:
     sys.exit('\nYou have no Biopython module installed!\n\
                 You can download it here for free: \
                 http://biopython.org/wiki/Download\n')
+
+from Bio import SeqFeature
 try:
     input_handle = open(enter.input_file, 'r')
 except IOError:
@@ -381,24 +376,24 @@ for line in input_handle.readlines():
 input_handle.close()
 input_handle = open(enter.input_file, 'r')
 if enter.input_file == enter.output_file:
-    sys.exit('Sorry, but we can\'t edit input file. Plese give another name \
+    sys.exit('Sorry, but we can\'t edit input file. Please give another name \
               to output file!')
 try:
     output_handle = open(enter.output_file, 'w')
 except IOError:
     sys.exit('Open error! Please check your genbank output path!')
 
-print (version)
-print ("="*50)
-print ('Options used:\n')
+
+print(version)
+print("="*50)
+print('Options used:\n')
 for arg in range(1, len(sys.argv)):
-    print (sys.argv[arg], end = " ")
+    print(sys.argv[arg], end=" ")
 file_path = enter.report_file
 qualifier = {'CHECK': 'CHECKED!'}
 qualifiers_function(enter.qual, qualifier)
-allign_list = []
 prog = []
-nhmm_parser(file_path, allign_list)
+align_list = nhmm_parser(file_path)
 nhmm_prog(file_path, prog)
 prog[2] = prog[2].replace('\r', '')
 records = SeqIO.parse(input_handle, 'genbank')
@@ -406,21 +401,22 @@ allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
 total = 0
 print('\nOnly first contig will be processed.\n')
 for record in records:
-    print ('\n' + "-"*50 + "\nCONTIG: " + record.id)
-    print ('\n   FEATURES ADDED: \n')
+    print('\n' + "-"*50 + "\nCONTIG: " + record.id)
+    print('\n   FEATURES ADDED: \n')
     allowed_features_list = []
     replaced_location_features = []
     # first sort features by location start value
-    record.features.sort(key = lambda SeqFeature:SeqFeature.location.start)
+    record.features.sort(key=lambda SeqFeature: SeqFeature.location.start)
     for index, feature in enumerate(record.features):
         # check feature coordinates, replace coordinates for features with incorrect parts joining
         try:
             if feature.location.start == 0 and feature.location.end == len(record.seq) and feature.type != 'source':
                 replaced_location_features.append(feature)
                 edited_feature = SeqFeature()
-                for property,value in feature.__dict__.items():
+                for property, value in feature.__dict__.items():
                     if property == 'location':
-                        edited_feature.location  = FeatureLocation(value.parts[0].start, value.parts[0].end, strand = value.strand)
+                        edited_feature.location = FeatureLocation(value.parts[0].start, value.parts[0].end,
+                                                                  strand=value.strand)
                     else:
                         edited_feature.__dict__[property] = copy.deepcopy(value)
                 record.features[index] = edited_feature
@@ -428,7 +424,7 @@ for record in records:
             pass
         except KeyError:
             pass
-    if len(replaced_location_features)>0:
+    if len(replaced_location_features) > 0:
         record.features.sort(key=lambda SeqFeature: SeqFeature.location.start)
     for feature in record.features:
         if feature.type in allowed_types:
@@ -442,146 +438,93 @@ for record in records:
     except:
         cds_loc_end = record.features[-1]
 
-    for allign in allign_list:
-        from Bio import SeqFeature
-        if allign[2] == +1:
-            start = int(allign[0])
-            end = int(allign[1])
-            strnd = int(allign[2])
-            e_value = float(allign[3])
-            score = allign[4]
-            feature_length = end - (start - 1)
-            locus = allign[5]
-            version = allign[6]
-            hmm_from = allign[7]
-            hmm_to = allign[8]
-            hmm_diff = hmm_to - hmm_from
-            ali_from = allign[9]
-            ali_to = allign[10]
-            ali_diff = ali_to - ali_from
+    for align in align_list:
+        hmm_diff = align.hmm_to - align.hmmfrom
+        if align.strand == +1:
+            start = align.alifrom
+            end = align.ali_to
+            ali_diff = align.ali_to - align.alifrom
             if enter.length and not enter.min_length:
-                if hmm_to < enter.max_length:
-                    end = (enter.max_length-hmm_to) + ali_to
+                if align.hmm_to < enter.max_length:
+                    end = enter.max_length - align.hmm_to + align.ali_to
                 else:
-                    end = ali_to
-                if hmm_from > 1:
-                    start = ali_from - (hmm_from - 1)
-                else:
-                    start = ali_from
-            elif enter.length and enter.min_length:
-                if enter.min_length < hmm_to < enter.max_length or \
-                    hmm_to <= enter.min_length < enter.max_length:
-                    end = (enter.max_length - hmm_to) + ali_to
-                elif hmm_to <= enter.min_length:
-                    end = (enter.min_length - hmm_to) + ali_to
-                if hmm_from > 1:
-                    start = ali_from - (hmm_from - 1)
-                else:
-                    start = ali_from
+                    end = align.ali_to
+                if align.hmmfrom > 1:
+                    start = align.alifrom - align.hmmfrom + 1
         else:
-            start = int(allign[1])
-            end = int(allign[0])
-            strnd = int(allign[2])
-            e_value = float(allign[3])
-            score = allign[4]
-            feature_length = end - (start - 1)
-            locus = allign[5]
-            version = allign[6]
-            hmm_from = allign[7]
-            hmm_to = allign[8]
-            hmm_diff = hmm_to - hmm_from
-            ali_from = allign[10]
-            ali_to = allign[9]
-            ali_diff = ali_to - ali_from
+            start = align.ali_to
+            end = align.alifrom
+            ali_diff = align.alifrom - align.ali_to
             if enter.length and not enter.min_length:
-                if hmm_from > 1:
-                    end = hmm_from - 1 + ali_to
+                if align.hmmfrom > 1:
+                    end = align.hmmfrom - 1 + align.alifrom
+                if align.hmm_to < enter.max_length:
+                    start = align.ali_to - enter.max_length + align.hmm_to
                 else:
-                    end = ali_to
-                if hmm_to < enter.max_length:
-                    start = ali_from - (enter.max_length - hmm_to)
-                else:
-                    start = ali_from
+                    start = align.ali_to
             elif enter.length and enter.min_length:
-                if hmm_from > 1:
-                    end = hmm_from - 1 + ali_to
+                if align.hmmfrom > 1:
+                    end = align.hmmfrom - 1 + align.alifrom
                 else:
-                    end = ali_to
-                if enter.min_length < hmm_to < enter.max_length or \
-                        hmm_to <= enter.min_length < enter.max_length:
-                    start = ali_from - (enter.max_length - hmm_to)
-                elif hmm_to <= enter.min_length:
-                    start = ali_from-(enter.min_length - hmm_to)
+                    end = align.alifrom
+                if enter.min_length < align.hmm_to < enter.max_length or \
+                        align.hmm_to <= enter.min_length < enter.max_length:
+                    start = align.ali_to - enter.max_length + align.hmm_to
+                elif align.hmm_to <= enter.min_length:
+                    start = align.ali_to - enter.min_length + align.hmm_to
         start_pos = SeqFeature.ExactPosition(start - 1)
         end_pos = SeqFeature.ExactPosition(end)
         feature_location = FeatureLocation(start_pos, end_pos)
         feature_type = enter.feature
-        from Bio.SeqFeature import SeqFeature
-        note_qualifier = dict()
-        note_qualifier['note'] = str('{} score {} E-value {}'.format(prog[2].replace('\n', ''), score, e_value))
+        note_qualifier = {'note': prog[2].replace('\n', '') + f" score {align.score} E-value {align.e_value}"}
         my_feature = MySeqFeature(
                          location=feature_location,
                          type=feature_type,
-                         strand=strnd,
-                         qualifiers=dict(list(qualifier.items()) + list(note_qualifier.items())))
+                         strand=align.strand,
+                         qualifiers=dict(list(qualifier.items()) + list(note_qualifier.items()))
+        )
 
         if (hmm_diff - ali_diff == 0 or
                 hmm_diff - ali_diff == 1 or
                 hmm_diff - ali_diff == (-1)) and \
-                (score >= enter.score or enter.score is False):
-            for i in reversed(range(len(record.features))):
-                if record.features[i].location.start < \
-                        my_feature.location.start and \
-                   (enter.eval is False or e_value <= enter.eval or
-                   enter.score is not False):
-                    for c in range(len(allowed_features_list)-1):
-                        if allowed_features_list[c].location.start <= \
-                                my_feature.location.start <= \
-                                allowed_features_list[c+1].location.start:
-                            record.features.insert(i+1, my_feature)
-                            break
-                    break
-
-                if i == 0 and \
-                        record.features[i].location.start > \
-                        my_feature.location.start:
-                    record.features.insert(i, my_feature)
-                    break
-                if i == len(record.features)-1 and \
-                        record.features[i].location.start < \
-                        my_feature.location.start:
-                    record.features.insert(i+1, my_feature)
-                    break
-
-    if enter.insert:
-        hit_list = []
-        for i in range(len(record.features)):
-            if 'CHECK' in record.features[i].qualifiers.keys():
-                hit_list.append(record.features[i])
-        for i in reversed(range(len(hit_list))):
-            i = len(hit_list)-1-i
-            for n in range(len(allowed_features_list)-1):
-                if ((
-                    is_within_feature(allowed_features_list,
-                                      n,
-                                      hit_list[i]) and \
-                    not is_within_boundary(allowed_features_list,
-                                           n,
-                                           hit_list[i])
-                    ) or \
-                    wrong_promoter_strand(allowed_features_list[n],
-                                         hit_list[i],
-                                         allowed_features_list[n+1])
-                and not is_within_convergon(allowed_features_list,
-                                      n,
-                                      hit_list[i])):
-                    hit_list.pop(i)
-                    break
-        for i in reversed(range(len(record.features))):
-            if 'CHECK' in record.features[i].qualifiers.keys() and \
-               not any(record.features[i] == hit for hit in hit_list):
-                record.features.pop(i)
-
+                (align.score >= enter.score or enter.score is False):
+            l_index = 0
+            r_index = len(allowed_features_list)
+            while l_index < r_index:
+                mid_index = (l_index + r_index) // 2
+                if allowed_features_list[mid_index].location.start > my_feature.location.start:
+                    r_index = mid_index
+                else:
+                    l_index = mid_index + 1
+            if my_feature.location.start >= allowed_features_list[0].location.end \
+                    and allowed_features_list[-1].location.start >= my_feature.location.end:
+                right_feature = allowed_features_list[l_index]
+                left_feature = allowed_features_list[r_index - 1]
+                # incorrectly positioned sites
+                if is_within_correct_intergenic_region(left_feature, right_feature, my_feature):
+                    record.features.append(my_feature)
+                elif correct_location_within_either_features(my_feature, enter.insert, left_feature, right_feature):
+                    record.features.append(my_feature)
+                else:
+                    continue
+            elif my_feature.location.start <= allowed_features_list[0].location.end:
+                if correct_location_within_either_features(my_feature, enter.insert, allowed_features_list[0]):
+                    record.features.append(my_feature)
+                elif allowed_features_list[0].location.start - \
+                        (my_feature.location.end - my_feature.location.start) > 0 \
+                            and allowed_features_list[0].location.start > enter.boundary \
+                                and allowed_features_list[0].strand == +1:
+                    record.features.append(my_feature)
+                else:
+                    continue
+            elif my_feature.location.start >= allowed_features_list[-1].location.start:
+                if correct_location_within_either_features(my_feature, enter.insert, allowed_features_list[-1]):
+                    record.features.append(my_feature)
+                elif record.features[0].location.end - allowed_features_list[-1].location.end > enter.boundary \
+                    and allowed_features_list[-1].strand == -1:
+                    record.features.append(my_feature)
+                else:
+                    continue
     if not enter.name:
         for i in reversed(range(len(record.features))):
             i = len(record.features) - 1 - i
@@ -644,7 +587,7 @@ for record in records:
                         if hit.strand == cds_up.strand:
                             record.features.insert(i, new_feature)
                 elif enter.palindromic and cds_up.strand == cds_down.strand:
-                    if cds_up.strand == 1: # then cds_down is (+) too and couldn't be regulated
+                    if cds_up.strand == 1:  # then cds_down is (+) too and couldn't be regulated
                         try:
                             individual_qualifiers['gene'] = cds_up.qualifiers['gene']
                         except KeyError:
@@ -661,7 +604,7 @@ for record in records:
                                           qualifiers=individual_qualifiers)
                         record.features.pop(i)
                         record.features.insert(i, new_feature)
-                    if cds_down.strand == -1: # then cds_up is (-) too and couldn't be regulated
+                    if cds_down.strand == -1:  # then cds_up is (-) too and couldn't be regulated
                         try:
                             individual_qualifiers['gene'] = cds_down.qualifiers['gene']
                         except KeyError:
@@ -734,10 +677,10 @@ for record in records:
                 if enter.boundary != 0:
                     for n in range(len(allowed_features_list)):
                         if is_within_boundary(allowed_features_list, n, hit) and \
-                           (allowed_features_list[n].strand == hit.strand or \
+                           (allowed_features_list[n].strand == hit.strand or
                             (enter.palindromic and
-                               ((hit.strand != cds_up.strand and hit.strand == -1) or \
-                                 (hit.strand != cds_down.strand and hit.strand == +1)))):
+                               ((hit.strand != cds_up.strand and hit.strand == -1) or
+                                    (hit.strand != cds_down.strand and hit.strand == +1)))):
                             try:
                                 individual_qualifiers['gene'] = allowed_features_list[n].qualifiers['gene']
                             except KeyError:
@@ -754,87 +697,33 @@ for record in records:
                                               qualifiers=individual_qualifiers)
                             record.features.pop(i)
                             record.features.insert(i, new_feature)
-    if enter.palindromic:
-        try:
-            first_cds = allowed_features_list[0]
-        except:
-            first_cds = record.features[0]
-        try:
-            last_cds = allowed_features_list[-1]
-        except:
-            last_cds = record.features[-1]
-        for i in reversed(range(1, len(record.features))):
-            i = len(record.features) - 1 - i
-            cds_down = ""
-            cds_up = ""
-            if 'CHECK' in record.features[i].qualifiers.keys() and i < len(record.features):
-                hit = record.features[i]
-                for c in reversed(range(len(allowed_features_list))):
-                    if allowed_features_list[c].location.end < hit.location.start:
-                        cds_down = allowed_features_list[c]
-                        break
-                    elif hit.location.end < allowed_features_list[0].location.end:
-                        cds_down = allowed_features_list[-1] # for circular chromosomes
-                        break
-                for c in range(len(allowed_features_list)):
-                    if allowed_features_list[c].location.start > hit.location.end:
-                        cds_up = allowed_features_list[c]
-                        break
-                    elif hit.location.start > allowed_features_list[-1].location.end:
-                        cds_up = allowed_features_list[0] # for circular chromosomes
-                        break
-                if (cds_down and cds_up) and \
-                        'CHECK' in record.features[i + 1].qualifiers.keys() and \
-                        (hit.location.start == record.features[i + 1].location.start and
-                         hit.location.end == record.features[i + 1].location.end):
-                    left_distance = hit.location.start - cds_down.location.end
-                    right_distance = cds_up.location.start - hit.location.end
-                    if is_divergent(cds_down, cds_up) and \
-                       last_cds.location.start > hit.location.start > first_cds.location.start:
-                        if left_distance > right_distance and hit.strand == +1:
-                            del record.features[i + 1]
-                        elif left_distance > right_distance and hit.strand == -1:
-                            del record.features[i]
-                        elif left_distance < right_distance and hit.strand == +1:
-                            del record.features[i]
-                        elif left_distance < right_distance and hit.strand == -1:
-                            del record.features[i + 1]
-                    elif not is_divergent(cds_down, cds_up) and cds_up.strand == cds_down.strand:
-                        if hit.strand == cds_up.strand:
-                            del record.features[i + 1]
-                        elif hit.strand != cds_up.strand:
-                            del record.features[i]  # deletes "hit"
-                    elif not is_divergent(cds_down, cds_up) and cds_up.strand != cds_down.strand:
-                         del record.features[i + 1]
 
-    if enter.duplicate is True:
+    if enter.duplicate or enter.palindromic:
+        record.features.sort(key=lambda SeqFeature: SeqFeature.location.start)
         for i in reversed(range(1, len(record.features))):
             i = len(record.features) - 1 - i
-            if (record.features[i].type in ['protein_bind', 'promoter']) and \
+            if (record.features[i].type in ('protein_bind', 'promoter')) and \
                     record.features[i].type == record.features[i + 1].type:
-                if 'bound_moiety' in record.features[i].qualifiers.keys() and \
-                   'bound_moiety' in record.features[i + 1].qualifiers.keys():
-                    bound_moiety_one = record.features[i].qualifiers['bound_moiety']
-                    bound_moiety_two = record.features[i + 1].qualifiers['bound_moiety']
-                    if bound_moiety_one == bound_moiety_two and \
-                        record.features[i].strand == record.features[i + 1].strand and \
-                       0 <= record.features[i + 1].location.start - record.features[i].location.start <= 2:
-                        if score_parser(record.features[i]) != None and \
-                                score_parser(record.features[i + 1]) != None :
-                            if score_parser(record.features[i]) > score_parser(record.features[i + 1]):
-                                del record.features[i + 1]
-                            else:
-                                del record.features[i]
+                if 0 <= record.features[i + 1].location.start - record.features[i].location.start <= 2:
+                    if enter.duplicate and enter.palindromic or enter.palindromic:
+                        if record.features[i].qualifiers['bound_moiety'] == \
+                                record.features[i + 1].qualifiers['bound_moiety']:
+                            remove_feature_with_lowest_score(record.features, i, i + 1)
+                    elif enter.duplicate:
+                        if record.features[i].qualifiers['bound_moiety'] == \
+                                record.features[i + 1].qualifiers['bound_moiety'] and \
+                                record.features[i].strand == record.features[i + 1]:
+                            remove_feature_with_lowest_score(record.features, i, i + 1)
     output_features = []
     # if some features coordinates were replaced due to incorrect location parts joining, restore original values
     if len(replaced_location_features) > 0:
-        for index,feature in enumerate(record.features):
+        for index, feature in enumerate(record.features):
             for ind, edited_feature in enumerate(replaced_location_features):
                 # check locus_tag and db_xref attributes to find feature with replaced coordinates
                 try:
                     if edited_feature.qualifiers['locus_tag'] == feature.qualifiers['locus_tag'] and \
                         edited_feature.qualifiers['db_xref'] == feature.qualifiers['db_xref'] and \
-                            edited_feature.__dict__['type'] == feature.__dict__['type'] :
+                            edited_feature.__dict__['type'] == feature.__dict__['type']:
                         record.features[index] = replaced_location_features[ind]
                         break
                 except KeyError:
@@ -859,8 +748,8 @@ for record in records:
             del feature.qualifiers['cds_down_gene']
         if 'cds_up_gene' in feature.qualifiers.keys():
             del feature.qualifiers['cds_up_gene']
-    print ('\nFeatures added:', len(output_features))
-    print ('\n' + "-"*50)
+    print('\nFeatures added:', len(output_features))
+    print('\n' + "-"*50)
     SeqIO.write(record, output_handle, 'genbank')
     total += int(len(output_features))
     break
@@ -871,6 +760,6 @@ new_output_file.writelines(newlines)
 new_output_file.close()
 input_handle.close()
 t_stop = process_time()
-print ('Total features: ', total)
-print ('CPU time: {0:.3f} sec'.format(t_stop-t_start))
-print ('\n' + "="*50)
+print('Total features: ', total)
+print('CPU time: {0:.3f} sec'.format(t_stop-t_start))
+print('\n' + "="*50)
