@@ -506,7 +506,7 @@ for up_operon in operon_list:
     if is_divergon == True:
         operon_list[operon_list.index(up_operon)] = divergon
 operon_list = [operon_list[index] for index in range(len(operon_list)) if not any(index == indel for indel in intodel)]
-operon_out = 'OperOn 1.14 (January 27, 2017)\n' + ('=' * 50) + '\n\n'
+operon_out = 'OperOn 1.15 (September 27, 2020)\n' + ('=' * 50) + '\n\n'
 operon_out += 'Regulator\tGene\tLocus_tag\tProduct\n'
 regulator_counter = []
 intodel = []

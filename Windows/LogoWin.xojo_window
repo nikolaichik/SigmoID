@@ -6703,7 +6703,7 @@ End
 		    'adjustFirstX and LastX to letter boundaries:
 		    lastX=(ceil((X+7)/30)-1)*30+7
 		    if lastx<37 then lastx=37
-		    self.Invalidate(false)
+		    Invalidate(false)
 		    
 		  end if
 		End Sub
