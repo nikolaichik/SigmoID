@@ -5316,7 +5316,7 @@ End
 		    Redim GenomeWin.HmmHitDescriptions(0)
 		    Redim genomeWin.HmmHitNames(0)
 		    
-		    If ubound(tfoutput) > 0 Then
+		    If ubound(tfoutput) > -1 Then
 		      Try 
 		        tfsites_json = GenerateJSON(tfoutput)
 		      Catch JSONException
