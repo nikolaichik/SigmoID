@@ -53,6 +53,7 @@ Begin Window GenomeWin
       Width           =   1067
    End
    Begin Timer ToolTipTimer
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -78,7 +79,8 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   2
       TabPanelIndex   =   0
-      Top             =   0
+      TabStop         =   True
+      Top             =   2
       Transparent     =   True
       Visible         =   True
       Width           =   177
@@ -108,7 +110,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   0
+      Top             =   2
       Transparent     =   True
       Underline       =   False
       Value           =   False
@@ -162,7 +164,8 @@ Begin Window GenomeWin
       SelectionType   =   2
       TabIndex        =   5
       TabPanelIndex   =   0
-      Top             =   0
+      TabStop         =   True
+      Top             =   2
       Transparent     =   True
       Visible         =   True
       Width           =   41
@@ -243,6 +246,7 @@ Begin Window GenomeWin
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   359
       Transparent     =   True
@@ -355,6 +359,7 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -367,6 +372,7 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -416,7 +422,7 @@ Begin Window GenomeWin
       TextFont        =   "System"
       TextSize        =   0.0
       Tooltip         =   ""
-      Top             =   0
+      Top             =   2
       Transparent     =   True
       Underlined      =   False
       Visible         =   True
@@ -469,6 +475,7 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -530,6 +537,7 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -1240,7 +1248,9 @@ End
 			'end if
 			wend
 			end if
-			LogoWin.WriteToSTDOUT("Red: "+ Infile.name +EndOfLine.UNIX)
+			'LogoWin.WriteToSTDOUT("Red: "+ Infile.name +EndOfLine.UNIX)
+			LogoWin.WriteToSTDOUT(Infile.NativePath,"Red")
+			LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
 			elseif UBound(self.Genome.ReadDepth2)<1 then 
 			
 			redim self.Genome.ReadDepth2(0)
@@ -1282,7 +1292,9 @@ End
 			wend
 			
 			end if
-			LogoWin.WriteToSTDOUT("Brown: "+ Infile.name +EndOfLine.UNIX)
+			'LogoWin.WriteToSTDOUT("Brown: "+ Infile.name +EndOfLine.UNIX)
+			LogoWin.WriteToSTDOUT(Infile.NativePath,"Brown")
+			LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
 			elseif UBound(self.Genome.ReadDepth3)<1 then 
 			
 			redim self.Genome.ReadDepth3(0)
@@ -1325,7 +1337,9 @@ End
 			wend
 			
 			end if
-			LogoWin.WriteToSTDOUT("Green: "+ Infile.name +EndOfLine.UNIX)
+			'LogoWin.WriteToSTDOUT("Green: "+ Infile.name +EndOfLine.UNIX)
+			LogoWin.WriteToSTDOUT(Infile.NativePath,"Green")
+			LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
 			else
 			redim self.Genome.ReadDepth4(0)
 			InStream = infile.OpenAsTextFile
@@ -1367,7 +1381,9 @@ End
 			wend
 			
 			end if
-			LogoWin.WriteToSTDOUT("Blue: "+ Infile.name +EndOfLine.UNIX)
+			'LogoWin.WriteToSTDOUT("Blue: "+ Infile.name +EndOfLine.UNIX)
+			LogoWin.WriteToSTDOUT(Infile.NativePath,"Blue")
+			LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
 			End If
 			
 			genome.baselineY=100 'make room for the graph
@@ -1786,33 +1802,82 @@ End
 		    If instream=Nil Then Return
 		    If plotFile.Type="WIG" Then     'Rockhopper/IGV track: drop first two lines
 		      aLine=trim(InStream.readLine)
-		      aLine=trim(InStream.readLine)
+		      
 		    End If
+		    aLine=trim(InStream.readLine)
+		    
 		    
 		    select case n
 		    case 1
-		      while not InStream.EOF
-		        aLine=trim(InStream.readLine)
-		        Self.Genome.ReadDepth1.Append(Val(aLine))
-		      Wend
+		      
+		      if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools depth)
+		        instream.close 
+		        InStream = plotFile.OpenAsTextFile
+		        redim genome.ReadDepth1(len(Genome.Sequence))
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          posNo=val(NthField(aLine,TabChar,2))
+		          Genome.ReadDepth1(posNo)=val(NthField(aLine,TabChar,3))
+		        wend
+		      else
+		        instream.close 
+		        InStream = plotFile.OpenAsTextFile 'have to reopen to retrieve the 1st line
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          Self.Genome.ReadDepth1.Append(Val(aLine))
+		        Wend
+		      end if
 		      LogoWin.WriteToSTDOUT(FileNameArr(1)+EndOfLine.UNIX,"Red")
 		    Case 2
-		      while not InStream.EOF
-		        aLine=trim(InStream.readLine)
-		        self.Genome.ReadDepth2.Append(val(aLine))
-		      Wend
+		      if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools depth)
+		        instream.close
+		        InStream =plotFile.OpenAsTextFile
+		        redim genome.ReadDepth2(len(Genome.Sequence))
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          posNo=val(NthField(aLine,TabChar,2))
+		          Genome.ReadDepth2(posNo)=val(NthField(aLine,TabChar,3))
+		        wend
+		      else
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          self.Genome.ReadDepth2.Append(val(aLine))
+		        Wend
+		      end if
 		      LogoWin.WriteToSTDOUT(FileNameArr(2)+EndOfLine.UNIX,"Brown")
 		    Case 3
-		      while not InStream.EOF
-		        aLine=trim(InStream.readLine)
-		        self.Genome.ReadDepth3.Append(val(aLine))
-		      wend
+		      if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools depth)
+		        instream.close
+		        InStream = plotFile.OpenAsTextFile
+		        redim genome.ReadDepth3(len(Genome.Sequence))
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          posNo=val(NthField(aLine,TabChar,2))
+		          Genome.ReadDepth3(posNo)=val(NthField(aLine,TabChar,3))
+		        wend
+		      else
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          self.Genome.ReadDepth3.Append(val(aLine))
+		        wend
+		      end if
 		      LogoWin.WriteToSTDOUT(FileNameArr(3)+EndOfLine.UNIX,"Green")
 		    Case 4
-		      while not InStream.EOF
-		        aLine=trim(InStream.readLine)
-		        Self.Genome.ReadDepth4.Append(Val(aLine))
-		      wend
+		      if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools depth)
+		        instream.close
+		        InStream =plotFile.OpenAsTextFile
+		        redim genome.ReadDepth4(len(Genome.Sequence))
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          posNo=val(NthField(aLine,TabChar,2))
+		          Genome.ReadDepth4(posNo)=val(NthField(aLine,TabChar,3))
+		        wend
+		      else
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          Self.Genome.ReadDepth4.Append(Val(aLine))
+		        wend
+		      end if
 		      LogoWin.WriteToSTDOUT(FileNameArr(4)+EndOfLine.UNIX,"Blue")
 		    End Select
 		    instream.close
@@ -3037,12 +3102,13 @@ End
 		    Dim s as TextOutputStream=TextOutputStream.Create(outfile)
 		    if s<> NIL then
 		      u=ubound(Genome.Features)
+		      dim pseudoCount As Integer
 		      for n=1 to u
 		        ft=Genome.Features(n)
 		        if left(ft.featuretext,3)="CDS" then
-		          if instr(ft.featuretext,"/pseudo")>0 then 'a pseudogene – don't export, just report
-		            LogoWin.WriteToSTDOUT (locusTag(ft.featuretext)+" is a pseudogene, hence was not exported"+EndOfLine)
-		            
+		          if instr(ft.featuretext,"/pseudo")>0 then 'a pseudogene – don't export, just count or(and) report
+		            'LogoWin.WriteToSTDOUT (locusTag(ft.featuretext)+" is a pseudogene, hence was not exported"+EndOfLine)
+		            pseudoCount=pseudoCount+1
 		          else
 		            TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
 		            TitleLine=">"+trim(NthField(TitleLine,separ2,1))
@@ -3073,7 +3139,10 @@ End
 		          end if
 		        end if
 		      next
-		      
+		      if pseudoCount>0 then
+		        LogoWin.WriteToSTDOUT (str(pseudoCount)+" pseudogenes were ignored"+EndOfLine)
+		        
+		      end if
 		      s.close
 		      LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
 		    end if
