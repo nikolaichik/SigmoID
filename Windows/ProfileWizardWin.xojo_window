@@ -2991,7 +2991,7 @@ End
 		  'fix for unified data format DD/MM/YYYY
 		  cinfo = d.Day.ToString + "/" + d.Month.ToString + "/" + d.Year.ToString + ":"
 		  If lastIdx>0 Then 'continue existing list
-		    CuratorList.CellValueAt(LastIdx,2)=cInfo+"profile modified"
+		    CuratorList.CellValueAt(LastIdx,2)=cInfo+" profile modified"
 		  Else                               'first entry
 		    CuratorList.CellValueAt(LastIdx,2)=cInfo+" profile created"
 		  End If

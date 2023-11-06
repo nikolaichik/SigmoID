@@ -144,11 +144,11 @@ if platform.system() != 'Windows':
     edited_input = enter.input_file.replace(' ', '\\ ')
     edited_input = edited_input.replace('(', '\(')
     edited_input = edited_input.replace(')', '\)')
-    ptt_converter = 'python %s/ptt_converter.py %s' % (renamed_cwd, edited_input)
+    ptt_converter = 'python3 %s/ptt_converter.py %s' % (renamed_cwd, edited_input)
 else:
-    # This is an error. We are using Python 3. It is better to use just 'python'.
+    # Potential source of an an error. We are using Python 3 which can be called as 'python3' or just 'python'.
     #ptt_converter = 'C:\Python27\python %s\ptt_converter.py %s' % (expterm_cwd, enter.input_file.replace(' ', '^ '))
-    ptt_converter = 'python "%s\ptt_converter.py" %s' % (expterm_cwd, enter.input_file.replace(' ', '^ '))
+    ptt_converter = 'python3 "%s\ptt_converter.py" %s' % (expterm_cwd, enter.input_file.replace(' ', '^ '))
 os.system(ptt_converter)
     
 # sets paths for TransTerm HP input files

@@ -136,7 +136,7 @@
 				Begin BuildProjectStep Build
 				End
 				Begin CopyFilesBuildStep CopyFiles1
-					AppliesTo = 1
+					AppliesTo = 0
 					Destination = 1
 					Subdirectory = 
 					FolderItem = Li4vUHJvZmlsZXMv

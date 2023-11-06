@@ -34,7 +34,7 @@ Begin Window HmmLibResults
       AllowRowReordering=   False
       Bold            =   False
       ColumnCount     =   9
-      ColumnWidths    =   "90,45,75,165,105,90,75,75,*"
+      ColumnWidths    =   "95,55,95,155,120,90,65,55,*"
       DataField       =   ""
       DataSource      =   ""
       DefaultRowHeight=   -1

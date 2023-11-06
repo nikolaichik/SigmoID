@@ -218,9 +218,17 @@ Protected Module Globals
 		Function CleanUpRefs(res As string) As string
 		  // To be used both with new refs and with existing profiles when re-saving them
 		  
+		  dim r1, r2, r3 as string
+		  r1=NthField(res,chr(9), 1)
+		  r2=NthField(res,chr(9), 2)
+		  r3=NthField(res,chr(9), 3)
+		  
 		  'DOI.org URL might be appended by the converter to the very end of the reference, but is not reqired here – removing
-		  res=NthField(res,"https://doi.org/", 1) 'sometimes it's a URL
-		  res=NthField(res," doi:", 1)            'sometimes it's just doi:
+		  r1=NthField(r1,"https://doi.org/", 1) 'sometimes it's a URL
+		  r1=NthField(r1," doi:", 1)            'sometimes it's just doi:
+		  
+		  res=r1+chr(9)+r2+chr(9)+r3
+		  
 		  res=ReplaceAll(res, "Portico."," ")     'Some more junk cleaning
 		  
 		  'Replace some non-ASCII characters:

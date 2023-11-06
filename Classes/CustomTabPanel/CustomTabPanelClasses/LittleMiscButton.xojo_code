@@ -232,6 +232,62 @@ Protected Class LittleMiscButton
 			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
+		#tag ViewProperty
+			Name="clicked"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="data"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="down"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="mask"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="over"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="pic"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="picture"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="toggle"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="boolean"
+			EditorType=""
+		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
 #tag EndClass
