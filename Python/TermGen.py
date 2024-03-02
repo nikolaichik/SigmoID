@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os, platform
 import argparse
 import sys

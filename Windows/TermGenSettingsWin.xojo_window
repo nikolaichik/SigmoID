@@ -110,7 +110,7 @@ Begin Window TermGenSettingsWin
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   22
       TabPanelIndex   =   0
       TabStop         =   True

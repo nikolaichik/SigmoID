@@ -13,9 +13,10 @@ Protected Class DBimporter
 
 	#tag Method, Flags = &h0
 		Sub Constructor()
-		  query = New MSSQLServerDatabase()
+		  'query = New MSSQLServerDatabase()
+		  query = New ODBCDatabase()
 		  query.Host = "217.21.43.34\SQLEXPRESS"
-		  query.Port = 1433
+		  'query.Port = 1433
 		  query.DatabaseName = "sigmo_id_1"
 		  query.UserName = "sigmo_id_oper"
 		  query.Password = "rfebiosigmo#id#"
@@ -412,6 +413,15 @@ Protected Class DBimporter
 	#tag EndMethod
 
 
+	#tag Note, Name = Deprecated!
+		MSSQLServerDatabase was deprecated in version 2023r2. Xojo suggests to use ODBCDatabase as a replacement.
+		
+		Since this class was newer complete, we fix compilation issue by replacing MSSQLServerDatabase with ODBCDatabase without any required changes.
+		
+		Once again, this class does not work yet.
+		
+	#tag EndNote
+
 	#tag Note, Name = inputMap keys
 		dirName as string
 		sl(2) as string // sl(2)=dirName.split("_")
@@ -449,7 +459,7 @@ Protected Class DBimporter
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private query As MSSQLServerDatabase
+		Private query As ODBCDatabase
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
