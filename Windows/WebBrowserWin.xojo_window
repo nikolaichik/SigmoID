@@ -42,7 +42,7 @@ Begin Window WebBrowserWin
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   "True"
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   27
       Transparent     =   False
@@ -176,13 +176,13 @@ Begin Window WebBrowserWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   575
          Transparent     =   False
          Underline       =   False
-         Value           =   ""
          Visible         =   False
          Width           =   141
       End
@@ -275,6 +275,7 @@ Begin Window WebBrowserWin
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -282,7 +283,6 @@ Begin Window WebBrowserWin
          Transparent     =   True
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   False
          Width           =   200
       End
@@ -729,7 +729,8 @@ End
 		  
 		  'closeBox=New closeBoxButton(p.CopyColorChannels, p.CopyMask,p.CopyColorChannels,p.CopyColorChannels)
 		  'data as picture, mask as picture, over as picture, clicked as picture
-		  closeBox=New closeBoxButton(CloseBoxNorm.CopyColorChannels, CloseBoxNorm.CopyMask,CloseBoxNorm.CopyColorChannels,CloseBoxDark.CopyColorChannels)
+		  
+		  closeBox=New closeBoxButton(CloseBoxNorm.CopyColorChannels, CloseBoxNorm.CopyMask,CloseBoxDark.Copymask,CloseBoxLight.CopyMask)
 		  
 		  closebox.toggle=True
 		  closebox.clicked=True

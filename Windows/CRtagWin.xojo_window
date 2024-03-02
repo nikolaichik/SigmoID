@@ -50,13 +50,13 @@ Begin Window CRtagWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "hmmsearch result:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
       Underline       =   False
-      Value           =   "hmmsearch result:"
       Visible         =   True
       Width           =   138
    End
@@ -66,7 +66,7 @@ Begin Window CRtagWin
       AllowSpellChecking=   True
       AllowStyledText =   True
       AllowTabs       =   False
-      BackgroundColor =   &cFF00FFFF
+      BackgroundColor =   &c00000000
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
@@ -97,14 +97,15 @@ Begin Window CRtagWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   52
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   "0"
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   560
    End
@@ -133,13 +134,13 @@ Begin Window CRtagWin
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Result table:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   164
       Transparent     =   True
       Underline       =   False
-      Value           =   "Result table:"
       Visible         =   True
       Width           =   138
    End
@@ -149,7 +150,7 @@ Begin Window CRtagWin
       AllowSpellChecking=   True
       AllowStyledText =   True
       AllowTabs       =   False
-      BackgroundColor =   &cFF00FFFF
+      BackgroundColor =   &c00000000
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
@@ -180,14 +181,15 @@ Begin Window CRtagWin
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   196
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   "0"
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   560
    End
@@ -216,13 +218,13 @@ Begin Window CRtagWin
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "CR tag positions:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   308
       Transparent     =   True
       Underline       =   False
-      Value           =   "CR tag positions:"
       Visible         =   True
       Width           =   138
    End
@@ -231,7 +233,7 @@ Begin Window CRtagWin
       AllowFocusRing  =   True
       AllowSpellChecking=   False
       AllowTabs       =   False
-      BackgroundColor =   &cFF00FFFF
+      BackgroundColor =   &c00000000
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
@@ -258,6 +260,7 @@ Begin Window CRtagWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -265,7 +268,6 @@ Begin Window CRtagWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   560
    End
@@ -358,13 +360,13 @@ Begin Window CRtagWin
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "CR tag:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   374
       Transparent     =   True
       Underline       =   False
-      Value           =   "CR tag:"
       Visible         =   True
       Width           =   54
    End
@@ -373,7 +375,7 @@ Begin Window CRtagWin
       AllowFocusRing  =   True
       AllowSpellChecking=   False
       AllowTabs       =   False
-      BackgroundColor =   &cFF00FFFF
+      BackgroundColor =   &c00000000
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
@@ -400,6 +402,7 @@ Begin Window CRtagWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -407,7 +410,6 @@ Begin Window CRtagWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   118
    End

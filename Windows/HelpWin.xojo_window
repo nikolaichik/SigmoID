@@ -64,7 +64,7 @@ Begin Window HelpWin
       SelectionType   =   2
       TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   "True"
+      TabStop         =   True
       Top             =   4
       Transparent     =   False
       Visible         =   True
@@ -109,7 +109,7 @@ Begin Window HelpWin
       SelectionType   =   2
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   "True"
+      TabStop         =   True
       Top             =   4
       Transparent     =   False
       Visible         =   True
@@ -242,8 +242,9 @@ End
 		    's0.Icon=br_prev_icon16
 		    's1.Icon=br_next_icon16
 		    '#else
-		    s0.Icon=SystemIcons.GoLeftTemplate
-		    s1.Icon=SystemIcons.GoRightTemplate
+		    s0.Icon=ScaledPic(SystemIcons.GoLeftTemplate,self.ScaleFactor)
+		    s1.Icon=ScaledPic(SystemIcons.GoRightTemplate,self.ScaleFactor)
+		    
 		    '#endif
 		  #endif
 		End Sub
@@ -280,7 +281,8 @@ End
 		    '#If Target64Bit 
 		    's0.icon=home2x
 		    '#else
-		    s0.Icon=SystemIcons.HomeTemplate
+		    s0.Icon=ScaledPic(SystemIcons.HomeTemplate,self.ScaleFactor)
+		    
 		    '#endif
 		  #endif
 		End Sub

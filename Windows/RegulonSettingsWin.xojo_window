@@ -216,6 +216,7 @@ Begin Window RegulonSettingsWin
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "200"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -223,7 +224,6 @@ Begin Window RegulonSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "200"
          Visible         =   True
          Width           =   32
       End
@@ -252,13 +252,13 @@ Begin Window RegulonSettingsWin
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "#kbp"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   365
          Transparent     =   False
          Underline       =   False
-         Value           =   "#kbp"
          Visible         =   True
          Width           =   28
       End
@@ -417,6 +417,7 @@ Begin Window RegulonSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -424,7 +425,6 @@ Begin Window RegulonSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   66
       End
@@ -523,6 +523,7 @@ Begin Window RegulonSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "500"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -530,7 +531,6 @@ Begin Window RegulonSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "500"
          Visible         =   True
          Width           =   32
       End
@@ -559,13 +559,13 @@ Begin Window RegulonSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "#kbp"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   223
          Transparent     =   False
          Underline       =   False
-         Value           =   "#kbp"
          Visible         =   True
          Width           =   26
       End

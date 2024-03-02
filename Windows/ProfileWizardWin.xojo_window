@@ -78,13 +78,13 @@ Begin Window ProfileWizardWin
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "#kTrusted1"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   34
          Transparent     =   False
          Underline       =   False
-         Value           =   "#kTrusted1"
          Visible         =   True
          Width           =   227
       End
@@ -121,6 +121,7 @@ Begin Window ProfileWizardWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -128,7 +129,6 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   46
       End
@@ -157,13 +157,13 @@ Begin Window ProfileWizardWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "#kGathering1"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   68
          Transparent     =   False
          Underline       =   False
-         Value           =   "#kGathering1"
          Visible         =   True
          Width           =   227
       End
@@ -200,6 +200,7 @@ Begin Window ProfileWizardWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -207,7 +208,6 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   46
       End
@@ -236,13 +236,13 @@ Begin Window ProfileWizardWin
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "#kNoise"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   100
          Transparent     =   False
          Underline       =   False
-         Value           =   "#kNoise"
          Visible         =   True
          Width           =   227
       End
@@ -279,6 +279,7 @@ Begin Window ProfileWizardWin
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -286,7 +287,6 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   46
       End
@@ -323,6 +323,7 @@ Begin Window ProfileWizardWin
          TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -330,7 +331,6 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   46
       End
@@ -359,13 +359,13 @@ Begin Window ProfileWizardWin
          TabIndex        =   7
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "MAST p-value threshold:"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   132
          Transparent     =   False
          Underline       =   False
-         Value           =   "MAST p-value threshold:"
          Visible         =   True
          Width           =   227
       End
@@ -456,13 +456,13 @@ Begin Window ProfileWizardWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "Feature to add:"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   99
          Transparent     =   False
          Underline       =   False
-         Value           =   "Feature to add:"
          Visible         =   True
          Width           =   116
       End
@@ -534,6 +534,7 @@ Begin Window ProfileWizardWin
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "bound_moiety"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -541,7 +542,6 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "bound_moiety"
          Visible         =   True
          Width           =   128
       End
@@ -603,13 +603,13 @@ Begin Window ProfileWizardWin
          TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "#kQualifier"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   130
          Transparent     =   False
          Underline       =   False
-         Value           =   "#kQualifier"
          Visible         =   True
          Width           =   79
       End
@@ -646,6 +646,7 @@ Begin Window ProfileWizardWin
          TabIndex        =   7
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -653,7 +654,6 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   101
       End
@@ -695,6 +695,7 @@ Begin Window ProfileWizardWin
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Profile info"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -702,7 +703,6 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "Profile info"
       Visible         =   True
       Width           =   724
    End
@@ -871,13 +871,13 @@ Begin Window ProfileWizardWin
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "TF family HMM:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   178
       Transparent     =   True
       Underline       =   False
-      Value           =   "TF family HMM:"
       Visible         =   True
       Width           =   145
    End
@@ -906,13 +906,13 @@ Begin Window ProfileWizardWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "CRtag coords:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   209
       Transparent     =   True
       Underline       =   False
-      Value           =   "CRtag coords:"
       Visible         =   True
       Width           =   134
    End
@@ -948,6 +948,7 @@ Begin Window ProfileWizardWin
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -955,7 +956,6 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   250
    End
@@ -996,6 +996,7 @@ Begin Window ProfileWizardWin
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ">protein_id\nsequence"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Fasta title line should end with _GB=<Accession>|UP=<Accession> (or just GB=<Accession>)."
@@ -1003,7 +1004,6 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ">protein_id\nsequence"
       Visible         =   True
       Width           =   724
    End
@@ -1032,13 +1032,13 @@ Begin Window ProfileWizardWin
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "CRtag sequence:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   210
       Transparent     =   True
       Underline       =   False
-      Value           =   "CRtag sequence:"
       Visible         =   True
       Width           =   137
    End
@@ -1074,6 +1074,7 @@ Begin Window ProfileWizardWin
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -1081,7 +1082,6 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   176
    End
@@ -1996,7 +1996,8 @@ End
 		  splitP(0)=ReplaceAll(splitP(0),chr(9),"_")                'hmmer doesn't like tabs
 		  
 		  'find NCBI ID (should be at the line end and prefixed with "_GB=" 
-		  pseq=SeedProteinArea.Text
+		  'pseq=SeedProteinArea.Text
+		  Pseq=Join(splitP,endOfLine.UNIX)
 		  If InStr(splitP(0),"_GB=") > 0 and  InStr(splitP(0),"|UP=") >0 Then
 		    'pseq=SeedProteinArea.Text
 		  ElseIf InStr(splitP(0),"_GB=") > 0 Then

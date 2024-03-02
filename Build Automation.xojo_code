@@ -39,10 +39,10 @@
 					FolderItem = Li4vUHl0aG9uL3VuaXByb3QyZ2VucGVwdC5weQ==
 					FolderItem = Li4vUHl0aG9uL3RmX2NsYXNzaWZpZXIucHk=
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
+					FolderItem = 
+					FolderItem = 
+					FolderItem = 
+					FolderItem = 
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1t
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzZg==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzaQ==
@@ -105,11 +105,6 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNt
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNw
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0NvcnluZVJlZ05ldC8=
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
 					FolderItem = Li4vUHl0aG9uL21hdGNoZXNfc2NvcmVfYW5hbHlzaXMucHk=
 					FolderItem = Li4vUHl0aG9uL2NvbGxlY3Rfc3RhdHMucHk=
 					FolderItem = Li4vUHl0aG9uL3RmX2NsYXNzaWZpZXIucHk=
@@ -119,6 +114,11 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzbQ==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzcA==
 					FolderItem = Li4vUHl0aG9uL2FkZF90ZmJzX3RvX2diay5weQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
 				End
 				Begin IDEScriptBuildStep Zip , AppliesTo = 2
 					'Dim result As String
@@ -184,18 +184,8 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNt
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNw
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0NvcnluZVJlZ05ldC8=
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
 					FolderItem = Li4vUHl0aG9uL21hdGNoZXNfc2NvcmVfYW5hbHlzaXMucHk=
 					FolderItem = Li4vUHl0aG9uL2NvbGxlY3Rfc3RhdHMucHk=
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1t
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzZg==
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL25obW1lcl9saWIuaG1tLmgzaQ==
@@ -204,6 +194,13 @@
 					FolderItem = Li4vUHl0aG9uL2FkZF90ZmJzX3RvX2diay5weQ==
 					FolderItem = Li4vUHl0aG9uL3RmX2NsYXNzaWZpZXIucHk=
 					FolderItem = Li4vUHl0aG9uL251bXB5Q2hlY2sucHk=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
+				End
+				Begin SignProjectStep Sign
 				End
 			End
 			Begin BuildStepList Windows
@@ -257,13 +254,13 @@
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNt
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYi5obW0uaDNw
 					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL0NvcnluZVJlZ05ldC8=
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
-					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
 					FolderItem = Li4vUHl0aG9uL21hdGNoZXNfc2NvcmVfYW5hbHlzaXMucHk=
 					FolderItem = Li4vUHl0aG9uL2NvbGxlY3Rfc3RhdHMucHk=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzcA==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzZg==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzbQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1tLmgzaQ==
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2htbWxpYkwuaG1t
 				End
 			End
 #tag EndBuildAutomation

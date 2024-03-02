@@ -298,13 +298,13 @@ Begin Window ConvertProfilesToMEMEWin
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   382
       Transparent     =   True
       Underline       =   False
-      Value           =   ""
       Visible         =   True
       Width           =   360
    End
@@ -403,7 +403,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub CheckTF()
-		  'This mentod is restricted to DebugBuild only due to Xojo database licensing restriction
+		  'This method is restricted to DebugBuild only due to Xojo database licensing restriction
 		  'You may fully enable it if if you have the Database license 
 		  
 		  

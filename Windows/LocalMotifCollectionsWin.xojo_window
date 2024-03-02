@@ -50,13 +50,13 @@ Begin Window LocalMotifCollectionsWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kTFBScollection"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kTFBScollection"
       Visible         =   True
       Width           =   125
    End
@@ -377,13 +377,13 @@ Begin Window LocalMotifCollectionsWin
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   382
       Transparent     =   True
       Underline       =   False
-      Value           =   ""
       Visible         =   True
       Width           =   388
    End
@@ -968,7 +968,8 @@ End
 	#tag Event
 		Sub Open()
 		  #if TargetCocoa then
-		    me.Icon=SystemIcons.Info(20,20)
+		    'me.Icon=SystemIcons.Info(20,20)
+		    me.Icon=ScaledPic(SystemIcons.Info(20,20),self.ScaleFactor)
 		    me.Caption=""
 		  #endif
 		End Sub

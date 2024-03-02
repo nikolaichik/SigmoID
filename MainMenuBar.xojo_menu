@@ -131,9 +131,9 @@ Begin Menu MainMenuBar
          Value = "#kExport2DB"
          Index = -2147483648
          Text = "#kExport2DB"
-         AutoEnabled = True
-         AutoEnable = True
-         Visible = True
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = False
       End
       Begin MenuItem FileConvertSigFilestoFolders
          SpecialMenu = 0

@@ -345,13 +345,13 @@ Begin Window GenomeWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   2
       Transparent     =   False
       Underline       =   False
-      Value           =   ""
       Visible         =   True
       Width           =   194
    End
@@ -359,7 +359,6 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -372,7 +371,6 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -433,7 +431,7 @@ Begin Window GenomeWin
       AllowFocusRing  =   False
       AllowSpellChecking=   False
       AllowTabs       =   False
-      BackgroundColor =   &cFFFF00FF
+      BackgroundColor =   &c00000000
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
@@ -460,6 +458,7 @@ Begin Window GenomeWin
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -467,7 +466,6 @@ Begin Window GenomeWin
       Transparent     =   True
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   False
       Width           =   200
    End
@@ -475,7 +473,6 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -537,7 +534,6 @@ Begin Window GenomeWin
       CertificateFile =   
       CertificatePassword=   ""
       CertificateRejectionFile=   
-      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -752,8 +748,9 @@ End
 		    SearchField.visible=false
 		    '#endif
 		    
-		    s0.Icon=SystemIcons.GoLeftTemplate   'doesn't work on 64 bit
-		    s2.Icon=SystemIcons.GoRightTemplate
+		    s0.Icon=ScaledPic(SystemIcons.GoLeftTemplate,self.ScaleFactor)
+		    s2.Icon=ScaledPic(SystemIcons.GoRightTemplate,self.ScaleFactor)
+		    
 		    s0.Title=""
 		    s2.Title=""
 		    
@@ -7410,10 +7407,13 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Open()
-		  #If TargetCocoa
-		    Me.Items(0).icon=SystemIcons.GoLeftTemplate
-		    Me.Items(2).Icon=SystemIcons.GoRightTemplate
-		  #EndIf
+		  // all settings within self.open
+		  
+		  '#If TargetCocoa
+		  'Me.Items(0).icon=ScaledPic(SystemIcons.GoLeftTemplate,self.ScaleFactor)
+		  'Me.Items(2).icon=ScaledPic(SystemIcons.GoRightTemplate,self.ScaleFactor)
+		  '
+		  '#EndIf
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -7490,8 +7490,8 @@ End
 	#tag Event
 		Sub Open()
 		  #If TargetCocoa
-		    Me.Items(0).icon=SystemIcons.AddTemplate
-		    Me.Items(1).Icon=SystemIcons.RemoveTemplate
+		    Me.Items(0).icon=ScaledPic(SystemIcons.AddTemplate,self.ScaleFactor)
+		    Me.Items(1).icon=ScaledPic(SystemIcons.RemoveTemplate,self.ScaleFactor)
 		    Me.Items(0).title=""
 		    Me.Items(1).title=""
 		  #EndIf

@@ -50,13 +50,13 @@ Begin Window RegPreciseTFcollectionsWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kTFfamily"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kTFfamily"
       Visible         =   True
       Width           =   93
    End
@@ -148,6 +148,7 @@ Begin Window RegPreciseTFcollectionsWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -449,13 +450,13 @@ Begin Window RegPreciseTFcollectionsWin
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   560
       Transparent     =   True
       Underline       =   False
-      Value           =   ""
       Visible         =   True
       Width           =   588
    End
@@ -1354,7 +1355,8 @@ End
 	#tag Event
 		Sub Open()
 		  #if TargetCocoa then
-		    me.Icon=SystemIcons.Info(20,20)
+		    'me.Icon=SystemIcons.Info(20,20)
+		    me.Icon=ScaledPic(SystemIcons.Info(20,20),self.ScaleFactor)
 		    me.Caption=""
 		  #endif
 		End Sub

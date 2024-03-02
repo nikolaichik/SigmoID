@@ -50,13 +50,13 @@ Begin Window ExtendSitesWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kExtendSitesDesc"
       TextAlignment   =   "2"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   14
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kExtendSitesDesc"
       Visible         =   True
       Width           =   462
    End
@@ -85,13 +85,13 @@ Begin Window ExtendSitesWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kLeft"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   96
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kLeft"
       Visible         =   True
       Width           =   34
    End
@@ -120,13 +120,13 @@ Begin Window ExtendSitesWin
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kRight"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   96
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kRight"
       Visible         =   True
       Width           =   38
    End
@@ -162,6 +162,7 @@ Begin Window ExtendSitesWin
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "10"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -169,7 +170,6 @@ Begin Window ExtendSitesWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "10"
       Visible         =   True
       Width           =   40
    End
@@ -205,6 +205,7 @@ Begin Window ExtendSitesWin
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "10"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -212,7 +213,6 @@ Begin Window ExtendSitesWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "10"
       Visible         =   True
       Width           =   40
    End
@@ -312,6 +312,7 @@ Begin Window ExtendSitesWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
@@ -319,7 +320,6 @@ Begin Window ExtendSitesWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   280
    End
@@ -348,13 +348,13 @@ Begin Window ExtendSitesWin
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kGenome_"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   142
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kGenome_"
       Visible         =   True
       Width           =   94
    End
@@ -409,6 +409,10 @@ End
 		End Function
 	#tag EndMenuHandler
 
+
+	#tag Property, Flags = &h0
+		ChangingText As Boolean
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		FastaFile As FolderItem
@@ -558,12 +562,29 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events GenomeField
+	#tag Event
+		Sub TextChange()
+		  if not ChangingText then
+		    dim fpath as string = trim(me.Text)
+		    LogoWin.Genomefile=New FolderItem(fpath, FolderItem.pathModes.Shell)
+		    'LogoWin.Genomefile=GetOpenFolderItem("Genbank;Fasta")
+		    if LogoWin.Genomefile<> Nil And LogoWin.Genomefile.exists then
+		      GenomeField.text=LogoWin.Genomefile.shellpath
+		      ExtendButton.enabled=true
+		    end if
+		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events SelectGenomeButt
 	#tag Event
 		Sub Action()
 		  LogoWin.Genomefile=GetOpenFolderItem("Genbank;Fasta")
 		  if LogoWin.Genomefile<> Nil And LogoWin.Genomefile.exists then
+		    ChangingText=true
 		    GenomeField.text=LogoWin.Genomefile.shellpath
+		    ChangingText=false
 		    ExtendButton.enabled=true
 		  end if
 		End Sub
@@ -804,6 +825,14 @@ End
 		Group="Position"
 		InitialValue="600"
 		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ChangingText"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

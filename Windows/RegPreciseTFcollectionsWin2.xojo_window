@@ -50,13 +50,13 @@ Begin Window RegPreciseTFcollectionsWin2
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kTFfamily"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kTFfamily"
       Visible         =   True
       Width           =   93
    End
@@ -431,13 +431,13 @@ Begin Window RegPreciseTFcollectionsWin2
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   560
       Transparent     =   True
       Underline       =   False
-      Value           =   ""
       Visible         =   True
       Width           =   588
    End
@@ -475,6 +475,7 @@ Begin Window RegPreciseTFcollectionsWin2
    End
    Begin URLConnection WebConnection
       AllowCertificateValidation=   False
+      Enabled         =   True
       HTTPStatusCode  =   0
       Index           =   -2147483648
       LockedInPosition=   False
@@ -1499,7 +1500,8 @@ End
 		Sub Open()
 		  #If TargetCocoa Then
 		    #If Target64Bit
-		      Me.Icon=SystemIcons.Info(20,20)  
+		      'Me.Icon=SystemIcons.Info(20,20)  
+		      me.Icon=ScaledPic(SystemIcons.Info(20,20),self.ScaleFactor)
 		      Me.Caption=""
 		    #EndIf
 		  #endif

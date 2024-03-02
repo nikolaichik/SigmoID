@@ -71,6 +71,7 @@ Begin Window LogoWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -78,7 +79,6 @@ Begin Window LogoWin
       Transparent     =   True
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   1000
    End
@@ -170,6 +170,7 @@ Begin Window LogoWin
          TabIndex        =   0
          TabPanelIndex   =   1
          TabStop         =   True
+         Text            =   "Informer\n"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -177,7 +178,6 @@ Begin Window LogoWin
          Transparent     =   True
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "Informer\n"
          Visible         =   False
          Width           =   1000
       End
@@ -2857,11 +2857,11 @@ End
 		      end if
 		    end if
 		    
-		    if NOT LengthsDiffer then
-		      ViewLogo.Checked=true
-		      ViewSequences.Checked=false
-		      TopPanel.Value=1
-		    end if
+		    'if NOT LengthsDiffer then
+		    ViewLogo.Checked=true
+		    ViewSequences.Checked=false
+		    TopPanel.Value=1
+		    'end if
 		    ViewAlignmentInfo.checked=false
 		    ViewHideViewer.Checked=false
 		    ViewHmmerSettings.Checked=false

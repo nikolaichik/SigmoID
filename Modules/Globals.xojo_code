@@ -4132,6 +4132,15 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function ScaledPic(p as picture, ScaleFactor as double) As picture
+		  var pp as new Picture(p.Width/ScaleFactor,p.Height/ScaleFactor)
+		  pp.Graphics.DrawPicture(p,0,0,pp.Width,pp.Height,0,0,p.Width,p.Height)
+		  return pp
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function SetDefaultFonts(FromFontSelWin as boolean) As string
 		  'try to set the default fonts appropriate for three platforms
 		  

@@ -200,13 +200,13 @@ Begin Window CoryneRegNetWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "CoryneRegNet 7.0 (2020)"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   480
       Transparent     =   False
       Underline       =   False
-      Value           =   "CoryneRegNet 7.0 (2020)"
       Visible         =   True
       Width           =   171
    End
@@ -235,13 +235,13 @@ Begin Window CoryneRegNetWin
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   480
       Transparent     =   False
       Underline       =   False
-      Value           =   ""
       Visible         =   True
       Width           =   283
    End
@@ -270,13 +270,13 @@ Begin Window CoryneRegNetWin
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kGenome_"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kGenome_"
       Visible         =   True
       Width           =   76
    End
@@ -977,7 +977,7 @@ End
 	#tag Event
 		Sub Open()
 		  #if TargetCocoa then
-		    me.Icon=SystemIcons.Info(20,20)
+		    me.Icon=ScaledPic(SystemIcons.Info(20,20),self.ScaleFactor)
 		    me.Caption=""
 		  #endif
 		  

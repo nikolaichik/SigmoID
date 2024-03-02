@@ -867,7 +867,8 @@ End
 	#tag Event
 		Sub Open()
 		  #if TargetCocoa then
-		    me.Icon=SystemIcons.Info(20,20)
+		    'me.Icon=SystemIcons.Info(20,20)
+		    me.Icon=ScaledPic(SystemIcons.Info(20,20),self.ScaleFactor)
 		    me.Caption=""
 		  #endif
 		  
@@ -1030,8 +1031,8 @@ End
 	#tag Event
 		Sub Open()
 		  #If TargetCocoa
-		    Me.Items(0).icon=SystemIcons.GoLeftTemplate
-		    Me.Items(2).Icon=SystemIcons.GoRightTemplate
+		    Me.Items(0).icon=ScaledPic(SystemIcons.GoLeftTemplate,self.ScaleFactor)
+		    Me.Items(2).Icon=ScaledPic(SystemIcons.GoRightTemplate,self.ScaleFactor)
 		  #EndIf
 		End Sub
 	#tag EndEvent
@@ -1372,7 +1373,8 @@ End
 	#tag Event
 		Sub Open()
 		  #If TargetCocoa Then
-		    Me.Icon=SystemIcons.TrashFull(20,20)
+		    Me.Icon=ScaledPic(SystemIcons.TrashFull(20,20),self.ScaleFactor)
+		    
 		    me.Caption=""
 		  #endif
 		  

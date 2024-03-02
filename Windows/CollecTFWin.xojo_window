@@ -200,13 +200,13 @@ Begin Window CollecTFWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "CollecTF December 17, 2015 release"
       TextAlignment   =   "2"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   480
       Transparent     =   False
       Underline       =   False
-      Value           =   "CollecTF December 17, 2015 release"
       Visible         =   True
       Width           =   279
    End
@@ -214,7 +214,6 @@ Begin Window CollecTFWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -233,7 +232,6 @@ Begin Window CollecTFWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -676,7 +674,7 @@ End
 	#tag Event
 		Sub Open()
 		  #if TargetCocoa then
-		    me.Icon=SystemIcons.Info(20,20)
+		    me.Icon=ScaledPic(SystemIcons.Info(20,20),self.ScaleFactor)
 		    me.Caption=""
 		  #endif
 		  
