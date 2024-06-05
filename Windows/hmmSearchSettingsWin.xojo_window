@@ -57,6 +57,7 @@ Begin Window hmmSearchSettingsWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -64,7 +65,6 @@ Begin Window hmmSearchSettingsWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   393
    End
@@ -93,13 +93,13 @@ Begin Window hmmSearchSettingsWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kMoreOptions"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   228
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kMoreOptions"
       Visible         =   True
       Width           =   111
    End
@@ -280,13 +280,13 @@ Begin Window hmmSearchSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   123
          Transparent     =   False
          Underline       =   False
-         Value           =   ""
          Visible         =   True
          Width           =   48
       End
@@ -315,13 +315,13 @@ Begin Window hmmSearchSettingsWin
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   153
          Transparent     =   False
          Underline       =   False
-         Value           =   ""
          Visible         =   True
          Width           =   48
       End
@@ -350,13 +350,13 @@ Begin Window hmmSearchSettingsWin
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   93
          Transparent     =   False
          Underline       =   False
-         Value           =   ""
          Visible         =   True
          Width           =   48
       End
@@ -512,6 +512,7 @@ Begin Window hmmSearchSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -519,7 +520,6 @@ Begin Window hmmSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   40
       End
@@ -556,6 +556,7 @@ Begin Window hmmSearchSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -563,7 +564,6 @@ Begin Window hmmSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   40
       End
@@ -622,7 +622,7 @@ Begin Window hmmSearchSettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True

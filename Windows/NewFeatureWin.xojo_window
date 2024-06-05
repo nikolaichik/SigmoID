@@ -63,6 +63,7 @@ Begin Window NewFeatureWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -70,7 +71,6 @@ Begin Window NewFeatureWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   524
    End
@@ -163,13 +163,13 @@ Begin Window NewFeatureWin
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kLeftCoordinate"
       TextAlignment   =   "2"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
       Underline       =   False
-      Value           =   "#kLeftCoordinate"
       Visible         =   True
       Width           =   131
    End
@@ -205,6 +205,7 @@ Begin Window NewFeatureWin
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -212,7 +213,6 @@ Begin Window NewFeatureWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   87
    End
@@ -248,6 +248,7 @@ Begin Window NewFeatureWin
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -255,7 +256,6 @@ Begin Window NewFeatureWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   87
    End
@@ -284,13 +284,13 @@ Begin Window NewFeatureWin
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kRightCoordinate"
       TextAlignment   =   "2"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
       Underline       =   False
-      Value           =   "#kRightCoordinate"
       Visible         =   True
       Width           =   154
    End
@@ -348,7 +348,7 @@ Begin Window NewFeatureWin
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
@@ -392,6 +392,7 @@ Begin Window NewFeatureWin
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -399,7 +400,6 @@ Begin Window NewFeatureWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   87
    End
@@ -435,6 +435,7 @@ Begin Window NewFeatureWin
       TabIndex        =   19
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -442,7 +443,6 @@ Begin Window NewFeatureWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   128
    End
@@ -471,13 +471,13 @@ Begin Window NewFeatureWin
       TabIndex        =   20
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "locus_tag:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   84
       Transparent     =   True
       Underline       =   False
-      Value           =   "locus_tag:"
       Visible         =   True
       Width           =   91
    End
@@ -506,13 +506,13 @@ Begin Window NewFeatureWin
       TabIndex        =   21
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kFeatureType"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   86
       Transparent     =   True
       Underline       =   False
-      Value           =   "#kFeatureType"
       Visible         =   True
       Width           =   123
    End

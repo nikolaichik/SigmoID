@@ -77,13 +77,13 @@ Begin Window BioProspectWin
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "first block width"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   43
          Transparent     =   False
          Underline       =   False
-         Value           =   "first block width"
          Visible         =   True
          Width           =   100
       End
@@ -112,13 +112,13 @@ Begin Window BioProspectWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "second block width"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   "leave blank for one block motifs"
          Top             =   43
          Transparent     =   False
          Underline       =   False
-         Value           =   "second block width"
          Visible         =   True
          Width           =   126
       End
@@ -155,6 +155,7 @@ Begin Window BioProspectWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -162,7 +163,6 @@ Begin Window BioProspectWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   43
       End
@@ -199,6 +199,7 @@ Begin Window BioProspectWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -206,7 +207,6 @@ Begin Window BioProspectWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   39
       End
@@ -235,13 +235,13 @@ Begin Window BioProspectWin
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "min gap for two blocks motifs"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   156
          Transparent     =   False
          Underline       =   False
-         Value           =   "min gap for two blocks motifs"
          Visible         =   True
          Width           =   217
       End
@@ -278,6 +278,7 @@ Begin Window BioProspectWin
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -285,7 +286,6 @@ Begin Window BioProspectWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   41
       End
@@ -322,6 +322,7 @@ Begin Window BioProspectWin
          TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -329,7 +330,6 @@ Begin Window BioProspectWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   41
       End
@@ -358,13 +358,13 @@ Begin Window BioProspectWin
          TabIndex        =   7
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "max gap  for two blocks motifs"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   116
          Transparent     =   False
          Underline       =   False
-         Value           =   "max gap  for two blocks motifs"
          Visible         =   True
          Width           =   221
       End
@@ -433,6 +433,7 @@ Begin Window BioProspectWin
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -440,7 +441,6 @@ Begin Window BioProspectWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   408
    End
@@ -476,6 +476,7 @@ Begin Window BioProspectWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -483,7 +484,6 @@ Begin Window BioProspectWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   41
    End
@@ -519,6 +519,7 @@ Begin Window BioProspectWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -526,7 +527,6 @@ Begin Window BioProspectWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   41
    End
@@ -555,13 +555,13 @@ Begin Window BioProspectWin
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "use specific background distribution file"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   224
       Transparent     =   False
       Underline       =   False
-      Value           =   "use specific background distribution file"
       Visible         =   True
       Width           =   243
    End
@@ -590,13 +590,13 @@ Begin Window BioProspectWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "number of times trying to find motif"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   351
       Transparent     =   False
       Underline       =   False
-      Value           =   "number of times trying to find motif"
       Visible         =   True
       Width           =   234
    End
@@ -625,13 +625,13 @@ Begin Window BioProspectWin
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "number of reported motifs"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   392
       Transparent     =   False
       Underline       =   False
-      Value           =   "number of reported motifs"
       Visible         =   True
       Width           =   208
    End
@@ -660,13 +660,13 @@ Begin Window BioProspectWin
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "expected base per motif site"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   522
       Transparent     =   False
       Underline       =   False
-      Value           =   "expected base per motif site"
       Visible         =   True
       Width           =   194
    End
@@ -867,6 +867,7 @@ Begin Window BioProspectWin
       TabIndex        =   23
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -874,7 +875,6 @@ Begin Window BioProspectWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   41
    End
@@ -935,13 +935,13 @@ Begin Window BioProspectWin
       TabIndex        =   25
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "use specific background sequence file"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   289
       Transparent     =   False
       Underline       =   False
-      Value           =   "use specific background sequence file"
       Visible         =   True
       Width           =   243
    End
@@ -977,6 +977,7 @@ Begin Window BioProspectWin
       TabIndex        =   26
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -984,7 +985,6 @@ Begin Window BioProspectWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   408
    End

@@ -50,13 +50,13 @@ Begin Window TomTomWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "This command will scan the folder you select for files named 'meme.txt' and use these to run TomTom vs motif libraries located in the specified folder."
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
       Underline       =   False
-      Value           =   "This command will scan the folder you select for files named 'meme.txt' and use these to run TomTom vs motif libraries located in the specified folder."
       Visible         =   True
       Width           =   588
    End
@@ -156,6 +156,7 @@ Begin Window TomTomWin
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
@@ -163,7 +164,6 @@ Begin Window TomTomWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   342
    End
@@ -192,13 +192,13 @@ Begin Window TomTomWin
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Query folder:"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   81
       Transparent     =   False
       Underline       =   False
-      Value           =   "Query folder:"
       Visible         =   True
       Width           =   132
    End
@@ -266,6 +266,7 @@ Begin Window TomTomWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
@@ -273,7 +274,6 @@ Begin Window TomTomWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   342
    End
@@ -302,13 +302,13 @@ Begin Window TomTomWin
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "TF library folder:"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   115
       Transparent     =   False
       Underline       =   False
-      Value           =   "TF library folder:"
       Visible         =   True
       Width           =   132
    End
@@ -376,6 +376,7 @@ Begin Window TomTomWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
@@ -383,7 +384,6 @@ Begin Window TomTomWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   342
    End
@@ -412,13 +412,13 @@ Begin Window TomTomWin
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "TomTom options:"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   183
       Transparent     =   False
       Underline       =   False
-      Value           =   "TomTom options:"
       Visible         =   True
       Width           =   132
    End
@@ -486,6 +486,7 @@ Begin Window TomTomWin
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
@@ -493,7 +494,6 @@ Begin Window TomTomWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   342
    End
@@ -522,13 +522,13 @@ Begin Window TomTomWin
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Background model:"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   149
       Transparent     =   False
       Underline       =   False
-      Value           =   "Background model:"
       Visible         =   True
       Width           =   132
    End

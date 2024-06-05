@@ -114,13 +114,13 @@ Begin Window MEMESettingsWin
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kNumberOfMotifs2find"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   154
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kNumberOfMotifs2find"
       Visible         =   True
       Width           =   146
    End
@@ -253,6 +253,7 @@ Begin Window MEMESettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "25"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -260,7 +261,6 @@ Begin Window MEMESettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "25"
          Visible         =   True
          Width           =   40
       End
@@ -297,6 +297,7 @@ Begin Window MEMESettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "15"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -304,7 +305,6 @@ Begin Window MEMESettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "15"
          Visible         =   True
          Width           =   40
       End
@@ -333,13 +333,13 @@ Begin Window MEMESettingsWin
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "#kMin"
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   48
          Transparent     =   False
          Underline       =   False
-         Value           =   "#kMin"
          Visible         =   True
          Width           =   77
       End
@@ -368,13 +368,13 @@ Begin Window MEMESettingsWin
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "#kMax"
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   48
          Transparent     =   False
          Underline       =   False
-         Value           =   "#kMax"
          Visible         =   True
          Width           =   85
       End
@@ -469,13 +469,13 @@ Begin Window MEMESettingsWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kMotifsPerSequence"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   186
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kMotifsPerSequence"
       Visible         =   True
       Width           =   146
    End

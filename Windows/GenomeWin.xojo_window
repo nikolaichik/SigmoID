@@ -58,7 +58,7 @@ Begin Window GenomeWin
       InitialParent   =   ""
       LockedInPosition=   False
       Period          =   700
-      RunMode         =   "1"
+      RunMode         =   1
       Scope           =   0
       TabPanelIndex   =   0
    End
@@ -115,7 +115,7 @@ Begin Window GenomeWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   390
    End
    Begin ScrollBar HScrollBar
@@ -346,7 +346,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   2
@@ -364,7 +364,7 @@ Begin Window GenomeWin
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
-      SSLConnectionType=   "5"
+      SSLConnectionType=   5
       TabPanelIndex   =   0
    End
    Begin sHTTPSocket UniProtSocket
@@ -376,7 +376,7 @@ Begin Window GenomeWin
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
-      SSLConnectionType=   "5"
+      SSLConnectionType=   5
       TabPanelIndex   =   0
    End
    Begin Cocoa.NSSearchField NSSearchField1
@@ -459,7 +459,7 @@ Begin Window GenomeWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   -54
@@ -478,7 +478,7 @@ Begin Window GenomeWin
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
-      SSLConnectionType=   "5"
+      SSLConnectionType=   5
       TabPanelIndex   =   0
    End
    Begin ProgressWheel ProgressWheel1
@@ -538,7 +538,7 @@ Begin Window GenomeWin
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
-      SSLConnectionType=   "3"
+      SSLConnectionType=   3
       TabPanelIndex   =   0
    End
 End
@@ -961,795 +961,1008 @@ End
 
 	#tag MenuHandler
 		Function AlignmentConvertToHmm() As Boolean Handles AlignmentConvertToHmm.Action
-			
-			Return True
-			
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function AnnotateMEMEres() As Boolean Handles AnnotateMEMEres.Action
-			LogoWin.AnnotateMEMEresults
-			Return True
-			
+		  LogoWin.AnnotateMEMEresults
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditClose() As Boolean Handles EditClose.Action
-			close
-			Return True
-			
+		  close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditCopy() As Boolean Handles EditCopy.Action
-			' Copies protein sequence if a CDS is selected, otherwise copies DNA seq
-			
-			If AnythingSelected Then
-			If SelFeatureNo<=Ubound(seq.features) Then 'workaround for scrolling problem
-			if SelFeatureNo>0 then
-			if seq.Features(SelFeatureNo).type="CDS" then
-			CopyAA(false)
-			else
-			CopyDNA
-			end if
-			else
-			CopyDNA
-			end if
-			else
-			CopyDNA
-			end if
-			end if
-			
-			
-			
-			
-			'Return True
-			
+		  ' Copies protein sequence if a CDS is selected, otherwise copies DNA seq
+		  
+		  If AnythingSelected Then
+		    If SelFeatureNo<=Ubound(seq.features) Then 'workaround for scrolling problem
+		      if SelFeatureNo>0 then
+		        if seq.Features(SelFeatureNo).type="CDS" then
+		          CopyAA(false)
+		        else
+		          CopyDNA
+		        end if
+		      else
+		        CopyDNA
+		      end if
+		    else
+		      CopyDNA
+		    end if
+		  end if
+		  
+		  
+		  
+		  
+		  'Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditCopyTranslation() As Boolean Handles EditCopyTranslation.Action
-			CopyAA(false)
+		  CopyAA(false)
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			Close
-			Return True
-			
+		  Close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileExportCDSsequences() As Boolean Handles FileExportCDSsequences.Action
-			gbk2CDS
-			Return True
-			
+		  gbk2CDS
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileExportFeatureTable() As Boolean Handles FileExportFeatureTable.Action
-			gbk2tbl
-			Return True
-			
+		  gbk2tbl
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileExportProteinSequences() As Boolean Handles FileExportProteinSequences.Action
-			gbk2protein
-			Return True
-			
+		  gbk2protein
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileExportSequence() As Boolean Handles FileExportSequence.Action
-			gbk2fasta
-			Return True
-			
+		  gbk2fasta
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FilePageSetup() As Boolean Handles FilePageSetup.Action
-			Dim ps as PrinterSetup
-			ps=New PrinterSetup
-			
-			If PageSetup <> "" then
-			ps.SetupString=PageSetup
-			End if
-			
-			If ps.PageSetupDialog then
-			PageSetup=ps.setupstring
-			end if
+		  Dim ps as PrinterSetup
+		  ps=New PrinterSetup
+		  
+		  If PageSetup <> "" then
+		    ps.SetupString=PageSetup
+		  End if
+		  
+		  If ps.PageSetupDialog then
+		    PageSetup=ps.setupstring
+		  end if
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FilePrint() As Boolean Handles FilePrint.Action
-			Dim g as Graphics
-			Dim ps as PrinterSetup
-			
-			ps=new PrinterSetup
-			Dim pageWidth as Integer
-			Dim pageHeight as Integer
-			ps.MaxHorizontalResolution=300
-			ps.MaxVerticalResolution=300
-			
-			If PageSetup <> "" then //PageSetup contains properties
-			ps.setupString=PageSetup
-			pageWidth=ps.Width-36
-			pageHeight=ps.Height-36
-			// open Print dialog with Page Setup properties
-			g=openPrinterDialog(ps)
-			else
-			g=openPrinterDialog() //open dg w/o Page Setup properties
-			pageWidth=300*7.5 //default width and height
-			pageHeight=300*9
-			end if
-			If g <> Nil then //user didn't cancel Print dialog
-			self.drawinto(g,0,0)
-			End If
-			
-			
-			
-			
-			Return True
-			
+		  Dim g as Graphics
+		  Dim ps as PrinterSetup
+		  
+		  ps=new PrinterSetup
+		  Dim pageWidth as Integer
+		  Dim pageHeight as Integer
+		  ps.MaxHorizontalResolution=300
+		  ps.MaxVerticalResolution=300
+		  
+		  If PageSetup <> "" then //PageSetup contains properties
+		    ps.setupString=PageSetup
+		    pageWidth=ps.Width-36
+		    pageHeight=ps.Height-36
+		    // open Print dialog with Page Setup properties
+		    g=openPrinterDialog(ps)
+		  else
+		    g=openPrinterDialog() //open dg w/o Page Setup properties
+		    pageWidth=300*7.5 //default width and height
+		    pageHeight=300*9
+		  end if
+		  If g <> Nil then //user didn't cancel Print dialog
+		    self.drawinto(g,0,0)
+		  End If
+		  
+		  
+		  
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileSaveCheckedSites() As Boolean Handles FileSaveCheckedSites.Action
-			Dim outfile as FolderItem
-			dim outstream As TextOutputStream
-			dim n, leftC, rightC as integer
-			dim hitSeq as string
-			
-			Dim dlg as New SaveAsDialog
-			dlg.InitialDirectory=genomefile.Parent
-			'dlg.promptText="Select a name for Fasta file to export sequence to."
-			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".fasta"
-			dlg.Title="Save selected sites"
-			dlg.Filter=FileTypes.Fasta
-			dlg.CancelButtonCaption=kCancel
-			dlg.ActionButtonCaption=kSave
-			outfile=dlg.ShowModalwithin(self)
-			if outfile<>nil then
-			outstream = TextOutputStream.Create(outfile)
-			outstream.write(GetCheckedHits)
-			outstream.Close
-			
-			end if
-			
-			
-			
+		  Dim outfile as FolderItem
+		  dim outstream As TextOutputStream
+		  dim n, leftC, rightC as integer
+		  dim hitSeq as string
+		  
+		  Dim dlg as New SaveAsDialog
+		  dlg.InitialDirectory=genomefile.Parent
+		  'dlg.promptText="Select a name for Fasta file to export sequence to."
+		  dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".fasta"
+		  dlg.Title="Save selected sites"
+		  dlg.Filter=FileTypes.Fasta
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  outfile=dlg.ShowModalwithin(self)
+		  if outfile<>nil then
+		    outstream = TextOutputStream.Create(outfile)
+		    outstream.write(GetCheckedHits)
+		    outstream.Close
+		    
+		  end if
+		  
+		  
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileSaveGenome() As Boolean Handles FileSaveGenome.Action
-			SaveGenome
-			Return True
-			
+		  SaveGenome
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileSaveGenomeAs() As Boolean Handles FileSaveGenomeAs.Action
-			dim f as FolderItem
-			
-			f=GetSaveFolderItem("GenBank",GenomeFile.Name)
-			
-			if f<>nil then
-			SaveGenBankFile(f)
-			end if
-			
-			
-			Return True
-			
+		  dim f as FolderItem
+		  
+		  f=GetSaveFolderItem("GenBank",GenomeFile.Name)
+		  
+		  if f<>nil then
+		    SaveGenBankFile(f)
+		  end if
+		  
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeAddPlot() As Boolean Handles GenomeAddPlot.Action
-			// plots any data from a text file 
-			' The file should have one number per genome base pair,
-			' single number per line.
-			
-			'RNA-seq coverage is a special case
-			'SigmoID will recognise depth data generated by samtools (command:samtools depth)
-			'the input should have three tab-separated columns:
-			'<seq name> <position #> <depth>
-			
-			
-			//open file with depth data
-			dim infile as folderitem
-			Dim dlg as New OpenDialog
-			
-			'#If Not TargetLinux Then
-			'dlg.InitialDirectory = SpecialFolder.Documents
-			'#Else //open Home directory on linux
-			'dlg.InitialDirectory = SpecialFolder.Home
-			'#Endif
-			
-			dlg.promptText="Select a text file with data to plot"
-			dlg.Title="Open file with data to plot"
-			dlg.Filter="FileTypes.Text;FileTypes.WIG"
-			infile=dlg.ShowModal()
-			
-			if infile<> Nil then
-			If Right(Infile.name,6)=".plots" Then 
-			'add four plots specified in the .plots file
-			'(four lines with full shell paths) 
-			Add4Plots(infile)   
-			return false
-			end if
-			
-			//load the data into array attached to seq object:
-			
-			dim instream as TextInputStream
-			dim aLine as string
-			dim posNo as integer
-			dim tabChar as string = chr(9)
-			
-			
-			
-			InStream = infile.OpenAsTextFile
-			if infile.Type="WIG" then     'Rockhopper/IGV track: drop first two lines
-			aLine=trim(InStream.readLine)
-			aLine=trim(InStream.readLine)
-			end if
-			LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Adding a plot..."+EndOfLine.UNIX)
-			
-			if UBound(self.Genome.ReadDepth1)<1 then     'Loading first track
-			aLine=trim(InStream.readLine)
-			if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools)
-			instream.close
-			InStream = infile.OpenAsTextFile
-			redim genome.ReadDepth1(len(Genome.Sequence))
-			while not InStream.EOF
-			aLine=trim(InStream.readLine)
-			posNo=val(NthField(aLine,TabChar,2))
-			Genome.ReadDepth1(posNo)=val(NthField(aLine,TabChar,3))
-			wend
-			else
-			instream.close
-			InStream = infile.OpenAsTextFile
-			
-			while not InStream.EOF
-			aLine=trim(InStream.readLine)
-			'check if we have the expected numerical data:
-			'the check is nice but slow: disabling
-			'if str(val(aline))<>aline then
-			''problems start when counts are over 1000000 
-			'dim c as integer
-			'c=val(aline)
-			'if str(c)<>aline then
-			'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
-			'return false
-			'end if
-			'end if
-			self.Genome.ReadDepth1.Append(val(aLine))
-			'if UBound(self.Genome.ReadDepth1)<>linecount then
-			'redim self.Genome.ReadDepth1(0)  'to prevent display of faulty data
-			'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
-			'return false
-			'end if
-			wend
-			end if
-			'LogoWin.WriteToSTDOUT("Red: "+ Infile.name +EndOfLine.UNIX)
-			LogoWin.WriteToSTDOUT(Infile.NativePath,"Red")
-			LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
-			elseif UBound(self.Genome.ReadDepth2)<1 then 
-			
-			redim self.Genome.ReadDepth2(0)
-			InStream = infile.OpenAsTextFile
-			aLine=trim(InStream.readLine)
-			if CountFields(aLine,TabChar)=3 then'triple column file (e.g. produced by samtools)
-			instream.close
-			InStream = infile.OpenAsTextFile
-			redim genome.ReadDepth2(len(Genome.Sequence))
-			while not InStream.EOF
-			aLine=trim(InStream.readLine)
-			posNo=val(NthField(aLine,TabChar,2))
-			Genome.ReadDepth2(posNo)=val(NthField(aLine,TabChar,3))
-			wend
-			else
-			instream.close
-			InStream = infile.OpenAsTextFile
-			
-			while not InStream.EOF
-			aLine=trim(InStream.readLine)
-			'check if we have the expected numerical data:
-			'the check is nice but slow: disabling
-			'if str(val(aline))<>aline then
-			''problems start when counts are over 1000000 
-			'dim c as integer
-			'c=val(aline)
-			'if str(c)<>aline then
-			'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
-			'return false
-			'end if
-			'end if
-			
-			self.Genome.ReadDepth2.Append(val(aLine))
-			'if UBound(self.Genome.ReadDepth2)<>linecount then
-			'redim self.Genome.ReadDepth2(0)  'to prevent display of faulty data
-			'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
-			'return false
-			'end if
-			wend
-			
-			end if
-			'LogoWin.WriteToSTDOUT("Brown: "+ Infile.name +EndOfLine.UNIX)
-			LogoWin.WriteToSTDOUT(Infile.NativePath,"Brown")
-			LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
-			elseif UBound(self.Genome.ReadDepth3)<1 then 
-			
-			redim self.Genome.ReadDepth3(0)
-			InStream = infile.OpenAsTextFile
-			aLine=trim(InStream.readLine)
-			if CountFields(aLine,TabChar)=3 then'triple column file (e.g. produced by samtools)
-			instream.close
-			InStream = infile.OpenAsTextFile
-			redim genome.ReadDepth3(len(Genome.Sequence))
-			while not InStream.EOF
-			aLine=trim(InStream.readLine)
-			posNo=val(NthField(aLine,TabChar,2))
-			Genome.ReadDepth3(posNo)=val(NthField(aLine,TabChar,3))
-			
-			wend
-			else
-			instream.close
-			InStream = infile.OpenAsTextFile
-			
-			while not InStream.EOF
-			aLine=trim(InStream.readLine)
-			'check if we have the expected numerical data:
-			'the check is nice but slow: disabling
-			'if str(val(aline))<>aline then
-			''problems start when counts are over 1000000 
-			'dim c as integer
-			'c=val(aline)
-			'if str(c)<>aline then
-			'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
-			'return false
-			'end if
-			'end if
-			
-			self.Genome.ReadDepth3.Append(val(aLine))
-			'if UBound(self.Genome.ReadDepth3)<>linecount then
-			'redim self.Genome.ReadDepth3(0)  'to prevent display of faulty data
-			'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
-			'return false
-			'end if
-			wend
-			
-			end if
-			'LogoWin.WriteToSTDOUT("Green: "+ Infile.name +EndOfLine.UNIX)
-			LogoWin.WriteToSTDOUT(Infile.NativePath,"Green")
-			LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
-			else
-			redim self.Genome.ReadDepth4(0)
-			InStream = infile.OpenAsTextFile
-			aLine=trim(InStream.readLine)
-			if CountFields(aLine,TabChar)=3 then'triple column file (e.g. produced by samtools)
-			instream.close
-			InStream = infile.OpenAsTextFile
-			redim genome.ReadDepth4(len(Genome.Sequence))
-			while not InStream.EOF
-			aLine=trim(InStream.readLine)
-			posNo=val(NthField(aLine,TabChar,2))
-			Genome.ReadDepth4(posNo)=val(NthField(aLine,TabChar,3))
-			
-			wend
-			else
-			instream.close
-			InStream = infile.OpenAsTextFile
-			
-			while not InStream.EOF
-			aLine=trim(InStream.readLine)
-			'check if we have the expected numerical data:
-			'the check is nice but slow: disabling
-			'if str(val(aline))<>aline then
-			''problems start when counts are over 1000000 
-			'dim c as integer
-			'c=val(aline)
-			'if str(c)<>aline then
-			'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
-			'return false
-			'end if
-			'end if
-			
-			self.Genome.ReadDepth4.Append(val(aLine))
-			'if UBound(self.Genome.ReadDepth4)<>linecount then
-			'redim self.Genome.ReadDepth4(0)  'to prevent display of faulty data
-			'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
-			'return false
-			'end if
-			wend
-			
-			end if
-			'LogoWin.WriteToSTDOUT("Blue: "+ Infile.name +EndOfLine.UNIX)
-			LogoWin.WriteToSTDOUT(Infile.NativePath,"Blue")
-			LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
-			End If
-			
-			genome.baselineY=100 'make room for the graph
-			ExtractFragment(1,10000)
-			TextMap(0,0)
-			end if
-			
-			Exception err
-			ExceptionHandler(err,"GenomeWin:GenomeAddPlot")
+		  // plots any data from a text file 
+		  ' The file should have one number per genome base pair,
+		  ' single number per line.
+		  
+		  'RNA-seq coverage is a special case
+		  'SigmoID will recognise depth data generated by samtools (command:samtools depth)
+		  'the input should have three tab-separated columns:
+		  '<seq name> <position #> <depth>
+		  
+		  
+		  //open file with depth data
+		  dim infile as folderitem
+		  Dim dlg as New OpenDialog
+		  
+		  '#If Not TargetLinux Then
+		  'dlg.InitialDirectory = SpecialFolder.Documents
+		  '#Else //open Home directory on linux
+		  'dlg.InitialDirectory = SpecialFolder.Home
+		  '#Endif
+		  
+		  dlg.promptText="Select a text file with data to plot"
+		  dlg.Title="Open file with data to plot"
+		  dlg.Filter="FileTypes.Text;FileTypes.WIG"
+		  infile=dlg.ShowModal()
+		  
+		  if infile<> Nil then
+		    If Right(Infile.name,6)=".plots" Then 
+		      'add four plots specified in the .plots file
+		      '(four lines with full shell paths) 
+		      Add4Plots(infile)   
+		      return false
+		    end if
+		    
+		    //load the data into array attached to seq object:
+		    
+		    dim instream as TextInputStream
+		    dim aLine as string
+		    dim posNo as integer
+		    dim tabChar as string = chr(9)
+		    
+		    
+		    
+		    InStream = infile.OpenAsTextFile
+		    if infile.Type="WIG" then     'Rockhopper/IGV track: drop first two lines
+		      aLine=trim(InStream.readLine)
+		      aLine=trim(InStream.readLine)
+		    end if
+		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Adding a plot..."+EndOfLine.UNIX)
+		    
+		    if UBound(self.Genome.ReadDepth1)<1 then     'Loading first track
+		      aLine=trim(InStream.readLine)
+		      if CountFields(aLine,TabChar)=3 then        'Triple column file (e.g. produced by samtools)
+		        instream.close
+		        InStream = infile.OpenAsTextFile
+		        redim genome.ReadDepth1(len(Genome.Sequence))
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          posNo=val(NthField(aLine,TabChar,2))
+		          Genome.ReadDepth1(posNo)=val(NthField(aLine,TabChar,3))
+		        wend
+		      else
+		        instream.close
+		        InStream = infile.OpenAsTextFile
+		        
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          'check if we have the expected numerical data:
+		          'the check is nice but slow: disabling
+		          'if str(val(aline))<>aline then
+		          ''problems start when counts are over 1000000 
+		          'dim c as integer
+		          'c=val(aline)
+		          'if str(c)<>aline then
+		          'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
+		          'return false
+		          'end if
+		          'end if
+		          self.Genome.ReadDepth1.Append(val(aLine))
+		          'if UBound(self.Genome.ReadDepth1)<>linecount then
+		          'redim self.Genome.ReadDepth1(0)  'to prevent display of faulty data
+		          'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
+		          'return false
+		          'end if
+		        wend
+		      end if
+		      'LogoWin.WriteToSTDOUT("Red: "+ Infile.name +EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT(Infile.NativePath,"Red")
+		      LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
+		    elseif UBound(self.Genome.ReadDepth2)<1 then 
+		      
+		      redim self.Genome.ReadDepth2(0)
+		      InStream = infile.OpenAsTextFile
+		      aLine=trim(InStream.readLine)
+		      if CountFields(aLine,TabChar)=3 then'triple column file (e.g. produced by samtools)
+		        instream.close
+		        InStream = infile.OpenAsTextFile
+		        redim genome.ReadDepth2(len(Genome.Sequence))
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          posNo=val(NthField(aLine,TabChar,2))
+		          Genome.ReadDepth2(posNo)=val(NthField(aLine,TabChar,3))
+		        wend
+		      else
+		        instream.close
+		        InStream = infile.OpenAsTextFile
+		        
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          'check if we have the expected numerical data:
+		          'the check is nice but slow: disabling
+		          'if str(val(aline))<>aline then
+		          ''problems start when counts are over 1000000 
+		          'dim c as integer
+		          'c=val(aline)
+		          'if str(c)<>aline then
+		          'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
+		          'return false
+		          'end if
+		          'end if
+		          
+		          self.Genome.ReadDepth2.Append(val(aLine))
+		          'if UBound(self.Genome.ReadDepth2)<>linecount then
+		          'redim self.Genome.ReadDepth2(0)  'to prevent display of faulty data
+		          'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
+		          'return false
+		          'end if
+		        wend
+		        
+		      end if
+		      'LogoWin.WriteToSTDOUT("Brown: "+ Infile.name +EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT(Infile.NativePath,"Brown")
+		      LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
+		    elseif UBound(self.Genome.ReadDepth3)<1 then 
+		      
+		      redim self.Genome.ReadDepth3(0)
+		      InStream = infile.OpenAsTextFile
+		      aLine=trim(InStream.readLine)
+		      if CountFields(aLine,TabChar)=3 then'triple column file (e.g. produced by samtools)
+		        instream.close
+		        InStream = infile.OpenAsTextFile
+		        redim genome.ReadDepth3(len(Genome.Sequence))
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          posNo=val(NthField(aLine,TabChar,2))
+		          Genome.ReadDepth3(posNo)=val(NthField(aLine,TabChar,3))
+		          
+		        wend
+		      else
+		        instream.close
+		        InStream = infile.OpenAsTextFile
+		        
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          'check if we have the expected numerical data:
+		          'the check is nice but slow: disabling
+		          'if str(val(aline))<>aline then
+		          ''problems start when counts are over 1000000 
+		          'dim c as integer
+		          'c=val(aline)
+		          'if str(c)<>aline then
+		          'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
+		          'return false
+		          'end if
+		          'end if
+		          
+		          self.Genome.ReadDepth3.Append(val(aLine))
+		          'if UBound(self.Genome.ReadDepth3)<>linecount then
+		          'redim self.Genome.ReadDepth3(0)  'to prevent display of faulty data
+		          'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
+		          'return false
+		          'end if
+		        wend
+		        
+		      end if
+		      'LogoWin.WriteToSTDOUT("Green: "+ Infile.name +EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT(Infile.NativePath,"Green")
+		      LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
+		    else
+		      redim self.Genome.ReadDepth4(0)
+		      InStream = infile.OpenAsTextFile
+		      aLine=trim(InStream.readLine)
+		      if CountFields(aLine,TabChar)=3 then'triple column file (e.g. produced by samtools)
+		        instream.close
+		        InStream = infile.OpenAsTextFile
+		        redim genome.ReadDepth4(len(Genome.Sequence))
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          posNo=val(NthField(aLine,TabChar,2))
+		          Genome.ReadDepth4(posNo)=val(NthField(aLine,TabChar,3))
+		          
+		        wend
+		      else
+		        instream.close
+		        InStream = infile.OpenAsTextFile
+		        
+		        while not InStream.EOF
+		          aLine=trim(InStream.readLine)
+		          'check if we have the expected numerical data:
+		          'the check is nice but slow: disabling
+		          'if str(val(aline))<>aline then
+		          ''problems start when counts are over 1000000 
+		          'dim c as integer
+		          'c=val(aline)
+		          'if str(c)<>aline then
+		          'msgbox "The data don't seem to be in the expected format. Can't draw these! (original: "+aline+"; numerical: "+str(val(aline))
+		          'return false
+		          'end if
+		          'end if
+		          
+		          self.Genome.ReadDepth4.Append(val(aLine))
+		          'if UBound(self.Genome.ReadDepth4)<>linecount then
+		          'redim self.Genome.ReadDepth4(0)  'to prevent display of faulty data
+		          'msgbox "Line no "+ str(linecount)+" of depth data has position number label "+str(posNo)+". Exiting since these values must match."
+		          'return false
+		          'end if
+		        wend
+		        
+		      end if
+		      'LogoWin.WriteToSTDOUT("Blue: "+ Infile.name +EndOfLine.UNIX)
+		      LogoWin.WriteToSTDOUT(Infile.NativePath,"Blue")
+		      LogoWin.WriteToSTDOUT(EndOfLine.UNIX,"Black")
+		    End If
+		    
+		    genome.baselineY=100 'make room for the graph
+		    ExtractFragment(1,10000)
+		    TextMap(0,0)
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:GenomeAddPlot")
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function GenomeAnnotateSignalPeptides() As Boolean Handles GenomeAnnotateSignalPeptides.Action
+		  // Add signal peptide annotation to the genome file currently loaded and diplay the modified file
+		  
+		  ' SignalP v.6 must be run (and "output.gff3" result file generated) berore running this function
+		  ' "Export Protein Sequences" menu command must be used to generate the input file for SignalP
+		  
+		  'Typical SignalP6 output looks like this:
+		  ' ## gff-version 3                                
+		  ' QKJ38654.1 D-alanyl-D-alanine carboxypeptidase    SignalP-6.0    signal_peptide    1    31    0.8324504    .    .    .
+		  ' QKJ38799.1 DUF4825 domain-containing protein    SignalP-6.0    lipoprotein_signal_peptide    1    17    1    .    .    .
+		  ' QKJ39956.1 metallophosphoesterase    SignalP-6.0    signal_peptide    1    31    0.9999997    .    .    Note=TAT
+		  ' QKJ40846.1 hypothetical protein    SignalP-6.0    signal_peptide    1    6    0.50000256    .    .    Note=Pilin
+		  '
+		  ' SignalP infers 5 types of signal peptides:
+		  ' SP(Sec/SPI)    LIPO(Sec/SPII)    PILIN(Sec/SPIII)    TAT(Tat/SPI)    TATLIPO(Tat/SPII)
+		  ' In GFF3 file, these variants are labeled inconvenietly and two columns (#3 and 9) must be checked for SP type
+		  ' SignalP version (column 2) should also be checked for matching the "SignalP-6.0" string
+		  
+		  ' Reasonable signal peptide annotation may lool like this:
+		  ' sig_peptide     complement(1767344..1767409)
+		  ' /gene="virB2"
+		  ' /locus_tag="OA04_15840"
+		  ' /inference="ab initio prediction:SignalP:6.0"
+		  ' /note="signal peptide probability 0.9998"
+		  
+		  Dim newCoord, newGene, newTag, PID, FTline as string
+		  Dim dlg as New OpenDialog
+		  Dim infile as folderitem
+		  Dim tis as TextInputStream
+		  Dim aLine, SPtype, SPnote, Pname,FText, newFText, FTemp as String
+		  Dim LeftSep as string = "/protein_id="+chr(34)
+		  Dim RightSep as string = chr(34)
+		  DIm SPend, SPstart , SPlen, leftC as integer
+		  Dim SPprob as Double
+		  Dim tab As String = Chr(9)
+		  DIm FTindex, FTcount as integer
+		  Dim complement as boolean
+		  
+		  
+		  FTcount=Ubound(Genome.Features)
+		  
+		  dlg.promptText="Select an 'output.gff3' file with SignalP v. 6.0 results"
+		  dlg.Title="Open SignalP6 output.gff3 file"
+		  dlg.Filter="FileTypes.GFF3"
+		  infile=dlg.ShowModal()
+		  
+		  if InFile<> Nil then
+		    if InFile.exists then
+		      LogoWin.show
+		      LogoWin.WriteToSTDOUT (EndofLine.unix+"Annotating signal peptides... ")
+		      
+		      'Validate the input
+		      tis=infile.openAsTextFile
+		      If tis<>Nil Then
+		        aLine=tis.readLine
+		        if aline.instr("## gff-version 3")>0 then
+		          aLine=tis.readLine
+		          FTemp=nthfield(aline,tab,2)
+		          if FTemp<>"SignalP-6.0" then
+		            MsgBox("Please check the input. It doesn't seem to be a gff3 file produced by SignalP v.6.0")
+		            tis.close
+		            Return False
+		          end if
+		        else
+		          MsgBox("Please check the input. It doesn't seem to be a gff3 file produced by SignalP v.6.0")
+		          tis.close
+		          Return False
+		        end if
+		        tis.close
+		      end if
+		      
+		      'Read and process SignalP data line by line
+		      tis=infile.openAsTextFile
+		      If tis<>Nil Then
+		        While Not tis.EOF
+		          'read and decode signal peptide info
+		          aLine=tis.readLine
+		          SPtype=nthfield(aline,tab,3)
+		          SPnote=nthfield(aline,tab,9)
+		          Pname=nthfield(aline," ",1)
+		          SPlen=val(nthfield(aline,tab,5))*3   'length of the signal peptide x 3
+		          SPprob=val(nthfield(aline,tab,6))
+		          
+		          'FInd matching protein record
+		          for FTindex=1 to FTcount
+		            FText=Genome.Features(FTindex).FeatureText 'only feature text is stored in full genome object
+		            If left(FText,3)="CDS" Then
+		              
+		              'newCoord, newGene, newTag, PID, FTline
+		              
+		              PID=nthfield(FText,LeftSep,2)
+		              PID=nthfield(PID,RightSep,1)
+		              If PID=Pname then
+		                'Set SP coordinates
+		                newFText=nthField(FText,EndOfLine.UNIX,1)
+		                newFText=newFText.Replace(" ",tab)
+		                newFText=newFText.ReplaceAll(" ","")
+		                FTemp=nthField(newFText,tab,2)
+		                If instr(newFText, "complement")>0 then
+		                  complement=true
+		                  SPstart=val(nthField(FTemp,"..",2))
+		                  SPend=SPstart-SPlen+1
+		                  newFText="sig_peptide     complement("+str(SPend)+".."+str(SPstart)+")"+EndOfLine.UNIX
+		                  leftC=SPend
+		                else
+		                  complement=false
+		                  SPstart=val(nthField(FTemp,"..",1))
+		                  SPend=SPstart+SPlen-1
+		                  newFText="sig_peptide     "+str(SPstart)+".."+str(SPend)+EndOfLine.UNIX
+		                  leftC=SPstart
+		                End If
+		                'add gene name if present
+		                FTemp=nthField(FText,"/gene=",2)
+		                FTemp=nthField(FTemp,EndOfLine.UNIX,1)
+		                if FTemp<>"" then
+		                  newFText=newFText+"/gene="+FTemp+EndOfLine.UNIX
+		                End If
+		                
+		                'add locus_tag
+		                FTemp=nthField(FText,"/locus_tag=",2)
+		                FTemp=nthField(FTemp,EndOfLine.UNIX,1)
+		                newFText=newFText+"/locus_tag="+FTemp+EndOfLine.UNIX
+		                
+		                'add inference info
+		                newFText=newFText+"/inference="+Chr(34)+"ab initio prediction:SignalP:6.0"+Chr(34)+EndOfLine.UNIX
+		                
+		                'add SP type and probability
+		                if SPtype="signal_peptide" and SPnote="." then
+		                  newFText=newFText+"/note="+Chr(34)+"Signal peptide probability "+str(SPprob)+Chr(34)
+		                elseif  SPtype="signal_peptide" and SPnote="Note=TAT" then
+		                  newFText=newFText+"/note="+Chr(34)+"TAT translocase signal peptide probability "+str(SPprob)+Chr(34)
+		                elseif  SPtype="signal_peptide" and SPnote="Note=Pilin" then
+		                  newFText=newFText+"/note="+Chr(34)+"Pre-pilin translocase signal peptide probability "+str(SPprob)+Chr(34)
+		                elseif  SPtype="lipoprotein_signal_peptide" and SPnote="." then
+		                  newFText=newFText+"/note="+Chr(34)+"Lipoprotein signal peptide probability "+str(SPprob)+Chr(34)
+		                elseif  SPtype="lipoprotein_signal_peptide" and SPnote="Note=TAT" then
+		                  newFText=newFText+"/note="+Chr(34)+"TAT translocase lipoprotein signal peptide probability "+str(SPprob)+Chr(34)
+		                elseif  SPtype="lipoprotein_signal_peptide" and SPnote="Note=Pilin" then
+		                  MsgBox "Unlikely combination of Pilin and Lipoprotein-type SP features for "+Pname
+		                else
+		                  MsgBox "Can't determine signal peptide type for "+Pname
+		                  
+		                End If
+		                // Add the assembled feature to the genome:
+		                
+		                'determine the position to insert the feature(s)
+		                dim n,m, NewFeatureNo as integer
+		                m=Ubound(Genome.Features)
+		                
+		                NewFeatureNo=0
+		                if complement then
+		                  for n=1 to m
+		                    if Genome.Features(n).start-Genome.Features(n).length>leftC then
+		                      NewFeatureNo=n-1
+		                      exit
+		                    end if
+		                  next
+		                else
+		                  for n=1 to m
+		                    if Genome.Features(n).start>leftC then
+		                      NewFeatureNo=n-1
+		                      exit
+		                    end if
+		                  next
+		                end if
+		                
+		                'if NewFeatureNo=0 then 'unlikely to happen, but still...
+		                'NewFeatureNo=m
+		                'end if
+		                
+		                'add the actual new feature:
+		                dim ft as GBFeature
+		                ft=new GBFeature(Genome.baselineY)
+		                ft.FeatureText=newFText
+		                FillFeatureProperties(ft,ft.FeatureText)
+		                Genome.Features.Insert(NewFeatureNo,ft) '
+		                exit
+		              End If
+		              
+		            End If
+		          next
+		          
+		        Wend
+		        tis.close
+		      End If
+		      
+		      
+		      
+		      
+		      
+		    end if
+		    
+		  end if
+		  
+		  
+		  'update the display:
+		  ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
+		  
+		  'mark genome changed:
+		  GenomeChanged=true
+		  IsModified=true
+		  LogoWin.WriteToSTDOUT ("OK."+EndofLine.unix)
+		  GenomeWin.show
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:AnnotateSignalPeptides")
+		    
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeEditFeature() As Boolean Handles GenomeEditFeature.Action
-			EditFeature(seq.Features(SelFeatureNo))
-			Return True
-			
+		  EditFeature(seq.Features(SelFeatureNo))
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeEditGene() As Boolean Handles GenomeEditGene.Action
-			EditGene(seq.Features(SelFeatureNo))
-			Return True
-			
+		  EditGene(seq.Features(SelFeatureNo))
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeFind() As Boolean Handles GenomeFind.Action
-			#if TargetMacOS then
-			'#If Target64Bit Then
-			''NSSearchField class in MacOSLib seems to be broken for 64bit
-			'SearchField.SetFocus
-			'SearchField.SelectAll
-			'#else
-			NSSearchField1.SetFocus
-			NSSearchField1.SelectAll
-			'#endif
-			#Else
-			SearchField.SetFocus
-			SearchField.SelectAll
-			#endif
-			
-			'
-			'FindWin.showmodalwithin(self)
-			'
-			'if FindWin.OKpressed then
-			'SearchPosition=0
-			'query=trim(FindWin.FindField.text)
-			'
-			'topStrandSearched=false
-			'if isACGT(query) then 'detect if query is sequence or plain text
-			'Search4sequence(query)
-			'else
-			'Search4text(query)
-			'end if
-			'end if
-			
+		  #if TargetMacOS then
+		    '#If Target64Bit Then
+		    ''NSSearchField class in MacOSLib seems to be broken for 64bit
+		    'SearchField.SetFocus
+		    'SearchField.SelectAll
+		    '#else
+		    NSSearchField1.SetFocus
+		    NSSearchField1.SelectAll
+		    '#endif
+		  #Else
+		    SearchField.SetFocus
+		    SearchField.SelectAll
+		  #endif
+		  
+		  '
+		  'FindWin.showmodalwithin(self)
+		  '
+		  'if FindWin.OKpressed then
+		  'SearchPosition=0
+		  'query=trim(FindWin.FindField.text)
+		  '
+		  'topStrandSearched=false
+		  'if isACGT(query) then 'detect if query is sequence or plain text
+		  'Search4sequence(query)
+		  'else
+		  'Search4text(query)
+		  'end if
+		  'end if
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeFindAgain() As Boolean Handles GenomeFindAgain.Action
-			'continue from the current SearchPosition
-			SelFeatureNo=0
-			if isACGT(query) then 'detect if query is sequence or plain text
-			Search4sequence(query)
-			else
-			Search4text(query)
-			end if
-			
+		  'continue from the current SearchPosition
+		  SelFeatureNo=0
+		  if isACGT(query) then 'detect if query is sequence or plain text
+		    Search4sequence(query)
+		  else
+		    Search4text(query)
+		  end if
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeGenomeInfo() As Boolean Handles GenomeGenomeInfo.Action
-			// show the header of GenBank file
-			
-			DocWin.Editor.text=Header
-			DocWin.Title=self.Title+" Info"
-			DocWin.show
-			
-			Return True
-			
+		  // show the header of GenBank file
+		  
+		  DocWin.Editor.text=Header
+		  DocWin.Title=self.Title+" Info"
+		  DocWin.show
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeGenomeStatistics() As Boolean Handles GenomeGenomeStatistics.Action
-			GenomeStats
-			Return True
-			
+		  GenomeStats
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeGetCRtags() As Boolean Handles GenomeGetCRtags.Action
-			CRtagWin.show
-			Return True
-			
+		  CRtagWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeGoto() As Boolean Handles GenomeGoto.Action
-			GoToWin.parent=self
-			GoToWin.ShowModalWithin(self)
-			
-			Return True
-			
+		  GoToWin.parent=self
+		  GoToWin.ShowModalWithin(self)
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeListRegulons() As Boolean Handles GenomeListRegulons.Action
-			OperOnOptions=""
-			RegulonSettingsWin.showmodalwithin(self)
-			if RegulonSettingsWin.OKpressed then
-			OperOn
-			end if
-			
+		  OperOnOptions=""
+		  RegulonSettingsWin.showmodalwithin(self)
+		  if RegulonSettingsWin.OKpressed then
+		    OperOn
+		  end if
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeMergePlotData() As Boolean Handles GenomeMergePlotData.Action
-			MergePlotDataWin.inFile1Field.Text=""
-			MergePlotDataWin.inFile2Field.Text=""
-			MergePlotDataWin.OutFileField.Text=""
-			
-			MergePlotDataWin.show
-			Return True
-			
+		  MergePlotDataWin.inFile1Field.Text=""
+		  MergePlotDataWin.inFile2Field.Text=""
+		  MergePlotDataWin.OutFileField.Text=""
+		  
+		  MergePlotDataWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeNewFeature() As Boolean Handles GenomeNewFeature.Action
-			AddFeature
-			Return True
-			
+		  AddFeature
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomePrintMap() As Boolean Handles GenomePrintMap.Action
-			PrintMap
-			Return True
-			
+		  PrintMap
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeRemoveFeature() As Boolean Handles GenomeRemoveFeature.Action
-			RemoveFeature(SelFeatureNo)
-			Return True
-			
+		  RemoveFeature(SelFeatureNo)
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeRemoveFeatures() As Boolean Handles GenomeRemoveFeatures.Action
-			RemoveFeatures(SelFeatureNo)
-			Return True
-			
+		  RemoveFeatures(SelFeatureNo)
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeRemovePlots() As Boolean Handles GenomeRemovePlots.Action
-			redim genome.ReadDepth1(0)
-			redim genome.ReadDepth2(0)
-			redim genome.ReadDepth3(0)
-			redim genome.ReadDepth4(0)
-			genome.baselineY=20 'make room for the graph
-			ExtractFragment(1,10000)
-			TextMap(0,0)
-			Return True
-			
+		  redim genome.ReadDepth1(0)
+		  redim genome.ReadDepth2(0)
+		  redim genome.ReadDepth3(0)
+		  redim genome.ReadDepth4(0)
+		  genome.baselineY=20 'make room for the graph
+		  ExtractFragment(1,10000)
+		  TextMap(0,0)
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeRemoveSites() As Boolean Handles GenomeRemoveSites.Action
-			// Code modified (simplified) from
-			' RemoveFeature(ContextFeature)
-			' being simplified, it doesn't handle situations with just added sites gracefully!
-			
-			// Assumes there's an object selected
-			' all objects of the same type and with the same name will be deleted
-			' (meant to be used with repeated features,
-			' for single features contextual menu should be used)
-			
-			// Only TFBSs handled at this time!
-			
-			Dim n,u,topObj As Integer
-			Dim p As picture
-			Dim FeatureNo As Integer ' = ContextFeature
-			
-			p=Seq.Map
-			topObj= p.Objects.Count-1
-			
-			For n=1 To topObj 'skip zero object that contains selection
-			If p.Objects.Item(n) IsA cClickableShape Then
-			
-			If cClickableShape(p.Objects.Item(n)).Selected Then
-			FeatureNo=n/2
-			Exit
-			Else
-			
-			End
-			
-			End
-			Next
-			
-			If FeatureNo=0 Then Return False 'Nothing selected
-			
-			// get feature type and name
-			' protein_bind    223284..223298
-			' /inference="profile:nhmmer:3.1b1"
-			' /bound_moiety="CpxR"
-			
-			Dim fname As String = seq.Features(FeatureNo).FeatureText
-			fname=NthField(fname,"/bound_moiety=",2)
-			fname=NthField(fname,Chr(34),2)
-			fname="/bound_moiety="+Chr(34)+fname+Chr(34)
-			
-			
-			
-			'Convert FeatureNo to whole genome numbering and delete
-			
-			
-			u=ubound(Genome.Features)
-			
-			For n=u DownTo 1
-			If InStr(Genome.Features(n).FeatureText,fname)>0 Then
-			Genome.Features.Remove n
-			End If
-			Next
-			'update the display:
-			ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
-			
-			'mark genome changed:
-			GenomeChanged=True
-			Self.IsModified=True
-			
-			
-			Return True
-			
+		  // Code modified (simplified) from
+		  ' RemoveFeature(ContextFeature)
+		  ' being simplified, it doesn't handle situations with just added sites gracefully!
+		  
+		  // Assumes there's an object selected
+		  ' all objects of the same type and with the same name will be deleted
+		  ' (meant to be used with repeated features,
+		  ' for single features contextual menu should be used)
+		  
+		  // Only TFBSs handled at this time!
+		  
+		  Dim n,u,topObj As Integer
+		  Dim p As picture
+		  Dim FeatureNo As Integer ' = ContextFeature
+		  
+		  p=Seq.Map
+		  topObj= p.Objects.Count-1
+		  
+		  For n=1 To topObj 'skip zero object that contains selection
+		    If p.Objects.Item(n) IsA cClickableShape Then
+		      
+		      If cClickableShape(p.Objects.Item(n)).Selected Then
+		        FeatureNo=n/2
+		        Exit
+		      Else
+		        
+		      End
+		      
+		    End
+		  Next
+		  
+		  If FeatureNo=0 Then Return False 'Nothing selected
+		  
+		  // get feature type and name
+		  ' protein_bind    223284..223298
+		  ' /inference="profile:nhmmer:3.1b1"
+		  ' /bound_moiety="CpxR"
+		  
+		  Dim fname As String = seq.Features(FeatureNo).FeatureText
+		  fname=NthField(fname,"/bound_moiety=",2)
+		  fname=NthField(fname,Chr(34),2)
+		  fname="/bound_moiety="+Chr(34)+fname+Chr(34)
+		  
+		  
+		  
+		  'Convert FeatureNo to whole genome numbering and delete
+		  
+		  
+		  u=ubound(Genome.Features)
+		  
+		  For n=u DownTo 1
+		    If InStr(Genome.Features(n).FeatureText,fname)>0 Then
+		      Genome.Features.Remove n
+		    End If
+		  Next
+		  'update the display:
+		  ExtractFragment(GBrowseShift,GBrowseShift+DisplayInterval)
+		  
+		  'mark genome changed:
+		  GenomeChanged=True
+		  Self.IsModified=True
+		  
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeTFfamilySearch() As Boolean Handles GenomeTFfamilySearch.Action
-			Dim boo As Boolean
-			
-			if HmmSearchCR then
-			
-			
-			if hmmSearchSettingsWin.AddAnnotationCheckBox.value then
-			'only add annotation if hmmsearch completed OK
-			Dim gbkFile as folderitem
-			Dim dlg as New SaveAsDialog
-			dlg.InitialDirectory=GenomeFile.Parent
-			dlg.promptText="Select where to save the modified GenBank file"
-			dlg.SuggestedFileName=NthField(GenomeFile.displayname,".",1)+"_2"+".gbk"
-			dlg.Title="Save .gbk file"
-			dlg.Filter=FileTypes.GenBank
-			dlg.CancelButtonCaption=kCancel
-			dlg.ActionButtonCaption=kSave
-			
-			gbkFile=dlg.ShowModal
-			If gbkFile <> Nil then
-			'run annotation script:
-			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
-			
-			'This script adds feature notes (with TF family names) to a GenBank file based
-			'on hmmsearch results.
-			'
-			'positional arguments:
-			'hmmsearch_result  path to hmmsearch result file.
-			'input_file        path to input Genbank file.
-			'output_file       path to output Genbank file.
-			'
-			'optional arguments:
-			'-h, --help        show this help message and exit
-			'-f , --family     Adds the name of protein family in GenBank file
-			
-			dim cli as string
-			
-			logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running the ProtFamily script..."+EndofLine)
-			dim GenomeFilePath,outFilePath as string
-			#if TargetWindows
-			'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
-			FixPath4Windows(gbkFile)
-			GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
-			outFilePath=chr(34)+gbkFile.ShellPath+chr(34)
-			#else
-			GenomeFilePath=GenomeFile.shellpath
-			outFilePath=gbkFile.ShellPath
-			#endif
-			
-			dim protFamilyPath as string
-			protFamilyPath=replace(logoWin.hmmGenPath,"hmmGen.py","ProtFamily.py")
-			
-			
-			TFfamilyDesc=Trim(NthField(hmmSearchSettingsWin.PfamPopup.SelectedRowValue,"|",1))
-			TFfamilyDesc=TFfamilyDesc+" family transcription factor'"    'should handle sigma factors differently
-			'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
-			cli=pythonPath+PlaceQuotesToPath(protFamilyPath)+" "
-			hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")  'should not be required
-			If hmmsearchResultFile=Nil Then Return False        
-			cli=cli+PlaceQuotesToPath(hmmsearchResultFile.ShellPath)+" "
-			cli=cli+PlaceQuotesToPath(GenomeFilePath)+" "
-			cli=cli+PlaceQuotesToPath(outFilePath)
-			cli=cli+" -f '"+TFfamilyDesc
-			
-			userShell(cli)
-			If shError=0 Then
-			
-			LogoWin.WriteToSTDOUT (EndofLine+shResult)
-			LogoWin.WriteToSTDOUT (EndofLine.unix+"Genbank file with added TF family notes written to "+gbkFile.ShellPath+EndofLine)
-			else
-			LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily error code: "+Str(shError)+EndofLine)
-			LogoWin.WriteToSTDOUT (EndofLine+shResult)
-			LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily command line was: "+cli+EndofLine)
-			return false
-			end if
-			
-			'WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
-			
-			
-			
-			end if
-			end if
-			end if
-			
-			Return True
-			
-			Exception err
-			ExceptionHandler(err,"GenomeWin:GenomeTFfamilySearch")
-			
+		  Dim boo As Boolean
+		  
+		  if HmmSearchCR then
+		    
+		    
+		    if hmmSearchSettingsWin.AddAnnotationCheckBox.value then
+		      'only add annotation if hmmsearch completed OK
+		      Dim gbkFile as folderitem
+		      Dim dlg as New SaveAsDialog
+		      dlg.InitialDirectory=GenomeFile.Parent
+		      dlg.promptText="Select where to save the modified GenBank file"
+		      dlg.SuggestedFileName=NthField(GenomeFile.displayname,".",1)+"_2"+".gbk"
+		      dlg.Title="Save .gbk file"
+		      dlg.Filter=FileTypes.GenBank
+		      dlg.CancelButtonCaption=kCancel
+		      dlg.ActionButtonCaption=kSave
+		      
+		      gbkFile=dlg.ShowModal
+		      If gbkFile <> Nil then
+		        'run annotation script:
+		        'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
+		        
+		        'This script adds feature notes (with TF family names) to a GenBank file based
+		        'on hmmsearch results.
+		        '
+		        'positional arguments:
+		        'hmmsearch_result  path to hmmsearch result file.
+		        'input_file        path to input Genbank file.
+		        'output_file       path to output Genbank file.
+		        '
+		        'optional arguments:
+		        '-h, --help        show this help message and exit
+		        '-f , --family     Adds the name of protein family in GenBank file
+		        
+		        dim cli as string
+		        
+		        logoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running the ProtFamily script..."+EndofLine)
+		        dim GenomeFilePath,outFilePath as string
+		        #if TargetWindows
+		          'GenomeFilePath=GetShortPathName(GenomeFile.shellpath)
+		          FixPath4Windows(gbkFile)
+		          GenomeFilePath=chr(34)+GenomeFile.shellpath+chr(34)
+		          outFilePath=chr(34)+gbkFile.ShellPath+chr(34)
+		        #else
+		          GenomeFilePath=GenomeFile.shellpath
+		          outFilePath=gbkFile.ShellPath
+		        #endif
+		        
+		        dim protFamilyPath as string
+		        protFamilyPath=replace(logoWin.hmmGenPath,"hmmGen.py","ProtFamily.py")
+		        
+		        
+		        TFfamilyDesc=Trim(NthField(hmmSearchSettingsWin.PfamPopup.SelectedRowValue,"|",1))
+		        TFfamilyDesc=TFfamilyDesc+" family transcription factor'"    'should handle sigma factors differently
+		        'ProtFamily.py <hmmsearch_result> <input_file> <output_file> -f family_name
+		        cli=pythonPath+PlaceQuotesToPath(protFamilyPath)+" "
+		        hmmsearchResultFile=TemporaryFolder.child("hmmsearch.result")  'should not be required
+		        If hmmsearchResultFile=Nil Then Return False        
+		        cli=cli+PlaceQuotesToPath(hmmsearchResultFile.ShellPath)+" "
+		        cli=cli+PlaceQuotesToPath(GenomeFilePath)+" "
+		        cli=cli+PlaceQuotesToPath(outFilePath)
+		        cli=cli+" -f '"+TFfamilyDesc
+		        
+		        userShell(cli)
+		        If shError=0 Then
+		          
+		          LogoWin.WriteToSTDOUT (EndofLine+shResult)
+		          LogoWin.WriteToSTDOUT (EndofLine.unix+"Genbank file with added TF family notes written to "+gbkFile.ShellPath+EndofLine)
+		        else
+		          LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily error code: "+Str(shError)+EndofLine)
+		          LogoWin.WriteToSTDOUT (EndofLine+shResult)
+		          LogoWin.WriteToSTDOUT (EndofLine+"ProtFamily command line was: "+cli+EndofLine)
+		          return false
+		        end if
+		        
+		        'WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
+		        
+		        
+		        
+		      end if
+		    end if
+		  end if
+		  
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:GenomeTFfamilySearch")
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseCompareScores() As Boolean Handles RegPreciseCompareScores.Action
-			'run nhmmer, then hmmgen, then convert hits to fasta string
-			'and feed it to the actual comparison routine
-			
-			'for now, assume that both nhmmer and HmmGen have been run and we have the required hits.
-			
-			dim score as double
-			
-			LogoWin.show
-			score=CompareScores(GenomeWin.GetCheckedHits,LogoWin.Sequences)
-			
-			Return True
-			
+		  'run nhmmer, then hmmgen, then convert hits to fasta string
+		  'and feed it to the actual comparison routine
+		  
+		  'for now, assume that both nhmmer and HmmGen have been run and we have the required hits.
+		  
+		  dim score as double
+		  
+		  LogoWin.show
+		  score=CompareScores(GenomeWin.GetCheckedHits,LogoWin.Sequences)
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ViewViewDetails() As Boolean Handles ViewViewDetails.Action
-			TMdisplay.Visible=NOT TMdisplay.Visible
-			TMdisplayAdjustment
-			Return True
-			
+		  TMdisplay.Visible=NOT TMdisplay.Visible
+		  TMdisplayAdjustment
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
@@ -7618,7 +7831,7 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As Object
+		Function NewWindow(url as String) As HTMLViewer
 		  Return WebBrowserWin.AddNewTab
 		End Function
 	#tag EndEvent
@@ -7655,7 +7868,7 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As Object
+		Function NewWindow(url as String) As HTMLViewer
 		  Return WebBrowserWin.AddNewTab
 		End Function
 	#tag EndEvent
@@ -7685,7 +7898,7 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As Object
+		Function NewWindow(url as String) As HTMLViewer
 		  Return WebBrowserWin.AddNewTab
 		End Function
 	#tag EndEvent

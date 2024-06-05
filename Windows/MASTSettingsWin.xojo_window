@@ -57,6 +57,7 @@ Begin Window MASTSettingsWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -64,7 +65,6 @@ Begin Window MASTSettingsWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   399
    End
@@ -93,13 +93,13 @@ Begin Window MASTSettingsWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kMoreOptions"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   106
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kMoreOptions"
       Visible         =   True
       Width           =   90
    End
@@ -128,13 +128,13 @@ Begin Window MASTSettingsWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kGenome_"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   138
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kGenome_"
       Visible         =   True
       Width           =   90
    End
@@ -170,6 +170,7 @@ Begin Window MASTSettingsWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
@@ -177,7 +178,6 @@ Begin Window MASTSettingsWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   307
    End
@@ -302,13 +302,13 @@ Begin Window MASTSettingsWin
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kMEMEmastRunDesc"
       TextAlignment   =   "2"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kMEMEmastRunDesc"
       Visible         =   True
       Width           =   494
    End
@@ -333,7 +333,7 @@ Begin Window MASTSettingsWin
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
@@ -378,6 +378,7 @@ Begin Window MASTSettingsWin
       TabIndex        =   18
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "1e-6"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -385,7 +386,6 @@ Begin Window MASTSettingsWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "1e-6"
       Visible         =   True
       Width           =   166
    End
@@ -438,7 +438,7 @@ Begin Window MASTSettingsWin
          LockRight       =   False
          LockTop         =   False
          Scope           =   0
-         State           =   "1"
+         State           =   1
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
@@ -504,7 +504,7 @@ Begin Window MASTSettingsWin
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         State           =   "1"
+         State           =   1
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True

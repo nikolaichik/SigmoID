@@ -51,7 +51,7 @@ Begin Window ExtendSitesWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kExtendSitesDesc"
-      TextAlignment   =   "2"
+      TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   14
@@ -86,7 +86,7 @@ Begin Window ExtendSitesWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kLeft"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   96
@@ -121,7 +121,7 @@ Begin Window ExtendSitesWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kRight"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   96
@@ -163,7 +163,7 @@ Begin Window ExtendSitesWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "10"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   94
@@ -206,7 +206,7 @@ Begin Window ExtendSitesWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "10"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   94
@@ -236,7 +236,7 @@ Begin Window ExtendSitesWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -268,7 +268,7 @@ Begin Window ExtendSitesWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -313,7 +313,7 @@ Begin Window ExtendSitesWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   140
@@ -349,7 +349,7 @@ Begin Window ExtendSitesWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kGenome_"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   142
@@ -378,7 +378,7 @@ Begin Window ExtendSitesWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0
@@ -403,9 +403,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
@@ -518,7 +518,7 @@ End
 		      else
 		        site=trim(aline)
 		        if instr(site,"N")>0 then
-		          LogoWin.WriteToSTDOUT ("Sites with redundant bases are not currently supported by this function")
+		          LogoWin.WriteToSTDOUT ("Sites with redundant bases are not currently supported by this function"+EndOfLine.UNIX)
 		          'return
 		        end if
 		        
@@ -569,11 +569,18 @@ End
 		    dim fpath as string = trim(me.Text)
 		    LogoWin.Genomefile=New FolderItem(fpath, FolderItem.pathModes.Shell)
 		    'LogoWin.Genomefile=GetOpenFolderItem("Genbank;Fasta")
-		    if LogoWin.Genomefile<> Nil And LogoWin.Genomefile.exists then
-		      GenomeField.text=LogoWin.Genomefile.shellpath
-		      ExtendButton.enabled=true
+		    if LogoWin.Genomefile<> Nil then
+		      if LogoWin.Genomefile.exists then
+		        GenomeField.text=LogoWin.Genomefile.shellpath
+		        ExtendButton.enabled=true
+		      end if
 		    end if
 		  end if
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"ExtendSitesWin:GenomeField:TextChange")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -50,13 +50,13 @@ Begin Window About
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      TextAlignment   =   "2"
+      Text            =   "#kAboutText"
+      TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   264
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kAboutText"
       Visible         =   True
       Width           =   606
    End
@@ -85,13 +85,13 @@ Begin Window About
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      TextAlignment   =   "2"
+      Text            =   "1.0 alpha 1"
+      TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   240
       Transparent     =   False
       Underline       =   False
-      Value           =   "1.0 alpha 1"
       Visible         =   True
       Width           =   580
    End
@@ -147,13 +147,13 @@ Begin Window About
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
-      TextAlignment   =   "2"
+      Text            =   "SigmoID"
+      TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   212
       Transparent     =   False
       Underline       =   False
-      Value           =   "SigmoID"
       Visible         =   True
       Width           =   606
    End
@@ -182,13 +182,13 @@ Begin Window About
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      TextAlignment   =   "0"
+      Text            =   "SigmoID includes the following open source software:\n- nhmmer, hmmbuild and alimask from the HMMER package (http://hmmer.org);\n- meme, tomtom and mast from the MEME Suite (http://MEME-suite.org/);\n- TransTerm HP (http://transterm.cbcb.umd.edu);\n- tfastx from the FASTA package (http://fasta.bioch.virginia.edu/fasta_www2/fasta_list2.shtml);\n- MeShClust (https://github.com/TulsaBioinformaticsToolsmith/MeShClust);\n- RBCustomTabPanel (https://github.com/alexrestrepo/RBCustomTabPanel);\n- MacOSLib (https://github.com/macoslib)."
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   300
       Transparent     =   False
       Underline       =   False
-      Value           =   "SigmoID includes the following open source software:\n- nhmmer, hmmbuild and alimask from the HMMER package (http://hmmer.org);\n- meme, tomtom and mast from the MEME Suite (http://MEME-suite.org/);\n- TransTerm HP (http://transterm.cbcb.umd.edu);\n- tfastx from the FASTA package (http://fasta.bioch.virginia.edu/fasta_www2/fasta_list2.shtml);\n- MeShClust (https://github.com/TulsaBioinformaticsToolsmith/MeShClust);\n- RBCustomTabPanel (https://github.com/alexrestrepo/RBCustomTabPanel);\n- MacOSLib (https://github.com/macoslib)."
       Visible         =   True
       Width           =   580
    End

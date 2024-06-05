@@ -63,6 +63,7 @@ Begin Window DocWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -70,7 +71,6 @@ Begin Window DocWin
       Transparent     =   True
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   975
    End

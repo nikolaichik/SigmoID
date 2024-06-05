@@ -50,13 +50,13 @@ Begin Window MergePlotDataWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kMergePlotWinDesc"
       TextAlignment   =   "2"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   14
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kMergePlotWinDesc"
       Visible         =   True
       Width           =   564
    End
@@ -156,6 +156,7 @@ Begin Window MergePlotDataWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -163,7 +164,6 @@ Begin Window MergePlotDataWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   352
    End
@@ -192,13 +192,13 @@ Begin Window MergePlotDataWin
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kDataFile1"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   66
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kDataFile1"
       Visible         =   True
       Width           =   116
    End
@@ -266,6 +266,7 @@ Begin Window MergePlotDataWin
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -273,7 +274,6 @@ Begin Window MergePlotDataWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   352
    End
@@ -302,13 +302,13 @@ Begin Window MergePlotDataWin
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kDataFile2"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   100
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kDataFile2"
       Visible         =   True
       Width           =   116
    End
@@ -376,6 +376,7 @@ Begin Window MergePlotDataWin
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -383,7 +384,6 @@ Begin Window MergePlotDataWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   352
    End
@@ -412,13 +412,13 @@ Begin Window MergePlotDataWin
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kMergedFile"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   133
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kMergedFile"
       Visible         =   True
       Width           =   116
    End

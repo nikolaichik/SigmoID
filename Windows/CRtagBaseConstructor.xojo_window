@@ -102,13 +102,13 @@ Begin Window CRtagBaseConstructor
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Select sequences file"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   238
       Transparent     =   True
       Underline       =   False
-      Value           =   "Select sequences file"
       Visible         =   True
       Width           =   453
    End
@@ -137,13 +137,13 @@ Begin Window CRtagBaseConstructor
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Select .fasta file"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   299
       Transparent     =   True
       Underline       =   False
-      Value           =   "Select .fasta file"
       Visible         =   True
       Width           =   363
    End
@@ -249,7 +249,7 @@ Begin Window CRtagBaseConstructor
       AllowSpellChecking=   True
       AllowStyledText =   True
       AllowTabs       =   False
-      BackgroundColor =   &cFFFF00FF
+      BackgroundColor =   &c00000000
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
@@ -280,6 +280,7 @@ Begin Window CRtagBaseConstructor
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "READ FIRST:\nThe process of CR-tag base creation uses Cdbfasta software for quick sequence retrieval from large fasta files. It's necessary to install this program from repository or by link: https://github.com/gpertea/cdbfasta.\nAfter the installation, check, please, that its path was added to your PATH environment: the command ""cdbfasta"" should be executed successfully outside the installation directory in the command line.\n\nThe source file should contain EMBL codes for all sequences and can be compressed (.gz). That file will be used by hmmsearch tool with chosen HMM model.\n\nNext, create a .fasta file from your sequences file (if it's not .fasta), after that make an index file for it. You need to execute command ""cdbfasta /path/to/your fasta"" - new .cidx file will be created in the directory with your fasta. \n\nNow you can provide paths to the original file with EMBL codes (""Select sequences file"" line) and the index file was made from corresponding .fasta (""Select .cidx file"") by dialog buttons above; choose right HMM model from the list and press ""Start!"" button in order to activate base creation process."
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -287,7 +288,6 @@ Begin Window CRtagBaseConstructor
       Transparent     =   True
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "READ FIRST:\nThe process of CR-tag base creation uses Cdbfasta software for quick sequence retrieval from large fasta files. It's necessary to install this program from repository or by link: https://github.com/gpertea/cdbfasta.\nAfter the installation, check, please, that its path was added to your PATH environment: the command ""cdbfasta"" should be executed successfully outside the installation directory in the command line.\n\nThe source file should contain EMBL codes for all sequences and can be compressed (.gz). That file will be used by hmmsearch tool with chosen HMM model.\n\nNext, create a .fasta file from your sequences file (if it's not .fasta), after that make an index file for it. You need to execute command ""cdbfasta /path/to/your fasta"" - new .cidx file will be created in the directory with your fasta. \n\nNow you can provide paths to the original file with EMBL codes (""Select sequences file"" line) and the index file was made from corresponding .fasta (""Select .cidx file"") by dialog buttons above; choose right HMM model from the list and press ""Start!"" button in order to activate base creation process."
       Visible         =   True
       Width           =   699
    End

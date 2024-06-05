@@ -88,6 +88,7 @@ Begin Window ProfileSearchSettings
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "4"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -95,7 +96,6 @@ Begin Window ProfileSearchSettings
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "4"
       Visible         =   True
       Width           =   43
    End
@@ -124,13 +124,13 @@ Begin Window ProfileSearchSettings
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Bitscore threshold:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "Bitscore threshold:"
       Visible         =   True
       Width           =   124
    End
@@ -230,6 +230,7 @@ Begin Window ProfileSearchSettings
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "10"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -237,7 +238,6 @@ Begin Window ProfileSearchSettings
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "10"
       Visible         =   True
       Width           =   43
    End
@@ -266,13 +266,13 @@ Begin Window ProfileSearchSettings
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Number of permutations:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "Number of permutations:"
       Visible         =   True
       Width           =   159
    End
@@ -301,13 +301,13 @@ Begin Window ProfileSearchSettings
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   79
       Transparent     =   False
       Underline       =   False
-      Value           =   ""
       Visible         =   True
       Width           =   227
    End

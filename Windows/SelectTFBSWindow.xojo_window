@@ -150,6 +150,7 @@ Begin Window SelectTFBSWindow
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "16"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -157,7 +158,6 @@ Begin Window SelectTFBSWindow
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "16"
          Visible         =   True
          Width           =   65
       End
@@ -223,6 +223,7 @@ Begin Window SelectTFBSWindow
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "6"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -230,7 +231,6 @@ Begin Window SelectTFBSWindow
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "6"
          Visible         =   True
          Width           =   65
       End
@@ -296,6 +296,7 @@ Begin Window SelectTFBSWindow
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "30"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -303,7 +304,6 @@ Begin Window SelectTFBSWindow
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "30"
          Visible         =   True
          Width           =   65
       End
@@ -332,13 +332,13 @@ Begin Window SelectTFBSWindow
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "max:"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   146
          Transparent     =   True
          Underline       =   False
-         Value           =   "max:"
          Visible         =   True
          Width           =   36
       End
@@ -375,6 +375,7 @@ Begin Window SelectTFBSWindow
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "15"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -382,7 +383,6 @@ Begin Window SelectTFBSWindow
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "15"
          Visible         =   True
          Width           =   65
       End
@@ -411,13 +411,13 @@ Begin Window SelectTFBSWindow
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "min:"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   146
          Transparent     =   True
          Underline       =   False
-         Value           =   "min:"
          Visible         =   True
          Width           =   36
       End
@@ -443,7 +443,7 @@ Begin Window SelectTFBSWindow
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True

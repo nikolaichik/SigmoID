@@ -110,7 +110,7 @@ Begin Window HmmGenSettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
@@ -147,13 +147,13 @@ Begin Window HmmGenSettingsWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kFeature2add"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   147
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kFeature2add"
       Visible         =   True
       Width           =   143
    End
@@ -206,7 +206,7 @@ Begin Window HmmGenSettingsWin
          LockRight       =   True
          LockTop         =   True
          Scope           =   0
-         State           =   "1"
+         State           =   1
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
@@ -251,6 +251,7 @@ Begin Window HmmGenSettingsWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "bound_moiety"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -258,7 +259,6 @@ Begin Window HmmGenSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "bound_moiety"
          Visible         =   True
          Width           =   125
       End
@@ -295,6 +295,7 @@ Begin Window HmmGenSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -302,7 +303,6 @@ Begin Window HmmGenSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   253
       End
@@ -395,7 +395,7 @@ Begin Window HmmGenSettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   20
       TabPanelIndex   =   0
       TabStop         =   True
@@ -528,6 +528,7 @@ Begin Window HmmGenSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "100"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -535,7 +536,6 @@ Begin Window HmmGenSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "100"
          Visible         =   True
          Width           =   40
       End
@@ -572,6 +572,7 @@ Begin Window HmmGenSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "10"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -579,7 +580,6 @@ Begin Window HmmGenSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "10"
          Visible         =   True
          Width           =   40
       End
@@ -605,7 +605,7 @@ Begin Window HmmGenSettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   22
       TabPanelIndex   =   0
       TabStop         =   True

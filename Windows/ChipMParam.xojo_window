@@ -50,13 +50,13 @@ Begin Window ChipMParam
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Motif length:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   21
       Transparent     =   False
       Underline       =   False
-      Value           =   "Motif length:"
       Visible         =   True
       Width           =   100
    End
@@ -92,6 +92,7 @@ Begin Window ChipMParam
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "16:23,22:17,18:21"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "format: start_length1:stop_lenth1,..,start_lengthN:stop_lengthN"
@@ -99,7 +100,6 @@ Begin Window ChipMParam
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "16:23,22:17,18:21"
       Visible         =   True
       Width           =   135
    End
@@ -128,13 +128,13 @@ Begin Window ChipMParam
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Mode"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   59
       Transparent     =   False
       Underline       =   False
-      Value           =   "Mode"
       Visible         =   True
       Width           =   100
    End
@@ -202,6 +202,7 @@ Begin Window ChipMParam
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "200"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -209,7 +210,6 @@ Begin Window ChipMParam
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "200"
       Visible         =   True
       Width           =   80
    End
@@ -245,6 +245,7 @@ Begin Window ChipMParam
       TabIndex        =   7
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "20"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -252,7 +253,6 @@ Begin Window ChipMParam
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "20"
       Visible         =   True
       Width           =   80
    End
@@ -288,6 +288,7 @@ Begin Window ChipMParam
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "2"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -295,7 +296,6 @@ Begin Window ChipMParam
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   "2"
       Visible         =   True
       Width           =   80
    End
@@ -388,13 +388,13 @@ Begin Window ChipMParam
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "try_limit"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   94
       Transparent     =   False
       Underline       =   False
-      Value           =   "try_limit"
       Visible         =   True
       Width           =   100
    End
@@ -423,13 +423,13 @@ Begin Window ChipMParam
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "step_limit"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   132
       Transparent     =   False
       Underline       =   False
-      Value           =   "step_limit"
       Visible         =   True
       Width           =   100
    End
@@ -458,13 +458,13 @@ Begin Window ChipMParam
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "thread_count"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   170
       Transparent     =   False
       Underline       =   False
-      Value           =   "thread_count"
       Visible         =   True
       Width           =   100
    End
@@ -493,13 +493,13 @@ Begin Window ChipMParam
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "gc%"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   208
       Transparent     =   False
       Underline       =   False
-      Value           =   "gc%"
       Visible         =   True
       Width           =   100
    End
@@ -528,13 +528,13 @@ Begin Window ChipMParam
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "motif_shape"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   242
       Transparent     =   False
       Underline       =   False
-      Value           =   "motif_shape"
       Visible         =   True
       Width           =   100
    End

@@ -50,13 +50,13 @@ Begin Window ScanGenomeWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kGenome_"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   491
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kGenome_"
       Visible         =   True
       Width           =   67
    End
@@ -92,6 +92,7 @@ Begin Window ScanGenomeWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
@@ -99,7 +100,6 @@ Begin Window ScanGenomeWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   191
    End
@@ -220,7 +220,7 @@ Begin Window ScanGenomeWin
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   16
       TabPanelIndex   =   0
       TabStop         =   True

@@ -121,6 +121,7 @@ Begin Window PlotScaleMaxWin
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -128,7 +129,6 @@ Begin Window PlotScaleMaxWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   292
    End
@@ -157,13 +157,13 @@ Begin Window PlotScaleMaxWin
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kPlotScaleWinDesc"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
       Underline       =   False
-      Value           =   "#kPlotScaleWinDesc"
       Visible         =   True
       Width           =   292
    End

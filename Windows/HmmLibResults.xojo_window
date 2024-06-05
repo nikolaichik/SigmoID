@@ -133,13 +133,13 @@ Begin Window HmmLibResults
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Untitled"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   666
       Transparent     =   False
       Underline       =   False
-      Value           =   "Untitled"
       Visible         =   True
       Width           =   983
    End

@@ -115,11 +115,10 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
-      TabStop         =   True
       Tooltip         =   ""
       Top             =   0
       Transparent     =   False
-      Value           =   1
+      Value           =   0
       Visible         =   True
       Width           =   552
       Begin Label ProfileFolderLabel
@@ -147,13 +146,13 @@ Begin Window SettingsWin
          TabIndex        =   0
          TabPanelIndex   =   3
          TabStop         =   True
+         Text            =   "Profile Folder:"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   52
          Transparent     =   False
          Underline       =   False
-         Value           =   "Profile Folder:"
          Visible         =   True
          Width           =   512
       End
@@ -214,13 +213,13 @@ Begin Window SettingsWin
          TabIndex        =   2
          TabPanelIndex   =   3
          TabStop         =   True
+         Text            =   "#kProfileFolderPath"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   20
          Transparent     =   False
          Underline       =   False
-         Value           =   "#kProfileFolderPath"
          Visible         =   True
          Width           =   512
       End
@@ -276,13 +275,13 @@ Begin Window SettingsWin
          TabIndex        =   1
          TabPanelIndex   =   4
          TabStop         =   True
+         Text            =   "Selection highlight colour:"
          TextAlignment   =   "3"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   13
          Transparent     =   True
          Underline       =   False
-         Value           =   "Selection highlight colour:"
          Visible         =   True
          Width           =   172
       End
@@ -366,13 +365,13 @@ Begin Window SettingsWin
             TabIndex        =   1
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "CDS:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   69
             Transparent     =   True
             Underline       =   False
-            Value           =   "CDS:"
             Visible         =   True
             Width           =   176
          End
@@ -428,13 +427,13 @@ Begin Window SettingsWin
             TabIndex        =   3
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "sig_peptide:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   93
             Transparent     =   True
             Underline       =   False
-            Value           =   "sig_peptide:"
             Visible         =   True
             Width           =   176
          End
@@ -490,13 +489,13 @@ Begin Window SettingsWin
             TabIndex        =   5
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "rRNA:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   117
             Transparent     =   True
             Underline       =   False
-            Value           =   "rRNA:"
             Visible         =   True
             Width           =   176
          End
@@ -552,13 +551,13 @@ Begin Window SettingsWin
             TabIndex        =   7
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "ncRNA:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   165
             Transparent     =   True
             Underline       =   False
-            Value           =   "ncRNA:"
             Visible         =   True
             Width           =   176
          End
@@ -614,13 +613,13 @@ Begin Window SettingsWin
             TabIndex        =   9
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "protein_bind:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   189
             Transparent     =   True
             Underline       =   False
-            Value           =   "protein_bind:"
             Visible         =   True
             Width           =   176
          End
@@ -676,13 +675,13 @@ Begin Window SettingsWin
             TabIndex        =   11
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "gene:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   213
             Transparent     =   True
             Underline       =   False
-            Value           =   "gene:"
             Visible         =   True
             Width           =   176
          End
@@ -738,13 +737,13 @@ Begin Window SettingsWin
             TabIndex        =   13
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "promoter:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   69
             Transparent     =   True
             Underline       =   False
-            Value           =   "promoter:"
             Visible         =   True
             Width           =   176
          End
@@ -800,13 +799,13 @@ Begin Window SettingsWin
             TabIndex        =   15
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "terminator:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   93
             Transparent     =   True
             Underline       =   False
-            Value           =   "terminator:"
             Visible         =   True
             Width           =   176
          End
@@ -862,13 +861,13 @@ Begin Window SettingsWin
             TabIndex        =   17
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "attenuator:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   117
             Transparent     =   True
             Underline       =   False
-            Value           =   "attenuator:"
             Visible         =   True
             Width           =   176
          End
@@ -924,13 +923,13 @@ Begin Window SettingsWin
             TabIndex        =   19
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "riboswitch:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   141
             Transparent     =   True
             Underline       =   False
-            Value           =   "riboswitch:"
             Visible         =   True
             Width           =   176
          End
@@ -986,13 +985,13 @@ Begin Window SettingsWin
             TabIndex        =   21
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "operon:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   237
             Transparent     =   True
             Underline       =   False
-            Value           =   "operon:"
             Visible         =   True
             Width           =   176
          End
@@ -1048,13 +1047,13 @@ Begin Window SettingsWin
             TabIndex        =   23
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "tRNA:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   141
             Transparent     =   True
             Underline       =   False
-            Value           =   "tRNA:"
             Visible         =   True
             Width           =   176
          End
@@ -1083,13 +1082,13 @@ Begin Window SettingsWin
             TabIndex        =   24
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "mobile_element:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   165
             Transparent     =   True
             Underline       =   False
-            Value           =   "mobile_element:"
             Visible         =   True
             Width           =   176
          End
@@ -1145,13 +1144,13 @@ Begin Window SettingsWin
             TabIndex        =   26
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "repeat_region:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   189
             Transparent     =   True
             Underline       =   False
-            Value           =   "repeat_region:"
             Visible         =   True
             Width           =   176
          End
@@ -1207,13 +1206,13 @@ Begin Window SettingsWin
             TabIndex        =   28
             TabPanelIndex   =   4
             TabStop         =   True
+            Text            =   "all other features:"
             TextAlignment   =   "3"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   213
             Transparent     =   True
             Underline       =   False
-            Value           =   "all other features:"
             Visible         =   True
             Width           =   176
          End
@@ -1366,13 +1365,13 @@ Begin Window SettingsWin
          TabIndex        =   13
          TabPanelIndex   =   5
          TabStop         =   True
+         Text            =   "#kFontSelInfo"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   20
          Transparent     =   True
          Underline       =   False
-         Value           =   "#kFontSelInfo"
          Visible         =   True
          Width           =   512
       End
@@ -1401,13 +1400,13 @@ Begin Window SettingsWin
          TabIndex        =   14
          TabPanelIndex   =   5
          TabStop         =   True
+         Text            =   "#kProportional"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   82
          Transparent     =   True
          Underline       =   False
-         Value           =   "#kProportional"
          Visible         =   True
          Width           =   220
       End
@@ -1436,13 +1435,13 @@ Begin Window SettingsWin
          TabIndex        =   15
          TabPanelIndex   =   5
          TabStop         =   True
+         Text            =   "#kFixed"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   82
          Transparent     =   True
          Underline       =   False
-         Value           =   "#kFixed"
          Visible         =   True
          Width           =   220
       End
@@ -1499,13 +1498,13 @@ Begin Window SettingsWin
             TabIndex        =   0
             TabPanelIndex   =   5
             TabStop         =   True
+            Text            =   "#kFFexample"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   152
             Transparent     =   True
             Underline       =   False
-            Value           =   "#kFFexample"
             Visible         =   True
             Width           =   200
          End
@@ -1563,13 +1562,13 @@ Begin Window SettingsWin
             TabIndex        =   0
             TabPanelIndex   =   5
             TabStop         =   True
+            Text            =   "#kFFexample"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   152
             Transparent     =   True
             Underline       =   False
-            Value           =   "#kFFexample"
             Visible         =   True
             Width           =   200
          End
@@ -1599,13 +1598,13 @@ Begin Window SettingsWin
          TabIndex        =   0
          TabPanelIndex   =   6
          TabStop         =   True
+         Text            =   "Set number of CPU cores to be used with MEME. Proper Open MPI install required."
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   20
          Transparent     =   False
          Underline       =   False
-         Value           =   "Set number of CPU cores to be used with MEME. Proper Open MPI install required."
          Visible         =   True
          Width           =   512
       End
@@ -1634,13 +1633,13 @@ Begin Window SettingsWin
          TabIndex        =   1
          TabPanelIndex   =   6
          TabStop         =   True
+         Text            =   "OMPI info"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   62
          Transparent     =   False
          Underline       =   False
-         Value           =   "OMPI info"
          Visible         =   True
          Width           =   512
       End
@@ -1697,13 +1696,13 @@ Begin Window SettingsWin
             TabIndex        =   0
             TabPanelIndex   =   6
             TabStop         =   True
+            Text            =   "Physical"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   140
             Transparent     =   False
             Underline       =   False
-            Value           =   "Physical"
             Visible         =   True
             Width           =   100
          End
@@ -1732,13 +1731,13 @@ Begin Window SettingsWin
             TabIndex        =   1
             TabPanelIndex   =   6
             TabStop         =   True
+            Text            =   "Logical"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   172
             Transparent     =   False
             Underline       =   False
-            Value           =   "Logical"
             Visible         =   True
             Width           =   100
          End
@@ -1768,13 +1767,13 @@ Begin Window SettingsWin
          TabIndex        =   3
          TabPanelIndex   =   6
          TabStop         =   True
+         Text            =   "CPU Cores to use:"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   227
          Transparent     =   False
          Underline       =   False
-         Value           =   "CPU Cores to use:"
          Visible         =   True
          Width           =   145
       End
@@ -1871,6 +1870,7 @@ Begin Window SettingsWin
             TabIndex        =   2
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "/usr/local/bin/nhmmer"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -1878,7 +1878,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   "/usr/local/bin/nhmmer"
             Visible         =   True
             Width           =   405
          End
@@ -1907,13 +1906,13 @@ Begin Window SettingsWin
             TabIndex        =   3
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "nhmmer:"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   31
             Transparent     =   False
             Underline       =   False
-            Value           =   "nhmmer:"
             Visible         =   True
             Width           =   72
          End
@@ -1942,13 +1941,13 @@ Begin Window SettingsWin
             TabIndex        =   4
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "alimask:"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   65
             Transparent     =   False
             Underline       =   False
-            Value           =   "alimask:"
             Visible         =   True
             Width           =   72
          End
@@ -1985,6 +1984,7 @@ Begin Window SettingsWin
             TabIndex        =   7
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "/usr/local/bin/alimask"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -1992,7 +1992,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   "/usr/local/bin/alimask"
             Visible         =   True
             Width           =   405
          End
@@ -2021,13 +2020,13 @@ Begin Window SettingsWin
             TabIndex        =   11
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "hmmbuild:"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   99
             Transparent     =   False
             Underline       =   False
-            Value           =   "hmmbuild:"
             Visible         =   True
             Width           =   80
          End
@@ -2064,6 +2063,7 @@ Begin Window SettingsWin
             TabIndex        =   12
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "/usr/local/bin/hmmbuild"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2071,7 +2071,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   "/usr/local/bin/hmmbuild"
             Visible         =   True
             Width           =   405
          End
@@ -2100,13 +2099,13 @@ Begin Window SettingsWin
             TabIndex        =   13
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "MEME:"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   133
             Transparent     =   False
             Underline       =   False
-            Value           =   "MEME:"
             Visible         =   True
             Width           =   80
          End
@@ -2143,6 +2142,7 @@ Begin Window SettingsWin
             TabIndex        =   14
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "~/meme/bin/meme"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2150,7 +2150,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   "~/meme/bin/meme"
             Visible         =   True
             Width           =   405
          End
@@ -2179,13 +2178,13 @@ Begin Window SettingsWin
             TabIndex        =   15
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "MAST:"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   200
             Transparent     =   False
             Underline       =   False
-            Value           =   "MAST:"
             Visible         =   True
             Width           =   80
          End
@@ -2222,6 +2221,7 @@ Begin Window SettingsWin
             TabIndex        =   16
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "~/meme/bin/mast"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2229,7 +2229,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   "~/meme/bin/mast"
             Visible         =   True
             Width           =   405
          End
@@ -2258,13 +2257,13 @@ Begin Window SettingsWin
             TabIndex        =   17
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "TomTom:"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   234
             Transparent     =   False
             Underline       =   False
-            Value           =   "TomTom:"
             Visible         =   True
             Width           =   80
          End
@@ -2301,6 +2300,7 @@ Begin Window SettingsWin
             TabIndex        =   18
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "~/meme/bin/tomtom"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2308,7 +2308,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   "~/meme/bin/tomtom"
             Visible         =   True
             Width           =   405
          End
@@ -2337,13 +2336,13 @@ Begin Window SettingsWin
             TabIndex        =   19
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "tfastx:"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   268
             Transparent     =   False
             Underline       =   False
-            Value           =   "tfastx:"
             Visible         =   True
             Width           =   80
          End
@@ -2380,6 +2379,7 @@ Begin Window SettingsWin
             TabIndex        =   20
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "/usr/local/bin/tfastx"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2387,7 +2387,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   "/usr/local/bin/tfastx"
             Visible         =   True
             Width           =   405
          End
@@ -2424,6 +2423,7 @@ Begin Window SettingsWin
             TabIndex        =   21
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   ""
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2431,7 +2431,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   ""
             Visible         =   True
             Width           =   405
          End
@@ -2460,13 +2459,13 @@ Begin Window SettingsWin
             TabIndex        =   22
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "ChIPmunk"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   165
             Transparent     =   False
             Underline       =   False
-            Value           =   "ChIPmunk"
             Visible         =   True
             Width           =   68
          End
@@ -2495,13 +2494,13 @@ Begin Window SettingsWin
             TabIndex        =   23
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "MeShClust:"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   302
             Transparent     =   False
             Underline       =   False
-            Value           =   "MeShClust:"
             Visible         =   True
             Width           =   80
          End
@@ -2538,6 +2537,7 @@ Begin Window SettingsWin
             TabIndex        =   24
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "/usr/local/bin/meshclust"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2545,7 +2545,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   "/usr/local/bin/meshclust"
             Visible         =   True
             Width           =   405
          End
@@ -2574,13 +2573,13 @@ Begin Window SettingsWin
             TabIndex        =   25
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "WSL bash"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   401
             Transparent     =   False
             Underline       =   False
-            Value           =   "WSL bash"
             Visible         =   True
             Width           =   72
          End
@@ -2617,6 +2616,7 @@ Begin Window SettingsWin
             TabIndex        =   26
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   ""
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2624,7 +2624,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   ""
             Visible         =   True
             Width           =   404
          End
@@ -2653,13 +2652,13 @@ Begin Window SettingsWin
             TabIndex        =   28
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "BioProspector"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   334
             Transparent     =   False
             Underline       =   False
-            Value           =   "BioProspector"
             Visible         =   True
             Width           =   100
          End
@@ -2696,6 +2695,7 @@ Begin Window SettingsWin
             TabIndex        =   29
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   ""
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2703,7 +2703,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   ""
             Visible         =   True
             Width           =   404
          End
@@ -2732,13 +2731,13 @@ Begin Window SettingsWin
             TabIndex        =   30
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   "Aligner path"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   365
             Transparent     =   False
             Underline       =   False
-            Value           =   "Aligner path"
             Visible         =   True
             Width           =   85
          End
@@ -2775,6 +2774,7 @@ Begin Window SettingsWin
             TabIndex        =   31
             TabPanelIndex   =   1
             TabStop         =   True
+            Text            =   ""
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -2782,7 +2782,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   ""
             Visible         =   True
             Width           =   404
          End
@@ -2912,6 +2911,7 @@ Begin Window SettingsWin
             TabIndex        =   2
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   ""
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   "Taxonomy restriction applied to BLAST (but not HMMER!) searches"
@@ -2919,7 +2919,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   ""
             Visible         =   True
             Width           =   339
          End
@@ -2948,13 +2947,13 @@ Begin Window SettingsWin
             TabIndex        =   3
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   "Organism (optional)"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   122
             Transparent     =   False
             Underline       =   False
-            Value           =   "Organism (optional)"
             Visible         =   True
             Width           =   149
          End
@@ -2983,13 +2982,13 @@ Begin Window SettingsWin
             TabIndex        =   4
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   "Protein database"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   58
             Transparent     =   False
             Underline       =   False
-            Value           =   "Protein database"
             Visible         =   True
             Width           =   149
          End
@@ -3018,13 +3017,13 @@ Begin Window SettingsWin
             TabIndex        =   5
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   "Nucleotide database"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   "Will be used for all blastn searches"
             Top             =   90
             Transparent     =   False
             Underline       =   False
-            Value           =   "Nucleotide database"
             Visible         =   True
             Width           =   149
          End
@@ -3061,6 +3060,7 @@ Begin Window SettingsWin
             TabIndex        =   6
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   ""
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -3068,7 +3068,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   ""
             Visible         =   True
             Width           =   339
          End
@@ -3097,13 +3096,13 @@ Begin Window SettingsWin
             TabIndex        =   7
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   "API Key"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   156
             Transparent     =   True
             Underline       =   False
-            Value           =   "API Key"
             Visible         =   True
             Width           =   141
          End
@@ -3140,6 +3139,7 @@ Begin Window SettingsWin
             TabIndex        =   8
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   "100"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -3147,7 +3147,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   "100"
             Visible         =   True
             Width           =   80
          End
@@ -3176,13 +3175,13 @@ Begin Window SettingsWin
             TabIndex        =   9
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   "Accessions in batch"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   194
             Transparent     =   True
             Underline       =   False
-            Value           =   "Accessions in batch"
             Visible         =   True
             Width           =   149
          End
@@ -3240,13 +3239,13 @@ Begin Window SettingsWin
             TabIndex        =   0
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   "E-mail"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   346
             Transparent     =   True
             Underline       =   False
-            Value           =   "E-mail"
             Visible         =   True
             Width           =   52
          End
@@ -3283,6 +3282,7 @@ Begin Window SettingsWin
             TabIndex        =   1
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   ""
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -3290,7 +3290,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   ""
             Visible         =   True
             Width           =   441
          End
@@ -3319,13 +3318,13 @@ Begin Window SettingsWin
             TabIndex        =   2
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   "Name"
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   308
             Transparent     =   True
             Underline       =   False
-            Value           =   "Name"
             Visible         =   True
             Width           =   52
          End
@@ -3362,6 +3361,7 @@ Begin Window SettingsWin
             TabIndex        =   3
             TabPanelIndex   =   2
             TabStop         =   True
+            Text            =   ""
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
@@ -3369,7 +3369,6 @@ Begin Window SettingsWin
             Transparent     =   False
             Underline       =   False
             ValidationMask  =   ""
-            Value           =   ""
             Visible         =   True
             Width           =   441
          End
@@ -3431,13 +3430,13 @@ Begin Window SettingsWin
          TabIndex        =   3
          TabPanelIndex   =   2
          TabStop         =   True
+         Text            =   "Hmm Library"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   241
          Transparent     =   False
          Underline       =   False
-         Value           =   "Hmm Library"
          Visible         =   True
          Width           =   151
       End
@@ -3868,8 +3867,8 @@ End
 	#tag Event
 		Sub Open()
 		  #If TargetCocoa 
-		    ToolButton(Me.Item(3)).Icon=SystemIcons.ColorPanel(32,32)
-		    ToolButton(Me.Item(4)).Icon=SystemIcons.FontPanel(32,32)
+		    ToolButton(Me.Item(3)).Icon=ScaledPic(SystemIcons.ColorPanel(32,32),self.ScaleFactor)
+		    ToolButton(Me.Item(4)).Icon=ScaledPic(SystemIcons.FontPanel(32,32),self.ScaleFactor)
 		  #endif
 		  
 		  toolbutton(Me.Item(0)).Pushed=True

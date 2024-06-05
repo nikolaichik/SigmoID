@@ -110,7 +110,7 @@ Begin Window TermGenSettingsWin
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   22
       TabPanelIndex   =   0
       TabStop         =   True
@@ -889,11 +889,15 @@ End
 		  'need to wrap this inside "try catch", as the user may enter anything here
 		  
 		  f = GetFolderItem(me.text,FolderItem.PathTypeShell)
-		  If f<>nil AND f.Exists Then
-		    RunButton.enabled=true
-		  Else
-		    RunButton.enabled=false
+		  
+		  RunButton.enabled=false
+		  If f<>nil then
+		    if f.Exists Then
+		      RunButton.enabled=true
+		    End If
 		  End If
+		  Exception err
+		    ExceptionHandler(err,"TermGenSettingsWin:GenomeField:TextChange")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

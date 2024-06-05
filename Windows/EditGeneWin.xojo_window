@@ -63,6 +63,7 @@ Begin Window EditGeneWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -70,7 +71,6 @@ Begin Window EditGeneWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   86
    End
@@ -159,7 +159,7 @@ Begin Window EditGeneWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   12
       TabPanelIndex   =   0
       TabStop         =   True
@@ -196,13 +196,13 @@ Begin Window EditGeneWin
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kGeneName"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kGeneName"
       Visible         =   True
       Width           =   156
    End

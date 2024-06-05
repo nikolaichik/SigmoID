@@ -138,7 +138,7 @@ Begin Window RegulonSettingsWin
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         State           =   "1"
+         State           =   1
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
@@ -171,7 +171,7 @@ Begin Window RegulonSettingsWin
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         State           =   "1"
+         State           =   1
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
@@ -478,7 +478,7 @@ Begin Window RegulonSettingsWin
          LockRight       =   False
          LockTop         =   True
          Scope           =   0
-         State           =   "1"
+         State           =   1
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
@@ -590,7 +590,7 @@ Begin Window RegulonSettingsWin
          LockRight       =   True
          LockTop         =   False
          Scope           =   0
-         State           =   "1"
+         State           =   1
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True

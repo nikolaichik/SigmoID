@@ -49,13 +49,13 @@ Begin Window EvidenceCodesWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Evidence codes as defined by RegulonDB. All relevant evidence codes should be checked, even if applicable to a single operator."
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "Evidence codes as defined by RegulonDB. All relevant evidence codes should be checked, even if applicable to a single operator."
       Visible         =   True
       Width           =   560
    End

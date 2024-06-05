@@ -147,13 +147,13 @@ Begin Window MASTGenSettingsWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kFeature2add"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   152
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kFeature2add"
       Visible         =   True
       Width           =   117
    End
@@ -251,6 +251,7 @@ Begin Window MASTGenSettingsWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "bound_moiety"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -258,7 +259,6 @@ Begin Window MASTGenSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "bound_moiety"
          Visible         =   True
          Width           =   125
       End
@@ -295,6 +295,7 @@ Begin Window MASTGenSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -302,7 +303,6 @@ Begin Window MASTGenSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   251
       End
@@ -528,6 +528,7 @@ Begin Window MASTGenSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "1e-6"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -535,7 +536,6 @@ Begin Window MASTGenSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "1e-6"
          Visible         =   True
          Width           =   57
       End
@@ -572,6 +572,7 @@ Begin Window MASTGenSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "1000"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -579,7 +580,6 @@ Begin Window MASTGenSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "1000"
          Visible         =   True
          Width           =   40
       End

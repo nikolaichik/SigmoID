@@ -50,13 +50,13 @@ Begin Window FilteredSearchWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "phmmer search result:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
       Underline       =   False
-      Value           =   "phmmer search result:"
       Visible         =   True
       Width           =   253
    End
@@ -97,6 +97,7 @@ Begin Window FilteredSearchWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -104,7 +105,6 @@ Begin Window FilteredSearchWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   560
    End
@@ -133,13 +133,13 @@ Begin Window FilteredSearchWin
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Filtered results:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   164
       Transparent     =   True
       Underline       =   False
-      Value           =   "Filtered results:"
       Visible         =   True
       Width           =   263
    End
@@ -180,6 +180,7 @@ Begin Window FilteredSearchWin
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -187,7 +188,6 @@ Begin Window FilteredSearchWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   560
    End
@@ -216,13 +216,13 @@ Begin Window FilteredSearchWin
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "CR tag positions:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   308
       Transparent     =   True
       Underline       =   False
-      Value           =   "CR tag positions:"
       Visible         =   True
       Width           =   138
    End
@@ -258,6 +258,7 @@ Begin Window FilteredSearchWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -265,7 +266,6 @@ Begin Window FilteredSearchWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   130
    End
@@ -358,13 +358,13 @@ Begin Window FilteredSearchWin
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "CR tag:"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   342
       Transparent     =   True
       Underline       =   False
-      Value           =   "CR tag:"
       Visible         =   True
       Width           =   54
    End
@@ -400,6 +400,7 @@ Begin Window FilteredSearchWin
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -407,7 +408,6 @@ Begin Window FilteredSearchWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   130
    End
@@ -475,6 +475,7 @@ Begin Window FilteredSearchWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -482,7 +483,6 @@ Begin Window FilteredSearchWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   192
    End

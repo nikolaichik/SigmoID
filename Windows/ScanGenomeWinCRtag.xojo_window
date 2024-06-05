@@ -188,13 +188,13 @@ Begin Window ScanGenomeWinCRtag
       TabIndex        =   21
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Search the built-in CR tagged TFBS profile library for CR tags matching TFs  from this genome. One TF family at a time."
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   False
       Underline       =   False
-      Value           =   "Search the built-in CR tagged TFBS profile library for CR tags matching TFs  from this genome. One TF family at a time."
       Visible         =   True
       Width           =   390
    End

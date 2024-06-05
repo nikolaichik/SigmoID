@@ -104,7 +104,6 @@ Begin Window CRtagWin
       Top             =   52
       Transparent     =   False
       Underline       =   False
-      UnicodeMode     =   "0"
       ValidationMask  =   ""
       Visible         =   True
       Width           =   560
@@ -188,7 +187,6 @@ Begin Window CRtagWin
       Top             =   196
       Transparent     =   False
       Underline       =   False
-      UnicodeMode     =   "0"
       ValidationMask  =   ""
       Visible         =   True
       Width           =   560

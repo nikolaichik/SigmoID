@@ -57,6 +57,7 @@ Begin Window nhmmerSettingsWin
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -64,7 +65,6 @@ Begin Window nhmmerSettingsWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   204
    End
@@ -93,13 +93,13 @@ Begin Window nhmmerSettingsWin
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kMoreOptions"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   205
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kMoreOptions"
       Visible         =   True
       Width           =   111
    End
@@ -128,13 +128,13 @@ Begin Window nhmmerSettingsWin
       TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kGenome_"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   252
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kGenome_"
       Visible         =   True
       Width           =   69
    End
@@ -170,6 +170,7 @@ Begin Window nhmmerSettingsWin
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
@@ -177,7 +178,6 @@ Begin Window nhmmerSettingsWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   361
    End
@@ -426,6 +426,7 @@ Begin Window nhmmerSettingsWin
          TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "0.62"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -433,7 +434,6 @@ Begin Window nhmmerSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "0.62"
          Visible         =   True
          Width           =   60
       End
@@ -551,13 +551,13 @@ Begin Window nhmmerSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   71
          Transparent     =   False
          Underline       =   False
-         Value           =   ""
          Visible         =   True
          Width           =   48
       End
@@ -586,13 +586,13 @@ Begin Window nhmmerSettingsWin
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   101
          Transparent     =   False
          Underline       =   False
-         Value           =   ""
          Visible         =   True
          Width           =   48
       End
@@ -621,13 +621,13 @@ Begin Window nhmmerSettingsWin
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   41
          Transparent     =   False
          Underline       =   False
-         Value           =   ""
          Visible         =   True
          Width           =   48
       End
@@ -683,7 +683,7 @@ Begin Window nhmmerSettingsWin
       LockRight       =   False
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
@@ -881,6 +881,7 @@ Begin Window nhmmerSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -888,7 +889,6 @@ Begin Window nhmmerSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   40
       End
@@ -925,6 +925,7 @@ Begin Window nhmmerSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -932,7 +933,6 @@ Begin Window nhmmerSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   40
       End

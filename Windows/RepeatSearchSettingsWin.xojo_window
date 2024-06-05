@@ -147,13 +147,13 @@ Begin Window RepeatSearchSettingsWin
       TabIndex        =   11
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kFeature2add"
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   246
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kFeature2add"
       Visible         =   True
       Width           =   143
    End
@@ -218,6 +218,7 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "rpt_type"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -225,7 +226,6 @@ Begin Window RepeatSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "rpt_type"
          Visible         =   True
          Width           =   125
       End
@@ -262,6 +262,7 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "rpt_family"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -269,7 +270,6 @@ Begin Window RepeatSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "rpt_family"
          Visible         =   True
          Width           =   125
       End
@@ -306,6 +306,7 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -313,7 +314,6 @@ Begin Window RepeatSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   253
       End
@@ -350,6 +350,7 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "note"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -357,7 +358,6 @@ Begin Window RepeatSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "note"
          Visible         =   True
          Width           =   125
       End
@@ -394,6 +394,7 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   ""
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -401,7 +402,6 @@ Begin Window RepeatSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   ""
          Visible         =   True
          Width           =   253
       End
@@ -561,6 +561,7 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "1"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -568,7 +569,6 @@ Begin Window RepeatSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "1"
          Visible         =   True
          Width           =   40
       End
@@ -605,6 +605,7 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "50"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -612,7 +613,6 @@ Begin Window RepeatSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "50"
          Visible         =   True
          Width           =   40
       End
@@ -638,7 +638,7 @@ Begin Window RepeatSearchSettingsWin
       LockRight       =   True
       LockTop         =   False
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   22
       TabPanelIndex   =   0
       TabStop         =   True
@@ -709,13 +709,13 @@ Begin Window RepeatSearchSettingsWin
       TabIndex        =   24
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "#kGenome_"
       TextAlignment   =   "3"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   421
       Transparent     =   False
       Underline       =   False
-      Value           =   "#kGenome_"
       Visible         =   True
       Width           =   69
    End
@@ -751,6 +751,7 @@ Begin Window RepeatSearchSettingsWin
       TabIndex        =   25
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
@@ -758,7 +759,6 @@ Begin Window RepeatSearchSettingsWin
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   235
    End
@@ -819,13 +819,13 @@ Begin Window RepeatSearchSettingsWin
       TabIndex        =   27
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   "Search genome for repeats/mobile elements. The proper profile must be loaded in the main window."
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
       Transparent     =   True
       Underline       =   False
-      Value           =   "Search genome for repeats/mobile elements. The proper profile must be loaded in the main window."
       Visible         =   True
       Width           =   410
    End
@@ -923,6 +923,7 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "90"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -930,7 +931,6 @@ Begin Window RepeatSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "90"
          Visible         =   True
          Width           =   26
       End
@@ -959,13 +959,13 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "%"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   198
          Transparent     =   True
          Underline       =   False
-         Value           =   "%"
          Visible         =   True
          Width           =   19
       End
@@ -994,13 +994,13 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "%"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   198
          Transparent     =   True
          Underline       =   False
-         Value           =   "%"
          Visible         =   True
          Width           =   19
       End
@@ -1037,6 +1037,7 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "70"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
@@ -1044,7 +1045,6 @@ Begin Window RepeatSearchSettingsWin
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
-         Value           =   "70"
          Visible         =   True
          Width           =   26
       End
@@ -1073,13 +1073,13 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "Target coverage:"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   200
          Transparent     =   True
          Underline       =   False
-         Value           =   "Target coverage:"
          Visible         =   True
          Width           =   118
       End
@@ -1108,13 +1108,13 @@ Begin Window RepeatSearchSettingsWin
          TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
+         Text            =   "HMM coverage:"
          TextAlignment   =   "0"
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   198
          Transparent     =   True
          Underline       =   False
-         Value           =   "HMM coverage:"
          Visible         =   True
          Width           =   118
       End
