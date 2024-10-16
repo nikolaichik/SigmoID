@@ -45,7 +45,7 @@ Begin Window deNovoWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window deNovoWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -115,7 +115,7 @@ Begin Window deNovoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kOutFolder"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   565
@@ -157,7 +157,7 @@ Begin Window deNovoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   564
@@ -187,7 +187,7 @@ Begin Window deNovoWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
@@ -218,8 +218,8 @@ Begin Window deNovoWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   0
+      GridLinesVerticalStyle=   0
       HasBorder       =   False
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -237,7 +237,7 @@ Begin Window deNovoWin
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
+      RowSelectionType=   0
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -289,12 +289,13 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "1"
+         TextAlignment   =   1
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   0
          Transparent     =   False
          Underline       =   False
+         UnicodeMode     =   0
          ValidationMask  =   ""
          Visible         =   False
          Width           =   1022
@@ -337,14 +338,15 @@ Begin Window deNovoWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   243
    End
    Begin Timer TTtimer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
-      RunMode         =   "0"
+      RunMode         =   0
       Scope           =   0
       TabPanelIndex   =   0
    End
@@ -378,7 +380,7 @@ Begin Window deNovoWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   192
    End
    Begin PushButton PauseButton
@@ -401,7 +403,7 @@ Begin Window deNovoWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0
@@ -414,10 +416,11 @@ Begin Window deNovoWin
       Width           =   81
    End
    Begin Timer RunTImer
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Period          =   1000
-      RunMode         =   "0"
+      RunMode         =   0
       Scope           =   0
       TabPanelIndex   =   0
    End
@@ -483,7 +486,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "300"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   "Maximal number of genome fragments to download. If the number of accession codes found in CR tag tables exceeds this parameter, random (parameter) codes are used."
          Top             =   433
@@ -527,7 +530,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "30"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   "We use CR-tag tables based on PIR and its four derivatives with reduced redundancy. Protein accession codes are first looked for in the least redundant table. If the number of accession codes for the given CR tag is less than this parameter, the next (more redundant) table is used."
          Top             =   433
@@ -563,7 +566,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Min:"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   433
@@ -598,7 +601,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Max:"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   433
@@ -633,7 +636,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Max fragments for MEME:"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   433
@@ -676,7 +679,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "30"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   "If the number of regulatory fragments exceeds this parameter, homology clustering and taxonomy filtering are used to reduce their number."
          Top             =   433
@@ -749,7 +752,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "50"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   433
@@ -793,7 +796,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "400"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   433
@@ -829,7 +832,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Upstream of ORF:"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   433
@@ -864,7 +867,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Downstream of ORF:"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   433
@@ -907,7 +910,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "100"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   "Two adjasent CDSs will be treated as belonging to different operons if the distance between their borders exceeds this parameter."
          Top             =   517
@@ -943,7 +946,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Min ORF size, bp:"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   517
@@ -986,7 +989,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "150"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   517
@@ -1022,7 +1025,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Inter-operon gap:"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   517
@@ -1116,7 +1119,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "30000"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   "Genome fragments shorter than this parameter will be ignored during motif inference. Reducing this parameter may help in certain cases of insufficient number of fragments. However, such reduction may result in incorrect identification of regulatory regions. "
          Top             =   517
@@ -1160,7 +1163,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "20000"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   "Number of bases to extract before and after the target TF gene. "
          Top             =   517
@@ -1196,7 +1199,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Ignore fragments shorter than:"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   517
@@ -1231,7 +1234,7 @@ Begin Window deNovoWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "TF gene flanks:"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   517
@@ -1271,7 +1274,7 @@ Begin Window deNovoWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "1"
+      VisualState     =   1
       Width           =   299
    End
    Begin Label TFFtableText
@@ -1300,7 +1303,7 @@ Begin Window deNovoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "TF family table:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   356
@@ -1342,7 +1345,7 @@ Begin Window deNovoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   231
@@ -1385,7 +1388,7 @@ Begin Window deNovoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   356
@@ -1415,7 +1418,7 @@ Begin Window deNovoWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   23
       TabPanelIndex   =   0
@@ -1457,7 +1460,7 @@ Begin Window deNovoWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   150
    End
 End
@@ -1494,9 +1497,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
@@ -2448,6 +2451,9 @@ End
 		  else 
 		    if tc=0 then me.Enabled=false
 		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"deNovoWin:TTimer:Action")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2534,6 +2540,9 @@ End
 		      PauseButton.Enabled=False
 		    end
 		  end
+		  
+		  Exception err
+		    ExceptionHandler(err,"deNovoWin:RunTimer:Action")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

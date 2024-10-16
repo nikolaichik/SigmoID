@@ -963,6 +963,14 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem GenomePlotGC
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "#kPlotGC"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem GenomeAddPlot
          SpecialMenu = 0
          Index = -2147483648
@@ -971,18 +979,18 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem GenomeRemovePlots
-         SpecialMenu = 0
-         Index = -2147483648
-         Text = "#kRemovePlots"
-         AutoEnabled = False
-         AutoEnable = False
-         Visible = True
-      End
       Begin MenuItem GenomeMergePlotData
          SpecialMenu = 0
          Index = -2147483648
          Text = "#kMergePlotData"
+         AutoEnabled = False
+         AutoEnable = False
+         Visible = True
+      End
+      Begin MenuItem GenomeRemovePlots
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "#kRemovePlots"
          AutoEnabled = False
          AutoEnable = False
          Visible = True

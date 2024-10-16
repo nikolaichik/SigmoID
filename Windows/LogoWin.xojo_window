@@ -72,12 +72,13 @@ Begin Window LogoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   28
       Transparent     =   True
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   1000
@@ -126,6 +127,7 @@ Begin Window LogoWin
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   27
       Transparent     =   True
@@ -171,12 +173,13 @@ Begin Window LogoWin
          TabPanelIndex   =   1
          TabStop         =   True
          Text            =   "Informer\n"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   27
          Transparent     =   True
          Underline       =   False
+         UnicodeMode     =   0
          ValidationMask  =   ""
          Visible         =   False
          Width           =   1000
@@ -1057,941 +1060,964 @@ End
 
 	#tag MenuHandler
 		Function AlignmentConvertToHmm() As Boolean Handles AlignmentConvertToHmm.Action
-			Dim dlg as New SaveAsDialog
-			dim HmmFile as folderitem
-			
-			dlg.InitialDirectory=Logofile.Parent
-			dlg.promptText="Select a name for Hmm file to export alignment to."
-			dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".hmm"
-			dlg.Title="Export hmm Profile"
-			dlg.Filter=FileTypes.Text
-			dlg.CancelButtonCaption=kCancel
-			dlg.ActionButtonCaption=kSave
-			HmmFile=dlg.ShowModalwithin(self)
-			if HmmFile<>nil then
-			dim StockholmFile as FolderItem = TemporaryFolder.child("stock")
-			if StockholmFile <> nil then
-			Stockholm(LogoFile,StockholmFile,"")
-			if hmmbuild(StockholmFile.shellpath,HmmFile.shellpath) then
-			else
-			WriteToSTDOUT(EndOfLine+"hmmbuild error")
-			end if
-			end if
-			end if
-			
-			Exception err
-			ExceptionHandler(err,"LogoWin:AlignmentConvertToHmm")
-			
+		  Dim dlg as New SaveAsDialog
+		  dim HmmFile as folderitem
+		  
+		  dlg.InitialDirectory=Logofile.Parent
+		  dlg.promptText="Select a name for Hmm file to export alignment to."
+		  dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".hmm"
+		  dlg.Title="Export hmm Profile"
+		  dlg.Filter=FileTypes.Text
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  HmmFile=dlg.ShowModalwithin(self)
+		  if HmmFile<>nil then
+		    dim StockholmFile as FolderItem = TemporaryFolder.child("stock")
+		    if StockholmFile <> nil then
+		      Stockholm(LogoFile,StockholmFile,"")
+		      if hmmbuild(StockholmFile.shellpath,HmmFile.shellpath) then
+		      else
+		        WriteToSTDOUT(EndOfLine+"hmmbuild error")
+		      end if
+		    end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:AlignmentConvertToHmm")
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function AlignmentConvertToMEME() As Boolean Handles AlignmentConvertToMEME.Action
-			dim d as integer = MEMEconvert(logoFile,self.palindromic)
-			
-			if d=0 then
-			dim MEMEtmp as folderitem
-			MEMEtmp=TemporaryFolder.child("MEME.txt")
-			FixPath4Windows(MEMEtmp)
-			
-			if MEMEtmp<>NIL then
-			if MEMEtmp.Exists then
-			
-			dim tis as TextInputStream
-			tis=TextInputStream.Open(MEMEtmp)
-			if tis <>nil then
-			WriteToSTDOUT(tis.ReadAll)
-			end if
-			end if
-			end if
-			end if
-			
-			
+		  dim d as integer = MEMEconvert(logoFile,self.palindromic)
+		  
+		  if d=0 then
+		    dim MEMEtmp as folderitem
+		    MEMEtmp=TemporaryFolder.child("MEME.txt")
+		    FixPath4Windows(MEMEtmp)
+		    
+		    if MEMEtmp<>NIL then
+		      if MEMEtmp.Exists then
+		        
+		        dim tis as TextInputStream
+		        tis=TextInputStream.Open(MEMEtmp)
+		        if tis <>nil then
+		          WriteToSTDOUT(tis.ReadAll)
+		        end if
+		      end if
+		    end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:AlignmentConvertToMEME")
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function AlignmentConverttoStockholm() As Boolean Handles AlignmentConverttoStockholm.Action
-			Dim dlg as New SaveAsDialog
-			dim StockholmFile as folderitem
-			
-			dlg.InitialDirectory=Logofile.Parent
-			dlg.promptText="Select a name for Stockholm file to export alignment to."
-			dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".sto"
-			dlg.Title="Export alignment in Stockholm format"
-			dlg.Filter=FileTypes.Text
-			dlg.CancelButtonCaption=kCancel
-			dlg.ActionButtonCaption=kSave
-			StockholmFile=dlg.ShowModalwithin(self)
-			if StockholmFile<>nil then
-			Stockholm(LogoFile,StockholmFile,"")
-			end if
-			
-			Exception err
-			ExceptionHandler(err,"LogoWin:AlignmentConvertToStockholm")
-			
+		  Dim dlg as New SaveAsDialog
+		  dim StockholmFile as folderitem
+		  
+		  dlg.InitialDirectory=Logofile.Parent
+		  dlg.promptText="Select a name for Stockholm file to export alignment to."
+		  dlg.SuggestedFileName=nthfield(Logofile.Name,".",1)+".sto"
+		  dlg.Title="Export alignment in Stockholm format"
+		  dlg.Filter=FileTypes.Text
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  StockholmFile=dlg.ShowModalwithin(self)
+		  if StockholmFile<>nil then
+		    Stockholm(LogoFile,StockholmFile,"")
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:AlignmentConvertToStockholm")
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function AlignmentExtendBindingSites() As Boolean Handles AlignmentExtendBindingSites.Action
-			if GenomeFile<>Nil then
-			ExtendSitesWin.GenomeField.text=GenomeFile.ShellPath
-			ExtendSitesWin.ExtendButton.Enabled=true
-			else
-			ExtendSitesWin.ExtendButton.Enabled=false
-			end if
-			ExtendSitesWin.ShowModalWithin(self)
-			Return True
-			
+		  if GenomeFile<>Nil then
+		    ExtendSitesWin.GenomeField.text=GenomeFile.ShellPath
+		    ExtendSitesWin.ExtendButton.Enabled=true
+		  else
+		    ExtendSitesWin.ExtendButton.Enabled=false
+		  end if
+		  ExtendSitesWin.ShowModalWithin(self)
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:AlignmentExtendBindingSites")
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function AlignmentMEME() As Boolean Handles AlignmentMEME.Action
-			MEMESettingsWin.ShowModalwithin(self)
-			
+		  MEMESettingsWin.ShowModalwithin(self)
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function AlignmentProfileWizard() As Boolean Handles AlignmentProfileWizard.Action
-			ProfileWizardWin.reveal(me.sequences)
-			
-			Return True
-			
+		  ProfileWizardWin.reveal(me.sequences)
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function BioProspData2Logo() As Boolean Handles BioProspData2Logo.Action
-			dim f as FolderItem
-			BioProspectData2Logo(f)
-			Return True
-			
+		  dim f as FolderItem
+		  BioProspectData2Logo(f)
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileSaveAlignmentSelection() As Boolean Handles FileSaveAlignmentSelection.Action
-			if ubound(SelArray1)=1 then
-			
-			Dim dlg as New SaveAsDialog
-			Dim outfile as FolderItem
-			'dlg.InitialDirectory=Profile_f
-			'dlg.promptText="Prompt Text"
-			
-			dlg.SuggestedFileName=NthField(LogoFile.Name,".",1)+"_short.fasta"
-			dlg.Title="Save subrange of the alignment"
-			'dlg.Filter=FileTypes1.Text  //defined as a file type in FileTypes1 File Type Set
-			dlg.CancelButtonCaption=kCancel
-			dlg.ActionButtonCaption=kSave
-			outfile=dlg.ShowModal()
-			If outfile <> Nil then
-			dim instream as TextInputStream
-			dim outstream As TextOutputStream
-			dim aLine as string
-			dim start,length as integer
-			
-			start=floor((SelArray1(1)-7)/30)
-			length=floor((SelArray2(1)-7)/30)-start
-			InStream = logofile.OpenAsTextFile
-			if Instream<>Nil then
-			OutStream = outfile.createTextFile 'make the file to store the stuff in
-			while not InStream.EOF
-			aLine=InStream.readLine
-			if left(aLine,1)=">" then
-			OutStream.writeLine aline
-			else
-			OutStream.writeLine mid(aline,start,length)
-			end if
-			
-			wend
-			InStream.close
-			else
-			msgbox "Error trying to create file"
-			end if
-			OutStream.close
-			
-			
-			Else
-			//user canceled
-			End if
-			
-			
-			else
-			msgbox "You need to have single selection range in the logo for this function to work."
-			end if
-			Return True
-			
-			Exception err
-			ExceptionHandler(err,"LogoWin:FileSaveAlignmentSelection")
+		  if ubound(SelArray1)=1 then
+		    
+		    Dim dlg as New SaveAsDialog
+		    Dim outfile as FolderItem
+		    'dlg.InitialDirectory=Profile_f
+		    'dlg.promptText="Prompt Text"
+		    
+		    dlg.SuggestedFileName=NthField(LogoFile.Name,".",1)+"_short.fasta"
+		    dlg.Title="Save subrange of the alignment"
+		    'dlg.Filter=FileTypes1.Text  //defined as a file type in FileTypes1 File Type Set
+		    dlg.CancelButtonCaption=kCancel
+		    dlg.ActionButtonCaption=kSave
+		    outfile=dlg.ShowModal()
+		    If outfile <> Nil then
+		      dim instream as TextInputStream
+		      dim outstream As TextOutputStream
+		      dim aLine as string
+		      dim start,length as integer
+		      
+		      start=floor((SelArray1(1)-7)/30)
+		      length=floor((SelArray2(1)-7)/30)-start
+		      InStream = logofile.OpenAsTextFile
+		      if Instream<>Nil then
+		        OutStream = outfile.createTextFile 'make the file to store the stuff in
+		        while not InStream.EOF
+		          aLine=InStream.readLine
+		          if left(aLine,1)=">" then
+		            OutStream.writeLine aline
+		          else
+		            OutStream.writeLine mid(aline,start,length)
+		          end if
+		          
+		        wend
+		        InStream.close
+		      else
+		        msgbox "Error trying to create file"
+		      end if
+		      OutStream.close
+		      
+		      
+		    Else
+		      //user canceled
+		    End if
+		    
+		    
+		  else
+		    msgbox "You need to have single selection range in the logo for this function to work."
+		  end if
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:FileSaveAlignmentSelection")
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileSaveLogo() As Boolean Handles FileSaveLogo.Action
-			
-			SaveLogo
-			Return True
-			
+		  
+		  SaveLogo
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileSaveProfileAs() As Boolean Handles FileSaveProfileAs.Action
-			'write the changed seqs to a temp file, point LogoFile to it
-			'and open Profile Wizard
-			
-			if SeqsChanged then
-			dim TFname as string
-			TFname=nthfield(ProfileWizardWin.ValueField.Text," ",1)
-			dim BSfastaFile as folderitem = TemporaryFolder.child(TFname+".fasta")
-			if BSfastaFile<>nil then
-			dim outstream As TextOutputStream
-			outstream = TextOutputStream.Create(BSfastaFile)
-			outstream.write(trim(Sequences))
-			outstream.close
-			LogoFile=BSfastaFile
-			WriteToSTDOUT("Edited alignment loaded."+EndOfLine.unix)
-			
-			end if
-			end if
-			
-			ProfileWizardWin.show
-			
-			Return True
-			
+		  'write the changed seqs to a temp file, point LogoFile to it
+		  'and open Profile Wizard
+		  
+		  if SeqsChanged then
+		    dim TFname as string
+		    TFname=nthfield(ProfileWizardWin.ValueField.Text," ",1)
+		    dim BSfastaFile as folderitem = TemporaryFolder.child(TFname+".fasta")
+		    if BSfastaFile<>nil then
+		      dim outstream As TextOutputStream
+		      outstream = TextOutputStream.Create(BSfastaFile)
+		      outstream.write(trim(Sequences))
+		      outstream.close
+		      LogoFile=BSfastaFile
+		      WriteToSTDOUT("Edited alignment loaded."+EndOfLine.unix)
+		      
+		    end if
+		  end if
+		  
+		  ProfileWizardWin.show
+		  
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:FileSaveProfileAs")
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FindSBioPros() As Boolean Handles FindSBioPros.Action
-			BioProspectorLogoW
-			Return True
-			
+		  BioProspectorLogoW
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function findSitesChipM() As Boolean Handles findSitesChipM.Action
-			dim w as new ChipMParam
-			w.actionButton.Caption="Run"
-			
+		  dim w as new ChipMParam
+		  w.actionButton.Caption="Run"
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeAnnotate() As Boolean Handles GenomeAnnotate.Action
-			if LastSearch="nhmmer" then
-			HmmGenSearch
-			elseif LastSearch="MAST" then
-			HmmGenOptions=""
-			MASTGenSettingsWin.showmodalwithin(self)
-			if MASTGenSettingsWin.OKpressed then
-			if GenomeFile<>Nil then
-			dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-			outfile=GetSaveFolderItem("????",fn)
-			if outfile<>nil then
-			if MastGen then
-			if MASTGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-			if ubound(GenomeWin.HmmHitDescriptions)>0 then
-			GenomeWin.opengenbankfile(outFile)
-			genomeWin.ShowHit
-			WriteToSTDOUT (" done."+EndofLine)
-			end if
-			end if
-			end if
-			end if
-			else
-			MsgBox "No genome file selected. Have you run MAST search?"
-			end if
-			end if
-			
-			end if
-			Return True
-			
+		  if LastSearch="nhmmer" then
+		    HmmGenSearch
+		  elseif LastSearch="MAST" then
+		    HmmGenOptions=""
+		    MASTGenSettingsWin.showmodalwithin(self)
+		    if MASTGenSettingsWin.OKpressed then
+		      if GenomeFile<>Nil then
+		        dim fn as string=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		        outfile=GetSaveFolderItem("????",fn)
+		        if outfile<>nil then
+		          if MastGen then
+		            if MASTGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		              if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		                GenomeWin.opengenbankfile(outFile)
+		                genomeWin.ShowHit
+		                WriteToSTDOUT (" done."+EndofLine)
+		              end if
+		            end if
+		          end if
+		        end if
+		      else
+		        MsgBox "No genome file selected. Have you run MAST search?"
+		      end if
+		    end if
+		    
+		  end if
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:GenomeAnnotate")
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeMASTSearch() As Boolean Handles GenomeMASTSearch.Action
-			dim memeResultAvailable as boolean
-			
-			if GenomeFile<>Nil then
-			MASTSettingsWin.GenomeField.text=GenomeFile.ShellPath
-			
-			MASTSettingsWin.RunButton.Enabled=true
-			else
-			
-			MASTSettingsWin.RunButton.Enabled=false
-			
-			end if
-			MASTSettingsWin.EnableRun
-			MASTSettingsWin.ShowModalWithin(self)
-			
-			if nhmmerOptions <> "" then    'lazy to rename into MASToptions
-			'check if we have meme file already within the .sig
-			if SigFileOpened then
-			dim memefile as FolderItem
-			memefile=LogoFile.parent.child("MEME.txt")
-			if memefile<>NIL and memefile.Exists then
-			memefile.CopyFileTo(TemporaryFolder)
-			MEMEtmp=TemporaryFolder.child("MEME.txt")
-			if memetmp<>nil then
-			memeResultAvailable=true
-			WriteToSTDOUT (EndofLine+"MEME results from the .sig file will be used.")
-			end if
-			else
-			WriteToSTDOUT (EndofLine+"No MEME result file in the .sig, so have to run MEME...")
-			
-			if MEMEconvert(LogoFile,self.palindromic) = 0 then
-			memeResultAvailable=true
-			end if
-			
-			end if
-			
-			else
-			if MEMEconvert(LogoFile,self.palindromic) = 0 then
-			memeResultAvailable=true
-			end if
-			
-			end if
-			
-			
-			
-			if memeResultAvailable then
-			
-			MASTsearch
-			
-			if MASTSettingsWin.ShowHitsCheckBox.value then
-			// the 'Add annotation' and 'Mask hits within ORFs' options are mutually exclusive
-			// both can't be selected (but can be deselected) at the same time
-			
-			if MastSettingsWin.AddAnnotationCheckBox.value then
-			HmmGenOptions=""
-			Dim dlg as New SaveAsDialog
-			dlg.InitialDirectory=genomefile.Parent
-			dlg.promptText="Select where to save the modified genome file"
-			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-			dlg.Title="Save genome file"
-			dlg.Filter=FileTypes.genbank
-			dlg.CancelButtonCaption=kCancel
-			dlg.ActionButtonCaption=kSave
-			outfile=dlg.ShowModal()
-			if outfile<>nil then
-			MastGenSettingsWin.ReadOptions
-			if MastGen then
-			if MastGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-			if ubound(GenomeWin.HmmHitDescriptions)>0 then
-			GenomeWin.opengenbankfile(outFile)
-			genomeWin.ShowHit
-			WriteToSTDOUT (" done."+EndofLine)
-			end if
-			end if
-			end if
-			end if
-			
-			elseif MastSettingsWin.MaskWithinORFCheckBox.value then
-			
-			'remove hits within CDS:
-			dim HitCount,Featurecount as integer
-			dim m,n as integer
-			WriteToSTDOUT (EndofLine+"Filtering out hits within ORFs...")
-			
-			GenomeWin.opengenbankfile(genomeFile)
-			
-			HitCount=ubound(genomeWin.HmmHitChecked)
-			FeatureCount=ubound(genomeWin.genome.features)
-			for m=HitCount downto 1
-			for n=1 to Featurecount
-			'if genomeWin.genome.features(n).type="CDS" then
-			if (genomeWin.genome.features(n).start<=GenomeWin.HmmHits(m) And genomeWin.genome.features(n).Finish>=GenomeWin.HmmHits(m)) OR (genomeWin.genome.features(n).Finish<=GenomeWin.HmmHits(m) And genomeWin.genome.features(n).Start>=GenomeWin.HmmHits(m)) then
-			if left(genomeWin.genome.features(n).FeatureText,3)="CDS" then
-			genomeWin.HmmHitChecked.Remove(m)
-			genomeWin.HmmHitDescriptions.Remove(m)
-			genomeWin.HmmHitNames.Remove(m)
-			genomeWin.HmmHits.Remove(m)
-			exit
-			end if
-			end if
-			'end if
-			next 'n
-			next 'm
-			WriteToSTDOUT ("  "+str(HitCount-ubound(genomeWin.HmmHits))+" hits within ORF removed.")
-			
-			if Ubound(genomeWin.HmmHits)>0 then
-			'if NOT ScanningGenome then
-			'WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
-			'end if
-			
-			WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
-			
-			'Set the genome map scrollbar:
-			Genomewin.SetScrollbar
-			
-			'Display the hit:
-			genomeWin.CurrentHit=1
-			Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
-			s0.Enabled=false 'first hit: there's no previous one
-			Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
-			s1.Title="1/"+str(UBound(genomeWin.HmmHits))
-			Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
-			s2.enabled=true
-			
-			genomeWin.ShowHit
-			WriteToSTDOUT (" done."+EndofLine)
-			end if
-			
-			else
-			
-			if Ubound(genomeWin.HmmHits)>0 then
-			'if NOT ScanningGenome then
-			'WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
-			'end if
-			
-			WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
-			
-			GenomeWin.opengenbankfile(genomeFile)
-			
-			'Set the genome map scrollbar:
-			Genomewin.SetScrollbar
-			
-			'Display the hit:
-			genomeWin.CurrentHit=1
-			Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
-			s0.Enabled=false 'first hit: there's no previous one
-			Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
-			s1.Title="1/"+str(UBound(genomeWin.HmmHits))
-			Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
-			s2.enabled=true
-			
-			genomeWin.ShowHit
-			WriteToSTDOUT (" done."+EndofLine)
-			end if
-			
-			end if
-			end if
-			end if
-			end if
-			
+		  dim memeResultAvailable as boolean
+		  
+		  if GenomeFile<>Nil then
+		    MASTSettingsWin.GenomeField.text=GenomeFile.ShellPath
+		    
+		    MASTSettingsWin.RunButton.Enabled=true
+		  else
+		    
+		    MASTSettingsWin.RunButton.Enabled=false
+		    
+		  end if
+		  MASTSettingsWin.EnableRun
+		  MASTSettingsWin.ShowModalWithin(self)
+		  
+		  if nhmmerOptions <> "" then    'lazy to rename into MASToptions
+		    'check if we have meme file already within the .sig
+		    if SigFileOpened then
+		      dim memefile as FolderItem
+		      memefile=LogoFile.parent.child("MEME.txt")
+		      if memefile<>NIL and memefile.Exists then
+		        memefile.CopyFileTo(TemporaryFolder)
+		        MEMEtmp=TemporaryFolder.child("MEME.txt")
+		        if memetmp<>nil then
+		          memeResultAvailable=true
+		          WriteToSTDOUT (EndofLine+"MEME results from the .sig file will be used.")
+		        end if
+		      else
+		        WriteToSTDOUT (EndofLine+"No MEME result file in the .sig, so have to run MEME...")
+		        
+		        if MEMEconvert(LogoFile,self.palindromic) = 0 then
+		          memeResultAvailable=true
+		        end if
+		        
+		      end if
+		      
+		    else
+		      if MEMEconvert(LogoFile,self.palindromic) = 0 then
+		        memeResultAvailable=true
+		      end if
+		      
+		    end if
+		    
+		    
+		    
+		    if memeResultAvailable then
+		      
+		      MASTsearch
+		      
+		      if MASTSettingsWin.ShowHitsCheckBox.value then
+		        // the 'Add annotation' and 'Mask hits within ORFs' options are mutually exclusive
+		        // both can't be selected (but can be deselected) at the same time
+		        
+		        if MastSettingsWin.AddAnnotationCheckBox.value then
+		          HmmGenOptions=""
+		          Dim dlg as New SaveAsDialog
+		          dlg.InitialDirectory=genomefile.Parent
+		          dlg.promptText="Select where to save the modified genome file"
+		          dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		          dlg.Title="Save genome file"
+		          dlg.Filter=FileTypes.genbank
+		          dlg.CancelButtonCaption=kCancel
+		          dlg.ActionButtonCaption=kSave
+		          outfile=dlg.ShowModal()
+		          if outfile<>nil then
+		            MastGenSettingsWin.ReadOptions
+		            if MastGen then
+		              if MastGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		                if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		                  GenomeWin.opengenbankfile(outFile)
+		                  genomeWin.ShowHit
+		                  WriteToSTDOUT (" done."+EndofLine)
+		                end if
+		              end if
+		            end if
+		          end if
+		          
+		        elseif MastSettingsWin.MaskWithinORFCheckBox.value then
+		          
+		          'remove hits within CDS:
+		          dim HitCount,Featurecount as integer
+		          dim m,n as integer
+		          WriteToSTDOUT (EndofLine+"Filtering out hits within ORFs...")
+		          
+		          GenomeWin.opengenbankfile(genomeFile)
+		          
+		          HitCount=ubound(genomeWin.HmmHitChecked)
+		          FeatureCount=ubound(genomeWin.genome.features)
+		          for m=HitCount downto 1
+		            for n=1 to Featurecount
+		              'if genomeWin.genome.features(n).type="CDS" then
+		              if (genomeWin.genome.features(n).start<=GenomeWin.HmmHits(m) And genomeWin.genome.features(n).Finish>=GenomeWin.HmmHits(m)) OR (genomeWin.genome.features(n).Finish<=GenomeWin.HmmHits(m) And genomeWin.genome.features(n).Start>=GenomeWin.HmmHits(m)) then
+		                if left(genomeWin.genome.features(n).FeatureText,3)="CDS" then
+		                  genomeWin.HmmHitChecked.Remove(m)
+		                  genomeWin.HmmHitDescriptions.Remove(m)
+		                  genomeWin.HmmHitNames.Remove(m)
+		                  genomeWin.HmmHits.Remove(m)
+		                  exit
+		                end if
+		              end if
+		              'end if
+		            next 'n
+		          next 'm
+		          WriteToSTDOUT ("  "+str(HitCount-ubound(genomeWin.HmmHits))+" hits within ORF removed.")
+		          
+		          if Ubound(genomeWin.HmmHits)>0 then
+		            'if NOT ScanningGenome then
+		            'WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
+		            'end if
+		            
+		            WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
+		            
+		            'Set the genome map scrollbar:
+		            Genomewin.SetScrollbar
+		            
+		            'Display the hit:
+		            genomeWin.CurrentHit=1
+		            Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
+		            s0.Enabled=false 'first hit: there's no previous one
+		            Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
+		            s1.Title="1/"+str(UBound(genomeWin.HmmHits))
+		            Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
+		            s2.enabled=true
+		            
+		            genomeWin.ShowHit
+		            WriteToSTDOUT (" done."+EndofLine)
+		          end if
+		          
+		        else
+		          
+		          if Ubound(genomeWin.HmmHits)>0 then
+		            'if NOT ScanningGenome then
+		            'WriteToSTDOUT (EndofLine+"Genbank file with added features written to "+outFile.ShellPath+EndofLine)
+		            'end if
+		            
+		            WriteToSTDOUT (EndofLine.unix+"Loading the GenBank file...")
+		            
+		            GenomeWin.opengenbankfile(genomeFile)
+		            
+		            'Set the genome map scrollbar:
+		            Genomewin.SetScrollbar
+		            
+		            'Display the hit:
+		            genomeWin.CurrentHit=1
+		            Dim s0 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 0 )
+		            s0.Enabled=false 'first hit: there's no previous one
+		            Dim s1 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 1 )
+		            s1.Title="1/"+str(UBound(genomeWin.HmmHits))
+		            Dim s2 As SegmentedControlItem = genomeWin.SegmentedControl1.Items( 2 )
+		            s2.enabled=true
+		            
+		            genomeWin.ShowHit
+		            WriteToSTDOUT (" done."+EndofLine)
+		          end if
+		          
+		        end if
+		      end if
+		    end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:GenomeMASTSearch")
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeNhmmersearch() As Boolean Handles GenomeNhmmersearch.Action
-			'if NOT SigFileOpened then
-			
-			'masking should be allowed for .sig files too...
-			if masked then
-			nhmmerSettingsWin.MaskingBox.Enabled=true
-			nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. HMMer default is Henikoff position-based"
-			else
-			nhmmerSettingsWin.MaskingBox.Enabled=False
-			nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. To enable, drag/shift-drag over undesired positions in the logo"
-			'show cutoff values:
-			end if
-			'end if
-			if GenomeFile<>Nil then
-			nhmmerSettingsWin.GenomeField.text=GenomeFile.ShellPath
-			
-			nhmmerSettingsWin.RunButton.Enabled=true
-			else
-			'#if Debugbuild
-			'GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
-			'#else
-			nhmmerSettingsWin.RunButton.Enabled=false
-			'#endif
-			end if
-			nhmmerSettingsWin.EnableRun
-			nhmmerSettingsWin.ShowModalWithin(self)
-			'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
-			if nhmmerOptions <> "" then
-			if nhmmer then
-			if nhmmerSettingsWin.AddAnnotationCheckBox.value then
-			Dim dlg as New SaveAsDialog
-			dlg.InitialDirectory=genomefile.Parent
-			dlg.promptText="Select where to save the modified genome file"
-			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-			dlg.Title="Save genome file"
-			dlg.Filter=FileTypes.genbank
-			dlg.CancelButtonCaption=kCancel
-			dlg.ActionButtonCaption=kSave
-			outfile=dlg.ShowModal()
-			if outfile<>nil then
-			HmmGenSettingsWin.ReadOptions
-			if HmmGen then
-			if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-			if ubound(GenomeWin.HmmHitDescriptions)>0 then
-			GenomeWin.opengenbankfile(outFile)
-			genomeWin.ShowHit
-			WriteToSTDOUT (" done."+EndofLine)
-			end if
-			end if
-			end if
-			end if
-			end if
-			end if
-			end if
-			Return True
-			
+		  'if NOT SigFileOpened then
+		  
+		  'masking should be allowed for .sig files too...
+		  if masked then
+		    nhmmerSettingsWin.MaskingBox.Enabled=true
+		    nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. HMMer default is Henikoff position-based"
+		  else
+		    nhmmerSettingsWin.MaskingBox.Enabled=False
+		    nhmmerSettingsWin.MaskingBox.HelpTag="Masking options for alimask. To enable, drag/shift-drag over undesired positions in the logo"
+		    'show cutoff values:
+		  end if
+		  'end if
+		  if GenomeFile<>Nil then
+		    nhmmerSettingsWin.GenomeField.text=GenomeFile.ShellPath
+		    
+		    nhmmerSettingsWin.RunButton.Enabled=true
+		  else
+		    '#if Debugbuild
+		    'GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
+		    '#else
+		    nhmmerSettingsWin.RunButton.Enabled=false
+		    '#endif
+		  end if
+		  nhmmerSettingsWin.EnableRun
+		  nhmmerSettingsWin.ShowModalWithin(self)
+		  'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
+		  if nhmmerOptions <> "" then
+		    if nhmmer then
+		      if nhmmerSettingsWin.AddAnnotationCheckBox.value then
+		        Dim dlg as New SaveAsDialog
+		        dlg.InitialDirectory=genomefile.Parent
+		        dlg.promptText="Select where to save the modified genome file"
+		        dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		        dlg.Title="Save genome file"
+		        dlg.Filter=FileTypes.genbank
+		        dlg.CancelButtonCaption=kCancel
+		        dlg.ActionButtonCaption=kSave
+		        outfile=dlg.ShowModal()
+		        if outfile<>nil then
+		          HmmGenSettingsWin.ReadOptions
+		          if HmmGen then
+		            if HmmGenSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		              if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		                GenomeWin.opengenbankfile(outFile)
+		                genomeWin.ShowHit
+		                WriteToSTDOUT (" done."+EndofLine)
+		              end if
+		            end if
+		          end if
+		        end if
+		      end if
+		    end if
+		  end if
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:Genomenhmmersearch")
+		    
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeRepeatSearch() As Boolean Handles GenomeRepeatSearch.Action
-			if GenomeFile<>Nil then
-			RepeatSearchSettingsWin.GenomeField.text=GenomeFile.ShellPath
-			
-			RepeatSearchSettingsWin.RunButton.Enabled=true
-			else
-			'#if Debugbuild
-			'GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
-			'#else
-			RepeatSearchSettingsWin.RunButton.Enabled=false
-			'#endif
-			end if
-			RepeatSearchSettingsWin.EnableRun
-			RepeatSearchSettingsWin.ShowModalWithin(self)
-			'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
-			
-			
-			if hmmgenOptions <> "" then
-			'set nhmmer options:
-			
-			nhmmeroptions=" --max"                     '--max
-			
-			dim RSW as RepeatSearchSettingsWin = RepeatSearchSettingsWin
-			
-			if RSW.EvalueButton.Value then
-			if val(RSW.EvalueField.text)>0 then    'if cutoff isn't entered, run without it
-			nhmmeroptions=nhmmeroptions+" -E "+Trim(RSW.EvalueField.Text)
-			end if
-			elseif RSW.BitScoreButton.value then
-			if val(RSW.BitScoreField.text)>0 then    'if cutoff isn't entered, run without it
-			nhmmeroptions=nhmmeroptions+" -T "+trim(RSW.BitScoreField.text)
-			end if
-			end if
-			
-			
-			
-			if nhmmerOptions <> "" then
-			if nhmmer then
-			if RepeatSearchSettingsWin.GenomeBrowserCheckBox.value then
-			Dim dlg as New SaveAsDialog
-			dlg.InitialDirectory=genomefile.Parent
-			dlg.promptText="Select where to save the modified genome file"
-			dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
-			dlg.Title="Save genome file"
-			dlg.Filter=FileTypes.genbank
-			dlg.CancelButtonCaption=kCancel
-			dlg.ActionButtonCaption=kSave
-			outfile=dlg.ShowModal()
-			if outfile<>nil then
-			'RepeatSearchSettingsWin.ReadOptions
-			
-			if RepeatGen then
-			if RepeatSearchSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
-			if ubound(GenomeWin.HmmHitDescriptions)>0 then
-			GenomeWin.opengenbankfile(outFile)
-			genomeWin.ShowHit
-			WriteToSTDOUT (" done."+EndofLine)
-			end if
-			end if
-			end if
-			end if
-			end if
-			end if
-			end if
-			end if
-			
-			Return True
-			
-			
+		  if GenomeFile<>Nil then
+		    RepeatSearchSettingsWin.GenomeField.text=GenomeFile.ShellPath
+		    
+		    RepeatSearchSettingsWin.RunButton.Enabled=true
+		  else
+		    '#if Debugbuild
+		    'GenomeFile=GetFolderItem(nhmmerSettingsWin.GenomeField.text,FolderItem.PathTypeShell)
+		    '#else
+		    RepeatSearchSettingsWin.RunButton.Enabled=false
+		    '#endif
+		  end if
+		  RepeatSearchSettingsWin.EnableRun
+		  RepeatSearchSettingsWin.ShowModalWithin(self)
+		  'Genomefile=GetFolderItem(trim(nhmmerSettingsWin.GenomeField.text), FolderItem.PathTypeShell)
+		  
+		  
+		  if hmmgenOptions <> "" then
+		    'set nhmmer options:
+		    
+		    nhmmeroptions=" --max"                     '--max
+		    
+		    dim RSW as RepeatSearchSettingsWin = RepeatSearchSettingsWin
+		    
+		    if RSW.EvalueButton.Value then
+		      if val(RSW.EvalueField.text)>0 then    'if cutoff isn't entered, run without it
+		        nhmmeroptions=nhmmeroptions+" -E "+Trim(RSW.EvalueField.Text)
+		      end if
+		    elseif RSW.BitScoreButton.value then
+		      if val(RSW.BitScoreField.text)>0 then    'if cutoff isn't entered, run without it
+		        nhmmeroptions=nhmmeroptions+" -T "+trim(RSW.BitScoreField.text)
+		      end if
+		    end if
+		    
+		    
+		    
+		    if nhmmerOptions <> "" then
+		      if nhmmer then
+		        if RepeatSearchSettingsWin.GenomeBrowserCheckBox.value then
+		          Dim dlg as New SaveAsDialog
+		          dlg.InitialDirectory=genomefile.Parent
+		          dlg.promptText="Select where to save the modified genome file"
+		          dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		          dlg.Title="Save genome file"
+		          dlg.Filter=FileTypes.genbank
+		          dlg.CancelButtonCaption=kCancel
+		          dlg.ActionButtonCaption=kSave
+		          outfile=dlg.ShowModal()
+		          if outfile<>nil then
+		            'RepeatSearchSettingsWin.ReadOptions
+		            
+		            if RepeatGen then
+		              if RepeatSearchSettingsWin.GenomeBrowserCheckBox.Value then 'Load the Seq into browser
+		                if ubound(GenomeWin.HmmHitDescriptions)>0 then
+		                  GenomeWin.opengenbankfile(outFile)
+		                  genomeWin.ShowHit
+		                  WriteToSTDOUT (" done."+EndofLine)
+		                end if
+		              end if
+		            end if
+		          end if
+		        end if
+		      end if
+		    end if
+		  end if
+		  
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:GenomeRepeatSearch")
+		    
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeTerminatorSearch() As Boolean Handles GenomeTerminatorSearch.Action
-			TermGenSearch
+		  TermGenSearch
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function LogoFromPWMtest() As Boolean Handles LogoFromPWMtest.Action
-			// only testing
-			
-			dim p as picture
-			dim s as string
-			s=" 0.375000  0.250000  0.375000  0.000000 " + EndOfLine
-			s=s+" 0.500000  0.250000  0.250000  0.000000 " + EndOfLine
-			s=s+" 0.000000  0.750000  0.000000  0.250000 " + EndOfLine
-			s=s+" 0.000000  0.000000  0.125000  0.875000 " + EndOfLine
-			s=s+" 0.875000  0.000000  0.000000  0.125000 " + EndOfLine
-			s=s+" 0.125000  0.250000  0.250000  0.375000 " + EndOfLine
-			s=s+" 0.875000  0.000000  0.000000  0.125000 " + EndOfLine
-			s=s+" 0.000000  0.750000  0.000000  0.250000 " + EndOfLine
-			s=s+" 0.125000  0.250000  0.250000  0.375000 " + EndOfLine
-			s=s+" 0.499999  0.000000  0.000000  0.499999 " + EndOfLine
-			s=s+" 0.500000  0.000000  0.000000  0.500000 " + EndOfLine
-			s=s+" 0.374999  0.249999  0.249999  0.124999 " + EndOfLine
-			s=s+" 0.249999  0.000000  0.749999  0.000000 " + EndOfLine
-			s=s+" 0.124999  0.000000  0.000000  0.874999 " + EndOfLine
-			s=s+" 0.374999  0.249999  0.249999  0.124999 " + EndOfLine
-			s=s+" 0.124999  0.000000  0.000000  0.874999 " + EndOfLine
-			s=s+" 0.874999  0.124999  0.000000  0.000000 " + EndOfLine
-			s=s+" 0.249999  0.000000  0.749999  0.000000 " + EndOfLine
-			s=s+" 0.000000  0.249999  0.249999  0.499999 " + EndOfLine
-			s=s+" 0.000000  0.374999  0.249999  0.374999 "
-			
-			p=LogoFromPWM(s)
-			beep
-			
-			Return True
-			
+		  // only testing
+		  
+		  dim p as picture
+		  dim s as string
+		  s=" 0.375000  0.250000  0.375000  0.000000 " + EndOfLine
+		  s=s+" 0.500000  0.250000  0.250000  0.000000 " + EndOfLine
+		  s=s+" 0.000000  0.750000  0.000000  0.250000 " + EndOfLine
+		  s=s+" 0.000000  0.000000  0.125000  0.875000 " + EndOfLine
+		  s=s+" 0.875000  0.000000  0.000000  0.125000 " + EndOfLine
+		  s=s+" 0.125000  0.250000  0.250000  0.375000 " + EndOfLine
+		  s=s+" 0.875000  0.000000  0.000000  0.125000 " + EndOfLine
+		  s=s+" 0.000000  0.750000  0.000000  0.250000 " + EndOfLine
+		  s=s+" 0.125000  0.250000  0.250000  0.375000 " + EndOfLine
+		  s=s+" 0.499999  0.000000  0.000000  0.499999 " + EndOfLine
+		  s=s+" 0.500000  0.000000  0.000000  0.500000 " + EndOfLine
+		  s=s+" 0.374999  0.249999  0.249999  0.124999 " + EndOfLine
+		  s=s+" 0.249999  0.000000  0.749999  0.000000 " + EndOfLine
+		  s=s+" 0.124999  0.000000  0.000000  0.874999 " + EndOfLine
+		  s=s+" 0.374999  0.249999  0.249999  0.124999 " + EndOfLine
+		  s=s+" 0.124999  0.000000  0.000000  0.874999 " + EndOfLine
+		  s=s+" 0.874999  0.124999  0.000000  0.000000 " + EndOfLine
+		  s=s+" 0.249999  0.000000  0.749999  0.000000 " + EndOfLine
+		  s=s+" 0.000000  0.249999  0.249999  0.499999 " + EndOfLine
+		  s=s+" 0.000000  0.374999  0.249999  0.374999 "
+		  
+		  p=LogoFromPWM(s)
+		  beep
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ProfileConvertFolderToMEME() As Boolean Handles ProfileConvertFolderToMEME.Action
-			// Select a folder with .sig files and convert all of them into a single file in the minimal meme format
-			
-			Dim SigF, f As FolderItem
-			Dim m,n,q As Integer
-			Dim basename As String
-			Dim vv As VirtualVolume
-			Dim tis As TextInputStream
-			Dim SigPath as string
-			dim memeData as string
-			Dim dlg As New SelectFolderDialog
-			dlg.ActionButtonCaption = "Select"
-			dlg.Title = "Select Folder with .sig files"
-			dlg.PromptText = "Select Folder with .sig files to convert"
-			'dlg.InitialDirectory = Profile_f.parent
-			
-			SigF = dlg.ShowModal
-			If SigF <> Nil Then
-			ConvertProfilesToMEMEWin.close
-			ConvertProfilesToMEMEWin.Foldername=SigF.DisplayName
-			m=SigF.Count
-			For n=1 To m
-			If SigF.Item(n).name<>".DS_Store" Then
-			If SigF.Item(n).Directory Then
-			'skip folder
-			Else
-			If Right(SigF.Item(n).Name,4)=".sig" Then
-			
-			'Get MEME data:
-			vv=SigF.Item(n).openAsVirtualVolume
-			If vv<> Nil Then
-			sigPath=SigF.Item(n).nativePath
-			basename=NthField(SigF.Item(n).DisplayName,".sig",1)
-			f=vv.root.child("meme.txt")
-			If f<> Nil And f.exists Then
-			'tis = New TextInputStream
-			tis = TextInputStream.Open(f)
-			MEMEdata=tis.ReadAll
-			tis.Close
-			
-			Dim motifName, nSites, PWMdata, sitelen, FastaData, Info, Options  As String 
-			Dim LEloc As Integer
-			
-			motifName=NthField(SigF.Item(n).Name,".sig",1)
-			'nSites=Str(Val(NthField(MEMEdata," nsites=",2)))     'MEME ignores duplicates, so this number can be less than the actual number of seqs
-			PWMdata=NthField(MEMEdata," nsites=",2)               'get closer to the data
-			LEloc=InStr(PWMdata,EndOfLine)
-			PWMdata=Right(PWMdata,Len(PWMdata)-LEloc)                 'still has trailing lines
-			PWMdata=NthField(PWMdata,"--",1)
-			'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine) 'remove empty lines
-			'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
-			'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
-			
-			sitelen=Str(CountFields(PWMdata,EndOfLine))
-			
-			'get fasta data:
-			f=vv.root.child(basename+".fasta")
-			If f<> Nil And f.exists Then
-			tis = TextInputStream.Open(f)
-			FastaData=tis.ReadAll
-			tis.Close
-			End If
-			
-			nSites=str(countfields(FastaData,">")-1)
-			
-			'get info:
-			f=vv.root.child(basename+".info")
-			If f<> Nil And f.exists Then
-			tis = TextInputStream.Open(f)
-			Info=tis.ReadAll
-			tis.Close
-			End If
-			
-			'get options:
-			f=vv.root.child(basename+".options")
-			If f<> Nil And f.exists Then
-			tis = TextInputStream.Open(f)
-			Options=tis.ReadAll
-			tis.Close
-			End If
-			
-			'get meme data:
-			f=vv.root.child("meme.txt")
-			If f<> Nil And f.exists Then
-			tis = TextInputStream.Open(f)
-			memeData=tis.ReadAll
-			tis.Close
-			End If
-			
-			// CollectionList columns are:
-			' 0 - Checkbox
-			' 1 - Profile Name
-			' 2 - Number of seqs
-			' 3 - Information (bits)
-			' 4 - Logo picture
-			' 5 (invisible) - TFBS seqs (in fasta format)
-			' 6 (invisible) - TFBS length.
-			
-			'added for profile merge:
-			' 7 (invisible) - profile info
-			' 8 (invisible) - profile options
-			' 9 (invisible) - meme data
-			' 10(invisible) - sig path
-			
-			Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen,Info,Options,memeData,sigpath)  'first column contains checkboxes
-			
-			ConvertProfilesToMEMEWin.CollectionList.AddRow(reg)
-			
-			Dim p As picture = LogoFromPWM(PWMdata)
-			''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
-			'dim LogoPicScaled as new Picture (p.width*50/170,35,32)
-			'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
-			'LogoPicScaled.Transparent=1
-			
-			''scale the picture down to 60 pixel heigh and stretch it horisontally a bit
-			'dim LogoPicScaled as new Picture (p.width*50/170,45,32)
-			'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,45,0,0,p.width,p.Height)
-			Dim LogoPicScaled As New Picture (p.width*70/170,60,32)
-			LogoPicScaled.Graphics.DrawPicture (p,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,p.width,p.Height)
-			
-			LogoPicScaled.Transparent=1
-			
-			
-			'add picture to the last row as variant, so it is sorted properly 
-			ConvertProfilesToMEMEWin.CollectionList.RowTag(ConvertProfilesToMEMEWin.collectionlist.LastIndex)=LogoPicScaled
-			
-			'Update progress text
-			ConvertProfilesToMEMEWin.ProgressLabel.Text="Loading profiles: "+Str(ConvertProfilesToMEMEWin.CollectionList.ListCount)
-			
-			
-			ConvertProfilesToMEMEWin.CollectionList.Enabled=True
-			
-			
-			
-			
-			
-			
-			Else
-			WriteToSTDOUT(EndOfLine.UNIX+"No MEME data in "+SigF.Item(n).DisplayName+EndOfLine.UNIX)
-			
-			
-			
-			End If
-			Else
-			Beep
-			End If
-			
-			
-			End If
-			End If
-			End If
-			Next
-			
-			'logowin.WriteToSTDOUT(EndOfLine+"Converted sig files written to "+OutF.ShellPath+EndOfLine)
-			
-			Else
-			// User cancelled
-			End If
-			
-			
-			ConvertProfilesToMEMEWin.show
-			
-			Exception err
-			ExceptionHandler(err,"App:ProfileConvertFolderToMEME")
-			Return True
-			
+		  // Select a folder with .sig files and convert all of them into a single file in the minimal meme format
+		  
+		  Dim SigF, f As FolderItem
+		  Dim m,n,q As Integer
+		  Dim basename As String
+		  Dim vv As VirtualVolume
+		  Dim tis As TextInputStream
+		  Dim SigPath as string
+		  dim memeData as string
+		  Dim dlg As New SelectFolderDialog
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Select Folder with .sig files"
+		  dlg.PromptText = "Select Folder with .sig files to convert"
+		  'dlg.InitialDirectory = Profile_f.parent
+		  
+		  SigF = dlg.ShowModal
+		  If SigF <> Nil Then
+		    ConvertProfilesToMEMEWin.close
+		    ConvertProfilesToMEMEWin.Foldername=SigF.DisplayName
+		    m=SigF.Count
+		    For n=1 To m
+		      If SigF.Item(n).name<>".DS_Store" Then
+		        If SigF.Item(n).Directory Then
+		          'skip folder
+		        Else
+		          If Right(SigF.Item(n).Name,4)=".sig" Then
+		            
+		            'Get MEME data:
+		            vv=SigF.Item(n).openAsVirtualVolume
+		            If vv<> Nil Then
+		              sigPath=SigF.Item(n).nativePath
+		              basename=NthField(SigF.Item(n).DisplayName,".sig",1)
+		              f=vv.root.child("meme.txt")
+		              If f<> Nil And f.exists Then
+		                'tis = New TextInputStream
+		                tis = TextInputStream.Open(f)
+		                MEMEdata=tis.ReadAll
+		                tis.Close
+		                
+		                Dim motifName, nSites, PWMdata, sitelen, FastaData, Info, Options  As String 
+		                Dim LEloc As Integer
+		                
+		                motifName=NthField(SigF.Item(n).Name,".sig",1)
+		                'nSites=Str(Val(NthField(MEMEdata," nsites=",2)))     'MEME ignores duplicates, so this number can be less than the actual number of seqs
+		                PWMdata=NthField(MEMEdata," nsites=",2)               'get closer to the data
+		                LEloc=InStr(PWMdata,EndOfLine)
+		                PWMdata=Right(PWMdata,Len(PWMdata)-LEloc)                 'still has trailing lines
+		                PWMdata=NthField(PWMdata,"--",1)
+		                'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine) 'remove empty lines
+		                'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
+		                'PWMdata=ReplaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
+		                
+		                sitelen=Str(CountFields(PWMdata,EndOfLine))
+		                
+		                'get fasta data:
+		                f=vv.root.child(basename+".fasta")
+		                If f<> Nil And f.exists Then
+		                  tis = TextInputStream.Open(f)
+		                  FastaData=tis.ReadAll
+		                  tis.Close
+		                End If
+		                
+		                nSites=str(countfields(FastaData,">")-1)
+		                
+		                'get info:
+		                f=vv.root.child(basename+".info")
+		                If f<> Nil And f.exists Then
+		                  tis = TextInputStream.Open(f)
+		                  Info=tis.ReadAll
+		                  tis.Close
+		                End If
+		                
+		                'get options:
+		                f=vv.root.child(basename+".options")
+		                If f<> Nil And f.exists Then
+		                  tis = TextInputStream.Open(f)
+		                  Options=tis.ReadAll
+		                  tis.Close
+		                End If
+		                
+		                'get meme data:
+		                f=vv.root.child("meme.txt")
+		                If f<> Nil And f.exists Then
+		                  tis = TextInputStream.Open(f)
+		                  memeData=tis.ReadAll
+		                  tis.Close
+		                End If
+		                
+		                // CollectionList columns are:
+		                ' 0 - Checkbox
+		                ' 1 - Profile Name
+		                ' 2 - Number of seqs
+		                ' 3 - Information (bits)
+		                ' 4 - Logo picture
+		                ' 5 (invisible) - TFBS seqs (in fasta format)
+		                ' 6 (invisible) - TFBS length.
+		                
+		                'added for profile merge:
+		                ' 7 (invisible) - profile info
+		                ' 8 (invisible) - profile options
+		                ' 9 (invisible) - meme data
+		                ' 10(invisible) - sig path
+		                
+		                Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen,Info,Options,memeData,sigpath)  'first column contains checkboxes
+		                
+		                ConvertProfilesToMEMEWin.CollectionList.AddRow(reg)
+		                
+		                Dim p As picture = LogoFromPWM(PWMdata)
+		                ''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
+		                'dim LogoPicScaled as new Picture (p.width*50/170,35,32)
+		                'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
+		                'LogoPicScaled.Transparent=1
+		                
+		                ''scale the picture down to 60 pixel heigh and stretch it horisontally a bit
+		                'dim LogoPicScaled as new Picture (p.width*50/170,45,32)
+		                'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,45,0,0,p.width,p.Height)
+		                Dim LogoPicScaled As New Picture (p.width*70/170,60,32)
+		                LogoPicScaled.Graphics.DrawPicture (p,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,p.width,p.Height)
+		                
+		                LogoPicScaled.Transparent=1
+		                
+		                
+		                'add picture to the last row as variant, so it is sorted properly 
+		                ConvertProfilesToMEMEWin.CollectionList.RowTag(ConvertProfilesToMEMEWin.collectionlist.LastIndex)=LogoPicScaled
+		                
+		                'Update progress text
+		                ConvertProfilesToMEMEWin.ProgressLabel.Text="Loading profiles: "+Str(ConvertProfilesToMEMEWin.CollectionList.ListCount)
+		                
+		                
+		                ConvertProfilesToMEMEWin.CollectionList.Enabled=True
+		                
+		                
+		                
+		                
+		                
+		                
+		              Else
+		                WriteToSTDOUT(EndOfLine.UNIX+"No MEME data in "+SigF.Item(n).DisplayName+EndOfLine.UNIX)
+		                
+		                
+		                
+		              End If
+		            Else
+		              Beep
+		            End If
+		            
+		            
+		          End If
+		        End If
+		      End If
+		    Next
+		    
+		    'logowin.WriteToSTDOUT(EndOfLine+"Converted sig files written to "+OutF.ShellPath+EndOfLine)
+		    
+		  Else
+		    // User cancelled
+		  End If
+		  
+		  
+		  ConvertProfilesToMEMEWin.show
+		  
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"App:ProfileConvertFolderToMEME")
+		    
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ProfilePalindromise() As Boolean Handles ProfilePalindromise.Action
-			Palindromise
-			Return True
-			
+		  Palindromise
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ProfilePermuteColumns() As Boolean Handles ProfilePermuteColumns.Action
-			PermuteColumns
-			
-			Exception err
-			ExceptionHandler(err,"LogoWin:ProfilePermuteColumns")
-			Return True
-			
+		  PermuteColumns
+		  
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:ProfilePermuteColumns")
+		    
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ProfileReverseComplement() As Boolean Handles ProfileReverseComplement.Action
-			PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
-			
-			'since we change data, that's not the .sig any more!
-			SigFileOpened=false
-			
-			If PalindromeLogoFile <> Nil then
-			RevCompAlignment(logofile, palindromeLogofile,false)
-			logofile=PalindromeLogoFile
-			
-			'replace contents of the Sequence variable (for viewing)
-			dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
-			Sequences=Instream.ReadAll
-			instream.Close
-			DrawLogo
-			palindromic=true
-			LogoWinToolbar.Item(4).Enabled=false
-			HmmGenSettingsWin.PalindromicBox.value=true
-			End If
-			
-			Exception err
-			ExceptionHandler(err,"LogoWin:Palindromise")
-			Return True
-			
+		  PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
+		  
+		  'since we change data, that's not the .sig any more!
+		  SigFileOpened=false
+		  
+		  If PalindromeLogoFile <> Nil then
+		    RevCompAlignment(logofile, palindromeLogofile,false)
+		    logofile=PalindromeLogoFile
+		    
+		    'replace contents of the Sequence variable (for viewing)
+		    dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
+		    Sequences=Instream.ReadAll
+		    instream.Close
+		    DrawLogo
+		    palindromic=true
+		    LogoWinToolbar.Item(4).Enabled=false
+		    HmmGenSettingsWin.PalindromicBox.value=true
+		  End If
+		  
+		  Return True
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:Palindromise")
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseCompareScores() As Boolean Handles RegPreciseCompareScores.Action
-			'run nhmmer, then hmmgen, then convert hits to fasta string
-			'and feed it to the actual comparison routine
-			
-			'for now, assume that both nhmmer and HmmGen have been run and we have the required hits.
-			
-			dim score as double
-			
-			score=CompareScores(GenomeWin.GetCheckedHits,me.Sequences)
-			
-			
-			Return True
-			
+		  'run nhmmer, then hmmgen, then convert hits to fasta string
+		  'and feed it to the actual comparison routine
+		  
+		  'for now, assume that both nhmmer and HmmGen have been run and we have the required hits.
+		  
+		  dim score as double
+		  
+		  score=CompareScores(GenomeWin.GetCheckedHits,me.Sequences)
+		  
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
-			
-			if IsRegulog then
-			RegulonInfo(RegulogID,true)
-			else
-			RegulonInfo(RegulonID,false)
-			end if
-			
-			Return True
-			
+		  
+		  if IsRegulog then
+		    RegulonInfo(RegulogID,true)
+		  else
+		    RegulonInfo(RegulonID,false)
+		  end if
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseWeights() As Boolean Handles RegPreciseWeights.Action
-			
-			WriteToSTDOUT("__7,1,0,3__:"+EndOfLine)
-			WriteToSTDOUT("base 2 log: "+PosNucWeight(7,1,0,3)+EndOfLine)
-			WriteToSTDOUT("base 10 log: "+PosNucWeight1(7,1,0,3)+EndOfLine)
-			WriteToSTDOUT("base 2 log counts: "+PosNucWeight3(7,1,0,3)+EndOfLine)
-			WriteToSTDOUT("base 10 log counts: "+PosNucWeight2(7,1,0,3)+EndOfLine)
-			WriteToSTDOUT("__2,0,0,9__:"+EndOfLine)
-			WriteToSTDOUT("base 2 log: "+PosNucWeight(2,0,0,9)+EndOfLine)
-			WriteToSTDOUT("base 10 log: "+PosNucWeight1(2,0,0,9)+EndOfLine)
-			WriteToSTDOUT("base 2 log counts: "+PosNucWeight3(2,0,0,9)+EndOfLine)
-			WriteToSTDOUT("base 10 log counts: "+PosNucWeight2(2,0,0,9)+EndOfLine)
-			WriteToSTDOUT("__0,0,0,12__:"+EndOfLine)
-			WriteToSTDOUT("base 2 log: "+PosNucWeight(0,0,0,12)+EndOfLine)
-			WriteToSTDOUT("base 10 log: "+PosNucWeight1(0,0,0,12)+EndOfLine)
-			WriteToSTDOUT("base 2 log counts: "+PosNucWeight3(0,0,0,12)+EndOfLine)
-			WriteToSTDOUT("base 10 log counts: "+PosNucWeight2(0,0,0,12)+EndOfLine)
-			WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(0,0,0,12)+EndOfLine)
-			
-			WriteToSTDOUT("__11,0,1,0__:"+EndOfLine)
-			WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(11,0,1,0)+EndOfLine)
-			
-			WriteToSTDOUT("__0,5,1,6__:"+EndOfLine)
-			WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(0,5,1,6)+EndOfLine)
-			
-			Return True
-			
+		  
+		  WriteToSTDOUT("__7,1,0,3__:"+EndOfLine)
+		  WriteToSTDOUT("base 2 log: "+PosNucWeight(7,1,0,3)+EndOfLine)
+		  WriteToSTDOUT("base 10 log: "+PosNucWeight1(7,1,0,3)+EndOfLine)
+		  WriteToSTDOUT("base 2 log counts: "+PosNucWeight3(7,1,0,3)+EndOfLine)
+		  WriteToSTDOUT("base 10 log counts: "+PosNucWeight2(7,1,0,3)+EndOfLine)
+		  WriteToSTDOUT("__2,0,0,9__:"+EndOfLine)
+		  WriteToSTDOUT("base 2 log: "+PosNucWeight(2,0,0,9)+EndOfLine)
+		  WriteToSTDOUT("base 10 log: "+PosNucWeight1(2,0,0,9)+EndOfLine)
+		  WriteToSTDOUT("base 2 log counts: "+PosNucWeight3(2,0,0,9)+EndOfLine)
+		  WriteToSTDOUT("base 10 log counts: "+PosNucWeight2(2,0,0,9)+EndOfLine)
+		  WriteToSTDOUT("__0,0,0,12__:"+EndOfLine)
+		  WriteToSTDOUT("base 2 log: "+PosNucWeight(0,0,0,12)+EndOfLine)
+		  WriteToSTDOUT("base 10 log: "+PosNucWeight1(0,0,0,12)+EndOfLine)
+		  WriteToSTDOUT("base 2 log counts: "+PosNucWeight3(0,0,0,12)+EndOfLine)
+		  WriteToSTDOUT("base 10 log counts: "+PosNucWeight2(0,0,0,12)+EndOfLine)
+		  WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(0,0,0,12)+EndOfLine)
+		  
+		  WriteToSTDOUT("__11,0,1,0__:"+EndOfLine)
+		  WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(11,0,1,0)+EndOfLine)
+		  
+		  WriteToSTDOUT("__0,5,1,6__:"+EndOfLine)
+		  WriteToSTDOUT("base 2 log countsM: "+PosNucWeight4(0,5,1,6)+EndOfLine)
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ViewAlignmentInfo() As Boolean Handles ViewAlignmentInfo.Action
-			LogoTabs.value=2
-			ChangeView("AlignmentInfo")
-			Return True
-			
+		  LogoTabs.value=2
+		  ChangeView("AlignmentInfo")
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ViewHideViewer() As Boolean Handles ViewHideViewer.Action
-			ChangeView("HideViewer")
-			
-			Return True
-			
+		  ChangeView("HideViewer")
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ViewHmmerSettings() As Boolean Handles ViewHmmerSettings.Action
-			LogoTabs.value=3
-			ChangeView("ProfileSettings")
-			Return True
-			
+		  LogoTabs.value=3
+		  ChangeView("ProfileSettings")
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ViewHmmProfile() As Boolean Handles ViewHmmProfile.Action
-			LogoTabs.value=4
-			
-			ChangeView("HmmProfile")
-			Return True
-			
+		  LogoTabs.value=4
+		  
+		  ChangeView("HmmProfile")
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ViewLogo() As Boolean Handles ViewLogo.Action
-			LogoTabs.value=0
-			ChangeView("Logo")
-			
-			Return True
-			
+		  LogoTabs.value=0
+		  ChangeView("Logo")
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ViewMEMEresults() As Boolean Handles ViewMEMEresults.Action
-			LogoTabs.value=5
-			ChangeView("MEMEresults")
-			Return True
+		  LogoTabs.value=5
+		  ChangeView("MEMEresults")
+		  Return True
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ViewSequences() As Boolean Handles ViewSequences.Action
-			LogoTabs.value=1
-			ChangeView("Sequences")
-			Return True
-			
+		  LogoTabs.value=1
+		  ChangeView("Sequences")
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

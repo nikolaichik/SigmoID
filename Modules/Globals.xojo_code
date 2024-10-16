@@ -1132,6 +1132,8 @@ Protected Module Globals
 		    aName="OmpR"
 		  Elseif InStr(aname, "PhdYeFM")>0 Then
 		    aName="PhdYefM"
+		  Elseif InStr(aname, "ParD")>0 Then
+		    aName="ParD"
 		  Elseif InStr(aname, "HTH_6")>0 Then
 		    aName="RpiR"
 		  Elseif InStr(aname, "Trp_repressor")>0 Then

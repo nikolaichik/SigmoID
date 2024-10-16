@@ -95,8 +95,10 @@ Protected Module DeNovoTFBSinference
 		  #EndIf
 		  for i as integer = 0 to WindowCount - 1
 		    if window(i) isa deNovoWin then
-		      deNovoWin.rp.writeToWin(EndOfLine.unix+"Running ChIPmunk...")
-		      exit
+		      if deNovoWin.rp<>NIL then     'rp can be NIL if deNovoWin was opened, but wasn't used 
+		        deNovoWin.rp.writeToWin(EndOfLine.unix+"Running ChIPmunk...")
+		        exit
+		      end if
 		    elseif i = WindowCount-1 then
 		      LogoWin.WriteToSTDOUT(EndOfLine.unix+"Running ChIPmunk...")
 		    end
@@ -119,9 +121,11 @@ Protected Module DeNovoTFBSinference
 		  else
 		    for i as integer = 0 to WindowCount - 1
 		      if window(i) isa deNovoWin then
-		        deNovoWin.rp.writeToWin(EndOfLine.unix+"ChIPmunk error code: "+Str(shError))
-		        deNovoWin.rp.writeToWin(EndofLine+shResult)
-		        exit
+		        if deNovoWin.rp<>NIL then     'rp can be NIL if deNovoWin was opened, but wasn't used 
+		          deNovoWin.rp.writeToWin(EndOfLine.unix+"ChIPmunk error code: "+Str(shError))
+		          deNovoWin.rp.writeToWin(EndofLine+shResult)
+		          exit
+		        end if
 		      elseif i = WindowCount-1 then
 		        LogoWin.WriteToSTDOUT(EndOfLine.unix+"ChIPmunk error code: "+Str(shError))
 		        LogoWin.WriteToSTDOUT(EndofLine+shResult)
@@ -830,6 +834,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="MarR_Superfamily.hmm" 'Most of PadR family TFs are covered by MarR superfamily model
 		  Case "PhdYeFM_antitox"
 		    hmmFileName="PhdYeFM_antitox.hmm"
+		  Case "ParD_antitoxin"
+		    hmmFileName="ParD.hmm"
 		  Case "RHH"
 		    hmmFileName="RHH.hmm"
 		  Case "ROK"
@@ -1001,7 +1007,7 @@ Protected Module DeNovoTFBSinference
 		      end if
 		      '''if len(Nthfield(SingleFasta,EndofLine.unix,2))>100 then       'anything shorter is probably rubbish
 		    end
-		    MultiFasta=MultiFasta+GetRegSeq("localgbk",EntryFragmentsF)
+		    MultiFasta=GetRegSeq("localgbk",EntryFragmentsF)+MultiFasta
 		    return MultiFasta
 		  else
 		    deNovoWin.rp.writeToWin("Extracting genome fragments around TF genes..."+EndOfLine.unix)

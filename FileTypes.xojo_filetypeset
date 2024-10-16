@@ -159,4 +159,20 @@
 		UTIPhysicalType=public.data
 	#tag EndFileType
 
+	#tag FileType
+		CodeName=GFF3
+		Extension=.gff;.gff3
+		Flags=&h2
+		MacCreator=
+		MacType=
+		Name=GFF3
+		UTI=
+		UTIConformsTo=, public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
 #tag EndFileTypeSet

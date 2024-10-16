@@ -51,7 +51,7 @@ Begin Window LocalMotifCollectionsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kTFBScollection"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -101,7 +101,7 @@ Begin Window LocalMotifCollectionsWin
       AllowRowDragging=   False
       AllowRowReordering=   False
       Bold            =   False
-      ColumnCount     =   6
+      ColumnCount     =   8
       ColumnWidths    =   ""
       DataField       =   ""
       DataSource      =   ""
@@ -111,8 +111,8 @@ Begin Window LocalMotifCollectionsWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   0
+      GridLinesVerticalStyle=   0
       HasBorder       =   False
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -130,7 +130,7 @@ Begin Window LocalMotifCollectionsWin
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "1"
+      RowSelectionType=   1
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -164,7 +164,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
@@ -180,13 +180,13 @@ Begin Window LocalMotifCollectionsWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Caption         =   ""
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
@@ -194,7 +194,7 @@ Begin Window LocalMotifCollectionsWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   495161343
-      IconAlignment   =   "1"
+      IconAlignment   =   1
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -206,7 +206,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -224,13 +224,13 @@ Begin Window LocalMotifCollectionsWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Caption         =   "#kSelectByQuality"
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -238,7 +238,7 @@ Begin Window LocalMotifCollectionsWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   0
-      IconAlignment   =   "0"
+      IconAlignment   =   0
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -250,7 +250,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
@@ -268,13 +268,13 @@ Begin Window LocalMotifCollectionsWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Caption         =   "#kDeselectAll"
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -282,7 +282,7 @@ Begin Window LocalMotifCollectionsWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   0
-      IconAlignment   =   "0"
+      IconAlignment   =   0
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -294,7 +294,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -312,13 +312,13 @@ Begin Window LocalMotifCollectionsWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Caption         =   "#kSelectAll"
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -326,7 +326,7 @@ Begin Window LocalMotifCollectionsWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   0
-      IconAlignment   =   "0"
+      IconAlignment   =   0
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -338,7 +338,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
@@ -378,7 +378,7 @@ Begin Window LocalMotifCollectionsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   382
@@ -407,7 +407,7 @@ Begin Window LocalMotifCollectionsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
@@ -461,21 +461,21 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			Close
-			Return True
-			
+		  Close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
-			RegulonInfo
+		  RegulonInfo
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo1() As Boolean Handles RegPreciseRegulonInfo1.Action
-			RegulonInfo
+		  RegulonInfo
 		End Function
 	#tag EndMenuHandler
 
@@ -834,7 +834,7 @@ End
 		    sitelen=str(CountFields(PWMdata,EndOfLine))
 		    
 		    Dim p as picture = LogoFromPWM(PWMdata)
-		    Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", URL,siteLen)  'first column contains checkboxes
+		    Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", URL,siteLen,PWMdata)  'first column contains checkboxes
 		    CollectionList.AddRow(reg)
 		    
 		    ''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
@@ -904,8 +904,9 @@ End
 		  ' 4 - Logo picture
 		  ' 5 (invisible) – Motif source URL
 		  ' 6 (invisible) – TFBS length
+		  ' 7 (invisible) –  PWM 
 		  
-		  me.ColumnWidths="20,300,50,70,*,0,0" 'the last column just stores the file path 
+		  me.ColumnWidths="20,300,50,70,*,0,0,0" 'the last column just stores the file path 
 		  me.ColumnType(0)=Listbox.TypeCheckbox
 		  me.DefaultRowHeight=62  'LogoPic.Height=60
 		  'me.ColumnSortDirection(-1)=ListBox.HeaderTypes.NotSortable 'disable sorting of all the columns
@@ -1023,9 +1024,9 @@ End
 		  msgbox "This function is currently broken. You may try 'Convert Profiles to MEME' from 'Profile' menu instead."
 		  return
 		  
-		  // Currently disabled due to error
-		  'Sites files generated are empty
-		  'Code from RegPreciseTFcollectionsWin2 can be used as a working example
+		  // Currently disabled as incomplete
+		  
+		  'Code from RegPreciseTFcollectionsWin2 was used, but not fully adapted to PWMs instead of fasta 
 		  
 		  Dim dlg as New SaveAsDialog
 		  dim outfile as folderitem

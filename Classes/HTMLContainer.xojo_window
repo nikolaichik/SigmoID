@@ -63,7 +63,7 @@ Begin ContainerControl HTMLContainer
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   0
-         TabStop         =   "True"
+         TabStop         =   True
          Tooltip         =   ""
          Top             =   369
          TopLeftColor    =   &c00000000
@@ -95,13 +95,13 @@ Begin ContainerControl HTMLContainer
             TabIndex        =   0
             TabPanelIndex   =   0
             TabStop         =   True
+            Text            =   ""
             TextAlignment   =   "0"
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   370
             Transparent     =   False
             Underline       =   False
-            Value           =   ""
             Visible         =   True
             Width           =   585
          End
@@ -139,6 +139,7 @@ Begin ContainerControl HTMLContainer
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
+      Text            =   ""
       TextAlignment   =   "0"
       TextColor       =   &c00000000
       Tooltip         =   ""
@@ -146,7 +147,6 @@ Begin ContainerControl HTMLContainer
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
-      Value           =   ""
       Visible         =   True
       Width           =   402
    End
@@ -167,7 +167,7 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   "True"
+      TabStop         =   True
       Top             =   6
       Transparent     =   False
       Visible         =   True
@@ -190,7 +190,7 @@ Begin ContainerControl HTMLContainer
       SelectionType   =   2
       TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   "True"
+      TabStop         =   True
       Top             =   6
       Transparent     =   False
       Visible         =   True
@@ -593,8 +593,9 @@ End
 		    
 		    s0.Title=""
 		    s1.Title=""
-		    s0.Icon=SystemIcons.GoLeftTemplate
-		    s1.Icon=SystemIcons.GoRightTemplate
+		    s0.Icon=ScaledPic(SystemIcons.GoLeftTemplate,self.ScaleFactor)
+		    s1.Icon=ScaledPic(SystemIcons.GoRightTemplate,self.ScaleFactor)
+		    
 		    
 		  #endif
 		End Sub
@@ -616,8 +617,7 @@ End
 		  #if TargetCocoa then
 		    
 		    s0.Title=""
-		    s0.Icon=SystemIcons.RefreshTemplate
-		    
+		    s0.Icon=ScaledPic(SystemIcons.RefreshTemplate,self.ScaleFactor)
 		  #endif
 		End Sub
 	#tag EndEvent

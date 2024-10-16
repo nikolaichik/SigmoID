@@ -1740,6 +1740,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomePlotGC() As Boolean Handles GenomePlotGC.Action
+		  GCplotCalc
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomePrintMap() As Boolean Handles GenomePrintMap.Action
 		  PrintMap
 		  Return True
@@ -3431,6 +3439,76 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub GCplotCalc()
+		  // Calculate GC content in sliding window of 50 bp (should be adjustable)
+		  
+		  'currently ignores circular status
+		  
+		  LogoWin.WriteToSTDOUT (EndofLine+"Calculating GC content...")
+		  LogoWin.STDOUT.Refresh(false)
+		  Logowin.show
+		  
+		  
+		  Dim GenomeLength As Integer = Len(Genome.Sequence)
+		  
+		  
+		  // Calculate average GC content 
+		  Dim pC,pG,pGC As Double
+		  pC=(CountFields(Genome.Sequence,"C")-1)*100/GenomeLength
+		  pG=(CountFields(Genome.Sequence,"G")-1)*100/GenomeLength
+		  pGC=pC+pG
+		  
+		  // Write GC to the main window
+		  LogoWin.WriteToSTDOUT (EndOfLine+"Average GC content is : "+Str(pGC)+"%"+EndOfLine)
+		  
+		  // Remove all plots (if any)
+		  redim genome.ReadDepth1(25)
+		  redim genome.ReadDepth2(0)
+		  redim genome.ReadDepth3(0)
+		  redim genome.ReadDepth4(0)
+		  
+		  // Calculate GC content in sliding windows
+		  
+		  'skip first 12 bases, start from the center of the first full window
+		  dim CurrentWin as string, GC as integer, n as integer, GenomeLen as Integer
+		  
+		  GenomeLen=len(self.Genome.Sequence)
+		  for n= 1 to GenomeLen-50
+		    CurrentWin=mid(genome.Sequence,n,50)
+		    GC=(CountFields(CurrentWin,"G")+CountFields(CurrentWin,"C")-2)*2
+		    self.Genome.ReadDepth1.Add(GC)
+		  next
+		  
+		  for n= 1 to 25 'complete the array with zeroes;  first 25 elements are also expected to remain empty
+		    self.Genome.ReadDepth1.add(0)
+		  next
+		  
+		  'zero line (abscissa)
+		  for n= 1 to GenomeLen
+		    'self.Genome.ReadDepth2.Add(0)
+		    self.Genome.ReadDepth4.Add(0)
+		  next
+		  
+		  'average GC
+		  for n= 1 to GenomeLen
+		    self.Genome.ReadDepth3.Add(pGC)
+		  next
+		  
+		  'set ordinata maximum to 100%
+		  self.Genome.PlotScaleMax=100
+		  
+		  'draw it
+		  genome.baselineY=100 'make room for the graph
+		  ExtractFragment(1,10000)
+		  TextMap(0,0)
+		  self.show
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:GCplotCalc")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub GenomeStats()
 		  // Calculate various genome stats:
 		  // nucleotide content,
@@ -3542,11 +3620,11 @@ End
 		  // Calculate nucleotide content 
 		  
 		  Dim pA,pC,pG,pT,pN As Double
-		  pA=CountFields(Genome.Sequence,"A")*100/GenomeLength
-		  pC=CountFields(Genome.Sequence,"C")*100/GenomeLength
-		  pG=CountFields(Genome.Sequence,"G")*100/GenomeLength
-		  pT=CountFields(Genome.Sequence,"T")*100/GenomeLength
-		  pN=CountFields(Genome.Sequence,"N")*100/GenomeLength
+		  pA=(CountFields(Genome.Sequence,"A")-1)*100/GenomeLength
+		  pC=(CountFields(Genome.Sequence,"C")-1)*100/GenomeLength
+		  pG=(CountFields(Genome.Sequence,"G")-1)*100/GenomeLength
+		  pT=(CountFields(Genome.Sequence,"T")-1)*100/GenomeLength
+		  pN=(CountFields(Genome.Sequence,"N")-1)*100/GenomeLength
 		  
 		  
 		  // Write results to the main window
@@ -3556,7 +3634,11 @@ End
 		  LogoWin.WriteToSTDOUT (EndOfLine+"C – "+Str(pC)+"%")
 		  LogoWin.WriteToSTDOUT (EndOfLine+"G – "+Str(pG)+"%")
 		  LogoWin.WriteToSTDOUT (EndOfLine+"T – "+Str(pT)+"%")
-		  LogoWin.WriteToSTDOUT (EndOfLine+"N – "+Str(pN)+"%"+EndOfLine)
+		  if N>0 then
+		    LogoWin.WriteToSTDOUT (EndOfLine+"N – "+Str(pN)+"%"+EndOfLine)
+		  else
+		    LogoWin.WriteToSTDOUT (EndOfLine)
+		  end if
 		  LogoWin.WriteToSTDOUT (EndOfLine+"Feature stats:")
 		  LogoWin.WriteToSTDOUT (EndofLine+"Feature"+chr(9)+"Count"+chr(9)+"Cumulative length"+chr(9)+"% of genome length")
 		  for n=1 to UBound(types)
@@ -3574,7 +3656,7 @@ End
 		  ' only meaningful if shown in the graph area
 		  
 		  Exception err
-		    ExceptionHandler(err,"GenomeWin:gbk2tbl")
+		    ExceptionHandler(err,"GenomeWin:GenomeStats")
 		End Sub
 	#tag EndMethod
 
@@ -4418,8 +4500,16 @@ End
 		    Stre=f.OpenAsTextFile
 		    stre.Encoding=Encodings.ASCII   'Otherwise encoding can happen to be anything
 		    s=stre.readall
-		    If CountFieldsB(s,"ORIGIN")<>2 Then
+		    If CountFieldsB(s,"ORIGIN")<2 Then
 		      MsgBox"Can't find ORIGIN of the sequence field. GenBank format problem?"
+		    elseif CountFieldsB(s,"ORIGIN")>2 Then
+		      dim cJoin as string ="//"
+		      cJoin=cJoin+EndOfLine.UNIX+"LOCUS"
+		      dim cn As integer 
+		      cn=CountFieldsB(s,cJoin)
+		      if cn>1 then
+		        MsgBox"Looks like this GenBank has multiple ("+str(cn)+") records. SigmoID can display annotation for the first record only. To look at other records, cocnatenate them into one (merge-gbk-records python script can be used)."
+		      End If
 		    End If
 		    w.FormattedSequence=Trim(RightB(s,Len(s)-InStrB(s,"ORIGIN")-7)) 
 		    w.Genome.sequence=CleanUp(w.FormattedSequence)
