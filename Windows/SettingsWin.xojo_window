@@ -45,7 +45,7 @@ Begin Window SettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window SettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -115,6 +115,7 @@ Begin Window SettingsWin
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
+      TabStop         =   True
       Tooltip         =   ""
       Top             =   0
       Transparent     =   False
@@ -147,7 +148,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   "Profile Folder:"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   52
@@ -176,7 +177,7 @@ Begin Window SettingsWin
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
-         MacButtonStyle  =   "0"
+         MacButtonStyle  =   0
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   3
@@ -214,7 +215,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   3
          TabStop         =   True
          Text            =   "#kProfileFolderPath"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   20
@@ -276,7 +277,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   4
          TabStop         =   True
          Text            =   "Selection highlight colour:"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   13
@@ -366,7 +367,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "CDS:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   69
@@ -428,7 +429,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "sig_peptide:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   93
@@ -490,7 +491,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "rRNA:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   117
@@ -552,7 +553,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "ncRNA:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   165
@@ -614,7 +615,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "protein_bind:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   189
@@ -676,7 +677,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "gene:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   213
@@ -738,7 +739,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "promoter:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   69
@@ -800,7 +801,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "terminator:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   93
@@ -862,7 +863,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "attenuator:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   117
@@ -924,7 +925,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "riboswitch:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   141
@@ -986,7 +987,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "operon:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   237
@@ -1048,7 +1049,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "tRNA:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   141
@@ -1083,7 +1084,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "mobile_element:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   165
@@ -1145,7 +1146,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "repeat_region:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   189
@@ -1207,7 +1208,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   4
             TabStop         =   True
             Text            =   "all other features:"
-            TextAlignment   =   "3"
+            TextAlignment   =   3
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   213
@@ -1366,7 +1367,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   5
          TabStop         =   True
          Text            =   "#kFontSelInfo"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   20
@@ -1401,7 +1402,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   5
          TabStop         =   True
          Text            =   "#kProportional"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   82
@@ -1436,7 +1437,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   5
          TabStop         =   True
          Text            =   "#kFixed"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   82
@@ -1499,7 +1500,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   5
             TabStop         =   True
             Text            =   "#kFFexample"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   152
@@ -1563,7 +1564,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   5
             TabStop         =   True
             Text            =   "#kFFexample"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   152
@@ -1599,7 +1600,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   6
          TabStop         =   True
          Text            =   "Set number of CPU cores to be used with MEME. Proper Open MPI install required."
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   20
@@ -1634,7 +1635,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   6
          TabStop         =   True
          Text            =   "OMPI info"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   62
@@ -1697,7 +1698,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   6
             TabStop         =   True
             Text            =   "Physical"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   140
@@ -1732,7 +1733,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   6
             TabStop         =   True
             Text            =   "Logical"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   172
@@ -1768,7 +1769,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   6
          TabStop         =   True
          Text            =   "CPU Cores to use:"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   227
@@ -1871,7 +1872,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "/usr/local/bin/nhmmer"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   30
@@ -1907,7 +1908,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "nhmmer:"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   31
@@ -1942,7 +1943,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "alimask:"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   65
@@ -1985,7 +1986,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "/usr/local/bin/alimask"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   64
@@ -2021,7 +2022,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "hmmbuild:"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   99
@@ -2064,7 +2065,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "/usr/local/bin/hmmbuild"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   98
@@ -2100,7 +2101,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "MEME:"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   133
@@ -2143,7 +2144,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "~/meme/bin/meme"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   132
@@ -2179,7 +2180,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "MAST:"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   200
@@ -2222,7 +2223,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "~/meme/bin/mast"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   199
@@ -2258,7 +2259,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "TomTom:"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   234
@@ -2301,7 +2302,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "~/meme/bin/tomtom"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   233
@@ -2337,7 +2338,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "tfastx:"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   268
@@ -2380,7 +2381,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "/usr/local/bin/tfastx"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   267
@@ -2424,7 +2425,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   ""
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   166
@@ -2460,7 +2461,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "ChIPmunk"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   165
@@ -2495,7 +2496,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "MeShClust:"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   302
@@ -2538,7 +2539,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "/usr/local/bin/meshclust"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   301
@@ -2574,7 +2575,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "WSL bash"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   401
@@ -2617,7 +2618,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   ""
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   399
@@ -2653,7 +2654,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "BioProspector"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   334
@@ -2696,7 +2697,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   ""
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   331
@@ -2732,7 +2733,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   "Aligner path"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   365
@@ -2775,7 +2776,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   1
             TabStop         =   True
             Text            =   ""
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   366
@@ -2912,7 +2913,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   ""
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   "Taxonomy restriction applied to BLAST (but not HMMER!) searches"
             Top             =   120
@@ -2948,7 +2949,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   "Organism (optional)"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   122
@@ -2983,7 +2984,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   "Protein database"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   58
@@ -3018,7 +3019,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   "Nucleotide database"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   "Will be used for all blastn searches"
             Top             =   90
@@ -3061,7 +3062,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   ""
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   154
@@ -3097,7 +3098,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   "API Key"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   156
@@ -3140,7 +3141,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   "100"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   188
@@ -3176,7 +3177,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   "Accessions in batch"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   194
@@ -3240,7 +3241,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   "E-mail"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   346
@@ -3283,7 +3284,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   ""
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   344
@@ -3319,7 +3320,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   "Name"
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   308
@@ -3362,7 +3363,7 @@ Begin Window SettingsWin
             TabPanelIndex   =   2
             TabStop         =   True
             Text            =   ""
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   306
@@ -3431,7 +3432,7 @@ Begin Window SettingsWin
          TabPanelIndex   =   2
          TabStop         =   True
          Text            =   "Hmm Library"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   241
@@ -3461,7 +3462,7 @@ Begin Window SettingsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
@@ -3628,9 +3629,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

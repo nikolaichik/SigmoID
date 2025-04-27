@@ -45,7 +45,7 @@ Begin Window RegulonSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window RegulonSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -217,7 +217,7 @@ Begin Window RegulonSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "200"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   363
@@ -253,7 +253,7 @@ Begin Window RegulonSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "#kbp"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   365
@@ -292,7 +292,7 @@ Begin Window RegulonSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
+         VisualState     =   0
          Width           =   219
       End
    End
@@ -418,7 +418,7 @@ Begin Window RegulonSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   46
@@ -524,7 +524,7 @@ Begin Window RegulonSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "500"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   223
@@ -560,7 +560,7 @@ Begin Window RegulonSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "#kbp"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   223
@@ -711,9 +711,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
@@ -761,7 +761,7 @@ End
 		  dim opt as string
 		  
 		  opt="-g "+trim(EndGapField.text)
-		  opt=opt+" -i "+trim(StartDistanceField.text)
+		  opt=opt+" -i "+trim(StartDistanceField.text)  'we don't handle the situation when the checkbox is inchecked!
 		  
 		  if TerminatorBox.value then
 		    opt=opt+" -t"

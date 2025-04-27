@@ -45,7 +45,7 @@ Begin Window TermGenSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window TermGenSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -155,7 +155,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "76"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   77
@@ -191,7 +191,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kConfidenceScore"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   "Report terminators with at least this confidence score"
       Top             =   78
@@ -233,7 +233,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Stem must be n nucleotides long"
       Top             =   128
@@ -276,7 +276,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Loop portion of the hairpin must be at least n long"
       Top             =   162
@@ -319,7 +319,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Total extent of hairpin <= n NT long"
       Top             =   128
@@ -362,7 +362,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "The loop portion can be no longer than n"
       Top             =   162
@@ -398,7 +398,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMinimalStemLength"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   "Hairpin stem must be at least this long"
       Top             =   128
@@ -433,7 +433,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMinimalLoopLength"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   "Loop portion of the hairpin must be at least this long"
       Top             =   164
@@ -468,7 +468,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMaximalHairpinLength"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   "Total extent of hairpin cannot exceed this value"
       Top             =   130
@@ -503,7 +503,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMaximalLoopLength"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   "The loop portion cannot exceed this value"
       Top             =   164
@@ -545,7 +545,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   196
@@ -581,7 +581,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kGenome_"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   195
@@ -610,7 +610,7 @@ Begin Window TermGenSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   37
       TabPanelIndex   =   0
@@ -648,7 +648,7 @@ Begin Window TermGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "This routine uses TransTerm HP v. 2.0.9. See Ermolaeva et al., 2000 (doi: 10.1006/jmbi.2000.3836) and tooltips in this window for explanation of the options."
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -715,9 +715,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

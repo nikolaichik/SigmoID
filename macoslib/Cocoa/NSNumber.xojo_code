@@ -610,6 +610,22 @@ Inherits NSValue
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="objCType"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="BooleanValue"
 			Visible=false
 			Group="Behavior"

@@ -431,7 +431,7 @@ Begin Window GenomeWin
       AllowFocusRing  =   False
       AllowSpellChecking=   False
       AllowTabs       =   False
-      BackgroundColor =   &c00000000
+      BackgroundColor =   &cFFFFFF00
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
@@ -1397,7 +1397,7 @@ End
 		Function GenomeAnnotateSignalPeptides() As Boolean Handles GenomeAnnotateSignalPeptides.Action
 		  // Add signal peptide annotation to the genome file currently loaded and diplay the modified file
 		  
-		  ' SignalP v.6 must be run (and "output.gff3" result file generated) berore running this function
+		  ' SignalP v.6 must be run (and "output.gff3" result file generated) before running this function
 		  ' "Export Protein Sequences" menu command must be used to generate the input file for SignalP
 		  
 		  'Typical SignalP6 output looks like this:
@@ -2449,7 +2449,7 @@ End
 		  dim ft as GBFeature
 		  Dim cdsFasta As String = DefineEncoding ("",Encodings.ASCII)
 		  dim TFindex as new Dictionary
-		  
+		  dim pseudoCount As integer
 		  
 		  separTransl="/translation="+chr(34)
 		  separProtID="/protein_id="+chr(34)
@@ -2461,31 +2461,47 @@ End
 		  for n=1 to u
 		    ft=Genome.Features(n)
 		    if left(ft.featuretext,3)="CDS" then
-		      TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
-		      TitleLine=">"+NthField(TitleLine,separ2,1)
-		      prot=NthField(ft.FeatureText,separGene,2)                  'Gene
-		      prot=NthField(prot,separ2,1)
-		      If addGeneNames Then 
-		        If prot<>"" Then
-		          TitleLine=TitleLine+"_"+prot                             'ProteinID_Gene is more convenient for de novo TFBS pipeline
+		      if instr(ft.featuretext,"/pseudo")>0 then 'a pseudogene – don't export, just count or(and) report
+		        'LogoWin.WriteToSTDOUT (locusTag(ft.featuretext)+" is a pseudogene, hence was not exported"+EndOfLine)
+		        pseudoCount=pseudoCount+1
+		      else
+		        TitleLine=NthField(ft.FeatureText,separProtID,2)           'Protein_ID
+		        TitleLine=">"+NthField(TitleLine,separ2,1)
+		        prot=NthField(ft.FeatureText,separGene,2)                  'Gene
+		        prot=NthField(prot,separ2,1)
+		        If addGeneNames Then 
+		          If prot<>"" Then
+		            TitleLine=TitleLine+"_"+prot                             'ProteinID_Gene is more convenient for de novo TFBS pipeline
+		          End If
 		        End If
-		      End If
-		      
-		      'localTFIndex stores Protein_ID and index of corresponding Genome.Feature
-		      TFindex.Value(Nthfield(TitleLine,">",2))=n
-		      prot=NthField(ft.FeatureText,separProd,2)                  'Product
-		      prot=NthField(prot,separ2,1)
-		      TitleLine=TitleLine+" "+prot
-		      TitleLine=replaceall(TitleLine,EndOfLine," ")
-		      
-		      prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
-		      prot=trim(NthField(prot,separ2,1))
-		      if prot<>"" then
-		        'Write >Title and AA seq
-		        cdsFasta = cdsFasta + TitleLine + EndOfLine.UNIX + prot + EndOfLine.UNIX
+		        
+		        'localTFIndex stores Protein_ID and index of corresponding Genome.Feature
+		        TFindex.Value(Nthfield(TitleLine,">",2))=n
+		        prot=NthField(ft.FeatureText,separProd,2)                  'Product
+		        prot=NthField(prot,separ2,1)
+		        if instr(prot,"*")>0 then 'contains internal stop-codon (a pseudogene?) – don't export, just report
+		          'LogoWin.WriteToSTDOUT (locusTag(ft.featuretext)+" contains internal stop-codon, hence was not exported"+EndOfLine)
+		        else
+		          TitleLine=TitleLine+" "+prot
+		          TitleLine=replaceall(TitleLine,EndOfLine," ")
+		          
+		          prot=NthField(ft.FeatureText,separTransl,2)                'AA sequence
+		          prot=trim(NthField(prot,separ2,1))
+		          if instr(prot,"U")>0 then 'Selenocysteine codon  – export, but warn
+		            'LogoWin.WriteToSTDOUT (locusTag(ft.featuretext)+" contains  a selenocysteine codon"+EndOfLine)
+		          end if
+		          if prot<>"" then
+		            'Write >Title and AA seq
+		            cdsFasta = cdsFasta + TitleLine + EndOfLine.UNIX + prot + EndOfLine.UNIX
+		          end if
+		        end if
 		      end if
 		    end if
 		  next
+		  if pseudoCount>0 then
+		    'LogoWin.WriteToSTDOUT (str(pseudoCount)+" pseudogenes were ignored"+EndOfLine)
+		    
+		  end if
 		  localTFIndex=TFindex
 		  return cdsFasta
 		End Function
@@ -2677,7 +2693,7 @@ End
 		      'get locus_tag:
 		      featureArr()=split(f.FeatureText,lineend)
 		      for n=0 to UBound(featureArr)
-		        if instr(featureArr(n),"locus_tag")>0 then
+		        if instr(featureArr(n),"/locus_tag")>0 then
 		          locus_tag=featureArr(n)
 		        end if
 		      next
@@ -3476,22 +3492,38 @@ End
 		  for n= 1 to GenomeLen-50
 		    CurrentWin=mid(genome.Sequence,n,50)
 		    GC=(CountFields(CurrentWin,"G")+CountFields(CurrentWin,"C")-2)*2
-		    self.Genome.ReadDepth1.Add(GC)
+		    #If XojoVersion < 2019.03
+		      self.Genome.ReadDepth1.append GC
+		    #else
+		      self.Genome.ReadDepth1.Add(GC)
+		    #endif
 		  next
 		  
 		  for n= 1 to 25 'complete the array with zeroes;  first 25 elements are also expected to remain empty
-		    self.Genome.ReadDepth1.add(0)
+		    #If XojoVersion < 2019.03
+		      self.Genome.ReadDepth1.append(0)
+		    #else
+		      self.Genome.ReadDepth1.add(0)
+		    #endif
 		  next
 		  
 		  'zero line (abscissa)
 		  for n= 1 to GenomeLen
 		    'self.Genome.ReadDepth2.Add(0)
-		    self.Genome.ReadDepth4.Add(0)
+		    #If XojoVersion < 2019.03
+		      self.Genome.ReadDepth4.append(0)
+		    #else
+		      self.Genome.ReadDepth4.Add(0)
+		    #endif
 		  next
 		  
 		  'average GC
 		  for n= 1 to GenomeLen
-		    self.Genome.ReadDepth3.Add(pGC)
+		    #If XojoVersion < 2019.03
+		      self.Genome.ReadDepth3.append(pGC)
+		    #else
+		      self.Genome.ReadDepth3.Add(pGC)
+		    #endif
 		  next
 		  
 		  'set ordinata maximum to 100%
@@ -5191,9 +5223,11 @@ End
 		  if geneLoc>0 then
 		    Upstream=left(feature.FeatureText,geneLoc+6)
 		    Downstream=right(feature.FeatureText,len(feature.FeatureText)-geneLoc-6)
-		    oldGeneName=NthField(downstream,chr(34),1)
-		    geneloc=InStr(feature.FeatureText,chr(34)) 'right doublequote
-		    Downstream=NthField(downstream,oldGeneName,2)
+		    'oldGeneName=NthField(downstream,chr(34),1)+chr(34)
+		    'geneloc=InStr(feature.FeatureText,chr(34)) 'right doublequote
+		    geneloc=InStr(Downstream,chr(34)) 'right doublequote
+		    'Downstream=NthField(downstream,oldGeneName,2)
+		    Downstream=Right(downstream,len(Downstream)-geneloc+1)
 		  else
 		    'no gene name
 		    Upstream=feature.FeatureText
@@ -5457,6 +5491,8 @@ End
 		Sub SearchAction()
 		  Dim n As Integer
 		  
+		  // fails ti find gene names composed of nucleotide sequences
+		  '  a workaround is to prepend query with this string: /gene="
 		  
 		  // Switch focus from Search field to the map:
 		  MapCanvas.SetFocus
@@ -5467,21 +5503,21 @@ End
 		  if query<>"" then
 		    'detect if query is sequence, coordinate or plain text
 		    
-		    if left(query,1)=chr(34) then
+		    if left(query,1)=chr(34) then                           'treat quoted string query as plain text search
 		      if right(query,1)=chr(34) then
 		        'search for quoted text
 		        query=mid(query,2,len(query)-2)
 		        Search4text(query)
 		      end if
-		    elseif isACGT(query) then
+		    elseif isACGT(query) then                               'search for sequence
 		      topStrandSearched=false
 		      Search4sequence(query)
-		    elseif isNumeric(query) then
+		    elseif isNumeric(query) then                          'search for a particular position in the sequence
 		      n=val(query)
 		      'ExtractFragment(n-DisplayInterval/2,n+DisplayInterval/2)
 		      'set the scrollbar:
 		      HScrollBar.value=n 'Extracts fragment too
-		    elseif countfields(query,"-")=2 then 'putative seq range
+		    elseif countfields(query,"-")=2 then             'search for sequence range
 		      dim leftI, rightI as integer
 		      if isNumeric(NthField(query,"-",1)) then
 		        leftI=val(NthField(query,"-",1))

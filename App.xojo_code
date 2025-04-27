@@ -185,700 +185,700 @@ Inherits Application
 
 	#tag MenuHandler
 		Function AboutSigmoID() As Boolean Handles AboutSigmoID.Action
-			About.Show
-			Return True
-			
+		  About.Show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function CalibrateProfilelibrary() As Boolean Handles CalibrateProfilelibrary.Action
-			'LogoWin.ProfileLibSearch
-			dim wExists As Boolean = False
-			for i as integer = 0 to WindowCount - 1
-			if window(i) isa ProfileSearchSettings then
-			wExists = True
-			end
-			next i
-			if Not wExists then
-			dim w As new ProfileSearchSettings
-			end
-			Return True
-			
+		  'LogoWin.ProfileLibSearch
+		  dim wExists As Boolean = False
+		  for i as integer = 0 to WindowCount - 1
+		    if window(i) isa ProfileSearchSettings then
+		      wExists = True
+		    end
+		  next i
+		  if Not wExists then
+		    dim w As new ProfileSearchSettings
+		  end
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ChipMdata2Logo() As Boolean Handles ChipMdata2Logo.Action
-			ChipMdata2Logo
-			Return True
-			
+		  ChipMdata2Logo
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function CRtagbase() As Boolean Handles CRtagbase.Action
-			
-			// replaced with CRtagExtractor.py script
-			
-			
-			'CRtagBaseConstructor.Show
-			'return true
+		  
+		  // replaced with CRtagExtractor.py script
+		  
+		  
+		  'CRtagBaseConstructor.Show
+		  'return true
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditPreferences() As Boolean Handles EditPreferences.Action
-			SettingsWin.show
-			Return True
-			
+		  SettingsWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileConvertSigFilestoFolders() As Boolean Handles FileConvertSigFilestoFolders.Action
-			// Convert all .sig files in the current profiles folder into folders with the same names
-			// required to overcome the 64-bit compiler bug
-			
-			Dim OutF, SigF, f As FolderItem
-			Dim m,n,p,q as integer
-			Dim basename as string
-			Dim vv as VirtualVolume
-			Dim dlg As New SelectFolderDialog
-			Dim instream As TextInputStream
-			Dim logoPNG As Picture
-			dlg.ActionButtonCaption = "Select"
-			dlg.Title = "Select Folder for Converted Profiles"
-			dlg.PromptText = "Select a Folder to store converted .sig files"
-			dlg.InitialDirectory = Profile_f.parent
-			
-			OutF = dlg.ShowModal
-			If OutF <> Nil Then
-			'Profile_f is currently used
-			m=Profile_f.Count
-			for n=1 to m
-			if Profile_f.Item(n).name<>".DS_Store" then
-			if Profile_f.Item(n).Directory then
-			'skip folder
-			else
-			if right(Profile_f.Item(n).Name,4)=".sig" then
-			'create the folder:
-			SigF=OutF.child(Profile_f.Item(n).Name)
-			SigF.createAsFolder
-			if not SigF.Exists or not SigF.Directory Then
-			// folder was not created - abort
-			Return False
-			End If
-			
-			'copy files:
-			vv=Profile_f.Item(n).openAsVirtualVolume
-			dim vv1 as VirtualVolume
-			if vv<> nil then
-			basename=nthfield(Profile_f.Item(n).DisplayName,".sig",1)
-			f=vv.root.child(basename+".fasta")
-			if f<> NIL and f.exists then
-			f.CopyFileTo SigF
-			'save motif pic as png
-			instream = TextInputStream.Open(f)
-			dim profileFasta as String = instream.ReadAll
-			logoPNG = MakeLogoPic(profileFasta, 150)
-			If logoPNG <> Nil then
-			dim PNGpath As FolderItem = SigF.child(basename+".png")
-			logoPNG.Save(PNGpath, Picture.SaveAsPNG)
-			End
-			end if
-			f=vv.root.child(basename+".hmm")
-			if f<> NIL and f.exists then
-			f.CopyFileTo SigF
-			end if
-			f=vv.root.child(basename+".info")
-			if f<> NIL and f.exists then
-			f.CopyFileTo SigF
-			end if
-			f=vv.root.child(basename+".options")
-			if f<> NIL and f.exists then
-			f.CopyFileTo SigF
-			end if
-			f=vv.root.child("meme.txt")
-			if f<> NIL and f.exists then
-			f.CopyFileTo SigF
-			End If
-			f=vv.root.child(basename+".refs")
-			If f<> Nil And f.exists Then
-			'f.CopyFileTo SigF
-			
-			'try to fix few encoding and extra symbol problems
-			Dim r As String
-			Dim tis As TextInputStream
-			tis = TextInputStream.Open(f)
-			r=tis.ReadAll
-			tis.Close
-			
-			Dim f2 As folderitem
-			f2=SigF.child(basename+".refs")
-			If f2<>Nil Then
-			Dim outstream As TextOutputStream
-			outstream = TextOutputStream.Create(f2)
-			If outstream<>Nil Then
-			Dim rfs() As String
-			rfs=r.Split(EndOfLine.UNIX)
-			Dim n3 As Integer
-			For n3=0 To Ubound(rfs)
-			rfs(n3)=CleanUpRefs(rfs(n3))
-			Next
-			r=Join(rfs,EndOfLine.UNIX)
-			outstream.Write(r)  'cleanUp only needed when re-saving old .sig files
-			outstream.close
-			End If
-			
-			End If
-			End If
-			f=vv.root.child(basename+".cur")
-			If f<> Nil And f.exists Then
-			f.CopyFileTo SigF
-			End If
-			else
-			'beep
-			end if
-			
-			
-			end if
-			end if
-			end if
-			next
-			
-			logowin.WriteToSTDOUT(EndOfLine+"Converted sig files written to "+OutF.ShellPath+EndOfLine)
-			
-			Else
-			// User cancelled
-			End If
-			
-			
-			Exception err
-			ExceptionHandler(err,"App:FileConvertSigFilestoFolders")
-			
+		  // Convert all .sig files in the current profiles folder into folders with the same names
+		  // required to overcome the 64-bit compiler bug
+		  
+		  Dim OutF, SigF, f As FolderItem
+		  Dim m,n,p,q as integer
+		  Dim basename as string
+		  Dim vv as VirtualVolume
+		  Dim dlg As New SelectFolderDialog
+		  Dim instream As TextInputStream
+		  Dim logoPNG As Picture
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Select Folder for Converted Profiles"
+		  dlg.PromptText = "Select a Folder to store converted .sig files"
+		  dlg.InitialDirectory = Profile_f.parent
+		  
+		  OutF = dlg.ShowModal
+		  If OutF <> Nil Then
+		    'Profile_f is currently used
+		    m=Profile_f.Count
+		    for n=1 to m
+		      if Profile_f.Item(n).name<>".DS_Store" then
+		        if Profile_f.Item(n).Directory then
+		          'skip folder
+		        else
+		          if right(Profile_f.Item(n).Name,4)=".sig" then
+		            'create the folder:
+		            SigF=OutF.child(Profile_f.Item(n).Name)
+		            SigF.createAsFolder
+		            if not SigF.Exists or not SigF.Directory Then
+		              // folder was not created - abort
+		              Return False
+		            End If
+		            
+		            'copy files:
+		            vv=Profile_f.Item(n).openAsVirtualVolume
+		            dim vv1 as VirtualVolume
+		            if vv<> nil then
+		              basename=nthfield(Profile_f.Item(n).DisplayName,".sig",1)
+		              f=vv.root.child(basename+".fasta")
+		              if f<> NIL and f.exists then
+		                f.CopyFileTo SigF
+		                'save motif pic as png
+		                instream = TextInputStream.Open(f)
+		                dim profileFasta as String = instream.ReadAll
+		                logoPNG = MakeLogoPic(profileFasta, 150)
+		                If logoPNG <> Nil then
+		                  dim PNGpath As FolderItem = SigF.child(basename+".png")
+		                  logoPNG.Save(PNGpath, Picture.SaveAsPNG)
+		                End
+		              end if
+		              f=vv.root.child(basename+".hmm")
+		              if f<> NIL and f.exists then
+		                f.CopyFileTo SigF
+		              end if
+		              f=vv.root.child(basename+".info")
+		              if f<> NIL and f.exists then
+		                f.CopyFileTo SigF
+		              end if
+		              f=vv.root.child(basename+".options")
+		              if f<> NIL and f.exists then
+		                f.CopyFileTo SigF
+		              end if
+		              f=vv.root.child("meme.txt")
+		              if f<> NIL and f.exists then
+		                f.CopyFileTo SigF
+		              End If
+		              f=vv.root.child(basename+".refs")
+		              If f<> Nil And f.exists Then
+		                'f.CopyFileTo SigF
+		                
+		                'try to fix few encoding and extra symbol problems
+		                Dim r As String
+		                Dim tis As TextInputStream
+		                tis = TextInputStream.Open(f)
+		                r=tis.ReadAll
+		                tis.Close
+		                
+		                Dim f2 As folderitem
+		                f2=SigF.child(basename+".refs")
+		                If f2<>Nil Then
+		                  Dim outstream As TextOutputStream
+		                  outstream = TextOutputStream.Create(f2)
+		                  If outstream<>Nil Then
+		                    Dim rfs() As String
+		                    rfs=r.Split(EndOfLine.UNIX)
+		                    Dim n3 As Integer
+		                    For n3=0 To Ubound(rfs)
+		                      rfs(n3)=CleanUpRefs(rfs(n3))
+		                    Next
+		                    r=Join(rfs,EndOfLine.UNIX)
+		                    outstream.Write(r)  'cleanUp only needed when re-saving old .sig files
+		                    outstream.close
+		                  End If
+		                  
+		                End If
+		              End If
+		              f=vv.root.child(basename+".cur")
+		              If f<> Nil And f.exists Then
+		                f.CopyFileTo SigF
+		              End If
+		            else
+		              'beep
+		            end if
+		            
+		            
+		          end if
+		        end if
+		      end if
+		    next
+		    
+		    logowin.WriteToSTDOUT(EndOfLine+"Converted sig files written to "+OutF.ShellPath+EndOfLine)
+		    
+		  Else
+		    // User cancelled
+		  End If
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"App:FileConvertSigFilestoFolders")
+		    
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileListAllRegulonDBdata() As Boolean Handles FileListAllRegulonDBdata.Action
-			
-			
-			RegulonDBwin.RegulonDBfile=Resources_f.child("RegulonDB").child("BindingSiteSet.txt")
-			
-			if RegulonDBWin.RegulonDBfile<>Nil and RegulonDBWin.RegulonDBfile.Exists then
-			RegulonDBWin.show
-			RegulonDBWin.FillRegulatorList(RegulonDBWin.RegulonDBfile)
-			else
-			LogoWin.WriteToSTDOUT("RegulonDB data file is missing")
-			end if
-			
-			
+		  
+		  
+		  RegulonDBwin.RegulonDBfile=Resources_f.child("RegulonDB").child("BindingSiteSet.txt")
+		  
+		  if RegulonDBWin.RegulonDBfile<>Nil and RegulonDBWin.RegulonDBfile.Exists then
+		    RegulonDBWin.show
+		    RegulonDBWin.FillRegulatorList(RegulonDBWin.RegulonDBfile)
+		  else
+		    LogoWin.WriteToSTDOUT("RegulonDB data file is missing")
+		  end if
+		  
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileMakeSigFile() As Boolean Handles FileMakeSigFile.Action
-			Dim dlg As New SelectFolderDialog
-			dlg.ActionButtonCaption = "Make .sig"
-			dlg.Title = "Convert Folder to .sig File "
-			dlg.PromptText = "Select folder with .fasta, .options and .info files to convert"
-			dlg.InitialDirectory = Profile_f
-			
-			Dim f As FolderItem
-			f = dlg.ShowModal
-			If f <> Nil Then
-			MakeSigFile f
-			Else
-			// User cancelled
-			End If
-			
-			
-			Return True
-			
+		  Dim dlg As New SelectFolderDialog
+		  dlg.ActionButtonCaption = "Make .sig"
+		  dlg.Title = "Convert Folder to .sig File "
+		  dlg.PromptText = "Select folder with .fasta, .options and .info files to convert"
+		  dlg.InitialDirectory = Profile_f
+		  
+		  Dim f As FolderItem
+		  f = dlg.ShowModal
+		  If f <> Nil Then
+		    MakeSigFile f
+		  Else
+		    // User cancelled
+		  End If
+		  
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileOpen() As Boolean Handles FileOpen.Action
-			'open genbank file in genome browser and display 9 kb of it
-			
-			if GenomeWin.SaveCheck then 'save changes in the open file if any
-			
-			
-			dim GenomeFile as folderitem
-			Dim dlg As New OpenDialog
-			
-			'#If Not TargetLinux Then
-			'dlg.InitialDirectory = SpecialFolder.Documents
-			'#Else //open Home directory on linux
-			'dlg.InitialDirectory = SpecialFolder.Home
-			'#Endif
-			
-			'dlg.promptText="Select a GenBank file"
-			dlg.Title="Open GenBank file"
-			dlg.Filter=FileTypes.GenBank
-			GenomeFile=dlg.ShowModal()
-			
-			if GenomeFile<> Nil then
-			GenomeWin.opengenbankfile(GenomeFile)
-			LogoWin.GenomeFile=GenomeFile
-			FastaButtonsCheck
-			GenomeWin.ShowGenomeStart
-			end if
-			
-			
-			Return True
-			
-			end if
+		  'open genbank file in genome browser and display 9 kb of it
+		  
+		  if GenomeWin.SaveCheck then 'save changes in the open file if any
+		    
+		    
+		    dim GenomeFile as folderitem
+		    Dim dlg As New OpenDialog
+		    
+		    '#If Not TargetLinux Then
+		    'dlg.InitialDirectory = SpecialFolder.Documents
+		    '#Else //open Home directory on linux
+		    'dlg.InitialDirectory = SpecialFolder.Home
+		    '#Endif
+		    
+		    'dlg.promptText="Select a GenBank file"
+		    dlg.Title="Open GenBank file"
+		    dlg.Filter=FileTypes.GenBank
+		    GenomeFile=dlg.ShowModal()
+		    
+		    if GenomeFile<> Nil then
+		      GenomeWin.opengenbankfile(GenomeFile)
+		      LogoWin.GenomeFile=GenomeFile
+		      FastaButtonsCheck
+		      GenomeWin.ShowGenomeStart
+		    end if
+		    
+		    
+		    Return True
+		    
+		  end if
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileOpenAlignment() As Boolean Handles FileOpenAlignment.Action
-			dim tmpfile as folderitem
-			
-			
-			
-			'#Else
-			Dim dlg as New OpenDialog
-			dlg.promptText="Select an alignment file"
-			dlg.Title="Open alignment"
-			#If XojoVersion < 2017.02
-			#if Target64Bit
-			'64 bit compiler has VirtualVolumes badly broken, hence we just can't open .sig files
-			'and they are converted to folders that could be only opened from the toolbar
-			dlg.Filter=FileTypes.Fasta' + FileTypes.Sig_file
-			#else
-			dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
-			#endif
-			#else
-			dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
-			#endif
-			tmpfile=dlg.ShowModal 'within(self)
-			'#endif
-			
-			if tmpfile<>nil then
-			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
-			logowin.LoadAlignment(tmpFile)
-			logowin.ChangeView("Logo")
-			logowin.LogoTabs.TabIndex=0
-			Return True
-			end if
-			
+		  dim tmpfile as folderitem
+		  
+		  
+		  
+		  '#Else
+		  Dim dlg as New OpenDialog
+		  dlg.promptText="Select an alignment file"
+		  dlg.Title="Open alignment"
+		  #If XojoVersion < 2017.02
+		    #if Target64Bit
+		      '64 bit compiler has VirtualVolumes badly broken, hence we just can't open .sig files
+		      'and they are converted to folders that could be only opened from the toolbar
+		      dlg.Filter=FileTypes.Fasta' + FileTypes.Sig_file
+		    #else
+		      dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
+		    #endif
+		  #else
+		    dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
+		  #endif
+		  tmpfile=dlg.ShowModal 'within(self)
+		  '#endif
+		  
+		  if tmpfile<>nil then
+		    logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
+		    logowin.LoadAlignment(tmpFile)
+		    logowin.ChangeView("Logo")
+		    logowin.LogoTabs.TabIndex=0
+		    Return True
+		  end if
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileOpenRegulonDBdata() As Boolean Handles FileOpenRegulonDBdata.Action
-			dim tmpfile, convertedFasta as folderitem
-			
-			dim GenomeFile as folderitem
-			Dim dlg As New OpenDialog
-			
-			dlg.promptText="Select a file with RegulonDB data for a SINGLE regulator"
-			'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
-			dlg.Title="Open RegulonDB data"
-			'dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
-			tmpfile=dlg.ShowModal 'within(self)
-			
-			if tmpfile<>nil then
-			convertedFasta=TemporaryFolder.child("converted.fasta")
-			if convertedFasta<>nil then
-			RegulonDB2fasta(tmpfile,convertedFasta)
-			logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
-			logowin.LoadAlignment(convertedFasta)
-			logowin.ChangeView("Logo")
-			logowin.LogoTabs.TabIndex=0
-			end if
-			
-			Return True
-			end if
-			Return True
-			
+		  dim tmpfile, convertedFasta as folderitem
+		  
+		  dim GenomeFile as folderitem
+		  Dim dlg As New OpenDialog
+		  
+		  dlg.promptText="Select a file with RegulonDB data for a SINGLE regulator"
+		  'dlg.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+".tbl"
+		  dlg.Title="Open RegulonDB data"
+		  'dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
+		  tmpfile=dlg.ShowModal 'within(self)
+		  
+		  if tmpfile<>nil then
+		    convertedFasta=TemporaryFolder.child("converted.fasta")
+		    if convertedFasta<>nil then
+		      RegulonDB2fasta(tmpfile,convertedFasta)
+		      logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
+		      logowin.LoadAlignment(convertedFasta)
+		      logowin.ChangeView("Logo")
+		      logowin.LogoTabs.TabIndex=0
+		    end if
+		    
+		    Return True
+		  end if
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileWriteSigFileToDatabase() As Boolean Handles FileWriteSigFileToDatabase.Action
-			AddSigToDatabaseWin.Show
-			Return True
-			
+		  AddSigToDatabaseWin.Show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FilterDuplicateSites() As Boolean Handles FilterDuplicateSites.Action
-			LogoWin.filerRedundancy
-			Return True
-			
+		  LogoWin.filerRedundancy
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeCRtagfilteredsearch() As Boolean Handles GenomeCRtagfilteredsearch.Action
-			FilteredSearchWin.show
-			Return True
-			
+		  FilteredSearchWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeDeNovoTFBSinference() As Boolean Handles GenomeDeNovoTFBSinference.Action
-			
-			deNovoWin.show
-			
+		  
+		  deNovoWin.show
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeGetCRtags() As Boolean Handles GenomeGetCRtags.Action
-			CRtagWin.show
-			Return True
-			
+		  CRtagWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeListencodedTFs() As Boolean Handles GenomeListencodedTFs.Action
-			LogoWin.categorizeTFs
-			Return True
-			
+		  LogoWin.categorizeTFs
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeRedundantSeqs() As Boolean Handles GenomeRedundantSeqs.Action
-			RedundantSeqWin.show
-			
+		  RedundantSeqWin.show
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeRunMEMEtwice() As Boolean Handles GenomeRunMEMEtwice.Action
-			// Runs MEME twice (in zoops and anr modes), each time looking for five motifs.
-			'  Results are stored in two subfolders within selected location.
-			
-			Dim MEMEf As FolderItem
-			
-			Dim OutF as folderitem
-			
-			Dim dlg As New SelectFolderDialog
-			dlg.ActionButtonCaption = "Select"
-			dlg.Title = "Select Folder for MEME Output"
-			dlg.PromptText = "Select a folder to store MEME results"
-			'dlg.InitialDirectory = Profile_f.parent
-			
-			OutF = dlg.ShowModal
-			If OutF <> Nil Then
-			
-			dim opt as string
-			dim ErrCode as integer
-			
-			'copy alignment out of virtual volume:
-			dim alignment_tmp as folderitem = TemporaryFolder.child("alignment.tmp")
-			if alignment_tmp<>NIL then
-			if alignment_tmp.Exists then
-			alignment_tmp.Delete
-			end if
-			LogoWin.LogoFile.CopyFileTo alignment_tmp
-			
-			else
-			msgbox "Can't create temporary file!"
-			'return -1
-			end if
-			
-			If cores2use>1 Then
-			If cores2use>CPUcores Then
-			' with OpenMPI v.>2 in mind, physical cores are allowed by default.
-			' to use threads on CPUs with hyperthreading, use the --use-hwthread-cpus option for mpirun
-			' e.g. on a 4-core processor with 8 threads, meme can be launched like this:
-			' meme -p "8 --use-hwthread-cpus" 
-			If MPICH Then
-			opt=opt+" -p " + Str(cores2use)
-			Else
-			opt=opt+" -p '" + Str(cores2use) + " --use-hwthread-cpus'"
-			End
-			Else
-			opt=opt+" -p " + Str(cores2use)  
-			End If
-			end if
-			
-			opt=opt+" -dna -minw 17"+" -maxw 23"
-			
-			'[-pal]            force palindromes (requires -dna)
-			'if PalindromicBox.Value then
-			opt=opt+" -pal"
-			'end if
-			
-			'[-revcomp]        allow sites on + or - DNA strands
-			'if GivenStrandBox.Value then
-			'else
-			opt=opt+" -revcomp"
-			'end if
-			
-			'[-nmotifs <nmotifs>]    maximum number of motifs to find
-			opt=opt+" -nmotifs 5"'+MotifNoPopup.Text
-			
-			
-			
-			'Run MEME in Zero or One per sequence' mode:
-			MEMEf=OutF.child("Zoops")
-			FixPath4Windows(MEMEf)
-			
-			if MEMEf<>NIL then
-			if MEMEf.Exists then
-			MEMEf.Delete
-			end if
-			
-			LogoWin.show
-			LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME in zoops mode...")
-			
-			ErrCode=MEME(alignment_tmp, MEMEf, opt+" -mod zoops")
-			If ErrCode=0 then
-			LogoWin.WriteToSTDOUT (" done."+EndofLine)
-			end if
-			
-			
-			'Run MEME in Zero or One per sequence' mode:
-			MEMEf=OutF.child("Anr")
-			FixPath4Windows(MEMEf)
-			
-			if MEMEf<>NIL then
-			if MEMEf.Exists then
-			MEMEf.Delete
-			end if
-			
-			LogoWin.show
-			LogoWin.WriteToSTDOUT ("Running MEME in anr mode...")
-			
-			ErrCode=MEME(alignment_tmp, MEMEf, opt+" -mod anr")
-			If ErrCode=0 then
-			LogoWin.WriteToSTDOUT (" done."+EndofLine)
-			end if
-			
-			LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
-			
-			
-			else
-			msgbox "Can't create MEME output folder!"
-			'return -1
-			end if
-			
-			
-			
-			
-			
-			
-			else
-			
-			End If
-			End If
-			Return True
-			
+		  // Runs MEME twice (in zoops and anr modes), each time looking for five motifs.
+		  '  Results are stored in two subfolders within selected location.
+		  
+		  Dim MEMEf As FolderItem
+		  
+		  Dim OutF as folderitem
+		  
+		  Dim dlg As New SelectFolderDialog
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Select Folder for MEME Output"
+		  dlg.PromptText = "Select a folder to store MEME results"
+		  'dlg.InitialDirectory = Profile_f.parent
+		  
+		  OutF = dlg.ShowModal
+		  If OutF <> Nil Then
+		    
+		    dim opt as string
+		    dim ErrCode as integer
+		    
+		    'copy alignment out of virtual volume:
+		    dim alignment_tmp as folderitem = TemporaryFolder.child("alignment.tmp")
+		    if alignment_tmp<>NIL then
+		      if alignment_tmp.Exists then
+		        alignment_tmp.Delete
+		      end if
+		      LogoWin.LogoFile.CopyFileTo alignment_tmp
+		      
+		    else
+		      msgbox "Can't create temporary file!"
+		      'return -1
+		    end if
+		    
+		    If cores2use>1 Then
+		      If cores2use>CPUcores Then
+		        ' with OpenMPI v.>2 in mind, physical cores are allowed by default.
+		        ' to use threads on CPUs with hyperthreading, use the --use-hwthread-cpus option for mpirun
+		        ' e.g. on a 4-core processor with 8 threads, meme can be launched like this:
+		        ' meme -p "8 --use-hwthread-cpus" 
+		        If MPICH Then
+		          opt=opt+" -p " + Str(cores2use)
+		        Else
+		          opt=opt+" -p '" + Str(cores2use) + " --use-hwthread-cpus'"
+		        End
+		      Else
+		        opt=opt+" -p " + Str(cores2use)  
+		      End If
+		    end if
+		    
+		    opt=opt+" -dna -minw 17"+" -maxw 23"
+		    
+		    '[-pal]            force palindromes (requires -dna)
+		    'if PalindromicBox.Value then
+		    opt=opt+" -pal"
+		    'end if
+		    
+		    '[-revcomp]        allow sites on + or - DNA strands
+		    'if GivenStrandBox.Value then
+		    'else
+		    opt=opt+" -revcomp"
+		    'end if
+		    
+		    '[-nmotifs <nmotifs>]    maximum number of motifs to find
+		    opt=opt+" -nmotifs 5"'+MotifNoPopup.Text
+		    
+		    
+		    
+		    'Run MEME in Zero or One per sequence' mode:
+		    MEMEf=OutF.child("Zoops")
+		    FixPath4Windows(MEMEf)
+		    
+		    if MEMEf<>NIL then
+		      if MEMEf.Exists then
+		        MEMEf.Delete
+		      end if
+		      
+		      LogoWin.show
+		      LogoWin.WriteToSTDOUT (EndofLine+EndofLine+"Running MEME in zoops mode...")
+		      
+		      ErrCode=MEME(alignment_tmp, MEMEf, opt+" -mod zoops")
+		      If ErrCode=0 then
+		        LogoWin.WriteToSTDOUT (" done."+EndofLine)
+		      end if
+		      
+		      
+		      'Run MEME in Zero or One per sequence' mode:
+		      MEMEf=OutF.child("Anr")
+		      FixPath4Windows(MEMEf)
+		      
+		      if MEMEf<>NIL then
+		        if MEMEf.Exists then
+		          MEMEf.Delete
+		        end if
+		        
+		        LogoWin.show
+		        LogoWin.WriteToSTDOUT ("Running MEME in anr mode...")
+		        
+		        ErrCode=MEME(alignment_tmp, MEMEf, opt+" -mod anr")
+		        If ErrCode=0 then
+		          LogoWin.WriteToSTDOUT (" done."+EndofLine)
+		        end if
+		        
+		        LogoWin.WriteToSTDOUT (EndofLine+"Results written to "+outf.Shellpath)
+		        
+		        
+		      else
+		        msgbox "Can't create MEME output folder!"
+		        'return -1
+		      end if
+		      
+		      
+		      
+		      
+		      
+		      
+		    else
+		      
+		    End If
+		  End If
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeScanCr() As Boolean Handles GenomeScanCr.Action
-			ScanGenomeCR
-			Return True
-			
+		  ScanGenomeCR
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function GenomeScanGenome() As Boolean Handles GenomeScanGenome.Action
-			ScanGenome
-			Return True
-			
+		  ScanGenome
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function HelpHMMERuserguide() As Boolean Handles HelpHMMERuserguide.Action
-			dim f as FolderItem
-			
-			f=Resources_f.child("HmmerUserGuide.pdf")
-			if f<>nil AND f.exists then
-			f.Launch
-			end if
-			
-			Return True
-			
+		  dim f as FolderItem
+		  
+		  f=Resources_f.child("HmmerUserGuide.pdf")
+		  if f<>nil AND f.exists then
+		    f.Launch
+		  end if
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function HelpHMMERWebSite() As Boolean Handles HelpHMMERWebSite.Action
-			HelpWin.LoadPage("http://hmmer.org")
-			HelpWin.show
-			
-			Return True
-			
+		  HelpWin.LoadPage("http://hmmer.org")
+		  HelpWin.show
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function HelpMEMEhelp() As Boolean Handles HelpMEMEhelp.Action
-			HelpWin.LoadPage("http://meme-suite.org")
-			HelpWin.show
-			Return True
-			
+		  HelpWin.LoadPage("http://meme-suite.org")
+		  HelpWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function HelpSigmoIDHelp() As Boolean Handles HelpSigmoIDHelp.Action
-			dim f As folderitem
-			
-			f=Resources_f.Child("Help").child(kHelpFileName)
-			if f<>nil then
-			if f.exists then
-			HelpWin.show
-			HelpWin.LoadPage(f)
-			end if
-			else
-			f=Resources_f.Child("Help").child("help_en.html")
-			if f<>nil then
-			if f.exists then
-			HelpWin.show
-			HelpWin.LoadPage(f)
-			end if
-			end if
-			end if
-			
+		  dim f As folderitem
+		  
+		  f=Resources_f.Child("Help").child(kHelpFileName)
+		  if f<>nil then
+		    if f.exists then
+		      HelpWin.show
+		      HelpWin.LoadPage(f)
+		    end if
+		  else
+		    f=Resources_f.Child("Help").child("help_en.html")
+		    if f<>nil then
+		      if f.exists then
+		        HelpWin.show
+		        HelpWin.LoadPage(f)
+		      end if
+		    end if
+		  end if
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ProfileCombineCRtags() As Boolean Handles ProfileCombineCRtags.Action
-			// Combine profiles with identical CR tags
-			
-			'Get folder to (recursively) scan for possible duplicated tags
-			Dim Profile_f, f As FolderItem
-			Dim m,n,p,q As Integer
-			Dim basename As String
-			Dim CRtag As String
-			Dim dlg As New SelectFolderDialog
-			dlg.ActionButtonCaption = "Select"
-			dlg.Title = "Select Profiles Folder"
-			dlg.PromptText = "Select a Folder with Profiles to Be Combined"
-			'dlg.InitialDirectory = Profile_f.parent
-			
-			'Build collection of sig files with CR tag keys
-			Profile_f = dlg.ShowModal
-			If Profile_f <> Nil Then
-			
-			'Pcollection=New collection
-			Redim PgroupKeys(0)
-			Redim PgroupPaths(0)
-			
-			ScanProfiles(Profile_f)
-			End If
-			
-			
-			'Remove non-redundant profiles (leave only groups)
-			m=PgroupPaths.Count-1
-			For n=m DownTo 1
-			If CountFields(PgroupPaths(n),"|;|")=1 Then
-			PgroupPaths.RemoveRowAt(n)
-			PgroupKeys.RemoveRowAt(n)
-			End If
-			Next
-			
-			Beep
-			
-			'Open ProfileMergeWin with the first profile group
-			' (or display a note if no groups were found)
-			If PgroupPaths.Count=1 Then '
-			MsgBox "No profiles with identical CR tags were found"
-			Else
-			ProfileMergeWin.NumberOfGroups=ubound(PgroupPaths)
-			ProfileMergeWin.LoadGroup(1)
-			ProfileMergeWin.show
-			End If
-			
-			
-			
-			Return True
-			
+		  // Combine profiles with identical CR tags
+		  
+		  'Get folder to (recursively) scan for possible duplicated tags
+		  Dim Profile_f, f As FolderItem
+		  Dim m,n,p,q As Integer
+		  Dim basename As String
+		  Dim CRtag As String
+		  Dim dlg As New SelectFolderDialog
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Select Profiles Folder"
+		  dlg.PromptText = "Select a Folder with Profiles to Be Combined"
+		  'dlg.InitialDirectory = Profile_f.parent
+		  
+		  'Build collection of sig files with CR tag keys
+		  Profile_f = dlg.ShowModal
+		  If Profile_f <> Nil Then
+		    
+		    'Pcollection=New collection
+		    Redim PgroupKeys(0)
+		    Redim PgroupPaths(0)
+		    
+		    ScanProfiles(Profile_f)
+		  End If
+		  
+		  
+		  'Remove non-redundant profiles (leave only groups)
+		  m=PgroupPaths.Count-1
+		  For n=m DownTo 1
+		    If CountFields(PgroupPaths(n),"|;|")=1 Then
+		      PgroupPaths.RemoveRowAt(n)
+		      PgroupKeys.RemoveRowAt(n)
+		    End If
+		  Next
+		  
+		  Beep
+		  
+		  'Open ProfileMergeWin with the first profile group
+		  ' (or display a note if no groups were found)
+		  If PgroupPaths.Count=1 Then '
+		    MsgBox "No profiles with identical CR tags were found"
+		  Else
+		    ProfileMergeWin.NumberOfGroups=ubound(PgroupPaths)
+		    ProfileMergeWin.LoadGroup(1)
+		    ProfileMergeWin.show
+		  End If
+		  
+		  
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulogs() As Boolean Handles RegPreciseRegulogs.Action
-			RegPreciseWin.title="RegPrecise: regulogs"
-			RegPreciseWin.show
-			Return True
-			
+		  RegPreciseWin.title="RegPrecise: regulogs"
+		  RegPreciseWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulons() As Boolean Handles RegPreciseRegulons.Action
-			RegPreciseWin.title="RegPrecise: regulons"
-			RegPreciseWin.LoadGenomes
-			RegPreciseWin.show
-			Return True
-			
+		  RegPreciseWin.title="RegPrecise: regulons"
+		  RegPreciseWin.LoadGenomes
+		  RegPreciseWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegulonCollecTF() As Boolean Handles RegulonCollecTF.Action
-			
-			
-			CollecTFwin.CollecTFfile=Resources_f.child("collectf_export.tsv")
-			
-			if CollecTFWin.CollecTFfile<>Nil and CollecTFWin.CollecTFfile.Exists then
-			CollecTFWin.show
-			CollecTFWin.FillRegulatorList(CollecTFWin.CollecTFfile)
-			else
-			LogoWin.WriteToSTDOUT("CollecTF data file is missing")
-			end if
-			
-			
+		  
+		  
+		  CollecTFwin.CollecTFfile=Resources_f.child("collectf_export.tsv")
+		  
+		  if CollecTFWin.CollecTFfile<>Nil and CollecTFWin.CollecTFfile.Exists then
+		    CollecTFWin.show
+		    CollecTFWin.FillRegulatorList(CollecTFWin.CollecTFfile)
+		  else
+		    LogoWin.WriteToSTDOUT("CollecTF data file is missing")
+		  end if
+		  
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegulonCoryneRegNet() As Boolean Handles RegulonCoryneRegNet.Action
-			CoryneRegNetWin.show
-			
-			
-			
-			
-			
-			
-			
+		  CoryneRegNetWin.show
+		  
+		  
+		  
+		  
+		  
+		  
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegulonLocalMotifCollections() As Boolean Handles RegulonLocalMotifCollections.Action
-			LocalMotifCollectionsWin.show
-			Return True
-			
+		  LocalMotifCollectionsWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegulonRegPreciseTFFamilies() As Boolean Handles RegulonRegPreciseTFFamilies.Action
-			'RegPreciseWin.title="RegPrecise: regulons"
-			'RegPreciseTFcollectionsWin.LoadFamilies
-			RegPreciseTFcollectionsWin2.WLoadFamilies
-			RegPreciseTFcollectionsWin2.show
-			Return True
-			
+		  'RegPreciseWin.title="RegPrecise: regulons"
+		  'RegPreciseTFcollectionsWin.LoadFamilies
+		  RegPreciseTFcollectionsWin2.WLoadFamilies
+		  RegPreciseTFcollectionsWin2.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegulonTomTom() As Boolean Handles RegulonTomTom.Action
-			TomTomWin.show
-			Return True
-			
+		  TomTomWin.show
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

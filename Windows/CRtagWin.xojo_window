@@ -51,7 +51,7 @@ Begin Window CRtagWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "hmmsearch result:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -98,12 +98,13 @@ Begin Window CRtagWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   52
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   560
@@ -134,7 +135,7 @@ Begin Window CRtagWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Result table:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   164
@@ -181,12 +182,13 @@ Begin Window CRtagWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   196
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   560
@@ -217,7 +219,7 @@ Begin Window CRtagWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "CR tag positions:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   308
@@ -259,7 +261,7 @@ Begin Window CRtagWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   340
@@ -289,7 +291,7 @@ Begin Window CRtagWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -321,7 +323,7 @@ Begin Window CRtagWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -359,7 +361,7 @@ Begin Window CRtagWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "CR tag:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   374
@@ -401,7 +403,7 @@ Begin Window CRtagWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   372

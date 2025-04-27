@@ -45,7 +45,7 @@ Begin Window RepeatSearchSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window RepeatSearchSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -119,7 +119,7 @@ Begin Window RepeatSearchSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   206
    End
    Begin Label Label4
@@ -148,7 +148,7 @@ Begin Window RepeatSearchSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kFeature2add"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   246
@@ -219,7 +219,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "rpt_type"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   305
@@ -263,7 +263,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "rpt_family"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   339
@@ -307,7 +307,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   339
@@ -351,7 +351,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "note"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   373
@@ -395,7 +395,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   373
@@ -562,7 +562,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "1"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   102
@@ -606,7 +606,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "50"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   102
@@ -710,7 +710,7 @@ Begin Window RepeatSearchSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kGenome_"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   421
@@ -752,7 +752,7 @@ Begin Window RepeatSearchSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   419
@@ -782,7 +782,7 @@ Begin Window RepeatSearchSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   26
       TabPanelIndex   =   0
@@ -820,7 +820,7 @@ Begin Window RepeatSearchSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Search genome for repeats/mobile elements. The proper profile must be loaded in the main window."
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -859,7 +859,7 @@ Begin Window RepeatSearchSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   192
    End
    Begin GroupBox GroupBox2
@@ -924,7 +924,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "90"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   198
@@ -960,7 +960,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "%"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   198
@@ -995,7 +995,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "%"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   198
@@ -1038,7 +1038,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "70"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   198
@@ -1074,7 +1074,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Target coverage:"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   200
@@ -1109,7 +1109,7 @@ Begin Window RepeatSearchSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "HMM coverage:"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   198
@@ -1185,9 +1185,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

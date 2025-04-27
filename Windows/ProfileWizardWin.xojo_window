@@ -79,7 +79,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "#kTrusted1"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   34
@@ -122,7 +122,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   32
@@ -158,7 +158,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "#kGathering1"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   68
@@ -201,7 +201,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   66
@@ -237,7 +237,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "#kNoise"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   100
@@ -280,7 +280,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   98
@@ -324,7 +324,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   130
@@ -360,7 +360,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "MAST p-value threshold:"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   132
@@ -428,7 +428,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
+         VisualState     =   0
          Width           =   326
       End
       Begin Label Label5
@@ -457,7 +457,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Feature to add:"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   99
@@ -535,7 +535,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "bound_moiety"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   130
@@ -575,7 +575,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
+         VisualState     =   0
          Width           =   326
       End
       Begin Label Label6
@@ -604,7 +604,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "#kQualifier"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   130
@@ -647,7 +647,7 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   130
@@ -696,12 +696,13 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Profile info"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   365
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   724
@@ -726,7 +727,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
@@ -758,7 +759,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -774,13 +775,13 @@ Begin Window ProfileWizardWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "1"
+      ButtonStyle     =   1
       Caption         =   "Lock"
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -788,7 +789,7 @@ Begin Window ProfileWizardWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   0
-      IconAlignment   =   "0"
+      IconAlignment   =   0
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -800,7 +801,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -872,7 +873,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "TF family HMM:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   178
@@ -907,7 +908,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "CRtag coords:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   209
@@ -949,7 +950,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   209
@@ -997,12 +998,13 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ">protein_id\nsequence"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Fasta title line should end with _GB=<Accession>|UP=<Accession> (or just GB=<Accession>)."
       Top             =   240
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   724
@@ -1033,7 +1035,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "CRtag sequence:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   210
@@ -1075,7 +1077,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   209
@@ -1104,8 +1106,8 @@ Begin Window ProfileWizardWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "2"
-      GridLinesVerticalStyle=   "2"
+      GridLinesHorizontalStyle=   2
+      GridLinesVerticalStyle=   2
       HasBorder       =   True
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -1123,7 +1125,7 @@ Begin Window ProfileWizardWin
       LockRight       =   True
       LockTop         =   False
       RequiresSelection=   False
-      RowSelectionType=   "0"
+      RowSelectionType=   0
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
@@ -1156,8 +1158,8 @@ Begin Window ProfileWizardWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "2"
-      GridLinesVerticalStyle=   "2"
+      GridLinesHorizontalStyle=   2
+      GridLinesVerticalStyle=   2
       HasBorder       =   True
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -1175,7 +1177,7 @@ Begin Window ProfileWizardWin
       LockRight       =   True
       LockTop         =   False
       RequiresSelection=   False
-      RowSelectionType=   "0"
+      RowSelectionType=   0
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
@@ -1209,7 +1211,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -1241,7 +1243,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -1273,7 +1275,7 @@ Begin Window ProfileWizardWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   20
       TabPanelIndex   =   0
@@ -1304,9 +1306,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

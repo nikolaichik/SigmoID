@@ -45,7 +45,7 @@ Begin Window MEMESettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window MEMESettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -115,7 +115,7 @@ Begin Window MEMESettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kNumberOfMotifs2find"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   154
@@ -154,7 +154,7 @@ Begin Window MEMESettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   270
    End
    Begin ComboBox MotifNoPopup
@@ -254,7 +254,7 @@ Begin Window MEMESettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "25"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   46
@@ -298,7 +298,7 @@ Begin Window MEMESettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "15"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   46
@@ -334,7 +334,7 @@ Begin Window MEMESettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "#kMin"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   48
@@ -369,7 +369,7 @@ Begin Window MEMESettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "#kMax"
-         TextAlignment   =   "3"
+         TextAlignment   =   3
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   48
@@ -409,7 +409,7 @@ Begin Window MEMESettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   270
    End
    Begin PopupMenu MotifsPerSeqPopup
@@ -470,7 +470,7 @@ Begin Window MEMESettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMotifsPerSequence"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   186
@@ -536,9 +536,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

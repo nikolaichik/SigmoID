@@ -44,8 +44,8 @@ Begin Window CollecTFWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   0
+      GridLinesVerticalStyle=   0
       HasBorder       =   False
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -63,7 +63,7 @@ Begin Window CollecTFWin
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "1"
+      RowSelectionType=   1
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -119,7 +119,7 @@ Begin Window CollecTFWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
@@ -135,13 +135,13 @@ Begin Window CollecTFWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Caption         =   ""
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
@@ -149,7 +149,7 @@ Begin Window CollecTFWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   495161343
-      IconAlignment   =   "1"
+      IconAlignment   =   1
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -161,7 +161,7 @@ Begin Window CollecTFWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -201,7 +201,7 @@ Begin Window CollecTFWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "CollecTF December 17, 2015 release"
-      TextAlignment   =   "2"
+      TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   480
@@ -214,6 +214,7 @@ Begin Window CollecTFWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -232,6 +233,7 @@ Begin Window CollecTFWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
+      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -277,88 +279,88 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			Close
-			Return True
-			
+		  Close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegulonGetRegPreciseTFseqs() As Boolean Handles RegulonGetRegPreciseTFseqs.Action
-			'just run tfasty/tfastx
-			
-			'get the ID:
-			logowin.show
-			logowin.WriteToSTDOUT("Contacting RegulonDB... ")
-			dim TF_ID, theURL as string
-			TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
-			TF_name=RegulatorList.Cell(RegulatorList.ListIndex,0)
-			if instr(TF_name,"-")>0 then
-			LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
-			end if
-			'if TFBSRadio.value then 'TF
-			theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
-			theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
-			'else                    'sigma
-			'theURL="http://regulondb.ccg.unam.mx/sigmulon?term="+TF_ID
-			'theURL=theURL+"&organism=ECK12&format=jsp&type=sigmulon"
-			'end if
-			
-			dim res as string
-			dim hts as new HTTPSocket
-			hts.Yield=true
-			res=hts.Get(theURL,0)
-			if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
-			if res<>"" then
-			dim ProteinID, fastaURL as string
-			dim n,geneNo as integer
-			
-			'get the gene/ProteinID from the first (there'll be many) html tag that look like this:
-			'<a href="/gene?term=ECK120000719&organism=ECK12&format=jsp&type=gene">phoB</a></span></td>
-			
-			'the page may contain several genes (e.g. the rcsB page), hence the dances below
-			
-			geneno=CountFields(res,"/gene?term=")
-			for n=2 to geneNo+2
-			ProteinID=NthField(res,"/gene?term=",n)
-			ProteinID=NthField(ProteinID,"</a>",1)
-			if instr(ProteinID,TF_name)>0 then
-			ProteinID=NthField(ProteinID,"&organism=",1)
-			exit
-			end if
-			next
-			
-			if ProteinID<>"" then
-			fastaURL="http://regulondb.ccg.unam.mx/sequence?type=PD&term="+ProteinID+"&format=fasta"
-			
-			res=hts.Get(fastaURL,0)
-			if res<>"" then
-			dim ProteinFasta as string
-			
-			'extract Fasta formatted protein seq
-			'the seq is within the <pre> tag, but there are two of those, so we're searching for "<pre>>"
-			'content supposedly has the ISO-8859-1 encoding, but Xojo gets line ends wrongx
-			
-			ProteinFasta=defineEncoding(NthField(res,"<pre>>",2),Encodings.ISOLatin1)
-			ProteinFasta=">"+NthField(ProteinFasta,"</pre>",1)
-			ProteinFasta=ConvertEncoding(trim(ProteinFasta),Encodings.ASCII)
-			logowin.WriteToSTDOUT(ProteinFasta+EndOfLine)
-			end if
-			else
-			msgbox "Can't get TF data from RegulonDB."
-			end if
-			end if
-			else
-			LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
-			LogoWin.show
-			end if
-			
+		  'just run tfasty/tfastx
+		  
+		  'get the ID:
+		  logowin.show
+		  logowin.WriteToSTDOUT("Contacting RegulonDB... ")
+		  dim TF_ID, theURL as string
+		  TF_ID=RegulatorList.Cell(RegulatorList.ListIndex,4)
+		  TF_name=RegulatorList.Cell(RegulatorList.ListIndex,0)
+		  if instr(TF_name,"-")>0 then
+		    LogoWin.WriteToSTDOUT(EndOfLine.UNIX+"Sorry, you have to check heterodimeric regulators manually."+EndOfLine.UNIX)
+		  end if
+		  'if TFBSRadio.value then 'TF
+		  theURL="http://regulondb.ccg.unam.mx/regulon?term="+TF_ID
+		  theURL=theURL+"&organism=ECK12&format=jsp&type=regulon"
+		  'else                    'sigma
+		  'theURL="http://regulondb.ccg.unam.mx/sigmulon?term="+TF_ID
+		  'theURL=theURL+"&organism=ECK12&format=jsp&type=sigmulon"
+		  'end if
+		  
+		  dim res as string
+		  dim hts as new HTTPSocket
+		  hts.Yield=true
+		  res=hts.Get(theURL,0)
+		  if hts.HTTPStatusCode>=200 AND hts.HTTPStatusCode<300 then 'successful
+		    if res<>"" then
+		      dim ProteinID, fastaURL as string
+		      dim n,geneNo as integer
+		      
+		      'get the gene/ProteinID from the first (there'll be many) html tag that look like this:
+		      '<a href="/gene?term=ECK120000719&organism=ECK12&format=jsp&type=gene">phoB</a></span></td>
+		      
+		      'the page may contain several genes (e.g. the rcsB page), hence the dances below
+		      
+		      geneno=CountFields(res,"/gene?term=")
+		      for n=2 to geneNo+2
+		        ProteinID=NthField(res,"/gene?term=",n)
+		        ProteinID=NthField(ProteinID,"</a>",1)
+		        if instr(ProteinID,TF_name)>0 then
+		          ProteinID=NthField(ProteinID,"&organism=",1)
+		          exit
+		        end if
+		      next
+		      
+		      if ProteinID<>"" then
+		        fastaURL="http://regulondb.ccg.unam.mx/sequence?type=PD&term="+ProteinID+"&format=fasta"
+		        
+		        res=hts.Get(fastaURL,0)
+		        if res<>"" then
+		          dim ProteinFasta as string
+		          
+		          'extract Fasta formatted protein seq
+		          'the seq is within the <pre> tag, but there are two of those, so we're searching for "<pre>>"
+		          'content supposedly has the ISO-8859-1 encoding, but Xojo gets line ends wrongx
+		          
+		          ProteinFasta=defineEncoding(NthField(res,"<pre>>",2),Encodings.ISOLatin1)
+		          ProteinFasta=">"+NthField(ProteinFasta,"</pre>",1)
+		          ProteinFasta=ConvertEncoding(trim(ProteinFasta),Encodings.ASCII)
+		          logowin.WriteToSTDOUT(ProteinFasta+EndOfLine)
+		        end if
+		      else
+		        msgbox "Can't get TF data from RegulonDB."
+		      end if
+		    end if
+		  else
+		    LogoWin.WriteToSTDOUT ("Server error (HTTP status code "+str(hts.HTTPStatusCode)+")")
+		    LogoWin.show
+		  end if
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegulonShowLogo() As Boolean Handles RegulonShowLogo.Action
-			ShowLogo
+		  ShowLogo
 		End Function
 	#tag EndMenuHandler
 

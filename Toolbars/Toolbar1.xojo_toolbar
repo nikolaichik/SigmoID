@@ -1,5 +1,6 @@
 #tag Toolbar
 Begin Toolbar Toolbar1
+Inherits Toolbar
 	Begin ToolButton LoadAlignmentTool
 		Caption = "#kOpenProfile"
 		HelpTag = ""

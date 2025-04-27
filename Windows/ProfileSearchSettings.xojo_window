@@ -3,7 +3,7 @@ Begin Window ProfileSearchSettings
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF00
    Composite       =   False
-   DefaultLocation =   "0"
+   DefaultLocation =   0
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
@@ -21,7 +21,7 @@ Begin Window ProfileSearchSettings
    MinimumWidth    =   64
    Resizeable      =   True
    Title           =   "Profile Search Settings"
-   Type            =   "0"
+   Type            =   0
    Visible         =   True
    Width           =   458
    Begin PushButton OKButton
@@ -44,7 +44,7 @@ Begin Window ProfileSearchSettings
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -89,7 +89,7 @@ Begin Window ProfileSearchSettings
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "4"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   19
@@ -125,7 +125,7 @@ Begin Window ProfileSearchSettings
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Bitscore threshold:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -154,7 +154,7 @@ Begin Window ProfileSearchSettings
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -186,7 +186,7 @@ Begin Window ProfileSearchSettings
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -231,7 +231,7 @@ Begin Window ProfileSearchSettings
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "10"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   19
@@ -267,7 +267,7 @@ Begin Window ProfileSearchSettings
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Number of permutations:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -302,7 +302,7 @@ Begin Window ProfileSearchSettings
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   79

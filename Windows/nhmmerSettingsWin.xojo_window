@@ -58,7 +58,7 @@ Begin Window nhmmerSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   205
@@ -94,7 +94,7 @@ Begin Window nhmmerSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMoreOptions"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   205
@@ -129,7 +129,7 @@ Begin Window nhmmerSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kGenome_"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   252
@@ -171,7 +171,7 @@ Begin Window nhmmerSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   250
@@ -201,7 +201,7 @@ Begin Window nhmmerSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -233,7 +233,7 @@ Begin Window nhmmerSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -427,7 +427,7 @@ Begin Window nhmmerSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "0.62"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   100
@@ -552,7 +552,7 @@ Begin Window nhmmerSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   71
@@ -587,7 +587,7 @@ Begin Window nhmmerSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   101
@@ -622,7 +622,7 @@ Begin Window nhmmerSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   41
@@ -725,7 +725,7 @@ Begin Window nhmmerSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   168
    End
    Begin PushButton PushButton3
@@ -748,7 +748,7 @@ Begin Window nhmmerSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -882,7 +882,7 @@ Begin Window nhmmerSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   204
@@ -926,7 +926,7 @@ Begin Window nhmmerSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   170
@@ -967,7 +967,7 @@ Begin Window nhmmerSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   526
    End
 End
@@ -997,9 +997,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

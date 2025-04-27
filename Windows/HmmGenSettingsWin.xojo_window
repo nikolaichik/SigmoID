@@ -45,7 +45,7 @@ Begin Window HmmGenSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window HmmGenSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -148,7 +148,7 @@ Begin Window HmmGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kFeature2add"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   147
@@ -252,7 +252,7 @@ Begin Window HmmGenSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "bound_moiety"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   221
@@ -296,7 +296,7 @@ Begin Window HmmGenSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   221
@@ -337,7 +337,7 @@ Begin Window HmmGenSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   164
    End
    Begin ComboBox FeatureCombo
@@ -529,7 +529,7 @@ Begin Window HmmGenSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "100"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   46
@@ -573,7 +573,7 @@ Begin Window HmmGenSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "10"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   46
@@ -647,7 +647,7 @@ Begin Window HmmGenSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   206
    End
 End
@@ -721,9 +721,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

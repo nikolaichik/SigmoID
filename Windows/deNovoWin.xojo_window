@@ -767,7 +767,7 @@ Begin Window deNovoWin
          AllowFocusRing  =   True
          AllowSpellChecking=   False
          AllowTabs       =   False
-         BackgroundColor =   &c00000000
+         BackgroundColor =   &cFFFFFF00
          Bold            =   False
          DataField       =   ""
          DataSource      =   ""
@@ -2172,7 +2172,7 @@ End
 		  end if
 		  self.LoggingOutput.Text=""
 		  rp = new DeNovoTFBSinference.deNovoSearch
-		  LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Running de novo TFBS inference pipeline with SigmoID "+app.LongVersion)
+		  LogoWin.WriteToSTDOUT (EndOfLine.unix+EndOfLine.unix+"Running de novo TFBS inference pipeline with SigmoID "+app.LongVersion+EndOfLine.unix)
 		  
 		  'self.hide
 		  

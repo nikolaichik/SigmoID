@@ -51,7 +51,7 @@ Begin Window TomTomWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "This command will scan the folder you select for files named 'meme.txt' and use these to run TomTom vs motif libraries located in the specified folder."
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -80,7 +80,7 @@ Begin Window TomTomWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -112,7 +112,7 @@ Begin Window TomTomWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -157,7 +157,7 @@ Begin Window TomTomWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   79
@@ -193,7 +193,7 @@ Begin Window TomTomWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Query folder:"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   81
@@ -222,7 +222,7 @@ Begin Window TomTomWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -267,7 +267,7 @@ Begin Window TomTomWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   113
@@ -303,7 +303,7 @@ Begin Window TomTomWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "TF library folder:"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   115
@@ -332,7 +332,7 @@ Begin Window TomTomWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -377,7 +377,7 @@ Begin Window TomTomWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   181
@@ -413,7 +413,7 @@ Begin Window TomTomWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "TomTom options:"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   183
@@ -442,7 +442,7 @@ Begin Window TomTomWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0
@@ -487,7 +487,7 @@ Begin Window TomTomWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   147
@@ -523,7 +523,7 @@ Begin Window TomTomWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Background model:"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   149
@@ -552,7 +552,7 @@ Begin Window TomTomWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
@@ -578,9 +578,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

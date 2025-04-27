@@ -44,8 +44,8 @@ Begin Window ConvertProfilesToMEMEWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   0
+      GridLinesVerticalStyle=   0
       HasBorder       =   False
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -63,7 +63,7 @@ Begin Window ConvertProfilesToMEMEWin
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "1"
+      RowSelectionType=   1
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -97,7 +97,7 @@ Begin Window ConvertProfilesToMEMEWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
@@ -113,13 +113,13 @@ Begin Window ConvertProfilesToMEMEWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Caption         =   "#kSelectByQuality"
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -127,7 +127,7 @@ Begin Window ConvertProfilesToMEMEWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   0
-      IconAlignment   =   "0"
+      IconAlignment   =   0
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -139,7 +139,7 @@ Begin Window ConvertProfilesToMEMEWin
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   12
       TabPanelIndex   =   0
@@ -157,13 +157,13 @@ Begin Window ConvertProfilesToMEMEWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Caption         =   "#kDeselectAll"
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -171,7 +171,7 @@ Begin Window ConvertProfilesToMEMEWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   0
-      IconAlignment   =   "0"
+      IconAlignment   =   0
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -183,7 +183,7 @@ Begin Window ConvertProfilesToMEMEWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -201,13 +201,13 @@ Begin Window ConvertProfilesToMEMEWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Caption         =   "#kSelectAll"
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
@@ -215,7 +215,7 @@ Begin Window ConvertProfilesToMEMEWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   0
-      IconAlignment   =   "0"
+      IconAlignment   =   0
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -227,7 +227,7 @@ Begin Window ConvertProfilesToMEMEWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
@@ -261,7 +261,7 @@ Begin Window ConvertProfilesToMEMEWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   16
       TabPanelIndex   =   0
@@ -299,7 +299,7 @@ Begin Window ConvertProfilesToMEMEWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   382
@@ -328,7 +328,7 @@ Begin Window ConvertProfilesToMEMEWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
@@ -382,21 +382,21 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			Close
-			Return True
-			
+		  Close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
-			RegulonInfo
+		  RegulonInfo
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo1() As Boolean Handles RegPreciseRegulonInfo1.Action
-			RegulonInfo
+		  RegulonInfo
 		End Function
 	#tag EndMenuHandler
 

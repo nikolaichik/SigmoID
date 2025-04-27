@@ -51,7 +51,7 @@ Begin Window MergePlotDataWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMergePlotWinDesc"
-      TextAlignment   =   "2"
+      TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   14
@@ -80,7 +80,7 @@ Begin Window MergePlotDataWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -112,7 +112,7 @@ Begin Window MergePlotDataWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -157,7 +157,7 @@ Begin Window MergePlotDataWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   64
@@ -193,7 +193,7 @@ Begin Window MergePlotDataWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kDataFile1"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   66
@@ -222,7 +222,7 @@ Begin Window MergePlotDataWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0
@@ -267,7 +267,7 @@ Begin Window MergePlotDataWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   98
@@ -303,7 +303,7 @@ Begin Window MergePlotDataWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kDataFile2"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   100
@@ -332,7 +332,7 @@ Begin Window MergePlotDataWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   14
       TabPanelIndex   =   0
@@ -377,7 +377,7 @@ Begin Window MergePlotDataWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   131
@@ -413,7 +413,7 @@ Begin Window MergePlotDataWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMergedFile"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   133
@@ -442,7 +442,7 @@ Begin Window MergePlotDataWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0

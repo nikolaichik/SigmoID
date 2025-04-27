@@ -13,6 +13,22 @@ Inherits CocoaMenuItem
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="LastRowIndex"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Text"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="HasCheckMark"
 			Visible=false
 			Group="Behavior"
@@ -22,14 +38,6 @@ Inherits CocoaMenuItem
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Shortcut"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Value"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

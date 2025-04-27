@@ -88,7 +88,7 @@ Begin Window WebBrowserWin
       InitialParent   =   ""
       LockedInPosition=   False
       Period          =   1000
-      RunMode         =   "2"
+      RunMode         =   2
       Scope           =   0
       TabPanelIndex   =   0
    End
@@ -148,7 +148,7 @@ Begin Window WebBrowserWin
          Underline       =   False
          Value           =   False
          Visible         =   False
-         VisualState     =   "0"
+         VisualState     =   0
          Width           =   111
       End
       Begin Label CountField
@@ -177,7 +177,7 @@ Begin Window WebBrowserWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   575
@@ -216,7 +216,7 @@ Begin Window WebBrowserWin
          Underline       =   False
          Value           =   False
          Visible         =   False
-         VisualState     =   "0"
+         VisualState     =   0
          Width           =   121
       End
       Begin UpDownArrows SearchArrows
@@ -276,7 +276,7 @@ Begin Window WebBrowserWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   574
@@ -338,44 +338,44 @@ End
 
 	#tag MenuHandler
 		Function EditFind() As Boolean Handles EditFind.Action
-			showSearchBar
-			Return True
-			
+		  showSearchBar
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditFindAgain() As Boolean Handles EditFindAgain.Action
-			shiftMatch(1)
-			Return True
-			
+		  shiftMatch(1)
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function EditSelectAll() As Boolean Handles EditSelectAll.Action
-			
-			Return True
-			
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			
-			CloseTab
-			
-			Return True
-			
+		  
+		  CloseTab
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function FileNewTab() As Boolean Handles FileNewTab.Action
-			Call AddNewTab
-			
-			Return True
-			
+		  Call AddNewTab
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

@@ -45,7 +45,7 @@ Begin Window SelectTFBSWindow
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window SelectTFBSWindow
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -151,7 +151,7 @@ Begin Window SelectTFBSWindow
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "16"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   49
@@ -224,7 +224,7 @@ Begin Window SelectTFBSWindow
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "6"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   49
@@ -297,7 +297,7 @@ Begin Window SelectTFBSWindow
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "30"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   144
@@ -333,7 +333,7 @@ Begin Window SelectTFBSWindow
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "max:"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   146
@@ -376,7 +376,7 @@ Begin Window SelectTFBSWindow
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "15"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   144
@@ -412,7 +412,7 @@ Begin Window SelectTFBSWindow
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "min:"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   146
@@ -461,9 +461,9 @@ End
 #tag WindowCode
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

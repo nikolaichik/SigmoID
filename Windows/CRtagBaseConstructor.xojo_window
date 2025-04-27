@@ -44,8 +44,8 @@ Begin Window CRtagBaseConstructor
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   0
+      GridLinesVerticalStyle=   0
       HasBorder       =   True
       HasHeader       =   False
       HasHorizontalScrollbar=   False
@@ -63,7 +63,7 @@ Begin Window CRtagBaseConstructor
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
+      RowSelectionType=   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -103,7 +103,7 @@ Begin Window CRtagBaseConstructor
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Select sequences file"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   238
@@ -138,7 +138,7 @@ Begin Window CRtagBaseConstructor
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Select .fasta file"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   299
@@ -167,7 +167,7 @@ Begin Window CRtagBaseConstructor
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -199,7 +199,7 @@ Begin Window CRtagBaseConstructor
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
@@ -231,7 +231,7 @@ Begin Window CRtagBaseConstructor
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   5
       TabPanelIndex   =   0
@@ -249,7 +249,7 @@ Begin Window CRtagBaseConstructor
       AllowSpellChecking=   True
       AllowStyledText =   True
       AllowTabs       =   False
-      BackgroundColor =   &c00000000
+      BackgroundColor =   &cFFFFFF00
       Bold            =   False
       DataField       =   ""
       DataSource      =   ""
@@ -281,12 +281,13 @@ Begin Window CRtagBaseConstructor
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "READ FIRST:\nThe process of CR-tag base creation uses Cdbfasta software for quick sequence retrieval from large fasta files. It's necessary to install this program from repository or by link: https://github.com/gpertea/cdbfasta.\nAfter the installation, check, please, that its path was added to your PATH environment: the command ""cdbfasta"" should be executed successfully outside the installation directory in the command line.\n\nThe source file should contain EMBL codes for all sequences and can be compressed (.gz). That file will be used by hmmsearch tool with chosen HMM model.\n\nNext, create a .fasta file from your sequences file (if it's not .fasta), after that make an index file for it. You need to execute command ""cdbfasta /path/to/your fasta"" - new .cidx file will be created in the directory with your fasta. \n\nNow you can provide paths to the original file with EMBL codes (""Select sequences file"" line) and the index file was made from corresponding .fasta (""Select .cidx file"") by dialog buttons above; choose right HMM model from the list and press ""Start!"" button in order to activate base creation process."
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   402
       Transparent     =   True
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   699

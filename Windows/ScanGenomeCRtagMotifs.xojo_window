@@ -45,7 +45,7 @@ Begin Window ScanGenomeCRtagMotifs
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window ScanGenomeCRtagMotifs
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -109,7 +109,7 @@ Begin Window ScanGenomeCRtagMotifs
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
@@ -140,8 +140,8 @@ Begin Window ScanGenomeCRtagMotifs
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "2"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   2
+      GridLinesVerticalStyle=   0
       HasBorder       =   True
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -159,7 +159,7 @@ Begin Window ScanGenomeCRtagMotifs
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
+      RowSelectionType=   0
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -179,9 +179,9 @@ End
 #tag WindowCode
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			Close
-			Return True
-			
+		  Close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

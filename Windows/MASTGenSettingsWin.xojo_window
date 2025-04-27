@@ -45,7 +45,7 @@ Begin Window MASTGenSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -77,7 +77,7 @@ Begin Window MASTGenSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -110,7 +110,7 @@ Begin Window MASTGenSettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
@@ -148,7 +148,7 @@ Begin Window MASTGenSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kFeature2add"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   152
@@ -215,7 +215,7 @@ Begin Window MASTGenSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
+         VisualState     =   0
          Width           =   340
       End
       Begin TextField KeyField
@@ -252,7 +252,7 @@ Begin Window MASTGenSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "bound_moiety"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   231
@@ -296,7 +296,7 @@ Begin Window MASTGenSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   231
@@ -337,7 +337,7 @@ Begin Window MASTGenSettingsWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   156
    End
    Begin ComboBox FeatureCombo
@@ -395,7 +395,7 @@ Begin Window MASTGenSettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   20
       TabPanelIndex   =   0
       TabStop         =   True
@@ -529,7 +529,7 @@ Begin Window MASTGenSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "1e-6"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   46
@@ -573,7 +573,7 @@ Begin Window MASTGenSettingsWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "1000"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   46
@@ -605,7 +605,7 @@ Begin Window MASTGenSettingsWin
       LockRight       =   True
       LockTop         =   True
       Scope           =   0
-      State           =   "1"
+      State           =   1
       TabIndex        =   22
       TabPanelIndex   =   0
       TabStop         =   True
@@ -687,9 +687,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

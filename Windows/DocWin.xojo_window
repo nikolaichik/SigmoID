@@ -64,12 +64,13 @@ Begin Window DocWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   -1
       Transparent     =   True
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   975
@@ -165,10 +166,10 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			self.Close
-			
-			Return True
-			
+		  self.Close
+		  
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

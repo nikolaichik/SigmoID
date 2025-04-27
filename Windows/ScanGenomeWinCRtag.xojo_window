@@ -45,7 +45,7 @@ Begin Window ScanGenomeWinCRtag
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -98,8 +98,8 @@ Begin Window ScanGenomeWinCRtag
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   0
+      GridLinesVerticalStyle=   0
       HasBorder       =   False
       HasHeader       =   False
       HasHorizontalScrollbar=   False
@@ -117,7 +117,7 @@ Begin Window ScanGenomeWinCRtag
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
+      RowSelectionType=   0
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -151,7 +151,7 @@ Begin Window ScanGenomeWinCRtag
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   20
       TabPanelIndex   =   0
@@ -189,7 +189,7 @@ Begin Window ScanGenomeWinCRtag
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Search the built-in CR tagged TFBS profile library for CR tags matching TFs  from this genome. One TF family at a time."
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -213,9 +213,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			Close
-			Return True
-			
+		  Close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

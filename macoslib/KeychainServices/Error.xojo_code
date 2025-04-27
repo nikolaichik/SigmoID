@@ -165,14 +165,6 @@ Inherits RuntimeException
 
 	#tag ViewBehavior
 		#tag ViewProperty
-			Name="Reason"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Text"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="ErrorNumber"
 			Visible=false
 			Group="Behavior"

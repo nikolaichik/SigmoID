@@ -398,6 +398,14 @@ Inherits NSObject
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="Description"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="ActiveProcessorCount"
 			Visible=false
 			Group="Behavior"

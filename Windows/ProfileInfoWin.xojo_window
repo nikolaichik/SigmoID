@@ -3,7 +3,7 @@ Begin Window ProfileInfoWin
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF00
    Composite       =   False
-   DefaultLocation =   "1"
+   DefaultLocation =   1
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
@@ -21,7 +21,7 @@ Begin Window ProfileInfoWin
    MinimumWidth    =   64
    Resizeable      =   True
    Title           =   "Profile info"
-   Type            =   "7"
+   Type            =   7
    Visible         =   True
    Width           =   400
    Begin TextArea InfoArea
@@ -62,12 +62,13 @@ Begin Window ProfileInfoWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   0
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   400
@@ -78,9 +79,9 @@ End
 #tag WindowCode
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

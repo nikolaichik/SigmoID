@@ -788,7 +788,7 @@ Inherits Thread
 		              end if 'resfile2<>nil
 		              
 		            else
-		              deNovoWin.rp.writeToWin(EndOfLine.unix+"No data to run meme for "+Me.Protnames(n)+".")
+		              deNovoWin.rp.writeToWin("No data to run meme for "+Me.Protnames(n)+"."+EndOfLine.unix+EndOfLine.unix)
 		              SkipMEME=True
 		              
 		            end if 'dataForMeme<>""
@@ -1129,6 +1129,18 @@ Inherits Thread
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Type"
+			Visible=true
+			Group="Behavior"
+			InitialValue=""
+			Type="Types"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Cooperative"
+				"1 - Preemptive"
+			#tag EndEnumValues
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
 			Visible=true

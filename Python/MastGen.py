@@ -22,7 +22,7 @@ class MySeqFeature(SeqFeature):
         for qual_key in sorted(self.qualifiers):
             out += " Key: %s, Value: %s\n" % (qual_key,
                                               self.qualifiers[qual_key])
-        if Bio.__version__ != '1.68': # to avoid problems with diff biopython versions
+        if Bio.__version__ != '1.68':  # to avoid problems with diff biopython versions
             if not hasattr(self, "_sub_features"):
                 self._sub_features = []
             if len(self._sub_features) != 0:
@@ -48,6 +48,7 @@ def qualifiers_function(qualifiers, var):
                 var[qual_var[number][0]] = value_list
     return var
 
+
 def wrong_promoter_strand(up_feature, hit_feature, down_feature):
     if 'regulatory_class' in hit_feature.qualifiers.keys() and \
        hit_feature.qualifiers['regulatory_class'][0] == 'promoter' and \
@@ -63,6 +64,7 @@ def wrong_promoter_strand(up_feature, hit_feature, down_feature):
             return True
         else:
             return False
+
 
 def is_within_feature(list_of_features, index, some_hit):
     # 'index' is for feature's index within 'list_of_features'
@@ -95,10 +97,10 @@ def is_divergent(feature_1, feature_2):
 
 def mast_parser(path_to_file):
     try:
-        a = open(path_to_file, 'r')
+        with open(path_to_file, 'r') as a:
+            mast_file_lines = a.readlines()
     except IOError:
         sys.exit('Open error! Please check your MAST report input file!')
-    mast_file_lines = a.readlines()
     mast_hit_list = [[part for part in hit_line.replace('\n', '').split(' ')
                       if part != '']
                      for hit_line in mast_file_lines
@@ -112,6 +114,8 @@ def sorting_output_features(lst):
         for key in some_feature.qualifiers.keys():
             if key == 'note':
                 temp = some_feature.qualifiers[key]
+                if isinstance(temp, list):
+                    temp = temp[0]
                 temp = temp.split(' ')
                 bit_score_list.append(float(temp[-3]))
     return bit_score_list
@@ -119,12 +123,12 @@ def sorting_output_features(lst):
 
 def score_parser(some_feature):
     for key in some_feature.qualifiers.keys():
-        if key == 'note' and type(some_feature.qualifiers['note']) != list:
+        if key == 'note' and not isinstance(some_feature.qualifiers['note'], list):
             temp = some_feature.qualifiers[key]
             temp = temp.split(' ')
             bit_score = float(temp[-3])
             return bit_score
-        elif key == 'note' and type(some_feature.qualifiers['note']) == list:
+        elif key == 'note' and isinstance(some_feature.qualifiers['note'], list):
             for note in some_feature.qualifiers['note']:
                 if note.startswith('MAST'):
                     temp = note
@@ -137,15 +141,17 @@ def output(list_of_scores, outfeatures):
     for val in list_of_scores:
         for some_feature in outfeatures:
             if val == feature_score(some_feature):
-                print (some_feature)
+                print(some_feature)
                 outfeatures = [f for f in outfeatures
-                               if f != some_feature]
+                             if f != some_feature]
 
 
 def feature_score(some_feature):
     for key in some_feature.qualifiers.keys():
-        if key == 'note' and type(some_feature.qualifiers[key]) != []:
+        if key == 'note' and some_feature.qualifiers[key]:
             temp = some_feature.qualifiers[key]
+            if isinstance(temp, list):
+                temp = temp[0]
             temp = temp.split(' ')
             return float(temp[-3])
 
@@ -153,14 +159,13 @@ def feature_score(some_feature):
 def dna_topology(path, topo_list):
     # This function deals with with DNA topology problem in biopython
     # for more detail: https://github.com/biopython/biopython/issues/363
-    infile = open(path, 'r')
-    loci_counter = -1  # because 1 is 0 in python
-    lines = infile.readlines()
+    with open(path, 'r') as infile:
+        loci_counter = -1  # because 1 is 0 in python
+        lines = infile.readlines()
     for numline in range(len(lines)):
         if lines[numline].startswith('LOCUS'):
             loci_counter += 1
             lines[numline] = topo_list[loci_counter]
-    infile.close()
     return lines
 
 
@@ -171,8 +176,8 @@ def createparser():
                     [options]',
              description='This script allows to add features to a \
                               genbank file according to MAST results.\
-                              Requires Biopython 1.64 (or newer)',
-             epilog='(c) Aliaksandr Damienikan, 2015-2016.')
+                              Requires Biopython 1.80 (or newer)',
+             epilog='(c) Aliaksandr Damienikan, 2015-2016. \ updated to python 3 with DeepSeek')
     parser.add_argument('report_file',
                         help='''path to MAST report file produced with \
                                 -tblout option.''')
@@ -227,7 +232,7 @@ def createparser():
                                 value')
     parser.add_argument('-v', '--version',
                         action='version',
-                        version='%(prog)s 1.13 (September 27, 2020)')
+                        version='%(prog)s 1.14 (April 27 27, 2025)')
     parser.add_argument('-f', '--feature',
                         metavar='<"feature key">',
                         default='unknown type',
@@ -236,384 +241,226 @@ def createparser():
     return parser
 
 
-args = createparser()
-enter = args.parse_args()
-arguments = sys.argv[1:0]
-max_pval = enter.pval
-if enter.length is not False:
-    enter.max_length = enter.length
-try:
-    from Bio import SeqIO
-except ImportError:
-    sys.exit('\nYou have no Biopython module installed!\n\
+def main():
+    args = createparser()
+    enter = args.parse_args()
+    arguments = sys.argv[1:]
+    max_pval = enter.pval
+    if enter.length is not False:
+        enter.max_length = enter.length
+    
+    try:
+        from Bio import SeqIO
+    except ImportError:
+        sys.exit('\nYou have no Biopython module installed!\n\
     You can download it here for free: http://biopython.org/wiki/Download\n')
-try:
-    input_handle = open(enter.input_file, 'r')
-except IOError:
-    sys.exit('Open error! Please check your genbank input file!')
-circular_vs_linear = []
-for line in input_handle.readlines():
-    if line.startswith('LOCUS'):
-        circular_vs_linear.append(line)
-input_handle.close()
-input_handle = open(enter.input_file, 'r')
-try:
-    output_handle = open(enter.output_file, 'w')
-except IOError:
-    sys.exit('Open error! Please check your genbank output path!')
-print ('\nMastGen 1.11 (March 26, 2017)')
-print ("="*50)
-print ('Options used:\n')
-for arg in range(1, len(sys.argv)):
-    print (sys.argv[arg])
+    
+    try:
+        with open(enter.input_file, 'r') as input_handle:
+            circular_vs_linear = []
+            for line in input_handle.readlines():
+                if line.startswith('LOCUS'):
+                    circular_vs_linear.append(line)
+    except IOError:
+        sys.exit('Open error! Please check your genbank input file!')
+    
+    try:
+        output_handle = open(enter.output_file, 'w')
+    except IOError:
+        sys.exit('Open error! Please check your genbank output path!')
+    
+    print('\nMastGen 1.11 (March 26, 2017)')
+    print("="*50)
+    print('Options used:\n')
+    for arg in sys.argv[1:]:
+        print(arg)
 
-file_path = enter.report_file
-qualifier = {'CHECK': 'CHECKED!'}
-qualifiers_function(enter.qual, qualifier)
-allign_list = mast_parser(file_path)
-records = SeqIO.parse(input_handle, 'genbank')
-allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
-total = 0
-for record in records:
-    print ('\n' + "-"*50 + "\nCONTIG: " + record.id)
-    print ('\n   FEATURES ADDED: \n')
-    allowed_features_list = []
-    for feature in record.features:
-        if feature.type in allowed_types:
-            allowed_features_list.append(feature)
+    file_path = enter.report_file
+    qualifier = {'CHECK': 'CHECKED!'}
+    if enter.qual:
+        qualifiers_function(enter.qual, qualifier)
+    
+    allign_list = mast_parser(file_path)
+    records = SeqIO.parse(enter.input_file, 'genbank')
+    allowed_types = ['CDS', 'ncRNA', 'sRNA', 'tRNA', 'misc_RNA']
+    total = 0
+    
+    for record in records:
+        print('\n' + "-"*50 + "\nCONTIG: " + record.id)
+        print('\n   FEATURES ADDED: \n')
+        allowed_features_list = []
+        for feature in record.features:
+            if feature.type in allowed_types:
+                allowed_features_list.append(feature)
 
-    cds_loc_start = allowed_features_list[0]
-    cds_loc_end = allowed_features_list[-1]
-    for allign in allign_list:
-        try:
-            from Bio import SeqFeature
-            start = int(allign[2])
-            end = int(allign[3])
-            strnd = int(allign[1])
-            p_value = float(allign[5])
-            score = float(allign[4])
-        except IndexError or ValueError:
-            print ("Error while parsing MAST output. Please check it.")
-            print ("The problem may be in line:")
-            for word in allign:
-                print (word+' ',)
-            sys.exit()
-        feature_length = end - (start-1)
-        start_pos = SeqFeature.ExactPosition(start-1)
-        end_pos = SeqFeature.ExactPosition(end)
-        feature_location = FeatureLocation(start_pos, end_pos)
-        feature_type = enter.feature
-        from Bio.SeqFeature import SeqFeature
-        note_qualifier = dict()
-        note_qualifier['note'] = str('MAST score %s P-value %s' % (score,
-                                                                   p_value))
-        my_feature = MySeqFeature(
-                         location=feature_location,
-                         type=feature_type,
-                         strand=strnd,
-                         qualifiers=dict(qualifier.items() +
-                                         note_qualifier.items()))
-        for i in reversed(range(len(record.features))):
-            if int(record.features[i].location.start) < \
-                    int(my_feature.location.start) and \
-                    (enter.pval is False or p_value <= enter.pval) and \
-                    (enter.score is False or score >= enter.score):
-                for c in range(len(allowed_features_list)-1):
-                    if allowed_features_list[c].location.start <= \
-                           my_feature.location.start <= \
-                           allowed_features_list[c+1].location.start:
-                        record.features.insert(i+1, my_feature)
-                        break
-                break
-            if i == 0 and \
-                record.features[i].location.start > \
-                    my_feature.location.start:
-                record.features.insert(i, my_feature)
-                break
-            elif i == len(record.features)-1 and \
-                record.features[i].location.start < \
-                    my_feature.location.start:
-                record.features.insert(i+1, my_feature)
-                break
-    if enter.insert:
-        hit_list = []
-        for i in range(len(record.features)):
-            if 'CHECK' in record.features[i].qualifiers.keys():
-                hit_list.append(record.features[i])
+        for allign in allign_list:
+            try:
+#                start = int(allign[2])
+#                end = int(allign[3])
+#                strnd = int(allign[1])
+#                p_value = float(allign[5])
+#                score = float(allign[4])
+                start = int(allign[4])
+                end = int(allign[5])
+                strnd = int(allign[1])
+                p_value = float(allign[7])
+                score = float(allign[6])
+            except (IndexError, ValueError):
+                print("Error while parsing MAST output! Please check it.")
+                print("The problem may be in line:")
+                print(' '.join(allign))
+                sys.exit()
+#                                sequence_name (strand+/-) motifid alt_id hit_start hit_end score hit_p-value
+#                                                    0     1    2   3    4     5      6      7
+#        RpoN_NtrC_RoxR_PilR_FleR_ArsR_IscR_RpoS_termSP.gb -1 fasta - 339520 339539 1480.50 4.78e-06
+            
+            feature_length = end - (start-1)
+#            start_pos = FeatureLocation.ExactPosition(start-1)
+#            end_pos = FeatureLocation.ExactPosition(end)
+            start_pos = start-1
+            end_pos = end
+            feature_location = FeatureLocation(start_pos, end_pos)
 
-        for i in reversed(range(len(hit_list))):
-            i = len(hit_list)-1-i
-            for n in range(len(allowed_features_list)-1):
-                if is_within_feature(allowed_features_list, n, hit_list[i]) or \
-                   wrong_promoter_strand(allowed_features_list[n],
-                                         hit_list[i],
-                                         allowed_features_list[n+1]):
-                    hit_list.pop(i)
+
+
+
+
+            feature_type = enter.feature
+            
+            note_qualifier = {}
+            note_qualifier['note'] = 'MAST score %s P-value %s' % (score, p_value)
+            
+            my_feature = MySeqFeature(
+                location=feature_location,
+                type=feature_type,
+                strand=strnd,
+                qualifiers={**qualifier, **note_qualifier})
+
+            # Insert feature at correct position
+            inserted = False
+            for i, existing_feature in enumerate(record.features):
+                if existing_feature.location.start > my_feature.location.start:
+                    record.features.insert(i, my_feature)
+                    inserted = True
                     break
+            
+            if not inserted:
+                record.features.append(my_feature)
 
-        for i in reversed(range(len(record.features))):
-            if 'CHECK' in record.features[i].qualifiers.keys() and \
-                    not any(record.features[i] == hit for hit in hit_list):
-                record.features.pop(i)
+        if enter.insert:
+            hit_list = []
+            for feature in record.features:
+                if 'CHECK' in feature.qualifiers.keys():
+                    hit_list.append(feature)
 
-    if not enter.name:
-        for i in reversed(range(len(record.features))):
-            i = len(record.features) - 1 - i
-            if 'CHECK' in record.features[i].qualifiers.keys():
-                individual_qualifiers = {}
-                hit = record.features[i]
-                for n in range(i+1, len(record.features)):
-                    if (record.features[n].type in allowed_types) and \
-                            record.features[n].location.start > \
-                            hit.location.end:
-                        cds_up = record.features[n]
+            for i in reversed(range(len(hit_list))):
+                hit = hit_list[i]
+                for n in range(len(allowed_features_list)-1):
+                    if is_within_feature(allowed_features_list, n, hit) or \
+                       wrong_promoter_strand(allowed_features_list[n],
+                                           hit,
+                                           allowed_features_list[n+1]):
+                        hit_list.pop(i)
                         break
-                if hit.location.start > \
-                        allowed_features_list[-1].location.end:
-                    cds_up = allowed_features_list[0]
-                for c in reversed(range(len(allowed_features_list))):
-                    if allowed_features_list[c].location.end < \
-                            hit.location.start:
-                        cds_down = allowed_features_list[c]
-                        break
-                    elif hit.location.end < \
-                            allowed_features_list[0].location.start:
-                        cds_down = allowed_features_list[-1]
-                        break
-                if (enter.palindromic is True and
-                        cds_up.strand == cds_down.strand)\
-                        or enter.palindromic is False:
-                    if hit.strand == -1:
-                        try:
-                            individual_qualifiers['gene'] = \
-                                cds_down.qualifiers['gene']
-                        except KeyError:
-                            pass
-                        try:
-                            individual_qualifiers['locus_tag'] = \
-                                cds_down.qualifiers['locus_tag']
-                        except KeyError:
-                            pass
-                        individual_qualifiers.update(hit.qualifiers)
-                        new_feature = MySeqFeature(
-                                          location=hit.location,
-                                          type=hit.type,
-                                          strand=hit.strand,
-                                          qualifiers=individual_qualifiers)
-                        record.features.pop(i)
-                        record.features.insert(i, new_feature)
+
+            record.features = [f for f in record.features 
+                             if not ('CHECK' in f.qualifiers.keys() and 
+                                    f not in hit_list)]
+
+        if not enter.name:
+            for i in reversed(range(len(record.features))):
+                feature = record.features[i]
+                if 'CHECK' in feature.qualifiers.keys():
+                    individual_qualifiers = {}
                     
-                    # as MAST searches just one strand (+) in case of \
-                    # palindromic site, then here we've got additional "if"s
-                    elif hit.strand == 1:
-                        if (hit.strand == cds_up.strand and
-                                enter.palindromic) \
-                                or not enter.palindromic:
-                            try:
-                                individual_qualifiers['gene'] = \
-                                    cds_up.qualifiers['gene']
-                            except KeyError:
-                                pass
-                            try:
-                                individual_qualifiers['locus_tag'] = \
-                                    cds_up.qualifiers['locus_tag']
-                            except KeyError:
-                                pass
-                        # there is no chance here to be \
-                        # cds_down.strand==cds_up.strand, so:
-                        elif hit.strand != cds_up.strand \
-                                and enter.palindromic:
-                            try:
-                                individual_qualifiers['gene'] = \
-                                    cds_down.qualifiers['gene']
-                            except KeyError:
-                                pass
-                            try:
-                                individual_qualifiers['locus_tag'] = \
-                                    cds_down.qualifiers['locus_tag']
-                            except KeyError:
-                                pass
-
-                        individual_qualifiers.update(hit.qualifiers)
-                        new_feature = MySeqFeature(
-                                          location=hit.location,
-                                          type=hit.type,
-                                          strand=hit.strand,
-                                          qualifiers=individual_qualifiers)
-                        record.features.pop(i)
-                        record.features.insert(i, new_feature)
-                elif enter.palindromic and \
-                        cds_up.strand != cds_down.strand:
-                    if hit.strand == -1:
-                        try:
-                            individual_qualifiers['cds_down_gene'] = \
-                                cds_down.qualifiers['gene']
-                        except KeyError:
-                            pass
-                        try:
-                            individual_qualifiers['cds_down_locus_tag'] = \
-                                cds_down.qualifiers['locus_tag']
-                        except KeyError:
-                            pass
-                        try:
-                            individual_qualifiers['cds_up_gene'] = \
-                                cds_up.qualifiers['gene']
-                        except KeyError:
-                            pass
-                        try:
-                            individual_qualifiers['cds_up_locus_tag'] = \
-                                cds_up.qualifiers['locus_tag']
-                        except KeyError:
-                            pass
-                        individual_qualifiers.update(hit.qualifiers)
-                        new_feature = MySeqFeature(
-                                          location=hit.location,
-                                          type=hit.type,
-                                          strand=hit.strand,
-                                          qualifiers=individual_qualifiers)
-                        record.features.pop(i)
-                        if hit.strand == cds_down.strand:
-                            record.features.insert(i, new_feature)
-                    if hit.strand == +1:
-                        try:
-                            individual_qualifiers['cds_up_gene'] = \
-                                cds_down.qualifiers['gene']
-                        except KeyError:
-                            pass
-                        try:
-                            individual_qualifiers['cds_up_locus_tag'] = \
-                                cds_down.qualifiers['locus_tag']
-                        except KeyError:
-                            pass
-                        try:
-                            individual_qualifiers['cds_down_gene'] = \
-                                cds_up.qualifiers['gene']
-                        except KeyError:
-                            pass
-                        try:
-                            individual_qualifiers['cds_down_locus_tag'] = \
-                                cds_up.qualifiers['locus_tag']
-                        except KeyError:
-                            pass
-                        individual_qualifiers.update(hit.qualifiers)
-                        new_feature = MySeqFeature(
-                                          location=hit.location,
-                                          type=hit.type,
-                                          strand=hit.strand,
-                                          qualifiers=individual_qualifiers)
-                        record.features.pop(i)
-                        record.features.insert(i, new_feature)
-
-    if enter.palindromic:
-        try:
-            first_cds = allowed_features_list[0]
-        except:
-            first_cds = record.features[0]
-        try:
-            last_cds = allowed_features_list[-1]
-        except:
-            last_cds = record.features[-1]
-        for i in reversed(range(1, len(record.features))):
-            i = len(record.features)-1-i
-            if 'CHECK' in record.features[i].qualifiers.keys() and \
-                    i < len(record.features):
-                hit = record.features[i]
-                for c in reversed(range(len(allowed_features_list))):
-                    if allowed_features_list[c].location.end < \
-                            hit.location.start:
-                        cds_down = allowed_features_list[c]
-                        break
-                    elif hit.location.end < \
-                            allowed_features_list[0].location.start:
-                        cds_down = allowed_features_list[-1]
-                        break
-                for c in range(len(allowed_features_list)):
-                    if allowed_features_list[c].location.start > \
-                            hit.location.end:
-                        cds_up = allowed_features_list[c]
-                        break
-                    elif hit.location.start > \
-                            allowed_features_list[-1].location.end:
+                    # Find neighboring CDS features
+                    cds_up = None
+                    cds_down = None
+                    
+                    for j in range(i+1, len(record.features)):
+                        if record.features[j].type in allowed_types:
+                            cds_up = record.features[j]
+                            break
+                    
+                    for j in reversed(range(i)):
+                        if record.features[j].type in allowed_types:
+                            cds_down = record.features[j]
+                            break
+                    
+                    if not cds_up and allowed_features_list:
                         cds_up = allowed_features_list[0]
-                        break
-                if 'CHECK' in record.features[i+1].qualifiers.keys() and \
-                        (hit.location.start ==
-                         record.features[i+1].location.start and
-                         hit.location.end ==
-                         record.features[i+1].location.end):
-                    left_distance = hit.location.start - cds_down.location.end
-                    right_distance = cds_up.location.start - hit.location.end
-                    if is_divergent(cds_down, cds_up) and \
-                       last_cds.location.start > hit.location.start > \
-                            first_cds.location.start:
-                        if left_distance > right_distance and \
-                           hit.strand == (+1):
-                            del record.features[i+1]
-                        elif left_distance > right_distance and \
-                                hit.strand == (-1):
-                            del record.features[i]
-                        elif left_distance < right_distance and \
-                                hit.strand == (+1):
-                            del record.features[i]
-                        elif left_distance < right_distance and \
-                                hit.strand == (-1):
-                            del record.features[i+1]
-                    elif not is_divergent(cds_down, cds_up) and \
-                         cds_up.strand == cds_down.strand:
-                        if hit.strand == cds_up.strand:
-                            del record.features[i+1]
-                        elif hit.strand != cds_up.strand:
-                            del record.features[i]  # delets "hit"'''
+                    if not cds_down and allowed_features_list:
+                        cds_down = allowed_features_list[-1]
+                    
+                    if (enter.palindromic and cds_up and cds_down and 
+                        cds_up.strand == cds_down.strand) or not enter.palindromic:
+                        if feature.strand == -1 and cds_down:
+                            if 'gene' in cds_down.qualifiers:
+                                individual_qualifiers['gene'] = cds_down.qualifiers['gene']
+                            if 'locus_tag' in cds_down.qualifiers:
+                                individual_qualifiers['locus_tag'] = cds_down.qualifiers['locus_tag']
+                        elif feature.strand == 1 and cds_up:
+                            if (feature.strand == cds_up.strand and enter.palindromic) or not enter.palindromic:
+                                if 'gene' in cds_up.qualifiers:
+                                    individual_qualifiers['gene'] = cds_up.qualifiers['gene']
+                                if 'locus_tag' in cds_up.qualifiers:
+                                    individual_qualifiers['locus_tag'] = cds_up.qualifiers['locus_tag']
+                            elif feature.strand != cds_up.strand and enter.palindromic and cds_down:
+                                if 'gene' in cds_down.qualifiers:
+                                    individual_qualifiers['gene'] = cds_down.qualifiers['gene']
+                                if 'locus_tag' in cds_down.qualifiers:
+                                    individual_qualifiers['locus_tag'] = cds_down.qualifiers['locus_tag']
+                    
+                    individual_qualifiers.update(feature.qualifiers)
+                    new_feature = MySeqFeature(
+                        location=feature.location,
+                        type=feature.type,
+                        strand=feature.strand,
+                        qualifiers=individual_qualifiers)
+                    
+                    record.features[i] = new_feature
 
-    if enter.duplicate is True:
-        for i in reversed(range(1, len(record.features))):
-            i = len(record.features)-1-i
-            if record.features[i].type in ['promoter', 'protein_bind'] and \
-                    record.features[i].type == record.features[i+1].type:
-                if 'bound_moiety' in (record.features[i].qualifiers.keys() and
-                                      record.features[i+1].qualifiers.keys()):
-                    bound_moiety_one = \
-                        record.features[i].qualifiers['bound_moiety']
-                    bound_moiety_two = \
-                        record.features[i+1].qualifiers['bound_moiety']
-                    if bound_moiety_one == bound_moiety_two \
-                        and record.features[i].strand == \
-                            record.features[i+1].strand \
-                            and 0 <= record.features[i+1].location.start - \
-                            record.features[i].location.start <= 2:
-                        if score_parser(record.features[i]) > \
-                                score_parser(record.features[i+1]):
-                            del record.features[i+1]
-                        elif score_parser(record.features[i]) < \
-                                score_parser(record.features[i+1]):
-                            del record.features[i]
-    output_features = []
-    for feature in record.features:
-        if 'CHECK' in feature.qualifiers.keys():
-            del feature.qualifiers['CHECK']
-            output_features.append(feature)
-    score_list = sorting_output_features(output_features)
-    score_list.sort()
-    output(score_list, output_features)
-    for feature in record.features:
-        if 'cds_down_locus_tag' in feature.qualifiers.keys():
-            del feature.qualifiers['cds_down_locus_tag']
-        if 'cds_up_locus_tag' in feature.qualifiers.keys():
-            del feature.qualifiers['cds_up_locus_tag']
-        if 'cds_down_gene' in feature.qualifiers.keys():
-            del feature.qualifiers['cds_down_gene']
-        if 'cds_up_gene' in feature.qualifiers.keys():
-            del feature.qualifiers['cds_up_gene']
-    print ('\nFeatures added:', len(output_features))
-    print ('\n' + "-"*50)
-    SeqIO.write(record, output_handle, 'genbank')
-    total += int(len(output_features))
-output_handle.close()
-newlines = dna_topology(enter.output_file, circular_vs_linear)
-new_output_file = open(enter.output_file, 'w')
-new_output_file.writelines(newlines)
-new_output_file.close()
-input_handle.close()
-print ('Total features: ', total)
-print ('CPU time: ', time.clock())
-print ('\n' + "="*50)
+        output_features = []
+        for feature in record.features:
+            if 'CHECK' in feature.qualifiers.keys():
+                del feature.qualifiers['CHECK']
+                output_features.append(feature)
+        
+        score_list = sorting_output_features(output_features)
+        score_list.sort()
+        output(score_list, output_features)
+        
+        for feature in record.features:
+            for qual in ['cds_down_locus_tag', 'cds_up_locus_tag', 
+                        'cds_down_gene', 'cds_up_gene']:
+                if qual in feature.qualifiers:
+                    del feature.qualifiers[qual]
+        
+        print('\nFeatures added:', len(output_features))
+        print('\n' + "-"*50)
+        SeqIO.write(record, output_handle, 'genbank')
+        total += len(output_features)
+    
+    output_handle.close()
+    
+    # Handle DNA topology
+    with open(enter.output_file, 'r') as f:
+        lines = f.readlines()
+    
+    loci_counter = -1
+    for i in range(len(lines)):
+        if lines[i].startswith('LOCUS'):
+            loci_counter += 1
+            if loci_counter < len(circular_vs_linear):
+                lines[i] = circular_vs_linear[loci_counter]
+    
+    with open(enter.output_file, 'w') as f:
+        f.writelines(lines)
+    
+    print('Total features: ', total)
+    print('CPU time: ', time.process_time())
+    print('\n' + "="*50)
+
+
+if __name__ == '__main__':
+    main()

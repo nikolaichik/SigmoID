@@ -530,7 +530,9 @@ Protected Module DeNovoTFBSinference
 		          
 		        end if
 		        
-		        While Right(currentHit,1)="-"     'trim right end
+		        dim Rt as string=Right(currentHit,1)
+		        dim dsh as string="-"
+		        While Right(currentHit,1)=dsh     'trim right end
 		          currentHit=Left(currentHit,Len(currentHit)-1)
 		        wend
 		        
@@ -571,7 +573,8 @@ Protected Module DeNovoTFBSinference
 		        'rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
 		        
 		        
-		        rightPart=NthField(currentHit,"-",1)
+		        dim fieldNo as integer = countFields(currentHit,"-") 'need to account for possible internal gaps
+		        rightPart=NthField(currentHit,"-",fieldNo)
 		        rightPartStart=InStr(CDStmp,rightPart)
 		        rightExt=Mid(CDStmp,rightPartStart+Len(rightPart),Len(hitseq)-Len(currenthit))
 		        

@@ -15,7 +15,7 @@ EFFN  4.017334
 CKSUM 2136955289
 CRTAG 35,36,37,38,40,41,45
 PAL   yes
-WIDTH 17-23
+WIDTH 19-25
 NOTE  This model was made from the known ROK family proteins: the only protein with known structure from Listeria (5f7q), 
 NOTE  the well-studied NagC and Mlc from E. coli and XylR from B. subtilis and representative proteins from the ROK family
 NOTE  with inferred motifs present in RegPrecise.

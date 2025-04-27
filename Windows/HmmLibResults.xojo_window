@@ -3,7 +3,7 @@ Begin Window HmmLibResults
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF00
    Composite       =   False
-   DefaultLocation =   "0"
+   DefaultLocation =   0
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
@@ -21,7 +21,7 @@ Begin Window HmmLibResults
    MinimumWidth    =   64
    Resizeable      =   True
    Title           =   "None"
-   Type            =   "0"
+   Type            =   0
    Visible         =   True
    Width           =   1200
    Begin Listbox OutputBox
@@ -43,8 +43,8 @@ Begin Window HmmLibResults
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   0
+      GridLinesVerticalStyle=   0
       HasBorder       =   True
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -62,7 +62,7 @@ Begin Window HmmLibResults
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "0"
+      RowSelectionType=   0
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -96,7 +96,7 @@ Begin Window HmmLibResults
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -134,7 +134,7 @@ Begin Window HmmLibResults
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Untitled"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   666
@@ -149,9 +149,9 @@ End
 #tag WindowCode
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Close
-			Return True
-			
+		  me.Close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

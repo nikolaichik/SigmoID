@@ -769,7 +769,7 @@ Protected Module Strings
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9B\xD0\xBE\xD0\xB3\xD0\xBE"
 	#tag EndConstant
 
-	#tag Constant, Name = kLogoFromBioProspectorData, Type = String, Dynamic = True, Default = \"Logo fromrom BioProspector Data...", Scope = Public
+	#tag Constant, Name = kLogoFromBioProspectorData, Type = String, Dynamic = True, Default = \"Logo from BioProspector Data...", Scope = Public
 		#Tag Instance, Platform = Any, Language = ru, Definition  = \"\xD0\x9B\xD0\xBE\xD0\xB3\xD0\xBE \xD0\xB8\xD0\xB7 \xD1\x80\xD0\xB5\xD0\xB7\xD1\x83\xD0\xBB\xD1\x8C\xD1\x82\xD0\xB0\xD1\x82\xD0\xBE\xD0\xB2 BioProspector..."
 		#Tag Instance, Platform = Any, Language = be, Definition  = \"\xD0\x9B\xD0\xBE\xD0\xB3\xD0\xB0 \xD0\xB7 \xD0\xB2\xD1\x8B\xD0\xBD\xD1\x96\xD0\xBA\xD0\xB0\xD1\x9E BioProspector..."
 	#tag EndConstant

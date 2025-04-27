@@ -1,5 +1,6 @@
 #tag Toolbar
 Begin Toolbar PrefsToolbar
+Inherits Toolbar
 	Begin ToolButton PathsButt
 		Caption = "#kPaths"
 		HelpTag = ""

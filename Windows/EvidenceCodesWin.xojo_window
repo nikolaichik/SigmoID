@@ -3,7 +3,7 @@ Begin Window EvidenceCodesWin
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF00
    Composite       =   False
-   DefaultLocation =   "0"
+   DefaultLocation =   0
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
@@ -21,7 +21,7 @@ Begin Window EvidenceCodesWin
    MinimumWidth    =   64
    Resizeable      =   True
    Title           =   "Motif Evidence"
-   Type            =   "0"
+   Type            =   0
    Visible         =   True
    Width           =   600
    Begin Label Label1
@@ -50,7 +50,7 @@ Begin Window EvidenceCodesWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Evidence codes as defined by RegulonDB. All relevant evidence codes should be checked, even if applicable to a single operator."
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -89,7 +89,7 @@ Begin Window EvidenceCodesWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   560
    End
    Begin PushButton OKButton
@@ -112,7 +112,7 @@ Begin Window EvidenceCodesWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   22
       TabPanelIndex   =   0
@@ -144,7 +144,7 @@ Begin Window EvidenceCodesWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   23
       TabPanelIndex   =   0
@@ -177,9 +177,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			hide
-			Return True
-			
+		  hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

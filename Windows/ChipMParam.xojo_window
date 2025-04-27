@@ -51,7 +51,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Motif length:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   21
@@ -93,7 +93,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "16:23,22:17,18:21"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "format: start_length1:stop_lenth1,..,start_lengthN:stop_lengthN"
       Top             =   20
@@ -129,7 +129,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "Mode"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   59
@@ -203,7 +203,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "200"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   93
@@ -246,7 +246,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "20"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   131
@@ -289,7 +289,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "2"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   169
@@ -389,7 +389,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "try_limit"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   94
@@ -424,7 +424,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "step_limit"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   132
@@ -459,7 +459,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "thread_count"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   170
@@ -494,7 +494,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "gc%"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   208
@@ -529,7 +529,7 @@ Begin Window ChipMParam
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "motif_shape"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   242
@@ -558,7 +558,7 @@ Begin Window ChipMParam
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   18
       TabPanelIndex   =   0
@@ -590,7 +590,7 @@ Begin Window ChipMParam
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   19
       TabPanelIndex   =   0
@@ -608,9 +608,9 @@ End
 #tag WindowCode
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

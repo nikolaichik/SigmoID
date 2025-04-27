@@ -64,12 +64,13 @@ Begin Window NewFeatureWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   118
       Transparent     =   False
       Underline       =   False
+      UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
       Width           =   524
@@ -94,7 +95,7 @@ Begin Window NewFeatureWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -126,7 +127,7 @@ Begin Window NewFeatureWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0
@@ -164,7 +165,7 @@ Begin Window NewFeatureWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kLeftCoordinate"
-      TextAlignment   =   "2"
+      TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -206,7 +207,7 @@ Begin Window NewFeatureWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -249,7 +250,7 @@ Begin Window NewFeatureWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -285,7 +286,7 @@ Begin Window NewFeatureWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kRightCoordinate"
-      TextAlignment   =   "2"
+      TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -324,7 +325,7 @@ Begin Window NewFeatureWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   242
    End
    Begin CheckBox AddGeneBox
@@ -393,7 +394,7 @@ Begin Window NewFeatureWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   52
@@ -436,7 +437,7 @@ Begin Window NewFeatureWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   82
@@ -472,7 +473,7 @@ Begin Window NewFeatureWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "locus_tag:"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   84
@@ -507,7 +508,7 @@ Begin Window NewFeatureWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kFeatureType"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   86

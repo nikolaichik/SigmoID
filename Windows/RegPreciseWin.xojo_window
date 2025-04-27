@@ -51,7 +51,7 @@ Begin Window RegPreciseWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kGenome_"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -111,8 +111,8 @@ Begin Window RegPreciseWin
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      GridLinesHorizontalStyle=   "0"
-      GridLinesVerticalStyle=   "0"
+      GridLinesHorizontalStyle=   0
+      GridLinesVerticalStyle=   0
       HasBorder       =   False
       HasHeader       =   True
       HasHorizontalScrollbar=   False
@@ -130,7 +130,7 @@ Begin Window RegPreciseWin
       LockRight       =   True
       LockTop         =   True
       RequiresSelection=   False
-      RowSelectionType=   "1"
+      RowSelectionType=   1
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
@@ -164,7 +164,7 @@ Begin Window RegPreciseWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
@@ -237,7 +237,7 @@ Begin Window RegPreciseWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
@@ -253,13 +253,13 @@ Begin Window RegPreciseWin
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   "4"
+      BevelStyle      =   4
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Caption         =   ""
-      CaptionAlignment=   "3"
+      CaptionAlignment=   3
       CaptionDelta    =   0
-      CaptionPosition =   "1"
+      CaptionPosition =   1
       Enabled         =   False
       FontName        =   "System"
       FontSize        =   0.0
@@ -267,7 +267,7 @@ Begin Window RegPreciseWin
       HasBackgroundColor=   False
       Height          =   22
       Icon            =   495161343
-      IconAlignment   =   "1"
+      IconAlignment   =   1
       IconDeltaX      =   0
       IconDeltaY      =   0
       Index           =   -2147483648
@@ -279,7 +279,7 @@ Begin Window RegPreciseWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      MenuStyle       =   "0"
+      MenuStyle       =   0
       Scope           =   0
       TabIndex        =   10
       TabPanelIndex   =   0
@@ -313,7 +313,7 @@ Begin Window RegPreciseWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   11
       TabPanelIndex   =   0
@@ -361,29 +361,29 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			Close
-			Return True
-			
+		  Close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo() As Boolean Handles RegPreciseRegulonInfo.Action
-			RegulonInfo
+		  RegulonInfo
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegPreciseRegulonInfo1() As Boolean Handles RegPreciseRegulonInfo1.Action
-			RegulonInfo
+		  RegulonInfo
 		End Function
 	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function RegulonShowLogo() As Boolean Handles RegulonShowLogo.Action
-			RegulonLogo
-			
-			
+		  RegulonLogo
+		  
+		  
 		End Function
 	#tag EndMenuHandler
 

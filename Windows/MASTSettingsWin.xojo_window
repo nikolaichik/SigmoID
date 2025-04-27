@@ -58,7 +58,7 @@ Begin Window MASTSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   104
@@ -94,7 +94,7 @@ Begin Window MASTSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMoreOptions"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   106
@@ -129,7 +129,7 @@ Begin Window MASTSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kGenome_"
-      TextAlignment   =   "3"
+      TextAlignment   =   3
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   138
@@ -171,7 +171,7 @@ Begin Window MASTSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Path to genome to be searched"
       Top             =   136
@@ -201,7 +201,7 @@ Begin Window MASTSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   7
       TabPanelIndex   =   0
@@ -233,7 +233,7 @@ Begin Window MASTSettingsWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
@@ -265,7 +265,7 @@ Begin Window MASTSettingsWin
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   13
       TabPanelIndex   =   0
@@ -303,7 +303,7 @@ Begin Window MASTSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "#kMEMEmastRunDesc"
-      TextAlignment   =   "2"
+      TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   20
@@ -379,7 +379,7 @@ Begin Window MASTSettingsWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "1e-6"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   64
@@ -480,7 +480,7 @@ Begin Window MASTSettingsWin
          Underline       =   False
          Value           =   False
          Visible         =   True
-         VisualState     =   "0"
+         VisualState     =   0
          Width           =   429
       End
       Begin CheckBox ShowHitsCheckBox
@@ -544,9 +544,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

@@ -3,7 +3,7 @@ Begin Window BioProspectWin
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF00
    Composite       =   False
-   DefaultLocation =   "0"
+   DefaultLocation =   0
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
@@ -21,7 +21,7 @@ Begin Window BioProspectWin
    MinimumWidth    =   64
    Resizeable      =   True
    Title           =   "BioProspector settings"
-   Type            =   "0"
+   Type            =   0
    Visible         =   True
    Width           =   479
    Begin GroupBox GroupBox2
@@ -78,7 +78,7 @@ Begin Window BioProspectWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "first block width"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   43
@@ -113,7 +113,7 @@ Begin Window BioProspectWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "second block width"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   "leave blank for one block motifs"
          Top             =   43
@@ -156,7 +156,7 @@ Begin Window BioProspectWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   35
@@ -200,7 +200,7 @@ Begin Window BioProspectWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   35
@@ -236,7 +236,7 @@ Begin Window BioProspectWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "min gap for two blocks motifs"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   156
@@ -279,7 +279,7 @@ Begin Window BioProspectWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   149
@@ -323,7 +323,7 @@ Begin Window BioProspectWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   108
@@ -359,7 +359,7 @@ Begin Window BioProspectWin
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "max gap  for two blocks motifs"
-         TextAlignment   =   "0"
+         TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
          Top             =   116
@@ -389,7 +389,7 @@ Begin Window BioProspectWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
@@ -434,7 +434,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   250
@@ -477,7 +477,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   351
@@ -520,7 +520,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   387
@@ -556,7 +556,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "use specific background distribution file"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   224
@@ -591,7 +591,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "number of times trying to find motif"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   351
@@ -626,7 +626,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "number of reported motifs"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   392
@@ -661,7 +661,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "expected base per motif site"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   522
@@ -700,7 +700,7 @@ Begin Window BioProspectWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   261
    End
    Begin CheckBox p
@@ -733,7 +733,7 @@ Begin Window BioProspectWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   208
    End
    Begin CheckBox d
@@ -766,7 +766,7 @@ Begin Window BioProspectWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   214
    End
    Begin CheckBox a
@@ -799,7 +799,7 @@ Begin Window BioProspectWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   230
    End
    Begin CheckBox h
@@ -832,7 +832,7 @@ Begin Window BioProspectWin
       Underline       =   False
       Value           =   False
       Visible         =   True
-      VisualState     =   "0"
+      VisualState     =   0
       Width           =   203
    End
    Begin TextField e
@@ -868,7 +868,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   515
@@ -898,7 +898,7 @@ Begin Window BioProspectWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   24
       TabPanelIndex   =   0
@@ -936,7 +936,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   "use specific background sequence file"
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   289
@@ -978,7 +978,7 @@ Begin Window BioProspectWin
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   314
@@ -1008,7 +1008,7 @@ Begin Window BioProspectWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   27
       TabPanelIndex   =   0
@@ -1040,7 +1040,7 @@ Begin Window BioProspectWin
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      MacButtonStyle  =   "0"
+      MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   28
       TabPanelIndex   =   0
@@ -1078,9 +1078,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

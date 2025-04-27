@@ -3,7 +3,7 @@ Begin Window ViewerWin
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF00
    Composite       =   False
-   DefaultLocation =   "0"
+   DefaultLocation =   0
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
@@ -21,7 +21,7 @@ Begin Window ViewerWin
    MinimumWidth    =   64
    Resizeable      =   True
    Title           =   "Untitled"
-   Type            =   "0"
+   Type            =   0
    Visible         =   True
    Width           =   744
    Begin ImageWell ImageWell1
@@ -53,9 +53,9 @@ End
 #tag WindowCode
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			me.Hide
-			Return True
-			
+		  me.Hide
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

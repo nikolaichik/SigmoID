@@ -64,6 +64,7 @@ Begin Window HelpWin
       SelectionType   =   2
       TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   4
       Transparent     =   False
       Visible         =   True
@@ -108,6 +109,7 @@ Begin Window HelpWin
       SelectionType   =   2
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   4
       Transparent     =   False
       Visible         =   True
@@ -133,9 +135,9 @@ End
 
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
-			Close
-			Return True
-			
+		  Close
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 

@@ -11,6 +11,7 @@ Begin ContainerControl HTMLContainer
    EraseBackground =   True
    HasBackgroundColor=   False
    Height          =   390
+   Index           =   -2147483648
    InitialParent   =   ""
    Left            =   0
    LockBottom      =   True
@@ -63,7 +64,7 @@ Begin ContainerControl HTMLContainer
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   0
-         TabStop         =   True
+         TabStop         =   "True"
          Tooltip         =   ""
          Top             =   369
          TopLeftColor    =   &c00000000
@@ -96,7 +97,7 @@ Begin ContainerControl HTMLContainer
             TabPanelIndex   =   0
             TabStop         =   True
             Text            =   ""
-            TextAlignment   =   "0"
+            TextAlignment   =   0
             TextColor       =   &c00000000
             Tooltip         =   ""
             Top             =   370
@@ -140,7 +141,7 @@ Begin ContainerControl HTMLContainer
       TabPanelIndex   =   0
       TabStop         =   True
       Text            =   ""
-      TextAlignment   =   "0"
+      TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
       Top             =   6
@@ -442,7 +443,7 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Function NewWindow() As Object
+		Function NewWindow(url as String) As HTMLViewer
 		  If ParentBrowserWindow <> Nil Then
 		    Return ParentBrowserWindow.AddNewTab
 		  End If
@@ -623,6 +624,14 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior
+	#tag ViewProperty
+		Name="Index"
+		Visible=true
+		Group="ID"
+		InitialValue="-2147483648"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
 	#tag ViewProperty
 		Name="AllowAutoDeactivate"
 		Visible=true
