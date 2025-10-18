@@ -3824,7 +3824,7 @@ End
 		  
 		  name=trim(left(nthfield(FeatureText,EndOfLine.Unix,1),16))      'feature name
 		  
-		  'now try to guess a name:
+		  'guess display names for features:
 		  p= instrb(featureText,"/gene=")
 		  p1=instrb(featureText,"/product=")
 		  p2=instrb(featureText,"/function=")
@@ -3910,8 +3910,6 @@ End
 		      coord=NthField(coord,Chr(34),1)
 		      feature.name=coord
 		    End If
-		  elseif name="regulatory" then
-		    Feature.name=""
 		  else
 		    if p1>0 then
 		      coord=rightb(featureText,lenb(featureText)-p1-9)
@@ -4210,20 +4208,72 @@ End
 		    app.DoEvents
 		  #endif
 		  
-		  SPSocket.SetRequestHeader("Expect:","")
-		  SPSocket.SetRequestHeader("Accept:","text/html")
+		  dim curlC, SearchRes, searchID as string
+		  dim cav As String = chr(34)
+		  ' need to escape quotesafter -d
+		  'curlC="curl -s -X POST "+cav+"https://www.ebi.ac.uk/Tools/hmmer/api/v1/search/phmmer"+cav+" -H "+cav+"Content-Type: application/json"+cav+" -H "+cav+"Accept: application/json"+cav+" -d '{\"+cav+"database\"+cav+": \"+cav+"swissprot\"+cav+", \"+cav+"input\"+cav+": \"+cav+TheSeq+"\"+cav+"}'"
+		  
+		  'curlC="curl -s -X POST 'https://www.ebi.ac.uk/Tools/hmmer/api/v1/search/phmmer' -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{\"+cav+"database\"+cav+": \"+cav+"swissprot\"+cav+", \"+cav+"input\"+cav+": \"+cav+TheSeq+"\"+cav+"}'"
+		  curlC="curl -s -X POST 'https://www.ebi.ac.uk/Tools/hmmer/api/v1/search/phmmer' -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"+cav+"database"+cav+": "+cav+"swissprot"+cav+", "+cav+"input"+cav+": "+cav+TheSeq+cav+"}'"
+		  Dim sh as Shell =  New Shell
+		  sh.ExecuteMode = Shell.ExecuteModes.Synchronous
+		  sh.TimeOut=-1
+		  
+		  sh.execute(curlC)
+		  SearchRes=sh.Result
+		  
+		  
+		  
+		  'bash --login -c "curl -s -X POST 'https://www.ebi.ac.uk/Tools/hmmer/api/v1/search/phmmer' -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{\"database\": \"swissprot\", \"input\": \"VKKMQSIVLALSLVLVAPMAAQAAEITLVPSVKLQIGDRDNRGYYWDGGHWRDHGWWKQHYEWRGNRWHLHGPPPPPRHHKKAPHDHHGGHGPGKHHR*\"}'"
+		  
+		  'usershell(curlC)
+		  'SearchRes=shResult
+		  ' expect json like this:
+		  ' {"id": "e85abd95-ec76-4aee-9fb6-be6a88908e2f"}
+		  
+		  if countfields(SearchRes,cav)<>5 then
+		    msgbox "phmmersearch error"
+		    exit
+		  end if
+		  
+		  if nthfield(SearchRes,cav,2)<>"id" then
+		    msgbox "phmmersearch error"
+		    exit
+		  end if
+		  
+		  searchID=nthfield(SearchRes,cav,4)
+		  'usershell(curlC)
+		  'SearchRes=shResult
+		  'beep
+		  ' get result:
+		  curlC="curl -s -X GET "+cav+"https://www.ebi.ac.uk/Tools/hmmer/api/v1/result/"+cav+searchID+cav+" -H "+cav+"Accept: application/json"
+		  sh.execute(curlC)
+		  SearchRes=sh.Result
+		  beep'
+		  'SPSocket.SetRequestHeader("Content-Type:","application/json")
+		  'SPSocket.SetRequestHeader("Accept:","application/json")
 		  'SPSocket.SetRequestHeader("Accept:","text/xml")
 		  
-		  Dim form As Dictionary
-		  'create and populate the form object
-		  form = New Dictionary
-		  form.Value("seqdb") = "swissprot"
-		  form.Value("algo") = "phmmer"
-		  form.Value("seq") = theSeq
-		  SPSocket.SetFormData(form)
-		  'SPSocket.Post("http://hmmer.janelia.org/search/phmmer")
-		  'change to the EBI address
-		  SPSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
+		  ''curl -s -X POST "https://www.ebi.ac.uk/Tools/hmmer/api/v1/search/phmmer" \
+		  ''-H "Content-Type: application/json" \
+		  ''-H "Accept: application/json" \
+		  ''-d '{
+		  ''"database": "pdb",
+		  ''"input": ">2abl_A mol:protein length:163  ABL TYROSINE KINASE\\nMGPSENDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPS"
+		  ''}'
+		  '
+		  'Dim form As Dictionary
+		  ''create and populate the form object
+		  'form = New Dictionary
+		  'form.Value("database") = "swissprot"
+		  ''form.Value("input") = ">DummyTitleLine\\n"+theSeq
+		  'form.Value("input") = theSeq
+		  'form.Value("input_type") = "string"
+		  'SPSocket.SetFormData(form)
+		  ''SPSocket.Post("http://hmmer.janelia.org/search/phmmer")
+		  ''change to the EBI address
+		  ''SPSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer")\
+		  'SPSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/api/v1/search/phmmer")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -4268,9 +4318,10 @@ End
 		  'form.Value("seqdb_ranges") = "17277318..17420758" 'trying taxonomy restriction a la the browser version: doesn't work!
 		  form.Value("seq") = theSeq
 		  UniprotSocket.SetFormData(form)
-		  UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
+		  'UniprotSocket.Post("http://hmmer.janelia.org/search/phmmer")
 		  'change to the EBI address
-		  UniprotSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
+		  'UniprotSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/search/phmmer")
+		  UniprotSocket.Post("https://www.ebi.ac.uk/Tools/hmmer/api/v1/search/phmmerr")
 		  Exception err
 		    ExceptionHandler(err,"GenomeWin:PhmmerSearchUniprot")
 		End Sub
@@ -8065,7 +8116,8 @@ End
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
 		  'theURL="https://www.ebi.ac.uk/Tools/hmmer/results/score/"+UUID
-		  theURL="https://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
+		  'theURL="https://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
+		  theURL="https://www.ebi.ac.uk/Tools/hmmer/api/v1/result/"+UUID
 		  
 		  if instr (theURL, "Caught exception")>0 then  'Usually happens at weekends
 		    msgBox "EBI server error"
@@ -8135,8 +8187,8 @@ End
 		  UUID=NthField(content,"/results/",2)
 		  UUID=NthField(UUID,"/score",1)
 		  'theURL="http://hmmer.janelia.org/results/score/"+UUID
-		  theURL="https://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
-		  
+		  'theURL="https://www.ebi.ac.uk/Tools/hmmer/results/"+UUID+"/score"
+		  theURL="https://www.ebi.ac.uk/Tools/hmmer/api/v1/result/"+UUID
 		  if instr (theURL, "Caught exception")>0 then  'Usually happens at weekends
 		    msgBox "EBI server error"
 		    return

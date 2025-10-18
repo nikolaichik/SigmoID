@@ -9,7 +9,7 @@ MM    no
 CONS  yes
 CS    yes
 MAP   yes
-CRTAG 52,53,62,64,65,67,68|124,125,139,140,141,142,145,156
+CRTAG 53,62,64,65,67,68|139,140,141,142,145,156
 PAL   no
 WIDTH 17-20
 NOTE  CR tag is derived from the PDB structures 5ui5, 2o9l, 6gfw, 6gh5, 6gh6, 5nsr

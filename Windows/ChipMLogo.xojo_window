@@ -113,7 +113,7 @@ Begin Window ChipMLogo
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "Load Logo"
+      Caption         =   "Load Profile"
       Default         =   True
       Enabled         =   True
       FontName        =   "System"

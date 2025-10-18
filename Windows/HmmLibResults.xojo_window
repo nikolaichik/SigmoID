@@ -203,6 +203,10 @@ End
 
 
 	#tag Property, Flags = &h0
+		SelRow As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		storage As Dictionary
 	#tag EndProperty
 
@@ -226,6 +230,51 @@ End
 		  
 		  fillTable
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
+		  'if me.ColumnFromXY(X, Y)=3 then
+		  '
+		  'SelRow=RowFromXY(X, Y)
+		  'base.AddMenu(New DesktopMenuItem("Search PubMed"))
+		  '
+		  'end if
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
+		  'dim CRtag, Family, BaseLocation as string
+		  'dim instream as textinputstream
+		  'select case hititem.text
+		  'case "Search PubMed"
+		  'CRtag=CellTextAt(SelRow, 3)
+		  'Family=CellTextAt(SelRow, 3)
+		  '
+		  'BaseLocation=Resources_f.Child("CRtagBase").Child(me.Family+".crtag")
+		  '
+		  'If BaseLocation<>Nil Then
+		  'If BaseLocation.Exists Then
+		  'instream=BaseLocation.OpenAsTextFile
+		  'Else
+		  ''deNovoWin.rp.writeToWin("The crtag base doesn't exist, check path: "+BaseLocation.NativePath)
+		  'Exit
+		  'End
+		  'Else
+		  ''MsgBox("Path to the crtag base isn't valid")
+		  'End
+		  'While Not instream.EOF 
+		  'App.YieldToNextThread()
+		  'CrTagsCodes=instream.ReadLine
+		  'CrTagsCodes=ReplaceAll(CrTagsCodes,".1;",",")
+		  'CrBaseTags.append(Trim(NthField(CrTagsCodes," ",1)))
+		  'CrBaseECodes.Append(Trim(NthField(CrTagsCodes," ",2)))
+		  'Wend
+		  'instream.Close
+		  'deNovoWin.rp.writeToWin("OK"+EndOfLine.UNIX)
+		  '
+		  '
+		  'end select
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events ExportButton
@@ -491,6 +540,14 @@ End
 		Group="Deprecated"
 		InitialValue="True"
 		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="SelRow"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

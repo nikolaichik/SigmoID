@@ -740,7 +740,7 @@ Protected Module DeNovoTFBSinference
 		  Case "DeoR"
 		    hmmFileName="HTH_DeoR.hmm"
 		  Case "DtxR"
-		    hmmFileName="MarR_Superfamily.hmm" 'Most of DtxR family TFs are covered by MarR superfamily model
+		    hmmFileName="Fe_dep_repress.hmm" 
 		  Case "ECF02"
 		    hmmFileName="ECF02.hmm"
 		  Case "RpoE"

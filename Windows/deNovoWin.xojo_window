@@ -2454,6 +2454,7 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"deNovoWin:TTimer:Action")
+		    return
 		End Sub
 	#tag EndEvent
 #tag EndEvents

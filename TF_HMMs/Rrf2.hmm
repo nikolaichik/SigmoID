@@ -11,7 +11,7 @@ CS    yes
 MAP   yes
 CRTAG 36,38,39,41,42,43,45,57,59
 PAL   yes
-WIDTH 16-23
+WIDTH 17-27
 NOTE  CR tag is derived from three structures for two proteins: 
 NOTE  IscR from E.coli (4chu,4hf1) and RsrR from Streptomyces venezuelae (6y42)
 DATE  Wed Apr 22 01:52:22 2020

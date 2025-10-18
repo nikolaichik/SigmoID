@@ -256,7 +256,7 @@ Begin Window ChipMParam
       Visible         =   True
       Width           =   80
    End
-   Begin TextField TextField5
+   Begin TextField threadCountField
       AllowAutoDeactivate=   True
       AllowFocusRing  =   True
       AllowSpellChecking=   False
@@ -606,6 +606,13 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Open()
+		  threadCountField.text=str(Cores2use)
+		End Sub
+	#tag EndEvent
+
+
 	#tag MenuHandler
 		Function FileClose() As Boolean Handles FileClose.Action
 		  me.Hide
@@ -663,7 +670,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events TextField5
+#tag Events threadCountField
 	#tag Event
 		Sub TextChange()
 		  globals.chipset.threadCount=Trim(me.Text)

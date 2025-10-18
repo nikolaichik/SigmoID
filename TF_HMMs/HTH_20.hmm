@@ -16,9 +16,10 @@ DATE  Wed Apr 22 03:22:00 2020
 NSEQ  79
 EFFN  24.566956
 CKSUM 148606273
-GA    27.00 27.00;
+GA    24.00 24.00;
 TC    27.00 27.00;
 NC    26.90 26.90;
+NOTE  Gathering cutoff lowered to cover AseR of B. subtilis
 BM    hmmbuild --amino HMM.ann SEED.ann
 SM    hmmsearch -Z 47079205 -E 1000 --cpu 4 HMM pfamseq
 STATS LOCAL MSV       -8.2759  0.71891

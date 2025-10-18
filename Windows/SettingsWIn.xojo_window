@@ -119,7 +119,7 @@ Begin Window SettingsWin
       Tooltip         =   ""
       Top             =   0
       Transparent     =   False
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   552
       Begin Label ProfileFolderLabel
