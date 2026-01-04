@@ -791,8 +791,6 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="HTH_20.hmm"
 		  Case "HTH_AsnC-type"
 		    hmmFileName="HTH_AsnC_type.hmm"
-		  Case "HTH_AsnC_type"
-		    hmmFileName="HTH_AsnC_type.hmm"
 		  Case "HTH_Crp_2"
 		    hmmFileName="HTH_Crp_2.hmm"
 		  Case "HTH_DeoR"
@@ -801,6 +799,7 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="IclR.hmm"
 		  Case "HTH_LacI"
 		    hmmFileName="LacI.hmm"
+		    'hmmFileName="LacI2.hmm" 'for many proteins with an indel within CR tag region
 		  Case "HTH_MARR"
 		    hmmFileName="MarR_Superfamily.hmm"
 		  Case "HxlR"
@@ -809,6 +808,7 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="IclR.hmm"
 		  Case "LacI"
 		    hmmFileName="LacI.hmm"
+		    'hmmFileName="LacI2.hmm" 'for many proteins with an indel within CR tag region
 		  Case "LexA"
 		    hmmFileName="LexA_DNA_bind.hmm"
 		  Case "LexA_DNA_bind"
@@ -831,6 +831,10 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="XRE_Superfamily.hmm" 'NadR is covered by XRE superfamily model
 		  Case "NikR"               'RHH sub-family
 		    hmmFileName="RHH.hmm"
+		  Case "[Other]"           ' AraC, OmpR, Fis, DeoR
+		    hmmFileName="AraC.hmm"  'mix of several families, at least 12 of those are from AraC
+		    'hmmFileName="bEBP.hmm"  'PpsR only
+		    'hmmFileName="HTH_DeoR.hmm" 'SufR, AzrR and SO1758 matches
 		  Case "OmpR"
 		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise "OmpR family" is a mix with LuxR (LiaR and NreC) and CitT (DctR) family TFs
 		  Case "PadR"
@@ -859,6 +863,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="Trp_repressor.hmm"
 		  Case "TrpR"
 		    hmmFileName="Trp_repressor.hmm"
+		  Case "TyrR"
+		    hmmFileName="bEBP.hmm"
 		  Case "XRE"
 		    hmmFileName="XRE_superfamily.hmm"
 		  Case "XRE_superfamily"

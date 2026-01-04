@@ -475,7 +475,6 @@ Begin Window RegPreciseTFcollectionsWin2
    End
    Begin URLConnection WebConnection
       AllowCertificateValidation=   False
-      Enabled         =   True
       HTTPStatusCode  =   0
       Index           =   -2147483648
       LockedInPosition=   False
@@ -1757,6 +1756,10 @@ End
 #tag Events ExportSigButton
 	#tag Event
 		Sub Action()
+		  // Current export function uses Edirect to get TF sequences wherever possible, but when locus_tag is missing from current databases, the function falls bact to Microbes Online data 
+		  '  Edirect seems to generate many errors (raise timeout limit?)
+		  
+		  
 		  Dim outfile As folderitem
 		  dim FFile, HMMfile as folderitem
 		  dim ExportFolder as folderitem
@@ -1944,7 +1947,7 @@ End
 		              'vimssId=NthField(vimssId,"&",1)
 		              LocusTag=NthField(vimssId,"<",1)
 		              LocusTag=NthField(LocusTag,">",2)
-		              
+		              vimssId=NthField(vimssId,"&",1)            'for use when edirect fails
 		              
 		              'ProteinFasta=NthField(res,"<title>Regulon Of ",2)
 		              'ProteinFasta=">"+NthField(ProteinFasta,"</title>",1)
@@ -1965,7 +1968,48 @@ End
 		            End If
 		            
 		            If ProteinFasta="" Then
-		              logowin.WriteToSTDOUT(EndOfLine.UNIX+"Can't find the sequence for "+LocusTag+" from "+GenomeNames(m)+EndOfLine.UNIX)
+		              'logowin.WriteToSTDOUT(EndOfLine.UNIX+"Can't find the sequence for "+LocusTag+" from "+GenomeNames(m)+EndOfLine.UNIX)
+		              
+		              
+		              
+		              ' http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus=5729579&disp=4
+		              theURL="'http://www.microbesonline.org/cgi-bin/fetchLocus.cgi?locus="+vimssId+"&disp=4"
+		              
+		              dim hts2 as new HTTPSocket
+		              
+		              hts2.Yield=true  'allow background activities while waiting
+		              hts2.SetRequestHeader("Content-Type:","text/plain")
+		              
+		              res=DefineEncoding(hts2.Get(theURL,60),encodings.ASCII)
+		              
+		              If hts2.HTTPStatusCode>=200 And hts2.HTTPStatusCode<300 Then 'successful
+		                if Res="" then
+		                  if hts2.HTTPStatusCode=-1 then
+		                    logowin.WriteToSTDOUT("Server timeout (No response in one minute"+EndOfLine.UNIX)
+		                  else
+		                    LogoWin.WriteToSTDOUT ("Server error (empty response)"+EndOfLine)
+		                  end if
+		                  ProteinFasta=""
+		                Else
+		                  'parse the server response
+		                  dim pseq as string
+		                  pseq=NthField(res,">Protein<",2)
+		                  pseq=NthField(pseq,")",2)
+		                  pseq=NthField(pseq,"</pre>",1)
+		                  pseq=trim(replaceall(pseq,"�",""))           'cleanup just in case
+		                  ProteinFasta=NthField(res,"<title>Sequences for ",2)
+		                  ProteinFasta=">"+NthField(ProteinFasta,"</title>",1)
+		                  ProteinFasta=ProteinFasta+EndOfLine.UNIX+pseq
+		                  logowin.WriteToSTDOUT(" "+vimssId)
+		                end if
+		              else
+		                
+		                dim httpErr as String = HTTPerror(hts.HTTPStatusCode, false)
+		                LogoWin.WriteToSTDOUT (httpErr)
+		                ProteinFasta=""
+		                
+		              End If
+		              
 		            End If
 		            
 		            logowin.WriteToSTDOUT(" "+LocusTag)
@@ -2776,7 +2820,10 @@ End
 		  RPD=NthField(Res,"</h2>",2)
 		  RPD=NthField(RPD,"<tbody>",2)
 		  RPD=NthField(RPD,"</tbody>",1)
-		  
+		  if RPD="" then
+		    msgbox "Incorrect response from RegPrecise"
+		    return
+		  end if
 		  tabarray=split(RPD,"</tr>")
 		  
 		  Dim reg As String

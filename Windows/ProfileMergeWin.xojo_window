@@ -179,7 +179,6 @@ Begin Window ProfileMergeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -198,7 +197,6 @@ Begin Window ProfileMergeWin
       Address         =   ""
       BytesAvailable  =   0
       BytesLeftToSend =   0
-      Enabled         =   True
       Handle          =   0
       httpProxyAddress=   ""
       httpProxyPort   =   0
@@ -241,8 +239,8 @@ Begin Window ProfileMergeWin
       Bold            =   False
       Cancel          =   False
       Caption         =   "Merge"
-      Default         =   False
-      Enabled         =   False
+      Default         =   True
+      Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -500,6 +498,18 @@ End
 	#tag EndEvent
 
 	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  SkimHits
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub KeyUp(Key As String)
+		  arrowsHandled=false
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Open()
 		  AdjustLayout4linux(me)
 		End Sub
@@ -643,6 +653,7 @@ End
 		        LogoPicScaled.Graphics.DrawPicture (LogoPic,0,0,LogoPicScaled.width,LogoPicScaled.height,0,0,LogoPic.width,LogoPic.Height)
 		        LogoPicScaled.Transparent=1
 		        RegulatorList.RowTag(RegulatorList.LastIndex)=LogoPicScaled
+		        RegulatorList.CellCheckBoxValueAt(RegulatorList.LastIndex,0)=true 'check all rows by default
 		        
 		      End If
 		    End If
@@ -653,6 +664,25 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"ProfileMergeWinWin:LoadGroup")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub MergeButtonCheck()
+		  Dim m,n,count As Integer
+		  m=RegulatorList.RowCount-1
+		  For n=0 To m
+		    If RegulatorList.CellCheckBoxValueAt(n,0) Then
+		      count=count+1
+		    End If
+		  Next
+		  If Count>1 Then
+		    MergeButton.enabled=True
+		    MergeButton.HelpTag=""
+		  Else
+		    MergeButton.enabled=False
+		    MergeButton.HelpTag="Select two or more profiles to enable this button"
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -676,11 +706,12 @@ End
 		  Dim f As folderitem
 		  dim TFname as string
 		  
-		  TFname=NthField(RegulatorList.Cell(RegulatorList.SelectedRowIndex,1),"_",2)
-		  If InStr(tfname,"_")>0 Then
-		    TFname=NthField(TFname,"_",1)
-		  End If
-		  logowin.Title="SigmoID: "+TFname+" (RegulonDB)"
+		  'TFname=NthField(RegulatorList.Cell(RegulatorList.SelectedRowIndex,1),"_",2)
+		  TFname=RegulatorList.Cell(RegulatorList.SelectedRowIndex,1)
+		  'If InStr(tfname,"_")>0 Then
+		  'TFname=NthField(TFname,"_",1)
+		  'End If
+		  logowin.Title=TFname
 		  
 		  
 		  f=New FolderItem(RegulatorList.Cell(RegulatorList.SelectedRowIndex,6), FolderItem.PathModes.Native)
@@ -698,7 +729,7 @@ End
 		    end if
 		    HmmGenSettingsWin.ValueField.text=TFname
 		    MASTGenSettingsWin.ValueField.text=TFname
-		    ProfileWizardWin.ValueField.text=TFname
+		    ProfileWizardWin.ValueField.text=NthField(TFname,"_",2)
 		    
 		    'determine site width(s):
 		    dim instream as TextInputStream
@@ -745,6 +776,61 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub SkimHits()
+		  'skimming through the profile groups with arrow keys
+		  
+		  If arrowsHandled Then Return 'avoid jumping over several hits at once
+		  
+		  If Keyboard.AsynckeyDown(&h7C) Or Keyboard.AsynckeyDown(&h7B) Then
+		    arrowsHandled=true
+		    if CurrentGroup > 0 then
+		      if Keyboard.AsynckeyDown(&h7C) then 'Right
+		        if CurrentGroup<NumberOfGroups then
+		          CurrentGroup=CurrentGroup+1
+		        else
+		          'beep
+		        end if
+		      elseif Keyboard.AsynckeyDown(&h7B) then 'Left
+		        if CurrentGroup>1 then
+		          CurrentGroup=CurrentGroup-1
+		        else
+		          'beep
+		        end if
+		      end if
+		      
+		      
+		      Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
+		      Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
+		      if CurrentGroup=1 then
+		        s0.Enabled=false
+		      else
+		        s0.Enabled=true
+		      end if
+		      
+		      if CurrentGroup=NumberOfGroups then
+		        s2.Enabled=false
+		      else
+		        s2.Enabled=true
+		      end if
+		      
+		      LoadGroup(CurrentGroup)
+		    else
+		      'beep
+		    end if
+		  end if
+		  
+		  MergeButtonCheck
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:SkimHits")
+		    
+		End Sub
+	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		arrowsHandled As Boolean
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		CurrentGroup As Integer
@@ -839,20 +925,7 @@ End
 	#tag Event
 		Sub CellAction(row As Integer, column As Integer)
 		  If column=0 Then
-		    Dim m,n,count As Integer
-		    m=Me.RowCount-1
-		    For n=0 To m
-		      If Me.CellCheckBoxValueAt(n,0) Then
-		        count=count+1
-		      End If
-		    Next
-		    If Count>1 Then
-		      MergeButton.enabled=True
-		      MergeButton.HelpTag=""
-		    Else
-		      MergeButton.enabled=False
-		      MergeButton.HelpTag="Select two or more profiles to enable this button"
-		    End If
+		    MergeButtonCheck
 		  End If
 		  
 		End Sub
@@ -996,7 +1069,6 @@ End
 	#tag Event
 		Sub Action(itemIndex as integer)
 		  Dim s0 As SegmentedControlItem = SegmentedControl1.Items( 0 )
-		  Dim s1 As SegmentedControlItem = SegmentedControl1.Items( 1 )
 		  Dim s2 As SegmentedControlItem = SegmentedControl1.Items( 2 )
 		  
 		  If CurrentGroup >= 0 Then
@@ -1177,9 +1249,8 @@ End
 		  fname=NthField(fname,EndOfLine.UNIX,1)+"_"
 		  sep="HmmGen.-q bound_moiety#"
 		  fname=fname+NthField(Options, sep,2)
+		  fname=NthField(fname," - ",1) ' drop order name part of RegPrecise profile names
 		  fname=NthField(fname,EndOfLine.UNIX,1)+".sig"
-		  
-		  
 		  Dim SigFile As FolderItem
 		  Dim dlg As New SaveAsDialog
 		  dlg.InitialDirectory=f.Parent
@@ -1339,7 +1410,8 @@ End
 		    Next
 		  End If
 		  
-		  
+		  ' disable MergeButton if nothing is left to merge
+		  MergeButtonCheck
 		End Sub
 	#tag EndEvent
 #tag EndEvents
