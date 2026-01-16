@@ -1098,6 +1098,8 @@ End
 		    'beep
 		  end if
 		  
+		  MergeButtonCheck
+		  
 		  Exception err
 		    ExceptionHandler(err,"ProfileMergeWin:SegmentedControl1:Action")
 		End Sub
@@ -1412,6 +1414,9 @@ End
 		  
 		  ' disable MergeButton if nothing is left to merge
 		  MergeButtonCheck
+		  
+		  Exception err
+		    ExceptionHandler(err,"ProfileMergeWin:MergeButton:Action")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1496,6 +1501,8 @@ End
 		    
 		    
 		  End If
+		  MergeButtonCheck
+		  
 		  
 		End Sub
 	#tag EndEvent

@@ -2894,10 +2894,16 @@ End
 #tag Events AddRefsButton
 	#tag Event
 		Sub Action()
-		  Dim Info As String
+		  // find and process references preceded by "DOI:"
+		  ' several refs can be located in brackets, but each must have the "DOI:" prefix like this
+		  ' (DOI:10.1093/nar/gkx1234, DOI: 10.1046/j.1365-2958.1999.01342.x)
+		  ' round or square brackets can be used
+		  
+		  Dim Info, Ref, Ref2, Yea, doi2replace As String
+		  Dim DoiToList As string
 		  Dim DOIs(0), Citations(0) As String
 		  Dim CurrentDOI As String
-		  Dim CitNo,n,m,doiNo As Integer
+		  Dim CitNo,n,m,doiNo, AuthNo As Integer
 		  
 		  
 		  Info = InfoArea.Text
@@ -2913,25 +2919,32 @@ End
 		    CurrentDOI=NthField(CurrentDOI,")",1)
 		    CurrentDOI=NthField(CurrentDOI,"]",1)
 		    
+		    
+		    
 		    'check for several DOIs within this pair of brackets:
 		    
 		    If InStr(CurrentDOI,";")>0 Then
 		      doiNo=CountFields(CurrentDOI,";")
 		      For m=1 To doiNo
-		        DOIs.append(Trim(NthField(CurrentDOI,";",m)))
+		        DoiToList=Trim(NthField(CurrentDOI,";",m))
+		        if DoiToList<>"" then
+		          DOIs.append(DoiToList)
+		        end if
 		      Next
+		      
 		    Elseif InStr(CurrentDOI,",")>0 Then
 		      doiNo=CountFields(CurrentDOI,",")
 		      For m=1 To doiNo
-		        DOIs.append(Trim(NthField(CurrentDOI,",",m)))
+		        DoiToList=Trim(NthField(CurrentDOI,",",m))
+		        if doiTolist<>"" then
+		          DOIs.append(DoiToList)
+		        end if
 		      Next
 		    Else
 		      DOIs.append(Trim(CurrentDOI))
 		    End If
 		    
 		  Next
-		  
-		  doiNo=UBound(DOIs)
 		  
 		  'check if the last row is empty and remove it before appending new rows:
 		  Dim LastRowEmpty As Boolean = True
@@ -2948,14 +2961,66 @@ End
 		    End If
 		  End If
 		  
-		  'add citations:
-		  For n=1 To doiNo
-		    RefsList.AddRow
-		    RefsList.CellValueAt(RefsList.LastRowIndex,1)=DOIs(n)
-		    RefsList.CellValueAt(RefsList.LastRowIndex,0)=CitationFromDOI(Trim(DOIs(n)))
+		  'Remove duplicate DOI
+		  doiNo=UBound(DOIs)
+		  m=PgroupPaths.Count-1
+		  For n=doiNo DownTo 1
+		    DoiToList=DOIs(n)
+		    for m=n-1  DownTo 1
+		      If DOIs(m)=DoiToList Then
+		        DOIs.Remove(n)
+		      End If
+		    Next
 		  Next
 		  
 		  
+		  
+		  'add citations:
+		  doiNo=UBound(DOIs)
+		  For n=1 To doiNo
+		    RefsList.AddRow
+		    RefsList.CellValueAt(RefsList.LastRowIndex,1)=DOIs(n)
+		    Ref=CitationFromDOI(Trim(DOIs(n)))
+		    RefsList.CellValueAt(RefsList.LastRowIndex,0)=Ref
+		    
+		    'try to replace DOI with references in "author, date" format
+		    ' refs are formatted as comma-separated list with two fields per author, like this
+		    'Zhang, R., Lord, D. M., Bajaj, R., Peti, W., Page, R., & Sello, J. K. (2017). Title...
+		    'or like this
+		    'Guo, Z., & Houghton, J. E. (1999). Title...
+		    
+		    'get year
+		    Yea=nthfield(ref, ". (", 2)
+		    Yea=nthfield(Yea, ")", 1)
+		    
+		    'get and count authors
+		    Ref=nthfield(ref, ". (", 1) 'strip year and everything after
+		    AuthNo=countfields(Ref, ",")/2
+		    
+		    'Format reference
+		    select case AuthNo
+		    case 1
+		      Ref2=nthfield(ref, ",", 1) +", "+Yea
+		    case 2
+		      Ref2=nthfield(ref, ",", 1) +", "+nthfield(ref, ",", 3)+", "+Yea
+		    else ' many authors
+		      Ref2=nthfield(ref, ",", 1) +" et al., "+Yea
+		    end select
+		    
+		    doi2replace="doi: "+DOIs(n)
+		    Info=Info.ReplaceAll(doi2replace,ref2)
+		    
+		    'repeat for the case without space after colon
+		    doi2replace="doi:"+DOIs(n)
+		    Info=Info.ReplaceAll(doi2replace,ref2)
+		    
+		  Next
+		  
+		  'fix format for two authors
+		  Info=Info.ReplaceAll(",  & "," & ")
+		  Info=Info.ReplaceAll(", & "," & ")
+		  
+		  InfoArea.text=Info
 		  
 		  Exception err
 		    ExceptionHandler(err,"ProfileWizardWin:AddRefsButton")

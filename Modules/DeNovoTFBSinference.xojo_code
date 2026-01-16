@@ -831,6 +831,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="XRE_Superfamily.hmm" 'NadR is covered by XRE superfamily model
 		  Case "NikR"               'RHH sub-family
 		    hmmFileName="RHH.hmm"
+		  Case "NrdR"              
+		    hmmFileName="NrdR_DBD.hmm"
 		  Case "[Other]"           ' AraC, OmpR, Fis, DeoR
 		    hmmFileName="AraC.hmm"  'mix of several families, at least 12 of those are from AraC
 		    'hmmFileName="bEBP.hmm"  'PpsR only
@@ -843,6 +845,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="PhdYeFM_antitox.hmm"
 		  Case "ParD_antitoxin"
 		    hmmFileName="ParD.hmm"
+		  Case "Rex" 
+		    hmmFileName="Rex.hmm"                        'replaces Put_DNA-bind_N.hmm
 		  Case "RHH"
 		    hmmFileName="RHH.hmm"
 		  Case "ROK"

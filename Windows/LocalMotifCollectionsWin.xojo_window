@@ -569,9 +569,9 @@ End
 		    MsgBox "This method is currently disabled due to database licensing issue. Should hopefully be fixed sometime..."
 		    
 		  #endif
+		  
 		  Exception err
-		    ExceptionHandler(err,"RegPreciseWin:CheckTF")
-		    
+		    ExceptionHandler(err,"LocalMotifCollectionsWin:CheckTF")
 		End Sub
 	#tag EndMethod
 
@@ -640,6 +640,9 @@ End
 		  '
 		  'return ubound(strains)
 		  
+		  Exception err
+		    ExceptionHandler(err,"LocalMotifCollectionsWin:countRegulons")
+		    
 		End Function
 	#tag EndMethod
 
@@ -860,6 +863,8 @@ End
 		  next
 		  CollectionList.Enabled=true
 		  
+		  Exception err
+		    ExceptionHandler(err,"LocalMotifCollectionsWin:TFfamilyPopup:Change")
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -885,6 +890,8 @@ End
 		  end if
 		  
 		  me.Enabled=true
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

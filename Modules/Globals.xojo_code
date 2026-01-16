@@ -4025,9 +4025,11 @@ Protected Module Globals
 		  WebBrowserWin.show
 		  
 		  If IsRegulog then
-		    WebBrowserWin.LoadPage("http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id="+str(ID))
+		    'WebBrowserWin.LoadPage("http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulog.jsp?regulog_id="+str(ID))
+		    WebBrowserWin.LoadPage("https://regprecise.lbl.gov/regulog.jsp?regulog_id=610"+str(ID))
 		  else
-		    WebBrowserWin.LoadPage("http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulon.jsp?regulon_id="+str(ID))
+		    'WebBrowserWin.LoadPage("http://regprecise.sbpdiscovery.org:8080/WebRegPrecise/regulon.jsp?regulon_id="+str(ID))
+		    WebBrowserWin.LoadPage("https://regprecise.lbl.gov/regulon.jsp?regulon_id=610"+str(ID))
 		  end if
 		  
 		End Sub
