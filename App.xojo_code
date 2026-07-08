@@ -23,6 +23,8 @@ Inherits Application
 		    FileConvertSigFilestoFolders.Enabled=True
 		    ProfileCombineCRtags.visible=True
 		    ProfileCombineCRtags.Enabled=True
+		    ProfileProcessPropagatedRegPreciseData.Visible=True
+		    ProfileProcessPropagatedRegPreciseData.Enabled=True
 		  end if
 		  
 		  'Build dynamic Window Menu
@@ -292,6 +294,10 @@ Inherits Application
 		                f.CopyFileTo SigF
 		              end if
 		              f=vv.root.child(basename+".info")
+		              if f<> NIL and f.exists then
+		                f.CopyFileTo SigF
+		              end if
+		              f=vv.root.child(basename+".json")
 		              if f<> NIL and f.exists then
 		                f.CopyFileTo SigF
 		              end if
@@ -801,6 +807,23 @@ Inherits Application
 		  
 		  
 		  
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ProfileGroovDBTFs() As Boolean Handles ProfileGroovDBTFs.Action
+		  GroovDBwin.WLoadFamilies
+		  GroovDBwin.Show
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ProfileProcessPropagatedRegPreciseData() As Boolean Handles ProfileProcessPropagatedRegPreciseData.Action
+		  ProcessPropagatedRegPreciseF
 		  Return True
 		  
 		End Function

@@ -8,7 +8,7 @@ Begin Window ProfileWizardWin
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   754
+   Height          =   780
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,7 +24,7 @@ Begin Window ProfileWizardWin
    Resizeable      =   True
    Title           =   "#kProfileWizard"
    Visible         =   False
-   Width           =   749
+   Width           =   1105
    Begin GroupBox GroupBox1
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -41,7 +41,7 @@ Begin Window ProfileWizardWin
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       Scope           =   0
       TabIndex        =   0
@@ -52,7 +52,7 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   354
+      Width           =   280
       Begin Label Label1
          AllowAutoDeactivate=   True
          Bold            =   False
@@ -86,7 +86,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   227
+         Width           =   182
       End
       Begin TextField TrustedField
          AllowAutoDeactivate=   True
@@ -108,7 +108,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   312
+         Left            =   218
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -130,7 +130,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          ValidationMask  =   ""
          Visible         =   True
-         Width           =   46
+         Width           =   54
       End
       Begin Label Label2
          AllowAutoDeactivate=   True
@@ -165,7 +165,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   227
+         Width           =   182
       End
       Begin TextField GatheringField
          AllowAutoDeactivate=   True
@@ -187,7 +187,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   312
+         Left            =   218
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -209,7 +209,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          ValidationMask  =   ""
          Visible         =   True
-         Width           =   46
+         Width           =   54
       End
       Begin Label Label3
          AllowAutoDeactivate=   True
@@ -244,7 +244,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   227
+         Width           =   182
       End
       Begin TextField NoiseField
          AllowAutoDeactivate=   True
@@ -266,7 +266,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   312
+         Left            =   218
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -288,7 +288,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          ValidationMask  =   ""
          Visible         =   True
-         Width           =   46
+         Width           =   54
       End
       Begin TextField MASTField
          AllowAutoDeactivate=   True
@@ -310,7 +310,7 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox1"
          Italic          =   False
-         Left            =   312
+         Left            =   218
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -332,7 +332,7 @@ Begin Window ProfileWizardWin
          Underline       =   False
          ValidationMask  =   ""
          Visible         =   True
-         Width           =   46
+         Width           =   54
       End
       Begin Label Label4
          AllowAutoDeactivate=   True
@@ -367,7 +367,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   227
+         Width           =   182
       End
    End
    Begin GroupBox GroupBox3
@@ -382,11 +382,11 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   382
+      Left            =   304
       LockBottom      =   False
       LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
+      LockLeft        =   True
+      LockRight       =   False
       LockTop         =   True
       Scope           =   0
       TabIndex        =   2
@@ -397,7 +397,7 @@ Begin Window ProfileWizardWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   354
+      Width           =   289
       Begin CheckBox WithinORFBox
          AllowAutoDeactivate=   True
          Bold            =   False
@@ -412,11 +412,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   402
+         Left            =   308
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          Scope           =   0
          TabIndex        =   1
@@ -429,7 +429,7 @@ Begin Window ProfileWizardWin
          Value           =   False
          Visible         =   True
          VisualState     =   0
-         Width           =   326
+         Width           =   186
       End
       Begin Label Label5
          AllowAutoDeactivate=   True
@@ -444,11 +444,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   402
+         Left            =   308
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          Multiline       =   False
          Scope           =   0
@@ -464,7 +464,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   116
+         Width           =   100
       End
       Begin ComboBox FeatureCombo
          AllowAutoComplete=   False
@@ -483,11 +483,11 @@ Begin Window ProfileWizardWin
          InitialParent   =   "GroupBox3"
          InitialValue    =   ""
          Italic          =   False
-         Left            =   530
+         Left            =   420
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          Scope           =   0
          SelectedRowIndex=   0
@@ -495,11 +495,11 @@ Begin Window ProfileWizardWin
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   98
+         Top             =   99
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   198
+         Width           =   165
       End
       Begin TextField KeyField
          AllowAutoDeactivate=   True
@@ -521,11 +521,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   493
+         Left            =   382
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          MaximumCharactersAllowed=   0
          Password        =   False
@@ -538,45 +538,12 @@ Begin Window ProfileWizardWin
          TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   130
+         Top             =   128
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
          Visible         =   True
-         Width           =   128
-      End
-      Begin CheckBox PalindromicBox
-         AllowAutoDeactivate=   True
-         Bold            =   False
-         Caption         =   "#kPalindromicSite"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         FontName        =   "System"
-         FontSize        =   0.0
-         FontUnit        =   0
-         Height          =   20
-         Index           =   -2147483648
-         InitialParent   =   "GroupBox3"
-         Italic          =   False
-         Left            =   402
-         LockBottom      =   False
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   34
-         Transparent     =   False
-         Underline       =   False
-         Value           =   False
-         Visible         =   True
-         VisualState     =   0
-         Width           =   326
+         Width           =   103
       End
       Begin Label Label6
          AllowAutoDeactivate=   True
@@ -591,11 +558,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   402
+         Left            =   308
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          Multiline       =   False
          Scope           =   0
@@ -611,7 +578,7 @@ Begin Window ProfileWizardWin
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   79
+         Width           =   62
       End
       Begin TextField ValueField
          AllowAutoDeactivate=   True
@@ -633,11 +600,11 @@ Begin Window ProfileWizardWin
          Index           =   -2147483648
          InitialParent   =   "GroupBox3"
          Italic          =   False
-         Left            =   627
+         Left            =   497
          LockBottom      =   False
          LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
+         LockLeft        =   True
+         LockRight       =   False
          LockTop         =   True
          MaximumCharactersAllowed=   0
          Password        =   False
@@ -650,12 +617,45 @@ Begin Window ProfileWizardWin
          TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   130
+         Top             =   128
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
          Visible         =   True
-         Width           =   101
+         Width           =   88
+      End
+      Begin CheckBox PalindromicBox
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Caption         =   "#kPalindromicSite"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox3"
+         Italic          =   False
+         Left            =   308
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   34
+         Transparent     =   False
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         VisualState     =   0
+         Width           =   168
       End
    End
    Begin TextArea InfoArea
@@ -676,7 +676,7 @@ Begin Window ProfileWizardWin
       HasBorder       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
-      Height          =   128
+      Height          =   208
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
@@ -698,14 +698,14 @@ Begin Window ProfileWizardWin
       Text            =   "Profile info"
       TextAlignment   =   0
       TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   365
+      Tooltip         =   "Add info on (1) experimental data and (2) motif model definition and calibration"
+      Top             =   307
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   724
+      Width           =   581
    End
    Begin PushButton SaveButton
       AllowAutoDeactivate=   True
@@ -721,7 +721,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   646
+      Left            =   1002
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -733,7 +733,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   720
+      Top             =   746
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -753,7 +753,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   544
+      Left            =   900
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -765,7 +765,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   720
+      Top             =   746
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -808,157 +808,12 @@ Begin Window ProfileWizardWin
       TabStop         =   True
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   720
+      Top             =   746
       Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
       Width           =   89
-   End
-   Begin PopupMenu TFhmmPopup
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      InitialValue    =   ""
-      Italic          =   False
-      Left            =   158
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      SelectedRowIndex=   0
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   177
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   578
-   End
-   Begin Label Label7
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   12
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "TF family HMM:"
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   178
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   145
-   End
-   Begin Label Label8
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   12
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   9
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "CRtag coords:"
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   209
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   134
-   End
-   Begin TextField CRtagField
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFEFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   22
-      Hint            =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   158
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   10
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   209
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Visible         =   True
-      Width           =   250
    End
    Begin TextArea SeedProteinArea
       AllowAutoDeactivate=   True
@@ -978,7 +833,7 @@ Begin Window ProfileWizardWin
       HasBorder       =   True
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
-      Height          =   117
+      Height          =   116
       HideSelection   =   True
       Index           =   -2147483648
       Italic          =   False
@@ -1001,91 +856,13 @@ Begin Window ProfileWizardWin
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   "Fasta title line should end with _GB=<Accession>|UP=<Accession> (or just GB=<Accession>)."
-      Top             =   240
+      Top             =   179
       Transparent     =   False
       Underline       =   False
       UnicodeMode     =   0
       ValidationMask  =   ""
       Visible         =   True
-      Width           =   724
-   End
-   Begin Label Label10
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   420
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   13
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "CRtag sequence:"
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   210
-      Transparent     =   True
-      Underline       =   False
-      Visible         =   True
-      Width           =   137
-   End
-   Begin TextField CRtagSeqField
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFEFFFF00
-      Bold            =   False
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   22
-      Hint            =   ""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   560
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   14
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   0
-      TextColor       =   &c00000000
-      Tooltip         =   ""
-      Top             =   209
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Visible         =   True
-      Width           =   176
+      Width           =   581
    End
    Begin Listbox RefsList
       AllowAutoDeactivate=   True
@@ -1131,11 +908,11 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   501
+      Top             =   527
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   724
+      Width           =   1080
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -1183,11 +960,11 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   613
+      Top             =   639
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   724
+      Width           =   1080
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -1205,7 +982,7 @@ Begin Window ProfileWizardWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   357
+      Left            =   713
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -1217,7 +994,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   720
+      Top             =   746
       Transparent     =   False
       Underline       =   False
       Visible         =   False
@@ -1249,7 +1026,7 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Scan profile info for DOIs and fill references list with matching citations"
-      Top             =   720
+      Top             =   746
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -1281,11 +1058,314 @@ Begin Window ProfileWizardWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Append a line to curation history with current date and curator information from settings"
-      Top             =   720
+      Top             =   746
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   110
+   End
+   Begin GroupBox GroupBox4
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Family and CR-tag"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   160
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   605
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   21
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   5
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   480
+      Begin Label Label7
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox4"
+         Italic          =   False
+         Left            =   614
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "TF family HMM:"
+         TextAlignment   =   0
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   41
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   103
+      End
+      Begin PopupMenu TFhmmPopup
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox4"
+         InitialValue    =   ""
+         Italic          =   False
+         Left            =   712
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         SelectedRowIndex=   0
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   43
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   364
+      End
+      Begin Label Label8
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox4"
+         Italic          =   False
+         Left            =   614
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "CRtag coords:"
+         TextAlignment   =   0
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   99
+      End
+      Begin TextField CRtagField
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFEFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox4"
+         Italic          =   False
+         Left            =   729
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   75
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Visible         =   True
+         Width           =   347
+      End
+      Begin Label Label10
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox4"
+         Italic          =   False
+         Left            =   614
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "CRtag sequence:"
+         TextAlignment   =   0
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   109
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   112
+      End
+      Begin TextField CRtagSeqField
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFEFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox4"
+         Italic          =   False
+         Left            =   729
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   True
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   5
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   0
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   107
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Visible         =   True
+         Width           =   347
+      End
+   End
+   Begin TextArea LigandArea
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   True
+      AllowStyledText =   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFEFFFF00
+      Bold            =   False
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      Height          =   336
+      HideSelection   =   True
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   605
+      LineHeight      =   0.0
+      LineSpacing     =   1.0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Multiline       =   True
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   22
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Ligand info"
+      TextAlignment   =   0
+      TextColor       =   &c00000000
+      Tooltip         =   "Ligand info should include ""name"", ""SMILES"" and ""doi"" keys."
+      Top             =   179
+      Transparent     =   False
+      Underline       =   False
+      UnicodeMode     =   0
+      ValidationMask  =   ""
+      Visible         =   True
+      Width           =   480
    End
 End
 #tag EndWindow
@@ -1827,7 +1907,7 @@ End
 		      CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
 		      CRtagSeqField.Text=CRtag
 		      'CRtagField.Text=CRtags(Me.ListIndex+1)
-		      CRtagField.Text=CRtagPositions 'CRtagPositions were set by GetCRtags
+		      CRtagField.Text=Globals.CRtagPositions 'CRtagPositions were set by GetCRtags
 		    End If
 		  End If
 		  
@@ -1924,17 +2004,17 @@ End
 		End Function
 	#tag EndEvent
 #tag EndEvents
-#tag Events PalindromicBox
-	#tag Event
-		Sub Action()
-		  LogoWin.Palindromic=me.value  'just in case of continuing with the profile from the main window after closing this one
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events ValueField
 	#tag Event
 		Sub TextChange()
 		  EnableSave
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PalindromicBox
+	#tag Event
+		Sub Action()
+		  LogoWin.Palindromic=me.value  'just in case of continuing with the profile from the main window after closing this one
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2145,7 +2225,7 @@ End
 		          if left(firstLine,3)=">f_" and left(thirdLine,3)=">r_" then
 		            'looks like the seqs are palindromised already
 		          else
-		            msgbox "The profile is marked as palindromic, but fasta sequences don't seem to be palindromised. I'll proceed with saving the profile, but you should verify its palindromic status and cutoff values."
+		            'msgbox "The profile is marked as palindromic, but fasta sequences don't seem to be palindromised. I'll proceed with saving the profile, but you should verify its palindromic status and cutoff values."
 		            'rcAlignmentFile=TemporaryFolder.child("rcAliFile")
 		            'RevCompAlignment(AlignmentFile,rcAlignmentFile,true)
 		            'AlignmentFile.Delete
@@ -2308,12 +2388,21 @@ End
 		            outstream.Close
 		            
 		            
-		            'Write info file:
+		            'Write profile info file:
 		            
 		            f2=SigFileVV.Root.child(basename+".info")
 		            if f2<>nil then
 		              outstream = TextOutputStream.Create(f2)
 		              outstream.Write(InfoArea.text)
+		              outstream.close
+		            End If
+		            
+		            'Write ligand info file:
+		            
+		            f2=SigFileVV.Root.child(basename+".json")
+		            if f2<>nil then
+		              outstream = TextOutputStream.Create(f2)
+		              outstream.Write(LigandArea.text)
 		              outstream.close
 		            End If
 		            
@@ -2529,99 +2618,6 @@ End
 		    ProfileWizardLocked=false
 		    me.Caption="Lock"
 		  end if
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events TFhmmPopup
-	#tag Event
-		Sub Open()
-		  Dim l,m,n As Integer
-		  dim f, CDSFile as folderitem
-		  dim OutStream as TextOutputStream
-		  Dim hmmPath, fName, aLine, lineStart, hmm, CRtag, hmmSearchRes As String
-		  Dim fnames(-1) As String
-		  dim CRtagFileName as string
-		  dim inStream as TextInputStream
-		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
-		  
-		  'redim PopupFiles(-1)
-		  'f=Profile_f
-		  f=Resources_f.Child("TF_HMMs")
-		  if f<>Nil then
-		    if f.exists then
-		      
-		      m=f.Count
-		      for n=1 to m
-		        'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
-		        'msgbox dis
-		        
-		        If Right(f.Item(n).name,4)=".hmm" Then
-		          hmmPath = f.Item(n).ShellPath
-		          fName = f.Item(n).DisplayName
-		          
-		          // Get CRtag residue positions
-		          inStream=TextInputStream.Open(f.Item(n))
-		          hmm=inStream.ReadAll
-		          CRtag=NthField(hmm,"CRtag ",2)
-		          CRtag=NthField(CRtag,EndOfLine,1)
-		          
-		          fnames.append(fName+"///"+CRtag)
-		          
-		          
-		          
-		          
-		          
-		          'if SeedProteinArea.TextColor=&c99999900 then 'placefiller
-		          'Else                                                                             'hopefully, proper protein sequence
-		          '' write CDS seq to the tmp file
-		          'CDSFile=TemporaryFolder.child("CDSfile.fa")
-		          'if CDSFile<>Nil then
-		          'OutStream = TextOutputStream.Create(CDSFile)
-		          'if outStream<>Nil then
-		          ''hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
-		          'dim Pseq as string
-		          'Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
-		          'Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
-		          '
-		          'outstream.Write(Pseq)
-		          'outstream.Write(Pseq)
-		          'outstream.close
-		          'end if
-		          'end if
-		          '
-		          ''extract CRtagresidues :
-		          'hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
-		          'CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
-		          'CRtagSeqField.text=CRtag
-		          'end if
-		          '
-		          
-		          
-		        end if
-		        
-		        
-		        
-		      next
-		      
-		      // sort and fill popup and CRtags()
-		      
-		      fnames.Sort
-		      
-		      For Each p As String In fnames
-		        Me.AddRow(NthField(p,"///",1))
-		        CRtags.Append (NthField(p,"///",2))
-		      Next
-		      
-		    end if
-		  end if
-		  
-		  Exception err
-		    ExceptionHandler(err,"ProfileWizardWin:TFhmmPopup:open")
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Change()
-		  UpdateCRtag
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2963,12 +2959,11 @@ End
 		  
 		  'Remove duplicate DOI
 		  doiNo=UBound(DOIs)
-		  m=PgroupPaths.Count-1
 		  For n=doiNo DownTo 1
 		    DoiToList=DOIs(n)
 		    for m=n-1  DownTo 1
 		      If DOIs(m)=DoiToList Then
-		        DOIs.Remove(n)
+		        DOIs.Remove(m)
 		      End If
 		    Next
 		  Next
@@ -3067,6 +3062,126 @@ End
 		  Exception err
 		    ExceptionHandler(err,"ProfileWizardWin:AddCuratorButton:Action")
 		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events TFhmmPopup
+	#tag Event
+		Sub Open()
+		  Dim l,m,n As Integer
+		  dim f, CDSFile as folderitem
+		  dim OutStream as TextOutputStream
+		  Dim hmmPath, fName, aLine, lineStart, hmm, CRtag, hmmSearchRes As String
+		  Dim fnames(-1) As String
+		  dim CRtagFileName as string
+		  dim inStream as TextInputStream
+		  'dim aNAME, ACC, DESC, CRtag, CRtagFileName as string
+		  
+		  'redim PopupFiles(-1)
+		  'f=Profile_f
+		  f=Resources_f.Child("TF_HMMs")
+		  if f<>Nil then
+		    if f.exists then
+		      
+		      m=f.Count
+		      for n=1 to m
+		        'dim dis as string= f.Item(n).DisplayName+": "+f.Item(n).type
+		        'msgbox dis
+		        
+		        If Right(f.Item(n).name,4)=".hmm" Then
+		          hmmPath = f.Item(n).ShellPath
+		          fName = f.Item(n).DisplayName
+		          
+		          // Get CRtag residue positions
+		          inStream=TextInputStream.Open(f.Item(n))
+		          hmm=inStream.ReadAll
+		          CRtag=NthField(hmm,"CRtag ",2)
+		          CRtag=NthField(CRtag,EndOfLine,1)
+		          
+		          fnames.append(fName+"///"+CRtag)
+		          
+		          
+		          
+		          
+		          
+		          'if SeedProteinArea.TextColor=&c99999900 then 'placefiller
+		          'Else                                                                             'hopefully, proper protein sequence
+		          '' write CDS seq to the tmp file
+		          'CDSFile=TemporaryFolder.child("CDSfile.fa")
+		          'if CDSFile<>Nil then
+		          'OutStream = TextOutputStream.Create(CDSFile)
+		          'if outStream<>Nil then
+		          ''hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
+		          'dim Pseq as string
+		          'Pseq=ReplaceAll(SeedProteinArea.text," ","_")   'hmmer doesn't like spaces
+		          'Pseq=ReplaceAll(Pseq,chr(9),"_")                'hmmer doesn't like tabs
+		          '
+		          'outstream.Write(Pseq)
+		          'outstream.Write(Pseq)
+		          'outstream.close
+		          'end if
+		          'end if
+		          '
+		          ''extract CRtagresidues :
+		          'hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmPath)
+		          'CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		          'CRtagSeqField.text=CRtag
+		          'end if
+		          '
+		          
+		          
+		        end if
+		        
+		        
+		        
+		      next
+		      
+		      // sort and fill popup and CRtags()
+		      
+		      fnames.Sort
+		      
+		      For Each p As String In fnames
+		        Me.AddRow(NthField(p,"///",1))
+		        CRtags.Append (NthField(p,"///",2))
+		      Next
+		      
+		    end if
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"ProfileWizardWin:TFhmmPopup:open")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Change()
+		  UpdateCRtag
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events LigandArea
+	#tag Event
+		Sub Open()
+		  me.TextFont=FixedFont
+		  me.Italic=true
+		  me.TextColor=&c99999900 'gray
+		  me.text="Ligand info"
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  if me.text="Profile info" then
+		    me.Italic=false
+		    me.TextColor=&c00000000
+		    me.text=""
+		  end if
+		  
+		  return false
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub TextChange()
+		  EnableSave
 		End Sub
 	#tag EndEvent
 #tag EndEvents

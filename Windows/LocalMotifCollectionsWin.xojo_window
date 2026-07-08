@@ -807,7 +807,7 @@ End
 		  
 		  'read motifs into an array
 		  dim tis as TextInputStream
-		  dim motifs, motifArray(-1), motifName, nSites, PWMdata, URL, siteLen as string
+		  dim motifs, motifArray(-1), motifName, nSites, PWMdata, memedata, URL, siteLen as string
 		  dim LEloc as integer
 		  
 		  tis=CollectionFile.OpenAsTextFile
@@ -823,12 +823,14 @@ End
 		  for n=1 to m
 		    motifName=NthField(motifArray(n)," ",1)
 		    nSites=str(val(NthField(motifArray(n),"nsites=",2)))
-		    PWMdata=NthField(motifArray(n),"nsites=",2)               'get closer to the data
+		    'PWMdata=NthField(motifArray(n),"nsites=",2)               'get closer to the data
+		    PWMdata=NthField(motifArray(n),"w=",2)               'get closer to the data
 		    LEloc=instr(PWMdata,EndOfLine)
 		    PWMdata=right(PWMdata,len(PWMdata)-LEloc)                 'still has trailing lines
 		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine) 'remove empty lines
 		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
 		    PWMdata=replaceAll(PWMdata,EndOfLine+EndOfLine,EndOfLine)
+		    memedata=motifArray(0)+EndOfLine.UNIX+"MOTIF "+motifArray(n)
 		    if instr(PWMdata,"URL")>0 then                            'standard meme files don't have URLs
 		      URL=trim(NthField(PWMdata,"URL",2))
 		      LEloc=instr(PWMdata,"URL")
@@ -837,7 +839,7 @@ End
 		    sitelen=str(CountFields(PWMdata,EndOfLine))
 		    
 		    Dim p as picture = LogoFromPWM(PWMdata)
-		    Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", URL,siteLen,PWMdata)  'first column contains checkboxes
+		    Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", URL,siteLen,PWMdata,memedata)  'first column contains checkboxes
 		    CollectionList.AddRow(reg)
 		    
 		    ''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
@@ -912,9 +914,12 @@ End
 		  ' 5 (invisible) – Motif source URL
 		  ' 6 (invisible) – TFBS length
 		  ' 7 (invisible) –  PWM 
+		  ' 8 (invisible) –  meme format pwm (with header) 
 		  
-		  me.ColumnWidths="20,300,50,70,*,0,0,0" 'the last column just stores the file path 
+		  me.ColumnWidths="20,300,50,70,*,0,0,0,0"
 		  me.ColumnType(0)=Listbox.TypeCheckbox
+		  'Me.ColumnTypeAt(1) = DesktopListbox.CellTypes.TextField
+		  me.ColumnType(1) = ListBox.TypeEditable
 		  me.DefaultRowHeight=62  'LogoPic.Height=60
 		  'me.ColumnSortDirection(-1)=ListBox.HeaderTypes.NotSortable 'disable sorting of all the columns
 		  
@@ -965,10 +970,90 @@ End
 #tag Events RegulogLogoButton
 	#tag Event
 		Sub Action()
-		  msgbox "Opening motifs in MEME format in the main window isn't implemented yet ((("
+		  // CollectionList columns are:
+		  ' 0 - Checkbox
+		  ' 1 - TF Name
+		  ' 2 - Number of sites used to build the motif 
+		  ' 3 - Information content (bits)
+		  ' 4 - Logo picture
+		  ' 5 (invisible) – Motif source URL
+		  ' 6 (invisible) – TFBS length
+		  ' 7 (invisible) –  PWM
+		  ' 8 (invisible) –  meme format pwm (with header) 
 		  
-		  'RegulogLogo
+		  dim TFname as string
 		  
+		  TFname=CollectionList.Cell(CollectionList.ListIndex,1)
+		  LogoWin.IsRegulog=false
+		  
+		  dim sitesFile,PWMfile as folderitem
+		  dim tos as TextOutputStream
+		  
+		  'write PWM to a temp file:
+		  PWMfile=TemporaryFolder.Child("PWMfile.txt")
+		  if PWMfile<>nil then
+		    tos=TextOutputStream.Create(PWMfile)
+		    if tos <>nil then
+		      tos.Write  CollectionList.Cell(CollectionList.ListIndex,8)
+		      tos.close
+		    else
+		      msgbox "can't write PWMfile"
+		      return
+		    end if
+		  else
+		    msgbox "Can't create PWMfile"
+		    return
+		  end if
+		  
+		  // generate 1000 "operators" from pvm
+		  'pwm2fasta.py
+		  'usage: pwm2fasta.py [-h] -numSeqs NUM_SEQUENCES -in INPUT -out OUTPUT [-motif MOTIF_NAME] [-prefix SEQUENCE_PREFIX] [-seed RANDOM_SEED] [-list-motifs]
+		  
+		  dim fastaFile as folderitem = TemporaryFolder.Child("fasta.fa")
+		  if fastaFile=nil then
+		    msgbox "Can't create fastaFile file"
+		    return
+		  end if
+		  
+		  dim sh as New Shell
+		  'sh.mode=1
+		  'sh.TimeOut=-1
+		  dim pwm2fastaPath as string = Resources_f.Child("pwm2fasta.py").ShellPath
+		  dim cli as string
+		  cli=pythonpath+PlaceQuotesToPath(pwm2fastaPath)+" -numSeqs 1000 -in "+PlaceQuotesToPath(PWMfile.ShellPath)+" -out "+PlaceQuotesToPath(fastaFile.ShellPath)
+		  
+		  'assume bash is the normal user shell
+		  'execute bash with login scripts to set the same env as in terminal
+		  'command must be in single quotes
+		  #if TargetWindows
+		    sh.execute(cli)
+		  #else
+		    sh.execute("bash --login -c "+chr(34)+cli+chr(34)) 'Should be corrected
+		  #endif
+		  
+		  If shError=0 Then
+		    LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		    
+		  else
+		    LogoWin.WriteToSTDOUT (EndofLine+"pwm2fasta error code: "+Str(shError)+EndofLine)
+		    LogoWin.WriteToSTDOUT (EndofLine+shResult)
+		    return
+		  end if
+		  
+		  
+		  'load the profile:
+		  LogoWin.LoadAlignment(fastaFile)
+		  HmmGenSettingsWin.ValueField.text=TFname
+		  MASTGenSettingsWin.ValueField.text=TFname
+		  ProfileWizardWin.ValueField.text=TFname
+		  LogoWin.show
+		  
+		  Exception err
+		    if err isa IOException then
+		      msgbox "A problem creating/reading temporaty file. Please try to clean your temp folder"
+		    end if
+		    ExceptionHandler(err,"LocalMotifCollectionsWin:RegulogLogoButton.Action")
+		    
 		End Sub
 	#tag EndEvent
 #tag EndEvents

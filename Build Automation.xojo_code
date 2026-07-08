@@ -140,6 +140,8 @@
 					FolderItem = Li4vZ2Vub21lU3RhdHMuSlNPTg==
 					FolderItem = Li4vLi4vQ1J0YWdCYXNlLw==
 					FolderItem = Li4vLi4vLi4vLi4vWWFuZGV4LkRpc2subG9jYWxpemVkL0NhbGlicmF0ZWRQcm9maWxlcy8=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2FsbC1zZW5zb3JzLmpzb24=
+					FolderItem = Li4vUHl0aG9uL3B3bTJmYXN0YS5weQ==
 				End
 				Begin IDEScriptBuildStep Zip , AppliesTo = 2, Architecture = 0, Target = 0
 					'Dim result As String
@@ -204,7 +206,6 @@
 					FolderItem = Li4vVEZfZmFtaWxpZXMv
 					FolderItem = Li4vLi4vQ1J0YWdCYXNlLw==
 					FolderItem = Li4vUmVnUHJlY2lzZURhdGEv
-					FolderItem = Li4vLi4vLi4vLi4vLlRyYXNoL19IbW1HZW4ucHk=
 					FolderItem = Li4vUHl0aG9uL2FkZF90ZmJzX3RvX2diay5weQ==
 					FolderItem = Li4vUHl0aG9uL0Jpb1B5dGhvblZlcnNpb24ucHk=
 					FolderItem = Li4vUHl0aG9uL2NvbGxlY3Rfc3RhdHMucHk=
@@ -234,6 +235,8 @@
 					FolderItem = Li4vUHl0aG9uL3RmX2NsYXNzaWZpZXIucHk=
 					FolderItem = Li4vUHl0aG9uL3VuaXByb3QyZ2VucGVwdC5weQ==
 					FolderItem = Li4vLi4vLi4vLi4vWWFuZGV4LkRpc2subG9jYWxpemVkL0NhbGlicmF0ZWRQcm9maWxlcy8=
+					FolderItem = Li4vQnVpbGRfcmVzb3VyY2VzL2FsbC1zZW5zb3JzLmpzb24=
+					FolderItem = Li4vUHl0aG9uL3B3bTJmYXN0YS5weQ==
 				End
 				Begin SignProjectStep Sign
 				  DeveloperID=

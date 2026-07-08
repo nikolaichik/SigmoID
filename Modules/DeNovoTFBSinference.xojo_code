@@ -537,7 +537,19 @@ Protected Module DeNovoTFBSinference
 		        wend
 		        
 		        'get extended hit
-		        CDStmp=Uppercase(NthField(CDSseqs,">"+ProtName,2))
+		        dim ProtName2 as string
+		        if InStr(ProtName,"|")>0 then        'questionable: this will prevent adding CR tags to hmmsearch result during de novo search
+		          
+		          'however, such names are valid when function is called from profile wizard
+		          
+		          'msgbox "Invalid protein name found. Please ensure that no dublicate proteins are present"
+		          'ProtName2=NthField(ProtName,"|",2)
+		          'CDStmp=Uppercase(NthField(CDSseqs,">"+ProtName2,2))
+		          CDStmp=Uppercase(NthField(CDSseqs,">"+ProtName,2))
+		        else
+		          CDStmp=Uppercase(NthField(CDSseqs,">"+ProtName,2))
+		        end if
+		        
 		        If Instr(CDStmp, EndOfLine.UNIX)>0 Then
 		          CDStmp=Nthfield(CDStmp, EndOfLine.UNIX, 2)
 		        End
@@ -547,13 +559,13 @@ Protected Module DeNovoTFBSinference
 		        If Len(cdstmp)<40 Then 
 		          If App.CurrentThread<>Nil Then
 		            If App.CurrentThread.DebugIdentifier="deNovoSearch" Then
-		              deNovoWin.rp.writeToWin("Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames)))
+		              deNovoWin.rp.writeToWin(endOfLine.Unix+"Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames)))
 		              
 		            Else
-		              MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
+		              'MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
 		            End
 		          Else
-		            MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
+		            'MsgBox "Warning! Protein sequence may be too short for proper CR tag extraction! Check the following protein: "+ ProtNames(ubound(ProtNames))
 		          End If
 		        End If
 		        dim gapPos,leftPartStart, rightPartStart as integer
@@ -735,10 +747,14 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="CitT.hmm"
 		  Case "CRP"
 		    hmmFileName="HTH_Crp_2.hmm"
+		  Case "CggR"
+		    hmmFileName="CggR.hmm"
 		  Case "DcuR"
-		    hmmFileName="DcuR.hmm"
+		    hmmFileName="CitT.hmm"
 		  Case "DeoR"
 		    hmmFileName="HTH_DeoR.hmm"
+		  Case "DeoR_SorC"
+		    hmmFileName="DeoR_SorC.hmm"
 		  Case "DtxR"
 		    hmmFileName="Fe_dep_repress.hmm" 
 		  Case "ECF02"
@@ -756,11 +772,11 @@ Protected Module DeNovoTFBSinference
 		  Case "HrpL"
 		    hmmFileName="ECF32.hmm"
 		  Case "ECF240"
-		    hmmFileName="ECF243.hmm"
-		  Case "ECF240"
-		    hmmFileName="ECF243.hmm"
+		    hmmFileName="ECF240.hmm"
+		  Case "ECF243"
+		    hmmFileName="FECI.hmm"
 		  Case "FecI"
-		    hmmFileName="ECF243.hmm"
+		    hmmFileName="FecI.hmm"
 		  Case "Fis"
 		    hmmFileName="bEBP.hmm"
 		  Case "FliA_WhiG"
@@ -789,6 +805,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="AraC.hmm"
 		  Case "HTH_20"
 		    hmmFileName="HTH_20.hmm"
+		  Case "HTH_35"
+		    hmmFileName="HTH_35.hmm"
 		  Case "HTH_AsnC-type"
 		    hmmFileName="HTH_AsnC_type.hmm"
 		  Case "HTH_Crp_2"
@@ -827,12 +845,14 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="RHH.hmm"
 		  Case "ModE"               'LysR sub-family
 		    hmmFileName="LysR.hmm" 
+		  Case "MraZ"
+		    hmmFileName="MraZ.hmm" 
 		  Case "NadR"
 		    hmmFileName="XRE_Superfamily.hmm" 'NadR is covered by XRE superfamily model
 		  Case "NikR"               'RHH sub-family
 		    hmmFileName="RHH.hmm"
 		  Case "NrdR"              
-		    hmmFileName="NrdR_DBD.hmm"
+		    hmmFileName="NrdR.hmm"
 		  Case "[Other]"           ' AraC, OmpR, Fis, DeoR
 		    hmmFileName="AraC.hmm"  'mix of several families, at least 12 of those are from AraC
 		    'hmmFileName="bEBP.hmm"  'PpsR only
@@ -857,6 +877,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="HTH_6.hmm"
 		  Case "Sigma54_DBD"
 		    hmmFileName="Sigma54_DBD.hmm"
+		  Case "Sigma70_ECF"
+		    hmmFileName="Sigma70_ECF.hmm"
 		  Case "TetR"
 		    hmmFileName="TetR.hmm"
 		  Case "TetR_N"
@@ -936,26 +958,33 @@ Protected Module DeNovoTFBSinference
 		  Dim rgmatch As RegExMatch
 		  rg.SearchPattern="\S*(?=\.)"
 		  
-		  uniprot2genpept=Resources_f.Child("uniprot2genpept.py")
-		  If uniprot2genpept<>Nil Then
-		    If Not uniprot2genpept.Exists Then
-		      Return ""
-		    Else
-		      Dim hts As New DeNovoTFBSinference.HTTPSconnection
-		      Dim convertedCodes As Dictionary
-		      convertedCodes = hts.uniprotIDmapping(ecodes, "UniProtKB_AC-ID", "EMBL-GenBank-DDBJ_CDS")
-		      if convertedCodes.value("status") = True then
-		        deNovoWin.rp.writeToWin( convertedCodes.value("logs") + EndOfLine.unix)
-		        ecodes = convertedCodes.value("convertedCodes")
-		      else
-		        deNovoWin.rp.writeToWin( convertedCodes.value("logs") + EndOfLine.unix)
-		        return ""
-		      end
-		    End
-		  Else
-		    'MsgBox("Path to SigmoID folder is Nil")
-		    Return ""
-		  end
+		  
+		  //removed this block since the codes are now pre-converted to NCBI format
+		  'uniprot2genpept=Resources_f.Child("uniprot2genpept.py")
+		  'If uniprot2genpept<>Nil Then
+		  'If Not uniprot2genpept.Exists Then
+		  'Return ""
+		  'Else
+		  'Dim hts As New DeNovoTFBSinference.HTTPSconnection
+		  'Dim convertedCodes As Dictionary
+		  'convertedCodes = hts.uniprotIDmapping(ecodes, "UniProtKB_AC-ID", "EMBL-GenBank-DDBJ_CDS")
+		  'if convertedCodes.value("status") = True then
+		  'deNovoWin.rp.writeToWin( convertedCodes.value("logs") + EndOfLine.unix)
+		  'ecodes = convertedCodes.value("convertedCodes")
+		  'else
+		  'deNovoWin.rp.writeToWin( convertedCodes.value("logs") + EndOfLine.unix)
+		  'return ""
+		  'end
+		  'End
+		  'Else
+		  ''MsgBox("Path to SigmoID folder is Nil")
+		  'Return ""
+		  'end
+		  
+		  
+		  
+		  
+		  
 		  if instr(ecodes,",") > 0 then
 		    ResArray=split(eCodes,",") 'if only one tag, then exception, fix
 		    ResArray.Shuffle 'random distribution of the codes to prevent not using codes in the string's "tail"  

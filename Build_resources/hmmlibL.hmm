@@ -7894,6 +7894,13 @@ DATE  Sun Feb 21 10:21:41 2021
 NSEQ  30
 EFFN  2.069092
 CKSUM 1782999688
+CRTAG 30,31,33,34,37,38,39,40
+PAL   yes
+WIDTH 14-20
+NOTE  SfsB family
+NOTE  Single known structure 7f9h 
+NOTE  Three additional contacts inferred from rom recognition helix and loop positions
+NOTE  and orthologous contacts in superfamily (XRE) model
 GA    25.00 25.00;
 TC    25.00 25.00;
 NC    24.90 24.90;
@@ -14218,7 +14225,7 @@ DATE  Sat Jan 21 11:46:47 2017
 NSEQ  80
 EFFN  19.614258
 CKSUM 2117592197
-CRTAG 6,7,10,11|30,32
+CRTAG 6,7,10,11,15|32
 PAL   yes
 WIDTH 14-22
 GA    24.00 24.00;

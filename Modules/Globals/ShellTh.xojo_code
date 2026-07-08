@@ -26,7 +26,9 @@ Inherits Thread
 		  #if TargetWindows
 		    Sh.execute(cli)
 		  #else
-		    Sh.execute("bash --login -c "+chr(34)+cli+chr(34))
+		    dim comma as string
+		    comma="bash --login -c "+chr(34)+cli+chr(34)
+		    Sh.execute(comma)
 		  #endif
 		  
 		  'shResult=me.result

@@ -5,6 +5,7 @@ from Bio import SeqIO
 from io import StringIO
 from Bio.SeqRecord import SeqRecord
 from Bio.SeqFeature import SeqFeature, FeatureLocation, ExactPosition
+from Bio.Seq import Seq
 
 parser = argparse.ArgumentParser(prog='ExtractFragment',
                                  usage='\n%(prog)s.py <input_genbank_file> @@coord left-coordinate,right-coordinate',
@@ -60,13 +61,13 @@ else:
     print('Coordinate values were not provided')
     sys.exit(1)
 genbank_part = SeqRecord(id=genbank_source.id+' REGION: '+str(left_coor)+'..'+str(right_coor),
-                         description=genbank_source.description, name=genbank_source.name, seq='')
+                         description=genbank_source.description, name=genbank_source.name, seq=Seq(''))
 genbank_part.dbxrefs = genbank_source.dbxrefs.copy()
 genbank_part.annotations = genbank_source.annotations.copy()
 for feature in genbank_source.features:
     if feature.type == 'source':
         f = SeqFeature(FeatureLocation(ExactPosition(0), ExactPosition(right_coor-left_coor), strand=+1),
-                       type='source', id=feature.id, ref_db=feature.ref_db)
+                       type='source', id=feature.id)
         f.qualifiers = feature.qualifiers.copy()
         genbank_part.features.append(f)
 if len(genbank_part.features) == 0:

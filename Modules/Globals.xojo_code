@@ -139,7 +139,7 @@ Protected Module Globals
 		  Else
 		    'Return ""      'Not a DOI, may look for PubMed ID
 		    Dim di As String =PMID2DOI(doi)
-		    If di=doi Then
+		    If di=doi OR di="" Then
 		      Return ""
 		    Else
 		      doi=di
@@ -473,6 +473,8 @@ Protected Module Globals
 
 	#tag Method, Flags = &h0
 		Sub ConvertFolder2meme(SigF as folderitem)
+		  ' currently unused
+		  
 		  // Select a folder with .sig files and convert all of them into a single file in the minimal meme format
 		  
 		  Dim f As FolderItem
@@ -574,11 +576,12 @@ Protected Module Globals
 		              ' 9 (invisible) - meme data
 		              ' 10(invisible) - sig path
 		              
+		              Dim p As picture = LogoFromPWM(PWMdata)  'also calculates mofif information content (stored in Globals.InfoBits)
+		              
 		              Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen,Info,Options,memeData,sigpath)  'first column contains checkboxes
 		              
 		              ConvertProfilesToMEMEWin.CollectionList.AddRow(reg)
 		              
-		              Dim p As picture = LogoFromPWM(PWMdata)
 		              ''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
 		              'dim LogoPicScaled as new Picture (p.width*50/170,35,32)
 		              'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
@@ -635,6 +638,27 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub CopyFileToVV(File2copy as folderitem, NewDestFileName as string, VV as virtualVolume)
+		  'this is used to copy files from tmp dir to virtualVolume
+		  'as the built in CopyFileTo works for virtual volumes only on OS X
+		  
+		  dim f as FolderItem
+		  Dim OutStream as TextOutputStream
+		  Dim InStream As TextInputStream
+		  f=VV.Root.Child(NewDestFileName)
+		  If f <> Nil then
+		    Instream=TextInputStream.Open(File2copy)
+		    OutStream = TextOutputStream.Create(f)
+		    OutStream.Write(Instream.ReadAll)
+		    OutStream.Close
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"App:CopyFileToVV2")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub CopyFileToVV(File2copy as folderitem, VV as virtualVolume)
 		  'this is used to copy files from tmp dir to virtualVolume
 		  'as the built in CopyFileTo works for virtual volumes only on OS X
@@ -651,7 +675,7 @@ Protected Module Globals
 		  End If
 		  
 		  Exception err
-		    ExceptionHandler(err,"App:CopyFileToVV")
+		    ExceptionHandler(err,"App:CopyFileToVV1")
 		End Sub
 	#tag EndMethod
 
@@ -815,6 +839,33 @@ Protected Module Globals
 		  Exception err
 		    ExceptionHandler(err,"Globals:DeleteEntireFolder")
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub dePalindromise(infile as folderitem, outfile as folderitem)
+		  // depalindronises profile that was previously palindromised (should have >f_ and >r_ fasta title lines)
+		  
+		  dim instream as TextInputStream
+		  dim outstream As TextOutputStream
+		  dim aLine,title as string
+		  
+		  InStream = infile.OpenAsTextFile
+		  OutStream = outfile.createTextFile 'make the file to store the stuff in
+		  while not InStream.EOF
+		    
+		    aLine=trim(InStream.readLine)
+		    if left(aLine,3)=">f_" then
+		      OutStream.writeLine ">"+Replaceall(right(aline,len(aline)-3)," ","_") 'removing spaces to avoid losing info in meme run
+		      OutStream.writeLine InStream.readLine
+		    end if
+		    
+		  wend
+		  InStream.close
+		  OutStream.close
+		  
+		  Exception err
+		    ExceptionHandler(err,"Globals:dePalindromise")
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -1807,7 +1858,7 @@ Protected Module Globals
 		      Next
 		      
 		      If hmmpath="" Then
-		        MsgBox "Can't find the HMM file"
+		        MsgBox "Can't find the HMM file for "+HMMname
 		      End If
 		      
 		    End If
@@ -2193,7 +2244,10 @@ Protected Module Globals
 		  instream=CDSfile.OpenAsTextFile
 		  
 		  if instream<>nil then
-		    CDSseqs=replaceall(trim(instream.ReadAll),EndOfLine.unix,"")
+		    CDSseqs=instream.ReadLine+EndOfLine.UNIX
+		    while not InStream.EOF
+		      CDSseqs=CDSseqs+instream.ReadLine
+		    wend
 		    instream.close
 		  end if
 		  CRtagPositions=GetRealCRtag(HMMfilePath)
@@ -3648,6 +3702,396 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ProcessPropagatedRegPreciseF()
+		  // Process a folder with data exported from Propagated Regulons collection of RegPrecise
+		  ' takes a folder with data from one of 13 regulog collections, 
+		  ' asks for an output folder and writes .sig files to family subfolders
+		  
+		  'Dim tmpfile As folderitem
+		  dim inF, outF, aaF, dnaF as folderitem
+		  Dim dlg As New SelectFolderDialog
+		  dim m,n as integer
+		  
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Select RegPrecise propagated regulog collection folder"
+		  dlg.PromptText = "Select RegPrecise propagated regulog collection folder with data to process. Subfolders will be converted into .sig files and sorted into family folders"
+		  
+		  inF = dlg.ShowModal
+		  If inF = Nil Then
+		    msgbox "Invalid data folder for processing"
+		    return
+		  End If
+		  
+		  dlg = New SelectFolderDialog
+		  
+		  dlg.ActionButtonCaption = "Select"
+		  dlg.Title = "Select output folder"
+		  dlg.PromptText = "Select a folder to store processed data"
+		  
+		  outF = dlg.ShowModal
+		  If outF = Nil Then
+		    msgbox "Invalid output folder"
+		    return
+		  End If
+		  
+		  // Check output folder for family subfolders and create missing ones
+		  Const RPfamilies as String = "AraC,ArgR,ArsR,AsnC,BglG,BirA,CcpN,CitB,CodY,CopY,CRP,CsoR,CtsR,DeoR,DtxR,FapR,Fis,FUR,GlnL,GntR,GutR,HrcA,HxlR,IclR,LacI,LexA,LuxR,LysR,LytTR,MarR,MerR,MetJ,ModE,NadQ,NadR,NiaR,NikR,NrdR,NrtR,OmpR,Other,PadR,PurR,Rex,ROK,RpiR,Rrf2,SdaR,SorC,SrmR,TetR,TrmB,TrpR,TunR,TyrR,XRE"
+		  Const NoTagFamilies as String = "BglG,BirA,CcpN,CodY,CopY,CsoR,CtsR,FapR,GlnL,GntR,GutR,HrcA,LytTR,NadQ,NiaR,NrtR,Other,PurR,SdaR,SorC,SrmR,TrmB,TunR"
+		  dim Fam as string
+		  for n=1 to 56
+		    Fam=RPfamilies.nthfield(",",n)
+		    if outF.Child(Fam).Exists then
+		      'it's there, do nothing
+		    else
+		      outF.Child(Fam).CreateFolder
+		    end if
+		  next
+		  
+		  // Process data
+		  m=inF.Count
+		  dim fa, faTitle, RegulogName, FamilyName, RegulonID, UniProtID, StrainName, SigName, file2writeName as string
+		  dim instream as TextInputStream
+		  Dim SigFile As FolderItem
+		  Dim SigFileVV As VirtualVolume
+		  
+		  
+		  for n=1 to m
+		    if inF.Item(n).name<>".DS_Store" then
+		      
+		      if inF.Item(n).Directory then
+		        'process a TF folder
+		        dnaF=inF.Item(n).child("dna.fa")
+		        if dnaF=nil then
+		          logowin.WriteToSTDOUT(EndOfLine+"Can't access dna.fa file for "+inF.Item(n).DisplayName)
+		        else
+		          if dnaF.exists then
+		            logowin.LoadAlignment(dnaF)
+		            LogoWin.show
+		            if LengthsDiffer then
+		              logowin.ChangeView("Sequences")
+		              logowin.LogoTabs.TabIndex=1
+		            else
+		              logowin.ChangeView("Logo")
+		              logowin.LogoTabs.TabIndex=0
+		            end if
+		          else
+		            logowin.WriteToSTDOUT(EndOfLine+"Missing dna.fa file for "+inF.Item(n).DisplayName)
+		          end if
+		        end if
+		        
+		        
+		        aaF=inF.Item(n).child("aa.fa")
+		        
+		        if aaF=nil then
+		          logowin.WriteToSTDOUT(EndOfLine+"Can't access aa.fa file for "+inF.Item(n).DisplayName)
+		        else
+		          if aaF.exists then
+		            
+		            InStream = aaF.OpenAsTextFile
+		            if instream<>nil then
+		              fa=InStream.readAll
+		              faTitle=fa.NthField(EndOfLine.Unix,1)
+		              'title line includes locus_tag, strain identifier, family name and RegPrecise regulon_id, like this
+		              '>Tery_1953 UPI00003C9D19 Trichodesmium erythraeum IMS101 RegulatorFamily=FUR regulon_id=29481
+		              
+		              'TFname=faTitle.NthField(" ",1)                
+		              'TFname=TFname.NthField(">",2)
+		              RegulogName=faTitle.NthField("RegulogName=",2)
+		              RegulogName=trim(RegulogName.NthField(" ",1))
+		              FamilyName=faTitle.NthField("RegulatorFamily=",2)
+		              FamilyName=trim(FamilyName.NthField(" ",1))
+		              if instr(FamilyName,"GntR/")>0 then
+		                FamilyName="GntR" 'Combine two subfamilies
+		              end if
+		              RegulonID=faTitle.NthField("regulon_id=",2)
+		              UniProtID=faTitle.NthField(" ",2)
+		              StrainName=faTitle.NthField(UniProtID,2)
+		              StrainName=trim(StrainName.NthField("RegulatorFamily=",1))
+		              StrainName=StrainName.ReplaceAll(" ","_")
+		              StrainName=StrainName.ReplaceAll(":","_")
+		              StrainName=StrainName.ReplaceAll("'","")
+		              StrainName=StrainName.ReplaceAll(",","_")
+		              StrainName=StrainName.ReplaceAll("._","_")
+		            end if
+		            
+		            // Fill required ProfileWizard fields
+		            
+		            'TF name
+		            ProfileWizardWin.ValueField.Text=RegulogName                            
+		            
+		            'RegPrecise reference
+		            ProfileWizardWin.RefsList.RemoveAllRows
+		            ProfileWizardWin.RefsList.AddRow
+		            ProfileWizardWin.RefsList.CellValueAt(ProfileWizardWin.RefsList.LastRowIndex,1)="https://regprecise.lbl.gov/propagated_regulon.jsp?pg_regulon_id="+RegulonID
+		            ProfileWizardWin.RefsList.CellValueAt(ProfileWizardWin.RefsList.LastRowIndex,0)="RegPrecise propagated regulon"
+		            
+		            'set the TF protein sequence 
+		            ProfileWizardWin.SeedProteinArea.Text=fa
+		            ProfileWizardWin.SeedProteinArea.TextColor=&c00000000
+		            
+		            'set TF family
+		            If FamilyName<>"" Then
+		              
+		              if instr(NoTagFamilies,FamilyName)>0 then
+		                
+		                'skip calculation of CR tag for families where tag coords are unknown
+		                
+		              else
+		                Dim TFhmmName As String = GetHmmFromFamilyName(FamilyName).DisplayName
+		                dim i as integer
+		                For i=0 To ProfileWizardWin.TFhmmPopup.LastRowIndex 
+		                  If ProfileWizardWin.TFhmmPopup.RowValueAt(i)=TFhmmName Then
+		                    ProfileWizardWin.TFhmmPopup.SelectedRowIndex=i
+		                    ProfileWizardWin.UpdateCRtag
+		                    ProfileWizardWin.refresh
+		                    Exit
+		                  End If
+		                Next
+		                if i>ProfileWizardWin.TFhmmPopup.LastRowIndex then
+		                  MsgBox "No Hmm ("+TFhmmName+") found for "+ FamilyName
+		                end if
+		              end if
+		            End 
+		            
+		            'TF name
+		            ProfileWizardWin.ValueField.text=RegulogName
+		            
+		            // Save .sig
+		            'locus_tag is utilised as TF name in propagated collections, hence here we are using more informative RegulogName 
+		            SigName=ProfileWizardWin.CRtagSeqField.text+"_"+RegulogName+"_"+StrainName+".sig"
+		            dim familyF as folderitem
+		            familyF=outf.Child(FamilyName)
+		            if familyF=nil then
+		              Msgbox "No family folder for "+FamilyName
+		              break
+		            else
+		              if familyF.exists then
+		              else
+		                familyF=outf.Child("Other")
+		              end if
+		            end if
+		            SigFile=familyF.Child(SigName)
+		            If SigFile <> Nil Then
+		              if SigFile.exists then
+		                'a virtualVolume problem
+		                #if TargetLinux
+		                  'SpecialFolder.Trash returns NIL in Linux, hence we can't do this properly here
+		                  msgbox "Can't overwrithe the existing .sig file. Please remove it or save the new file with a different name"
+		                  return
+		                #else
+		                  dim fn as string = sigfile.ShellPath
+		                  SigFile.MoveFileTo(SpecialFolder.Trash) 'can't just delete because of the VirtualVolume inside
+		                  SigFile=GetFolderItem(fn,FolderItem.PathTypeShell)
+		                #endif
+		              end if
+		              
+		              SigFileVV = SigFile.CreateVirtualVolume
+		              If SigFileVV <> nil Then
+		                'first copy the existing files:
+		                'AlignmentFile.CopyFileTo(SigFileVV.Root)    'broken in Linux
+		                file2writeName=SigName.replace(".sig",".fasta")
+		                CopyFileToVV(dnaF,file2writeName,SigFileVV)                                              'operator seqs
+		                
+		                //assemble options file
+		                file2writeName=SigName.replace(".sig",".options")
+		                dim f2 as folderitem =SigFileVV.Root.child(file2writeName)
+		                if f2<>nil then
+		                  dim outstream As TextOutputStream
+		                  outstream = TextOutputStream.Create(f2)
+		                  
+		                  outstream.WriteLine("////")
+		                  outstream.WriteLine("// TF family and critical residue tag settings")
+		                  outstream.WriteLine("////")
+		                  outstream.WriteLine(Endofline)
+		                  
+		                  if instr(NoTagFamilies,FamilyName)=0 then 'only for families where tag coords are known
+		                    outstream.WriteLine("// TF family HMM file name")
+		                    outstream.WriteLine("TF_HMM "+trim(ProfileWizardWin.TFhmmPopup.Text))
+		                    'outstream.WriteLine(Endofline)
+		                    
+		                    Dim HMM_ACC As String = GetHMMaccession(ProfileWizardWin.TFhmmPopup.Text)
+		                    outstream.WriteLine("// TF family HMM accession code")
+		                    outstream.WriteLine("HMM_ACC "+HMM_ACC)
+		                  else
+		                    outstream.WriteLine("// TF family HMM file name")
+		                    outstream.WriteLine("TF_HMM  ")
+		                    'outstream.WriteLine(Endofline)
+		                    
+		                    outstream.WriteLine("// TF family HMM accession code")
+		                    outstream.WriteLine("HMM_ACC  ")
+		                  end if
+		                  
+		                  outstream.WriteLine("// CRtag coordinates")
+		                  outstream.WriteLine("CRtagCoords "+CRtagPositions)
+		                  'outstream.WriteLine(Endofline)
+		                  
+		                  outstream.WriteLine("// CRtag sequence")
+		                  outstream.WriteLine("CRtag "+trim(ProfileWizardWin.CRtagSeqField.text))
+		                  
+		                  
+		                  'get seed protein name and sequence
+		                  dim proteinID, proteinSeq as string
+		                  dim lineBreakC as integer
+		                  
+		                  dim splitP() as String
+		                  splitp=ProfileWizardWin.SeedProteinArea.text.split(EndOfLine.UNIX)
+		                  
+		                  'modify title line
+		                  'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
+		                  dim Pseq as string
+		                  splitP(0)=ReplaceAll(trim(splitP(0))," ","_")   'hmmer doesn't like spaces
+		                  splitP(0)=ReplaceAll(splitP(0),chr(9),"_")                'hmmer doesn't like tabs
+		                  Pseq=Join(splitP,endOfLine.UNIX)
+		                  proteinSeq=trim(Pseq)
+		                  #if TargetWindows
+		                    
+		                    lineBreakC=instr(proteinSeq,chr(13))
+		                    if lineBreakC=0 then
+		                      msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
+		                      return
+		                    End If
+		                    proteinID=NthField(proteinSeq,chr(13),1)
+		                  #else
+		                    lineBreakC=instr(proteinSeq,EndOfLine.Unix)
+		                    if lineBreakC=0 then
+		                      msgbox "Incorrect seed protein data. Please use FASTA format with protein_id on the first line and sequence on the following lines."
+		                      return
+		                    End If
+		                    proteinID=NthField(proteinSeq,EndOfLine.Unix,1)
+		                  #endif
+		                  proteinID=right(proteinID,len(proteinID)-1) 'remove the > sign
+		                  proteinSeq=CleanUp(right(proteinSeq,len(proteinSeq)-lineBreakC))
+		                  
+		                  outstream.WriteLine("// protein_id of the TF used to seed the profile")
+		                  outstream.WriteLine("protein_id "+proteinID)
+		                  'outstream.WriteLine(Endofline)
+		                  
+		                  outstream.WriteLine("// seed protein sequence (single line)")
+		                  outstream.WriteLine("Seed_protein "+proteinSeq)
+		                  outstream.WriteLine(Endofline)
+		                  'outstream.WriteLine(Endofline)
+		                  
+		                  outstream.WriteLine("////")
+		                  outstream.WriteLine("// nhmmer options")
+		                  outstream.WriteLine("////")
+		                  outstream.WriteLine(Endofline)
+		                  
+		                  'cutoffs are arbitrary!
+		                  outstream.WriteLine("// Trusted cutoff. Bit score per-sequence cutoff, set according to the lowest scores seen for true homologous sequences that were above the GA gathering thresholds, when gathering members of the alignment")
+		                  outstream.WriteLine("#=GF TC 7 7") '+trim(TrustedField.text)+" "+trim(TrustedField.text))
+		                  outstream.WriteLine(Endofline)
+		                  
+		                  outstream.WriteLine("// Gathering threshold. Bit score per-sequence cutoff used in gathering the members of the alignment")
+		                  outstream.WriteLine("#=GF GA  7 7") '+trim(GatheringField.text)+" "+trim(GatheringField.text))
+		                  outstream.WriteLine(Endofline)
+		                  
+		                  outstream.WriteLine("//Noise cutoff. Bit score per-sequence cutoff, set according to the highest scores seen for unrelated sequences")
+		                  outstream.WriteLine("#=GF NC  7 7") '+trim(NoiseField.text)+" "+trim(NoiseField.text))
+		                  outstream.WriteLine(Endofline)
+		                  
+		                  outstream.WriteLine("// use the gathering threshold from the calibrated profile")
+		                  outstream.WriteLine("nhmmer.--cut_ga")
+		                  outstream.WriteLine(Endofline)
+		                  outstream.WriteLine(Endofline)
+		                  
+		                  outstream.WriteLine("////")
+		                  outstream.WriteLine("// HmmGen options")
+		                  outstream.WriteLine("////")
+		                  outstream.WriteLine(Endofline)
+		                  
+		                  'not used any more:
+		                  'outstream.WriteLine("// the alignment length")
+		                  'outstream.WriteLine("HmmGen.-L "+str(LogoWin.LogoLength))
+		                  'outstream.WriteLine(Endofline)
+		                  
+		                  'if PalindromicBox.value then
+		                  'outstream.WriteLine("// the site is palindromic")
+		                  'outstream.WriteLine("HmmGen.-p")
+		                  'outstream.WriteLine(Endofline)
+		                  'end if
+		                  
+		                  'if NOT NextLocusBox.value then
+		                  'outstream.WriteLine("// don't pick up locus_tag from next locus")
+		                  'outstream.WriteLine("HmmGen.-n")
+		                  'outstream.WriteLine(Endofline)
+		                  'end if
+		                  
+		                  'if WithinORFBox.value then
+		                  outstream.WriteLine("// ignore sites inside ORFs (and risk missing some real ones!)")
+		                  outstream.WriteLine("HmmGen.-i ")
+		                  outstream.WriteLine(Endofline)
+		                  'end if
+		                  
+		                  outstream.WriteLine("// feature key")
+		                  outstream.WriteLine("HmmGen.-f "+"protein_bind")
+		                  outstream.WriteLine(Endofline)
+		                  
+		                  outstream.WriteLine("// feature qualifier")
+		                  outstream.WriteLine("HmmGen.-q "+ProfileWizardWin.KeyField.Text+"#"+RegulogName)
+		                  outstream.WriteLine(Endofline)
+		                  
+		                  'MASTgen p-value
+		                  outstream.WriteLine("// MASTgen p-value cutoff")
+		                  outstream.WriteLine("mastGen.-V "+ProfileWizardWin.MASTField.Text)
+		                  outstream.WriteLine(EndOfLine)
+		                  
+		                  outstream.Close
+		                  
+		                  
+		                  'Write profile info file:
+		                  file2writeName=SigName.replace(".sig",".info")
+		                  f2=SigFileVV.Root.child(file2writeName)
+		                  if f2<>nil then
+		                    outstream = TextOutputStream.Create(f2)
+		                    outstream.Write("   Exported from RegPrecise propagated regulon collection.")
+		                    outstream.close
+		                  End If
+		                  logowin.WriteToSTDOUT(EndOfLine+"sig file written to "+SigFile.ShellPath)
+		                  
+		                  'Write refs file:
+		                  file2writeName=SigName.replace(".sig",".refs")
+		                  f2=SigFileVV.Root.child(file2writeName)
+		                  If f2<>Nil Then
+		                    outstream = TextOutputStream.Create(f2)
+		                    Dim z as Integer
+		                    For z=0 To ProfileWizardWin.RefsList.RowCount-1
+		                      Dim aLine As String=ProfileWizardWin.RefsList.CellValueAt(z,0)+Chr(9)+ProfileWizardWin.RefsList.CellValueAt(z,1)+Chr(9)+ProfileWizardWin.RefsList.CellValueAt(z,2)
+		                      If Trim(aLine)<>"" Then
+		                        aline=ReplaceAll(aline, EndOfLine.UNIX," ") 'lineEnds might be present – remove 'em
+		                        outstream.WriteLine(CleanUpRefs(aline))   'cleanUp only needed when re-saving old .sig files
+		                      End If
+		                    Next
+		                    outstream.close
+		                  End If
+		                  
+		                end if
+		                
+		              else
+		                logowin.WriteToSTDOUT(EndOfLine+"Missing aa.fa file for "+inF.Item(n).DisplayName)
+		              end if
+		            end if
+		            
+		          end if
+		        end if
+		      end if
+		    end if
+		  Next
+		  'LogoWin.WriteToSTDOUT("OK"+EndOfLine.UNIX)
+		  
+		  
+		  
+		  
+		  
+		  Exception err
+		    if err isa IOException then
+		      msgbox "A problem creating/reading temporaty file. Please try to clean your temp folder"
+		    end if
+		    ExceptionHandler(err,"Globals:ProcessPropagatedRegPreciseF")
+		    
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ReadPrefs()
 		  If PrefsRead Then Return
 		  
@@ -4327,6 +4771,72 @@ Protected Module Globals
 		  Exception err
 		    ExceptionHandler(err,"Globals:SetLinuxIcon")
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ShortenLigandJSON(JSONin as JSONItem) As string
+		  dim site as JSONItem
+		  dim ShortLigands as string
+		  dim n as integer
+		  
+		  
+		  if JSONin.IsArray then
+		    'ShortLigands="[{"+EndOfLine.UNIX+"   "+chr(34)+"ligands"+chr(34)+":["+EndOfLine.UNIX
+		    ShortLigands="["
+		    
+		    for n=0 to JSONin.Count-1
+		      if JSONin(n) isa JSONItem then
+		        'should contain smth like:
+		        '{"name":"Palmitoleic acid", "SMILES":"CCCCCC/C=C\\CCCCCCCC(=O)O", "doi":"10.1073/pnas.0915021107"}
+		        site=new JSONItem
+		        site=JSONin(n)
+		        if n>0 then
+		          ShortLigands=ShortLigands+","+EndOfLine.UNIX
+		        end if
+		        Try
+		          ShortLigands=ShortLigands+"{"+EndOfLine.UNIX+"   "+chr(34)+"name"+chr(34)+":"+chr(34)+site.value("name")+chr(34)+","+EndOfLine.UNIX
+		          ShortLigands=ShortLigands+"   "+chr(34)+"SMILES"+chr(34)+":"+chr(34)+site.value("SMILES")+chr(34)+","+EndOfLine.UNIX
+		          ShortLigands=ShortLigands+"   "+chr(34)+"doi"+chr(34)+":"+chr(34)+site.value("doi")+chr(34)+EndOfLine.UNIX+"}"
+		        Catch err As KeyNotFoundException
+		          'Log the error: 
+		          LogoWin.WriteToSTDOUT("There was a problem parsing GroovDB data. Ligand number "+str(n)+" was skipped"+EndOfLine.unix)
+		          
+		        End Try
+		        
+		      end if
+		      
+		    next
+		    'ShortLigands=ShortLigands+"}"+EndOfLine.UNIX+"   ]"+EndOfLine.UNIX+"}]"+EndOfLine.UNIX
+		    ShortLigands=ShortLigands+"]"+EndOfLine.UNIX
+		    
+		    return ShortLigands
+		    
+		    'else
+		    ''single ligand
+		    ''should contain smth like:
+		    ''{"name":"Palmitoleic acid", "SMILES":"CCCCCC/C=C\\CCCCCCCC(=O)O", "doi":"10.1073/pnas.0915021107"}
+		    '
+		    'ShortLigands="{"+EndOfLine.UNIX
+		    '
+		    'Try
+		    'ShortLigands=ShortLigands+"         "+chr(34)+"name"+chr(34)+":"+chr(34)+sites.value("name")+chr(34)+","+EndOfLine.UNIX
+		    'ShortLigands=ShortLigands+"         "+chr(34)+"SMILES"+chr(34)+":"+chr(34)+sites.value("SMILES")+chr(34)+","+EndOfLine.UNIX
+		    'ShortLigands=ShortLigands+"         "+chr(34)+"doi"+chr(34)+":"+chr(34)+sites.value("doi")+chr(34)+EndOfLine.UNIX+"      }"
+		    'Catch err As KeyNotFoundException
+		    ''Log the error: 
+		    'LogoWin.WriteToSTDOUT("There was a problem parsing GroovDB data. Ligand number "+str(n)+" was skipped"+EndOfLine.unix)
+		    '
+		    'End Try
+		    '
+		    'ShortLigands=ShortLigands+"}"+EndOfLine.UNIX
+		    '
+		    'return ShortLigands
+		    
+		  end if
+		  
+		  Exception err
+		    ExceptionHandler(err,"ShortenLigandJSON")
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

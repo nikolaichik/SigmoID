@@ -338,8 +338,10 @@ End
 		      GenomeGoto.Enabled=true
 		      GenomeMergePlotData.Enabled=true
 		      GenomeAddPlot.Enabled=true
-		      GenomeRemovePlots.Enabled=true    'not quite correct, but can't enable otherwise
-		      GenomePrintMap.Enabled=true
+		      'GenomeRemovePlots.Enabled=true    'not quite correct, but can't enable otherwise
+		      
+		      'GenomePrintMap.Enabled=true 'Xojo started to claim GenomePrintMap menuitem does not exist on Linux!
+		      
 		    end if
 		  #endif
 		  
@@ -1698,7 +1700,8 @@ End
 		    For n=1 To m
 		      If SigF.Item(n).name<>".DS_Store" Then
 		        If SigF.Item(n).Directory Then
-		          'skip folder
+		          'skip folder for now
+		          'add option to process nested folders?
 		        Else
 		          If Right(SigF.Item(n).Name,4)=".sig" Then
 		            
@@ -1778,11 +1781,12 @@ End
 		                ' 9 (invisible) - meme data
 		                ' 10(invisible) - sig path
 		                
+		                Dim p As picture = LogoFromPWM(PWMdata) 'also calculates mofif information content (stored in Globals.InfoBits)
+		                
 		                Dim reg() As String = Array("",motifName,nSites,Str(Globals.InfoBits),"", FastaData,siteLen,Info,Options,memeData,sigpath)  'first column contains checkboxes
 		                
 		                ConvertProfilesToMEMEWin.CollectionList.AddRow(reg)
 		                
-		                Dim p As picture = LogoFromPWM(PWMdata)
 		                ''scale the picture down to 35 pixel heigh and stretch it horisontally a bit
 		                'dim LogoPicScaled as new Picture (p.width*50/170,35,32)
 		                'LogoPicScaled.Graphics.DrawPicture (p,0,0,p.width*50/170,35,0,0,p.width,p.Height)
@@ -1842,6 +1846,14 @@ End
 		    ExceptionHandler(err,"App:ProfileConvertFolderToMEME")
 		    
 		    
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ProfileDepalindromise() As Boolean Handles ProfileDepalindromise.Action
+		  dePalindromise
+		  Return True
+		  
 		End Function
 	#tag EndMenuHandler
 
@@ -2619,7 +2631,7 @@ End
 		          outstream.Write(ConvertEncoding(motifEntryFasta, Encodings.UTF8))
 		          outstream.Close
 		          
-		          cli = AlignerPath + " --auto "+mafft_align.NativePath
+		          cli = AlignerPath + " --auto -i "+mafft_align.NativePath
 		          #If TargetWindows
 		            ExecuteWSL(cli)
 		          #Else
@@ -2630,7 +2642,7 @@ End
 		          else
 		            ' write output for debugging
 		            'WriteToSTDOUT("Alignment-"+str(count)+EndOfLine.UNIX+shResult)
-		            output = shResult.split(EndOfLine.UNIX)
+		            output = shResult.split(EndOfLine.UNIX) 
 		            alignedSeq = new Dictionary
 		            for  i as integer = 0 to UBound(output)
 		              if output(i).BeginsWith(">") then
@@ -2811,22 +2823,26 @@ End
 		        end
 		        
 		        ' find CR-tag
-		        if HMMmodels.HasKey(TFentry.Value("accession")) then
-		          aaSeq = getFlankedText(entryGBfeature.FeatureText, "/translation=" + chr(34), chr(34))
-		          if aaSeq <> "" then
-		            if CDSfile.exists then
-		              CDSfile.Remove
+		        if entryGBfeature <> nil then
+		          if HMMmodels.HasKey(TFentry.Value("accession")) then
+		            aaSeq = getFlankedText(entryGBfeature.FeatureText, "/translation=" + chr(34), chr(34))
+		            if aaSeq <> "" then
+		              if CDSfile.exists then
+		                CDSfile.Remove
+		              end
+		              outstream = TextOutputStream.open(CDSfile)
+		              outstream.Write(">" + entry.Key + EndOfLine.UNIX + aaSeq + EndOfLine.UNIX)
+		              outstream.close
 		            end
-		            outstream = TextOutputStream.open(CDSfile)
-		            outstream.Write(">" + entry.Key + EndOfLine.UNIX + aaSeq + EndOfLine.UNIX)
-		            outstream.close
+		            hmmSearchRes = HMMsearchWithCRtags(CDSFile, Hmmmodels.Value(TFentry.Value("accession")))
+		            TFentry.Value("cr_tag") = getFlankedText(hmmSearchRes,">")
+		          else
+		            TFentry.Value("cr_tag") = "-"
 		          end
-		          hmmSearchRes = HMMsearchWithCRtags(CDSFile, Hmmmodels.Value(TFentry.Value("accession")))
-		          TFentry.Value("cr_tag") = getFlankedText(hmmSearchRes,">")
+		          parsedHMMtbl.Value(entry.Key) = TFentry
 		        else
-		          TFentry.Value("cr_tag") = "-"
-		        end
-		        parsedHMMtbl.Value(entry.Key) = TFentry
+		          beep
+		        end if
 		      end
 		    next
 		    w.storage = parsedHMMtbl
@@ -3177,6 +3193,32 @@ End
 		  end
 		  
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Sub dePalindromise()
+		  PalindromeLogoFile=TemporaryFolder.child("LogoPalindrome")
+		  
+		  'since we change data, that's not the .sig any more!
+		  SigFileOpened=false
+		  
+		  If PalindromeLogoFile <> Nil then
+		    dePalindromise(logofile, palindromeLogofile)
+		    logofile=PalindromeLogoFile
+		    
+		    'replace contents of the Sequence variable (for viewing)
+		    dim instream as TextInputStream = PalindromeLogoFile.OpenAsTextFile
+		    Sequences=Instream.ReadAll
+		    instream.Close
+		    DrawLogo
+		    palindromic=false
+		    LogoWinToolbar.Item(4).Enabled=false
+		    HmmGenSettingsWin.PalindromicBox.value=false
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"LogoWin:dePalindromise")
 		End Sub
 	#tag EndMethod
 
@@ -4240,7 +4282,7 @@ End
 		      Dim f As folderitem
 		      dim inStream as TextInputStream
 		      if vv<>Nil then
-		        f=vv.root.child(basename+".info")     'Info
+		        f=vv.root.child(basename+".info")     'Profile Info
 		      else
 		        f=tmpfile.child(basename+".info")
 		      end if
@@ -4254,11 +4296,37 @@ End
 		          ProfileWizardWin.InfoArea.Text=info
 		          inStream.close
 		        else
-		          msgbox "Can't read alignment info"
+		          msgbox "Can't read profile info"
 		        End If
 		      else
-		        msgbox "No alignment info file ("+ f.Name+") located at "+f.ShellPath
+		        msgbox "No profile info file ("+ f.Name+") located at "+f.ShellPath
 		      end if
+		      
+		      if vv<>Nil then
+		        f=vv.root.child(basename+".json")     'Ligand Info
+		      else
+		        f=tmpfile.child(basename+".json")
+		      end if
+		      
+		      if f.exists then
+		        InStream = f.OpenAsTextFile
+		        if InStream <>nil then
+		          ligands=inStream.ReadAll
+		          ProfileWizardWin.LigandArea.Italic=false
+		          ProfileWizardWin.LigandArea.TextColor=&c00000000 'black
+		          'dim LIgandsJSON as New JSONItem(ligands)
+		          'ProfileWizardWin.LigandArea.Text=ShortenLigandJSON(LIgandsJSON)
+		          ProfileWizardWin.LigandArea.Text=ligands
+		          inStream.close
+		        else
+		          msgbox "Can't read ligand info"
+		          ProfileWizardWin.LigandArea.Text=""
+		        End If
+		      else
+		        'msgbox "No ligand info file ("+ f.Name+") located at "+f.ShellPath
+		        ProfileWizardWin.LigandArea.Text=""
+		      end if
+		      
 		      
 		      If vv<>Nil Then
 		        f=vv.root.child(basename+".options")  'Profile Settings
@@ -6232,6 +6300,10 @@ End
 
 	#tag Property, Flags = &h1
 		Protected LastX As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected Ligands As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

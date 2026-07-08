@@ -1607,6 +1607,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function GenomeCountCoverage(index as Integer) As Boolean Handles GenomeCountCoverage.Action
+		  CoverageStats
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function GenomeEditFeature() As Boolean Handles GenomeEditFeature.Action
 		  EditFeature(seq.Features(SelFeatureNo))
 		  Return True
@@ -1748,7 +1756,7 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function GenomePrintMap() As Boolean Handles GenomePrintMap.Action
+		Function GenomePrintMap(index as Integer) As Boolean Handles GenomePrintMap.Action
 		  PrintMap
 		  Return True
 		  
@@ -2438,6 +2446,264 @@ End
 		    c.Text=mid(seq.Sequence,seq.SelStart,seq.SelLength)
 		  end if
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CoverageStats()
+		  // Calculate various stats from coverage graphs:
+		  // per gene counts;
+		  // per category counts
+		  
+		  ' unfinished modification of GenomeStats. 
+		  
+		  dim fType, fText, s, cf1, splitCoords, coord, name, splitFC, interval as string
+		  dim types(0) as string
+		  dim counts(0), lengths(0) as integer
+		  dim m,n,u,o,p, start, finish, GeneCount, GeneLengths, PseudoCount, PseudoLengths, ftLength, intervals as integer
+		  dim ft as GBFeature
+		  dim leftC as integer
+		  dim rightC as integer
+		  'dim FeatureComplement as boolean
+		  dim count1, count2,count3, count4 as integer
+		  dim LocusTagLeft as string= "/locus_tag="+Chr(34)
+		  dim GeneLeft as string= "/gene="+Chr(34)
+		  dim ProductLeft as string= "/product="+Chr(34)
+		  dim featureName as string
+		  
+		  // initialise major feature types and their counts
+		  types.Append "gene"
+		  types.Append "CDS"
+		  types.Append "tRNA"
+		  types.Append "rRNA"
+		  types.Append "ncRNA"
+		  counts.Append 0
+		  counts.Append 0
+		  counts.Append 0
+		  counts.Append 0
+		  counts.Append 0
+		  lengths.Append 0
+		  lengths.Append 0
+		  lengths.Append 0
+		  lengths.Append 0
+		  lengths.Append 0
+		  
+		  // initialise coverage table column arrays
+		  dim LocusTa, LocusTag(0), feType(0), Fnam, Fname(0),geneName(0) As string
+		  dim CovCount1(0) as integer
+		  dim CovCount2(0) as integer
+		  dim CovCount3(0) as integer
+		  dim CovCount4(0) as integer
+		  
+		  
+		  LogoWin.WriteToSTDOUT (EndofLine+"Calculating coverage statistics...")
+		  LogoWin.STDOUT.Refresh(false)
+		  Logowin.show
+		  
+		  
+		  // genome feature coverage counts 
+		  u=ubound(Genome.Features)
+		  for n=1 to u
+		    fText=Genome.Features(n).FeatureText
+		    'if left(ftext,4)="gene" then
+		    fType=NthField(ftext," ",1)
+		    ftLength=0
+		    'get coordinates:
+		    cf1=nthfield(ftext,cLineEnd,1)
+		    if InStrB(17,cf1,"complement")>0 then
+		      'FeatureComplement=true
+		      if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then 'split feature: sum all intervals
+		        'example:
+		        'misc_feature    complement(order(3576182..3576235,3576263..3576322,
+		        '3576341..3576409,3576467..3576532))
+		        splitFC=nthfield(cf1,"(",3)
+		        splitFC=nthfield(splitFC,")",1)
+		        intervals=CountFields(splitFC,",")
+		        for m=1 to intervals
+		          interval=NthField(splitFC,",",m)
+		          ftLength=ftLength+abs(val(nthfield(interval,"..",1))-val(nthfield(interval,"..",2)))+1
+		        next
+		      else
+		        coord=rightb(cf1,lenb(cf1)-instrb(cf1,"("))  'coords in brackets for complementary strand
+		        ftLength=abs(val(nthfield(coord,"..",1))-val(nthfield(coord,"..",2)))+1
+		      end if
+		    else
+		      'FeatureComplement=false
+		      if InStrB(17,cf1,"order")>0 OR InStrB(17,cf1,"join")>0 then   'split feature: sum all intervals
+		        'example:
+		        'misc_feature    order(343373..343441,343469..343537,343652..343720,
+		        '343799..343867,343925..343984)
+		        splitFC=nthfield(cf1,"(",2)
+		        splitFC=nthfield(splitFC,")",1)
+		        intervals=CountFields(splitFC,",")
+		        for m=1 to intervals
+		          interval=NthField(splitFC,",",m)
+		          ftLength=ftLength+abs(val(nthfield(interval,"..",1))-val(nthfield(interval,"..",2)))+1
+		        next
+		        
+		      else
+		        name=trim(leftb(cf1,16))
+		        coord=ltrim(rightb(cf1,lenb(cf1)-lenb(name)))
+		        ftLength=abs(val(nthfield(coord,"..",1))-val(nthfield(coord,"..",2)))+1
+		        
+		      end if
+		    end if
+		    
+		    'count feature coverage
+		    'only for CDS, rRNA, tRNA, ncRNA
+		    if fType= "CDS" or fType= "rRNA" or fType= "tRNA" or fType= "ncRNA" then
+		      leftC= val(nthfield(coord,"..",1))
+		      rightC= val(nthfield(coord,"..",2))
+		      count1=0
+		      count2=0
+		      count3=0
+		      count4=0
+		      if ubound(self.Genome.ReadDepth4)>1 then '4 graphs
+		        for m=leftC to rightC
+		          count1=count1+self.Genome.ReadDepth1(m)
+		          count2=count2+self.Genome.ReadDepth2(m)
+		          count3=count3+self.Genome.ReadDepth3(m)
+		          count4=count4+self.Genome.ReadDepth4(m)
+		        next
+		      elseif ubound(self.Genome.ReadDepth3)>1 then '3 graphs
+		        for m=leftC to rightC
+		          count1=count1+self.Genome.ReadDepth1(m)
+		          count2=count2+self.Genome.ReadDepth2(m)
+		          count3=count3+self.Genome.ReadDepth3(m)
+		        next
+		      elseif ubound(self.Genome.ReadDepth2)>1 then '2 graphs
+		        for m=leftC to rightC
+		          count1=count1+self.Genome.ReadDepth1(m)
+		          count2=count2+self.Genome.ReadDepth2(m)
+		        next
+		      else                                                                             '1 graph
+		        for m=leftC to rightC
+		          count1=count1+self.Genome.ReadDepth1(m)
+		        next
+		        
+		        
+		      end if
+		      LocusTag.append nthField(nthField(ftext,LocusTagLeft,2),chr(34),1)
+		      if  InStr(ftext,"/gene")>0 then
+		        geneName.append nthField(nthField(ftext,geneLeft,2),chr(34),1)
+		      else
+		        geneName.append ""
+		      end if
+		      feType.append fType
+		      if  fType="gene" then
+		        featureName=nthField(nthField(ftext,geneLeft,2),chr(34),1)
+		      else
+		        featureName=nthField(nthField(ftext,productLeft,2),chr(34),1)
+		      end if
+		      featureName=replaceall(featureName,EndOfLine.UNIX," ")
+		      Fname.append featureName
+		      CovCount1.append count1
+		      CovCount2.append count2
+		      CovCount3.append count3
+		      CovCount4.append count4
+		    end if
+		    
+		    if instr(ftext,"/pseudo")>0 then                           'pseudogenes are counted separately
+		      PseudoCount=PseudoCount+1
+		      PseudoLengths=PseudoLengths+ftLength
+		    else
+		      
+		      o=ubound(types)
+		      for p=1 to o
+		        if fType=types(p) then
+		          exit
+		        end if
+		      next
+		      if p>o then
+		        'new feature type
+		        types.Append fType
+		        counts.append 1
+		        lengths.Append ftLength
+		        'beepp
+		      else
+		        counts(p)=counts(p)+1
+		        lengths(p)=lengths(p)+ftLength
+		      end if
+		      
+		    end if
+		    'end if   'left(ftext,4)="gene" then
+		    
+		  next
+		  
+		  Dim GenomeLength As Integer = Len(Genome.Sequence)
+		  // Calculate nucleotide content 
+		  
+		  Dim pA,pC,pG,pT,pN As Double
+		  pA=(CountFields(Genome.Sequence,"A")-1)*100/GenomeLength
+		  pC=(CountFields(Genome.Sequence,"C")-1)*100/GenomeLength
+		  pG=(CountFields(Genome.Sequence,"G")-1)*100/GenomeLength
+		  pT=(CountFields(Genome.Sequence,"T")-1)*100/GenomeLength
+		  pN=(CountFields(Genome.Sequence,"N")-1)*100/GenomeLength
+		  
+		  
+		  // Write results to the main window
+		  LogoWin.WriteToSTDOUT (EndOfLine+"Genome length: "+Str(GenomeLength)+" bp"+EndOfLine)
+		  LogoWin.WriteToSTDOUT (EndOfLine+"Nucleotide content:")
+		  LogoWin.WriteToSTDOUT (EndOfLine+"A – "+Str(pA)+"%")
+		  LogoWin.WriteToSTDOUT (EndOfLine+"C – "+Str(pC)+"%")
+		  LogoWin.WriteToSTDOUT (EndOfLine+"G – "+Str(pG)+"%")
+		  LogoWin.WriteToSTDOUT (EndOfLine+"T – "+Str(pT)+"%")
+		  if N>0 then
+		    LogoWin.WriteToSTDOUT (EndOfLine+"N – "+Str(pN)+"%"+EndOfLine)
+		  else
+		    LogoWin.WriteToSTDOUT (EndOfLine)
+		  end if
+		  LogoWin.WriteToSTDOUT (EndOfLine+"Feature stats:")
+		  LogoWin.WriteToSTDOUT (EndofLine+"Feature"+chr(9)+"Count"+chr(9)+"Cumulative length"+chr(9)+"% of genome length")
+		  for n=1 to UBound(types)
+		    LogoWin.WriteToSTDOUT (EndofLine+types(n)+chr(9)+str(counts(n))+chr(9)+str(lengths(n))+chr(9)+str(100*lengths(n)/GenomeLength))
+		  next
+		  
+		  
+		  'LogoWin.WriteToSTDOUT ("  Done!"+EndOfLine)
+		  
+		  
+		  // Calculate GC content
+		  ' graph it?
+		  
+		  // Calculate GC skew?
+		  ' only meaningful if shown in the graph area
+		  
+		  
+		  'write coverage table
+		  dim tos as TextOutputStream
+		  dim f as folderitem
+		  'select where to save the coverage table
+		  Dim dlg as New SaveAsDialog
+		  'dlg.InitialDirectory=SigFolder.Parent
+		  dlg.promptText="Select where to save the coverage table"
+		  dlg.SuggestedFileName="CoverageCounts.tsv"
+		  dlg.Title="Save Coverage Counts file"
+		  dlg.Filter=FileTypes.Text
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  
+		  f=dlg.ShowModal()
+		  
+		  if f<> nil then
+		    tos=TextOutputStream.Create(f)
+		    if tos <>nil then
+		      dim aLine as string
+		      'assemble titleString:
+		      dim tab as string = chr(9)
+		      aline="locus_tag"+tab+"Gene"+tab+"Feature name"+tab+"Feature type"+tab+"Coverage 1"+tab+"Coverage 2"+tab+"Coverage 3"+tab+"Coverage 4"
+		      tos.WriteLine aLine
+		      for m=1 to ubound(LocusTag)
+		        aline=LocusTag(m)+tab+GeneName(m)+tab+Fname(m)+tab+fetype(m)+tab+str(CovCount1(m))+tab+str(CovCount2(m))+tab+str(CovCount3(m))+tab+str(CovCount4(m))
+		        tos.WriteLine aLine
+		      next
+		      tos.close
+		    end if
+		  end if
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"GenomeWin:CoverageStats")
 		End Sub
 	#tag EndMethod
 

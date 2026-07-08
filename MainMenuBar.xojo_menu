@@ -454,6 +454,14 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin MenuItem ProfileDepalindromise
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Depalindromise"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem ProfileReverseComplement
          SpecialMenu = 0
          Index = -2147483648
@@ -585,6 +593,14 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = False
       End
+      Begin MenuItem ProfileProcessPropagatedRegPreciseData
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Process Propagated RegPrecise Data"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = False
+      End
       Begin MenuItem ChipMdata2Logo
          SpecialMenu = 0
          Index = -2147483648
@@ -597,6 +613,14 @@ Begin Menu MainMenuBar
          SpecialMenu = 0
          Index = -2147483648
          Text = "#kLogoFromBioProspectorData"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+      Begin MenuItem ProfileGroovDBTFs
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "GroovDB TFs"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
@@ -987,6 +1011,14 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
+      Begin MenuItem GenomePrintMap
+         SpecialMenu = 0
+         Index = 1
+         Text = "#kPrintMap"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem GenomeRemovePlots
          SpecialMenu = 0
          Index = -2147483648
@@ -995,10 +1027,10 @@ Begin Menu MainMenuBar
          AutoEnable = False
          Visible = True
       End
-      Begin MenuItem GenomePrintMap
+      Begin MenuItem GenomeCountCoverage
          SpecialMenu = 0
-         Index = -2147483648
-         Text = "#kPrintMap"
+         Index = 1
+         Text = "Count Feature Coverage"
          AutoEnabled = True
          AutoEnable = True
          Visible = True
