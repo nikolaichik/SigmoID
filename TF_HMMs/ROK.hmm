@@ -21,7 +21,7 @@ NOTE  the well-studied NagC and Mlc from E. coli and XylR from B. subtilis and r
 NOTE  with inferred motifs present in RegPrecise.
 NOTE  CR tag is derived from the single structure of LMO0178 from Listeria monocytogenes (5f7q).
 NOTE  Two more contacts (35 and 45) added in accordance with well established contacts from the related MarR family
-GA    45.40 45.40;
+GA    33.50 33.50;
 TC    61.50 61.50;
 NC    41.30 41.30;
 STATS LOCAL MSV       -8.8541  0.71858

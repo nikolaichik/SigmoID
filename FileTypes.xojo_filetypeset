@@ -5,13 +5,13 @@
 		Flags=&h5
 		MacCreator=SgId
 		MacType=BINA
-		Name=SigmoidFile
-		UTI=
+		Name=SigmoID File
+		UTI=com.bsu.sigmoid-SigmoID-File
 		UTIConformsTo=, public.data
 		Description=
 		MimeType=
-		Imported=True
-		HandlerRank=&h9
+		Imported=False
+		HandlerRank=&h11
 		UTIPhysicalType=public.data
 	#tag EndFileType
 

@@ -20,7 +20,7 @@ NOTE  Hand edited SM00346 with addition of several weakly matched proteins
 NOTE  CR tag based on single solved structure (TtgV from P. putida, 2xro)
 NOTE  Three possible contacts were added based on the similarity to the closest family (GntR)
 TC    41.3 41.3;
-GA    37.9 37.9;
+GA    34.5 34.5;
 NC    34.5 34.5;
 STATS LOCAL MSV       -9.0160  0.71839
 STATS LOCAL VITERBI   -9.5331  0.71839

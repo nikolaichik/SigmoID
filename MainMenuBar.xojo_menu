@@ -601,6 +601,14 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = False
       End
+      Begin MenuItem ProfileSetFamilyforProfilesinFolder
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Set Family for Profiles in Folder"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
       Begin MenuItem ChipMdata2Logo
          SpecialMenu = 0
          Index = -2147483648

@@ -19,7 +19,7 @@ WIDTH 18-22
 NOTE  Based on N-terminal part of PRK05472
 NOTE  Structures used 3wgi, 3ket, 7wb3 
 NOTE  Positions 57, 58 are minor grove contacts
-GA    50.10 50.10;
+GA    40 40;
 TC    81.70 81.70;
 NC    18.50 18.50;
 STATS LOCAL MSV       -8.4364  0.71886

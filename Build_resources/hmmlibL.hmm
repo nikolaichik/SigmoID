@@ -9167,7 +9167,7 @@ NOTE  Hand edited SM00346 with addition of several weakly matched proteins
 NOTE  CR tag based on single solved structure (TtgV from P. putida, 2xro)
 NOTE  Three possible contacts were added based on the similarity to the closest family (GntR)
 TC    41.3 41.3;
-GA    37.9 37.9;
+GA    34.5 34.5;
 NC    34.5 34.5;
 STATS LOCAL MSV       -9.0160  0.71839
 STATS LOCAL VITERBI   -9.5331  0.71839
@@ -15499,7 +15499,7 @@ NOTE  the well-studied NagC and Mlc from E. coli and XylR from B. subtilis and r
 NOTE  with inferred motifs present in RegPrecise.
 NOTE  CR tag is derived from the single structure of LMO0178 from Listeria monocytogenes (5f7q).
 NOTE  Two more contacts (35 and 45) added in accordance with well established contacts from the related MarR family
-GA    45.40 45.40;
+GA    33.50 33.50
 TC    61.50 61.50;
 NC    41.30 41.30;
 STATS LOCAL MSV       -8.8541  0.71858
@@ -17937,7 +17937,7 @@ NOTE  Contacts are from single known structure from Streptomyces coelicolor (7p3
 NOTE  It's a zinc ribbon domain, so all contacts are from the single 'recognition' strand
 NOTE  Although important specific contacts are visible at just two positions (15, 17) in 7p3f, any position
 NOTE  within this strand can potentially be involved in interaction with DNA bases.
-GA    51.20 51.20;
+GA    40 40;
 TC    86.60 86.60;
 NC    15.90 15.90;
 STATS LOCAL MSV       -8.0241  0.71931
@@ -23539,7 +23539,7 @@ WIDTH 18-22
 NOTE  Based on N-terminal part of PRK05472
 NOTE  Structures used 3wgi, 3ket, 7wb3 
 NOTE  Positions 57, 58 are minor grove contacts
-GA    50.10 50.10;
+GA    40 40;
 TC    81.70 81.70;
 NC    18.50 18.50;
 STATS LOCAL MSV       -8.4364  0.71886

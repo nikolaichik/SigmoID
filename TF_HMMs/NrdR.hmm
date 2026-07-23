@@ -21,7 +21,7 @@ NOTE  Contacts are from single known structure from Streptomyces coelicolor (7p3
 NOTE  It's a zinc ribbon domain, so all contacts are from the single 'recognition' strand
 NOTE  Although important specific contacts are visible at just two positions (15, 17) in 7p3f, any position
 NOTE  within this strand can potentially be involved in interaction with DNA bases.
-GA    51.20 51.20;
+GA    40 40;
 TC    86.60 86.60;
 NC    15.90 15.90;
 STATS LOCAL MSV       -8.0241  0.71931

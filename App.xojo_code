@@ -15,6 +15,7 @@ Inherits Application
 		  FileConvertSigFilestoFolders.visible=false
 		  ProfileCombineCRtags.visible=False
 		  ProfileCombineCRtags.Enabled=False
+		  ProfileSetFamilyforProfilesinFolder.visible=False
 		  
 		  If Keyboard.AltKey Then
 		    FileMakeSigFile.Visible=true
@@ -25,6 +26,7 @@ Inherits Application
 		    ProfileCombineCRtags.Enabled=True
 		    ProfileProcessPropagatedRegPreciseData.Visible=True
 		    ProfileProcessPropagatedRegPreciseData.Enabled=True
+		    ProfileSetFamilyforProfilesinFolder.visible=true
 		  end if
 		  
 		  'Build dynamic Window Menu
@@ -173,7 +175,7 @@ Inherits Application
 		        LogoWin.LogoTabs.TabIndex=0
 		      end if
 		      logowin.title="SigmoID: "+item.DisplayName
-		    case "SigmoidFile"
+		    case "SigmoID File"
 		      logowin.LoadAlignment(item)
 		      logowin.ChangeView("Logo")
 		      logowin.LogoTabs.TabIndex=0
@@ -446,23 +448,37 @@ Inherits Application
 		  
 		  
 		  
-		  '#Else
+		  
 		  Dim dlg as New OpenDialog
 		  dlg.promptText="Select an alignment file"
 		  dlg.Title="Open alignment"
-		  #If XojoVersion < 2017.02
-		    #if Target64Bit
-		      '64 bit compiler has VirtualVolumes badly broken, hence we just can't open .sig files
-		      'and they are converted to folders that could be only opened from the toolbar
-		      dlg.Filter=FileTypes.Fasta' + FileTypes.Sig_file
-		    #else
-		      dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
-		    #endif
+		  
+		  #if TargetLinux
+		    // Fix for Linux filetype issue
+		    
+		    // 1. Define the first custom file type (with multiple extensions)
+		    Var FastaFile As New FileType
+		    'FastaFile.Name = "FASTA Files (*.fasta;*.fas;*.fsa;*.fa)"
+		    FastaFile.Extensions = "fasta;fas;fsa;fa" // Semicolon separated, NO dots, NO spaces
+		    
+		    // 2. Define the second custom file type (with a single extension)
+		    Var SigmoIDfile As New FileType
+		    'SigmoIDfile.Name = "SigmoID Files (*.sig)"
+		    SigmoIDfile.Extensions = "sig" // NO dots
+		    
+		    // 3. Pass both distinct types as an array to the filter
+		    Var FastaFileExtensions as string = "fasta;fas;fsa;fa"
+		    Var SigmoIDfileExtensions as string = "sig"
+		    Var customFilter As String = "SigmoID Files (*.sig)|" + SigmoIDfileExtensions + ";FASTA Files (*.fasta;*.fas;*.fsa;*.fa)|" + FastaFileExtensions
+		    
+		    Dlg.Filter = customFilter
 		  #else
-		    dlg.Filter=FileTypes.Fasta + FileTypes.Sig_file
+		    dlg.Filter=FileTypes.Sig_file+FileTypes.Fasta
 		  #endif
-		  tmpfile=dlg.ShowModal 'within(self)
-		  '#endif
+		  
+		  
+		  // 5. Display the dialog 
+		  tmpfile=dlg.ShowModal 
 		  
 		  if tmpfile<>nil then
 		    logowin.Title="SigmoID: "+NthField(tmpfile.name,".",1)
@@ -500,6 +516,9 @@ Inherits Application
 		    
 		    Return True
 		  end if
+		  
+		  
+		  
 		  Return True
 		  
 		End Function
@@ -826,6 +845,230 @@ Inherits Application
 		  ProcessPropagatedRegPreciseF
 		  Return True
 		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ProfileSetFamilyforProfilesinFolder() As Boolean Handles ProfileSetFamilyforProfilesinFolder.Action
+		  dim hmmfile, inF, outF, f2mod, optF as folderitem
+		  dim opts,optLines(),hmmFileName, pFasta as string
+		  dim instream as TextInputStream
+		  dim outstream as TextOutputStream
+		  dim m,n As Integer
+		  Dim vv as VirtualVolume
+		  
+		  Dim dlg1 As New SelectFolderDialog
+		  Dim dlg2 As New OpenDialog
+		  Dim dlg3 As New SelectFolderDialog
+		  
+		  dlg1.promptText="Select input folder with .sig files to modify"
+		  dlg1.Title="Select Input Folder"
+		  dlg1.Filter=FileTypes.Folder
+		  dlg1.CancelButtonCaption=kCancel
+		  dlg1.ActionButtonCaption="Select"
+		  inF=dlg1.ShowModal
+		  If inf=nil Then return false
+		  
+		  
+		  dlg2.InitialDirectory=Resources_f.child("TF_HMMs")          'only these are meaningful
+		  dlg2.promptText="Select hmm file with the model matching this TF family"
+		  'dlg2.SuggestedFileName=nthfield(GenomeFile.Name,".",1)+"_"+nthfield(Logofile.Name,".",1)+".gb"
+		  dlg2.Title="Open HMM"
+		  dlg2.Filter=FileTypes.All
+		  dlg2.CancelButtonCaption=kCancel
+		  dlg2.ActionButtonCaption=kOpen_
+		  HMMfile=dlg2.ShowModal
+		  hmmFileName=HMMfile.DisplayName
+		  dim TF_HMMs as FolderItem
+		  If hmmFileName<>"" Then
+		    TF_HMMs=Resources_f.Child("TF_HMMs")
+		    
+		    If TF_HMMs=Nil Then
+		      MsgBox "Can't find TF_HMMs folder"
+		    End If
+		    
+		    HMMfile=TF_HMMs.Child(hmmFileName)
+		    If HMMfile=Nil Then 
+		      MsgBox "Can't open the hmm file"
+		      return false
+		    End If
+		    
+		  End If
+		  
+		  
+		  dlg3.promptText="Select Output folder to store converted .sig files in"
+		  dlg3.Title="SelectOutput Folder"
+		  dlg3.InitialDirectory=inf.Parent
+		  dlg3.Filter=FileTypes.Folder
+		  dlg3.CancelButtonCaption=kCancel
+		  dlg3.ActionButtonCaption="Select"
+		  outF=dlg3.ShowModal
+		  If outF=nil Then return false
+		  
+		  m=inF.Count
+		  for n=1 to m
+		    if inF.Item(n).name<>".DS_Store" then
+		      if inF.Item(n).Directory then
+		        'skip folder
+		      else
+		        if right(inF.Item(n).Name,4)=".sig" then
+		          inF.Item(n).copyto(outF)
+		          f2mod=outF.child(inF.Item(n).Name)
+		          if f2mod=nil then
+		            
+		            msgbox "Can't access copied file"
+		            return false
+		          end if
+		          
+		          
+		          vv=f2mod.openAsVirtualVolume
+		          dim basename as String
+		          if vv<> nil then
+		            basename=nthfield(f2mod.DisplayName,".sig",1)
+		            optF=vv.root.child(basename+".options")
+		            if optF<> NIL and optF.exists then
+		              'modify TF family
+		              instream=optF.OpenAsTextFile
+		              if instream=nil then
+		                msgbox "File error"
+		                return false
+		              end if
+		              
+		              opts=instream.ReadAll
+		              instream.Close
+		              optLines() = opts.Split(EndOfLine.UNIX)
+		              dim aline as string
+		              optF.remove
+		              outstream=TextOutputStream.Create(optF)
+		              if outstream=nil then
+		                msgbox "File error"
+		                return false
+		              end if
+		              for l as integer=0 to UBound(optLines)
+		                aline=optLines(l)
+		                if left(aline, 7)="TF_HMM " then
+		                  outstream.writeline("TF_HMM "+hmmFileName) 'correct familyname
+		                elseif left(aline, 13)="Seed_protein " then
+		                  pFasta=">"+aline.Replace(" ", EndOfLine.UNIX)
+		                  outstream.writeline aline
+		                else
+		                  outstream.writeline aline
+		                end if
+		              next
+		              outstream.Close
+		              
+		              
+		              'get CR tag
+		              dim CDSfile as folderitem
+		              dim OutStream2 As TextOutputStream
+		              dim hmmSearchRes, CRtag as string
+		              
+		              CDSFile=TemporaryFolder.child("CDSfile.fa")
+		              If CDSFile<>Nil Then
+		                OutStream2 = TextOutputStream.Create(CDSFile)
+		                If outStream2<>Nil Then
+		                  'hmmsearch treats everything after first white space as sequence, so have to replace spaces/tabs
+		                  'it also doesn't like spaces within the astual sequence
+		                  'we replace spaces/tabs within the title line by underscores and remove them from the sequence. 
+		                  Dim Titl,pSeq As String
+		                  Dim pArr(-1) As String
+		                  
+		                  pArr=Pfasta.Split(EndOfLine.Unix)
+		                  titl=ReplaceAll(pArr(0)," ","_")   'hmmer doesn't like spaces
+		                  titl=ReplaceAll(titl,Chr(9),"_")   'hmmer doesn't like tabs
+		                  pArr.RemoveRowAt(0)                   'drop the title line
+		                  pSeq=Join(Parr,"")
+		                  pSeq=Pseq.ReplaceAll(" ","")
+		                  pSeq=Pseq.ReplaceAll(Chr(9),"")
+		                  pSeq=titl+EndOfLine.UNIX+pSeq
+		                  
+		                  outstream2.Write(Pseq)
+		                  outstream2.close
+		                End If
+		              End If
+		              hmmSearchRes=HMMsearchWithCRtags(CDSFile,hmmFile.ShellPath)
+		              CRtag=NthField(hmmSearchRes,">",2)              'CR tag is between angle brackets
+		              
+		              
+		              'add CR tag (second passage through the options file)
+		              instream=optF.OpenAsTextFile
+		              if instream=nil then
+		                msgbox "File error"
+		                return false
+		              end if
+		              
+		              opts=instream.ReadAll
+		              instream.Close
+		              optLines() = opts.Split(EndOfLine.UNIX)
+		              optF.remove
+		              outstream=TextOutputStream.Create(optF)
+		              if outstream=nil then
+		                msgbox "File error"
+		                return false
+		              end if
+		              for l as integer=0 to UBound(optLines)
+		                aline=optLines(l)
+		                if left(aline, 6)="CRtag " then
+		                  outstream.writeline("CRtag "+CRtag) 'add CR tag
+		                else
+		                  outstream.writeline aline
+		                end if
+		              next
+		              outstream.Close
+		              
+		              'correct filenames inside virtual volume
+		              optF.name=CRtag+optF.DisplayName
+		              dim file2rename as folderitem
+		              file2rename=vv.root.child(basename+".refs")
+		              if file2rename<>nil then
+		                if file2rename.exists then
+		                  'file2rename.CopyTo vv.root.child(CRtag+file2rename.DisplayName)
+		                  'file2rename.Remove
+		                  file2rename.name=CRtag+file2rename.DisplayName
+		                end if
+		              end if
+		              file2rename=vv.root.child(basename+".info")
+		              if file2rename<>nil then
+		                if file2rename.exists then
+		                  file2rename.name=CRtag+file2rename.DisplayName
+		                end if
+		              end if
+		              file2rename=vv.root.child(basename+".png")
+		              if file2rename<>nil then
+		                if file2rename.exists then
+		                  file2rename.name=CRtag+file2rename.DisplayName
+		                end if
+		              end if
+		              file2rename=vv.root.child(basename+".fasta")
+		              if file2rename<>nil then
+		                if file2rename.exists then
+		                  file2rename.name=CRtag+file2rename.DisplayName
+		                end if
+		              end if
+		              
+		              'correct sig name
+		              f2mod.Name=CRtag+f2mod.Name
+		              
+		              
+		            end if
+		          end if
+		          
+		          
+		        end if
+		      end if
+		    end if
+		  next
+		  
+		  logowin.WriteToSTDOUT(EndOfLine+"Corrected sig files written to "+OutF.ShellPath+EndOfLine)
+		  
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"App:ProfileSetFamilyforProfilesinFolder")
+		    
+		    Return True
+		    
 		End Function
 	#tag EndMenuHandler
 

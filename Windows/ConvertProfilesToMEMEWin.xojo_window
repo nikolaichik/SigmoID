@@ -306,7 +306,7 @@ Begin Window ConvertProfilesToMEMEWin
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   360
+      Width           =   203
    End
    Begin PushButton MergeButton
       AllowAutoDeactivate=   True
@@ -339,6 +339,38 @@ Begin Window ConvertProfilesToMEMEWin
       Underline       =   False
       Visible         =   True
       Width           =   80
+   End
+   Begin PushButton ExportTFseqsButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Export TF seqs..."
+      Default         =   False
+      Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   242
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      MacButtonStyle  =   0
+      Scope           =   0
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   382
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   138
    End
 End
 #tag EndWindow
@@ -597,9 +629,11 @@ End
 		  if sr>=1 then
 		    DeselectAllButton.enabled=True
 		    MergeButton.Enabled=True
+		    ExportTFseqsButton.Enabled=True
 		  else
 		    DeselectAllButton.enabled=False
 		    MergeButton.Enabled=false
+		    ExportTFseqsButton.Enabled=False
 		  end if
 		  
 		  if sr=0 then
@@ -1283,6 +1317,99 @@ End
 		  
 		  Exception err
 		    ExceptionHandler(err,"ConvertProfilesToMEMEWin:MergeButton")
+		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ExportTFseqsButton
+	#tag Event
+		Sub Action()
+		  // Export selected TF sequences to a multifasta file
+		  
+		  
+		  Dim dlg As New SaveAsDialog
+		  Dim outfile, sigfile, f As folderitem
+		  Dim ProfileName, multiFasta, basename, fastaRecord, sep As String
+		  Dim instream As TextInputStream
+		  dim vv as virtualvolume
+		  
+		  dlg.promptText=kTFfamilyExportDesc
+		  dlg.SuggestedFileName=FolderName+".fa"
+		  dlg.Title="Export TF Sequences"
+		  dlg.Filter=FileTypes.Fasta
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption=kSave
+		  outfile=dlg.ShowModalwithin(Self)
+		  
+		  If outfile<>Nil Then
+		    Dim s As TextOutputStream=TextOutputStream.Create(outfile)
+		    If s<> Nil Then
+		      LogoWin.WriteToSTDOUT (EndOfLine.unix+"Exporting TF sequences")
+		      LogoWin.stdout.Refresh(False)
+		      Logowin.show
+		      
+		      Dim m,n As Integer
+		      
+		      // CollectionList columns are:
+		      ' 0 - Checkbox
+		      ' 1 - Profile Name
+		      ' 2 - Number of seqs
+		      ' 3 - Information (bits)
+		      ' 4 - Logo picture
+		      ' 5 (invisible) - TFBS seqs (in fasta format)
+		      ' 6 (invisible) - TFBS length.
+		      
+		      'added for profile merge:
+		      ' 7 (invisible) - profile info
+		      ' 8 (invisible) - profile options
+		      ' 9 (invisible) - meme data
+		      ' 10(invisible) - sig path
+		      
+		      
+		      sep=EndOfLine.UNIX+"protein_id "
+		      For n=0 To CollectionList.ListCount-1
+		        If CollectionList.CellCheck(n,0) Then
+		          ProfileName=CollectionList.Cell(n,10)
+		          sigfile=New FolderItem(ProfileName)
+		          if sigfile<>nil then
+		            if sigfile.Exists then
+		              
+		              
+		              vv=sigfile.openAsVirtualVolume
+		              if vv<> nil then
+		                basename=nthfield(sigfile.DisplayName,".sig",1)
+		                f=vv.root.child(basename+".options")
+		                if f<> NIL and f.exists then
+		                  instream = TextInputStream.Open(f)
+		                  fastaRecord  = instream.ReadAll
+		                  instream.close
+		                  fastaRecord=">"+fastaRecord.nthfield(sep,2)
+		                  fastaRecord=trim(fastaRecord.nthfield("////",1))
+		                  fastaRecord=fastaRecord.Replace("// seed protein sequence (single line)","")
+		                  fastaRecord=fastaRecord.Replace("Seed_protein ","")
+		                  fastaRecord=fastaRecord.Replace(EndOfLine.UNIX,"") 'first only
+		                  multiFasta=multiFasta+fastaRecord+EndOfLine.UNIX
+		                end if
+		                
+		                
+		                
+		              End If
+		            End If
+		            
+		          End If
+		        End If
+		      Next
+		      
+		      'Save the file
+		      s.Write multiFasta
+		      s.close
+		      LogoWin.WriteToSTDOUT (EndOfLine.UNIX+"Wrote TF sequences to "+outfile.NativePath + EndOfLine.UNIX)
+		    End If
+		    
+		  End If
+		  
+		  Exception err
+		    ExceptionHandler(err,"ConvertProfilesToMEMEWin:ExportButton")
 		    
 		End Sub
 	#tag EndEvent
