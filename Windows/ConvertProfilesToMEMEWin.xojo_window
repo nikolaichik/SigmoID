@@ -8,7 +8,7 @@ Begin Window ConvertProfilesToMEMEWin
    FullScreen      =   False
    FullScreenButton=   True
    HasBackColor    =   False
-   Height          =   422
+   Height          =   434
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -24,7 +24,7 @@ Begin Window ConvertProfilesToMEMEWin
    Resizeable      =   True
    Title           =   "#kProfilesInAfolder"
    Visible         =   False
-   Width           =   800
+   Width           =   914
    Begin Listbox CollectionList
       AllowAutoDeactivate=   True
       AllowAutoHideScrollbars=   True
@@ -51,7 +51,7 @@ Begin Window ConvertProfilesToMEMEWin
       HasHorizontalScrollbar=   False
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   348
+      Height          =   360
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   " 	TF	#kSites	#kInfoBits	#kLogo"
@@ -73,7 +73,7 @@ Begin Window ConvertProfilesToMEMEWin
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   800
+      Width           =   914
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -91,7 +91,7 @@ Begin Window ConvertProfilesToMEMEWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   696
+      Left            =   810
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -103,7 +103,7 @@ Begin Window ConvertProfilesToMEMEWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   382
+      Top             =   394
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -146,12 +146,12 @@ Begin Window ConvertProfilesToMEMEWin
       TabStop         =   True
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   348
+      Top             =   360
       Transparent     =   False
       Underline       =   False
       Value           =   False
       Visible         =   True
-      Width           =   522
+      Width           =   636
    End
    Begin BevelButton DeselectAllButton
       AllowAutoDeactivate=   True
@@ -190,7 +190,7 @@ Begin Window ConvertProfilesToMEMEWin
       TabStop         =   True
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   348
+      Top             =   360
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -234,7 +234,7 @@ Begin Window ConvertProfilesToMEMEWin
       TabStop         =   True
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   348
+      Top             =   360
       Transparent     =   False
       Underline       =   False
       Value           =   False
@@ -255,7 +255,7 @@ Begin Window ConvertProfilesToMEMEWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   484
+      Left            =   598
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -267,7 +267,7 @@ Begin Window ConvertProfilesToMEMEWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   382
+      Top             =   394
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -302,11 +302,11 @@ Begin Window ConvertProfilesToMEMEWin
       TextAlignment   =   0
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   382
+      Top             =   394
       Transparent     =   True
       Underline       =   False
       Visible         =   True
-      Width           =   203
+      Width           =   205
    End
    Begin PushButton MergeButton
       AllowAutoDeactivate=   True
@@ -322,7 +322,7 @@ Begin Window ConvertProfilesToMEMEWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   392
+      Left            =   506
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -334,7 +334,7 @@ Begin Window ConvertProfilesToMEMEWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   382
+      Top             =   394
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -354,7 +354,7 @@ Begin Window ConvertProfilesToMEMEWin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   242
+      Left            =   356
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -366,11 +366,43 @@ Begin Window ConvertProfilesToMEMEWin
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   382
+      Top             =   394
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   138
+   End
+   Begin PushButton MoveButton
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Move..."
+      Default         =   False
+      Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   264
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      MacButtonStyle  =   0
+      Scope           =   0
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   394
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   80
    End
 End
 #tag EndWindow
@@ -630,10 +662,12 @@ End
 		    DeselectAllButton.enabled=True
 		    MergeButton.Enabled=True
 		    ExportTFseqsButton.Enabled=True
+		    MoveButton.Enabled=True
 		  else
 		    DeselectAllButton.enabled=False
 		    MergeButton.Enabled=false
 		    ExportTFseqsButton.Enabled=False
+		    MoveButton.Enabled=False
 		  end if
 		  
 		  if sr=0 then
@@ -869,7 +903,8 @@ End
 		  Dim dlg As New SaveAsDialog
 		  Dim outfile As folderitem
 		  Dim ProfileName, FamilyName, PWM, multiMEME As String
-		  
+		  Dim memeData as string
+		  Dim sep as string ="--------------------------------------------------------------------------------"
 		  
 		  dlg.promptText=kTFfamilyExportDesc
 		  dlg.SuggestedFileName=FolderName+".meme"
@@ -921,7 +956,9 @@ End
 		          FamilyName=FamilyNameFromHmmName(FamilyName)
 		          
 		          PWM="MOTIF "+ProfileName+" "+FamilyName+"-family"+EndOfLine.UNIX+EndOfLine.UNIX
-		          PWM=PWM+"letter-probability matrix: "+trim(NthField(CollectionList.Cell(n,9),"letter-probability matrix:",2))+EndOfLine.UNIX+EndOfLine.UNIX
+		          memeData=NthField(CollectionList.Cell(n,9),"letter-probability matrix:",2)
+		          memeData=memeData.NthField(sep,1)  'Cleanup ot trailing meme rubbish
+		          PWM=PWM+"letter-probability matrix: "+trim(memeData)+EndOfLine.UNIX+EndOfLine.UNIX
 		          
 		          'We expect everything to be in BacRegDB, so
 		          PWM=PWM+"URL http://bacregdb.bsu.by/tffamilies/"+FamilyName+"?tfName="+ProfileName+EndOfLine.UNIX+EndOfLine.UNIX
@@ -1333,7 +1370,7 @@ End
 		  Dim instream As TextInputStream
 		  dim vv as virtualvolume
 		  
-		  dlg.promptText=kTFfamilyExportDesc
+		  dlg.promptText="Choose file name for exported TF sequences"
 		  dlg.SuggestedFileName=FolderName+".fa"
 		  dlg.Title="Export TF Sequences"
 		  dlg.Filter=FileTypes.Fasta
@@ -1348,7 +1385,7 @@ End
 		      LogoWin.stdout.Refresh(False)
 		      Logowin.show
 		      
-		      Dim m,n As Integer
+		      Dim n As Integer
 		      
 		      // CollectionList columns are:
 		      ' 0 - Checkbox
@@ -1409,7 +1446,65 @@ End
 		  End If
 		  
 		  Exception err
-		    ExceptionHandler(err,"ConvertProfilesToMEMEWin:ExportButton")
+		    ExceptionHandler(err,"ConvertProfilesToMEMEWin:ExportTFseqsButton")
+		    
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events MoveButton
+	#tag Event
+		Sub Action()
+		  // Export selected TF sequences to a multifasta file
+		  
+		  
+		  Dim dlg As New SelectFolderDialog
+		  Dim targetFolder, sigfile As folderitem
+		  Dim n As Integer
+		  
+		  dlg.promptText="Select target folder"
+		  dlg.Title="Move selected files"
+		  dlg.CancelButtonCaption=kCancel
+		  dlg.ActionButtonCaption="Move"
+		  targetFolder=dlg.ShowModalwithin(Self)
+		  
+		  If targetFolder<>Nil Then
+		    
+		    // CollectionList columns are:
+		    ' 0 - Checkbox
+		    ' 1 - Profile Name
+		    ' 2 - Number of seqs
+		    ' 3 - Information (bits)
+		    ' 4 - Logo picture
+		    ' 5 (invisible) - TFBS seqs (in fasta format)
+		    ' 6 (invisible) - TFBS length.
+		    
+		    'added for profile merge:
+		    ' 7 (invisible) - profile info
+		    ' 8 (invisible) - profile options
+		    ' 9 (invisible) - meme data
+		    ' 10(invisible) - sig path
+		    
+		    
+		    For n=CollectionList.ListCount-1 DownTo 0
+		      If CollectionList.CellCheck(n,0) Then
+		        sigfile=New FolderItem(CollectionList.Cell(n,10))
+		        if sigfile<>nil then
+		          if sigfile.Exists then
+		            sigfile.MoveTo(targetFolder)
+		            CollectionList.RemoveRowAt(n)
+		          End If
+		          
+		        End If
+		      End If
+		    Next
+		    
+		    LogoWin.WriteToSTDOUT (EndOfLine.UNIX+"Moved selected .sig files to "+targetFolder.NativePath + EndOfLine.UNIX)
+		  End If
+		  
+		  
+		  
+		  Exception err
+		    ExceptionHandler(err,"ConvertProfilesToMEMEWin:MoveButton")
 		    
 		End Sub
 	#tag EndEvent

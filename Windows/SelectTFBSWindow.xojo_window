@@ -8,7 +8,7 @@ Begin Window SelectTFBSWindow
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   272
+   Height          =   280
    ImplicitInstance=   True
    LiveResize      =   "True"
    MacProcID       =   0
@@ -51,7 +51,7 @@ Begin Window SelectTFBSWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   230
+      Top             =   238
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -83,7 +83,7 @@ Begin Window SelectTFBSWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   230
+      Top             =   238
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -97,7 +97,7 @@ Begin Window SelectTFBSWindow
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   83
+      Height          =   91
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -165,12 +165,12 @@ Begin Window SelectTFBSWindow
    Begin GroupBox GroupBox2
       AllowAutoDeactivate=   True
       Bold            =   False
-      Caption         =   "Number of TFBSs, at least"
+      Caption         =   "Number of TFBSs"
       Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   83
+      Height          =   91
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -190,7 +190,7 @@ Begin Window SelectTFBSWindow
       Underline       =   False
       Visible         =   True
       Width           =   186
-      Begin TextField TFBSnoField
+      Begin TextField TFBSminField
          AllowAutoDeactivate=   True
          AllowFocusRing  =   True
          AllowSpellChecking=   False
@@ -223,16 +223,130 @@ Begin Window SelectTFBSWindow
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
-         Text            =   "6"
+         Text            =   "1"
          TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   49
+         Top             =   67
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
          Visible         =   True
-         Width           =   65
+         Width           =   59
+      End
+      Begin TextField TFBSmaxField
+         AllowAutoDeactivate=   True
+         AllowFocusRing  =   True
+         AllowSpellChecking=   False
+         AllowTabs       =   False
+         BackgroundColor =   &cFEFFFF00
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Format          =   ""
+         HasBorder       =   True
+         Height          =   22
+         Hint            =   ""
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   300
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MaximumCharactersAllowed=   0
+         Password        =   False
+         ReadOnly        =   False
+         Scope           =   0
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "1000"
+         TextAlignment   =   0
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   67
+         Transparent     =   False
+         Underline       =   False
+         ValidationMask  =   ""
+         Visible         =   True
+         Width           =   59
+      End
+      Begin Label Label4
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   204
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "min:"
+         TextAlignment   =   0
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   41
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   36
+      End
+      Begin Label Label3
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   20
+         Index           =   -2147483648
+         InitialParent   =   "GroupBox2"
+         Italic          =   False
+         Left            =   300
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "max:"
+         TextAlignment   =   0
+         TextColor       =   &c00000000
+         Tooltip         =   ""
+         Top             =   41
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   36
       End
    End
    Begin GroupBox GroupBox3
@@ -258,7 +372,7 @@ Begin Window SelectTFBSWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   108
+      Top             =   116
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -300,7 +414,7 @@ Begin Window SelectTFBSWindow
          TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   144
+         Top             =   152
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -336,7 +450,7 @@ Begin Window SelectTFBSWindow
          TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   146
+         Top             =   154
          Transparent     =   True
          Underline       =   False
          Visible         =   True
@@ -379,7 +493,7 @@ Begin Window SelectTFBSWindow
          TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   144
+         Top             =   152
          Transparent     =   False
          Underline       =   False
          ValidationMask  =   ""
@@ -415,7 +529,7 @@ Begin Window SelectTFBSWindow
          TextAlignment   =   0
          TextColor       =   &c00000000
          Tooltip         =   ""
-         Top             =   146
+         Top             =   154
          Transparent     =   True
          Underline       =   False
          Visible         =   True
@@ -448,7 +562,7 @@ Begin Window SelectTFBSWindow
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   198
+      Top             =   206
       Transparent     =   False
       Underline       =   False
       Value           =   True
@@ -535,7 +649,11 @@ End
 		      CheckTheRow = false
 		    end if
 		    
-		    if Val(TFBSnoField.text)>TFBSno then
+		    if Val(TFBSminField.text)>TFBSno then
+		      CheckTheRow = false
+		    end if
+		    
+		    if Val(TFBSmaxField.text)<TFBSno then
 		      CheckTheRow = false
 		    end if
 		    
