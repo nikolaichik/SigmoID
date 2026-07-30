@@ -640,27 +640,48 @@ Protected Module DeNovoTFBSinference
 		        dim p2 as integer =1
 		        dim gapChars as integer
 		        dim ch as string
-		        for p2=1 to len(CRtagRegion)
-		          ch =mid(CRtagRegion,p2,1)
+		        'for p2=1 to len(CRtagRegion)
+		        'ch =mid(CRtagRegion,p2,1)
+		        'if strcomp(ch,Uppercase(ch),0)<>0 then
+		        'gapChars=gapChars+1
+		        'end if
+		        'next
+		        dim Upper as integer = len(CRtagRegion)
+		        for p2=1 to Upper
+		          ch =mid(hitseq,p2,1)
 		          if strcomp(ch,Uppercase(ch),0)<>0 then
 		            gapChars=gapChars+1
+		            Upper=Upper+1  'few added positions can (rarely) also be within indel  region
 		          end if
 		        next
+		        
+		        
+		        
+		        'A special rare case where the gap starts just in front of the 1st CR and is longer than the distance to the CR
+		        dim CR1st As Integer
+		        CR1st=len(CRtagRegion)+gapChars
+		        'if strcomp(CRtagRegion.Right(1),Uppercase(CRtagRegion.Right(1)),0)<>0 then
+		        if strcomp(hitSeq.mid(CR1st,1),Uppercase(hitSeq.mid(CR1st,1)),0)<>0 then
+		          'p2=len(CRtagRegion)+1
+		          p2=CR1st+1
+		          dim gapEnds as Boolean = false
+		          do
+		            ch =mid(hitSeq,p2,1)
+		            if strcomp(ch,Uppercase(ch),0)<>0 then
+		              gapChars=gapChars+1
+		              p2=p2+1
+		            else
+		              gapEnds=true
+		            end if
+		          loop Until gapEnds
+		          
+		        end if
+		        
 		        
 		        hitseq=Right(hitseq,len(hitseq)-gapChars)
 		        hmmSearchMatches(ubound(hmmSearchMatches))=hitseq
 		        
 		      end if
-		      
-		      
-		      
-		      
-		      
-		      
-		      
-		      
-		      
-		      
 		      
 		      'checking for gaps/insertions within CR range
 		      CRtagRegion=mid(hitSeq,fst,CRlen)
@@ -741,6 +762,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="HTH_AsnC_type.hmm"
 		  Case "bEBP"
 		    hmmFileName="bEBP.hmm"
+		  Case "BirA"
+		    hmmFileName="BirA.hmm"
 		  Case "CitB"
 		    hmmFileName="CitT.hmm"
 		  Case "CitT"
@@ -797,6 +820,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="GntR.hmm"
 		  Case "GntRx2"
 		    hmmFileName="GntRx2.hmm"
+		  Case "HrcA"
+		    hmmFileName="HrcA.hmm"
 		  Case "HTH_1"
 		    hmmFileName="LysR.hmm"
 		  Case "HTH_6"
@@ -855,6 +880,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="RHH.hmm"
 		  Case "NrdR"              
 		    hmmFileName="NrdR.hmm"
+		  Case "NrtR"              
+		    hmmFileName="NrtR.hmm"
 		  Case "[Other]"           ' AraC, OmpR, Fis, DeoR
 		    hmmFileName="AraC.hmm"  'mix of several families, at least 12 of those are from AraC
 		    'hmmFileName="bEBP.hmm"  'PpsR only

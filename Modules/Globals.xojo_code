@@ -3736,7 +3736,7 @@ Protected Module Globals
 		  
 		  // Check output folder for family subfolders and create missing ones
 		  Const RPfamilies as String = "AraC,ArgR,ArsR,AsnC,BglG,BirA,CcpN,CitB,CodY,CopY,CRP,CsoR,CtsR,DeoR,DtxR,FapR,Fis,FUR,GlnL,GntR,GutR,HrcA,HxlR,IclR,LacI,LexA,LuxR,LysR,LytTR,MarR,MerR,MetJ,ModE,NadQ,NadR,NiaR,NikR,NrdR,NrtR,OmpR,Other,PadR,PurR,Rex,ROK,RpiR,Rrf2,SdaR,SorC,SrmR,TetR,TrmB,TrpR,TunR,TyrR,XRE"
-		  Const NoTagFamilies as String = "BglG,BirA,CcpN,CodY,CopY,CsoR,CtsR,FapR,GlnL,GntR,GutR,HrcA,LytTR,NadQ,NiaR,NrtR,Other,PurR,SdaR,SorC,SrmR,TrmB,TunR"
+		  Const NoTagFamilies as String = "BglG,CcpN,CodY,CopY,CsoR,CtsR,FapR,GlnL,GntR,GutR,LytTR,NadQ,NiaR,Other,PurR,SdaR,SrmR,TrmB,TunR"
 		  dim Fam as string
 		  for n=1 to 56
 		    Fam=RPfamilies.nthfield(",",n)
@@ -4126,7 +4126,7 @@ Protected Module Globals
 		  
 		  // Check output folder for family subfolders and create missing ones
 		  Const RPfamilies as String = "AraC,ArgR,ArsR,AsnC,BglG,BirA,CcpN,CitB,CodY,CopY,CRP,CsoR,CtsR,DeoR,DtxR,FapR,Fis,FUR,GlnL,GntR,GutR,HrcA,HxlR,IclR,LacI,LexA,LuxR,LysR,LytTR,MarR,MerR,MetJ,ModE,NadQ,NadR,NiaR,NikR,NrdR,NrtR,OmpR,Other,PadR,PurR,Rex,ROK,RpiR,Rrf2,SdaR,SorC,SrmR,TetR,TrmB,TrpR,TunR,TyrR,XRE"
-		  Const NoTagFamilies as String = "BglG,BirA,CcpN,CodY,CopY,CsoR,CtsR,FapR,GlnL,GntR,GutR,HrcA,LytTR,NadQ,NiaR,NrtR,Other,PurR,SdaR,SorC,SrmR,TrmB,TunR"
+		  Const NoTagFamilies as String = "BglG,CcpN,CodY,CopY,CsoR,CtsR,FapR,GlnL,GntR,GutR,LytTR,NadQ,NiaR,Other,PurR,SdaR,SrmR,TrmB,TunR"
 		  dim Fam as string
 		  for n=1 to 56
 		    Fam=RPfamilies.nthfield(",",n)
