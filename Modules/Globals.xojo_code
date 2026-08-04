@@ -2045,6 +2045,64 @@ Protected Module Globals
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetUniprotSequence(locusTag As String) As string
+		  Dim http As New URLConnection
+		  Dim jsonRaw As String
+		  Dim json As JSONItem
+		  Dim results As JSONItem
+		  Dim entry As JSONItem
+		  
+		  // -------------------------------------------------------------
+		  // 1. Try UniProt KB Search
+		  // -------------------------------------------------------------
+		  Dim uniprotUrl As String = "https://rest.uniprot.org/uniprotkb/search?query=gene:" + EncodeURLComponent(locusTag) + "&format=json"
+		  
+		  Try
+		    jsonRaw = http.SendSync("GET", uniprotUrl, 15)
+		    If http.HTTPStatusCode = 200 Then
+		      json = New JSONItem(jsonRaw)
+		      If json.HasName("results") Then
+		        results = json.Child("results")
+		        If results.Count > 0 Then
+		          entry = results.Child(0)
+		          Return entry.Child("sequence").Value("value").StringValue
+		        End If
+		      End If
+		    End If
+		  Catch e As RuntimeException
+		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"UniProt KB query failed for " + locusTag + ": " + e.Message)
+		  End Try
+		  
+		  // -------------------------------------------------------------
+		  // 2. Fallback to UniParc Search
+		  // -------------------------------------------------------------
+		  logowin.WriteToSTDOUT(EndOfLine.UNIX+"Locus tag '" + locusTag + "' not found in UniProt KB. Trying UniParc fallback...")
+		  
+		  Dim uniparcUrl As String = "https://rest.uniprot.org/uniparc/search?query=" + EncodeURLComponent(locusTag) + "&format=json"
+		  
+		  Try
+		    jsonRaw = http.SendSync("GET", uniparcUrl, 15)
+		    If http.HTTPStatusCode = 200 Then
+		      json = New JSONItem(jsonRaw)
+		      If json.HasName("results") Then
+		        results = json.Child("results")
+		        If results.Count > 0 Then
+		          entry = results.Child(0)
+		          Return entry.Child("sequence").Value("value").StringValue
+		        End If
+		      End If
+		    End If
+		  Catch e As RuntimeException
+		    logowin.WriteToSTDOUT(EndOfLine.UNIX+"UniParc query failed for " + locusTag + ": " + e.Message)
+		  End Try
+		  
+		  // Return empty string if not found or on failure
+		  Return ""
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function HaveRedundancies(gen As string) As Boolean
 		  'this is slow -
 		  'can use memoryblocks instead of strings -
@@ -3736,7 +3794,7 @@ Protected Module Globals
 		  
 		  // Check output folder for family subfolders and create missing ones
 		  Const RPfamilies as String = "AraC,ArgR,ArsR,AsnC,BglG,BirA,CcpN,CitB,CodY,CopY,CRP,CsoR,CtsR,DeoR,DtxR,FapR,Fis,FUR,GlnL,GntR,GutR,HrcA,HxlR,IclR,LacI,LexA,LuxR,LysR,LytTR,MarR,MerR,MetJ,ModE,NadQ,NadR,NiaR,NikR,NrdR,NrtR,OmpR,Other,PadR,PurR,Rex,ROK,RpiR,Rrf2,SdaR,SorC,SrmR,TetR,TrmB,TrpR,TunR,TyrR,XRE"
-		  Const NoTagFamilies as String = "BglG,CcpN,CodY,CopY,CsoR,CtsR,FapR,GlnL,GntR,GutR,LytTR,NadQ,NiaR,Other,PurR,SdaR,SrmR,TrmB,TunR"
+		  Const NoTagFamilies as String = "BglG,CcpN,CopY,CsoR,zFapR,GlnL,GntR,GutR,NadQ,NiaR,Other,PurR,SdaR,SrmR,TrmB,TunR"
 		  dim Fam as string
 		  for n=1 to 56
 		    Fam=RPfamilies.nthfield(",",n)
@@ -4126,7 +4184,7 @@ Protected Module Globals
 		  
 		  // Check output folder for family subfolders and create missing ones
 		  Const RPfamilies as String = "AraC,ArgR,ArsR,AsnC,BglG,BirA,CcpN,CitB,CodY,CopY,CRP,CsoR,CtsR,DeoR,DtxR,FapR,Fis,FUR,GlnL,GntR,GutR,HrcA,HxlR,IclR,LacI,LexA,LuxR,LysR,LytTR,MarR,MerR,MetJ,ModE,NadQ,NadR,NiaR,NikR,NrdR,NrtR,OmpR,Other,PadR,PurR,Rex,ROK,RpiR,Rrf2,SdaR,SorC,SrmR,TetR,TrmB,TrpR,TunR,TyrR,XRE"
-		  Const NoTagFamilies as String = "BglG,CcpN,CodY,CopY,CsoR,CtsR,FapR,GlnL,GntR,GutR,LytTR,NadQ,NiaR,Other,PurR,SdaR,SrmR,TrmB,TunR"
+		  Const NoTagFamilies as String = "BglG,CcpN,CopY,CsoR,FapR,Gln,GutR,NadQ,NiaR,Other,PurR,SdaR,SrmR,TrmB,TunR"
 		  dim Fam as string
 		  for n=1 to 56
 		    Fam=RPfamilies.nthfield(",",n)

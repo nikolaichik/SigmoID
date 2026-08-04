@@ -453,23 +453,27 @@ Protected Module DeNovoTFBSinference
 		  dim currentCDS as string
 		  dim Alignments, hitSeq,currethit,CDStmp, CRtag, CRtagRegion as string
 		  Dim m,n,n1,o,p,q,r,fst,CRlen As Integer
-		  Dim CRCs(1), CRtagParts(1) As String
+		  Dim CRCs(2), CRtagParts(2) As String
 		  Dim Repeats As Integer = 0
-		  Dim CRtags2(0) As String
+		  Dim CRtags2(0),CRtags3(0) As String
 		  
-		  // Check for a double CR tag (two DNA-binding domains like in AraC family proteins)
+		  // Check for a double or triple (gapped) CR tag (two DNA-binding domains like in AraC family proteins or other cases with variable spacer within CR tag region)
 		  
 		  If InStr(CRs,"|")>0 Then
 		    Repeats=1
 		    CRCs(1)=NthField(CRs,"|",2) 'Second tag
 		    CRCs(0)=NthField(CRs,"|",1) 'First tag
+		    if countfields(CRs,"|")=3 Then
+		      Repeats=2
+		      CRCs(2)=NthField(CRs,"|",3) 'Third tag
+		    End If
 		  Else
 		    CRCs(0)=CRs
 		  End If
 		  Redim ProtNames(0)
 		  Redim CRtags(0)
 		  
-		  For n1=0 To Repeats       'Two cycles only for double tags 
+		  For n1=0 To Repeats       'Two or three cycles for split tags 
 		    Redim hmmSearchMatches(0)
 		    Redim CRarray(0)
 		    Redim TableArray(0)
@@ -705,11 +709,19 @@ Protected Module DeNovoTFBSinference
 		      
 		      
 		      
-		      If n1=0 Then
+		      'If n1=0 Then
+		      'CRtags.append(CRtag)
+		      'Else
+		      'CRtags2.append(CRtag)
+		      'End If
+		      select case n1
+		      case 0
 		        CRtags.append(CRtag)
-		      Else
+		      case 1
 		        CRtags2.append(CRtag)
-		      End If
+		      case 2
+		        CRtags3.append(CRtag)
+		      end select
 		    next
 		    
 		  Next 'n1
@@ -719,18 +731,40 @@ Protected Module DeNovoTFBSinference
 		  ' title lines of the alignments part of hmmsearch results look like this:
 		  ' >> AIK13051.1  acrR putative acrAB operon repressor
 		  m=ubound(CRtags)
-		  If Repeats=0 Then
+		  'If Repeats=0 Then
+		  'For n=1 To m
+		  'SearchResRaw=ReplaceAll(SearchResRaw, ">> "+ProtNames(n), ">"+CRtags(n)+"> "+ProtNames(n))
+		  'Next
+		  'Else
+		  'Dim DoubleTag As String
+		  'For n=1 To m
+		  'DoubleTag=CRtags(n)+CRtags2(n)
+		  'CRtags(n)=DoubleTag
+		  'SearchResRaw=ReplaceAll(SearchResRaw, ">> "+ProtNames(n), ">"+DoubleTag+"> "+ProtNames(n))
+		  'Next
+		  'End If
+		  
+		  select case Repeats
+		  case 0
 		    For n=1 To m
 		      SearchResRaw=ReplaceAll(SearchResRaw, ">> "+ProtNames(n), ">"+CRtags(n)+"> "+ProtNames(n))
 		    Next
-		  Else
+		  case 1
 		    Dim DoubleTag As String
 		    For n=1 To m
 		      DoubleTag=CRtags(n)+CRtags2(n)
 		      CRtags(n)=DoubleTag
 		      SearchResRaw=ReplaceAll(SearchResRaw, ">> "+ProtNames(n), ">"+DoubleTag+"> "+ProtNames(n))
 		    Next
-		  End If
+		  case 2
+		    Dim TripleTag As String
+		    For n=1 To m
+		      tripleTag=CRtags(n)+CRtags2(n)+CRtags3(n)
+		      CRtags(n)=tripleTag
+		      SearchResRaw=ReplaceAll(SearchResRaw, ">> "+ProtNames(n), ">"+tripleTag+"> "+ProtNames(n))
+		    Next
+		  end select
+		  
 		  
 		  Return SearchResRaw
 		  Exception err
@@ -770,10 +804,12 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="CitT.hmm"
 		  Case "CggR"
 		    hmmFileName="CggR.hmm"
+		  Case "CodY"
+		    hmmFileName="CodY.hmm"
 		  Case "CRP"
 		    hmmFileName="HTH_Crp_2.hmm"
-		  Case "CggR"
-		    hmmFileName="CggR.hmm"
+		  Case "CtsR"
+		    hmmFileName="CtsR.hmm"
 		  Case "DcuR"
 		    hmmFileName="CitT.hmm"
 		  Case "DeoR"
@@ -862,6 +898,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="GerE.hmm"
 		  Case "LysR"
 		    hmmFileName="LysR.hmm"
+		  Case "LytTR"
+		    hmmFileName="LytTR.hmm"
 		  Case "MarR"
 		    hmmFileName="MarR_Superfamily.hmm"
 		  Case "MerR"
@@ -874,6 +912,8 @@ Protected Module DeNovoTFBSinference
 		    hmmFileName="LysR.hmm" 
 		  Case "MraZ"
 		    hmmFileName="MraZ.hmm" 
+		  Case "NadQ"
+		    hmmFileName="NadQ.hmm"
 		  Case "NadR"
 		    hmmFileName="XRE_Superfamily.hmm" 'NadR is covered by XRE superfamily model
 		  Case "NikR"               'RHH sub-family
@@ -889,7 +929,8 @@ Protected Module DeNovoTFBSinference
 		  Case "OmpR"
 		    hmmFileName="Trans_reg_C.hmm"  'RegPrecise "OmpR family" is a mix with LuxR (LiaR and NreC) and CitT (DctR) family TFs
 		  Case "PadR"
-		    hmmFileName="MarR_Superfamily.hmm" 'Most of PadR family TFs are covered by MarR superfamily model
+		    hmmFileName="PadR.hmm"
+		    'hmmFileName="MarR_Superfamily.hmm" 'Most of PadR family TFs are covered by MarR superfamily model
 		  Case "PhdYeFM_antitox"
 		    hmmFileName="PhdYeFM_antitox.hmm"
 		  Case "ParD_antitoxin"
@@ -2766,12 +2807,13 @@ Protected Module DeNovoTFBSinference
 		    Else
 		      Return False 'most AraC family TFs have direct repeats in operators or don't have repeats at all
 		    End 
-		    
-		    
+		  Case "CggR"
+		    return false
 		  Case "CitT"                      'PF12431
 		    'Similar to Trans_reg_C; these two are often treated as one "Response regulator" family
 		    Return False 'all direct repeats
-		    
+		  Case "CtsR"
+		    return false
 		  Case "DeoR"                  'PF08220
 		    'many TFBSs are direct repeats
 		    Dim DeoRpal As String = "AgaR2,DeoR,FucR,GalR,GlmR,GlpR,MSMEG_3264,MSMEG_3606,PflR,UlaR,"  
@@ -2790,7 +2832,14 @@ Protected Module DeNovoTFBSinference
 		    ''else
 		    ''return true
 		    ''End 
-		    
+		  Case "DeoR_SorC"
+		    return false
+		  Case "DtxR"
+		    return false
+		  Case "Fe_dep_repress"
+		    return false
+		  Case "Fur"
+		    return false
 		  Case "GntR/MocR"            'PF00392
 		    'TFBS for most members are not palindromic
 		    Dim GntRpal As String = "BAV2320,BC3039,Bamb_6386,CBY_0654,CD2285,CLOBOL_00921,CsaI_1101,DVU_0030,EF0117,EutR,MII0059,PBPRB0322,PP0486,PTD2_03046,SMU640c,SO2282,SPOA0164,Tola_2572,Tola_2750,VSAC1_09283,VSAL_I1306,"
@@ -2806,6 +2855,9 @@ Protected Module DeNovoTFBSinference
 		    Else
 		      Return True
 		    End If
+		    
+		  Case "LytTR"
+		    return false
 		    
 		  Case "MerR"
 		    

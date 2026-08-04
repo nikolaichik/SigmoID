@@ -1757,7 +1757,8 @@ End
 	#tag Event
 		Sub Action()
 		  // Current export function uses Edirect to get TF sequences wherever possible, but when locus_tag is missing from current databases, the function falls bact to Microbes Online data 
-		  '  Edirect seems to generate many errors (raise timeout limit?)
+		  '  Edirect seems to generate many errors 
+		  '  UniProt is used when Edirect fails
 		  
 		  
 		  Dim outfile As folderitem
@@ -1851,7 +1852,7 @@ End
 		  end if
 		  tis.close
 		  
-		  Redim CRtagVariantCount(CountFields(CRtag,",")) 
+		  Redim CRtagVariantCount(CountFields(CRtag,",")+CountFields(CRtag,"|")-1) 
 		  
 		  
 		  Dim m,n,n1,p,q,r,s As Integer  ' For..Next counters
@@ -1964,10 +1965,11 @@ End
 		            If LocusTag="null" Then 'rare case
 		              ProteinFasta=""
 		            Else
-		              ProteinFasta=LocusTag2proteinFasta(LocusTag,GenomeNames(m))
+		              'ProteinFasta=LocusTag2proteinFasta(LocusTag,GenomeNames(m))
+		              ProteinFasta=">"+TFname+"_"+GenomeNames(m)+EndOfLine.Unix+GetUniprotSequence(LocusTag) 'moved to UniProt since Edirect fails on oblolete entries while UniParc still keeps them
 		            End If
 		            
-		            If ProteinFasta="" Then
+		            If ProteinFasta="" Then 'Try MicrobesOnline as the last resort. It might work occasionally
 		              'logowin.WriteToSTDOUT(EndOfLine.UNIX+"Can't find the sequence for "+LocusTag+" from "+GenomeNames(m)+EndOfLine.UNIX)
 		              
 		              
