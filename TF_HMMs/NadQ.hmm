@@ -16,8 +16,8 @@ CKSUM 236451514
 CRTAG 31,32,33,34,36,37,56,57,58
 PAL   yes
 WIDTH 20-23
-GA    120 120;
-TC    80 80;
+TC    120 120;
+GA    80 80;
 NC    77 77;
 NOTE  Contacts are from 7q94 (NadQ_Atumefaciens), 3gz6 (closely related NrtR family) and 5ddg (closely related AraR_C family)
 NOTE  Noise and gathering thresholds are set high to exclude NrtR and AraC members
