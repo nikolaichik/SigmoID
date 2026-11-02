@@ -19,7 +19,7 @@ CKSUM 492533683
 NOTE  CR tag is derived from 5ipl (X-ray) and 6kj6, 6omf (Cryo-EM) structures
 NOTE  Contacts visible in at least two of the structures and with known functional importance are used.
 GA    378.7 378.7
-TC    378.7 378.7
+TC    359 359
 NC    339.75 339.75
 STATS LOCAL MSV      -10.9531  0.70172
 STATS LOCAL VITERBI  -11.7592  0.70172

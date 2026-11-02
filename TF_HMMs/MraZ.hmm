@@ -18,8 +18,8 @@ PAL   no
 WIDTH 28-38
 NOTE  Binds three or four short (4-5 bp) direct repeats as an octamer; the fourth repeat is weakly conserved
 NOTE  Three known structures 9sx6, 9R4J, 9SZ7 from one paper (doi: 10.1038/s41467-026-68809-2)
-GA    98.35 98.35
-TC    98.35 98.35
+GA    64 64
+TC    84 84
 NC    46.1 46.1
 STATS LOCAL MSV       -9.7787  0.71016
 STATS LOCAL VITERBI  -10.6231  0.71016

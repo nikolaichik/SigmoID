@@ -1,7 +1,7 @@
 HMMER3/f [3.1b1 | May 2013]
 NAME  HTH_MARR
 ACC   SM00347
-DESC  MarR superfamily (SM00347 with GA score lowered to 17.4)
+DESC  MarR superfamily
 LENG  101
 ALPH  amino
 RF    no
@@ -19,6 +19,7 @@ CKSUM 863033592
 GA    17.4 17.4;
 TC    38.75 38.75;
 NC    38.75 38.75;
+NOTE  SM00347 with GA score lowered to 17.4
 STATS LOCAL MSV       -9.2473  0.71732
 STATS LOCAL VITERBI   -9.9269  0.71732
 STATS LOCAL FORWARD   -4.5256  0.71732

@@ -23,7 +23,7 @@ letter-probability matrix: alength= 4 w= 10 nsites= 70738 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF PSPPH_0146__NTGTATACAN Fis-family
+MOTIF PRKTHD_PSPPH_0146__NTGTATACAN Fis-family
 
 letter-probability matrix: alength= 4 w= 10 nsites= 47704 E= 0
   0.199213	  0.218460	  0.236583	  0.345743	
@@ -37,7 +37,7 @@ letter-probability matrix: alength= 4 w= 10 nsites= 47704 E= 0
   0.466306	  0.138817	  0.235622	  0.159255	
   0.344632	  0.235128	  0.219639	  0.200601	
 
-MOTIF PSPPH_0146__TGTATACNNNNNNGTATACA Fis-family
+MOTIF PRKTHD_PSPPH_0146__TGTATACNNNNNNGTATACA Fis-family
 
 letter-probability matrix: alength= 4 w= 20 nsites= 5771 E= 0
   0.282981	  0.217464	  0.144494	  0.355061	
@@ -101,7 +101,7 @@ letter-probability matrix: alength= 4 w= 13 nsites= 1497 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF indel_PSPPH_0263__GNWAYGTTATAACRTWNC FUR-family
+MOTIF YAPPTYR_PSPPH_0263__GNWAYGTTATAACRTWNC FUR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 56831 E= 0
   0.153569	  0.378188	  0.360180	  0.108062	
@@ -258,7 +258,7 @@ letter-probability matrix: alength= 4 w= 11 nsites= 9475 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF PSPPH_0857_TsiR_NACCCACGGCGN Fis-family
+MOTIF SRKCWE_PSPPH_0857_TsiR_NACCCACGGCGN Fis-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 3168 E= 0
   0.318658	  0.639064	  0.006988	  0.035290	
@@ -349,7 +349,7 @@ letter-probability matrix: alength= 4 w= 12 nsites= 5767 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF PSPPH_1187_HexR_NGTAANNTTACN_2 RpiR-family
+MOTIF IAAQVEPTNR_PSPPH_1187_HexR_NGTAANNTTACN_2 RpiR-family
 
 letter-probability matrix: alength= 4 w= 12 nsites= 5370 E= 0
   0.223635	  0.285340	  0.176515	  0.314510	
@@ -577,7 +577,7 @@ letter-probability matrix: alength= 4 w= 15 nsites= 112281 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF PSPPH_1960__NTGGGANNNNTCCCAN IclR-family
+MOTIF LKTRSTHR_PSPPH_1960__NTGGGANNNNTCCCAN IclR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 181 E= 0
   0.261538	  0.307692	  0.323077	  0.107692	
@@ -619,7 +619,7 @@ letter-probability matrix: alength= 4 w= 16 nsites= 49340 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF PSPPH_2004_RhpR_GTATCNNNNNNGATAC_2 OmpR-family
+MOTIF ADRSDLLSR_PSPPH_2004_RhpR_GTATCNNNNNNGATAC_2 OmpR-family
 
 letter-probability matrix: alength= 4 w= 16 nsites= 24504 E= 0
   0.027808	  0.006646	  0.918059	  0.047487	
@@ -1085,7 +1085,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 46008 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF PSPPH_2720__GTATACNNNNNGTATAC_2 GntR-family
+MOTIF EGSRTPRYRS_PSPPH_2720__GTATACNNNNNGTATAC_2 GntR-family
 
 letter-probability matrix: alength= 4 w= 17 nsites= 1552 E= 0
   0.122822	  0.002613	  0.855401	  0.019164	
@@ -1130,7 +1130,7 @@ letter-probability matrix: alength= 4 w= 18 nsites= 42731 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF PSPPH_2720__GTATACNNNNNNGTATAC_2  GntR-family
+MOTIF EGSRTPRYRS_PSPPH_2720__GTATACNNNNNNGTATAC_2  GntR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 902 E= 0
   0.078838	  0.002766	  0.885201	  0.033195	
@@ -2069,7 +2069,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 100537 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF indel_PSPPH_4209_Fur_TGCGAATGNNNNNCATTC FUR-family
+MOTIF EGLATYR_PSPPH_4209_Fur_TGCGAATGNNNNNCATTC FUR-family
 
 letter-probability matrix: alength= 4 w= 18 nsites= 92311 E= 0
   0.036583	  0.458399	  0.001014	  0.504004	
@@ -2141,7 +2141,7 @@ letter-probability matrix: alength= 4 w= 17 nsites= 16387 E= 0
 
 URL https://doi.org/10.1038/s41467-020-18744-7 
 
-MOTIF PSPPH_4612__NGTGNANGGAAAN birA_repr_reg-family
+MOTIF SSAWKQQ_PSPPH_4612__NGTGNANGGAAAN birA_repr_reg-family
 
 letter-probability matrix: alength= 4 w= 13 nsites= 258 E= 0
   0.149351	  0.396104	  0.253247	  0.201299	

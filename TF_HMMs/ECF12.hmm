@@ -12,8 +12,8 @@ MAP   yes
 CRTAG 33,41,42,44,45,46,49,61|145,148,149,152,153
 PAL   no
 WIDTH 26-32
-GA    207.5 207.5;
-TC    162.0 162.0;
+GA    162.0 162.0;
+TC    207.5 207.5;
 NC    116.6 116.6;
 NOTE  Based on ECF classification from ECH hub (https://www.computational.bio.uni-giessen.de/ecfhub/groups/ecf02)
 NOTE  CR tag includes every contact seen in 5zx2,6koq,6kon,6koo,6kop,6jcx and 6jcy     

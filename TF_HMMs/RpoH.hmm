@@ -19,7 +19,7 @@ CKSUM 3663669097
 NOTE  CR tag is derived from the single Cryo-EM structure 8hkc
 NOTE  Contacts with known functional importance as described by Lu et al. (doi:10.3390/biom13050738) are used
 GA    323.1 323.1
-TC    323.1 323.1
+TC    254 254
 NC    185.4 185.4
 STATS LOCAL MSV      -10.6408  0.70219
 STATS LOCAL VITERBI  -11.6398  0.70219

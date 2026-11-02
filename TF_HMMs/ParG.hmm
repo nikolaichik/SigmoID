@@ -15,8 +15,8 @@ PAL   no
 WIDTH 10-13
 NOTE  Model for ParG-like antitoxins and plasmid/phage regulators not covered by the main RHH model (YN003)
 NOTE  No structures available, CR tag derived from YN003
-GA    64.80 64.80;
-TC    44.00 44.00;
+TC    64.80 64.80;
+GA    44.00 44.00;
 NC    23.10 23.10;
 NSEQ  9
 EFFN  6.938965
