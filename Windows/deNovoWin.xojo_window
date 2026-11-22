@@ -302,6 +302,7 @@ Begin Window deNovoWin
       End
    End
    Begin nSocket hts2
+      Enabled         =   True
       Index           =   -2147483648
       LockedInPosition=   False
       Scope           =   0
@@ -1797,6 +1798,8 @@ End
 		  dim m,n as integer
 		  
 		  LibFolder=Resources_f.child("TF_families")
+		  
+		  TTlibstring=""
 		  
 		  if LibFolder<>Nil then
 		    if LibFolder.exists then
